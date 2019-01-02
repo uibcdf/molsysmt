@@ -6,3 +6,4 @@ INSTALL.log
 build/*
 *.egg-info/*
 record.txt
+*.ipynb_checkpoints
