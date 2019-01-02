@@ -1,0 +1,39 @@
+package:
+  name: molmodmt
+  version: 0.0.1
+
+source:
+  path: ../../
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - numpy
+
+  run:
+    - python
+    - numpy
+    - mdtraj
+    - pandas
+    - MDAnalysis
+    - openmm
+    - openmmtools
+    - biopython
+    - nglview
+    - pdbfixer
+    - parmed
+    - yank
+
+
+about:
+  home: https://uibcdf.org
+  license: MIT License
+  summary: ""
+  description: |
+    This library provides some useful classes, functions, pipes and wrappers daily used in the uibcdf lab when molecular systems and molecular dynamics are manipulated.
+  dev_url: https://github.com/uibcdf/MolModMT
+  doc_url: https://uibcdf.org/MolModMT
