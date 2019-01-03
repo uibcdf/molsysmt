@@ -4,6 +4,7 @@
 [![Anaconda-Server Badge](https://anaconda.org/uibcdf/molmodmt/badges/latest_release_date.svg)](https://anaconda.org/uibcdf/molmodmt)
 [![Anaconda-Server Badge](https://anaconda.org/uibcdf/molmodmt/badges/installer/conda.svg)](https://conda.anaconda.org/uibcdf)
 [![Anaconda Cloud Downloads](https://anaconda.org/uibcdf/molmodmt/badges/downloads.svg)](https://anaconda.org/uibcdf/molmodmt)
+[![Anaconda-Server Badge](https://anaconda.org/uibcdf/molmodmt/badges/license.svg)](https://anaconda.org/uibcdf/molmodmt)
 [![DOI](https://zenodo.org/badge/130507248.svg)](https://zenodo.org/badge/latestdoi/130507248)
 
 **[Installation](#installation)** |
