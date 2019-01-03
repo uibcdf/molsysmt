@@ -101,6 +101,8 @@ Liliana M. Moreno Vargas
 ## Citation
 
 ### Last version DOI:   
+Cite the las version with the following DOI provided by Zenodo:
+<br/>
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530946.svg)](https://doi.org/10.5281/zenodo.2530946)    
 
 ### Cite all versions?
