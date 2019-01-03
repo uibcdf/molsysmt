@@ -106,6 +106,7 @@ Liliana M. Moreno Vargas
 ### Cite all versions?
 You can cite all versions by using the following DOI.
 [This DOI represents all versions, and will always resolve to the latest one](http://help.zenodo.org/#versioning):    
+<br/>
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530945.svg)](https://doi.org/10.5281/zenodo.2530945)    
     
 
