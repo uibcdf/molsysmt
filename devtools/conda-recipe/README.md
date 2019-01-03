@@ -11,9 +11,9 @@ conda install anaconda-client conda-build
 ```bash
 conda config --set anaconda_upload no
 conda build .
-conda build . --output # If needed
+PACKAGE_OUTPUT=`conda build . --output`
 anaconda login
-anaconda upload --user uibcdf /path/to/conda-package.tar.bz2
+anaconda upload --user uibcdf $PACKAGE_OUTPUT
 conda build purge
 anaconda logout
 ```

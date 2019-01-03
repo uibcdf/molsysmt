@@ -1,6 +1,6 @@
 package:
   name: molmodmt
-  version: 0.0.1
+  version: 0.0.0
 
 source:
   path: ../../
@@ -10,16 +10,15 @@ build:
 
 requirements:
   build:
-    - python
+    - python  {{ python }}
     - setuptools
-    - numpy
+    - numpy  {{ numpy }}
 
   run:
-    - python
+    - python  {{ python }}
     - numpy
     - mdtraj
-    - pandas
-    - MDAnalysis
+    - mdanalysis
     - openmm
     - openmmtools
     - biopython
@@ -27,7 +26,7 @@ requirements:
     - pdbfixer
     - parmed
     - yank
-
+    - jupyterlab
 
 about:
   home: https://uibcdf.org
