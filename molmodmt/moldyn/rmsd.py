@@ -1,6 +1,6 @@
 from mdtraj import rmsd as _mdtraj_rmsd
 from numpy import asarray as _asarray, arange as _arange
-from .multitool import get_form as _get_form, get_shape as _get_shape, select as _select, convert as _convert
+from molmodmt.multitool import get_form as _get_form, get_shape as _get_shape, select as _select, convert as _convert
 
 def _digest_inputs(ref_item=None, ref_selection=None, ref_frame=None, item=None,
         selection=None, frame=None):
