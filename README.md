@@ -91,7 +91,7 @@ All credit should be given to the developers and mantainers of the following too
 
 ### Responsables
 
-Diego Prada Gracia
+Diego Prada Gracia    
 Liliana M. Moreno Vargas
 
 #### Contributors
@@ -100,10 +100,10 @@ Liliana M. Moreno Vargas
 
 ## Citation
 
-###Last version DOI:   
+### Last version DOI:   
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530946.svg)](https://doi.org/10.5281/zenodo.2530946)    
 
-###Cite all versions?
+### Cite all versions?
 You can cite all versions by using the following DOI.
 [This DOI represents all versions, and will always resolve to the latest one](http://help.zenodo.org/#versioning):    
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530945.svg)](https://doi.org/10.5281/zenodo.2530945)    
