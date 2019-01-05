@@ -18,3 +18,11 @@ def to_mdtraj(item,topology=None):
     tmp_form = _mdtraj_load_dcd(item, top=_mdtraj_topology)
     del(_mdtraj_load_dcd, _mdtraj_topology, _molmodmt_convert)
     return tmp_form
+
+def to_mdanalysis(item,topology=None):
+
+    if not topology:
+        raise ValueError('"topology" argument is required for dcd.to_mdtraj')
+
+    from MDAnalysis import Universe as _mdanalysis_universe
+    return _mdanalysis_universe(topology,item)
