@@ -11,7 +11,7 @@ is_form={
 def to_nglview(item):
 
     from nglview import show_mdtraj as _nglview_show_mdtraj
-    from molsysmt.formats.engines.api_modeller import to_mdtraj as _modeller_to_mdtraj
+    from molmodmt.formats.engines.api_modeller import to_mdtraj as _modeller_to_mdtraj
     tmp_view = _nglview_show_mdtraj(_modeller_to_mdtraj(item))
     #if item.topology.getNumAtoms() < 2000:
     #    view.add_ball_and_stick('all')
@@ -20,20 +20,20 @@ def to_nglview(item):
 
 # def to_native(item):
 # 
-#     from molsysmt import Native as _molsysmt_native
-#     tmp_form = _molsysmt_native(item)
-#     del(_molsysmt_native)
+#     from molmodmt import Native as _molmodmt_native
+#     tmp_form = _molmodmt_native(item)
+#     del(_molmodmt_native)
 #     return tmp_form
 #
 
 def to_mdtraj(item):
-    from molsysmt.formats.engines.api_modeller import to_mdtraj as _modeller_to_mdtraj
+    from molmodmt.formats.engines.api_modeller import to_mdtraj as _modeller_to_mdtraj
     return __modeller_to_mdtraj(item)
 
 def to_mdtraj_Topology(item):
 
-    from mdtraj.Topology import from_openmm as _mdtraj_Topology_from_openmm
-    tmp_form = _mdtraj_Topology_from_openmm(item.Topology)
+    from mdtraj.core.topology import Topology as _mdtraj_Topology
+    tmp_form = _mdtraj_Topology.from_openmm(item.Topology)
     del(_mdtraj_Topology_from_openmm)
     return tmp_form
 
@@ -44,6 +44,11 @@ def to_parmed_Structure(item):
     tmp_form = _openmm_Topology_to_parmed_Estructure(item.topology)
     del(_openmm_Topology_to_parmed_Estructure)
     return tmp_form
+
+def to_pdb(item,output_file):
+
+    from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
+    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(output_file, 'w'))
 
 # def to_yank_Topography(item):
 # 

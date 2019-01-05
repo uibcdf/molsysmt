@@ -1,8 +1,12 @@
 from os.path import basename as _basename
+from simtk.openmm.app import Modeller as _openmm_app_Modeller
 
 form_name=_basename(__file__).split('.')[0].split('_')[-1]
 
-is_form={}
+is_form={
+    'modeller':form_name,
+    _openmm_app_Modeller:form_name
+}
 
 def to_mdtraj(item):
 

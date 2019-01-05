@@ -1,8 +1,14 @@
 from os.path import basename as _basename
+from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
-is_form={}
+is_form={
+    'openmm.topology':form_name,
+    'openmm.Topology':form_name,
+    'simtk.openmm.app.topology.Topology':form_name,
+    _simtk_openmm_app_Topology:form_name
+}
 
 def to_native(item):
 
@@ -13,10 +19,14 @@ def to_native(item):
 
 def to_mdtraj_Topology(item):
 
-    from mdtraj.Topology import from_openmm as _mdtraj_Topology_from_openmm
-    tmp_form = _mdtraj_Topology_from_openmm(item)
-    del(_mdtraj_Topology_from_openmm)
+    from mdtraj.core.topology import Topology as _mdtraj_Topology
+    tmp_form = _mdtraj_Topology.from_openmm(item)
+    del(_mdtraj_Topology)
     return tmp_form
+
+def to_mdtraj(item):
+
+    return to_mdtraj_Topology(item)
 
 def to_parmed_Structure(item):
 

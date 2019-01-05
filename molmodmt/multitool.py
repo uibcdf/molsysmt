@@ -153,7 +153,9 @@ def get_shape(item=None):
     return _dict_get_shape[in_form](item)
 
 
-def load (item=None,form='native.Native',pdbfix=False, pH=7.0, verbose=False):
+def load (item=None,form='native.Native', pdbfix=False, pH=7.0, verbose=False, **kwargs):
+
+    #**kwargs: topology=None
 
     if pdbfix == True:
 
@@ -181,9 +183,11 @@ def load (item=None,form='native.Native',pdbfix=False, pH=7.0, verbose=False):
 
         return convert(tmp_pdbfixer_form,form)
 
-    return convert(item,form)
+    return convert(item,form, **kwargs)
 
-def convert(item=None,form='native.Native'):
+def convert(item=None, form='native.Native', **kwargs):
+
+    #**kwargs: topology=None
 
     in_form  = get_form(item)
     out_form = form
@@ -195,9 +199,9 @@ def convert(item=None,form='native.Native'):
             out_file=form
 
     if out_file is not None:
-        return _dict_converter[in_form][out_form](item,out_file)
+        return _dict_converter[in_form][out_form](item, out_file, **kwargs)
     else:
-        return _dict_converter[in_form][out_form](item)
+        return _dict_converter[in_form][out_form](item, **kwargs)
 
 
 def write(item=None,filename=None):

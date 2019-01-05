@@ -41,6 +41,11 @@ def to_mdtraj(item):
     del(_mdtraj_trajectory,_mdtraj_topology)
     return tmp_form
 
+def to_modeller(item):
+
+    from simtk.openmm.app import Modeller as _openmm_app_Modeller
+    return _openmm_app_Modeller(item.topology, item.positions)
+
 def to_openmm_Topology(item):
 
     return item.topology
@@ -64,6 +69,11 @@ def to_parmed_Structure(item):
     tmp_form = _openmm_Topology_to_parmed_Structure(tmp_form)
     del(_openmm_Topology_to_parmed_Structure)
     return tmp_form
+
+def to_pdb(item,output_file):
+
+    from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
+    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(output_file, 'w'))
 
 def select_with_mdtraj(item, selection):
 
