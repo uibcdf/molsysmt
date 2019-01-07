@@ -74,6 +74,17 @@ def to_mdanalysis(form_id):
     del(_pdb_to_mdanalysis)
     return _tmp_form
 
+def to_pytraj(form_id):
+    from pytraj import fetch_pdb as _pytraj_fetch_pdb
+    _tmp_form=_pytraj_fetch_pdb(form_id.split(':')[-1])
+    del(_pytraj_fetch_pdb)
+    return _tmp_form
+
+def to_pytraj_Trajectory(form_id):
+    from pytraj import fetch_pdb as _pytraj_fetch_pdb
+    _tmp_form=_pytraj_fetch_pdb(form_id)
+    del(_pytraj_fetch_pdb)
+    return _tmp_form
 
 def to_nglview(form_id):
     # from nglview import show_pdbid as _nglview_show_pdbid
