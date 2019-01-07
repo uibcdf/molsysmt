@@ -1,71 +1,32 @@
-.. mdtools documentation master file, created by
+.. molmodmt documentation master file, created by
    sphinx-quickstart on Tue Jun 12 13:08:58 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to MolSysSAK's documentation!
-===================================
+Welcome to MolModMT's documentation!
+====================================
+
+.. image:: https://zenodo.org/badge/137937243.svg
+   :target: https://zenodo.org/badge/latestdoi/137937243
+
+.. image:: https://anaconda.org/uibcdf/molmodmt/badges/license.svg
+   :target: https://github.com/uibcdf/MolModMT/blob/master/License
 
 
-Overview and license.
+MolModMT -Mollecular Modelling MultiTool- is a work in progress python library maintened by the UIBCDF Lab. It was concieved as a central repository for those shortcuts and common routines in the daily workflow of projects on molecular modelling and dynamics.
 
-.. image:: https://zenodo.org/badge/130507227.svg
-   :target: https://zenodo.org/badge/latestdoi/130507227
+MolModMT has to be seen just as a MultiTool, a swiss army knife, where pipes and auxiliary methods connecting real hardcore useful stuff are well encapsultated to make the researchers life easier and the learning barrier of new lab student lower. This is done by simplifying the sintaxis of your script and reducing the amount of commands you have to remind to have some simple stuff done. Just that. Thereby all credit should be given to the fellows who develop and push those tools in the core of our academic activity as openmm, mdtraj, yank, mdanalysis, parmed, and many others gratefully listed in the main README.md file of this repo.
 
-.. toctree::
-   :maxdepth: 2
-
-   source/introduction/installation
+Exceptionally few home-made subroutines will be included here to fill specific gaps in our needs. But this should not be, in principle, the main purpose of MolModMT.
 
 
-Tengo que incluir: como se citan los paquetes (se puede decir que usas
-MolModSAKs pero deben ir las citas MolModSAKs[1][2]), poner todo listado de
-cosas que hacen cada una, incluso por ejemplo si hay varios engines poner el
-listado, habra benchmarks?.
-
-Working with the coordinates
-++++++++++++++++++++++++++++
+Installation and first steps
+============================
 
 .. toctree::
    :maxdepth: 2
 
-   source/trajectory/frame_and_trajectory
-   source/trajectory/import_export
-
-Structural observables
-++++++++++++++++++++++
-
-.. toctree::
-   :maxdepth: 3
-
-   source/structural_observables/least_rmsd
-
-Conformational Markov Networks
-++++++++++++++++++++++++++++++
-
-.. toctree::
-   :maxdepth: 3
-
-
-Free Energy and Thermodynamics
-++++++++++++++++++++++++++++++
-
-.. toctree::
-   :maxdepth: 3
-
-
-Kinetics
-++++++++
-
-.. toctree::
-   :maxdepth: 3
-
-
-Solvent
-+++++++
-
-.. toctree::
-   :maxdepth: 3
+   source/introduction/Quickstart.ipynb
 
 
 Indices and tables
