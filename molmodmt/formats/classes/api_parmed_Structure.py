@@ -19,6 +19,14 @@ def to_nglview(item):
     from nglview import show_parmed as _nglview_show_parmed
     return _nglview_show_parmed(item)
 
+def to_pdb(item,output_file):
+
+    return item.save(output_file)
+
+def to_mol2(item,output_file):
+
+    return item.save(output_file)
+
 def select_with_mdtraj(item, selection):
     tmp_form=to_mdtraj(item)
     tmp_sel=tmp_form.topology.select(selection)

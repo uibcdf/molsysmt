@@ -66,6 +66,15 @@ def to_yank_Topography(form_id):
     del(_pdb_to_yank_Topography)
     return _tmp_form
 
+def to_mdanalysis(form_id):
+    from molmodmt.formats.files.api_pdb import to_mdanalysis as _pdb_to_mdanalysis
+    _tmp_file=to_pdb(form_id)
+    _tmp_form=_pdb_to_mdanalysis(_tmp_file)
+    _remove(_tmp_file)
+    del(_pdb_to_mdanalysis)
+    return _tmp_form
+
+
 def to_nglview(form_id):
     # from nglview import show_pdbid as _nglview_show_pdbid
     # return _nglview_show_pdbid(form_id.split(':')[-1])

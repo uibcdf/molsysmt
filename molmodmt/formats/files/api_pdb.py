@@ -71,6 +71,15 @@ def to_pdbfixer_PDBFixer(item):
     from pdbfixer.pdbfixer import PDBFixer as _pdbfixer_file_loader
     return _pdbfixer_file_loader(item)
 
+def to_modeller(item):
+
+    from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
+    from simtk.openmm.app.modeller import Modeller as _openmm_app_modeller
+    tmp_form = _openmm_pdb_loader(item)
+    tmp_form = _openmm_app_modeller(tmp_form.topology, tmp_form.positions)
+    del(_openmm_pdb_loader,_openmm_app_modeller)
+    return tmp_form
+
 def to_nglview(item):
     from nglview import show_file as _nglview_show_file
     return _nglview_show_file(item)

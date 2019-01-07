@@ -28,7 +28,7 @@ def to_nglview(item):
 
 def to_mdtraj(item):
     from molmodmt.formats.engines.api_modeller import to_mdtraj as _modeller_to_mdtraj
-    return __modeller_to_mdtraj(item)
+    return _modeller_to_mdtraj(item)
 
 def to_mdtraj_Topology(item):
 

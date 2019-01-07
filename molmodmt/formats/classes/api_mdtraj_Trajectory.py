@@ -45,6 +45,10 @@ def to_parmed_Structure(item):
     del(_openmm_Topology_to_parmed_Structure)
     return tmp_form
 
+def to_parmed(item):
+
+    return to_parmed_Structure(item)
+
 def to_pdb(item,output_file):
 
     return item.save(output_file)
