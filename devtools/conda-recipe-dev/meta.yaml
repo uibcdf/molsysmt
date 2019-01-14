@@ -26,6 +26,8 @@ requirements:
     - pdbfixer
     - parmed
     - yank
+    #- pytraj
+    - ambertools
     - jupyterlab
 
 about:

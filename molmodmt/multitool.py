@@ -6,6 +6,7 @@ from .formats.engines import dict_is_form as _dict_engines_is_form, \
     list_forms as _list_engines_forms, \
     dict_converter as _dict_engines_converter, \
     dict_selector as _dict_engines_selector, \
+    dict_extractor as _dict_engines_extractor, \
     dict_get_shape as _dict_engines_get_shape
 
 ## Classes
@@ -13,6 +14,7 @@ from .formats.classes import dict_is_form as _dict_classes_is_form, \
     list_forms as _list_classes_forms, \
     dict_converter as _dict_classes_converter, \
     dict_selector as _dict_classes_selector, \
+    dict_extractor as _dict_classes_extractor, \
     dict_get_shape as _dict_classes_get_shape
 
 ## Files
@@ -20,6 +22,7 @@ from .formats.files import dict_is_form as _dict_files_is_form, \
     list_forms as _list_files_forms, \
     dict_converter as _dict_files_converter, \
     dict_selector as _dict_files_selector, \
+    dict_extractor as _dict_files_extractor, \
     dict_get_shape as _dict_files_get_shape
 
 ## IDs
@@ -27,6 +30,7 @@ from .formats.ids import dict_is_form as _dict_ids_is_form, \
     list_forms as _list_ids_forms, \
     dict_converter as _dict_ids_converter, \
     dict_selector as _dict_ids_selector, \
+    dict_extractor as _dict_ids_extractor, \
     dict_get_shape as _dict_ids_get_shape
 
 ## Viewers
@@ -34,6 +38,7 @@ from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
     list_forms as _list_viewers_forms, \
     dict_converter as _dict_viewers_converter, \
     dict_selector as _dict_viewers_selector, \
+    dict_extractor as _dict_viewers_extractor, \
     dict_get_shape as _dict_viewers_get_shape
 
 _dict_is_form = {**_dict_engines_is_form, **_dict_classes_is_form, **_dict_files_is_form,\
@@ -42,6 +47,8 @@ _dict_converter = {**_dict_engines_converter, **_dict_classes_converter, **_dict
                    **_dict_ids_converter, **_dict_viewers_converter}
 _dict_selector = {**_dict_engines_selector, **_dict_classes_selector, **_dict_files_selector,\
                    **_dict_ids_selector, **_dict_viewers_selector}
+_dict_extractor = {**_dict_engines_extractor, **_dict_classes_extractor, **_dict_files_extractor,\
+                   **_dict_ids_extractor, **_dict_viewers_extractor}
 _dict_get_shape = {**_dict_engines_get_shape, **_dict_classes_get_shape, **_dict_files_get_shape,\
                    **_dict_ids_get_shape,**_dict_viewers_get_shape}
 
@@ -106,7 +113,7 @@ def select(item=None, selection=None, syntaxis='native'):
 
     in_form=get_form(item)
 
-    return _dict_selector[in_form][syntaxis](item,selection)
+    return _dict_selector[in_form][syntaxis](item, selection)
 
 
 def select_expression(form=None, selection=None, syntaxis='native'):
@@ -114,9 +121,12 @@ def select_expression(form=None, selection=None, syntaxis='native'):
     pass
 
 
-def extract():
+def extract(item=None, selection=None, syntaxis='native', form='native'):
 
-    pass
+    in_form=get_form(item)
+    list_atoms = select(item=item, selection=selection, syntaxis=syntaxis) # list_atoms 0-based
+    extraction = _dict_extractor[in_form](item, list_atoms)
+    return convert(extraction,form)
 
 def info(item=None, with_form=False):
 
@@ -201,8 +211,10 @@ def convert(item=None, form='native.Native', **kwargs):
     if out_file is not None:
         return _dict_converter[in_form][out_form](item, out_file, **kwargs)
     else:
-        return _dict_converter[in_form][out_form](item, **kwargs)
-
+        if in_form!=out_form:
+            return _dict_converter[in_form][out_form](item, **kwargs)
+        else:
+            return in_form
 
 def write(item=None,filename=None):
 

@@ -81,3 +81,15 @@ def select_with_mdtraj(item, selection):
     tmp_sel=tmp_form.topology.select(selection)
     del(tmp_form)
     return tmp_sel
+
+def extract_atoms_list(item, atoms_list):
+
+    from api_mdtraj_Trajectory import extract_atoms_list as _mdtraj_extract_atoms_list
+    from api_mdtraj_Trajectory import to_pdbfixer as _mdtraj_to_pdbfixer
+
+    tmp_form=to_mdtraj(item)
+    tmp_extraction_mdtraj=_mdtraj_extract_atoms_list(tmp_form, atoms_list)
+    tmp_extraction = _mdtraj_to_pdbfixer(tmp_extraction_mdtraj)
+    del(tmp_form,tmp_extraction_mdtraj,_mdtraj_extract_atoms_list,_mdtraj_to_pdbfixer)
+    return tmp_extraction
+
