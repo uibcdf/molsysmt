@@ -121,9 +121,11 @@ def select_expression(form=None, selection=None, syntaxis='native'):
     pass
 
 
-def extract(item=None, selection=None, syntaxis='native', form='native'):
+def extract(item=None, selection=None, form=None, syntaxis='native'):
 
     in_form=get_form(item)
+    if form is None:
+        form=in_form
     list_atoms = select(item=item, selection=selection, syntaxis=syntaxis) # list_atoms 0-based
     extraction = _dict_extractor[in_form](item, list_atoms)
     return convert(extraction,form)

@@ -30,3 +30,6 @@ def to_parmed_Structure(item):
 
 def select_with_mdtraj(item, selection):
     return item.select(selection)
+
+def extract_atoms_list(item, atoms_selection):
+    return item.subset(atoms_selection)
