@@ -20,6 +20,35 @@ def to_native_Native(item):
     del(_native_Native)
     return tmp_form
 
+def to_aminoacids3_seq(item):
+
+    return ''.join([ r.name for r in item.topology.residues() ])
+
+def to_aminoacids1_seq(item):
+
+    from molmodmt.formats.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
+    tmp_item = to_aminoacids3_seq(item)
+    tmp_item = _aminoacids3_to_aminoacids1(tmp_item)
+    del(_aminoacids3_to_aminoacids1)
+    return tmp_item
+
+def to_biopython_Seq(item):
+
+    from molmodmt.formats.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
+    tmp_item = to_aminoacids1_seq(item)
+    tmp_item = _aminoacids1_to_biopython_Seq(tmp_item)
+    del(_aminoacids1_to_biopython_Seq)
+    return tmp_item
+
+def to_biopython_SeqRecord(item):
+
+    from molmodmt.formats.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
+    tmp_item = to_aminoacids1_seq(item)
+    tmp_item = _aminoacids1_to_biopython_SeqRecord(tmp_item)
+    del(_aminoacids1_to_biopython_SeqRecord)
+    return tmp_item
+
+
 def to_mdtraj_Topology(item):
 
     from mdtraj.core.topology import Topology as _mdtraj_Topology

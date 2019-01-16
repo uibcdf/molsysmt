@@ -17,7 +17,8 @@ def to_aminoacids3_seq(item):
 
 def to_biopython_Seq(item):
     from Bio.Seq import Seq as _bio_Seq
-    tmp_item=_bio_Seq(item)
+    from Bio.Alphabet.IUPAC import ExtendedIUPACProtein
+    tmp_item=_bio_Seq(item.replace('aminoacids1:',''),ExtendedIUPACProtein())
     del(_bio_Seq)
     return tmp_item
 
