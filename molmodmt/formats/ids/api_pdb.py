@@ -1,7 +1,7 @@
 from os.path import basename as _basename
 from os import remove as _remove
 
-form_name=_basename(__file__).split('.')[0][4:].replace('_',':')
+form_name=_basename(__file__).split('.')[0][4:]+':id'
 
 is_form = {
     'pdb:id': form_name,

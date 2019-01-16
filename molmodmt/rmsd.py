@@ -19,7 +19,7 @@ def least_rmsd_fit(ref_item=None, item=None,
         output_form = _get_form(item)
         mdtraj_ref_item=_convert(ref_item,'mdtraj.Trajectory')
         mdtraj_item = _convert(item,'mdtraj.Trajectory')
-
+        print(output_form)
         mdtraj_item.superpose(mdtraj_ref_item,frame=ref_frame_indices,atom_indices=atom_indices,ref_atom_indices=ref_atom_indices,parallel=parallel)
 
         if in_place:

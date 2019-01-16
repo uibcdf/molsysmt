@@ -30,7 +30,12 @@ for form_name in list_forms:
     dict_extractor[form_name]= {}
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):
-            out_form_name=method.replace('to_','').replace('_','.')
+            if method.endswith('_seq'):
+                out_form_name=method[:-4].replace('to_','').replace('_','.')+':seq'
+            elif method.endswith('_id'):
+                out_form_name=method[:-3].replace('to_','').replace('_','.')+':id'
+            else:
+                out_form_name=method.replace('to_','').replace('_','.')
             dict_converter[form_name][out_form_name]= getattr(dict_api_forms[form_name],method)
         if method.startswith('select_with_'):
             syntaxis_name=method.replace('select_with_','')

@@ -1,9 +1,10 @@
 from os.path import basename as _basename
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name=_basename(__file__).split('.')[0].replace('api_','')+':seq'
 
 is_form={
-    _xxxx_Xxxx : form_name
+    'smile:seq' : form_name,
+    'SMILE:seq' : form_name
 }
 
 def get_shape(item):

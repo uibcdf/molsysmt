@@ -33,6 +33,14 @@ from .formats.ids import dict_is_form as _dict_ids_is_form, \
     dict_extractor as _dict_ids_extractor, \
     dict_get_shape as _dict_ids_get_shape
 
+## Sequences
+from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
+    list_forms as _list_seqs_forms, \
+    dict_converter as _dict_seqs_converter, \
+    dict_selector as _dict_seqs_selector, \
+    dict_extractor as _dict_seqs_extractor, \
+    dict_get_shape as _dict_seqs_get_shape
+
 ## Viewers
 from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
     list_forms as _list_viewers_forms, \
@@ -42,15 +50,15 @@ from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_get_shape as _dict_viewers_get_shape
 
 _dict_is_form = {**_dict_engines_is_form, **_dict_classes_is_form, **_dict_files_is_form,\
-                 **_dict_ids_is_form, **_dict_viewers_is_form}
+                 **_dict_ids_is_form, **_dict_seqs_is_form, **_dict_viewers_is_form}
 _dict_converter = {**_dict_engines_converter, **_dict_classes_converter, **_dict_files_converter,\
-                   **_dict_ids_converter, **_dict_viewers_converter}
+                   **_dict_ids_converter, **_dict_seqs_converter, **_dict_viewers_converter}
 _dict_selector = {**_dict_engines_selector, **_dict_classes_selector, **_dict_files_selector,\
-                   **_dict_ids_selector, **_dict_viewers_selector}
+                   **_dict_ids_selector, **_dict_seqs_selector, **_dict_viewers_selector}
 _dict_extractor = {**_dict_engines_extractor, **_dict_classes_extractor, **_dict_files_extractor,\
-                   **_dict_ids_extractor, **_dict_viewers_extractor}
+                   **_dict_ids_extractor, **_dict_seqs_extractor, **_dict_viewers_extractor}
 _dict_get_shape = {**_dict_engines_get_shape, **_dict_classes_get_shape, **_dict_files_get_shape,\
-                   **_dict_ids_get_shape,**_dict_viewers_get_shape}
+                   **_dict_ids_get_shape, **_dict_seqs_get_shape, **_dict_viewers_get_shape}
 
 _dict_from_to = {}
 _dict_to_from = {}
@@ -146,7 +154,11 @@ def get_form(item=None):
 
     if type(item)==str:
         if ':' in item:
-            item=item.split(':')[0]+":id"
+            prefix=item.split(':')[0]
+            if prefix+':id' in _dict_ids_is_form.keys():
+                item=_dict_ids_is_form[prefix+':id']
+            elif prefix+':seq' in _dict_seqs_is_form.keys():
+                item=_dict_seqs_is_form[prefix+':seq']
         else:
             item=item.split('.')[-1]
 
@@ -216,7 +228,7 @@ def convert(item=None, form='native.Native', **kwargs):
         if in_form!=out_form:
             return _dict_converter[in_form][out_form](item, **kwargs)
         else:
-            return in_form
+            return item
 
 def write(item=None,filename=None):
 
