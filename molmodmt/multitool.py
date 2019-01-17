@@ -7,6 +7,7 @@ from .formats.engines import dict_is_form as _dict_engines_is_form, \
     dict_converter as _dict_engines_converter, \
     dict_selector as _dict_engines_selector, \
     dict_extractor as _dict_engines_extractor, \
+    dict_merger as _dict_engines_merger, \
     dict_get_shape as _dict_engines_get_shape
 
 ## Classes
@@ -15,6 +16,7 @@ from .formats.classes import dict_is_form as _dict_classes_is_form, \
     dict_converter as _dict_classes_converter, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
+    dict_merger as _dict_classes_merger, \
     dict_get_shape as _dict_classes_get_shape
 
 ## Files
@@ -23,6 +25,7 @@ from .formats.files import dict_is_form as _dict_files_is_form, \
     dict_converter as _dict_files_converter, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
+    dict_merger as _dict_files_merger, \
     dict_get_shape as _dict_files_get_shape
 
 ## IDs
@@ -31,6 +34,7 @@ from .formats.ids import dict_is_form as _dict_ids_is_form, \
     dict_converter as _dict_ids_converter, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
+    dict_merger as _dict_ids_merger, \
     dict_get_shape as _dict_ids_get_shape
 
 ## Sequences
@@ -39,6 +43,7 @@ from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_converter as _dict_seqs_converter, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
+    dict_merger as _dict_seqs_merger, \
     dict_get_shape as _dict_seqs_get_shape
 
 ## Viewers
@@ -47,6 +52,7 @@ from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_converter as _dict_viewers_converter, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
+    dict_merger as _dict_viewers_merger, \
     dict_get_shape as _dict_viewers_get_shape
 
 _dict_is_form = {**_dict_engines_is_form, **_dict_classes_is_form, **_dict_files_is_form,\
@@ -57,6 +63,8 @@ _dict_selector = {**_dict_engines_selector, **_dict_classes_selector, **_dict_fi
                    **_dict_ids_selector, **_dict_seqs_selector, **_dict_viewers_selector}
 _dict_extractor = {**_dict_engines_extractor, **_dict_classes_extractor, **_dict_files_extractor,\
                    **_dict_ids_extractor, **_dict_seqs_extractor, **_dict_viewers_extractor}
+_dict_merger    = {**_dict_engines_merger, **_dict_classes_merger, **_dict_files_merger,\
+                   **_dict_ids_merger, **_dict_seqs_merger, **_dict_viewers_merger}
 _dict_get_shape = {**_dict_engines_get_shape, **_dict_classes_get_shape, **_dict_files_get_shape,\
                    **_dict_ids_get_shape, **_dict_seqs_get_shape, **_dict_viewers_get_shape}
 
@@ -137,6 +145,34 @@ def extract(item=None, selection=None, form=None, syntaxis='native'):
     list_atoms = select(item=item, selection=selection, syntaxis=syntaxis) # list_atoms 0-based
     extraction = _dict_extractor[in_form](item, list_atoms)
     return convert(extraction,form)
+
+def merge(item1=None, item2=None, in_place=False, form=None):
+
+    #item1 can be a list or tuple
+
+    if type(item1) in [list,tuple]:
+        if form is None:
+            form=get_form(item1[0])
+        tmp_item = convert(item1[0],form)
+        for in_item in item1[1:]:
+            tmp_item = _dict_merger[form](tmp_item,convert(in_item,form))
+        return tmp_item
+    else:
+        if form is None:
+            form=get_form(item1)
+        tmp_item = convert(item1,form)
+        if in_place:
+            _dict_merger[form](tmp_item,convert(in_item,form),in_place=in_place)
+            pass
+        else:
+            tmp_item=_dict_merger[form](tmp_item,convert(item2,form),in_place=in_place)
+            return tmp_item
+
+def concatenate(items=None, form=None):
+
+    #Para concatenar trajectorias o posiciones a lo largo del eje tiempo o número de frames o
+    #modelos, la topologia de la forma debe ser igual
+    pass
 
 def info(item=None, with_form=False):
 
@@ -236,7 +272,11 @@ def write(item=None,filename=None):
 
 def view(item=None,viewer='nglview'):
 
-    in_form = get_form(item)
+    if type(item) in [list,tuple]:
+        in_form = get_form(item[0])
+    else:
+        in_form = get_form(item)
+
     return _dict_converter[in_form][viewer](item)
 
 def info_forms(engines=True,classes=True,files=True,verbose=True):

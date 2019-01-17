@@ -14,6 +14,7 @@ list_forms=[]
 dict_converter={}
 dict_selector={}
 dict_extractor={}
+dict_merger={}
 dict_is_form={}
 dict_get_shape={}
 
@@ -30,13 +31,20 @@ for form_name in list_forms:
     dict_extractor[form_name]= {}
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):
-            out_form_name=method.replace('to_','').replace('_','.')
+            if method.endswith('_seq'):
+                out_form_name=method[:-4].replace('to_','').replace('_','.')+':seq'
+            elif method.endswith('_id'):
+                out_form_name=method[:-3].replace('to_','').replace('_','.')+':id'
+            else:
+                out_form_name=method.replace('to_','').replace('_','.')
             dict_converter[form_name][out_form_name]= getattr(dict_api_forms[form_name],method)
         if method.startswith('select_with_'):
             syntaxis_name=method.replace('select_with_','')
             dict_selector[form_name][syntaxis_name]= getattr(dict_api_forms[form_name],method)
     if 'extract_atoms_list' in dict_api_forms[form_name].__dict__.keys():
         dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atoms_list')
+    if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():
+        dict_merger[form_name]=getattr(dict_api_forms[form_name],'merge_two_items')
     if 'get_shape' in dict_api_forms[form_name].__dict__.keys():
         dict_get_shape[form_name]=getattr(dict_api_forms[form_name],'get_shape')
 

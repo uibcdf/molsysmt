@@ -14,6 +14,7 @@ list_forms=[]
 dict_converter={}
 dict_selector={}
 dict_extractor={}
+dict_merger={}
 dict_is_form={}
 dict_get_shape={}
 
@@ -42,6 +43,8 @@ for form_name in list_forms:
             dict_selector[form_name][syntaxis_name]= getattr(dict_api_forms[form_name],method)
     if 'extract_atoms_list' in dict_api_forms[form_name].__dict__.keys():
         dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atoms_list')
+    if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():
+        dict_merger[form_name]=getattr(dict_api_forms[form_name],'merge_two_items')
     if 'get_shape' in dict_api_forms[form_name].__dict__.keys():
         dict_get_shape[form_name]=getattr(dict_api_forms[form_name],'get_shape')
 

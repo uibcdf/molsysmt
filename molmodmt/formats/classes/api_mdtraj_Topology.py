@@ -33,3 +33,13 @@ def select_with_mdtraj(item, selection):
 
 def extract_atoms_list(item, atoms_selection):
     return item.subset(atoms_selection)
+
+def merge_two_items(item1, item2, in_place=False):
+
+    if in_place:
+        item1.join(item2)
+        pass
+    else:
+        tmp_item=item1.copy()
+        return tmp_item.join(item2)
+

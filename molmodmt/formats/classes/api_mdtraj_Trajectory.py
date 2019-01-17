@@ -117,7 +117,14 @@ def to_pdb(item,output_file):
 def to_nglview(item):
 
     from nglview import show_mdtraj as _show_mdtraj
-    tmp_view = _show_mdtraj(item)
+    from molmodmt import merge as _merge
+
+    if type(item) in [list,tuple]:
+        tmp_item = _merge(item)
+        tmp_view = _show_mdtraj(tmp_item)
+    else:
+         tmp_view = _show_mdtraj(item)
+
     return tmp_view
 
 def get_shape(item):
@@ -131,3 +138,13 @@ def select_with_mdtraj(item, selection):
 def extract_atoms_list(item, atoms_list):
 
     return item.atom_slice(atoms_list)
+
+def merge_two_items(item1, item2, in_place=False):
+
+    tmp_item = item1.stack(item2)
+    if in_place:
+        item1 = tmp_item
+        pass
+    else:
+        return tmp_item
+
