@@ -1,18 +1,18 @@
 package:
   name: molmodmt
-  version: 0.0.1
+  version: 0.0.2
 
 source:
   path: ../../
 
 build:
-  number: 0
+  number: 2
 
 requirements:
   build:
-    - python  {{ python }}
+    - python {{ python }}
     - setuptools
-    - numpy {{ numpy }} 
+    - numpy
 
   run:
     - python  {{ python }}
@@ -26,7 +26,6 @@ requirements:
     - pdbfixer
     - parmed
     - yank
-    #- pytraj
     - ambertools
     - jupyterlab
 

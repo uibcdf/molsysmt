@@ -1,8 +1,9 @@
 http://docs.anaconda.com/anaconda-cloud/user-guide/tasks/work-with-environments/    
 
 conda env export -n MolModMT_devel -f molmodmt_devel.yml
+head -n -1 molmodmt_devel.yml > tmp.yml
+mv tmp.yml molmodmt_devel.yml
 
-Remove 'prefix:'
 
 anaconda login
 anaconda upload --user uibcdf molmodmt_devel.yml

@@ -1,11 +1,11 @@
 from os.path import basename as _basename
-from pytraj import Trajectory as _pytraj_Trajectory
+#from pytraj import Trajectory as _pytraj_Trajectory
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    'pytraj.Trajectory' : form_name,
-    _pytraj_Trajectory : form_name
+    'pytraj.Trajectory' : form_name
+#    _pytraj_Trajectory : form_name
     }
 
 
