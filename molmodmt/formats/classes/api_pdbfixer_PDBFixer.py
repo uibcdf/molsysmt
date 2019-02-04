@@ -102,7 +102,7 @@ def to_parmed_Structure(item):
 def to_pdb(item,output_file):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
-    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(output_file, 'w'))
+    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(output_file, 'w'),keepIds=True)
 
 def select_with_mdtraj(item, selection):
 
