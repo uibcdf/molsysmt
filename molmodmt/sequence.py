@@ -27,12 +27,53 @@ def sequence_alignment(ref_item=None, item=None, engine='biopython', **kwards):
 
         raise NotImplementedError
 
-def structure_alignment(ref_item=None, item=None, ref_selection_alignment='All',
+def prettyprint_sequence_alignment(ref_item=None, item=None, align=0, residues=False,
+                                   engine='biopython'):
+
+    textredbold  =  '\033[1;31;48m' # Red bold text
+    textbluebold =  '\033[1;34;48m' # Green bold text
+    endcolor = '\033[m' # reset color
+    # Color guide in: http://ozzmaker.com/add-colour-to-text-in-python/
+
+    aln = sequence_alignment(ref_item=ref_item, item=item, engine=engine)
+    seq1 =""
+    seq2 =""
+
+    for r in range(len(aln[align][0])):
+        res1 = aln[align][0][r]
+        res2 = aln[align][1][r]
+        if res1 == res2:
+            seq1+=res1
+            seq2+=res2
+        elif res1 == '-':
+            seq1+=res1
+            seq2+=textbluebold+res2+endcolor
+        elif res2 == '-':
+            seq1+=textbluebold+res1+endcolor
+            seq2+=res2
+        else:
+            seq1+=textredbold+res1+endcolor
+            seq2+=textredbold+res2+endcolor
+
+    print(seq1)
+    print()
+    print(seq2)
+    pass
+
+
+
+
+def structure_alignment(ref_item=None, item=None, ref_selection_alignment='all',
                         ref_selection_rmsd=None, ref_frame=0,
-                        selection_alignment='All', selection_rmsd='backbone', frame='ALL', parallel=False,
+                        selection_alignment='all', selection_rmsd='backbone', frame='all', parallel=False,
                         in_place=False, engine=['biopython','mdtraj'], **kwards):
 
     from .rmsd import least_rmsd_fit as _least_rmsd_fit
+    from .multitool import extract as _extract
+    from .multitool import select as _select
+
+    if ref_selection_rmsd is None:
+        ref_selection_rmsd = selection_rmsd
 
     if type(engine)==list:
         engine_sequence_alignment = engine[0]
@@ -43,27 +84,57 @@ def structure_alignment(ref_item=None, item=None, ref_selection_alignment='All',
 
     if engine_sequence_alignment == 'biopython':
 
-        if ref_selection_alignment not in ['All', 'ALL', 'all']:
-            from .multitool import extract as _extract
-            tmp_ref_item = _extract(ref_item, ref_selection_alignment)
-        else:
+        is_all_ref_item = False
+        if type(ref_selection_alignment)==int:
+            if ref_selection_alignment=='all':
+                is_all_ref_item =True
+
+        if is_all_ref_item:
             tmp_ref_item = ref_item
-
-        if selection_alignment not in ['All', 'ALL', 'all']:
-            from .multitool import extract as _extract
-            tmp_item = _extract(item, selection_alignment)
         else:
+            atomslist_ref_alignment = _select(ref_item, ref_selection_alignment)
+            tmp_ref_item = _extract(ref_item, atomslist_ref_alignment)
+
+        is_all_item = False
+        if type(selection_alignment)==int:
+            if selection_alignment=='all':
+                is_all_item =True
+
+        if is_all_item:
             tmp_item = item
-
-        idty, intersection_residues = sequence_identity(tmp_ref_item,tmp_item,
-                                                     intersection_set="residues", engine='biopython')
-
-        if selection_rmsd in ['All', 'ALL', 'all']:
-            ref_item_selection = 'residue '+" ".join(map(str,intersection_residues[0]))
-            item_selection = 'residue '+" ".join(map(str,intersection_residues[1]))
         else:
-            ref_item_selection = 'residue '+" ".join(map(str,intersection_residues[0]))
-            item_selection = 'residue '+" ".join(map(str,intersection_residues[1]))
+            atomslist_alignment = _select(item, selection_alignment)
+            tmp_item = _extract(item, atomslist_alignment)
+
+        idty, intersection_atoms = sequence_identity(tmp_ref_item,tmp_item,
+                                                     intersection_set="atoms", engine='biopython')
+
+        if not is_all_ref_item:
+            intersection_atoms[0]=atomslist_ref_alignment[intersection_atoms[0]]
+
+        if not is_all_item:
+            intersection_atoms[1]=atomslist_alignment[intersection_atoms[1]]
+
+        is_all_ref_item = False
+        if type(ref_selection_rmsd)==int:
+            if ref_selection_rmsd=='all':
+                is_all_ref_item =True
+
+        is_all_item = False
+        if type(selection_rmsd)==int:
+            if selection_rmsd=='all':
+                is_all_item =True
+
+        if is_all_ref_item:
+            ref_item_selection = 'index '+" ".join(map(str,intersection_atoms[0]))
+        else:
+            ref_item_selection = ref_selection_rmsd+' and index '+\
+                    " ".join(map(str,intersection_atoms[0]))
+
+        if is_all_item:
+            item_selection = 'index '+" ".join(map(str,intersection_atoms[1]))
+        else:
+            item_selection = selection_rmsd+' and index '+" ".join(map(str,intersection_atoms[1]))
 
         if engine_least_rmsd_fit == 'mdtraj':
 
