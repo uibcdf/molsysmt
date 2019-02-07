@@ -52,7 +52,6 @@ def to_biopython_SeqRecord(item):
 def to_mdtraj_Topology(item):
 
     from mdtraj.core.topology import Topology as _mdtraj_Topology
-
     tmp_form = to_openmm_Topology(item)
     tmp_form = _mdtraj_Topology.from_openmm(tmp_form)
     del(_mdtraj_Topology)
@@ -64,11 +63,24 @@ def to_mdtraj_Trajectory(item):
 
 def to_mdtraj(item):
 
-    from mdtraj.core.trajectory import Trajectory as _mdtraj_trajectory
-    from mdtraj.core.topology import Topology as _mdtraj_topology
-    tmp_form = _mdtraj_trajectory(item.positions._value,_mdtraj_topology.from_openmm(item.topology))
-    del(_mdtraj_trajectory,_mdtraj_topology)
-    return tmp_form
+    ## This approach was commented since residue indices are not kept.
+    #from mdtraj.core.trajectory import Trajectory as _mdtraj_trajectory
+    #from mdtraj.core.topology import Topology as _mdtraj_topology
+    #tmp_form = _mdtraj_trajectory(item.positions._value,_mdtraj_topology.from_openmm(item.topology))
+    #del(_mdtraj_trajectory,_mdtraj_topology)
+    #return tmp_form
+
+    import tempfile as _tempfile
+    from os import remove as _remove
+    from mdtraj import load_pdb as _load_pdb
+
+    tmp_pdbfilename = _tempfile.NamedTemporaryFile(suffix=".pdb").name
+    tmp_system = to_pdb(item,tmp_pdbfilename)
+    tmp_item = _load_pdb(tmp_pdbfilename)
+    _remove(tmp_pdbfilename)
+    del(_load_pdb, tmp_pdbfilename, _tempfile, _remove)
+    return tmp_item
+
 
 def to_modeller(item):
 

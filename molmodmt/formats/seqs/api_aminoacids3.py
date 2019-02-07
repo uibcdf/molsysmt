@@ -11,7 +11,7 @@ is_form={
 def to_aminoacids1_seq(item):
     from Bio.SeqUtils import seq1
     tmp_seq=seq1(item.replace('aminoacids3:',''))
-    tmp_item='aminoacids1:'+tmp_seq
+    tmp_item=tmp_seq
     del(seq1,tmp_seq)
     return tmp_item
 

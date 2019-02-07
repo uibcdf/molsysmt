@@ -5,7 +5,7 @@ from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_t
 
 def least_rmsd_fit(ref_item=None, item=None,
         ref_selection=None, ref_frame=0,
-        selection='name CA', frame='All',
+        selection='backbone', frame='All',
         pbc=False, parallel=False, in_place=False, engine='mdtraj'):
 
     ref_item, ref_atom_indices, ref_frame_indices, item, atom_indices, frame_indices = \

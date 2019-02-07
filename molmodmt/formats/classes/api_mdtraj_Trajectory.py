@@ -82,13 +82,6 @@ def to_mdtraj_Topology(item):
 
     return item.topology
 
-def to_openmm_Topology(item):
-
-    from .api_mdtraj_Topology import to_openmm_Topology as _mdtraj_to_openmm_Topology
-    tmp_item = _mdtraj_to_openmm_Topology(to_mdtraj_Topology(item))
-    del(_mdtraj_to_openmm_Topology)
-    return tmp_item
-
 def to_pdbfixer_PDBFixer(item):
 
     from molmodmt.formats.files.api_pdb import to_pdbfixer as _pdb_to_pdbfixer
@@ -96,7 +89,7 @@ def to_pdbfixer_PDBFixer(item):
     from os import remove as _remove
 
     tmp_pdbfilename = _tempfile.NamedTemporaryFile(suffix=".pdb").name
-    to_pdb(item,tmp_pdbfilename)
+    tmp_system = to_pdb(item,tmp_pdbfilename)
     tmp_item = _pdb_to_pdbfixer(tmp_pdbfilename)
     _remove(tmp_pdbfilename)
     del(_pdb_to_pdbfixer, tmp_pdbfilename, _tempfile, _remove)

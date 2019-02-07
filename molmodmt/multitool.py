@@ -124,12 +124,17 @@ def set_positions(item=None,positions=None):
 
 def select(item=None, selection=None, syntaxis='native'):
 
+    from numpy import ndarray as _ndarray
+
     if syntaxis=='native':
         syntaxis='mdtraj'
 
     in_form=get_form(item)
 
-    return _dict_selector[in_form][syntaxis](item, selection)
+    if type(selection) in [list,tuple,_ndarray]:
+        return selection
+    else:
+        return _dict_selector[in_form][syntaxis](item, selection)
 
 
 def select_expression(form=None, selection=None, syntaxis='native'):
@@ -139,11 +144,23 @@ def select_expression(form=None, selection=None, syntaxis='native'):
 
 def extract(item=None, selection=None, form=None, syntaxis='native'):
 
+    from numpy import ndarray as _ndarray
+    from numpy import sort as _sort
+
     in_form=get_form(item)
     if form is None:
         form=in_form
-    list_atoms = select(item=item, selection=selection, syntaxis=syntaxis) # list_atoms 0-based
+    if type(selection) == int:
+        list_atoms=[selection]
+    elif type(selection) in [list,tuple]:
+        list_atoms=selection
+    elif type(selection) == _ndarray:
+        list_atoms=selection
+    else:
+        list_atoms = select(item=item, selection=selection, syntaxis=syntaxis) # list_atoms 0-based
+    list_atoms = _sort(list_atoms)
     extraction = _dict_extractor[in_form](item, list_atoms)
+    del(_ndarray,_sort,list_atoms)
     return convert(extraction,form)
 
 def merge(item1=None, item2=None, in_place=False, form=None):
@@ -213,7 +230,7 @@ def get_shape(item=None):
     return _dict_get_shape[in_form](item)
 
 
-def load (item=None,form='native.Native', pdbfix=False, pH=7.0, verbose=False, **kwargs):
+def load (item=None, form='mdtraj.Trajectory', selection=None, pdbfix=False, pH=7.0, verbose=False, **kwargs):
 
     #**kwargs: topology=None
 
@@ -241,11 +258,18 @@ def load (item=None,form='native.Native', pdbfix=False, pH=7.0, verbose=False, *
         tmp_pdbfixer_form.addMissingAtoms()
         tmp_pdbfixer_form.addMissingHydrogens(pH)
 
-        return convert(tmp_pdbfixer_form,form)
+        tmp_item = convert(tmp_pdbfixer_form,form)
 
-    return convert(item,form, **kwargs)
+    else:
 
-def convert(item=None, form='native.Native', **kwargs):
+        tmp_item = convert(item, form, **kwargs)
+
+    if selection is not None:
+        tmp_item = extract(tmp_item,selection)
+
+    return tmp_item
+
+def convert(item=None, form='mdtraj.Trajectory', **kwargs):
 
     #**kwargs: topology=None
 
