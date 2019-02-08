@@ -28,6 +28,7 @@ requirements:
     - yank
     - ambertools
     - jupyterlab
+    - pytools_uibcdf
 
 about:
   home: https://uibcdf.org
