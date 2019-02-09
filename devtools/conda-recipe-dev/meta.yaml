@@ -1,12 +1,12 @@
 package:
   name: molmodmt
-  version: 0.0.2
+  version: 0.0.3
 
 source:
   path: ../../
 
 build:
-  number: 3
+  number: 0
 
 requirements:
   build:

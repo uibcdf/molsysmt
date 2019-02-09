@@ -46,6 +46,9 @@ def to_mdtraj_Topology(item):
 
     return item.topology
 
+def to_mdtraj(item):
+    return item
+
 def to_openmm_Topology(item):
 
     from .api_mdtraj_Topology import to_openmm_Topology as _mdtraj_Topology_to_openmm_Topology

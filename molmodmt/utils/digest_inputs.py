@@ -1,63 +1,74 @@
 from numpy import asarray as _asarray, arange as _arange
 from molmodmt import get_form as _get_form, get_shape as _get_shape, select as _select, convert as _convert
+from .exceptions import *
 
-def _comparison_two_systems(ref_item=None, ref_selection=None, ref_frame=None,
-                            item=None, selection=None, frame=None):
+def _comparison_two_systems(item1=None, selection1=None, frame1=None,
+                            item2=None, selection2=None, frame2=None,
+                            engine=None):
 
     single_item = False
-    ref_atom_indices=None
-    ref_frame_indices=None
-    atom_indices=None
-    frame_indices=None
+    atom_indices1=None
+    atom_indices2=None
+    frame_indices1=None
+    frame_indices2=None
 
-    if ref_item is None and item is None:
-        raise Exception('Providing ref_item and/or item is mandatory')
+    if item1 is None and item2 is None:
+        raise BadCallError(BadCallMessage)
 
-    if ref_selection is None and selection is None:
-        raise Exception('Providing ref_selection and/or selection is mandatory')
+    if selection1 is None and selection2 is None:
+        raise BadCallError(BadCallMessage)
 
-    if ref_item is None or item is None:
+    if item1 is None or item2 is None:
         single_item = True
-        if ref_item is None:
-            ref_item = item
+        if item1 is None:
+            item1 = item2
         else:
-            item = ref_item
+            item2 = item1
 
-    if ref_selection is not None:
-        ref_atom_indices = _select(ref_item,ref_selection)
+    if engine is not None:
+        tmp_item1=_convert(item1,engine)
+        tmp_item2=_convert(item2,engine)
+    else:
+        tmp_item1=item1
+        tmp_item2=item2
 
-    if selection is not None:
-        atom_indices = _select(item,selection)
+    if selection1 is not None:
+        atom_indices1 = _select(tmp_item1,selection1)
 
-    if ref_selection is None or selection is None:
+    if selection2 is not None:
+        atom_indices2 = _select(tmp_item2,selection2)
+
+    if selection1 is None or selection2 is None:
         if single_item is True:
-            if ref_selection is None:
-                ref_atom_indices = atom_indices
+            if selection1 is None:
+                atom_indices1 = atom_indices2
             else:
-                atom_indices = ref_atom_indices
+                atom_indices2 = atom_indices1
         else:
-            if ref_selection is None:
-                ref_atom_indices = _select(ref_item,selection)
+            if selection1 is None:
+                atom_indices1 = _select(tmp_item1,selection2)
             else:
-                atom_indices = _select(item,ref_selection)
+                atom_indices2 = _select(tmp_item2,selection1)
 
-    if ref_frame is None:
-        ref_frame_indices = _asarray([0])
-    elif type(ref_frame) == int:
-        ref_frame_indices = _asarray([ref_frame])
-    elif type(ref_frame) == list:
-        ref_frame_indices = _asarray(ref_frame)
-    elif ref_frame.capitalize() == 'All':
-        ref_frame_indices = _arange(_get_shape(ref_item)[0])
+    if frame1 is None:
+        frame_indices1 = _asarray([0])
+    elif type(frame1) == int:
+        frame_indices1 = _asarray([frame1])
+    elif type(frame1) == list:
+        frame_indices1 = _asarray(frame1)
+    elif frame1 == 'all':
+        frame_indices1 = _arange(_get_shape(tmp_item1)[0])
 
-    if frame is None:
-        frame_indices = _asarray([0])
-    elif type(frame) == int:
-        frame_indices = _asarray([frame])
-    elif type(frame) == list:
-        frame_indices = _asarray(frame)
-    elif frame.capitalize() == 'All':
-        frame_indices = _arange(_get_shape(item)[0])
+    if frame2 is None:
+        frame_indices2 = _asarray([0])
+    elif type(frame2) == int:
+        frame_indices2 = _asarray([frame2])
+    elif type(frame2) == list:
+        frame_indices2 = _asarray(frame2)
+    elif frame2 == 'all':
+        frame_indices2 = _arange(_get_shape(tmp_item2)[0])
 
-    return ref_item, ref_atom_indices, ref_frame_indices, item, atom_indices, frame_indices
+    return tmp_item1, atom_indices1, frame_indices1, \
+           tmp_item2, atom_indices2, frame_indices2, \
+           single_item
 

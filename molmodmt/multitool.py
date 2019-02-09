@@ -125,6 +125,8 @@ def set_positions(item=None,positions=None):
 def select(item=None, selection=None, syntaxis='native'):
 
     from numpy import ndarray as _ndarray
+    from numpy import int as _int
+    from numpy import int64 as _int64
 
     if syntaxis=='native':
         syntaxis='mdtraj'
@@ -133,6 +135,8 @@ def select(item=None, selection=None, syntaxis='native'):
 
     if type(selection) in [list,tuple,_ndarray]:
         return selection
+    elif type(selection) in [int, _int64, _int]:
+        return [selection]
     else:
         return _dict_selector[in_form][syntaxis](item, selection)
 
