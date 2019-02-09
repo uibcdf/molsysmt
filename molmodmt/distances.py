@@ -1,7 +1,7 @@
 import numpy as _np
 from .multitool import get_form as _get_form, get_shape as _get_shape, select as _select, convert as _convert
 from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
-from .lib import geometry as _libs_geometry
+#from .lib import geometry as _libs_geometry
 from .utils.exceptions import *
 
 def distances(item=None, selection=None, selection_groups=None, group_behavior=None, frame=None,

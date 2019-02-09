@@ -1,6 +1,7 @@
 import numpy as _np
-# import lib.libcell2box as libbox
-from .lib import libframe as libbox
+from simtk import unit as _unit
+#import lib.libcell2box as libbox
+#from .lib import libframe as libbox
 from copy import deepcopy
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
@@ -9,6 +10,8 @@ class Trajectory():
 
     def __init__(self,coordinates=None, box=None, cell=None, timestep=None, integstep=None,
                  steps=None, times=None):
+
+        self.__name__="patata"
 
         self.coordinates = None
         self.box   = None #_np.zeros(shape=(3,3),dtype=float,order='F')
@@ -23,8 +26,8 @@ class Trajectory():
         self.orthogonal   = 0
         self.volume       = 0.0
 
-        self._length_units = None
-        self._time_units     = None
+        self._length_units = _unit.nanometers
+        self._time_units     = _unit.picoseconds
 
         self.coordinates = coordinates
         self.box   = box
