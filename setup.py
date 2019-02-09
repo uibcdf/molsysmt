@@ -4,51 +4,51 @@ from numpy.distutils.extension import Extension
 #import distutils.extension
 
 ext_math = Extension(
-    name = 'molmodmt.moldyn.lib.libmath',
+    name = 'molmodmt.lib.libmath',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/moldyn/lib/libmath.f90'],
+    sources = ['molmodm/lib/libmath.f90'],
 )
 
 ext_cell2box = Extension(
-    name = 'molmolmd.moldyn.lib.libcell2box',
+    name = 'molmolmd.lib.libcell2box',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/moldyn/lib/libcell2box.f90'],
+    sources = ['molmodmt/lib/libcell2box.f90'],
 )
 
 ext_frame = Extension(
-    name = 'molmodmt.moldyn.lib.libframe',
+    name = 'molmodmt.lib.libframe',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/moldyn/lib/libframe.f90'],
+    sources = ['molmodmt/lib/libframe.f90'],
 )
 
 ext_geometry = Extension(
-    name = 'molmodmt.moldyn.lib.libgeometry',
+    name = 'molmodmt.lib.libgeometry',
     extra_compile_args = [],
     libraries = ['lapack'],
     language = 'f90',
-    sources = ['molmodmt/moldyn/lib/libgeometry.f90','molmodmt/moldyn/lib/libpbc.f90','molmodmt/moldyn/lib/libmath.f90'],
+    sources = ['molmodmt/lib/libgeometry.f90','molmodmt/lib/libpbc.f90','molmodmt/lib/libmath.f90'],
 )
 
 ext_pbc = Extension(
-    name = 'molmodmt.moldyn.lib.libpbc',
+    name = 'molmodmt.lib.libpbc',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/moldyn/lib/libpbc.f90'],
+    sources = ['molmodmt/lib/libpbc.f90'],
 )
 
 ext_rmsd = Extension(
-    name = 'molmodmt.moldyn.lib.librmsd',
+    name = 'molmodmt.lib.librmsd',
     extra_compile_args = [],
     libraries = ['lapack'],
     language = 'f90',
-    sources = ['molmodmt/moldyn/lib/librmsd.f90','molmodmt/moldyn/lib/libpbc.f90'],
+    sources = ['molmodmt/lib/librmsd.f90','molmodmt/lib/libpbc.f90'],
 )
 
 # ext_io_bin = Extension(
@@ -68,13 +68,13 @@ ext_rmsd = Extension(
 # )
 
 extensions_list=[]
+extensions_lib=[ext_math, ext_pbc, ext_geometry]
 # extensions_lib=[ext_math, ext_cell2box, ext_frame, ext_pbc, ext_geometry ,ext_rmsd]
-# extensions_io=[ext_io_bin,ext_io_dcd]
-# extensions_list.extend(extensions_lib)
+extensions_list.extend(extensions_lib)
 
 setup(
     name='molmodmt',
-    version='0.0.1',
+    version='0.0.3',
     author='UIBCDF Lab',
     author_email='uibcdf@gmail.com',
     package_dir={'molmodmt': 'molmodmt'},
@@ -83,7 +83,7 @@ setup(
     package_data={'molmodnmt': []},
     scripts=[],
     url='http://uibcdf.org',
-    download_url ='https://github.com/uibcdf/MolDynMT',
+    download_url ='https://github.com/uibcdf/MolModMT',
     license='MIT',
     description="---",
     long_description="---",
