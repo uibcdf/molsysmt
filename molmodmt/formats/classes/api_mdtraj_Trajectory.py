@@ -35,12 +35,30 @@ def to_biopython_SeqRecord(item):
     del(_aminoacids1_to_biopython_SeqRecord)
     return tmp_item
 
-def to_native_Native(item):
+def to_molmodmt_MolMod(item):
 
-    from molsysmt.native import Native as _Native
-    tmp_form = _Native(item)
-    del(_Native)
+    from molmodmt.native.io_molmod import from_mdtraj as _translator
+    tmp_form = _translator(item)
+    del(_translator)
     return tmp_form
+
+def to_molmodmt_Trajectory(item):
+
+    from molmodmt.native.io_trajectory import from_mdtraj_Trajectory as _translator
+    tmp_form = _translator(item)
+    del(_translator)
+    return tmp_form
+
+def to_molmodmt_Topology(item):
+
+    from molmodmt.native.io_topology import from_mdtraj_Topology as _translator
+    tmp_form = _translator(to_mdtraj_Topology(item))
+    del(_translator)
+    return tmp_form
+
+def to_molmodmt(item):
+
+    return to_molmodmt_MolMod(item)
 
 def to_mdtraj_Topology(item):
 

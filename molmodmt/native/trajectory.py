@@ -1,6 +1,6 @@
 import numpy as _np
 from simtk import unit as _unit
-#import lib.libcell2box as libbox
+from molmodmt.lib import box as _libbox
 #from .lib import libframe as libbox
 from copy import deepcopy
 
@@ -9,20 +9,19 @@ from copy import deepcopy
 class Trajectory():
 
     def __init__(self,coordinates=None, box=None, cell=None, timestep=None, integstep=None,
-                 steps=None, times=None):
+                 step=None, time=None):
 
-        self.__name__="patata"
-
-        self.coordinates = None
-        self.box   = None #_np.zeros(shape=(3,3),dtype=float,order='F')
+        self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
+                                # and order=F, with units nanometers
+        self.box   = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
+        self.cell  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
         self.timestep  = None
         self.integstep  = None
-        self.steps  = None
-        self.times  = None
+        self.step  = None
+        self.time  = None
         self.model = None # In case it is a model and not a timestep
 
         self.invbox       = None #_np.zeros(shape=(3,3),dtype=float,order='F')
-        self.cell         = None #_np.zeros(shape=(3,3),dtype=float,order='F')
         self.orthogonal   = 0
         self.volume       = 0.0
 
@@ -34,23 +33,51 @@ class Trajectory():
         self.cell  = cell
         self.timestep  = timestep
         self.integstep  = integstep
-        self.steps  = steps
-        self.times  = times
+        self.steps  = step
+        self.times  = time
+
+        ii = self.coordinates
+        if ii is not None:
+            if _np.isfortran(ii)==False:
+                ii=_np.asfortranarray(ii)
+
+        ii = self.box
+        if ii is not None:
+            if _np.isfortran(ii)==False:
+                ii=_np.asfortranarray(ii)
+
+        ii = self.cell
+        if ii is not None:
+            if _np.isfortran(ii)==False:
+                ii=_np.asfortranarray(ii)
+
+        ii = self.time
+        if ii is not None:
+            if _np.isfortran(ii)==False:
+                ii=_np.asfortranarray(ii)
+
+        ii = self.step
+        if ii is not None:
+            if _np.isfortran(ii)==False:
+                ii=_np.asfortranarray(ii)
+
+        if (self.cell is None) and (self.box is not None):
+            self.Box2Cell()
+
+        if (self.cell is not None) and (self.box is None):
+            self.Cell2Box()
 
 
     def Cell2Box(self):
-        #self.box,self.volume,self.orthogonal=libbox.cell2box(asfortran_np.array(self.cell))
-        #self.box=ascontiguous_np.array(self.box)
+        self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell)
         pass
 
     def Box2Cell(self):
-        #self.cell,self.volume,self.orthogonal=libbox.box2cell(asfortran_np.array(self.box))
-        #self.cell=ascontiguous_np.array(self.cell)
+        self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box)
         pass
 
     def Box2Invbox(self):
         #self.invbox=libbox.box2invbox(self.box)
-        #self.invbox=ascontiguous_np.array(self.invbox)
         pass
 
     def Unwrap(self,selection=None,min_image_selection=None):
@@ -63,27 +90,6 @@ class Trajectory():
         #self.coors=asfortran_np.array(self.coors)
         #libbox.wrap_all_inplace(self.coors,self.box,self.invbox,self.orthogonal,self.coors.shape[0])
         #self.coors=ascontiguous_np.array(self.coors)
-        pass
-
-    def LoadBox(self,box=None,wrap=False):
-
-        #self.box=box
-        #self.Box2Cell()
-        #self.Box2Invbox()
-        #if wrap:
-        #    self.Wrap()
-        pass
-
-    def Fix(self,wrap=True):
-
-        #if self.cell is None:
-        #    self.Box2Cell()
-        #elif self.box is None:
-        #    self.Cell2Box()
-        #if self.invbox is None:
-        #    self.Box2Invbox()
-        #if wrap:
-        #    self.Wrap()
         pass
 
     def Extract(self,selection=None):  # Extract new frame complete frame from selection

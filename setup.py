@@ -11,12 +11,12 @@ ext_math = Extension(
     sources = ['molmodm/lib/libmath.f90'],
 )
 
-ext_cell2box = Extension(
-    name = 'molmolmd.lib.libcell2box',
+ext_box = Extension(
+    name = 'molmodmt.lib.libbox',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/lib/libcell2box.f90'],
+    sources = ['molmodmt/lib/libbox.f90'],
 )
 
 ext_frame = Extension(
@@ -68,8 +68,8 @@ ext_rmsd = Extension(
 # )
 
 extensions_list=[]
-extensions_lib=[ext_math, ext_pbc, ext_geometry]
-# extensions_lib=[ext_math, ext_cell2box, ext_frame, ext_pbc, ext_geometry ,ext_rmsd]
+extensions_lib=[ext_box]
+# extensions_lib=[ext_math, ext_box, ext_frame, ext_pbc, ext_geometry ,ext_rmsd]
 extensions_list.extend(extensions_lib)
 
 setup(
