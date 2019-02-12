@@ -8,7 +8,7 @@ ext_math = Extension(
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodm/lib/libmath.f90'],
+    sources = ['molmodmt/lib/libmath.f90'],
 )
 
 ext_box = Extension(
@@ -43,6 +43,14 @@ ext_pbc = Extension(
     sources = ['molmodmt/lib/libpbc.f90'],
 )
 
+ext_com = Extension(
+    name = 'molmodmt.lib.libcom',
+    extra_compile_args = [],
+    libraries = [],
+    language = 'f90',
+    sources = ['molmodmt/lib/libcom.f90'],
+)
+
 ext_rmsd = Extension(
     name = 'molmodmt.lib.librmsd',
     extra_compile_args = [],
@@ -68,7 +76,7 @@ ext_rmsd = Extension(
 # )
 
 extensions_list=[]
-extensions_lib=[ext_box]
+extensions_lib=[ext_box, ext_math, ext_pbc, ext_geometry, ext_com]
 # extensions_lib=[ext_math, ext_box, ext_frame, ext_pbc, ext_geometry ,ext_rmsd]
 extensions_list.extend(extensions_lib)
 

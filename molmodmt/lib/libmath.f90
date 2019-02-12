@@ -41,7 +41,6 @@ CONTAINS
        new_coors(ii,:)=matmul(transpose(U(:,:)),coors(ii,:)-center_orig)+center_ref
     END DO
 
-
   END SUBROUTINE ROTANDTRANS_RMSD
 
 END MODULE MODULE_MATH
