@@ -1,8 +1,11 @@
 import numpy as _np
 from .multitool import get_form as _get_form, get_shape as _get_shape, select as _select, convert as _convert
 from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
+from .utils.digest_inputs import _coordinates as _digest_coordinates
 from .lib import geometry as _libgeometry
 from .utils.exceptions import *
+from .centers import center_of_mass as _center_of_mass
+from .centers import geometrical_center as _geometrical_center
 
 def distances(item=None, selection=None, selection_groups=None, group_behavior=None, frame=None,
              item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2=None,
@@ -31,14 +34,30 @@ def distances(item=None, selection=None, selection_groups=None, group_behavior=N
                 raise BadCallError(BadCallMessage)
 
             if selection_groups is None:
-                tmp_coors1=tmp_item1.trajectory.coordinates[:,atom_indices1,:]
-                nelements1=len(atom_indices1)
+                tmp_coors1 = _digest_coordinates(tmp_item1,atom_indices1,frame_indices1)
+                nelements1 = tmp_coors1.shape[1]
+                nframes1   = tmp_coors1.shape[0]
+            else:
+                if group_behavior == 'center_of_mass':
+                    tmp_coors1 = []
+                    for group in selection_groups:
+                        tmp_coors1.append(_center_of_mass(tmp_item1,group,frame_indices1))
+                    return tmp_coors1
+                elif group_behavior == 'geometric_center':
+                    tmp_coors1 = []
+                    for group in selection_groups:
+                        tmp_coors1.append(_geometrical_center(tmp_item1,group,frame_indices1))
+                    pass
+
+            if selection_groups2 is None:
+                tmp_coors2 = _digest_coordinates(tmp_item2,atom_indices2,frame_indices2)
+                nelements2 = tmp_coors2.shape[1]
+                nframes2   = tmp_coors2.shape[0]
             else:
                 if group_behavior == 'center_of_mass':
                     pass
                 elif group_behavior == 'geometric_center':
                     pass
-
 
             if (group_behavior is None) and (group_behavior2 is None):
                 dists = _libgeometry.distance_titi(diff_selection,
@@ -50,7 +69,7 @@ def distances(item=None, selection=None, selection_groups=None, group_behavior=N
                                                    pbc,
                                                    nelements1,
                                                    nelements2,
-                                                   tmp_item1.trajectory.nframes)
+                                                   nframes1)
                 if output_form=='matrix':
                     return dists
                 elif output_form=='dict':

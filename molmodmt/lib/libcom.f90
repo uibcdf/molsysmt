@@ -8,7 +8,7 @@ CONTAINS
   ! incluyendo el caso de las partículas sueltas
   ! Puede que calculando la estructura compacta, unwrapped, pueda calcular el com y despues hacer wrap de este.
 
-  SUBROUTINE WEIGHTED_CENTER_COMPACT_STRUCTURE(pbc_opt,coors,weights,box,ortho,natoms,nframes,com)
+  SUBROUTINE WEIGHTED_CENTER(pbc_opt,coors,weights,box,ortho,natoms,nframes,com)
  
     IMPLICIT NONE
  
@@ -156,7 +156,7 @@ CONTAINS
  
     END IF
  
-  END SUBROUTINE WEIGHTED_CENTER_COMPACT_STRUCTURE
+  END SUBROUTINE WEIGHTED_CENTER
 
 
 

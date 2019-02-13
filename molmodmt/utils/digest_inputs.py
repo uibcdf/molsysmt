@@ -1,4 +1,5 @@
 from numpy import asarray as _asarray, arange as _arange
+import numpy as _np
 from molmodmt import get_form as _get_form, get_shape as _get_shape, select as _select, convert as _convert
 from .exceptions import *
 
@@ -16,16 +17,45 @@ def _one_system(item1=None, selection1=None, frame1=None, engine=None):
     if selection1 is not None:
         atom_indices1 = _select(tmp_item1,selection1)
 
-    if frame1 is None:
-        frame_indices1 = _asarray([0])
-    elif type(frame1) == int:
-        frame_indices1 = _asarray([frame1])
-    elif type(frame1) == list:
-        frame_indices1 = _asarray(frame1)
-    elif frame1 == 'all':
-        frame_indices1 = _arange(_get_shape(tmp_item1)[0])
+    frame_indices1 = _frameslist(tmp_item1,frame1)
 
     return tmp_item1, atom_indices1, frame_indices1
+
+def _frameslist(item=None,frame=None):
+
+    if frame is None:
+        tmp_frameslist = _asarray([0])
+    elif type(frame) == int:
+        tmp_frameslist = _asarray([frame])
+    elif type(frame) == list:
+        tmp_frameslist = _asarray(frame)
+    elif type(frame) == _np.ndarray:
+        tmp_frameslist = frame
+    elif frame == 'all':
+        tmp_frameslist = _arange(_get_shape(item)[0])
+
+    return tmp_frameslist
+
+
+def _coordinates(item=None, selection=None, frame=None, engine='molmodmt'):
+
+    if engine=='molmodmt':
+        tmp_atomslist=_select(item,selection)
+        tmp_frameslist=_frameslist(item,frame)
+        tmp_coordinates = item.trajectory.coordinates[tmp_frameslist,tmp_atomslist,:]
+        tmp_natoms = tmp_atomslist.shape[0]
+        tmp_nframes = tmp_frameslist.shape[0]
+        if tmp_natoms==1 and tmp_nframes==1:
+            tmp_coordinates = tmp_coordinates.reshape(1,1,3)
+        elif tmp_natoms==1:
+            tmp_coordinates = tmp_coordinates.reshape(tmp_nframes,1,3)
+        elif tmp_nframes==1:
+            tmp_coordinates = tmp_coordinates.reshape(1,tmp_natoms,3)
+
+        return tmp_coordinates
+
+    else:
+        raise NotImplementedError(NotImplementedMessage)
 
 def _comparison_two_systems(item1=None, selection1=None, frame1=None,
                             item2=None, selection2=None, frame2=None,
@@ -39,9 +69,6 @@ def _comparison_two_systems(item1=None, selection1=None, frame1=None,
     frame_indices2=None
 
     if item1 is None and item2 is None:
-        raise BadCallError(BadCallMessage)
-
-    if selection1 is None and selection2 is None:
         raise BadCallError(BadCallMessage)
 
     if item1 is None or item2 is None:
@@ -64,7 +91,12 @@ def _comparison_two_systems(item1=None, selection1=None, frame1=None,
     if selection2 is not None:
         atom_indices2 = _select(tmp_item2,selection2)
 
-    if selection1 is None or selection2 is None:
+    if selection1 is None and selection2 is None:
+
+        atom_indices1= None
+        atom_indices2= None
+
+    elif selection1 is None or selection2 is None:
         if single_item is True:
             diff_selection = False
             if selection1 is None:
@@ -77,23 +109,8 @@ def _comparison_two_systems(item1=None, selection1=None, frame1=None,
             else:
                 atom_indices2 = _select(tmp_item2,selection1)
 
-    if frame1 is None:
-        frame_indices1 = _asarray([0])
-    elif type(frame1) == int:
-        frame_indices1 = _asarray([frame1])
-    elif type(frame1) == list:
-        frame_indices1 = _asarray(frame1)
-    elif frame1 == 'all':
-        frame_indices1 = _arange(_get_shape(tmp_item1)[0])
-
-    if frame2 is None:
-        frame_indices2 = _asarray([0])
-    elif type(frame2) == int:
-        frame_indices2 = _asarray([frame2])
-    elif type(frame2) == list:
-        frame_indices2 = _asarray(frame2)
-    elif frame2 == 'all':
-        frame_indices2 = _arange(_get_shape(tmp_item2)[0])
+    frame_indices1 = _frameslist(tmp_item1,frame1)
+    frame_indices2 = _frameslist(tmp_item2,frame2)
 
     return tmp_item1, atom_indices1, frame_indices1, \
            tmp_item2, atom_indices2, frame_indices2, \
