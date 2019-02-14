@@ -26,7 +26,6 @@ CONTAINS
     DOUBLE PRECISION,DIMENSION(nframes,3,3),INTENT(IN)::box
     DOUBLE PRECISION,DIMENSION(nframes,3,3),INTENT(OUT)::invbox
   
-    PRINT*,"SI ENTRA"
     invbox=0.0d0
   
     invbox(:,1,1)=1.0d0/box(:,1,1)
