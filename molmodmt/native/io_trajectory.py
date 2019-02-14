@@ -16,9 +16,12 @@ def from_mdtraj_Trajectory(item=None):
 
 def to_mdtraj_Trajectory(item=None):
     from mdtraj import Trajectory as _mdtraj_Trajectory
-    tmp_mdtraj_trajectory_item = Trajectory(item.trajectory.coordinates,item.topology)
-    tmp_mdtraj_trajectory_item.unitcell_vectors = _np.ascontigouousarray(item.trajectory.box)
-    tmp_mdtraj_trajectory_item.time = _np.ascontigouousarray(item.trajectory.time)
-    tmp_mdtraj_trajectory_item.timestep = _np.ascontigouousarray(item.trajectory.timestep)
+    tmp_mdtraj_trajectory_item = _mdtraj_Trajectory(item.trajectory.coordinates,item.topology)
+    tmp_mdtraj_trajectory_item.unitcell_vectors = _np.ascontiguousarray(item.trajectory.box)
+    tmp_mdtraj_trajectory_item.time = _np.ascontiguousarray(item.trajectory.time)
+    #try:
+    #    tmp_mdtraj_trajectory_item.timestep = _np.ascontiguousarray(item.trajectory.timestep)
+    #except:
+    #    tmp_mdtraj_trajectory_item.timestep = None
     del(_mdtraj_Trajectory)
     return tmp_mdtraj_trajectory_item

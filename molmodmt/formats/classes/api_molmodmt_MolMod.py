@@ -22,7 +22,7 @@ def get_shape(item):
     raise NotImplementedError(NotImplementedMessage)
 
 def select_with_mdtraj(item, selection):
-    raise NotImplementedError(NotImplementedMessage)
+    return item.topology.select(selection)
 
 def extract_atoms_list(item, atoms_list):
     raise NotImplementedError(NotImplementedMessage)

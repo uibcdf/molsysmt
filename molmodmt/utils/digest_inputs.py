@@ -5,7 +5,6 @@ from .exceptions import *
 
 def _one_system(item1=None, selection1=None, frame1=None, engine=None):
 
-
     atom_indices1=None
     frame_indices1=None
 
@@ -35,7 +34,6 @@ def _frameslist(item=None,frame=None):
         tmp_frameslist = _arange(_get_shape(item)[0])
 
     return tmp_frameslist
-
 
 def _coordinates(item=None, selection=None, frame=None, engine='molmodmt'):
 

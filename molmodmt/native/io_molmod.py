@@ -16,7 +16,7 @@ def to_mdtraj(item=None):
 
     from .io_trajectory import to_mdtraj_Trajectory as _to_mdtraj_Trajectory
 
-    tmp_mdtraj_item.trajectory = _from_mdtraj_Trajectory(item)
+    tmp_mdtraj_item = _to_mdtraj_Trajectory(item)
 
     return tmp_mdtraj_item
 

@@ -45,11 +45,6 @@ CONTAINS
   ALLOCATE(vect(3),vect_aux(3),vect_aux2(3))
   ALLOCATE(tmp_box(3,3),tmp_inv(3,3))
 
-  !OPEN(unit = 500, file = "salida.fortran")
-  !WRITE(500,*)"SI ENTRA"
-  !WRITE(500,*)diff_set
-  !CLOSE(500)
-
   IF (diff_set==1) THEN
     DO kk=1,nframes
       tmp_box=box(kk,:,:)
