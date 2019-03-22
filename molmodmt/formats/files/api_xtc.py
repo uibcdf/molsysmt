@@ -1,4 +1,5 @@
 from os.path import basename as _basename
+from molmodmt.utils.exceptions import *
 
 form_name=_basename(__file__).split('.')[0].split('_')[-1]
 
@@ -7,15 +8,18 @@ is_form = {
     'XTC': form_name
     }
 
-def to_mdtraj_Trajectory(item):
+def to_mdtraj_Trajectory(item, topology=None):
+
+    if topology is None:
+        raise BadCallError(BadCallMessage)
 
     from mdtraj import load as _mdtraj_load
-    tmp_form = _mdtraj_load(item)
+    tmp_form = _mdtraj_load(item, top=topology)
     del(_mdtraj_load)
     return tmp_form
 
-    pass
+def to_molmod(item, topology=None, frames=None):
 
-def to_native_Native(item):
+    from molmodmt.native.io_molmod import from_xtc as _from_xtc
+    return _from_xtc(item, topology=topology, frames=frames)
 
-    pass

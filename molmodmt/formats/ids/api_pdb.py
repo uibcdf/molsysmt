@@ -12,14 +12,6 @@ def to_pdb(form_id,output_file=None):
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
     return _download_pdb(form_id.split(':')[-1],output_file)
 
-def to_native_Native(form_id):
-    from molmodmt.formats.files.api_pdb import to_native_Native as _pdb_to_native_Native
-    tmp_file = to_pdb(form_id)
-    tmp_form = _pdb_to_native_Native(tmp_file)
-    _remove(tmp_file)
-    del(_pdb_to_native_Native)
-    return tmp_form
-
 def to_mdtraj_Topology(form_id):
     from molmodmt.formats.files.api_pdb import to_mdtraj_Topology as _pdb_to_mdtraj_Topology
     _tmp_file=to_pdb(form_id)

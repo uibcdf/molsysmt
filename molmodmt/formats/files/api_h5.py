@@ -19,10 +19,3 @@ def to_mdtraj_Trajectory(item):
 
     pass
 
-def to_native_Native(item):
-
-    from molsysmt.native import Native as _Native
-    tmp_form = to_mdtraj(item)
-    return _Native(tmp_form)
-
-    pass

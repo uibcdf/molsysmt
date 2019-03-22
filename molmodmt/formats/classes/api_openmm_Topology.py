@@ -10,12 +10,10 @@ is_form={
     _simtk_openmm_app_Topology:form_name
 }
 
-def to_native(item):
+def to_molmod_Topology(item):
 
-    from molsysmt import Native as _molsysmt_native
-    tmp_form = _molsysmt_native(item)
-    del(_molsysmt_native)
-    return tmp_form
+    from molmodmt.native.io_topology import from_openmm_Topology as _from_openmm_Topology
+    return _from_openmm_Topology(item)
 
 def to_mdtraj_Topology(item):
 

@@ -41,15 +41,6 @@ def to_mol2(item,out_file):
     tmp_parmed_form.save(out_file)
     pass
 
-#def to_native(item):
-#    return to_native_Native(item)
-
-#def to_native_Native(item):
-#    from molsysmt.native import Native as _molsysmt_Native
-#    tmp_form = _molsysmt_Native(item)
-#    del(_molsysmt_Native)
-#    return tmp_form
-
 def to_openmm_Topology(item):
     from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
     tmp_form = _openmm_pdb_loader(item).getTopology()

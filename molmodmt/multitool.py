@@ -105,7 +105,7 @@ def fetch(form_id=None, form=None):
 
     return convert(form_id, form)
 
-def get_topology(item=None,form='native'):
+def get_topology(item=None,form='molmod'):
 
     pass
 
@@ -113,7 +113,7 @@ def set_topology(item=None):
 
     pass
 
-def get_positions(item=None,form='native'):
+def get_positions(item=None,form='molmod'):
 
     pass
 
@@ -122,14 +122,11 @@ def set_positions(item=None,positions=None):
     pass
 
 
-def select(item=None, selection=None, syntaxis='native'):
+def select(item=None, selection=None, syntaxis='molmod'):
 
     from numpy import ndarray as _ndarray
     from numpy import int as _int
     from numpy import int64 as _int64
-
-    if syntaxis=='native':
-        syntaxis='mdtraj'
 
     in_form=get_form(item)
 
@@ -141,12 +138,12 @@ def select(item=None, selection=None, syntaxis='native'):
         return _dict_selector[in_form][syntaxis](item, selection)
 
 
-def select_expression(form=None, selection=None, syntaxis='native'):
+def select_expression(form=None, selection=None, syntaxis='molmod'):
 
     pass
 
 
-def extract(item=None, selection=None, form=None, syntaxis='native'):
+def extract(item=None, selection=None, form=None, syntaxis='molmod'):
 
     from numpy import ndarray as _ndarray
     from numpy import sort as _sort
@@ -234,7 +231,7 @@ def get_shape(item=None):
     return _dict_get_shape[in_form](item)
 
 
-def load (item=None, form='mdtraj.Trajectory', selection=None, pdbfix=False, pH=7.0, verbose=False, **kwargs):
+def load (item=None, form='molmod', selection=None, pdbfix=False, pH=7.0, verbose=False, **kwargs):
 
     #**kwargs: topology=None
 
@@ -273,7 +270,7 @@ def load (item=None, form='mdtraj.Trajectory', selection=None, pdbfix=False, pH=
 
     return tmp_item
 
-def convert(item=None, form='mdtraj.Trajectory', **kwargs):
+def convert(item=None, form='molmod', **kwargs):
 
     #**kwargs: topology=None
 

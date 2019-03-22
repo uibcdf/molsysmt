@@ -18,14 +18,6 @@ def to_nglview(item):
     #tmp_view.center_view(zoom=True)
     return tmp_view
 
-# def to_native(item):
-# 
-#     from molmodmt import Native as _molmodmt_native
-#     tmp_form = _molmodmt_native(item)
-#     del(_molmodmt_native)
-#     return tmp_form
-#
-
 def to_mdtraj(item):
     from molmodmt.formats.engines.api_modeller import to_mdtraj as _modeller_to_mdtraj
     return _modeller_to_mdtraj(item)

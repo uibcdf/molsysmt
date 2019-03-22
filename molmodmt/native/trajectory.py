@@ -7,9 +7,10 @@ from copy import deepcopy
 
 class Trajectory():
 
-    def __init__(self,coordinates=None, box=None, cell=None, timestep=None, integstep=None,
+    def __init__(self, filename=None, coordinates=None, box=None, cell=None, timestep=None, integstep=None,
                  step=None, time=None):
 
+        self.filename = None
         self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
                                 # and order=F, with units nanometers
         self.box   = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
@@ -27,6 +28,7 @@ class Trajectory():
         self._length_units = _unit.nanometers
         self._time_units     = _unit.picoseconds
 
+        self.filename = filename
         self.coordinates = coordinates
         self.box   = box
         self.cell  = cell

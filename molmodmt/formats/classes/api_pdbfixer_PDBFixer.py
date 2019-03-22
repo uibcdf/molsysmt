@@ -13,13 +13,6 @@ def to_nglview(item):
     from molmodmt.formats.engines.api_pdbfixer import to_mdtraj as _pdbfixer_to_mdtraj
     return _nglview_show_mdtraj(_pdbfixer_to_mdtraj(item))
 
-def to_native_Native(item):
-
-    from molsysmt.native import Native as _native_Native
-    tmp_form = _native_Native(item)
-    del(_native_Native)
-    return tmp_form
-
 def to_aminoacids3_seq(item):
 
     return ''.join([ r.name for r in item.topology.residues() ])

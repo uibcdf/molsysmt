@@ -25,3 +25,8 @@ def to_mdtraj_Trajectory(item=None):
     #    tmp_mdtraj_trajectory_item.timestep = None
     del(_mdtraj_Trajectory)
     return tmp_mdtraj_trajectory_item
+
+def from_xtc(item=None):
+
+    tmp_molmod_trajectory = _Trajectory(filename=item)
+    return tmp_molmod_trajectory
