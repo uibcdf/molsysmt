@@ -25,6 +25,10 @@ class Trajectory():
         self.orthogonal   = 0
         self.volume       = 0.0
 
+        self.topology = None
+        self.topography = None
+        self.structure = None
+
         self._length_units = _unit.nanometers
         self._time_units     = _unit.picoseconds
 
@@ -102,4 +106,19 @@ class Trajectory():
         #tmp_frame.coors=tmp_frame.coors[selection,:]
         #return tmp_frame
         pass
+
+    def load(self,frame=None):
+
+        from mdtraj import load as _mdtraj_load
+        from mdtraj import load_frame as _mdtraj_load_frame
+        from io_topology import to_mdtraj_Topology as _to_mdtraj_Topology
+        from numpy import ndarray
+
+        if type(frame)==str:
+            if frame.lowercase()='all':
+                tmp_mdtrajectory = _mdtraj_load(self.filename,top=_to_mdtraj_Topology(self.topology))
+        elif type(frame)==int:
+                tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame,top=_to_mdtraj_Topology(self.topology))
+        elif type(frame) in [list,tuple,ndarray]:
+
 

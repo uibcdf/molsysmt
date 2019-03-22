@@ -29,7 +29,11 @@ def from_xtc(item=None,topology=None,frames=None):
     tmp_molmod_item =_MolMod()
     tmp_molmod_item.structure = _structure_from_gromacs_Topology(topology)
     tmp_molmod_item.topology = _topology_from_molmod_Structure(tmp_molmod_item.structure)
-    tmp_molmod_item.trajectory = _from_xtc(item, topology = tmp_molmod_item.topology)
+    tmp_molmod_item.trajectory = _from_xtc(item)
     tmp_molmod_item.topography = None
 
-    return tmp_moldmod_item
+    tmp_molmod_item.trajectory.topology = tmp_molmod_item.topology
+    tmp_molmod_item.trajectory.structure = tmp_molmod_item.structure
+    tmp_molmod_item.trajectory.topography = tmp_molmod_item.topography
+
+    return tmp_molmod_item
