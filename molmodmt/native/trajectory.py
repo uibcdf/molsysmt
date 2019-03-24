@@ -26,7 +26,8 @@ class Trajectory():
         self.volume       = 0.0
 
         self.topology = None
-        self.topology_mdtraj= None
+        self.topology_mdtraj = None
+        self.topology_mdtraj_of_file = None
         self.topography = None
         self.structure = None
 

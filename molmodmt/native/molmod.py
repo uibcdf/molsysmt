@@ -12,11 +12,13 @@ class MolMod():
 
     def extract(self, atoms_list=None):
 
+        from molmodmt import extract as _extract
+
         tmp_MolMod = MolMod()
-        tmp.structure = self.topology.extract(atoms_list)
-        tmp.topology = self.topology.extract(atoms_list)
-        tmp.topography = None
-        tmp.trajectory = self.trajectory.extract(atoms_list)
+        tmp_MolMod.structure = _extract(self.structure, atoms_list)
+        tmp_MolMod.topology = tmp_MolMod.structure.topology
+        tmp_MolMod.topography = None
+        tmp_MolMod.trajectory = None #self.trajectory.extract(atoms_list)
 
         return tmp_MolMod
 

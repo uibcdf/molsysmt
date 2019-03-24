@@ -271,7 +271,7 @@ def load (item=None, form='molmod', selection=None, pdbfix=False, pH=7.0, verbos
 
     return tmp_item
 
-def convert(item=None, form='molmod', **kwargs):
+def convert(item=None, form='molmodmt.MolMod', **kwargs):
 
     #**kwargs: topology=None
 

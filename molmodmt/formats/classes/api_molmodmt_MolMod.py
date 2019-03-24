@@ -1,6 +1,6 @@
 from os.path import basename as _basename
 from molmodmt.utils.exceptions import *
-from molmodmt.native.molmod import MolMod as _molmodmt_MolMod
+from molmodmt import MolMod as _molmodmt_MolMod
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
