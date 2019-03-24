@@ -122,7 +122,7 @@ def set_positions(item=None,positions=None):
     pass
 
 
-def select(item=None, selection=None, syntaxis='molmod'):
+def select(item=None, selection=None, syntaxis='mdtraj'):
 
     from numpy import ndarray as _ndarray
     from numpy import int as _int
@@ -138,12 +138,12 @@ def select(item=None, selection=None, syntaxis='molmod'):
         return _dict_selector[in_form][syntaxis](item, selection)
 
 
-def select_expression(form=None, selection=None, syntaxis='molmod'):
+def select_expression(form=None, selection=None, syntaxis='mdtraj'):
 
     pass
 
 
-def extract(item=None, selection=None, form=None, syntaxis='molmod'):
+def extract(item=None, selection=None, form=None, syntaxis='mdtraj'):
 
     from numpy import ndarray as _ndarray
     from numpy import sort as _sort
@@ -151,6 +151,7 @@ def extract(item=None, selection=None, form=None, syntaxis='molmod'):
     in_form=get_form(item)
     if form is None:
         form=in_form
+
     if type(selection) == int:
         list_atoms=[selection]
     elif type(selection) in [list,tuple]:

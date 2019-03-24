@@ -18,3 +18,17 @@ def download_pdb(pdb_id=None, output_file=None):
     else:
         urllib.request.urlretrieve(fullurl, output_file)
         pass
+
+def atoms_list2string(atoms_list):
+
+    return ",".join([str(ii) for ii in atoms_list])
+
+def atoms_list2AmberMask(atoms_list,num_atoms,inverse=False):
+
+    from numpy import zeros as _zeros
+    tmp_mask = _zeros(num_atoms,dtype=int)
+    tmp_mask[atoms_list]=1
+    if inverse:
+        tmp_mask=1-tmp_mask
+    return list(tmp_mask)
+

@@ -6,7 +6,7 @@ form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
     _molmodmt_MolMod : form_name,
-    'molmodmt': form_name
+    'molmod': form_name
 }
 
 def to_molmodmt(item):
@@ -22,8 +22,8 @@ def get_shape(item):
     raise NotImplementedError(NotImplementedMessage)
 
 def select_with_mdtraj(item, selection):
-    return item.topology.select(selection)
+    return item.select_with_mdtraj(selection)
 
 def extract_atoms_list(item, atoms_list):
-    raise NotImplementedError(NotImplementedMessage)
+    return item.extract(atoms_list)
 
