@@ -16,7 +16,7 @@ ext_box = Extension(
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/lib/libbox.f90'],
+    sources = ['molmodmt/lib/libbox.f90','molmodmt/lib/libpbc.f90'],
 )
 
 ext_frame = Extension(

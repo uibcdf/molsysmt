@@ -9,4 +9,4 @@ record.txt
 *.ipynb_checkpoints
 */_build/*
 *.mod
-
+dist/*
