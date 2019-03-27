@@ -1,7 +1,8 @@
 MODULE MODULE_BOX
 
-CONTAINS
+USE MODULE_PBC
 
+CONTAINS
 
   !! This function is not used by gro, xtc and trr
   
@@ -191,4 +192,70 @@ CONTAINS
 
   END SUBROUTINE WRAP
 
+  SUBROUTINE UNWRAP(coors,molecules,molecules_start,bonds,bonds_start, &
+      box,ortho,inv,n_frames,n_atoms,n_molecules,n_molecules_start,n_bonds,n_bonds_start)
+
+    IMPLICIT NONE
+
+    INTEGER,INTENT(IN):: n_frames, n_atoms, ortho
+    INTEGER,INTENT(IN):: n_molecules, n_molecules_start, n_bonds, n_bonds_start
+
+    INTEGER,DIMENSION(n_molecules),INTENT(IN)::molecules
+    INTEGER,DIMENSION(n_molecules_start),INTENT(IN)::molecules_start
+    INTEGER,DIMENSION(n_bonds),INTENT(IN)::bonds
+    INTEGER,DIMENSION(n_bonds_start),INTENT(IN)::bonds_start
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
+    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
+
+    INTEGER:: ii,jj,kk
+    INTEGER:: molecule_start, molecule_end, molecule_natoms
+    INTEGER:: n_left,n_storage
+    INTEGER:: atom_id1,atom_id2
+    LOGICAL,DIMENSION(n_atoms)::aux_filter
+    DOUBLE PRECISION,DIMENSION(n_frames,3)::vect_aux
+    INTEGER,DIMENSION(:),ALLOCATABLE::left,storage
+    
+    aux_filter(:)=.FALSE.
+
+    DO ii=1,n_molecules_start-1
+
+        molecule_start=molecules_start(ii)+1
+        molecule_end=molecules_start(ii+1)
+        molecule_natoms=molecule_end-molecule_start+1
+
+        n_left=1
+        ALLOCATE(left(n_left),storage(molecule_natoms))
+        left(1)=molecules(molecule_start)+1
+
+        DO WHILE (n_left>0)
+            n_storage=0
+            DO jj=1,n_left
+                atom_id1 = left(jj)
+                DO kk=bonds_start(atom_id1)+1,bonds_start(atom_id1+1)
+                    atom_id2=bonds(kk)+1
+                    IF (aux_filter(atom_id2).eqv..FALSE.) THEN
+                        vect_aux(:,:)=coors(:,atom_id2,:)-coors(:,atom_id1,:)
+                        CALL PBCARRAY(vect_aux,box,inv,ortho,n_frames)
+                        coors(:,atom_id2,:)=coors(:,atom_id1,:)+vect_aux(:,:)
+                        aux_filter(atom_id2)=.TRUE.
+                        n_storage=n_storage+1
+                        storage(n_storage)=atom_id2
+                    END IF
+                END DO
+            END DO
+            n_left=n_storage
+            IF (n_left>0) THEN
+                DEALLOCATE(left)
+                ALLOCATE(left(n_left))
+                left(:)=storage(1:n_left)
+            END IF
+        END DO
+
+        DEALLOCATE(left,storage)
+
+    END DO
+
+  END SUBROUTINE UNWRAP
+
 END MODULE MODULE_BOX
+

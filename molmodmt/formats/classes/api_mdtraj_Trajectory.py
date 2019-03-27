@@ -162,3 +162,8 @@ def merge_two_items(item1, item2, in_place=False):
     else:
         return tmp_item
 
+def get_molecules(item):
+
+    from .api_mdtraj_Topology import get_molecules as _get_molecules
+    return _get_molecules(item.topology)
+

@@ -43,3 +43,25 @@ def merge_two_items(item1, item2, in_place=False):
         tmp_item=item1.copy()
         return tmp_item.join(item2)
 
+def get_molecules(item,with_bonds=False):
+
+    tmp_molecules = []
+    for mm in item.find_molecules():
+        tmp_molecules.append([ii.index for ii in mm])
+    if with_bonds:
+        tmp_bonds = [[] for ii in range(item.n_atoms)]
+        for bond in item.bonds:
+            tmp_bonds[bond.atom1.index].append(bond.atom2.index)
+            tmp_bonds[bond.atom2.index].append(bond.atom1.index)
+        return tmp_molecules,tmp_bonds
+    else:
+        return tmp_molecules
+
+
+        #for bb in item.subset(tmp_list_atoms).bonds:
+        #    tmp_bonds.append([bb.atom1.index,bb.atom2.index])
+        #tmp_molecules.append([_np.array(tmp_list_atoms),_np.array(tmp_bonds)])
+    #del(molecule_sets,tmp_list_atoms,tmp_bonds)
+    #return tmp_molecules
+
+

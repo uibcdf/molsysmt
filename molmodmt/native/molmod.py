@@ -1,6 +1,5 @@
 from .trajectory import Trajectory as _Trajectory
 
-
 class MolMod():
 
     def __init__(self):
@@ -24,4 +23,8 @@ class MolMod():
 
     def select_with_mdtraj(self, selection=None):
         return self.trajectory.topology_mdtraj.select(selection)
+
+    def get_molecules(self,with_bonds=False):
+        from molmodmt.formats.classes.api_mdtraj_Topology import get_molecules as _get_molecules
+        return _get_molecules(self.trajectory.topology_mdtraj,with_bonds)
 

@@ -20,6 +20,8 @@ class Trajectory():
         self.step  = None
         self.time  = None
         self.model = None # In case it is a model and not a timestep
+        self.nframes = 0
+        self.natoms = 0
 
         self.invbox       = None #_np.zeros(shape=(n_frames,3,3),dtype=float,order='F')
         self.orthogonal   = 0
@@ -27,7 +29,8 @@ class Trajectory():
 
         self.topology = None
         self.topology_mdtraj = None
-        self.topology_mdtraj_of_file = None
+        self.selection_mdtraj = None
+        self._atoms_list_mdtraj = None
         self.topography = None
         self.structure = None
 
@@ -42,6 +45,10 @@ class Trajectory():
         tmp_coordinates, tmp_box, tmp_time, tmp_timestep = parse_mdtraj_Trajectory(item)
         self._initialize_with_coors(coordinates=tmp_coordinates, box=tmp_box, timestep=tmp_timestep,
                                     time=tmp_time)
+        pass
+
+    def _import_mdtraj_topology(self,item=None):
+        self.topology_mdtraj=item.topology
         pass
 
     def _initialize_with_coors(self, coordinates=None, box=None, cell=None, timestep=None, integstep=None,
@@ -107,8 +114,43 @@ class Trajectory():
         self.invbox=_libbox.box2invbox(self.box, self.nframes)
         pass
 
-    def unwrap(self,selection=None,min_image_selection=None):
-        #self.frame=ascontiguous_np.array(Tools.Unwrap()) 
+    def unwrap(self,selection=None,min_image_selection=None,syntaxis='mdtraj'):
+
+        from molmodmt import select as _select
+        from molmodmt import get_molecules as _get_molecules
+        from molmodmt.utils.fortran import listoflists2fortran as _listoflists2fortran
+
+        molecules, bonds = _get_molecules(self.topology_mdtraj,with_bonds=True)
+
+        if selection is not None:
+            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
+            molecules2unwrap = []
+            for molecule in molecules:
+                if len(_np.intersect1d(molecule,atoms_list)):
+                    molecules2unwrap.append(molecule)
+            molecules=molecules2unwrap
+
+        molecules_array_all, molecules_array_starts = _listoflists2fortran(molecules,dtype=int)
+        bonds_array_all, bonds_array_starts = _listoflists2fortran(bonds,dtype=int)
+
+        _libbox.unwrap(_np.asfortranarray(self.coordinates), molecules_array_all,
+                       molecules_array_starts, bonds_array_all, bonds_array_start,
+                       self.box, self.invbox, self.orthogonal,
+                       self.nframes, self.natoms,
+                       molecules_array_all.shape[0], molecules_array_starts[0],
+                       bonds_array_all[0], bonds_array_start[0])
+
+        self.coors=ascontiguous_np.array(self.coors)
+
+        #min_image_switch=False
+        #if min_image_selection is not None:
+        #    min_image_switch=True
+        #    atoms_list_image_reference = _select(self.topology_mdtraj,min_image_selection,syntaxis)
+
+        #self.coordinates=_np.ascontiguousarray(self.coordinates)
+
+        #self.frame=ascontiguous_np.array(Tools.Unwrap())
+
         pass
 
     def wrap(self):
@@ -123,23 +165,34 @@ class Trajectory():
         #return tmp_frame
         pass
 
-    def iterload(self,chunk=100, stride=1, skip=0, selection=None):
+    def iterload(self,chunk=100, stride=1, skip=0, selection=None, syntaxis='mdtraj'):
+
+        atoms_list = None
+
+        if selection is None:
+            if self.selection_mdtraj is not None:
+                atoms_list = self._atoms_list_mdtraj
+        else:
+            from molmodmt.multitool import select as _select
+            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
 
         from mdtraj import iterload as _mdtraj_iterload
         tmp_top = self.topology_mdtraj
 
         iterator = _mdtraj_iterload(self.filename, top=tmp_top, chunk=chunk,
-                                                stride=stride, atom_indices=None)
+                                                stride=stride, atom_indices=atoms_list)
 
         while True:
             tmp_mdtraj = next(iterator)
             if tmp_mdtraj is None:
                 return
             self._import_mdtraj_data(tmp_mdtraj)
+            if atoms_list is not None:
+                self._import_mdtraj_topology(tmp_mdtrajectory)
             del(tmp_mdtraj)
             yield
 
-    def load(self,frame=None):
+    def load(self,frame=None,selection=None,syntaxis='mdtraj'):
 
         from mdtraj import load as _mdtraj_load
         from mdtraj import load_frame as _mdtraj_load_frame
@@ -148,22 +201,33 @@ class Trajectory():
 
         tmp_top = self.topology_mdtraj
         mdtraj_read = False
+        atoms_list = None
+
+        if selection is None:
+            if self.selection_mdtraj is not None:
+                atoms_list = self._atoms_list_mdtraj
+        else:
+            from molmodmt.multitool import select as _select
+            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
 
         if type(frame)==str:
             if frame.lower()=='all':
-                tmp_mdtrajectory = _mdtraj_load(self.filename,top=tmp_top)
+                tmp_mdtrajectory = _mdtraj_load(self.filename,top=tmp_top,atom_indices=atoms_list)
                 mdtraj_read = True
         elif type(frame)==int:
-            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame,top=tmp_top)
+            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame,top=tmp_top,atom_indices=atoms_list)
             mdtraj_read = True
         elif type(frame) in [list,tuple,ndarray]:
-            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame[0],top=tmp_top)
+            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame[0],top=tmp_top,atom_indices=atoms_list)
             mdtraj_read = True
             for ii in range(1,len(frame)):
-                tmp_mdtrajectory.join(_mdtraj_load_frame(self.filename,frame[ii],top=tmp_top),check_topology=False)
+                tmp_mdtrajectory.join(_mdtraj_load_frame(self.filename,frame[ii],top=tmp_top,
+                                                         atom_indices=atoms_list),check_topology=False)
 
         if mdtraj_read:
             self._import_mdtraj_data(tmp_mdtrajectory)
+            if atoms_list is not None:
+                self._import_mdtraj_topology(tmp_mdtrajectory)
         else:
             raise BadCallError(BadCallMessage)
 

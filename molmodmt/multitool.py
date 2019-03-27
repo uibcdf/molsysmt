@@ -8,7 +8,8 @@ from .formats.engines import dict_is_form as _dict_engines_is_form, \
     dict_selector as _dict_engines_selector, \
     dict_extractor as _dict_engines_extractor, \
     dict_merger as _dict_engines_merger, \
-    dict_get_shape as _dict_engines_get_shape
+    dict_get_shape as _dict_engines_get_shape, \
+    dict_get_molecules as _dict_engines_get_molecules
 
 ## Classes
 from .formats.classes import dict_is_form as _dict_classes_is_form, \
@@ -17,7 +18,8 @@ from .formats.classes import dict_is_form as _dict_classes_is_form, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
     dict_merger as _dict_classes_merger, \
-    dict_get_shape as _dict_classes_get_shape
+    dict_get_shape as _dict_classes_get_shape, \
+    dict_get_molecules as _dict_classes_get_molecules
 
 ## Files
 from .formats.files import dict_is_form as _dict_files_is_form, \
@@ -26,7 +28,8 @@ from .formats.files import dict_is_form as _dict_files_is_form, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
     dict_merger as _dict_files_merger, \
-    dict_get_shape as _dict_files_get_shape
+    dict_get_shape as _dict_files_get_shape, \
+    dict_get_molecules as _dict_files_get_molecules
 
 ## IDs
 from .formats.ids import dict_is_form as _dict_ids_is_form, \
@@ -35,7 +38,8 @@ from .formats.ids import dict_is_form as _dict_ids_is_form, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
     dict_merger as _dict_ids_merger, \
-    dict_get_shape as _dict_ids_get_shape
+    dict_get_shape as _dict_ids_get_shape, \
+    dict_get_molecules as _dict_ids_get_molecules
 
 ## Sequences
 from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
@@ -44,7 +48,8 @@ from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
     dict_merger as _dict_seqs_merger, \
-    dict_get_shape as _dict_seqs_get_shape
+    dict_get_shape as _dict_seqs_get_shape, \
+    dict_get_molecules as _dict_seqs_get_molecules
 
 ## Viewers
 from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
@@ -53,7 +58,8 @@ from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
     dict_merger as _dict_viewers_merger, \
-    dict_get_shape as _dict_viewers_get_shape
+    dict_get_shape as _dict_viewers_get_shape, \
+    dict_get_molecules as _dict_viewers_get_molecules
 
 _dict_is_form = {**_dict_engines_is_form, **_dict_classes_is_form, **_dict_files_is_form,\
                  **_dict_ids_is_form, **_dict_seqs_is_form, **_dict_viewers_is_form}
@@ -67,7 +73,9 @@ _dict_merger    = {**_dict_engines_merger, **_dict_classes_merger, **_dict_files
                    **_dict_ids_merger, **_dict_seqs_merger, **_dict_viewers_merger}
 _dict_get_shape = {**_dict_engines_get_shape, **_dict_classes_get_shape, **_dict_files_get_shape,\
                    **_dict_ids_get_shape, **_dict_seqs_get_shape, **_dict_viewers_get_shape}
-
+_dict_get_molecules = {**_dict_engines_get_molecules, **_dict_classes_get_molecules,\
+                       **_dict_files_get_molecules, **_dict_ids_get_molecules,\
+                       **_dict_seqs_get_molecules, **_dict_viewers_get_molecules}
 _dict_from_to = {}
 _dict_to_from = {}
 
@@ -99,7 +107,6 @@ for in_form in _dict_from_to.keys():
     for _viewer in _list_viewers_forms:
         if _viewer in _dict_from_to[in_form]:
             _dict_viewer_for[in_form].append(_viewer)
-
 
 def fetch(form_id=None, form=None):
 
@@ -136,12 +143,6 @@ def select(item=None, selection=None, syntaxis='mdtraj'):
         return [selection]
     else:
         return _dict_selector[in_form][syntaxis](item, selection)
-
-
-def select_expression(form=None, selection=None, syntaxis='mdtraj'):
-
-    pass
-
 
 def extract(item=None, selection=None, form=None, syntaxis='mdtraj'):
 
@@ -364,4 +365,10 @@ def info_viewers(for_form=None,to_viewer=None):
             return _dict_to_viewer[to_viewer]
         else:
             pass
+
+def get_molecules(item=None,with_bonds=False):
+
+    in_form = get_form(item)
+    return _dict_get_molecules[in_form](item,with_bonds)
+
 

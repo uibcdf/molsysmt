@@ -13,7 +13,7 @@ def to_molmodmt(item):
     return item
 
 def to_mdtraj(item):
-    from molmodmt.native.io_molmod import to_mdtraj as _to_mdtraj 
+    from molmodmt.native.io_molmod import to_mdtraj as _to_mdtraj
     tmp_mdtraj_item = _to_mdtraj(item)
     del(_to_mdtraj)
     return tmp_mdtraj_item
@@ -26,4 +26,7 @@ def select_with_mdtraj(item, selection):
 
 def extract_atoms_list(item, atoms_list):
     return item.extract(atoms_list)
+
+def get_molecules(item,with_bonds=False):
+    return item.get_molecules(with_bonds)
 
