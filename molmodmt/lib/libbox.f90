@@ -193,18 +193,18 @@ CONTAINS
   END SUBROUTINE WRAP
 
   SUBROUTINE UNWRAP(coors,molecules,molecules_start,bonds,bonds_start, &
-      box,ortho,inv,n_frames,n_atoms,n_molecules,n_molecules_start,n_bonds,n_bonds_start)
+      box,inv,ortho,n_frames,n_atoms,n_molecules,n_molecules_start,n_bonds,n_bonds_start)
 
     IMPLICIT NONE
 
     INTEGER,INTENT(IN):: n_frames, n_atoms, ortho
     INTEGER,INTENT(IN):: n_molecules, n_molecules_start, n_bonds, n_bonds_start
 
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
     INTEGER,DIMENSION(n_molecules),INTENT(IN)::molecules
     INTEGER,DIMENSION(n_molecules_start),INTENT(IN)::molecules_start
     INTEGER,DIMENSION(n_bonds),INTENT(IN)::bonds
     INTEGER,DIMENSION(n_bonds_start),INTENT(IN)::bonds_start
-    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
     DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
 
     INTEGER:: ii,jj,kk
@@ -218,14 +218,15 @@ CONTAINS
     aux_filter(:)=.FALSE.
 
     DO ii=1,n_molecules_start-1
-
         molecule_start=molecules_start(ii)+1
         molecule_end=molecules_start(ii+1)
         molecule_natoms=molecule_end-molecule_start+1
 
         n_left=1
         ALLOCATE(left(n_left),storage(molecule_natoms))
-        left(1)=molecules(molecule_start)+1
+        jj=molecules(molecule_start)+1
+        left(1)=jj
+        aux_filter(jj)=.TRUE.
 
         DO WHILE (n_left>0)
             n_storage=0
@@ -235,7 +236,7 @@ CONTAINS
                     atom_id2=bonds(kk)+1
                     IF (aux_filter(atom_id2).eqv..FALSE.) THEN
                         vect_aux(:,:)=coors(:,atom_id2,:)-coors(:,atom_id1,:)
-                        CALL PBCARRAY(vect_aux,box,inv,ortho,n_frames)
+                        CALL PBC_FRAMES(vect_aux,box,inv,ortho,n_frames)
                         coors(:,atom_id2,:)=coors(:,atom_id1,:)+vect_aux(:,:)
                         aux_filter(atom_id2)=.TRUE.
                         n_storage=n_storage+1

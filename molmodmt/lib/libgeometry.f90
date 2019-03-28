@@ -22,11 +22,7 @@ CONTAINS
 
   END FUNCTION DIST2POINTS
   
-  !SUBROUTINE DISTANCE_titj(diff_set,coors1,coors2,box,inv,ortho,&
-  !                         pbc_opt,n1,n2,nframes,matrix)
-  ! Esta por implementar, pero sería con tiempos cruzados.
-
-  SUBROUTINE DISTANCE_titi(diff_set,coors1,coors2,box,inv,ortho,&
+  SUBROUTINE DISTANCE(diff_set,coors1,coors2,box,inv,ortho,&
           pbc_opt,n1,n2,nframes,matrix)
   
   IMPLICIT NONE
@@ -77,6 +73,31 @@ CONTAINS
   DEALLOCATE(vect,vect_aux,vect_aux2)
   DEALLOCATE(tmp_box,tmp_inv)
  
-  END SUBROUTINE DISTANCE_titi
+  END SUBROUTINE DISTANCE
+
+  FUNCTION RADIUS_GYRATION (coors,n_frames,n_atoms) RESULT(Rg)
+
+    IMPLICIT NONE    
+    INTEGER, INTENT(IN)::n_frames,n_atoms
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
+    DOUBLE PRECISION,DIMENSION(n_frames)::Rg
+
+    DOUBLE PRECISION,DIMENSION(n_frames,3)::com
+    DOUBLE PRECISION,DIMENSION(3)::vect_aux
+    DOUBLE PRECISION::val_aux
+
+    Rg(:) = 0.0d0
+    com = CENTER_OF_MASS(coors,n_frames,n_atoms)
+
+    DO ii=1,n_frames
+        val_aux=0.0d0
+        DO jj=1,n_atoms
+            vect_aux = coors(ii,jj,:)-com(ii,:)
+            Rg(ii)=Rg(ii)+dot_product(vect_aux,vect_aux)
+        END DO
+    END DO
+
+
+  END FUNCTION
 
 END MODULE MODULE_GEOMETRY

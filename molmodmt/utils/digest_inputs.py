@@ -3,13 +3,13 @@ import numpy as _np
 from molmodmt import get_form as _get_form, get_shape as _get_shape, select as _select, convert as _convert
 from .exceptions import *
 
-def _one_system(item1=None, selection1=None, frame1=None, engine=None):
+def _one_system(item1=None, selection1=None, frame1=None, form=None):
 
     atom_indices1=None
     frame_indices1=None
 
-    if engine is not None:
-        tmp_item1=_convert(item1,engine)
+    if form is not None:
+        tmp_item1=_convert(item1,form)
     else:
         tmp_item1=item1
 
@@ -35,9 +35,10 @@ def _frameslist(item=None,frame=None):
 
     return tmp_frameslist
 
-def _coordinates(item=None, selection=None, frame=None, engine='molmodmt'):
+def _coordinates(item=None, selection=None, frame=None, form='molmodmt.Trajectory'):
 
-    if engine=='molmodmt':
+    if form=='molmodmt.MolMod':
+
         tmp_atomslist=_select(item,selection)
         tmp_frameslist=_frameslist(item,frame)
         tmp_coordinates = item.trajectory.coordinates[tmp_frameslist,tmp_atomslist,:]
@@ -52,12 +53,29 @@ def _coordinates(item=None, selection=None, frame=None, engine='molmodmt'):
 
         return tmp_coordinates
 
+    elif form=='molmodmt.Trajectory':
+
+        tmp_atomslist=_select(item,selection)
+        tmp_frameslist=_frameslist(item,frame)
+        tmp_coordinates = item.coordinates[tmp_frameslist,tmp_atomslist,:]
+        tmp_natoms = tmp_atomslist.shape[0]
+        tmp_nframes = tmp_frameslist.shape[0]
+        if tmp_natoms==1 and tmp_nframes==1:
+            tmp_coordinates = tmp_coordinates.reshape(1,1,3)
+        elif tmp_natoms==1:
+            tmp_coordinates = tmp_coordinates.reshape(tmp_nframes,1,3)
+        elif tmp_nframes==1:
+            tmp_coordinates = tmp_coordinates.reshape(1,tmp_natoms,3)
+
+        return tmp_coordinates
+
     else:
+
         raise NotImplementedError(NotImplementedMessage)
 
 def _comparison_two_systems(item1=None, selection1=None, frame1=None,
                             item2=None, selection2=None, frame2=None,
-                            engine=None):
+                            form=None):
 
     single_item = False
     diff_selection = True
@@ -76,9 +94,9 @@ def _comparison_two_systems(item1=None, selection1=None, frame1=None,
         else:
             item2 = item1
 
-    if engine is not None:
-        tmp_item1=_convert(item1,engine)
-        tmp_item2=_convert(item2,engine)
+    if form is not None:
+        tmp_item1=_convert(item1,form)
+        tmp_item2=_convert(item2,form)
     else:
         tmp_item1=item1
         tmp_item2=item2

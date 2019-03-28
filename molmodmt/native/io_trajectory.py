@@ -7,7 +7,7 @@ def parse_mdtraj_Trajectory(item=None):
     tmp_box = _np.asfortranarray(item.unitcell_vectors)
     tmp_time = _np.asfortranarray(item.time)
     try:
-        tmp_timestep = _np.asfortranarray(item.timestep)
+        tmp_timestep = item.timestep
     except:
         tmp_timestep = None
 
@@ -27,8 +27,6 @@ def to_mdtraj_Trajectory(item=None):
     tmp_mdtraj_trajectory_item = _mdtraj_Trajectory(item.coordinates,item.topology_mdtraj)
     tmp_mdtraj_trajectory_item.unitcell_vectors = _np.ascontiguousarray(item.box)
     tmp_mdtraj_trajectory_item.time = _np.ascontiguousarray(item.time)
-    if item.timestep is not None:
-        tmp_mdtraj_trajectory_item.timestep = _np.ascontiguousarray(item.timestep)
     del(_mdtraj_Trajectory)
     return tmp_mdtraj_trajectory_item
 

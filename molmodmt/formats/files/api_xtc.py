@@ -20,6 +20,10 @@ def to_mdtraj_Trajectory(item, topology=None):
 
 def to_molmod(item, topology=None, frames=None):
 
+    return to_molmodmt_MolMod(item,topology,frames)
+
+def to_molmodmt_MolMod(item, topology=None, frames=None):
+
     from molmodmt.native.io_molmod import from_xtc as _from_xtc
     return _from_xtc(item, topology=topology, frames=frames)
 

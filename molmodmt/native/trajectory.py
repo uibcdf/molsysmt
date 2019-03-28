@@ -130,27 +130,22 @@ class Trajectory():
                     molecules2unwrap.append(molecule)
             molecules=molecules2unwrap
 
-        molecules_array_all, molecules_array_starts = _listoflists2fortran(molecules,dtype=int)
-        bonds_array_all, bonds_array_starts = _listoflists2fortran(bonds,dtype=int)
+        molecules_array_all, molecules_array_starts = _listoflists2fortran(molecules,dtype='int64')
+        bonds_array_all, bonds_array_starts = _listoflists2fortran(bonds,dtype='int64')
 
-        _libbox.unwrap(_np.asfortranarray(self.coordinates), molecules_array_all,
-                       molecules_array_starts, bonds_array_all, bonds_array_start,
+        self.coordinates=_np.asfortranarray(self.coordinates,dtype='float64')
+        self.box=_np.asfortranarray(self.box,dtype='float64')
+        self.invbox=_np.asfortranarray(self.invbox,dtype='float64')
+        _libbox.unwrap(self.coordinates, molecules_array_all,
+                       molecules_array_starts, bonds_array_all, bonds_array_starts,
                        self.box, self.invbox, self.orthogonal,
                        self.nframes, self.natoms,
-                       molecules_array_all.shape[0], molecules_array_starts[0],
-                       bonds_array_all[0], bonds_array_start[0])
+                       molecules_array_all.shape[0], molecules_array_starts.shape[0],
+                       bonds_array_all.shape[0], bonds_array_starts.shape[0])
 
-        self.coors=ascontiguous_np.array(self.coors)
-
-        #min_image_switch=False
-        #if min_image_selection is not None:
-        #    min_image_switch=True
-        #    atoms_list_image_reference = _select(self.topology_mdtraj,min_image_selection,syntaxis)
-
-        #self.coordinates=_np.ascontiguousarray(self.coordinates)
-
-        #self.frame=ascontiguous_np.array(Tools.Unwrap())
-
+        self.coordinates=_np.ascontiguousarray(self.coordinates)
+        self.box=_np.ascontiguousarray(self.box)
+        self.invbox=_np.ascontiguousarray(self.invbox)
         pass
 
     def wrap(self):
@@ -195,6 +190,7 @@ class Trajectory():
     def load(self,frame=None,selection=None,syntaxis='mdtraj'):
 
         from mdtraj import load as _mdtraj_load
+        from mdtraj import join as _mdtraj_join
         from mdtraj import load_frame as _mdtraj_load_frame
         from .io_topology import to_mdtraj_Topology as _to_mdtraj_Topology
         from numpy import ndarray
@@ -218,11 +214,12 @@ class Trajectory():
             tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame,top=tmp_top,atom_indices=atoms_list)
             mdtraj_read = True
         elif type(frame) in [list,tuple,ndarray]:
-            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame[0],top=tmp_top,atom_indices=atoms_list)
             mdtraj_read = True
-            for ii in range(1,len(frame)):
-                tmp_mdtrajectory.join(_mdtraj_load_frame(self.filename,frame[ii],top=tmp_top,
-                                                         atom_indices=atoms_list),check_topology=False)
+            tmp_trajs=[]
+            for ii in range(0,len(frame)):
+                tmp_trajs.append(_mdtraj_load_frame(self.filename, frame[ii],top=tmp_top, atom_indices=atoms_list))
+            tmp_mdtrajectory=_mdtraj_join(tmp_trajs,check_topology=False)
+            del(tmp_trajs)
 
         if mdtraj_read:
             self._import_mdtraj_data(tmp_mdtrajectory)
