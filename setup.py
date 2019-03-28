@@ -11,20 +11,20 @@ ext_math = Extension(
     sources = ['molmodmt/lib/libmath.f90'],
 )
 
+ext_pbc = Extension(
+    name = 'molmodmt.lib.libpbc',
+    extra_compile_args = [],
+    libraries = [],
+    language = 'f90',
+    sources = ['molmodmt/lib/libpbc.f90'],
+)
+
 ext_box = Extension(
     name = 'molmodmt.lib.libbox',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
     sources = ['molmodmt/lib/libbox.f90','molmodmt/lib/libpbc.f90'],
-)
-
-ext_frame = Extension(
-    name = 'molmodmt.lib.libframe',
-    extra_compile_args = [],
-    libraries = [],
-    language = 'f90',
-    sources = ['molmodmt/lib/libframe.f90'],
 )
 
 ext_geometry = Extension(
@@ -35,22 +35,6 @@ ext_geometry = Extension(
     sources = ['molmodmt/lib/libgeometry.f90','molmodmt/lib/libpbc.f90','molmodmt/lib/libmath.f90'],
 )
 
-ext_pbc = Extension(
-    name = 'molmodmt.lib.libpbc',
-    extra_compile_args = [],
-    libraries = [],
-    language = 'f90',
-    sources = ['molmodmt/lib/libpbc.f90'],
-)
-
-ext_com = Extension(
-    name = 'molmodmt.lib.libcom',
-    extra_compile_args = [],
-    libraries = [],
-    language = 'f90',
-    sources = ['molmodmt/lib/libcom.f90'],
-)
-
 ext_rmsd = Extension(
     name = 'molmodmt.lib.librmsd',
     extra_compile_args = [],
@@ -58,14 +42,6 @@ ext_rmsd = Extension(
     language = 'f90',
     sources = ['molmodmt/lib/librmsd.f90','molmodmt/lib/libpbc.f90'],
 )
-
-# ext_io_bin = Extension(
-#     name = 'molmodmt.moldyn.Readers.MyIOformats.libbinfile',
-#     extra_compile_args = [],
-#     libraries = [],
-#     language = 'f90',
-#     sources = ['molmodmt/moldyn/Readers/MyIOformats/libbinfile.f90'],
-# )
 
 # ext_io_dcd = Extension(
 #     name = 'molmodmt.moldyn.Readers.MyIOformats.libdcdfile',
@@ -76,8 +52,7 @@ ext_rmsd = Extension(
 # )
 
 extensions_list=[]
-extensions_lib=[ext_box, ext_math, ext_pbc, ext_geometry, ext_com]
-# extensions_lib=[ext_math, ext_box, ext_frame, ext_pbc, ext_geometry ,ext_rmsd]
+extensions_lib=[ext_box, ext_math, ext_pbc, ext_geometry]
 extensions_list.extend(extensions_lib)
 
 setup(

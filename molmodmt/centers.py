@@ -3,7 +3,7 @@ from .multitool import get_form as _get_form, get_shape as _get_shape, select as
 from .multitool import convert as _convert, extract as _extract
 from .utils.digest_inputs import _one_system as _digest_one_system
 from .utils.digest_inputs import _coordinates as _digest_coordinates
-from .lib import com as _libcom
+from .lib import geometry as _libgeometry
 from .utils.exceptions import *
 from .chem_and_phys_properties import get_masses as _get_masses
 
@@ -21,11 +21,11 @@ def geometrical_center(item=None, selection=None, selection_groups=None, frame=N
 
             masses = _np.ones((atom_indices1.shape[0]))
 
-            com = _libcom.weighted_center(pbc,tmp_coors1, masses,
+            com = _libgeometry.center_of_mass(pbc,tmp_coors1, masses,
                                           tmp_item1.trajectory.box,
                                           tmp_item1.trajectory.orthogonal,
-                                          tmp_natoms,
-                                          tmp_nframes)
+                                          tmp_nframes,
+                                          tmp_natoms)
             del(tmp_item1, atom_indices1, frame_indices1)
             del(tmp_coors1, tmp_nframes, tmp_natoms)
             return com
@@ -38,11 +38,11 @@ def geometrical_center(item=None, selection=None, selection_groups=None, frame=N
             for group in selection_groups:
                 tmp_coors1 = _digest_coordinates(tmp_item1, group, frame_indices1, engine='molmodmt')
                 masses = _np.ones((tmp_coors1.shape[1]))
-                tmp_com = _libcom.weighted_center(pbc, tmp_coors1, masses,
+                tmp_com = _libgeometry.center_of_mass(pbc, tmp_coors1, masses,
                                                   tmp_item1.trajectory.box,
                                                   tmp_item1.trajectory.orthogonal,
-                                                  tmp_coors1.shape[1],
-                                                  tmp_coors1.shape[0])
+                                                  tmp_coors1.shape[0],
+                                                  tmp_coors1.shape[1])
                 com.append(tmp_com.reshape(tmp_coors1.shape[0],1,3))
             com=_np.concatenate(com,axis=1)
 
@@ -69,11 +69,11 @@ def center_of_mass(item=None, selection=None, selection_groups=None, frame=None,
 
             masses = _get_masses(item, selection, engine='mdtraj')
 
-            com = _libcom.weighted_center(pbc,tmp_coors1, masses,
+            com = _libgeometry.center_of_mass(pbc,tmp_coors1, masses,
                                           tmp_item1.trajectory.box,
                                           tmp_item1.trajectory.orthogonal,
-                                          tmp_coors1.shape[1],
-                                          tmp_coors1.shape[0])
+                                          tmp_coors1.shape[0],
+                                          tmp_coors1.shape[1])
         else:
 
             tmp_item1, atom_indices1 , frame_indices1 = _digest_one_system(item, selection, frame,
@@ -82,11 +82,11 @@ def center_of_mass(item=None, selection=None, selection_groups=None, frame=None,
             for group in selection_groups:
                 tmp_coors1 = _digest_coordinates(tmp_item1, group, frame_indices1, engine='molmodmt')
                 masses = _get_masses(tmp_item1, group, engine='mdtraj')
-                tmp_com = _libcom.weighted_center(pbc, tmp_coors1, masses,
+                tmp_com = _libgeometry.center_of_mass(pbc, tmp_coors1, masses,
                                                   tmp_item1.trajectory.box,
                                                   tmp_item1.trajectory.orthogonal,
-                                                  tmp_coors1.shape[1],
-                                                  tmp_coors1.shape[0])
+                                                  tmp_coors1.shape[0],
+                                                  tmp_coors1.shape[1])
                 com.append(tmp_com.reshape(tmp_coors1.shape[0],1,3))
             com=_np.concatenate(com,axis=1)
 
@@ -106,8 +106,8 @@ def center_of_mass(item=None, selection=None, selection_groups=None, frame=None,
         del(tmp_item1, tmp_item, atom_indices1, frame_indices1)
         return com
 
-
     else:
+
         raise NotImplementedError(NotImplementedMessage)
 
 

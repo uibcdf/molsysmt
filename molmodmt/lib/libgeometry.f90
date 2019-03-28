@@ -5,6 +5,47 @@ USE MODULE_MATH
 
 CONTAINS
 
+  FUNCTION GEOMETRICAL_CENTER(coors,n_frames,n_atoms) RESULT(center)
+
+    IMPLICIT NONE
+
+    INTEGER, INTENT(IN)::n_atoms,n_frames
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
+    DOUBLE PRECISION,DIMENSION(n_frames,3)::center
+
+    DOUBLE PRECISION,DIMENSION(n_atoms)::weights
+
+    weights(:)=1.0d0
+
+    center=CENTER_OF_MASS(coors,weights,n_frames,n_atoms)
+
+  END FUNCTION
+
+  FUNCTION CENTER_OF_MASS(coors,weights,n_frames,n_atoms) RESULT(center)
+ 
+    IMPLICIT NONE
+ 
+    INTEGER,INTENT(IN)::n_atoms,n_frames
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
+    DOUBLE PRECISION,DIMENSION(n_atoms),INTENT(IN)::weights
+    DOUBLE PRECISION,DIMENSION(n_frames,3)::center
+ 
+    INTEGER::ii,ll
+    DOUBLE PRECISION::total_weight
+ 
+    center(:,:)=0.0d0
+    total_weight=SUM(weights)
+ 
+
+    DO ll=1,n_frames
+      DO ii=1,n_atoms
+          center(ll,:)=center(ll,:)+weights(ii)*coors(ll,ii,:)
+      END DO
+      center(ll,:)=center(ll,:)/total_weight
+    END DO
+ 
+  END FUNCTION CENTER_OF_MASS
+
   FUNCTION DIST2POINTS(point1,point2,box,inv,ortho,pbc_opt) RESULT (valdist)
       
     IMPLICIT NONE    
@@ -23,15 +64,15 @@ CONTAINS
   END FUNCTION DIST2POINTS
   
   SUBROUTINE DISTANCE(diff_set,coors1,coors2,box,inv,ortho,&
-          pbc_opt,n1,n2,nframes,matrix)
+          pbc_opt,n1,n2,n_frames,matrix)
   
   IMPLICIT NONE
   INTEGER,INTENT(IN)::diff_set,pbc_opt,ortho
-  INTEGER,INTENT(IN)::n1,n2,nframes
-  DOUBLE PRECISION,DIMENSION(nframes,n1,3),INTENT(IN)::coors1
-  DOUBLE PRECISION,DIMENSION(nframes,n2,3),INTENT(IN)::coors2
-  DOUBLE PRECISION,DIMENSION(nframes,3,3),INTENT(IN)::box,inv
-  DOUBLE PRECISION,DIMENSION(nframes,n1,n2),INTENT(OUT)::matrix
+  INTEGER,INTENT(IN)::n1,n2,n_frames
+  DOUBLE PRECISION,DIMENSION(n_frames,n1,3),INTENT(IN)::coors1
+  DOUBLE PRECISION,DIMENSION(n_frames,n2,3),INTENT(IN)::coors2
+  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
+  DOUBLE PRECISION,DIMENSION(n_frames,n1,n2),INTENT(OUT)::matrix
   
   INTEGER::ii,jj,kk
   DOUBLE PRECISION::val_aux
@@ -42,7 +83,7 @@ CONTAINS
   ALLOCATE(tmp_box(3,3),tmp_inv(3,3))
 
   IF (diff_set==1) THEN
-    DO kk=1,nframes
+    DO kk=1,n_frames
       tmp_box=box(kk,:,:)
       tmp_inv=inv(kk,:,:)
       DO ii=1,n1
@@ -54,7 +95,7 @@ CONTAINS
       END DO
     END DO
   ELSE
-    DO kk=1,nframes
+    DO kk=1,n_frames
       tmp_box=box(kk,:,:)
       tmp_inv=inv(kk,:,:)
       DO ii=1,n1
@@ -75,29 +116,35 @@ CONTAINS
  
   END SUBROUTINE DISTANCE
 
-  FUNCTION RADIUS_GYRATION (coors,n_frames,n_atoms) RESULT(Rg)
+  FUNCTION RADIUS_GYRATION (coors,weights,n_frames,n_atoms) RESULT(Rg)
 
     IMPLICIT NONE    
     INTEGER, INTENT(IN)::n_frames,n_atoms
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
+    DOUBLE PRECISION,DIMENSION(n_atoms),INTENT(IN)::weights
     DOUBLE PRECISION,DIMENSION(n_frames)::Rg
 
+    INTEGER::ii,jj
     DOUBLE PRECISION,DIMENSION(n_frames,3)::com
     DOUBLE PRECISION,DIMENSION(3)::vect_aux
+    DOUBLE PRECISION::total_weight
     DOUBLE PRECISION::val_aux
 
     Rg(:) = 0.0d0
-    com = CENTER_OF_MASS(coors,n_frames,n_atoms)
+    com = CENTER_OF_MASS(coors,weights,n_frames,n_atoms)
+    total_weight=SUM(weights)
 
     DO ii=1,n_frames
         val_aux=0.0d0
         DO jj=1,n_atoms
             vect_aux = coors(ii,jj,:)-com(ii,:)
-            Rg(ii)=Rg(ii)+dot_product(vect_aux,vect_aux)
+            Rg(ii)=Rg(ii)+weights(jj)*dot_product(vect_aux,vect_aux)
         END DO
     END DO
 
+    Rg(:)=Rg(:)/total_weight
 
   END FUNCTION
 
 END MODULE MODULE_GEOMETRY
+ 
