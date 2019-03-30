@@ -15,9 +15,8 @@ def to_nglview(item):
     tmp_view = _show_pytraj(item)
     return tmp_view
 
-def get_shape(item):
-
-    return item.n_frames, item.n_atoms
+def get_info(item, atoms_list=None, **kwargs):
+    pass
 
 def select_with_mdtraj(item, selection):
 

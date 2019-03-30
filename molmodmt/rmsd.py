@@ -1,7 +1,7 @@
 from mdtraj import rmsd as _mdtraj_rmsd
 from mdtraj import lprmsd as _mdtraj_lprmsd
 from numpy import asarray as _asarray, arange as _arange
-from .multitool import get_form as _get_form, get_shape as _get_shape, select as _select, convert as _convert
+from .multitool import get_form as _get_form, select as _select, convert as _convert
 from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
 
 def rmsd(ref_item=None, item=None,

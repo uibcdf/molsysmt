@@ -8,7 +8,7 @@ is_form={
     _molmodmt_Topology : form_name
 }
 
-def get_shape(item):
+def get_info(item, atoms_list=None, **kwargs):
     raise NotImplementedError(NotImplementedMessage)
 
 def select_with_mdtraj(item, selection):

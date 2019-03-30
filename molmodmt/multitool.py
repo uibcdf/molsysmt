@@ -8,7 +8,7 @@ from .formats.engines import dict_is_form as _dict_engines_is_form, \
     dict_selector as _dict_engines_selector, \
     dict_extractor as _dict_engines_extractor, \
     dict_merger as _dict_engines_merger, \
-    dict_get_shape as _dict_engines_get_shape, \
+    dict_get_info as _dict_engines_get_info, \
     dict_get_molecules as _dict_engines_get_molecules
 
 ## Classes
@@ -18,7 +18,7 @@ from .formats.classes import dict_is_form as _dict_classes_is_form, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
     dict_merger as _dict_classes_merger, \
-    dict_get_shape as _dict_classes_get_shape, \
+    dict_get_info as _dict_classes_get_info, \
     dict_get_molecules as _dict_classes_get_molecules
 
 ## Files
@@ -28,7 +28,7 @@ from .formats.files import dict_is_form as _dict_files_is_form, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
     dict_merger as _dict_files_merger, \
-    dict_get_shape as _dict_files_get_shape, \
+    dict_get_info as _dict_files_get_info, \
     dict_get_molecules as _dict_files_get_molecules
 
 ## IDs
@@ -38,7 +38,7 @@ from .formats.ids import dict_is_form as _dict_ids_is_form, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
     dict_merger as _dict_ids_merger, \
-    dict_get_shape as _dict_ids_get_shape, \
+    dict_get_info as _dict_ids_get_info, \
     dict_get_molecules as _dict_ids_get_molecules
 
 ## Sequences
@@ -48,7 +48,7 @@ from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
     dict_merger as _dict_seqs_merger, \
-    dict_get_shape as _dict_seqs_get_shape, \
+    dict_get_info as _dict_seqs_get_info, \
     dict_get_molecules as _dict_seqs_get_molecules
 
 ## Viewers
@@ -58,7 +58,7 @@ from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
     dict_merger as _dict_viewers_merger, \
-    dict_get_shape as _dict_viewers_get_shape, \
+    dict_get_info as _dict_viewers_get_info, \
     dict_get_molecules as _dict_viewers_get_molecules
 
 _dict_is_form = {**_dict_engines_is_form, **_dict_classes_is_form, **_dict_files_is_form,\
@@ -71,8 +71,8 @@ _dict_extractor = {**_dict_engines_extractor, **_dict_classes_extractor, **_dict
                    **_dict_ids_extractor, **_dict_seqs_extractor, **_dict_viewers_extractor}
 _dict_merger    = {**_dict_engines_merger, **_dict_classes_merger, **_dict_files_merger,\
                    **_dict_ids_merger, **_dict_seqs_merger, **_dict_viewers_merger}
-_dict_get_shape = {**_dict_engines_get_shape, **_dict_classes_get_shape, **_dict_files_get_shape,\
-                   **_dict_ids_get_shape, **_dict_seqs_get_shape, **_dict_viewers_get_shape}
+_dict_get_info = {**_dict_engines_get_info, **_dict_classes_get_info, **_dict_files_get_info,\
+                   **_dict_ids_get_info, **_dict_seqs_get_info, **_dict_viewers_get_info}
 _dict_get_molecules = {**_dict_engines_get_molecules, **_dict_classes_get_molecules,\
                        **_dict_files_get_molecules, **_dict_ids_get_molecules,\
                        **_dict_seqs_get_molecules, **_dict_viewers_get_molecules}
@@ -194,15 +194,10 @@ def concatenate(items=None, form=None):
     #modelos, la topologia de la forma debe ser igual
     pass
 
-def info(item=None, with_form=False):
+def info(item=None):
 
-    if with_form:
-        in_form = get_form(item)
-    else:
-        in_form = "Trajectory"
-
-    num_frames, num_atoms = get_shape(item)
-
+    in_form = get_form(item)
+    n_atoms, n_frames = get_info(item,n_atoms=True,n_frames=True)
     print(in_form, "with", num_frames, "frames and", num_atoms, "atoms.")
     pass
 
@@ -226,12 +221,15 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get_shape(item=None):
+def get_info(item=None, selection=None, **kwargs):
 
     in_form = get_form(item)
+    if selection is not None:
+        atoms_list=select(item,selection=selection)
+    else:
+        atoms_list=None
 
-    return _dict_get_shape[in_form](item)
-
+    return _dict_get_info[in_form](item, atoms_list=atoms_list,**kwargs)
 
 def load (item=None, form='molmod', selection=None, pdbfix=False, pH=7.0, verbose=False, **kwargs):
 

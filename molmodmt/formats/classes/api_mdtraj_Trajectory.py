@@ -141,9 +141,32 @@ def to_nglview(item):
 
     return tmp_view
 
-def get_shape(item):
+def get_info(item, atoms_list=None, **kwargs):
 
-    return item.n_frames, item.n_atoms
+    if atoms_list is not None:
+        tmp_item = extract(item,atoms_list)
+    else:
+        tmp_item = item
+
+    result=[]
+    for option in kwargs:
+        if option=='n_atoms' and kwargs[option]==True:
+            result.append(tmp_item.n_atoms)
+        if option=='n_frames' and kwargs[option]==True:
+            result.append(tmp_item.n_frames)
+        if option=='n_residues' and kwargs[option]==True:
+            result.append(tmp_item.n_residues)
+        if option=='n_molecules' and kwargs[option]==True:
+            result.append(len(get_molecules(tmp_item)))
+        if option=='masses' and kwargs[option]==True:
+            result.append([atom.element.mass for atom in tmp_item.topology.atoms])
+
+    del(tmp_item)
+
+    if len(result)==1:
+        return result[0]
+    else:
+        return result
 
 def select_with_mdtraj(item, selection):
 

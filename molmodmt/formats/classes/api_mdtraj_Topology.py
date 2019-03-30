@@ -1,3 +1,4 @@
+from molmodmt.utils.exceptions import *
 from os.path import basename as _basename
 from mdtraj.core.topology import Topology as _mdtraj_Topology
 
@@ -63,5 +64,33 @@ def get_molecules(item,with_bonds=False):
         #tmp_molecules.append([_np.array(tmp_list_atoms),_np.array(tmp_bonds)])
     #del(molecule_sets,tmp_list_atoms,tmp_bonds)
     #return tmp_molecules
+
+def get_info(item, atoms_list=None, **kwargs):
+
+    if atoms_list is not None:
+        tmp_item = extract_atoms_list(item,atoms_list)
+    else:
+        tmp_item = item
+
+    result=[]
+    for option in kwargs:
+        if option=='n_atoms' and kwargs[option]==True:
+            result.append(tmp_item.n_atoms)
+        if option=='n_frames' and kwargs[option]==True:
+            raise BadCallError(BadCallMessage)
+        if option=='n_residues' and kwargs[option]==True:
+            result.append(tmp_item.n_residues)
+        if option=='n_molecules' and kwargs[option]==True:
+            result.append(len(get_molecules(tmp_item)))
+        if option=='masses' and kwargs[option]==True:
+            result.append([atom.element.mass for atom in tmp_item.atoms])
+
+    del(tmp_item)
+
+    if len(result)==1:
+        return result[0]
+    else:
+        return result
+
 
 

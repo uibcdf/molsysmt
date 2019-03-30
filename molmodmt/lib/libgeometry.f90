@@ -116,7 +116,7 @@ CONTAINS
  
   END SUBROUTINE DISTANCE
 
-  FUNCTION RADIUS_GYRATION (coors,weights,n_frames,n_atoms) RESULT(Rg)
+  FUNCTION RADIUS_OF_GYRATION (coors,weights,n_frames,n_atoms) RESULT(Rg)
 
     IMPLICIT NONE    
     INTEGER, INTENT(IN)::n_frames,n_atoms
@@ -143,6 +143,7 @@ CONTAINS
     END DO
 
     Rg(:)=Rg(:)/total_weight
+    Rg(:)=sqrt(Rg(:))
 
   END FUNCTION
 

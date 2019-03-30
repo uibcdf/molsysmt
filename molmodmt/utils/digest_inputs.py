@@ -1,6 +1,6 @@
 from numpy import asarray as _asarray, arange as _arange
 import numpy as _np
-from molmodmt import get_form as _get_form, get_shape as _get_shape, select as _select, convert as _convert
+from molmodmt import get_form as _get_form, get_info as _get_info, select as _select, convert as _convert
 from .exceptions import *
 
 def _one_system(item1=None, selection1=None, frame1=None, form=None):
@@ -23,7 +23,7 @@ def _one_system(item1=None, selection1=None, frame1=None, form=None):
 def _frameslist(item=None,frame=None):
 
     if frame is None:
-        tmp_frameslist = _asarray([0])
+        tmp_frameslist = list(_arange(_get_info(item,n_frames=True),dtype=int))
     elif type(frame) == int:
         tmp_frameslist = _asarray([frame])
     elif type(frame) == list:
@@ -31,47 +31,44 @@ def _frameslist(item=None,frame=None):
     elif type(frame) == _np.ndarray:
         tmp_frameslist = frame
     elif frame == 'all':
-        tmp_frameslist = _arange(_get_shape(item)[0])
+        tmp_frameslist = _arange(_get_info(item,n_frames=True))
 
     return tmp_frameslist
 
-def _coordinates(item=None, selection=None, frame=None, form='molmodmt.Trajectory'):
+def _coordinates(item=None, atoms_list=None, frames_list=None, form='molmodmt.Trajectory'):
 
     if form=='molmodmt.MolMod':
-
-        tmp_atomslist=_select(item,selection)
-        tmp_frameslist=_frameslist(item,frame)
-        tmp_coordinates = item.trajectory.coordinates[tmp_frameslist,tmp_atomslist,:]
-        tmp_natoms = tmp_atomslist.shape[0]
-        tmp_nframes = tmp_frameslist.shape[0]
-        if tmp_natoms==1 and tmp_nframes==1:
-            tmp_coordinates = tmp_coordinates.reshape(1,1,3)
-        elif tmp_natoms==1:
-            tmp_coordinates = tmp_coordinates.reshape(tmp_nframes,1,3)
-        elif tmp_nframes==1:
-            tmp_coordinates = tmp_coordinates.reshape(1,tmp_natoms,3)
-
-        return tmp_coordinates
-
+        tmp_item = item.trajectory
     elif form=='molmodmt.Trajectory':
-
-        tmp_atomslist=_select(item,selection)
-        tmp_frameslist=_frameslist(item,frame)
-        tmp_coordinates = item.coordinates[tmp_frameslist,tmp_atomslist,:]
-        tmp_natoms = tmp_atomslist.shape[0]
-        tmp_nframes = tmp_frameslist.shape[0]
-        if tmp_natoms==1 and tmp_nframes==1:
-            tmp_coordinates = tmp_coordinates.reshape(1,1,3)
-        elif tmp_natoms==1:
-            tmp_coordinates = tmp_coordinates.reshape(tmp_nframes,1,3)
-        elif tmp_nframes==1:
-            tmp_coordinates = tmp_coordinates.reshape(1,tmp_natoms,3)
-
-        return tmp_coordinates
-
+        tmp_item = item
     else:
-
         raise NotImplementedError(NotImplementedMessage)
+
+    if atoms_list is not None:
+        if frames_list is not None:
+            tmp_coordinates = tmp_item.coordinates[frames_list,:,:]
+            tmp_coordinates = tmp_coordinates[:,atoms_list,:]
+        else:
+            tmp_coordinates = tmp_item.coordinates[:,atoms_list,:]
+    else:
+        if frames_list is not None:
+            tmp_frameslist=_frameslist(tmp_item,frame)
+            tmp_coordinates = tmp_item.coordinates[frames_list,:,:]
+        else:
+            tmp_coordinates = tmp_item.coordinates
+
+    tmp_natoms = tmp_coordinates.shape[1]
+    tmp_nframes = tmp_coordinates.shape[0]
+
+    if tmp_natoms==1 and tmp_nframes==1:
+        tmp_coordinates = tmp_coordinates.reshape(1,1,3)
+    elif tmp_natoms==1:
+        tmp_coordinates = tmp_coordinates.reshape(tmp_nframes,1,3)
+    elif tmp_nframes==1:
+        tmp_coordinates = tmp_coordinates.reshape(1,tmp_natoms,3)
+
+    return tmp_coordinates, tmp_nframes, tmp_natoms
+
 
 def _comparison_two_systems(item1=None, selection1=None, frame1=None,
                             item2=None, selection2=None, frame2=None,

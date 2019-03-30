@@ -18,7 +18,7 @@ def to_mdtraj(item):
     del(_to_mdtraj)
     return tmp_mdtraj_item
 
-def get_shape(item):
+def get_info(item, atoms_list=None, **kwargs):
     raise NotImplementedError(NotImplementedMessage)
 
 def select_with_mdtraj(item, selection):

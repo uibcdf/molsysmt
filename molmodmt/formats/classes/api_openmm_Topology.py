@@ -40,3 +40,12 @@ def to_yank_Topography(item):
     tmp_form = _yank_Topography(item)
     del(_yank_Topography)
     return tmp_form
+
+def extract_atoms_list(item, atoms_list):
+    from .api_mdtraj_Topology import extract_atoms_list as _mdtraj_Topology_extract
+    from .api_mdtraj_Topology import to_openmm_Topology as _mdtraj_to_openmm
+    tmp_item=to_mdtraj_Topology(item)
+    tmp_item=_mdtraj_Topology_extract(tmp_item,atoms_list)
+    tmp_item=_mdtraj_to_openmm(tmp_item)
+    return tmp_item
+

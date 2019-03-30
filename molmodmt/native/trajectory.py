@@ -16,12 +16,12 @@ class Trajectory():
         self.box   = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
         self.cell  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
         self.timestep  = None
-        self.integstep  = None
+        self.integstep = None
         self.step  = None
         self.time  = None
         self.model = None # In case it is a model and not a timestep
-        self.nframes = 0
-        self.natoms = 0
+        self.n_frames = 0
+        self.n_atoms = 0
 
         self.invbox       = None #_np.zeros(shape=(n_frames,3,3),dtype=float,order='F')
         self.orthogonal   = 0
@@ -35,7 +35,7 @@ class Trajectory():
         self.structure = None
 
         self._length_units = _unit.nanometers
-        self._time_units     = _unit.picoseconds
+        self._time_units = _unit.picoseconds
 
         self.filename = filename
 
@@ -63,8 +63,8 @@ class Trajectory():
         self.time  = time
 
         if self.coordinates is not None:
-            self.nframes = self.coordinates.shape[0]
-            self.natoms = self.coordinates.shape[1]
+            self.n_frames = self.coordinates.shape[0]
+            self.n_atoms = self.coordinates.shape[1]
 
         ii = self.coordinates
         if ii is not None:
@@ -103,15 +103,15 @@ class Trajectory():
         pass
 
     def cell2box(self):
-        self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell, self.nframes)
+        self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell, self.n_frames)
         pass
 
     def box2cell(self):
-        self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box, self.nframes)
+        self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box, self.n_frames)
         pass
 
     def box2invbox(self):
-        self.invbox=_libbox.box2invbox(self.box, self.nframes)
+        self.invbox=_libbox.box2invbox(self.box, self.n_frames)
         pass
 
     def unwrap(self,selection=None,min_image_selection=None,syntaxis='mdtraj'):
@@ -139,7 +139,7 @@ class Trajectory():
         _libbox.unwrap(self.coordinates, molecules_array_all,
                        molecules_array_starts, bonds_array_all, bonds_array_starts,
                        self.box, self.invbox, self.orthogonal,
-                       self.nframes, self.natoms,
+                       self.n_frames, self.n_atoms,
                        molecules_array_all.shape[0], molecules_array_starts.shape[0],
                        bonds_array_all.shape[0], bonds_array_starts.shape[0])
 
@@ -154,11 +154,14 @@ class Trajectory():
         #self.coors=ascontiguous_np.array(self.coors)
         pass
 
-    def extract(self,selection=None):  # Extract new frame complete frame from selection
-        #tmp_frame=deepcopy(self)
-        #tmp_frame.coors=tmp_frame.coors[selection,:]
-        #return tmp_frame
-        pass
+    def extract(self,atoms_list=None):
+        from molmodmt.multitool import extract as _molmodmt_extract
+        tmp_item=deepcopy(self)
+        tmp_item.coordinates=tmp_item.coordinates[:,atoms_list,:]
+        tmp_item.n_atoms=len(atoms_list)
+        tmp_item.topology=_molmodmt_extract(self.topology,atoms_list)
+        tmp_item.topology_mdtraj=_molmodmt_extract(self.topology_mdtraj,atoms_list)
+        return tmp_item
 
     def iterload(self,chunk=100, stride=1, skip=0, selection=None, syntaxis='mdtraj'):
 
@@ -178,14 +181,16 @@ class Trajectory():
                                                 stride=stride, atom_indices=atoms_list)
 
         while True:
-            tmp_mdtraj = next(iterator)
-            if tmp_mdtraj is None:
+            try:
+                tmp_mdtraj = next(iterator)
+            except StopIteration:
                 return
             self._import_mdtraj_data(tmp_mdtraj)
             if atoms_list is not None:
-                self._import_mdtraj_topology(tmp_mdtrajectory)
+                self._import_mdtraj_topology(tmp_mdtraj)
             del(tmp_mdtraj)
             yield
+
 
     def load(self,frame=None,selection=None,syntaxis='mdtraj'):
 
