@@ -192,7 +192,7 @@ class Trajectory():
             yield
 
 
-    def load(self,frame=None,selection=None,syntaxis='mdtraj'):
+    def load(self,frame='all',selection=None,syntaxis='mdtraj'):
 
         from mdtraj import load as _mdtraj_load
         from mdtraj import join as _mdtraj_join
