@@ -19,12 +19,20 @@ ext_pbc = Extension(
     sources = ['molmodmt/lib/libpbc.f90'],
 )
 
+ext_com = Extension(
+    name = 'molmodmt.lib.libcom',
+    extra_compile_args = [],
+    libraries = [],
+    language = 'f90',
+    sources = ['molmodmt/lib/libcom.f90'],
+)
+
 ext_box = Extension(
     name = 'molmodmt.lib.libbox',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/lib/libbox.f90','molmodmt/lib/libpbc.f90'],
+    sources = ['molmodmt/lib/libbox.f90','molmodmt/lib/libpbc.f90','molmodmt/lib/libcom.f90'],
 )
 
 ext_geometry = Extension(
@@ -32,7 +40,8 @@ ext_geometry = Extension(
     extra_compile_args = [],
     libraries = ['lapack'],
     language = 'f90',
-    sources = ['molmodmt/lib/libgeometry.f90','molmodmt/lib/libpbc.f90','molmodmt/lib/libmath.f90'],
+    sources = ['molmodmt/lib/libgeometry.f90','molmodmt/lib/libpbc.f90','molmodmt/lib/libmath.f90',
+               'molmodmt/lib/libcom.f90'],
 )
 
 ext_rmsd = Extension(
@@ -52,7 +61,7 @@ ext_rmsd = Extension(
 # )
 
 extensions_list=[]
-extensions_lib=[ext_box, ext_math, ext_pbc, ext_geometry]
+extensions_lib=[ext_com, ext_box, ext_math, ext_pbc, ext_geometry]
 extensions_list.extend(extensions_lib)
 
 setup(

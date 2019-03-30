@@ -1,6 +1,7 @@
 MODULE MODULE_BOX
 
 USE MODULE_PBC
+USE MODULE_COM
 
 CONTAINS
 
@@ -257,6 +258,46 @@ CONTAINS
     END DO
 
   END SUBROUTINE UNWRAP
+
+  SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors,molecules,molecules_start,reference, &
+      box,inv,ortho,n_frames,n_atoms,n_molecules,n_molecules_start,n_reference)
+
+    IMPLICIT NONE
+
+    INTEGER,INTENT(IN):: n_frames, n_atoms, ortho
+    INTEGER,INTENT(IN):: n_molecules, n_molecules_start, n_reference
+
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
+    INTEGER,DIMENSION(n_molecules),INTENT(IN)::molecules
+    INTEGER,DIMENSION(n_molecules_start),INTENT(IN)::molecules_start
+    INTEGER,DIMENSION(n_reference),INTENT(IN)::reference
+    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
+
+    INTEGER::ii,jj,kk
+    DOUBLE PRECISION,DIMENSION(n_frames,3)::com_reference,com,vect_aux
+    INTEGER:: molecule_start, molecule_end, molecule_natoms
+    INTEGER,DIMENSION(:),ALLOCATABLE:: indices_molecule
+
+    com_reference = GEOMETRICAL_CENTER(coors(:,reference(:)+1,:),n_frames,n_reference)
+
+    DO ii=1,n_molecules_start-1
+        molecule_start=molecules_start(ii)+1
+        molecule_end=molecules_start(ii+1)
+        molecule_natoms=molecule_end-molecule_start+1
+        ALLOCATE(indices_molecule(molecule_natoms))
+        indices_molecule(:)=molecules(molecule_start:molecule_end)+1
+        com = GEOMETRICAL_CENTER(coors(:,indices_molecule(:),:),n_frames,molecule_natoms)
+        vect_aux=com-com_reference
+        CALL PBC_FRAMES(vect_aux,box,inv,ortho,n_frames)
+        DO jj=1,molecule_natoms
+            kk=indices_molecule(jj)
+            coors(:,kk,:)=coors(:,kk,:)-com(:,:)+vect_aux(:,:)+com_reference(:,:)
+        END DO
+        DEALLOCATE(indices_molecule)
+    END DO 
+
+  END SUBROUTINE MINIMUM_IMAGE_CONVENTION
+
 
 END MODULE MODULE_BOX
 

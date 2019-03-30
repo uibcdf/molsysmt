@@ -114,7 +114,42 @@ class Trajectory():
         self.invbox=_libbox.box2invbox(self.box, self.n_frames)
         pass
 
-    def unwrap(self,selection=None,min_image_selection=None,syntaxis='mdtraj'):
+    def minimum_image_convention(self,selection=None, reference=None, syntaxis='mdtraj'):
+
+        from molmodmt import select as _select
+        from molmodmt import get_molecules as _get_molecules
+        from molmodmt.utils.fortran import listoflists2fortran as _listoflists2fortran
+
+        molecules = _get_molecules(self.topology_mdtraj,with_bonds=False)
+
+        if selection is not None:
+            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
+            molecules2translate = []
+            for molecule in molecules:
+                if len(_np.intersect1d(molecule,atoms_list)):
+                    molecules2translate.append(molecule)
+            molecules=molecules2translate
+
+        molecules_array_all, molecules_array_starts = _listoflists2fortran(molecules,dtype='int64')
+
+        atoms_list_reference = _select(self.topology_mdtraj,reference,syntaxis)
+
+        self.coordinates=_np.asfortranarray(self.coordinates,dtype='float64')
+        self.box=_np.asfortranarray(self.box,dtype='float64')
+        self.invbox=_np.asfortranarray(self.invbox,dtype='float64')
+        _libbox.minimum_image_convention(self.coordinates, molecules_array_all,
+                       molecules_array_starts, atoms_list_reference,
+                       self.box, self.invbox, self.orthogonal,
+                       self.n_frames, self.n_atoms,
+                       molecules_array_all.shape[0], molecules_array_starts.shape[0],
+                       atoms_list_reference.shape[0])
+
+        self.coordinates=_np.ascontiguousarray(self.coordinates)
+        self.box=_np.ascontiguousarray(self.box)
+        self.invbox=_np.ascontiguousarray(self.invbox)
+        pass
+
+    def unwrap(self,selection=None,minimum_image_reference=None,syntaxis='mdtraj'):
 
         from molmodmt import select as _select
         from molmodmt import get_molecules as _get_molecules

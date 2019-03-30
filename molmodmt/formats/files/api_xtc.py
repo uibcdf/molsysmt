@@ -4,8 +4,7 @@ from molmodmt.utils.exceptions import *
 form_name=_basename(__file__).split('.')[0].split('_')[-1]
 
 is_form = {
-    'xtc': form_name,
-    'XTC': form_name
+    'xtc': form_name
     }
 
 def to_mdtraj_Trajectory(item, topology=None):
@@ -21,6 +20,19 @@ def to_mdtraj_Trajectory(item, topology=None):
 def to_molmod(item, topology=None, frames=None):
 
     return to_molmodmt_MolMod(item,topology,frames)
+
+
+def to_parmed(item, topology=None):
+    return to_parmed_GromacsTopologyFile(item,topology)
+
+def to_parmed_Structure(item, topology=None):
+    return to_parmed_GromacsTopologyFile(item,topology)
+
+def to_parmed_GromacsTopologyFile(item, topology=None):
+
+    from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
+    tmp_molmod_Structure=_parmed_from_gromacs(topology)
+    return tmp_molmod_Structure
 
 def to_molmodmt_MolMod(item, topology=None, frames=None):
 
