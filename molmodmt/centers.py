@@ -1,5 +1,5 @@
 import numpy as _np
-from .multitool import get_form as _get_form, select as _select, get_info as _get_info
+from .multitool import get_form as _get_form, select as _select, get as _get
 from .multitool import convert as _convert, extract as _extract
 from .utils.digest_inputs import _one_system as _digest_one_system
 from .utils.digest_inputs import _coordinates as _digest_coordinates
@@ -63,7 +63,7 @@ def center_of_mass(item=None, selection=None, selection_groups=None, frame=None,
             tmp_nframes=tmp_coors1.shape[0]
             tmp_natoms =tmp_coors1.shape[1]
 
-            masses = _get_info(item, selection=selection, masses=True)
+            masses = _get(item, selection=selection, masses=True)
 
             com = _libgeometry.center_of_mass(tmp_coors1, masses, tmp_nframes, tmp_natoms)
 
@@ -76,7 +76,7 @@ def center_of_mass(item=None, selection=None, selection_groups=None, frame=None,
                 tmp_coors1 = _digest_coordinates(tmp_item1, group, frame_indices1, engine='molmodmt')
                 tmp_nframes=tmp_coors1.shape[0]
                 tmp_natoms =tmp_coors1.shape[1]
-                masses = _get_info(tmp_item1, selection=group, masses=True)
+                masses = _get(tmp_item1, selection=group, masses=True)
                 tmp_com = _libgeometry.center_of_mass(tmp_coors1, masses, tmp_nframes, tmp_natoms)
                 com.append(tmp_com.reshape(tmp_coors1.shape[0],1,3))
 

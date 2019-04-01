@@ -20,3 +20,8 @@ def to_parmed_GromacsTopologyFile(item):
     tmp_molmod_Structure=_parmed_from_gromacs(item)
     return tmp_molmod_Structure
 
+def to_molmodmt_Structure(item):
+
+    from molmodmt.native.io_structure import _from_gromacs_Topology
+    return _from_gromacs_Topology(item)
+

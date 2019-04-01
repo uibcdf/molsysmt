@@ -141,7 +141,7 @@ def to_nglview(item):
 
     return tmp_view
 
-def get_info(item, atoms_list=None, **kwargs):
+def get(item, atoms_list=None, **kwargs):
 
     if atoms_list is not None:
         tmp_item = extract(item,atoms_list)
@@ -160,6 +160,9 @@ def get_info(item, atoms_list=None, **kwargs):
             result.append(len(get_molecules(tmp_item)))
         if option=='masses' and kwargs[option]==True:
             result.append([atom.element.mass for atom in tmp_item.topology.atoms])
+        if option=='molecules' and kwargs[option]==True:
+            from .api_mdtraj_Topology import get_molecules as _get_molecules
+            result.append(_get_molecules(item.topology))
 
     del(tmp_item)
 
@@ -184,9 +187,4 @@ def merge_two_items(item1, item2, in_place=False):
         pass
     else:
         return tmp_item
-
-def get_molecules(item):
-
-    from .api_mdtraj_Topology import get_molecules as _get_molecules
-    return _get_molecules(item.topology)
 

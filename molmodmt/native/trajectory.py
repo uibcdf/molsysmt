@@ -117,10 +117,10 @@ class Trajectory():
     def minimum_image_convention(self,selection=None, reference=None, syntaxis='mdtraj'):
 
         from molmodmt import select as _select
-        from molmodmt import get_molecules as _get_molecules
+        from molmodmt import get as _get
         from molmodmt.utils.fortran import listoflists2fortran as _listoflists2fortran
 
-        molecules = _get_molecules(self.topology_mdtraj,with_bonds=False)
+        molecules = _get(self.topology_mdtraj,molecules=True)
 
         if selection is not None:
             atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
@@ -152,10 +152,10 @@ class Trajectory():
     def unwrap(self,selection=None,minimum_image_reference=None,syntaxis='mdtraj'):
 
         from molmodmt import select as _select
-        from molmodmt import get_molecules as _get_molecules
+        from molmodmt import get as _get
         from molmodmt.utils.fortran import listoflists2fortran as _listoflists2fortran
 
-        molecules, bonds = _get_molecules(self.topology_mdtraj,with_bonds=True)
+        molecules, bonds = _get(self.topology_mdtraj, molecules=True, bonds=True)
 
         if selection is not None:
             atoms_list = _select(self.topology_mdtraj,selection,syntaxis)

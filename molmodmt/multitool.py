@@ -8,8 +8,7 @@ from .formats.engines import dict_is_form as _dict_engines_is_form, \
     dict_selector as _dict_engines_selector, \
     dict_extractor as _dict_engines_extractor, \
     dict_merger as _dict_engines_merger, \
-    dict_get_info as _dict_engines_get_info, \
-    dict_get_molecules as _dict_engines_get_molecules
+    dict_get as _dict_engines_get
 
 ## Classes
 from .formats.classes import dict_is_form as _dict_classes_is_form, \
@@ -18,8 +17,7 @@ from .formats.classes import dict_is_form as _dict_classes_is_form, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
     dict_merger as _dict_classes_merger, \
-    dict_get_info as _dict_classes_get_info, \
-    dict_get_molecules as _dict_classes_get_molecules
+    dict_get as _dict_classes_get
 
 ## Files
 from .formats.files import dict_is_form as _dict_files_is_form, \
@@ -28,8 +26,7 @@ from .formats.files import dict_is_form as _dict_files_is_form, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
     dict_merger as _dict_files_merger, \
-    dict_get_info as _dict_files_get_info, \
-    dict_get_molecules as _dict_files_get_molecules
+    dict_get as _dict_files_get
 
 ## IDs
 from .formats.ids import dict_is_form as _dict_ids_is_form, \
@@ -38,8 +35,7 @@ from .formats.ids import dict_is_form as _dict_ids_is_form, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
     dict_merger as _dict_ids_merger, \
-    dict_get_info as _dict_ids_get_info, \
-    dict_get_molecules as _dict_ids_get_molecules
+    dict_get as _dict_ids_get
 
 ## Sequences
 from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
@@ -48,8 +44,7 @@ from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
     dict_merger as _dict_seqs_merger, \
-    dict_get_info as _dict_seqs_get_info, \
-    dict_get_molecules as _dict_seqs_get_molecules
+    dict_get as _dict_seqs_get
 
 ## Viewers
 from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
@@ -58,8 +53,7 @@ from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
     dict_merger as _dict_viewers_merger, \
-    dict_get_info as _dict_viewers_get_info, \
-    dict_get_molecules as _dict_viewers_get_molecules
+    dict_get as _dict_viewers_get
 
 _dict_is_form = {**_dict_engines_is_form, **_dict_classes_is_form, **_dict_files_is_form,\
                  **_dict_ids_is_form, **_dict_seqs_is_form, **_dict_viewers_is_form}
@@ -71,11 +65,8 @@ _dict_extractor = {**_dict_engines_extractor, **_dict_classes_extractor, **_dict
                    **_dict_ids_extractor, **_dict_seqs_extractor, **_dict_viewers_extractor}
 _dict_merger    = {**_dict_engines_merger, **_dict_classes_merger, **_dict_files_merger,\
                    **_dict_ids_merger, **_dict_seqs_merger, **_dict_viewers_merger}
-_dict_get_info = {**_dict_engines_get_info, **_dict_classes_get_info, **_dict_files_get_info,\
-                   **_dict_ids_get_info, **_dict_seqs_get_info, **_dict_viewers_get_info}
-_dict_get_molecules = {**_dict_engines_get_molecules, **_dict_classes_get_molecules,\
-                       **_dict_files_get_molecules, **_dict_ids_get_molecules,\
-                       **_dict_seqs_get_molecules, **_dict_viewers_get_molecules}
+_dict_get = {**_dict_engines_get, **_dict_classes_get, **_dict_files_get,\
+                   **_dict_ids_get, **_dict_seqs_get, **_dict_viewers_get}
 _dict_from_to = {}
 _dict_to_from = {}
 
@@ -111,23 +102,6 @@ for in_form in _dict_from_to.keys():
 def fetch(form_id=None, form=None):
 
     return convert(form_id, form)
-
-def get_topology(item=None,form='molmod'):
-
-    pass
-
-def set_topology(item=None):
-
-    pass
-
-def get_positions(item=None,form='molmod'):
-
-    pass
-
-def set_positions(item=None,positions=None):
-
-    pass
-
 
 def select(item=None, selection=None, syntaxis='mdtraj'):
 
@@ -188,16 +162,10 @@ def merge(item1=None, item2=None, in_place=False, form=None):
             tmp_item=_dict_merger[form](tmp_item,convert(item2,form),in_place=in_place)
             return tmp_item
 
-def concatenate(items=None, form=None):
-
-    #Para concatenar trajectorias o posiciones a lo largo del eje tiempo o número de frames o
-    #modelos, la topologia de la forma debe ser igual
-    pass
-
 def info(item=None):
 
     in_form = get_form(item)
-    n_atoms, n_frames = get_info(item,n_atoms=True,n_frames=True)
+    n_atoms, n_frames = get(item,n_atoms=True,n_frames=True)
     print(in_form, "with", num_frames, "frames and", num_atoms, "atoms.")
     pass
 
@@ -221,7 +189,7 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get_info(item=None, selection=None, **kwargs):
+def get(item=None, selection=None, **kwargs):
 
     in_form = get_form(item)
     if selection is not None:
@@ -229,7 +197,7 @@ def get_info(item=None, selection=None, **kwargs):
     else:
         atoms_list=None
 
-    return _dict_get_info[in_form](item, atoms_list=atoms_list,**kwargs)
+    return _dict_get[in_form](item, atoms_list=atoms_list,**kwargs)
 
 def load (item=None, form='molmod', selection=None, pdbfix=False, pH=7.0, verbose=False, **kwargs):
 
@@ -363,10 +331,5 @@ def info_viewers(for_form=None,to_viewer=None):
             return _dict_to_viewer[to_viewer]
         else:
             pass
-
-def get_molecules(item=None,with_bonds=False):
-
-    in_form = get_form(item)
-    return _dict_get_molecules[in_form](item,with_bonds)
 
 

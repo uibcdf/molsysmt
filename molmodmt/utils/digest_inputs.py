@@ -1,6 +1,6 @@
 from numpy import asarray as _asarray, arange as _arange
 import numpy as _np
-from molmodmt import get_form as _get_form, get_info as _get_info, select as _select, convert as _convert
+from molmodmt import get_form as _get_form, get as _get, select as _select, convert as _convert
 from .exceptions import *
 
 def _one_system(item1=None, selection1=None, frame1=None, form=None):
@@ -23,7 +23,7 @@ def _one_system(item1=None, selection1=None, frame1=None, form=None):
 def _frameslist(item=None,frame=None):
 
     if frame is None:
-        tmp_frameslist = list(_arange(_get_info(item,n_frames=True),dtype=int))
+        tmp_frameslist = list(_arange(_get(item,n_frames=True),dtype=int))
     elif type(frame) == int:
         tmp_frameslist = _asarray([frame])
     elif type(frame) == list:
@@ -31,7 +31,7 @@ def _frameslist(item=None,frame=None):
     elif type(frame) == _np.ndarray:
         tmp_frameslist = frame
     elif frame == 'all':
-        tmp_frameslist = _arange(_get_info(item,n_frames=True))
+        tmp_frameslist = _arange(_get(item,n_frames=True))
 
     return tmp_frameslist
 

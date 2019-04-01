@@ -18,7 +18,7 @@ def to_mdtraj(item):
     del(_to_mdtraj)
     return tmp_mdtraj_item
 
-def get_info(item, atoms_list=None, **kwargs):
+def get(item, atoms_list=None, **kwargs):
     raise NotImplementedError(NotImplementedMessage)
 
 def select_with_mdtraj(item, selection):
@@ -26,7 +26,4 @@ def select_with_mdtraj(item, selection):
 
 def extract_atoms_list(item, atoms_list):
     return item.extract(atoms_list)
-
-def get_molecules(item,with_bonds=False):
-    return item.get_molecules(with_bonds)
 

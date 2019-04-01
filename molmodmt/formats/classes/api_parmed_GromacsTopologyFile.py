@@ -35,3 +35,7 @@ def extract_atoms_list(item, atoms_list):
     tmp_item.strip(atoms_list2AmberMask(atoms_list,len(item.atoms),inverse=True))
     return tmp_item
 
+def get(item, atoms_list=None, **kwargs):
+    from .api_parmed_Structure import get as _get
+    return _get(item, atoms_list, **kwargs)
+

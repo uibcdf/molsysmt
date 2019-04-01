@@ -44,28 +44,7 @@ def merge_two_items(item1, item2, in_place=False):
         tmp_item=item1.copy()
         return tmp_item.join(item2)
 
-def get_molecules(item,with_bonds=False):
-
-    tmp_molecules = []
-    for mm in item.find_molecules():
-        tmp_molecules.append([ii.index for ii in mm])
-    if with_bonds:
-        tmp_bonds = [[] for ii in range(item.n_atoms)]
-        for bond in item.bonds:
-            tmp_bonds[bond.atom1.index].append(bond.atom2.index)
-            tmp_bonds[bond.atom2.index].append(bond.atom1.index)
-        return tmp_molecules,tmp_bonds
-    else:
-        return tmp_molecules
-
-
-        #for bb in item.subset(tmp_list_atoms).bonds:
-        #    tmp_bonds.append([bb.atom1.index,bb.atom2.index])
-        #tmp_molecules.append([_np.array(tmp_list_atoms),_np.array(tmp_bonds)])
-    #del(molecule_sets,tmp_list_atoms,tmp_bonds)
-    #return tmp_molecules
-
-def get_info(item, atoms_list=None, **kwargs):
+def get(item, atoms_list=None, **kwargs):
 
     if atoms_list is not None:
         tmp_item = extract_atoms_list(item,atoms_list)
@@ -84,6 +63,25 @@ def get_info(item, atoms_list=None, **kwargs):
             result.append(len(get_molecules(tmp_item)))
         if option=='masses' and kwargs[option]==True:
             result.append([atom.element.mass for atom in tmp_item.atoms])
+        if option=='bonded_atoms' and kwargs[option]==True:
+            tmp_bonded = [[] for ii in range(item.n_atoms)]
+            for bond in item.bonds:
+                tmp_bonded[bond.atom1.index].append(bond.atom2.index)
+                tmp_bonded[bond.atom2.index].append(bond.atom1.index)
+            result.append(tmp_bonded)
+        if option=='bonds' and kwargs[option]==True:
+            tmp_bonds = []
+            for bond in item.bonds:
+                tmp_bonds.append([bond.atom1.index,bond.atom2.index])
+            result.append(tmp_bonds)
+        if option=='graph' and kwargs[option]==True:
+            from networks import Graph as _Graph
+            result.append(_Graph(get(item,bonds=True)))
+        if option=='molecules' and kwargs[option]==True:
+            tmp_molecules = []
+            for mm in item.find_molecules():
+                tmp_molecules.append([ii.index for ii in mm])
+            result.append(tmp_molecules)
 
     del(tmp_item)
 

@@ -16,8 +16,7 @@ dict_selector={}
 dict_extractor={}
 dict_merger={}
 dict_is_form={}
-dict_get_info={}
-dict_get_molecules={}
+dict_get={}
 
 for api_form in list_api_forms:
     module_api_form=_import_module('.'+api_form,base_package)
@@ -31,8 +30,7 @@ for form_name in list_forms:
     dict_selector[form_name]= {}
     dict_extractor[form_name]= {}
     dict_merger[form_name]= {}
-    dict_get_info[form_name]= {}
-    dict_get_molecules[form_name]= {}
+    dict_get[form_name]= {}
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):
             if method.endswith('_seq'):
@@ -49,10 +47,8 @@ for form_name in list_forms:
         dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atoms_list')
     if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():
         dict_merger[form_name]=getattr(dict_api_forms[form_name],'merge_two_items')
-    if 'get_info' in dict_api_forms[form_name].__dict__.keys():
-        dict_get_info[form_name]=getattr(dict_api_forms[form_name],'get_info')
-    if 'get_molecules' in dict_api_forms[form_name].__dict__.keys():
-        dict_get_molecules[form_name]=getattr(dict_api_forms[form_name],'get_molecules')
+    if 'get' in dict_api_forms[form_name].__dict__.keys():
+        dict_get[form_name]=getattr(dict_api_forms[form_name],'get')
 
 list_forms=sorted(list_forms)
 

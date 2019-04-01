@@ -5,12 +5,13 @@ from molmodmt.native.trajectory import Trajectory as _molmodmt_Trajectory
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    _molmodmt_Trajectory : form_name
+    _molmodmt_Trajectory : form_name,
+    'molmodmt.Trajectory' : form_name
 }
 
-def get_info(item, atoms_list=None, **kwargs):
+def get(item, atoms_list=None, **kwargs):
 
-    from .api_mdtraj_Topology import get_info as _get_info
+    from .api_mdtraj_Topology import get as _get
 
     if atoms_list is not None:
         from .api_mdtraj_Topology import extract_atoms_list as _mdtraj_extract
@@ -25,11 +26,15 @@ def get_info(item, atoms_list=None, **kwargs):
         if option=='n_frames' and kwargs[option]==True:
             result.append(item.n_frames)
         if option=='n_residues' and kwargs[option]==True:
-            result.append(_get_item(tmp_topology,n_residues=True))
+            result.append(_get(tmp_topology,n_residues=True))
         if option=='n_molecules' and kwargs[option]==True:
-            result.append(_get_info(tmp_topology,n_molecules=True))
+            result.append(_get(tmp_topology,n_molecules=True))
         if option=='masses' and kwargs[option]==True:
-            result.append(_get_info(tmp_topology,masses=True))
+            result.append(_get(tmp_topology,masses=True))
+        if option=='bonds' and kwargs[option]==True:
+            result.append(_get(tmp_topology,bonds=True))
+        if option=='molecules' and kwargs[option]==True:
+            result.append(_get(tmp_topology,molecules=True))
 
     if len(result)==1:
         return result[0]
@@ -62,9 +67,5 @@ def to_nglview(item):
         tmp_item = to_mdtraj_Trajectory(item)
 
     return _mdtraj_to_nglview(tmp_item)
-
-def get_molecules(item,with_bonds):
-    from .api_mdtraj_Trajectory import get_molecules as _get_molecules
-    return _get_molecules(item.topology_mdtraj,with_bonds)
 
 
