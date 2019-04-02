@@ -31,10 +31,20 @@ def get(item, atoms_list=None, **kwargs):
             result.append(_get(tmp_topology,n_molecules=True))
         if option=='masses' and kwargs[option]==True:
             result.append(_get(tmp_topology,masses=True))
+        if option=='bonded_atoms' and kwargs[option]==True:
+            result.append(_get(tmp_topology,bonded_atoms=True))
         if option=='bonds' and kwargs[option]==True:
             result.append(_get(tmp_topology,bonds=True))
+        if option=='graph' and kwargs[option]==True:
+            result.append(_get(tmp_topology,graph=True))
         if option=='molecules' and kwargs[option]==True:
             result.append(_get(tmp_topology,molecules=True))
+        if option=='molecule_type' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='residue_type' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='atom_type' and kwargs[option]==True:
+            raise NotImplementedError
 
     if len(result)==1:
         return result[0]

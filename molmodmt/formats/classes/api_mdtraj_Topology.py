@@ -75,13 +75,18 @@ def get(item, atoms_list=None, **kwargs):
                 tmp_bonds.append([bond.atom1.index,bond.atom2.index])
             result.append(tmp_bonds)
         if option=='graph' and kwargs[option]==True:
-            from networks import Graph as _Graph
-            result.append(_Graph(get(item,bonds=True)))
+            result.append(item.to_bondgraph())
         if option=='molecules' and kwargs[option]==True:
             tmp_molecules = []
             for mm in item.find_molecules():
                 tmp_molecules.append([ii.index for ii in mm])
             result.append(tmp_molecules)
+        if option=='molecule_type' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='residue_type' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='atom_type' and kwargs[option]==True:
+            raise NotImplementedError
 
     del(tmp_item)
 

@@ -43,5 +43,25 @@ CONTAINS
  
   END FUNCTION CENTER_OF_MASS
 
+  SUBROUTINE RECENTER(coors,atoms_center,weights,n_frames,n_atoms,n_atoms_center)
+ 
+    IMPLICIT NONE
+ 
+    INTEGER,INTENT(IN)::n_atoms,n_frames,n_atoms_center
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
+    INTEGER,DIMENSION(n_atoms_center),INTENT(IN)::atoms_center
+    DOUBLE PRECISION,DIMENSION(n_atoms_center),INTENT(IN)::weights
+
+    INTEGER::ii
+    DOUBLE PRECISION,DIMENSION(n_frames,3)::center
+ 
+    center=CENTER_OF_MASS(coors(:,atoms_center,:),weights,n_frames,n_atoms_center)
+
+    DO ii=1,n_atoms
+        coors(:,ii,:)=coors(:,ii,:)-center(:,:)
+    END DO
+
+  END SUBROUTINE
+
 END MODULE MODULE_COM
  

@@ -73,7 +73,6 @@ def _coordinates(item=None, atoms_list=None, frames_list=None, form='molmodmt.Tr
 def _comparison_two_systems(item1=None, selection1=None, frame1=None,
                             item2=None, selection2=None, frame2=None,
                             form=None):
-
     single_item = False
     diff_selection = True
     atom_indices1=None
@@ -128,4 +127,3 @@ def _comparison_two_systems(item1=None, selection1=None, frame1=None,
     return tmp_item1, atom_indices1, frame_indices1, \
            tmp_item2, atom_indices2, frame_indices2, \
            single_item, diff_selection
-

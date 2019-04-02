@@ -263,14 +263,19 @@ def write(item=None,filename=None):
 
     return convert(item,filename)
 
-def view(item=None,viewer='nglview'):
+def view(item=None,selection=None,viewer='nglview'):
 
     if type(item) in [list,tuple]:
         in_form = get_form(item[0])
     else:
         in_form = get_form(item)
 
-    return _dict_converter[in_form][viewer](item)
+    if selection is not None:
+        tmp_item = extract(item,selection)
+    else:
+        tmp_item = item
+
+    return _dict_converter[in_form][viewer](tmp_item)
 
 def info_forms(engines=True,classes=True,files=True,verbose=True):
 

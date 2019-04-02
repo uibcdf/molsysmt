@@ -1,3 +1,4 @@
+from molmodmt.utils.exceptions import *
 from os.path import basename as _basename
 from pytraj import Trajectory as _pytraj_Trajectory
 
@@ -8,7 +9,6 @@ is_form={
     _pytraj_Trajectory : form_name
     }
 
-
 def to_nglview(item):
 
     from nglview import show_pytraj as _show_pytraj
@@ -16,6 +16,7 @@ def to_nglview(item):
     return tmp_view
 
 def get(item, atoms_list=None, **kwargs):
+    raise NotImplementedError
     pass
 
 def select_with_mdtraj(item, selection):

@@ -1,6 +1,7 @@
 import numpy as _np
 from simtk import unit as _unit
 from molmodmt.lib import box as _libbox
+from molmodmt.lib import com as _libcom
 from molmodmt.utils.exceptions import *
 from copy import deepcopy
 
@@ -155,7 +156,7 @@ class Trajectory():
         from molmodmt import get as _get
         from molmodmt.utils.fortran import listoflists2fortran as _listoflists2fortran
 
-        molecules, bonds = _get(self.topology_mdtraj, molecules=True, bonds=True)
+        molecules, bonds = _get(self.topology_mdtraj, molecules=True, bonded_atoms=True)
 
         if selection is not None:
             atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
@@ -267,4 +268,26 @@ class Trajectory():
                 self._import_mdtraj_topology(tmp_mdtrajectory)
         else:
             raise BadCallError(BadCallMessage)
+
+    def recenter(self, selection=None, weights=None, syntaxis='mdtraj'):
+
+        from molmodmt import select as _select
+        from molmodmt import get as _get
+
+        if selection is not None:
+            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
+        else:
+            atoms_list = _np.arange(self.n_atoms,dtype=int)
+
+        if weights=='masses':
+            weights_array = _get(self.topology_mdtraj,atoms_list,masses=True)
+        elif weights is None:
+            weights_array = _np.ones(atoms_list.shape[0],dtype=int)
+
+        self.coordinates=_np.asfortranarray(self.coordinates,dtype='float64')
+        _libcom.recenter(self.coordinates, atoms_list, weights_array,
+                              self.n_frames, self.n_atoms, atoms_list.shape[0])
+        self.coordinates=_np.ascontiguousarray(self.coordinates)
+
+        pass
 

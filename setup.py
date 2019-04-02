@@ -49,7 +49,7 @@ ext_rmsd = Extension(
     extra_compile_args = [],
     libraries = ['lapack'],
     language = 'f90',
-    sources = ['molmodmt/lib/librmsd.f90','molmodmt/lib/libpbc.f90'],
+    sources = ['molmodmt/lib/librmsd.f90'],
 )
 
 # ext_io_dcd = Extension(
@@ -61,7 +61,7 @@ ext_rmsd = Extension(
 # )
 
 extensions_list=[]
-extensions_lib=[ext_com, ext_box, ext_math, ext_pbc, ext_geometry]
+extensions_lib=[ext_com, ext_box, ext_math, ext_pbc, ext_geometry, ext_rmsd]
 extensions_list.extend(extensions_lib)
 
 setup(
