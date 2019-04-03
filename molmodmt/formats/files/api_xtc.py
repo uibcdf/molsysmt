@@ -7,35 +7,35 @@ is_form = {
     'xtc': form_name
     }
 
-def to_mdtraj_Trajectory(item, topology=None):
+def to_mdtraj_Trajectory(item, topology=None, selection=None, syntaxis='mdtraj'):
+    from molmodmt import extract as _extract
+    from mdtraj import load as _mdtraj_load
 
     if topology is None:
         raise BadCallError(BadCallMessage)
 
-    from mdtraj import load as _mdtraj_load
     tmp_form = _mdtraj_load(item, top=topology)
+    tmp_form = _extract(tmp_form,selection=selection,syntaxis=syntaxis)
     del(_mdtraj_load)
     return tmp_form
 
-def to_molmod(item, topology=None, frames=None):
+def to_molmod(item, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
+    return to_molmodmt_MolMod(item,topology,selection=selection,syntaxis=syntaxis,frames=frames)
 
-    return to_molmodmt_MolMod(item,topology,frames)
+def to_parmed(item, topology=None, selection=None, syntaxis='mdtraj'):
+    return to_parmed_GromacsTopologyFile(item,topology,selection=selection,syntaxis=syntaxis)
 
+def to_parmed_Structure(item, topology=None, selection=None, syntaxis='mdtraj'):
+    return to_parmed_GromacsTopologyFile(item,topology,selection=selection,syntaxis=syntaxis)
 
-def to_parmed(item, topology=None):
-    return to_parmed_GromacsTopologyFile(item,topology)
-
-def to_parmed_Structure(item, topology=None):
-    return to_parmed_GromacsTopologyFile(item,topology)
-
-def to_parmed_GromacsTopologyFile(item, topology=None):
-
+def to_parmed_GromacsTopologyFile(item, topology=None, selection=None, syntaxis='mdtraj'):
+    from molmodmt import extract as _extract
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
-    tmp_molmod_Structure=_parmed_from_gromacs(topology)
-    return tmp_molmod_Structure
+    tmp_item=_parmed_from_gromacs(topology)
+    tmp_item=_extract(tmp_item,selection=selection,syntaxis=syntaxis)
+    return tmp_item
 
-def to_molmodmt_MolMod(item, topology=None, frames=None):
-
+def to_molmodmt_MolMod(item, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
     from molmodmt.native.io_molmod import from_xtc as _from_xtc
-    return _from_xtc(item, topology=topology, frames=frames)
+    return _from_xtc(item, topology=topology, selection=selection, frames=frames, syntaxis=syntaxis)
 

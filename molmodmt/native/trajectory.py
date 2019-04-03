@@ -9,7 +9,7 @@ from copy import deepcopy
 
 class Trajectory():
 
-    def __init__(self, filename=None):
+    def __init__(self, filename=None, topology=None):
 
         self.filename = None
         self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
@@ -39,6 +39,10 @@ class Trajectory():
         self._time_units = _unit.picoseconds
 
         self.filename = filename
+
+        if topology is not None:
+            from molmodmt import convert as _convert
+            self.topology_mdtraj = _convert(topology,'mdtraj.Topology')
 
     def _import_mdtraj_data(self,item=None):
 
@@ -228,7 +232,7 @@ class Trajectory():
             yield
 
 
-    def load(self,frame='all',selection=None,syntaxis='mdtraj'):
+    def load(self,frames='all',selection=None,syntaxis='mdtraj'):
 
         from mdtraj import load as _mdtraj_load
         from mdtraj import join as _mdtraj_join
@@ -247,18 +251,18 @@ class Trajectory():
             from molmodmt.multitool import select as _select
             atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
 
-        if type(frame)==str:
-            if frame.lower()=='all':
+        if type(frames)==str:
+            if frames.lower()=='all':
                 tmp_mdtrajectory = _mdtraj_load(self.filename,top=tmp_top,atom_indices=atoms_list)
                 mdtraj_read = True
-        elif type(frame)==int:
-            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame,top=tmp_top,atom_indices=atoms_list)
+        elif type(frames)==int:
+            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frames,top=tmp_top,atom_indices=atoms_list)
             mdtraj_read = True
-        elif type(frame) in [list,tuple,ndarray]:
+        elif type(frames) in [list,tuple,ndarray]:
             mdtraj_read = True
             tmp_trajs=[]
-            for ii in range(0,len(frame)):
-                tmp_trajs.append(_mdtraj_load_frame(self.filename, frame[ii],top=tmp_top, atom_indices=atoms_list))
+            for ii in range(0,len(frames)):
+                tmp_trajs.append(_mdtraj_load_frame(self.filename, frames[ii],top=tmp_top, atom_indices=atoms_list))
             tmp_mdtrajectory=_mdtraj_join(tmp_trajs,check_topology=False)
             del(tmp_trajs)
 

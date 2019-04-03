@@ -16,7 +16,7 @@ def to_mol2(item,filename):
     return item.save(filename)
 
 def to_top(item,filename):
-    return item.write(filename)
+    return item.save(filename)
 
 def select_with_mdtraj(item, selection):
     tmp_form=to_mdtraj_Topology(item)

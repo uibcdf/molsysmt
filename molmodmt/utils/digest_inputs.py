@@ -3,22 +3,22 @@ import numpy as _np
 from molmodmt import get_form as _get_form, get as _get, select as _select, convert as _convert
 from .exceptions import *
 
-def _one_system(item1=None, selection1=None, frame1=None, form=None):
+def _one_system(item=None, selection=None, frame=None, form=None, syntaxis='mdtraj'):
 
-    atom_indices1=None
-    frame_indices1=None
+    atom_indices=None
+    frame_indices=None
 
     if form is not None:
-        tmp_item1=_convert(item1,form)
+        tmp_item=_convert(item,form)
     else:
-        tmp_item1=item1
+        tmp_item=item
 
-    if selection1 is not None:
-        atom_indices1 = _select(tmp_item1,selection1)
+    if selection is not None:
+        atom_indices = _select(tmp_item,selection,syntaxis=syntaxis)
 
-    frame_indices1 = _frameslist(tmp_item1,frame1)
+    frame_indices = _frameslist(tmp_item,frame)
 
-    return tmp_item1, atom_indices1, frame_indices1
+    return tmp_item, atom_indices, frame_indices
 
 def _frameslist(item=None,frame=None):
 
@@ -72,7 +72,7 @@ def _coordinates(item=None, atoms_list=None, frames_list=None, form='molmodmt.Tr
 
 def _comparison_two_systems(item1=None, selection1=None, frame1=None,
                             item2=None, selection2=None, frame2=None,
-                            form=None):
+                            form=None, syntaxis='mdtraj'):
     single_item = False
     diff_selection = True
     atom_indices1=None
@@ -98,10 +98,10 @@ def _comparison_two_systems(item1=None, selection1=None, frame1=None,
         tmp_item2=item2
 
     if selection1 is not None:
-        atom_indices1 = _select(tmp_item1,selection1)
+        atom_indices1 = _select(tmp_item1,selection1,syntaxis=syntaxis)
 
     if selection2 is not None:
-        atom_indices2 = _select(tmp_item2,selection2)
+        atom_indices2 = _select(tmp_item2,selection2,syntaxis=syntaxis)
 
     if selection1 is None and selection2 is None:
 
@@ -117,9 +117,9 @@ def _comparison_two_systems(item1=None, selection1=None, frame1=None,
                 atom_indices2 = atom_indices1
         else:
             if selection1 is None:
-                atom_indices1 = _select(tmp_item1,selection2)
+                atom_indices1 = _select(tmp_item1,selection2,syntaxis=syntaxis)
             else:
-                atom_indices2 = _select(tmp_item2,selection1)
+                atom_indices2 = _select(tmp_item2,selection1,syntaxis=syntaxis)
 
     frame_indices1 = _frameslist(tmp_item1,frame1)
     frame_indices2 = _frameslist(tmp_item2,frame2)

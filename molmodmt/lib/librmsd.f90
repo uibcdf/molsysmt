@@ -262,10 +262,15 @@ CONTAINS
       rmsd=sqrt(msd)
  
       call rotation_matrix(vectors(:,4),U)
-  
+
+      !!! computo el rmsd
+      !msd=max(0.0d0,((x_norm+y_norm)-2.0d0*values(4)))/dble(N)
+      !rmsd=sqrt(msd)
+      !rmsd_val(ll)=rmsd
+ 
       !!! calculo las nuevas posiciones con la traslacion y rotacion
       tU=transpose(U) 
-      DO i=1,N
+      DO i=1,n_atoms
          coors(ll,i,:)=matmul(tU(:,:),coors(ll,i,:)-center_2)+center_ref
       END DO
    END DO 

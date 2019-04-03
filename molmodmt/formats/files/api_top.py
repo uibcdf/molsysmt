@@ -25,3 +25,10 @@ def to_molmodmt_Structure(item):
     from molmodmt.native.io_structure import _from_gromacs_Topology
     return _from_gromacs_Topology(item)
 
+def to_top(item,filename=None,selection=None,syntaxis='mdtraj'):
+    from molmodmt import extract as _extract
+    tmp_item = to_parmed_GromacsTopologyFile(item)
+    if selection is not None:
+        tmp_item = _extract(tmp_item,selection=selection,syntaxis=syntaxis)
+    tmp_item.save(filename)
+    pass

@@ -10,16 +10,18 @@ is_form={
     'Bio.Seq' : form_name
 }
 
-def to_biopython_SeqRecord(item):
-
+def to_biopython_SeqRecord(item, selection=None, syntaxis='mdtraj'):
+    from molmodmt import extract as _extract
     from Bio.SeqRecord import SeqRecord as _Bio_SeqRecord
     tmp_item=_Bio_SeqRecord(item)
+    tmp_item=_extract(tmp_item, selection=selection, syntaxis=syntaxis)
     del(_Bio_SeqRecord)
     return tmp_item
 
-def to_fasta(item, output_file):
-
+def to_fasta(item, output_file, selection=None, syntaxis='mdtraj'):
+    from molmodmt import extract as _extract
     from .api_biopython_SeqRecord import _to_fasta as _Bio_SeqRecord_to_fasta
     tmp_item=to_biopython_SeqRecord(item)
+    tmp_item=_extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return _Bio_SeqRecord_to_fasta(tmp_item, output_file)
 

@@ -1,37 +1,43 @@
-from mdtraj import rmsd as _mdtraj_rmsd
-from mdtraj import lprmsd as _mdtraj_lprmsd
 import numpy as _np
 from .lib import rmsd as _librmsd
 from .multitool import get_form as _get_form, select as _select, convert as _convert
 from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
 
 def rmsd(ref_item=None, ref_selection=None, ref_frame=0, item=None, selection='backbone',
-         parallel=False, precentered=False, engine='molmodmt'):
+         parallel=False, precentered=True, syntaxis='mdtraj', engine='molmodmt'):
 
-    ref_item, ref_atom_indices, ref_frame_indices, \
-    item, atom_indices, frame_indices,\
-    single_item, diff_selection = _digest_comparison_two_systems(ref_item, ref_selection, ref_frame,
-                                                                 item, selection, 'all')
+    if item is None:
+        in_form=_get_form(ref_item)
+        output_item=ref_item
+    else:
+        in_form=_get_form(item)
+        output_item=item
 
     if engine=='molmodmt':
+        x_form='molmodmt.Trajectory'
+    elif engine=='mdtraj':
+        x_form='mdtraj.Trajectory'
 
-        tmp_item = item
-        tmp_ref_item = ref_item
 
-        tmp_item.coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
-        tmp_ref_item.coordinates=_np.asfortranarray(tmp_ref_item.coordinates,dtype='float64')
-        rmsd_val=_librmsd.rmsd(tmp_ref_item.coordinates[ref_frame,:,:], ref_atom_indices,
-                               tmp_item.coordinates, atom_indices,
+    tmp_ref_item, ref_atom_indices, ref_frame_indices, \
+    tmp_item, atom_indices, frame_indices,\
+    single_item, diff_selection = _digest_comparison_two_systems(ref_item, ref_selection, ref_frame,
+                                                                 item, selection, 'all',
+                                                                 form=x_form, syntaxis=syntaxis)
+
+    if engine=='molmodmt':
+        tmp_coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
+        tmp_ref_coordinates=_np.asfortranarray(tmp_ref_item.coordinates[ref_frame,:,:],dtype='float64')
+        rmsd_val=_librmsd.rmsd(tmp_ref_coordinates, ref_atom_indices,
+                               tmp_coordinates, atom_indices,
                                tmp_ref_item.n_atoms, ref_atom_indices.shape[0],
                                tmp_item.n_frames, tmp_item.n_atoms, atom_indices.shape[0])
         return rmsd_val
 
 
     elif engine=='mdtraj':
-
-        mdtraj_ref_item=_convert(ref_item,'mdtraj.Trajectory')
-        mdtraj_item = _convert(item,'mdtraj.Trajectory')
-        rmsd_val = _mdtraj_rmsd(mdtraj_item, mdtraj_ref_item, frame=ref_frame_indices,
+        from mdtraj import rmsd as _mdtraj_rmsd
+        rmsd_val = _mdtraj_rmsd(tmp_item, tmp_ref_item, frame=ref_frame_indices,
                                 ref_atom_indices=ref_atom_indices, atom_indices=atom_indices,
                                 parallel=parallel, precentered=precentered)
         return rmsd_val
@@ -39,76 +45,56 @@ def rmsd(ref_item=None, ref_selection=None, ref_frame=0, item=None, selection='b
     else:
         raise NotImplementedError
 
-def least_rmsd(ref_item=None, ref_selection=None, ref_frame=0, item=None, selection='backbone',
-               parallel=False, precentered=False, engine='molmodmt'):
-
-    ref_item, ref_atom_indices, ref_frame_indices, \
-    item, atom_indices, frame_indices,\
-    single_item, diff_selection = _digest_comparison_two_systems(ref_item, ref_selection, ref_frame,
-                                                                 item, selection, 'all')
-
-    if engine=='molmodmt':
-
-        tmp_item = item
-        tmp_ref_item = ref_item
-
-        tmp_item.coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
-        rmsd_val = _np.array(tmp_item.n_frames,dtype=float)
-        tmp_ref_item.coordinates=_np.asfortranarray(tmp_ref_item.coordinates,dtype='float64')
-        rmsd_val=_librmsd.least_rmsd(tmp_ref_item.coordinates[ref_frame,:,:], ref_atom_indices,
-                                     tmp_item.coordinates, atom_indices,
-                                     tmp_ref_item.n_atoms, ref_atom_indices.shape[0],
-                                     tmp_item.n_frames, tmp_item.n_atoms, atom_indices.shape[0])
-
-        return rmsd_val
-
-    elif engine=='mdtraj':
-
-        mdtraj_ref_item=_convert(ref_item,'mdtraj.Trajectory')
-        mdtraj_item = _convert(item,'mdtraj.Trajectory')
-        rmsd_val = _mdtraj_lprmsd(mdtraj_item, mdtraj_ref_item, frame=ref_frame_indices,
-                              ref_atom_indices=ref_atom_indices, atom_indices=atom_indices, parallel=parallel, precentered=precentered)
-        return rmsd_val
-
-    else:
-
-        raise NotImplementedError
-
 def least_rmsd_fit(ref_item=None, ref_selection=None, ref_frame=0, item=None, selection='backbone',
-                   parallel=False, in_place=True, engine='molmodmt'):
+                   parallel=True, in_place=True, syntaxis='mdtraj', engine='molmodmt'):
 
-    ref_item, ref_atom_indices, ref_frame_indices, \
-    item, atom_indices, frame_indices,\
+    if item is None:
+        in_form=_get_form(ref_item)
+        output_item=ref_item
+    else:
+        in_form=_get_form(item)
+        output_item=item
+
+    if engine=='molmodmt':
+        x_form='molmodmt.Trajectory'
+    elif engine=='mdtraj':
+        x_form='mdtraj.Trajectory'
+
+    tmp_ref_item, ref_atom_indices, ref_frame_indices, \
+    tmp_item, atom_indices, frame_indices,\
     single_item, diff_selection = _digest_comparison_two_systems(ref_item, ref_selection, ref_frame,
-                                                                 item, selection, 'all')
+                                                                 item, selection, 'all',
+                                                                 form=x_form, syntaxis=syntaxis)
 
     if engine=='molmodmt':
 
-        tmp_item = item
-        tmp_ref_item = ref_item
-
-        tmp_item.coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
-        tmp_ref_item.coordinates=_np.asfortranarray(tmp_ref_item.coordinates,dtype='float64')
-        _librmsd.least_rmsd_fit(tmp_ref_item.coordinates[ref_frame,:,:], ref_atom_indices,
-                                tmp_item.coordinates, atom_indices,
+        tmp_coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
+        print(tmp_coordinates[-1,:,:])
+        tmp_ref_coordinates=_np.asfortranarray(tmp_ref_item.coordinates[ref_frame,:,:],dtype='float64')
+        _librmsd.least_rmsd_fit(tmp_ref_coordinates, ref_atom_indices,
+                                tmp_coordinates, atom_indices,
                                 tmp_ref_item.n_atoms, ref_atom_indices.shape[0],
                                 tmp_item.n_frames, tmp_item.n_atoms, atom_indices.shape[0])
+        print(tmp_coordinates[-1,:,:])
+        if in_form==x_form:
+            output_item.coordinates=_np.ascontiguousarray(tmp_coordinates)
+        elif in_form=='molmodmt.MolMod':
+            output_item.trajectory.coordinates=_np.ascontiguousarray(tmp_coordinates)
+        else:
+            tmp_item.coordinates=_np.ascontiguousarray(tmp_coordinates)
+            output_item=_convert(tmp_item,in_form)
 
-        item.coordinates=_np.ascontiguousarray(tmp_item.coordinates)
         pass
 
     elif engine=='mdtraj':
 
-        output_form = _get_form(item)
-        mdtraj_ref_item=_convert(ref_item,'mdtraj.Trajectory')
-        mdtraj_item = _convert(item,'mdtraj.Trajectory')
-        mdtraj_item.superpose(mdtraj_ref_item,frame=ref_frame_indices,atom_indices=atom_indices,ref_atom_indices=ref_atom_indices,parallel=parallel)
-
-        if in_place:
-            item = _convert(mdtraj_item,output_form)
-            pass
+        tmp_item.superpose(tmp_ref_item,frame=ref_frame_indices,atom_indices=atom_indices,ref_atom_indices=ref_atom_indices,parallel=parallel)
+        if in_form=='molmodmt.Trajectory':
+            output_item._import_mdtraj_data(tmp_item)
+        elif in_form=='molmodmt.MolMod':
+            output_item.trajectory._import_mdtraj_data(tmp_item)
         else:
-            return _convert(mdtraj_item,output_form)
+            output_item=_convert(tmp_item,in_form)
 
     else:
 

@@ -120,6 +120,9 @@ def select(item=None, selection=None, syntaxis='mdtraj'):
 
 def extract(item=None, selection=None, form=None, syntaxis='mdtraj'):
 
+    if selection is None:
+        return item
+
     from numpy import ndarray as _ndarray
     from numpy import sort as _sort
 
@@ -231,14 +234,14 @@ def load (item=None, form='molmod', selection=None, pdbfix=False, pH=7.0, verbos
 
     else:
 
-        tmp_item = convert(item, form, **kwargs)
+        tmp_item = convert(item, form, selection=selection, **kwargs)
 
-    if selection is not None:
-        tmp_item = extract(tmp_item,selection)
+    #if selection is not None:
+    #    tmp_item = extract(tmp_item,selection)
 
     return tmp_item
 
-def convert(item=None, form='molmodmt.MolMod', **kwargs):
+def convert(item=None, form='molmodmt.MolMod', selection=None, syntaxis='mdtraj', **kwargs):
 
     #**kwargs: topology=None
 
@@ -252,16 +255,17 @@ def convert(item=None, form='molmodmt.MolMod', **kwargs):
             out_file=form
 
     if out_file is not None:
-        return _dict_converter[in_form][out_form](item, out_file, **kwargs)
+        return _dict_converter[in_form][out_form](item, filename=out_file, selection=selection,
+                                                  syntaxis=syntaxis, **kwargs)
     else:
         if in_form!=out_form:
-            return _dict_converter[in_form][out_form](item, **kwargs)
+            return _dict_converter[in_form][out_form](item, selection=selection, syntaxis=syntaxis, **kwargs)
         else:
             return item
 
-def write(item=None,filename=None):
+def write(item=None,filename=None, selection=None, syntaxis='mdtraj'):
 
-    return convert(item,filename)
+    return convert(item,filename, selection=selection, syntaxis=syntaxis)
 
 def view(item=None,selection=None,viewer='nglview'):
 
