@@ -53,6 +53,7 @@ def least_rmsd(ref_item=None, ref_selection=None, ref_frame=0, item=None, select
         tmp_ref_item = ref_item
 
         tmp_item.coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
+        rmsd_val = _np.array(tmp_item.n_frames,dtype=float)
         tmp_ref_item.coordinates=_np.asfortranarray(tmp_ref_item.coordinates,dtype='float64')
         rmsd_val=_librmsd.least_rmsd(tmp_ref_item.coordinates[ref_frame,:,:], ref_atom_indices,
                                      tmp_item.coordinates, atom_indices,

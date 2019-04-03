@@ -291,3 +291,12 @@ class Trajectory():
 
         pass
 
+    def write(self,trajectory=None,topology=None):
+
+        from molmodmt import convert as _convert
+        if trajectory is not None:
+            _convert(self,trajectory)
+        if topology is not None:
+            _convert(self,topology)
+        pass
+

@@ -124,9 +124,12 @@ def to_parmed(item):
 
     return to_parmed_Structure(item)
 
-def to_pdb(item,output_file):
+def to_pdb(item,filename):
 
-    return item.save(output_file)
+    return item.save_pdb(filename)
+
+def to_xtc(item,filename):
+    return item.save_xtc(filename)
 
 def to_nglview(item):
 

@@ -65,6 +65,19 @@ def to_mdtraj_Trajectory(item):
 def to_mdtraj(item):
     return to_mdtraj_Trajectory(item)
 
+def to_parmed_GromacsTopologyFile(item):
+    from .api_mdtraj_Topology import to_parmed_GromacsTopologyFile as _to_GromacsTopologyFile
+    return _to_GromacsTopologyFile(item.topology_mdtraj)
+
+def to_xtc(item,filename=None):
+    from .api_mdtraj_Trajectory import to_xtc as _to_xtc
+    tmp_item=to_mdtraj_Trajectory(item)
+    return _to_xtc(tmp_item,filename)
+
+def to_top(item,filename=None):
+    from .api_mdtraj_Topology import to_top as _to_top
+    return _to_top(item.topology_mdtraj,filename)
+
 def to_nglview(item):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview

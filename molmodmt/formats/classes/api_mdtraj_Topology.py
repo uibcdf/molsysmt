@@ -29,6 +29,16 @@ def to_parmed_Structure(item):
     del(_opennn_Topology_to_parmed_Structure)
     return tmp_form
 
+def to_parmed_GromacsTopologyFile(item):
+    from parmed.gromacs import GromacsTopologyFile as _GromacsTopologyFile
+    tmp_form = to_parmed_Structure(item)
+    return _GromacsTopologyFile.from_structure(item)
+
+def to_top(item,filename):
+    from .api_parmed_GromacsTopologyFile import to_top as _to_top
+    tmp_form = to_parmed_GromacsTopologyFile(item)
+    return _to_top(tmp_form,filename)
+
 def select_with_mdtraj(item, selection):
     return item.select(selection)
 

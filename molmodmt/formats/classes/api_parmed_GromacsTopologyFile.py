@@ -12,9 +12,11 @@ def to_mdtraj_Topology(item):
     from mdtraj.core.topology import Topology as mdtraj_topology
     return mdtraj_topology.from_openmm(item.topology)
 
-def to_mol2(item,output_file):
+def to_mol2(item,filename):
+    return item.save(filename)
 
-    return item.save(output_file)
+def to_top(item,filename):
+    return item.write(filename)
 
 def select_with_mdtraj(item, selection):
     tmp_form=to_mdtraj_Topology(item)
