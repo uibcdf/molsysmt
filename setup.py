@@ -61,7 +61,7 @@ ext_rmsd = Extension(
 # )
 
 extensions_list=[]
-extensions_lib=[ext_com, ext_box, ext_math, ext_pbc, ext_geometry, ext_rmsd]
+extensions_lib=[ext_com, ext_pbc, ext_box, ext_math, ext_geometry, ext_rmsd]
 extensions_list.extend(extensions_lib)
 
 setup(
