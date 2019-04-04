@@ -65,17 +65,15 @@ def least_rmsd_fit(ref_item=None, ref_selection=None, ref_frame=0, item=None, se
     single_item, diff_selection = _digest_comparison_two_systems(ref_item, ref_selection, ref_frame,
                                                                  item, selection, 'all',
                                                                  form=x_form, syntaxis=syntaxis)
-
     if engine=='molmodmt':
 
         tmp_coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
-        print(tmp_coordinates[-1,:,:])
         tmp_ref_coordinates=_np.asfortranarray(tmp_ref_item.coordinates[ref_frame,:,:],dtype='float64')
         _librmsd.least_rmsd_fit(tmp_ref_coordinates, ref_atom_indices,
                                 tmp_coordinates, atom_indices,
                                 tmp_ref_item.n_atoms, ref_atom_indices.shape[0],
                                 tmp_item.n_frames, tmp_item.n_atoms, atom_indices.shape[0])
-        print(tmp_coordinates[-1,:,:])
+
         if in_form==x_form:
             output_item.coordinates=_np.ascontiguousarray(tmp_coordinates)
         elif in_form=='molmodmt.MolMod':
