@@ -8,15 +8,22 @@ from .utils.exceptions import *
 from .centers import center_of_mass as _center_of_mass
 from .centers import geometrical_center as _geometrical_center
 
-def distances(item=None, selection=None, selection_groups=None, group_behavior=None, frame=None,
-             item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2=None,
-             pbc=False, parallel=False, engine='molmodmt', output_form='matrix'):
+def distances(item=None, selection=None, selection_groups=None, group_behavior=None, frame='all',
+             item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2='all',
+             pbc=False, parallel=False, engine='molmodmt', output_form='matrix', syntaxis='mdtraj'):
 
     # group_behavior in ['False','center_of_mass','geometric_center','minimum_distance']
     # output_form in ['matrix','dict']
 
     # selection groups está por si quiero distancias entre centros de masas, necesita
     # hacer un lista de listas frente a otra lista de listas.
+
+    in_form=_get_form(item)
+
+    if engine=='molmodmt':
+        x_form='molmodmt.Trajectory'
+    elif engine=='mdtraj':
+        x_form='mdtraj.Trajectory'
 
     if selection_groups is not None:
         if selection_groups2 is None:
@@ -49,13 +56,14 @@ def distances(item=None, selection=None, selection_groups=None, group_behavior=N
         tmp_item1, atom_indices1, frame_indices1, tmp_item2, atom_indices2, frame_indices2,\
         single_item, diff_selection = _digest_comparison_two_systems(item, selection, frame,
                                                                      item2, selection2, frame2,
-                                                                      form='molmodmt.Trajectory')
+                                                                     form=x_form, syntaxis=syntaxis)
+        return single_item
 
-        if tmp_item1.nframes!=tmp_item2.nframes:
+        if tmp_item1.n_frames!=tmp_item2.n_frames:
             raise BadCallError(BadCallMessage)
 
         if selection_groups is None:
-            tmp_coors1 = _digest_coordinates(tmp_item1,atom_indices1,frame_indices1)
+            tmp_coors1, _, _ = _digest_coordinates(tmp_item1,atom_indices1,frame_indices1)
         else:
             if group_behavior == 'center_of_mass':
                 tmp_coors1 = _center_of_mass(tmp_item1,selection_groups=selection_groups,
@@ -70,7 +78,7 @@ def distances(item=None, selection=None, selection_groups=None, group_behavior=N
         nframes1   = tmp_coors1.shape[0]
 
         if selection_groups2 is None:
-            tmp_coors2 = _digest_coordinates(tmp_item2,atom_indices2,frame_indices2)
+            tmp_coors2, _, _ = _digest_coordinates(tmp_item2,atom_indices2,frame_indices2)
         else:
             if group_behavior == 'center_of_mass':
                 tmp_coors2 = _center_of_mass(tmp_item2,selection_groups=selection_groups2,
