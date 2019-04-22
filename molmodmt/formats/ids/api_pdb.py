@@ -1,5 +1,7 @@
 from os.path import basename as _basename
 from os import remove as _remove
+import urllib as _urllib
+import json as _json
 
 form_name=_basename(__file__).split('.')[0][4:]+':id'
 
@@ -11,6 +13,18 @@ is_form = {
 def to_pdb(form_id,output_file=None):
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
     return _download_pdb(form_id.split(':')[-1],output_file)
+
+def to_fasta(form_id,output_file=None):
+    url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+form_id+'&compressionType=uncompressed'
+    request = urllib.request.Request(url)
+    response = urllib.request.urlopen(request)
+    fasta_txt = response.read().decode('utf-8')
+    if output_file is None:
+        return fasta_txt
+    else:
+        with open(output_file,'w') as f:
+            f.write(fasta_txt)
+        pass
 
 def to_mdtraj_Topology(form_id):
     from molmodmt.formats.files.api_pdb import to_mdtraj_Topology as _pdb_to_mdtraj_Topology
