@@ -19,8 +19,8 @@ def to_mdtraj_Trajectory(item, topology=None, selection=None, syntaxis='mdtraj')
     del(_mdtraj_load)
     return tmp_form
 
-def to_molmod(item, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
-    return to_molmodmt_MolMod(item,topology,selection=selection,syntaxis=syntaxis,frames=frames)
+#def to_molmod(item, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
+#    return to_molmodmt_MolMod(item,topology,selection=selection,syntaxis=syntaxis,frames=frames)
 
 def to_parmed(item, topology=None, selection=None, syntaxis='mdtraj'):
     return to_parmed_GromacsTopologyFile(item,topology,selection=selection,syntaxis=syntaxis)

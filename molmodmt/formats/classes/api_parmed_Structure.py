@@ -8,12 +8,22 @@ is_form={
     _parmed_Structure : form_name
 }
 
-def to_mdtraj(item):
+def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
+
+    return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
+
+def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_trajectory
     from mdtraj.core.topology import Topology as mdtraj_topology
+    from molmodel import extract as _extract
 
-    return mdtraj_trajectory(item.positions._value,mdtraj_topology.from_openmm(item.topology))
+    tmp_item = mdtraj_trajectory(item.positions._value,mdtraj_topology.from_openmm(item.topology))
+
+    if selection is not None:
+        tmp_item = _extract(tmp_item, selection=selection, syntaxis='mdtraj')
+
+    return tmp_item
 
 def to_nglview(item):
 

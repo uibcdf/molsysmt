@@ -1,6 +1,11 @@
 from .structure import Structure as _Structure
 # The native structure object is the ParmEd structure object.
 
+def from_pdb(item=None, selection=None, syntaxis='mdtraj'):
+    from molmodmt import convert as _convert
+    tmp_item = _convert(item, form='parmed.Structure', selection=selection, syntaxis=syntaxis)
+    return tmp_item
+
 def from_gromacs_Topology(item=None, selection=None, syntaxis='mdtraj'):
 
     from molmodmt import extract as _extract

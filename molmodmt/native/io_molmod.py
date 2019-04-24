@@ -14,22 +14,48 @@ def from_mdtraj(item=None, selection=None, frames=None, syntaxis='mdtraj'):
 
     return tmp_molmod_item
 
+def to_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='mdtraj'):
+
+    from mdtraj import Trajectory as _mdtraj_Trajectory
+    tmp_mdtraj_trajectory_item = _mdtraj_Trajectory(item.coordinates,item.topology_mdtraj)
+    tmp_mdtraj_trajectory_item.unitcell_vectors = _np.ascontiguousarray(item.box)
+    tmp_mdtraj_trajectory_item.time = _np.ascontiguousarray(item.time)
+    del(_mdtraj_Trajectory)
+
+    return tmp_item
+
 def to_mdtraj(item=None, selection=None, frames=None, syntaxis='mdtraj'):
 
-    from .io_trajectory import to_mdtraj_Trajectory as _to_mdtraj_Trajectory
+    return to_mdtraj_Trajectory(item, selection=selection, frames=frames, syntaxis=syntaxis)
 
-    tmp_mdtraj_item = _to_mdtraj_Trajectory(item, selection=selection, frames=frames,
-                                            syntaxis=syntaxis)
 
-    return tmp_mdtraj_item
+def from_pdb(item=None,topology=None,selection=None,frames=None,syntaxis='mdtraj'):
+
+    from .io_topology import from_pdb as _topology_from_pdb
+    from .io_trajectory import from_pdb as _trajectory_from_pdb
+
+    if topology is None:
+        topology=item
+
+    tmp_item =_MolMod()
+    tmp_item.topology = _topology_from_pdb(item, selection=selection, syntaxis=syntaxis)
+    tmp_item.trajectory = _trajectory_from_pdb(item, selection=selection, frames=frames,
+                                               syntaxis=syntaxis)
+    tmp_item.topography = None
+    tmp_item.structure = None
+
+    tmp_item.trajectory.topology = tmp_item.topology
+    tmp_item.trajectory.structure = tmp_item.structure
+    tmp_item.trajectory.topography = tmp_item.topography
+
+    return tmp_item
+
 
 def from_xtc(item=None,topology=None,selection=None,frames=None,syntaxis='mdtraj'):
 
     from .io_structure import from_gromacs_Topology as _structure_from_gromacs_Topology
     from .io_topology import from_molmod_Structure as _topology_from_molmod_Structure
-    from .io_topology import to_mdtraj_Topology as _topology_to_mdtraj_Topology
     from .io_trajectory import from_xtc as _from_xtc
-    from molmodmt import extract as _extract
 
     tmp_item =_MolMod()
     tmp_item.structure = _structure_from_gromacs_Topology(topology)

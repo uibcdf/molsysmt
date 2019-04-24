@@ -7,15 +7,20 @@ is_form = {
     'PDB': form_name
     }
 
-def to_parmed(item):
+def to_molmodmt_MolMod(item, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
+    from molmodmt.native.io_molmod import from_pdb as _from_pdb
+    return _from_pdb(item, topology=topology, selection=selection, frames=frames, syntaxis=syntaxis)
 
+def to_parmed(item, selection=None, syntaxis='mdtraj'):
     return to_parmed_Structure(item)
 
-def to_parmed_Structure(item):
+def to_parmed_Structure(item, selection=None, syntaxis='mdtraj'):
+    from molmodmt import extract as _extract
     from parmed import load_file as _parmed_file_loader
-    tmp_form = _parmed_file_loader(item)
+    tmp_item = _parmed_file_loader(item)
+    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     del(_parmed_file_loader)
-    return tmp_form
+    return tmp_item
 
 def to_mdanalysis(item):
     from MDAnalysis import Universe as _mdanalysis_Universe
@@ -24,15 +29,21 @@ def to_mdanalysis(item):
 def to_mdtraj(item):
     return to_mdtraj_Trajectory(item)
 
-def to_mdtraj_Topology(item):
-    from mdtraj import load as _mdtraj_load
-    tmp_form = _mdtraj_load(item).topology
-    del(_mdtraj_load)
-    return tmp_form
+def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
 
-def to_mdtraj_Trajectory(item):
+    from mdtraj import load as _mdtraj_load
+    from molmodmt import extract as _extract
+    tmp_item = _mdtraj_load(item).topology
+    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    return tmp_item
+
+def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
+
     from mdtraj import load_pdb as _mdtraj_pdb_loader
-    return _mdtraj_pdb_loader(item)
+    from molmodmt import extract as _extract
+    tmp_item = _mdtraj_pdb_loader(item)
+    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    return tmp_item
 
 def to_mol2(item,out_file):
 

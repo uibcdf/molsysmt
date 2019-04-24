@@ -12,11 +12,21 @@ is_form={
 def to_molmodmt(item):
     return item
 
-def to_mdtraj(item):
+def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
+
     from molmodmt.native.io_molmod import to_mdtraj as _to_mdtraj
-    tmp_mdtraj_item = _to_mdtraj(item)
-    del(_to_mdtraj)
-    return tmp_mdtraj_item
+    from molmodmt import extract as _extract
+    tmp_item = _to_mdtraj(item)
+    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    return tmp_item
+
+def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
+
+    from molmodmt.native.io_molmod import to_mdtraj_Trajectory as _to_mdtraj_Trajectory
+    from molmodmt import extract as _extract
+    tmp_item = _to_mdtraj_Trajectory(item)
+    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    return tmp_item
 
 def get(item, atoms_list=None, **kwargs):
     raise NotImplementedError(NotImplementedMessage)
@@ -26,4 +36,18 @@ def select_with_mdtraj(item, selection):
 
 def extract_atoms_list(item, atoms_list):
     return item.extract(atoms_list)
+
+def to_nglview(item):
+
+    from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
+
+    if type(item) in [list,tuple]:
+        tmp_item = []
+        for ii in item:
+            tmp_item.append(to_mdtraj_Trajectory(ii))
+    else:
+        tmp_item = to_mdtraj_Trajectory(item)
+
+    return _mdtraj_to_nglview(tmp_item)
+
 

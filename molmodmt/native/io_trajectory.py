@@ -24,17 +24,19 @@ def from_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='mdt
                       timestep=tmp_timestep)
     return tmp_molmod_trajectory
 
-def to_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='mdtraj'):
-    from mdtraj import Trajectory as _mdtraj_Trajectory
-    tmp_mdtraj_trajectory_item = _mdtraj_Trajectory(item.coordinates,item.topology_mdtraj)
-    tmp_mdtraj_trajectory_item.unitcell_vectors = _np.ascontiguousarray(item.box)
-    tmp_mdtraj_trajectory_item.time = _np.ascontiguousarray(item.time)
-    del(_mdtraj_Trajectory)
-    return tmp_mdtraj_trajectory_item
+
+def from_pdb(item=None, selection=None, frames=None, syntaxis='mdtraj'):
+
+    from molmodmt import convert as _convert
+    tmp_item = _convert(item, form='mdtraj.Trajectory', selection=selection, syntaxis=syntaxis)
+    tmp_item = from_mdtraj_Trajectory(tmp_item)
+    return tmp_item
 
 def from_xtc(item=None, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
+
     from molmodmt import extract as _extract
     tmp_item = _Trajectory(filename=item, topology=topology)
     if frames is not None:
         tmp_item.load(frames=frames, selection=selection, syntaxis=syntaxis)
     return tmp_item
+
