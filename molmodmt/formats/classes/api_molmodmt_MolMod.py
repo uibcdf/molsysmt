@@ -31,7 +31,7 @@ def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
 def get(item, atoms_list=None, **kwargs):
     raise NotImplementedError(NotImplementedMessage)
 
-def select_with_mdtraj(item, selection):
+def select_with_mdtraj(item, selection=None, syntaxis='mdtraj'):
     return item.select_with_mdtraj(selection)
 
 def extract_atoms_list(item, atoms_list):

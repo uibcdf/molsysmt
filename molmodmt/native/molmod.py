@@ -4,7 +4,7 @@ class MolMod():
 
     def __init__(self):
 
-        self.trajectory = _Trajectory()
+        self.trajectory = None
         self.structure = None
         self.topology = None
         self.topography = None
@@ -12,15 +12,16 @@ class MolMod():
     def extract(self, atoms_list=None):
 
         from molmodmt import extract as _extract
+        from molmodmt import get_form as _get_form
 
-        tmp_MolMod = MolMod()
-        tmp_MolMod.structure = _extract(self.structure, atoms_list)
-        tmp_MolMod.topology = tmp_MolMod.structure.topology
-        tmp_MolMod.topography = None
-        tmp_MolMod.trajectory = None #self.trajectory.extract(atoms_list)
+        tmp_item = MolMod()
+        tmp_item.topology = _extract(self.topology,selection=atoms_list)
+        tmp_item.trajectory = _extract(self.trajectory,selection=atoms_list)
+        tmp_item.topography = None
+        tmp_item.structure = None
 
-        return tmp_MolMod
+        return tmp_item
 
     def select_with_mdtraj(self, selection=None):
-        return self.trajectory.topology_mdtraj.select(selection)
+        return self.topology.select(selection)
 

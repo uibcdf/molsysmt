@@ -9,9 +9,8 @@ from copy import deepcopy
 
 class Trajectory():
 
-    def __init__(self, filename=None, topology=None):
+    def __init__(self):
 
-        self.filename = None
         self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
                                 # and order=F, with units nanometers
         self.box   = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
@@ -28,36 +27,25 @@ class Trajectory():
         self.orthogonal   = 0
         self.volume       = 0.0
 
-        self.topology = None
-        self.topology_mdtraj = None
-        self.selection_mdtraj = None
-        self._atoms_list_mdtraj = None
-        self.topography = None
-        self.structure = None
-
         self._length_units = _unit.nanometers
         self._time_units = _unit.picoseconds
 
-        self.filename = filename
+        self._mdtraj_topology = None
 
-        if topology is not None:
-            from molmodmt import convert as _convert
-            self.topology_mdtraj = _convert(topology,'mdtraj.Topology')
-
-    def _import_mdtraj_data(self,item=None):
+    def _import_mdtraj_data(self,item=None, selection=None, frames=None, syntaxis='mdtraj'):
 
         from .io_trajectory import parse_mdtraj_Trajectory
-        tmp_coordinates, tmp_box, tmp_time, tmp_timestep = parse_mdtraj_Trajectory(item)
-        self._initialize_with_coors(coordinates=tmp_coordinates, box=tmp_box, timestep=tmp_timestep,
-                                    time=tmp_time)
+        tmp_coordinates, tmp_box, tmp_time, tmp_timestep = parse_mdtraj_Trajectory(item,
+                                                                                   selection=selection,
+                                                                                   frames=frames,
+                                                                                   syntaxis=syntaxis
+                                                                                  )
+        self._initialize_with_attributes(coordinates=tmp_coordinates, box=tmp_box,
+                                         timestep=tmp_timestep, time=tmp_time)
         pass
 
-    def _import_mdtraj_topology(self,item=None):
-        self.topology_mdtraj=item.topology
-        pass
-
-    def _initialize_with_coors(self, coordinates=None, box=None, cell=None, timestep=None, integstep=None,
-                 step=None, time=None):
+    def _initialize_with_attributes(self, coordinates=None, box=None, cell=None, timestep=None,
+                                    integstep=None, step=None, time=None):
 
         self.coordinates = coordinates
         self.box   = box
@@ -119,6 +107,7 @@ class Trajectory():
         self.invbox=_libbox.box2invbox(self.box, self.n_frames)
         pass
 
+    #problema con topologia
     def minimum_image_convention(self,selection=None, reference=None, syntaxis='mdtraj'):
 
         from molmodmt import select as _select
@@ -154,6 +143,7 @@ class Trajectory():
         self.invbox=_np.ascontiguousarray(self.invbox)
         pass
 
+    #problema con topologia
     def unwrap(self,selection=None,minimum_image_reference=None,syntaxis='mdtraj'):
 
         from molmodmt import select as _select
@@ -195,12 +185,11 @@ class Trajectory():
         pass
 
     def extract(self,atoms_list=None):
-        from molmodmt.multitool import extract as _molmodmt_extract
+
         tmp_item=deepcopy(self)
         tmp_item.coordinates=tmp_item.coordinates[:,atoms_list,:]
         tmp_item.n_atoms=len(atoms_list)
-        tmp_item.topology=_molmodmt_extract(self.topology,atoms_list)
-        tmp_item.topology_mdtraj=_molmodmt_extract(self.topology_mdtraj,atoms_list)
+
         return tmp_item
 
     def iterload(self,chunk=100, stride=1, skip=0, selection=None, syntaxis='mdtraj'):

@@ -3,7 +3,17 @@ import numpy as _np
 
 def parse_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='mdtraj'):
 
-    tmp_coordinates = _np.asfortranarray(item.xyz) # the same array and same units
+    tmp_xyz = item.xyz
+
+    if selection is not None:
+        from molmodmt import select as _select
+        list_atoms = _select(item, selection=selection, syntaxis='mdtraj')
+        tmp_xyz = tmp_xyz[:,list_atoms,:]
+
+    if frames is not None:
+        tmp_xyz = tmp_xyz[frames,:,:]
+
+    tmp_coordinates = _np.asfortranarray(tmp_xyz) # the same array and same units
     tmp_box = _np.asfortranarray(item.unitcell_vectors)
     tmp_time = _np.asfortranarray(item.time)
     try:
@@ -11,18 +21,18 @@ def parse_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='md
     except:
         tmp_timestep = None
 
+    del(tmp_xyz)
     return tmp_coordinates, tmp_box, tmp_time, tmp_timestep
+
+def from_mdtraj(item=None, selection=None, frames=None, syntaxis='mdtraj'):
+
+    return from_mdtraj_Trajectory(item, selection=selection, frames=frames, syntaxis=syntaxis)
 
 def from_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='mdtraj'):
 
-    tmp_coordinates, tmp_box, tmp_time, tmp_timestep = parse_mdtraj_Trajectory(item,
-                                                                               selection=selection,
-                                                                               frames=frames,
-                                                                               syntaxis=syntaxis)
-    tmp_molmod_trajectory = _Trajectory(filename=item)
-    tmp_molmod_trajectory._initialize_with_coors(coordinates=tmp_coordinates, box=tmp_box, time=tmp_time,
-                      timestep=tmp_timestep)
-    return tmp_molmod_trajectory
+    tmp_item = _Trajectory()
+    tmp_item._import_mdtraj_data(item, selection=selection, frames=frames, syntaxis=syntaxis)
+    return tmp_item
 
 
 def from_pdb(item=None, selection=None, frames=None, syntaxis='mdtraj'):

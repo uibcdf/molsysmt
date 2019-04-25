@@ -26,8 +26,8 @@ def to_mdanalysis(item):
     from MDAnalysis import Universe as _mdanalysis_Universe
     return _mdanalysis_Universe(item)
 
-def to_mdtraj(item):
-    return to_mdtraj_Trajectory(item)
+def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
+    return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
 
 def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
 

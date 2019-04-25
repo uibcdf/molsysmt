@@ -1,5 +1,9 @@
 from .topology import Topology as _Topology
 
+def from_mdtraj(item=None, selection=None, syntaxis='mdtraj'):
+
+    return from_mdtraj_Topology(item.topology, selection=selection, syntaxis=syntaxis)
+
 def from_mdtraj_Topology(item=None, selection=None, syntaxis='mdtraj'):
 
     from molmodmt import extract as _extract
