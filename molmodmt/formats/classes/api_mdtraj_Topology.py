@@ -9,11 +9,23 @@ is_form={
     'mdtraj.Topology': form_name
 }
 
-def to_openmm_Topology(item):
+def to_aminoacids3_seq(item, selection=None, syntaxis='mdtraj'):
+
+    return ''.join([ r.name for r in item.residues ])
+
+def to_aminoacids1_seq(item, selection=None, syntaxis='mdtraj'):
+
+    from molmodmt.formats.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
+    tmp_item = to_aminoacids3_seq(item)
+    tmp_item = _aminoacids3_to_aminoacids1(tmp_item)
+    del(_aminoacids3_to_aminoacids1)
+    return tmp_item
+
+def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
 
     return item.to_openmm()
 
-def to_yank_Topography(item):
+def to_yank_Topography(item, selection=None, syntaxis='mdtraj'):
 
     from .api_openmm_Topology import to_yank_Topography as _opennn_Topology_to_yank_Topography
     tmp_form = to_openmm_Topology(item)
@@ -21,7 +33,7 @@ def to_yank_Topography(item):
     del(_opennn_Topology_to_yank_Topography)
     return tmp_form
 
-def to_parmed_Structure(item):
+def to_parmed_Structure(item, selection=None, syntaxis='mdtraj'):
 
     from .api_openmm_Topology import to_parmed_Structure as _opennn_Topology_to_parmed_Structure
     tmp_form = to_openmm_Topology(item)
@@ -69,8 +81,10 @@ def get(item, atoms_list=None, **kwargs):
             raise BadCallError(BadCallMessage)
         if option=='n_residues' and kwargs[option]==True:
             result.append(tmp_item.n_residues)
+        if option=='n_chains' and kwargs[option]==True:
+            result.append(tmp_item.n_chains)
         if option=='n_molecules' and kwargs[option]==True:
-            result.append(len(get_molecules(tmp_item)))
+            result.append(len(get(tmp_item,molecules=True)))
         if option=='masses' and kwargs[option]==True:
             result.append([atom.element.mass for atom in tmp_item.atoms])
         if option=='bonded_atoms' and kwargs[option]==True:
@@ -86,6 +100,10 @@ def get(item, atoms_list=None, **kwargs):
             result.append(tmp_bonds)
         if option=='graph' and kwargs[option]==True:
             result.append(item.to_bondgraph())
+        if option=='chain_name' and kwargs[option] is not None:
+            raise NotImplementedError
+        if option=='chain_names' and kwargs[option] is not None:
+            raise NotImplementedError
         if option=='molecules' and kwargs[option]==True:
             tmp_molecules = []
             for mm in item.find_molecules():

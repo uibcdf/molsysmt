@@ -32,12 +32,12 @@ class Trajectory():
 
         self._mdtraj_topology = None
 
-    def _import_mdtraj_data(self,item=None, selection=None, frames=None, syntaxis='mdtraj'):
+    def _import_mdtraj_data(self,item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
         from .io_trajectory import parse_mdtraj_Trajectory
         tmp_coordinates, tmp_box, tmp_time, tmp_timestep = parse_mdtraj_Trajectory(item,
                                                                                    selection=selection,
-                                                                                   frames=frames,
+                                                                                   frame_indices=frame_indices,
                                                                                    syntaxis=syntaxis
                                                                                   )
         self._initialize_with_attributes(coordinates=tmp_coordinates, box=tmp_box,
@@ -221,7 +221,7 @@ class Trajectory():
             yield
 
 
-    def load(self,frames='all',selection=None,syntaxis='mdtraj'):
+    def load(self,frame_indices='all',selection=None,syntaxis='mdtraj'):
 
         from mdtraj import load as _mdtraj_load
         from mdtraj import join as _mdtraj_join
@@ -240,18 +240,18 @@ class Trajectory():
             from molmodmt.multitool import select as _select
             atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
 
-        if type(frames)==str:
-            if frames.lower()=='all':
+        if type(frame_indices)==str:
+            if frame.lower()=='all':
                 tmp_mdtrajectory = _mdtraj_load(self.filename,top=tmp_top,atom_indices=atoms_list)
                 mdtraj_read = True
-        elif type(frames)==int:
-            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frames,top=tmp_top,atom_indices=atoms_list)
+        elif type(frame_indices)==int:
+            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame_indices,top=tmp_top,atom_indices=atoms_list)
             mdtraj_read = True
-        elif type(frames) in [list,tuple,ndarray]:
+        elif type(frame_indices) in [list,tuple,ndarray]:
             mdtraj_read = True
             tmp_trajs=[]
-            for ii in range(0,len(frames)):
-                tmp_trajs.append(_mdtraj_load_frame(self.filename, frames[ii],top=tmp_top, atom_indices=atoms_list))
+            for ii in range(0,len(frame_indices)):
+                tmp_trajs.append(_mdtraj_load_frame(self.filename, frame_indices[ii],top=tmp_top, atom_indices=atoms_list))
             tmp_mdtrajectory=_mdtraj_join(tmp_trajs,check_topology=False)
             del(tmp_trajs)
 

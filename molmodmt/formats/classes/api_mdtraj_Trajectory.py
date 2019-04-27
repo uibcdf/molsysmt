@@ -4,7 +4,8 @@ from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    _mdtraj_Trajectory:form_name
+    _mdtraj_Trajectory:form_name,
+    'mdtraj.Trajectory':form_name
     }
 
 def to_aminoacids3_seq(item):
@@ -35,32 +36,31 @@ def to_biopython_SeqRecord(item):
     del(_aminoacids1_to_biopython_SeqRecord)
     return tmp_item
 
-def to_molmodmt_MolMod(item):
+def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
 
-    from molmodmt.native.io_molmod import from_mdtraj as _translator
-    tmp_form = _translator(item)
-    del(_translator)
-    return tmp_form
+    from molmodmt.native.io_molmod import from_mdtraj_Trajectory as _molmodmt_MolMod_from_mdtraj_Trajectory
+    tmp_item = _molmodmt_MolMod_from_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
+    return tmp_item
 
-def to_molmodmt_Trajectory(item):
+def to_molmodmt_Trajectory(item, selection=None, syntaxis='mdtraj'):
 
-    from molmodmt.native.io_trajectory import from_mdtraj_Trajectory as _translator
-    tmp_form = _translator(item)
-    del(_translator)
-    return tmp_form
+    from molmodmt.native.io_trajectory import from_mdtraj_Trajectory as _molmodmt_Trajectory_from_mdtraj_Trajectory
+    tmp_item = _molmodmt_Trajectory_from_mdtraj_Trajectory(item, selection=selection,
+                                                           syntaxis=syntaxis)
+    return tmp_item
 
 def to_molmodmt_Topology(item):
 
-    from molmodmt.native.io_topology import from_mdtraj_Topology as _translator
-    tmp_form = _translator(to_mdtraj_Topology(item))
-    del(_translator)
-    return tmp_form
+    from molmodmt.native.io_topology import from_mdtraj_Topology as _molmodmt_Topology_from_mdtraj_Trajectory
+    tmp_item = _molmodmt_Topology_from_mdtraj_Trajectory(item, selection=selection,
+                                                         syntaxis=syntaxis)
+    return tmp_item
 
-def to_molmodmt(item):
+def to_molmodmt(item, selection=None, syntaxis='mdtraj'):
 
-    return to_molmodmt_MolMod(item)
+    return to_molmodmt_MolMod(item, selection=selection, syntaxis=syntaxis)
 
-def to_mdtraj_Topology(item):
+def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
 
     return item.topology
 

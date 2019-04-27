@@ -11,11 +11,14 @@ is_form = {
     }
 
 def to_pdb(form_id,output_file=None):
+
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
     return _download_pdb(form_id.split(':')[-1],output_file)
 
-def to_fasta(form_id,output_file=None):
-    url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+form_id+'&compressionType=uncompressed'
+def to_fasta(item, output_file=None):
+
+    tmp_item = item.split(':')[-1]
+    url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+tmp_item+'&compressionType=uncompressed'
     request = urllib.request.Request(url)
     response = urllib.request.urlopen(request)
     fasta_txt = response.read().decode('utf-8')
@@ -26,23 +29,35 @@ def to_fasta(form_id,output_file=None):
             f.write(fasta_txt)
         pass
 
-def to_mdtraj_Topology(form_id):
-    from molmodmt.formats.files.api_pdb import to_mdtraj_Topology as _pdb_to_mdtraj_Topology
-    _tmp_file=to_pdb(form_id)
-    _tmp_form=_pdb_to_mdtraj_Topology(_tmp_file)
-    _remove(_tmp_file)
-    del(_pdb_to_mdtraj_Topology)
-    return _tmp_form
+def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
 
-def to_mdtraj(form_id):
+    from molmodmt.native.io_molmod import from_pdbid as _from_pdbid
+    tmp_item = item.split(':')[-1]
+    tmp_item = _from_pdbid(tmp_item)
+    return tmp_item
+
+def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
+
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
     from molmodmt.formats.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
-    _tmp_file=_download_pdb(form_id.split(':')[-1])
-    _tmp_form=_pdb_to_mdtraj(_tmp_file)
+    _tmp_file=_download_pdb(item.split(':')[-1])
+    _tmp_item=_pdb_to_mdtraj(_tmp_file, selection=selection, syntaxis=syntaxis)
     _remove(_tmp_file)
-    return _tmp_form
+    return _tmp_item
+
+def to_mdtraj_Topology(form_id, selection=None, syntaxis='mdtraj'):
+
+    from molmodmt import convert as _convert
+    tmp_item = to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _convert(tmp_item,'mdtraj.Topology')
+    return tmp_item
+
+def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
+
+    return to_mdtraj_Trajectory(item, selection=None, syntaxis=syntaxis)
 
 def to_parmed_Structure(form_id):
+
     from molmodmt.formats.files.api_pdb import to_parmed_Structure as _pdb_to_parmed_Structure
     _tmp_file=to_pdb(form_id)
     _tmp_form=_pdb_to_parmed_Structure(_tmp_file)

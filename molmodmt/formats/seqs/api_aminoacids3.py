@@ -8,21 +8,21 @@ is_form={
 
 ### Corresponde al formato IUPAC extended protein que aparece en Biopython
 
-def to_aminoacids1_seq(item):
+def to_aminoacids1_seq(item, selection=None, syntaxis='mdtraj'):
     from Bio.SeqUtils import seq1
     tmp_seq=seq1(item.replace('aminoacids3:',''))
     tmp_item=tmp_seq
     del(seq1,tmp_seq)
     return tmp_item
 
-def to_biopython_Seq(item):
+def to_biopython_Seq(item, selection=None, syntaxis='mdtraj'):
     from .api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
     tmp_item=to_aminoacids1_seq(item)
     tmp_item=_aminoacis1_to_biopython_Seq(tmp_item)
     del(_aminoacids1_to_biopython_Seq)
     return tmp_item
 
-def to_biopython_SeqRecord(item):
+def to_biopython_SeqRecord(item, selection=None, syntaxis='mdtraj'):
     from .api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
     tmp_item=to_aminoacids1_seq(item)
     tmp_item=_aminoacis1_to_biopython_SeqRecord(tmp_item)

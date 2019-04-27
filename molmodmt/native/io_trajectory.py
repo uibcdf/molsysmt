@@ -1,7 +1,7 @@
 from .trajectory import Trajectory as _Trajectory
 import numpy as _np
 
-def parse_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='mdtraj'):
+def parse_mdtraj_Trajectory(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     tmp_xyz = item.xyz
 
@@ -10,8 +10,8 @@ def parse_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='md
         list_atoms = _select(item, selection=selection, syntaxis='mdtraj')
         tmp_xyz = tmp_xyz[:,list_atoms,:]
 
-    if frames is not None:
-        tmp_xyz = tmp_xyz[frames,:,:]
+    if frame_indices is not None:
+        tmp_xyz = tmp_xyz[frame_indices,:,:]
 
     tmp_coordinates = _np.asfortranarray(tmp_xyz) # the same array and same units
     tmp_box = _np.asfortranarray(item.unitcell_vectors)
@@ -24,29 +24,29 @@ def parse_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='md
     del(tmp_xyz)
     return tmp_coordinates, tmp_box, tmp_time, tmp_timestep
 
-def from_mdtraj(item=None, selection=None, frames=None, syntaxis='mdtraj'):
+def from_mdtraj(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
-    return from_mdtraj_Trajectory(item, selection=selection, frames=frames, syntaxis=syntaxis)
+    return from_mdtraj_Trajectory(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
-def from_mdtraj_Trajectory(item=None, selection=None, frames=None, syntaxis='mdtraj'):
+def from_mdtraj_Trajectory(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     tmp_item = _Trajectory()
-    tmp_item._import_mdtraj_data(item, selection=selection, frames=frames, syntaxis=syntaxis)
+    tmp_item._import_mdtraj_data(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
     return tmp_item
 
 
-def from_pdb(item=None, selection=None, frames=None, syntaxis='mdtraj'):
+def from_pdb(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     from molmodmt import convert as _convert
     tmp_item = _convert(item, form='mdtraj.Trajectory', selection=selection, syntaxis=syntaxis)
     tmp_item = from_mdtraj_Trajectory(tmp_item)
     return tmp_item
 
-def from_xtc(item=None, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
+def from_xtc(item=None, topology=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     from molmodmt import extract as _extract
     tmp_item = _Trajectory(filename=item, topology=topology)
-    if frames is not None:
-        tmp_item.load(frames=frames, selection=selection, syntaxis=syntaxis)
+    if frame_indices is not None:
+        tmp_item.load(frame_indices=frame_indices, selection=selection, syntaxis=syntaxis)
     return tmp_item
 

@@ -7,9 +7,9 @@ is_form = {
     'PDB': form_name
     }
 
-def to_molmodmt_MolMod(item, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
+def to_molmodmt_MolMod(item, topology=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
     from molmodmt.native.io_molmod import from_pdb as _from_pdb
-    return _from_pdb(item, topology=topology, selection=selection, frames=frames, syntaxis=syntaxis)
+    return _from_pdb(item, topology=topology, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
 def to_parmed(item, selection=None, syntaxis='mdtraj'):
     return to_parmed_Structure(item)
@@ -25,6 +25,12 @@ def to_parmed_Structure(item, selection=None, syntaxis='mdtraj'):
 def to_mdanalysis(item):
     from MDAnalysis import Universe as _mdanalysis_Universe
     return _mdanalysis_Universe(item)
+
+def to_moldmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
+    from molmodmt import convert as _convert
+    tmp_item = to_mdtraj(item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _convert(tmp_item,'molmodmt.MolMod')
+    return tmp_item
 
 def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
     return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
