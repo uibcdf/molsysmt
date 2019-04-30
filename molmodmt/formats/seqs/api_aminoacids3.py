@@ -3,7 +3,8 @@ from os.path import basename as _basename
 form_name=_basename(__file__).split('.')[0].replace('api_','')+':seq'
 
 is_form={
-    'aminoacids3:seq' : form_name
+    'aminoacids3:seq' : form_name,
+    'aminoacids3' : form_name
 }
 
 ### Corresponde al formato IUPAC extended protein que aparece en Biopython

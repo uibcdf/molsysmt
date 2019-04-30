@@ -61,12 +61,14 @@ def prettyprint_sequence_alignment(ref_item=None, item=None, align=0, residues=F
     pass
 
 
-
-
-def structure_alignment(ref_item=None, item=None, ref_selection_alignment='all',
-                        ref_selection_rmsd=None, ref_frame=0,
-                        selection_alignment='all', selection_rmsd='backbone', frame='all', parallel=False,
-                        in_place=False, engine=['biopython','mdtraj'], **kwards):
+def structure_alignment(ref_item=None, item=None,
+                        ref_selection_alignment='all', selection_alignment='all',
+                        ref_selection_rmsd=None, selection_rmsd='backbone',
+                        ref_frame_index=0, frame_indices='all',
+                        parallel=True,
+                        engine_sequence_alignment = 'biopython',
+                        engine_least_rmsd_fit = 'mdtraj',
+                        syntaxis='mdtraj'):
 
     from .rmsd import least_rmsd_fit as _least_rmsd_fit
     from .multitool import extract as _extract
@@ -74,13 +76,6 @@ def structure_alignment(ref_item=None, item=None, ref_selection_alignment='all',
 
     if ref_selection_rmsd is None:
         ref_selection_rmsd = selection_rmsd
-
-    if type(engine)==list:
-        engine_sequence_alignment = engine[0]
-        engine_least_rmsd_fit     = engine[1]
-    else:
-        engine_sequence_alignment = engine
-        engine_least_rmsd_fit     = engine
 
     if engine_sequence_alignment == 'biopython':
 
@@ -137,9 +132,11 @@ def structure_alignment(ref_item=None, item=None, ref_selection_alignment='all',
             item_selection = selection_rmsd+' and index '+" ".join(map(str,intersection_atoms[1]))
 
         if engine_least_rmsd_fit == 'mdtraj':
-
-            return _least_rmsd_fit(ref_item, item, ref_item_selection, ref_frame, item_selection,
-                                   frame, parallel=parallel, in_place=in_place, engine='mdtraj')
+            return _least_rmsd_fit(ref_item=ref_item, item=item,
+                                   ref_selection=ref_item_selection, selection=item_selection,
+                                   ref_frame_index=ref_frame_index, frame_indices=frame_indices,
+                                   engine=engine_least_rmsd_fit,
+                                   parallel=parallel, syntaxis=syntaxis)
         else:
             raise NotImplementedError
 

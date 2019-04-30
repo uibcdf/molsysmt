@@ -8,4 +8,5 @@ from .sequence import *
 from .radius_of_gyration import radius_of_gyration
 from .chem_and_phys_properties import *
 from .fix_topological_properties import fix_chains
+from .model_loops import add_loop
 

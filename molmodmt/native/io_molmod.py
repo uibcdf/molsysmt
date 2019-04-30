@@ -73,6 +73,12 @@ def from_pdb(item=None,topology=None,selection=None,frame_indices=None,syntaxis=
 
     return tmp_item
 
+def to_pdb(item=None, filename=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+
+    from molmodmt import convert as _convert
+    tmp_item = _convert(item, 'mdtraj', selection=selection, syntaxis=syntaxis)
+    return _convert(tmp_item, filename, frame_indices=frame_indices)
+
 def from_xtc(item=None,topology=None,selection=None,frame_indices=None,syntaxis='mdtraj'):
 
     from .io_structure import from_gromacs_Topology as _structure_from_gromacs_Topology

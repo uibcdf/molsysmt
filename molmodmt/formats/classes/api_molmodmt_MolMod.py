@@ -19,11 +19,15 @@ def to_aminoacids3_seq(item, selection=None, syntaxis='mdtraj'):
     tmp_item = _convert(tmp_item,'aminoacids3:seq')
     return tmp_item
 
+def to_aminoacids1(item, selection=None, syntaxis='mdtraj'):
+    return to_aminoacids1_seq(item, selection=selection, syntaxis=syntaxis)
+
 def to_aminoacids1_seq(item, selection=None, syntaxis='mdtraj'):
 
     from molmodmt import convert as _convert
     tmp_item = to_aminoacids3_seq(item)
     tmp_item = _convert('aminoacids3:'+tmp_item,'aminoacids1:seq')
+    return tmp_item
 
 def to_biopython_Seq(item, selection=None, syntaxis='mdtraj'):
 
@@ -114,6 +118,11 @@ def get(item, atoms_list=None, **kwargs):
     else:
         return result
 
+def to_pdb(item, filename=None, selection=None, syntaxis='mdtraj'):
+
+    from molmodmt.native.io_molmod import to_pdb as _to_pdb
+
+    return _to_pdb(item, filename=filename, selection=selection, syntaxis=syntaxis)
 
 def select_with_mdtraj(item, selection=None, syntaxis='mdtraj'):
     return item.select_with_mdtraj(selection)

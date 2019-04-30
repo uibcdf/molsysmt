@@ -124,9 +124,20 @@ def to_parmed(item):
 
     return to_parmed_Structure(item)
 
-def to_pdb(item,filename):
+def to_pdb(item, filename=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
-    return item.save_pdb(filename)
+    from molmodmt import extract as _extract
+
+    if selection is not None:
+        tmp_item = _extract(item, selection=selection, syntaxis=syntaxis)
+    else:
+        tmp_item = item
+
+    if frame_indices is not None:
+        return item.slice(frame_indices).save_pdb(filename)
+    else:
+        return item.save_pdb(filename)
+
 
 def to_xtc(item,filename):
     return item.save_xtc(filename)
