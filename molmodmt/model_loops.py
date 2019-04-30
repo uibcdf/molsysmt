@@ -14,7 +14,7 @@ def add_loop (item, target_sequence=None, engine='modeller'):
 
         seq_original = _convert(item, 'aminoacids1:seq')
         seq_aligned, _, _, _, _ = _sequence_alignment('aminoacids1:'+seq_original,
-                                                      'aminoacids1:'+target_sequence)
+                                                      'aminoacids1:'+target_sequence)[0]
 
         tmp_pdbfilename = _tempfile.NamedTemporaryFile(suffix=".pdb").name
         tmp_name = tmp_pdbfilename.split('/')[-1].split('.')[0]
@@ -23,32 +23,34 @@ def add_loop (item, target_sequence=None, engine='modeller'):
 
         _convert(item, tmp_pdbfilename)
 
-        e = environ()
+        modeller.log.verbose()
+        e = modeller.environ()
         e.io.atom_files_directory = ['.', '/tmp']
-        m = model(e, file=tmp_pdbfilename)
-        aln = alignment(e)
+        m = modeller.model(e, file=tmp_pdbfilename)
+        aln = modeller.alignment(e)
         aln.append_model(m, align_codes=tmp_name)
         aln.write(file=tmp_seqfilename)
 
         alifile = open(tmp_alifilename,'w')
         seqfile = open(tmp_seqfilename,'r')
-        for _ in range(2):
-            line= seqfile.readline()
-            alifile.write(line)
-        alifile.write(seq_aligned+'*')
-        alifile.write('>P1,'+tmp_name+'_fill')
-        alifile.write('sequence:::::::::')
-        alifile.write(target_sequence+'*')
+        lines_seqfile = seqfile.readlines()
+        alifile.write(lines_seqfile[1])
+        alifile.write(lines_seqfile[2])
+        alifile.write(seq_aligned+'*\n')
+        alifile.write('>P1;'+tmp_name+'_fill\n')
+        alifile.write('sequence:::::::::\n')
+        alifile.write(target_sequence+'*\n')
         alifile.close()
         seqfile.close()
+        del(lines_seqfile)
 
-        a = loopmodel(env, alnfile = tmp_alifilename, knowns = tmp_name, sequence = tmp_name+'_fill')
+        a = automodel.loopmodel(e, alnfile = tmp_alifilename, knowns = tmp_name, sequence = tmp_name+'_fill')
         a.starting_model = 1
         a.ending_model = 1
 
         a.loop.starting_model = 1
         a.loop.ending_model = 2
-        a.loop.md_level = refine.fast
+        a.loop.md_level = automodel.refine.fast
 
         a.make()
 
