@@ -1,7 +1,7 @@
 
 
 
-def add_loop (item, target_sequence=None, engine='modeller'):
+def add_loop (item, target_sequence=None, finesse=0, engine='modeller'):
 
     if engine=='modeller':
 
@@ -45,12 +45,26 @@ def add_loop (item, target_sequence=None, engine='modeller'):
         del(lines_seqfile)
 
         a = automodel.loopmodel(e, alnfile = tmp_alifilename, knowns = tmp_name, sequence = tmp_name+'_fill')
+
+        a.write_intermediates = False
+
         a.starting_model = 1
         a.ending_model = 1
 
         a.loop.starting_model = 1
-        a.loop.ending_model = 2
-        a.loop.md_level = automodel.refine.fast
+        a.loop.ending_model = 12
+
+        if finesse==0:
+            a.loop.md_level = automodel.refine.very_fast
+        elif finesse==1:
+            a.loop.md_level = automodel.refine.fast
+        elif finesse==2:
+            a.loop.md_level = automodel.refine.slow
+        elif finesse==3:
+            a.loop.md_level = automodel.refine.very_slow
+        elif finesse==4:
+            a.loop.md_level = automodel.refine.slow_large
+
 
         a.make()
 
