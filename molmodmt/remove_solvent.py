@@ -19,43 +19,27 @@ def remove (item, selection=None, syntaxis='mdtraj'):
         Molecular model in any form to be operated by the method.
     selection : str, int, list, tuple or numpy array
         Selection sentence or atoms indices list.
-    Attributes
+    syntaxis : str (default "mdtraj")
+    Name of the selection syntaxis used: "mdtraj" or "amber".
+
+    Returns
     ----------
-    lambda_restraints
+    item : molecular model
+        The result is a new molecular model with the same form as the input item.
+
     Examples
     --------
-    Create a system in a thermodynamic state.
-    >>> from openmmtools import testsystems, states
-    >>> system_container = testsystems.LysozymeImplicit()
-    >>> system, positions = system_container.system, system_container.positions
-    >>> thermodynamic_state = states.ThermodynamicState(system, 300*unit.kelvin)
-    >>> sampler_state = states.SamplerState(positions)
-    Identify ligand atoms. Topography automatically identify receptor atoms too.
-    >>> from yank.yank import Topography
-    >>> topography = Topography(system_container.topology, ligand_atoms=range(2603, 2621))
-    Apply a Harmonic restraint between receptor and protein. Let the restraint
-    automatically determine all the parameters.
-    >>> restraint = Harmonic()
-    >>> restraint.determine_missing_parameters(thermodynamic_state, sampler_state, topography)
-    >>> restraint.restrain_state(thermodynamic_state)
-    Create a ``RestraintState`` object to control the strength of the restraint.
-    >>> restraint_state = RestraintState(lambda_restraints=1.0)
-    ``RestraintState`` implements the ``IComposableState`` interface, so it can be
-    used with ``CompoundThermodynamicState``.
-    >>> compound_state = states.CompoundThermodynamicState(thermodynamic_state=thermodynamic_state,
-    ...                                                    composable_states=[restraint_state])
-    >>> compound_state.lambda_restraints
-    1.0
-    >>> integrator = openmm.VerletIntegrator(1.0*unit.femtosecond)
-    >>> context = compound_state.create_context(integrator)
-    >>> context.getParameter('lambda_restraints')
-    1.0
-    You can control the parameters in the OpenMM Context by setting the state's
-    attributes. To To deactivate the restraint, set `lambda_restraints` to 0.0.
-    >>> compound_state.lambda_restraints = 0.0
-    >>> compound_state.apply_to_context(context)
-    >>> context.getParameter('lambda_restraints')
-    0.0
+    Remove chains 0 and 1 from the pdb: 1B3T.
+    >>> import molmodmt as m3t
+    >>> system = m3t.load('pdb:1B3T')
+    Check the number of chains
+    >>> m3t.get(system, n_chains=True)
+    8
+    Remove chains 0 and 1
+    >>> new_system = m3t.remove(system, 'chainid 0 1')
+    Check the number of chains of the new molecular model
+    >>> m3t.get(new_system, n_chains=True)
+    6
     """
 
 
