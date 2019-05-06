@@ -12,11 +12,11 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+
 import os
 import sys
 import sphinx_rtd_theme
-# sys.path.insert(0, os.path.abspath('.'))
-
+#sys.path.insert(0, os.path.abspath('./../molmodmt'))
 
 # -- Project information -----------------------------------------------------
 
@@ -41,14 +41,21 @@ release = '0.1'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinx.ext.todo',
     'sphinx.ext.mathjax',
+    'sphinx.ext.todo',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
+    'numpydoc',
     'sphinx.ext.githubpages',
+    'sphinxcontrib.bibtex',
     'nbsphinx'
 ]
+
+autosummary_generate = True
+autodoc_default_flags = ['members', 'inherited-members']
+numpydoc_class_members_toctree = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

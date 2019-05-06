@@ -29,9 +29,18 @@ Installation and first steps
    source/introduction/Quickstart.ipynb
 
 
+Source Documentation
+====================
+
+.. toctree::
+   :maxdepth: 1
+
+   api/index
+
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+

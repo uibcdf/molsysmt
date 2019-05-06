@@ -1,16 +1,20 @@
-"""
+# =======================
+# BUH
+# =======================
 
+
+"""
 Remove Atoms
 ==============
-Methods to remove atoms from a molecular model.
 
+Methods to remove atoms from a molecular model.
 
 """
 
 
 def remove (item, selection=None, syntaxis='mdtraj'):
+    """remove(item, selection=None, syntaxis='mdtraj')
 
-    """
     Remove a set of atoms from the molecular model
 
     Parameters
@@ -20,10 +24,10 @@ def remove (item, selection=None, syntaxis='mdtraj'):
     selection : str, int, list, tuple or numpy array
         Selection sentence or atoms indices list.
     syntaxis : str (default "mdtraj")
-    Name of the selection syntaxis used: "mdtraj" or "amber".
+        Name of the selection syntaxis used: "mdtraj" or "amber".
 
     Returns
-    ----------
+    -------
     item : molecular model
         The result is a new molecular model with the same form as the input item.
 
@@ -40,8 +44,15 @@ def remove (item, selection=None, syntaxis='mdtraj'):
     Check the number of chains of the new molecular model
     >>> m3t.get(new_system, n_chains=True)
     6
-    """
 
+    See Also
+    --------
+    molmodmt.selection
+
+    Notes
+    -----
+    There is a special function to remove solvent atoms: molmodmt.remove_solvent
+    """
 
     from .multitool import select as _select
     from .multitool import extract as _extract
