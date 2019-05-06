@@ -1,14 +1,19 @@
 
+def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=False):
 
+    from .multitool import get_form as _get_form, convert as _convert
+    from molmodmt import convert as _convert
 
-def add_loop (item, target_sequence=None, finesse=0, engine='modeller'):
+    form_in = _get_form(item)
 
     if engine=='modeller':
 
-        from molmodmt import convert as _convert
         from molmodmt import sequence_alignment as _sequence_alignment
         import tempfile as _tempfile
         from os import remove as _remove
+        from os import curdir as _curdir
+        from os import listdir as _listdir
+        from glob import glob
         import modeller as modeller
         import modeller.automodel as automodel
 
@@ -23,7 +28,11 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller'):
 
         _convert(item, tmp_pdbfilename)
 
-        modeller.log.verbose()
+        if verbose:
+            modeller.log.verbose()
+        else:
+            modeller.log.none()
+
         e = modeller.environ()
         e.io.atom_files_directory = ['.', '/tmp']
         m = modeller.model(e, file=tmp_pdbfilename)
@@ -65,12 +74,33 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller'):
         elif finesse==4:
             a.loop.md_level = automodel.refine.slow_large
 
-
         a.make()
 
         _remove(tmp_pdbfilename)
         _remove(tmp_seqfilename)
         _remove(tmp_alifilename)
+
+        files_produced = [ ff for ff in _listdir(_curdir) if ff.startswith(tmp_name) ]
+
+        candidate_value = float("inf")
+        candidate_pdb_file = None
+
+        for pdb_loopmodel in [ ff for ff in files_produced if ff.startswith(tmp_name+'_fill.BL')]:
+            pdb_file=open(pdb_loopmodel,'r')
+            _ = pdb_file.readline()
+            objective_function_value = float(pdb_file.readline().split(' ')[-1])
+            if objective_function_value < candidate_value:
+                candidate_value = objective_function_value
+                candidate_pdb_file = pdb_loopmodel
+            pdb_file.close()
+
+        print("Best loop model with modeller's objective function:",candidate_value)
+        tmp_item = _convert(candidate_pdb_file, form_in)
+
+        for file_produced in files_produced:
+            _remove(file_produced)
+
+        return tmp_item
 
     elif engine=='pyrosetta':
         pass
@@ -78,4 +108,3 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller'):
     elif engine=='ensembler':
         pass
 
-    pass
