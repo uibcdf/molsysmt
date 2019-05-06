@@ -63,9 +63,6 @@ class Trajectory():
             if cell[0] is None:
                 self.cell = None
 
-        print(box)
-        print(cell)
-
         if self.coordinates is not None:
             self.n_frames = self.coordinates.shape[0]
             self.n_atoms = self.coordinates.shape[1]
@@ -111,9 +108,7 @@ class Trajectory():
         pass
 
     def box2cell(self):
-        print('entra')
         self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box, self.n_frames)
-        print(self.cell)
         pass
 
     def box2invbox(self):

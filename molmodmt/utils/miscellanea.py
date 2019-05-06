@@ -23,6 +23,10 @@ def atoms_list2string(atoms_list):
 
     return ",".join([str(ii) for ii in atoms_list])
 
+def strings_list2string(atoms_list):
+
+    return ",".join([str(ii) for ii in atoms_list])
+
 def atoms_list2AmberMask(atoms_list,num_atoms,inverse=False):
 
     from numpy import zeros as _zeros
