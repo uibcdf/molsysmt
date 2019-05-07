@@ -73,7 +73,7 @@ _dict_merger    = {**_dict_engines_merger, **_dict_classes_merger, **_dict_files
                    **_dict_ids_merger, **_dict_seqs_merger, **_dict_viewers_merger}
 _dict_get = {**_dict_engines_get, **_dict_classes_get, **_dict_files_get,\
                    **_dict_ids_get, **_dict_seqs_get, **_dict_viewers_get}
-_dict_get = {**_dict_engines_set, **_dict_classes_set, **_dict_files_set,\
+_dict_set = {**_dict_engines_set, **_dict_classes_set, **_dict_files_set,\
                    **_dict_ids_set, **_dict_seqs_set, **_dict_viewers_set}
 _dict_from_to = {}
 _dict_to_from = {}

@@ -16,6 +16,9 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=
         from glob import glob
         import modeller as modeller
         import modeller.automodel as automodel
+        from .multitool import get as _get, set as _set
+
+        tmp_box = _get(item, box=True)
 
         seq_original = _convert(item, 'aminoacids1:seq')
         seq_aligned, _, _, _, _ = _sequence_alignment('aminoacids1:'+seq_original,
@@ -99,6 +102,9 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=
 
         for file_produced in files_produced:
             _remove(file_produced)
+
+        _set(tmp_item, box=tmp_box)
+        del(tmp_box)
 
         return tmp_item
 

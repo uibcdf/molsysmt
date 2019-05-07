@@ -93,4 +93,4 @@ def remove_solvent (item, ions=False, include_selection=None, exclude_selection=
     atoms_list_to_be_removed = list(set(atoms_list_water) | set(atoms_list_ions) | set(atoms_list_included))
     atoms_list_to_be_removed = list(set(atoms_list_to_be_removed) - set(atoms_list_excluded))
 
-    return _extract(item, atoms_list_to_be_removed)
+    return remove(item, atoms_list_to_be_removed)

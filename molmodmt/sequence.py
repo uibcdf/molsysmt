@@ -1,7 +1,10 @@
 from molmodmt import convert as _convert
 from molmodmt import select as _select
 
-def sequence_alignment(ref_item=None, item=None, engine='biopython', **kwards):
+def sequence_alignment(ref_item=None, item=None, engine='biopython', prettyprint=False,
+                       prettyprint_alignment_index = 0, **kwards):
+
+    alignment = None
 
     if engine=='biopython':
 
@@ -17,7 +20,6 @@ def sequence_alignment(ref_item=None, item=None, engine='biopython', **kwards):
         gap_extend=-0.5
         alignment = _biopython_align.globalds(tmp_ref_seq, tmp_seq, matrix, gap_open, gap_extend)
         del(_biopython_MatrixInfo,_biopython_align,matrix,gap_open,gap_extend,tmp_ref_seq,tmp_seq)
-        return alignment
 
     elif engine=='modeller':
 
@@ -27,38 +29,43 @@ def sequence_alignment(ref_item=None, item=None, engine='biopython', **kwards):
 
         raise NotImplementedError
 
-def prettyprint_sequence_alignment(ref_item=None, item=None, align=0, residues=False,
-                                   engine='biopython'):
+    if prettyprint:
 
-    textredbold  =  '\033[1;31;48m' # Red bold text
-    textbluebold =  '\033[1;34;48m' # Green bold text
-    endcolor = '\033[m' # reset color
-    # Color guide in: http://ozzmaker.com/add-colour-to-text-in-python/
+        textredbold  =  '\033[1;31;48m' # Red bold text
+        textbluebold =  '\033[1;34;48m' # Green bold text
+        endcolor = '\033[m' # reset color
+        # Color guide in: http://ozzmaker.com/add-colour-to-text-in-python/
 
-    aln = sequence_alignment(ref_item=ref_item, item=item, engine=engine)
-    seq1 =""
-    seq2 =""
+        aln = alignment
+        align = prettyprint_alignment_index
+        seq1 =""
+        seq2 =""
 
-    for r in range(len(aln[align][0])):
-        res1 = aln[align][0][r]
-        res2 = aln[align][1][r]
-        if res1 == res2:
-            seq1+=res1
-            seq2+=res2
-        elif res1 == '-':
-            seq1+=res1
-            seq2+=textbluebold+res2+endcolor
-        elif res2 == '-':
-            seq1+=textbluebold+res1+endcolor
-            seq2+=res2
-        else:
-            seq1+=textredbold+res1+endcolor
-            seq2+=textredbold+res2+endcolor
+        for r in range(len(aln[align][0])):
+            res1 = aln[align][0][r]
+            res2 = aln[align][1][r]
+            if res1 == res2:
+                seq1+=res1
+                seq2+=res2
+            elif res1 == '-':
+                seq1+=res1
+                seq2+=textbluebold+res2+endcolor
+            elif res2 == '-':
+                seq1+=textbluebold+res1+endcolor
+                seq2+=res2
+            else:
+                seq1+=textredbold+res1+endcolor
+                seq2+=textredbold+res2+endcolor
 
-    print(seq1)
-    print()
-    print(seq2)
-    pass
+        print(seq1)
+        print()
+        print(seq2)
+
+        pass
+
+    else:
+
+        return alignment
 
 
 def structure_alignment(ref_item=None, item=None,
