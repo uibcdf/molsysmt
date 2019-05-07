@@ -5,6 +5,7 @@ if git diff-index --quiet HEAD --; then
     echo "Updating gh-pages branch"
 
     bash build_local_version.sh
+    git add _build/html
 
     cd ..
     git checkout gh-pages
