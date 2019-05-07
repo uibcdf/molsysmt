@@ -4,7 +4,7 @@ if git diff-index --quiet HEAD --; then
 
     echo "Updating pages"
 
-    bash remove_local_version.sh
+    bash clean_built_html.sh
 
     make html
 
