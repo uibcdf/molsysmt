@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>molmodmt.remove_atoms &mdash; MolModMT 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MolModMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/introduction/Quickstart.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/introduction/Quickstart.html#Quick-Start">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/introduction/Quickstart.html#Installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/introduction/Quickstart.html#First-tasks-easily-done-with-MolModMT">First tasks easily done with MolModMT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../source/introduction/Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../source/introduction/Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../source/introduction/Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../source/introduction/Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../source/introduction/Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../source/introduction/Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../source/introduction/Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../source/introduction/Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/introduction/Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">Source Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#native-item">Native item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.MolMod.html">molmodmt.MolMod</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#items-transformation">Items transformation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.load.html">molmodmt.load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.get_form.html">molmodmt.get_form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.info.html">molmodmt.info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.select.html">molmodmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.convert.html">molmodmt.convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.extract.html">molmodmt.extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.merge.html">molmodmt.merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.view.html">molmodmt.view</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#items-manipulation">Items manipulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.remove.html">molmodmt.remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.remove_solvent.html">molmodmt.remove_solvent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.recenter.html">molmodmt.recenter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.fix_chains.html">molmodmt.fix_chains</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#observables">Observables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.get.html">molmodmt.get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.distances.html">molmodmt.distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.contact_map.html">molmodmt.contact_map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.neighbors_lists.html">molmodmt.neighbors_lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.center_of_mass.html">molmodmt.center_of_mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.geometrical_center.html">molmodmt.geometrical_center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.radius_of_gyration.html">molmodmt.radius_of_gyration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.rmsd.html">molmodmt.rmsd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.least_rmsd_fit.html">molmodmt.least_rmsd_fit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#structural-and-topological-items-comparison">Structural and Topological items comparison</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.rmsd.html">molmodmt.rmsd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.least_rmsd_fit.html">molmodmt.least_rmsd_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.sequence_identity.html">molmodmt.sequence_identity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.sequence_alignment.html">molmodmt.sequence_alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.structure_alignment.html">molmodmt.structure_alignment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#modeling">Modeling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/generated/molmodmt.add_loop.html">molmodmt.add_loop</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MolModMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>molmodmt.remove_atoms</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for molmodmt.remove_atoms</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =======================</span>
+<span class="c1"># BUH</span>
+<span class="c1"># =======================</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Remove Atoms</span>
+<span class="sd">==============</span>
+
+<span class="sd">Methods to remove atoms from a molecular model.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="remove"><a class="viewcode-back" href="../../api/generated/molmodmt.remove.html#molmodmt.remove">[docs]</a><span class="k">def</span> <span class="nf">remove</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;remove(item, selection=None, syntaxis=&#39;mdtraj&#39;)</span>
+
+<span class="sd">    Remove a set of atoms from the molecular model</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    item : molecular model</span>
+<span class="sd">        Molecular model in any form to be operated by the method.</span>
+<span class="sd">    selection : str, int, list, tuple or numpy array</span>
+<span class="sd">        Selection sentence or atoms indices list.</span>
+<span class="sd">    syntaxis : str (default &quot;mdtraj&quot;)</span>
+<span class="sd">        Name of the selection syntaxis used: &quot;mdtraj&quot; or &quot;amber&quot;.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    item : molecular model</span>
+<span class="sd">        The result is a new molecular model with the same form as the input item.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Remove chains 0 and 1 from the pdb: 1B3T.</span>
+<span class="sd">    &gt;&gt;&gt; import molmodmt as m3t</span>
+<span class="sd">    &gt;&gt;&gt; system = m3t.load(&#39;pdb:1B3T&#39;)</span>
+<span class="sd">    Check the number of chains</span>
+<span class="sd">    &gt;&gt;&gt; m3t.get(system, n_chains=True)</span>
+<span class="sd">    8</span>
+<span class="sd">    Remove chains 0 and 1</span>
+<span class="sd">    &gt;&gt;&gt; new_system = m3t.remove(system, &#39;chainid 0 1&#39;)</span>
+<span class="sd">    Check the number of chains of the new molecular model</span>
+<span class="sd">    &gt;&gt;&gt; m3t.get(new_system, n_chains=True)</span>
+<span class="sd">    6</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    molmodmt.selection</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    There is a special function to remove solvent atoms: molmodmt.remove_solvent</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">.multitool</span> <span class="k">import</span> <span class="n">select</span> <span class="k">as</span> <span class="n">_select</span>
+    <span class="kn">from</span> <span class="nn">.multitool</span> <span class="k">import</span> <span class="n">extract</span> <span class="k">as</span> <span class="n">_extract</span>
+
+    <span class="n">atoms_list_to_be_removed</span> <span class="o">=</span> <span class="n">_select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+    <span class="n">atoms_list_all</span> <span class="o">=</span> <span class="n">_select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
+    <span class="n">atoms_list_survive</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">atoms_list_all</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">atoms_list_to_be_removed</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">_extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">atoms_list_survive</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="remove_solvent"><a class="viewcode-back" href="../../api/generated/molmodmt.remove_solvent.html#molmodmt.remove_solvent">[docs]</a><span class="k">def</span> <span class="nf">remove_solvent</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+
+    <span class="kn">from</span> <span class="nn">.multitool</span> <span class="k">import</span> <span class="n">select</span> <span class="k">as</span> <span class="n">_select</span>
+    <span class="kn">from</span> <span class="nn">.utils.types</span> <span class="k">import</span> <span class="n">water_residues</span> <span class="k">as</span> <span class="n">_water_residues</span>
+    <span class="kn">from</span> <span class="nn">.utils.types</span> <span class="k">import</span> <span class="n">ion_residues</span> <span class="k">as</span> <span class="n">_ion_residues</span>
+
+    <span class="n">atoms_list_to_be_removed</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">atoms_list_water</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">atoms_list_ions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">atoms_list_included</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">atoms_list_excluded</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">atoms_list_water</span> <span class="o">=</span> <span class="n">_select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;resname &#39;</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">_water_residues</span><span class="p">]),</span>
+                               <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ions</span><span class="p">:</span>
+        <span class="n">atoms_list_ions</span> <span class="o">=</span> <span class="n">_select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;resname &#39;</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">_ion_residues</span><span class="p">]),</span>
+                                  <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">include_selection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">atoms_list_included</span> <span class="o">=</span> <span class="n">_select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">include_selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">exclude_selection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">atoms_list_excluded</span> <span class="o">=</span> <span class="n">_select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">exclude_selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+    <span class="n">atoms_list_to_be_removed</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">atoms_list_water</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">atoms_list_ions</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">atoms_list_included</span><span class="p">))</span>
+    <span class="n">atoms_list_to_be_removed</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">atoms_list_to_be_removed</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">atoms_list_excluded</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">_extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">atoms_list_to_be_removed</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
