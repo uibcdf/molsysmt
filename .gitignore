@@ -8,5 +8,6 @@ build/*
 record.txt
 *.ipynb_checkpoints
 */_build/*
+*/docs/api/generated/*
 *.mod
 dist/*
