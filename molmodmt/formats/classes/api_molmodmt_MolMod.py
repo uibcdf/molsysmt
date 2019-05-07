@@ -70,6 +70,18 @@ def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
     tmp_item = _to_mdtraj_Topology(item)
     return tmp_item
 
+def set(item, atoms_list=None, **kwargs):
+
+    for option in kwargs:
+        if option=='box' and kwargs[option] is not True:
+            item.trajectory.box=kwargs[option]
+            item.trajectory.box2cell()
+        if option=='cell' and kwargs[option] is not True:
+            item.trajectory.cell=kwargs[option]
+            item.trajectory.cell2box()
+
+    pass
+
 def get(item, atoms_list=None, **kwargs):
 
     from .api_mdtraj_Topology import get as _get
@@ -112,6 +124,10 @@ def get(item, atoms_list=None, **kwargs):
             raise NotImplementedError
         if option=='atom_type' and kwargs[option]==True:
             raise NotImplementedError
+        if option=='box' and kwargs[option]==True:
+            result.append(item.trajectory.box)
+        if option=='cell' and kwargs[option]==True:
+            result.append(item.trajectory.cell)
 
     if len(result)==1:
         return result[0]

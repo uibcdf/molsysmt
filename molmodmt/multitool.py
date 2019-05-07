@@ -8,7 +8,8 @@ from .formats.engines import dict_is_form as _dict_engines_is_form, \
     dict_selector as _dict_engines_selector, \
     dict_extractor as _dict_engines_extractor, \
     dict_merger as _dict_engines_merger, \
-    dict_get as _dict_engines_get
+    dict_get as _dict_engines_get, \
+    dict_set as _dict_engines_set
 
 ## Classes
 from .formats.classes import dict_is_form as _dict_classes_is_form, \
@@ -17,7 +18,8 @@ from .formats.classes import dict_is_form as _dict_classes_is_form, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
     dict_merger as _dict_classes_merger, \
-    dict_get as _dict_classes_get
+    dict_get as _dict_classes_get, \
+    dict_set as _dict_classes_set
 
 ## Files
 from .formats.files import dict_is_form as _dict_files_is_form, \
@@ -26,7 +28,8 @@ from .formats.files import dict_is_form as _dict_files_is_form, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
     dict_merger as _dict_files_merger, \
-    dict_get as _dict_files_get
+    dict_get as _dict_files_get, \
+    dict_set as _dict_files_set
 
 ## IDs
 from .formats.ids import dict_is_form as _dict_ids_is_form, \
@@ -35,7 +38,8 @@ from .formats.ids import dict_is_form as _dict_ids_is_form, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
     dict_merger as _dict_ids_merger, \
-    dict_get as _dict_ids_get
+    dict_get as _dict_ids_get, \
+    dict_set as _dict_ids_set
 
 ## Sequences
 from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
@@ -44,7 +48,8 @@ from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
     dict_merger as _dict_seqs_merger, \
-    dict_get as _dict_seqs_get
+    dict_get as _dict_seqs_get, \
+    dict_set as _dict_seqs_set
 
 ## Viewers
 from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
@@ -53,7 +58,8 @@ from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
     dict_merger as _dict_viewers_merger, \
-    dict_get as _dict_viewers_get
+    dict_get as _dict_viewers_get, \
+    dict_set as _dict_viewers_set
 
 _dict_is_form = {**_dict_engines_is_form, **_dict_classes_is_form, **_dict_files_is_form,\
                  **_dict_ids_is_form, **_dict_seqs_is_form, **_dict_viewers_is_form}
@@ -67,6 +73,8 @@ _dict_merger    = {**_dict_engines_merger, **_dict_classes_merger, **_dict_files
                    **_dict_ids_merger, **_dict_seqs_merger, **_dict_viewers_merger}
 _dict_get = {**_dict_engines_get, **_dict_classes_get, **_dict_files_get,\
                    **_dict_ids_get, **_dict_seqs_get, **_dict_viewers_get}
+_dict_get = {**_dict_engines_set, **_dict_classes_set, **_dict_files_set,\
+                   **_dict_ids_set, **_dict_seqs_set, **_dict_viewers_set}
 _dict_from_to = {}
 _dict_to_from = {}
 
@@ -201,6 +209,16 @@ def get(item=None, selection=None, **kwargs):
         atoms_list=None
 
     return _dict_get[in_form](item, atoms_list=atoms_list,**kwargs)
+
+def set(item=None, selection=None, **kwargs):
+
+    in_form = get_form(item)
+    if selection is not None:
+        atoms_list=select(item,selection=selection)
+    else:
+        atoms_list=None
+
+    return _dict_set[in_form](item, atoms_list=atoms_list,**kwargs)
 
 def load (item=None, form='molmodmt.MolMod', selection=None, pdbfix=False, pH=7.0, verbose=False, **kwargs):
 

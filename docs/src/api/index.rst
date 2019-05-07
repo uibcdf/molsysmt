@@ -38,6 +38,7 @@ Items manipulation
 .. autosummary::
     :toctree: generated/
 
+    set
     remove
     remove_solvent
     recenter
@@ -58,8 +59,6 @@ Methods to get molecular models' attributes or simple observables.
     center_of_mass
     geometrical_center
     radius_of_gyration
-    rmsd
-    least_rmsd_fit
 
 Structural and Topological items comparison
 -------------------------------------------

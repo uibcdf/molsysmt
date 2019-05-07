@@ -17,6 +17,7 @@ dict_extractor={}
 dict_merger={}
 dict_is_form={}
 dict_get={}
+dict_set={}
 
 for api_form in list_api_forms:
     module_api_form=_import_module('.'+api_form,base_package)
@@ -31,6 +32,7 @@ for form_name in list_forms:
     dict_extractor[form_name]= {}
     dict_merger[form_name]= {}
     dict_get[form_name]= {}
+    dict_set[form_name]= {}
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):
             if method.endswith('_seq'):
@@ -49,6 +51,8 @@ for form_name in list_forms:
         dict_merger[form_name]=getattr(dict_api_forms[form_name],'merge_two_items')
     if 'get' in dict_api_forms[form_name].__dict__.keys():
         dict_get[form_name]=getattr(dict_api_forms[form_name],'get')
+    if 'set' in dict_api_forms[form_name].__dict__.keys():
+        dict_set[form_name]=getattr(dict_api_forms[form_name],'set')
 
 list_forms=sorted(list_forms)
 
