@@ -53,3 +53,8 @@ def extract_atoms_list(item, atoms_list):
     tmp_item=_mdtraj_to_openmm(tmp_item)
     return tmp_item
 
+def select_with_mdtraj(item, selection):
+
+    tmp_item = to_mdtraj_Topology(item)
+    return tmp_item.select(selection)
+

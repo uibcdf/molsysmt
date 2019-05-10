@@ -7,7 +7,7 @@ is_form = {
     'DCD': form_name
     }
 
-def to_mdtraj(item,topology=None):
+def to_mdtraj(item, topology=None, selection=None, syntaxis="mdtraj"):
 
     if not topology:
         raise ValueError('"topology" argument is required for dcd.to_mdtraj')
@@ -26,3 +26,4 @@ def to_mdanalysis(item,topology=None):
 
     from MDAnalysis import Universe as _mdanalysis_universe
     return _mdanalysis_universe(topology,item)
+

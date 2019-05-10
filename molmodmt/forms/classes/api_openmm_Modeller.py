@@ -99,12 +99,16 @@ def select_with_mdtraj(item, selection):
 
 def merge_two_items(item1, item2):
 
-    from .api_mdtraj_Trajectory import to_openmm_Modeller as _from_mdtraj_Trajectory
+    #from .api_mdtraj_Trajectory import to_openmm_Modeller as _from_mdtraj_Trajectory
+    #tmp_item1 = to_mdtraj(item1)
+    #tmp_item2 = to_mdtraj(item2)
+    #tmp_item = tmp_item1.stack(tmp_item2)
+    #tmp_item = _from_mdtraj_Trajectory(tmp_item)
 
-    tmp_item1 = to_mdtraj(item1)
-    tmp_item2 = to_mdtraj(item2)
-
-    tmp_item = tmp_item1.stack(tmp_item2)
-    tmp_item = _from_mdtraj_Trajectory(tmp_item)
+    from molmodmt import duplicate as _duplicate
+    tmp_item = _duplicate(item1)
+    topology2 = to_openmm_Topology()
+    positions2 = 
+    tmp_item = tmp_item.add()
 
     return tmp_item
