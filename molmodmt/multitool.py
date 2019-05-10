@@ -1,111 +1,91 @@
 import os
 import tempfile
+from .utils.exceptions import *
 
-## Engines
-from .formats.engines import dict_is_form as _dict_engines_is_form, \
-    list_forms as _list_engines_forms, \
-    dict_converter as _dict_engines_converter, \
-    dict_selector as _dict_engines_selector, \
-    dict_extractor as _dict_engines_extractor, \
-    dict_merger as _dict_engines_merger, \
-    dict_get as _dict_engines_get, \
-    dict_set as _dict_engines_set
+#### Molecular Models forms
 
 ## Classes
-from .formats.classes import dict_is_form as _dict_classes_is_form, \
+from .forms.classes import dict_is_form as _dict_classes_is_form, \
     list_forms as _list_classes_forms, \
     dict_converter as _dict_classes_converter, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
+    dict_duplicator as _dict_classes_duplicator, \
     dict_merger as _dict_classes_merger, \
     dict_get as _dict_classes_get, \
     dict_set as _dict_classes_set
 
 ## Files
-from .formats.files import dict_is_form as _dict_files_is_form, \
+from .forms.files import dict_is_form as _dict_files_is_form, \
     list_forms as _list_files_forms, \
     dict_converter as _dict_files_converter, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
+    dict_duplicator as _dict_files_duplicator, \
     dict_merger as _dict_files_merger, \
     dict_get as _dict_files_get, \
     dict_set as _dict_files_set
 
 ## IDs
-from .formats.ids import dict_is_form as _dict_ids_is_form, \
+from .forms.ids import dict_is_form as _dict_ids_is_form, \
     list_forms as _list_ids_forms, \
     dict_converter as _dict_ids_converter, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
+    dict_duplicator as _dict_ids_duplicator, \
     dict_merger as _dict_ids_merger, \
     dict_get as _dict_ids_get, \
     dict_set as _dict_ids_set
 
 ## Sequences
-from .formats.seqs import dict_is_form as _dict_seqs_is_form, \
+from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     list_forms as _list_seqs_forms, \
     dict_converter as _dict_seqs_converter, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
+    dict_duplicator as _dict_seqs_duplicator, \
     dict_merger as _dict_seqs_merger, \
     dict_get as _dict_seqs_get, \
     dict_set as _dict_seqs_set
 
 ## Viewers
-from .formats.viewers import dict_is_form as _dict_viewers_is_form, \
+from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
     list_forms as _list_viewers_forms, \
     dict_converter as _dict_viewers_converter, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
+    dict_duplicator as _dict_viewers_duplicator, \
     dict_merger as _dict_viewers_merger, \
     dict_get as _dict_viewers_get, \
     dict_set as _dict_viewers_set
 
-_dict_is_form = {**_dict_engines_is_form, **_dict_classes_is_form, **_dict_files_is_form,\
+_dict_is_form = {**_dict_classes_is_form, **_dict_files_is_form,\
                  **_dict_ids_is_form, **_dict_seqs_is_form, **_dict_viewers_is_form}
-_dict_converter = {**_dict_engines_converter, **_dict_classes_converter, **_dict_files_converter,\
+_dict_converter = {**_dict_classes_converter, **_dict_files_converter,\
                    **_dict_ids_converter, **_dict_seqs_converter, **_dict_viewers_converter}
-_dict_selector = {**_dict_engines_selector, **_dict_classes_selector, **_dict_files_selector,\
+_dict_selector = {**_dict_classes_selector, **_dict_files_selector,\
                    **_dict_ids_selector, **_dict_seqs_selector, **_dict_viewers_selector}
-_dict_extractor = {**_dict_engines_extractor, **_dict_classes_extractor, **_dict_files_extractor,\
+_dict_extractor = {**_dict_classes_extractor, **_dict_files_extractor,\
                    **_dict_ids_extractor, **_dict_seqs_extractor, **_dict_viewers_extractor}
-_dict_merger    = {**_dict_engines_merger, **_dict_classes_merger, **_dict_files_merger,\
+_dict_duplicator = {**_dict_classes_duplicator, **_dict_files_duplicator,\
+                   **_dict_ids_duplicator, **_dict_seqs_duplicator, **_dict_viewers_duplicator}
+_dict_merger    = {**_dict_classes_merger, **_dict_files_merger,\
                    **_dict_ids_merger, **_dict_seqs_merger, **_dict_viewers_merger}
-_dict_get = {**_dict_engines_get, **_dict_classes_get, **_dict_files_get,\
+_dict_get = {**_dict_classes_get, **_dict_files_get,\
                    **_dict_ids_get, **_dict_seqs_get, **_dict_viewers_get}
-_dict_set = {**_dict_engines_set, **_dict_classes_set, **_dict_files_set,\
+_dict_set = {**_dict_classes_set, **_dict_files_set,\
                    **_dict_ids_set, **_dict_seqs_set, **_dict_viewers_set}
-_dict_from_to = {}
-_dict_to_from = {}
 
-for in_form in _dict_converter.keys():
-    _dict_from_to[in_form]=_dict_converter[in_form].keys()
+#### Attributes
 
-for in_form, out_forms in _dict_from_to.items():
-    for out_form in out_forms:
-        try:
-            _dict_to_from[out_form].append(in_form)
-        except:
-            _dict_to_from[out_form]=[]
-            _dict_to_from[out_form].append(in_form)
+## Coordinates
+from .attributes.coordinates import list_forms as _list_coordinates_forms, \
+    dict_reformatter as _dict_coordinates_reformatter
 
-for in_form in _dict_from_to.keys():
-    _dict_from_to[in_form]=sorted(_dict_from_to[in_form])
+_dict_reformatter={}
+_dict_reformatter['coordinates']=_dict_coordinates_reformatter
 
-for out_form in _dict_to_from.keys():
-    _dict_to_from[out_form]=sorted(_dict_to_from[out_form])
-
-_dict_viewer_for={}
-_dict_to_viewer={}
-
-for _viewer in _list_viewers_forms:
-    _dict_to_viewer[_viewer]=_dict_to_from[_viewer]
-
-for in_form in _dict_from_to.keys():
-    _dict_viewer_for[in_form]=[]
-    for _viewer in _list_viewers_forms:
-        if _viewer in _dict_from_to[in_form]:
-            _dict_viewer_for[in_form].append(_viewer)
+_list_attributes = list(_dict_reformatter.keys())
 
 def fetch(form_id=None, form=None):
 
@@ -281,82 +261,41 @@ def convert(item=None, form='molmodmt.MolMod', selection=None, syntaxis='mdtraj'
         else:
             return item
 
+def duplicate(item=None):
+
+    in_form = get_form(item)
+
+    return _dict_duplicator[in_form](item)
+
 def write(item=None,filename=None, selection=None, syntaxis='mdtraj'):
 
     return convert(item,filename, selection=selection, syntaxis=syntaxis)
 
-def view(item=None,selection=None,viewer='nglview'):
+def view(item=None, viewer='nglview', selection=None, syntaxis='mdtraj'):
 
     if type(item) in [list,tuple]:
         in_form = get_form(item[0])
+        tmp_item = merge(item)
     else:
         in_form = get_form(item)
+        tmp_item = item
 
     if selection is not None:
-        tmp_item = extract(item,selection)
-    else:
-        tmp_item = item
+        tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
 
     return _dict_converter[in_form][viewer](tmp_item)
 
-def info_forms(engines=True,classes=True,files=True,verbose=True):
+def reformat(attribute=None, value=None, is_format=None, to_format=None):
 
-    tmp_dict={
-        'engines':_list_engines_forms,
-        'classes':_list_classes_forms,
-        'files':_list_files_forms,
-        'ids': _list_ids_forms
-        }
+    if (attribute is not None) and attribute in _list_attributes:
+        if is_format is not None:
+            if to_format is not None:
 
-    return tmp_dict
+                return _dict_reformatter[attribute][is_format][to_format](value)
 
-def info_load(from_form=None,to_form=None,verbose=True):
-
-    return info_convert(from_form,to_form,verbose)
-
-def info_convert(from_form=None,to_form=None,verbose=True):
-
-    tmp_output=None
-
-    if from_form is not None:
-        if to_form is not None:
-            if to_form in _dict_from_to[from_form]:
-                tmp_output= True
             else:
-                tmp_output= False
+                raise BadCallError(BadCallMessage)
         else:
-            tmp_output=_dict_from_to[from_form]
-    elif to_form is not None:
-        tmp_output=_dict_to_from[to_form]
+            raise BadCallError(BadCallMessage)
     else:
-        if verbose:
-            print('From... to...')
-            for key in _dict_from_to.keys():
-                print(key,': ',_dict_from_to[key])
-            print('\nTo... from...')
-            for key in _dict_to_from.keys():
-                print(key,': ',_dict_to_from[key])
-            pass
-
-    if (tmp_output is not None) and verbose:
-        print(tmp_output)
-    else:
-        pass
-
-def info_select():
-    pass
-
-def info_viewers(for_form=None,to_viewer=None):
-
-    if for_form is not None:
-        if to_viewer is not None:
-            pass
-        else:
-            return _dict_viewer_for[for_form]
-    else:
-        if to_viewer is not None:
-            return _dict_to_viewer[to_viewer]
-        else:
-            pass
-
-
+        raise BadCallError(BadCallMessage)
