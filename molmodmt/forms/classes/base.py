@@ -14,6 +14,8 @@ list_forms=[]
 dict_converter={}
 dict_selector={}
 dict_extractor={}
+dict_trimmer={}
+dict_adder={}
 dict_duplicator={}
 dict_merger={}
 dict_is_form={}
@@ -31,6 +33,8 @@ for form_name in list_forms:
     dict_converter[form_name]= {}
     dict_selector[form_name]= {}
     dict_extractor[form_name]= {}
+    dict_trimmer[form_name]= {}
+    dict_adder[form_name]= {}
     dict_duplicator[form_name]= {}
     dict_merger[form_name]= {}
     dict_get[form_name]= {}
@@ -49,6 +53,10 @@ for form_name in list_forms:
             dict_selector[form_name][syntaxis_name]= getattr(dict_api_forms[form_name],method)
     if 'extract_atoms_list' in dict_api_forms[form_name].__dict__.keys():
         dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atoms_list')
+    if 'trim_atoms_list' in dict_api_forms[form_name].__dict__.keys():
+        dict_trimmer[form_name]=getattr(dict_api_forms[form_name],'trim_atoms_list')
+    if 'add_atoms' in dict_api_forms[form_name].__dict__.keys():
+        dict_adder[form_name]=getattr(dict_api_forms[form_name],'add_atoms')
     if 'duplicate' in dict_api_forms[form_name].__dict__.keys():
         dict_duplicator[form_name]=getattr(dict_api_forms[form_name],'duplicate')
     if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():

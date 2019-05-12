@@ -51,23 +51,31 @@ def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
     tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_mol2(item,out_file):
+def to_mol2(item, filename=None, selection=None, syntaxis="mdtraj"):
 
     from parmed import load_file as _parmed_file_loader
     tmp_parmed_form = _parmed_file_loader(item)
-    tmp_parmed_form.save(out_file)
+    tmp_parmed_form.save(filename)
     pass
 
-def to_openmm_Topology(item):
+def to_openmm_Topology(item, selection=None, syntaxis="mdtraj"):
     from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
     tmp_form = _openmm_pdb_loader(item).getTopology()
     del(_openmm_pdb_loader)
     return tmp_form
 
-def to_openmm_Positions(item):
+def to_openmm_Positions(item, selection=None, syntaxis="mdtraj"):
     from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
     tmp_form = _openmm_pdb_loader(item).getPositions()
     del(_openmm_pdb_loader)
+    return tmp_form
+
+def to_openmm_Modeller(item, selection=None, syntaxis="mdtraj"):
+    from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
+    from simtk.openmm.app.modeller import Modeller as _openmm_app_modeller
+    tmp_form = _openmm_pdb_loader(item)
+    tmp_form = _openmm_app_modeller(tmp_form.topology, tmp_form.positions)
+    del(_openmm_pdb_loader,_openmm_app_modeller)
     return tmp_form
 
 def to_pdbfixer(item, selection=None, syntaxis='mdtraj'):
@@ -81,16 +89,6 @@ def to_pdbfixer_PDBFixer(item, selection=None, syntaxis='mdtraj'):
     tmp_item = _pdbfixer_file_loader(item)
     tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
-
-def to_modeller(item):
-
-    from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
-    from simtk.openmm.app.modeller import Modeller as _openmm_app_modeller
-    tmp_form = _openmm_pdb_loader(item)
-    tmp_form = _openmm_app_modeller(tmp_form.topology, tmp_form.positions)
-    del(_openmm_pdb_loader,_openmm_app_modeller)
-    return tmp_form
-
 def to_nglview(item):
     from nglview import show_file as _nglview_show_file
     return _nglview_show_file(item)

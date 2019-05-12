@@ -146,6 +146,12 @@ def select_with_mdtraj(item, selection=None, syntaxis='mdtraj'):
 def extract_atoms_list(item, atoms_list):
     return item.extract(atoms_list)
 
+def trim_atoms_list(item, atoms_list):
+    pass
+
+def add_atoms(item, atoms):
+    pass
+
 def to_nglview(item):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
