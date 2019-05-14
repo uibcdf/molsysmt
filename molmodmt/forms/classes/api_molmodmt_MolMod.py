@@ -97,7 +97,7 @@ def get(item, atoms_list=None, **kwargs):
         if option=='n_atoms' and kwargs[option]==True:
             result.append(tmp_topology.n_atoms)
         if option=='n_frames' and kwargs[option]==True:
-            result.append(item.n_frames)
+            result.append(item.trajectory.n_frames)
         if option=='n_residues' and kwargs[option]==True:
             result.append(_get(tmp_topology,n_residues=True))
         if option=='n_chains' and kwargs[option]==True:

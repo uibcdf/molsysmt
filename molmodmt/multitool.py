@@ -164,7 +164,7 @@ def merge(item1=None, item2=None, in_place=False, form=None):
             _dict_merger[form](tmp_item,convert(in_item,form),in_place=in_place)
             pass
         else:
-            tmp_item=_dict_merger[form](tmp_item,convert(item2,form),in_place=in_place)
+            tmp_item=_dict_merger[form](tmp_item,convert(item2,form))
             return tmp_item
 
 def info(item=None):

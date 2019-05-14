@@ -8,7 +8,7 @@ from .utils.exceptions import *
 from .centers import center_of_mass as _center_of_mass
 from .centers import geometrical_center as _geometrical_center
 
-def distances(item=None, selection=None, selection_groups=None, group_behavior=None, frame='all',
+def distance(item=None, selection=None, selection_groups=None, group_behavior=None, frame='all',
              item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2='all',
              pbc=False, parallel=False, engine='molmodmt', output_form='matrix', syntaxis='mdtraj'):
 
@@ -21,7 +21,7 @@ def distances(item=None, selection=None, selection_groups=None, group_behavior=N
     in_form=_get_form(item)
 
     if engine=='molmodmt':
-        x_form='molmodmt.Trajectory'
+        x_form='molmodmt.MolMod'
     elif engine=='mdtraj':
         x_form='mdtraj.Trajectory'
 
@@ -57,9 +57,8 @@ def distances(item=None, selection=None, selection_groups=None, group_behavior=N
         single_item, diff_selection = _digest_comparison_two_systems(item, selection, frame,
                                                                      item2, selection2, frame2,
                                                                      form=x_form, syntaxis=syntaxis)
-        return single_item
 
-        if tmp_item1.n_frames!=tmp_item2.n_frames:
+        if tmp_item1.trajectory.n_frames!=tmp_item2.trajectory.n_frames:
             raise BadCallError(BadCallMessage)
 
         if selection_groups is None:
@@ -91,16 +90,21 @@ def distances(item=None, selection=None, selection_groups=None, group_behavior=N
         nelements2 = tmp_coors2.shape[1]
         nframes2   = tmp_coors2.shape[0]
 
+        if (tmp_item1.trajectory.box is None) and (pbc==False):
+            tmp_item1.trajectory.box = _np.zeros((nframes1,3,3))
+        if (tmp_item1.trajectory.invbox is None) and (pbc==False):
+            tmp_item1.trajectory.invbox = _np.zeros((nframes1,3,3))
+
         dists = _libgeometry.distance(diff_selection,
-                                           tmp_coors1,
-                                           tmp_coors2,
-                                           tmp_item1.box,
-                                           tmp_item1.invbox,
-                                           tmp_item1.orthogonal,
-                                           pbc,
-                                           nelements1,
-                                           nelements2,
-                                           nframes1)
+                                      tmp_coors1,
+                                      tmp_coors2,
+                                      tmp_item1.trajectory.box,
+                                      tmp_item1.trajectory.invbox,
+                                      tmp_item1.trajectory.orthogonal,
+                                      pbc,
+                                      nelements1,
+                                      nelements2,
+                                      nframes1)
 
         if output_form=='matrix':
             return dists
@@ -154,15 +158,20 @@ def distances(item=None, selection=None, selection_groups=None, group_behavior=N
     else:
         raise NotImplementedError(NotImplementedMessage)
 
-def min_distances(item=None, selection=None, selection_groups=None, group_behavior=None, frame=None,
-                  item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2=None,
-                  pbc=False, parallel=False, engine='molmodmt'):
+def distance_atoms_pairs(item=None, atoms_pairs_list=None, frame=None, pbc=False, parallel=False,
+                         engine='molmodmt'):
 
-    all_dists= distances(item=item, selection=selection, selection_groups=selection_groups,
-                         group_behavior=group_behavior, frame=frame,
-                         item2=item2, selection2=selection2, selection_groups2=selection_groups2,
-                         group_behavior2=group_behavior2, frame2=frame2,
-                         pbc=pbc, parallel=parallel, engine=engine, output_form='matrix')
+    pass
+
+def min_distance(item=None, selection=None, selection_groups=None, group_behavior=None, frame=None,
+                 item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2=None,
+                 pbc=False, parallel=False, engine='molmodmt'):
+
+    all_dists= distance(item=item, selection=selection, selection_groups=selection_groups,
+                        group_behavior=group_behavior, frame=frame,
+                        item2=item2, selection2=selection2, selection_groups2=selection_groups2,
+                        group_behavior2=group_behavior2, frame2=frame2,
+                        pbc=pbc, parallel=parallel, engine=engine, output_form='matrix')
 
     shape_matrix=all_dists[0,:,:].shape
     num_frames=all_dists.shape[0]
@@ -184,11 +193,11 @@ def contact_map(item=None, selection=None, selection_groups=None, group_behavior
                 item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2=None,
                 threshold=None, pbc=False, parallel=False, engine='molmodmt'):
 
-    all_dists= distances(item=item, selection=selection, selection_groups=selection_groups,
-                         group_behavior=group_behavior, frame=frame,
-                         item2=item2, selection2=selection2, selection_groups2=selection_groups2,
-                         group_behavior2=group_behavior2, frame2=frame2,
-                         pbc=pbc, parallel=parallel, engine=engine, output_form='matrix')
+    all_dists= distance(item=item, selection=selection, selection_groups=selection_groups,
+                        group_behavior=group_behavior, frame=frame,
+                        item2=item2, selection2=selection2, selection_groups2=selection_groups2,
+                        group_behavior2=group_behavior2, frame2=frame2,
+                        pbc=pbc, parallel=parallel, engine=engine, output_form='matrix')
 
     if threshold is None:
         raise BadCallError(BadCallMessage)
@@ -206,11 +215,11 @@ def neighbors_lists(item=None, selection=None, selection_groups=None, group_beha
                     item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2=None,
                     threshold=None, num_neighbors=None, pbc=False, parallel=False, engine='molmodmt'):
 
-    all_dists= distances(item=item, selection=selection, selection_groups=selection_groups,
-                         group_behavior=group_behavior, frame=frame,
-                         item2=item2, selection2=selection2, selection_groups2=selection_groups2,
-                         group_behavior2=group_behavior2, frame2=frame2,
-                         pbc=pbc, parallel=parallel, engine=engine, output_form='matrix')
+    all_dists= distance(item=item, selection=selection, selection_groups=selection_groups,
+                        group_behavior=group_behavior, frame=frame,
+                        item2=item2, selection2=selection2, selection_groups2=selection_groups2,
+                        group_behavior2=group_behavior2, frame2=frame2,
+                        pbc=pbc, parallel=parallel, engine=engine, output_form='matrix')
 
     if (threshold is None) and (num_neighbors is None):
         raise BadCallError(BadCallMessage)

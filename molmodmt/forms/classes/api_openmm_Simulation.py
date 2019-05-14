@@ -22,3 +22,11 @@ def to_openmm_Modeller(item, selection=None, syntaxis="mdtraj"):
     tmp_item =_Modeller(topology, positions)
     return tmp_item
 
+def to_pdb (item, filename = None, selection=None, syntaxis="mdtraj"):
+
+    from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
+    topology = to_openmm_Topology(item, selection=selection, syntaxis=syntaxis)
+    state = item.context.getState(getPositions=True)
+    positions = state.getPositions()
+    return _openmm_app_PDBFILE.writeFile(topology, positions, open(filename, 'w'))
+

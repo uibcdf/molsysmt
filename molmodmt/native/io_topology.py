@@ -18,6 +18,14 @@ def from_openmm_Topology(item=None, selection=None, syntaxis='mdtraj'):
     from molmodmt import convert as _convert
     return _convert(item, form='mdtraj.Topology', selection=selection, syntaxis=syntaxis)
 
+def from_openmm_Modeller(item=None, selection=None, syntaxis='mdtraj'):
+    from molmodmt import convert as _convert
+    return _convert(item, form='mdtraj.Topology', selection=selection, syntaxis=syntaxis)
+
+def from_openmm_Topology(item=None, selection=None, syntaxis='mdtraj'):
+    from molmodmt import convert as _convert
+    return _convert(item, form='mdtraj.Topology', selection=selection, syntaxis=syntaxis)
+
 def from_molmod_Structure(item=None, selection=None, syntaxis='mdtraj'):
     from molmodmt import convert as _convert
     return _convert(item, form='mdtraj.Topology', selection=selection, syntaxis=syntaxis)

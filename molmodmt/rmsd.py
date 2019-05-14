@@ -59,7 +59,7 @@ def least_rmsd_fit(ref_item=None, item=None,
         in_form=_get_form(item)
 
     if engine=='molmodmt':
-        x_form='molmodmt.Trajectory'
+        x_form='molmodmt.MolMod'
     elif engine=='mdtraj':
         x_form='mdtraj.Trajectory'
 

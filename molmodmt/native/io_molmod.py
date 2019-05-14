@@ -42,6 +42,19 @@ def to_mdtraj(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     return to_mdtraj_Trajectory(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
+def from_openmm_Modeller(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+
+    from .io_trajectory import from_openmm_Modeller as trajectory_from_mdtraj_Trajectory
+    from .io_topology import from_openmm_Modeller as topology_from_mdtraj_Topology
+
+    tmp_item = _MolMod()
+    tmp_item.topology = topology_from_mdtraj_Topology(item, selection=selection, syntaxis='mdtraj')
+    tmp_item.trajectory = trajectory_from_mdtraj_Trajectory(item, selection=selection,
+                                                            frame_indices=frame_indices,
+                                                            syntaxis=syntaxis)
+    tmp_item.topography = None
+    return tmp_item
+
 def from_pdbid(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb

@@ -34,6 +34,13 @@ def from_mdtraj_Trajectory(item=None, selection=None, frame_indices=None, syntax
     tmp_item._import_mdtraj_data(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
     return tmp_item
 
+def from_openmm_Modeller(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+
+    from molmodmt import convert as _convert
+    tmp_item = _Trajectory()
+    tmp_mdtraj_item = _convert(item, 'mdtraj.Trajectory')
+    tmp_item._import_mdtraj_data(tmp_mdtraj_item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+    return tmp_item
 
 def from_pdb(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
 

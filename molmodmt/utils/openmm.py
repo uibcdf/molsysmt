@@ -58,17 +58,22 @@ def add_harmonic_restraint_in_relative_positions (system=None, atoms_pairs_list=
     pass
 
 def add_harmonic_restraint_in_distances (system=None, atoms_pairs_list=None, K=None,
-                                         distances=None):
+                                         distances=None, system_positions=None):
 
     from simtk.openmm import HarmonicBondForce
     from simtk.unit import md_unit_system
+    from numpy import sqrt
 
     force = HarmonicBondForce()
 
-    for ii in range(len(atoms_list)):
-        atom_a, atom_b = atoms_pairs_list[ii]
-        dist_a_b = distances[ii].value_in_unit_system(md_unit_system)
-        force.addBond(int(atom_a), int(atom_b), dist_a_b, K)
+    if system_positions is not None:
+        for atoms_pair in atoms_pairs_list:
+            atom_a, atom_b = atoms_pair
+            position_a = system_positions[atom_a].value_in_unit_system(md_unit_system)
+            position_b = system_positions[atom_b].value_in_unit_system(md_unit_system)
+            vect_ab = position_b - position_a
+            dist_ab = sqrt(vect_ab[0]**2+vect_ab[1]**2+vect_ab[2]**2)
+            force.addBond(int(atom_a), int(atom_b), dist_ab, K)
 
     system.addForce(force)
 
@@ -78,7 +83,7 @@ def add_constant_pulling_force (system=None, atoms_list=None, pulling_force=None
 
     from simtk.openmm import CustomExternalForce
 
-    if type(atoms_list) in [int]:
+    if not hasattr(atoms_list,'__iter__'):
         atoms_list = [atoms_list]
 
     pulling_potential = "-(px*x+py*y+pz*z)"

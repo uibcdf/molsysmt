@@ -44,6 +44,10 @@ def to_openmm_System(item, selection=None, syntaxis='mdtraj'):
 def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
     return item.getTopology()
 
+def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
+    from molmodmt.native.io_molmod import from_openmm_Modeller as MolMod_from_openmm_Modeller
+    return MolMod_from_openmm_Modeller(item, selection=selection, syntaxis=syntaxis)
+
 def to_pdb(item, filename = None, selection=None, syntaxis='mdtraj'):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
@@ -97,7 +101,7 @@ def get(item, atoms_list=None, **kwargs):
 def select_with_mdtraj(item, selection):
 
     tmp_item = to_mdtraj_Topology(item)
-    return tmp_item.topology.select(selection)
+    return tmp_item.select(selection)
 
 def duplicate(item):
 

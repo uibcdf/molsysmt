@@ -35,7 +35,7 @@ def _frameslist(item=None,frame=None):
 
     return tmp_frameslist
 
-def _coordinates(item=None, atoms_list=None, frames_list=None, form='molmodmt.Trajectory'):
+def _coordinates(item=None, atoms_list=None, frames_list=None, form='molmodmt.MolMod'):
 
     if form=='molmodmt.MolMod':
         tmp_item = item.trajectory
