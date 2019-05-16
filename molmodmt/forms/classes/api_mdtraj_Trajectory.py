@@ -14,7 +14,7 @@ def to_aminoacids3_seq(item):
 
 def to_aminoacids1_seq(item):
 
-    from molmodmt.formats.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
+    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
     tmp_item = to_aminoacids3_seq(item)
     tmp_item = _aminoacids3_to_aminoacids1(tmp_item)
     del(_aminoacids3_to_aminoacids1)
@@ -22,7 +22,7 @@ def to_aminoacids1_seq(item):
 
 def to_biopython_Seq(item):
 
-    from molmodmt.formats.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item)
     tmp_item = _aminoacids1_to_biopython_Seq(tmp_item)
     del(_aminoacids1_to_biopython_Seq)
@@ -30,7 +30,7 @@ def to_biopython_Seq(item):
 
 def to_biopython_SeqRecord(item):
 
-    from molmodmt.formats.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item)
     tmp_item = _aminoacids1_to_biopython_SeqRecord(tmp_item)
     del(_aminoacids1_to_biopython_SeqRecord)
@@ -112,7 +112,7 @@ def to_mdtraj_Topology(item):
 
 def to_pdbfixer_PDBFixer(item):
 
-    from molmodmt.formats.files.api_pdb import to_pdbfixer as _pdb_to_pdbfixer
+    from molmodmt.forms.files.api_pdb import to_pdbfixer as _pdb_to_pdbfixer
     import tempfile as _tempfile
     from os import remove as _remove
 
@@ -155,10 +155,10 @@ def to_nglview(item):
 
     return _show_mdtraj(item)
 
-def get(item, atoms_list=None, **kwargs):
+def get(item, atom_indices=None, **kwargs):
 
-    if atoms_list is not None:
-        tmp_item = extract(item,atoms_list)
+    if atom_indices is not None:
+        tmp_item = extract(item,atom_indices)
     else:
         tmp_item = item
 
@@ -207,9 +207,9 @@ def select_with_mdtraj(item, selection):
 
     return item.topology.select(selection)
 
-def extract_atoms_list(item, atoms_list):
+def extract_atom_indices(item, atom_indices):
 
-    return item.atom_slice(atoms_list)
+    return item.atom_slice(atom_indices)
 
 def merge_two_items(item1, item2):
 

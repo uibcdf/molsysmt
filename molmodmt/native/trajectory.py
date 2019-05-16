@@ -125,26 +125,26 @@ class Trajectory():
         molecules = _get(self.topology_mdtraj,molecules=True)
 
         if selection is not None:
-            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
+            atom_indices = _select(self.topology_mdtraj,selection,syntaxis)
             molecules2translate = []
             for molecule in molecules:
-                if len(_np.intersect1d(molecule,atoms_list)):
+                if len(_np.intersect1d(molecule,atom_indices)):
                     molecules2translate.append(molecule)
             molecules=molecules2translate
 
         molecules_array_all, molecules_array_starts = _listoflists2fortran(molecules,dtype='int64')
 
-        atoms_list_reference = _select(self.topology_mdtraj,reference,syntaxis)
+        atom_indices_reference = _select(self.topology_mdtraj,reference,syntaxis)
 
         self.coordinates=_np.asfortranarray(self.coordinates,dtype='float64')
         self.box=_np.asfortranarray(self.box,dtype='float64')
         self.invbox=_np.asfortranarray(self.invbox,dtype='float64')
         _libbox.minimum_image_convention(self.coordinates, molecules_array_all,
-                       molecules_array_starts, atoms_list_reference,
+                       molecules_array_starts, atom_indices_reference,
                        self.box, self.invbox, self.orthogonal,
                        self.n_frames, self.n_atoms,
                        molecules_array_all.shape[0], molecules_array_starts.shape[0],
-                       atoms_list_reference.shape[0])
+                       atom_indices_reference.shape[0])
 
         self.coordinates=_np.ascontiguousarray(self.coordinates)
         self.box=_np.ascontiguousarray(self.box)
@@ -161,10 +161,10 @@ class Trajectory():
         molecules, bonds = _get(self.topology_mdtraj, molecules=True, bonded_atoms=True)
 
         if selection is not None:
-            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
+            atom_indices = _select(self.topology_mdtraj,selection,syntaxis)
             molecules2unwrap = []
             for molecule in molecules:
-                if len(_np.intersect1d(molecule,atoms_list)):
+                if len(_np.intersect1d(molecule,atom_indices)):
                     molecules2unwrap.append(molecule)
             molecules=molecules2unwrap
 
@@ -192,30 +192,30 @@ class Trajectory():
         #self.coors=ascontiguous_np.array(self.coors)
         pass
 
-    def extract(self,atoms_list=None):
+    def extract(self,atom_indices=None):
 
         tmp_item=deepcopy(self)
-        tmp_item.coordinates=tmp_item.coordinates[:,atoms_list,:]
-        tmp_item.n_atoms=len(atoms_list)
+        tmp_item.coordinates=tmp_item.coordinates[:,atom_indices,:]
+        tmp_item.n_atoms=len(atom_indices)
 
         return tmp_item
 
     def iterload(self,chunk=100, stride=1, skip=0, selection=None, syntaxis='mdtraj'):
 
-        atoms_list = None
+        atom_indices = None
 
         if selection is None:
             if self.selection_mdtraj is not None:
-                atoms_list = self._atoms_list_mdtraj
+                atom_indices = self._atom_indices_mdtraj
         else:
             from molmodmt.multitool import select as _select
-            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
+            atom_indices = _select(self.topology_mdtraj,selection,syntaxis)
 
         from mdtraj import iterload as _mdtraj_iterload
         tmp_top = self.topology_mdtraj
 
         iterator = _mdtraj_iterload(self.filename, top=tmp_top, chunk=chunk,
-                                                stride=stride, atom_indices=atoms_list)
+                                                stride=stride, atom_indices=atom_indices)
 
         while True:
             try:
@@ -223,7 +223,7 @@ class Trajectory():
             except StopIteration:
                 return
             self._import_mdtraj_data(tmp_mdtraj)
-            if atoms_list is not None:
+            if atom_indices is not None:
                 self._import_mdtraj_topology(tmp_mdtraj)
             del(tmp_mdtraj)
             yield
@@ -239,33 +239,33 @@ class Trajectory():
 
         tmp_top = self.topology_mdtraj
         mdtraj_read = False
-        atoms_list = None
+        atom_indices = None
 
         if selection is None:
             if self.selection_mdtraj is not None:
-                atoms_list = self._atoms_list_mdtraj
+                atom_indices = self._atom_indices_mdtraj
         else:
             from molmodmt.multitool import select as _select
-            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
+            atom_indices = _select(self.topology_mdtraj,selection,syntaxis)
 
         if type(frame_indices)==str:
             if frame.lower()=='all':
-                tmp_mdtrajectory = _mdtraj_load(self.filename,top=tmp_top,atom_indices=atoms_list)
+                tmp_mdtrajectory = _mdtraj_load(self.filename,top=tmp_top,atom_indices=atom_indices)
                 mdtraj_read = True
         elif type(frame_indices)==int:
-            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame_indices,top=tmp_top,atom_indices=atoms_list)
+            tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame_indices,top=tmp_top,atom_indices=atom_indices)
             mdtraj_read = True
         elif type(frame_indices) in [list,tuple,ndarray]:
             mdtraj_read = True
             tmp_trajs=[]
             for ii in range(0,len(frame_indices)):
-                tmp_trajs.append(_mdtraj_load_frame(self.filename, frame_indices[ii],top=tmp_top, atom_indices=atoms_list))
+                tmp_trajs.append(_mdtraj_load_frame(self.filename, frame_indices[ii],top=tmp_top, atom_indices=atom_indices))
             tmp_mdtrajectory=_mdtraj_join(tmp_trajs,check_topology=False)
             del(tmp_trajs)
 
         if mdtraj_read:
             self._import_mdtraj_data(tmp_mdtrajectory)
-            if atoms_list is not None:
+            if atom_indices is not None:
                 self._import_mdtraj_topology(tmp_mdtrajectory)
         else:
             raise BadCallError(BadCallMessage)
@@ -276,18 +276,18 @@ class Trajectory():
         from molmodmt import get as _get
 
         if selection is not None:
-            atoms_list = _select(self.topology_mdtraj,selection,syntaxis)
+            atom_indices = _select(self.topology_mdtraj,selection,syntaxis)
         else:
-            atoms_list = _np.arange(self.n_atoms,dtype=int)
+            atom_indices = _np.arange(self.n_atoms,dtype=int)
 
         if weights=='masses':
-            weights_array = _get(self.topology_mdtraj,atoms_list,masses=True)
+            weights_array = _get(self.topology_mdtraj,atom_indices,masses=True)
         elif weights is None:
-            weights_array = _np.ones(atoms_list.shape[0],dtype=int)
+            weights_array = _np.ones(atom_indices.shape[0],dtype=int)
 
         self.coordinates=_np.asfortranarray(self.coordinates,dtype='float64')
-        _libcom.recenter(self.coordinates, atoms_list, weights_array,
-                              self.n_frames, self.n_atoms, atoms_list.shape[0])
+        _libcom.recenter(self.coordinates, atom_indices, weights_array,
+                              self.n_frames, self.n_atoms, atom_indices.shape[0])
         self.coordinates=_np.ascontiguousarray(self.coordinates)
 
         pass

@@ -35,7 +35,7 @@ def _frameslist(item=None,frame=None):
 
     return tmp_frameslist
 
-def _coordinates(item=None, atoms_list=None, frames_list=None, form='molmodmt.MolMod'):
+def _coordinates(item=None, atom_indices=None, frames_list=None, form='molmodmt.MolMod'):
 
     if form=='molmodmt.MolMod':
         tmp_item = item.trajectory
@@ -44,12 +44,12 @@ def _coordinates(item=None, atoms_list=None, frames_list=None, form='molmodmt.Mo
     else:
         raise NotImplementedError(NotImplementedMessage)
 
-    if atoms_list is not None:
+    if atom_indices is not None:
         if frames_list is not None:
             tmp_coordinates = tmp_item.coordinates[frames_list,:,:]
-            tmp_coordinates = tmp_coordinates[:,atoms_list,:]
+            tmp_coordinates = tmp_coordinates[:,atom_indices,:]
         else:
-            tmp_coordinates = tmp_item.coordinates[:,atoms_list,:]
+            tmp_coordinates = tmp_item.coordinates[:,atom_indices,:]
     else:
         if frames_list is not None:
             tmp_frameslist=_frameslist(tmp_item,frame)

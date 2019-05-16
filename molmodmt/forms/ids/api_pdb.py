@@ -39,7 +39,7 @@ def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
 def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
 
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
-    from molmodmt.formats.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
+    from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
     _tmp_file=_download_pdb(item.split(':')[-1])
     _tmp_item=_pdb_to_mdtraj(_tmp_file, selection=selection, syntaxis=syntaxis)
     _remove(_tmp_file)
@@ -58,7 +58,7 @@ def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
 
 def to_parmed_Structure(form_id):
 
-    from molmodmt.formats.files.api_pdb import to_parmed_Structure as _pdb_to_parmed_Structure
+    from molmodmt.forms.files.api_pdb import to_parmed_Structure as _pdb_to_parmed_Structure
     _tmp_file=to_pdb(form_id)
     _tmp_form=_pdb_to_parmed_Structure(_tmp_file)
     _remove(_tmp_file)
@@ -68,10 +68,10 @@ def to_parmed_Structure(form_id):
 def to_parmed(form_id):
     return to_parmed_Structure(form_id)
 
-def to_pdbfixer_PDBFixer(form_id):
+def to_pdbfixer_PDBFixer(form_id, selection=None, syntaxis="mdtraj"):
     return to_pdbfixer(form_id)
 
-def to_pdbfixer(form_id):
+def to_pdbfixer(form_id, selection=None, syntaxis="mdtraj"):
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
     from pdbfixer.pdbfixer import PDBFixer as _pdbfixer_loader
     _tmp_file=_download_pdb(form_id.split(':')[-1])
@@ -80,7 +80,7 @@ def to_pdbfixer(form_id):
     return _tmp_form
 
 def to_yank_Topography(form_id):
-    from molmodmt.formats.files.api_pdb import to_yank_Topography as _pdb_to_yank_Topography
+    from molmodmt.forms.files.api_pdb import to_yank_Topography as _pdb_to_yank_Topography
     _tmp_file=to_pdb(form_id)
     _tmp_form=_pdb_to_yank_Topography(_tmp_file)
     _remove(_tmp_file)
@@ -88,7 +88,7 @@ def to_yank_Topography(form_id):
     return _tmp_form
 
 def to_mdanalysis(form_id):
-    from molmodmt.formats.files.api_pdb import to_mdanalysis as _pdb_to_mdanalysis
+    from molmodmt.forms.files.api_pdb import to_mdanalysis as _pdb_to_mdanalysis
     _tmp_file=to_pdb(form_id)
     _tmp_form=_pdb_to_mdanalysis(_tmp_file)
     _remove(_tmp_file)

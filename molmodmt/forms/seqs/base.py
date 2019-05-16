@@ -51,10 +51,10 @@ for form_name in list_forms:
         if method.startswith('select_with_'):
             syntaxis_name=method.replace('select_with_','')
             dict_selector[form_name][syntaxis_name]= getattr(dict_api_forms[form_name],method)
-    if 'extract_atoms_list' in dict_api_forms[form_name].__dict__.keys():
-        dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atoms_list')
-    if 'trim_atoms_list' in dict_api_forms[form_name].__dict__.keys():
-        dict_trimmer[form_name]=getattr(dict_api_forms[form_name],'trim_atoms_list')
+    if 'extract_atom_indices' in dict_api_forms[form_name].__dict__.keys():
+        dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atom_indices')
+    if 'trim_atom_indices' in dict_api_forms[form_name].__dict__.keys():
+        dict_trimmer[form_name]=getattr(dict_api_forms[form_name],'trim_atom_indices')
     if 'add_atoms' in dict_api_forms[form_name].__dict__.keys():
         dict_adder[form_name]=getattr(dict_api_forms[form_name],'add_atoms')
     if 'duplicate' in dict_api_forms[form_name].__dict__.keys():

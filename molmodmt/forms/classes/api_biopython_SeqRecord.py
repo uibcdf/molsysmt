@@ -17,7 +17,7 @@ def to_fasta(item,filename=None,selection=None,syntaxis='mdtraj'):
 
 def to_pir(item, filename=None, style=None, selection=None, syntaxis='mdtraj'):
     from Bio.SeqIO.PirIO import PirWriter as _PirWriter
-    from molmodmt.formats.files.api_pir import rewrite_to_style as _rewrite
+    from molmodmt.forms.files.api_pir import rewrite_to_style as _rewrite
 
     print(item)
 

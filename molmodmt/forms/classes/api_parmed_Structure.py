@@ -58,17 +58,17 @@ def select_with_parmed(item, selection):
     del(_AmberMask)
     return tmp_sel
 
-def extract_atoms_list(item, atoms_list):
-    from molmodmt.utils.miscellanea import atoms_list2AmberMask
+def extract_atom_indices(item, atom_indices):
+    from molmodmt.utils.miscellanea import atom_indices2AmberMask
     from copy import deepcopy
     tmp_item = deepcopy(item)
-    tmp_item.strip(atoms_list2AmberMask(atoms_list,len(item.atoms),inverse=True))
+    tmp_item.strip(atom_indices2AmberMask(atom_indices,len(item.atoms),inverse=True))
     return tmp_item
 
-def get(item, atoms_list=None, **kwargs):
+def get(item, atom_indices=None, **kwargs):
 
-    if atoms_list is not None:
-        tmp_topology = extract_atoms_list(item,atoms_list)
+    if atom_indices is not None:
+        tmp_topology = extract_atom_indices(item,atom_indices)
     else:
         tmp_topology = item
 

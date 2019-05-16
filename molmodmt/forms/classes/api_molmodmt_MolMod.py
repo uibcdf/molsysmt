@@ -31,7 +31,7 @@ def to_aminoacids1_seq(item, selection=None, syntaxis='mdtraj'):
 
 def to_biopython_Seq(item, selection=None, syntaxis='mdtraj'):
 
-    from molmodmt.formats.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item)
     tmp_item = _aminoacids1_to_biopython_Seq(tmp_item)
     del(_aminoacids1_to_biopython_Seq)
@@ -39,7 +39,7 @@ def to_biopython_Seq(item, selection=None, syntaxis='mdtraj'):
 
 def to_biopython_SeqRecord(item, selection=None, syntaxis='mdtraj'):
 
-    from molmodmt.formats.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item)
     tmp_item = _aminoacids1_to_biopython_SeqRecord(tmp_item)
     del(_aminoacids1_to_biopython_SeqRecord)
@@ -70,7 +70,7 @@ def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
     tmp_item = _to_mdtraj_Topology(item)
     return tmp_item
 
-def set(item, atoms_list=None, **kwargs):
+def set(item, atom_indices=None, **kwargs):
 
     for option in kwargs:
         if option=='box' and kwargs[option] is not True:
@@ -82,13 +82,13 @@ def set(item, atoms_list=None, **kwargs):
 
     pass
 
-def get(item, atoms_list=None, **kwargs):
+def get(item, atom_indices=None, **kwargs):
 
     from .api_mdtraj_Topology import get as _get
 
-    if atoms_list is not None:
-        from .api_mdtraj_Topology import extract_atoms_list as _mdtraj_extract
-        tmp_topology = _mdtraj_extract(item.topology,atoms_list)
+    if atom_indices is not None:
+        from .api_mdtraj_Topology import extract_atom_indices as _mdtraj_extract
+        tmp_topology = _mdtraj_extract(item.topology,atom_indices)
     else:
         tmp_topology = item.topology
 
@@ -143,10 +143,10 @@ def to_pdb(item, filename=None, selection=None, syntaxis='mdtraj'):
 def select_with_mdtraj(item, selection=None, syntaxis='mdtraj'):
     return item.select_with_mdtraj(selection)
 
-def extract_atoms_list(item, atoms_list):
-    return item.extract(atoms_list)
+def extract_atom_indices(item, atom_indices):
+    return item.extract(atom_indices)
 
-def trim_atoms_list(item, atoms_list):
+def trim_atom_indices(item, atom_indices):
     pass
 
 def add_atoms(item, atoms):

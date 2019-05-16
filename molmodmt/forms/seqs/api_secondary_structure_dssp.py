@@ -25,5 +25,5 @@ def get_shape(item):
 def select_with_mdtraj(item, selection):
     raise NotImplementedError
 
-def extract_atoms_list(item, atoms_list):
+def extract_atom_indices(item, atom_indices):
     raise NotImplementedError

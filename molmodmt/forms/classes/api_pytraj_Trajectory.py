@@ -15,7 +15,7 @@ def to_nglview(item):
     tmp_view = _show_pytraj(item)
     return tmp_view
 
-def get(item, atoms_list=None, **kwargs):
+def get(item, atom_indices=None, **kwargs):
     raise NotImplementedError
     pass
 

@@ -19,7 +19,7 @@ def to_aminoacids3_seq(item):
 
 def to_aminoacids1_seq(item):
 
-    from molmodmt.formats.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
+    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
     tmp_item = to_aminoacids3_seq(item)
     tmp_item = _aminoacids3_to_aminoacids1(tmp_item)
     del(_aminoacids3_to_aminoacids1)
@@ -27,7 +27,7 @@ def to_aminoacids1_seq(item):
 
 def to_biopython_Seq(item):
 
-    from molmodmt.formats.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item)
     tmp_item = _aminoacids1_to_biopython_Seq(tmp_item)
     del(_aminoacids1_to_biopython_Seq)
@@ -35,7 +35,7 @@ def to_biopython_Seq(item):
 
 def to_biopython_SeqRecord(item):
 
-    from molmodmt.formats.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item)
     tmp_item = _aminoacids1_to_biopython_SeqRecord(tmp_item)
     del(_aminoacids1_to_biopython_SeqRecord)
@@ -95,6 +95,9 @@ def to_parmed_Structure(item):
     del(_openmm_Topology_to_parmed_Structure)
     return tmp_form
 
+def to_pdbfixer(item, selection=None, syntaxis=None):
+
+    return item
 
 
 def to_pdb(item,output_file):
@@ -109,15 +112,15 @@ def select_with_mdtraj(item, selection):
     del(tmp_form)
     return tmp_sel
 
-def extract_atoms_list(item, atoms_list):
+def extract_atom_indices(item, atom_indices):
 
-    from .api_mdtraj_Trajectory import extract_atoms_list as _mdtraj_extract_atoms_list
+    from .api_mdtraj_Trajectory import extract_atom_indices as _mdtraj_extract_atom_indices
     from .api_mdtraj_Trajectory import to_pdbfixer as _mdtraj_to_pdbfixer
 
     tmp_form=to_mdtraj(item)
-    tmp_extraction_mdtraj=_mdtraj_extract_atoms_list(tmp_form, atoms_list)
+    tmp_extraction_mdtraj=_mdtraj_extract_atom_indices(tmp_form, atom_indices)
     tmp_extraction = _mdtraj_to_pdbfixer(tmp_extraction_mdtraj)
-    del(tmp_form,tmp_extraction_mdtraj,_mdtraj_extract_atoms_list,_mdtraj_to_pdbfixer)
+    del(tmp_form,tmp_extraction_mdtraj,_mdtraj_extract_atom_indices,_mdtraj_to_pdbfixer)
     return tmp_extraction
 
 def duplicate(item):

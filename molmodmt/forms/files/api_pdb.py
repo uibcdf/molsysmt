@@ -95,7 +95,7 @@ def to_nglview(item):
 
 def to_yank_Topography(item):
 
-    from molsysmt.formats.classes.api_openmm_Topology import to_yank_Topography as _openmm_to_yank_Topography
+    from molsysmt.forms.classes.api_openmm_Topology import to_yank_Topography as _openmm_to_yank_Topography
     tmp_form = to_openmm_Topology(item)
     tmp_form = _openmm_to_yank_Topography(tmp_form)
     del(_openmm_to_yank_Topography)

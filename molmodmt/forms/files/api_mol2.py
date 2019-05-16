@@ -22,7 +22,7 @@ def to_mdtraj(item):
 
 def to_modeller(item):
 
-    from molmodmt.formats.engines.api_parmed import to_modeller as _parmed_to_modeller
+    from molmodmt.forms.engines.api_parmed import to_modeller as _parmed_to_modeller
 
     tmp_form = to_parmed(item)
     tmp_form = _parmed_to_modeller(tmp_form)
@@ -41,3 +41,4 @@ def to_pdb(item,out_file):
 def to_nglview(item):
     from nglview import show_file as _nglview_show_file
     return _nglview_show_file(item)
+

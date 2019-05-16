@@ -9,13 +9,13 @@ is_form={
     'molmodmt.Trajectory' : form_name
 }
 
-def get(item, atoms_list=None, **kwargs):
+def get(item, atom_indices=None, **kwargs):
 
     from .api_mdtraj_Topology import get as _get
 
-    if atoms_list is not None:
-        from .api_mdtraj_Topology import extract_atoms_list as _mdtraj_extract
-        tmp_topology = _mdtraj_extract(item.topology_mdtraj,atoms_list)
+    if atom_indices is not None:
+        from .api_mdtraj_Topology import extract_atom_indices as _mdtraj_extract
+        tmp_topology = _mdtraj_extract(item.topology_mdtraj,atom_indices)
     else:
         tmp_topology = item.topology_mdtraj
 
@@ -55,8 +55,8 @@ def select_with_mdtraj(item, selection):
     from .api_mdtraj_Topology import select_with_mdtraj as _select_with_mdtraj
     return _select_with_mdtraj(item.topology_mdtraj,selection)
 
-def extract_atoms_list(item, atoms_list):
-    return item.extract(atoms_list)
+def extract_atom_indices(item, atom_indices):
+    return item.extract(atom_indices)
 
 def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
     from molmodmt.native.io_trajectory import to_mdtraj_Trajectory as _to_mdtraj_Trajectory

@@ -44,17 +44,21 @@ def fix_chains(item,chains=None):
                 item.atoms[atom_idx].residue.chain=chain_molecule
         pass
 
-def fix_pdb_structure(item, missing_atoms=True, missing_hydrogens=True, missing_residues=True,
-                      nonstandard_residues=True, missing_terminals=True, missing_loops=False,
-                      pH=7.4, output_form='molmodmt.MolMod', engine_atoms='pdbfixer', engine_loops='modeller'):
+def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,
+                      missing_terminals=True, missing_loops=False, missing_hydrogens=True,
+                      pH=7.4, output_form=None, engine_atoms='pdbfixer', engine_loops='modeller',
+                     verbose=True):
 
     from .multitool import get_form as _get_form
     from .multitool import convert as _convert
 
     in_form = _get_form(item)
+    if output_form is None:
+        output_form=in_form
+
     tmp_item = None
 
-    if in_form not in ['pdb','pdb:id']:
+    if in_form not in ['pdb','pdb:id','pdbfixer.PDBFixer']:
         raise BadCallError(BadCallMessage)
 
     if engine_atoms=='pdbfixer':
@@ -67,6 +71,11 @@ def fix_pdb_structure(item, missing_atoms=True, missing_hydrogens=True, missing_
             tmp_item.findMissingAtoms()
         if nonstandard_residues:
             tmp_item.findNonstandardResidues()
+
+        if verbose:
+            print(tmp_item.missingResidues)
+            print(tmp_item.missingAtoms)
+            print(tmp_item.nonstandardResidues)
 
         tmp_item.addMissingAtoms()
 
@@ -81,6 +90,4 @@ def fix_pdb_structure(item, missing_atoms=True, missing_hydrogens=True, missing_
     tmp_item = _convert(tmp_item, output_form)
 
     return tmp_item
-
-
 

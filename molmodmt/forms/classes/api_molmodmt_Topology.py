@@ -9,12 +9,12 @@ is_form={
     'molmodmt.Topology': form_name
 }
 
-def get(item, atoms_list=None, **kwargs):
+def get(item, atom_indices=None, **kwargs):
     raise NotImplementedError(NotImplementedMessage)
 
 def select_with_mdtraj(item, selection):
     raise NotImplementedError(NotImplementedMessage)
 
-def extract_atoms_list(item, atoms_list):
+def extract_atom_indices(item, atom_indices):
     raise NotImplementedError(NotImplementedMessage)
 

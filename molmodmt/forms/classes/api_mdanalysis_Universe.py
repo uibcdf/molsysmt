@@ -19,7 +19,7 @@ def to_pdb(item, output_file=None, multiframe=False):
 
 def to_mdtraj(item, multiframe=False):
     import tempfile as _tempfile
-    from molmodmt.formats.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
+    from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
     output_file=_tempfile.NamedTemporaryFile(suffix=".pdb").name
     to_pdb(item,output_file,multiframe)
     tmp_form=_pdb_to_mdtraj(output_file)

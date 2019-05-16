@@ -53,27 +53,30 @@ def to_pdb(item, filename = None, selection=None, syntaxis='mdtraj'):
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(filename, 'w'))
 
-def get(item, atoms_list=None, **kwargs):
+def get(item, atom_indices=None, **kwargs):
 
-    if atoms_list is not None:
-        tmp_item = extract(item,atoms_list)
+    if atom_indices is not None:
+        tmp_item = extract_atom_indices(item,atom_indices)
     else:
         tmp_item = item
 
     result=[]
     for option in kwargs:
         if option=='n_atoms' and kwargs[option]==True:
-            result.append(item.topology.getNumAtoms())
+            result.append(tmp_item.topology.getNumAtoms())
         if option=='n_frames' and kwargs[option]==True:
             raise NotImplementedError
         if option=='n_residues' and kwargs[option]==True:
-            result.append(item.topology.getNumResidues())
+            result.append(tmp_item.topology.getNumResidues())
         if option=='n_chains' and kwargs[option]==True:
-            result.append(item.topology.getNumChains())
+            result.append(tmp_item.topology.getNumChains())
         if option=='n_molecules' and kwargs[option]==True:
             raise NotImplementedError
         if option=='masses' and kwargs[option]==True:
             raise NotImplementedError
+        if option=='charge' and kwargs[option]==True:
+            from molmodmt.utils.openmm import get_net_charge
+            result.append(get_net_charge(item, atom_indices))
         if option=='bonded_atoms' and kwargs[option]==True:
             raise NotImplementedError
         if option=='bonds' and kwargs[option]==True:
@@ -108,20 +111,20 @@ def duplicate(item):
     from copy import deepcopy as _deepcopy
     return _deepcopy(item)
 
-def extract_atoms_list(item, atoms_list):
+def extract_atom_indices(item, atom_indices):
 
-    from molmodmt.utils.atoms_list import complementary_atoms_list
+    from molmodmt.utils.atoms_list import complementary_atom_indices
 
     tmp_item = duplicate(item)
     atoms = list(tmp_item.topology.atoms())
-    atoms_to_remove = [ atoms[ii] for ii in complementary_atoms_list(item, atoms_list) ]
+    atoms_to_remove = [ atoms[ii] for ii in complementary_atom_indices(item, atom_indices) ]
     tmp_item.delete(atoms_to_remove)
     return tmp_item
 
-def trim_atoms_list(item, atoms_list):
+def trim_atom_indices(item, atom_indices):
 
     atoms = list(item.topology.atoms())
-    atoms_to_remove = [ atoms[ii] for ii in atoms_list ]
+    atoms_to_remove = [ atoms[ii] for ii in atom_indices ]
     return item.delete(atoms_to_remove)
 
 def add(item, atoms):

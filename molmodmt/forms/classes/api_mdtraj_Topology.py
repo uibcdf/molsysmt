@@ -15,7 +15,7 @@ def to_aminoacids3_seq(item, selection=None, syntaxis='mdtraj'):
 
 def to_aminoacids1_seq(item, selection=None, syntaxis='mdtraj'):
 
-    from molmodmt.formats.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
+    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
     tmp_item = to_aminoacids3_seq(item)
     tmp_item = _aminoacids3_to_aminoacids1(tmp_item)
     del(_aminoacids3_to_aminoacids1)
@@ -54,7 +54,7 @@ def to_top(item,filename):
 def select_with_mdtraj(item, selection):
     return item.select(selection)
 
-def extract_atoms_list(item, atoms_selection):
+def extract_atom_indices(item, atoms_selection):
     return item.subset(atoms_selection)
 
 def merge_two_items(item1, item2, in_place=False):
@@ -66,10 +66,10 @@ def merge_two_items(item1, item2, in_place=False):
         tmp_item=item1.copy()
         return tmp_item.join(item2)
 
-def get(item, atoms_list=None, **kwargs):
+def get(item, atom_indices=None, **kwargs):
 
-    if atoms_list is not None:
-        tmp_item = extract_atoms_list(item,atoms_list)
+    if atom_indices is not None:
+        tmp_item = extract_atom_indices(item,atom_indices)
     else:
         tmp_item = item
 

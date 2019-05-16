@@ -23,7 +23,7 @@ def to_aminoacids1_seq(form_id):
     return tmp_sequence
 
 def to_aminoacids3_seq(form_id):
-    from molmodmt.formats.seqs.api_aminoacids1 import to_aminoacids3_seq as _to_aa3_seq
+    from molmodmt.forms.seqs.api_aminoacids1 import to_aminoacids3_seq as _to_aa3_seq
     tmp_sequence = to_aminoacids1_seq(form_id)
     tmp_sequence = _to_aa3_seq(tmp_sequence)
     del(_to_aa3_seq)

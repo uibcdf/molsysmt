@@ -198,21 +198,21 @@ def get(item=None, selection=None, **kwargs):
 
     in_form = get_form(item)
     if selection is not None:
-        atoms_list=select(item,selection=selection)
+        atom_indices=select(item,selection=selection)
     else:
-        atoms_list=None
+        atom_indices=None
 
-    return _dict_get[in_form](item, atoms_list=atoms_list,**kwargs)
+    return _dict_get[in_form](item, atom_indices=atom_indices,**kwargs)
 
 def set(item=None, selection=None, **kwargs):
 
     in_form = get_form(item)
     if selection is not None:
-        atoms_list=select(item,selection=selection)
+        atom_indices=select(item,selection=selection)
     else:
-        atoms_list=None
+        atom_indices=None
 
-    return _dict_set[in_form](item, atoms_list=atoms_list,**kwargs)
+    return _dict_set[in_form](item, atom_indices=atom_indices,**kwargs)
 
 def load (item=None, form='molmodmt.MolMod', selection=None, pdbfix=False, pH=7.0, verbose=False, **kwargs):
 

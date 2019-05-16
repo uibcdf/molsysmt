@@ -11,7 +11,7 @@ def check_platforms():
     del(platform_name, platform, platform_speed, _Platform)
 
 
-def add_harmonic_restraint_in_absolute_positions (system=None, atoms_list=None, K=None,
+def add_harmonic_restraint_in_absolute_positions (system=None, atom_indices=None, K=None,
                                                   positions=None):
     #50.0 * unit.kilocalories_per_mole/unit.angstrom**2
 
@@ -25,8 +25,8 @@ def add_harmonic_restraint_in_absolute_positions (system=None, atoms_list=None, 
     force.addPerParticleParameter('yo')
     force.addPerParticleParameter('zo')
 
-    for ii in range(len(atoms_list)):
-        atom_index = atoms_list[ii]
+    for ii in range(len(atom_indices)):
+        atom_index = atom_indices[ii]
         atom_position = positions[ii].value_in_unit_system(md_unit_system)
         force.addParticle(int(atom_index), atom_position)
 
@@ -79,12 +79,12 @@ def add_harmonic_restraint_in_distances (system=None, atoms_pairs_list=None, K=N
 
     pass
 
-def add_constant_pulling_force (system=None, atoms_list=None, pulling_force=None):
+def add_constant_pulling_force (system=None, atom_indices=None, pulling_force=None):
 
     from simtk.openmm import CustomExternalForce
 
-    if not hasattr(atoms_list,'__iter__'):
-        atoms_list = [atoms_list]
+    if not hasattr(atom_indices,'__iter__'):
+        atom_indices = [atom_indices]
 
     pulling_potential = "-(px*x+py*y+pz*z)"
     force = CustomExternalForce(pulling_potential)
@@ -92,9 +92,32 @@ def add_constant_pulling_force (system=None, atoms_list=None, pulling_force=None
     force.addGlobalParameter('py', pulling_force[1])
     force.addGlobalParameter('pz', pulling_force[2])
 
-    for atom_index in atoms_list:
+    for atom_index in atom_indices:
         force.addParticle(int(atom_index))
 
     system.addForce(force)
 
     pass
+
+def get_net_charge(item, atom_indices=None, syntaxis="mdtraj", forcefield=None):
+
+    from molmodmt import get_form as _get_form
+    from molmodmt import select as _select
+    from yank.pipeline import compute_net_charge as _compute_net_charge
+    from simtk.openmm.app import ForceField as _ForceField
+
+    form_in = _get_form(item)
+
+    if form_in == "openmm.Modeller":
+        if forcefield is None:
+            forcefield="amber99sb.xml"
+        aux_item = _ForceField(forcefield).createSystem(item.topology)
+
+    elif form_in == "openmm.System":
+        aux_item = item
+
+    net_charge = _compute_net_charge(item, atom_indices)
+    return net_charge
+
+
+
