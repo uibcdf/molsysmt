@@ -52,6 +52,7 @@ def energy_minimization (item, method='L-BFGS', forcefield='AMBER99SB-ILDN', con
 
     from .multitool import get_form as _get_form, get as _get
     from .multitool import convert as _convert, reformat as _reformat
+    from .utils.forcefields import switcher as _ff_switcher
 
     if engine=='openmm':
 
@@ -59,9 +60,7 @@ def energy_minimization (item, method='L-BFGS', forcefield='AMBER99SB-ILDN', con
         from simtk.openmm import Platform as _Platform
         from simtk import unit as _unit
 
-        forcefield_omm_parameters=None
-        if forcefield=='AMBER99SB-ILDN':
-            forcefield_parameters='amber99sbildn.xml'
+        forcefield_omm_parameters=_ff_switcher(forcefield)
 
         in_form = _get_form(item)
 
@@ -70,7 +69,7 @@ def energy_minimization (item, method='L-BFGS', forcefield='AMBER99SB-ILDN', con
         positions = _reformat(attribute='coordinates', value=positions, is_format=in_form,
                               to_format='openmm')
 
-        forcefield_generator = _app.ForceField(forcefield_parameters)
+        forcefield_generator = _app.ForceField(forcefield_omm_parameters)
 
         constraints=None
         if constraint_HBonds:

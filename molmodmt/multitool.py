@@ -105,7 +105,7 @@ def fetch(form_id=None, form=None):
 
     return convert(form_id, form)
 
-def select(item=None, selection=None, syntaxis='mdtraj'):
+def select(item=None, selection='all', syntaxis='mdtraj'):
 
     from numpy import ndarray as _ndarray
     from numpy import int as _int
@@ -120,7 +120,7 @@ def select(item=None, selection=None, syntaxis='mdtraj'):
     else:
         return _dict_selector[in_form][syntaxis](item, selection)
 
-def extract(item=None, selection=None, form=None, syntaxis='mdtraj'):
+def extract(item=None, selection='all', form=None, syntaxis='mdtraj'):
 
     if selection is None:
         return item
@@ -194,27 +194,21 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get(item=None, selection=None, **kwargs):
+def get(item=None, selection='all', syntaxis='mdtraj', **kwargs):
 
     in_form = get_form(item)
-    if selection is not None:
-        atom_indices=select(item,selection=selection)
-    else:
-        atom_indices=None
+    atom_indices=select(item, selection=selection, syntaxis=syntaxis)
 
     return _dict_get[in_form](item, atom_indices=atom_indices,**kwargs)
 
-def set(item=None, selection=None, **kwargs):
+def set(item=None, selection='all', **kwargs):
 
     in_form = get_form(item)
-    if selection is not None:
-        atom_indices=select(item,selection=selection)
-    else:
-        atom_indices=None
+    atom_indices=select(item,selection=selection)
 
     return _dict_set[in_form](item, atom_indices=atom_indices,**kwargs)
 
-def load (item=None, form='molmodmt.MolMod', selection=None, pdbfix=False, pH=7.0, verbose=False, **kwargs):
+def load (item=None, form='molmodmt.MolMod', selection='all', pdbfix=False, pH=7.0, verbose=False, **kwargs):
 
     #**kwargs: topology=None
 
@@ -253,7 +247,7 @@ def load (item=None, form='molmodmt.MolMod', selection=None, pdbfix=False, pH=7.
 
     return tmp_item
 
-def convert(item=None, form='molmodmt.MolMod', selection=None, syntaxis='mdtraj', **kwargs):
+def convert(item=None, form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs):
 
     #**kwargs: topology=None
 
@@ -281,11 +275,11 @@ def duplicate(item=None):
 
     return _dict_duplicator[in_form](item)
 
-def write(item=None,filename=None, selection=None, syntaxis='mdtraj'):
+def write(item=None,filename=None, selection='all', syntaxis='mdtraj'):
 
     return convert(item,filename, selection=selection, syntaxis=syntaxis)
 
-def view(item=None, viewer='nglview', selection=None, syntaxis='mdtraj'):
+def view(item=None, viewer='nglview', selection='all', syntaxis='mdtraj'):
 
     if type(item) in [list,tuple]:
         in_form = get_form(item[0])

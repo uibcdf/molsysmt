@@ -13,4 +13,7 @@ from .fix import fix_chains, fix_pdb_structure
 from .model_loops import add_loop
 from .remove_atoms import remove, remove_solvent
 from .potential_energy import energy_minimization
+from .solvate_box import make_box, solvate
+from .protonation import add_hydrogens
+from .topology import is_water, is_ion, residue_name_to_molecule_type
 

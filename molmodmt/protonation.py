@@ -8,16 +8,18 @@ def add_hydrogens(item, pH=7.4, engine="openmm", verbose=False):
 
     if engine=="openmm":
 
-        tmp_item = _convert(item,"molmodmt.Modeller")
+        tmp_item = _convert(item,"openmm.Modeller")
         log_residues_changed = tmp_item.addHydrogens(pH=pH)
 
         if verbose:
             ii = 0
             for residue in item.topology.residues():
                 if log_residues_changed[ii] is not None:
-
-
+                    print('{}-{} to {}-{}'.format(residue.name, residue.index,
+                                                   log_residues_changed[ii], residue.index))
+                ii+=1
     else:
         raise NotImplementedError
 
     return tmp_item
+

@@ -1,4 +1,3 @@
-
 def check_platforms():
 
     from simtk.openmm import Platform as _Platform
@@ -9,7 +8,6 @@ def check_platforms():
         platform_speed = platform.getSpeed()
         print('Plataforma {} con velocidad {}'.format(platform_name,platform_speed))
     del(platform_name, platform, platform_speed, _Platform)
-
 
 def add_harmonic_restraint_in_absolute_positions (system=None, atom_indices=None, K=None,
                                                   positions=None):
@@ -116,8 +114,6 @@ def get_net_charge(item, atom_indices=None, syntaxis="mdtraj", forcefield=None):
     elif form_in == "openmm.System":
         aux_item = item
 
-    net_charge = _compute_net_charge(item, atom_indices)
+    net_charge = _compute_net_charge(aux_item, atom_indices)
     return net_charge
-
-
 

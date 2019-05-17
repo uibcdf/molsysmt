@@ -53,12 +53,9 @@ def to_pdb(item, filename = None, selection=None, syntaxis='mdtraj'):
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(filename, 'w'))
 
-def get(item, atom_indices=None, **kwargs):
+def get(item, atom_indices='all', **kwargs):
 
-    if atom_indices is not None:
-        tmp_item = extract_atom_indices(item,atom_indices)
-    else:
-        tmp_item = item
+    tmp_item = extract_atom_indices(item,atom_indices)
 
     result=[]
     for option in kwargs:
@@ -72,6 +69,30 @@ def get(item, atom_indices=None, **kwargs):
             result.append(tmp_item.topology.getNumChains())
         if option=='n_molecules' and kwargs[option]==True:
             raise NotImplementedError
+        if option=='n_aminoacids' and kwargs[option]==True:
+            from molmodmt.topology import is_aminoacid
+            n_aminoacids=0
+            for residue in tmp_item.topology.residues():
+                if is_aminoacid(residue.name): n_aminoacids+=1
+            result.append(n_aminoacids)
+        if option=='n_nucleotides' and kwargs[option]==True:
+            from molmodmt.topology import is_nucleotide
+            n_nucleotides=0
+            for residue in tmp_item.topology.residues():
+                if is_nucleotide(residue.name): n_nucleotides+=1
+            result.append(n_nucleotides)
+        if option=='n_waters' and kwargs[option]==True:
+            from molmodmt.topology import is_water
+            n_waters=0
+            for residue in tmp_item.topology.residues():
+                if is_water(residue.name): n_water+=1
+            result.append(n_waters)
+        if option=='n_ions' and kwargs[option]==True:
+            from molmodmt.topology import is_ion
+            n_ions=0
+            for residue in tmp_item.topology.residues():
+                if is_ion(residue.name): n_ions+=1
+            result.append(n_ions)
         if option=='masses' and kwargs[option]==True:
             raise NotImplementedError
         if option=='charge' and kwargs[option]==True:
@@ -111,14 +132,20 @@ def duplicate(item):
     from copy import deepcopy as _deepcopy
     return _deepcopy(item)
 
+def get_total_n_atoms(item):
+    return item.topology.getNumAtoms()
+
 def extract_atom_indices(item, atom_indices):
 
-    from molmodmt.utils.atoms_list import complementary_atom_indices
+    if len(atom_indices)==get_total_n_atoms(item):
+        tmp_item=item
+    else:
+        from molmodmt.utils.atoms_list import complementary_atom_indices
+        tmp_item = duplicate(item)
+        atoms = list(tmp_item.topology.atoms())
+        atoms_to_remove = [ atoms[ii] for ii in complementary_atom_indices(item, atom_indices) ]
+        tmp_item.delete(atoms_to_remove)
 
-    tmp_item = duplicate(item)
-    atoms = list(tmp_item.topology.atoms())
-    atoms_to_remove = [ atoms[ii] for ii in complementary_atom_indices(item, atom_indices) ]
-    tmp_item.delete(atoms_to_remove)
     return tmp_item
 
 def trim_atom_indices(item, atom_indices):

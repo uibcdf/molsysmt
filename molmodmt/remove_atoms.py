@@ -64,12 +64,12 @@ def remove (item, selection=None, syntaxis='mdtraj'):
     return _extract(item, atom_indices_survive)
 
 
-def remove_solvent (item, ions=False, include_selection=None, exclude_selection=None,
+def remove_solvent (item, water=True, cosolutes=True, include_selection=None, exclude_selection=None,
                    syntaxis='mdtraj'):
 
     from .multitool import select as _select
-    from .utils.types import water_residues as _water_residues
-    from .utils.types import ion_residues as _ion_residues
+    from .topology import water_residues as _water_residues
+    from .topology import ion_residues as _ion_residues
 
     atom_indices_to_be_removed = []
     atom_indices_water = []
@@ -78,11 +78,11 @@ def remove_solvent (item, ions=False, include_selection=None, exclude_selection=
     atom_indices_excluded = []
 
     atom_indices_water = _select(item, 'resname '+' '.join([str(ii) for ii in _water_residues]),
-                               syntaxis='mdtraj')
+                                 syntaxis='mdtraj')
 
-    if ions:
-        atom_indices_ions = _select(item, 'resname '+' '.join([str(ii) for ii in _ion_residues]),
-                                  syntaxis='mdtraj')
+    if cosolutes:
+        atom_indices_ions = _select(item, 'resname '+' '.join(['"'+str(ii)+'"' for ii in _ion_residues]),
+                                    syntaxis='mdtraj')
 
     if include_selection is not None:
         atom_indices_included = _select(item, include_selection, syntaxis=syntaxis)
@@ -94,3 +94,5 @@ def remove_solvent (item, ions=False, include_selection=None, exclude_selection=
     atom_indices_to_be_removed = list(set(atom_indices_to_be_removed) - set(atom_indices_excluded))
 
     return remove(item, atom_indices_to_be_removed)
+
+

@@ -95,15 +95,85 @@ def to_parmed_Structure(item):
     del(_openmm_Topology_to_parmed_Structure)
     return tmp_form
 
-def to_pdbfixer(item, selection=None, syntaxis=None):
-
+def to_pdbfixer(item, selection=None, syntaxis="mdtraj"):
     return item
 
-
-def to_pdb(item,output_file):
+def to_pdb(item, output_file, selection=None, syntaxis="mdtraj"):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(output_file, 'w'),keepIds=True)
+
+def get(item, atom_indices=None, **kwargs):
+
+    if atom_indices is not None:
+        tmp_item = extract_atom_indices(item,atom_indices)
+    else:
+        tmp_item = item
+
+    result=[]
+    for option in kwargs:
+        if option=='n_atoms' and kwargs[option]==True:
+            result.append(tmp_item.topology.getNumAtoms())
+        if option=='n_frames' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='n_residues' and kwargs[option]==True:
+            result.append(tmp_item.topology.getNumResidues())
+        if option=='n_chains' and kwargs[option]==True:
+            result.append(tmp_item.topology.getNumChains())
+        if option=='n_molecules' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='n_aminoacids' and kwargs[option]==True:
+            from molmodmt.topology import is_aminoacid
+            n_aminoacids=0
+            for residue in tmp_item.topology.residues():
+                if is_aminoacid(residue.name): n_aminoacids+=1
+            result.append(n_aminoacids)
+        if option=='n_nucleotides' and kwargs[option]==True:
+            from molmodmt.topology import is_nucleotide
+            n_nucleotides=0
+            for residue in tmp_item.topology.residues():
+                if is_nucleotide(residue.name): n_nucleotides+=1
+            result.append(n_nucleotides)
+        if option=='n_waters' and kwargs[option]==True:
+            from molmodmt.topology import is_water
+            n_waters=0
+            for residue in tmp_item.topology.residues():
+                if is_water(residue.name): n_waters+=1
+            result.append(n_waters)
+        if option=='n_ions' and kwargs[option]==True:
+            from molmodmt.topology import is_ion
+            n_ions=0
+            for residue in tmp_item.topology.residues():
+                if is_ion(residue.name): n_ions+=1
+            result.append(n_ions)
+        if option=='masses' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='charge' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='bonded_atoms' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='bonds' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='graph' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='molecules' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='molecule_type' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='residue_type' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='atom_type' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='coordinates' and kwargs[option]==True:
+            raise NotImplementedError
+
+    del(tmp_item)
+
+    if len(result)==1:
+        return result[0]
+    else:
+        return result
+
 
 def select_with_mdtraj(item, selection):
 

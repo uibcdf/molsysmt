@@ -45,9 +45,9 @@ def fix_chains(item,chains=None):
         pass
 
 def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,
-                      missing_terminals=True, missing_loops=False, missing_hydrogens=True,
+                      missing_terminals=True, missing_loops=False, missing_hydrogens=False,
                       pH=7.4, output_form=None, engine_atoms='pdbfixer', engine_loops='modeller',
-                     verbose=True):
+                      verbose=False):
 
     from .multitool import get_form as _get_form
     from .multitool import convert as _convert
