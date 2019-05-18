@@ -13,7 +13,8 @@ forcefields = [
 
 _openmm = {
 
-    'AMBER99SB-ILDN' : 'amber99sbildn.xml'
+    'AMBER99SB-ILDN' : 'amber99sbildn.xml',
+    'TIP3P' : 'tip3p.xml'
 }
 
 _leap = {

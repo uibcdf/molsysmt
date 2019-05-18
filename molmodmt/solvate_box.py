@@ -3,6 +3,7 @@
 # =======================
 
 from simtk import unit
+from os import remove
 
 """
 Solvate Box
@@ -62,6 +63,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
     if engine=="LEaP":
 
         from .multitool import convert as _convert
+        from .multitool import get_form as _get_form
         from yank.utils import TLeap
         from .utils.miscellanea import tmp_filename
         from .utils.forcefields import switcher as ff_switcher
@@ -80,6 +82,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
             solvent_model='TIP4PBOX'
 
 
+        in_form = _get_form(item)
         pdbfile_in = tmp_filename(".pdb")
         _convert(item, pdbfile_in)
 
@@ -102,9 +105,10 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
         tleap.run()
 
-        tmp_item = _convert(pdbfile_out)
+        tmp_item = _convert(pdbfile_out, in_form)
 
-        remove(pdbfile_in, pdbfile_out)
+        remove(pdbfile_in)
+        remove(pdbfile_out)
 
         return tmp_item
 

@@ -12,7 +12,7 @@ From energy minimization to potential energy contribution of specific set of ato
 """
 
 
-def energy_minimization (item, method='L-BFGS', forcefield='AMBER99SB-ILDN', constraint_HBonds=True,
+def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TIP3P'], constraint_HBonds=True,
                          selection=None, syntaxis='mdtraj', engine='openmm', verbose=True, *kwargs):
     """remove(item, selection=None, syntaxis='mdtraj')
 
@@ -60,7 +60,12 @@ def energy_minimization (item, method='L-BFGS', forcefield='AMBER99SB-ILDN', con
         from simtk.openmm import Platform as _Platform
         from simtk import unit as _unit
 
-        forcefield_omm_parameters=_ff_switcher(forcefield)
+        forcefield_omm_parameters=[]
+        if hasattr(forcefield, '__iter__'):
+            for ii in forcefield:
+                forcefield_omm_parameters.append(_ff_switcher['OpenMM'][ii])
+        else:
+            forcefield_omm_parameters.append(_ff_switcher['OpenMM'][forcefield])
 
         in_form = _get_form(item)
 
@@ -69,7 +74,7 @@ def energy_minimization (item, method='L-BFGS', forcefield='AMBER99SB-ILDN', con
         positions = _reformat(attribute='coordinates', value=positions, is_format=in_form,
                               to_format='openmm')
 
-        forcefield_generator = _app.ForceField(forcefield_omm_parameters)
+        forcefield_generator = _app.ForceField(*forcefield_omm_parameters)
 
         constraints=None
         if constraint_HBonds:

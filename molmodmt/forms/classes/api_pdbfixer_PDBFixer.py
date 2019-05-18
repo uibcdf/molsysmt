@@ -105,28 +105,52 @@ def to_pdb(item, output_file, selection=None, syntaxis="mdtraj"):
 
 def get(item, atom_indices=None, **kwargs):
 
-    if atom_indices is not None:
-        tmp_item = extract_atom_indices(item,atom_indices)
-    else:
-        tmp_item = item
 
     result=[]
     for option in kwargs:
         if option=='n_atoms' and kwargs[option]==True:
-            result.append(tmp_item.topology.getNumAtoms())
-        if option=='n_frames' and kwargs[option]==True:
-            raise NotImplementedError
+            result.append(len(atom_indices))
+        if option=='atom_name' and kwargs[option]==True:
+            atom=list(tmp_item.topology.atoms())
+            atom_name=[atom[ii].name for ii in atom_indices]
+            del(atom)
+            result.append(atom_name)
+        if option=='atom_type' and kwargs[option]==True:
+            atom=list(tmp_item.topology.atoms())
+            atom_type=[atom[ii].element.symbol for ii in atom_indices]
+            del(atom)
+            result.append(atom_type)
         if option=='n_residues' and kwargs[option]==True:
-            result.append(tmp_item.topology.getNumResidues())
+            atom=list(tmp_item.topology.atoms())
+            residue_indices = [atom[ii].residue.index for ii in atom_indices]
+            residue_indices = list(set(residue_indices))
+            del(atom)
+            result.append(residue_indices)
+        if option=='residue_name' and kwargs[option]==True:
+            atom=list(tmp_item.topology.atoms())
+            residue_indices = [atom[ii].residue.index for ii in atom_indices]
+            residue_indices = list(set(residue_indices))
+            del(atom)
+            residue=list(tmp_item.topology.residues())
+            residue_names = [atom[ii].residue.name for ii in residue_indices]
+            del(residue)
+            result.append(residue_names)
+        if option=='n_frames' and kwargs[option]==True:
+            atom=list(tmp_item.topology.atoms())
+            residue_indices = [atom[ii].residue.index for ii in atom_indices]
+            residue_indices = list(set(residue_indices))
+            del(atom)
+            result.append(len(residue_indices))
         if option=='n_chains' and kwargs[option]==True:
-            result.append(tmp_item.topology.getNumChains())
+            raise NotImplementedError
         if option=='n_molecules' and kwargs[option]==True:
             raise NotImplementedError
         if option=='n_aminoacids' and kwargs[option]==True:
             from molmodmt.topology import is_aminoacid
+            residue_names = get(item,atom_indices,residue_name=True)
             n_aminoacids=0
-            for residue in tmp_item.topology.residues():
-                if is_aminoacid(residue.name): n_aminoacids+=1
+            for residue_name in residue_names:
+                if is_aminoacid(residue_name): n_aminoacids+=1
             result.append(n_aminoacids)
         if option=='n_nucleotides' and kwargs[option]==True:
             from molmodmt.topology import is_nucleotide
@@ -160,12 +184,8 @@ def get(item, atom_indices=None, **kwargs):
             raise NotImplementedError
         if option=='molecule_type' and kwargs[option]==True:
             raise NotImplementedError
-        if option=='residue_type' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='atom_type' and kwargs[option]==True:
-            raise NotImplementedError
         if option=='coordinates' and kwargs[option]==True:
-            raise NotImplementedError
+            result.append(item.positions)
 
     del(tmp_item)
 
