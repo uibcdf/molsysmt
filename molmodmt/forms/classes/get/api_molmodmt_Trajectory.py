@@ -9,7 +9,47 @@ is_form={
     'molmodmt.Trajectory' : form_name
 }
 
-# Methods
+def get(item, atom_indices=None, **kwargs):
+
+    from .api_mdtraj_Topology import get as _get
+
+    if atom_indices is not None:
+        from .api_mdtraj_Topology import extract_atom_indices as _mdtraj_extract
+        tmp_topology = _mdtraj_extract(item.topology_mdtraj,atom_indices)
+    else:
+        tmp_topology = item.topology_mdtraj
+
+    result=[]
+    for option in kwargs:
+        if option=='n_atoms' and kwargs[option]==True:
+            result.append(tmp_topology.n_atoms)
+        if option=='n_frames' and kwargs[option]==True:
+            result.append(item.n_frames)
+        if option=='n_residues' and kwargs[option]==True:
+            result.append(_get(tmp_topology,n_residues=True))
+        if option=='n_molecules' and kwargs[option]==True:
+            result.append(_get(tmp_topology,n_molecules=True))
+        if option=='masses' and kwargs[option]==True:
+            result.append(_get(tmp_topology,masses=True))
+        if option=='bonded_atoms' and kwargs[option]==True:
+            result.append(_get(tmp_topology,bonded_atoms=True))
+        if option=='bonds' and kwargs[option]==True:
+            result.append(_get(tmp_topology,bonds=True))
+        if option=='graph' and kwargs[option]==True:
+            result.append(_get(tmp_topology,graph=True))
+        if option=='molecules' and kwargs[option]==True:
+            result.append(_get(tmp_topology,molecules=True))
+        if option=='molecule_type' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='residue_type' and kwargs[option]==True:
+            raise NotImplementedError
+        if option=='atom_type' and kwargs[option]==True:
+            raise NotImplementedError
+
+    if len(result)==1:
+        return result[0]
+    else:
+        return result
 
 def select_with_mdtraj(item, selection):
     from .api_mdtraj_Topology import select_with_mdtraj as _select_with_mdtraj

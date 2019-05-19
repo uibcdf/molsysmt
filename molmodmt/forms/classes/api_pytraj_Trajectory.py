@@ -9,15 +9,13 @@ is_form={
     _pytraj_Trajectory : form_name
     }
 
+## Methods
+
 def to_nglview(item):
 
     from nglview import show_pytraj as _show_pytraj
     tmp_view = _show_pytraj(item)
     return tmp_view
-
-def get(item, atom_indices=None, **kwargs):
-    raise NotImplementedError
-    pass
 
 def select_with_mdtraj(item, selection):
 

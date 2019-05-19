@@ -7,6 +7,11 @@ is_form={
     _pdbfixer_PDBFixer : form_name
 }
 
+## Methods
+
+from .get.api_pdbfixer_PDBFixer import get
+#from .set.api_pdbfixer_PDBFixer import set
+
 def to_nglview(item):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
@@ -102,98 +107,6 @@ def to_pdb(item, output_file, selection=None, syntaxis="mdtraj"):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(output_file, 'w'),keepIds=True)
-
-def get(item, atom_indices=None, **kwargs):
-
-
-    result=[]
-    for option in kwargs:
-        if option=='n_atoms' and kwargs[option]==True:
-            result.append(len(atom_indices))
-        if option=='atom_name' and kwargs[option]==True:
-            atom=list(tmp_item.topology.atoms())
-            atom_name=[atom[ii].name for ii in atom_indices]
-            del(atom)
-            result.append(atom_name)
-        if option=='atom_type' and kwargs[option]==True:
-            atom=list(tmp_item.topology.atoms())
-            atom_type=[atom[ii].element.symbol for ii in atom_indices]
-            del(atom)
-            result.append(atom_type)
-        if option=='n_residues' and kwargs[option]==True:
-            atom=list(tmp_item.topology.atoms())
-            residue_indices = [atom[ii].residue.index for ii in atom_indices]
-            residue_indices = list(set(residue_indices))
-            del(atom)
-            result.append(residue_indices)
-        if option=='residue_name' and kwargs[option]==True:
-            atom=list(tmp_item.topology.atoms())
-            residue_indices = [atom[ii].residue.index for ii in atom_indices]
-            residue_indices = list(set(residue_indices))
-            del(atom)
-            residue=list(tmp_item.topology.residues())
-            residue_names = [atom[ii].residue.name for ii in residue_indices]
-            del(residue)
-            result.append(residue_names)
-        if option=='n_frames' and kwargs[option]==True:
-            atom=list(tmp_item.topology.atoms())
-            residue_indices = [atom[ii].residue.index for ii in atom_indices]
-            residue_indices = list(set(residue_indices))
-            del(atom)
-            result.append(len(residue_indices))
-        if option=='n_chains' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='n_molecules' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='n_aminoacids' and kwargs[option]==True:
-            from molmodmt.topology import is_aminoacid
-            residue_names = get(item,atom_indices,residue_name=True)
-            n_aminoacids=0
-            for residue_name in residue_names:
-                if is_aminoacid(residue_name): n_aminoacids+=1
-            result.append(n_aminoacids)
-        if option=='n_nucleotides' and kwargs[option]==True:
-            from molmodmt.topology import is_nucleotide
-            n_nucleotides=0
-            for residue in tmp_item.topology.residues():
-                if is_nucleotide(residue.name): n_nucleotides+=1
-            result.append(n_nucleotides)
-        if option=='n_waters' and kwargs[option]==True:
-            from molmodmt.topology import is_water
-            n_waters=0
-            for residue in tmp_item.topology.residues():
-                if is_water(residue.name): n_waters+=1
-            result.append(n_waters)
-        if option=='n_ions' and kwargs[option]==True:
-            from molmodmt.topology import is_ion
-            n_ions=0
-            for residue in tmp_item.topology.residues():
-                if is_ion(residue.name): n_ions+=1
-            result.append(n_ions)
-        if option=='masses' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='charge' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='bonded_atoms' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='bonds' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='graph' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='molecules' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='molecule_type' and kwargs[option]==True:
-            raise NotImplementedError
-        if option=='coordinates' and kwargs[option]==True:
-            result.append(item.positions)
-
-    del(tmp_item)
-
-    if len(result)==1:
-        return result[0]
-    else:
-        return result
-
 
 def select_with_mdtraj(item, selection):
 

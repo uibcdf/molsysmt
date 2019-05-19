@@ -1,6 +1,7 @@
 import os
 import tempfile
 from .utils.exceptions import *
+from .utils.arguments import singular as _singular
 
 #### Molecular Models forms
 
@@ -110,6 +111,7 @@ def select(item=None, selection='all', syntaxis='mdtraj'):
     from numpy import ndarray as _ndarray
     from numpy import int as _int
     from numpy import int64 as _int64
+    from .utils.selection import parse_selection
 
     in_form=get_form(item)
 
@@ -118,6 +120,7 @@ def select(item=None, selection='all', syntaxis='mdtraj'):
     elif type(selection) in [int, _int64, _int]:
         return [selection]
     else:
+        selection = parse_selection(selection, syntaxis)
         return _dict_selector[in_form][syntaxis](item, selection)
 
 def extract(item=None, selection='all', form=None, syntaxis='mdtraj'):
@@ -167,11 +170,44 @@ def merge(item1=None, item2=None, in_place=False, form=None):
             tmp_item=_dict_merger[form](tmp_item,convert(item2,form))
             return tmp_item
 
-def info(item=None):
+def info(item=None, element='atom', selection="all", syntaxis="mdtraj", format='pandas'):
 
     in_form = get_form(item)
-    n_atoms, n_frames = get(item,n_atoms=True,n_frames=True)
-    print(in_form, "with", num_frames, "frames and", num_atoms, "atoms.")
+
+    element = _singular(element)
+
+    if element=='atom':
+
+        wrap_arguments = get(item, element=element, selection=selection, syntaxis=syntaxis,
+                             atom_index=True, atom_id=True, atom_name=True, residue_index=True,
+                             chain_index=True, molecule_type=True)
+
+        if format=='text':
+            for index, id, name, residue_index, chain_index in zip(*wrap_arguments):
+                print("{} with index {} and id {} in residue with ".format(name, index, id)+
+                      "index {}, chain with index {} and molecule ".format(residue_index, chain_index)+
+                      "type {}".format(molecule_type))
+
+        elif format=='pandas':
+            from pandas import DataFrame as df
+            index, id, name, chain_index, molecule_type = wrap_arguments
+            return df({'Name':name, 'index':index, 'id':id, 'chain index':chain_index, 'molecule type':molecule_type})
+
+    elif element=='residue':
+
+        wrap_arguments= get(item, element=element, selection=selection, syntaxis=syntaxis,
+                            residue_index=True, residue_id=True, residue_name=True,
+                            chain_index=True, molecule_type=True)
+
+        if format=='text':
+            for index, id, name, chain_index, molecule_type in zip(*wrap_argments):
+                print("{} with index {} and id {} in chain with index {} and molecule type {}".format(name, index, id, chain_index, molecule_type))
+
+        elif format=='pandas':
+            from pandas import DataFrame as df
+            index, id, name, chain_index, molecule_type = wrap_arguments
+            return df({'Name':name, 'index':index, 'id':id, 'chain index':chain_index, 'molecule type':molecule_type})
+
     pass
 
 def get_form(item=None):
@@ -194,19 +230,34 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get(item=None, selection='all', syntaxis='mdtraj', **kwargs):
+def get(item, element='atom', indices=None, ids=None, selection='all', syntaxis='mdtraj', **kwargs):
+
+    # selection works as a mask if indices or ids are used
 
     in_form = get_form(item)
-    atom_indices=select(item, selection=selection, syntaxis=syntaxis)
 
-    return _dict_get[in_form](item, atom_indices=atom_indices,**kwargs)
+    element = _singular(element)
+    singular_kwargs = { _singular(key): kwargs[key] for key in kwargs.keys() }
+
+    if element=='atom':
+        if (indices is None) and (ids is None):
+            indices=select(item, selection=selection, syntaxis=syntaxis)
+
+    if element=='residue':
+        if (indices is None) and (ids is None):
+            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis,
+                          residue_index=True)
+
+    return _dict_get[in_form](item, element=element, indices=indices, ids=ids, **singular_kwargs)
 
 def set(item=None, selection='all', **kwargs):
 
     in_form = get_form(item)
+    singular_kwargs = { _singular(key): kwargs[key] for key in kwargs.keys() }
+
     atom_indices=select(item,selection=selection)
 
-    return _dict_set[in_form](item, atom_indices=atom_indices,**kwargs)
+    return _dict_set[in_form](item, atom_indices=atom_indices, **singular_kwargs)
 
 def load (item=None, form='molmodmt.MolMod', selection='all', pdbfix=False, pH=7.0, verbose=False, **kwargs):
 
@@ -307,3 +358,4 @@ def reformat(attribute=None, value=None, is_format=None, to_format=None):
             raise BadCallError(BadCallMessage)
     else:
         raise BadCallError(BadCallMessage)
+

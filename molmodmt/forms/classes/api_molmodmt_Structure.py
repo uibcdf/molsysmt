@@ -9,8 +9,6 @@ is_form={
     'molmodmt.Structure' : form_name
 }
 
-def get(item, atom_indices=None, **kwargs):
-    raise NotImplementedError(NotImplementedMessage)
 
 def select_with_mdtraj(item, selection):
     raise NotImplementedError(NotImplementedMessage)
