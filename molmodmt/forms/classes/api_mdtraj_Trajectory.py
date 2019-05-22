@@ -8,6 +8,8 @@ is_form={
     'mdtraj.Trajectory':form_name
     }
 
+from .get.api_get_mdtraj_Trajectory import getting
+
 def to_aminoacids3_seq(item):
 
     return ''.join([ r.name for r in item.topology.residues ])
@@ -82,7 +84,7 @@ def to_openmm_Modeller(item, selection=None, syntaxis="mdtraj"):
     from molmodmt import reformat as _reformat
 
     topology = to_openmm_Topology(item)
-    positions = get(item, coordinates=True)
+    positions = getting(item, coordinates=True)
     positions = _reformat(attribute='coordinates', value=positions, is_format='mdtraj.Trajectory',
                          to_format='openmm')
     tmp_item = _Modeller(topology, positions)

@@ -235,7 +235,6 @@ def get(item, element='atom', indices=None, ids=None, selection='all', syntaxis=
     # selection works as a mask if indices or ids are used
 
     in_form = get_form(item)
-
     element = _singular(element)
     singular_kwargs = { _singular(key): kwargs[key] for key in kwargs.keys() }
 
@@ -250,14 +249,22 @@ def get(item, element='atom', indices=None, ids=None, selection='all', syntaxis=
 
     return _dict_get[in_form](item, element=element, indices=indices, ids=ids, **singular_kwargs)
 
-def set(item=None, selection='all', **kwargs):
+def set(item=None, element='atom', indices=None, ids=None,  selection='all', syntaxis='mdtraj', **kwargs):
 
     in_form = get_form(item)
+    element = _singular(element)
     singular_kwargs = { _singular(key): kwargs[key] for key in kwargs.keys() }
 
-    atom_indices=select(item,selection=selection)
+    if element=='atom':
+        if (indices is None) and (ids is None):
+            indices=select(item, selection=selection, syntaxis=syntaxis)
 
-    return _dict_set[in_form](item, atom_indices=atom_indices, **singular_kwargs)
+    if element=='residue':
+        if (indices is None) and (ids is None):
+            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis,
+                          residue_index=True)
+
+    return _dict_set[in_form](item, element=element, indices=indices, ids=ids, **singular_kwargs)
 
 def load (item=None, form='molmodmt.MolMod', selection='all', pdbfix=False, pH=7.0, verbose=False, **kwargs):
 

@@ -9,8 +9,8 @@ is_form={
 
 ## Methods
 
-from .get.api_pdbfixer_PDBFixer import get
-#from .set.api_pdbfixer_PDBFixer import set
+from .get.api_get_pdbfixer_PDBFixer import getting
+from .set.api_set_pdbfixer_PDBFixer import setting
 
 def to_nglview(item):
 

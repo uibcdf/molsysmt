@@ -61,10 +61,10 @@ for form_name in list_forms:
         dict_duplicator[form_name]=getattr(dict_api_forms[form_name],'duplicate')
     if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():
         dict_merger[form_name]=getattr(dict_api_forms[form_name],'merge_two_items')
-    if 'get' in dict_api_forms[form_name].__dict__.keys():
-        dict_get[form_name]=getattr(dict_api_forms[form_name],'get')
-    if 'set' in dict_api_forms[form_name].__dict__.keys():
-        dict_set[form_name]=getattr(dict_api_forms[form_name],'set')
+    if 'getting' in dict_api_forms[form_name].__dict__.keys():
+        dict_get[form_name]=getattr(dict_api_forms[form_name],'getting')
+    if 'setting' in dict_api_forms[form_name].__dict__.keys():
+        dict_set[form_name]=getattr(dict_api_forms[form_name],'setting')
 
 list_forms=sorted(list_forms)
 
