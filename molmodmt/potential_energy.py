@@ -115,3 +115,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
 
         return tmp_item
 
+    else:
+
+        raise NotImplementedError
+

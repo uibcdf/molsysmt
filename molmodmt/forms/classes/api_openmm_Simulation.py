@@ -22,6 +22,18 @@ def to_openmm_Modeller(item, selection=None, syntaxis="mdtraj"):
     tmp_item =_Modeller(topology, positions)
     return tmp_item
 
+def to_pdbfixer_PDBFixer (item, selection=None, syntaxis="mdtraj"):
+
+    from molmodmt.utils.miscellanea import tmp_filename as _tmp_filename
+    from os import remove as _remove
+    from molmodmt import convert as _convert
+
+    tmp_pdbfile = _tmp_filename('.pdb')
+    to_pdb(item, tmp_pdbfile)
+    tmp_item = _convert(tmp_pdbfile, 'pdbfixer.PDBFixer')
+    _remove(tmp_pdbfile)
+    return tmp_item
+
 def to_pdb (item, filename = None, selection=None, syntaxis="mdtraj"):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
@@ -29,4 +41,5 @@ def to_pdb (item, filename = None, selection=None, syntaxis="mdtraj"):
     state = item.context.getState(getPositions=True)
     positions = state.getPositions()
     return _openmm_app_PDBFILE.writeFile(topology, positions, open(filename, 'w'))
+
 

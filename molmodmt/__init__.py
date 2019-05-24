@@ -15,5 +15,6 @@ from .remove_atoms import remove, remove_solvent
 from .potential_energy import energy_minimization
 from .solvate_box import make_box, solvate
 from .protonation import add_hydrogens
+from .mutations import mutate
 from .topology import is_water, is_ion, residue_name_to_molecule_type
 

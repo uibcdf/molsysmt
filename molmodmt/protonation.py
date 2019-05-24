@@ -21,5 +21,7 @@ def add_hydrogens(item, pH=7.4, engine="openmm", verbose=False):
     else:
         raise NotImplementedError
 
+    tmp_item = _convert(tmp_item, form_in)
+
     return tmp_item
 

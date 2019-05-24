@@ -2,6 +2,7 @@ import os
 import tempfile
 from .utils.exceptions import *
 from .utils.arguments import singular as _singular
+from numpy import unique as _unique
 
 #### Molecular Models forms
 
@@ -170,43 +171,44 @@ def merge(item1=None, item2=None, in_place=False, form=None):
             tmp_item=_dict_merger[form](tmp_item,convert(item2,form))
             return tmp_item
 
-def info(item=None, element='atom', selection="all", syntaxis="mdtraj", format='pandas'):
+def info(item=None, element='atom', selection="all", syntaxis="mdtraj"):
 
+    from pandas import DataFrame as df
     in_form = get_form(item)
-
     element = _singular(element)
 
     if element=='atom':
 
-        wrap_arguments = get(item, element=element, selection=selection, syntaxis=syntaxis,
-                             atom_index=True, atom_id=True, atom_name=True, residue_index=True,
-                             chain_index=True, molecule_type=True)
+        index, id, name, residue_name, residue_index, residue_id, chain_index, chain_id,\
+        molecule_type = get(item, element=element, selection=selection, syntaxis=syntaxis,
+                            atom_index=True, atom_id=True, atom_name=True, residue_name=True,
+                            residue_index=True, residue_id=True, chain_index=True, chain_id=True,
+                            molecule_type=True)
 
-        if format=='text':
-            for index, id, name, residue_index, chain_index in zip(*wrap_arguments):
-                print("{} with index {} and id {} in residue with ".format(name, index, id)+
-                      "index {}, chain with index {} and molecule ".format(residue_index, chain_index)+
-                      "type {}".format(molecule_type))
-
-        elif format=='pandas':
-            from pandas import DataFrame as df
-            index, id, name, chain_index, molecule_type = wrap_arguments
-            return df({'Name':name, 'index':index, 'id':id, 'chain index':chain_index, 'molecule type':molecule_type})
+        return df({'name':name, 'index':index, 'id':id, 'residue_name':residue_name,
+                   'residue index':residue_index, 'residue id':residue_id,
+                   'chain index':chain_index, 'chain id':chain_id, 'molecule type':molecule_type})
 
     elif element=='residue':
 
-        wrap_arguments= get(item, element=element, selection=selection, syntaxis=syntaxis,
+        index, id, name, chain_index, chain_id,\
+        molecule_type = get(item, element=element, selection=selection, syntaxis=syntaxis,
                             residue_index=True, residue_id=True, residue_name=True,
-                            chain_index=True, molecule_type=True)
+                            chain_index=True, chain_id=True, molecule_type=True)
 
-        if format=='text':
-            for index, id, name, chain_index, molecule_type in zip(*wrap_argments):
-                print("{} with index {} and id {} in chain with index {} and molecule type {}".format(name, index, id, chain_index, molecule_type))
 
-        elif format=='pandas':
-            from pandas import DataFrame as df
-            index, id, name, chain_index, molecule_type = wrap_arguments
-            return df({'Name':name, 'index':index, 'id':id, 'chain index':chain_index, 'molecule type':molecule_type})
+        return df({'name':name, 'index':index, 'id':id, 'chain index':chain_index, 'chain id':chain_id,
+                   'molecule type':molecule_type})
+
+    elif element=='chain':
+
+        index, id, molecule_type = get(item, element=element, selection=selection, syntaxis=syntaxis,
+                                       chain_index=True, chain_id=True, molecule_type=True)
+
+        return df({'index':index, 'id':id, 'molecule type':molecule_type})
+
+    else:
+        raise NotImplementedError
 
     pass
 
@@ -246,6 +248,13 @@ def get(item, element='atom', indices=None, ids=None, selection='all', syntaxis=
         if (indices is None) and (ids is None):
             indices = get(item, element='atom', selection=selection, syntaxis=syntaxis,
                           residue_index=True)
+            indices = list(_unique(indices))
+
+    if element=='chain':
+        if (indices is None) and (ids is None):
+            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis,
+                          chain_index=True)
+            indices = list(_unique(indices))
 
     return _dict_get[in_form](item, element=element, indices=indices, ids=ids, **singular_kwargs)
 

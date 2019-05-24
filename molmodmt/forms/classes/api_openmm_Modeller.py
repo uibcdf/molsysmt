@@ -44,6 +44,18 @@ def to_openmm_System(item, selection=None, syntaxis='mdtraj'):
 def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
     return item.getTopology()
 
+def to_pdbfixer_PDBFixer(item, selection=None, syntaxis='mdtraj'):
+
+    from molmodmt.utils.miscellanea import tmp_filename as _tmp_filename
+    from os import remove as _remove
+    from molmodmt import convert as _convert
+
+    tmp_pdbfile = _tmp_filename('pdb')
+    to_pdb(item, tmp_pdbfile)
+    tmp_item = _convert(tmp_pdbfile, 'pdbfixer.PDBFixer')
+    _remove(tmp_pdbfile)
+    return tmp_item
+
 def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
     from molmodmt.native.io_molmod import from_openmm_Modeller as MolMod_from_openmm_Modeller
     return MolMod_from_openmm_Modeller(item, selection=selection, syntaxis=syntaxis)
