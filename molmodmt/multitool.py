@@ -3,6 +3,8 @@ import tempfile
 from .utils.exceptions import *
 from .utils.arguments import singular as _singular
 from numpy import unique as _unique
+from numpy import ndarray as _ndarray
+from numpy import sort as _sort
 
 #### Molecular Models forms
 
@@ -13,7 +15,6 @@ from .forms.classes import dict_is_form as _dict_classes_is_form, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
     dict_trimmer as _dict_classes_trimmer, \
-    dict_adder as _dict_classes_adder,\
     dict_duplicator as _dict_classes_duplicator, \
     dict_merger as _dict_classes_merger, \
     dict_get as _dict_classes_get, \
@@ -26,7 +27,6 @@ from .forms.files import dict_is_form as _dict_files_is_form, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
     dict_trimmer as _dict_files_trimmer, \
-    dict_adder as _dict_files_adder, \
     dict_duplicator as _dict_files_duplicator, \
     dict_merger as _dict_files_merger, \
     dict_get as _dict_files_get, \
@@ -39,7 +39,6 @@ from .forms.ids import dict_is_form as _dict_ids_is_form, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
     dict_trimmer as _dict_ids_trimmer, \
-    dict_adder as _dict_ids_adder, \
     dict_duplicator as _dict_ids_duplicator, \
     dict_merger as _dict_ids_merger, \
     dict_get as _dict_ids_get, \
@@ -52,7 +51,6 @@ from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
     dict_trimmer as _dict_seqs_trimmer, \
-    dict_adder as _dict_seqs_adder, \
     dict_duplicator as _dict_seqs_duplicator, \
     dict_merger as _dict_seqs_merger, \
     dict_get as _dict_seqs_get, \
@@ -65,7 +63,6 @@ from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
     dict_trimmer as _dict_viewers_trimmer, \
-    dict_adder as _dict_viewers_adder, \
     dict_duplicator as _dict_viewers_duplicator, \
     dict_merger as _dict_viewers_merger, \
     dict_get as _dict_viewers_get, \
@@ -81,8 +78,6 @@ _dict_extractor = {**_dict_classes_extractor, **_dict_files_extractor,\
                    **_dict_ids_extractor, **_dict_seqs_extractor, **_dict_viewers_extractor}
 _dict_trimmer = {**_dict_classes_trimmer, **_dict_files_trimmer,\
                    **_dict_ids_trimmer, **_dict_seqs_trimmer, **_dict_viewers_trimmer}
-_dict_adder = {**_dict_classes_adder, **_dict_files_adder,\
-                   **_dict_ids_adder, **_dict_seqs_adder, **_dict_viewers_adder}
 _dict_duplicator = {**_dict_classes_duplicator, **_dict_files_duplicator,\
                    **_dict_ids_duplicator, **_dict_seqs_duplicator, **_dict_viewers_duplicator}
 _dict_merger    = {**_dict_classes_merger, **_dict_files_merger,\
@@ -116,38 +111,59 @@ def select(item=None, selection='all', syntaxis='mdtraj'):
 
     in_form=get_form(item)
 
-    if type(selection) in [list,tuple,_ndarray]:
-        return selection
+    if type(selection) in [list, tuple, _ndarray]:
+        return list(selection)
     elif type(selection) in [int, _int64, _int]:
         return [selection]
     else:
         selection = parse_selection(selection, syntaxis)
-        return _dict_selector[in_form][syntaxis](item, selection)
+        atom_indices = _dict_selector[in_form][syntaxis](item, selection)
+        return list(atom_indices)
 
 def extract(item=None, selection='all', form=None, syntaxis='mdtraj'):
 
     if selection is None:
         return item
 
-    from numpy import ndarray as _ndarray
-    from numpy import sort as _sort
+    in_form=get_form(item)
+    if form is None:
+        form=in_form
+
+    if type(selection) == int:
+        atom_indices=[selection]
+    elif type(selection) in [list,tuple]:
+        atom_indices=selection
+    elif type(selection) == _ndarray:
+        atom_indices=selection
+    else:
+        atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
+
+    atom_indices = list(_sort(atom_indices))
+    tmp_item = _dict_extractor[in_form](item, atom_indices)
+    return convert(tmp_item,form)
+
+def trim(item=None, selection='all', form=None, syntaxis='mdtraj'):
+
+    if selection is None:
+        return item
 
     in_form=get_form(item)
     if form is None:
         form=in_form
 
     if type(selection) == int:
-        list_atoms=[selection]
+        atom_indices=[selection]
     elif type(selection) in [list,tuple]:
-        list_atoms=selection
+        atom_indices=selection
     elif type(selection) == _ndarray:
-        list_atoms=selection
+        atom_indices=selection
     else:
-        list_atoms = select(item=item, selection=selection, syntaxis=syntaxis) # list_atoms 0-based
-    list_atoms = _sort(list_atoms)
-    extraction = _dict_extractor[in_form](item, list_atoms)
-    del(_ndarray,_sort,list_atoms)
-    return convert(extraction,form)
+        atom_indices=select(item=item, selection=selection, syntaxis=syntaxis)
+
+    atom_indices=list(_sort(atom_indices))
+    print(atom_indices)
+    tmp_item = _dict_trimmer[in_form](item, atom_indices)
+    return convert(tmp_item,form)
 
 def merge(item1=None, item2=None, in_place=False, form=None):
 
@@ -244,17 +260,23 @@ def get(item, element='atom', indices=None, ids=None, selection='all', syntaxis=
         if (indices is None) and (ids is None):
             indices=select(item, selection=selection, syntaxis=syntaxis)
 
-    if element=='residue':
+    elif element=='residue':
         if (indices is None) and (ids is None):
             indices = get(item, element='atom', selection=selection, syntaxis=syntaxis,
                           residue_index=True)
             indices = list(_unique(indices))
 
-    if element=='chain':
+    elif element=='chain':
         if (indices is None) and (ids is None):
             indices = get(item, element='atom', selection=selection, syntaxis=syntaxis,
                           chain_index=True)
             indices = list(_unique(indices))
+
+    elif element=='system':
+        indices = get(item, element='atom', selection='all', syntaxis=syntaxis, atom_index=True)
+
+    else:
+        raise NotImplementedError
 
     return _dict_get[in_form](item, element=element, indices=indices, ids=ids, **singular_kwargs)
 

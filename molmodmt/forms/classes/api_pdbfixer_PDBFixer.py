@@ -103,10 +103,10 @@ def to_parmed_Structure(item):
 def to_pdbfixer(item, selection=None, syntaxis="mdtraj"):
     return item
 
-def to_pdb(item, output_file, selection=None, syntaxis="mdtraj"):
+def to_pdb(item, filename=None, selection=None, syntaxis="mdtraj"):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
-    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(output_file, 'w'),keepIds=True)
+    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(filename, 'w'), keepIds=True)
 
 def select_with_mdtraj(item, selection):
 
@@ -117,14 +117,19 @@ def select_with_mdtraj(item, selection):
 
 def extract_atom_indices(item, atom_indices):
 
-    from .api_mdtraj_Trajectory import extract_atom_indices as _mdtraj_extract_atom_indices
-    from .api_mdtraj_Trajectory import to_pdbfixer as _mdtraj_to_pdbfixer
+    from molmodmt import convert, extract
+    tmp_item = convert(item, 'openmm.Modeller')
+    tmp_item = extract(tmp_item, atom_indices)
+    tmp_item = convert(tmp_item, 'pdbfixer.PDBFixer')
+    return tmp_item
 
-    tmp_form=to_mdtraj(item)
-    tmp_extraction_mdtraj=_mdtraj_extract_atom_indices(tmp_form, atom_indices)
-    tmp_extraction = _mdtraj_to_pdbfixer(tmp_extraction_mdtraj)
-    del(tmp_form,tmp_extraction_mdtraj,_mdtraj_extract_atom_indices,_mdtraj_to_pdbfixer)
-    return tmp_extraction
+def trim_atom_indices(item, atom_indices):
+
+    from molmodmt import convert, trim
+    tmp_item = convert(item, 'openmm.Modeller')
+    tmp_item = trim(tmp_item, atom_indices)
+    tmp_item = convert(tmp_item, 'pdbfixer.PDBFixer')
+    return tmp_item
 
 def duplicate(item):
 

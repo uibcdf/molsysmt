@@ -107,17 +107,21 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
                 del(residue_indices, residue_names)
                 result.append(n_ions)
             elif option=='masses':
-                raise Notimplementederror
+                raise NotImplementedError
             elif option=='charge':
-                raise Notimplementederror
+                from molmodmt import get_charge
+                result.append(get_charge(item, indices))
+            elif option=='net_charge':
+                from molmodmt import get_net_charge
+                result.append(get_net_charge(item, indices))
             elif option=='bonded_atoms':
-                raise Notimplementederror
+                raise NotImplementedError
             elif option=='bonds':
-                raise Notimplementederror
+                raise NotImplementedError
             elif option=='graph':
-                raise Notimplementederror
+                raise NotImplementedError
             elif option=='molecules':
-                raise Notimplementederror
+                raise NotImplementedError
             elif option=='molecule_type':
                 from molmodmt.topology import residue_name_to_molecule_type
                 residue_names = getting(item, element='atom', indices=indices, residue_name=True)
@@ -127,7 +131,7 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
             elif option=='coordinates':
                 result.append(item.positions)
             else:
-                raise Notimplementederror
+                raise NotImplementedError
 
     elif element=='residue':
 
@@ -272,6 +276,19 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
 
     elif element=='trajectory':
         raise NotImplementedError
+
+    elif element=='system':
+
+        for option in args:
+            if option=='n_atoms':
+                result.append(len(indices))
+            elif option=='charge':
+                from molmodmt import get_net_charge
+                result.append(get_net_charge(item, indices))
+            elif option=='net_charge':
+                from molmodmt import get_net_charge
+                result.append(get_net_charge(item, indices))
+
 
     if len(result)==1:
         return result[0]

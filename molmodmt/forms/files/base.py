@@ -15,7 +15,6 @@ dict_converter={}
 dict_selector={}
 dict_extractor={}
 dict_trimmer={}
-dict_adder={}
 dict_duplicator={}
 dict_merger={}
 dict_is_form={}
@@ -34,7 +33,6 @@ for form_name in list_forms:
     dict_selector[form_name]= {}
     dict_extractor[form_name]= {}
     dict_trimmer[form_name]= {}
-    dict_adder[form_name]= {}
     dict_duplicator[form_name]= {}
     dict_merger[form_name]= {}
     dict_get[form_name]= {}
@@ -55,8 +53,6 @@ for form_name in list_forms:
         dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atom_indices')
     if 'trim_atom_indices' in dict_api_forms[form_name].__dict__.keys():
         dict_trimmer[form_name]=getattr(dict_api_forms[form_name],'trim_atom_indices')
-    if 'add_atoms' in dict_api_forms[form_name].__dict__.keys():
-        dict_adder[form_name]=getattr(dict_api_forms[form_name],'add_atoms')
     if 'duplicate' in dict_api_forms[form_name].__dict__.keys():
         dict_duplicator[form_name]=getattr(dict_api_forms[form_name],'duplicate')
     if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():

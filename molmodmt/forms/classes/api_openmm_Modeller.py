@@ -46,14 +46,15 @@ def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
 
 def to_pdbfixer_PDBFixer(item, selection=None, syntaxis='mdtraj'):
 
-    from molmodmt.utils.miscellanea import tmp_filename as _tmp_filename
-    from os import remove as _remove
-    from molmodmt import convert as _convert
+    from molmodmt.utils.miscellanea import tmp_filename
+    from os import remove
+    from molmodmt import convert
 
-    tmp_pdbfile = _tmp_filename('pdb')
+    print('si')
+    tmp_pdbfile = tmp_filename('pdb')
     to_pdb(item, tmp_pdbfile)
-    tmp_item = _convert(tmp_pdbfile, 'pdbfixer.PDBFixer')
-    _remove(tmp_pdbfile)
+    tmp_item = convert(tmp_pdbfile, 'pdbfixer.PDBFixer')
+    remove(tmp_pdbfile)
     return tmp_item
 
 def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
@@ -80,27 +81,22 @@ def get_total_n_atoms(item):
 
 def extract_atom_indices(item, atom_indices):
 
-    if len(atom_indices)==get_total_n_atoms(item):
-        tmp_item=item
-    else:
-        from molmodmt.utils.atoms_list import complementary_atom_indices
-        tmp_item = duplicate(item)
-        atoms = list(tmp_item.topology.atoms())
-        atoms_to_remove = [ atoms[ii] for ii in complementary_atom_indices(item, atom_indices) ]
-        tmp_item.delete(atoms_to_remove)
-
+    from molmodmt.utils.atoms_list import complementary_atom_indices
+    tmp_item = duplicate(item)
+    atoms = list(tmp_item.topology.atoms())
+    atoms_to_be_removed = [ atoms[ii] for ii in complementary_atom_indices(item, atom_indices) ]
+    tmp_item.delete(atoms_to_be_removed)
+    del(atoms, atoms_to_be_removed)
     return tmp_item
 
 def trim_atom_indices(item, atom_indices):
 
+    tmp_item = duplicate(item)
     atoms = list(item.topology.atoms())
-    atoms_to_remove = [ atoms[ii] for ii in atom_indices ]
-    return item.delete(atoms_to_remove)
-
-def add(item, atoms):
-
-    pass
-
+    atoms_to_be_removed = [ atoms[ii] for ii in atom_indices ]
+    tmp_item.delete(atoms_to_be_removed)
+    del(atoms, atoms_to_be_removed)
+    return tmp_item
 
 def merge_two_items(item1, item2):
 

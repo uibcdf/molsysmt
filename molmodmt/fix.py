@@ -73,9 +73,10 @@ def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstanda
             tmp_item.findNonstandardResidues()
 
         if verbose:
-            print(tmp_item.missingResidues)
-            print(tmp_item.missingAtoms)
-            print(tmp_item.nonstandardResidues)
+            print('Missing residues:', tmp_item.missingResidues)
+            print('Non standard residues:', tmp_item.nonstandardResidues)
+            print('Missing atoms', tmp_item.missingAtoms)
+            print('Missing terminals:', tmp_item.missingTerminals)
 
         tmp_item.addMissingAtoms()
 

@@ -54,22 +54,25 @@ def remove (item, selection=None, syntaxis='mdtraj'):
     There is a special function to remove solvent atoms: molmodmt.remove_solvent
     """
 
-    from .multitool import select as _select
-    from .multitool import extract as _extract
+    from .multitool import select, trim
+    #from .multitool import extract as _extract
 
-    atom_indices_to_be_removed = _select(item, selection, syntaxis=syntaxis)
-    atom_indices_all = _select(item, 'all', 'mdtraj')
-    atom_indices_survive = list(set(atom_indices_all) - set(atom_indices_to_be_removed))
+    #atom_indices_to_be_removed = _select(item, selection, syntaxis=syntaxis)
+    #atom_indices_all = _select(item, 'all', 'mdtraj')
+    #atom_indices_survive = list(set(atom_indices_all) - set(atom_indices_to_be_removed))
 
-    return _extract(item, atom_indices_survive)
+    atom_indices_to_be_removed = select(item, selection, syntaxis=syntaxis)
+    tmp_item = trim(item, atom_indices_to_be_removed)
+
+    return tmp_item
 
 
 def remove_solvent (item, water=True, cosolutes=True, include_selection=None, exclude_selection=None,
                    syntaxis='mdtraj'):
 
-    from .multitool import select as _select
-    from .topology import water_residues as _water_residues
-    from .topology import ion_residues as _ion_residues
+    from .multitool import select, trim
+    from .topology import water_residues
+    from .topology import ion_residues
 
     atom_indices_to_be_removed = []
     atom_indices_water = []
@@ -77,22 +80,36 @@ def remove_solvent (item, water=True, cosolutes=True, include_selection=None, ex
     atom_indices_included = []
     atom_indices_excluded = []
 
-    atom_indices_water = _select(item, 'resname '+' '.join([str(ii) for ii in _water_residues]),
+    atom_indices_water = select(item, 'resname '+' '.join([str(ii) for ii in water_residues]),
                                  syntaxis='mdtraj')
 
     if cosolutes:
-        atom_indices_ions = _select(item, 'resname '+' '.join(['"'+str(ii)+'"' for ii in _ion_residues]),
+        atom_indices_ions = select(item, 'resname '+' '.join(['"'+str(ii)+'"' for ii in ion_residues]),
                                     syntaxis='mdtraj')
 
     if include_selection is not None:
-        atom_indices_included = _select(item, include_selection, syntaxis=syntaxis)
+        atom_indices_included = select(item, include_selection, syntaxis=syntaxis)
 
     if exclude_selection is not None:
-        atom_indices_excluded = _select(item, exclude_selection, syntaxis=syntaxis)
+        atom_indices_excluded = select(item, exclude_selection, syntaxis=syntaxis)
 
-    atom_indices_to_be_removed = list(set(atom_indices_water) | set(atom_indices_ions) | set(atom_indices_included))
-    atom_indices_to_be_removed = list(set(atom_indices_to_be_removed) - set(atom_indices_excluded))
+    atom_indices_to_be_removed = list((set(atom_indices_water) | set(atom_indices_ions) | \
+                                       set(atom_indices_included)) - set(atom_indices_excluded))
+    tmp_item = trim(item, atom_indices_to_be_removed)
 
-    return remove(item, atom_indices_to_be_removed)
+    return remove(tmp_item)
 
+
+def remove_hydrogens (item, selection=None, syntaxis="mdtraj"):
+
+    from molmodmt import select
+    from molmodmt import trim
+
+    atom_indices_selected = select(item, selection=selection, syntaxis=syntaxis)
+    atom_indices_hydrogens = select(item, selection="type H", syntaxis="mdtraj")
+    atom_indices_to_be_removed = set(atom_indices_selected).intersection(set(atom_indices_hydrogens))
+
+    tmp_item = trim(item, atom_indices_to_be_removed)
+
+    return tmp_item
 

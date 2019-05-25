@@ -97,23 +97,4 @@ def add_constant_pulling_force (system=None, atom_indices=None, pulling_force=No
 
     pass
 
-def get_net_charge(item, atom_indices=None, syntaxis="mdtraj", forcefield=None):
-
-    from molmodmt import get_form as _get_form
-    from molmodmt import select as _select
-    from yank.pipeline import compute_net_charge as _compute_net_charge
-    from simtk.openmm.app import ForceField as _ForceField
-
-    form_in = _get_form(item)
-
-    if form_in == "openmm.Modeller":
-        if forcefield is None:
-            forcefield="amber99sb.xml"
-        aux_item = _ForceField(forcefield).createSystem(item.topology)
-
-    elif form_in == "openmm.System":
-        aux_item = item
-
-    net_charge = _compute_net_charge(aux_item, atom_indices)
-    return net_charge
 

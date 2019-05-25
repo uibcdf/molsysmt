@@ -85,9 +85,6 @@ def extract_atom_indices(item, atom_indices):
 def trim_atom_indices(item, atom_indices):
     pass
 
-def add_atoms(item, atoms):
-    pass
-
 def to_nglview(item):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview

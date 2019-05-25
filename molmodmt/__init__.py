@@ -17,4 +17,5 @@ from .solvate_box import make_box, solvate
 from .protonation import add_hydrogens
 from .mutations import mutate
 from .topology import is_water, is_ion, residue_name_to_molecule_type
+from .chem_and_phys_properties import get_charge, get_net_charge
 
