@@ -1,7 +1,7 @@
 from . import utils
 
 from .native.molmod import MolMod
-from .multitool import fetch, select, extract, trim, merge, info, get_form, get, set, load,\
+from .multitool import select, extract, trim, merge, info, get_form, get, set, load,\
                        convert, duplicate, write, view, reformat
 from .info_converters import info_forms, info_load, info_convert, info_select, info_viewers
 

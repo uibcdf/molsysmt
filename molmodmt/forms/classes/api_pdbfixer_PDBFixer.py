@@ -12,6 +12,9 @@ is_form={
 from .get.api_get_pdbfixer_PDBFixer import getting
 from .set.api_set_pdbfixer_PDBFixer import setting
 
+def get_total_n_atoms(item):
+    return item.topology.getNumAtoms()
+
 def to_nglview(item):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview

@@ -11,6 +11,7 @@ list_api_forms=[filename.split('.')[0] for filename in _listdir(_dirname(__file_
 
 dict_api_forms={}
 list_forms=[]
+dict_n_atoms={}
 dict_converter={}
 dict_selector={}
 dict_extractor={}
@@ -29,6 +30,7 @@ for api_form in list_api_forms:
     dict_is_form.update(module_api_form.is_form)
 
 for form_name in list_forms:
+    dict_n_atoms[form_name]= {}
     dict_converter[form_name]= {}
     dict_selector[form_name]= {}
     dict_extractor[form_name]= {}
@@ -49,6 +51,8 @@ for form_name in list_forms:
         if method.startswith('select_with_'):
             syntaxis_name=method.replace('select_with_','')
             dict_selector[form_name][syntaxis_name]= getattr(dict_api_forms[form_name],method)
+    if 'get_total_n_atoms' in dict_api_forms[form_name].__dict__.keys():
+        dict_n_atoms[form_name]=getattr(dict_api_forms[form_name],'get_total_n_atoms')
     if 'extract_atom_indices' in dict_api_forms[form_name].__dict__.keys():
         dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atom_indices')
     if 'trim_atom_indices' in dict_api_forms[form_name].__dict__.keys():

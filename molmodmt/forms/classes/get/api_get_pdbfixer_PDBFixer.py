@@ -1,8 +1,6 @@
 
 def getting(item, element='atom', indices=None, ids=None, **kwargs):
 
-    #from puede ser 'atom', 'residue', 'chain', 'trajectory'
-
     result=[]
     args = [ii for ii in kwargs if kwargs[ii]]
 
@@ -288,6 +286,11 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
             elif option=='net_charge':
                 from molmodmt import get_net_charge
                 result.append(get_net_charge(item, indices))
+            else:
+                raise NotImplementedError
+
+    else:
+        raise NotImplementedError
 
 
     if len(result)==1:

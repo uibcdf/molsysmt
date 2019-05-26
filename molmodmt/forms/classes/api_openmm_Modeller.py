@@ -8,6 +8,13 @@ is_form={
     'openmm.Modeller' : form_name
 }
 
+
+from .get.api_get_openmm_Modeller import getting
+#from .set.api_set_openmm_Modeller import setting
+
+def get_total_n_atoms(item):
+    return item.topology.getNumAtoms()
+
 def to_nglview(item):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
@@ -74,9 +81,6 @@ def duplicate(item):
 
     from copy import deepcopy as _deepcopy
     return _deepcopy(item)
-
-def get_total_n_atoms(item):
-    return item.topology.getNumAtoms()
 
 def extract_atom_indices(item, atom_indices):
 
