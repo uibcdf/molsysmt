@@ -52,10 +52,6 @@ def to_mdtraj_Topology(form_id, selection=None, syntaxis='mdtraj'):
     tmp_item = _convert(tmp_item,'mdtraj.Topology')
     return tmp_item
 
-def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
-
-    return to_mdtraj_Trajectory(item, selection=None, syntaxis=syntaxis)
-
 def to_parmed_Structure(form_id):
 
     from molmodmt.forms.files.api_pdb import to_parmed_Structure as _pdb_to_parmed_Structure
@@ -65,19 +61,23 @@ def to_parmed_Structure(form_id):
     del(_pdb_to_parmed_Structure)
     return _tmp_form
 
-def to_parmed(form_id):
-    return to_parmed_Structure(form_id)
-
 def to_pdbfixer_PDBFixer(form_id, selection=None, syntaxis="mdtraj"):
-    return to_pdbfixer(form_id)
+    from molmodmt.utils.miscellanea import download_pdb
+    from molmodmt import convert
+    pdbid = form_id.split(':')[-1]
+    tmp_file=download_pdb(pdbid)
+    tmp_item=convert(tmp_file, 'pdbfixer.PDBFixer', selection=selection, syntaxis=syntaxis)
+    _remove(tmp_file)
+    return tmp_item
 
-def to_pdbfixer(form_id, selection=None, syntaxis="mdtraj"):
-    from molmodmt.utils.miscellanea import download_pdb as _download_pdb
-    from pdbfixer.pdbfixer import PDBFixer as _pdbfixer_loader
-    _tmp_file=_download_pdb(form_id.split(':')[-1])
-    _tmp_form=_pdbfixer_loader(_tmp_file)
-    _remove(_tmp_file)
-    return _tmp_form
+def to_openmm_Modeller(form_id, selection=None, syntaxis="mdtraj"):
+    from molmodmt.utils.miscellanea import download_pdb
+    from molmodmt import convert
+    pdbid = form_id.split(':')[-1]
+    tmp_file=download_pdb(pdbid)
+    tmp_item=convert(tmp_file, 'openmm.Modeller', selection=selection, syntaxis=syntaxis)
+    _remove(tmp_file)
+    return tmp_item
 
 def to_yank_Topography(form_id):
     from molmodmt.forms.files.api_pdb import to_yank_Topography as _pdb_to_yank_Topography

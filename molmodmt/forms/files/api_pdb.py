@@ -59,24 +59,23 @@ def to_mol2(item, filename=None, selection="all", syntaxis="mdtraj"):
     pass
 
 def to_openmm_Topology(item, selection="all", syntaxis="mdtraj"):
-    from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
-    tmp_form = _openmm_pdb_loader(item).getTopology()
-    del(_openmm_pdb_loader)
-    return tmp_form
+    from simtk.openmm.app.pdbfile import PDBFile
+    tmp_item = PDBFile(item).getTopology()
+    return tmp_item
 
-def to_openmm_Positions(item, selection="all", syntaxis="mdtraj"):
-    from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
-    tmp_form = _openmm_pdb_loader(item).getPositions()
-    del(_openmm_pdb_loader)
-    return tmp_form
+#def to_openmm_Positions(item, selection="all", syntaxis="mdtraj"):
+#    from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
+#    tmp_form = _openmm_pdb_loader(item).getPositions()
+#    del(_openmm_pdb_loader)
+#    return tmp_form
 
 def to_openmm_Modeller(item, selection="all", syntaxis="mdtraj"):
-    from simtk.openmm.app.pdbfile import PDBFile as _openmm_pdb_loader
-    from simtk.openmm.app.modeller import Modeller as _openmm_app_modeller
-    tmp_form = _openmm_pdb_loader(item)
-    tmp_form = _openmm_app_modeller(tmp_form.topology, tmp_form.positions)
-    del(_openmm_pdb_loader,_openmm_app_modeller)
-    return tmp_form
+
+    from simtk.openmm.app.pdbfile import PDBFile
+    from simtk.openmm.app.modeller import Modeller
+    tmp_item = PDBFile(item)
+    tmp_item = Modeller(tmp_item.topology, tmp_item.positions)
+    return tmp_item
 
 def to_pdbfixer(item, selection='all', syntaxis='mdtraj'):
 
