@@ -122,7 +122,7 @@ def select(item=None, selection='all', syntaxis='mdtraj'):
 
 def extract(item=None, selection='all', form=None, syntaxis='mdtraj'):
 
-    if selection is None:
+    if selection in [None,'all']:
         return item
 
     in_form=get_form(item)
@@ -142,7 +142,7 @@ def extract(item=None, selection='all', form=None, syntaxis='mdtraj'):
     tmp_item = _dict_extractor[in_form](item, atom_indices)
     return convert(tmp_item,form)
 
-def trim(item=None, selection='all', form=None, syntaxis='mdtraj'):
+def trim(item=None, selection=None, form=None, syntaxis='mdtraj'):
 
     if selection is None:
         return item
@@ -161,7 +161,6 @@ def trim(item=None, selection='all', form=None, syntaxis='mdtraj'):
         atom_indices=select(item=item, selection=selection, syntaxis=syntaxis)
 
     atom_indices=list(_sort(atom_indices))
-    print(atom_indices)
     tmp_item = _dict_trimmer[in_form](item, atom_indices)
     return convert(tmp_item,form)
 

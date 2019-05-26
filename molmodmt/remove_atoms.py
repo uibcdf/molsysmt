@@ -2,6 +2,7 @@
 # BUH
 # =======================
 
+from numpy import sort as _sort
 
 """
 Remove Atoms
@@ -55,13 +56,9 @@ def remove (item, selection=None, syntaxis='mdtraj'):
     """
 
     from .multitool import select, trim
-    #from .multitool import extract as _extract
-
-    #atom_indices_to_be_removed = _select(item, selection, syntaxis=syntaxis)
-    #atom_indices_all = _select(item, 'all', 'mdtraj')
-    #atom_indices_survive = list(set(atom_indices_all) - set(atom_indices_to_be_removed))
 
     atom_indices_to_be_removed = select(item, selection, syntaxis=syntaxis)
+
     tmp_item = trim(item, atom_indices_to_be_removed)
 
     return tmp_item
@@ -95,9 +92,11 @@ def remove_solvent (item, water=True, cosolutes=True, include_selection=None, ex
 
     atom_indices_to_be_removed = list((set(atom_indices_water) | set(atom_indices_ions) | \
                                        set(atom_indices_included)) - set(atom_indices_excluded))
+    atom_indices_to_be_removed = list(_sort(atom_indices_to_be_removed))
+
     tmp_item = trim(item, atom_indices_to_be_removed)
 
-    return remove(tmp_item)
+    return tmp_item
 
 
 def remove_hydrogens (item, selection=None, syntaxis="mdtraj"):

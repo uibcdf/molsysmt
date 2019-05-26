@@ -50,7 +50,6 @@ def to_pdbfixer_PDBFixer(item, selection=None, syntaxis='mdtraj'):
     from os import remove
     from molmodmt import convert
 
-    print('si')
     tmp_pdbfile = tmp_filename('pdb')
     to_pdb(item, tmp_pdbfile)
     tmp_item = convert(tmp_pdbfile, 'pdbfixer.PDBFixer')
@@ -92,7 +91,7 @@ def extract_atom_indices(item, atom_indices):
 def trim_atom_indices(item, atom_indices):
 
     tmp_item = duplicate(item)
-    atoms = list(item.topology.atoms())
+    atoms = list(tmp_item.topology.atoms())
     atoms_to_be_removed = [ atoms[ii] for ii in atom_indices ]
     tmp_item.delete(atoms_to_be_removed)
     del(atoms, atoms_to_be_removed)
