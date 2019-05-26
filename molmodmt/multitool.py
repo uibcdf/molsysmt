@@ -111,7 +111,7 @@ def select(item=None, selection='all', syntaxis='mdtraj'):
 
     in_form=get_form(item)
 
-    if type(selection) in [list, tuple, _ndarray]:
+    if type(selection) in [list, tuple, _ndarray, set]:
         return list(selection)
     elif type(selection) in [int, _int64, _int]:
         return [selection]

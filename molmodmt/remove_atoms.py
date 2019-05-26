@@ -106,7 +106,8 @@ def remove_hydrogens (item, selection=None, syntaxis="mdtraj"):
 
     atom_indices_selected = select(item, selection=selection, syntaxis=syntaxis)
     atom_indices_hydrogens = select(item, selection="type H", syntaxis="mdtraj")
-    atom_indices_to_be_removed = set(atom_indices_selected).intersection(set(atom_indices_hydrogens))
+    atom_indices_to_be_removed = list(set(atom_indices_selected).intersection(set(atom_indices_hydrogens)))
+    atom_indices_to_be_removed = list(_sort(atom_indices_to_be_removed))
 
     tmp_item = trim(item, atom_indices_to_be_removed)
 
