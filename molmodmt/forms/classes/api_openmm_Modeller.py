@@ -79,8 +79,10 @@ def select_with_mdtraj(item, selection):
 
 def duplicate(item):
 
-    from copy import deepcopy as _deepcopy
-    return _deepcopy(item)
+    from simtk.openmm.app import Modeller as _Modeller
+
+    tmp_item = _Modeller(item.topology, item.positions)
+    return tmp_item
 
 def extract_atom_indices(item, atom_indices):
 

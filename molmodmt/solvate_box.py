@@ -18,7 +18,7 @@ def make_box(item, engine=None):
 
 def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angstroms, water='TIP3P',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
-             forcefield='AMBER99SB-ILDN', engine="LEaP"):
+             add_hydrogens=False, forcefield='AMBER99SB-ILDN', engine="LEaP", verbose=False):
     """solvate(item, geometry=None, water=None, engine=None)
 
     Methods and wrappers to create and solvate boxes
@@ -47,10 +47,19 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
     -----
     """
 
+    from .multitool import duplicate
+    from .multitool import convert
+    from .multitool import get_form
+    from .multitool import get
+    from copy import deepcopy
+
+    tmp_item = duplicate(item)
+    form_in = get_form(item)
+
     if num_anions=="neutralize" and num_cations=="neutralize":
 
-        from .multitool import get as _get
-        charge = _get(item, element="system", net_charge=True)
+        from .multitool import get
+        charge = get(tmp_item, element="system", net_charge=True)
 
         num_anions = 0
         num_cations = 0
@@ -59,6 +68,16 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
             num_cations=abs(charge)
         elif charge<0:
             num_anions=abs(charge)
+
+        if verbose:
+            print("Adding {} {} and {} {} to neutralize the box.".format(num_cations, cation,
+                                                                         num_anions, anion))
+
+    if add_hydrogens==True:
+
+        from .remove_atoms import remove_hydrogens
+        print("Hydrogens were removed. The engine building the box will protonate the system.")
+        tmp_item = remove_hydrogens(tmp_item)
 
     if engine=="LEaP":
 
@@ -82,9 +101,8 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
             solvent_model='TIP4PBOX'
 
 
-        in_form = _get_form(item)
         pdbfile_in = tmp_filename(".pdb")
-        _convert(item, pdbfile_in)
+        convert(tmp_item, pdbfile_in)
 
         tleap = TLeap()
         tleap.load_parameters(*leaprc_parameters)
@@ -105,7 +123,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
         tleap.run()
 
-        tmp_item = _convert(pdbfile_out, in_form)
+        tmp_item = convert(pdbfile_out, form_in)
 
         remove(pdbfile_in)
         remove(pdbfile_out)

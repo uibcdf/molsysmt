@@ -99,13 +99,13 @@ def remove_solvent (item, water=True, cosolutes=True, include_selection=None, ex
     return tmp_item
 
 
-def remove_hydrogens (item, selection=None, syntaxis="mdtraj"):
+def remove_hydrogens (item, selection="all", syntaxis="mdtraj"):
 
     from molmodmt import select
     from molmodmt import trim
 
     atom_indices_selected = select(item, selection=selection, syntaxis=syntaxis)
-    atom_indices_hydrogens = select(item, selection="type H", syntaxis="mdtraj")
+    atom_indices_hydrogens = select(item, selection="type H", syntaxis=syntaxis)
     atom_indices_to_be_removed = list(set(atom_indices_selected).intersection(set(atom_indices_hydrogens)))
     atom_indices_to_be_removed = list(_sort(atom_indices_to_be_removed))
 
