@@ -33,3 +33,16 @@ switcher = {
 
 }
 
+def digest_forcefields(forcefields, engine):
+
+    from .engines import digest_engines
+
+    engine = digest_engines(engine)
+
+    if hasattr(forcefields, '__iter__'):
+        forcefields_out=[]
+        for ii in forcefields:
+            forcefields_out.append(switcher[engine][ii])
+        return forcfields_out
+    else:
+        return switcher[engine][forcefields]
