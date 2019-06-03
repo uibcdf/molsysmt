@@ -66,7 +66,7 @@ extensions_list.extend(extensions_lib)
 
 setup(
     name='molmodmt',
-    version='0.0.3',
+    version='0.0.4',
     author='UIBCDF Lab',
     author_email='uibcdf@gmail.com',
     package_dir={'molmodmt': 'molmodmt'},
