@@ -6,13 +6,13 @@ source:
   path: ../../
 
 build:
-  number: 0
+  number: 2
 
 requirements:
   build:
     - python  {{ python }}
     - setuptools
-    - numpy  {{ numpy }}
+    - numpy 
 
   run:
     - python  {{ python }}
@@ -27,6 +27,8 @@ requirements:
     - parmed
     - yank
     - jupyterlab
+    - molmodel
+    - pytraj
 
 about:
   home: https://uibcdf.org

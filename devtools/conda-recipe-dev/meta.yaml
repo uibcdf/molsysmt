@@ -29,6 +29,8 @@ requirements:
     - ambertools
     - jupyterlab
     - pytools_uibcdf
+    - molmodel
+    - pytraj
 
 about:
   home: https://uibcdf.org
