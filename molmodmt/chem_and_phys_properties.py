@@ -120,7 +120,7 @@ def get_net_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
         for particle_index in range(system.getNumParticles()):
             if particle_index in atom_indices:
                 net_mass += system.getParticleMass(particle_index)
-        return net_mass
+        return net_mass.in_units_of(unit.gram/unit.mole)/unit.AVOGADRO_CONSTANT_NA
 
     else:
         raise NotImplementedError
