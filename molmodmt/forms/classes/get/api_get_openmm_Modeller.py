@@ -104,14 +104,21 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
                     if is_ion(residue_name): n_ions+=1
                 del(residue_indices, residue_names)
                 result.append(n_ions)
-            elif option=='masses':
-                raise NotImplementedError
+            elif option=='mass':
+                from molmodmt import get_mass
+                result.append(get_mass(item, indices))
+            elif option=='net_mass':
+                from molmodmt import get_net_mass
+                result.append(get_net_mass(item, indices))
             elif option=='charge':
                 from molmodmt import get_charge
                 result.append(get_charge(item, indices))
             elif option=='net_charge':
                 from molmodmt import get_net_charge
                 result.append(get_net_charge(item, indices))
+            elif option=='n_degrees_of_freedom':
+                from molmodmt import get_degrees_of_freedom
+                result.append(get_degrees_of_freedom(item))
             elif option=='bonded_atoms':
                 raise NotImplementedError
             elif option=='bonds':
@@ -286,6 +293,9 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
             elif option=='net_charge':
                 from molmodmt import get_net_charge
                 result.append(get_net_charge(item, indices))
+            elif option=='n_degrees_of_freedom':
+                from molmodmt import get_degrees_of_freedom
+                result.append(get_degrees_of_freedom(item))
             else:
                 raise NotImplementedError
 

@@ -2,7 +2,6 @@
 # Potential Energy
 # =======================
 
-
 """
 Potential Energy
 ================
@@ -11,9 +10,11 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
+from .utils.engines import digest_engines as _digest_engines
+from .utils.forcefields import digest_forcefields as _digest_forcefields
 
 def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TIP3P'], constraint_HBonds=True,
-                         selection=None, syntaxis='mdtraj', engine='openmm', verbose=True, *kwargs):
+                         selection=None, syntaxis='mdtraj', engine='OpenMM', verbose=True, *kwargs):
     """remove(item, selection=None, syntaxis='mdtraj')
 
     A new structure is returned with the molecular model relaxed to the nearest potential energy local
@@ -52,20 +53,16 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
 
     from .multitool import get_form as _get_form, get as _get
     from .multitool import convert as _convert, reformat as _reformat
-    from .utils.forcefields import switcher as _ff_switcher
 
-    if engine=='openmm':
+    engine=_digest_engines(engine)
+
+    if engine=='OpenMM':
 
         from simtk.openmm import app as _app, LangevinIntegrator as _LangevinIntegrator
         from simtk.openmm import Platform as _Platform
         from simtk import unit as _unit
 
-        forcefield_omm_parameters=[]
-        if hasattr(forcefield, '__iter__'):
-            for ii in forcefield:
-                forcefield_omm_parameters.append(_ff_switcher['OpenMM'][ii])
-        else:
-            forcefield_omm_parameters.append(_ff_switcher['OpenMM'][forcefield])
+        forcefield_omm_parameters=_digest_forcefields(forcefied,engine)
 
         in_form = _get_form(item)
 

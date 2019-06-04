@@ -8,3 +8,9 @@ is_form={
     'openmm.System' : form_name,
 }
 
+from .get.api_get_openmm_System import getting
+#from .set.api_set_openmm_System import setting
+
+def get_total_n_atoms(item):
+    return item.getNumParticles()
+
