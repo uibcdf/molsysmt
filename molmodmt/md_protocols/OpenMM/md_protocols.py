@@ -20,7 +20,7 @@ def equilibration_NVT (item, protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
 
 def equilibration_NPT (item, temperature=300*_unit.kelvin, pressure=1.0*_unit.atmosphere,
                        time=1.0*_unit.nanosecond, protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
-                       engine='OpenMM', verbose=True, *kwargs):
+                       engine='OpenMM', verbose=True, form_out=None, *kwargs):
     """equilibration_NPT (item, protocol, forcefield, constraint_HBonds, engine, verbose)
 
     Description
