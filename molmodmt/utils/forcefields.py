@@ -1,4 +1,3 @@
-
 forcefields = [
 
     'AMBER99SB-ILDN',
@@ -43,6 +42,7 @@ def digest_forcefields(forcefields, engine):
         forcefields_out=[]
         for ii in forcefields:
             forcefields_out.append(switcher[engine][ii])
-        return forcfields_out
+        return forcefields_out
     else:
         return switcher[engine][forcefields]
+

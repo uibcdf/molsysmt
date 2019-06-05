@@ -136,6 +136,12 @@ def trim_atom_indices(item, atom_indices):
 
 def duplicate(item):
 
-    from copy import deepcopy as _deepcopy
-    return _deepcopy(item)
+    from os import remove
+    from molmodmt import convert
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    tmp_file = tmp_pdb_filename()
+    convert(item, tmp_file)
+    tmp_item = convert(tmp_file,'pdbfixer.PDBFixer')
+    remove(tmp_file)
+    return tmp_item
 

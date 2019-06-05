@@ -18,7 +18,7 @@ def make_box(item, engine=None):
 
 def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angstroms, water='TIP3P',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
-             add_hydrogens=False, forcefield='AMBER99SB-ILDN', engine="LEaP", verbose=False):
+             add_hydrogens=False, forcefield='AMBER99SB-ILDN', engine="LEaP", to_form= None, verbose=False):
     """solvate(item, geometry=None, water=None, engine=None)
 
     Methods and wrappers to create and solvate boxes
@@ -47,14 +47,12 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
     -----
     """
 
-    from .multitool import duplicate
-    from .multitool import convert
-    from .multitool import get_form
-    from .multitool import get
+    from .multitool import duplicate, convert, get
+    from .utils.forms import digest_forms
     from copy import deepcopy
 
     tmp_item = duplicate(item)
-    form_in = get_form(item)
+    form_in, form_out = digest_forms(item)
 
     if num_anions=="neutralize" and num_cations=="neutralize":
 

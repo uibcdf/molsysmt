@@ -37,16 +37,16 @@ def get_charge(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
 
 def get_net_charge(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
 
-    from molmodmt import get_form as get_form
+    from molmodmt import get_form
     from simtk.openmm.app import ForceField
     from simtk.openmm import NonbondedForce
 
-    form_in = _get_form(item)
+    form_in = get_form(item)
 
     if form_in in ["openmm.Modeller", "openmm.System", "pdbfixer.PDBFixer"]:
 
         if form_in in ["openmm.Modeller", "pdbfixer.PDBFixer"]:
-            forcefield_openmm = _digest_forcefields(forcefield)
+            forcefield_openmm = _digest_forcefields(forcefield, 'OpenMM')
             system = ForceField(*forcefield_openmm).createSystem(item.topology)
 
         elif form_in == "openmm.System":
@@ -65,7 +65,7 @@ def get_net_charge(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
                         net_charge += force.getParticleParameters(particle_index)[0]
                         atom_indices.remove(particle_index)
         assert len(atom_indices) == 0
-        net_charge = int(round(net_charge / unit.elementary_charge))
+        net_charge = int(round(net_charge / _unit.elementary_charge))
         return net_charge
 
     else:
@@ -120,7 +120,7 @@ def get_net_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
         for particle_index in range(system.getNumParticles()):
             if particle_index in atom_indices:
                 net_mass += system.getParticleMass(particle_index)
-        return net_mass.in_units_of(unit.gram/unit.mole)/unit.AVOGADRO_CONSTANT_NA
+        return net_mass.in_units_of(_unit.gram/_unit.mole)/_unit.AVOGADRO_CONSTANT_NA
 
     else:
         raise NotImplementedError

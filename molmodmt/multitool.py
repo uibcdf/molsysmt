@@ -2,13 +2,16 @@ import os
 import tempfile
 from .utils.exceptions import *
 from .utils.arguments import singular as _singular
+from .utils.forms import digest_forms as _digest_forms
 from numpy import unique as _unique
 from numpy import ndarray as _ndarray
 from numpy import sort as _sort
 
+####
 #### Molecular Models forms
+####
 
-## Classes
+# Classes
 from .forms.classes import dict_is_form as _dict_classes_is_form, \
     list_forms as _list_classes_forms, \
     dict_n_atoms as _dict_classes_n_atoms, \
@@ -21,7 +24,7 @@ from .forms.classes import dict_is_form as _dict_classes_is_form, \
     dict_get as _dict_classes_get, \
     dict_set as _dict_classes_set
 
-## Files
+# Files
 from .forms.files import dict_is_form as _dict_files_is_form, \
     list_forms as _list_files_forms, \
     dict_n_atoms as _dict_files_n_atoms, \
@@ -34,7 +37,7 @@ from .forms.files import dict_is_form as _dict_files_is_form, \
     dict_get as _dict_files_get, \
     dict_set as _dict_files_set
 
-## IDs
+# IDs
 from .forms.ids import dict_is_form as _dict_ids_is_form, \
     list_forms as _list_ids_forms, \
     dict_n_atoms as _dict_ids_n_atoms, \
@@ -47,7 +50,7 @@ from .forms.ids import dict_is_form as _dict_ids_is_form, \
     dict_get as _dict_ids_get, \
     dict_set as _dict_ids_set
 
-## Sequences
+# Sequences
 from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     list_forms as _list_seqs_forms, \
     dict_n_atoms as _dict_seqs_n_atoms, \
@@ -60,7 +63,7 @@ from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_get as _dict_seqs_get, \
     dict_set as _dict_seqs_set
 
-## Viewers
+# Viewers
 from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
     list_forms as _list_viewers_forms, \
     dict_n_atoms as _dict_viewers_n_atoms, \
@@ -94,9 +97,11 @@ _dict_get = {**_dict_classes_get, **_dict_files_get,\
 _dict_set = {**_dict_classes_set, **_dict_files_set,\
                    **_dict_ids_set, **_dict_seqs_set, **_dict_viewers_set}
 
-#### Attributes
+####
+#### Molecular Models attributes
+####
 
-## Coordinates
+# Coordinates
 from .attributes.coordinates import list_forms as _list_coordinates_forms, \
     dict_reformatter as _dict_coordinates_reformatter
 
@@ -105,22 +110,9 @@ _dict_reformatter['coordinates']=_dict_coordinates_reformatter
 
 _list_attributes = list(_dict_reformatter.keys())
 
-
-#### Aux Methods
-
-def _digest_forms(item, to_form=None):
-
-    from .utils.forms import parse_form_name
-
-    form_in = get_form(item)
-
-    if to_form is not None:
-        form_out = parse_form_name(to_form)
-        return form_in, form_out
-    else:
-        return form_in, form_in
-
+####
 #### Methods
+####
 
 def select(item, selection='all', syntaxis='mdtraj'):
 
