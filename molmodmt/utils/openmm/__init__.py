@@ -1,3 +1,3 @@
 from .openmm import *
-import .forces as forces
+from . import forces
 
