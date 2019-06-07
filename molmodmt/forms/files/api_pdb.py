@@ -77,6 +77,11 @@ def to_openmm_Modeller(item, selection="all", syntaxis="mdtraj"):
     tmp_item = Modeller(tmp_item.topology, tmp_item.positions)
     return tmp_item
 
+def to_openmm_PDBFile(item, selection="all", syntaxis="mdtraj"):
+    from simtk.openmm.app.pdbfile import PDBFile
+    tmp_item = PDBFile(item)
+    return tmp_item
+
 def to_pdbfixer(item, selection='all', syntaxis='mdtraj'):
 
     return to_pdbfixer_PDBFixer(item, selection=selection, syntaxis=syntaxis)

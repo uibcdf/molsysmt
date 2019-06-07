@@ -8,8 +8,7 @@ is_form={
     'openmm.PDBFile' : form_name
 }
 
-
-#from .get.api_get_openmm_PDBFile import getting
+from .get.api_get_openmm_PDBFile import getting
 #from .set.api_set_openmm_PDBFile import setting
 
 def get_total_n_atoms(item):
@@ -45,6 +44,6 @@ def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
     tmp_item = _to_mdtraj_Topology(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_openmm_Topology(item, selection=None, synxtaxis='mdtraj'):
+def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
 
     return item.getTopology()
