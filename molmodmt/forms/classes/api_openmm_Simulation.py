@@ -40,6 +40,8 @@ def to_pdb (item, filename = None, selection=None, syntaxis="mdtraj"):
     topology = to_openmm_Topology(item, selection=selection, syntaxis=syntaxis)
     state = item.context.getState(getPositions=True)
     positions = state.getPositions()
+    periodicBoxVectors = state.getPeriodicBoxVectors()
+    topology.setPeriodicBoxVectors(periodicBoxVectors)
     return _openmm_app_PDBFILE.writeFile(topology, positions, open(filename, 'w'))
 
 
