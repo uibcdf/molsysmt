@@ -7,11 +7,11 @@ from .utils.digest_inputs import _coordinates as _digest_coordinates
 from .lib import com as _libcom
 from .utils.exceptions import *
 
-def center(item=None, selection=None, selection_groups=None, weights=None, frame_indices=None,
+def center(item=None, selection=None, selection_groups=None, weights=None, frame_indices='all',
            parallel=False, syntaxis='MDTraj', engine='MolModMT'):
 
-    from molmodmt import convert, select, get
-    from molmodmt.math import serialize_list_of_lists
+    from molmodmt import convert, select, get, extract
+    from molmodmt.math import serialized_lists
 
     syntaxis = _digest_engines(syntaxis)
     engine = _digest_engines(engine)
@@ -21,69 +21,33 @@ def center(item=None, selection=None, selection_groups=None, weights=None, frame
     if engine=='MolModMT':
 
         if selection_groups is None:
+            atom_indices = select(tmp_item, selection, syntaxis)
+            selection_groups = [atom_indices]
 
+        groups_serialized = serialized_lists(selection_groups, fortran=False, dtype=int64)
 
-
-
-    if engine=='molmodmt':
-
-        if selection_groups is None:
-
-            tmp_item, atom_indices, frame_indices = _digest_one_system(item, selection, frame,
-                                                                          form='molmodmt.Trajectory')
-            tmp_coors = _digest_coordinates(tmp_item, atom_indices, frame_indices,
-                                             form='molmodmt.Trajectory')
-            tmp_nframes=tmp_coors.shape[0]
-            tmp_natoms =tmp_coors.shape[1]
-
-            if weights is None:
-                weights_array = _np.ones((atom_indices.shape[0]))
-            elif weights=='masses':
-                weights_array = _get(tmp_item, selection=atom_indices, masses=True)
-
-            com = _libcom.center_of_mass(tmp_coors, weights_array, tmp_nframes, tmp_natoms)
-            del(tmp_item1, atom_indices1, frame_indices1)
-            del(tmp_coors1, tmp_nframes, tmp_natoms)
-            return com
-
+        if frame_indices=='all':
+            frame_indices = _np.arange(tmp_item.trajectory.n_frames, dtype=int64)
         else:
+            frame_indices = _np.astype(frame_indices, dtype=int64)
 
-            tmp_item, atom_indices, frame_indices= _digest_one_system(item, selection, frame,
-                                                               engine='molmodmt')
-            com=[]
-            for group in selection_groups:
-                tmp_coors = _digest_coordinates(tmp_item, group, frame_indices, engine='molmodmt')
-                tmp_nframes=tmp_coors.shape[0]
-                tmp_natoms =tmp_coors.shape[1]
-                if weights is None:
-                    weights_array = _np.ones(tmp_natoms)
-                elif weights=='masses':
-                    weights_array = _get(tmp_item, selection=group, masses=True)
-                tmp_com = _libcom.center_of_mass(tmp_coors, weights_array, tmp_nframes, tmp_natoms)
-                com.append(tmp_com.reshape(tmp_coors.shape[0],1,3))
-            com=_np.concatenate(com,axis=1)
+        if weights is None:
+            weights_array = _np.ones((groups_serialized.n_values))
+        elif weights=='masses':
+            weights_array = get(tmp_item, selection=groups_serialized.values, masses=True)
 
-        del(tmp_item, atom_indices, frame_indices, tmp_coors)
-        del(masses)
-
+        aux = tmp.trajectory
+        aux.coordinates = _np.asfortranarray(aux.coordinates, dtype='float64')
+        com = _libcom.center_of_mass(aux.coordinates, groups_serialized.values,
+                                     groups_serialized.starts, weights_array, frame_indices,
+                                     aux.n_frames, aux.n_atoms, groups_serialized.n_values,
+                                     groups_serialized.n_lists, frame_indices.shape[0])
+        aux.coordinates = _np.ascontiguousarray(aux.coordinates)
+        del(tmp_item, groups_serialized, weights_array)
         return com
 
-    elif engine=='mdtraj':
-
-        if weights=='masses':
-            from mdtraj import compute_center_of_mass as _mdtraj_center_of_mass
-            tmp_item1, atom_indices1, frame_indices1 = _digest_one_system(item, selection, frame,
-                                                                      engine='mdtraj')
-            tmp_item = _extract(tmp_item1,atom_indices1)
-            com = _mdtraj_center_of_mass(tmp_item)
-            del(tmp_item1, tmp_item, atom_indices1, frame_indices1)
-
-            return com
-
-        else:
-            raise NotImplementedError(NotImplementedMessage)
-
     else:
+
         raise NotImplementedError(NotImplementedMessage)
 
 
@@ -101,7 +65,7 @@ def center_of_mass(item=None, selection=None, selection_groups=None, frame=None,
                                 weights='masses', frame=frame, parallel=parallel, engine=engine)
 
 
-def recenter(item, selection='all', weights=None, syntaxis='MDTraj', engine='MolModMT'):
+def recenter(item, selection_center=None, selection='all', weights=None, syntaxis='MDTraj', engine='MolModMT'):
 
     from molmodmt import convert, select, get
     from molmodmt.math import serialize_list_of_lists
@@ -113,12 +77,9 @@ def recenter(item, selection='all', weights=None, syntaxis='MDTraj', engine='Mol
 
     if engine=='MolModMT':
 
-        atom_indices = _select(tmp_item, selection, syntaxis)
-
-        if weights=='masses':
-            weights_array = get(tmp_item, atom_indices, masses=True)
-        elif weights is None:
-            weights_array = _np.ones(atom_indices.shape[0], dtype=int)
+        center_coors = center(item=tmp_item, selection=selection_center, selection_groups=None,
+                              weights=weigths, frame_indices='all', syntaxis=syntaxis,
+                              engine=engine)
 
         aux = tmp_item.trajectory
         aux.coordinates = _np.asfortranarray(aux.coordinates, dtype='float64')
