@@ -10,8 +10,8 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
-from .utils.engines import digest_engines as _digest_engines
-from .utils.forcefields import digest_forcefields as _digest_forcefields
+from .utils.engines import digest as _digest_engines
+from .utils.forcefields import digest as _digest_forcefields
 
 def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TIP3P'], constraint_HBonds=True,
                          selection=None, syntaxis='mdtraj', engine='OpenMM', verbose=True, *kwargs):

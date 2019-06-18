@@ -1,13 +1,14 @@
 from .exceptions import *
 
 _engines={
-    'pdbfixer':'PDBFixer',
-    'openmm':'OpenMM',
-    'mdtraj':'MDTraj',
-    'leap':'LEaP'
+    'pdbfixer' : 'PDBFixer',
+    'openmm' : 'OpenMM',
+    'mdtraj' : 'MDTraj',
+    'leap' : 'LEaP',
+    'molmodmt' : 'MolModMT'
 }
 
-def digest_engines(engine):
+def digest(engine):
 
     try:
         return _engines[engine.lower()]

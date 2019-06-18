@@ -1,13 +1,29 @@
+from .utils.engines import digest as _digest_engines
+from .utils.forms import digest as _digest_forms
+
 import numpy as _np
-from .multitool import get_form as _get_form, select as _select, get as _get
-from .multitool import convert as _convert, extract as _extract
 from .utils.digest_inputs import _one_system as _digest_one_system
 from .utils.digest_inputs import _coordinates as _digest_coordinates
 from .lib import com as _libcom
 from .utils.exceptions import *
 
-def center(item=None, selection=None, selection_groups=None, weights=None, frame=None,
-                        parallel=False, engine='molmodmt'):
+def center(item=None, selection=None, selection_groups=None, weights=None, frame_indices=None,
+           parallel=False, syntaxis='MDTraj', engine='MolModMT'):
+
+    from molmodmt import convert, select, get
+    from molmodmt.math import serialize_list_of_lists
+
+    syntaxis = _digest_engines(syntaxis)
+    engine = _digest_engines(engine)
+    form_in, form_out = _digest_forms(item, engine)
+    tmp_item = convert(item, engine)
+
+    if engine=='MolModMT':
+
+        if selection_groups is None:
+
+
+
 
     if engine=='molmodmt':
 
@@ -85,18 +101,34 @@ def center_of_mass(item=None, selection=None, selection_groups=None, frame=None,
                                 weights='masses', frame=frame, parallel=parallel, engine=engine)
 
 
-def recenter(item, selection=None, weights=None, syntaxis='mdtraj', engine='molmodmt'):
+def recenter(item, selection='all', weights=None, syntaxis='MDTraj', engine='MolModMT'):
 
-    if engine=='molmodmt':
+    from molmodmt import convert, select, get
+    from molmodmt.math import serialize_list_of_lists
 
-        in_form = _get_form(item)
+    syntaxis = _digest_engines(syntaxis)
+    engine = _digest_engines(engine)
+    form_in, form_out = _digest_forms(item, engine)
+    tmp_item = convert(item, engine)
 
-        if in_form=='molmodmt.Trajectory':
-            return item.recenter(selection=selection, weights=weights, syntaxis=syntaxis)
-        elif in_form=='molmodmt.MolMod':
-            return item.trajectory.recenter(selection=selection, weights=weights, syntaxis=syntaxis)
-        else:
-            raise NotImplementedError(NotImplementedMessage)
+    if engine=='MolModMT':
+
+        atom_indices = _select(tmp_item, selection, syntaxis)
+
+        if weights=='masses':
+            weights_array = get(tmp_item, atom_indices, masses=True)
+        elif weights is None:
+            weights_array = _np.ones(atom_indices.shape[0], dtype=int)
+
+        aux = tmp_item.trajectory
+        aux.coordinates = _np.asfortranarray(aux.coordinates, dtype='float64')
+        _libcom.recenter(aux.coordinates, atom_indices, weights_array,
+                         aux.n_frames, aux.n_atoms, atom_indices.shape[0])
+        aux.coordinates=_np.ascontiguousarray(self.aux)
+
+        return convert(tmp_item, form_out)
 
     else:
+
         raise NotImplementedError(NotImplementedMessage)
+

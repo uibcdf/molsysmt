@@ -1,6 +1,6 @@
 from .utils.exceptions import *
-from .utils.forcefields import digest_forcefields as _digest_forcefields
-from .utils.engines import digest_engines as _digest_engines
+from .utils.forcefields import digest as _digest_forcefields
+from .utils.engines import digest as _digest_engines
 from simtk import unit as _unit
 
 def get_charge(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):

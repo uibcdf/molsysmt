@@ -1,3 +1,5 @@
+from .engines import digest as _digest_engines
+
 forcefields = [
 
     'AMBER99SB-ILDN',
@@ -32,11 +34,9 @@ switcher = {
 
 }
 
-def digest_forcefields(forcefields, engine):
+def digest(forcefields, engine):
 
-    from .engines import digest_engines
-
-    engine = digest_engines(engine)
+    engine = _digest_engines(engine)
 
     if hasattr(forcefields, '__iter__'):
         forcefields_out=[]

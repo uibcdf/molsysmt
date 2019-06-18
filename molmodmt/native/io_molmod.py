@@ -92,7 +92,7 @@ def to_pdb(item=None, filename=None, selection=None, frame_indices=None, syntaxi
     tmp_item = _convert(item, 'mdtraj', selection=selection, syntaxis=syntaxis)
     return _convert(tmp_item, filename, frame_indices=frame_indices)
 
-def from_xtc(item=None,topology=None,selection=None,frame_indices=None,syntaxis='mdtraj'):
+def from_xtc(item=None,topology=None, selection=None, frame_indices=None,syntaxis='mdtraj'):
 
     from .io_structure import from_gromacs_Topology as _structure_from_gromacs_Topology
     from .io_topology import from_molmod_Structure as _topology_from_molmod_Structure
@@ -104,6 +104,24 @@ def from_xtc(item=None,topology=None,selection=None,frame_indices=None,syntaxis=
     tmp_item.trajectory = _from_xtc(item, topology=tmp_item.topology, selection=selection,
                                     frame_indices=frame_indices, syntaxis=syntaxis)
     tmp_item.topography = None
+
+    tmp_item.trajectory.topology = tmp_item.topology
+    tmp_item.trajectory.structure = tmp_item.structure
+    tmp_item.trajectory.topography = tmp_item.topography
+
+    return tmp_item
+
+def from_h5(item=None, selection='all', frame_indices='all', syntaxis='mdtraj'):
+
+    from .io_topology import from_molmod_Structure as _topology_from_molmod_Structure
+    from .io_trajectory import from_xtc as _from_xtc
+
+    tmp_item =_MolMod()
+    tmp_item.topology = _topology_from_molmod_Structure(tmp_item.structure)
+    tmp_item.trajectory = _from_xtc(item, topology=tmp_item.topology, selection=selection,
+                                    frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item.topography = None
+    tmp_item.structure = None
 
     tmp_item.trajectory.topology = tmp_item.topology
     tmp_item.trajectory.structure = tmp_item.structure

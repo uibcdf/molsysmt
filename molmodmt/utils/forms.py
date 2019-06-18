@@ -1,16 +1,20 @@
 
 def parse_form_name(form):
 
-    if form in ['mdtraj','MDTraj']:
+    form_lower = form.lower()
+
+    if form_lower == 'mdtraj':
         return 'mdtraj.Trajectory'
-    elif form in ['openmm','OpenMM']:
+    elif form_lower == 'openmm':
         return 'openmm.Modeller'
-    elif form  in ['pdbfixer', 'PDBFixer']:
+    elif form_lower == 'pdbfixer':
         return 'pdbfixer.PDBFixer'
+    elif form_lower == 'molmodmt':
+        return 'MolModMT.MolMod'
     else:
         return form
 
-def digest_forms(item, to_form=None):
+def digest(item, to_form=None):
 
     from molmodmt import get_form
 

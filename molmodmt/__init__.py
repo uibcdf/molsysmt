@@ -20,4 +20,5 @@ from .mutations import mutate
 from .topology import is_water, is_ion, is_aminoacid, is_nucleotide, residue_name_to_molecule_type
 from .chem_and_phys_properties import get_charge, get_net_charge, get_mass, get_net_mass,\
                                get_degrees_of_freedom
+from .pbc import wrap, unwrap, minimum_image_convention
 

@@ -1,5 +1,3 @@
-from .trajectory import Trajectory as _Trajectory
-
 class MolMod():
 
     def __init__(self):
@@ -22,6 +20,12 @@ class MolMod():
 
         return tmp_item
 
-    def select_with_mdtraj(self, selection=None):
+    def select(self, selection=None, syntaxis='mdtraj'):
+        if syntaxis=='mdtraj':
+            return self._select_with_mdtraj(selection=selection)
+        else:
+            raise NotImplementedError
+
+    def _select_with_mdtraj(self, selection=None):
         return self.topology.select(selection)
 
