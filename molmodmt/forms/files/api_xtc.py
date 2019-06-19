@@ -7,7 +7,7 @@ is_form = {
     'xtc': form_name
     }
 
-def to_mdtraj_Trajectory(item, topology=None, selection=None, syntaxis='mdtraj'):
+def to_mdtraj_Trajectory(item, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
     from molmodmt import extract as _extract
     from mdtraj import load as _mdtraj_load
 
@@ -22,20 +22,20 @@ def to_mdtraj_Trajectory(item, topology=None, selection=None, syntaxis='mdtraj')
 #def to_molmod(item, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
 #    return to_molmodmt_MolMod(item,topology,selection=selection,syntaxis=syntaxis,frames=frames)
 
-def to_parmed(item, topology=None, selection=None, syntaxis='mdtraj'):
-    return to_parmed_GromacsTopologyFile(item,topology,selection=selection,syntaxis=syntaxis)
+def to_parmed(item, topology=None, selection='all', syntaxis='MDTraj'):
+    return to_parmed_GromacsTopologyFile(item, topology, selection=selection, syntaxis=syntaxis)
 
-def to_parmed_Structure(item, topology=None, selection=None, syntaxis='mdtraj'):
-    return to_parmed_GromacsTopologyFile(item,topology,selection=selection,syntaxis=syntaxis)
+def to_parmed_Structure(item, topology=None, selection='all', syntaxis='MDTraj'):
+    return to_parmed_GromacsTopologyFile(item, topology, selection=selection, syntaxis=syntaxis)
 
-def to_parmed_GromacsTopologyFile(item, topology=None, selection=None, syntaxis='mdtraj'):
+def to_parmed_GromacsTopologyFile(item, topology=None, selection='all', syntaxis='MDTraj'):
     from molmodmt import extract as _extract
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
     tmp_item=_parmed_from_gromacs(topology)
     tmp_item=_extract(tmp_item,selection=selection,syntaxis=syntaxis)
     return tmp_item
 
-def to_molmodmt_MolMod(item, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
+def to_molmodmt_MolMod(item, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
     from molmodmt.native.io_molmod import from_xtc as _from_xtc
     return _from_xtc(item, topology=topology, selection=selection, frames=frames, syntaxis=syntaxis)
 

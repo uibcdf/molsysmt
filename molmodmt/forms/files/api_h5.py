@@ -7,19 +7,28 @@ is_form = {
     'hdf5': form_name
     }
 
-def to_mdtraj(item, selection='all', syntaxis='mdtraj'):
-    return to_mdtraj_Trajectory(item)
+def to_mdtraj(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
+    return to_mdtraj_Trajectory(item, selection=selection, frame_indices=frame_indices,
+                                syntaxis=syntaxis)
 
-def to_mdtraj_Trajectory(item, selection='all', syntaxis='mdtraj'):
+def to_mdtraj_Trajectory(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from mdtraj import load_hdf5 as _mdtraj_load
-    tmp_form = _mdtraj_load(item)
+    tmp_item = _mdtraj_load(item)
     del(_mdtraj_load)
-    return tmp_form
+    return tmp_item
 
+def to_mdtraj_Topology(item, selection='all', syntaxis='MDTraj'):
 
-def to_molmodmt_MolMod(item, selection='all', frames=None, syntaxis='mdtraj'):
+    from mdtraj.formats import HDF5TrajectoryFile
+    hdf5=HDF5TrajectoryFile(item)
+    tmp_item = hdf5.topology
+    hdf5.close()
+    del(hdf5, HDF5TrajectoryFile)
+    return tmp_item
 
-    from molmodmt.native.io_molmod import from_xtc as _from_h5
-    return _from_h5(item, topology=topology, selection=selection, frames=frames, syntaxis=syntaxis)
+def to_molmodmt_MolMod(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
+
+    from molmodmt.native.io_molmod import from_hdf5 as _from_hdf5
+    return _from_hdf5(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 

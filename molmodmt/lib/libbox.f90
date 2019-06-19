@@ -193,39 +193,42 @@ CONTAINS
 
   END SUBROUTINE WRAP
 
-  SUBROUTINE UNWRAP(coors,molecules,molecules_start,bonds,bonds_start, &
-      box,inv,ortho,n_frames,n_atoms,n_molecules,n_molecules_start,n_bonds,n_bonds_start)
+  SUBROUTINE UNWRAP (coors, atoms_indices_serialized, atoms_series_starts, bonds_indices_serialized, &
+          & bonds_series_starts, frame_indices, box, inv, ortho, n_frames, n_atoms, n_atoms_indices, &
+          & n_atoms_series, n_bonds_indices, n_bonds_series, n_frames_indices)
 
     IMPLICIT NONE
 
-    INTEGER,INTENT(IN):: n_frames, n_atoms, ortho
-    INTEGER,INTENT(IN):: n_molecules, n_molecules_start, n_bonds, n_bonds_start
-
+    INTEGER,INTENT(IN):: n_frames, n_atoms, n_atoms_indices, n_atoms_series
+    INTEGER,INTENT(IN):: n_bonds_indices, n_bonds_series, n_frames_indices, ortho
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
-    INTEGER,DIMENSION(n_molecules),INTENT(IN)::molecules
-    INTEGER,DIMENSION(n_molecules_start),INTENT(IN)::molecules_start
-    INTEGER,DIMENSION(n_bonds),INTENT(IN)::bonds
-    INTEGER,DIMENSION(n_bonds_start),INTENT(IN)::bonds_start
+    INTEGER,DIMENSION(n_atoms_indices),INTENT(IN)::atoms_indices_serialized ! Molecules in this case
+    INTEGER,DIMENSION(n_atoms_series+1),INTENT(IN)::atoms_series_starts
+    INTEGER,DIMENSION(n_bonds_indices),INTENT(IN)::bonds_indices_serialized
+    INTEGER,DIMENSION(n_bonds_series+1),INTENT(IN)::bonds_series_starts
+    INTEGER,DIMENSION(n_frames_indices),INTENT(IN)::frame_indices
     DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
 
-    INTEGER:: ii,jj,kk
+    INTEGER:: ii, jj, kk, ll
     INTEGER:: molecule_start, molecule_end, molecule_natoms
-    INTEGER:: n_left,n_storage
-    INTEGER:: atom_id1,atom_id2
+    INTEGER:: n_left, n_storage
+    INTEGER:: atom_id1, atom_id2
     LOGICAL,DIMENSION(n_atoms)::aux_filter
-    DOUBLE PRECISION,DIMENSION(n_frames,3)::vect_aux
+    DOUBLE PRECISION,DIMENSION(3)::vect_aux
     INTEGER,DIMENSION(:),ALLOCATABLE::left,storage
+    INTEGER::frame_index
     
     aux_filter(:)=.FALSE.
 
-    DO ii=1,n_molecules_start-1
-        molecule_start=molecules_start(ii)+1
-        molecule_end=molecules_start(ii+1)
+    DO ii=1,n_atoms_series
+
+        molecule_start=atoms_series_starts(ii)+1
+        molecule_end=atoms_series_starts(ii+1)
         molecule_natoms=molecule_end-molecule_start+1
 
         n_left=1
         ALLOCATE(left(n_left),storage(molecule_natoms))
-        jj=molecules(molecule_start)+1
+        jj=atoms_indices_serialized(molecule_start)+1
         left(1)=jj
         aux_filter(jj)=.TRUE.
 
@@ -233,12 +236,15 @@ CONTAINS
             n_storage=0
             DO jj=1,n_left
                 atom_id1 = left(jj)
-                DO kk=bonds_start(atom_id1)+1,bonds_start(atom_id1+1)
-                    atom_id2=bonds(kk)+1
+                DO kk=bonds_series_starts(atom_id1)+1,bonds_series_starts(atom_id1+1)
+                    atom_id2=bonds_indices_serialized(kk)+1
                     IF (aux_filter(atom_id2).eqv..FALSE.) THEN
-                        vect_aux(:,:)=coors(:,atom_id2,:)-coors(:,atom_id1,:)
-                        CALL PBC_FRAMES(vect_aux,box,inv,ortho,n_frames)
-                        coors(:,atom_id2,:)=coors(:,atom_id1,:)+vect_aux(:,:)
+                        DO ll=1,n_frames_indices
+                            frame_index=frame_indices(ll)+1
+                            vect_aux(:)=coors(frame_index,atom_id2,:)-coors(frame_index,atom_id1,:)
+                            CALL PBC(vect_aux,box(frame_index,:,:),inv(frame_index,:,:),ortho)
+                            coors(frame_index,atom_id2,:)=coors(frame_index,atom_id1,:)+vect_aux(:)
+                        END DO
                         aux_filter(atom_id2)=.TRUE.
                         n_storage=n_storage+1
                         storage(n_storage)=atom_id2
@@ -259,45 +265,43 @@ CONTAINS
 
   END SUBROUTINE UNWRAP
 
-  SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors,molecules,molecules_start,reference, &
-      box,inv,ortho,n_frames,n_atoms,n_molecules,n_molecules_start,n_reference)
+  SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors, reference_coors, atoms_indices_serialized, atoms_series_starts, frame_indices, &
+          & box, inv, ortho, n_frames, n_atoms, n_atoms_indices, n_atoms_series, n_frames_indices)
 
     IMPLICIT NONE
 
-    INTEGER,INTENT(IN):: n_frames, n_atoms, ortho
-    INTEGER,INTENT(IN):: n_molecules, n_molecules_start, n_reference
+    INTEGER,INTENT(IN):: n_frames, n_atoms, n_atoms_indices, n_atoms_series, n_frames_indices, ortho
 
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
-    INTEGER,DIMENSION(n_molecules),INTENT(IN)::molecules
-    INTEGER,DIMENSION(n_molecules_start),INTENT(IN)::molecules_start
-    INTEGER,DIMENSION(n_reference),INTENT(IN)::reference
+    DOUBLE PRECISION,DIMENSION(n_frames,1,3),INTENT(INOUT)::reference_coors
+    INTEGER,DIMENSION(n_atoms_indices),INTENT(IN)::atoms_indices_serialized ! Molecules in this case
+    INTEGER,DIMENSION(n_atoms_series+1),INTENT(IN)::atoms_series_starts
+    INTEGER,DIMENSION(n_frames_indices),INTENT(IN)::frame_indices
     DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
 
-    INTEGER::ii,jj,kk
-    DOUBLE PRECISION,DIMENSION(n_frames,3)::com_reference,com,vect_aux
-    INTEGER:: molecule_start, molecule_end, molecule_natoms
-    INTEGER,DIMENSION(:),ALLOCATABLE:: indices_molecule
+    INTEGER::ii,jj,ll
+    INTEGER::atom_index, frame_index
+    DOUBLE PRECISION,DIMENSION(n_frames,1,3)::com,vect_aux
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms_series,3)::centers_molecules
 
-    com_reference = GEOMETRICAL_CENTER(coors(:,reference(:)+1,:),n_frames,n_reference)
+    centers_molecules = GEOMETRICAL_CENTER(coors, atoms_indices_serialized, atoms_series_starts, frame_indices, &
+        & n_frames, n_atoms, n_atoms_indices, n_atoms_series, n_frames_indices)
 
-    DO ii=1,n_molecules_start-1
-        molecule_start=molecules_start(ii)+1
-        molecule_end=molecules_start(ii+1)
-        molecule_natoms=molecule_end-molecule_start+1
-        ALLOCATE(indices_molecule(molecule_natoms))
-        indices_molecule(:)=molecules(molecule_start:molecule_end)+1
-        com = GEOMETRICAL_CENTER(coors(:,indices_molecule(:),:),n_frames,molecule_natoms)
-        vect_aux=com-com_reference
-        CALL PBC_FRAMES(vect_aux,box,inv,ortho,n_frames)
-        DO jj=1,molecule_natoms
-            kk=indices_molecule(jj)
-            coors(:,kk,:)=coors(:,kk,:)-com(:,:)+vect_aux(:,:)+com_reference(:,:)
+    DO ii=1, n_atoms_series
+        com(:,1,:) = centers_molecules(:,ii,:)
+        vect_aux = com - reference_coors
+        CALL PBC_TENSOR(vect_aux, box, inv, ortho, n_frames, n_atoms)
+        DO jj=atoms_series_starts(ii)+1, atoms_series_starts(ii+1)
+            atom_index = atoms_indices_serialized(jj)+1
+            DO ll=1,n_frames_indices
+                frame_index=frame_indices(ll)+1
+                coors(frame_index, atom_index, :) = coors(frame_index, atom_index, :) - com(frame_index, 1, :) +&
+                & vect_aux(frame_index, 1, :) + reference_coors(frame_index, 1, :)
+            END DO
         END DO
-        DEALLOCATE(indices_molecule)
-    END DO 
+    END DO
 
   END SUBROUTINE MINIMUM_IMAGE_CONVENTION
-
 
 END MODULE MODULE_BOX
 

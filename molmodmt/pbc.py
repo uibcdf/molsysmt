@@ -3,11 +3,12 @@ from .utils.forms import digest as _digest_forms
 from molmodmt.lib import box as _libbox
 import numpy as _np
 
-def minimum_image_convention(item, selection='all', reference_selection=None, syntaxis='MDTraj',
-                             engine='MolModMT'):
+def minimum_image_convention(item, selection='all', reference_selection=None,
+                             syntaxis='MDTraj', engine='MolModMT'):
 
     from molmodmt import convert, select, get
-    from molmodmt.math import serialized_lists
+    from molmodmt.utils.math import serialized_lists
+    from molmodmt.centers import geometrical_center
 
     syntaxis = _digest_engines(syntaxis)
     engine = _digest_engines(engine)
@@ -28,7 +29,8 @@ def minimum_image_convention(item, selection='all', reference_selection=None, sy
 
         molecules_serialized = serialized_lists(molecules, fortran=True, dtype='int64')
 
-        atom_indices_reference = select(tmp_item, reference_selection, syntaxis)
+        reference_coordinates = geometrical_center(tmp_item, selection=reference_center_selection,
+                                                   syntaxis=syntaxis, engine=engine)
 
         aux = tmp_item.trajectory
         aux.coordinates=_np.asfortranarray(aux.coordinates, dtype='float64')
@@ -36,7 +38,7 @@ def minimum_image_convention(item, selection='all', reference_selection=None, sy
         aux.invbox=_np.asfortranarray(aux.invbox, dtype='float64')
 
         _libbox.minimum_image_convention(aux.coordinates, molecules_serialized.values,
-                       molecules_serialized.starts, atom_indices_reference,
+                       molecules_serialized.starts, reference_coordinates,
                        aux.box, aux.invbox, aux.orthogonal,
                        aux.n_frames, aux.n_atoms,
                        molecules_serialized.n_values, molecules_serialized.n_starts,

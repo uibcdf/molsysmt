@@ -1,7 +1,7 @@
 from .molmod import MolMod as _MolMod
 from os import remove as _remove
 
-def from_mdtraj_Trajectory(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def from_mdtraj_Trajectory(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from .io_trajectory import from_mdtraj_Trajectory as _from_mdtraj_Trajectory
     from .io_topology import from_mdtraj_Topology as _from_mdtraj_Topology
@@ -16,11 +16,11 @@ def from_mdtraj_Trajectory(item=None, selection=None, frame_indices=None, syntax
 
     return tmp_molmod_item
 
-def from_mdtraj(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def from_mdtraj(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     return from_mdtraj_Trajectory(item=item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
-def to_mdtraj_Topology(item=None, selection=None, syntaxis='mdtraj'):
+def to_mdtraj_Topology(item=None, selection='all', syntaxis='MDTraj'):
 
     tmp_item = item.topology
     if selection is not None:
@@ -28,7 +28,7 @@ def to_mdtraj_Topology(item=None, selection=None, syntaxis='mdtraj'):
         tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_mdtraj_Trajectory(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def to_mdtraj_Trajectory(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from mdtraj import Trajectory as _mdtraj_Trajectory
     from numpy import ascontiguousarray as _ascontiguousarray
@@ -38,24 +38,24 @@ def to_mdtraj_Trajectory(item=None, selection=None, frame_indices=None, syntaxis
 
     return tmp_item
 
-def to_mdtraj(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def to_mdtraj(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     return to_mdtraj_Trajectory(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
-def from_openmm_Modeller(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def from_openmm_Modeller(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from .io_trajectory import from_openmm_Modeller as trajectory_from_mdtraj_Trajectory
     from .io_topology import from_openmm_Modeller as topology_from_mdtraj_Topology
 
     tmp_item = _MolMod()
-    tmp_item.topology = topology_from_mdtraj_Topology(item, selection=selection, syntaxis='mdtraj')
+    tmp_item.topology = topology_from_mdtraj_Topology(item, selection=selection, syntaxis='MDTraj')
     tmp_item.trajectory = trajectory_from_mdtraj_Trajectory(item, selection=selection,
                                                             frame_indices=frame_indices,
                                                             syntaxis=syntaxis)
     tmp_item.topography = None
     return tmp_item
 
-def from_pdbid(item=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def from_pdbid(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
     tmp_file=_download_pdb(item)
@@ -63,7 +63,7 @@ def from_pdbid(item=None, selection=None, frame_indices=None, syntaxis='mdtraj')
     _remove(tmp_file)
     return tmp_item
 
-def from_pdb(item=None,topology=None,selection=None,frame_indices=None,syntaxis='mdtraj'):
+def from_pdb(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from molmodmt import convert as _convert
     from .io_topology import from_mdtraj as _topology_from_mdtraj
@@ -72,7 +72,7 @@ def from_pdb(item=None,topology=None,selection=None,frame_indices=None,syntaxis=
     if topology is None:
         topology=item
 
-    tmp_item_mdtraj = _convert(item, 'mdtraj', selection=selection, syntaxis=syntaxis)
+    tmp_item_mdtraj = _convert(item, 'mdtraj.Trajectory', selection=selection, syntaxis=syntaxis)
 
     tmp_item =_MolMod()
     tmp_item.topology = _topology_from_mdtraj(tmp_item_mdtraj)
@@ -80,52 +80,39 @@ def from_pdb(item=None,topology=None,selection=None,frame_indices=None,syntaxis=
     tmp_item.topography = None
     tmp_item.structure = None
 
-    tmp_item.trajectory.topology = tmp_item.topology
-    tmp_item.trajectory.structure = tmp_item.structure
-    tmp_item.trajectory.topography = tmp_item.topography
-
     return tmp_item
 
-def to_pdb(item=None, filename=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def to_pdb(item=None, filename=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from molmodmt import convert as _convert
     tmp_item = _convert(item, 'mdtraj', selection=selection, syntaxis=syntaxis)
     return _convert(tmp_item, filename, frame_indices=frame_indices)
 
-def from_xtc(item=None,topology=None, selection=None, frame_indices=None,syntaxis='mdtraj'):
+def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from .io_structure import from_gromacs_Topology as _structure_from_gromacs_Topology
     from .io_topology import from_molmod_Structure as _topology_from_molmod_Structure
-    from .io_trajectory import from_xtc as _from_xtc
+    from .io_trajectory import from_xtc as _trajectory_from_xtc
 
     tmp_item =_MolMod()
     tmp_item.structure = _structure_from_gromacs_Topology(topology)
     tmp_item.topology = _topology_from_molmod_Structure(tmp_item.structure)
-    tmp_item.trajectory = _from_xtc(item, topology=tmp_item.topology, selection=selection,
-                                    frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item.trajectory = _trajectory_from_xtc(item, topology=tmp_item.topology, selection=selection,
+                                               frame_indices=frame_indices, syntaxis=syntaxis)
     tmp_item.topography = None
-
-    tmp_item.trajectory.topology = tmp_item.topology
-    tmp_item.trajectory.structure = tmp_item.structure
-    tmp_item.trajectory.topography = tmp_item.topography
 
     return tmp_item
 
-def from_h5(item=None, selection='all', frame_indices='all', syntaxis='mdtraj'):
+def from_hdf5(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
-    from .io_topology import from_molmod_Structure as _topology_from_molmod_Structure
-    from .io_trajectory import from_xtc as _from_xtc
+    from .io_topology import from_hdf5 as _topology_from_hdf5
+    from .io_trajectory import from_hdf5 as _trajectory_from_hdf5
 
     tmp_item =_MolMod()
-    tmp_item.topology = _topology_from_molmod_Structure(tmp_item.structure)
-    tmp_item.trajectory = _from_xtc(item, topology=tmp_item.topology, selection=selection,
-                                    frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item.topology = _topology_from_hdf5(item, selection=selection, syntaxis=syntaxis)
+    tmp_item.trajectory = _trajectory_from_hdf5(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
     tmp_item.topography = None
     tmp_item.structure = None
-
-    tmp_item.trajectory.topology = tmp_item.topology
-    tmp_item.trajectory.structure = tmp_item.structure
-    tmp_item.trajectory.topography = tmp_item.topography
 
     return tmp_item
 

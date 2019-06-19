@@ -1,10 +1,8 @@
 from .utils.engines import digest as _digest_engines
 from .utils.forms import digest as _digest_forms
-
-import numpy as _np
-from .utils.digest_inputs import _one_system as _digest_one_system
-from .utils.digest_inputs import _coordinates as _digest_coordinates
 from .lib import com as _libcom
+from .lib import geometry as _libgeometry
+import numpy as _np
 from .utils.exceptions import *
 
 def center(item=None, selection=None, selection_groups=None, weights=None, frame_indices='all',
@@ -44,6 +42,7 @@ def center(item=None, selection=None, selection_groups=None, weights=None, frame
                                      groups_serialized.n_lists, frame_indices.shape[0])
         aux.coordinates = _np.ascontiguousarray(aux.coordinates)
         del(tmp_item, groups_serialized, weights_array)
+
         return com
 
     else:
@@ -77,17 +76,21 @@ def recenter(item, selection_center=None, selection='all', weights=None, syntaxi
 
     if engine=='MolModMT':
 
-        center_coors = center(item=tmp_item, selection=selection_center, selection_groups=None,
-                              weights=weigths, frame_indices='all', syntaxis=syntaxis,
-                              engine=engine)
+        center_to_origin = center(item=tmp_item, selection=selection_center, selection_groups=None,
+                                  weights=weigths, frame_indices='all', syntaxis=syntaxis, engine=engine)
+
+        translation = - center_to_origin[:,0,:]
+        del(center_to_origin)
 
         aux = tmp_item.trajectory
         aux.coordinates = _np.asfortranarray(aux.coordinates, dtype='float64')
-        _libcom.recenter(aux.coordinates, atom_indices, weights_array,
-                         aux.n_frames, aux.n_atoms, atom_indices.shape[0])
+        _libgeometry.translate(aux.coordinates, translation, aux.n_frames, aux.n_atoms)
         aux.coordinates=_np.ascontiguousarray(self.aux)
 
-        return convert(tmp_item, form_out)
+        del(translation)
+
+        tmp_item = convert(tmp_item, form_out)
+        return tmp_item
 
     else:
 

@@ -76,38 +76,52 @@ CONTAINS
  
   END SUBROUTINE DISTANCE
 
-  FUNCTION RADIUS_OF_GYRATION (coors,weights,n_frames,n_atoms) RESULT(Rg)
+  !FUNCTION RADIUS_OF_GYRATION (coors,weights,n_frames,n_atoms) RESULT(Rg)
 
-    IMPLICIT NONE    
-    INTEGER, INTENT(IN)::n_frames,n_atoms
-    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
-    DOUBLE PRECISION,DIMENSION(n_atoms),INTENT(IN)::weights
-    DOUBLE PRECISION,DIMENSION(n_frames)::Rg
+  !  IMPLICIT NONE    
+  !  INTEGER, INTENT(IN)::n_frames,n_atoms
+  !  DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
+  !  DOUBLE PRECISION,DIMENSION(n_atoms),INTENT(IN)::weights
+  !  DOUBLE PRECISION,DIMENSION(n_frames)::Rg
 
+  !  INTEGER::ii,jj
+  !  DOUBLE PRECISION,DIMENSION(n_frames,3)::com
+  !  DOUBLE PRECISION,DIMENSION(3)::vect_aux
+  !  DOUBLE PRECISION::total_weight
+  !  DOUBLE PRECISION::val_aux
+
+  !  Rg(:) = 0.0d0
+  !  com = CENTER_OF_MASS(coors,weights,n_frames,n_atoms)
+  !  total_weight=SUM(weights)
+
+  !  DO ii=1,n_frames
+  !      val_aux=0.0d0
+  !      DO jj=1,n_atoms
+  !          vect_aux = coors(ii,jj,:)-com(ii,:)
+  !          Rg(ii)=Rg(ii)+weights(jj)*dot_product(vect_aux,vect_aux)
+  !      END DO
+  !  END DO
+
+  !  Rg(:)=Rg(:)/total_weight
+  !  Rg(:)=sqrt(Rg(:))
+
+  !END FUNCTION
+
+  SUBROUTINE TRANSLATE(coors, shifts, n_frames, n_atoms)
+ 
+    IMPLICIT NONE
+    INTEGER,INTENT(IN)::n_frames, n_atoms
+    DOUBLE PRECISION,DIMENSION(n_frames, n_atoms, 3),INTENT(INOUT)::coors
+    DOUBLE PRECISION,DIMENSION(n_frames,3),INTENT(IN)::shifts
     INTEGER::ii,jj
-    DOUBLE PRECISION,DIMENSION(n_frames,3)::com
-    DOUBLE PRECISION,DIMENSION(3)::vect_aux
-    DOUBLE PRECISION::total_weight
-    DOUBLE PRECISION::val_aux
-
-    Rg(:) = 0.0d0
-    com = CENTER_OF_MASS(coors,weights,n_frames,n_atoms)
-    total_weight=SUM(weights)
 
     DO ii=1,n_frames
-        val_aux=0.0d0
-        DO jj=1,n_atoms
-            vect_aux = coors(ii,jj,:)-com(ii,:)
-            Rg(ii)=Rg(ii)+weights(jj)*dot_product(vect_aux,vect_aux)
-        END DO
+      DO jj=1,n_atoms
+          coors(ii,jj,:)=coors(ii,jj,:)+shifts(ii,:)
+      END DO
     END DO
 
-    Rg(:)=Rg(:)/total_weight
-    Rg(:)=sqrt(Rg(:))
-
-  END FUNCTION
-
-  BEGIN SUBROUTINE () 
+  END SUBROUTINE
 
 END MODULE MODULE_GEOMETRY
  

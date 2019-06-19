@@ -2,7 +2,7 @@ import os
 import tempfile
 from .utils.exceptions import *
 from .utils.arguments import singular as _singular
-from .utils.forms import digest_forms as _digest_forms
+from .utils.forms import digest as _digest_forms
 from numpy import unique as _unique
 from numpy import ndarray as _ndarray
 from numpy import sort as _sort

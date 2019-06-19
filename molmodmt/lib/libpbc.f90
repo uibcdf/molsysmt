@@ -62,43 +62,46 @@ SUBROUTINE PBC(vector,box,inv,ortho)
   
 END SUBROUTINE PBC
 
-SUBROUTINE PBC_FRAMES(vector_frames,box,inv,ortho,nn)
-
-  IMPLICIT NONE
-
-  INTEGER,INTENT(IN)::nn,ortho
-  DOUBLE PRECISION,DIMENSION(nn,3),INTENT(INOUT)::vector_frames
-  DOUBLE PRECISION,DIMENSION(nn,3,3),INTENT(IN)::box,inv
-
-  INTEGER::ii
-  DOUBLE PRECISION,DIMENSION(3)::vect_aux
-
-  DO ii=1,nn
-     vect_aux(:)=vector_frames(ii,:)
-     CALL PBC(vect_aux,box(ii,:,:),inv(ii,:,:),ortho)
-     vector_frames(ii,:)=vect_aux(:)
-  END DO
-
-END SUBROUTINE PBC_FRAMES
-
-!SUBROUTINE PBCARRAY(array,box,inv,ortho,nn)
+!SUBROUTINE PBC_FRAMES(vector_frames,box,inv,ortho,nn)
 !
 !  IMPLICIT NONE
 !
 !  INTEGER,INTENT(IN)::nn,ortho
-!  DOUBLE PRECISION,DIMENSION(nn,3),INTENT(INOUT)::array
-!  DOUBLE PRECISION,DIMENSION(3,3),INTENT(IN)::box,inv
+!  DOUBLE PRECISION,DIMENSION(nn,3),INTENT(INOUT)::vector_frames
+!  DOUBLE PRECISION,DIMENSION(nn,3,3),INTENT(IN)::box,inv
 !
 !  INTEGER::ii
 !  DOUBLE PRECISION,DIMENSION(3)::vect_aux
 !
 !  DO ii=1,nn
-!     vect_aux(:)=array(ii,:)
-!     CALL PBC(vect_aux,box,inv,ortho)
-!     array(ii,:)=vect_aux(:)
+!     vect_aux(:)=vector_frames(ii,:)
+!     CALL PBC(vect_aux,box(ii,:,:),inv(ii,:,:),ortho)
+!     vector_frames(ii,:)=vect_aux(:)
 !  END DO
 !
-!END SUBROUTINE PBCARRAY
+!END SUBROUTINE PBC_FRAMES
+
+SUBROUTINE PBC_TENSOR(tensor, box, inv, ortho, n_frames, n_atoms)
+
+  IMPLICIT NONE
+
+  INTEGER,INTENT(IN)::n_frames, n_atoms ,ortho
+  DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::tensor
+  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
+
+  INTEGER::ii,jj
+  DOUBLE PRECISION,DIMENSION(3)::vect_aux
+
+  DO ii=1,n_atoms
+    DO jj=1,n_frames
+        vect_aux(:)=tensor(jj,ii,:)
+        CALL PBC(vect_aux,box(jj,:,:),inv(jj,:,:),ortho)
+        tensor(jj,ii,:)=vect_aux(:)
+    END DO
+  END DO
+
+END SUBROUTINE PBC_TENSOR
+
 
 ! SUBROUTINE UNBOUNDED_CENTER_3DPBC(pbc_opt,coors,box,ortho,com)
 
