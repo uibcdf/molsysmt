@@ -1,5 +1,5 @@
 # =======================
-# BUH
+# Creando cajas solvatadas
 # =======================
 
 from simtk import unit
@@ -12,9 +12,6 @@ Solvate Box
 Methods and wrappers to create and solvate boxes
 
 """
-
-def make_box(item, engine=None):
-    pass
 
 def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angstroms, water='TIP3P',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
