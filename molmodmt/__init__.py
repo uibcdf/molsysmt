@@ -14,8 +14,8 @@ from .fix import fix_chains, fix_pdb_structure
 from .model_loops import add_loop
 from .remove_atoms import remove, remove_solvent, remove_hydrogens
 from .potential_energy import energy_minimization
-from .solvate_box import make_box, solvate
-from .protonation import add_hydrogens
+from .solvate_box import solvate
+from .protonation import add_missing_hydrogens
 from .mutations import mutate
 from .topology import is_water, is_ion, is_aminoacid, is_nucleotide, residue_name_to_molecule_type
 from .chem_and_phys_properties import get_charge, get_net_charge, get_mass, get_net_mass,\

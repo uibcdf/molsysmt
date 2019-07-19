@@ -5,6 +5,7 @@ _engines={
     'openmm' : 'OpenMM',
     'mdtraj' : 'MDTraj',
     'leap' : 'LEaP',
+    'modeller' : 'Modeller',
     'molmodmt' : 'MolModMT'
 }
 
