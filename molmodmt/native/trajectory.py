@@ -9,7 +9,10 @@ from copy import deepcopy
 
 class Trajectory():
 
-    def __init__(self):
+    def __init__(self, filename=None):
+
+        self._filename = filename
+        self._file = None
 
         self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
                                 # and order=F, with units nanometers
@@ -29,18 +32,6 @@ class Trajectory():
 
         self._length_units = _unit.nanometers
         self._time_units = _unit.picoseconds
-
-    #def _import_mdtraj_data(self, item=None, atom_indices=None, frame_indices=None):
-
-    #    from .io_trajectory import parse_mdtraj_Trajectory
-    #    tmp_coordinates, tmp_box, tmp_time, tmp_timestep = parse_mdtraj_Trajectory(item,
-    #                                                                               selection=selection,
-    #                                                                               frame_indices=frame_indices,
-    #                                                                               syntaxis=syntaxis
-    #                                                                              )
-    #    self._initialize_with_attributes(coordinates=tmp_coordinates, box=tmp_box,
-    #                                     timestep=tmp_timestep, time=tmp_time)
-    #    pass
 
     def _initialize_with_attributes(self, coordinates=None, box=None, cell=None, timestep=None,
                                     integstep=None, step=None, time=None):
