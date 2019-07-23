@@ -45,25 +45,28 @@ def fix_chains(item,chains=None):
         pass
 
 def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,
-                      missing_terminals=True, missing_loops=False, missing_hydrogens=False,
-                      pH=7.4, output_form=None, engine_atoms='pdbfixer', engine_loops='modeller',
-                      verbose=False):
+                      missing_terminals=True, missing_loops=False, missing_hydrogens=True,
+                      pH=7.4, to_form=None, engine_fix_pdb='PDBFixer', engine_hydrogens='PDBFixer',
+                      engine_loops='Modeller', verbose=False):
 
-    from .multitool import get_form as _get_form
-    from .multitool import convert as _convert
+    from .utils.forms import digest as digest_forms
+    from .utils.engines import digest as digest_engines
+    from .multitool import convert
 
-    in_form = _get_form(item)
-    if output_form is None:
-        output_form=in_form
+    form_in, form_out = digest_forms(item, to_form)
+    engine_fix_pdb = digest_engines(engine_fix_pdb)
+    engine_hydrogens = digest_engines(engine_hydrogens)
+    engine_loops = digest_engines(engine_loops)
 
     tmp_item = None
 
-    if in_form not in ['pdb','pdb:id','pdbfixer.PDBFixer']:
+    if form_in not in ['pdb','pdb:id','pdbfixer.PDBFixer']:
+
         raise BadCallError(BadCallMessage)
 
-    if engine_atoms=='pdbfixer':
+    if engine_fix_pdb=='PDBFixer':
 
-        tmp_item = _convert(item,'pdbfixer')
+        tmp_item = convert(item,'pdbfixer.PDBFixer')
 
         if missing_residues:
             tmp_item.findMissingResidues()
@@ -80,15 +83,20 @@ def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstanda
 
         tmp_item.addMissingAtoms()
 
-        if missing_hydrogens:
-            tmp_item.addMissingHydrogens(pH=pH)
+        if verbose:
+            print('Missing residues or atoms reported fixed.')
+
+    if missing_hydrogens:
+
+        from .protonation import add_missing_hydrogens
+        tmp_item = add_missing_hydrogens(tmp_item, pH=pH, engine=engine_hydrogens, verbose=verbose)
 
     if missing_loops:
 
-        from .model_loops import add_loop as _add_loop
-        tmp_item = _add_loop(tmp_item, engine=engine_loops)
+        from .model_loops import add_loop
+        tmp_item = add_loop(tmp_item, engine=engine_loops)
 
-    tmp_item = _convert(tmp_item, output_form)
+    tmp_item = convert(tmp_item, form_out)
 
     return tmp_item
 

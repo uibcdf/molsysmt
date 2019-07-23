@@ -62,7 +62,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
         from simtk.openmm import Platform as _Platform
         from simtk import unit as _unit
 
-        forcefield_omm_parameters=_digest_forcefields(forcefied,engine)
+        forcefield_omm_parameters=_digest_forcefields(forcefield,engine)
 
         in_form = _get_form(item)
 

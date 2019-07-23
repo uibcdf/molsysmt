@@ -4,18 +4,33 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = molsyssak
-SOURCEDIR     = src
-BUILDDIR      = build
+SOURCEDIR     = .
+BUILDDIR      = _build
 
-# Put it first so that "make" without argument is like "make help".
+
+.PHONY: help builddir html clean all
+
 help:
-	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@echo "Please use \`make <target>' where <target> is one of"
+	@echo "  html      to make standalone HTML files"
+	@echo "  clean     to clean the directory starting a new compilation from scratch"
 
-.PHONY: help Makefile
 
-# Catch-all target: route all unknown targets to Sphinx using the new
-# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+builddir:
+	mkdir -p $(BUILDDIR)
+	@echo "Creating new _build directory"
+
+html: 	builddir
+	$(SPHINXBUILD) -b html $(SOURCEDIR) $(SPHINXOPTS) $(BUILDDIR)
+	@echo
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)"
+
+clean:
+	rm -rf $(BUILDDIR)
+	#rm -rf $(TOOLSPATH)/hash_dict.pickle
+	#rm -rf examples/generated/*.rst
+	rm -rf api/generated/*.rst
+
+
+
 

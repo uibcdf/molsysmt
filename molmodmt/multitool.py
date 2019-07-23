@@ -116,6 +116,31 @@ _list_attributes = list(_dict_reformatter.keys())
 
 def select(item, selection='all', syntaxis='mdtraj'):
 
+    """select(item, selection='all', syntaxis='mdtraj')
+
+    Explanation
+
+    Parameters
+    ----------
+
+    item: Molecular model in accepted form.
+        Molecular model in any of the accepted forms by MolModMT.
+    selection:
+    syntaxis:
+
+    Returns
+    -------
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    Notes
+    -----
+    """
+
     from numpy import ndarray as _ndarray
     from numpy import int as _int
     from numpy import int64 as _int64

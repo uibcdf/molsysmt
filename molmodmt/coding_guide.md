@@ -5,6 +5,10 @@
 form_in
 form_out
 
+### Default form:
+
+'molmodmt.MolMod'
+
 ## Atom indices
 
 name variable: 'atom_indices'
