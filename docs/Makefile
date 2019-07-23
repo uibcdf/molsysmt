@@ -29,7 +29,7 @@ clean:
 	rm -rf $(BUILDDIR)
 	#rm -rf $(TOOLSPATH)/hash_dict.pickle
 	#rm -rf examples/generated/*.rst
-	rm -rf api/generated/*.rst
+	rm -rf api/_autosummary/*.rst
 
 
 
