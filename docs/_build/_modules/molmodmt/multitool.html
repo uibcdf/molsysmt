@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>molmodmt.multitool &mdash; MolModMT 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MolModMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">First tasks easily done with MolModMT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#manipulation">Manipulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.load.html">molmodmt.load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.convert.html">molmodmt.convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.select.html">molmodmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.extract.html">molmodmt.extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#geometry">Geometry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.contact_map.html">molmodmt.contact_map</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MolModMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>molmodmt.multitool</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for molmodmt.multitool</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">.utils.exceptions</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utils.arguments</span> <span class="k">import</span> <span class="n">singular</span> <span class="k">as</span> <span class="n">_singular</span>
+<span class="kn">from</span> <span class="nn">.utils.forms</span> <span class="k">import</span> <span class="n">digest</span> <span class="k">as</span> <span class="n">_digest_forms</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">unique</span> <span class="k">as</span> <span class="n">_unique</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">ndarray</span> <span class="k">as</span> <span class="n">_ndarray</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">sort</span> <span class="k">as</span> <span class="n">_sort</span>
+
+<span class="c1">####</span>
+<span class="c1">#### Molecular Models forms</span>
+<span class="c1">####</span>
+
+<span class="c1"># Classes</span>
+<span class="kn">from</span> <span class="nn">.forms.classes</span> <span class="k">import</span> <span class="n">dict_is_form</span> <span class="k">as</span> <span class="n">_dict_classes_is_form</span><span class="p">,</span> \
+    <span class="n">list_forms</span> <span class="k">as</span> <span class="n">_list_classes_forms</span><span class="p">,</span> \
+    <span class="n">dict_n_atoms</span> <span class="k">as</span> <span class="n">_dict_classes_n_atoms</span><span class="p">,</span> \
+    <span class="n">dict_converter</span> <span class="k">as</span> <span class="n">_dict_classes_converter</span><span class="p">,</span> \
+    <span class="n">dict_selector</span> <span class="k">as</span> <span class="n">_dict_classes_selector</span><span class="p">,</span> \
+    <span class="n">dict_extractor</span> <span class="k">as</span> <span class="n">_dict_classes_extractor</span><span class="p">,</span> \
+    <span class="n">dict_trimmer</span> <span class="k">as</span> <span class="n">_dict_classes_trimmer</span><span class="p">,</span> \
+    <span class="n">dict_duplicator</span> <span class="k">as</span> <span class="n">_dict_classes_duplicator</span><span class="p">,</span> \
+    <span class="n">dict_merger</span> <span class="k">as</span> <span class="n">_dict_classes_merger</span><span class="p">,</span> \
+    <span class="n">dict_get</span> <span class="k">as</span> <span class="n">_dict_classes_get</span><span class="p">,</span> \
+    <span class="n">dict_set</span> <span class="k">as</span> <span class="n">_dict_classes_set</span>
+
+<span class="c1"># Files</span>
+<span class="kn">from</span> <span class="nn">.forms.files</span> <span class="k">import</span> <span class="n">dict_is_form</span> <span class="k">as</span> <span class="n">_dict_files_is_form</span><span class="p">,</span> \
+    <span class="n">list_forms</span> <span class="k">as</span> <span class="n">_list_files_forms</span><span class="p">,</span> \
+    <span class="n">dict_n_atoms</span> <span class="k">as</span> <span class="n">_dict_files_n_atoms</span><span class="p">,</span> \
+    <span class="n">dict_converter</span> <span class="k">as</span> <span class="n">_dict_files_converter</span><span class="p">,</span> \
+    <span class="n">dict_selector</span> <span class="k">as</span> <span class="n">_dict_files_selector</span><span class="p">,</span> \
+    <span class="n">dict_extractor</span> <span class="k">as</span> <span class="n">_dict_files_extractor</span><span class="p">,</span> \
+    <span class="n">dict_trimmer</span> <span class="k">as</span> <span class="n">_dict_files_trimmer</span><span class="p">,</span> \
+    <span class="n">dict_duplicator</span> <span class="k">as</span> <span class="n">_dict_files_duplicator</span><span class="p">,</span> \
+    <span class="n">dict_merger</span> <span class="k">as</span> <span class="n">_dict_files_merger</span><span class="p">,</span> \
+    <span class="n">dict_get</span> <span class="k">as</span> <span class="n">_dict_files_get</span><span class="p">,</span> \
+    <span class="n">dict_set</span> <span class="k">as</span> <span class="n">_dict_files_set</span>
+
+<span class="c1"># IDs</span>
+<span class="kn">from</span> <span class="nn">.forms.ids</span> <span class="k">import</span> <span class="n">dict_is_form</span> <span class="k">as</span> <span class="n">_dict_ids_is_form</span><span class="p">,</span> \
+    <span class="n">list_forms</span> <span class="k">as</span> <span class="n">_list_ids_forms</span><span class="p">,</span> \
+    <span class="n">dict_n_atoms</span> <span class="k">as</span> <span class="n">_dict_ids_n_atoms</span><span class="p">,</span> \
+    <span class="n">dict_converter</span> <span class="k">as</span> <span class="n">_dict_ids_converter</span><span class="p">,</span> \
+    <span class="n">dict_selector</span> <span class="k">as</span> <span class="n">_dict_ids_selector</span><span class="p">,</span> \
+    <span class="n">dict_extractor</span> <span class="k">as</span> <span class="n">_dict_ids_extractor</span><span class="p">,</span> \
+    <span class="n">dict_trimmer</span> <span class="k">as</span> <span class="n">_dict_ids_trimmer</span><span class="p">,</span> \
+    <span class="n">dict_duplicator</span> <span class="k">as</span> <span class="n">_dict_ids_duplicator</span><span class="p">,</span> \
+    <span class="n">dict_merger</span> <span class="k">as</span> <span class="n">_dict_ids_merger</span><span class="p">,</span> \
+    <span class="n">dict_get</span> <span class="k">as</span> <span class="n">_dict_ids_get</span><span class="p">,</span> \
+    <span class="n">dict_set</span> <span class="k">as</span> <span class="n">_dict_ids_set</span>
+
+<span class="c1"># Sequences</span>
+<span class="kn">from</span> <span class="nn">.forms.seqs</span> <span class="k">import</span> <span class="n">dict_is_form</span> <span class="k">as</span> <span class="n">_dict_seqs_is_form</span><span class="p">,</span> \
+    <span class="n">list_forms</span> <span class="k">as</span> <span class="n">_list_seqs_forms</span><span class="p">,</span> \
+    <span class="n">dict_n_atoms</span> <span class="k">as</span> <span class="n">_dict_seqs_n_atoms</span><span class="p">,</span> \
+    <span class="n">dict_converter</span> <span class="k">as</span> <span class="n">_dict_seqs_converter</span><span class="p">,</span> \
+    <span class="n">dict_selector</span> <span class="k">as</span> <span class="n">_dict_seqs_selector</span><span class="p">,</span> \
+    <span class="n">dict_extractor</span> <span class="k">as</span> <span class="n">_dict_seqs_extractor</span><span class="p">,</span> \
+    <span class="n">dict_trimmer</span> <span class="k">as</span> <span class="n">_dict_seqs_trimmer</span><span class="p">,</span> \
+    <span class="n">dict_duplicator</span> <span class="k">as</span> <span class="n">_dict_seqs_duplicator</span><span class="p">,</span> \
+    <span class="n">dict_merger</span> <span class="k">as</span> <span class="n">_dict_seqs_merger</span><span class="p">,</span> \
+    <span class="n">dict_get</span> <span class="k">as</span> <span class="n">_dict_seqs_get</span><span class="p">,</span> \
+    <span class="n">dict_set</span> <span class="k">as</span> <span class="n">_dict_seqs_set</span>
+
+<span class="c1"># Viewers</span>
+<span class="kn">from</span> <span class="nn">.forms.viewers</span> <span class="k">import</span> <span class="n">dict_is_form</span> <span class="k">as</span> <span class="n">_dict_viewers_is_form</span><span class="p">,</span> \
+    <span class="n">list_forms</span> <span class="k">as</span> <span class="n">_list_viewers_forms</span><span class="p">,</span> \
+    <span class="n">dict_n_atoms</span> <span class="k">as</span> <span class="n">_dict_viewers_n_atoms</span><span class="p">,</span> \
+    <span class="n">dict_converter</span> <span class="k">as</span> <span class="n">_dict_viewers_converter</span><span class="p">,</span> \
+    <span class="n">dict_selector</span> <span class="k">as</span> <span class="n">_dict_viewers_selector</span><span class="p">,</span> \
+    <span class="n">dict_extractor</span> <span class="k">as</span> <span class="n">_dict_viewers_extractor</span><span class="p">,</span> \
+    <span class="n">dict_trimmer</span> <span class="k">as</span> <span class="n">_dict_viewers_trimmer</span><span class="p">,</span> \
+    <span class="n">dict_duplicator</span> <span class="k">as</span> <span class="n">_dict_viewers_duplicator</span><span class="p">,</span> \
+    <span class="n">dict_merger</span> <span class="k">as</span> <span class="n">_dict_viewers_merger</span><span class="p">,</span> \
+    <span class="n">dict_get</span> <span class="k">as</span> <span class="n">_dict_viewers_get</span><span class="p">,</span> \
+    <span class="n">dict_set</span> <span class="k">as</span> <span class="n">_dict_viewers_set</span>
+
+<span class="n">_dict_is_form</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_is_form</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_is_form</span><span class="p">,</span>\
+                 <span class="o">**</span><span class="n">_dict_ids_is_form</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_is_form</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_is_form</span><span class="p">}</span>
+<span class="n">_dict_n_atoms</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_n_atoms</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_n_atoms</span><span class="p">,</span>\
+                   <span class="o">**</span><span class="n">_dict_ids_n_atoms</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_n_atoms</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_n_atoms</span><span class="p">}</span>
+<span class="n">_dict_converter</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_converter</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_converter</span><span class="p">,</span>\
+                   <span class="o">**</span><span class="n">_dict_ids_converter</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_converter</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_converter</span><span class="p">}</span>
+<span class="n">_dict_selector</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_selector</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_selector</span><span class="p">,</span>\
+                   <span class="o">**</span><span class="n">_dict_ids_selector</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_selector</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_selector</span><span class="p">}</span>
+<span class="n">_dict_extractor</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_extractor</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_extractor</span><span class="p">,</span>\
+                   <span class="o">**</span><span class="n">_dict_ids_extractor</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_extractor</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_extractor</span><span class="p">}</span>
+<span class="n">_dict_trimmer</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_trimmer</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_trimmer</span><span class="p">,</span>\
+                   <span class="o">**</span><span class="n">_dict_ids_trimmer</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_trimmer</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_trimmer</span><span class="p">}</span>
+<span class="n">_dict_duplicator</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_duplicator</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_duplicator</span><span class="p">,</span>\
+                   <span class="o">**</span><span class="n">_dict_ids_duplicator</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_duplicator</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_duplicator</span><span class="p">}</span>
+<span class="n">_dict_merger</span>    <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_merger</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_merger</span><span class="p">,</span>\
+                   <span class="o">**</span><span class="n">_dict_ids_merger</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_merger</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_merger</span><span class="p">}</span>
+<span class="n">_dict_get</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_get</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_get</span><span class="p">,</span>\
+                   <span class="o">**</span><span class="n">_dict_ids_get</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_get</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_get</span><span class="p">}</span>
+<span class="n">_dict_set</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">_dict_classes_set</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_files_set</span><span class="p">,</span>\
+                   <span class="o">**</span><span class="n">_dict_ids_set</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_set</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_set</span><span class="p">}</span>
+
+<span class="c1">####</span>
+<span class="c1">#### Molecular Models attributes</span>
+<span class="c1">####</span>
+
+<span class="c1"># Coordinates</span>
+<span class="kn">from</span> <span class="nn">.attributes.coordinates</span> <span class="k">import</span> <span class="n">list_forms</span> <span class="k">as</span> <span class="n">_list_coordinates_forms</span><span class="p">,</span> \
+    <span class="n">dict_reformatter</span> <span class="k">as</span> <span class="n">_dict_coordinates_reformatter</span>
+
+<span class="n">_dict_reformatter</span><span class="o">=</span><span class="p">{}</span>
+<span class="n">_dict_reformatter</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">_dict_coordinates_reformatter</span>
+
+<span class="n">_list_attributes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_dict_reformatter</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="c1">####</span>
+<span class="c1">#### Methods</span>
+<span class="c1">####</span>
+
+<div class="viewcode-block" id="select"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.select.html#molmodmt.select">[docs]</a><span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;select(item, selection=&#39;all&#39;, syntaxis=&#39;mdtraj&#39;)</span>
+
+<span class="sd">    Explanation</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    item: Molecular model in accepted form.</span>
+<span class="sd">        Molecular model in any of the accepted forms by MolModMT.</span>
+<span class="sd">    selection:</span>
+<span class="sd">    syntaxis:</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">ndarray</span> <span class="k">as</span> <span class="n">_ndarray</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="nb">int</span> <span class="k">as</span> <span class="n">_int</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">int64</span> <span class="k">as</span> <span class="n">_int64</span>
+    <span class="kn">from</span> <span class="nn">.utils.selection</span> <span class="k">import</span> <span class="n">parse_selection</span>
+
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">_ndarray</span><span class="p">,</span> <span class="nb">set</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">_int64</span><span class="p">,</span> <span class="n">_int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">selection</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">selection</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;All&#39;</span><span class="p">,</span> <span class="s1">&#39;ALL&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">_dict_n_atoms</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">selection</span> <span class="o">=</span> <span class="n">parse_selection</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="p">)</span>
+        <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">_dict_selector</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">syntaxis</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">_sort</span><span class="p">(</span><span class="n">atom_indices</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.extract.html#molmodmt.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">selection</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;all&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">item</span>
+
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+    <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_extractor</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">)</span>
+    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span><span class="n">form_out</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tmp_item</span></div>
+
+<span class="k">def</span> <span class="nf">trim</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">selection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">item</span>
+
+    <span class="k">if</span> <span class="n">selection</span><span class="o">==</span><span class="s2">&quot;all&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">BadCallError</span><span class="p">(</span><span class="s2">&quot;Bad selection. All atoms will be removed&quot;</span><span class="p">)</span>
+
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+    <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_trimmer</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">)</span>
+    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span><span class="n">form_out</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tmp_item</span>
+
+<span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">item1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="c1">#item1 can be a list or tuple</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">item1</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">]:</span>
+        <span class="n">_</span> <span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">form</span><span class="p">)</span>
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">form_out</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">in_item</span> <span class="ow">in</span> <span class="n">item1</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">tmp_item2</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">in_item</span><span class="p">,</span> <span class="n">form_out</span><span class="p">)</span>
+            <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_merger</span><span class="p">[</span><span class="n">form</span><span class="p">](</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">tmp_item2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tmp_item</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_</span> <span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+        <span class="n">tmp_item1</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span><span class="n">form</span><span class="p">)</span>
+        <span class="n">tmp_item2</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item2</span><span class="p">,</span><span class="n">form</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_dict_merger</span><span class="p">[</span><span class="n">form</span><span class="p">](</span><span class="n">tmp_item1</span><span class="p">,</span> <span class="n">tmp_item1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s2">&quot;mdtraj&quot;</span><span class="p">):</span>
+
+    <span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="n">_singular</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">element</span><span class="o">==</span><span class="s1">&#39;atom&#39;</span><span class="p">:</span>
+
+        <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">residue_name</span><span class="p">,</span> <span class="n">residue_index</span><span class="p">,</span> <span class="n">residue_id</span><span class="p">,</span> <span class="n">chain_index</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span>\
+        <span class="n">molecule_type</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span>
+                            <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">atom_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">atom_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">residue_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">residue_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">residue_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">molecule_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="nb">id</span><span class="p">,</span> <span class="s1">&#39;residue_name&#39;</span><span class="p">:</span><span class="n">residue_name</span><span class="p">,</span>
+                   <span class="s1">&#39;residue index&#39;</span><span class="p">:</span><span class="n">residue_index</span><span class="p">,</span> <span class="s1">&#39;residue id&#39;</span><span class="p">:</span><span class="n">residue_id</span><span class="p">,</span>
+                   <span class="s1">&#39;chain index&#39;</span><span class="p">:</span><span class="n">chain_index</span><span class="p">,</span> <span class="s1">&#39;chain id&#39;</span><span class="p">:</span><span class="n">chain_id</span><span class="p">,</span> <span class="s1">&#39;molecule type&#39;</span><span class="p">:</span><span class="n">molecule_type</span><span class="p">})</span>
+
+    <span class="k">elif</span> <span class="n">element</span><span class="o">==</span><span class="s1">&#39;residue&#39;</span><span class="p">:</span>
+
+        <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">chain_index</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span>\
+        <span class="n">molecule_type</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span>
+                            <span class="n">residue_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">residue_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">residue_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">molecule_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+        <span class="k">return</span> <span class="n">df</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="nb">id</span><span class="p">,</span> <span class="s1">&#39;chain index&#39;</span><span class="p">:</span><span class="n">chain_index</span><span class="p">,</span> <span class="s1">&#39;chain id&#39;</span><span class="p">:</span><span class="n">chain_id</span><span class="p">,</span>
+                   <span class="s1">&#39;molecule type&#39;</span><span class="p">:</span><span class="n">molecule_type</span><span class="p">})</span>
+
+    <span class="k">elif</span> <span class="n">element</span><span class="o">==</span><span class="s1">&#39;chain&#39;</span><span class="p">:</span>
+
+        <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">molecule_type</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span>
+                                       <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">molecule_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df</span><span class="p">({</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="nb">id</span><span class="p">,</span> <span class="s1">&#39;molecule type&#39;</span><span class="p">:</span><span class="n">molecule_type</span><span class="p">})</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">get_form</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+            <span class="n">prefix</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;:id&#39;</span> <span class="ow">in</span> <span class="n">_dict_ids_is_form</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">item</span><span class="o">=</span><span class="n">_dict_ids_is_form</span><span class="p">[</span><span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;:id&#39;</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;:seq&#39;</span> <span class="ow">in</span> <span class="n">_dict_seqs_is_form</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">item</span><span class="o">=</span><span class="n">_dict_seqs_is_form</span><span class="p">[</span><span class="n">prefix</span><span class="o">+</span><span class="s1">&#39;:seq&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_dict_is_form</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_dict_is_form</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This item&#39;s form has not been implemented yet&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="c1"># selection works as a mask if indices or ids are used</span>
+
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="n">_singular</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="n">singular_kwargs</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_singular</span><span class="p">(</span><span class="n">key</span><span class="p">):</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">element</span><span class="o">==</span><span class="s1">&#39;atom&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">indices</span><span class="o">=</span><span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">element</span><span class="o">==</span><span class="s1">&#39;residue&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span>
+                          <span class="n">residue_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_unique</span><span class="p">(</span><span class="n">indices</span><span class="p">))</span>
+
+    <span class="k">elif</span> <span class="n">element</span><span class="o">==</span><span class="s1">&#39;chain&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span>
+                          <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_unique</span><span class="p">(</span><span class="n">indices</span><span class="p">))</span>
+
+    <span class="k">elif</span> <span class="n">element</span><span class="o">==</span><span class="s1">&#39;system&#39;</span><span class="p">:</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">return</span> <span class="n">_dict_get</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="n">ids</span><span class="p">,</span> <span class="o">**</span><span class="n">singular_kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="n">_singular</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="n">singular_kwargs</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_singular</span><span class="p">(</span><span class="n">key</span><span class="p">):</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">element</span><span class="o">==</span><span class="s1">&#39;atom&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">indices</span><span class="o">=</span><span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">element</span><span class="o">==</span><span class="s1">&#39;residue&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span>
+                          <span class="n">residue_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_dict_set</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="n">ids</span><span class="p">,</span> <span class="o">**</span><span class="n">singular_kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.load.html#molmodmt.load">[docs]</a><span class="k">def</span> <span class="nf">load</span> <span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.convert.html#molmodmt.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span>  <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">form_out</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">form_out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">_list_files_forms</span><span class="p">:</span>
+            <span class="n">form_out</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">out_file</span><span class="o">=</span><span class="n">form</span>
+
+    <span class="k">if</span> <span class="n">out_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span>
+                                                  <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">form_in</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">item</span></div>
+
+<span class="k">def</span> <span class="nf">duplicate</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_dict_duplicator</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+
+    <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;nglview&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">]:</span>
+        <span class="n">form_in</span> <span class="o">=</span> <span class="n">get_form</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">form_in</span> <span class="o">=</span> <span class="n">get_form</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">item</span>
+
+    <span class="k">if</span> <span class="n">selection</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">viewer</span><span class="p">](</span><span class="n">tmp_item</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">reformat</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">attribute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">_list_attributes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">is_format</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">to_format</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+                <span class="k">return</span> <span class="n">_dict_reformatter</span><span class="p">[</span><span class="n">attribute</span><span class="p">][</span><span class="n">is_format</span><span class="p">][</span><span class="n">to_format</span><span class="p">](</span><span class="n">value</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">BadCallError</span><span class="p">(</span><span class="n">BadCallMessage</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadCallError</span><span class="p">(</span><span class="n">BadCallMessage</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">BadCallError</span><span class="p">(</span><span class="n">BadCallMessage</span><span class="p">)</span>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

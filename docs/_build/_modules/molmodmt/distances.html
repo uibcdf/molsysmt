@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>molmodmt.distances &mdash; MolModMT 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MolModMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">First tasks easily done with MolModMT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#manipulation">Manipulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.load.html">molmodmt.load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.convert.html">molmodmt.convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.select.html">molmodmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.extract.html">molmodmt.extract</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#geometry">Geometry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/molmodmt.contact_map.html">molmodmt.contact_map</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MolModMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>molmodmt.distances</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for molmodmt.distances</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">_np</span>
+<span class="kn">from</span> <span class="nn">.multitool</span> <span class="k">import</span> <span class="n">get_form</span> <span class="k">as</span> <span class="n">_get_form</span><span class="p">,</span> <span class="n">select</span> <span class="k">as</span> <span class="n">_select</span><span class="p">,</span> <span class="n">convert</span> <span class="k">as</span> <span class="n">_convert</span>
+<span class="kn">from</span> <span class="nn">.utils.digest_inputs</span> <span class="k">import</span> <span class="n">_comparison_two_systems</span> <span class="k">as</span> <span class="n">_digest_comparison_two_systems</span>
+<span class="kn">from</span> <span class="nn">.utils.digest_inputs</span> <span class="k">import</span> <span class="n">_coordinates</span> <span class="k">as</span> <span class="n">_digest_coordinates</span>
+<span class="kn">from</span> <span class="nn">.utils.digest_inputs</span> <span class="k">import</span> <span class="n">_frameslist</span> <span class="k">as</span> <span class="n">_digest_frames</span>
+<span class="kn">from</span> <span class="nn">.lib</span> <span class="k">import</span> <span class="n">geometry</span> <span class="k">as</span> <span class="n">_libgeometry</span>
+<span class="kn">from</span> <span class="nn">.utils.exceptions</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.centers</span> <span class="k">import</span> <span class="n">center_of_mass</span> <span class="k">as</span> <span class="n">_center_of_mass</span>
+<span class="kn">from</span> <span class="nn">.centers</span> <span class="k">import</span> <span class="n">geometrical_center</span> <span class="k">as</span> <span class="n">_geometrical_center</span>
+
+<span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection_groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_behavior</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+             <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection_groups2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_behavior2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame2</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+             <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;matrix&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+
+    <span class="c1"># group_behavior in [&#39;False&#39;,&#39;center_of_mass&#39;,&#39;geometric_center&#39;,&#39;minimum_distance&#39;]</span>
+    <span class="c1"># output_form in [&#39;matrix&#39;,&#39;dict&#39;]</span>
+
+    <span class="c1"># selection groups está por si quiero distancias entre centros de masas, necesita</span>
+    <span class="c1"># hacer un lista de listas frente a otra lista de listas.</span>
+
+    <span class="n">in_form</span><span class="o">=</span><span class="n">_get_form</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">:</span>
+        <span class="n">x_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span>
+    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">:</span>
+        <span class="n">x_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span>
+
+    <span class="k">if</span> <span class="n">selection_groups</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">selection_groups2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">selection_groups2</span><span class="o">=</span><span class="n">selection_groups</span>
+
+    <span class="k">if</span> <span class="n">group_behavior</span><span class="o">==</span><span class="s1">&#39;minimum_distance&#39;</span> <span class="ow">or</span> <span class="n">group_behavior2</span><span class="o">==</span><span class="s1">&#39;minimum_distance&#39;</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">group_behavior</span><span class="o">==</span><span class="s1">&#39;minimum_distance&#39;</span> <span class="ow">and</span> <span class="n">group_behavior2</span><span class="o">==</span><span class="s1">&#39;minimum_distance&#39;</span><span class="p">:</span>
+
+            <span class="n">num_groups1</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">selection_groups</span><span class="p">)</span>
+            <span class="n">num_groups2</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">selection_groups2</span><span class="p">)</span>
+            <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frames</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+            <span class="n">num_frames</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">frame_indices</span><span class="p">)</span>
+            <span class="n">dists</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_frames</span><span class="p">,</span><span class="n">num_groups1</span><span class="p">,</span><span class="n">num_groups2</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_groups1</span><span class="p">):</span>
+                <span class="n">group1</span> <span class="o">=</span> <span class="n">selection_groups</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_groups2</span><span class="p">):</span>
+                    <span class="n">group2</span> <span class="o">=</span> <span class="n">selection_groups2</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">min_dist</span> <span class="o">=</span> <span class="n">min_distances</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">group1</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
+                                                <span class="n">item2</span><span class="o">=</span><span class="n">item2</span><span class="p">,</span> <span class="n">selection2</span><span class="o">=</span><span class="n">group2</span><span class="p">,</span> <span class="n">frame2</span><span class="o">=</span><span class="n">frame2</span><span class="p">,</span>
+                                                <span class="n">pbc</span><span class="o">=</span><span class="n">pbc</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="n">parallel</span><span class="p">)</span>
+                    <span class="n">dists</span><span class="p">[:,</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span><span class="o">=</span><span class="n">min_dist</span>
+            <span class="k">del</span><span class="p">(</span><span class="n">num_groups1</span><span class="p">,</span><span class="n">num_groups2</span><span class="p">,</span><span class="n">frame_indices</span><span class="p">,</span><span class="n">num_frames</span><span class="p">,</span><span class="n">group1</span><span class="p">,</span><span class="n">group2</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">dists</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">NotImplementedMessage</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">:</span>
+
+        <span class="n">tmp_item1</span><span class="p">,</span> <span class="n">atom_indices1</span><span class="p">,</span> <span class="n">frame_indices1</span><span class="p">,</span> <span class="n">tmp_item2</span><span class="p">,</span> <span class="n">atom_indices2</span><span class="p">,</span> <span class="n">frame_indices2</span><span class="p">,</span>\
+        <span class="n">single_item</span><span class="p">,</span> <span class="n">diff_selection</span> <span class="o">=</span> <span class="n">_digest_comparison_two_systems</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span>
+                                                                     <span class="n">item2</span><span class="p">,</span> <span class="n">selection2</span><span class="p">,</span> <span class="n">frame2</span><span class="p">,</span>
+                                                                     <span class="n">form</span><span class="o">=</span><span class="n">x_form</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">tmp_item1</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">n_frames</span><span class="o">!=</span><span class="n">tmp_item2</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">n_frames</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadCallError</span><span class="p">(</span><span class="n">BadCallMessage</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">selection_groups</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tmp_coors1</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_coordinates</span><span class="p">(</span><span class="n">tmp_item1</span><span class="p">,</span><span class="n">atom_indices1</span><span class="p">,</span><span class="n">frame_indices1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">group_behavior</span> <span class="o">==</span> <span class="s1">&#39;center_of_mass&#39;</span><span class="p">:</span>
+                <span class="n">tmp_coors1</span> <span class="o">=</span> <span class="n">_center_of_mass</span><span class="p">(</span><span class="n">tmp_item1</span><span class="p">,</span><span class="n">selection_groups</span><span class="o">=</span><span class="n">selection_groups</span><span class="p">,</span>
+                                             <span class="n">frame</span><span class="o">=</span><span class="n">frame_indices1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">group_behavior</span> <span class="o">==</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">:</span>
+                <span class="n">tmp_coors1</span> <span class="o">=</span> <span class="n">_geometrical_center</span><span class="p">(</span><span class="n">tmp_item1</span><span class="p">,</span><span class="n">selection_groups</span><span class="o">=</span><span class="n">selection_groups</span><span class="p">,</span>
+                                    <span class="n">frame</span><span class="o">=</span><span class="n">frame_indices1</span><span class="p">)</span>
+
+            <span class="n">atom_indices1</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">tmp_coors1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+        <span class="n">nelements1</span> <span class="o">=</span> <span class="n">tmp_coors1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">nframes1</span>   <span class="o">=</span> <span class="n">tmp_coors1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">selection_groups2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tmp_coors2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_coordinates</span><span class="p">(</span><span class="n">tmp_item2</span><span class="p">,</span><span class="n">atom_indices2</span><span class="p">,</span><span class="n">frame_indices2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">group_behavior</span> <span class="o">==</span> <span class="s1">&#39;center_of_mass&#39;</span><span class="p">:</span>
+                <span class="n">tmp_coors2</span> <span class="o">=</span> <span class="n">_center_of_mass</span><span class="p">(</span><span class="n">tmp_item2</span><span class="p">,</span><span class="n">selection_groups</span><span class="o">=</span><span class="n">selection_groups2</span><span class="p">,</span>
+                                             <span class="n">frame</span><span class="o">=</span><span class="n">frame_indices2</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">group_behavior</span> <span class="o">==</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">:</span>
+                <span class="n">tmp_coors2</span> <span class="o">=</span> <span class="n">_geometrical_center</span><span class="p">(</span><span class="n">tmp_item2</span><span class="p">,</span><span class="n">selection_groups</span><span class="o">=</span><span class="n">selection_groups2</span><span class="p">,</span>
+                                    <span class="n">frame</span><span class="o">=</span><span class="n">frame_indices2</span><span class="p">)</span>
+            <span class="n">atom_indices2</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">tmp_coors2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+        <span class="n">nelements2</span> <span class="o">=</span> <span class="n">tmp_coors2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">nframes2</span>   <span class="o">=</span> <span class="n">tmp_coors2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">tmp_item1</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">box</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pbc</span><span class="o">==</span><span class="kc">False</span><span class="p">):</span>
+            <span class="n">tmp_item1</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nframes1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">tmp_item1</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">invbox</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pbc</span><span class="o">==</span><span class="kc">False</span><span class="p">):</span>
+            <span class="n">tmp_item1</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">invbox</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nframes1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+        <span class="n">dists</span> <span class="o">=</span> <span class="n">_libgeometry</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">diff_selection</span><span class="p">,</span>
+                                      <span class="n">tmp_coors1</span><span class="p">,</span>
+                                      <span class="n">tmp_coors2</span><span class="p">,</span>
+                                      <span class="n">tmp_item1</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">box</span><span class="p">,</span>
+                                      <span class="n">tmp_item1</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">invbox</span><span class="p">,</span>
+                                      <span class="n">tmp_item1</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">orthogonal</span><span class="p">,</span>
+                                      <span class="n">pbc</span><span class="p">,</span>
+                                      <span class="n">nelements1</span><span class="p">,</span>
+                                      <span class="n">nelements2</span><span class="p">,</span>
+                                      <span class="n">nframes1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">output_form</span><span class="o">==</span><span class="s1">&#39;matrix&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">dists</span>
+        <span class="k">elif</span> <span class="n">output_form</span><span class="o">==</span><span class="s1">&#39;dict&#39;</span><span class="p">:</span>
+            <span class="n">tmp_dict</span><span class="o">=</span><span class="p">{}</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atom_indices1</span><span class="p">)):</span>
+                <span class="n">atom1</span><span class="o">=</span><span class="n">atom_indices1</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                <span class="n">tmp_dict</span><span class="p">[</span><span class="n">atom1</span><span class="p">]</span><span class="o">=</span><span class="p">{}</span>
+                <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atom_indices2</span><span class="p">)):</span>
+                    <span class="n">atom2</span><span class="o">=</span><span class="n">atom_indices2</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span>
+                    <span class="n">tmp_dict</span><span class="p">[</span><span class="n">atom1</span><span class="p">][</span><span class="n">atom2</span><span class="p">]</span><span class="o">=</span><span class="n">dists</span><span class="p">[:,</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">tmp_dict</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">NotImplementedMessage</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">:</span>
+
+        <span class="n">tmp_item1</span><span class="p">,</span> <span class="n">atom_indices1</span><span class="p">,</span> <span class="n">frame_indices1</span><span class="p">,</span> <span class="n">tmp_item2</span><span class="p">,</span> <span class="n">atom_indices2</span><span class="p">,</span> <span class="n">frame_indices2</span><span class="p">,</span>\
+        <span class="n">single_item</span><span class="p">,</span> <span class="n">single_selection</span> <span class="o">=</span> <span class="n">_digest_comparison_two_systems</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span>\
+                                                                       <span class="n">item2</span><span class="p">,</span> <span class="n">selection2</span><span class="p">,</span> <span class="n">frame2</span><span class="p">,</span>\
+                                                                       <span class="n">form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">group_behavior</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">group_behavior2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">item2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="kn">from</span> <span class="nn">mdtraj</span> <span class="k">import</span> <span class="n">compute_distances</span> <span class="k">as</span> <span class="n">_mdtraj_compute_distances</span>
+                <span class="n">tensor1_to_grid</span><span class="p">,</span> <span class="n">tensor2_to_grid</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">atom_indices1</span><span class="p">,</span><span class="n">atom_indices2</span><span class="p">)</span>
+                <span class="n">pairs_list</span> <span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">tensor1_to_grid</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">tensor2_to_grid</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span>
+                <span class="n">dists</span> <span class="o">=</span> <span class="n">_mdtraj_compute_distances</span><span class="p">(</span><span class="n">tmp_item1</span><span class="p">,</span><span class="n">pairs_list</span><span class="p">,</span><span class="n">pbc</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">output_form</span><span class="o">==</span><span class="s1">&#39;matrix&#39;</span><span class="p">:</span>
+                    <span class="n">nframes</span><span class="o">=</span><span class="n">dists</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">del</span><span class="p">(</span><span class="n">_mdtraj_compute_distances</span><span class="p">,</span><span class="n">pairs_list</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">dists</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atom_indices2</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">atom_indices1</span><span class="p">),</span><span class="n">nframes</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+                <span class="k">elif</span> <span class="n">output_form</span><span class="o">==</span><span class="s1">&#39;dict&#39;</span><span class="p">:</span>
+                    <span class="n">tmp_dict</span><span class="o">=</span><span class="p">{}</span>
+                    <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dists</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                        <span class="n">ii</span><span class="o">=</span><span class="n">pairs_list</span><span class="p">[</span><span class="n">kk</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">jj</span><span class="o">=</span><span class="n">pairs_list</span><span class="p">[</span><span class="n">kk</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">tmp_dict</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">jj</span><span class="p">]</span><span class="o">=</span><span class="n">dists</span><span class="p">[:,</span><span class="n">kk</span><span class="p">]</span>
+                        <span class="k">except</span><span class="p">:</span>
+                            <span class="n">tmp_dict</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="p">{}</span>
+                            <span class="n">tmp_dict</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">jj</span><span class="p">]</span><span class="o">=</span><span class="n">dists</span><span class="p">[:,</span><span class="n">kk</span><span class="p">]</span>
+                    <span class="k">del</span><span class="p">(</span><span class="n">_mdtraj_compute_distances</span><span class="p">,</span><span class="n">pairs_list</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">tmp_dict</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">NotImplementedMessage</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">NotImplementedMessage</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">NotImplementedMessage</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">NotImplementedMessage</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">distance_atoms_pairs</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">atoms_pairs_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                         <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">):</span>
+
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">min_distance</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection_groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_behavior</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection_groups2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_behavior2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">):</span>
+
+    <span class="n">all_dists</span><span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">selection_groups</span><span class="o">=</span><span class="n">selection_groups</span><span class="p">,</span>
+                        <span class="n">group_behavior</span><span class="o">=</span><span class="n">group_behavior</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
+                        <span class="n">item2</span><span class="o">=</span><span class="n">item2</span><span class="p">,</span> <span class="n">selection2</span><span class="o">=</span><span class="n">selection2</span><span class="p">,</span> <span class="n">selection_groups2</span><span class="o">=</span><span class="n">selection_groups2</span><span class="p">,</span>
+                        <span class="n">group_behavior2</span><span class="o">=</span><span class="n">group_behavior2</span><span class="p">,</span> <span class="n">frame2</span><span class="o">=</span><span class="n">frame2</span><span class="p">,</span>
+                        <span class="n">pbc</span><span class="o">=</span><span class="n">pbc</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="n">parallel</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;matrix&#39;</span><span class="p">)</span>
+
+    <span class="n">shape_matrix</span><span class="o">=</span><span class="n">all_dists</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:]</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">num_frames</span><span class="o">=</span><span class="n">all_dists</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">min_pairs</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">num_frames</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">min_dists</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">num_frames</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">indice_frame</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_frames</span><span class="p">):</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">all_dists</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,:,:])</span>
+        <span class="n">tmp_pair</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span><span class="n">shape_matrix</span><span class="p">)</span>
+        <span class="n">min_pairs</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">min_pairs</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">min_dists</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_dists</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,</span><span class="n">tmp_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">tmp_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+
+    <span class="k">del</span><span class="p">(</span><span class="n">all_dists</span><span class="p">,</span> <span class="n">shape_matrix</span><span class="p">,</span> <span class="n">num_frames</span><span class="p">,</span> <span class="n">indice_frame</span><span class="p">,</span> <span class="n">ii</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">min_pairs</span><span class="p">,</span> <span class="n">min_dists</span>
+
+
+<div class="viewcode-block" id="contact_map"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.contact_map.html#molmodmt.contact_map">[docs]</a><span class="k">def</span> <span class="nf">contact_map</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection_groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_behavior</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection_groups2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_behavior2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">):</span>
+
+    <span class="n">all_dists</span><span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">selection_groups</span><span class="o">=</span><span class="n">selection_groups</span><span class="p">,</span>
+                        <span class="n">group_behavior</span><span class="o">=</span><span class="n">group_behavior</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
+                        <span class="n">item2</span><span class="o">=</span><span class="n">item2</span><span class="p">,</span> <span class="n">selection2</span><span class="o">=</span><span class="n">selection2</span><span class="p">,</span> <span class="n">selection_groups2</span><span class="o">=</span><span class="n">selection_groups2</span><span class="p">,</span>
+                        <span class="n">group_behavior2</span><span class="o">=</span><span class="n">group_behavior2</span><span class="p">,</span> <span class="n">frame2</span><span class="o">=</span><span class="n">frame2</span><span class="p">,</span>
+                        <span class="n">pbc</span><span class="o">=</span><span class="n">pbc</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="n">parallel</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;matrix&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">BadCallError</span><span class="p">(</span><span class="n">BadCallMessage</span><span class="p">)</span>
+
+    <span class="n">num_frames</span><span class="o">=</span><span class="n">all_dists</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">contact_map</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">all_dists</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">indice_frame</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_frames</span><span class="p">):</span>
+        <span class="n">contact_map</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,:,:]</span><span class="o">=</span><span class="p">(</span><span class="n">all_dists</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,:,:]</span><span class="o">&lt;=</span><span class="n">threshold</span><span class="p">)</span>
+
+    <span class="k">del</span><span class="p">(</span><span class="n">all_dists</span><span class="p">,</span> <span class="n">num_frames</span><span class="p">,</span> <span class="n">indice_frame</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">contact_map</span></div>
+
+<span class="k">def</span> <span class="nf">neighbors_lists</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection_groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_behavior</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection_groups2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group_behavior2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_neighbors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">):</span>
+
+    <span class="n">all_dists</span><span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">selection_groups</span><span class="o">=</span><span class="n">selection_groups</span><span class="p">,</span>
+                        <span class="n">group_behavior</span><span class="o">=</span><span class="n">group_behavior</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
+                        <span class="n">item2</span><span class="o">=</span><span class="n">item2</span><span class="p">,</span> <span class="n">selection2</span><span class="o">=</span><span class="n">selection2</span><span class="p">,</span> <span class="n">selection_groups2</span><span class="o">=</span><span class="n">selection_groups2</span><span class="p">,</span>
+                        <span class="n">group_behavior2</span><span class="o">=</span><span class="n">group_behavior2</span><span class="p">,</span> <span class="n">frame2</span><span class="o">=</span><span class="n">frame2</span><span class="p">,</span>
+                        <span class="n">pbc</span><span class="o">=</span><span class="n">pbc</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="n">parallel</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;matrix&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">num_neighbors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">BadCallError</span><span class="p">(</span><span class="n">BadCallMessage</span><span class="p">)</span>
+
+    <span class="n">num_frames</span><span class="o">=</span><span class="n">all_dists</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">num_first_elements</span><span class="o">=</span><span class="n">all_dists</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">neighbors</span><span class="o">=</span><span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">indice_frame</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_frames</span><span class="p">):</span>
+            <span class="n">neighbors_frame</span><span class="o">=</span><span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_first_elements</span><span class="p">):</span>
+                <span class="n">tmp_neighbors</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">all_dists</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,</span><span class="n">ii</span><span class="p">,:]</span><span class="o">&lt;=</span><span class="n">threshold</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">tmp_dists</span> <span class="o">=</span> <span class="n">all_dists</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,</span><span class="n">ii</span><span class="p">,</span><span class="n">tmp_neighbors</span><span class="p">]</span>
+                <span class="n">sorted_indices</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">tmp_dists</span><span class="p">)</span>
+                <span class="n">neighbors_frame</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">tmp_neighbors</span><span class="p">[</span><span class="n">sorted_indices</span><span class="p">],</span><span class="n">tmp_dists</span><span class="p">[</span><span class="n">sorted_indices</span><span class="p">]])</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbors_frame</span><span class="p">)</span>
+        <span class="k">del</span><span class="p">(</span><span class="n">sorted_indices</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">num_neighbors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">indice_frame</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_frames</span><span class="p">):</span>
+            <span class="n">neighbors_frame</span><span class="o">=</span><span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_first_elements</span><span class="p">):</span>
+                <span class="n">tmp_neighbors</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">all_dists</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,</span><span class="n">ii</span><span class="p">,:])[:</span><span class="n">num_neighbors</span><span class="p">]</span>
+                <span class="n">tmp_dists</span> <span class="o">=</span> <span class="n">all_dists</span><span class="p">[</span><span class="n">indice_frame</span><span class="p">,</span><span class="n">ii</span><span class="p">,</span><span class="n">tmp_neighbors</span><span class="p">]</span>
+                <span class="n">neighbors_frame</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp_neighbors</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span><span class="n">tmp_dists</span><span class="p">])</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbors_frame</span><span class="p">)</span>
+
+    <span class="k">del</span><span class="p">(</span><span class="n">all_dists</span><span class="p">,</span> <span class="n">num_frames</span><span class="p">,</span> <span class="n">indice_frame</span><span class="p">)</span>
+    <span class="k">del</span><span class="p">(</span><span class="n">tmp_neighbors</span><span class="p">,</span><span class="n">tmp_dists</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)</span>
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
