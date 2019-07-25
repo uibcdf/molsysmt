@@ -118,7 +118,11 @@ def select(item, selection='all', syntaxis='mdtraj'):
 
     """select(item, selection='all', syntaxis='mdtraj')
 
-    Explanation
+    AAAAAAAAAAAAAAAAAA
+
+    BBBBBBBBBBBBBBBBBB
+    CCCCCCCCCCCCCCCCCC
+    DDDDDDDDDDDDDDDDDD
 
     Parameters
     ----------
@@ -159,19 +163,19 @@ def select(item, selection='all', syntaxis='mdtraj'):
         atom_indices = _dict_selector[form_in][syntaxis](item, selection)
         return list(_sort(atom_indices))
 
-def extract(item, selection='all', form=None, syntaxis='mdtraj'):
+def extract(item, selection='all', to_form=None, syntaxis='mdtraj'):
 
     if selection in [None,'all']:
         return item
 
-    form_in, form_out = _digest_forms(item, form)
+    form_in, form_out = _digest_forms(item, to_form)
     atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
     tmp_item = _dict_extractor[form_in](item, atom_indices)
     tmp_item = convert(tmp_item,form_out)
 
     return tmp_item
 
-def trim(item, selection=None, form=None, syntaxis='mdtraj'):
+def trim(item, selection=None, to_form=None, syntaxis='mdtraj'):
 
     if selection is None:
         return item
@@ -179,25 +183,25 @@ def trim(item, selection=None, form=None, syntaxis='mdtraj'):
     if selection=="all":
         raise BadCallError("Bad selection. All atoms will be removed")
 
-    form_in, form_out = _digest_forms(item, form)
+    form_in, form_out = _digest_forms(item, to_form)
     atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
     tmp_item = _dict_trimmer[form_in](item, atom_indices)
     tmp_item = convert(tmp_item,form_out)
     return tmp_item
 
-def merge(item1=None, item2=None, form=None):
+def merge(item1=None, item2=None, to_form=None):
 
     #item1 can be a list or tuple
 
     if type(item1) in [list,tuple]:
-        _ , form_out = _digest_forms(item1[0], form)
+        _ , form_out = _digest_forms(item1[0], to_form)
         tmp_item = convert(item1[0], form_out)
         for in_item in item1[1:]:
             tmp_item2 = convert(in_item, form_out)
             tmp_item = _dict_merger[form](tmp_item, tmp_item2)
         return tmp_item
     else:
-        _ , form_out = _digest_forms(item1, form)
+        _ , form_out = _digest_forms(item1, to_form)
         tmp_item1 = convert(item1,form)
         tmp_item2 = convert(item2,form)
         return _dict_merger[form](tmp_item1, tmp_item1)
@@ -295,7 +299,7 @@ def get(item, element='atom', indices=None, ids=None, selection='all', syntaxis=
 
     return _dict_get[form_in](item, element=element, indices=indices, ids=ids, **singular_kwargs)
 
-def set(item=None, element='atom', indices=None, ids=None,  selection='all', syntaxis='mdtraj', **kwargs):
+def set(item, element='atom', indices=None, ids=None,  selection='all', syntaxis='mdtraj', **kwargs):
 
     form_in, _ = _digest_forms(item)
     element = _singular(element)
@@ -312,12 +316,100 @@ def set(item=None, element='atom', indices=None, ids=None,  selection='all', syn
 
     return _dict_set[form_in](item, element=element, indices=indices, ids=ids, **singular_kwargs)
 
-def load (item=None, form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs):
+def load (item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs):
+
+    """load(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs)
+
+    Loading a molecular model.
+
+    A molecular model coming from a file can be loaded as a new object with any form supported by
+    MolModMt. This method is just an alias of `convert`. It was included here only to make the
+    usability more intuitive.
+
+    Parameters
+    ----------
+
+    item: molecular model
+        Molecular model in any of the supported forms by MolModMT.
+
+    to_form: str, default='molmodmt.MolMod'
+        Any accepted form by MolModMt for the output object.
+
+    selection: str, list, tuple or np.ndarray, defaul='all'
+       Atoms selection over which this method applies. The selection can be given specified by a
+       list, tuple or numpy array of integers (0-based), or by means of a string following any of
+       the selection syntaxis parsable by MolModMT.
+
+    syntaxis: str, default='mdtraj'
+       Selection syntaxis used in the argument `selection` (in case `selection` is a string). The
+       current options supported by MolModMt are 'mdtraj' or 'amber'. More information about this
+       topic can be found in the section 'Selection'.
+
+    Returns
+    -------
+
+       item: molecular model
+       A new object is returned with the form specified by the corresponding input argument.
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    Notes
+    -----
+
+    """
 
     return convert(item, form, selection=selection, syntaxis=syntaxis, **kwargs)
 
 
-def convert(item=None, form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs):
+def convert(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs):
+
+    """load(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs)
+
+    Transforming a molecular model from its current form into other accepted form.
+
+    A molecular model in a given accepted form can be converted into a new object with any form
+    other form supported by MolModMt. The list of supported forms can be found in the section
+    'Molecular Model Forms'.
+
+    Parameters
+    ----------
+
+    item: molecular model
+        Molecular model in any of the supported forms by MolModMT.
+
+    to_form: str, default='molmodmt.MolMod'
+        The output object will take the form specified here. This form  supported form by MolModMt for the output object.
+
+    selection: str, list, tuple or np.ndarray, defaul='all'
+       Atoms selection over which this method applies. The selection can be given specified by a
+       list, tuple or numpy array of integers (0-based), or by means of a string following any of
+       the selection syntaxis parsable by MolModMT.
+
+    syntaxis: str, default='mdtraj'
+       Selection syntaxis used in the argument `selection` (in case `selection` is a string). The
+       current options supported by MolModMt are 'mdtraj' or 'amber'. More information about this
+       topic can be found in the section 'Selection'.
+
+    Returns
+    -------
+
+       item: molecular model in accepted form.
+       A new object is returned with the form specified by the corresponding input argument.
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    Notes
+    -----
+
+    """
 
     form_in, form_out  = _digest_forms(item, form)
     out_file = None

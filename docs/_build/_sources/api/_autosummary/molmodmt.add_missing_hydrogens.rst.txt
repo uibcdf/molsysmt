@@ -1,0 +1,6 @@
+molmodmt.add\_missing\_hydrogens
+================================
+
+.. currentmodule:: molmodmt
+
+.. autofunction:: add_missing_hydrogens

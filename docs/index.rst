@@ -31,7 +31,7 @@ Installation and Quick Start Guide
 
 
 User Guide
------------------
+----------
 
 - Working with molecular models forms
 

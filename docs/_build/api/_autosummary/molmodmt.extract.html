@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="molmodmt.contact_map" href="molmodmt.contact_map.html" />
-    <link rel="prev" title="molmodmt.select" href="molmodmt.select.html" /> 
+    <link rel="next" title="molmodmt.merge" href="molmodmt.merge.html" />
+    <link rel="prev" title="molmodmt.convert" href="molmodmt.convert.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -97,15 +97,51 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Documentation</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#manipulation">Manipulation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#basic-manipulations">Basic manipulations</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="molmodmt.load.html">molmodmt.load</a></li>
-<li class="toctree-l3"><a class="reference internal" href="molmodmt.convert.html">molmodmt.convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.get_form.html">molmodmt.get_form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.get.html">molmodmt.get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.set.html">molmodmt.set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.info.html">molmodmt.info</a></li>
 <li class="toctree-l3"><a class="reference internal" href="molmodmt.select.html">molmodmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.convert.html">molmodmt.convert</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">molmodmt.extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.merge.html">molmodmt.merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.write.html">molmodmt.write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.view.html">molmodmt.view</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#geometry">Geometry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#transformations">Transformations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.set.html">molmodmt.set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.remove.html">molmodmt.remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.remove_solvent.html">molmodmt.remove_solvent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.add_missing_hydrogens.html">molmodmt.add_missing_hydrogens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.recenter.html">molmodmt.recenter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.fix_chains.html">molmodmt.fix_chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.fix_pdb_structure.html">molmodmt.fix_pdb_structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.add_loop.html">molmodmt.add_loop</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#observables">Observables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.get.html">molmodmt.get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.distances.html">molmodmt.distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="molmodmt.contact_map.html">molmodmt.contact_map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.neighbors_lists.html">molmodmt.neighbors_lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.center_of_mass.html">molmodmt.center_of_mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.geometrical_center.html">molmodmt.geometrical_center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.radius_of_gyration.html">molmodmt.radius_of_gyration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#comparisons">Comparisons</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.rmsd.html">molmodmt.rmsd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.least_rmsd_fit.html">molmodmt.least_rmsd_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.sequence_identity.html">molmodmt.sequence_identity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.sequence_alignment.html">molmodmt.sequence_alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.structure_alignment.html">molmodmt.structure_alignment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#modeling">Modeling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.add_loop.html">molmodmt.add_loop</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#glossary">Glossary</a></li>
@@ -218,10 +254,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="molmodmt.contact_map.html" class="btn btn-neutral float-right" title="molmodmt.contact_map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="molmodmt.merge.html" class="btn btn-neutral float-right" title="molmodmt.merge" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="molmodmt.select.html" class="btn btn-neutral float-left" title="molmodmt.select" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="molmodmt.convert.html" class="btn btn-neutral float-left" title="molmodmt.convert" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
