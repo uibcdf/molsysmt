@@ -373,19 +373,19 @@
         <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">_dict_selector</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">syntaxis</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">_sort</span><span class="p">(</span><span class="n">atom_indices</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.extract.html#molmodmt.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.extract.html#molmodmt.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">selection</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;all&#39;</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">item</span>
 
-    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="p">)</span>
     <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
     <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_extractor</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">)</span>
     <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span><span class="n">form_out</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">tmp_item</span></div>
 
-<span class="k">def</span> <span class="nf">trim</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">trim</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">selection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">item</span>
@@ -393,25 +393,25 @@
     <span class="k">if</span> <span class="n">selection</span><span class="o">==</span><span class="s2">&quot;all&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">BadCallError</span><span class="p">(</span><span class="s2">&quot;Bad selection. All atoms will be removed&quot;</span><span class="p">)</span>
 
-    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="p">)</span>
     <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
     <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_trimmer</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">)</span>
     <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span><span class="n">form_out</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tmp_item</span>
 
-<div class="viewcode-block" id="merge"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.merge.html#molmodmt.merge">[docs]</a><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">item1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="merge"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.merge.html#molmodmt.merge">[docs]</a><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">item1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
     <span class="c1">#item1 can be a list or tuple</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">item1</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">]:</span>
-        <span class="n">_</span> <span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">form</span><span class="p">)</span>
+        <span class="n">_</span> <span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">to_form</span><span class="p">)</span>
         <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">form_out</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">in_item</span> <span class="ow">in</span> <span class="n">item1</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
             <span class="n">tmp_item2</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">in_item</span><span class="p">,</span> <span class="n">form_out</span><span class="p">)</span>
             <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_merger</span><span class="p">[</span><span class="n">form</span><span class="p">](</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">tmp_item2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">tmp_item</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">_</span> <span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+        <span class="n">_</span> <span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span> <span class="n">to_form</span><span class="p">)</span>
         <span class="n">tmp_item1</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span><span class="n">form</span><span class="p">)</span>
         <span class="n">tmp_item2</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item2</span><span class="p">,</span><span class="n">form</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_dict_merger</span><span class="p">[</span><span class="n">form</span><span class="p">](</span><span class="n">tmp_item1</span><span class="p">,</span> <span class="n">tmp_item1</span><span class="p">)</span></div>
@@ -526,9 +526,9 @@
 
     <span class="k">return</span> <span class="n">_dict_set</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="n">ids</span><span class="p">,</span> <span class="o">**</span><span class="n">singular_kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.load.html#molmodmt.load">[docs]</a><span class="k">def</span> <span class="nf">load</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.load.html#molmodmt.load">[docs]</a><span class="k">def</span> <span class="nf">load</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;load(item, form=&#39;molmodmt.MolMod&#39;, selection=&#39;all&#39;, syntaxis=&#39;mdtraj&#39;, **kwargs)</span>
+    <span class="sd">&quot;&quot;&quot;load(item, to_form=&#39;molmodmt.MolMod&#39;, selection=&#39;all&#39;, syntaxis=&#39;mdtraj&#39;, **kwargs)</span>
 
 <span class="sd">    Loading a molecular model.</span>
 
@@ -539,10 +539,10 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 
-<span class="sd">    item: molecular model in accepted form</span>
-<span class="sd">        Molecular model in any of the accepted forms by MolModMT.</span>
+<span class="sd">    item: molecular model</span>
+<span class="sd">        Molecular model in any of the supported forms by MolModMT.</span>
 
-<span class="sd">    form: str, default=&#39;molmodmt.MolMod&#39;</span>
+<span class="sd">    to_form: str, default=&#39;molmodmt.MolMod&#39;</span>
 <span class="sd">        Any accepted form by MolModMt for the output object.</span>
 
 <span class="sd">    selection: str, list, tuple or np.ndarray, defaul=&#39;all&#39;</span>
@@ -558,7 +558,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 
-<span class="sd">       item: molecular model in accepted form.</span>
+<span class="sd">       item: molecular model</span>
 <span class="sd">       A new object is returned with the form specified by the corresponding input argument.</span>
 
 <span class="sd">    Examples</span>
@@ -575,24 +575,24 @@
     <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.convert.html#molmodmt.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.convert.html#molmodmt.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;load(item, form=&#39;molmodmt.MolMod&#39;, selection=&#39;all&#39;, syntaxis=&#39;mdtraj&#39;, **kwargs)</span>
+    <span class="sd">&quot;&quot;&quot;load(item, to_form=&#39;molmodmt.MolMod&#39;, selection=&#39;all&#39;, syntaxis=&#39;mdtraj&#39;, **kwargs)</span>
 
-<span class="sd">    Loading a molecular model.</span>
+<span class="sd">    Transforming a molecular model from its current form into other supported form.</span>
 
-<span class="sd">    A molecular model coming from a file can be loaded as a new object with any form supported by</span>
-<span class="sd">    MolModMt. This method is just an alias of `convert`. It was included here only to make the</span>
-<span class="sd">    usability more intuitive.</span>
+<span class="sd">    A molecular model in a given accepted form can be converted into a new object with any form</span>
+<span class="sd">    other form supported by MolModMt. The list of supported forms can be found in the section</span>
+<span class="sd">    &#39;Molecular Model Forms&#39;.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 
-<span class="sd">    item: molecular model in accepted form</span>
-<span class="sd">        Molecular model in any of the accepted forms by MolModMT.</span>
+<span class="sd">    item: molecular model</span>
+<span class="sd">        Molecular model in any of the supported forms by MolModMT.</span>
 
-<span class="sd">    form: str, default=&#39;molmodmt.MolMod&#39;</span>
-<span class="sd">        Any accepted form by MolModMt for the output object.</span>
+<span class="sd">    to_form: str, default=&#39;molmodmt.MolMod&#39;</span>
+<span class="sd">        The output object will take the form specified here. This form  supported form by MolModMt for the output object.</span>
 
 <span class="sd">    selection: str, list, tuple or np.ndarray, defaul=&#39;all&#39;</span>
 <span class="sd">       Atoms selection over which this method applies. The selection can be given specified by a</span>
@@ -616,12 +616,20 @@
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
 
+<span class="sd">    :func:`molmodmt.load`</span>
+
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 
+<span class="sd">    Todo</span>
+<span class="sd">    ----</span>
+
+<span class="sd">    Warning</span>
+<span class="sd">    -------</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span>  <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span>  <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="p">)</span>
     <span class="n">out_file</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">form_out</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>

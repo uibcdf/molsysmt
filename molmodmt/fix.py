@@ -49,6 +49,53 @@ def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstanda
                       pH=7.4, to_form=None, engine_fix_pdb='PDBFixer', engine_hydrogens='PDBFixer',
                       engine_loops='Modeller', verbose=False):
 
+    """fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,
+                      missing_terminals=True, missing_loops=False, missing_hydrogens=True,
+                      pH=7.4, to_form=None, engine_fix_pdb='PDBFixer', engine_hydrogens='PDBFixer',
+                      engine_loops='Modeller', verbose=False):
+
+    Fixing missing atoms, residues, terminals or loops in the molecular model coming from a pdb file.
+
+    This method fixes the possible missing atoms, residues, loops or terminals in a molecular
+    model. The result is a new molecular model, in the desired supported form, with those elements
+    fixed.
+
+    Parameters
+    ----------
+
+    item: molecular model
+        Molecular model in any supported form by MolModMT. 
+
+    arg2: type, default='value'
+        Paragraph with explanation.
+
+    Returns
+    -------
+
+    object: type
+       Paragraph with explanation.
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    :func:`molmodmt.load`
+
+    Notes
+    -----
+
+    Todo
+    ----
+
+    Warning
+    -------
+
+    The method has being tested with the following input forms: pdbid, pdbfile, pdbfixer.PDBFixer
+    and openmm.Modeller.
+    """
+
     from .utils.forms import digest as digest_forms
     from .utils.engines import digest as digest_engines
     from .multitool import convert

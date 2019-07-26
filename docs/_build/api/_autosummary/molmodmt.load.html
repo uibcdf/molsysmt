@@ -241,7 +241,7 @@
 <h1>molmodmt.load<a class="headerlink" href="#molmodmt-load" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="molmodmt.load">
-<code class="sig-prename descclassname">molmodmt.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">form='molmodmt.MolMod'</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">syntaxis='mdtraj'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molmodmt/multitool.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molmodmt.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">molmodmt.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">to_form='molmodmt.MolMod'</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">syntaxis='mdtraj'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molmodmt/multitool.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molmodmt.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loading a molecular model.</p>
 <p>A molecular model coming from a file can be loaded as a new object with any form supported by
 MolModMt. This method is just an alias of <cite>convert</cite>. It was included here only to make the
@@ -249,9 +249,9 @@ usability more intuitive.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>item: molecular model in accepted form</strong></dt><dd><p>Molecular model in any of the accepted forms by MolModMT.</p>
+<dt><strong>item: molecular model</strong></dt><dd><p>Molecular model in any of the supported forms by MolModMT.</p>
 </dd>
-<dt><strong>form: str, default=’molmodmt.MolMod’</strong></dt><dd><p>Any accepted form by MolModMt for the output object.</p>
+<dt><strong>to_form: str, default=’molmodmt.MolMod’</strong></dt><dd><p>Any accepted form by MolModMt for the output object.</p>
 </dd>
 <dt><strong>selection: str, list, tuple or np.ndarray, defaul=’all’</strong></dt><dd><p>Atoms selection over which this method applies. The selection can be given specified by a
 list, tuple or numpy array of integers (0-based), or by means of a string following any of
@@ -265,7 +265,7 @@ topic can be found in the section ‘Selection’.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt>item: molecular model in accepted form.</dt><dd><p>A new object is returned with the form specified by the corresponding input argument.</p>
+<dt>item: molecular model</dt><dd><p>A new object is returned with the form specified by the corresponding input argument.</p>
 </dd>
 </dl>
 </dd>

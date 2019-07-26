@@ -369,7 +369,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj',
 
     """load(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs)
 
-    Transforming a molecular model from its current form into other accepted form.
+    Transforming a molecular model from its current form into other supported form.
 
     A molecular model in a given accepted form can be converted into a new object with any form
     other form supported by MolModMt. The list of supported forms can be found in the section
@@ -406,12 +406,20 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj',
     See Also
     --------
 
+    :func:`molmodmt.load`
+
     Notes
     -----
 
+    Todo
+    ----
+
+    Warning
+    -------
+
     """
 
-    form_in, form_out  = _digest_forms(item, form)
+    form_in, form_out  = _digest_forms(item, to_form)
     out_file = None
 
     if type(form_out)==str:
