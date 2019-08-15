@@ -362,7 +362,7 @@ def load (item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', *
 
     """
 
-    return convert(item, form, selection=selection, syntaxis=syntaxis, **kwargs)
+    return convert(item, to_form, selection=selection, syntaxis=syntaxis, **kwargs)
 
 
 def convert(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs):

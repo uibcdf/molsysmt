@@ -88,7 +88,7 @@
 #    from molmodmt import convert as _convert
 #    tmp_item = _convert(item, 'mdtraj', selection=selection, syntaxis=syntaxis)
 #    return _convert(tmp_item, filename, frame_indices=frame_indices)
-#
+
 #def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 #
 #    from .io_structure import from_gromacs_Topology as _structure_from_gromacs_Topology
@@ -104,6 +104,28 @@
 #    tmp_item.topography = None
 #
 #    return tmp_item
+
+def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
+
+    from .molmod import MolMod
+    from .trajectory import Trajectory
+    from .io_topology import from_top as topology_from_top
+
+    from .io_structure import from_gromacs_Topology as _structure_from_gromacs_Topology
+    from .io_topology import from_molmod_Structure as _topology_from_molmod_Structure
+    from .io_trajectory import from_xtc as _trajectory_from_xtc
+    from .molmod import MolMod as _MolMod
+
+    tmp_item =_MolMod()
+    tmp_item.topology = _topology_from_top(topology)
+    tmp_item.trajectory = Trajectory(filename=item)
+    if frame_indices is not None:
+        atom_indices = tmp_item.select(selection=selection, syntaxis=syntaxis)
+        tmp_item.trajectory.load(frame_indices=frame_indices, atom_indices=atom_indices)
+    tmp_item.topography = None
+    tmp_item.structure = None
+
+    return tmp_item
 
 def from_hdf5(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 

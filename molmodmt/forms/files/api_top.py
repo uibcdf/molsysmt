@@ -22,8 +22,29 @@ def to_parmed_GromacsTopologyFile(item):
 
 def to_molmodmt_Structure(item):
 
-    from molmodmt.native.io_structure import _from_gromacs_Topology
-    return _from_gromacs_Topology(item)
+    from molmodmt.native.io_structure import from_gromacs_Topology
+    return from_gromacs_Topology(item)
+
+def to_mdtraj_Topology(item):
+
+    from mdtraj.core.topology import Topology
+
+    tmp_item = to_openmm_Topology(item)
+    return Topology.from_openmm(tmp_item)
+
+def to_openmm_GromacsTopFile(item):
+
+    from simtk.openmm.app import GromacsTopFile
+    return GromacsTopFile(item)
+
+
+def to_openmm_Topology(item):
+
+    from simtk.openmm.app import GromacsTopFile
+    return GromacsTopFile(item).topology
+
+    #from parmed import load_file
+    #return load_file(item)
 
 def to_top(item,filename=None,selection=None,syntaxis='mdtraj'):
     from molmodmt import extract as _extract
