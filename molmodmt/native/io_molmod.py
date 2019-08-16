@@ -111,13 +111,8 @@ def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syn
     from .trajectory import Trajectory
     from .io_topology import from_top as topology_from_top
 
-    from .io_structure import from_gromacs_Topology as _structure_from_gromacs_Topology
-    from .io_topology import from_molmod_Structure as _topology_from_molmod_Structure
-    from .io_trajectory import from_xtc as _trajectory_from_xtc
-    from .molmod import MolMod as _MolMod
-
-    tmp_item =_MolMod()
-    tmp_item.topology = _topology_from_top(topology)
+    tmp_item = MolMod()
+    tmp_item.topology = topology_from_top(topology)
     tmp_item.trajectory = Trajectory(filename=item)
     if frame_indices is not None:
         atom_indices = tmp_item.select(selection=selection, syntaxis=syntaxis)

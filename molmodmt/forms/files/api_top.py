@@ -7,7 +7,6 @@ is_form = {
     'top': form_name
     }
 
-
 def to_parmed(item):
     return to_parmed_GromacsTopologyFile(item)
 
@@ -25,18 +24,22 @@ def to_molmodmt_Structure(item):
     from molmodmt.native.io_structure import from_gromacs_Topology
     return from_gromacs_Topology(item)
 
-def to_mdtraj_Topology(item):
+def to_mdtraj_Topology(item, selection='all', syntaxis='MDTraj'):
 
+    from molmodmt import extract
     from mdtraj.core.topology import Topology
 
     tmp_item = to_openmm_Topology(item)
+    tmp_item = Topology.from_openmm(tmp_item)
+    if selection is not 'all':
+        tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
+
     return Topology.from_openmm(tmp_item)
 
 def to_openmm_GromacsTopFile(item):
 
     from simtk.openmm.app import GromacsTopFile
     return GromacsTopFile(item)
-
 
 def to_openmm_Topology(item):
 
@@ -46,10 +49,12 @@ def to_openmm_Topology(item):
     #from parmed import load_file
     #return load_file(item)
 
-def to_top(item,filename=None,selection=None,syntaxis='mdtraj'):
-    from molmodmt import extract as _extract
+def to_top(item, selection='all', syntaxis='mdtraj'):
+
+    from molmodmt import extract
     tmp_item = to_parmed_GromacsTopologyFile(item)
-    if selection is not None:
-        tmp_item = _extract(tmp_item,selection=selection,syntaxis=syntaxis)
+    if selection is not 'all':
+        tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     tmp_item.save(filename)
     pass
+
