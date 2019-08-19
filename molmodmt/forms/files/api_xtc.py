@@ -36,6 +36,6 @@ def to_parmed_GromacsTopologyFile(item, topology=None, selection='all', syntaxis
     return tmp_item
 
 def to_molmodmt_MolMod(item, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
-    from molmodmt.native.io_molmod import from_xtc as _from_xtc
-    return _from_xtc(item, topology=topology, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+    from molmodmt.native.io_molmod import from_xtc
+    return from_xtc(item, topology=topology, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 

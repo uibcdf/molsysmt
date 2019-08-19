@@ -140,6 +140,9 @@ class Trajectory():
     #        del(tmp_mdtraj)
     #        yield
 
+    def load(self, frame_indices='all', atom_indices='all'):
+
+        pass
 
     #def load(self, frame_indices='all', atom_indices='all'):
 

@@ -77,7 +77,8 @@ def to_pdb(item, filename=None, selection=None, syntaxis='mdtraj'):
     return _to_pdb(item, filename=filename, selection=selection, syntaxis=syntaxis)
 
 def select_with_mdtraj(item, selection=None, syntaxis='mdtraj'):
-    return item.select_with_mdtraj(selection)
+    from molmodmt import select
+    return select(item.topology, selection=selection, syntaxis=syntaxis)
 
 def extract_atom_indices(item, atom_indices):
     return item.extract(atom_indices)

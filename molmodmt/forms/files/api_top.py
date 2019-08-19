@@ -34,7 +34,7 @@ def to_mdtraj_Topology(item, selection='all', syntaxis='MDTraj'):
     if selection is not 'all':
         tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
 
-    return Topology.from_openmm(tmp_item)
+    return tmp_item
 
 def to_openmm_GromacsTopFile(item):
 
