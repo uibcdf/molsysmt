@@ -47,3 +47,4 @@ def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
 def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
 
     return item.getTopology()
+
