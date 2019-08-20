@@ -1,6 +1,8 @@
 from os import listdir as _listdir
 from os.path import dirname as _dirname
 from importlib import import_module as _import_module
+from .get_fields import element_fields as get_element_dict
+from .set_fields import element_fields as set_element_dict
 
 base_package = __name__.replace('.base','')
 
@@ -11,7 +13,6 @@ list_api_forms=[filename.split('.')[0] for filename in _listdir(_dirname(__file_
 
 dict_api_forms={}
 list_forms=[]
-dict_n_atoms={}
 dict_converter={}
 dict_selector={}
 dict_extractor={}
@@ -30,15 +31,16 @@ for api_form in list_api_forms:
     dict_is_form.update(module_api_form.is_form)
 
 for form_name in list_forms:
-    dict_n_atoms[form_name]= {}
+
     dict_converter[form_name]= {}
     dict_selector[form_name]= {}
     dict_extractor[form_name]= {}
     dict_trimmer[form_name]= {}
     dict_duplicator[form_name]= {}
     dict_merger[form_name]= {}
-    dict_get[form_name]= {}
-    dict_set[form_name]= {}
+    dict_get[form_name]= _get_element_dict.copy()
+    dict_set[form_name]= _set_element_dict.copy()
+
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):
             if method.endswith('_seq'):
@@ -51,8 +53,7 @@ for form_name in list_forms:
         if method.startswith('select_with_'):
             syntaxis_name=method.replace('select_with_','')
             dict_selector[form_name][syntaxis_name]= getattr(dict_api_forms[form_name],method)
-    if 'get_total_n_atoms' in dict_api_forms[form_name].__dict__.keys():
-        dict_n_atoms[form_name]=getattr(dict_api_forms[form_name],'get_total_n_atoms')
+
     if 'extract_atom_indices' in dict_api_forms[form_name].__dict__.keys():
         dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atom_indices')
     if 'trim_atom_indices' in dict_api_forms[form_name].__dict__.keys():
@@ -61,10 +62,20 @@ for form_name in list_forms:
         dict_duplicator[form_name]=getattr(dict_api_forms[form_name],'duplicate')
     if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():
         dict_merger[form_name]=getattr(dict_api_forms[form_name],'merge_two_items')
-    if 'getting' in dict_api_forms[form_name].__dict__.keys():
-        dict_get[form_name]=getattr(dict_api_forms[form_name],'getting')
-    if 'setting' in dict_api_forms[form_name].__dict__.keys():
-        dict_set[form_name]=getattr(dict_api_forms[form_name],'setting')
+
+    for element in dict_get[form_name]:
+        for option in dict_get[form_name][element]:
+            get_function_name = 'get_'+option+'_from_'+element
+            if get_function_name in dict_api_forms[form_name].__dict__.keys():
+                dict_get[form_name][element][option]=getattr(dict_api_forms[form_name],get_function_name)
+
+    for element in dict_set[form_name]:
+        for option in dict_set[form_name][element]:
+            set_function_name = 'set_'+option+'_to_'+element
+            if set_function_name in dict_api_forms[form_name].__dict__.keys():
+                dict_set[form_name][element][option]=getattr(dict_api_forms[form_name],set_function_name)
+
+
 
 list_forms=sorted(list_forms)
 
@@ -73,4 +84,6 @@ if 'out_form_name' in globals():
 if 'syntaxis_name' in globals():
     del(syntaxis_name)
 
-del(api_form,list_api_forms,form_name, module_api_form, base_package)
+del(api_form, list_api_forms, form_name, module_api_form, base_package)
+del(get_element_dict, set_element_dict)
+

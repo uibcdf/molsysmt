@@ -145,3 +145,16 @@ def duplicate(item):
     remove(tmp_file)
     return tmp_item
 
+##### Set
+
+def set_name_to_residue(item, indices=None, frame_indices=None, value=None):
+    for residue in tmp_item.topology.residues():
+        if residue.index in indices:
+            name = value[np.where(indices == residue.index)[0][0]]
+            residue.name = name
+    for bond in tmp_item.topology.bonds():
+        for ii in [0,1]:
+            if bond[ii].residue.index in set_indices:
+                name = kwargs[option][np.where(array_indices == bond[ii].residue.index)[0][0]]
+                bond[ii].residue.name = name
+

@@ -1,9 +1,4 @@
 
-def getting(item, element='atom', indices=None, ids=None, **kwargs):
-
-    result=[]
-    args = [ii for ii in kwargs if kwargs[ii]]
-
     if element=='atom':
 
         for option in args:
@@ -119,14 +114,6 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
             elif option=='n_degrees_of_freedom':
                 from molmodmt import get_degrees_of_freedom
                 result.append(get_degrees_of_freedom(item))
-            elif option=='bonded_atoms':
-                raise NotImplementedError
-            elif option=='bonds':
-                raise NotImplementedError
-            elif option=='graph':
-                raise NotImplementedError
-            elif option=='molecules':
-                raise NotImplementedError
             elif option=='molecule_type':
                 from molmodmt.topology import residue_name_to_molecule_type
                 residue_names = getting(item, element='atom', indices=indices, residue_name=True)
@@ -135,18 +122,10 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
                 result.append(molecule_types)
             elif option=='coordinates':
                 result.append(item.positions)
-            else:
-                raise NotImplementedError
 
     elif element=='residue':
 
         for option in args:
-            if option=='n_atoms':
-                raise NotImplementedError
-            elif option=='atom_name':
-                raise NotImplementedError
-            elif option=='atom_type':
-                raise NotImplementedError
             elif option=='n_residues':
                 result.append(len(indices))
             elif option=='residue_name':
@@ -171,32 +150,6 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
                 chain_ids = [residue[ii].chain.id for ii in indices]
                 del(residue)
                 result.append(chain_ids)
-            elif option=='n_frames':
-                raise NotImplementedError
-            elif option=='n_chains':
-                raise NotImplementedError
-            elif option=='n_molecules':
-                raise NotImplementedError
-            elif option=='n_aminoacids':
-                raise NotImplementedError
-            elif option=='n_nucleotides':
-                raise NotImplementedError
-            elif option=='n_waters':
-                raise NotImplementedError
-            elif option=='n_ions':
-                raise NotImplementedError
-            elif option=='masses':
-                raise NotImplementedError
-            elif option=='charge':
-                raise NotImplementedError
-            elif option=='bonded_atoms':
-                raise NotImplementedError
-            elif option=='bonds':
-                raise NotImplementedError
-            elif option=='graph':
-                raise NotImplementedError
-            elif option=='molecules':
-                raise NotImplementedError
             elif option=='molecule_type':
                 from molmodmt.topology import residue_name_to_molecule_type
                 residue=list(item.topology.residues())
@@ -204,31 +157,10 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
                 molecule_types = [residue_name_to_molecule_type(ii) for ii in residue_names]
                 del(residue, residue_names, residue_name_to_molecule_type)
                 result.append(molecule_types)
-            elif option=='coordinates':
-                raise NotImplementedError
-            else:
-                raise NotImplementedError
-
-    elif element=='molecule':
-        raise NotImplementedError
 
     elif element=='chain':
 
         for option in args:
-            if option=='n_atoms':
-                raise NotImplementedError
-            elif option=='atom_name':
-                raise NotImplementedError
-            elif option=='atom_type':
-                raise NotImplementedError
-            elif option=='n_residues':
-                raise NotImplementedError
-            elif option=='residue_name':
-                raise NotImplementedError
-            elif option=='residue_index':
-                raise NotImplementedError
-            elif option=='residue_id':
-                raise NotImplementedError
             elif option=='chain_index':
                 chain=list(item.topology.chains())
                 chain_indices = [chain[ii].index for ii in indices]
@@ -239,32 +171,8 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
                 chain_ids = [chain[ii].id for ii in indices]
                 del(chain)
                 result.append(chain_ids)
-            elif option=='n_frames':
-                raise NotImplementedError
             elif option=='n_chains':
                 result.append(len(indices))
-            elif option=='n_molecules':
-                raise NotImplementedError
-            elif option=='n_aminoacids':
-                raise NotImplementedError
-            elif option=='n_nucleotides':
-                raise NotImplementedError
-            elif option=='n_waters':
-                raise NotImplementedError
-            elif option=='n_ions':
-                raise NotImplementedError
-            elif option=='masses':
-                raise NotImplementedError
-            elif option=='charge':
-                raise NotImplementedError
-            elif option=='bonded_atoms':
-                raise NotImplementedError
-            elif option=='bonds':
-                raise NotImplementedError
-            elif option=='graph':
-                raise NotImplementedError
-            elif option=='molecules':
-                raise NotImplementedError
             elif option=='molecule_type':
                 from molmodmt.topology import residue_name_to_molecule_type
                 chain=list(item.topology.chains())
@@ -274,13 +182,6 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
                     molecule_types.append(residue_name_to_molecule_type(residue0.name))
                 del(chain, residue0)
                 result.append(molecule_types)
-            elif option=='coordinates':
-                raise NotImplementedError
-            else:
-                raise NotImplementedError
-
-    elif element=='trajectory':
-        raise NotImplementedError
 
     elif element=='system':
 
@@ -296,15 +197,4 @@ def getting(item, element='atom', indices=None, ids=None, **kwargs):
             elif option=='n_degrees_of_freedom':
                 from molmodmt import get_degrees_of_freedom
                 result.append(get_degrees_of_freedom(item))
-            else:
-                raise NotImplementedError
-
-    else:
-        raise NotImplementedError
-
-
-    if len(result)==1:
-        return result[0]
-    else:
-        return result
 

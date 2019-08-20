@@ -9,6 +9,8 @@ is_form={
     'mdtraj.Topology': form_name
 }
 
+## To other form
+
 def to_aminoacids3_seq(item, selection=None, syntaxis='mdtraj'):
 
     return ''.join([ r.name for r in item.residues ])
@@ -51,11 +53,17 @@ def to_top(item,filename):
     tmp_form = to_parmed_GromacsTopologyFile(item)
     return _to_top(tmp_form,filename)
 
+# Select
+
 def select_with_mdtraj(item, selection):
     return item.select(selection)
 
+# Extract
+
 def extract_atom_indices(item, atoms_selection):
     return item.subset(atoms_selection)
+
+# Merge
 
 def merge_two_items(item1, item2, in_place=False):
 
@@ -66,4 +74,88 @@ def merge_two_items(item1, item2, in_place=False):
         tmp_item=item1.copy()
         return tmp_item.join(item2)
 
+########################
+### Get
+########################
+
+## from atom
+
+def get_n_atoms_from_atom (item, indices=None, frame_indices=None):
+
+    return item.n_atoms
+
+def get_n_residues_from_atom (item, indices=None, frame_indices=None):
+
+    return item.n_residues
+
+def get_n_chains_from_atom (item, indices=None, frame_indices=None):
+
+    return item.n_chains
+
+def get_n_molecules_from_atom (item, indices=None, frame_indices=None):
+
+    from molmodmt import get
+    return len(get(item, indices=indices, molecules=True))
+
+def get_masses_from_atom (item, indices=None, frame_indices=None):
+
+    return [atom.element.mass for atom in item.atoms]
+
+def get_bonded_atoms_from_atom (item, indices=None, frame_indices=None):
+
+    tmp_bonded = [[] for ii in range(item.n_atoms)]
+    for bond in item.bonds:
+        tmp_bonded[bond.atom1.index].append(bond.atom2.index)
+        tmp_bonded[bond.atom2.index].append(bond.atom1.index)
+    return tmp_bonded
+
+def get_bonds_from_atom (item, indices=None, frame_indices=None):
+
+    tmp_bonds = []
+    for bond in item.bonds:
+        tmp_bonds.append([bond.atom1.index,bond.atom2.index])
+    return tmp_bonds
+
+def get_graph_from_atom (item, indices=None, frame_indices=None):
+
+    return item.to_bondgraph()
+
+def get_molecules_from_atom (item, indices=None, frame_indices=None):
+
+    tmp_molecules = []
+    for mm in item.find_molecules():
+        tmp_molecules.append([ii.index for ii in mm])
+    return tmp_molecules
+
+## from system
+
+def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+
+    return item.n_atoms
+
+def get_bonded_atoms_from_system (item, indices=None, frame_indices=None):
+
+    tmp_bonded = [[] for ii in range(item.n_atoms)]
+    for bond in item.bonds:
+        tmp_bonded[bond.atom1.index].append(bond.atom2.index)
+        tmp_bonded[bond.atom2.index].append(bond.atom1.index)
+    return tmp_bonded
+
+def get_bonds_from_system (item, indices=None, frame_indices=None):
+
+    tmp_bonds = []
+    for bond in item.bonds:
+        tmp_bonds.append([bond.atom1.index,bond.atom2.index])
+    return tmp_bonds
+
+def get_graph_from_system (item, indices=None, frame_indices=None):
+
+    return item.to_bondgraph()
+
+def get_molecules_from_system (item, indices=None, frame_indices=None):
+
+    tmp_molecules = []
+    for mm in item.find_molecules():
+        tmp_molecules.append([ii.index for ii in mm])
+    return tmp_molecules
 

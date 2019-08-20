@@ -11,9 +11,6 @@ class Trajectory():
 
     def __init__(self, filename=None):
 
-        self._filename = filename
-        self._file = None
-
         self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
                                 # and order=F, with units nanometers
         self.box   = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
@@ -29,6 +26,9 @@ class Trajectory():
         self.invbox       = None #_np.zeros(shape=(n_frames,3,3),dtype=float,order='F')
         self.orthogonal   = 0
         self.volume       = 0.0
+
+        from .trajectory_file import TrajectoryFile
+        self.file = TrajectoryFile(filename=filename)
 
         self._length_units = _unit.nanometers
         self._time_units = _unit.picoseconds

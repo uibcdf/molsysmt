@@ -206,7 +206,7 @@ def merge(item1=None, item2=None, to_form=None):
         tmp_item2 = convert(item2,form)
         return _dict_merger[form](tmp_item1, tmp_item1)
 
-def info(item=None, element='atom', selection="all", syntaxis="mdtraj"):
+def info(item=None, element='system', selection="all", syntaxis="mdtraj"):
 
     from pandas import DataFrame as df
     form_in, _ = _digest_forms(item)
@@ -242,6 +242,12 @@ def info(item=None, element='atom', selection="all", syntaxis="mdtraj"):
 
         return df({'index':index, 'id':id, 'molecule type':molecule_type})
 
+    elif element=='system':
+
+        n_atoms = get(item, element=element, selection=selection, syntaxis=syntaxis, n_atoms=True)
+
+        return df({'n_atoms':n_atoms})
+
     else:
         raise NotImplementedError
 
@@ -267,37 +273,35 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get(item, element='atom', indices=None, ids=None, selection='all', syntaxis='mdtraj', **kwargs):
+def get(item, element='atom', indices=None, frame_indices=None, selection='all', syntaxis='MDTraj', **kwargs):
 
     # selection works as a mask if indices or ids are used
 
     form_in, _ = _digest_forms(item)
     element = _singular(element)
-    singular_kwargs = { _singular(key): kwargs[key] for key in kwargs.keys() }
+    singular_kwargs = [ _singular(key): kwargs[key] for key in kwargs.keys() ]
 
-    if element=='atom':
-        if (indices is None) and (ids is None):
-            indices=select(item, selection=selection, syntaxis=syntaxis)
-
-    elif element=='residue':
-        if (indices is None) and (ids is None):
-            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis,
-                          residue_index=True)
+    if indices is None:
+        if element == 'atom':
+            indices = select(item, selection=selection, syntaxis=syntaxis)
+        elif element=='residue':
+            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis, residue_index=True)
             indices = list(_unique(indices))
-
-    elif element=='chain':
-        if (indices is None) and (ids is None):
-            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis,
-                          chain_index=True)
+        elif element == 'chain':
+            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
             indices = list(_unique(indices))
+        elif element == 'system':
+            indices = 0
 
-    elif element=='system':
-        indices = get(item, element='atom', selection='all', syntaxis=syntaxis, atom_index=True)
+    results = []
+    for option in singular_kwargs:
+        result = _dict_get[form_in][element][option](item, indices=indices, frame_indices=frame_indices)
+        result.append()
 
+    if len(result)==1:
+        return result[0]
     else:
-        raise NotImplementedError
-
-    return _dict_get[form_in](item, element=element, indices=indices, ids=ids, **singular_kwargs)
+        return result
 
 def set(item, element='atom', indices=None, ids=None,  selection='all', syntaxis='mdtraj', **kwargs):
 

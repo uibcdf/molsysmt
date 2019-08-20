@@ -39,3 +39,8 @@ def to_molmodmt_MolMod(item, topology=None, selection='all', frame_indices='all'
     from molmodmt.native.io_molmod import from_xtc
     return from_xtc(item, topology=topology, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
+def to_mdtraj_XTCTrajectoryFile(item, selection='all', syntaxis='MDTraj'):
+
+    from mdtraj.formats import XTCTrajectoryFile
+    return XTCTrajectoryFile(item)
+

@@ -51,4 +51,14 @@ def to_nglview(item):
 
     return _mdtraj_to_nglview(tmp_item)
 
+###### Set
+
+## atom
+
+## residue
+
+## chain
+
+## system
+
 

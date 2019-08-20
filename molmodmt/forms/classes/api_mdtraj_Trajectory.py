@@ -170,3 +170,56 @@ def merge_two_items(item1, item2):
     tmp_item = item1.stack(item2)
     return tmp_item
 
+
+### Get
+
+## atom
+
+def get_masses_from_atom(item, indices=None, frame_indices=None):
+
+    return [atom.element.mass for atom in tmp_item.topology.atoms]
+
+## residue
+
+## system
+
+def get_n_atoms_from_system(item, indices=None, frame_indices=None):
+
+    return item.n_atoms
+
+def get_n_residues_from_system(item, indices=None, frame_indices=None):
+
+    return item.n_residues
+
+def get_n_molecules_from_system(item, indices=None, frame_indices=None):
+
+    return len(get_molecules_from_system(item))
+
+def get_n_frames_from_system(item, indices=None, frame_indices=None):
+
+    return item.n_frames
+
+def get_coordinates_from_system(item, indices=None, frame_indices=None):
+
+    return item.xyz
+
+def get_bonded_atoms_from_system(item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_bonded_atoms_from_system as _get
+    return _get(item, indices=indices, frame_indices=frame_indices)
+
+def get_bonds_from_system(item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_bonds_from_system as _get
+    return _get(item, indices=indices, frame_indices=frame_indices)
+
+def get_graph_from_system(item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_graph_from_system as _get
+    return _get(item, indices=indices, frame_indices=frame_indices)
+
+def get_molecules_from_system(item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_molecules_from_system as _get
+    return _get(item, indices=indices, frame_indices=frame_indices)
+

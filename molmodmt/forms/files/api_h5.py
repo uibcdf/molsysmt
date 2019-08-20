@@ -32,3 +32,8 @@ def to_molmodmt_MolMod(item, selection='all', frame_indices='all', syntaxis='MDT
     from molmodmt.native.io_molmod import from_hdf5 as _from_hdf5
     return _from_hdf5(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
+def to_mdtraj_HDF5TrajectoryFile(item, selection='all', syntaxis='MDTraj'):
+
+    from mdtraj.formarts import HDF5TrajectoryFile
+    return HDF5TrajectoryFile(item)
+
