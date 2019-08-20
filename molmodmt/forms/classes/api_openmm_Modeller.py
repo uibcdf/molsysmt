@@ -8,13 +8,6 @@ is_form={
     'openmm.Modeller' : form_name
 }
 
-
-from .get.api_get_openmm_Modeller import getting
-#from .set.api_set_openmm_Modeller import setting
-
-def get_total_n_atoms(item):
-    return item.topology.getNumAtoms()
-
 def to_nglview(item):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
@@ -118,3 +111,18 @@ def merge_two_items(item1, item2):
     #tmp_item = tmp_item.add(topology2, positions2)
 
     return tmp_item
+
+###### Set
+
+## atom
+
+def get_n_atoms_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_openmm_Topology import get_n_atoms_from_atom as _get
+    _get(item.topology, indices=indices, frame_indices)
+
+## residue
+
+## chain
+
+## system
