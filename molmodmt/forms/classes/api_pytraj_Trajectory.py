@@ -17,6 +17,4 @@ def to_nglview(item):
     tmp_view = _show_pytraj(item)
     return tmp_view
 
-def select_with_mdtraj(item, selection):
 
-    print('Not implemented yet')

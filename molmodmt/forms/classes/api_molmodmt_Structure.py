@@ -10,9 +10,4 @@ is_form={
 }
 
 
-def select_with_mdtraj(item, selection):
-    raise NotImplementedError(NotImplementedMessage)
-
-def extract_atom_indices(item, atom_indices):
-    raise NotImplementedError(NotImplementedMessage)
 

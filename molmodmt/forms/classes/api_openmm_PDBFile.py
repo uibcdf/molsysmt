@@ -8,12 +8,6 @@ is_form={
     'openmm.PDBFile' : form_name
 }
 
-from .get.api_get_openmm_PDBFile import getting
-#from .set.api_set_openmm_PDBFile import setting
-
-def get_total_n_atoms(item):
-    return item.topology.getNumAtoms()
-
 def to_nglview(item):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
@@ -47,4 +41,16 @@ def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
 def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
 
     return item.getTopology()
+
+##### Set
+
+## Atom
+
+def get_coordinates_from_atom(item, indices=None, frame_indices=None)
+
+    tmp_unit = item.positions.unit
+    tmp_positions = [item.positions[ii]._value for ii in indices]
+    result.append(tmp_positions*tmp_unit)
+
+## System
 

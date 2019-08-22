@@ -8,8 +8,6 @@ is_form={
     'mdtraj.Trajectory':form_name
     }
 
-from .get.api_get_mdtraj_Trajectory import getting
-
 def to_aminoacids3_seq(item):
 
     return ''.join([ r.name for r in item.topology.residues ])
