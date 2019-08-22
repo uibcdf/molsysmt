@@ -46,7 +46,7 @@ def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
 
 ## Atom
 
-def get_coordinates_from_atom(item, indices=None, frame_indices=None)
+def get_coordinates_from_atom(item, indices=None, frame_indices=None):
 
     tmp_unit = item.positions.unit
     tmp_positions = [item.positions[ii]._value for ii in indices]

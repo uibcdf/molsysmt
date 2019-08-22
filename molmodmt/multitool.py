@@ -14,7 +14,6 @@ from numpy import sort as _sort
 # Classes
 from .forms.classes import dict_is_form as _dict_classes_is_form, \
     list_forms as _list_classes_forms, \
-    dict_n_atoms as _dict_classes_n_atoms, \
     dict_converter as _dict_classes_converter, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
@@ -27,7 +26,6 @@ from .forms.classes import dict_is_form as _dict_classes_is_form, \
 # Files
 from .forms.files import dict_is_form as _dict_files_is_form, \
     list_forms as _list_files_forms, \
-    dict_n_atoms as _dict_files_n_atoms, \
     dict_converter as _dict_files_converter, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
@@ -40,7 +38,6 @@ from .forms.files import dict_is_form as _dict_files_is_form, \
 # IDs
 from .forms.ids import dict_is_form as _dict_ids_is_form, \
     list_forms as _list_ids_forms, \
-    dict_n_atoms as _dict_ids_n_atoms, \
     dict_converter as _dict_ids_converter, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
@@ -53,7 +50,6 @@ from .forms.ids import dict_is_form as _dict_ids_is_form, \
 # Sequences
 from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     list_forms as _list_seqs_forms, \
-    dict_n_atoms as _dict_seqs_n_atoms, \
     dict_converter as _dict_seqs_converter, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
@@ -66,7 +62,6 @@ from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
 # Viewers
 from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
     list_forms as _list_viewers_forms, \
-    dict_n_atoms as _dict_viewers_n_atoms, \
     dict_converter as _dict_viewers_converter, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
@@ -78,8 +73,6 @@ from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
 
 _dict_is_form = {**_dict_classes_is_form, **_dict_files_is_form,\
                  **_dict_ids_is_form, **_dict_seqs_is_form, **_dict_viewers_is_form}
-_dict_n_atoms = {**_dict_classes_n_atoms, **_dict_files_n_atoms,\
-                   **_dict_ids_n_atoms, **_dict_seqs_n_atoms, **_dict_viewers_n_atoms}
 _dict_converter = {**_dict_classes_converter, **_dict_files_converter,\
                    **_dict_ids_converter, **_dict_seqs_converter, **_dict_viewers_converter}
 _dict_selector = {**_dict_classes_selector, **_dict_files_selector,\
@@ -279,7 +272,7 @@ def get(item, element='atom', indices=None, frame_indices=None, selection='all',
 
     form_in, _ = _digest_forms(item)
     element = _singular(element)
-    singular_kwargs = [ _singular(key): kwargs[key] for key in kwargs.keys() ]
+    singular_kwargs = [ _singular(key) for key in kwargs.keys() if kwargs[key] ]
 
     if indices is None:
         if element == 'atom':

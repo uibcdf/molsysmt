@@ -38,8 +38,8 @@ for form_name in list_forms:
     dict_trimmer[form_name]= {}
     dict_duplicator[form_name]= {}
     dict_merger[form_name]= {}
-    dict_get[form_name]= _get_element_dict.copy()
-    dict_set[form_name]= _set_element_dict.copy()
+    dict_get[form_name]= get_element_dict.copy()
+    dict_set[form_name]= set_element_dict.copy()
 
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):

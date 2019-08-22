@@ -19,7 +19,7 @@ element_fields = {
             },
 
         'system' : {
-            'box' : _raise_not_implemented_error
+            'box' : _raise_not_implemented_error,
             'cell' : _raise_not_implemented_error
             }
 
