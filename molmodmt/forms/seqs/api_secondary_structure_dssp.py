@@ -22,7 +22,7 @@ def to_secondary_structure_abc(item):
 def get_shape(item):
     raise NotImplementedError
 
-def select_with_mdtraj(item, selection):
+def select_with_MDTraj(item, selection):
     raise NotImplementedError
 
 def extract_atom_indices(item, atom_indices):

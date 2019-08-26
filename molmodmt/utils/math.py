@@ -2,12 +2,12 @@ import numpy as _np
 
 class serialized_lists():
 
-    self.values = None
-    self.starts = None
-    self.n_values = None
-    self.n_lists = None
+    def __init__ (self, list_of_lists=None, fortran=False, dtype=None):
 
-    def __init__ (list_of_lists, fortran=False, dtype=None):
+        self.values = None
+        self.starts = None
+        self.n_values = None
+        self.n_lists = None
 
         self.values= _np.concatenate(list_of_lists)
 
@@ -29,4 +29,20 @@ class serialized_lists():
 
         self.n_values = self.values.shape[0]
         self.n_lists = self.starts.shape[0]-1
+
+def serie_to_chunks (serie):
+
+    np_serie = _np.array(serie)
+    gaps = _np.where((np_serie[1:]-np_serie[:-1])>1)
+    offset = 0
+    starts = []
+    chunk_size = []
+    for ii in gaps[0]:
+        chunk_size.append(ii+1-offset)
+        starts.append(serie[offset])
+        offset = ii+1
+    chunk_size.append(len(serie)-offset)
+    starts.append(serie[offset])
+
+    return starts, chunk_size
 

@@ -48,13 +48,13 @@ def to_mol2(item,output_file):
 
     return item.save(filename)
 
-def select_with_mdtraj(item, selection):
+def select_with_MDTraj(item, selection):
     tmp_form=to_mdtraj(item)
     tmp_sel=tmp_form.topology.select(selection)
     del(tmp_form)
     return tmp_sel
 
-def select_with_parmed(item, selection):
+def select_with_ParmEd(item, selection):
     from parmed.amber import AmberMask as _AmberMask
     tmp_sel = list(_AmberMask(item,selection).Selected())
     del(_AmberMask)

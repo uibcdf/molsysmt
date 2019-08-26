@@ -20,12 +20,11 @@ class MolMod():
 
         return tmp_item
 
-    def select(self, selection=None, syntaxis='mdtraj'):
-        if syntaxis=='mdtraj':
-            return self._select_with_mdtraj(selection=selection)
-        else:
-            raise NotImplementedError
+    def select(self, selection=None, syntaxis='MDTraj'):
+        from molmodmt import select as _select
+        return _select(self.topology, selection=selection, syntaxis=syntaxis)
 
-    def _select_with_mdtraj(self, selection=None):
-        return self.topology.select(selection)
+    def load_frames(self, frame_indices=None, selection=None, syntaxis='MDTraj'):
+        atom_indices = self.select(selection=selection, syntaxis=syntaxis)
+        return self.trajectory.load_frames(frame_indices=frame_indices, atom_indices=atom_indices)
 

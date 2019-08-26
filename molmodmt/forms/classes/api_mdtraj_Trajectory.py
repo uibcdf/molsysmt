@@ -155,7 +155,7 @@ def to_nglview(item):
 
     return _show_mdtraj(item)
 
-def select_with_mdtraj(item, selection):
+def select_with_MDTraj(item, selection):
 
     return item.topology.select(selection)
 

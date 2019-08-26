@@ -1,5 +1,6 @@
 from os import listdir as _listdir
 from os.path import dirname as _dirname
+from copy import deepcopy
 from importlib import import_module as _import_module
 from .get_fields import element_fields as get_element_dict
 from .set_fields import element_fields as set_element_dict
@@ -38,8 +39,8 @@ for form_name in list_forms:
     dict_trimmer[form_name]= {}
     dict_duplicator[form_name]= {}
     dict_merger[form_name]= {}
-    dict_get[form_name]= get_element_dict.copy()
-    dict_set[form_name]= set_element_dict.copy()
+    dict_get[form_name]= deepcopy(get_element_dict)
+    dict_set[form_name]= deepcopy(set_element_dict)
 
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):

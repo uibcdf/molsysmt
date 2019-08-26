@@ -106,7 +106,7 @@ def to_yank_Topography(item):
     del(_openmm_to_yank_Topography)
     return tmp_form
 
-def select_with_mdtraj(item, selection):
+def select_with_MDTraj(item, selection):
     tmp_form=to_mdtraj(item)
     tmp_sel=tmp_form.topology.select(selection)
     del(tmp_form)

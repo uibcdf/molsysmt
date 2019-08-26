@@ -11,9 +11,9 @@ is_form={
 
 # Methods
 
-def select_with_mdtraj(item, selection):
-    from .api_mdtraj_Topology import select_with_mdtraj as _select_with_mdtraj
-    return _select_with_mdtraj(item.topology_mdtraj,selection)
+def select_with_MDTraj(item, selection):
+    from .api_mdtraj_Topology import select_with_MDTraj as _select_with_MDTraj
+    return _select_with_MDTraj(item.topology_mdtraj,selection)
 
 def extract_atom_indices(item, atom_indices):
     return item.extract(atom_indices)

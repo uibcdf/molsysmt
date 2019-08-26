@@ -55,7 +55,7 @@ def to_top(item,filename):
 
 # Select
 
-def select_with_mdtraj(item, selection):
+def select_with_MDTraj(item, selection):
     return item.select(selection)
 
 # Extract
@@ -132,6 +132,18 @@ def get_molecules_from_atom (item, indices=None, frame_indices=None):
 def get_n_atoms_from_system (item, indices=None, frame_indices=None):
 
     return item.n_atoms
+
+def get_n_residues_from_system (item, indices=None, frame_indices=None):
+
+    return item.n_residues
+
+def get_n_chains_from_system (item, indices=None, frame_indices=None):
+
+    return item.n_chains
+
+def get_n_bonds_from_system (item, indices=None, frame_indices=None):
+
+    return item.n_bonds
 
 def get_bonded_atoms_from_system (item, indices=None, frame_indices=None):
 

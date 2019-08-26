@@ -3,9 +3,11 @@ import tempfile
 from .utils.exceptions import *
 from .utils.arguments import singular as _singular
 from .utils.forms import digest as _digest_forms
+from .utils.selection import digest as _digest_selection
 from numpy import unique as _unique
 from numpy import ndarray as _ndarray
 from numpy import sort as _sort
+from numpy import arange as _arange
 
 ####
 #### Molecular Models forms
@@ -141,7 +143,6 @@ def select(item, selection='all', syntaxis='mdtraj'):
     from numpy import ndarray as _ndarray
     from numpy import int as _int
     from numpy import int64 as _int64
-    from .utils.selection import parse_selection
 
     form_in, _ = _digest_forms(item)
 
@@ -150,9 +151,9 @@ def select(item, selection='all', syntaxis='mdtraj'):
     elif type(selection) in [int, _int64, _int]:
         return [selection]
     elif selection in ['all', 'All', 'ALL']:
-        return list(range(_dict_n_atoms[form_in](item)))
+        return list(range(get(item, element='system', n_atoms=True)))
     else:
-        selection = parse_selection(selection, syntaxis)
+        selection, syntaxis = _digest_selection(selection, syntaxis)
         atom_indices = _dict_selector[form_in][syntaxis](item, selection)
         return list(_sort(atom_indices))
 
@@ -266,7 +267,7 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get(item, element='atom', indices=None, frame_indices=None, selection='all', syntaxis='MDTraj', **kwargs):
+def get(item, element='system', indices=None, frame_indices=None, selection='all', syntaxis='MDTraj', **kwargs):
 
     # selection works as a mask if indices or ids are used
 
@@ -277,7 +278,7 @@ def get(item, element='atom', indices=None, frame_indices=None, selection='all',
     if indices is None:
         if element == 'atom':
             indices = select(item, selection=selection, syntaxis=syntaxis)
-        elif element=='residue':
+        elif element == 'residue':
             indices = get(item, element='atom', selection=selection, syntaxis=syntaxis, residue_index=True)
             indices = list(_unique(indices))
         elif element == 'chain':
@@ -286,17 +287,23 @@ def get(item, element='atom', indices=None, frame_indices=None, selection='all',
         elif element == 'system':
             indices = 0
 
+    if frame_indices == 'all':
+        n_frames = get(item, n_frames=True)
+        frame_indices = _arange(n_frames)
+    elif type(frame_indices)==int:
+        frame_indices = [frame_indices]
+
     results = []
     for option in singular_kwargs:
         result = _dict_get[form_in][element][option](item, indices=indices, frame_indices=frame_indices)
-        result.append()
+        results.append(result)
 
-    if len(result)==1:
-        return result[0]
+    if len(results)==1:
+        return results[0]
     else:
-        return result
+        return results
 
-def set(item, element='atom', indices=None, ids=None,  selection='all', syntaxis='mdtraj', **kwargs):
+def set(item, element='system', indices=None, ids=None,  selection='all', syntaxis='mdtraj', **kwargs):
 
     form_in, _ = _digest_forms(item)
     element = _singular(element)

@@ -17,7 +17,7 @@ def to_pdb(item, output_file=None, multiframe=False):
     item.atoms.write(output_file, multiframe=multiframe)
     pass
 
-def to_mdtraj(item, multiframe=False):
+def to_MDTraj(item, multiframe=False):
     import tempfile as _tempfile
     from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
     output_file=_tempfile.NamedTemporaryFile(suffix=".pdb").name
@@ -26,12 +26,12 @@ def to_mdtraj(item, multiframe=False):
     _remove(output_file)
     return tmp_form
 
-def select_with_mdtraj(item, selection):
+def select_with_MDTraj(item, selection):
     tmp_form=to_mdtraj(item,multiframe=True)
     return tmp_form.topology.select(selection)
     pass
 
-def select_with_mdanalysis(item, selection):
+def select_with_MDAnalysis(item, selection):
     tmp_atomgroup=item.select_atoms(selection)
     tmp_sel = tmp_atomgroup.atoms.ids
     del(tmp_atomgroup)

@@ -11,7 +11,6 @@ is_form={
     'molmodmt.MolMod': form_name
 }
 
-
 def to_aminoacids3_seq(item, selection=None, syntaxis='mdtraj'):
 
     from molmodmt import convert as _convert
@@ -76,7 +75,7 @@ def to_pdb(item, filename=None, selection=None, syntaxis='mdtraj'):
 
     return _to_pdb(item, filename=filename, selection=selection, syntaxis=syntaxis)
 
-def select_with_mdtraj(item, selection=None, syntaxis='mdtraj'):
+def select_with_MDTraj(item, selection=None, syntaxis='mdtraj'):
     from molmodmt import select
     return select(item.topology, selection=selection, syntaxis=syntaxis)
 
@@ -112,62 +111,68 @@ def to_nglview(item):
 def get_n_atoms_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_atoms_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_residues_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_residues_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_chains_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_molecules_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_frames_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Trayectory import get_n_frames_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.trayectory, indices=indices, frame_indices=frame_indices)
+
+def get_n_bonds_from_system(item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_n_bonds_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
 
 def get_masses_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_masses_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_bonded_atoms_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_bonded_atoms_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_bonds_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_bonds_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_graph_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_graph_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecules_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_molecules_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_box_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Trajectory import get_box_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
 def get_cell_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Trajectory import get_cell_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
 
 ###### Set
@@ -183,6 +188,7 @@ def set_cell_to_system(item, indices=None, frame_indices=None, value=None):
     item.trajectory.cell = value
     item.trajectory.cell2box()
     pass
+
 
 
 

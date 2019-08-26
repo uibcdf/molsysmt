@@ -1,6 +1,7 @@
 from .exceptions import *
 
 _engines={
+    'amber' : 'Amber',
     'pdbfixer' : 'PDBFixer',
     'openmm' : 'OpenMM',
     'mdtraj' : 'MDTraj',

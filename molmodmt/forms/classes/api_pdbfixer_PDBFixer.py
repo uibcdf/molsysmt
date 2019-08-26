@@ -105,7 +105,7 @@ def to_pdb(item, filename=None, selection=None, syntaxis="mdtraj"):
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(filename, 'w'), keepIds=True)
 
-def select_with_mdtraj(item, selection):
+def select_with_MDTraj(item, selection):
 
     tmp_form=to_mdtraj(item)
     tmp_sel=tmp_form.topology.select(selection)

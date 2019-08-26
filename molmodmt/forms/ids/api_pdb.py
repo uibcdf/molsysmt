@@ -117,7 +117,7 @@ def to_nglview(form_id):
     _remove(tmp_pdb_file)
     return tmp_view
 
-def select_with_mdtraj(item, selection):
+def select_with_MDTraj(item, selection):
     tmp_form=to_mdtraj(item)
     tmp_sel=tmp_form.topology.select(selection)
     del(tmp_form)

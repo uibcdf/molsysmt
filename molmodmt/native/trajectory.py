@@ -15,11 +15,12 @@ class Trajectory():
                                 # and order=F, with units nanometers
         self.box   = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
         self.cell  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
-        self.timestep  = None
-        self.integstep = None
         self.step  = None
         self.time  = None
+        self.delta_time  = None
+        self.delta_steps = None
         self.model = None # In case it is a model and not a timestep
+        self.atom_indices = None
         self.n_frames = 0
         self.n_atoms = 0
 
@@ -33,16 +34,16 @@ class Trajectory():
         self._length_units = _unit.nanometers
         self._time_units = _unit.picoseconds
 
-    def _initialize_with_attributes(self, coordinates=None, box=None, cell=None, timestep=None,
-                                    integstep=None, step=None, time=None):
+    def _set_frames(self, coordinates=None, time=None, step=None, box=None,
+                                    cell=None, delta_time=None, delta_steps=None):
 
         self.coordinates = coordinates
+        self.time  = time
+        self.step  = step
         self.box   = box
         self.cell  = cell
-        self.timestep  = timestep
-        self.integstep  = integstep
-        self.step  = step
-        self.time  = time
+        self.delta_time  = delta_time
+        self.delta_steps  = delta_steps
 
         if box is not None:
             if box[0] is None:
@@ -55,6 +56,12 @@ class Trajectory():
         if self.coordinates is not None:
             self.n_frames = self.coordinates.shape[0]
             self.n_atoms = self.coordinates.shape[1]
+
+        if self.n_frames > 1:
+            if self.delta_time is None and self.time is not None:
+                self.delta_time=_np.mean(self.time[1:]-self.time[:-1])
+            if self.delta_steps is None and self.step is not None:
+                self.delta_steps=_np.mean(self.step[1:]-self.step[:-1])
 
         ii = self.coordinates
         if ii is not None:
@@ -140,50 +147,15 @@ class Trajectory():
     #        del(tmp_mdtraj)
     #        yield
 
-    def load(self, frame_indices='all', atom_indices='all'):
+    def load_frames (self, frame_indices=None, atom_indices=None):
+
+        from molmodmt import get
+        coordinates, time, step, box = get(self.file.mount_point, element='atom',
+                indices=atom_indices, frame_indices=frame_indices, frames=True)
+
+        self._set_frames(coordinates, time, step, box)
+        self.atom_indices = atom_indices
+        del(coordinates, time, step, box)
 
         pass
-
-    #def load(self, frame_indices='all', atom_indices='all'):
-
-    #    from mdtraj import load as _mdtraj_load
-    #    from mdtraj import join as _mdtraj_join
-    #    from mdtraj import load_frame as _mdtraj_load_frame
-    #    from .io_topology import to_mdtraj_Topology as _to_mdtraj_Topology
-    #    from numpy import ndarray
-
-    #    tmp_top = self.topology_mdtraj
-    #    mdtraj_read = False
-    #    atom_indices = None
-
-    #    if selection is None:
-    #        if self.selection_mdtraj is not None:
-    #            atom_indices = self._atom_indices_mdtraj
-    #    else:
-    #        from molmodmt.multitool import select as _select
-    #        atom_indices = _select(self.topology_mdtraj,selection,syntaxis)
-
-    #    if type(frame_indices)==str:
-    #        if frame.lower()=='all':
-    #            tmp_mdtrajectory = _mdtraj_load(self.filename,top=tmp_top,atom_indices=atom_indices)
-    #            mdtraj_read = True
-    #    elif type(frame_indices)==int:
-    #        tmp_mdtrajectory = _mdtraj_load_frame(self.filename,frame_indices,top=tmp_top,atom_indices=atom_indices)
-    #        mdtraj_read = True
-    #    elif type(frame_indices) in [list,tuple,ndarray]:
-    #        mdtraj_read = True
-    #        tmp_trajs=[]
-    #        for ii in range(0,len(frame_indices)):
-    #            tmp_trajs.append(_mdtraj_load_frame(self.filename, frame_indices[ii],top=tmp_top, atom_indices=atom_indices))
-    #        tmp_mdtrajectory=_mdtraj_join(tmp_trajs,check_topology=False)
-    #        del(tmp_trajs)
-
-    #    if mdtraj_read:
-    #        self._import_mdtraj_data(tmp_mdtrajectory)
-    #        if atom_indices is not None:
-    #            self._import_mdtraj_topology(tmp_mdtrajectory)
-    #    else:
-    #        raise BadCallError(BadCallMessage)
-
-
 

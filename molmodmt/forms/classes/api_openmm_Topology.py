@@ -53,7 +53,7 @@ def extract_atom_indices(item, atom_indices):
     tmp_item=_mdtraj_to_openmm(tmp_item)
     return tmp_item
 
-def select_with_mdtraj(item, selection):
+def select_with_MDTraj(item, selection):
 
     tmp_item = to_mdtraj_Topology(item)
     return tmp_item.select(selection)
