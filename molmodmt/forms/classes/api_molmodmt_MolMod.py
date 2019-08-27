@@ -11,6 +11,18 @@ is_form={
     'molmodmt.MolMod': form_name
 }
 
+def info(item):
+
+    from molmodmt import get
+
+    tmp_dict = {}
+    tmp_dict['form'] = form_name
+    tmp_dict['n_atoms'] = get(item, element='system', n_atoms=True)
+    tmp_dict['trajectory file'] = item.trajectory.file.name
+    tmp_dict['trajectory loaded'] = str(item.trajectory.n_frames)+' frames,'+str(item.trajectory.n_atoms)+' atoms'
+
+    return tmp_dict
+
 def to_aminoacids3_seq(item, selection=None, syntaxis='mdtraj'):
 
     from molmodmt import convert as _convert
@@ -47,35 +59,45 @@ def to_biopython_SeqRecord(item, selection=None, syntaxis='mdtraj'):
 def to_molmodmt(item):
     return item
 
-def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
+def to_mdtraj(item, selection=None, syntaxis='MDTraj'):
 
-    from molmodmt.native.io_molmod import to_mdtraj as _to_mdtraj
-    from molmodmt import extract as _extract
-    tmp_item = _to_mdtraj(item)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
-    return tmp_item
+    return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
 
-def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
+def to_mdtraj_Trajectory(item, selection=None, syntaxis='MDTraj'):
 
-    from molmodmt.native.io_molmod import to_mdtraj_Trajectory as _to_mdtraj_Trajectory
-    from molmodmt import extract as _extract
-    tmp_item = _to_mdtraj_Trajectory(item)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
-    return tmp_item
+    if item.trajectory.atom_indices is not None:
 
-def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
+        from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
 
-    from molmodmt.native.io_molmod import to_mdtraj_Topology as _to_mdtraj_Topology
-    tmp_item = _to_mdtraj_Topology(item)
-    return tmp_item
+        if len(item.trajectory.atom_indices)==item.n_atoms:
+            tmp_item_topology = item.topology
+        else:
+            tmp_item_topology = to_mdtraj_Topology(item, selection=item.trajectory.atom_indices)
 
-def to_pdb(item, filename=None, selection=None, syntaxis='mdtraj'):
+        tmp_cell_vectors = item.trajectory.get_cell_vectors()
+        tmp_cell_angles = item.trajectory.get_cell_angles()
+        tmp_item = _mdtraj_Trajectory(item.trajectory.coordinates,tmp_item_topology,
+                time=item.trajectory.time, unitcell_vectors=tmp_cell_vectors,
+                unitcell_angles=tmp_cell_angles)
+
+        return tmp_item
+
+    else:
+        pass
+
+
+def to_mdtraj_Topology(item, selection=None, syntaxis='MDTraj'):
+
+    from .api_molmodmt_Topology import to_mdtraj_Topology as _to_mdtraj_Topology
+    return _to_mdtraj_Topology(item, selection=selection, syntaxis=syntaxis)
+
+def to_pdb(item, filename=None, selection=None, syntaxis='MDTraj'):
 
     from molmodmt.native.io_molmod import to_pdb as _to_pdb
 
     return _to_pdb(item, filename=filename, selection=selection, syntaxis=syntaxis)
 
-def select_with_MDTraj(item, selection=None, syntaxis='mdtraj'):
+def select_with_MDTraj(item, selection=None, syntaxis='MDTraj'):
     from molmodmt import select
     return select(item.topology, selection=selection, syntaxis=syntaxis)
 

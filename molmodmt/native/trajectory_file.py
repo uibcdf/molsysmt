@@ -3,7 +3,7 @@ class TrajectoryFile():
     def __init__(self, filename=None, mode='read'):
 
         self.opened = False
-        self.filename = None
+        self.name = None
         self.mount_point = None
         self.form = None
         self.n_frames = 0
@@ -12,7 +12,7 @@ class TrajectoryFile():
 
             from molmodmt import get, get_form, convert
 
-            self.filename = filename
+            self.name = filename
             self.form = get_form(filename)
 
             if self.form == 'xtc':

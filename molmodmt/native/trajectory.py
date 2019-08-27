@@ -119,6 +119,14 @@ class Trajectory():
 
         return tmp_item
 
+    def get_cell_lengths(self):
+
+        return self.cell[:,[0,1,2],[0,1,2]]
+
+    def get_cell_angles(self):
+
+        return self.cell[:,[0,0,1],[1,2,2]]
+
     #def iterload(self, chunk=100, stride=1, skip=0, atom_indices=None):
 
     #    atom_indices = None

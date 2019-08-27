@@ -10,6 +10,14 @@ is_form={
 }
 
 
+def to_mdtraj_Topology (item, selection=None, syntaxis='MDTraj'):
+
+    from molmodmt import extract
+
+    tmp_item = item
+    tmp_item = extract(item, selection=selection, syntaxis=syntaxis)
+    return tmp_item
+
 ###### Get
 
 ## atom

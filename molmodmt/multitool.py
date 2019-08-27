@@ -23,7 +23,8 @@ from .forms.classes import dict_is_form as _dict_classes_is_form, \
     dict_duplicator as _dict_classes_duplicator, \
     dict_merger as _dict_classes_merger, \
     dict_get as _dict_classes_get, \
-    dict_set as _dict_classes_set
+    dict_set as _dict_classes_set, \
+    dict_info as _dict_classes_info
 
 # Files
 from .forms.files import dict_is_form as _dict_files_is_form, \
@@ -35,7 +36,8 @@ from .forms.files import dict_is_form as _dict_files_is_form, \
     dict_duplicator as _dict_files_duplicator, \
     dict_merger as _dict_files_merger, \
     dict_get as _dict_files_get, \
-    dict_set as _dict_files_set
+    dict_set as _dict_files_set, \
+    dict_info as _dict_files_info
 
 # IDs
 from .forms.ids import dict_is_form as _dict_ids_is_form, \
@@ -47,7 +49,8 @@ from .forms.ids import dict_is_form as _dict_ids_is_form, \
     dict_duplicator as _dict_ids_duplicator, \
     dict_merger as _dict_ids_merger, \
     dict_get as _dict_ids_get, \
-    dict_set as _dict_ids_set
+    dict_set as _dict_ids_set, \
+    dict_info as _dict_ids_info
 
 # Sequences
 from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
@@ -59,7 +62,8 @@ from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_duplicator as _dict_seqs_duplicator, \
     dict_merger as _dict_seqs_merger, \
     dict_get as _dict_seqs_get, \
-    dict_set as _dict_seqs_set
+    dict_set as _dict_seqs_set, \
+    dict_info as _dict_seqs_info
 
 # Viewers
 from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
@@ -71,7 +75,8 @@ from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_duplicator as _dict_viewers_duplicator, \
     dict_merger as _dict_viewers_merger, \
     dict_get as _dict_viewers_get, \
-    dict_set as _dict_viewers_set
+    dict_set as _dict_viewers_set, \
+    dict_info as _dict_viewers_info
 
 _dict_is_form = {**_dict_classes_is_form, **_dict_files_is_form,\
                  **_dict_ids_is_form, **_dict_seqs_is_form, **_dict_viewers_is_form}
@@ -91,6 +96,8 @@ _dict_get = {**_dict_classes_get, **_dict_files_get,\
                    **_dict_ids_get, **_dict_seqs_get, **_dict_viewers_get}
 _dict_set = {**_dict_classes_set, **_dict_files_set,\
                    **_dict_ids_set, **_dict_seqs_set, **_dict_viewers_set}
+_dict_info = {**_dict_classes_info, **_dict_files_info,\
+                   **_dict_ids_info, **_dict_seqs_info, **_dict_viewers_info}
 
 ####
 #### Molecular Models attributes
@@ -238,9 +245,7 @@ def info(item=None, element='system', selection="all", syntaxis="mdtraj"):
 
     elif element=='system':
 
-        n_atoms = get(item, element=element, selection=selection, syntaxis=syntaxis, n_atoms=True)
-
-        return df({'n_atoms':n_atoms})
+        return df([_dict_info[form_in](item)])
 
     else:
         raise NotImplementedError
