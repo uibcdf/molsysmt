@@ -176,17 +176,25 @@ def extract(item, selection='all', to_form=None, syntaxis='mdtraj'):
 
     return tmp_item
 
-def trim(item, selection=None, to_form=None, syntaxis='mdtraj'):
+def trim(item, selection=None, to_form=None, syntaxis='mdtraj', mode='removing_selection'):
+
+    # mode in ['removing_selection','keeping_selection']
 
     if selection is None:
-        return item
+        if mode=='removing_selection':
+            return item
+        elif mode=='keeping_selection':
+            raise BadCallError("Bad selection. All atoms will be removed")
 
     if selection=="all":
-        raise BadCallError("Bad selection. All atoms will be removed")
+        if mode=='removing_selection':
+            raise BadCallError("Bad selection. All atoms will be removed")
+        elif mode=='keeping_selection':
+            return item
 
     form_in, form_out = _digest_forms(item, to_form)
     atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
-    tmp_item = _dict_trimmer[form_in](item, atom_indices)
+    tmp_item = _dict_trimmer[form_in](item, atom_indices, mode=mode)
     tmp_item = convert(tmp_item,form_out)
     return tmp_item
 

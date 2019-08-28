@@ -34,12 +34,4 @@ def strings_list2string(atom_indices):
 
     return ",".join([str(ii) for ii in atom_indices])
 
-def atom_indices2AmberMask(atom_indices,num_atoms,inverse=False):
-
-    from numpy import zeros as _zeros
-    tmp_mask = _zeros(num_atoms,dtype=int)
-    tmp_mask[atom_indices]=1
-    if inverse:
-        tmp_mask=1-tmp_mask
-    return list(tmp_mask)
 

@@ -46,12 +46,39 @@ def to_yank_Topography(item, selection=None, syntaxis='mdtraj'):
     return tmp_item
 
 def extract_atom_indices(item, atom_indices):
-    from .api_mdtraj_Topology import extract_atom_indices as _mdtraj_Topology_extract
-    from .api_mdtraj_Topology import to_openmm_Topology as _mdtraj_to_openmm
-    tmp_item=to_mdtraj_Topology(item)
-    tmp_item=_mdtraj_Topology_extract(tmp_item,atom_indices)
-    tmp_item=_mdtraj_to_openmm(tmp_item)
-    return tmp_item
+
+    from simtk.openmm.app import Topology
+    newTopology = Topology()
+    newTopology.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
+    newAtoms = {}
+    set_atom_indices = set(atom_indices)
+    for chain in item.chains():
+        needNewChain = True
+        for residue in chain.residues():
+            needNewResidue = True
+            for atom in residue.atoms():
+                if atom.index in set_atom_indices:
+                    if needNewChain:
+                        newChain = newTopology.addChain(chain.id)
+                        needNewChain = False;
+                    if needNewResidue:
+                        newResidue = newTopology.addResidue(residue.name, newChain, residue.id, residue.insertionCode)
+                        needNewResidue = False;
+                    newAtom = newTopology.addAtom(atom.name, atom.element, newResidue, atom.id)
+                    newAtoms[atom] = newAtom
+    for bond in item.bonds():
+        if bond[0].index in set_atom_indices and bond[1].index in set_atom_indices:
+            newTopology.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
+    return newTopology
+
+def trim_atom_indices(item, atom_indices, mode='removing_selection'):
+
+    if mode=='removing_selection':
+        from molmodmt.utils.atom_indices import complementary_atom_indices
+        atom_indices_to_be_kept = complementary_atom_indices(item, atom_indices)
+    elif mode=='keeping_selection':
+        atom_indices_to_be_kept = atom_indices
+    return extract_atom_indices(item, atom_indices_to_be_kept)
 
 def select_with_MDTraj(item, selection):
 

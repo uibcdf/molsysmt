@@ -61,11 +61,23 @@ def select_with_ParmEd(item, selection):
     return tmp_sel
 
 def extract_atom_indices(item, atom_indices):
-    from molmodmt.utils.miscellanea import atom_indices2AmberMask
+
+    return trim_atom_indices(item, atom_indices, mode='keeping_selection')
+
+def trim_atom_indices(item, atom_indices, mode='removing_selection'):
+
+    from molmodmt.utils.atom_indices import atom_indices_to_AmberMask
+    from molmodmt.utils.atom_indices import complementary_atom_indices
+    if mode=='removing_selection':
+        mask = atom_indices_to_AmberMask(item, atom_indices)
+    elif mode=='keeping_selection':
+        tmp_atom_indices = complementary_atom_indices(item, atom_indices)
+        mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
     from copy import deepcopy
     tmp_item = deepcopy(item)
     tmp_item.strip(atom_indices2AmberMask(atom_indices,len(item.atoms),inverse=True))
     return tmp_item
+
 
 ##### Set
 

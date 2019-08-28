@@ -7,24 +7,27 @@ is_form = {
     'top': form_name
     }
 
-def to_parmed(item):
-    return to_parmed_GromacsTopologyFile(item)
+def to_parmed(item, selection=None, syntaxis='MDTraj'):
+    return to_parmed_GromacsTopologyFile(item, selection=selection, syntaxis=syntaxis)
 
-def to_parmed_Structure(item):
-    return to_parmed_GromacsTopologyFile(item)
+def to_parmed_Structure(item, selection=None, syntaxis='MDTraj'):
+    return to_parmed_GromacsTopologyFile(item, selection=selection, syntaxis=syntaxis)
 
-def to_parmed_GromacsTopologyFile(item):
+def to_parmed_GromacsTopologyFile(item, selection=None, syntaxis='MDTraj'):
 
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
-    tmp_molmod_Structure=_parmed_from_gromacs(item)
-    return tmp_molmod_Structure
+    tmp_item=_parmed_from_gromacs(item)
+    if selection is not 'all':
+        from molmodmt import trim
+        trim(tmp_item, selection=selection, syntaxis=syntaxis)
+    return tmp_item
 
-def to_molmodmt_Structure(item):
+def to_molmodmt_Structure(item, selection=None, syntaxis='MDTraj'):
 
     from molmodmt.native.io_structure import from_gromacs_Topology
-    return from_gromacs_Topology(item)
+    return from_gromacs_Topology(item, selection=None, syntaxis='MDTraj')
 
-def to_mdtraj_Topology(item, selection='all', syntaxis='MDTraj'):
+def to_mdtraj_Topology(item, selection=None, syntaxis='MDTraj'):
 
     from molmodmt import extract
     from mdtraj.core.topology import Topology
@@ -36,20 +39,27 @@ def to_mdtraj_Topology(item, selection='all', syntaxis='MDTraj'):
 
     return tmp_item
 
-def to_openmm_GromacsTopFile(item):
+def to_openmm_GromacsTopFile(item, selection=None, syntaxis='MDTraj'):
 
     from simtk.openmm.app import GromacsTopFile
+    if selection is not None:
+        raise ValueError("The method `to_openmm_GromacsTopFile` from api_top.py does not admit selections")
     return GromacsTopFile(item)
 
-def to_openmm_Topology(item):
+def to_openmm_Topology(item, selection=None, syntaxis='MDTraj'):
 
-    from simtk.openmm.app import GromacsTopFile
-    return GromacsTopFile(item).topology
+    if True:
+        tmp_item = to_openmm_GromacsTopFile(item)
+        tmp_item = tmp_item.topology
+        if selection is not None:
+            from molmodmt import trim
+            trim(tmp_item, selection=selection, syntaxis=syntaxis, mode='keeping_selection')
+        return tmp_item
+    else:
+        tmp_item = to_parmed_GromacsTopologyFile(item)
+        return tmp_item.topology
 
-    #from parmed import load_file
-    #return load_file(item)
-
-def to_top(item, selection='all', syntaxis='mdtraj'):
+def to_top(item, selection='all', syntaxis='MDTraj'):
 
     from molmodmt import extract
     tmp_item = to_parmed_GromacsTopologyFile(item)
