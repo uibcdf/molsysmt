@@ -19,7 +19,6 @@ from .forms.classes import dict_is_form as _dict_classes_is_form, \
     dict_converter as _dict_classes_converter, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
-    dict_trimmer as _dict_classes_trimmer, \
     dict_duplicator as _dict_classes_duplicator, \
     dict_merger as _dict_classes_merger, \
     dict_get as _dict_classes_get, \
@@ -32,7 +31,6 @@ from .forms.files import dict_is_form as _dict_files_is_form, \
     dict_converter as _dict_files_converter, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
-    dict_trimmer as _dict_files_trimmer, \
     dict_duplicator as _dict_files_duplicator, \
     dict_merger as _dict_files_merger, \
     dict_get as _dict_files_get, \
@@ -45,7 +43,6 @@ from .forms.ids import dict_is_form as _dict_ids_is_form, \
     dict_converter as _dict_ids_converter, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
-    dict_trimmer as _dict_ids_trimmer, \
     dict_duplicator as _dict_ids_duplicator, \
     dict_merger as _dict_ids_merger, \
     dict_get as _dict_ids_get, \
@@ -58,7 +55,6 @@ from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_converter as _dict_seqs_converter, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
-    dict_trimmer as _dict_seqs_trimmer, \
     dict_duplicator as _dict_seqs_duplicator, \
     dict_merger as _dict_seqs_merger, \
     dict_get as _dict_seqs_get, \
@@ -71,7 +67,6 @@ from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_converter as _dict_viewers_converter, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
-    dict_trimmer as _dict_viewers_trimmer, \
     dict_duplicator as _dict_viewers_duplicator, \
     dict_merger as _dict_viewers_merger, \
     dict_get as _dict_viewers_get, \
@@ -86,8 +81,6 @@ _dict_selector = {**_dict_classes_selector, **_dict_files_selector,\
                    **_dict_ids_selector, **_dict_seqs_selector, **_dict_viewers_selector}
 _dict_extractor = {**_dict_classes_extractor, **_dict_files_extractor,\
                    **_dict_ids_extractor, **_dict_seqs_extractor, **_dict_viewers_extractor}
-_dict_trimmer = {**_dict_classes_trimmer, **_dict_files_trimmer,\
-                   **_dict_ids_trimmer, **_dict_seqs_trimmer, **_dict_viewers_trimmer}
 _dict_duplicator = {**_dict_classes_duplicator, **_dict_files_duplicator,\
                    **_dict_ids_duplicator, **_dict_seqs_duplicator, **_dict_viewers_duplicator}
 _dict_merger    = {**_dict_classes_merger, **_dict_files_merger,\
@@ -164,19 +157,7 @@ def select(item, selection='all', syntaxis='mdtraj'):
         atom_indices = _dict_selector[form_in][syntaxis](item, selection)
         return list(_sort(atom_indices))
 
-def extract(item, selection='all', to_form=None, syntaxis='mdtraj'):
-
-    if selection in [None,'all']:
-        return item
-
-    form_in, form_out = _digest_forms(item, to_form)
-    atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
-    tmp_item = _dict_extractor[form_in](item, atom_indices)
-    tmp_item = convert(tmp_item,form_out)
-
-    return tmp_item
-
-def trim(item, selection=None, to_form=None, syntaxis='mdtraj', mode='removing_selection'):
+def extract(item, selection='all', mode='keeping_selection', to_form=None, syntaxis='MDTraj'):
 
     # mode in ['removing_selection','keeping_selection']
 
@@ -194,8 +175,9 @@ def trim(item, selection=None, to_form=None, syntaxis='mdtraj', mode='removing_s
 
     form_in, form_out = _digest_forms(item, to_form)
     atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
-    tmp_item = _dict_trimmer[form_in](item, atom_indices, mode=mode)
+    tmp_item = _dict_extractor[form_in](item, atom_indices, mode=mode)
     tmp_item = convert(tmp_item,form_out)
+
     return tmp_item
 
 def merge(item1=None, item2=None, to_form=None):

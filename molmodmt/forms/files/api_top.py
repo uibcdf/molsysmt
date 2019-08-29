@@ -18,8 +18,8 @@ def to_parmed_GromacsTopologyFile(item, selection=None, syntaxis='MDTraj'):
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
     tmp_item=_parmed_from_gromacs(item)
     if selection is not 'all':
-        from molmodmt import trim
-        tmp_item = trim(tmp_item, selection=selection, syntaxis=syntaxis, mode='keeping_selection')
+        from molmodmt import extract
+        tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis, mode='keeping_selection')
     return tmp_item
 
 def to_molmodmt_Structure(item, selection=None, syntaxis='MDTraj'):
@@ -33,6 +33,8 @@ def to_mdtraj_Topology(item, selection=None, syntaxis='MDTraj'):
     from mdtraj.core.topology import Topology
 
     tmp_item = to_openmm_Topology(item)
+    if selection is not 'all':
+        tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
     tmp_item = Topology.from_openmm(tmp_item)
     if selection is not 'all':
         tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)

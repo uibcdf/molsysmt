@@ -45,13 +45,19 @@ def to_yank_Topography(item, selection=None, syntaxis='mdtraj'):
     del(_yank_Topography)
     return tmp_item
 
-def extract_atom_indices(item, atom_indices):
+def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
+
+    if mode=='removing_selection':
+        from molmodmt.utils.atom_indices import complementary_atom_indices
+        atom_indices_to_be_kept = complementary_atom_indices(item, atom_indices)
+    elif mode=='keeping_selection':
+        atom_indices_to_be_kept = atom_indices
 
     from simtk.openmm.app import Topology
     newTopology = Topology()
     newTopology.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
     newAtoms = {}
-    set_atom_indices = set(atom_indices)
+    set_atom_indices = set(atom_indices_to_be_kept)
     for chain in item.chains():
         needNewChain = True
         for residue in chain.residues():
@@ -70,15 +76,6 @@ def extract_atom_indices(item, atom_indices):
         if bond[0].index in set_atom_indices and bond[1].index in set_atom_indices:
             newTopology.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
     return newTopology
-
-def trim_atom_indices(item, atom_indices, mode='removing_selection'):
-
-    if mode=='removing_selection':
-        from molmodmt.utils.atom_indices import complementary_atom_indices
-        atom_indices_to_be_kept = complementary_atom_indices(item, atom_indices)
-    elif mode=='keeping_selection':
-        atom_indices_to_be_kept = atom_indices
-    return extract_atom_indices(item, atom_indices_to_be_kept)
 
 def select_with_MDTraj(item, selection):
 

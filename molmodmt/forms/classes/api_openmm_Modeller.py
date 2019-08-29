@@ -77,23 +77,20 @@ def duplicate(item):
     tmp_item = _Modeller(item.topology, item.positions)
     return tmp_item
 
-def extract_atom_indices(item, atom_indices):
+def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
 
-    from molmodmt.utils.atoms_list import complementary_atom_indices
-    tmp_item = duplicate(item)
-    atoms = list(tmp_item.topology.atoms())
-    atoms_to_be_removed = [ atoms[ii] for ii in complementary_atom_indices(item, atom_indices) ]
-    tmp_item.delete(atoms_to_be_removed)
-    del(atoms, atoms_to_be_removed)
-    return tmp_item
+    if mode == 'keeping_selection':
+        tmp_atom_indices = atom_indices
+    elif mode == 'removing_selection'
+        from molmodmt.utils.atom_indices import complementary_atom_indices
+        tmp_atom_indices = complementary_atom_indices(item, atom_indices)
 
-def trim_atom_indices(item, atom_indices):
+    from api_openmm_Topology import extract_atom_indices as _extract_topology
 
     tmp_item = duplicate(item)
-    atoms = list(tmp_item.topology.atoms())
-    atoms_to_be_removed = [ atoms[ii] for ii in atom_indices ]
-    tmp_item.delete(atoms_to_be_removed)
-    del(atoms, atoms_to_be_removed)
+    tmp_item.topology = _extract_topology(item.topology, tmp_atom_indices, mode='keeping_selection')
+    tmp_item.positions = get_coordinates_from_atom(item, tmp_atom_indices)
+
     return tmp_item
 
 def merge_two_items(item1, item2):
@@ -223,8 +220,7 @@ def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
 
 def get_coordinates_from_atom (item, indices=None, frame_indices=None):
 
-    from .api_openmm_Positions import get_coordinates_from_atom as _get
-    return _get(item, indices=indices)
+    return item.positions[indices]
 
 ## residue
 

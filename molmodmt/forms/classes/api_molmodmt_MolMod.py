@@ -101,11 +101,14 @@ def select_with_MDTraj(item, selection=None, syntaxis='MDTraj'):
     from molmodmt import select
     return select(item.topology, selection=selection, syntaxis=syntaxis)
 
-def extract_atom_indices(item, atom_indices):
-    return item.extract(atom_indices)
+def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
 
-def trim_atom_indices(item, atom_indices):
-    pass
+    if mode=='keeping_selection':
+        return item.extract(atom_indices)
+    elif mode=='removing_selection':
+        from molmodmt.utils.atom_indices import complementary_atom_indices
+        tmp_atom_indices = complementary_atom_indices(item, atom_indices)
+        return item.extract(tmp_atom_indices)
 
 def to_nglview(item):
 

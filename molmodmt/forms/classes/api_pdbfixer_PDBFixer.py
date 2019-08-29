@@ -112,21 +112,14 @@ def select_with_MDTraj(item, selection):
     del(tmp_form)
     return tmp_sel
 
-def extract_atom_indices(item, atom_indices):
+def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
 
     from molmodmt import convert, extract
     tmp_item = convert(item, 'openmm.Modeller')
-    tmp_item = extract(tmp_item, atom_indices)
+    tmp_item = extract(tmp_item, atom_indices, mode=mode)
     tmp_item = convert(tmp_item, 'pdbfixer.PDBFixer')
     return tmp_item
 
-def trim_atom_indices(item, atom_indices):
-
-    from molmodmt import convert, trim
-    tmp_item = convert(item, 'openmm.Modeller')
-    tmp_item = trim(tmp_item, atom_indices)
-    tmp_item = convert(tmp_item, 'pdbfixer.PDBFixer')
-    return tmp_item
 
 def duplicate(item):
 
