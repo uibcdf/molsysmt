@@ -157,7 +157,7 @@ def select(item, selection='all', syntaxis='mdtraj'):
         atom_indices = _dict_selector[form_in][syntaxis](item, selection)
         return list(_sort(atom_indices))
 
-def extract(item, selection='all', mode='keeping_selection', to_form=None, syntaxis='MDTraj'):
+def extract(item, selection='all', syntaxis='MDTraj', mode='keeping_selection', to_form=None):
 
     # mode in ['removing_selection','keeping_selection']
 

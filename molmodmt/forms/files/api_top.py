@@ -29,15 +29,10 @@ def to_molmodmt_Structure(item, selection=None, syntaxis='MDTraj'):
 
 def to_mdtraj_Topology(item, selection=None, syntaxis='MDTraj'):
 
-    from molmodmt import extract
     from mdtraj.core.topology import Topology
 
-    tmp_item = to_openmm_Topology(item)
-    if selection is not 'all':
-        tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = to_openmm_Topology(item, selection=selection, syntaxis=syntaxis)
     tmp_item = Topology.from_openmm(tmp_item)
-    if selection is not 'all':
-        tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
 
     return tmp_item
 
@@ -51,15 +46,11 @@ def to_openmm_GromacsTopFile(item, selection=None, syntaxis='MDTraj'):
 def to_openmm_Topology(item, selection=None, syntaxis='MDTraj'):
 
     from molmodmt import extract
-    if True:
-        tmp_item = to_openmm_GromacsTopFile(item)
-        tmp_item = tmp_item.topology
-        if selection is not 'all':
-            tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
-        return tmp_item
-    else:
-        tmp_item = to_parmed_GromacsTopologyFile(item, selection=selection, syntaxis=syntaxis)
-        return tmp_item.topology
+    tmp_item = to_openmm_GromacsTopFile(item)
+    tmp_item = tmp_item.topology
+    if selection is not 'all':
+        tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    return tmp_item
 
 def to_top(item, selection='all', syntaxis='MDTraj'):
 

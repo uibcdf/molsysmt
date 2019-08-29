@@ -79,7 +79,7 @@ def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
 
 def select_with_MDTraj(item, selection):
 
-    tmp_item = to_mdtraj_Topology(item)
+    tmp_item = to_mdtraj_Topology(item, selection='all', syntaxis='MDTraj')
     return tmp_item.select(selection)
 
 #### Set

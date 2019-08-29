@@ -81,7 +81,7 @@ def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
 
     if mode == 'keeping_selection':
         tmp_atom_indices = atom_indices
-    elif mode == 'removing_selection'
+    elif mode == 'removing_selection':
         from molmodmt.utils.atom_indices import complementary_atom_indices
         tmp_atom_indices = complementary_atom_indices(item, atom_indices)
 
