@@ -48,3 +48,69 @@ def trim_atom_indices(item, atom_indices, mode='removing_selection'):
     tmp_item.strip(atom_indices2AmberMask(atom_indices,len(item.atoms),inverse=True))
     return tmp_item
 
+##### Set
+
+## Atom
+
+def get_n_atoms_from_atom (item, indices=None, frame_indices=None):
+
+    return len(item.atoms)
+
+def get_n_residues_from_atom (item, indices=None, frame_indices=None):
+
+    return len(item.residues)
+
+def get_mass_from_atom (item, indices=None, frame_indices=None):
+
+    return [atom.mass for atom in item.atoms]
+
+def get_bonded_atoms_from_atom (item, indices=None, frame_indices=None):
+
+    tmp_bonded = [[] for ii in range(len(st.atoms))]
+    for bond in st.bonds:
+        tmp_bonded[bond.atom1.idx].append(bond.atom2.idx)
+        tmp_bonded[bond.atom2.idx].append(bond.atom1.idx)
+
+    return tmp_bonded
+
+def get_bonds_from_atom (item, indices=None, frame_indices=None):
+
+    tmp_bonds = []
+    for bond in item.bonds:
+        tmp_bonds.append([bond.atom1.idx,bond.atom2.idx])
+
+    return tmp_bonds
+
+def get_graph_from_atom (item, indices=None, frame_indices=None):
+
+    from networkx import Graph as _Graph
+    tmp_graph = _Graph(getting(item,bonds=True))
+    for atom in item.atoms:
+        if len(atom.bonds)==0:
+            tmp_graph.add_node(atom.idx)
+    result.append(tmp_graph)
+
+def get_molecules_from_atom (item, indices=None, frame_indices=None):
+
+    from networkx import connected_components as _connected_components
+    tmp_graph = getting(item, graph=True)
+    result.append([list(ii) for ii in _connected_components(tmp_graph)])
+
+def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
+
+    from molmodmt.utils.types import residue2molecule_types
+    tmp_molecules = getting(item,molecules=True)
+    tmp_types = []
+    for molecule in tmp_molecules:
+        tmp_types.append(residue2molecule_types(item.atoms[molecule[0]].residue.name))
+    if len(tmp_types)==1:
+        tmp_types=tmp_types[0]
+    return tmp_types
+
+## System
+
+def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+
+    return len(item.atoms)
+
+
