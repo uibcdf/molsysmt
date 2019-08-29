@@ -48,6 +48,7 @@ def to_openmm_GromacsTopFile(item, selection=None, syntaxis='MDTraj'):
 
 def to_openmm_Topology(item, selection=None, syntaxis='MDTraj'):
 
+    from molmodmt import extract
     if True:
         tmp_item = to_openmm_GromacsTopFile(item)
         tmp_item = tmp_item.topology
@@ -63,7 +64,7 @@ def to_top(item, selection='all', syntaxis='MDTraj'):
     from molmodmt import extract
     tmp_item = to_parmed_GromacsTopologyFile(item)
     if selection is not 'all':
-        tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+        tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
     tmp_item.save(filename)
     pass
 

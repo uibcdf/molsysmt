@@ -139,3 +139,10 @@ def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
     return tmp_types
 
 
+## Atom
+
+def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+
+    return len(item.atoms)
+
+

@@ -45,7 +45,7 @@ def trim_atom_indices(item, atom_indices, mode='removing_selection'):
         mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
     from copy import deepcopy
     tmp_item = deepcopy(item)
-    tmp_item.strip(atom_indices2AmberMask(atom_indices,len(item.atoms),inverse=True))
+    tmp_item.strip(atom_indices_to_AmberMask(tmp_item,atom_indices))
     return tmp_item
 
 ##### Set
