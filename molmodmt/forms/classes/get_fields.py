@@ -173,6 +173,7 @@ element_fields = {
             'bonded_atoms' : _raise_not_implemented_error,
             'bonds' : _raise_not_implemented_error,
             'graph' : _raise_not_implemented_error,
+            'molecules' : _raise_not_implemented_error,
             'coordinates' : _raise_not_implemented_error,
             'frames': _raise_not_implemented_error
             }

@@ -20,7 +20,6 @@ class Trajectory():
         self.delta_time  = None
         self.delta_steps = None
         self.model = None # In case it is a model and not a timestep
-        self.atom_indices = None
         self.n_frames = 0
         self.n_atoms = 0
 
@@ -111,13 +110,13 @@ class Trajectory():
         self.invbox=_libbox.box2invbox(self.box, self.n_frames)
         pass
 
-    def extract(self, atom_indices=None):
+    #def extract(self, atom_indices=None):
 
-        tmp_item=deepcopy(self)
-        tmp_item.coordinates=tmp_item.coordinates[:,atom_indices,:]
-        tmp_item.n_atoms=len(atom_indices)
+    #    tmp_item=deepcopy(self)
+    #    tmp_item.coordinates=tmp_item.coordinates[:,atom_indices,:]
+    #    tmp_item.n_atoms=len(atom_indices)
 
-        return tmp_item
+    #    return tmp_item
 
     def get_cell_lengths(self):
 
@@ -158,11 +157,15 @@ class Trajectory():
     def load_frames (self, frame_indices=None, atom_indices=None):
 
         from molmodmt import get
+
+        if atom_indices == 'all':
+            atom_indices = self.atom_indices
+
         coordinates, time, step, box = get(self.file.mount_point, element='atom',
                 indices=atom_indices, frame_indices=frame_indices, frames=True)
 
         self._set_frames(coordinates, time, step, box)
-        self.atom_indices = atom_indices
+        self.file.atom_indices = atom_indices
         del(coordinates, time, step, box)
 
         pass

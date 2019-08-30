@@ -20,12 +20,12 @@ from .mutations import mutate
 from .topology import is_water, is_ion, is_aminoacid, is_nucleotide, residue_name_to_molecule_type
 from .chem_and_phys_properties import get_charge, get_net_charge, get_mass, get_net_mass,\
                                get_degrees_of_freedom
-from .pbc import wrap_molecules, unwrap_molecules, minimum_image_convention
+from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention
 
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:
 
-__all_multitool__ = ['select', 'extract', 'trim', 'merge', 'info', 'get_form', 'get', 'set', 'load',
+__all_multitool__ = ['select', 'extract', 'merge', 'info', 'get_form', 'get', 'set', 'load',
                     'convert', 'duplicate', 'write', 'view', 'reformat']
 __all_info_converters__ = ['info_forms', 'info_load', 'info_convert', 'info_select', 'info_viewers']
 __all_rmsd__ = ['rmsd', 'least_rmsd_fit']

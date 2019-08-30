@@ -57,7 +57,7 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
 
         raise NotImplementedError
 
-def unwrap_molecules(self, selection='all', reference_selection=None, syntaxis='mdtraj'):
+def unwrap_molecules_from_pbc_cell(self, selection='all', syntaxis='MDTraj', engine='MolModMT'):
 
     from molmodmt import convert, select, get
     from molmodmt.math import serialize_list_of_lists
@@ -109,7 +109,7 @@ def unwrap_molecules(self, selection='all', reference_selection=None, syntaxis='
 
         raise NotImplementedError
 
-def wrap_molecules(self):
+def wrap_molecules_to_pbc_cell(self):
     #self.coors=asfortran_np.array(self.coors)
     #libbox.wrap_all_inplace(self.coors,self.box,self.invbox,self.orthogonal,self.coors.shape[0])
     #self.coors=ascontiguous_np.array(self.coors)

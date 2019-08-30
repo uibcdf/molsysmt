@@ -44,7 +44,6 @@ def to_mdtraj_XTCTrajectoryFile(item, selection=None, syntaxis='MDTraj'):
     from mdtraj.formats import XTCTrajectoryFile
     return XTCTrajectoryFile(item)
 
-
 #### Get
 
 def get_frames_from_atom (item, indices=None, frame_indices=None):

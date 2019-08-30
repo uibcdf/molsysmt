@@ -15,7 +15,7 @@ def to_mdtraj_Topology (item, selection=None, syntaxis='MDTraj'):
     from molmodmt import extract
 
     tmp_item = item
-    tmp_item = extract(item, selection=selection, syntaxis=syntaxis)
+    tmp_item = extract(item, selection=selection, syntaxis=syntaxis, mode='keeping_selection')
     return tmp_item
 
 ###### Get

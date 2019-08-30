@@ -65,31 +65,24 @@ def to_mdtraj(item, selection=None, syntaxis='MDTraj'):
 
 def to_mdtraj_Trajectory(item, selection=None, syntaxis='MDTraj'):
 
-    if item.trajectory.atom_indices is not None:
 
-        from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
+    from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
 
-        if len(item.trajectory.atom_indices)==item.n_atoms:
-            tmp_item_topology = item.topology
-        else:
-            tmp_item_topology = to_mdtraj_Topology(item, selection=item.trajectory.atom_indices)
+    tmp_item_topology = to_mdtraj_Topology(item, selection=item.trajectory.file.atom_indices)
+    tmp_cell_lengths = item.trajectory.get_cell_lengths()
+    tmp_cell_angles = item.trajectory.get_cell_angles()
+    tmp_item = _mdtraj_Trajectory(item.trajectory.coordinates,tmp_item_topology,
+            time=item.trajectory.time, unitcell_lengths=tmp_cell_lengths,
+            unitcell_angles=tmp_cell_angles)
 
-        tmp_cell_vectors = item.trajectory.get_cell_vectors()
-        tmp_cell_angles = item.trajectory.get_cell_angles()
-        tmp_item = _mdtraj_Trajectory(item.trajectory.coordinates,tmp_item_topology,
-                time=item.trajectory.time, unitcell_vectors=tmp_cell_vectors,
-                unitcell_angles=tmp_cell_angles)
+    return tmp_item
 
-        return tmp_item
-
-    else:
-        pass
 
 
 def to_mdtraj_Topology(item, selection=None, syntaxis='MDTraj'):
 
     from .api_molmodmt_Topology import to_mdtraj_Topology as _to_mdtraj_Topology
-    return _to_mdtraj_Topology(item, selection=selection, syntaxis=syntaxis)
+    return _to_mdtraj_Topology(item.topology, selection=selection, syntaxis=syntaxis)
 
 def to_pdb(item, filename=None, selection=None, syntaxis='MDTraj'):
 

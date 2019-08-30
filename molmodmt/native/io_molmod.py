@@ -107,6 +107,7 @@
 
 def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
+    from molmodmt import select, extract
     from .molmod import MolMod
     from .trajectory import Trajectory
     from .io_topology import from_top as topology_from_top
@@ -115,8 +116,8 @@ def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syn
     tmp_item.topology = topology_from_top(topology)
     tmp_item.trajectory = Trajectory(filename=item)
     if frame_indices is not None:
-        atom_indices = tmp_item.select(selection=selection, syntaxis=syntaxis)
-        tmp_item.trajectory.load(frame_indices=frame_indices, atom_indices=atom_indices)
+        atom_indices = select(tmp_item.topology, selection=selection, syntaxis=syntaxis)
+        tmp_item.trajectory.load_frames(frame_indices=frame_indices, atom_indices=atom_indices)
     tmp_item.topography = None
     tmp_item.structure = None
 
@@ -133,7 +134,7 @@ def from_hdf5(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'
     tmp_item.trajectory = Trajectory(filename=item)
     if frame_indices is not None:
         atom_indices = tmp_item.select(selection=selection, syntaxis=syntaxis)
-        tmp_item.trajectory.load(frame_indices=frame_indices, atom_indices=atom_indices)
+        tmp_item.trajectory.load_frames(frame_indices=frame_indices, atom_indices=atom_indices)
     tmp_item.topography = None
     tmp_item.structure = None
 

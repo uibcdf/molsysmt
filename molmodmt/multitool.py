@@ -268,7 +268,7 @@ def get(item, element='system', indices=None, frame_indices=None, selection='all
 
     form_in, _ = _digest_forms(item)
     element = _singular(element)
-    singular_kwargs = [ _singular(key) for key in kwargs.keys() if kwargs[key] ]
+    attributes = [ key for key in kwargs.keys() if kwargs[key] ]
 
     if indices is None:
         if element == 'atom':
@@ -289,8 +289,8 @@ def get(item, element='system', indices=None, frame_indices=None, selection='all
         frame_indices = [frame_indices]
 
     results = []
-    for option in singular_kwargs:
-        result = _dict_get[form_in][element][option](item, indices=indices, frame_indices=frame_indices)
+    for attribute in attributes:
+        result = _dict_get[form_in][element][attribute](item, indices=indices, frame_indices=frame_indices)
         results.append(result)
 
     if len(results)==1:
@@ -433,7 +433,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj',
         if form_in!=form_out:
             return _dict_converter[form_in][form_out](item, selection=selection, syntaxis=syntaxis, **kwargs)
         else:
-            return item
+            return extract(item, selection=selection, syntaxis=syntaxis, mode='keeping_selection')
 
 def duplicate(item=None):
 
