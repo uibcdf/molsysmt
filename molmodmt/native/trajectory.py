@@ -7,34 +7,29 @@ from copy import deepcopy
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
 
+# Un frame tiene: step, time, coordinates, cell
+
 class Trajectory():
 
     def __init__(self, filename=None):
 
-        self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
-                                # and order=F, with units nanometers
-        self.box   = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
-        self.cell  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
+        self.length_units = None
+        self.time_units = None
+
         self.step  = None
         self.time  = None
-        self.delta_time  = None
-        self.delta_steps = None
-        self.model = None # In case it is a model and not a timestep
+        self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
+                                # and order=F, with units nanometers
+        self.cell  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
+
+        self.orthogonal   = None # True or False
         self.n_frames = 0
         self.n_atoms = 0
-
-        self.invbox       = None #_np.zeros(shape=(n_frames,3,3),dtype=float,order='F')
-        self.orthogonal   = 0
-        self.volume       = 0.0
 
         from .trajectory_file import TrajectoryFile
         self.file = TrajectoryFile(filename=filename)
 
-        self._length_units = _unit.nanometers
-        self._time_units = _unit.picoseconds
-
-    def _set_frames(self, coordinates=None, time=None, step=None, box=None,
-                                    cell=None, delta_time=None, delta_steps=None):
+    def _set_frames(self, step=None, time=None, coordinates=None, cell=None):
 
         self.coordinates = coordinates
         self.time  = time

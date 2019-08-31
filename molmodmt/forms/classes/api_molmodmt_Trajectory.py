@@ -51,7 +51,7 @@ def to_nglview(item):
 
     return _mdtraj_to_nglview(tmp_item)
 
-###### Set
+###### Get
 
 ## atom
 
@@ -61,4 +61,7 @@ def to_nglview(item):
 
 ## system
 
+def get_n_atoms_from_system(item, indices=None, frame_indices=None):
+
+    return item.n_atoms
 

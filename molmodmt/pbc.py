@@ -57,32 +57,24 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
 
         raise NotImplementedError
 
-def unwrap_molecules_from_pbc_cell(self, selection='all', syntaxis='MDTraj', engine='MolModMT'):
+def unwrap_molecules_from_pbc_cell(item, selection='all', syntaxis='MDTraj', engine='MolModMT'):
 
     from molmodmt import convert, select, get
-    from molmodmt.math import serialize_list_of_lists
+    from molmodmt.utils.math import serialize_list_of_lists
 
-    syntaxis = _digest_engines(syntaxis)
+    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
     engine = _digest_engines(engine)
     form_in, form_out = _digest_forms(item, engine)
-    tmp_item = convert(item, engine)
 
     if engine=='MolModMT':
 
-        molecules, bonds = get(tmp_item, molecules=True, bonded_atoms=True)
+        molecules = get(tmp_item, element='atom', indices=atom_indices, molecules=True)
+        molecules_serialized = serialized_lists(molecules, dtype='int64')
 
-        if selection not in [None, 'all']:
-            atom_indices = _select(self.topology, selection, syntaxis)
-            working_molecules = []
-            for molecule in molecules:
-                if len(_np.intersect1d(molecule, atom_indices)):
-                    working_molecules.append(molecule)
-            molecules=working_molecules
+        bonded_atoms = get(tmp_item, element='atom', indices=atom_indices, bonded_atoms=True)
+        bonded_atoms_serialized = serialized_lists(bonds, dtype='int64')
 
-        molecules_serialized = serialized_lists(molecules, fortran=True, dtype='int64')
-
-        bonds_serialized = serialized_lists(bonds, fortran=True, dtype='int64')
-
+        coordinates, 
 
         aux = self.trajectory
         aux.coordinates=_np.asfortranarray(aux.coordinates, dtype='float64')

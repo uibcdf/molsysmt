@@ -22,6 +22,17 @@ def to_mdtraj_Topology (item, selection=None, syntaxis='MDTraj'):
 
 ## atom
 
+def get_bonded_atoms_from_atom(item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_bonded_atoms_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_molecules_from_atom(item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_molecules_from_atom as _get
+    return _get(item, indices=indices)
+
+
 ## residue
 
 ## chain

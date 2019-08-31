@@ -120,6 +120,32 @@ def to_nglview(item):
 
 ## atom
 
+def get_bonded_atoms_from_atom(item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_bonded_atoms_from_atom as _get
+    trajectory_indices = item.trajectory.file.atom_indices
+    tmp_indices = [trajectory_indices[ii] for ii in indices]
+    bonded_atoms_topology = _get(item.topology, indices=tmp_indices, frame_indices=frame_indices)
+    traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
+    bonded_atoms = {}
+    for ii_topology, ii_bonded_topology in bonded_atoms_topology.items():
+        bonded_atoms[traduction[ii_topology]]=[traduction[jj] for jj in ii_bonded_topology]
+
+    return bonded_atoms
+
+def get_molecules_from_atom(item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_molecules_from_atom as _get
+    trajectory_indices = item.trajectory.file.atom_indices
+    tmp_indices = [trajectory_indices[ii] for ii in indices]
+    molecules_topology = _get(item.topology, indices=tmp_indices, frame_indices=frame_indices)
+    traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
+    molecules = []
+    for tmp_molecule in molecules_topology:
+        molecules.append([traduction[ii] for ii in tmp_molecule])
+
+    return molecules
+
 ## residue
 
 ## chain
@@ -128,8 +154,8 @@ def to_nglview(item):
 
 def get_n_atoms_from_system(item, indices=None, frame_indices=None):
 
-    from .api_molmodmt_Topology import get_n_atoms_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Trajectory import get_n_atoms_from_system as _get
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
 def get_n_residues_from_system(item, indices=None, frame_indices=None):
 
@@ -164,8 +190,15 @@ def get_masses_from_system(item, indices=None, frame_indices=None):
 
 def get_bonded_atoms_from_system(item, indices=None, frame_indices=None):
 
-    from .api_molmodmt_Topology import get_bonded_atoms_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Topology import get_bonded_atoms_from_atom as _get
+    trajectory_indices = item.trajectory.file.atom_indices
+    bonded_atoms_topology = _get(item.topology, indices=trajectory_indices, frame_indices=frame_indices)
+    traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
+    bonded_atoms = {}
+    for ii_topology, ii_bonded_topology in bonded_atoms_topology.items():
+        bonded_atoms[traduction[ii_topology]]=[traduction[jj] for jj in ii_bonded_topology]
+
+    return bonded_atoms
 
 def get_bonds_from_system(item, indices=None, frame_indices=None):
 
@@ -179,8 +212,15 @@ def get_graph_from_system(item, indices=None, frame_indices=None):
 
 def get_molecules_from_system(item, indices=None, frame_indices=None):
 
-    from .api_molmodmt_Topology import get_molecules_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Topology import get_molecules_from_atom as _get
+    trajectory_indices = item.trajectory.file.atom_indices
+    molecules_topology = _get(item.topology, indices=trajectory_indices, frame_indices=frame_indices)
+    traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
+    molecules = []
+    for tmp_molecule in molecules_topology:
+        molecules.append([traduction[ii] for ii in tmp_molecule])
+
+    return molecules
 
 def get_box_from_system(item, indices=None, frame_indices=None):
 

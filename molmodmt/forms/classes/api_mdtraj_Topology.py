@@ -163,10 +163,13 @@ def get_masses_from_atom (item, indices=None, frame_indices=None):
 
 def get_bonded_atoms_from_atom (item, indices=None, frame_indices=None):
 
-    tmp_bonded = [[] for ii in range(item.n_atoms)]
+    set_indices = set(indices)
+    tmp_bonded = { ii:[] for ii in indices}
     for bond in item.bonds:
-        tmp_bonded[bond.atom1.index].append(bond.atom2.index)
-        tmp_bonded[bond.atom2.index].append(bond.atom1.index)
+        if bond.atom1.index in set_indices:
+            if bond.atom2.index in set_indices:
+                tmp_bonded[bond.atom1.index].append(bond.atom2.index)
+                tmp_bonded[bond.atom2.index].append(bond.atom1.index)
     return tmp_bonded
 
 def get_bonds_from_atom (item, indices=None, frame_indices=None):
@@ -182,9 +185,13 @@ def get_graph_from_atom (item, indices=None, frame_indices=None):
 
 def get_molecules_from_atom (item, indices=None, frame_indices=None):
 
+    set_indices = set(indices)
     tmp_molecules = []
     for mm in item.find_molecules():
-        tmp_molecules.append([ii.index for ii in mm])
+        molecule = [ii.index for ii in mm if ii.index in set_indices]
+        if len(molecule)>0:
+            tmp_molecules.append(molecule)
+
     return tmp_molecules
 
 ## from system

@@ -1,4 +1,5 @@
 import numpy as _np
+from simtk import unit as _unit
 from os.path import basename as _basename
 from mdtraj.formats.xtc import XTCTrajectoryFile as _mdtraj_XTCTrajectoryFile
 
@@ -18,15 +19,15 @@ def load_frame (item, indices=None, atom_indices=None):
     xyz_list = []
     time_list = []
     step_list = []
-    box_list = []
+    cell_list = []
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        xyz, time, step, box = item.read(n_frames=size, atom_indices=atom_indices)
+        xyz, time, step, cell = item.read(n_frames=size, atom_indices=atom_indices)
         xyz_list.append(xyz)
         time_list.append(time)
         step_list.append(step)
-        box_list.append(box)
+        cell_list.append(cell)
 
     xyz = _np.concatenate(xyz_list)
     del(xyz_list)
@@ -34,10 +35,14 @@ def load_frame (item, indices=None, atom_indices=None):
     del(time_list)
     step = _np.concatenate(step_list)
     del(step_list)
-    box = _np.concatenate(box_list)
-    del(box_list)
+    cell = _np.concatenate(cell_list)
+    del(cell_list)
 
-    return xyz, time, step, box
+
+    if item.distance_unit =='nanometers'
+        xyz = xyz*_unit.nanometer
+
+    return step, time, xyz, cell
 
 #### Get
 
