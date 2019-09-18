@@ -19,15 +19,15 @@ def load_frame (item, indices=None, atom_indices=None):
     xyz_list = []
     time_list = []
     step_list = []
-    cell_list = []
+    box_list = []
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        xyz, time, step, cell = item.read(n_frames=size, atom_indices=atom_indices)
+        xyz, time, step, box = item.read(n_frames=size, atom_indices=atom_indices)
         xyz_list.append(xyz)
         time_list.append(time)
         step_list.append(step)
-        cell_list.append(cell)
+        box_list.append(box)
 
     xyz = _np.concatenate(xyz_list)
     del(xyz_list)
@@ -35,28 +35,28 @@ def load_frame (item, indices=None, atom_indices=None):
     del(time_list)
     step = _np.concatenate(step_list)
     del(step_list)
-    cell = _np.concatenate(cell_list)
-    del(cell_list)
+    box = _np.concatenate(box_list)
+    del(box_list)
 
+    xyz = xyz*_unit.nanometer
+    box = box*_unit.nanometer
+    time = time*_unit.picoseconds
 
-    if item.distance_unit =='nanometers'
-        xyz = xyz*_unit.nanometer
-
-    return step, time, xyz, cell
+    return step, time, xyz, box
 
 #### Get
 
 def get_frames_from_atom (item, indices=None, frame_indices=None):
 
-    xyz, time, step, box = load_frame(item, frame_indices, indices)
-    return xyz, time, step, box
+    step, time, xyz, box = load_frame(item, frame_indices, indices)
+    return step, time, xyz, box
 
 # System
 
 def get_frames_from_system (item, indices=None, frame_indices=None):
 
-    xyz, time, step, box = load_frame(item, indices=frame_indices)
-    return xyz, time, step, box
+    step, time, xyz, box = load_frame(item, indices=frame_indices)
+    return step, time, xyz, box
 
 def get_n_frames_from_system (item, indices=None, frame_indices=None):
 

@@ -65,19 +65,18 @@ def to_mdtraj(item, selection=None, syntaxis='MDTraj'):
 
 def to_mdtraj_Trajectory(item, selection=None, syntaxis='MDTraj'):
 
-
+    from simtk import unit as _unit
     from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
 
     tmp_item_topology = to_mdtraj_Topology(item, selection=item.trajectory.file.atom_indices)
-    tmp_cell_lengths = item.trajectory.get_cell_lengths()
-    tmp_cell_angles = item.trajectory.get_cell_angles()
-    tmp_item = _mdtraj_Trajectory(item.trajectory.coordinates,tmp_item_topology,
-            time=item.trajectory.time, unitcell_lengths=tmp_cell_lengths,
-            unitcell_angles=tmp_cell_angles)
+    tmp_box_lengths = item.trajectory.get_box_lengths().in_units_of(_unit.nanometers)._value
+    tmp_box_angles = item.trajectory.get_box_angles().in_units_of(_unit.degrees)._value
+    tmp_coordinates = item.trajectory.coordinates.in_units_of(_unit.nanometers)._value
+    tmp_time=item.trajectory.time.in_units_of(_unit.picoseconds)._value
+    tmp_item = _mdtraj_Trajectory(tmp_coordinates,tmp_item_topology, tmp_time,
+            unitcell_lengths=tmp_box_lengths, unitcell_angles=tmp_box_angles)
 
     return tmp_item
-
-
 
 def to_mdtraj_Topology(item, selection=None, syntaxis='MDTraj'):
 

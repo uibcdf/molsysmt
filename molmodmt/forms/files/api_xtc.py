@@ -7,28 +7,54 @@ is_form = {
     'xtc': form_name
     }
 
-def to_mdtraj_Trajectory(item, topology=None, selection=None, frame_indices='all', syntaxis='MDTraj'):
-    from molmodmt import extract as _extract
-    from mdtraj import load as _mdtraj_load
+def to_mdtraj_Trajectory(item, topology=None, selection=None, frame_indices=None, syntaxis='MDTraj'):
+
+    from molmodmt import convert, select
 
     if topology is None:
         raise BadCallError(BadCallMessage)
 
-    tmp_form = _mdtraj_load(item, top=topology)
-    tmp_form = _extract(tmp_form,selection=selection,syntaxis=syntaxis)
-    del(_mdtraj_load)
+    if frame_indices is None:
+        raise BadCallError(BadCallMessage)
+
+    tmp_topology = convert(topology, to_form='mdtraj.Topology')
+
+    atom_indices = select(tmp_topology, selection=selection, syntaxis=syntaxis)
+
+    if frame_indices == 'all':
+
+        from mdtraj import load as _mdtraj_load
+        tmp_form = _mdtraj_load(item, top=tmp_topology, atom_indices=atom_indices)
+        del(_mdtraj_load)
+
+    else:
+
+        from mdtraj import load_frame as _mdtraj_load_frame
+
+        if hasattr(frame_indices, '__iter__'):
+            tmp_form = _mdtraj_load_frame(item, frame_indices[0], top=tmp_topology, atom_indices=atom_indices)
+            for ii in frame_indices[1:]:
+                aux_form = _mdtraj_load_frame(item, ii, top=tmp_topology, atom_indices=atom_indices)
+                tmp_form = tmp_form.join(aux_form, check_topology=False, discard_overlapping_frames=False)
+
+        else:
+
+            tmp_form = _mdtraj_load_frame(item, frame_indices, top=tmp_topology, atom_indices=atom_indices)
+
+        del(_mdtraj_load_frame)
+
     return tmp_form
 
-#def to_molmod(item, topology=None, selection=None, frames=None, syntaxis='mdtraj'):
-#    return to_molmodmt_MolMod(item,topology,selection=selection,syntaxis=syntaxis,frames=frames)
-
 def to_parmed(item, topology=None, selection=None, syntaxis='MDTraj'):
+
     return to_parmed_GromacsTopologyFile(item, topology, selection=selection, syntaxis=syntaxis)
 
 def to_parmed_Structure(item, topology=None, selection=None, syntaxis='MDTraj'):
+
     return to_parmed_GromacsTopologyFile(item, topology, selection=selection, syntaxis=syntaxis)
 
 def to_parmed_GromacsTopologyFile(item, topology=None, selection=None, syntaxis='MDTraj'):
+
     from molmodmt import extract as _extract
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
     tmp_item=_parmed_from_gromacs(topology)
@@ -36,6 +62,7 @@ def to_parmed_GromacsTopologyFile(item, topology=None, selection=None, syntaxis=
     return tmp_item
 
 def to_molmodmt_MolMod(item, topology=None, selection=None, frame_indices=None, syntaxis='MDTraj'):
+
     from molmodmt.native.io_molmod import from_xtc
     return from_xtc(item, topology=topology, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
@@ -85,6 +112,4 @@ def get_n_atoms_from_system (item, indices=None, frame_indices=None):
     tmp_item.close()
     del(tmp_item, get)
     return n_atoms
-
-
 

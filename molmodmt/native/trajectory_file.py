@@ -27,5 +27,8 @@ class TrajectoryFile():
 
     def load_frames (self, indices=None, atoms_indices=None):
 
+        # return: step, time, coordinates, box   (with units)
+
         from molmodmt import get
         return get(self.mount_point, indices=atoms_indices, frame_indices=indices)
+

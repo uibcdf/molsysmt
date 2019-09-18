@@ -13,14 +13,15 @@ class Trajectory():
 
     def __init__(self, filename=None):
 
-        self.length_units = None
-        self.time_units = None
+        self.length_units = _unit.nanometers
+        self.time_units = _unit.picoseconds
 
         self.step  = None
         self.time  = None
         self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
                                 # and order=F, with units nanometers
-        self.cell  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
+        self.box  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
+                          # cell is the matrix with the vectors
 
         self.orthogonal   = None # True or False
         self.n_frames = 0
@@ -29,33 +30,20 @@ class Trajectory():
         from .trajectory_file import TrajectoryFile
         self.file = TrajectoryFile(filename=filename)
 
-    def _set_frames(self, step=None, time=None, coordinates=None, cell=None):
+    def _set_frames(self, step=None, time=None, coordinates=None, box=None):
 
-        self.coordinates = coordinates
-        self.time  = time
+        self.coordinates = coordinates.in_units_of(self.length_units)
+        self.time  = time.in_units_of(self.time_units)
         self.step  = step
-        self.box   = box
-        self.cell  = cell
-        self.delta_time  = delta_time
-        self.delta_steps  = delta_steps
+        self.box  = box.in_units_of(self.length_units)
 
         if box is not None:
             if box[0] is None:
                 self.box = None
 
-        if cell is not None:
-            if cell[0] is None:
-                self.cell = None
-
         if self.coordinates is not None:
             self.n_frames = self.coordinates.shape[0]
             self.n_atoms = self.coordinates.shape[1]
-
-        if self.n_frames > 1:
-            if self.delta_time is None and self.time is not None:
-                self.delta_time=_np.mean(self.time[1:]-self.time[:-1])
-            if self.delta_steps is None and self.step is not None:
-                self.delta_steps=_np.mean(self.step[1:]-self.step[:-1])
 
         ii = self.coordinates
         if ii is not None:
@@ -63,11 +51,6 @@ class Trajectory():
                 ii=_np.asfortranarray(ii)
 
         ii = self.box
-        if ii is not None:
-            if _np.isfortran(ii)==False:
-                ii=_np.asfortranarray(ii)
-
-        ii = self.cell
         if ii is not None:
             if _np.isfortran(ii)==False:
                 ii=_np.asfortranarray(ii)
@@ -82,28 +65,47 @@ class Trajectory():
             if _np.isfortran(ii)==False:
                 ii=_np.asfortranarray(ii)
 
-        if (self.cell is None) and (self.box is not None):
-            self.box2cell()
+        pass
 
-        if (self.cell is not None) and (self.box is None):
-            self.cell2box()
+    def get_box_lengths(self):
 
-        if (self.box is not None):
-            self.box2invbox()
+        lengths = _libbox.length_edges_box(self.box._value, self.n_frames)
+
+        return lengths.round(6)*self.length_units
+
+    def get_box_angles(self):
+
+        angles = _libbox.angles_box(self.box._value, self.n_frames)
+
+        return angles.round(6)*_unit.degrees
+
+    def load_frames (self, frame_indices=None, atom_indices=None):
+
+        from molmodmt import get
+
+        if atom_indices == 'all':
+            atom_indices = self.atom_indices
+
+        step, time, coordinates, box = get(self.file.mount_point, element='atom',
+                indices=atom_indices, frame_indices=frame_indices, frames=True)
+
+        self._set_frames(step, time, coordinates, box)
+        self.file.atom_indices = atom_indices
+        del(coordinates, time, step, box)
 
         pass
 
-    def cell2box(self):
-        self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell, self.n_frames)
-        pass
+    #def cell2box(self):
+    #    self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell, self.n_frames)
+    #    pass
 
-    def box2cell(self):
-        self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box, self.n_frames)
-        pass
+    #def box2cell(self):
+    #    self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box, self.n_frames)
+    #    pass
 
-    def box2invbox(self):
-        self.invbox=_libbox.box2invbox(self.box, self.n_frames)
-        pass
+    #def box2invbox(self):
+    #    self.invbox=_libbox.box2invbox(self.box, self.n_frames)
+    #    pass
 
     #def extract(self, atom_indices=None):
 
@@ -112,14 +114,6 @@ class Trajectory():
     #    tmp_item.n_atoms=len(atom_indices)
 
     #    return tmp_item
-
-    def get_cell_lengths(self):
-
-        return self.cell[:,[0,1,2],[0,1,2]]
-
-    def get_cell_angles(self):
-
-        return self.cell[:,[0,0,1],[1,2,2]]
 
     #def iterload(self, chunk=100, stride=1, skip=0, atom_indices=None):
 
@@ -148,20 +142,4 @@ class Trajectory():
     #            self._import_mdtraj_topology(tmp_mdtraj)
     #        del(tmp_mdtraj)
     #        yield
-
-    def load_frames (self, frame_indices=None, atom_indices=None):
-
-        from molmodmt import get
-
-        if atom_indices == 'all':
-            atom_indices = self.atom_indices
-
-        coordinates, time, step, box = get(self.file.mount_point, element='atom',
-                indices=atom_indices, frame_indices=frame_indices, frames=True)
-
-        self._set_frames(coordinates, time, step, box)
-        self.file.atom_indices = atom_indices
-        del(coordinates, time, step, box)
-
-        pass
 
