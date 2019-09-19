@@ -298,22 +298,35 @@ def get(item, element='system', indices=None, frame_indices=None, selection='all
     else:
         return results
 
-def set(item, element='system', indices=None, ids=None,  selection='all', syntaxis='mdtraj', **kwargs):
+def set(item, element='system', indices=None, frame_indices=None,  selection='all', syntaxis='mdtraj', **kwargs):
 
     form_in, _ = _digest_forms(item)
     element = _singular(element)
-    singular_kwargs = { _singular(key): kwargs[key] for key in kwargs.keys() }
+    attributes = [ key for key in kwargs.keys() ]
 
-    if element=='atom':
-        if (indices is None) and (ids is None):
-            indices=select(item, selection=selection, syntaxis=syntaxis)
+    if indices is None:
+        if element == 'atom':
+            indices = select(item, selection=selection, syntaxis=syntaxis)
+        elif element == 'residue':
+            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis, residue_index=True)
+            indices = list(_unique(indices))
+        elif element == 'chain':
+            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
+            indices = list(_unique(indices))
+        elif element == 'system':
+            indices = 0
 
-    if element=='residue':
-        if (indices is None) and (ids is None):
-            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis,
-                          residue_index=True)
+    if frame_indices == 'all':
+        n_frames = get(item, n_frames=True)
+        frame_indices = _arange(n_frames)
+    elif type(frame_indices)==int:
+        frame_indices = [frame_indices]
 
-    return _dict_set[form_in](item, element=element, indices=indices, ids=ids, **singular_kwargs)
+    for attribute in attributes:
+        value = kwargs[attribute]
+        _dict_set[form_in][element][attribute](item, indices=indices, frame_indices=frame_indices, value=value)
+
+    pass
 
 def load (item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs):
 

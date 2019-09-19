@@ -115,6 +115,22 @@ def to_nglview(item):
 
     return _mdtraj_to_nglview(tmp_item)
 
+def duplicate(item):
+
+    from molmodmt.native.molmod import MolMod
+    from .api_molmodmt_Trajectory import duplicate as duplicate_Trajectory
+    from .api_molmodmt_Structure import duplicate as duplicate_Structure
+    from .api_molmodmt_Topology import duplicate as duplicate_Topology
+    from .api_molmodmt_Topography import duplicate as duplicate_Topography
+
+    tmp_item = MolMod()
+    tmp_item.trajectory = duplicate_Trajectory(item.trajectory)
+    tmp_item.topology = duplicate_Topology(item.topology)
+    tmp_item.structure = duplicate_Structure(item.structure)
+    tmp_item.topography = duplicate_Topography(item.topography)
+
+    return tmp_item
+
 ###### Get
 
 ## atom
@@ -231,19 +247,21 @@ def get_box_from_system(item, indices=None, frame_indices=None):
     from .api_molmodmt_Trajectory import get_box_from_system as _get
     return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
+def get_box_shape_from_system(item, indices=None, frame_indices=None):
+
+    return item.trajectory.box_shape
+
 
 ###### Set
 
 def set_box_to_system(item, indices=None, frame_indices=None, value=None):
 
     item.trajectory.box = value
-    item.trajectory.box2cell()
     pass
 
-def set_cell_to_system(item, indices=None, frame_indices=None, value=None):
+def set_coordinates_to_system(item, indices=None, frame_indices=None, value=None):
 
-    item.trajectory.cell = value
-    item.trajectory.cell2box()
+    item.trajectory.coordinates = value
     pass
 
 

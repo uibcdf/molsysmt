@@ -8,6 +8,7 @@ class TrajectoryFile():
         self.form = None
         self.n_frames = 0
         self.n_atoms = 0
+        self.box_shape = None
         self.atom_indices = None
 
         if filename is not None and mode=='read':
@@ -21,6 +22,7 @@ class TrajectoryFile():
                 self.mount_point = convert(filename,'mdtraj.XTCTrajectoryFile')
                 self.n_frames = get(self.mount_point, n_frames=True)
                 self.n_atoms = get(self.mount_point, n_atoms=True)
+                self.box_shape = get(self.mount_point, box_shape=True)
                 self.opened = True
             else:
                 raise NotImplementedError

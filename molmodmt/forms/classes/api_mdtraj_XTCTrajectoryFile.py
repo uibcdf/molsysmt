@@ -62,6 +62,16 @@ def get_n_frames_from_system (item, indices=None, frame_indices=None):
 
     return len(item.offsets)
 
+def get_box_shape_from_system (item, indices=None, frame_indices=None):
+
+    from molmodmt.utils.pbc import get_shape_from_box
+    position = item.tell()
+    xyz, time, step, box = item.read(n_frames=1)
+    item.seek(position)
+    shape = get_shape_from_box(box*_unit.nanometers)
+    del(xyz, time, step, box)
+    return shape
+
 def get_n_atoms_from_system (item, indices=None, frame_indices=None):
 
     position = item.tell()

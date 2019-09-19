@@ -51,6 +51,30 @@ def to_nglview(item):
 
     return _mdtraj_to_nglview(tmp_item)
 
+def duplicate(item):
+
+    from copy import deepcopy
+    from molmodmt.native.trajectory import Trajectory
+    from .api_molmodmt_TrajectoryFile import duplicate as _duplicate_TrajectoryFile
+
+    tmp_item = Trajectory()
+
+    tmp_item.length_units = deepcopy(item.length_units)
+    tmp_item.time_units = deepcopy(item.time_units)
+
+    tmp_item.step = deepcopy(item.step)
+    tmp_item.time = deepcopy(item.time)
+    tmp_item.coordinates = deepcopy(item.coordinates)
+    tmp_item.box = deepcopy(item.box)
+    tmp_item.box_shape = deepcopy(item.box_shape)
+
+    tmp_item.n_frames = deepcopy(item.n_frames)
+    tmp_item.n_atoms = deepcopy(item.n_atoms)
+
+    tmp_item.file = _duplicate_TrajectoryFile(item.file)
+
+    return tmp_item
+
 ###### Get
 
 ## atom

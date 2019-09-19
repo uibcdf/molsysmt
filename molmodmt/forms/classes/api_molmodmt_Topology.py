@@ -18,6 +18,12 @@ def to_mdtraj_Topology (item, selection=None, syntaxis='MDTraj'):
     tmp_item = extract(item, selection=selection, syntaxis=syntaxis, mode='keeping_selection')
     return tmp_item
 
+def duplicate(item):
+
+    from .api_mdtraj_Topology import duplicate as _duplicate_mdtraj_Topology
+
+    return _duplicate_mdtraj_Topology(item)
+
 ###### Get
 
 ## atom

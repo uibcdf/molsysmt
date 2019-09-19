@@ -134,6 +134,12 @@ def merge_two_items(item1, item2, in_place=False):
         tmp_item=item1.copy()
         return tmp_item.join(item2)
 
+# Duplicate
+
+def duplicate(item):
+
+    return item.copy()
+
 ########################
 ### Get
 ########################

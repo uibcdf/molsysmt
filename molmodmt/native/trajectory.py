@@ -23,12 +23,13 @@ class Trajectory():
         self.box  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
                           # cell is the matrix with the vectors
 
-        self.orthogonal   = None # True or False
+        self.box_shape   = None #
         self.n_frames = 0
         self.n_atoms = 0
 
         from .trajectory_file import TrajectoryFile
         self.file = TrajectoryFile(filename=filename)
+        self.box_shape = self.file.box_shape
 
     def _set_frames(self, step=None, time=None, coordinates=None, box=None):
 

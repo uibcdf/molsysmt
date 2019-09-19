@@ -37,12 +37,16 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
         aux.box=_np.asfortranarray(aux.box, dtype='float64')
         aux.invbox=_np.asfortranarray(aux.invbox, dtype='float64')
 
-        _libbox.minimum_image_convention(aux.coordinates, molecules_serialized.values,
-                       molecules_serialized.starts, reference_coordinates,
-                       aux.box, aux.invbox, aux.orthogonal,
-                       aux.n_frames, aux.n_atoms,
-                       molecules_serialized.n_values, molecules_serialized.n_starts,
-                       atom_indices_reference.shape[0])
+        orthogonal = 0
+        if get(item, box_shape=True) == 'cubic':
+            orthogonal = 1
+
+        #_libbox.minimum_image_convention(aux.coordinates, molecules_serialized.values,
+        #               molecules_serialized.starts, reference_coordinates,
+        #               aux.box,
+        #               aux.n_frames, aux.n_atoms,
+        #               molecules_serialized.n_values, molecules_serialized.n_starts,
+        #               atom_indices_reference.shape[0])
 
         aux.coordinates=_np.ascontiguousarray(aux.coordinates)
         aux.box=_np.ascontiguousarray(aux.box)
@@ -74,29 +78,30 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', syntaxis='MDTraj', eng
         molecules_serialized = serialized_lists(molecules, dtype='int64')
 
         bonded_atoms = get(tmp_item, element='atom', indices=atom_indices, bonded_atoms=True)
-        bonded_atoms_serialized = serialized_lists(bonds, dtype='int64')
+        bonded_atoms_serialized = serialized_lists(bonded_atoms, dtype='int64')
 
-        coordinates, box = get(tmp_item, coordinates=True, box=True, frame_indices='all') 
+        coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, frame_indices='all')
 
         length_units = coordinates.unit
         coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
         box = _np.asfortranarray(box._value, dtype='float64')
+        orthogonal = 0
+        if box_shape=='cubic': orthogonal = 1
 
-        _libbox.unwrap(aux.coordinates, molecules_serialized.values,
-                       molecules_serialized.starts, bonds_serialized.values, bonds_serialized.starts,
-                       aux.box, aux.invbox, aux.orthogonal,
-                       aux.n_frames, aux.n_atoms,
-                       molecules_serialized.n_values, molecules_serialized.n_starts,
-                       bonds_serialized.n_values, bonds_serialized.n_starts)
+        #_libbox.unwrap(coordinates, box, molecules_serialized.values,
+        #               molecules_serialized.starts, bonds_serialized.values, bonds_serialized.starts,
+        #               box, aux.n_frames, aux.n_atoms,
+        #               molecules_serialized.n_values, molecules_serialized.n_starts,
+        #               bonded_atoms_serialized.n_values, bonded_atoms_serialized.n_starts)
 
         coordinates=_np.ascontiguousarray(coordinates)*length_units
-        box=_np.ascontiguousarray(aux.box)*length_units
 
-        set(tmp_item, coordinates=coordinates, box=box)
+        set(tmp_item, coordinates=coordinates)
 
-        del(coordinates, box, molecules, molecules_serialized, bonds, bonds_serialized)
+        del(coordinates, box, length_units)
+        del(molecules, molecules_serialized, bonded_atoms, bonded_atoms_serialized)
 
-        return out_item
+        return tmp_item
 
     else:
 

@@ -10,4 +10,9 @@ is_form={
 }
 
 
+def duplicate(item):
+
+    tmp_item = _molmodmt_Structure()
+
+    return tmp_item
 
