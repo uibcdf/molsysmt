@@ -59,12 +59,14 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
 
 def unwrap_molecules_from_pbc_cell(item, selection='all', syntaxis='MDTraj', engine='MolModMT'):
 
-    from molmodmt import convert, select, get
-    from molmodmt.utils.math import serialize_list_of_lists
+    from molmodmt import convert, select, get, set, duplicate
+    from molmodmt.utils.math import serialized_lists
 
     atom_indices = select(item, selection=selection, syntaxis=syntaxis)
     engine = _digest_engines(engine)
     form_in, form_out = _digest_forms(item, engine)
+    tmp_item = duplicate(item)
+
 
     if engine=='MolModMT':
 
@@ -74,12 +76,11 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', syntaxis='MDTraj', eng
         bonded_atoms = get(tmp_item, element='atom', indices=atom_indices, bonded_atoms=True)
         bonded_atoms_serialized = serialized_lists(bonds, dtype='int64')
 
-        coordinates, 
+        coordinates, box = get(tmp_item, coordinates=True, box=True, frame_indices='all') 
 
-        aux = self.trajectory
-        aux.coordinates=_np.asfortranarray(aux.coordinates, dtype='float64')
-        aux.box=_np.asfortranarray(aux.box, dtype='float64')
-        aux.invbox=_np.asfortranarray(aux.invbox, dtype='float64')
+        length_units = coordinates.unit
+        coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
+        box = _np.asfortranarray(box._value, dtype='float64')
 
         _libbox.unwrap(aux.coordinates, molecules_serialized.values,
                        molecules_serialized.starts, bonds_serialized.values, bonds_serialized.starts,
@@ -88,12 +89,12 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', syntaxis='MDTraj', eng
                        molecules_serialized.n_values, molecules_serialized.n_starts,
                        bonds_serialized.n_values, bonds_serialized.n_starts)
 
-        aux.coordinates=_np.ascontiguousarray(aux.coordinates)
-        aux.box=_np.ascontiguousarray(aux.box)
-        aux.invbox=_np.ascontiguousarray(aux.invbox)
+        coordinates=_np.ascontiguousarray(coordinates)*length_units
+        box=_np.ascontiguousarray(aux.box)*length_units
 
-        out_item = convert(tmp_item, form_out)
-        del(tmp_item, aux, molecules, molecules_serialized, bonds, bonds_serialized)
+        set(tmp_item, coordinates=coordinates, box=box)
+
+        del(coordinates, box, molecules, molecules_serialized, bonds, bonds_serialized)
 
         return out_item
 

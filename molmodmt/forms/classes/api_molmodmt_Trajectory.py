@@ -65,3 +65,14 @@ def get_n_atoms_from_system(item, indices=None, frame_indices=None):
 
     return item.n_atoms
 
+def get_n_frames_from_system(item, indices=None, frame_indices=None):
+
+    return item.n_frames
+
+def get_coordinates_from_system(item, indices=None, frame_indices=None):
+
+    return item.coordinates[frame_indices]
+
+def get_box_from_system(item, indices=None, frame_indices=None):
+
+    return item.box[frame_indices]

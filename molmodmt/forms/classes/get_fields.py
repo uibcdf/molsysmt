@@ -175,7 +175,7 @@ element_fields = {
             'graph' : _raise_not_implemented_error,
             'molecules' : _raise_not_implemented_error,
             'coordinates' : _raise_not_implemented_error,
-            'cell' : _raise_not_implemented_error,
+            'box' : _raise_not_implemented_error,
             'time' : _raise_not_implemented_error,
             'step' : _raise_not_implemented_error,
             'frames': _raise_not_implemented_error,

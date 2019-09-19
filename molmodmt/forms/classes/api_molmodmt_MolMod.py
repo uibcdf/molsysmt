@@ -173,8 +173,8 @@ def get_n_molecules_from_system(item, indices=None, frame_indices=None):
 
 def get_n_frames_from_system(item, indices=None, frame_indices=None):
 
-    from .api_molmodmt_Trayectory import get_n_frames_from_system as _get
-    return _get(item.trayectory, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Trajectory import get_n_frames_from_system as _get
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_system(item, indices=None, frame_indices=None):
 
@@ -221,14 +221,14 @@ def get_molecules_from_system(item, indices=None, frame_indices=None):
 
     return molecules
 
+def get_coordinates_from_system(item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Trajectory import get_coordinates_from_system as _get
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
+
 def get_box_from_system(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Trajectory import get_box_from_system as _get
-    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
-
-def get_cell_from_system(item, indices=None, frame_indices=None):
-
-    from .api_molmodmt_Trajectory import get_cell_from_system as _get
     return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
 

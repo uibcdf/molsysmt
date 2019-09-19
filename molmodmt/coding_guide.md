@@ -21,8 +21,10 @@ sorted list of integer
 
 name variable: 'frame_indices'
 
-Default: 'all'
-None: all atoms
+Default: None
+'all': all atoms
+
+frame is: step, time, coordinates and box.
 
 # Documenting Methods
 
