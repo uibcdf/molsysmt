@@ -14,7 +14,7 @@ def center(item=None, selection=None, selection_groups=None, weights=None, frame
     engine = _digest_engines(engine)
     form_in, _ = _digest_forms(item, engine)
 
-    if frame_indices == 'all':
+    if frame_indices is 'all':
         n_frames = get(item, n_frames=True)
         frame_indices = _np.arange(n_frames)
     elif type(frame_indices)==int:
@@ -71,32 +71,52 @@ def center_of_mass(item=None, selection=None, selection_groups=None, frame_indic
                   engine=engine, parallel=parallel)
 
 
-def recenter(item, selection_center=None, selection='all', weights=None, syntaxis='MDTraj', engine='MolModMT'):
+def recenter(item, selection='all', selection_center='all', coordinates_center=None,
+        center_of_selection='geometrical_center', frame_indices='all', syntaxis='MDTraj', engine='MolModMT'):
 
-    from molmodmt import convert, select, get
-    from molmodmt.math import serialize_list_of_lists
+    from molmodmt import select, get, duplicate
+    from molmodmt import set as _set
 
-    syntaxis = _digest_engines(syntaxis)
     engine = _digest_engines(engine)
-    form_in, form_out = _digest_forms(item, engine)
-    tmp_item = convert(item, engine)
+    form_in, _ = _digest_forms(item, engine)
+    tmp_item = duplicate(item)
+
+    if frame_indices == 'all':
+        n_frames = get(item, n_frames=True)
+        frame_indices = _np.arange(n_frames)
+    elif type(frame_indices)==int:
+        frame_indices = [frame_indices]
 
     if engine=='MolModMT':
 
-        center_to_origin = center(item=tmp_item, selection=selection_center, selection_groups=None,
-                                  weights=weigths, frame_indices='all', syntaxis=syntaxis, engine=engine)
+        n_atoms = get(item, n_atoms=True)
+        n_frame_indices = len(frame_indices)
+        coordinates = get(tmp_item, coordinates=True, frame_indices='all')
+        n_frames = coordinates.shape[0]
+        length_units = coordinates.unit
 
-        translation = - center_to_origin[:,0,:]
-        del(center_to_origin)
+        if coordinates_center is None:
+            coordinates_center = _np.zeros([n_frame_indices,3],dtype='float64')*length_units
 
-        aux = tmp_item.trajectory
-        aux.coordinates = _np.asfortranarray(aux.coordinates, dtype='float64')
-        _libgeometry.translate(aux.coordinates, translation, aux.n_frames, aux.n_atoms)
-        aux.coordinates=_np.ascontiguousarray(self.aux)
+        if center_of_selection == 'geometrical_center':
+            coordinates_selection_center = geometrical_center(item=tmp_item, selection=selection_center, selection_groups=None,
+                                           frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
 
-        del(translation)
+        translation = coordinates_center - coordinates_selection_center[:,0,:]
+        del(coordinates_center, coordinates_selection_center)
 
-        tmp_item = convert(tmp_item, form_out)
+        coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
+        translation = _np.asfortranarray(translation._value, dtype='float64')
+
+        _libgeometry.translate(coordinates, translation, frame_indices, n_atoms, n_frames,
+                n_frame_indices)
+
+        coordinates=_np.ascontiguousarray(coordinates)*length_units
+
+        _set(tmp_item, coordinates=coordinates)
+
+        del(coordinates, translation, length_units)
+
         return tmp_item
 
     else:

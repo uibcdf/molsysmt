@@ -107,17 +107,19 @@ CONTAINS
 
   !END FUNCTION
 
-  SUBROUTINE TRANSLATE(coors, shifts, n_frames, n_atoms)
+  SUBROUTINE TRANSLATE(coors, shifts, frame_indices, n_atoms, n_frames, n_frame_indices)
  
     IMPLICIT NONE
-    INTEGER,INTENT(IN)::n_frames, n_atoms
+    INTEGER,INTENT(IN)::n_frames, n_atoms, n_frame_indices
     DOUBLE PRECISION,DIMENSION(n_frames, n_atoms, 3),INTENT(INOUT)::coors
-    DOUBLE PRECISION,DIMENSION(n_frames,3),INTENT(IN)::shifts
-    INTEGER::ii,jj
+    DOUBLE PRECISION,DIMENSION(n_frame_indices, 3),INTENT(IN)::shifts
+    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
+    INTEGER::ii,jj,frame_index
 
-    DO ii=1,n_frames
+    DO ii=1,n_frame_indices
+      frame_index = frame_indices(ii)+1
       DO jj=1,n_atoms
-          coors(ii,jj,:)=coors(ii,jj,:)+shifts(ii,:)
+          coors(frame_index,jj,:)=coors(frame_index,jj,:)+shifts(ii,:)
       END DO
     END DO
 

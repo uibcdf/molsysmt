@@ -20,7 +20,7 @@ from .mutations import mutate
 from .topology import is_water, is_ion, is_aminoacid, is_nucleotide, residue_name_to_molecule_type
 from .chem_and_phys_properties import get_charge, get_net_charge, get_mass, get_net_mass,\
                                get_degrees_of_freedom
-from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention
+from .pbc import wrap_system_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention
 
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:
@@ -45,7 +45,7 @@ __all_topology__ = ['is_water', 'is_ion', 'is_aminoacid', 'is_nucleotide',
                     'residue_name_to_molecule_type']
 __all_chem_and_phys_properties__ = ['get_charge', 'get_net_charge', 'get_mass', 'get_net_mass',
                                     'get_degrees_of_freedom']
-__all_pbc__ = ['wrap_molecules', 'unwrap_molecules', 'minimum_image_convention']
+__all_pbc__ = ['wrap_system_to_pbc_cell', 'unwrap_molecules_from_pbc_cell', 'minimum_image_convention']
 
 __all__ = __all_multitool__ + __all_info_converters__ + __all_rmsd__ + __all_distances__ +\
         __all_centers__ + __all_sequence__ + __all_radius_of_gyration__ + __all_fix__ +\

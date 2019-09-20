@@ -14,7 +14,7 @@ CONTAINS
     INTEGER,DIMENSION(n_groups_atoms),INTENT(IN)::groups_atoms_indices
     INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
     DOUBLE PRECISION,DIMENSION(n_groups_atoms)::weights
-    DOUBLE PRECISION,DIMENSION(n_frame_indices, n_groups_atoms, 3)::center
+    DOUBLE PRECISION,DIMENSION(n_frame_indices, n_groups, 3)::center
  
     weights(:)=1.0d0
 
@@ -35,7 +35,7 @@ CONTAINS
     INTEGER,DIMENSION(n_groups_atoms),INTENT(IN)::groups_atoms_indices
     INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
     DOUBLE PRECISION,DIMENSION(n_groups_atoms),INTENT(IN)::weights
-    DOUBLE PRECISION,DIMENSION(n_frame_indices, n_groups_atoms, 3)::center
+    DOUBLE PRECISION,DIMENSION(n_frame_indices, n_groups, 3)::center
  
     INTEGER::ii, jj, ll, frame_index, atom_index
     DOUBLE PRECISION::total_weight

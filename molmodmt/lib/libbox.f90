@@ -330,15 +330,15 @@ CONTAINS
 
   END SUBROUTINE UNWRAP
 
-  SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors, reference_coors, groups_indices, groups_atoms_indices, groups_starts, &
+  SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors, reference_coors, center_groups, groups_indices, groups_atoms_indices, groups_starts, &
           frame_indices, box, ortho, n_frames, n_atoms, n_groups, n_groups_atoms, n_frame_indices)
 
     IMPLICIT NONE
 
     INTEGER,INTENT(IN):: n_frames, n_atoms, n_groups, n_groups_atoms, n_frame_indices, ortho
-
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
-    DOUBLE PRECISION,DIMENSION(n_frames,1,3),INTENT(INOUT)::reference_coors
+    DOUBLE PRECISION,DIMENSION(n_frame_indices,1,3),INTENT(IN)::reference_coors
+    DOUBLE PRECISION,DIMENSION(n_frame_indices,n_groups,3),INTENT(IN)::center_groups
     INTEGER,DIMENSION(n_groups),INTENT(IN)::groups_indices ! Molecules in this case
     INTEGER,DIMENSION(n_groups+1),INTENT(IN)::groups_starts
     INTEGER,DIMENSION(n_groups_atoms),INTENT(IN)::groups_atoms_indices
@@ -347,22 +347,28 @@ CONTAINS
 
     INTEGER::ii,jj,ll
     INTEGER::atom_index, frame_index
-    DOUBLE PRECISION,DIMENSION(n_frames,1,3)::com,vect_aux
-    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms_series,3)::centers_molecules
+    DOUBLE PRECISION,DIMENSION(n_frame_indices,3,3)::box_frames, inv_frames
+    DOUBLE PRECISION,DIMENSION(n_frame_indices,1,3)::vect_aux
 
-    centers_molecules = GEOMETRICAL_CENTER(coors, groups_indices, groups_atoms_indices, groups_starts, frame_indices, &
-        & n_frames, n_atoms, n_groups, n_groups_atoms, n_frames_indices)
+    DO ll=1,n_frame_indices
+        frame_index=frame_indices(ll)+1
+        box_frames(ll,:,:)=box(frame_index,:,:)
+    END DO
 
-    DO ii=1, n_atoms_series
-        com(:,1,:) = centers_molecules(:,ii,:)
-        vect_aux = com - reference_coors
-        CALL PBC_TENSOR(vect_aux, box, inv, ortho, n_frames, n_atoms)
-        DO jj=atoms_series_starts(ii)+1, atoms_series_starts(ii+1)
-            atom_index = atoms_indices_serialized(jj)+1
-            DO ll=1,n_frames_indices
+    CALL BOX2INVBOX (box_frames, inv_frames, n_frame_indices)
+
+    DO ii=1, n_groups
+
+        vect_aux(:,1,:) = center_groups(:,ii,:) - reference_coors(:,1,:)
+
+        CALL PBC_TENSOR(vect_aux, box_frames, inv_frames, ortho, n_frame_indices, 1)
+
+        DO jj=groups_starts(ii)+1, groups_starts(ii+1)
+            atom_index = groups_atoms_indices(jj)+1
+            DO ll=1,n_frame_indices
                 frame_index=frame_indices(ll)+1
-                coors(frame_index, atom_index, :) = coors(frame_index, atom_index, :) - com(frame_index, 1, :) +&
-                & vect_aux(frame_index, 1, :) + reference_coors(frame_index, 1, :)
+                coors(frame_index, atom_index, :) = coors(frame_index, atom_index, :) - center_groups(ll, ii, :) +&
+                & vect_aux(ll, 1, :) + reference_coors(ll, 1, :)
             END DO
         END DO
     END DO

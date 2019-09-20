@@ -4,7 +4,9 @@ from molmodmt.lib import box as _libbox
 import numpy as _np
 
 def minimum_image_convention(item, selection='all', reference_selection=None,
-                             frame_indices='all', syntaxis='MDTraj', engine='MolModMT'):
+                             reference_coordinates=None, center_of_selection='geometrical_center',
+                             center_of_reference_selection='geometrical_center', frame_indices='all',
+                             syntaxis='MDTraj', engine='MolModMT'):
 
     from molmodmt import convert, select, get, duplicate
     from molmodmt import set as _set
@@ -18,13 +20,15 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
         frame_indices = [frame_indices]
 
     engine = _digest_engines(engine)
-    form_in, form_out = _digest_forms(item, engine)
+    form_in, _ = _digest_forms(item, engine)
     tmp_item = duplicate(item)
 
     if engine=='MolModMT':
 
-        reference_coordinates = geometrical_center(tmp_item, selection=reference_selection,
-                                                   syntaxis=syntaxis, engine=engine)
+        if reference_coordinates is None:
+            if center_of_reference_selection == 'geometrical_center':
+                reference_coordinates = geometrical_center(tmp_item, selection=reference_selection,
+                                                        frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
 
         molecules = get(tmp_item, molecules=True)
         atom_indices = select(item, selection=selection, syntaxis=syntaxis)
@@ -38,10 +42,15 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
 
         molecules_serialized = serialized_lists(molecules, dtype='int64')
 
+        if center_of_selection == 'geometrical_center':
+            centers_molecules = geometrical_center(tmp_item, selection_groups=molecules,
+                    frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
+
         coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, frame_indices='all')
 
         length_units = coordinates.unit
         coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
+        reference_coordinates = _np.asfortranarray(reference_coordinates._value, dtype='float64')
         box = _np.asfortranarray(box._value, dtype='float64')
         orthogonal = 0
         if box_shape=='cubic': orthogonal = 1
@@ -49,16 +58,15 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
         n_frames = coordinates.shape[0]
         n_frame_indices = len(frame_indices)
 
-        #_libbox.minimum_image_convention(aux.coordinates, molecules_serialized.values,
-        #               molecules_serialized.starts, reference_coordinates,
-        #               aux.box,
-        #               aux.n_frames, aux.n_atoms,
-        #               molecules_serialized.n_values, molecules_serialized.n_starts,
-        #               atom_indices_reference.shape[0])
+        _libbox.minimum_image_convention(coordinates, reference_coordinates, centers_molecules,
+                molecules_serialized.indices, molecules_serialized.values,
+                molecules_serialized.starts, frame_indices, box, orthogonal,
+                n_frames, n_atoms, molecules_serialized.n_indices, molecules_serialized.n_values,
+                n_frame_indices)
 
         coordinates=_np.ascontiguousarray(coordinates)*length_units
 
-       _set(tmp_item, coordinates=coordinates)
+        _set(tmp_item, coordinates=coordinates)
 
         del(coordinates, box, length_units)
         del(molecules, molecules_serialized)
