@@ -242,42 +242,57 @@ CONTAINS
 
   END SUBROUTINE WRAP
 
-  SUBROUTINE UNWRAP (coors, atoms_indices_serialized, atoms_series_starts, bonds_indices_serialized, &
-          & bonds_series_starts, frame_indices, box, inv, ortho, n_frames, n_atoms, n_atoms_indices, &
-          & n_atoms_series, n_bonds_indices, n_bonds_series, n_frames_indices)
+  SUBROUTINE UNWRAP (coors, molecules_indices, molecules_values, molecules_starts, &
+          & bonded_atoms_indices, bonded_atoms_values, bonded_atoms_starts, &
+          & frame_indices, box, ortho, n_frames, n_atoms, n_molecules_indices, &
+          & n_molecules_values, n_bonded_atoms_indices, n_bonded_atoms_values, &
+          & n_frame_indices)
 
     IMPLICIT NONE
 
-    INTEGER,INTENT(IN):: n_frames, n_atoms, n_atoms_indices, n_atoms_series
-    INTEGER,INTENT(IN):: n_bonds_indices, n_bonds_series, n_frames_indices, ortho
+    INTEGER,INTENT(IN):: n_frames, n_atoms, ortho, n_frame_indices
+    INTEGER,INTENT(IN):: n_molecules_indices, n_molecules_values
+    INTEGER,INTENT(IN):: n_bonded_atoms_indices, n_bonded_atoms_values
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
-    INTEGER,DIMENSION(n_atoms_indices),INTENT(IN)::atoms_indices_serialized ! Molecules in this case
-    INTEGER,DIMENSION(n_atoms_series+1),INTENT(IN)::atoms_series_starts
-    INTEGER,DIMENSION(n_bonds_indices),INTENT(IN)::bonds_indices_serialized
-    INTEGER,DIMENSION(n_bonds_series+1),INTENT(IN)::bonds_series_starts
-    INTEGER,DIMENSION(n_frames_indices),INTENT(IN)::frame_indices
-    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
+    INTEGER,DIMENSION(n_molecules_indices),INTENT(IN)::molecules_indices
+    INTEGER,DIMENSION(n_molecules_indices+1),INTENT(IN)::molecules_starts
+    INTEGER,DIMENSION(n_molecules_values),INTENT(IN)::molecules_values
+    INTEGER,DIMENSION(n_bonded_atoms_indices),INTENT(IN)::bonded_atoms_indices
+    INTEGER,DIMENSION(n_bonded_atoms_indices+1),INTENT(IN)::bonded_atoms_starts
+    INTEGER,DIMENSION(n_bonded_atoms_values),INTENT(IN)::bonded_atoms_values
+    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
+    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
+    DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
 
     INTEGER:: ii, jj, kk, ll
     INTEGER:: molecule_start, molecule_end, molecule_natoms
     INTEGER:: n_left, n_storage
-    INTEGER:: atom_id1, atom_id2
+    INTEGER:: atom_id, atom_id1, atom_id2, atom_pos1
     LOGICAL,DIMENSION(n_atoms)::aux_filter
     DOUBLE PRECISION,DIMENSION(3)::vect_aux
     INTEGER,DIMENSION(:),ALLOCATABLE::left,storage
+    INTEGER,DIMENSION(n_atoms)::atom_id_to_position_in_bonds
     INTEGER::frame_index
     
+    CALL BOX2INVBOX (box, inv, n_frames)
+
     aux_filter(:)=.FALSE.
 
-    DO ii=1,n_atoms_series
+    atom_id_to_position_in_bonds(:)=0
+    DO ii=1, n_bonded_atoms_indices
+        atom_id = bonded_atoms_indices(ii)+1
+        atom_id_to_position_in_bonds(atom_id)=ii
+    END DO 
 
-        molecule_start=atoms_series_starts(ii)+1
-        molecule_end=atoms_series_starts(ii+1)
+    DO ii=1, n_molecules_indices
+
+        molecule_start=molecules_starts(ii)+1
+        molecule_end=molecules_starts(ii+1)
         molecule_natoms=molecule_end-molecule_start+1
 
         n_left=1
         ALLOCATE(left(n_left),storage(molecule_natoms))
-        jj=atoms_indices_serialized(molecule_start)+1
+        jj=molecules_values(molecule_start)+1
         left(1)=jj
         aux_filter(jj)=.TRUE.
 
@@ -285,10 +300,11 @@ CONTAINS
             n_storage=0
             DO jj=1,n_left
                 atom_id1 = left(jj)
-                DO kk=bonds_series_starts(atom_id1)+1,bonds_series_starts(atom_id1+1)
-                    atom_id2=bonds_indices_serialized(kk)+1
+                atom_pos1 = atom_id_to_position_in_bonds(atom_id1)
+                DO kk=bonded_atoms_starts(atom_pos1)+1,bonded_atoms_starts(atom_pos1+1)
+                    atom_id2=bonded_atoms_values(kk)+1
                     IF (aux_filter(atom_id2).eqv..FALSE.) THEN
-                        DO ll=1,n_frames_indices
+                        DO ll=1,n_frame_indices
                             frame_index=frame_indices(ll)+1
                             vect_aux(:)=coors(frame_index,atom_id2,:)-coors(frame_index,atom_id1,:)
                             CALL PBC(vect_aux,box(frame_index,:,:),inv(frame_index,:,:),ortho)
@@ -314,27 +330,28 @@ CONTAINS
 
   END SUBROUTINE UNWRAP
 
-  SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors, reference_coors, atoms_indices_serialized, atoms_series_starts, frame_indices, &
-          & box, inv, ortho, n_frames, n_atoms, n_atoms_indices, n_atoms_series, n_frames_indices)
+  SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors, reference_coors, groups_indices, groups_atoms_indices, groups_starts, &
+          frame_indices, box, ortho, n_frames, n_atoms, n_groups, n_groups_atoms, n_frame_indices)
 
     IMPLICIT NONE
 
-    INTEGER,INTENT(IN):: n_frames, n_atoms, n_atoms_indices, n_atoms_series, n_frames_indices, ortho
+    INTEGER,INTENT(IN):: n_frames, n_atoms, n_groups, n_groups_atoms, n_frame_indices, ortho
 
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
     DOUBLE PRECISION,DIMENSION(n_frames,1,3),INTENT(INOUT)::reference_coors
-    INTEGER,DIMENSION(n_atoms_indices),INTENT(IN)::atoms_indices_serialized ! Molecules in this case
-    INTEGER,DIMENSION(n_atoms_series+1),INTENT(IN)::atoms_series_starts
-    INTEGER,DIMENSION(n_frames_indices),INTENT(IN)::frame_indices
-    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
+    INTEGER,DIMENSION(n_groups),INTENT(IN)::groups_indices ! Molecules in this case
+    INTEGER,DIMENSION(n_groups+1),INTENT(IN)::groups_starts
+    INTEGER,DIMENSION(n_groups_atoms),INTENT(IN)::groups_atoms_indices
+    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
+    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
 
     INTEGER::ii,jj,ll
     INTEGER::atom_index, frame_index
     DOUBLE PRECISION,DIMENSION(n_frames,1,3)::com,vect_aux
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms_series,3)::centers_molecules
 
-    centers_molecules = GEOMETRICAL_CENTER(coors, atoms_indices_serialized, atoms_series_starts, frame_indices, &
-        & n_frames, n_atoms, n_atoms_indices, n_atoms_series, n_frames_indices)
+    centers_molecules = GEOMETRICAL_CENTER(coors, groups_indices, groups_atoms_indices, groups_starts, frame_indices, &
+        & n_frames, n_atoms, n_groups, n_groups_atoms, n_frames_indices)
 
     DO ii=1, n_atoms_series
         com(:,1,:) = centers_molecules(:,ii,:)
