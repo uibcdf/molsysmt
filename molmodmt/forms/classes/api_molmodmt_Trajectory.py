@@ -106,3 +106,8 @@ def get_coordinates_from_system(item, indices=None, frame_indices=None):
 def get_box_from_system(item, indices=None, frame_indices=None):
 
     return item.box[frame_indices]
+
+def get_time_from_system(item, indices=None, frame_indices=None):
+
+    return item.time[frame_indices]
+

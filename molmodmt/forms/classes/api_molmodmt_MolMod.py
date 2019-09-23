@@ -252,10 +252,14 @@ def get_box_from_system(item, indices=None, frame_indices=None):
     from .api_molmodmt_Trajectory import get_box_from_system as _get
     return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
+def get_time_from_system(item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Trajectory import get_time_from_system as _get
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
+
 def get_box_shape_from_system(item, indices=None, frame_indices=None):
 
     return item.trajectory.box_shape
-
 
 ###### Set
 

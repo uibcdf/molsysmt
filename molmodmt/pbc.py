@@ -1,4 +1,5 @@
 from .utils.engines import digest as _digest_engines
+from .utils.frame_indices import digest as _digest_frame_indices
 from .utils.forms import digest as _digest_forms
 from molmodmt.lib import box as _libbox
 import numpy as _np
@@ -13,11 +14,11 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
     from molmodmt.utils.math import serialized_lists
     from molmodmt.centers import geometrical_center
 
-    if frame_indices == 'all':
-        n_frames = get(item, n_frames=True)
-        frame_indices = _np.arange(n_frames)
-    elif type(frame_indices)==int:
-        frame_indices = [frame_indices]
+    n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
+    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+    n_atom_indices = len(atom_indices)
+    frame_indices = _digest_frame_indices(item, frame_indices)
+    n_frame_indices = len(frame_indices)
 
     engine = _digest_engines(engine)
     form_in, _ = _digest_forms(item, engine)
@@ -31,7 +32,6 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
                                                         frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
 
         molecules = get(tmp_item, molecules=True)
-        atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 
         if selection not in [None, 'all']:
             working_molecules = []
@@ -54,9 +54,6 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
         box = _np.asfortranarray(box._value, dtype='float64')
         orthogonal = 0
         if box_shape=='cubic': orthogonal = 1
-        n_atoms = coordinates.shape[1]
-        n_frames = coordinates.shape[0]
-        n_frame_indices = len(frame_indices)
 
         _libbox.minimum_image_convention(coordinates, reference_coordinates, centers_molecules,
                 molecules_serialized.indices, molecules_serialized.values,
@@ -83,21 +80,19 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', frame_indices='all', s
     from molmodmt import set as _set
     from molmodmt.utils.math import serialized_lists
 
-    if frame_indices == 'all':
-        n_frames = get(item, n_frames=True)
-        frame_indices = _np.arange(n_frames)
-    elif type(frame_indices)==int:
-        frame_indices = [frame_indices]
+    n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
+    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+    n_atom_indices = len(atom_indices)
+    frame_indices = _digest_frame_indices(item, frame_indices)
+    n_frame_indices = len(frame_indices)
 
     engine = _digest_engines(engine)
-    form_in, form_out = _digest_forms(item, engine)
+    form_in, _ = _digest_forms(item, engine)
     tmp_item = duplicate(item)
-
 
     if engine=='MolModMT':
 
         molecules = get(tmp_item, molecules=True)
-        atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 
         if selection not in [None, 'all']:
             working_molecules = []
@@ -118,9 +113,6 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', frame_indices='all', s
         box = _np.asfortranarray(box._value, dtype='float64')
         orthogonal = 0
         if box_shape=='cubic': orthogonal = 1
-        n_atoms = coordinates.shape[1]
-        n_frames = coordinates.shape[0]
-        n_frame_indices = len(frame_indices)
 
         _libbox.unwrap(coordinates, molecules_serialized.indices, molecules_serialized.values, molecules_serialized.starts,
                        bonded_atoms_serialized.indices, bonded_atoms_serialized.values, bonded_atoms_serialized.starts,

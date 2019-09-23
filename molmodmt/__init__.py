@@ -1,11 +1,10 @@
-
 from . import utils
 
 from .native.molmod import MolMod
 from .multitool import select, extract, merge, info, get_form, get, set, load,\
                        convert, duplicate, write, view, reformat
 from .info_converters import info_forms, info_load, info_convert, info_select, info_viewers
-from .rmsd import rmsd, least_rmsd_fit
+from .rmsd import rmsd, least_rmsd, least_rmsd_fit
 from .distances import distance, distance_atoms_pairs, min_distance, contact_map, neighbors_lists
 from .centers import geometrical_center, center_of_mass, center, recenter
 from .sequence import sequence_alignment, sequence_identity, structure_alignment
@@ -28,7 +27,7 @@ from .pbc import wrap_system_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimu
 __all_multitool__ = ['select', 'extract', 'merge', 'info', 'get_form', 'get', 'set', 'load',
                     'convert', 'duplicate', 'write', 'view', 'reformat']
 __all_info_converters__ = ['info_forms', 'info_load', 'info_convert', 'info_select', 'info_viewers']
-__all_rmsd__ = ['rmsd', 'least_rmsd_fit']
+__all_rmsd__ = ['rmsd', 'least_rmsd', 'least_rmsd_fit']
 __all_distances__ = ['distance', 'distance_atoms_pairs', 'min_distance', 'contact_map',
                      'neighbors_lists']
 __all_centers__ = ['geometrical_center', 'center_of_mass', 'center', 'recenter']

@@ -3,65 +3,64 @@ IMPLICIT NONE
 
 CONTAINS
 
-  FUNCTION RMSD(coors_ref,list_ref,coors,list,n_atoms_ref,n_list_ref,n_frames,n_atoms,n_list) RESULT(rmsd_val)
-
-    INTEGER,INTENT(IN)::n_frames,n_atoms,n_list,n_atoms_ref,n_list_ref
-    INTEGER,DIMENSION(n_list)::list
-    INTEGER,DIMENSION(n_list_ref)::list_ref
-    DOUBLE PRECISION,DIMENSION(n_atoms_ref,3),INTENT(IN)::coors_ref
-    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
-    DOUBLE PRECISION,DIMENSION(n_frames)::rmsd_val
+  FUNCTION RMSD(coors, list_atoms, coors_ref, frame_indices, n_atoms, n_frames, n_list_atoms, n_frame_indices) RESULT(rmsd_val)
+ 
+    INTEGER,INTENT(IN)::n_atoms, n_frames, n_list_atoms, n_frame_indices
+    DOUBLE PRECISION,DIMENSION(1, n_list_atoms, 3),INTENT(IN)::coors_ref
+    DOUBLE PRECISION,DIMENSION(n_frames, n_atoms, 3),INTENT(IN)::coors
+    INTEGER,DIMENSION(n_list_atoms),INTENT(IN)::list_atoms
+    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
+    DOUBLE PRECISION,DIMENSION(n_frame_indices)::rmsd_val
 
     DOUBLE PRECISION::val_aux
     DOUBLE PRECISION,DIMENSION(3)::vect_aux
-    INTEGER::ii,jj,kk,ll
+    INTEGER::ii,jj,ll
+    INTEGER::frame_index
 
     rmsd_val(:)=0.0d0
 
-    DO ll=1,n_frames
+    DO ll=1,n_frame_indices
+       frame_index = frame_indices(ll)+1
        val_aux = 0.0d0
-       DO ii=1,n_list
-          jj=list(ii)+1
-          kk=list_ref(ii)+1
-          vect_aux(:)=coors_ref(kk,:)-coors(ll,jj,:)
+       DO ii=1,n_list_atoms
+          jj=list_atoms(ii)+1
+          vect_aux(:)=coors_ref(1,ii,:)-coors(frame_index,jj,:)
           val_aux=val_aux+dot_product(vect_aux(:),vect_aux(:))
        END DO
        rmsd_val(ll)=val_aux
     END DO
-    rmsd_val(:)=rmsd_val(:)/(n_list*1.0d0)
+    rmsd_val(:)=rmsd_val(:)/(n_list_atoms*1.0d0)
     rmsd_val(:)=sqrt(rmsd_val(:))
 
   END FUNCTION RMSD
 
-  SUBROUTINE LEAST_RMSD(coors_ref,list_ref,coors,list,n_atoms_ref,n_list_ref,n_frames,n_atoms,n_list,rmsd_val)
-
-    INTEGER,INTENT(IN)::n_atoms_ref,n_list_ref,n_frames,n_atoms,n_list
-    DOUBLE PRECISION,DIMENSION(n_atoms_ref,3),INTENT(IN)::coors_ref
-    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
-    INTEGER,DIMENSION(n_list_ref),INTENT(IN)::list_ref
-    INTEGER,DIMENSION(n_list),INTENT(IN)::list
-    DOUBLE PRECISION,DIMENSION(n_frames),INTENT(OUT)::rmsd_val
-    DOUBLE PRECISION,DIMENSION(n_list_ref,3)::x
-    DOUBLE PRECISION,DIMENSION(n_list,3)::y
-    DOUBLE PRECISION,DIMENSION(n_list_ref)::w
+  SUBROUTINE LEAST_RMSD (coors, list_atoms, coors_ref, frame_indices, n_atoms, n_frames, n_list_atoms, n_frame_indices, rmsd_val) 
+ 
+    INTEGER,INTENT(IN)::n_atoms, n_frames, n_list_atoms, n_frame_indices
+    DOUBLE PRECISION,DIMENSION(1, n_list_atoms, 3),INTENT(IN)::coors_ref
+    DOUBLE PRECISION,DIMENSION(n_frames, n_atoms, 3),INTENT(IN)::coors
+    INTEGER,DIMENSION(n_list_atoms),INTENT(IN)::list_atoms
+    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
+    DOUBLE PRECISION,DIMENSION(n_frame_indices),INTENT(OUT)::rmsd_val
+    DOUBLE PRECISION,DIMENSION(n_list_atoms,3)::x, y
+    DOUBLE PRECISION,DIMENSION(n_list_atoms)::w
    
-    DOUBLE PRECISION,DIMENSION(3,3)::U
     DOUBLE PRECISION,DIMENSION(3)::center_ref,center_2
     DOUBLE PRECISION::rmsd
     
-    INTEGER::i,j,N,ll
+    INTEGER::i,j,ll
     DOUBLE PRECISION::msd,x_norm,y_norm
     DOUBLE PRECISION,DIMENSION(3,3)::R
     DOUBLE PRECISION,DIMENSION(4,4)::F
-    
+   
+    INTEGER::frame_index
+
     !To diagonalise:
     DOUBLE PRECISION,DIMENSION(4,4)::CC
     INTEGER::num_val,info
     INTEGER, DIMENSION(:),ALLOCATABLE::iwork,ifail
     DOUBLE PRECISION, DIMENSION(:),ALLOCATABLE::values,work
     DOUBLE PRECISION, DIMENSION(:,:),ALLOCATABLE::vectors
-   
-    rmsd_val(:)=0.0d0
     
     ALLOCATE(values(4),vectors(4,4),work(8*4),iwork(5*4),ifail(4))
 
@@ -69,22 +68,23 @@ CONTAINS
 
     !weights for atoms
     w=1.0d0
-    N=n_list_ref
 
     x=0.0d0
-    DO i=1,N
-       x(i,:)=w(i)*coors_ref(list_ref(i)+1,:)
+    DO i=1,n_list_atoms
+       x(i,:)=w(i)*coors_ref(1,i,:)
     END DO
 
     !!! calculo baricentros, centroides y normas:
     x_norm=0.0d0
     DO i=1,3
-       center_ref(i)=sum(x(:,i))/dble(N)
+       center_ref(i)=sum(x(:,i))/dble(n_list_atoms)
        x(:,i)=x(:,i)-center_ref(i)
        x_norm=x_norm+dot_product(x(:,i),x(:,i))
     END DO
 
-    DO ll=1,n_frames
+    DO ll=1,n_frame_indices
+
+      frame_index = frame_indices(ll)+1
 
       y=0.0d0
       CC=0.0d0
@@ -93,134 +93,18 @@ CONTAINS
       values=0.0d0
       vectors=0.0d0
       center_2=0.0d0
-      U=0.0d0
       y_norm=0.0d0
       R=0.0d0
       F=0.0d0
   
       !!! copio y peso las coordenadas:
-      DO i=1,N
-         y(i,:)=w(i)*coors(ll,list(i)+1,:)
+      DO i=1,n_list_atoms
+         y(i,:)=w(i)*coors(frame_index, list_atoms(i)+1, :)
       END DO
 
       !!! calculo baricentros, centroides y normas:
       DO i=1,3
-         center_2(i)=sum(y(:,i))/dble(N)
-         y(:,i)=y(:,i)-center_2(i)
-         y_norm=y_norm+dot_product(y(:,i),y(:,i))
-      END DO
-  
-      !!! calculo la matriz R
-      DO i=1,3
-         DO j=1,3
-            R(i,j)=dot_product(x(:,i),y(:,j))
-         END DO
-      END DO
-  
-      !!! construimos la matriz F:
-  
-      F(1,1)=R(1,1)+R(2,2)+R(3,3)
-      F(2,1)=R(2,3)-R(3,2)
-      F(3,1)=R(3,1)-R(1,3)
-      F(4,1)=R(1,2)-R(2,1)
-      F(1,2)=F(2,1)
-      F(2,2)=R(1,1)-R(2,2)-R(3,3)
-      F(3,2)=R(1,2)+R(2,1)
-      F(4,2)=R(1,3)+R(3,1)
-      F(1,3)=F(3,1)
-      F(2,3)=F(3,2)
-      F(3,3)=-R(1,1)+R(2,2)-R(3,3)
-      F(4,3)=R(2,3)+R(3,2)
-      F(1,4)=F(4,1)
-      F(2,4)=F(4,2)
-      F(3,4)=F(4,3)
-      F(4,4)=-R(1,1)-R(2,2)+R(3,3) 
-  
-      !!! calculos los autovalores y autovectores:
-      CC=F
-      call dsyevx ('V','I','U',4,CC,4,0,0,1,4,0.0d0,num_val&
-                    &,values,vectors,4,work,8*4,iwork,ifail,info)
- 
-      !!! computo el rmsd
-      msd=max(0.0d0,((x_norm+y_norm)-2.0d0*values(4)))/dble(N)
-      rmsd=sqrt(msd)
-      rmsd_val(ll)=rmsd
-
-    END DO 
- 
-  END SUBROUTINE LEAST_RMSD
-
-  SUBROUTINE LEAST_RMSD_FIT(coors_ref,list_ref,coors,list,n_atoms_ref,n_list_ref,n_frames,n_atoms,n_list)
- 
-    INTEGER,INTENT(IN)::n_atoms_ref,n_list_ref,n_frames,n_atoms,n_list
-    DOUBLE PRECISION,DIMENSION(n_atoms_ref,3),INTENT(IN)::coors_ref
-    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
-    INTEGER,DIMENSION(n_list_ref),INTENT(IN)::list_ref
-    INTEGER,DIMENSION(n_list),INTENT(IN)::list
-    DOUBLE PRECISION,DIMENSION(n_list_ref,3)::x
-    DOUBLE PRECISION,DIMENSION(n_list,3)::y
-    DOUBLE PRECISION,DIMENSION(n_list_ref)::w
-   
-    DOUBLE PRECISION,DIMENSION(3,3)::U,tU
-    DOUBLE PRECISION,DIMENSION(3)::center_ref,center_2
-    DOUBLE PRECISION::rmsd
-    
-    INTEGER::i,j,N,ll
-    DOUBLE PRECISION::msd,x_norm,y_norm
-    DOUBLE PRECISION,DIMENSION(3,3)::R
-    DOUBLE PRECISION,DIMENSION(4,4)::F
-    
-    !To diagonalise:
-    DOUBLE PRECISION,DIMENSION(4,4)::CC
-    INTEGER::num_val,info
-    INTEGER, DIMENSION(:),ALLOCATABLE::iwork,ifail
-    DOUBLE PRECISION, DIMENSION(:),ALLOCATABLE::values,work
-    DOUBLE PRECISION, DIMENSION(:,:),ALLOCATABLE::vectors
-   
-    
-    ALLOCATE(values(4),vectors(4,4),work(8*4),iwork(5*4),ifail(4))
-
-    !!! copio y peso las coordenadas:
-
-    !weights for atoms
-    w=1.0d0
-    N=n_list_ref
-
-    x=0.0d0
-    DO i=1,N
-       x(i,:)=w(i)*coors_ref(list_ref(i)+1,:)
-    END DO
-
-    !!! calculo baricentros, centroides y normas:
-    x_norm=0.0d0
-    DO i=1,3
-       center_ref(i)=sum(x(:,i))/dble(N)
-       x(:,i)=x(:,i)-center_ref(i)
-       x_norm=x_norm+dot_product(x(:,i),x(:,i))
-    END DO
-
-    DO ll=1,n_frames
-
-      y=0.0d0
-      CC=0.0d0
-      rmsd=0.0d0
-      msd=0.0d0
-      values=0.0d0
-      vectors=0.0d0
-      center_2=0.0d0
-      U=0.0d0
-      y_norm=0.0d0
-      R=0.0d0
-      F=0.0d0
-  
-      !!! copio y peso las coordenadas:
-      DO i=1,N
-         y(i,:)=w(i)*coors(ll,list(i)+1,:)
-      END DO
-
-      !!! calculo baricentros, centroides y normas:
-      DO i=1,3
-         center_2(i)=sum(y(:,i))/dble(N)
+         center_2(i)=sum(y(:,i))/dble(n_list_atoms)
          y(:,i)=y(:,i)-center_2(i)
          y_norm=y_norm+dot_product(y(:,i),y(:,i))
       END DO
@@ -258,7 +142,124 @@ CONTAINS
  
       !!! computo el rmsd, la matriz de rotacion y g
   
-      msd=max(0.0d0,((x_norm+y_norm)-2.0d0*values(4)))/dble(N)
+      msd=max(0.0d0,((x_norm+y_norm)-2.0d0*values(4)))/dble(n_list_atoms)
+      rmsd=sqrt(msd)
+      rmsd_val(ll)=rmsd
+  
+   END DO 
+  
+  END SUBROUTINE LEAST_RMSD
+
+  SUBROUTINE LEAST_RMSD_FIT(coors, list_atoms, coors_ref, frame_indices, n_atoms, n_frames, n_list_atoms, n_frame_indices) 
+ 
+    INTEGER,INTENT(IN)::n_atoms, n_frames, n_list_atoms, n_frame_indices
+    DOUBLE PRECISION,DIMENSION(1, n_list_atoms, 3),INTENT(IN)::coors_ref
+    DOUBLE PRECISION,DIMENSION(n_frames, n_atoms, 3),INTENT(INOUT)::coors
+    INTEGER,DIMENSION(n_list_atoms),INTENT(IN)::list_atoms
+    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
+    DOUBLE PRECISION,DIMENSION(n_list_atoms,3)::x, y
+    DOUBLE PRECISION,DIMENSION(n_list_atoms)::w
+   
+    DOUBLE PRECISION,DIMENSION(3,3)::U,tU
+    DOUBLE PRECISION,DIMENSION(3)::center_ref,center_2
+    DOUBLE PRECISION::rmsd
+    
+    INTEGER::i,j,ll
+    DOUBLE PRECISION::msd,x_norm,y_norm
+    DOUBLE PRECISION,DIMENSION(3,3)::R
+    DOUBLE PRECISION,DIMENSION(4,4)::F
+   
+    INTEGER::frame_index
+
+    !To diagonalise:
+    DOUBLE PRECISION,DIMENSION(4,4)::CC
+    INTEGER::num_val,info
+    INTEGER, DIMENSION(:),ALLOCATABLE::iwork,ifail
+    DOUBLE PRECISION, DIMENSION(:),ALLOCATABLE::values,work
+    DOUBLE PRECISION, DIMENSION(:,:),ALLOCATABLE::vectors
+    
+    ALLOCATE(values(4),vectors(4,4),work(8*4),iwork(5*4),ifail(4))
+
+    !!! copio y peso las coordenadas:
+
+    !weights for atoms
+    w=1.0d0
+
+    x=0.0d0
+    DO i=1,n_list_atoms
+       x(i,:)=w(i)*coors_ref(1,i,:)
+    END DO
+
+    !!! calculo baricentros, centroides y normas:
+    x_norm=0.0d0
+    DO i=1,3
+       center_ref(i)=sum(x(:,i))/dble(n_list_atoms)
+       x(:,i)=x(:,i)-center_ref(i)
+       x_norm=x_norm+dot_product(x(:,i),x(:,i))
+    END DO
+
+    DO ll=1,n_frame_indices
+
+      frame_index = frame_indices(ll)+1
+
+      y=0.0d0
+      CC=0.0d0
+      rmsd=0.0d0
+      msd=0.0d0
+      values=0.0d0
+      vectors=0.0d0
+      center_2=0.0d0
+      U=0.0d0
+      y_norm=0.0d0
+      R=0.0d0
+      F=0.0d0
+  
+      !!! copio y peso las coordenadas:
+      DO i=1,n_list_atoms
+         y(i,:)=w(i)*coors(frame_index, list_atoms(i)+1, :)
+      END DO
+
+      !!! calculo baricentros, centroides y normas:
+      DO i=1,3
+         center_2(i)=sum(y(:,i))/dble(n_list_atoms)
+         y(:,i)=y(:,i)-center_2(i)
+         y_norm=y_norm+dot_product(y(:,i),y(:,i))
+      END DO
+  
+      !!! calculo la matriz R
+      DO i=1,3
+         DO j=1,3
+            R(i,j)=dot_product(x(:,i),y(:,j))
+         END DO
+      END DO
+  
+      !!! construimos la matriz F:
+  
+      F(1,1)=R(1,1)+R(2,2)+R(3,3)
+      F(2,1)=R(2,3)-R(3,2)
+      F(3,1)=R(3,1)-R(1,3)
+      F(4,1)=R(1,2)-R(2,1)
+      F(1,2)=F(2,1)
+      F(2,2)=R(1,1)-R(2,2)-R(3,3)
+      F(3,2)=R(1,2)+R(2,1)
+      F(4,2)=R(1,3)+R(3,1)
+      F(1,3)=F(3,1)
+      F(2,3)=F(3,2)
+      F(3,3)=-R(1,1)+R(2,2)-R(3,3)
+      F(4,3)=R(2,3)+R(3,2)
+      F(1,4)=F(4,1)
+      F(2,4)=F(4,2)
+      F(3,4)=F(4,3)
+      F(4,4)=-R(1,1)-R(2,2)+R(3,3) 
+  
+      !!! calculos los autovalores y autovectores:
+      CC=F
+      call dsyevx ('V','I','U',4,CC,4,0,0,1,4,0.0d0,num_val&
+                    &,values,vectors,4,work,8*4,iwork,ifail,info)
+ 
+      !!! computo el rmsd, la matriz de rotacion y g
+  
+      msd=max(0.0d0,((x_norm+y_norm)-2.0d0*values(4)))/dble(n_list_atoms)
       rmsd=sqrt(msd)
  
       call rotation_matrix(vectors(:,4),U)
@@ -271,7 +272,7 @@ CONTAINS
       !!! calculo las nuevas posiciones con la traslacion y rotacion
       tU=transpose(U) 
       DO i=1,n_atoms
-         coors(ll,i,:)=matmul(tU(:,:),coors(ll,i,:)-center_2)+center_ref
+         coors(frame_index,i,:)=matmul(tU(:,:),coors(frame_index,i,:)-center_2)+center_ref
       END DO
    END DO 
   

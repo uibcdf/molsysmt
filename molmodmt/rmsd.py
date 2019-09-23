@@ -1,4 +1,5 @@
 from .utils.engines import digest as _digest_engines
+from .utils.frame_indices import digest as _digest_frame_indices
 from .utils.forms import digest as _digest_forms
 import numpy as _np
 #from copy import deepcopy as _deepcopy
@@ -6,44 +7,109 @@ from .lib import rmsd as _librmsd
 #from .multitool import get_form as _get_form, select as _select, convert as _convert
 #from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
 
-def rmsd(ref_item=None, ref_selection=None, ref_frame=0, item=None, selection='backbone',
-         parallel=False, precentered=True, syntaxis='mdtraj', engine='molmodmt'):
+def rmsd (item=None, selection='backbone', frame_indices='all',
+          reference_item=None, reference_selection=None, reference_frame_index=0,
+          reference_coordinates=None, parallel=True, syntaxis='MDTraj', engine='MolModMT'):
 
-    if item is None:
-        in_form=_get_form(ref_item)
-        output_item=ref_item
-    else:
-        in_form=_get_form(item)
-        output_item=item
+    from molmodmt import select, get
 
-    if engine=='molmodmt':
-        x_form='molmodmt.Trajectory'
-    elif engine=='mdtraj':
-        x_form='mdtraj.Trajectory'
+    n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
+    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+    n_atom_indices = len(atom_indices)
+    frame_indices = _digest_frame_indices(item, frame_indices)
+    n_frame_indices = len(frame_indices)
+    engine = _digest_engines(engine)
+    form_in, _ = _digest_forms(item, engine)
 
+    if engine=='MolModMT':
 
-    tmp_ref_item, ref_atom_indices, ref_frame_indices, \
-    tmp_item, atom_indices, frame_indices,\
-    single_item, diff_selection = _digest_comparison_two_systems(ref_item, ref_selection, ref_frame,
-                                                                 item, selection, 'all',
-                                                                 form=x_form, syntaxis=syntaxis)
+        if reference_coordinates is None:
 
-    if engine=='molmodmt':
-        tmp_coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
-        tmp_ref_coordinates=_np.asfortranarray(tmp_ref_item.coordinates[ref_frame,:,:],dtype='float64')
-        rmsd_val=_librmsd.rmsd(tmp_ref_coordinates, ref_atom_indices,
-                               tmp_coordinates, atom_indices,
-                               tmp_ref_item.n_atoms, ref_atom_indices.shape[0],
-                               tmp_item.n_frames, tmp_item.n_atoms, atom_indices.shape[0])
+            if reference_item is None:
+                reference_item = item
+
+            if reference_selection is None:
+                reference_selection = selection
+
+            reference_atom_indices = select(reference_item, selection=reference_selection, syntaxis=syntaxis)
+
+            reference_coordinates = get(reference_item, element='atom', indices=reference_atom_indices,
+                                  frame_indices=reference_frame_index, coordinates=True)
+
+        coordinates = get(item, coordinates=True, frame_indices='all')
+        length_units = coordinates.unit
+        coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
+        reference_coordinates = _np.asfortranarray(reference_coordinates._value, dtype='float64')
+
+        if reference_coordinates.shape[1]!=n_atom_indices:
+            raise ValueError("reference selection and selection needs to have the same number of atoms")
+
+        rmsd_val = _librmsd.rmsd(coordinates, atom_indices, reference_coordinates, frame_indices,
+                                 n_atoms, n_frames, n_atom_indices, n_frame_indices)
+
+        rmsd_val = rmsd_val * length_units
+        del(coordinates, length_units)
         return rmsd_val
 
 
-    elif engine=='mdtraj':
+    elif engine=='MDTraj':
         from mdtraj import rmsd as _mdtraj_rmsd
-        rmsd_val = _mdtraj_rmsd(tmp_item, tmp_ref_item, frame=ref_frame_indices,
+        rmsd_val = _mdtraj_rmsd(item, ref_item, frame=ref_frame_indices,
                                 ref_atom_indices=ref_atom_indices, atom_indices=atom_indices,
                                 parallel=parallel, precentered=precentered)
         return rmsd_val
+
+    else:
+
+        raise NotImplementedError
+
+def least_rmsd (item=None, selection='backbone', frame_indices='all',
+          reference_item=None, reference_selection=None, reference_frame_index=0,
+          reference_coordinates=None, parallel=True, syntaxis='MDTraj', engine='MolModMT'):
+
+    from molmodmt import select, get
+
+    n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
+    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+    n_atom_indices = len(atom_indices)
+    frame_indices = _digest_frame_indices(item, frame_indices)
+    n_frame_indices = len(frame_indices)
+    engine = _digest_engines(engine)
+    form_in, _ = _digest_forms(item, engine)
+
+    if engine=='MolModMT':
+
+        if reference_coordinates is None:
+
+            if reference_item is None:
+                reference_item = item
+
+            if reference_selection is None:
+                reference_selection = selection
+
+            reference_atom_indices = select(reference_item, selection=reference_selection, syntaxis=syntaxis)
+
+            reference_coordinates = get(reference_item, element='atom', indices=reference_atom_indices,
+                                  frame_indices=reference_frame_index, coordinates=True)
+
+        coordinates = get(item, coordinates=True, frame_indices='all')
+        length_units = coordinates.unit
+        coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
+        reference_coordinates = _np.asfortranarray(reference_coordinates._value, dtype='float64')
+
+        if reference_coordinates.shape[1]!=n_atom_indices:
+            raise ValueError("reference selection and selection needs to have the same number of atoms")
+
+        rmsd_val = _librmsd.least_rmsd(coordinates, atom_indices, reference_coordinates, frame_indices,
+                                 n_atoms, n_frames, n_atom_indices, n_frame_indices)
+
+        rmsd_val = rmsd_val * length_units
+        del(coordinates, length_units)
+        return rmsd_val
+
+    elif engine=='MDTraj':
+
+        raise NotImplementedError
 
     else:
         raise NotImplementedError
@@ -55,105 +121,50 @@ def least_rmsd_fit (item=None, selection='backbone', frame_indices='all',
     from molmodmt import convert, select, get, duplicate
     from molmodmt import set as _set
 
+    n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
+    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+    n_atom_indices = len(atom_indices)
+    frame_indices = _digest_frame_indices(item, frame_indices)
+    n_frame_indices = len(frame_indices)
     engine = _digest_engines(engine)
     form_in, _ = _digest_forms(item, engine)
     tmp_item = duplicate(item)
 
-    if frame_indices == 'all':
-        n_frames = get(item, n_frames=True)
-        frame_indices = _np.arange(n_frames)
-    elif type(frame_indices)==int:
-        frame_indices = [frame_indices]
+    if engine=='MolModMT':
 
-    if engine=='molmodmt':
+        if reference_coordinates is None:
 
-        if ref_coordinates is None:
+            if reference_item is None:
+                reference_item = item
 
-            if ref_item is None:
-                ref_item = item
+            if reference_selection is None:
+                reference_selection = selection
 
-            ref_atom_indices = select(ref_item, selection=ref_selection, syntaxis=syntaxis)
+            reference_atom_indices = select(reference_item, selection=reference_selection, syntaxis=syntaxis)
 
-            ref_coordinates = get(ref_item, element='atom', indices=ref_atom_indices,
+            reference_coordinates = get(reference_item, element='atom', indices=reference_atom_indices,
                                   frame_indices=reference_frame_index, coordinates=True)
 
-        tmp_coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
-        tmp_ref_coordinates=_np.asfortranarray(tmp_ref_item.coordinates[ref_frame,:,:],dtype='float64')
-        _librmsd.least_rmsd_fit(tmp_ref_coordinates, ref_atom_indices,
-                                tmp_coordinates, atom_indices,
-                                tmp_ref_item.n_atoms, ref_atom_indices.shape[0],
-                                tmp_item.n_frames, tmp_item.n_atoms, atom_indices.shape[0])
+        coordinates = get(tmp_item, coordinates=True, frame_indices='all')
+        length_units = coordinates.unit
+        coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
+        reference_coordinates = _np.asfortranarray(reference_coordinates._value, dtype='float64')
 
-        if in_form==x_form:
-            tmp_item.coordinates=_np.ascontiguousarray(tmp_coordinates)
-        elif in_form=='molmodmt.MolMod':
-            tmp_item.trajectory.coordinates=_np.ascontiguousarray(tmp_coordinates)
-        else:
-            tmp_item.coordinates=_np.ascontiguousarray(tmp_coordinates)
-            tmp_item=_convert(tmp_item,in_form)
+        if reference_coordinates.shape[1]!=n_atom_indices:
+            raise ValueError("reference selection and selection needs to have the same number of atoms")
 
-        pass
+        _librmsd.least_rmsd_fit(coordinates, atom_indices, reference_coordinates, frame_indices,
+                                n_atoms, n_frames, n_atom_indices, n_frame_indices)
 
-    elif engine=='mdtraj':
+        coordinates=_np.ascontiguousarray(coordinates)*length_units
 
-        tmp_item.superpose(tmp_ref_item,frame=ref_frame_indices,atom_indices=atom_indices,ref_atom_indices=ref_atom_indices,parallel=parallel)
+        _set(tmp_item, coordinates=coordinates)
 
-        if in_form==x_form:
-            item=tmp_item
-        elif in_form=='molmodmt.Trajectory':
-            item._import_mdtraj_data(tmp_item)
-        elif in_form=='molmodmt.MolMod':
-            item.trajectory._import_mdtraj_data(tmp_item)
-        else:
-            item=_convert(tmp_item,in_form)
+        del(coordinates, length_units)
 
-    else:
+        return tmp_item
 
-        raise NotImplementedError
-
-def least_rmsd_fit_old(ref_item=None, item=None,
-                   ref_selection=None, selection='backbone',
-                   ref_frame_index=0, frame_indices='all',
-                   engine='molmodmt',
-                   parallel=True, syntaxis='mdtraj'):
-
-    if item is None:
-        in_form=_get_form(ref_item)
-        item=ref_item
-    else:
-        in_form=_get_form(item)
-
-    if engine=='molmodmt':
-        x_form='molmodmt.MolMod'
-    elif engine=='mdtraj':
-        x_form='mdtraj.Trajectory'
-
-    tmp_ref_item, ref_atom_indices, ref_frame_indices, \
-    tmp_item, atom_indices, frame_indices,\
-    single_item, diff_selection = _digest_comparison_two_systems(ref_item, ref_selection,
-                                                                 ref_frame_index,
-                                                                 item, selection, frame_indices,
-                                                                 form=x_form, syntaxis=syntaxis)
-    if engine=='molmodmt':
-
-        tmp_coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
-        tmp_ref_coordinates=_np.asfortranarray(tmp_ref_item.coordinates[ref_frame,:,:],dtype='float64')
-        _librmsd.least_rmsd_fit(tmp_ref_coordinates, ref_atom_indices,
-                                tmp_coordinates, atom_indices,
-                                tmp_ref_item.n_atoms, ref_atom_indices.shape[0],
-                                tmp_item.n_frames, tmp_item.n_atoms, atom_indices.shape[0])
-
-        if in_form==x_form:
-            tmp_item.coordinates=_np.ascontiguousarray(tmp_coordinates)
-        elif in_form=='molmodmt.MolMod':
-            tmp_item.trajectory.coordinates=_np.ascontiguousarray(tmp_coordinates)
-        else:
-            tmp_item.coordinates=_np.ascontiguousarray(tmp_coordinates)
-            tmp_item=_convert(tmp_item,in_form)
-
-        pass
-
-    elif engine=='mdtraj':
+    elif engine=='MDTraj':
 
         tmp_item.superpose(tmp_ref_item,frame=ref_frame_indices,atom_indices=atom_indices,ref_atom_indices=ref_atom_indices,parallel=parallel)
 
@@ -169,3 +180,4 @@ def least_rmsd_fit_old(ref_item=None, item=None,
     else:
 
         raise NotImplementedError
+
