@@ -135,6 +135,11 @@ def duplicate(item):
 
 ## atom
 
+def get_coordinates_from_atom(item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Trajectory import get_coordinates_from_atom as _get
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
+
 def get_bonded_atoms_from_atom(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_bonded_atoms_from_atom as _get

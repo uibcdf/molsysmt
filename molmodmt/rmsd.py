@@ -1,8 +1,10 @@
+from .utils.engines import digest as _digest_engines
+from .utils.forms import digest as _digest_forms
 import numpy as _np
-from copy import deepcopy as _deepcopy
+#from copy import deepcopy as _deepcopy
 from .lib import rmsd as _librmsd
-from .multitool import get_form as _get_form, select as _select, convert as _convert
-from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
+#from .multitool import get_form as _get_form, select as _select, convert as _convert
+#from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
 
 def rmsd(ref_item=None, ref_selection=None, ref_frame=0, item=None, selection='backbone',
          parallel=False, precentered=True, syntaxis='mdtraj', engine='molmodmt'):
@@ -46,30 +48,34 @@ def rmsd(ref_item=None, ref_selection=None, ref_frame=0, item=None, selection='b
     else:
         raise NotImplementedError
 
-def least_rmsd_fit_2(ref_item=None, item=None,
-                   ref_selection=None, selection='backbone',
-                   ref_frame_index=0, frame_indices='all',
-                   engine='molmodmt',
-                   parallel=True, syntaxis='mdtraj'):
+def least_rmsd_fit (item=None, selection='backbone', frame_indices='all',
+                    reference_item=None, reference_selection=None, reference_frame_index=0,
+                    reference_coordinates=None, parallel=True, syntaxis='MDTraj', engine='MolModMT'):
 
-    if item is None:
-        in_form=_get_form(ref_item)
-        item=ref_item
-    else:
-        in_form=_get_form(item)
+    from molmodmt import convert, select, get, duplicate
+    from molmodmt import set as _set
+
+    engine = _digest_engines(engine)
+    form_in, _ = _digest_forms(item, engine)
+    tmp_item = duplicate(item)
+
+    if frame_indices == 'all':
+        n_frames = get(item, n_frames=True)
+        frame_indices = _np.arange(n_frames)
+    elif type(frame_indices)==int:
+        frame_indices = [frame_indices]
 
     if engine=='molmodmt':
-        x_form='molmodmt.MolMod'
-    elif engine=='mdtraj':
-        x_form='mdtraj.Trajectory'
 
-    tmp_ref_item, ref_atom_indices, ref_frame_indices, \
-    tmp_item, atom_indices, frame_indices,\
-    single_item, diff_selection = _digest_comparison_two_systems(ref_item, ref_selection,
-                                                                 ref_frame_index,
-                                                                 item, selection, frame_indices,
-                                                                 form=x_form, syntaxis=syntaxis)
-    if engine=='molmodmt':
+        if ref_coordinates is None:
+
+            if ref_item is None:
+                ref_item = item
+
+            ref_atom_indices = select(ref_item, selection=ref_selection, syntaxis=syntaxis)
+
+            ref_coordinates = get(ref_item, element='atom', indices=ref_atom_indices,
+                                  frame_indices=reference_frame_index, coordinates=True)
 
         tmp_coordinates=_np.asfortranarray(tmp_item.coordinates,dtype='float64')
         tmp_ref_coordinates=_np.asfortranarray(tmp_ref_item.coordinates[ref_frame,:,:],dtype='float64')
@@ -105,7 +111,7 @@ def least_rmsd_fit_2(ref_item=None, item=None,
 
         raise NotImplementedError
 
-def least_rmsd_fit(ref_item=None, item=None,
+def least_rmsd_fit_old(ref_item=None, item=None,
                    ref_selection=None, selection='backbone',
                    ref_frame_index=0, frame_indices='all',
                    engine='molmodmt',

@@ -79,6 +79,12 @@ def duplicate(item):
 
 ## atom
 
+def get_coordinates_from_atom(item, indices=None, frame_indices=None):
+
+    tmp_coordinates = item.coordinates[frame_indices]
+    tmp_coordinates = tmp_coordinates[:, indices, :]
+    return tmp_coordinates
+
 ## residue
 
 ## chain
