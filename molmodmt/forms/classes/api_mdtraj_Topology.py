@@ -148,15 +148,112 @@ def duplicate(item):
 
 def get_n_atoms_from_atom (item, indices=None, frame_indices=None):
 
-    return item.n_atoms
+    return len(indices)
 
 def get_n_residues_from_atom (item, indices=None, frame_indices=None):
 
-    return item.n_residues
+    atom=list(item.atoms)
+    residue_indices = [atom[ii].residue.index for ii in indices]
+    residue_indices = list(set(residue_indices))
+    del(atom)
+    return len(residue_indices)
+
+def get_residue_name_from_atom(item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    residue_names = [atom[ii].residue.name for ii in indices]
+    del(atom)
+    return residue_names
+
+def get_residue_index_from_atom(item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    residue_indices = [atom[ii].residue.index for ii in indices]
+    del(atom)
+    return residue_indices
 
 def get_n_chains_from_atom (item, indices=None, frame_indices=None):
 
-    return item.n_chains
+    atom=list(item.atoms)
+    chain_indices = [atom[ii].residue.chain.index for ii in indices]
+    chain_indices = list(set(chain_indices))
+    del(atom)
+    return len(chain_indices)
+
+def get_chain_index_from_atom(item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    chain_indices = [atom[ii].residue.chain.index for ii in indices]
+    del(atom)
+    return chain_indices
+
+def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
+
+    from molmodmt.topology import is_aminoacid
+
+    residue_indices = get_residue_index_from_atom(item, indices=indices)
+    residue_indices = list(set(residue_indices))
+
+    residue=list(item.residues)
+    residue_names = [residue[ii].name for ii in residue_indices]
+    del(residue)
+
+    n_aminoacids=0
+    for residue_name in residue_names:
+        if is_aminoacid(residue_name): n_aminoacids+=1
+    del(residue_indices, residue_names)
+    return n_aminoacids
+
+def get_n_nucleotides_from_atom (item, indices=None, frame_indices=None):
+
+    from molmodmt.topology import is_nucleotide
+
+    residue_indices = get_residue_index_from_atom(item, indices=indices)
+    residue_indices = list(set(residue_indices))
+
+    residue=list(item.residues)
+    residue_names = [residue[ii].name for ii in residue_indices]
+    del(residue)
+
+    n_nucleotides=0
+    for residue_name in residue_names:
+        if is_nucleotide(residue_name): n_nucleotides+=1
+    del(residue_indices, residue_names)
+    return n_nucleotides
+
+def get_n_waters_from_atom (item, indices=None, frame_indices=None):
+
+    from molmodmt.topology import is_water
+
+    residue_indices = get_residue_index_from_atom(item, indices=indices)
+    residue_indices = list(set(residue_indices))
+
+    residue=list(item.residues)
+    residue_names = [residue[ii].name for ii in residue_indices]
+    del(residue)
+
+    n_waters=0
+    for residue_name in residue_names:
+        if is_water(residue_name): n_waters+=1
+    del(residue_indices, residue_names)
+    return n_waters
+
+def get_n_ions_from_atom (item, indices=None, frame_indices=None):
+
+    from molmodmt.topology import is_ion
+
+    residue_indices = get_residue_index_from_atom(item, indices=indices)
+    residue_indices = list(set(residue_indices))
+
+    residue=list(item.residues)
+    residue_names = [residue[ii].name for ii in residue_indices]
+    del(residue)
+
+    n_ions=0
+    for residue_name in residue_names:
+        if is_ion(residue_name): n_ions+=1
+    del(residue_indices, residue_names)
+    return n_ions
 
 def get_n_molecules_from_atom (item, indices=None, frame_indices=None):
 
@@ -213,6 +310,26 @@ def get_n_residues_from_system (item, indices=None, frame_indices=None):
 def get_n_chains_from_system (item, indices=None, frame_indices=None):
 
     return item.n_chains
+
+def get_n_aminoacids_from_system (item, indices=None, frame_indices=None):
+
+    atom_indices = list(range(get_n_atoms_from_system(item)))
+    return get_n_aminoacids_from_atom (item, indices=atom_indices)
+
+def get_n_nucleotides_from_system (item, indices=None, frame_indices=None):
+
+    atom_indices = list(range(get_n_atoms_from_system(item)))
+    return get_n_nucleotides_from_atom (item, indices=atom_indices)
+
+def get_n_waters_from_system (item, indices=None, frame_indices=None):
+
+    atom_indices = list(range(get_n_atoms_from_system(item)))
+    return get_n_waters_from_atom (item, indices=atom_indices)
+
+def get_n_ions_from_system (item, indices=None, frame_indices=None):
+
+    atom_indices = list(range(get_n_atoms_from_system(item)))
+    return get_n_ions_from_atom (item, indices=atom_indices)
 
 def get_n_bonds_from_system (item, indices=None, frame_indices=None):
 

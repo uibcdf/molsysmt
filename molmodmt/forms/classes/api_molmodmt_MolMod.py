@@ -135,6 +135,26 @@ def duplicate(item):
 
 ## atom
 
+def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_n_aminoacids_from_atom as _get
+    return _get(item, indices=indices, frame_indices=frame_indices)
+
+def get_n_nucleotides_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_n_nucleotides_from_atom as _get
+    return _get(item, indices=indices, frame_indices=frame_indices)
+
+def get_n_waters_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_n_waters_from_atom as _get
+    return _get(item, indices=indices, frame_indices=frame_indices)
+
+def get_n_ions_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_n_ions_from_atom as _get
+    return _get(item, indices=indices, frame_indices=frame_indices)
+
 def get_coordinates_from_atom(item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Trajectory import get_coordinates_from_atom as _get
@@ -187,10 +207,29 @@ def get_n_chains_from_system(item, indices=None, frame_indices=None):
     from .api_molmodmt_Topology import get_n_chains_from_system as _get
     return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
+def get_n_aminoacids_from_system (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_n_aminoacids_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_n_nucleotides_from_system (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_n_nucleotides_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_n_waters_from_system (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_n_waters_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_n_ions_from_system (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_n_ions_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
 def get_n_molecules_from_system(item, indices=None, frame_indices=None):
 
-    from .api_molmodmt_Topology import get_n_molecules_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    return len(get_molecules_from_system(item, indices=indices))
 
 def get_n_frames_from_system(item, indices=None, frame_indices=None):
 

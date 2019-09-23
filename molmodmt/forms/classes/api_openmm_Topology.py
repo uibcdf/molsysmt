@@ -82,7 +82,7 @@ def select_with_MDTraj(item, selection):
     tmp_item = to_mdtraj_Topology(item, selection='all', syntaxis='MDTraj')
     return tmp_item.select(selection)
 
-#### Set
+#### Get
 
 def get_n_atoms_from_atom(item, indices=None, frame_indices=None):
 
@@ -93,7 +93,7 @@ def get_atom_name_from_atom(item, indices=None, frame_indices=None):
     atom=list(item.atoms())
     atom_name=[atom[ii].name for ii in indices]
     del(atom)
-    result.append(atom_name)
+    return atom_name
 
 def get_atom_index_from_atom(item, indices=None, frame_indices=None):
 
@@ -148,7 +148,7 @@ def get_chain_index_from_atom(item, indices=None, frame_indices=None):
     atom=list(item.atoms())
     chain_indices = [atom[ii].residue.chain.index for ii in indices]
     del(atom)
-    result.append(chain_indices)
+    return chain_indices
 
 def get_chain_id_from_atom (item, indices=None, frame_indices=None):
 
