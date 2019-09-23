@@ -23,16 +23,16 @@ CONTAINS
 
   END FUNCTION DIST2POINTS
   
-  SUBROUTINE DISTANCE(diff_set,coors1,coors2,box,inv,ortho,&
-          pbc_opt,n1,n2,n_frames,matrix)
+  SUBROUTINE DISTANCE(diff_set, coors1, coors2, box, ortho, pbc_opt, n1, n2, n_frames, matrix)
   
   IMPLICIT NONE
-  INTEGER,INTENT(IN)::diff_set,pbc_opt,ortho
-  INTEGER,INTENT(IN)::n1,n2,n_frames
+  INTEGER,INTENT(IN):: diff_set, ortho, pbc_opt, n1, n2, n_frames
   DOUBLE PRECISION,DIMENSION(n_frames,n1,3),INTENT(IN)::coors1
   DOUBLE PRECISION,DIMENSION(n_frames,n2,3),INTENT(IN)::coors2
-  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
+  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
   DOUBLE PRECISION,DIMENSION(n_frames,n1,n2),INTENT(OUT)::matrix
+
+  DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
   
   INTEGER::ii,jj,kk
   DOUBLE PRECISION::val_aux
@@ -42,13 +42,18 @@ CONTAINS
   ALLOCATE(vect(3),vect_aux(3),vect_aux2(3))
   ALLOCATE(tmp_box(3,3),tmp_inv(3,3))
 
+  inv=0.0d0
+  IF (pbc_opt==1) THEN
+    CALL BOX2INVBOX (box, inv, n_frames)
+  END IF
+
   IF (diff_set==1) THEN
     DO kk=1,n_frames
       tmp_box=box(kk,:,:)
       tmp_inv=inv(kk,:,:)
       DO ii=1,n1
-         vect_aux=coors1(kk,ii,:)
-         DO jj=1,n2
+        vect_aux=coors1(kk,ii,:)
+          DO jj=1,n2
             vect_aux2=coors2(kk,jj,:)
             matrix(kk,ii,jj)=DIST2POINTS(vect_aux,vect_aux2,tmp_box,tmp_inv,ortho,pbc_opt)
          END DO

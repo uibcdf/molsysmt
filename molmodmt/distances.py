@@ -8,105 +8,127 @@ from .utils.exceptions import *
 from .centers import center_of_mass as _center_of_mass
 from .centers import geometrical_center as _geometrical_center
 
-def distance(item=None, selection=None, selection_groups=None, group_behavior=None, frame='all',
-             item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2='all',
+def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1=None,
+             item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
              pbc=False, parallel=False, engine='molmodmt', output_form='matrix', syntaxis='mdtraj'):
 
-    # group_behavior in ['False','center_of_mass','geometric_center','minimum_distance']
+    # group_behavior in ['None','center_of_mass','geometric_center','minimum_distance']
     # output_form in ['matrix','dict']
 
     # selection groups está por si quiero distancias entre centros de masas, necesita
     # hacer un lista de listas frente a otra lista de listas.
 
-    in_form=_get_form(item)
+    engine = _digest_engines(engine)
+    frame_indices_2 = frame_indices_1
 
-    if engine=='molmodmt':
-        x_form='molmodmt.MolMod'
-    elif engine=='mdtraj':
-        x_form='mdtraj.Trajectory'
+    #if group_behavior=='minimum_distance' or group_behavior2=='minimum_distance':
 
-    if selection_groups is not None:
-        if selection_groups2 is None:
-            selection_groups2=selection_groups
+    #    if group_behavior=='minimum_distance' and group_behavior2=='minimum_distance':
 
-    if group_behavior=='minimum_distance' or group_behavior2=='minimum_distance':
+    #        num_groups1=len(selection_groups)
+    #        num_groups2=len(selection_groups2)
+    #        frame_indices = _digest_frames(item, frame)
+    #        num_frames=len(frame_indices)
+    #        dists = _np.zeros((num_frames,num_groups1,num_groups2),dtype=float)
+    #        for ii in range(num_groups1):
+    #            group1 = selection_groups[ii]
+    #            for jj in range(num_groups2):
+    #                group2 = selection_groups2[jj]
+    #                _, min_dist = min_distances(item=item, selection=group1, frame=frame,
+    #                                            item2=item2, selection2=group2, frame2=frame2,
+    #                                            pbc=pbc, parallel=parallel)
+    #                dists[:,ii,jj]=min_dist
+    #        del(num_groups1,num_groups2,frame_indices,num_frames,group1,group2)
+    #        return dists
+    #    else:
+    #        raise NotImplementedError(NotImplementedMessage)
 
-        if group_behavior=='minimum_distance' and group_behavior2=='minimum_distance':
+    if engine=='MolModMT':
 
-            num_groups1=len(selection_groups)
-            num_groups2=len(selection_groups2)
-            frame_indices = _digest_frames(item, frame)
-            num_frames=len(frame_indices)
-            dists = _np.zeros((num_frames,num_groups1,num_groups2),dtype=float)
-            for ii in range(num_groups1):
-                group1 = selection_groups[ii]
-                for jj in range(num_groups2):
-                    group2 = selection_groups2[jj]
-                    _, min_dist = min_distances(item=item, selection=group1, frame=frame,
-                                                item2=item2, selection2=group2, frame2=frame2,
-                                                pbc=pbc, parallel=parallel)
-                    dists[:,ii,jj]=min_dist
-            del(num_groups1,num_groups2,frame_indices,num_frames,group1,group2)
-            return dists
+        diff_set = True
+        same_item = False
+        same_selection = False
+        same_groups = False
+
+        if item_2 is None:
+
+            item_2 = item_1
+            same_item = True
+
+            if (selection_1 is not None) and (selection_2 is None):
+                if (selection_groups_2 is None):
+                    selection_2 = selection_1
+                    same_selection = True
+                    diff_set = False
+
+            if selection_groups_1 is not None:
+                if (selection_2 is None) and (selection_groups_2 is None):
+                    selection_groups_2=selection_groups_1
+                    same_groups = True
+                    diff_set = False
+
+        if selection_groups_1 is None:
+
+            atom_indices_1 = select(item_1, selection=selection_1, syntaxis=syntaxis)
+            coordinates_1 = get(item_1, element='atom', indices=atom_indices_1,
+                            frame_indices=frame_indices_1, coordinates=True)
         else:
-            raise NotImplementedError(NotImplementedMessage)
 
-    if engine=='molmodmt':
-
-        tmp_item1, atom_indices1, frame_indices1, tmp_item2, atom_indices2, frame_indices2,\
-        single_item, diff_selection = _digest_comparison_two_systems(item, selection, frame,
-                                                                     item2, selection2, frame2,
-                                                                     form=x_form, syntaxis=syntaxis)
-
-        if tmp_item1.trajectory.n_frames!=tmp_item2.trajectory.n_frames:
-            raise BadCallError(BadCallMessage)
-
-        if selection_groups is None:
-            tmp_coors1, _, _ = _digest_coordinates(tmp_item1,atom_indices1,frame_indices1)
-        else:
             if group_behavior == 'center_of_mass':
-                tmp_coors1 = _center_of_mass(tmp_item1,selection_groups=selection_groups,
-                                             frame=frame_indices1)
-            elif group_behavior == 'geometric_center':
-                tmp_coors1 = _geometrical_center(tmp_item1,selection_groups=selection_groups,
-                                    frame=frame_indices1)
+                coordinates_1 = _center_of_mass(item_1, selection_groups=selection_groups_1,
+                                                frame_indices=frame_indices1)
+            elif group_behavior == 'geometrical_center':
+                coordinates_1 = _geometrical_center(item_1,selection_groups=selection_groups_1,
+                                                    frame=frame_indices1)
 
-            atom_indices1=list(range(tmp_coors1.shape[1]))
+        if selection_groups_2 is None:
 
-        nelements1 = tmp_coors1.shape[1]
-        nframes1   = tmp_coors1.shape[0]
+            if same_selection:
+                atom_indices_2 = _np.copy(atom_indices_1)
+                coordinates_2 = _np.copy(coordinates_1)
+            else:
+                atom_indices_2 = select(item_2, selection=selection_2, syntaxis=syntaxis)
+                coordinates_2 = get(item_2, element='atom', indices=atom_indices_2,
+                                    frame_indices=frame_indices_2, coordinates=True)
 
-        if selection_groups2 is None:
-            tmp_coors2, _, _ = _digest_coordinates(tmp_item2,atom_indices2,frame_indices2)
         else:
-            if group_behavior == 'center_of_mass':
-                tmp_coors2 = _center_of_mass(tmp_item2,selection_groups=selection_groups2,
-                                             frame=frame_indices2)
-            elif group_behavior == 'geometric_center':
-                tmp_coors2 = _geometrical_center(tmp_item2,selection_groups=selection_groups2,
-                                    frame=frame_indices2)
-            atom_indices2=list(range(tmp_coors2.shape[1]))
 
-        nelements2 = tmp_coors2.shape[1]
-        nframes2   = tmp_coors2.shape[0]
+            if same_groups:
+                coordinates_2 = _np.copy(coordinates_1)
+            else:
 
-        if (tmp_item1.trajectory.box is None) and (pbc==False):
-            tmp_item1.trajectory.box = _np.zeros((nframes1,3,3))
-        if (tmp_item1.trajectory.invbox is None) and (pbc==False):
-            tmp_item1.trajectory.invbox = _np.zeros((nframes1,3,3))
+                if group_behavior == 'center_of_mass':
+                    coordinates_2 = _center_of_mass(item_2, selection_groups=selection_groups_2,
+                                                frame_indices=frame_indices_2)
+                elif group_behavior == 'geometrical_center':
+                    coordinates_2 = _geometrical_center(item_2,selection_groups=selection_groups_2,
+                                                frame=frame_indices_2)
 
-        dists = _libgeometry.distance(diff_selection,
-                                      tmp_coors1,
-                                      tmp_coors2,
-                                      tmp_item1.trajectory.box,
-                                      tmp_item1.trajectory.invbox,
-                                      tmp_item1.trajectory.orthogonal,
-                                      pbc,
+
+        box, box_shape = get(item_1, box=True, box_shape=True, frame_indices=frame_indices_1)
+        orthogonal = 0
+        if box_shape=='cubic': orthogonal = 1
+
+        length_units = coordinates_1.unit
+        coordinates_1 = _np.asfortranarray(coordinates_1._value, dtype='float64')
+        coordinates_2 = _np.asfortranarray(coordinates_1._value, dtype='float64')
+        nframes = coordinates_1.shape[0]
+        nelements1 = coordinates_1.shape[1]
+        nelements2 = coordinates_2.shape[1]
+
+        dists = _libgeometry.distance(int(diff_set),
+                                      coordinates_1,
+                                      coordinates_2,
+                                      box,
+                                      orthogonal,
+                                      int(pbc),
                                       nelements1,
                                       nelements2,
-                                      nframes1)
+                                      nframes)
 
-        if output_form=='matrix':
+       dists = dists*length_units_1
+
+       if output_form=='matrix':
             return dists
         elif output_form=='dict':
             tmp_dict={}
@@ -120,41 +142,43 @@ def distance(item=None, selection=None, selection_groups=None, group_behavior=No
         else:
             raise NotImplementedError(NotImplementedMessage)
 
-    elif engine=='mdtraj':
+    elif engine=='MDTraj':
 
-        tmp_item1, atom_indices1, frame_indices1, tmp_item2, atom_indices2, frame_indices2,\
-        single_item, single_selection = _digest_comparison_two_systems(item, selection, frame,\
-                                                                       item2, selection2, frame2,\
-                                                                       form='mdtraj.Trajectory')
+        #tmp_item1, atom_indices1, frame_indices1, tmp_item2, atom_indices2, frame_indices2,\
+        #single_item, single_selection = _digest_comparison_two_systems(item, selection, frame,\
+        #                                                               item2, selection2, frame2,\
+        #                                                               form='mdtraj.Trajectory')
 
-        if (group_behavior is None) and (group_behavior2 is None):
-            if item2 is None:
-                from mdtraj import compute_distances as _mdtraj_compute_distances
-                tensor1_to_grid, tensor2_to_grid = _np.meshgrid(atom_indices1,atom_indices2)
-                pairs_list =_np.vstack([tensor1_to_grid.ravel(), tensor2_to_grid.ravel()]).T
-                dists = _mdtraj_compute_distances(tmp_item1,pairs_list,pbc)
-                if output_form=='matrix':
-                    nframes=dists.shape[0]
-                    del(_mdtraj_compute_distances,pairs_list)
-                    return dists.reshape(len(atom_indices2),len(atom_indices1),nframes).T
-                elif output_form=='dict':
-                    tmp_dict={}
-                    for kk in range(dists.shape[1]):
-                        ii=pairs_list[kk,0]
-                        jj=pairs_list[kk,1]
-                        try:
-                            tmp_dict[ii][jj]=dists[:,kk]
-                        except:
-                            tmp_dict[ii]={}
-                            tmp_dict[ii][jj]=dists[:,kk]
-                    del(_mdtraj_compute_distances,pairs_list)
-                    return tmp_dict
-                else:
-                    raise NotImplementedError(NotImplementedMessage)
-            else:
-                raise NotImplementedError(NotImplementedMessage)
-        else:
-            raise NotImplementedError(NotImplementedMessage)
+        #if (group_behavior is None) and (group_behavior2 is None):
+        #    if item2 is None:
+        #        from mdtraj import compute_distances as _mdtraj_compute_distances
+        #        tensor1_to_grid, tensor2_to_grid = _np.meshgrid(atom_indices1,atom_indices2)
+        #        pairs_list =_np.vstack([tensor1_to_grid.ravel(), tensor2_to_grid.ravel()]).T
+        #        dists = _mdtraj_compute_distances(tmp_item1,pairs_list,pbc)
+        #        if output_form=='matrix':
+        #            nframes=dists.shape[0]
+        #            del(_mdtraj_compute_distances,pairs_list)
+        #            return dists.reshape(len(atom_indices2),len(atom_indices1),nframes).T
+        #        elif output_form=='dict':
+        #            tmp_dict={}
+        #            for kk in range(dists.shape[1]):
+        #                ii=pairs_list[kk,0]
+        #                jj=pairs_list[kk,1]
+        #                try:
+        #                    tmp_dict[ii][jj]=dists[:,kk]
+        #                except:
+        #                    tmp_dict[ii]={}
+        #                    tmp_dict[ii][jj]=dists[:,kk]
+        #            del(_mdtraj_compute_distances,pairs_list)
+        #            return tmp_dict
+        #        else:
+        #            raise NotImplementedError(NotImplementedMessage)
+        #    else:
+        #        raise NotImplementedError(NotImplementedMessage)
+        #else:
+        #    raise NotImplementedError(NotImplementedMessage)
+
+        raise NotImplementedError(NotImplementedMessage)
     else:
         raise NotImplementedError(NotImplementedMessage)
 
