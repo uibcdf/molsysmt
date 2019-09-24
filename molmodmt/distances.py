@@ -205,7 +205,7 @@ def minimum_distance(item_1=None, selection_1=None, selection_groups_1=None, gro
                          selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
                          pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
-                         syntaxis=syntaxis):
+                         syntaxis=syntaxis)
 
     shape_matrix=all_dists[0,:,:].shape
     num_frames=all_dists.shape[0]
@@ -234,7 +234,7 @@ def contact_map(item_1=None, selection_1=None, selection_groups_1=None, group_be
                          selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
                          pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
-                         syntaxis=syntaxis):
+                         syntaxis=syntaxis)
 
     if threshold is None:
         raise BadCallError(BadCallMessage)
@@ -259,7 +259,7 @@ def neighbors_lists(item_1=None, selection_1=None, selection_groups_1=None, grou
                          selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
                          pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
-                         syntaxis=syntaxis):
+                         syntaxis=syntaxis)
 
     if (threshold is None) and (num_neighbors is None):
         raise BadCallError(BadCallMessage)

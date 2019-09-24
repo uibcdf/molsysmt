@@ -88,6 +88,37 @@ CONTAINS
 
   END SUBROUTINE ANGLES_BOX
 
+  SUBROUTINE LENGTHS_AND_ANGLES_TO_BOX (lengths, angles, box, nframes) 
+
+    IMPLICIT NONE
+    INTEGER,INTENT(IN)::nframes
+    DOUBLE PRECISION,DIMENSION(nframes,3),INTENT(IN):: lengths, angles
+    INTEGER::ii
+    DOUBLE PRECISION,DIMENSION(nframes,3,3),INTENT(OUT)::box
+    DOUBLE PRECISION::alpha,beta,gamm,x,y,z
+    DOUBLE PRECISION,PARAMETER::fact_pi_div_180=1.745329251994329547437168059786927E-0002
+ 
+    box=0.0d0
+
+    DO ii=1,nframes
+  
+      alpha=angles(ii,1)/fact_pi_div_180
+      beta=angles(ii,2)/fact_pi_div_180
+      gamm=angles(ii,3)/fact_pi_div_180
+      x=lengths(ii,1)
+      y=lengths(ii,2)
+      z=lengths(ii,3)
+  
+      box(ii,1,1)=x
+      box(ii,2,1)=y*cos(gamm)
+      box(ii,2,2)=y*sin(gamm)  ! sqrt(y**2-box(2,2)**2)
+      box(ii,3,1)=z*cos(beta)
+      box(ii,3,2)=z*(cos(alpha)-cos(beta)*cos(gamm))/sin(gamm) 
+      box(ii,3,3)=sqrt(z*z-box(ii,3,1)**2-box(ii,3,2)**2)
+  
+    END DO
+
+  END SUBROUTINE LENGTHS_AND_ANGLES_TO_BOX
 
   !SUBROUTINE CELL2BOX (cell,box,volume,ortho,nframes)
   !

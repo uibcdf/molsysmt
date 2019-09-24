@@ -454,7 +454,7 @@ def duplicate(item=None):
 
     return _dict_duplicator[form_in](item)
 
-def write(item=None, filename=None, selection='all', syntaxis='mdtraj'):
+def write(item=None, filename=None, selection='all', syntaxis='MDTraj'):
 
     return convert(item,filename, selection=selection, syntaxis=syntaxis)
 

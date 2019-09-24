@@ -70,15 +70,19 @@ class Trajectory():
 
     def get_box_lengths(self):
 
-        lengths = _libbox.length_edges_box(self.box._value, self.n_frames)
+        from molmodmt.utils.pbc import get_box_lengths as _get_box_lengths
 
-        return lengths.round(6)*self.length_units
+        lengths = _get_box_lengths(self.box)
+
+        return lengths
 
     def get_box_angles(self):
 
-        angles = _libbox.angles_box(self.box._value, self.n_frames)
+        from molmodmt.utils.pbc import get_box_angles as _get_box_angles
 
-        return angles.round(6)*_unit.degrees
+        angles = _get_box_angles(self.box)
+
+        return angles
 
     def load_frames (self, frame_indices=None, atom_indices=None):
 

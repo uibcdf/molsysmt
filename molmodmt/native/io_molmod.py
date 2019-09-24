@@ -107,7 +107,7 @@
 
 def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
-    from molmodmt import select, extract
+    from molmodmt import select
     from .molmod import MolMod
     from .trajectory import Trajectory
     from .io_topology import from_top as topology_from_top
@@ -125,6 +125,7 @@ def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syn
 
 def from_hdf5(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
+    from molmodmt import select
     from .molmod import MolMod
     from .trajectory import Trajectory
     from .io_topology import from_hdf5 as topology_from_hdf5
