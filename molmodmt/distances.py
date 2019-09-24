@@ -1,47 +1,52 @@
 import numpy as _np
-from .multitool import get_form as _get_form, select as _select, convert as _convert
-from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
-from .utils.digest_inputs import _coordinates as _digest_coordinates
-from .utils.digest_inputs import _frameslist as _digest_frames
+#from .multitool import get_form as _get_form, select as _select, convert as _convert
+#from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
+#from .utils.digest_inputs import _coordinates as _digest_coordinates
+#from .utils.digest_inputs import _frameslist as _digest_frames
+#from .utils.digest_inputs import _frameslist as _digest_frames
 from .lib import geometry as _libgeometry
 from .utils.exceptions import *
 from .centers import center_of_mass as _center_of_mass
 from .centers import geometrical_center as _geometrical_center
+from .utils.engines import digest as _digest_engines
+from .utils.frame_indices import digest as _digest_frame_indices
 
-def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1=None,
+def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
              item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
-             pbc=False, parallel=False, engine='molmodmt', output_form='matrix', syntaxis='mdtraj'):
+             pbc=False, parallel=False, output_form='ndarray', engine='MolModMT', syntaxis='MDTraj'):
 
     # group_behavior in ['None','center_of_mass','geometric_center','minimum_distance']
-    # output_form in ['matrix','dict']
+    # output_form in ['ndarray','dict']
 
     # selection groups está por si quiero distancias entre centros de masas, necesita
     # hacer un lista de listas frente a otra lista de listas.
 
+    from molmodmt import convert, select, get, extract
+
     engine = _digest_engines(engine)
     frame_indices_2 = frame_indices_1
 
-    #if group_behavior=='minimum_distance' or group_behavior2=='minimum_distance':
+    if group_behavior_1=='minimum_distance' or group_behavior2=='minimum_distance':
+        if group_behavior_1=='minimum_distance' and group_behavior2=='minimum_distance':
 
-    #    if group_behavior=='minimum_distance' and group_behavior2=='minimum_distance':
-
-    #        num_groups1=len(selection_groups)
-    #        num_groups2=len(selection_groups2)
-    #        frame_indices = _digest_frames(item, frame)
-    #        num_frames=len(frame_indices)
-    #        dists = _np.zeros((num_frames,num_groups1,num_groups2),dtype=float)
-    #        for ii in range(num_groups1):
-    #            group1 = selection_groups[ii]
-    #            for jj in range(num_groups2):
-    #                group2 = selection_groups2[jj]
-    #                _, min_dist = min_distances(item=item, selection=group1, frame=frame,
-    #                                            item2=item2, selection2=group2, frame2=frame2,
-    #                                            pbc=pbc, parallel=parallel)
-    #                dists[:,ii,jj]=min_dist
-    #        del(num_groups1,num_groups2,frame_indices,num_frames,group1,group2)
-    #        return dists
-    #    else:
-    #        raise NotImplementedError(NotImplementedMessage)
+            num_groups_1=len(selection_groups_1)
+            num_groups_2=len(selection_groups_2)
+            frame_indices = _digest_frame_indices(item, frame_indices_1)
+            num_frames=len(frame_indices)
+            dists = _np.zeros((num_frames, num_groups_1, num_groups_2),dtype=float)
+            for ii in range(num_groups_1):
+                group1 = selection_groups_2[ii]
+                for jj in range(num_groups_2):
+                    group2 = selection_groups_2[jj]
+                    _, min_dist = min_distances(item_1=item_1, selection_1=group1,
+                                                frame_indices_1=frame_indices_1,
+                                                item_2=item_2, selection_2=group2,
+                                                pbc=pbc, parallel=parallel, engine=engine)
+                    dists[:,ii,jj]=min_dist
+            del(num_groups1,num_groups2,frame_indices,num_frames,group1,group2)
+            return dists
+        else:
+            raise NotImplementedError(NotImplementedMessage)
 
     if engine=='MolModMT':
 
@@ -67,7 +72,7 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
                     same_groups = True
                     diff_set = False
 
-        if selection_groups_1 is None:
+        if selection_1 is not None:
 
             atom_indices_1 = select(item_1, selection=selection_1, syntaxis=syntaxis)
             coordinates_1 = get(item_1, element='atom', indices=atom_indices_1,
@@ -76,12 +81,13 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
 
             if group_behavior == 'center_of_mass':
                 coordinates_1 = _center_of_mass(item_1, selection_groups=selection_groups_1,
-                                                frame_indices=frame_indices1)
+                                                frame_indices=frame_indices_1)
             elif group_behavior == 'geometrical_center':
                 coordinates_1 = _geometrical_center(item_1,selection_groups=selection_groups_1,
-                                                    frame=frame_indices1)
+                                                    frame=frame_indices_1)
+            atom_indices_1 = list(len(coordinates_1.shape[1]))
 
-        if selection_groups_2 is None:
+        if selection_2 is not None:
 
             if same_selection:
                 atom_indices_2 = _np.copy(atom_indices_1)
@@ -94,6 +100,7 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
         else:
 
             if same_groups:
+                atom_indices_2 = _np.copy(atom_indices_1)
                 coordinates_2 = _np.copy(coordinates_1)
             else:
 
@@ -103,7 +110,7 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
                 elif group_behavior == 'geometrical_center':
                     coordinates_2 = _geometrical_center(item_2,selection_groups=selection_groups_2,
                                                 frame=frame_indices_2)
-
+                atom_indices_2 = list(len(coordinates_2.shape[1]))
 
         box, box_shape = get(item_1, box=True, box_shape=True, frame_indices=frame_indices_1)
         orthogonal = 0
@@ -111,7 +118,7 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
 
         length_units = coordinates_1.unit
         coordinates_1 = _np.asfortranarray(coordinates_1._value, dtype='float64')
-        coordinates_2 = _np.asfortranarray(coordinates_1._value, dtype='float64')
+        coordinates_2 = _np.asfortranarray(coordinates_2._value, dtype='float64')
         nframes = coordinates_1.shape[0]
         nelements1 = coordinates_1.shape[1]
         nelements2 = coordinates_2.shape[1]
@@ -126,17 +133,17 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
                                       nelements2,
                                       nframes)
 
-       dists = dists*length_units_1
+        dists = dists*length_units
 
-       if output_form=='matrix':
-            return dists
+        if output_form=='ndarray':
+             return dists
         elif output_form=='dict':
             tmp_dict={}
-            for ii in range(len(atom_indices1)):
-                atom1=atom_indices1[ii]
+            for ii in range(len(atom_indices_1)):
+                atom1=atom_indices_1[ii]
                 tmp_dict[atom1]={}
-                for jj in range(len(atom_indices2)):
-                    atom2=atom_indices2[jj]
+                for jj in range(len(atom_indices_2)):
+                    atom2=atom_indices_2[jj]
                     tmp_dict[atom1][atom2]=dists[:,ii,jj]
             return tmp_dict
         else:
@@ -187,15 +194,18 @@ def distance_atoms_pairs(item=None, atoms_pairs_list=None, frame=None, pbc=False
 
     pass
 
-def min_distance(item=None, selection=None, selection_groups=None, group_behavior=None, frame=None,
-                 item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2=None,
-                 pbc=False, parallel=False, engine='molmodmt'):
+def minimum_distance(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
+                     item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
+                     pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
 
-    all_dists= distance(item=item, selection=selection, selection_groups=selection_groups,
-                        group_behavior=group_behavior, frame=frame,
-                        item2=item2, selection2=selection2, selection_groups2=selection_groups2,
-                        group_behavior2=group_behavior2, frame2=frame2,
-                        pbc=pbc, parallel=parallel, engine=engine, output_form='matrix')
+    all_dists = distance(item_1=item_1, selection_1=selection_1,
+                         selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
+                         frame_indices_1=frame_indices_1,
+                         item_2=item_2, selection_2=selection_2,
+                         selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
+                         frame_indices_2=frame_indices_2,
+                         pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
+                         syntaxis=syntaxis):
 
     shape_matrix=all_dists[0,:,:].shape
     num_frames=all_dists.shape[0]
@@ -213,15 +223,18 @@ def min_distance(item=None, selection=None, selection_groups=None, group_behavio
     return min_pairs, min_dists
 
 
-def contact_map(item=None, selection=None, selection_groups=None, group_behavior=None, frame=None,
-                item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2=None,
-                threshold=None, pbc=False, parallel=False, engine='molmodmt'):
+def contact_map(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
+                item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
+                pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
 
-    all_dists= distance(item=item, selection=selection, selection_groups=selection_groups,
-                        group_behavior=group_behavior, frame=frame,
-                        item2=item2, selection2=selection2, selection_groups2=selection_groups2,
-                        group_behavior2=group_behavior2, frame2=frame2,
-                        pbc=pbc, parallel=parallel, engine=engine, output_form='matrix')
+    all_dists = distance(item_1=item_1, selection_1=selection_1,
+                         selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
+                         frame_indices_1=frame_indices_1,
+                         item_2=item_2, selection_2=selection_2,
+                         selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
+                         frame_indices_2=frame_indices_2,
+                         pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
+                         syntaxis=syntaxis):
 
     if threshold is None:
         raise BadCallError(BadCallMessage)
@@ -235,15 +248,18 @@ def contact_map(item=None, selection=None, selection_groups=None, group_behavior
 
     return contact_map
 
-def neighbors_lists(item=None, selection=None, selection_groups=None, group_behavior=None, frame=None,
-                    item2=None, selection2=None, selection_groups2=None, group_behavior2=None, frame2=None,
-                    threshold=None, num_neighbors=None, pbc=False, parallel=False, engine='molmodmt'):
+def neighbors_lists(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
+                    item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
+                    pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
 
-    all_dists= distance(item=item, selection=selection, selection_groups=selection_groups,
-                        group_behavior=group_behavior, frame=frame,
-                        item2=item2, selection2=selection2, selection_groups2=selection_groups2,
-                        group_behavior2=group_behavior2, frame2=frame2,
-                        pbc=pbc, parallel=parallel, engine=engine, output_form='matrix')
+    all_dists = distance(item_1=item_1, selection_1=selection_1,
+                         selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
+                         frame_indices_1=frame_indices_1,
+                         item_2=item_2, selection_2=selection_2,
+                         selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
+                         frame_indices_2=frame_indices_2,
+                         pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
+                         syntaxis=syntaxis):
 
     if (threshold is None) and (num_neighbors is None):
         raise BadCallError(BadCallMessage)
@@ -275,5 +291,4 @@ def neighbors_lists(item=None, selection=None, selection_groups=None, group_beha
     del(tmp_neighbors,tmp_dists)
 
     return _np.array(neighbors)
-
 

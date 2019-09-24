@@ -32,7 +32,7 @@ ext_box = Extension(
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/lib/libbox.f90','molmodmt/lib/libpbc.f90','molmodmt/lib/libcom.f90'],
+    sources = ['molmodmt/lib/libbox.f90','molmodmt/lib/libpbc.f90'],
 )
 
 ext_geometry = Extension(
@@ -40,8 +40,7 @@ ext_geometry = Extension(
     extra_compile_args = [],
     libraries = ['lapack'],
     language = 'f90',
-    sources = ['molmodmt/lib/libgeometry.f90','molmodmt/lib/libpbc.f90','molmodmt/lib/libmath.f90',
-               'molmodmt/lib/libcom.f90'],
+    sources = ['molmodmt/lib/libgeometry.f90','molmodmt/lib/libpbc.f90','molmodmt/lib/libbox.f90'],
 )
 
 ext_rmsd = Extension(
