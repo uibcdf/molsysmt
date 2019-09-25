@@ -40,12 +40,12 @@ CONTAINS
   
   END SUBROUTINE BOX2INVBOX
 
-  SUBROUTINE LENGTH_EDGES_BOX(box, lengths, nframes)
+  FUNCTION LENGTH_EDGES_BOX(box, nframes) RESULT(lengths)
 
     IMPLICIT NONE
     INTEGER,INTENT(IN)::nframes
     DOUBLE PRECISION,DIMENSION(nframes,3,3),INTENT(IN)::box
-    DOUBLE PRECISION,DIMENSION(nframes,3),INTENT(OUT)::lengths
+    DOUBLE PRECISION,DIMENSION(nframes,3)::lengths
     INTEGER::ii
 
     lengths = 0.0d0
@@ -58,14 +58,14 @@ CONTAINS
 
     END DO
 
-  END SUBROUTINE LENGTH_EDGES_BOX
+  END FUNCTION LENGTH_EDGES_BOX
 
-  SUBROUTINE ANGLES_BOX(box, angles, nframes)
+  FUNCTION ANGLES_BOX(box, nframes) RESULT(angles)
 
     IMPLICIT NONE
     INTEGER,INTENT(IN)::nframes
     DOUBLE PRECISION,DIMENSION(nframes,3,3),INTENT(IN)::box
-    DOUBLE PRECISION,DIMENSION(nframes,3),INTENT(OUT)::angles
+    DOUBLE PRECISION,DIMENSION(nframes,3)::angles
     DOUBLE PRECISION::x,y,z,a,b,c
     DOUBLE PRECISION,PARAMETER::fact_pi_div_180=1.745329251994329547437168059786927E-0002
     INTEGER::ii
@@ -86,15 +86,15 @@ CONTAINS
 
     END DO
 
-  END SUBROUTINE ANGLES_BOX
+  END FUNCTION ANGLES_BOX
 
-  SUBROUTINE LENGTHS_AND_ANGLES_TO_BOX (lengths, angles, box, nframes) 
+  FUNCTION LENGTHS_AND_ANGLES_TO_BOX (lengths, angles, nframes) RESULT(box)
 
     IMPLICIT NONE
     INTEGER,INTENT(IN)::nframes
     DOUBLE PRECISION,DIMENSION(nframes,3),INTENT(IN):: lengths, angles
     INTEGER::ii
-    DOUBLE PRECISION,DIMENSION(nframes,3,3),INTENT(OUT)::box
+    DOUBLE PRECISION,DIMENSION(nframes,3,3)::box
     DOUBLE PRECISION::alpha,beta,gamm,x,y,z
     DOUBLE PRECISION,PARAMETER::fact_pi_div_180=1.745329251994329547437168059786927E-0002
  
@@ -102,23 +102,22 @@ CONTAINS
 
     DO ii=1,nframes
   
-      alpha=angles(ii,1)/fact_pi_div_180
-      beta=angles(ii,2)/fact_pi_div_180
-      gamm=angles(ii,3)/fact_pi_div_180
+      alpha=angles(ii,1)*fact_pi_div_180
+      beta=angles(ii,2)*fact_pi_div_180
+      gamm=angles(ii,3)*fact_pi_div_180
       x=lengths(ii,1)
       y=lengths(ii,2)
       z=lengths(ii,3)
-  
       box(ii,1,1)=x
       box(ii,2,1)=y*cos(gamm)
-      box(ii,2,2)=y*sin(gamm)  ! sqrt(y**2-box(2,2)**2)
+      box(ii,2,2)=y*sin(gamm)
       box(ii,3,1)=z*cos(beta)
       box(ii,3,2)=z*(cos(alpha)-cos(beta)*cos(gamm))/sin(gamm) 
       box(ii,3,3)=sqrt(z*z-box(ii,3,1)**2-box(ii,3,2)**2)
   
     END DO
 
-  END SUBROUTINE LENGTHS_AND_ANGLES_TO_BOX
+  END FUNCTION LENGTHS_AND_ANGLES_TO_BOX
 
   !SUBROUTINE CELL2BOX (cell,box,volume,ortho,nframes)
   !

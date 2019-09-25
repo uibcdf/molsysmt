@@ -38,6 +38,11 @@ def load_frame (item, indices=None, atom_indices=None):
     box = _np.concatenate(box_list)
     del(box_list)
 
+    xyz = xyz.astype('float64')
+    box = box.astype('float64')
+    time = time.astype('float64')
+    step = step.astype('int64')
+
     xyz = xyz*_unit.nanometer
     box = box*_unit.nanometer
     time = time*_unit.picoseconds

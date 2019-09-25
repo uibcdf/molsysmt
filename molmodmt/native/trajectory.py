@@ -1,9 +1,8 @@
 import numpy as _np
-from simtk import unit as _unit
+import molmodmt.utils.units as m3t_units
 from molmodmt.lib import box as _libbox
 from molmodmt.lib import com as _libcom
 from molmodmt.utils.exceptions import *
-from copy import deepcopy
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
 
@@ -12,9 +11,6 @@ from copy import deepcopy
 class Trajectory():
 
     def __init__(self, filename=None):
-
-        self.length_units = _unit.nanometers
-        self.time_units = _unit.picoseconds
 
         self.step  = None
         self.time  = None
@@ -33,10 +29,10 @@ class Trajectory():
 
     def _set_frames(self, step=None, time=None, coordinates=None, box=None):
 
-        self.coordinates = coordinates.in_units_of(self.length_units)
-        self.time  = time.in_units_of(self.time_units)
+        self.coordinates = coordinates.in_units_of(m3t_units.length)
+        self.time  = time.in_units_of(m3t_units.time)
         self.step  = step
-        self.box  = box.in_units_of(self.length_units)
+        self.box  = box.in_units_of(m3t_units.length)
 
         if box is not None:
             if box[0] is None:

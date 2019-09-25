@@ -31,30 +31,44 @@ def get_shape_from_box(box):
 
 def get_box_lengths(box):
 
+    from numpy import asfortranarray, ascontiguousarray
+
     length_units = box.unit
     n_frames = box.shape[0]
-    lengths = _libbox.length_edges_box(box._value, n_frames)
+    tmp_box =  asfortranarray(box._value, dtype='float64')
+    lengths = _libbox.length_edges_box(tmp_box, n_frames)
+    lengths = ascontiguousarray(lengths, dtype='float64')
+    del(tmp_box)
 
     return lengths.round(6)*length_units
 
 def get_box_angles(box):
 
+    from numpy import asfortranarray, ascontiguousarray
+
     angle_units = box.unit
     n_frames = box.shape[0]
-    angles = _libbox.angles_box(box._value, n_frames)
+    tmp_box =  asfortranarray(box._value, dtype='float64')
+    angles = _libbox.angles_box(tmp_box, n_frames)
+    angles = ascontiguousarray(angles, dtype='float64')
+    del(tmp_box)
 
     return angles.round(6)*angle_units
 
 def get_box_from_lengths_and_angles(lengths, angles):
 
+    from numpy import asfortranarray, ascontiguousarray
+
     length_units = lengths.unit
     angle_units = angles.unit
-    tmp_lengths = lengths._value
-    tmp_angles = angles._value
+    tmp_lengths =  asfortranarray(lengths._value, dtype='float64')
+    tmp_angles =  asfortranarray(angles._value, dtype='float64')
     n_frames = lengths.shape[0]
 
     box = _libbox.lengths_and_angles_to_box(tmp_lengths, tmp_angles, n_frames)
-    box = box*length_units
+    box = ascontiguousarray(box, dtype='float64')
 
-    return box
+    del(tmp_lengths, tmp_angles)
+
+    return box.round(6)*length_units
 

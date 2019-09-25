@@ -109,9 +109,9 @@ _list_attributes = list(_dict_reformatter.keys())
 #### Methods
 ####
 
-def select(item, selection='all', syntaxis='mdtraj'):
+def select(item, selection='all', syntaxis='MDTraj'):
 
-    """select(item, selection='all', syntaxis='mdtraj')
+    """select(item, selection='all', syntaxis='MDTraj')
 
     AAAAAAAAAAAAAAAAAA
 
@@ -197,7 +197,7 @@ def merge(item1=None, item2=None, to_form=None):
         tmp_item2 = convert(item2,form)
         return _dict_merger[form](tmp_item1, tmp_item1)
 
-def info(item=None, element='system', selection="all", syntaxis="mdtraj"):
+def info(item=None, element='system', selection="all", syntaxis="MDTraj"):
 
     from pandas import DataFrame as df
     form_in, _ = _digest_forms(item)

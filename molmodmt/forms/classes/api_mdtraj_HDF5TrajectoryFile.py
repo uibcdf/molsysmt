@@ -9,12 +9,14 @@ is_form={
     }
 
 
-#All of the data shall be n units of “nanometers”, “picoseconds”, “kelvin”, “degrees” and “kilojoules_per_mole”
-
 def load_frame (item, indices=None, atom_indices=None):
 
+    #All of the data shall be n units of “nanometers”, “picoseconds”, “kelvin”, “degrees” and “kilojoules_per_mole”
+
+    from numpy import array, concatenate
     from molmodmt.utils.math import serie_to_chunks
     from molmodmt.utils.pbc import get_box_from_lengths_and_angles
+    from simtk.unit import nanometers, picoseconds, degrees
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(indices)
 
@@ -27,28 +29,32 @@ def load_frame (item, indices=None, atom_indices=None):
         item.seek(start)
         frame_hdf5 = item.read(n_frames=size, atom_indices=atom_indices)
         xyz = frame_hdf5.coordinates
+        xyz_list.append(xyz)
         time = frame_hdf5.time
+        time_list.append(time)
         cell_lengths = frame_hdf5.cell_lengths
         cell_angles = frame_hdf5.cell_angles
-        box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
-        xyz_list.append(xyz)
-        time_list.append(time)
-        box_list.append(box)
+        box = get_box_from_lengths_and_angles(cell_lengths*nanometers, cell_angles*degrees)
+        box_list.append(box._value)
 
-    xyz = _np.concatenate(xyz_list)
+    step = array([],dtype=int)
+    xyz = concatenate(xyz_list)
     del(xyz_list)
-    time = _np.concatenate(time_list)
+    time = concatenate(time_list)
     del(time_list)
-    step = indices
-    box = _np.concatenate(box_list)
+    box = concatenate(box_list)
     del(box_list)
 
-    xyz = xyz*_unit.nanometer
-    box = box*_unit.nanometer
-    time = time*_unit.picoseconds
+    xyz = xyz.astype('float64')
+    box = box.astype('float64')
+    time = time.astype('float64')
+    step = step.astype('int64')
+
+    xyz = xyz*nanometers
+    box = box*nanometers
+    time = time*picoseconds
 
     return step, time, xyz, box
-
 
 #### Get
 
@@ -74,7 +80,7 @@ def get_box_shape_from_system (item, indices=None, frame_indices=None):
     position = item.tell()
     frame_hdf5 = item.read(n_frames=1)
     cell_angles = frame_hdf5.cell_angles
-    shape = get_shape_from_box(cell_angles)
+    shape = get_shape_from_angles(cell_angles)
     item.seek(position)
     del(frame_hdf5)
     return shape
