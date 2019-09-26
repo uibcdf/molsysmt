@@ -67,7 +67,7 @@ def from_pdb(item=None, topology=None, selection='all', frame_indices='all', syn
 
     tmp_item = MolMod()
     tmp_item.topology = convert(topology, 'molmodmt.Topology', selection=atom_indices)
-    tmp_item.trajectory = convert(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.trajectory = convert(item, selection=atom_indices, frame_indices=frame_indices)
     tmp_item.topography = None
     tmp_item.structure = None
 
@@ -100,7 +100,7 @@ def from_hdf5(item=None, topology=None, selection='all', frame_indices='all', sy
 
     tmp_item = MolMod()
     tmp_item.topology = convert(topology, 'molmodmt.Topology', selection=atom_indices)
-    tmp_item.trajectory = convert(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.trajectory = convert(item, selection=atom_indices, frame_indices=frame_indices)
     tmp_item.topography = None
     tmp_item.structure = None
 
