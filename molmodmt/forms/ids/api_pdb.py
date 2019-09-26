@@ -31,7 +31,9 @@ def to_fasta(item, output_file=None):
 
 def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
 
-    from molmodmt.native.io_molmod import from_pdbid as _from_pdbid
+    from molmodmt.utils.miscellanea import download_pdb as _download_pdb
+    from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
+    from molmodmt.native.io_molmod import from_pdb as _from_pdb
     tmp_item = item.split(':')[-1]
     tmp_item = _from_pdbid(tmp_item)
     return tmp_item
