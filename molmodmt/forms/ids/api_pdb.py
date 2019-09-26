@@ -29,16 +29,16 @@ def to_fasta(item, output_file=None):
             f.write(fasta_txt)
         pass
 
-def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
+def to_molmodmt_MolMod(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
-    from molmodmt.utils.miscellanea import download_pdb as _download_pdb
-    from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
-    from molmodmt.native.io_molmod import from_pdb as _from_pdb
-    tmp_item = item.split(':')[-1]
-    tmp_item = _from_pdbid(tmp_item)
+    from molmodmt.utils.miscellanea import download_pdb as download_pdb
+    from molmodmt.native.io_molmod import from_pdb as pdb_to_molmodmt
+    tmp_file=download_pdb(item.split(':')[-1])
+    tmp_item=pdb_to_molmodmt(tmp_file, selection=selection, syntaxis=syntaxis)
+    _remove(tmp_file)
     return tmp_item
 
-def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
+def to_mdtraj_Trajectory(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
     from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
@@ -47,7 +47,7 @@ def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
     _remove(_tmp_file)
     return _tmp_item
 
-def to_mdtraj_Topology(form_id, selection=None, syntaxis='mdtraj'):
+def to_mdtraj_Topology(form_id, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from molmodmt import convert as _convert
     tmp_item = to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
@@ -63,7 +63,7 @@ def to_parmed_Structure(form_id):
     del(_pdb_to_parmed_Structure)
     return _tmp_form
 
-def to_pdbfixer_PDBFixer(form_id, selection=None, syntaxis="mdtraj"):
+def to_pdbfixer_PDBFixer(form_id, selection='all', frame_indices='all', syntaxis="MDTraj"):
     from molmodmt.utils.miscellanea import download_pdb
     from molmodmt import convert
     pdbid = form_id.split(':')[-1]
@@ -72,7 +72,7 @@ def to_pdbfixer_PDBFixer(form_id, selection=None, syntaxis="mdtraj"):
     _remove(tmp_file)
     return tmp_item
 
-def to_openmm_Modeller(form_id, selection=None, syntaxis="mdtraj"):
+def to_openmm_Modeller(form_id, selection='all', frame_indices='all', syntaxis="MDTraj"):
     from molmodmt.utils.miscellanea import download_pdb
     from molmodmt import convert
     pdbid = form_id.split(':')[-1]
@@ -81,7 +81,7 @@ def to_openmm_Modeller(form_id, selection=None, syntaxis="mdtraj"):
     _remove(tmp_file)
     return tmp_item
 
-def to_yank_Topography(form_id):
+def to_yank_Topography(form_id, selection='all', frame_indices='all', syntaxis="MDTraj"):
     from molmodmt.forms.files.api_pdb import to_yank_Topography as _pdb_to_yank_Topography
     _tmp_file=to_pdb(form_id)
     _tmp_form=_pdb_to_yank_Topography(_tmp_file)
@@ -89,7 +89,7 @@ def to_yank_Topography(form_id):
     del(_pdb_to_yank_Topography)
     return _tmp_form
 
-def to_mdanalysis(form_id):
+def to_mdanalysis(form_id, selection='all', frame_indices='all', syntaxis="MDTraj"):
     from molmodmt.forms.files.api_pdb import to_mdanalysis as _pdb_to_mdanalysis
     _tmp_file=to_pdb(form_id)
     _tmp_form=_pdb_to_mdanalysis(_tmp_file)
@@ -97,19 +97,19 @@ def to_mdanalysis(form_id):
     del(_pdb_to_mdanalysis)
     return _tmp_form
 
-def to_pytraj(form_id):
+def to_pytraj(form_id, selection='all', frame_indices='all', syntaxis="MDTraj"):
     from pytraj import fetch_pdb as _pytraj_fetch_pdb
     _tmp_form=_pytraj_fetch_pdb(form_id.split(':')[-1])
     del(_pytraj_fetch_pdb)
     return _tmp_form
 
-def to_pytraj_Trajectory(form_id):
+def to_pytraj_Trajectory(form_id, selection='all', frame_indices='all', syntaxis="MDTraj"):
     from pytraj import fetch_pdb as _pytraj_fetch_pdb
     _tmp_form=_pytraj_fetch_pdb(form_id)
     del(_pytraj_fetch_pdb)
     return _tmp_form
 
-def to_nglview(form_id):
+def to_nglview(form_id, selection='all', frame_indices='all', syntaxis="MDTraj"):
     # from nglview import show_pdbid as _nglview_show_pdbid
     # return _nglview_show_pdbid(form_id.split(':')[-1])
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb

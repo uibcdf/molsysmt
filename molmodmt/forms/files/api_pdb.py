@@ -7,14 +7,24 @@ is_form = {
     'PDB': form_name
     }
 
-def to_molmodmt_MolMod(item, topology=None, selection="all", frame_indices=None, syntaxis='mdtraj'):
+def to_molmodmt_MolMod(item, topology=None, selection="all", frame_indices="all", syntaxis="MDTraj"):
     from molmodmt.native.io_molmod import from_pdb as _from_pdb
     return _from_pdb(item, topology=topology, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
-def to_parmed(item, selection="all", syntaxis='mdtraj'):
+def to_molmodmt_Topology(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+
+    from molmodmt.native.io_topology import from_pdb as _from_pdb
+    return _from_pdb(item, selection=selection, syntaxis=syntaxis)
+
+def to_molmodmt_Trajectory(item, topology="all", selection="all", frame_indices="all", syntaxis="MDTraj"):
+
+    from molmodmt.native.io_trajectory import from_pdb as _from_pdb
+    return _from_pdb(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+
+def to_parmed(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
     return to_parmed_Structure(item)
 
-def to_parmed_Structure(item, selection="all", syntaxis='mdtraj'):
+def to_parmed_Structure(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
     from molmodmt import extract as _extract
     from parmed import load_file as _parmed_file_loader
     tmp_item = _parmed_file_loader(item)
@@ -26,16 +36,10 @@ def to_mdanalysis(item):
     from MDAnalysis import Universe as _mdanalysis_Universe
     return _mdanalysis_Universe(item)
 
-def to_moldmodmt_MolMod(item, selection="all", syntaxis='mdtraj'):
-    from molmodmt import convert as _convert
-    tmp_item = to_mdtraj(item, selection=selection, syntaxis=syntaxis)
-    tmp_item = _convert(tmp_item,'molmodmt.MolMod')
-    return tmp_item
-
-def to_mdtraj(item, selection="all", syntaxis='mdtraj'):
+def to_mdtraj(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
     return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
 
-def to_mdtraj_Topology(item, selection="all", syntaxis='mdtraj'):
+def to_mdtraj_Topology(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 
     from mdtraj import load as _mdtraj_load
     from molmodmt import extract as _extract
@@ -43,7 +47,7 @@ def to_mdtraj_Topology(item, selection="all", syntaxis='mdtraj'):
     tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_mdtraj_Trajectory(item, selection="all", syntaxis='mdtraj'):
+def to_mdtraj_Trajectory(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 
     from mdtraj import load_pdb as _mdtraj_pdb_loader
     from molmodmt import extract as _extract
@@ -51,14 +55,14 @@ def to_mdtraj_Trajectory(item, selection="all", syntaxis='mdtraj'):
     tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_mol2(item, filename=None, selection="all", syntaxis="mdtraj"):
+def to_mol2(item, filename=None, selection="all", frame_indices="all", syntaxis="MDTraj"):
 
     from parmed import load_file as _parmed_file_loader
     tmp_parmed_form = _parmed_file_loader(item)
     tmp_parmed_form.save(filename)
     pass
 
-def to_openmm_Topology(item, selection="all", syntaxis="mdtraj"):
+def to_openmm_Topology(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
     from simtk.openmm.app.pdbfile import PDBFile
     tmp_item = PDBFile(item).getTopology()
     return tmp_item
@@ -69,7 +73,7 @@ def to_openmm_Topology(item, selection="all", syntaxis="mdtraj"):
 #    del(_openmm_pdb_loader)
 #    return tmp_form
 
-def to_openmm_Modeller(item, selection="all", syntaxis="mdtraj"):
+def to_openmm_Modeller(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from simtk.openmm.app.modeller import Modeller
@@ -77,16 +81,16 @@ def to_openmm_Modeller(item, selection="all", syntaxis="mdtraj"):
     tmp_item = Modeller(tmp_item.topology, tmp_item.positions)
     return tmp_item
 
-def to_openmm_PDBFile(item, selection="all", syntaxis="mdtraj"):
+def to_openmm_PDBFile(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
     from simtk.openmm.app.pdbfile import PDBFile
     tmp_item = PDBFile(item)
     return tmp_item
 
-def to_pdbfixer(item, selection='all', syntaxis='mdtraj'):
+def to_pdbfixer(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 
     return to_pdbfixer_PDBFixer(item, selection=selection, syntaxis=syntaxis)
 
-def to_pdbfixer_PDBFixer(item, selection="all", syntaxis='mdtraj'):
+def to_pdbfixer_PDBFixer(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 
     from molmodmt import extract
     from pdbfixer.pdbfixer import PDBFixer
@@ -98,7 +102,7 @@ def to_nglview(item):
     from nglview import show_file as _nglview_show_file
     return _nglview_show_file(item)
 
-def to_yank_Topography(item):
+def to_yank_Topography(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_yank_Topography as _openmm_to_yank_Topography
     tmp_form = to_openmm_Topology(item)

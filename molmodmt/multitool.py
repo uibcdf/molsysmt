@@ -157,7 +157,7 @@ def select(item, selection='all', syntaxis='MDTraj'):
         atom_indices = _dict_selector[form_in][syntaxis](item, selection)
         return list(_sort(atom_indices))
 
-def extract(item, selection='all', syntaxis='MDTraj', mode='keeping_selection', to_form=None):
+def extract(item, selection='all', frame_indices='all', syntaxis='MDTraj', mode='keeping_selection', to_form=None):
 
     # mode in ['removing_selection','keeping_selection']
 
@@ -197,7 +197,7 @@ def merge(item1=None, item2=None, to_form=None):
         tmp_item2 = convert(item2,form)
         return _dict_merger[form](tmp_item1, tmp_item1)
 
-def info(item=None, element='system', selection="all", syntaxis="MDTraj"):
+def info(item=None, element='system', indices=None, selection="all", syntaxis="MDTraj"):
 
     from pandas import DataFrame as df
     form_in, _ = _digest_forms(item)
@@ -262,7 +262,7 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get(item, element='system', indices=None, frame_indices=None, selection='all', syntaxis='MDTraj', **kwargs):
+def get(item, element='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs):
 
     # selection works as a mask if indices or ids are used
 
@@ -298,7 +298,7 @@ def get(item, element='system', indices=None, frame_indices=None, selection='all
     else:
         return results
 
-def set(item, element='system', indices=None, frame_indices=None,  selection='all', syntaxis='mdtraj', **kwargs):
+def set(item, element='system', indices=None, selection='all', frame_indices='all', syntaxis='mdtraj', **kwargs):
 
     form_in, _ = _digest_forms(item)
     element = _singular(element)
@@ -328,9 +328,9 @@ def set(item, element='system', indices=None, frame_indices=None,  selection='al
 
     pass
 
-def load (item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs):
+def load (item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs):
 
-    """load(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs)
+    """load(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs)
 
     Loading a molecular model.
 
@@ -374,12 +374,12 @@ def load (item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', *
 
     """
 
-    return convert(item, to_form, selection=selection, syntaxis=syntaxis, **kwargs)
+    return convert(item, to_form, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis, **kwargs)
 
 
-def convert(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs):
+def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='mdtraj', **kwargs):
 
-    """load(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj', **kwargs)
+    """load(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='mdtraj', **kwargs)
 
     Transforming a molecular model from its current form into other supported form.
 
@@ -441,12 +441,14 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', syntaxis='mdtraj',
 
     if out_file is not None:
         return _dict_converter[form_in][form_out](item, filename=out_file,
-                                                  selection=selection, syntaxis=syntaxis, **kwargs)
+                                                  selection=selection, frame_indices=frame_indices,
+                                                  syntaxis=syntaxis, **kwargs)
     else:
-        if form_in!=form_out:
-            return _dict_converter[form_in][form_out](item, selection=selection, syntaxis=syntaxis, **kwargs)
+        if form_out != form_in:
+            return _dict_converter[form_in][form_out](item, selection=selection,
+                                                      frame_indices=frame_indices, syntaxis=syntaxis, **kwargs)
         else:
-            return extract(item, selection=selection, syntaxis=syntaxis, mode='keeping_selection')
+            return extract(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis, mode='keeping_selection')
 
 def duplicate(item=None):
 
@@ -454,11 +456,11 @@ def duplicate(item=None):
 
     return _dict_duplicator[form_in](item)
 
-def write(item=None, filename=None, selection='all', syntaxis='MDTraj'):
+def write(item=None, filename=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
-    return convert(item,filename, selection=selection, syntaxis=syntaxis)
+    return convert(item,filename, selection=selection, frame_indices='all', syntaxis=syntaxis)
 
-def view(item=None, viewer='nglview', selection='all', syntaxis='mdtraj'):
+def view(item=None, viewer='nglview', selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     if type(item) in [list,tuple]:
         form_in = get_form(item[0])

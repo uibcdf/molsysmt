@@ -41,27 +41,26 @@ import numpy as _np
 #    tmp_item.parse_mdtraj_Trajectory(tmp_mdtraj_item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 #    del(tmp_mdtraj_item)
 #    return tmp_item
-#
-#def from_pdb(item=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
-#
-#    from molmodmt import convert as _convert
-#    tmp_item = _convert(item, form='mdtraj.Trajectory', selection=selection, syntaxis=syntaxis)
-#    tmp_item = from_mdtraj_Trajectory(tmp_item)
-#    return tmp_item
-#
-#def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
-#
-#    from molmodmt import extract as _extract
-#    tmp_item = _Trajectory(filename=item, topology=topology)
-#    if frame_indices is not None:
-#        tmp_item.load(frame_indices=frame_indices, selection=selection, syntaxis=syntaxis)
-#    return tmp_item
 
-def from_hdf5(item=None, atom_indices='all', frame_indices='all'):
+
+def from_pdb(item=None, atom_indices=None, frame_indices='all'):
 
     from .trajectory import Trajectory
     tmp_item = Trajectory(filename=item)
-    if frame_indices is not None:
-        tmp_item.load(frame_indices=frame_indices, atom_indices=atom_indices)
+    tmp_item.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def from_xtc(item=None, atom_indices=None, frame_indices='all'):
+
+    from .trajectory import Trajectory
+    tmp_item = Trajectory(filename=item)
+    tmp_item.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def from_hdf5(item=None, atom_indices=None, frame_indices='all'):
+
+    from .trajectory import Trajectory
+    tmp_item = Trajectory(filename=item)
+    tmp_item.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 

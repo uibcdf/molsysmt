@@ -11,11 +11,11 @@ is_form={
 
 ## To other form
 
-def to_aminoacids3_seq(item, selection=None, syntaxis='mdtraj'):
+def to_aminoacids3_seq(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     return ''.join([ r.name for r in item.residues ])
 
-def to_aminoacids1_seq(item, selection=None, syntaxis='mdtraj'):
+def to_aminoacids1_seq(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
     tmp_item = to_aminoacids3_seq(item)
@@ -23,11 +23,11 @@ def to_aminoacids1_seq(item, selection=None, syntaxis='mdtraj'):
     del(_aminoacids3_to_aminoacids1)
     return tmp_item
 
-def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
+def to_openmm_Topology(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     return item.to_openmm()
 
-def to_yank_Topography(item, selection=None, syntaxis='mdtraj'):
+def to_yank_Topography(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from .api_openmm_Topology import to_yank_Topography as _opennn_Topology_to_yank_Topography
     tmp_form = to_openmm_Topology(item)
@@ -35,7 +35,7 @@ def to_yank_Topography(item, selection=None, syntaxis='mdtraj'):
     del(_opennn_Topology_to_yank_Topography)
     return tmp_form
 
-def to_parmed_Structure(item, selection=None, syntaxis='mdtraj'):
+def to_parmed_Structure(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from .api_openmm_Topology import to_parmed_Structure as _opennn_Topology_to_parmed_Structure
     tmp_form = to_openmm_Topology(item)
@@ -43,7 +43,7 @@ def to_parmed_Structure(item, selection=None, syntaxis='mdtraj'):
     del(_opennn_Topology_to_parmed_Structure)
     return tmp_form
 
-def to_parmed_GromacsTopologyFile(item):
+def to_parmed_GromacsTopologyFile(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
     from parmed.gromacs import GromacsTopologyFile as _GromacsTopologyFile
     tmp_form = to_parmed_Structure(item)
     return _GromacsTopologyFile.from_structure(item)
