@@ -9,30 +9,39 @@ is_form={
     'mdanalysis.Universe' : form_name
 }
 
-def to_nglview(item):
+def to_nglview(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+
     from nglview import show_mdtraj as _nglview_show_mdanalysis
     return _nglview_show_mdanalysis(item)
 
-def to_pdb(item, output_file=None, multiframe=False):
+def to_pdb(item, selection=None, frame_indices=None, output_file=None, multiframe=False,
+           syntaxis="MDTraj"):
+
     item.atoms.write(output_file, multiframe=multiframe)
+
     pass
 
-def to_MDTraj(item, multiframe=False):
+def to_MDTraj(item, selection=None, frame_indices=None, multiframe=False, syntaxis="MDTraj"):
+
     import tempfile as _tempfile
     from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
     output_file=_tempfile.NamedTemporaryFile(suffix=".pdb").name
     to_pdb(item,output_file,multiframe)
     tmp_form=_pdb_to_mdtraj(output_file)
     _remove(output_file)
+
     return tmp_form
 
 def select_with_MDTraj(item, selection):
+
     tmp_form=to_mdtraj(item,multiframe=True)
+
     return tmp_form.topology.select(selection)
-    pass
 
 def select_with_MDAnalysis(item, selection):
+
     tmp_atomgroup=item.select_atoms(selection)
     tmp_sel = tmp_atomgroup.atoms.ids
     del(tmp_atomgroup)
+
     return tmp_sel

@@ -7,15 +7,15 @@ is_form={
     _parmed_GromacsTopologyFile : form_name
 }
 
-def to_mdtraj_Topology(item, selection=None, syntaxis='MDTraj'):
+def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from mdtraj.core.topology import Topology as mdtraj_topology
     return mdtraj_topology.from_openmm(item.topology)
 
-def to_mol2(item, filename, selection=None, syntaxis='MDTraj'):
+def to_mol2(item, filename, selection=None, frame_indices=None, syntaxis='MDTraj'):
     return item.save(filename)
 
-def to_top(item, filename, selection=None, syntaxis='MDTraj'):
+def to_top(item, filename, selection=None, frame_indices=None, syntaxis='MDTraj'):
     return item.save(filename)
 
 def select_with_MDTraj(item, selection):

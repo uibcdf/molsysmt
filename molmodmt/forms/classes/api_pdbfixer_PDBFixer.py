@@ -9,17 +9,17 @@ is_form={
 
 ## Methods
 
-def to_nglview(item):
+def to_nglview(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
     tmp_item = to_mdtraj(item)
     return _mdtraj_to_nglview(tmp_item)
 
-def to_aminoacids3_seq(item):
+def to_aminoacids3_seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     return ''.join([ r.name for r in item.topology.residues() ])
 
-def to_aminoacids1_seq(item):
+def to_aminoacids1_seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
     tmp_item = to_aminoacids3_seq(item)
@@ -27,7 +27,7 @@ def to_aminoacids1_seq(item):
     del(_aminoacids3_to_aminoacids1)
     return tmp_item
 
-def to_biopython_Seq(item):
+def to_biopython_Seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item)
@@ -35,7 +35,7 @@ def to_biopython_Seq(item):
     del(_aminoacids1_to_biopython_Seq)
     return tmp_item
 
-def to_biopython_SeqRecord(item):
+def to_biopython_SeqRecord(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item)
@@ -44,7 +44,7 @@ def to_biopython_SeqRecord(item):
     return tmp_item
 
 
-def to_mdtraj_Topology(item):
+def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from mdtraj.core.topology import Topology as _mdtraj_Topology
     tmp_form = to_openmm_Topology(item)
@@ -52,7 +52,7 @@ def to_mdtraj_Topology(item):
     del(_mdtraj_Topology)
     return tmp_form
 
-def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
+def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     import simtk.unit as _unit
     from molmodmt import extract as _extract
@@ -64,24 +64,20 @@ def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
     tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
-
-    return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
-
-def to_openmm_Modeller(item, selection=None, syntaxis='mdtraj'):
+def to_openmm_Modeller(item, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     from simtk.openmm.app import Modeller as _openmm_app_Modeller
     return _openmm_app_Modeller(item.topology, item.positions)
 
-def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
+def to_openmm_Topology(item, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     return item.topology
 
-def to_openmm_Positions(item, selection=None, syntaxis='mdtraj'):
+def to_openmm_Positions(item, selection=None, frame_indices=None, syntaxis='mdtraj'):
 
     return item.positions
 
-def to_yank_Topography(item):
+def to_yank_Topography(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from yank import Topography as _yank_Topography
     tmp_form = to_openmm_Topology(item)

@@ -8,7 +8,7 @@ is_form={
     'mdtraj.Trajectory':form_name
     }
 
-def to_aminoacids3_seq(item):
+def to_aminoacids3_seq(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     return ''.join([ r.name for r in item.topology.residues ])
 
@@ -20,7 +20,7 @@ def to_aminoacids1_seq(item):
     del(_aminoacids3_to_aminoacids1)
     return tmp_item
 
-def to_biopython_Seq(item):
+def to_biopython_Seq(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item)
@@ -28,7 +28,7 @@ def to_biopython_Seq(item):
     del(_aminoacids1_to_biopython_Seq)
     return tmp_item
 
-def to_biopython_SeqRecord(item):
+def to_biopython_SeqRecord(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item)
@@ -36,38 +36,35 @@ def to_biopython_SeqRecord(item):
     del(_aminoacids1_to_biopython_SeqRecord)
     return tmp_item
 
-def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
+def to_molmodmt_MolMod(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from molmodmt.native.io_molmod import from_mdtraj_Trajectory as _molmodmt_MolMod_from_mdtraj_Trajectory
     tmp_item = _molmodmt_MolMod_from_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_molmodmt_Trajectory(item, selection=None, syntaxis='mdtraj'):
+def to_molmodmt_Trajectory(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from molmodmt.native.io_trajectory import from_mdtraj_Trajectory as _molmodmt_Trajectory_from_mdtraj_Trajectory
     tmp_item = _molmodmt_Trajectory_from_mdtraj_Trajectory(item, selection=selection,
                                                            syntaxis=syntaxis)
     return tmp_item
 
-def to_molmodmt_Topology(item):
+def to_molmodmt_Topology(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from molmodmt.native.io_topology import from_mdtraj_Topology as _molmodmt_Topology_from_mdtraj_Trajectory
     tmp_item = _molmodmt_Topology_from_mdtraj_Trajectory(item, selection=selection,
                                                          syntaxis=syntaxis)
     return tmp_item
 
-def to_molmodmt(item, selection=None, syntaxis='mdtraj'):
+def to_molmodmt(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     return to_molmodmt_MolMod(item, selection=selection, syntaxis=syntaxis)
 
-def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
+def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     return item.topology
 
-def to_mdtraj(item):
-    return item
-
-def to_openmm_Topology(item, selection=None, syntaxis="mdtraj"):
+def to_openmm_Topology(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from .api_mdtraj_Topology import to_openmm_Topology as _mdtraj_Topology_to_openmm_Topology
 
@@ -76,7 +73,7 @@ def to_openmm_Topology(item, selection=None, syntaxis="mdtraj"):
     del(_mdtraj_Topology_to_openmm_Topology)
     return tmp_form
 
-def to_openmm_Modeller(item, selection=None, syntaxis="mdtraj"):
+def to_openmm_Modeller(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from simtk.openmm.app import Modeller as _Modeller
     from molmodmt import reformat as _reformat
@@ -88,7 +85,7 @@ def to_openmm_Modeller(item, selection=None, syntaxis="mdtraj"):
     tmp_item = _Modeller(topology, positions)
     return tmp_item
 
-def to_yank_Topography(item):
+def to_yank_Topography(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from .api_openmm_Topology import to_yank_Topography as _openmm_Topology_to_yank_Topography
 
@@ -97,7 +94,7 @@ def to_yank_Topography(item):
     del(_openmm_Topology_to_yank_Topography)
     return tmp_form
 
-def to_parmed_Structure(item):
+def to_parmed_Structure(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
 
@@ -106,11 +103,11 @@ def to_parmed_Structure(item):
     del(_openmm_Topology_to_parmed_Structure)
     return tmp_form
 
-def to_mdtraj_Topology(item):
+def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     return item.topology
 
-def to_pdbfixer_PDBFixer(item):
+def to_pdbfixer_PDBFixer(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from molmodmt.forms.files.api_pdb import to_pdbfixer as _pdb_to_pdbfixer
     import tempfile as _tempfile
@@ -123,15 +120,7 @@ def to_pdbfixer_PDBFixer(item):
     del(_pdb_to_pdbfixer, tmp_pdbfilename, _tempfile, _remove)
     return tmp_item
 
-def to_pdbfixer(item):
-
-    return to_pdbfixer_PDBFixer(item)
-
-def to_parmed(item):
-
-    return to_parmed_Structure(item)
-
-def to_pdb(item, filename=None, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def to_pdb(item, filename=None, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from molmodmt import extract as _extract
 
@@ -146,10 +135,11 @@ def to_pdb(item, filename=None, selection=None, frame_indices=None, syntaxis='md
         return item.save_pdb(filename)
 
 
-def to_xtc(item,filename):
+def to_xtc(item, filename=None, selection=None, frame_indices=None, syntaxis="MDTraj"):
+
     return item.save_xtc(filename)
 
-def to_nglview(item):
+def to_nglview(item, selection=None, frame_indices=None, syntasis="MDTraj"):
 
     from nglview import show_mdtraj as _show_mdtraj
 

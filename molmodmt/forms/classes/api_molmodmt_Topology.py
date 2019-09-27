@@ -10,7 +10,7 @@ is_form={
 }
 
 
-def to_mdtraj_Topology (item, selection=None, syntaxis='MDTraj'):
+def to_mdtraj_Topology (item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from molmodmt import extract
 

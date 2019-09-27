@@ -10,12 +10,12 @@ is_form={
     'Bio.SeqRecord' : form_name
 }
 
-def to_fasta(item,filename=None,selection=None,syntaxis='mdtraj'):
+def to_fasta(item, filename=None, selection=None, frame_indices=None, syntaxis='MDTraj'):
     from Bio.SeqIO import write as _Bio_SeqIO_write
     _Bio_SeqIO_write([item], filename, 'fasta')
     pass
 
-def to_pir(item, filename=None, style=None, selection=None, syntaxis='mdtraj'):
+def to_pir(item, filename=None, style=None, selection=None, frame_indices=None, syntaxis='MDTraj'):
     from Bio.SeqIO.PirIO import PirWriter as _PirWriter
     from molmodmt.forms.files.api_pir import rewrite_to_style as _rewrite
 

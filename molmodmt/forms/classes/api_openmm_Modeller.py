@@ -8,17 +8,13 @@ is_form={
     'openmm.Modeller' : form_name
 }
 
-def to_nglview(item):
+def to_nglview(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
     tmp_item = to_mdtraj(item)
     return _mdtraj_to_nglview(tmp_item)
 
-def to_mdtraj(item, selection=None, syntaxis='mdtraj'):
-
-    return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
-
-def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
+def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from molmodmt import extract as _extract
     import simtk.unit as _unit
@@ -30,7 +26,7 @@ def to_mdtraj_Trajectory(item, selection=None, syntaxis='mdtraj'):
 
     return tmp_item
 
-def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
+def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from .api_openmm_Topology import to_mdtraj_Topology as _to_mdtraj_Topology
 
@@ -38,13 +34,13 @@ def to_mdtraj_Topology(item, selection=None, syntaxis='mdtraj'):
     tmp_item = _to_mdtraj_Topology(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_openmm_System(item, selection=None, syntaxis='mdtraj'):
+def to_openmm_System(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
     pass
 
-def to_openmm_Topology(item, selection=None, syntaxis='mdtraj'):
+def to_openmm_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
     return item.getTopology()
 
-def to_pdbfixer_PDBFixer(item, selection=None, syntaxis='mdtraj'):
+def to_pdbfixer_PDBFixer(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from molmodmt.utils.miscellanea import tmp_filename
     from os import remove
@@ -56,11 +52,11 @@ def to_pdbfixer_PDBFixer(item, selection=None, syntaxis='mdtraj'):
     remove(tmp_pdbfile)
     return tmp_item
 
-def to_molmodmt_MolMod(item, selection=None, syntaxis='mdtraj'):
+def to_molmodmt_MolMod(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
     from molmodmt.native.io_molmod import from_openmm_Modeller as MolMod_from_openmm_Modeller
     return MolMod_from_openmm_Modeller(item, selection=selection, syntaxis=syntaxis)
 
-def to_pdb(item, filename = None, selection=None, syntaxis='mdtraj'):
+def to_pdb(item, filename = None, selection=None, frame_indices=None, syntaxis='MDTraj'):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(filename, 'w'))
