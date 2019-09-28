@@ -139,8 +139,11 @@ def select_with_MDTraj(item, selection):
 
 def get_n_frames_from_system (item, indices=None, frame_indices=None):
 
+    print("ENTRA1")
+
     from molmodmt import get
-    tmp_item = to_mdtraj_PDBTrajectoryFile(item)
+    from mdtraj.formats.pdb import PDBTrajectoryFile
+    tmp_item = PDBTrajectoryFile(item)
     n_frames = get(tmp_item, element='system',  n_frames=True)
     tmp_item.close()
     del(tmp_item, get)
@@ -149,7 +152,8 @@ def get_n_frames_from_system (item, indices=None, frame_indices=None):
 def get_n_atoms_from_system (item, indices=None, frame_indices=None):
 
     from molmodmt import get
-    tmp_item = to_mdtraj_PDBTrajectoryFile(item)
+    from mdtraj.formats.pdb import PDBTrajectoryFile
+    tmp_item = PDBTrajectoryFile(item)
     n_atoms = get(tmp_item, element='system',  n_atoms=True)
     tmp_item.close()
     del(tmp_item, get)

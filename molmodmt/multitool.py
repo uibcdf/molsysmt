@@ -284,6 +284,7 @@ def get(item, element='system', indices=None, selection='all', frame_indices='al
             indices = 0
 
     if frame_indices == 'all':
+        print('va')
         n_frames = get(item, n_frames=True)
         frame_indices = _arange(n_frames)
     elif type(frame_indices)==int:
