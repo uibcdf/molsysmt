@@ -3,6 +3,7 @@ import tempfile
 from .utils.exceptions import *
 from .utils.arguments import singular as _singular
 from .utils.forms import digest as _digest_forms
+from .utils.frame_indices import digest as _digest_frame_indices
 from .utils.selection import digest as _digest_selection
 from numpy import unique as _unique
 from numpy import ndarray as _ndarray
@@ -432,6 +433,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
     """
 
     form_in, form_out  = _digest_forms(item, to_form)
+    frame_indices = _digest_frame_indices(item, frame_indices)
     out_file = None
 
     if type(form_out)==str:

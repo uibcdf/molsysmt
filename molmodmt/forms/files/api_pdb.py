@@ -42,12 +42,15 @@ def to_mdtraj(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 def to_mdtraj_Topology(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 
     from mdtraj import load as _mdtraj_load
-    from molmodmt import extract as _extract
-    tmp_item = _mdtraj_load(item).topology
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
-    return tmp_item
+    from molmodmt import convert as _convert
 
-def to_mdtraj_Trajectory(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+    tmp_item = to_mdtraj_PDBTrajectoryFile(item)
+    tmp_topology = _extract(tmp_item.topology, selection=selection, syntaxis=syntaxis)
+    tmp_item.close()
+    del(tmp_item)
+    return tmp_topology
+
+def to_mdtraj_Trajectory(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from mdtraj import load_pdb as _mdtraj_pdb_loader
     from molmodmt import extract as _extract
@@ -55,7 +58,13 @@ def to_mdtraj_Trajectory(item, selection="all", frame_indices="all", syntaxis="M
     tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_mol2(item, filename=None, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_mdtraj_PDBTrajectoryFile(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
+
+    from mdtraj.formats.pdb import PDBTrajectoryFile
+
+    return PDBTrajectoryFile(item)
+
+def to_mol2(item, filename=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     from parmed import load_file as _parmed_file_loader
     tmp_parmed_form = _parmed_file_loader(item)
@@ -115,4 +124,34 @@ def select_with_MDTraj(item, selection):
     tmp_sel=tmp_form.topology.select(selection)
     del(tmp_form)
     return tmp_sel
+
+# System
+
+#def get_frames_from_system (item, indices=None, frame_indices=None):
+#
+#    from molmodmt import get
+#    tmp_item = to_mdtraj_XTCTrajectoryFile(item)
+#    xyz, time, step, box = get(tmp_item, element='system',
+#            frame_indices=frame_indices, frames=True)
+#    tmp_item.close()
+#    del(tmp_item, get)
+#    return xyz, time, step, box
+
+def get_n_frames_from_system (item, indices=None, frame_indices=None):
+
+    from molmodmt import get
+    tmp_item = to_mdtraj_PDBTrajectoryFile(item)
+    n_frames = get(tmp_item, element='system',  n_frames=True)
+    tmp_item.close()
+    del(tmp_item, get)
+    return n_frames
+
+def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+
+    from molmodmt import get
+    tmp_item = to_mdtraj_PDBTrajectoryFile(item)
+    n_atoms = get(tmp_item, element='system',  n_atoms=True)
+    tmp_item.close()
+    del(tmp_item, get)
+    return n_atoms
 
