@@ -7,7 +7,7 @@ is_form = {
     'DCD': form_name
     }
 
-def to_mdtraj(item, topology=None, selection=None, syntaxis="mdtraj"):
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     if not topology:
         raise ValueError('"topology" argument is required for dcd.to_mdtraj')
@@ -19,7 +19,7 @@ def to_mdtraj(item, topology=None, selection=None, syntaxis="mdtraj"):
     del(_mdtraj_load_dcd, _mdtraj_topology, _molmodmt_convert)
     return tmp_form
 
-def to_mdanalysis(item,topology=None):
+def to_mdanalysis_Universe(item, topology=None, atom_indices=None, frame_indices=None):
 
     if not topology:
         raise ValueError('"topology" argument is required for dcd.to_mdtraj')

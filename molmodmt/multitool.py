@@ -271,6 +271,8 @@ def get(item, element='system', indices=None, selection='all', frame_indices='al
     element = _singular(element)
     attributes = [ key for key in kwargs.keys() if kwargs[key] ]
 
+    frame_indices = _digest_frame_indices(item, frame_indices)
+
     if indices is None:
         if element == 'atom':
             indices = select(item, selection=selection, syntaxis=syntaxis)
@@ -282,13 +284,6 @@ def get(item, element='system', indices=None, selection='all', frame_indices='al
             indices = list(_unique(indices))
         elif element == 'system':
             indices = 0
-
-    if frame_indices == 'all':
-        print('va')
-        n_frames = get(item, n_frames=True)
-        frame_indices = _arange(n_frames)
-    elif type(frame_indices)==int:
-        frame_indices = [frame_indices]
 
     results = []
     for attribute in attributes:

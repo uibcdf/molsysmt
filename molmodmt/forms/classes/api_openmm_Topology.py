@@ -10,38 +10,38 @@ is_form={
     _simtk_openmm_app_Topology:form_name
 }
 
-def to_molmod_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_molmod_Topology(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_topology import from_openmm_Topology as _from_openmm_Topology
-    return _from_openmm_Topology(item, selection=selection, syntaxis=syntaxis)
+    return _from_openmm_Topology(item, atom_indices=atom_indices)
 
-def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
     from molmodmt import extract as _extract
     from mdtraj.core.topology import Topology as _mdtraj_Topology
     tmp_item = _mdtraj_Topology.from_openmm(item)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _extract(tmp_item, selection=atom_indices)
     del(_mdtraj_Topology)
     return tmp_item
 
-def to_mdtraj(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj(item, atom_indices=None, frame_indices=None):
 
     return to_mdtraj_Topology(item, selection=selection, syntaxis=syntaxis)
 
-def to_parmed_Structure(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract as _extract
     from parmed.openmm import load_topology as _openmm_Topology_to_parmed_Estructure
     tmp_item = _openmm_Topology_to_parmed_Estructure(item)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _extract(tmp_item, selection=atom_indices)
     del(_openmm_Topology_to_parmed_Estructure)
     return tmp_item
 
-def to_yank_Topography(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_yank_Topography(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract as _extract
     from yank import Topography as _yank_Topography
     tmp_item = _yank_Topography(item)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _extract(tmp_item, selection=atom_indices)
     del(_yank_Topography)
     return tmp_item
 
@@ -312,4 +312,8 @@ def get_charge_from_system (item, indices=None, frame_indices=None):
 def get_net_charge_from_system (item, indices=None, frame_indices=None):
 
     return 'por hacer'
+
+def get_n_frames_from_system (item, indices=None, frame_indices=None):
+
+    return 0
 

@@ -7,14 +7,14 @@ is_form = {
     'PDB': form_name
     }
 
-def to_molmodmt_MolMod(item, topology=None, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_molmodmt_MolMod(item, topology=None, atom_indices=None, frame_indices=None):
     from molmodmt.native.io_molmod import from_pdb as _from_pdb
-    return _from_pdb(item, topology=topology, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+    return _from_pdb(item, topology=topology, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molmodmt_Topology(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_molmodmt_Topology(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_topology import from_pdb as _from_pdb
-    return _from_pdb(item, selection=selection, syntaxis=syntaxis)
+    return _from_pdb(item, atom_indices=atom_indices)
 
 def to_molmodmt_Trajectory(item, topology="all", selection="all", frame_indices="all", syntaxis="MDTraj"):
 
@@ -42,7 +42,7 @@ def to_mdtraj(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 def to_mdtraj_Topology(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
 
     from mdtraj import load as _mdtraj_load
-    from molmodmt import convert as _convert
+    from molmodmt import extract as _extract
 
     tmp_item = to_mdtraj_PDBTrajectoryFile(item)
     tmp_topology = _extract(tmp_item.topology, selection=selection, syntaxis=syntaxis)
@@ -138,8 +138,6 @@ def select_with_MDTraj(item, selection):
 #    return xyz, time, step, box
 
 def get_n_frames_from_system (item, indices=None, frame_indices=None):
-
-    print("ENTRA1")
 
     from molmodmt import get
     from mdtraj.formats.pdb import PDBTrajectoryFile

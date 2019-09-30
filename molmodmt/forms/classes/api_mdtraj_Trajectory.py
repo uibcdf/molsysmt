@@ -8,11 +8,11 @@ is_form={
     'mdtraj.Trajectory':form_name
     }
 
-def to_aminoacids3_seq(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
 
     return ''.join([ r.name for r in item.topology.residues ])
 
-def to_aminoacids1_seq(item):
+def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
     tmp_item = to_aminoacids3_seq(item)
@@ -20,7 +20,7 @@ def to_aminoacids1_seq(item):
     del(_aminoacids3_to_aminoacids1)
     return tmp_item
 
-def to_biopython_Seq(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_biopython_Seq(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item)
@@ -28,7 +28,7 @@ def to_biopython_Seq(item, selection=None, frame_indices=None, syntaxis="MDTraj"
     del(_aminoacids1_to_biopython_Seq)
     return tmp_item
 
-def to_biopython_SeqRecord(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item)
@@ -36,35 +36,33 @@ def to_biopython_SeqRecord(item, selection=None, frame_indices=None, syntaxis="M
     del(_aminoacids1_to_biopython_SeqRecord)
     return tmp_item
 
-def to_molmodmt_MolMod(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_molmod import from_mdtraj_Trajectory as _molmodmt_MolMod_from_mdtraj_Trajectory
-    tmp_item = _molmodmt_MolMod_from_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _molmodmt_MolMod_from_mdtraj_Trajectory(item, atom_indices=atom_indices)
     return tmp_item
 
-def to_molmodmt_Trajectory(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_molmodmt_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_trajectory import from_mdtraj_Trajectory as _molmodmt_Trajectory_from_mdtraj_Trajectory
-    tmp_item = _molmodmt_Trajectory_from_mdtraj_Trajectory(item, selection=selection,
-                                                           syntaxis=syntaxis)
+    tmp_item = _molmodmt_Trajectory_from_mdtraj_Trajectory(item, atom_indices=atom_indices)
     return tmp_item
 
-def to_molmodmt_Topology(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_molmodmt_Topology(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_topology import from_mdtraj_Topology as _molmodmt_Topology_from_mdtraj_Trajectory
-    tmp_item = _molmodmt_Topology_from_mdtraj_Trajectory(item, selection=selection,
-                                                         syntaxis=syntaxis)
+    tmp_item = _molmodmt_Topology_from_mdtraj_Trajectory(item, atom_indices=atom_indices)
     return tmp_item
 
-def to_molmodmt(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_molmodmt(item, atom_indices=None, frame_indices=None):
 
-    return to_molmodmt_MolMod(item, selection=selection, syntaxis=syntaxis)
+    return to_molmodmt_MolMod(item, atom_indices=atom_indices)
 
-def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices):
 
     return item.topology
 
-def to_openmm_Topology(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
     from .api_mdtraj_Topology import to_openmm_Topology as _mdtraj_Topology_to_openmm_Topology
 
@@ -73,7 +71,7 @@ def to_openmm_Topology(item, selection=None, frame_indices=None, syntaxis="MDTra
     del(_mdtraj_Topology_to_openmm_Topology)
     return tmp_form
 
-def to_openmm_Modeller(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app import Modeller as _Modeller
     from molmodmt import reformat as _reformat
@@ -85,7 +83,7 @@ def to_openmm_Modeller(item, selection=None, frame_indices=None, syntaxis="MDTra
     tmp_item = _Modeller(topology, positions)
     return tmp_item
 
-def to_yank_Topography(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_yank_Topography(item, atom_indices=None, frame_indices=None):
 
     from .api_openmm_Topology import to_yank_Topography as _openmm_Topology_to_yank_Topography
 
@@ -94,7 +92,7 @@ def to_yank_Topography(item, selection=None, frame_indices=None, syntaxis="MDTra
     del(_openmm_Topology_to_yank_Topography)
     return tmp_form
 
-def to_parmed_Structure(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
 
     from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
 
@@ -103,11 +101,11 @@ def to_parmed_Structure(item, selection=None, frame_indices=None, syntaxis="MDTr
     del(_openmm_Topology_to_parmed_Structure)
     return tmp_form
 
-def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     return item.topology
 
-def to_pdbfixer_PDBFixer(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.files.api_pdb import to_pdbfixer as _pdb_to_pdbfixer
     import tempfile as _tempfile
@@ -120,7 +118,7 @@ def to_pdbfixer_PDBFixer(item, selection=None, frame_indices=None, syntaxis="MDT
     del(_pdb_to_pdbfixer, tmp_pdbfilename, _tempfile, _remove)
     return tmp_item
 
-def to_pdb(item, filename=None, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_pdb(item, filename=None, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract as _extract
 
@@ -135,11 +133,11 @@ def to_pdb(item, filename=None, selection=None, frame_indices=None, syntaxis="MD
         return item.save_pdb(filename)
 
 
-def to_xtc(item, filename=None, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_xtc(item, filename=None, atom_indices=None, frame_indices=None):
 
     return item.save_xtc(filename)
 
-def to_nglview(item, selection=None, frame_indices=None, syntasis="MDTraj"):
+def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from nglview import show_mdtraj as _show_mdtraj
 

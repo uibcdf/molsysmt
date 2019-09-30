@@ -8,11 +8,11 @@ is_form={
     'mdtraj.PDBTrajectoryFile': form_name
     }
 
-def to_mdtraj_topology(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
+def to_mdtraj_topology(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract
     tmp_item = item.topology
-    tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = extract(tmp_item, selection=atom_indices)
     return tmp_item
 
 def load_frame (item, indices=None, atom_indices=None):
@@ -75,7 +75,7 @@ def get_frames_from_system (item, indices=None, frame_indices=None):
 
 def get_n_frames_from_system (item, indices=None, frame_indices=None):
 
-    return item.coordinates.shape[0]
+    return item.positions.shape[0]
 
 def get_box_shape_from_system (item, indices=None, frame_indices=None):
 

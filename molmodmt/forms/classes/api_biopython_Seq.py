@@ -10,8 +10,8 @@ is_form={
     'Bio.Seq' : form_name
 }
 
-def to_biopython_SeqRecord(item, id=None, name=None, description=None, selection=None,
-                           frame_indices=None, syntaxis='MDTraj'):
+def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indices=None,
+                           frame_indices=None):
     from molmodmt import extract as _extract
     from Bio.SeqRecord import SeqRecord as _Bio_SeqRecord
 
@@ -27,7 +27,7 @@ def to_biopython_SeqRecord(item, id=None, name=None, description=None, selection
     del(_Bio_SeqRecord)
     return tmp_item
 
-def to_fasta(item, output_file, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_fasta(item, output_file, atom_indices=None, frame_indices=None):
     from molmodmt import extract as _extract
     from .api_biopython_SeqRecord import _to_fasta as _Bio_SeqRecord_to_fasta
     tmp_item=to_biopython_SeqRecord(item)

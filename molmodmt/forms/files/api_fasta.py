@@ -7,7 +7,7 @@ is_form = {
     'FASTA': form_name
     }
 
-def to_biopython_SeqRecord(item):
+def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
     from Bio.SeqIO import read as _Bio_SeqRecord_reader
     tmp_item=_Bio_SeqRecord_reader(item,'fasta')
     del(_Bio_SeqRecord_reader)

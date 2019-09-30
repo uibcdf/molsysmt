@@ -10,12 +10,12 @@ is_form={
 }
 
 
-def to_mdtraj_Topology (item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Topology (item, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract
 
     tmp_item = item
-    tmp_item = extract(item, selection=selection, syntaxis=syntaxis, mode='keeping_selection')
+    tmp_item = extract(item, selection=atom_indices, mode='keeping_selection')
     return tmp_item
 
 def duplicate(item):
@@ -150,4 +150,7 @@ def get_cell_from_system(item, indices=None, frame_indices=None):
     from .api_mdtraj_Trajectory import get_cell_from_system as _get
     return _get(item, indices=indices)
 
+def get_n_frames_from_system(item, indices=None, frame_indices=None):
+
+    return 0
 

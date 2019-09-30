@@ -9,19 +9,18 @@ is_form={
     'mdanalysis.Universe' : form_name
 }
 
-def to_nglview(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from nglview import show_mdtraj as _nglview_show_mdanalysis
     return _nglview_show_mdanalysis(item)
 
-def to_pdb(item, selection=None, frame_indices=None, output_file=None, multiframe=False,
-           syntaxis="MDTraj"):
+def to_pdb(item, atom_indices=None, frame_indices=None, output_file=None, multiframe=False):
 
     item.atoms.write(output_file, multiframe=multiframe)
 
     pass
 
-def to_MDTraj(item, selection=None, frame_indices=None, multiframe=False, syntaxis="MDTraj"):
+def to_MDTraj(item, atom_indices=None, frame_indices=None, multiframe=False):
 
     import tempfile as _tempfile
     from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj

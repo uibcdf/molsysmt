@@ -9,17 +9,17 @@ is_form={
 
 ## Methods
 
-def to_nglview(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
     tmp_item = to_mdtraj(item)
     return _mdtraj_to_nglview(tmp_item)
 
-def to_aminoacids3_seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
 
     return ''.join([ r.name for r in item.topology.residues() ])
 
-def to_aminoacids1_seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
     tmp_item = to_aminoacids3_seq(item)
@@ -27,7 +27,7 @@ def to_aminoacids1_seq(item, selection=None, frame_indices=None, syntaxis='MDTra
     del(_aminoacids3_to_aminoacids1)
     return tmp_item
 
-def to_biopython_Seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_biopython_Seq(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item)
@@ -35,7 +35,7 @@ def to_biopython_Seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'
     del(_aminoacids1_to_biopython_Seq)
     return tmp_item
 
-def to_biopython_SeqRecord(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item)
@@ -44,7 +44,7 @@ def to_biopython_SeqRecord(item, selection=None, frame_indices=None, syntaxis='M
     return tmp_item
 
 
-def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.core.topology import Topology as _mdtraj_Topology
     tmp_form = to_openmm_Topology(item)
@@ -52,7 +52,7 @@ def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTra
     del(_mdtraj_Topology)
     return tmp_form
 
-def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     import simtk.unit as _unit
     from molmodmt import extract as _extract
@@ -64,20 +64,20 @@ def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='mdt
     tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_openmm_Modeller(item, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app import Modeller as _openmm_app_Modeller
     return _openmm_app_Modeller(item.topology, item.positions)
 
-def to_openmm_Topology(item, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
     return item.topology
 
-def to_openmm_Positions(item, selection=None, frame_indices=None, syntaxis='mdtraj'):
+def to_openmm_Positions(item, atom_indices=None, frame_indices=None):
 
     return item.positions
 
-def to_yank_Topography(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_yank_Topography(item, atom_indices=None, frame_indices=None):
 
     from yank import Topography as _yank_Topography
     tmp_form = to_openmm_Topology(item)
@@ -85,7 +85,7 @@ def to_yank_Topography(item, selection=None, frame_indices=None, syntaxis='MDTra
     del(_yank_Topography)
     return tmp_form
 
-def to_parmed_Structure(item):
+def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
 
     from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
     tmp_form = to_openmm_Topology(item)
@@ -93,10 +93,7 @@ def to_parmed_Structure(item):
     del(_openmm_Topology_to_parmed_Structure)
     return tmp_form
 
-def to_pdbfixer(item, selection=None, syntaxis="mdtraj"):
-    return item
-
-def to_pdb(item, filename=None, selection=None, syntaxis="mdtraj"):
+def to_pdb(item, filename=None, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(filename, 'w'), keepIds=True)

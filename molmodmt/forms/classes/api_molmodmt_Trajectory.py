@@ -18,27 +18,24 @@ def select_with_MDTraj(item, selection):
 def extract_atom_indices(item, atom_indices):
     return item.extract(atom_indices)
 
-def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
     from molmodmt.native.io_trajectory import to_mdtraj_Trajectory as _to_mdtraj_Trajectory
     return _to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
 
-def to_mdtraj(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
-    return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
-
-def to_parmed_GromacsTopologyFile(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_parmed_GromacsTopologyFile(item, atom_indices=None, frame_indices=None):
     from .api_mdtraj_Topology import to_parmed_GromacsTopologyFile as _to_GromacsTopologyFile
     return _to_GromacsTopologyFile(item.topology_mdtraj, selection=selection, syntaxis=syntaxis)
 
-def to_xtc(item,filename=None, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_xtc(item, filename=None, atom_indices=None, frame_indices=None):
     from .api_mdtraj_Trajectory import to_xtc as _to_xtc
     tmp_item=to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
     return _to_xtc(tmp_item,filename)
 
-def to_top(item,filename=None, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_top(item, filename=None, atom_indices=None, frame_indices=None):
     from .api_mdtraj_Topology import to_top as _to_top
     return _to_top(item.topology_mdtraj,filename, selection=selection, syntaxis=syntaxis)
 
-def to_nglview(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
 

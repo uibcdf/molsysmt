@@ -10,7 +10,7 @@ is_form={
 
 ## Methods
 
-def to_openmm_Modeller(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract as _extract
     from simtk.openmm.app.modeller import Modeller as _openmm_Modeller
@@ -18,7 +18,7 @@ def to_openmm_Modeller(item, selection=None, frame_indices=None, syntaxis='MDTra
     tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_trajectory
     from mdtraj.core.topology import Topology as mdtraj_topology
@@ -31,16 +31,16 @@ def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='MDT
 
     return tmp_item
 
-def to_nglview(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from nglview import show_parmed as _nglview_show_parmed
     return _nglview_show_parmed(item)
 
-def to_pdb(item, filename, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_pdb(item, filename, atom_indices=None, frame_indices=None):
 
     return item.save(filename)
 
-def to_mol2(item, output_file, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mol2(item, output_file, atom_indices=None, frame_indices=None):
 
     return item.save(filename)
 

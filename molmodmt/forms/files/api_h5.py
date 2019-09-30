@@ -7,18 +7,15 @@ is_form = {
     'hdf5': form_name
     }
 
-def to_mdtraj(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
-    return to_mdtraj_Trajectory(item, selection=selection, frame_indices=frame_indices,
-                                syntaxis=syntaxis)
 
-def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from mdtraj import load_hdf5 as _mdtraj_load
     tmp_item = _mdtraj_load(item)
     del(_mdtraj_load)
     return tmp_item
 
-def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.formats import HDF5TrajectoryFile
     hdf5=HDF5TrajectoryFile(item)
@@ -27,12 +24,12 @@ def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTra
     del(hdf5, HDF5TrajectoryFile)
     return tmp_item
 
-def to_molmodmt_MolMod(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_molmod import from_hdf5 as _from_hdf5
-    return _from_hdf5(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+    return _from_hdf5(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_HDF5TrajectoryFile(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_HDF5TrajectoryFile(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.formats import HDF5TrajectoryFile
     return HDF5TrajectoryFile(item)

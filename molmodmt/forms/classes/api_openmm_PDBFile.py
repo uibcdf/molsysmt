@@ -8,17 +8,14 @@ is_form={
     'openmm.PDBFile' : form_name
 }
 
-def to_nglview(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
     tmp_item = to_mdtraj(item)
     return _mdtraj_to_nglview(tmp_item)
 
-def to_mdtraj(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
-    return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
-
-def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract as _extract
     import simtk.unit as _unit
@@ -26,19 +23,19 @@ def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='MDT
 
     tmp_topology = to_mdtraj_Topology(item)
     tmp_item = _mdtraj_Trajectory(item.positions/_unit.nanometers, tmp_topology)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _extract(tmp_item, selection=atom_indices)
 
     return tmp_item
 
-def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     from .api_openmm_Topology import to_mdtraj_Topology as _to_mdtraj_Topology
 
     tmp_item = to_openmm_Topology(item)
-    tmp_item = _to_mdtraj_Topology(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _to_mdtraj_Topology(tmp_item, selection=atom_indices)
     return tmp_item
 
-def to_openmm_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
     return item.getTopology()
 

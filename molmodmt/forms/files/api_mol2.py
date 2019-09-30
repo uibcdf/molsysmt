@@ -7,38 +7,35 @@ is_form = {
     'MOL2': form_name
     }
 
-def to_parmed(item):
+def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
 
     from parmed import load_file as _parmed_file_loader
     tmp_form = _parmed_file_loader(item)
     return tmp_form.to_structure()
 
-def to_mdtraj(item):
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from mdtraj import load_mol2 as _mdtraj_load_mol2
     tmp_form = _mdtraj_load_mol2(item)
     del(_mdtraj_load_mol2)
     return tmp_form
 
-def to_modeller(item):
+def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.engines.api_parmed import to_modeller as _parmed_to_modeller
-
     tmp_form = to_parmed(item)
     tmp_form = _parmed_to_modeller(tmp_form)
     del(_parmed_to_modeller)
     return tmp_form
 
-
-
-def to_pdb(item,out_file):
+def to_pdb(item, out_file, atom_indices=None, frame_indices=None):
 
     from parmed import load_file as _parmed_file_loader
     tmp_form = _parmed_file_loader(item)
     tmp_form.save(out_file)
     pass
 
-def to_nglview(item):
+def to_nglview(item, atom_indices=None, frame_indices=None):
     from nglview import show_file as _nglview_show_file
     return _nglview_show_file(item)
 

@@ -23,24 +23,24 @@ def info(item):
 
     return tmp_dict
 
-def to_aminoacids3_seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import convert as _convert
     tmp_item = _convert(item,'mdtraj.Topology')
     tmp_item = _convert(tmp_item,'aminoacids3:seq')
     return tmp_item
 
-def to_aminoacids1(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
-    return to_aminoacids1_seq(item, selection=selection, syntaxis=syntaxis)
+def to_aminoacids1(item, atom_indices=None, frame_indices=None):
+    return to_aminoacids1_seq(item, atom_indices=atom_indices)
 
-def to_aminoacids1_seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import convert as _convert
     tmp_item = to_aminoacids3_seq(item)
     tmp_item = _convert('aminoacids3:'+tmp_item,'aminoacids1:seq')
     return tmp_item
 
-def to_biopython_Seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_biopython_Seq(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item)
@@ -48,7 +48,7 @@ def to_biopython_Seq(item, selection=None, frame_indices=None, syntaxis='MDTraj'
     del(_aminoacids1_to_biopython_Seq)
     return tmp_item
 
-def to_biopython_SeqRecord(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item)
@@ -56,7 +56,7 @@ def to_biopython_SeqRecord(item, selection=None, frame_indices=None, syntaxis='M
     del(_aminoacids1_to_biopython_SeqRecord)
     return tmp_item
 
-def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from simtk import unit as _unit
     from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
@@ -71,12 +71,12 @@ def to_mdtraj_Trajectory(item, selection=None, frame_indices=None, syntaxis='MDT
 
     return tmp_item
 
-def to_mdtraj_Topology(item, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import to_mdtraj_Topology as _to_mdtraj_Topology
     return _to_mdtraj_Topology(item.topology, selection=selection, syntaxis=syntaxis)
 
-def to_pdb(item, filename=None, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_pdb(item, filename=None, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_molmod import to_pdb as _to_pdb
 
@@ -95,7 +95,7 @@ def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
         tmp_atom_indices = complementary_atom_indices(item, atom_indices)
         return item.extract(tmp_atom_indices)
 
-def to_nglview(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
 

@@ -8,21 +8,21 @@ is_form={
     'openmm.Simulation' : form_name,
 }
 
-def to_openmm_Topology(item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
     return item.topology
 
-def to_openmm_Modeller(item, selection=None, syntaxis="MDTraj"):
+def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app import Modeller as _Modeller
 
-    topology = to_openmm_Topology(item, selection=selection, frame_indices=None, syntaxis=syntaxis)
+    topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=None)
     state = item.context.getState(getPositions=True)
     positions = state.getPositions()
     tmp_item =_Modeller(topology, positions)
     return tmp_item
 
-def to_pdbfixer_PDBFixer (item, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_pdbfixer_PDBFixer (item, atom_indices=None, frame_indices=None):
 
     from molmodmt.utils.miscellanea import tmp_filename as _tmp_filename
     from os import remove as _remove
@@ -34,10 +34,10 @@ def to_pdbfixer_PDBFixer (item, selection=None, frame_indices=None, syntaxis="MD
     _remove(tmp_pdbfile)
     return tmp_item
 
-def to_pdb (item, filename = None, selection=None, frame_indices=None, syntaxis="MDTraj"):
+def to_pdb (item, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
-    topology = to_openmm_Topology(item, selection=selection, syntaxis=syntaxis)
+    topology = to_openmm_Topology(item, atom_indices=atom_indices)
     state = item.context.getState(getPositions=True)
     positions = state.getPositions()
     periodicBoxVectors = state.getPeriodicBoxVectors()
