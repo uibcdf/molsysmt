@@ -55,17 +55,13 @@
 #    tmp_item.topography = None
 #    return tmp_item
 
-def from_pdb(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
+def from_pdb(item=None, topology=None, atom_indices=None, frame_indices=None):
 
-    from molmodmt import select, convert
+    from molmodmt import convert
     from .molmod import MolMod
 
     if topology is None:
         topology = item
-
-    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
-
-    print('si')
 
     tmp_item = MolMod()
     tmp_item.topology = convert(topology, 'molmodmt.Topology', selection=atom_indices)
@@ -75,12 +71,10 @@ def from_pdb(item=None, topology=None, selection='all', frame_indices='all', syn
 
     return tmp_item
 
-def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
+def from_xtc(item=None, topology=None, atom_indices=None, frame_indices=None):
 
-    from molmodmt import select, convert
+    from molmodmt import convert
     from .molmod import MolMod
-
-    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 
     tmp_item = MolMod()
     tmp_item.topology = convert(topology, 'molmodmt.Topology', selection=atom_indices)
@@ -90,15 +84,13 @@ def from_xtc(item=None, topology=None, selection='all', frame_indices='all', syn
 
     return tmp_item
 
-def from_hdf5(item=None, topology=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
+def from_hdf5(item=None, topology=None, atom_indices=None, frame_indices=None):
 
-    from molmodmt import select, convert
+    from molmodmt import convert
     from .molmod import MolMod
 
     if topology is None:
         topology = item
-
-    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 
     tmp_item = MolMod()
     tmp_item.topology = convert(topology, 'molmodmt.Topology', selection=atom_indices)

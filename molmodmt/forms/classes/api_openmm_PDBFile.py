@@ -23,7 +23,7 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     tmp_topology = to_mdtraj_Topology(item)
     tmp_item = _mdtraj_Trajectory(item.positions/_unit.nanometers, tmp_topology)
-    tmp_item = _extract(tmp_item, selection=atom_indices)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 

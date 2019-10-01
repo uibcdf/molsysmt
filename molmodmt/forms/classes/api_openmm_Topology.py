@@ -19,7 +19,7 @@ def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
     from molmodmt import extract as _extract
     from mdtraj.core.topology import Topology as _mdtraj_Topology
     tmp_item = _mdtraj_Topology.from_openmm(item)
-    tmp_item = _extract(tmp_item, selection=atom_indices)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     del(_mdtraj_Topology)
     return tmp_item
 
@@ -32,7 +32,7 @@ def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
     from molmodmt import extract as _extract
     from parmed.openmm import load_topology as _openmm_Topology_to_parmed_Estructure
     tmp_item = _openmm_Topology_to_parmed_Estructure(item)
-    tmp_item = _extract(tmp_item, selection=atom_indices)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     del(_openmm_Topology_to_parmed_Estructure)
     return tmp_item
 
@@ -41,11 +41,13 @@ def to_yank_Topography(item, atom_indices=None, frame_indices=None):
     from molmodmt import extract as _extract
     from yank import Topography as _yank_Topography
     tmp_item = _yank_Topography(item)
-    tmp_item = _extract(tmp_item, selection=atom_indices)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     del(_yank_Topography)
     return tmp_item
 
-def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    mode='keeping_selection'
 
     if mode=='removing_selection':
         from molmodmt.utils.atom_indices import complementary_atom_indices

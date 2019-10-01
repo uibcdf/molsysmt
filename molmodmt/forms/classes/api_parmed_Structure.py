@@ -15,7 +15,7 @@ def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
     from molmodmt import extract as _extract
     from simtk.openmm.app.modeller import Modeller as _openmm_Modeller
     tmp_item = _openm_Modeller(item.topology, item.positions)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
@@ -27,7 +27,7 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
     tmp_item = mdtraj_trajectory(item.positions._value,mdtraj_topology.from_openmm(item.topology))
 
     if selection is not None:
-        tmp_item = _extract(tmp_item, selection=selection, syntaxis='MDTraj')
+        tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -56,7 +56,9 @@ def select_with_ParmEd(item, selection):
     del(_AmberMask)
     return tmp_sel
 
-def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    mode='keeping_selection'
 
     from molmodmt.utils.atom_indices import atom_indices_to_AmberMask
     from molmodmt.utils.atom_indices import complementary_atom_indices

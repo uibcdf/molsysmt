@@ -58,7 +58,7 @@ def to_molmodmt(item, atom_indices=None, frame_indices=None):
 
     return to_molmodmt_MolMod(item, atom_indices=atom_indices)
 
-def to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices):
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     return item.topology
 
@@ -123,7 +123,7 @@ def to_pdb(item, filename=None, atom_indices=None, frame_indices=None):
     from molmodmt import extract as _extract
 
     if selection is not None:
-        tmp_item = _extract(item, selection=selection, syntaxis=syntaxis)
+        tmp_item = _extract(item, selection=atom_indices, frame_indices=frame_indices)
     else:
         tmp_item = item
 
@@ -147,7 +147,7 @@ def select_with_MDTraj(item, selection):
 
     return item.topology.select(selection)
 
-def extract_atom_indices(item, atom_indices):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
     return item.atom_slice(atom_indices)
 

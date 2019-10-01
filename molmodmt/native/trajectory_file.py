@@ -30,6 +30,12 @@ class TrajectoryFile():
                 self.n_atoms = get(self.mount_point, n_atoms=True)
                 self.box_shape = get(self.mount_point, box_shape=True)
                 self.opened = True
+            elif self.form == 'pdb':
+                self.mount_point = convert(filename,'mdtraj.PDBTrajectoryFile')
+                self.n_frames = get(self.mount_point, n_frames=True)
+                self.n_atoms = get(self.mount_point, n_atoms=True)
+                self.box_shape = get(self.mount_point, box_shape=True)
+                self.opened = True
             else:
                 raise NotImplementedError
 

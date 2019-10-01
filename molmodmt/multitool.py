@@ -144,6 +144,7 @@ def select(item, selection='all', syntaxis='MDTraj'):
     from numpy import ndarray as _ndarray
     from numpy import int as _int
     from numpy import int64 as _int64
+    from numpy import arange as _arange
 
     form_in, _ = _digest_forms(item)
 
@@ -152,13 +153,14 @@ def select(item, selection='all', syntaxis='MDTraj'):
     elif type(selection) in [int, _int64, _int]:
         return [selection]
     elif selection in ['all', 'All', 'ALL']:
-        return list(range(get(item, element='system', n_atoms=True)))
+        n_atoms = _dict_get[form_in]['system']['n_atoms'](item)
+        return _arange(n_atoms, dtype='int64')
     else:
         selection, syntaxis = _digest_selection(selection, syntaxis)
         atom_indices = _dict_selector[form_in][syntaxis](item, selection)
         return list(_sort(atom_indices))
 
-def extract(item, selection='all', frame_indices='all', syntaxis='MDTraj', mode='keeping_selection', to_form=None):
+def extract(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     # mode in ['removing_selection','keeping_selection']
 
@@ -174,10 +176,10 @@ def extract(item, selection='all', frame_indices='all', syntaxis='MDTraj', mode=
         elif mode=='keeping_selection':
             return item
 
-    form_in, form_out = _digest_forms(item, to_form)
+    form_in, _ = _digest_forms(item)
     atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
-    tmp_item = _dict_extractor[form_in](item, atom_indices, mode=mode)
-    tmp_item = convert(tmp_item,form_out)
+    frame_indices = _digest_frame_indices(item, frame_indices)
+    tmp_item = _dict_extractor[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -374,9 +376,9 @@ def load (item, to_form='molmodmt.MolMod', selection='all', frame_indices='all',
     return convert(item, to_form, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis, **kwargs)
 
 
-def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='mdtraj', **kwargs):
+def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs):
 
-    """load(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='mdtraj', **kwargs)
+    """load(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs)
 
     Transforming a molecular model from its current form into other supported form.
 
@@ -430,6 +432,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
 
     form_in, form_out  = _digest_forms(item, to_form)
     frame_indices = _digest_frame_indices(item, frame_indices)
+    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
     out_file = None
 
     if type(form_out)==str:
@@ -439,14 +442,14 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
 
     if out_file is not None:
         return _dict_converter[form_in][form_out](item, filename=out_file,
-                                                  selection=selection, frame_indices=frame_indices,
-                                                  syntaxis=syntaxis, **kwargs)
+                                                  atom_indices=atom_indices, frame_indices=frame_indices,
+                                                  **kwargs)
     else:
         if form_out != form_in:
-            return _dict_converter[form_in][form_out](item, selection=selection,
-                                                      frame_indices=frame_indices, syntaxis=syntaxis, **kwargs)
+            return _dict_converter[form_in][form_out](item, atom_indices=atom_indices,
+                                                      frame_indices=frame_indices, **kwargs)
         else:
-            return extract(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis, mode='keeping_selection')
+            return extract(item, selection=atom_indices, frame_indices=frame_indices)
 
 def duplicate(item=None):
 
@@ -468,7 +471,7 @@ def view(item=None, viewer='nglview', selection='all', frame_indices='all', synt
         tmp_item = item
 
     if selection is not None:
-        tmp_item = extract(tmp_item, selection=selection, syntaxis=syntaxis)
+        tmp_item = extract(tmp_item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
     return _dict_converter[form_in][viewer](tmp_item)
 

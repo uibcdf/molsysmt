@@ -30,10 +30,13 @@ def select_with_ParmEd(item, selection):
     del(_AmberMask)
     return tmp_sel
 
-def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.utils.atom_indices import atom_indices_to_AmberMask
     from molmodmt.utils.atom_indices import complementary_atom_indices
+
+    mode='keeping_selection'
+
     if mode=='removing_selection':
         mask = atom_indices_to_AmberMask(item, atom_indices)
     elif mode=='keeping_selection':

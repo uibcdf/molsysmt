@@ -16,62 +16,56 @@ def to_molmodmt_Topology(item, atom_indices=None, frame_indices=None):
     from molmodmt.native.io_topology import from_pdb as _from_pdb
     return _from_pdb(item, atom_indices=atom_indices)
 
-def to_molmodmt_Trajectory(item, topology="all", selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_molmodmt_Trajectory(item, topology=None, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_trajectory import from_pdb as _from_pdb
-    return _from_pdb(item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+    return _from_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_parmed(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
-    return to_parmed_Structure(item)
-
-def to_parmed_Structure(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
     from molmodmt import extract as _extract
     from parmed import load_file as _parmed_file_loader
     tmp_item = _parmed_file_loader(item)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     del(_parmed_file_loader)
     return tmp_item
 
-def to_mdanalysis(item):
+def to_mdanalysis_Universe(item, atom_indices=None, frame_indices=None):
     from MDAnalysis import Universe as _mdanalysis_Universe
     return _mdanalysis_Universe(item)
 
-def to_mdtraj(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
-    return to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
-
-def to_mdtraj_Topology(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     from mdtraj import load as _mdtraj_load
     from molmodmt import extract as _extract
 
     tmp_item = to_mdtraj_PDBTrajectoryFile(item)
-    tmp_topology = _extract(tmp_item.topology, selection=selection, syntaxis=syntaxis)
+    tmp_topology = _extract(tmp_item.topology, selection=atom_indices, frame_indices=frame_indices)
     tmp_item.close()
     del(tmp_item)
     return tmp_topology
 
-def to_mdtraj_Trajectory(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from mdtraj import load_pdb as _mdtraj_pdb_loader
     from molmodmt import extract as _extract
     tmp_item = _mdtraj_pdb_loader(item)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdtraj_PDBTrajectoryFile(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
+def to_mdtraj_PDBTrajectoryFile(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.formats.pdb import PDBTrajectoryFile
 
     return PDBTrajectoryFile(item)
 
-def to_mol2(item, filename=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
+def to_mol2(item, filename=None, atom_indices=None, frame_indices='all'):
 
     from parmed import load_file as _parmed_file_loader
     tmp_parmed_form = _parmed_file_loader(item)
     tmp_parmed_form.save(filename)
     pass
 
-def to_openmm_Topology(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
     from simtk.openmm.app.pdbfile import PDBFile
     tmp_item = PDBFile(item).getTopology()
     return tmp_item
@@ -82,7 +76,7 @@ def to_openmm_Topology(item, selection="all", frame_indices="all", syntaxis="MDT
 #    del(_openmm_pdb_loader)
 #    return tmp_form
 
-def to_openmm_Modeller(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from simtk.openmm.app.modeller import Modeller
@@ -90,28 +84,28 @@ def to_openmm_Modeller(item, selection="all", frame_indices="all", syntaxis="MDT
     tmp_item = Modeller(tmp_item.topology, tmp_item.positions)
     return tmp_item
 
-def to_openmm_PDBFile(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_openmm_PDBFile(item, atom_indices=None, frame_indices=None):
     from simtk.openmm.app.pdbfile import PDBFile
     tmp_item = PDBFile(item)
     return tmp_item
 
-def to_pdbfixer(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_pdbfixer(item, atom_indices=None, frame_indices=None):
 
-    return to_pdbfixer_PDBFixer(item, selection=selection, syntaxis=syntaxis)
+    return to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_pdbfixer_PDBFixer(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract
     from pdbfixer.pdbfixer import PDBFixer
-    tmp_item = extract(item, selection=selection, syntaxis=syntaxis)
+    tmp_item = extract(item, atom_indices=atom_indices)
     tmp_item = PDBFixer(tmp_item)
     return tmp_item
 
-def to_nglview(item):
+def to_nglview(item, atom_indices=None, frame_indices=None):
     from nglview import show_file as _nglview_show_file
     return _nglview_show_file(item)
 
-def to_yank_Topography(item, selection="all", frame_indices="all", syntaxis="MDTraj"):
+def to_yank_Topography(item, atom_indices=None, frame_indices=None):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_yank_Topography as _openmm_to_yank_Topography
     tmp_form = to_openmm_Topology(item)

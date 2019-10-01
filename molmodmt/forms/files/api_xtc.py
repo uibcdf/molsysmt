@@ -7,7 +7,7 @@ is_form = {
     'xtc': form_name
     }
 
-def to_mdtraj_Trajectory(item, topology=None, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_mdtraj_Trajectory(item, topology=None, atom_indices=None, frame_indices=None):
 
     from molmodmt import convert, select
 
@@ -18,8 +18,6 @@ def to_mdtraj_Trajectory(item, topology=None, selection=None, frame_indices=None
         raise BadCallError(BadCallMessage)
 
     tmp_topology = convert(topology, to_form='mdtraj.Topology')
-
-    atom_indices = select(tmp_topology, selection=selection, syntaxis=syntaxis)
 
     if frame_indices == 'all':
 
@@ -45,28 +43,24 @@ def to_mdtraj_Trajectory(item, topology=None, selection=None, frame_indices=None
 
     return tmp_form
 
-def to_parmed(item, topology=None, selection=None, syntaxis='MDTraj'):
+def to_parmed_Structure(item, topology=None, atom_indices=None, frame_indices=None):
 
-    return to_parmed_GromacsTopologyFile(item, topology, selection=selection, syntaxis=syntaxis)
+    return to_parmed_GromacsTopologyFile(item, topology, atom_indices=None, frame_indices=None)
 
-def to_parmed_Structure(item, topology=None, selection=None, syntaxis='MDTraj'):
-
-    return to_parmed_GromacsTopologyFile(item, topology, selection=selection, syntaxis=syntaxis)
-
-def to_parmed_GromacsTopologyFile(item, topology=None, selection=None, syntaxis='MDTraj'):
+def to_parmed_GromacsTopologyFile(item, topology=None, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract as _extract
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
     tmp_item=_parmed_from_gromacs(topology)
-    tmp_item=_extract(tmp_item,selection=selection,syntaxis=syntaxis)
+    tmp_item=_extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molmodmt_MolMod(item, topology=None, selection=None, frame_indices=None, syntaxis='MDTraj'):
+def to_molmodmt_MolMod(item, topology=None, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_molmod import from_xtc
-    return from_xtc(item, topology=topology, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+    return from_xtc(item, topology=topology, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_XTCTrajectoryFile(item, selection=None, syntaxis='MDTraj'):
+def to_mdtraj_XTCTrajectoryFile(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.formats import XTCTrajectoryFile
     return XTCTrajectoryFile(item)

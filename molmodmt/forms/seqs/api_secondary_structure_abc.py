@@ -13,5 +13,6 @@ def get_shape(item):
 def select_with_MDTraj(item, selection):
     raise NotImplementedError
 
-def extract_atom_indices(item, atom_indices):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
     raise NotImplementedError
+

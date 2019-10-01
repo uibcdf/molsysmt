@@ -86,7 +86,9 @@ def select_with_MDTraj(item, selection=None):
     from molmodmt import select
     return select(item.topology, selection=selection, syntaxis="MDTraj")
 
-def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    mode='keeping_selection'
 
     if mode=='keeping_selection':
         return item.extract(atom_indices)

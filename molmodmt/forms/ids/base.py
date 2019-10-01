@@ -55,8 +55,8 @@ for form_name in list_forms:
             syntaxis_name=method.replace('select_with_','')
             dict_selector[form_name][syntaxis_name]= getattr(dict_api_forms[form_name],method)
 
-    if 'extract_atom_indices' in dict_api_forms[form_name].__dict__.keys():
-        dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_atom_indices')
+    if 'extract_subsystem' in dict_api_forms[form_name].__dict__.keys():
+        dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_subsystem')
     if 'duplicate' in dict_api_forms[form_name].__dict__.keys():
         dict_duplicator[form_name]=getattr(dict_api_forms[form_name],'duplicate')
     if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():

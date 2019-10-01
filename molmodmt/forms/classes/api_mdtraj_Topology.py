@@ -60,7 +60,9 @@ def select_with_MDTraj(item, selection):
 
 # Extract
 
-def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    mode='keeping_selection'
 
     if mode=='removing_selection':
         from molmodmt.utils.atom_indices import complementary_atom_indices

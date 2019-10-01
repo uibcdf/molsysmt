@@ -61,7 +61,7 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     tmp_item_topol = _openmm_Topology_to_mdtraj_Topology(item.topology)
     tmp_item = _mdtraj_Trajectory(item.positions/_unit.nanometers, tmp_item_topol)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
@@ -105,11 +105,11 @@ def select_with_MDTraj(item, selection):
     del(tmp_form)
     return tmp_sel
 
-def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import convert, extract
     tmp_item = convert(item, 'openmm.Modeller')
-    tmp_item = extract(tmp_item, atom_indices, mode=mode)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = convert(tmp_item, 'pdbfixer.PDBFixer')
     return tmp_item
 

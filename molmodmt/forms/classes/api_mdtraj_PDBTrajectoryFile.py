@@ -17,10 +17,10 @@ def to_mdtraj_topology(item, atom_indices=None, frame_indices=None):
 
 def load_frame (item, indices=None, atom_indices=None):
 
-    from numpy import array, concatenate, zeros
+    from numpy import array, concatenate, zeros, empty
     from molmodmt.utils.pbc import get_box_from_lengths_and_angles
     from molmodmt.utils import units as m3t_units
-    from simtk.unit import angstroms, degrees, picoseconds
+    from simtk.unit import angstroms, nanometers, degrees, picoseconds
 
     xyz_list = []
     time_list = []
@@ -29,16 +29,16 @@ def load_frame (item, indices=None, atom_indices=None):
 
     n_frames = len(indices)
 
-    xyz = item.coordinates[indices,:,:]
-    xyz = tmp_xyz[:,atom_indices,:]
+    xyz = item.positions[indices,:,:]
+    xyz = xyz[:,atom_indices,:]
     xyz = xyz*angstroms
-    xyz = xyz.in_units_of('nanometers')
+    xyz = xyz.in_units_of(nanometers)
 
     time = zeros([len(indices)],dtype='int64')*picoseconds
     step = array(indices, dtype='int64')
 
-    cell_lengths = array([n_frames,3], dtype='float64')
-    cell_angles = array([n_frames,3], dtype='float64')
+    cell_lengths = empty([n_frames,3], dtype='float64')
+    cell_angles = empty([n_frames,3], dtype='float64')
     for ii in range(3):
         cell_lengths[:,ii] = item.unitcell_lengths[ii]
         cell_angles[:,ii] = item.unitcell_angles[ii]
@@ -81,12 +81,13 @@ def get_box_shape_from_system (item, indices=None, frame_indices=None):
 
     from molmodmt.utils.pbc import get_shape_from_angles
     from simtk.unit import degrees
+    from numpy import empty
 
-    cell_angles = item.cell_angles
-    cell_angles = unitcell_angles*degrees
+    cell_angles = empty([1,3], dtype='float64')
+    for ii in range(3):
+        cell_angles[0,ii] = item.unitcell_angles[ii]
+    cell_angles = cell_angles*degrees
     shape = get_shape_from_angles(cell_angles)
-    item.seek(position)
-    del(frame_hdf5)
     return shape
 
 def get_n_atoms_from_system (item, indices=None, frame_indices=None):

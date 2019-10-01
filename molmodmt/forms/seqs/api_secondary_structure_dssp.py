@@ -16,7 +16,7 @@ _dssp_to_abc = {"I" : "c", # coil
                 "C" : "c",
                 "X" : "X"} # undefined
 
-def to_secondary_structure_abc(item):
+def to_secondary_structure_abc(item, atom_indices=None, frame_indices=None):
     pass
 
 def get_shape(item):
@@ -25,5 +25,5 @@ def get_shape(item):
 def select_with_MDTraj(item, selection):
     raise NotImplementedError
 
-def extract_atom_indices(item, atom_indices):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
     raise NotImplementedError

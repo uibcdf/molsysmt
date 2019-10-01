@@ -22,7 +22,7 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     tmp_topology = to_mdtraj_Topology(item)
     tmp_item = _mdtraj_Trajectory(item.positions/_unit.nanometers, tmp_topology)
-    tmp_item = _extract(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -73,7 +73,9 @@ def duplicate(item):
     tmp_item = _Modeller(item.topology, item.positions)
     return tmp_item
 
-def extract_atom_indices(item, atom_indices, mode='keeping_selection'):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    mode='keeping_selection'
 
     if mode == 'keeping_selection':
         tmp_atom_indices = atom_indices

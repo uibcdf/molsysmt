@@ -15,7 +15,7 @@ def select_with_MDTraj(item, selection):
     from .api_mdtraj_Topology import select_with_MDTraj as _select_with_MDTraj
     return _select_with_MDTraj(item.topology_mdtraj,selection)
 
-def extract_atom_indices(item, atom_indices):
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
     return item.extract(atom_indices)
 
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
