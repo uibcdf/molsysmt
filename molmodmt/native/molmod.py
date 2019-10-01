@@ -7,13 +7,13 @@ class MolMod():
         self.topology = None
         self.topography = None
 
-    def extract(self, atom_indices=None, mode='keeping_selection'):
+    def extract(self, atom_indices=None, frame_indices=None):
 
         from molmodmt import extract as _extract
 
         tmp_item = MolMod()
-        tmp_item.topology = _extract(self.topology, selection=atom_indices, mode=mode)
-        tmp_item.trajectory = _extract(self.trajectory, selection=atom_indices, mode=mode)
+        tmp_item.topology = _extract(self.topology, selection=atom_indices)
+        tmp_item.trajectory = _extract(self.trajectory, selection=atom_indices)
         tmp_item.topography = None
         tmp_item.structure = None
 

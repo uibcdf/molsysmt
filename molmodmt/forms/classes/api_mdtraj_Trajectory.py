@@ -141,7 +141,10 @@ def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from nglview import show_mdtraj as _show_mdtraj
 
-    return _show_mdtraj(item)
+    tmp_view = _show_mdtraj(item)
+    tmp_view.clear()
+    tmp_view.add_representation('licorice',selection=atom_indices)
+    return tmp_view
 
 def select_with_MDTraj(item, selection):
 

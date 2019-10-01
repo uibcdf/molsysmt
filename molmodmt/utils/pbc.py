@@ -45,15 +45,15 @@ def get_box_lengths(box):
 def get_box_angles(box):
 
     from numpy import asfortranarray, ascontiguousarray
+    from simtk.unit import degrees
 
-    angle_units = box.unit
     n_frames = box.shape[0]
     tmp_box =  asfortranarray(box._value, dtype='float64')
     angles = _libbox.angles_box(tmp_box, n_frames)
     angles = ascontiguousarray(angles, dtype='float64')
     del(tmp_box)
 
-    return angles.round(6)*angle_units
+    return angles.round(6)*degrees
 
 def get_box_from_lengths_and_angles(lengths, angles):
 

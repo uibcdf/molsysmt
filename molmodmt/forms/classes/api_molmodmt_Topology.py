@@ -15,7 +15,7 @@ def to_mdtraj_Topology (item, atom_indices=None, frame_indices=None):
     from molmodmt import extract
 
     tmp_item = item
-    tmp_item = extract(item, selection=atom_indices, mode='keeping_selection')
+    tmp_item = extract(item, selection=atom_indices)
     return tmp_item
 
 def duplicate(item):

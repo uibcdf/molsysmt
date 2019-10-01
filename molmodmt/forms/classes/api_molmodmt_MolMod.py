@@ -61,7 +61,7 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
     from simtk import unit as _unit
     from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
 
-    tmp_item_topology = to_mdtraj_Topology(item, selection=item.trajectory.file.atom_indices)
+    tmp_item_topology = to_mdtraj_Topology(item, atom_indices=item.trajectory.file.atom_indices)
     tmp_box_lengths = item.trajectory.get_box_lengths().in_units_of(_unit.nanometers)._value
     tmp_box_angles = item.trajectory.get_box_angles().in_units_of(_unit.degrees)._value
     tmp_coordinates = item.trajectory.coordinates.in_units_of(_unit.nanometers)._value
@@ -74,13 +74,14 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import to_mdtraj_Topology as _to_mdtraj_Topology
-    return _to_mdtraj_Topology(item.topology, selection=selection, syntaxis=syntaxis)
+    return _to_mdtraj_Topology(item.topology, atom_indices=atom_indices,
+            frame_indices=frame_indices)
 
 def to_pdb(item, filename=None, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_molmod import to_pdb as _to_pdb
 
-    return _to_pdb(item, filename=filename, selection=selection, syntaxis=syntaxis)
+    return _to_pdb(item, filename=filename, selection=atom_indices, frame_indices=frame_indices)
 
 def select_with_MDTraj(item, selection=None):
     from molmodmt import select
@@ -88,14 +89,7 @@ def select_with_MDTraj(item, selection=None):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    mode='keeping_selection'
-
-    if mode=='keeping_selection':
-        return item.extract(atom_indices)
-    elif mode=='removing_selection':
-        from molmodmt.utils.atom_indices import complementary_atom_indices
-        tmp_atom_indices = complementary_atom_indices(item, atom_indices)
-        return item.extract(tmp_atom_indices)
+    return item.extract(atom_indices)
 
 def to_nglview(item, atom_indices=None, frame_indices=None):
 

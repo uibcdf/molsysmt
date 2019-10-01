@@ -35,14 +35,12 @@ def to_mdanalysis_Universe(item, atom_indices=None, frame_indices=None):
 
 def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
-    from mdtraj import load as _mdtraj_load
+    from mdtraj import load_topology as _mdtraj_load_topology
     from molmodmt import extract as _extract
 
-    tmp_item = to_mdtraj_PDBTrajectoryFile(item)
-    tmp_topology = _extract(tmp_item.topology, selection=atom_indices, frame_indices=frame_indices)
-    tmp_item.close()
-    del(tmp_item)
-    return tmp_topology
+    tmp_item = _mdtraj_load_topology(item)
+    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
@@ -114,9 +112,12 @@ def to_yank_Topography(item, atom_indices=None, frame_indices=None):
     return tmp_form
 
 def select_with_MDTraj(item, selection):
-    tmp_form=to_mdtraj(item)
-    tmp_sel=tmp_form.topology.select(selection)
-    del(tmp_form)
+
+    from mdtraj import load_topology as _mdtraj_load_topology
+
+    tmp_item = _mdtraj_load_topology(item)
+    tmp_sel=tmp_item.select(selection)
+    del(tmp_item)
     return tmp_sel
 
 # System

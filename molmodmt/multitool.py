@@ -141,6 +141,7 @@ def select(item, selection='all', syntaxis='MDTraj'):
     -----
     """
 
+    from numpy import array as _array
     from numpy import ndarray as _ndarray
     from numpy import int as _int
     from numpy import int64 as _int64
@@ -148,40 +149,48 @@ def select(item, selection='all', syntaxis='MDTraj'):
 
     form_in, _ = _digest_forms(item)
 
-    if type(selection) in [list, tuple, _ndarray, set]:
-        return list(selection)
+    if type(selection)==str:
+        if selection in ['all', 'All', 'ALL']:
+            n_atoms = _dict_get[form_in]['system']['n_atoms'](item)
+            atom_indices = _arange(n_atoms, dtype='int64')
+        else:
+            selection, syntaxis = _digest_selection(selection, syntaxis)
+            atom_indices = _dict_selector[form_in][syntaxis](item, selection)
     elif type(selection) in [int, _int64, _int]:
-        return [selection]
-    elif selection in ['all', 'All', 'ALL']:
-        n_atoms = _dict_get[form_in]['system']['n_atoms'](item)
-        return _arange(n_atoms, dtype='int64')
-    else:
-        selection, syntaxis = _digest_selection(selection, syntaxis)
-        atom_indices = _dict_selector[form_in][syntaxis](item, selection)
-        return list(_sort(atom_indices))
+        atom_indices = _array([selection], dtype='int64')
+    elif hasattr(selection, '__iter__'):
+        atom_indices = _array(selection, dtype='int64')
+    else :
+        atom_indices = None
+
+    atom_indices.sort()
+    return atom_indices
 
 def extract(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
+    form_in, _ = _digest_forms(item)
+
     # mode in ['removing_selection','keeping_selection']
 
-    if selection is None:
-        if mode=='removing_selection':
-            return item
-        elif mode=='keeping_selection':
-            raise BadCallError("Bad selection. All atoms will be removed")
+    selection_is_all = False
 
-    if selection=="all":
-        if mode=='removing_selection':
-            raise BadCallError("Bad selection. All atoms will be removed")
-        elif mode=='keeping_selection':
-            return item
+    if type(selection)==str:
+        if selection=="all":
+            selection_is_all = True
+    elif hasattr(selection, '__iter__'):
+        n_atoms_selection = len(selection)
+        n_atoms = _dict_get[form_in]['system']['n_atoms'](item)
+        if n_atoms == n_atoms_selection:
+            selection_is_all = True
 
-    form_in, _ = _digest_forms(item)
-    atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
-    frame_indices = _digest_frame_indices(item, frame_indices)
-    tmp_item = _dict_extractor[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item
+    if selection_is_all:
+        return item
+    else:
+        form_in, _ = _digest_forms(item)
+        atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
+        frame_indices = _digest_frame_indices(item, frame_indices)
+        tmp_item = _dict_extractor[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices)
+        return tmp_item
 
 def merge(item1=None, item2=None, to_form=None):
 
@@ -429,7 +438,6 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
     -------
 
     """
-
     form_in, form_out  = _digest_forms(item, to_form)
     frame_indices = _digest_frame_indices(item, frame_indices)
     atom_indices = select(item, selection=selection, syntaxis=syntaxis)
@@ -470,10 +478,14 @@ def view(item=None, viewer='nglview', selection='all', frame_indices='all', synt
         form_in = get_form(item)
         tmp_item = item
 
-    if selection is not None:
-        tmp_item = extract(tmp_item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+    #if selection is not None:
+    #    tmp_item = extract(tmp_item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
-    return _dict_converter[form_in][viewer](tmp_item)
+    atom_indices = select(tmp_item, selection=selection, syntaxis=syntaxis)
+    frame_indices = _digest_frame_indices(item, frame_indices)
+
+    return _dict_converter[form_in][viewer](tmp_item, atom_indices=atom_indices,
+            frame_indices=frame_indices)
 
 def reformat(attribute=None, value=None, is_format=None, to_format=None):
 

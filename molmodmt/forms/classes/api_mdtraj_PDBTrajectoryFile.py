@@ -30,11 +30,12 @@ def load_frame (item, indices=None, atom_indices=None):
     n_frames = len(indices)
 
     xyz = item.positions[indices,:,:]
+    xyz = xyz.astype('float64')
     xyz = xyz[:,atom_indices,:]
     xyz = xyz*angstroms
     xyz = xyz.in_units_of(nanometers)
 
-    time = zeros([len(indices)],dtype='int64')*picoseconds
+    time = zeros([len(indices)],dtype='float64')*picoseconds
     step = array(indices, dtype='int64')
 
     cell_lengths = empty([n_frames,3], dtype='float64')
@@ -46,12 +47,7 @@ def load_frame (item, indices=None, atom_indices=None):
     cell_lengths = cell_lengths*angstroms
     cell_angles = cell_angles*degrees
 
-    box = get_box_from_lengths_and_angles(cell_lengths*nanometers, cell_angles*degrees)
-
-    xyz = xyz.astype('float64')
-    box = box.astype('float64')
-    time = time.astype('float64')
-    step = step.astype('int64')
+    box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
 
     xyz = xyz.in_units_of(m3t_units.length)
     box = box.in_units_of(m3t_units.length)

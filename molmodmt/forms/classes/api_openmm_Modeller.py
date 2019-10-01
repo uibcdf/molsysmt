@@ -75,19 +75,11 @@ def duplicate(item):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    mode='keeping_selection'
-
-    if mode == 'keeping_selection':
-        tmp_atom_indices = atom_indices
-    elif mode == 'removing_selection':
-        from molmodmt.utils.atom_indices import complementary_atom_indices
-        tmp_atom_indices = complementary_atom_indices(item, atom_indices)
-
     from api_openmm_Topology import extract_atom_indices as _extract_topology
 
     tmp_item = duplicate(item)
-    tmp_item.topology = _extract_topology(item.topology, tmp_atom_indices, mode='keeping_selection')
-    tmp_item.positions = get_coordinates_from_atom(item, tmp_atom_indices)
+    tmp_item.topology = _extract_topology(item.topology, atom_indices)
+    tmp_item.positions = get_coordinates_from_atom(item, atom_indices)
 
     return tmp_item
 

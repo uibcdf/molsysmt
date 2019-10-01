@@ -62,20 +62,10 @@ def select_with_MDTraj(item, selection):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    mode='keeping_selection'
-
-    if mode=='removing_selection':
-        from molmodmt.utils.atom_indices import complementary_atom_indices
-        atom_indices_to_be_kept = complementary_atom_indices(item, atom_indices)
-    elif mode=='keeping_selection':
-        atom_indices_to_be_kept = atom_indices
-
-    # item.subset improved
-
     from mdtraj.core.topology import Topology
     from mdtraj.utils import ilen
 
-    atom_indices_to_be_kept = set(atom_indices_to_be_kept)
+    atom_indices_to_be_kept = set(atom_indices)
     newTopology = Topology()
     old_atom_to_new_atom = {}
 
