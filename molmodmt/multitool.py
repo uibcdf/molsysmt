@@ -219,8 +219,9 @@ def info(item=None, target='system', indices=None, selection="all", syntaxis="MD
 
         index, id, name, residue_name, residue_index, residue_id, chain_index, chain_id,\
         molecule_type = get(item, target=target, selection=selection, syntaxis=syntaxis,
-                            atom_index=True, atom_id=True, atom_name=True, residue_name=True,
-                            residue_index=True, residue_id=True, chain_index=True, chain_id=True,
+                            atom_index=True, atom_id=True, atom_name=True, element=True,
+                            residue_index=True, residue_id=True, residue_name=True,
+                            chain_index=True, chain_id=True,
                             molecule_type=True)
 
         return df({'name':name, 'index':index, 'id':id, 'residue_name':residue_name,

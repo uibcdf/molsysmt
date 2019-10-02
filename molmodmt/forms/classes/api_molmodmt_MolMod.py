@@ -144,6 +144,11 @@ def get_element_from_atom (item, indices=None, frame_indices=None):
     from .api_molmodmt_Topology import get_element_from_atom as _get
     return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
+def get_residue_name_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_residue_name_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
 def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_aminoacids_from_atom as _get
