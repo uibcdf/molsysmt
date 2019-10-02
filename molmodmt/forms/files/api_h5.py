@@ -40,7 +40,7 @@ def get_frames_from_atom (item, indices=None, frame_indices=None):
 
     from molmodmt import get
     tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
-    xyz, time, step, box = get(tmp_item, element='atom', indices=indices,
+    xyz, time, step, box = get(tmp_item, target='atom', indices=indices,
                                frame_indices=frame_indices, frames=True)
     tmp_item.close()
     del(tmp_item, get)
@@ -52,7 +52,7 @@ def get_frames_from_system (item, indices=None, frame_indices=None):
 
     from molmodmt import get
     tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
-    xyz, time, step, box = get(tmp_item, element='system',
+    xyz, time, step, box = get(tmp_item, target='system',
             frame_indices=frame_indices, frames=True)
     tmp_item.close()
     del(tmp_item, get)
@@ -62,7 +62,7 @@ def get_n_frames_from_system (item, indices=None, frame_indices=None):
 
     from molmodmt import get
     tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
-    n_frames = get(tmp_item, element='system',  n_frames=True)
+    n_frames = get(tmp_item, target='system',  n_frames=True)
     tmp_item.close()
     del(tmp_item, get)
     return n_frames
@@ -71,7 +71,7 @@ def get_n_atoms_from_system (item, indices=None, frame_indices=None):
 
     from molmodmt import get
     tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
-    n_atoms = get(tmp_item, element='system',  n_atoms=True)
+    n_atoms = get(tmp_item, target='system',  n_atoms=True)
     tmp_item.close()
     del(tmp_item, get)
     return n_atoms

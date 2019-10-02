@@ -84,7 +84,7 @@ class Trajectory():
 
         from molmodmt import get
 
-        step, time, coordinates, box = get(self.file.mount_point, element='atom',
+        step, time, coordinates, box = get(self.file.mount_point, target='atom',
                 indices=atom_indices, frame_indices=frame_indices, frames=True)
 
         self._set_frames(step, time, coordinates, box)

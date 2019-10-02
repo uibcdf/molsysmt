@@ -2,13 +2,14 @@
 def _raise_not_implemented_error(item, indices=None, frame_indices=None):
     raise NotImplementedError
 
-element_fields = {
+target_fields = {
 
         'atom' : {
             'name' : _raise_not_implemented_error,
             'index' : _raise_not_implemented_error,
             'id' : _raise_not_implemented_error,
             'type' : _raise_not_implemented_error,
+            'element' : _raise_not_implemented_error,
             'n_atoms' : _raise_not_implemented_error,
             'atom_name' : _raise_not_implemented_error,
             'atom_index' : _raise_not_implemented_error,
@@ -173,8 +174,15 @@ element_fields = {
             'bonded_atoms' : _raise_not_implemented_error,
             'bonds' : _raise_not_implemented_error,
             'graph' : _raise_not_implemented_error,
+            'molecules' : _raise_not_implemented_error,
             'coordinates' : _raise_not_implemented_error,
-            'frames': _raise_not_implemented_error
+            'box' : _raise_not_implemented_error,
+            'box_shape' : _raise_not_implemented_error,
+            'time' : _raise_not_implemented_error,
+            'step' : _raise_not_implemented_error,
+            'frames': _raise_not_implemented_error,
+            'length_units': _raise_not_implemented_error,
+            'time_units': _raise_not_implemented_error
             }
 
         }

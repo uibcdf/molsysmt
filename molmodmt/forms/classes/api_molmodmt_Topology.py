@@ -28,6 +28,26 @@ def duplicate(item):
 
 ## atom
 
+def get_index_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_index_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_id_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_id_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_name_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_name_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_element_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_element_from_atom as _get
+    return _get(item, indices=indices)
+
 def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
 
     from .api_mdtraj_Topology import get_n_aminoacids_from_atom as _get

@@ -209,16 +209,16 @@ def merge(item1=None, item2=None, to_form=None):
         tmp_item2 = convert(item2,form)
         return _dict_merger[form](tmp_item1, tmp_item1)
 
-def info(item=None, element='system', indices=None, selection="all", syntaxis="MDTraj"):
+def info(item=None, target='system', indices=None, selection="all", syntaxis="MDTraj"):
 
     from pandas import DataFrame as df
     form_in, _ = _digest_forms(item)
-    element = _singular(element)
+    target = _singular(target)
 
-    if element=='atom':
+    if target=='atom':
 
         index, id, name, residue_name, residue_index, residue_id, chain_index, chain_id,\
-        molecule_type = get(item, element=element, selection=selection, syntaxis=syntaxis,
+        molecule_type = get(item, target=target, selection=selection, syntaxis=syntaxis,
                             atom_index=True, atom_id=True, atom_name=True, residue_name=True,
                             residue_index=True, residue_id=True, chain_index=True, chain_id=True,
                             molecule_type=True)
@@ -227,10 +227,10 @@ def info(item=None, element='system', indices=None, selection="all", syntaxis="M
                    'residue index':residue_index, 'residue id':residue_id,
                    'chain index':chain_index, 'chain id':chain_id, 'molecule type':molecule_type})
 
-    elif element=='residue':
+    elif target=='residue':
 
         index, id, name, chain_index, chain_id,\
-        molecule_type = get(item, element=element, selection=selection, syntaxis=syntaxis,
+        molecule_type = get(item, target=target, selection=selection, syntaxis=syntaxis,
                             residue_index=True, residue_id=True, residue_name=True,
                             chain_index=True, chain_id=True, molecule_type=True)
 
@@ -238,14 +238,14 @@ def info(item=None, element='system', indices=None, selection="all", syntaxis="M
         return df({'name':name, 'index':index, 'id':id, 'chain index':chain_index, 'chain id':chain_id,
                    'molecule type':molecule_type})
 
-    elif element=='chain':
+    elif target=='chain':
 
-        index, id, molecule_type = get(item, element=element, selection=selection, syntaxis=syntaxis,
+        index, id, molecule_type = get(item, target=target, selection=selection, syntaxis=syntaxis,
                                        chain_index=True, chain_id=True, molecule_type=True)
 
         return df({'index':index, 'id':id, 'molecule type':molecule_type})
 
-    elif element=='system':
+    elif target=='system':
 
         return df([_dict_info[form_in](item)])
 
@@ -274,31 +274,31 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get(item, element='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs):
+def get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs):
 
     # selection works as a mask if indices or ids are used
 
     form_in, _ = _digest_forms(item)
-    element = _singular(element)
+    target = _singular(target)
     attributes = [ key for key in kwargs.keys() if kwargs[key] ]
 
     frame_indices = _digest_frame_indices(item, frame_indices)
 
     if indices is None:
-        if element == 'atom':
+        if target == 'atom':
             indices = select(item, selection=selection, syntaxis=syntaxis)
-        elif element == 'residue':
-            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis, residue_index=True)
+        elif target == 'residue':
+            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, residue_index=True)
             indices = list(_unique(indices))
-        elif element == 'chain':
-            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
+        elif target == 'chain':
+            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
             indices = list(_unique(indices))
-        elif element == 'system':
+        elif target == 'system':
             indices = 0
 
     results = []
     for attribute in attributes:
-        result = _dict_get[form_in][element][attribute](item, indices=indices, frame_indices=frame_indices)
+        result = _dict_get[form_in][target][attribute](item, indices=indices, frame_indices=frame_indices)
         results.append(result)
 
     if len(results)==1:
@@ -306,22 +306,22 @@ def get(item, element='system', indices=None, selection='all', frame_indices='al
     else:
         return results
 
-def set(item, element='system', indices=None, selection='all', frame_indices='all', syntaxis='mdtraj', **kwargs):
+def set(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='mdtraj', **kwargs):
 
     form_in, _ = _digest_forms(item)
-    element = _singular(element)
+    target = _singular(target)
     attributes = [ key for key in kwargs.keys() ]
 
     if indices is None:
-        if element == 'atom':
+        if target == 'atom':
             indices = select(item, selection=selection, syntaxis=syntaxis)
-        elif element == 'residue':
-            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis, residue_index=True)
+        elif target == 'residue':
+            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, residue_index=True)
             indices = list(_unique(indices))
-        elif element == 'chain':
-            indices = get(item, element='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
+        elif target == 'chain':
+            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
             indices = list(_unique(indices))
-        elif element == 'system':
+        elif target == 'system':
             indices = 0
 
     if frame_indices == 'all':
@@ -332,7 +332,7 @@ def set(item, element='system', indices=None, selection='all', frame_indices='al
 
     for attribute in attributes:
         value = kwargs[attribute]
-        _dict_set[form_in][element][attribute](item, indices=indices, frame_indices=frame_indices, value=value)
+        _dict_set[form_in][target][attribute](item, indices=indices, frame_indices=frame_indices, value=value)
 
     pass
 
@@ -342,7 +342,7 @@ def load (item, to_form='molmodmt.MolMod', selection='all', frame_indices='all',
 
     Loading a molecular model.
 
-    A molecular model coming from a file can be loaded as a new object with any form supported by
+    A molecular model coming from a file can be loaded as a new target with any form supported by
     MolModMt. This method is just an alias of `convert`. It was included here only to make the
     usability more intuitive.
 
@@ -353,7 +353,7 @@ def load (item, to_form='molmodmt.MolMod', selection='all', frame_indices='all',
         Molecular model in any of the supported forms by MolModMT.
 
     to_form: str, default='molmodmt.MolMod'
-        Any accepted form by MolModMt for the output object.
+        Any accepted form by MolModMt for the output target.
 
     selection: str, list, tuple or np.ndarray, defaul='all'
        Atoms selection over which this method applies. The selection can be given specified by a
@@ -369,7 +369,7 @@ def load (item, to_form='molmodmt.MolMod', selection='all', frame_indices='all',
     -------
 
        item: molecular model
-       A new object is returned with the form specified by the corresponding input argument.
+       A new target is returned with the form specified by the corresponding input argument.
 
     Examples
     --------
@@ -391,7 +391,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
 
     Transforming a molecular model from its current form into other supported form.
 
-    A molecular model in a given accepted form can be converted into a new object with any form
+    A molecular model in a given accepted form can be converted into a new target with any form
     other form supported by MolModMt. The list of supported forms can be found in the section
     'Molecular Model Forms'.
 
@@ -402,7 +402,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
         Molecular model in any of the supported forms by MolModMT.
 
     to_form: str, default='molmodmt.MolMod'
-        The output object will take the form specified here. This form  supported form by MolModMt for the output object.
+        The output object will take the form specified here. This form  supported form by MolModMt for the output target.
 
     selection: str, list, tuple or np.ndarray, defaul='all'
        Atoms selection over which this method applies. The selection can be given specified by a
@@ -477,9 +477,6 @@ def view(item=None, viewer='nglview', selection='all', frame_indices='all', synt
     else:
         form_in = get_form(item)
         tmp_item = item
-
-    #if selection is not None:
-    #    tmp_item = extract(tmp_item, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
     atom_indices = select(tmp_item, selection=selection, syntaxis=syntaxis)
     frame_indices = _digest_frame_indices(item, frame_indices)

@@ -140,10 +140,10 @@ def to_xtc(item, filename=None, atom_indices=None, frame_indices=None):
 def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from nglview import show_mdtraj as _show_mdtraj
+    from molmodmt.utils.nglview import standardize_view
 
     tmp_view = _show_mdtraj(item)
-    tmp_view.clear()
-    tmp_view.add_representation('licorice',selection=atom_indices)
+    tmp_view = standardize_view(tmp_view, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_view
 
 def select_with_MDTraj(item, selection):

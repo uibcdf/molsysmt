@@ -2,8 +2,8 @@ from os import listdir as _listdir
 from os.path import dirname as _dirname
 from copy import deepcopy
 from importlib import import_module as _import_module
-from .get_fields import element_fields as get_element_dict
-from .set_fields import element_fields as set_element_dict
+from .get_fields import target_fields as get_target_dict
+from .set_fields import target_fields as set_target_dict
 
 base_package = __name__.replace('.base','')
 
@@ -38,8 +38,8 @@ for form_name in list_forms:
     dict_extractor[form_name]= {}
     dict_duplicator[form_name]= {}
     dict_merger[form_name]= {}
-    dict_get[form_name]= deepcopy(get_element_dict)
-    dict_set[form_name]= deepcopy(set_element_dict)
+    dict_get[form_name]= deepcopy(get_target_dict)
+    dict_set[form_name]= deepcopy(set_target_dict)
     dict_info[form_name]= {}
 
     for method in dict_api_forms[form_name].__dict__.keys():
@@ -64,17 +64,17 @@ for form_name in list_forms:
     if 'info' in dict_api_forms[form_name].__dict__.keys():
         dict_info[form_name]=getattr(dict_api_forms[form_name],'info')
 
-    for element in dict_get[form_name]:
-        for option in dict_get[form_name][element]:
-            get_function_name = 'get_'+option+'_from_'+element
+    for target in dict_get[form_name]:
+        for option in dict_get[form_name][target]:
+            get_function_name = 'get_'+option+'_from_'+target
             if get_function_name in dict_api_forms[form_name].__dict__.keys():
-                dict_get[form_name][element][option]=getattr(dict_api_forms[form_name],get_function_name)
+                dict_get[form_name][target][option]=getattr(dict_api_forms[form_name],get_function_name)
 
-    for element in dict_set[form_name]:
-        for option in dict_set[form_name][element]:
-            set_function_name = 'set_'+option+'_to_'+element
+    for target in dict_set[form_name]:
+        for option in dict_set[form_name][target]:
+            set_function_name = 'set_'+option+'_to_'+target
             if set_function_name in dict_api_forms[form_name].__dict__.keys():
-                dict_set[form_name][element][option]=getattr(dict_api_forms[form_name],set_function_name)
+                dict_set[form_name][target][option]=getattr(dict_api_forms[form_name],set_function_name)
 
 
 
@@ -86,5 +86,5 @@ if 'syntaxis_name' in globals():
     del(syntaxis_name)
 
 del(api_form, list_api_forms, form_name, module_api_form, base_package)
-del(get_element_dict, set_element_dict)
+del(get_target_dict, set_target_dict)
 

@@ -26,8 +26,8 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
     engine = _digest_engines(engine)
     frame_indices_2 = frame_indices_1
 
-    if group_behavior_1=='minimum_distance' or group_behavior2=='minimum_distance':
-        if group_behavior_1=='minimum_distance' and group_behavior2=='minimum_distance':
+    if group_behavior_1=='minimum_distance' or group_behavior_2=='minimum_distance':
+        if group_behavior_1=='minimum_distance' and group_behavior_2=='minimum_distance':
 
             num_groups_1=len(selection_groups_1)
             num_groups_2=len(selection_groups_2)
@@ -75,7 +75,7 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
         if selection_1 is not None:
 
             atom_indices_1 = select(item_1, selection=selection_1, syntaxis=syntaxis)
-            coordinates_1 = get(item_1, element='atom', indices=atom_indices_1,
+            coordinates_1 = get(item_1, target='atom', indices=atom_indices_1,
                             frame_indices=frame_indices_1, coordinates=True)
         else:
 
@@ -94,7 +94,7 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
                 coordinates_2 = _np.copy(coordinates_1)
             else:
                 atom_indices_2 = select(item_2, selection=selection_2, syntaxis=syntaxis)
-                coordinates_2 = get(item_2, element='atom', indices=atom_indices_2,
+                coordinates_2 = get(item_2, target='atom', indices=atom_indices_2,
                                     frame_indices=frame_indices_2, coordinates=True)
 
         else:

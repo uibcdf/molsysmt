@@ -2,13 +2,14 @@
 def _raise_not_implemented_error(item, indices=None, frame_indices=None):
     raise NotImplementedError
 
-element_fields = {
+target_fields = {
 
         'atom' : {
             'name' : _raise_not_implemented_error,
             'index' : _raise_not_implemented_error,
             'id' : _raise_not_implemented_error,
             'type' : _raise_not_implemented_error,
+            'element' : _raise_not_implemented_error,
             'n_atoms' : _raise_not_implemented_error,
             'atom_name' : _raise_not_implemented_error,
             'atom_index' : _raise_not_implemented_error,

@@ -33,7 +33,7 @@ def rmsd (item=None, selection='backbone', frame_indices='all',
 
             reference_atom_indices = select(reference_item, selection=reference_selection, syntaxis=syntaxis)
 
-            reference_coordinates = get(reference_item, element='atom', indices=reference_atom_indices,
+            reference_coordinates = get(reference_item, target='atom', indices=reference_atom_indices,
                                   frame_indices=reference_frame_index, coordinates=True)
 
         coordinates = get(item, coordinates=True, frame_indices='all')
@@ -89,7 +89,7 @@ def least_rmsd (item=None, selection='backbone', frame_indices='all',
 
             reference_atom_indices = select(reference_item, selection=reference_selection, syntaxis=syntaxis)
 
-            reference_coordinates = get(reference_item, element='atom', indices=reference_atom_indices,
+            reference_coordinates = get(reference_item, target='atom', indices=reference_atom_indices,
                                   frame_indices=reference_frame_index, coordinates=True)
 
         coordinates = get(item, coordinates=True, frame_indices='all')
@@ -142,7 +142,7 @@ def least_rmsd_fit (item=None, selection='backbone', frame_indices='all',
 
             reference_atom_indices = select(reference_item, selection=reference_selection, syntaxis=syntaxis)
 
-            reference_coordinates = get(reference_item, element='atom', indices=reference_atom_indices,
+            reference_coordinates = get(reference_item, target='atom', indices=reference_atom_indices,
                                   frame_indices=reference_frame_index, coordinates=True)
 
         coordinates = get(tmp_item, coordinates=True, frame_indices='all')

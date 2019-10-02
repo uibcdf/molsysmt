@@ -54,7 +54,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
     if num_anions=="neutralize" and num_cations=="neutralize":
 
         from .multitool import get
-        charge = get(tmp_item, element="system", net_charge=True)
+        charge = get(tmp_item, target="system", net_charge=True)
 
         num_anions = 0
         num_cations = 0

@@ -16,7 +16,27 @@ def select_with_MDTraj(item, selection):
     return _select_with_MDTraj(item.topology_mdtraj,selection)
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
-    return item.extract(atom_indices)
+ 
+    from copy import deepcopy
+    from molmodmt.native.trajectory import Trajectory
+    from .api_molmodmt_TrajectoryFile import duplicate as _duplicate_TrajectoryFile
+
+    tmp_item = Trajectory()
+
+    tmp_item.step = deepcopy(item.step)
+    tmp_item.time = deepcopy(item.time)
+    tmp_item.coordinates = deepcopy(item.coordinates)
+    tmp_item.coordinates = tmp_item.coordinates[:,atom_indices,:]
+    tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
+    tmp_item.box = deepcopy(item.box)
+    tmp_item.box_shape = deepcopy(item.box_shape)
+
+    tmp_item.n_frames = len(frame_indices)
+    tmp_item.n_atoms = len(atom_indices)
+
+    tmp_item.file = _duplicate_TrajectoryFile(item.file)
+
+    return tmp_item
 
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
     from molmodmt.native.io_trajectory import to_mdtraj_Trajectory as _to_mdtraj_Trajectory

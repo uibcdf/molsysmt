@@ -2,7 +2,7 @@
 def _raise_not_implemented_error(item, indices=None, frame_indices=None, value=None):
     raise NotImplementedError
 
-element_fields = {
+target_fields = {
 
         'atom' : {
             'name' : _raise_not_implemented_error

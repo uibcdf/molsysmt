@@ -14,10 +14,10 @@ def mutate (item, residue_indices=None, to_residue_names=None, engine='PDBFixer'
 
             for residue_index, to_residue_name in zip(residue_indices, to_residue_names):
 
-                from_residue_name = _get(tmp_item, element='residue', index=residue_index,
+                from_residue_name = _get(tmp_item, target='residue', index=residue_index,
                                          residue_name=True)
 
-                in_chain_id = _get(tmp_item, element='residue', index=residue_index,
+                in_chain_id = _get(tmp_item, target='residue', index=residue_index,
                                          chain_id=True)
 
                 mutation_string = "-".join([from_residue_name,str(residue_index),to_residue_name])

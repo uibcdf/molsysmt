@@ -142,6 +142,38 @@ def get_n_atoms_from_atom (item, indices=None, frame_indices=None):
 
     return len(indices)
 
+def get_index_from_atom (item, indices=None, frame_indices=None):
+
+    return indices
+
+def get_id_from_atom (item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    ids = [atom[ii].serial for ii in indices]
+    del(atom)
+    return ids
+
+def get_name_from_atom (item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    names = [atom[ii].name for ii in indices]
+    del(atom)
+    return names
+
+def get_element_from_atom (item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    elements = [atom[ii].element.symbol for ii in indices]
+    del(atom)
+    return elements
+
+def get_name_from_atom (item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    names = [atom[ii].name for ii in indices]
+    del(atom)
+    return names
+
 def get_n_residues_from_atom (item, indices=None, frame_indices=None):
 
     atom=list(item.atoms)

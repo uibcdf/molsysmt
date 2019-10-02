@@ -17,7 +17,7 @@ def info(item):
 
     tmp_dict = {}
     tmp_dict['form'] = form_name
-    tmp_dict['n_atoms'] = get(item, element='system', n_atoms=True)
+    tmp_dict['n_atoms'] = get(item, target='system', n_atoms=True)
     tmp_dict['trajectory file'] = item.trajectory.file.name
     tmp_dict['trajectory loaded'] = str(item.trajectory.n_frames)+' frames,'+str(item.trajectory.n_atoms)+' atoms'
 
@@ -102,7 +102,7 @@ def to_nglview(item, atom_indices=None, frame_indices=None):
     else:
         tmp_item = to_mdtraj_Trajectory(item)
 
-    return _mdtraj_to_nglview(tmp_item)
+    return _mdtraj_to_nglview(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def duplicate(item):
 
@@ -124,25 +124,45 @@ def duplicate(item):
 
 ## atom
 
+def get_index_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_index_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_id_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_name_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_element_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_element_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
 def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_aminoacids_from_atom as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_nucleotides_from_atom (item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_nucleotides_from_atom as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_waters_from_atom (item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_waters_from_atom as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_ions_from_atom (item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_ions_from_atom as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_atom(item, indices=None, frame_indices=None):
 
