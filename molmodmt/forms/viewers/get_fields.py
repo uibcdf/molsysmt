@@ -178,6 +178,7 @@ target_fields = {
             'coordinates' : _raise_not_implemented_error,
             'box' : _raise_not_implemented_error,
             'box_shape' : _raise_not_implemented_error,
+            'has_pbc' : _raise_not_implemented_error,
             'time' : _raise_not_implemented_error,
             'step' : _raise_not_implemented_error,
             'frames': _raise_not_implemented_error,
