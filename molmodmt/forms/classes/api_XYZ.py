@@ -23,13 +23,24 @@ def get_coordinates_from_atom(item, indices=None, frame_indices=None):
         n_atoms=item.shape[0]
         tmp_coordinates = zeros([n_frames, n_atoms, 3])*item.unit
         tmp_coordinates[0,:,:] = item[:,:]
-        tmp_coordinates = tmp_coordinates[0,indices,:]
+        tmp_coordinates = tmp_coordinates[:,indices,:]
 
     return tmp_coordinates
 
 def get_coordinates_from_system(item, indices=None, frame_indices=None):
 
-    return item
+    tmp_coordinates=None
+
+    if len(item.shape)==3:
+        tmp_coordinates = item
+    elif len(item.shape)==2:
+        from numpy import zeros
+        n_frames=1
+        n_atoms=item.shape[0]
+        tmp_coordinates = zeros([n_frames, n_atoms, 3])*item.unit
+        tmp_coordinates[0,:,:] = item[:,:]
+
+    return tmp_coordinates
 
 def get_n_frames_from_system(item, indices=None, frame_indices=None):
 
@@ -50,10 +61,6 @@ def get_n_atoms_from_system(item, indices=None, frame_indices=None):
         n_atoms = item.shape[0]
 
     return n_atoms
-
-def get_has_pbc_from_system(item, indices=None, frame_indices=None):
-
-    return False
 
 def get_box_from_system(item, indices=None, frame_indices=None):
 

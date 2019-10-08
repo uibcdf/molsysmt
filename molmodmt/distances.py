@@ -119,6 +119,7 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
                     atom_indices_2 = select(item_2, selection='all')
                     coordinates_2 = get(item_2, target='atom', indices=atom_indices_2,
                             coordinates=True)
+
         length_units = coordinates_1.unit
         coordinates_1 = _np.asfortranarray(coordinates_1._value, dtype='float64')
         coordinates_2 = _np.asfortranarray(coordinates_2._value, dtype='float64')
@@ -126,7 +127,7 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
         nelements1 = coordinates_1.shape[1]
         nelements2 = coordinates_2.shape[1]
 
-        has_pbc, box, box_shape = get(item_1, has_pbc=True, box=True, box_shape=True, frame_indices=frame_indices_1)
+        box, box_shape = get(item_1, box=True, box_shape=True, frame_indices=frame_indices_1)
 
         orthogonal = 0
         if box_shape == 'cubic':
@@ -210,8 +211,10 @@ def distance_atoms_pairs(item=None, atoms_pairs_list=None, frame=None, pbc=False
 
     pass
 
-def minimum_distance(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
-                     item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
+def minimum_distance(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None,
+                     as_entity_1=True, frame_indices_1="all",
+                     item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None,
+                     as_entity_2=True, frame_indices_2=None,
                      pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
 
     all_dists = distance(item_1=item_1, selection_1=selection_1,
@@ -224,20 +227,32 @@ def minimum_distance(item_1=None, selection_1=None, selection_groups_1=None, gro
                          syntaxis=syntaxis)
 
     shape_matrix=all_dists[0,:,:].shape
-    num_frames=all_dists.shape[0]
-    min_pairs=_np.empty((num_frames,2),dtype=int)
-    min_dists=_np.empty((num_frames),dtype=float)
-    for indice_frame in range(num_frames):
-        ii = _np.argmin(all_dists[indice_frame,:,:])
-        tmp_pair = _np.unravel_index(ii,shape_matrix)
-        min_pairs[indice_frame,0] = tmp_pair[0]
-        min_pairs[indice_frame,1] = tmp_pair[1]
-        min_dists[indice_frame] = all_dists[indice_frame,tmp_pair[0],tmp_pair[1]]
 
-    del(all_dists, shape_matrix, num_frames, indice_frame, ii)
+    if (as_entity_1 is True) and (as_entity_2 is True):
 
-    return min_pairs, min_dists
+        num_frames=all_dists.shape[0]
+        min_pairs=_np.empty((num_frames,2),dtype=int)
+        min_dists=_np.empty((num_frames),dtype=float)
+        for indice_frame in range(num_frames):
+            ii = _np.argmin(all_dists[indice_frame,:,:])
+            tmp_pair = _np.unravel_index(ii,shape_matrix)
+            min_pairs[indice_frame,0] = tmp_pair[0]
+            min_pairs[indice_frame,1] = tmp_pair[1]
+            min_dists[indice_frame] = all_dists[indice_frame,tmp_pair[0],tmp_pair[1]]
 
+        del(all_dists, shape_matrix, num_frames, indice_frame, ii)
+
+        return min_pairs, min_dists
+
+    elif (as_entity_1 is True) and (as_entity_2 is False):
+        pass
+
+    elif (as_entity_1 is False) and (as_entity_2 is True):
+        pass
+
+    else:
+        raise ValueError("If both input arguments 'as_entity_1' and 'as_entity_2' are False, the\
+                method you are looking for is molmodmt.distance()")
 
 def contact_map(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
                 item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
