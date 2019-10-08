@@ -79,13 +79,17 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
                             frame_indices=frame_indices_1, coordinates=True)
         else:
 
-            if group_behavior == 'center_of_mass':
+            if group_behavior_1 == 'center_of_mass':
                 coordinates_1 = _center_of_mass(item_1, selection_groups=selection_groups_1,
                                                 frame_indices=frame_indices_1)
-            elif group_behavior == 'geometrical_center':
+                atom_indices_1 = list(len(coordinates_1.shape[1]))
+            elif group_behavior_1 == 'geometrical_center':
                 coordinates_1 = _geometrical_center(item_1,selection_groups=selection_groups_1,
                                                     frame=frame_indices_1)
-            atom_indices_1 = list(len(coordinates_1.shape[1]))
+                atom_indices_1 = list(len(coordinates_1.shape[1]))
+            else:
+                atom_indices_1 = select(item_1, selection='all')
+                coordinates_1 = get(item_1, target='atom', indices=atom_indices_1, coordinates=True)
 
         if selection_2 is not None:
 
@@ -104,24 +108,34 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
                 coordinates_2 = _np.copy(coordinates_1)
             else:
 
-                if group_behavior == 'center_of_mass':
+                if group_behavior_2 == 'center_of_mass':
                     coordinates_2 = _center_of_mass(item_2, selection_groups=selection_groups_2,
                                                 frame_indices=frame_indices_2)
-                elif group_behavior == 'geometrical_center':
+                    atom_indices_2 = list(len(coordinates_2.shape[1]))
+                elif group_behavior_2 == 'geometrical_center':
                     coordinates_2 = _geometrical_center(item_2,selection_groups=selection_groups_2,
                                                 frame=frame_indices_2)
-                atom_indices_2 = list(len(coordinates_2.shape[1]))
-
-        box, box_shape = get(item_1, box=True, box_shape=True, frame_indices=frame_indices_1)
-        orthogonal = 0
-        if box_shape=='cubic': orthogonal = 1
-
+                else:
+                    atom_indices_2 = select(item_2, selection='all')
+                    coordinates_2 = get(item_2, target='atom', indices=atom_indices_2,
+                            coordinates=True)
         length_units = coordinates_1.unit
         coordinates_1 = _np.asfortranarray(coordinates_1._value, dtype='float64')
         coordinates_2 = _np.asfortranarray(coordinates_2._value, dtype='float64')
         nframes = coordinates_1.shape[0]
         nelements1 = coordinates_1.shape[1]
         nelements2 = coordinates_2.shape[1]
+
+        has_pbc, box, box_shape = get(item_1, has_pbc=True, box=True, box_shape=True, frame_indices=frame_indices_1)
+
+        orthogonal = 0
+        if box_shape == 'cubic':
+            orthogonal =1
+
+        if box is None:
+            box= _np.zeros([nframes,3,3])*length_units
+
+        box = _np.asfortranarray(box._value, dtype='float64')
 
         dists = _libgeometry.distance(int(diff_set),
                                       coordinates_1,
@@ -132,6 +146,8 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
                                       nelements1,
                                       nelements2,
                                       nframes)
+
+        del(coordinates_1, coordinates_2, box)
 
         dists = dists*length_units
 
