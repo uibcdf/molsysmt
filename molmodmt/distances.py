@@ -13,10 +13,14 @@ from .utils.frame_indices import digest as _digest_frame_indices
 
 def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
              item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
-             pbc=False, parallel=False, output_form='ndarray', engine='MolModMT', syntaxis='MDTraj'):
+             crossed_frames=False, pbc=False, parallel=False, output_form='tensor', engine='MolModMT', syntaxis='MDTraj'):
 
     # group_behavior in ['None','center_of_mass','geometric_center','minimum_distance']
-    # output_form in ['ndarray','dict']
+    # output_form in ['tensor','dict']
+
+    # crossed_frames es para cuando queremos calcular lista de frames1 contra lista de frames 2
+    # (todos con todos), si crossed_frames=False entonces es sólo el primer frame de lista 1 contra
+    # el primer frame de lista 2, el segundo contra el segundo, etc.
 
     # selection groups está por si quiero distancias entre centros de masas, necesita
     # hacer un lista de listas frente a otra lista de listas.
@@ -152,7 +156,7 @@ def distance(item_1=None, selection_1=None, selection_groups_1=None, group_behav
 
         dists = dists*length_units
 
-        if output_form=='ndarray':
+        if output_form=='tensor':
              return dists
         elif output_form=='dict':
             tmp_dict={}
