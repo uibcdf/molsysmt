@@ -21,6 +21,7 @@ target_fields = {
             'residue_id' : _raise_not_implemented_error,
             'chain_index' : _raise_not_implemented_error,
             'chain_id' : _raise_not_implemented_error,
+            'chain_name' : _raise_not_implemented_error,
             'n_frames' : _raise_not_implemented_error,
             'n_chains' : _raise_not_implemented_error,
             'n_molecules' : _raise_not_implemented_error,

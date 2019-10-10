@@ -48,6 +48,36 @@ def get_element_from_atom (item, indices=None, frame_indices=None):
     from .api_mdtraj_Topology import get_element_from_atom as _get
     return _get(item, indices=indices)
 
+def get_residue_index_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_residue_index_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_residue_name_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_residue_name_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_residue_id_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_residue_id_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_chain_index_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_chain_index_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_chain_name_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_chain_name_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_chain_id_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_chain_id_from_atom as _get
+    return _get(item, indices=indices)
+
 def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
 
     from .api_mdtraj_Topology import get_n_aminoacids_from_atom as _get
@@ -76,6 +106,11 @@ def get_bonded_atoms_from_atom(item, indices=None, frame_indices=None):
 def get_molecules_from_atom(item, indices=None, frame_indices=None):
 
     from .api_mdtraj_Topology import get_molecules_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_molecule_type_from_atom(item, indices=None, frame_indices=None):
+
+    from .api_mdtraj_Topology import get_molecule_type_from_atom as _get
     return _get(item, indices=indices)
 
 

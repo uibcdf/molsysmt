@@ -149,6 +149,31 @@ def get_residue_name_from_atom (item, indices=None, frame_indices=None):
     from .api_molmodmt_Topology import get_residue_name_from_atom as _get
     return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
+def get_residue_index_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_residue_index_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_residue_id_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_residue_id_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_chain_name_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_chain_name_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_chain_index_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_chain_index_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_chain_id_from_atom (item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_chain_id_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
 def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
 
     from .api_molmodmt_Topology import get_n_aminoacids_from_atom as _get
@@ -199,6 +224,11 @@ def get_molecules_from_atom(item, indices=None, frame_indices=None):
         molecules.append([traduction[ii] for ii in tmp_molecule])
 
     return molecules
+
+def get_molecule_type_from_atom(item, indices=None, frame_indices=None):
+
+    from .api_molmodmt_Topology import get_molecule_type_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 ## residue
 

@@ -167,12 +167,50 @@ def get_element_from_atom (item, indices=None, frame_indices=None):
     del(atom)
     return elements
 
-def get_name_from_atom (item, indices=None, frame_indices=None):
+def get_residue_name_from_atom (item, indices=None, frame_indices=None):
 
     atom=list(item.atoms)
-    names = [atom[ii].name for ii in indices]
+    names = [atom[ii].residue.name for ii in indices]
     del(atom)
     return names
+
+def get_residue_index_from_atom (item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    values = [atom[ii].residue.index for ii in indices]
+    del(atom)
+    return values
+
+def get_residue_id_from_atom (item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    values = [atom[ii].residue.resSeq for ii in indices]
+    del(atom)
+    return values
+
+def get_chain_name_from_atom (item, indices=None, frame_indices=None):
+
+    names = [None for ii in indices]
+    return names
+
+def get_chain_index_from_atom (item, indices=None, frame_indices=None):
+
+    chains = list(item.chains)
+    id_to_index={}
+    for ii in range(len(chains)):
+        id_to_index[chains[ii].index]=ii
+
+    atom=list(item.atoms)
+    values = [id_to_index[atom[ii].residue.chain.index] for ii in indices]
+    del(atom, chains)
+    return values
+
+def get_chain_id_from_atom (item, indices=None, frame_indices=None):
+
+    atom=list(item.atoms)
+    values = [atom[ii].residue.chain.index for ii in indices]
+    del(atom)
+    return values
 
 def get_n_residues_from_atom (item, indices=None, frame_indices=None):
 
@@ -182,20 +220,6 @@ def get_n_residues_from_atom (item, indices=None, frame_indices=None):
     del(atom)
     return len(residue_indices)
 
-def get_residue_name_from_atom(item, indices=None, frame_indices=None):
-
-    atom=list(item.atoms)
-    residue_names = [atom[ii].residue.name for ii in indices]
-    del(atom)
-    return residue_names
-
-def get_residue_index_from_atom(item, indices=None, frame_indices=None):
-
-    atom=list(item.atoms)
-    residue_indices = [atom[ii].residue.index for ii in indices]
-    del(atom)
-    return residue_indices
-
 def get_n_chains_from_atom (item, indices=None, frame_indices=None):
 
     atom=list(item.atoms)
@@ -203,13 +227,6 @@ def get_n_chains_from_atom (item, indices=None, frame_indices=None):
     chain_indices = list(set(chain_indices))
     del(atom)
     return len(chain_indices)
-
-def get_chain_index_from_atom(item, indices=None, frame_indices=None):
-
-    atom=list(item.atoms)
-    chain_indices = [atom[ii].residue.chain.index for ii in indices]
-    del(atom)
-    return chain_indices
 
 def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
 
@@ -320,6 +337,14 @@ def get_molecules_from_atom (item, indices=None, frame_indices=None):
             tmp_molecules.append(molecule)
 
     return tmp_molecules
+
+def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
+
+    from molmodmt.topology import residue_name_to_molecule_type
+    residue_names = get_residue_name_from_atom(item, indices=indices)
+    molecule_types = [residue_name_to_molecule_type(ii) for ii in residue_names]
+    del(residue_names, residue_name_to_molecule_type)
+    return molecule_types
 
 ## from system
 
