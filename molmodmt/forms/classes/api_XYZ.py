@@ -25,6 +25,8 @@ def get_coordinates_from_atom(item, indices=None, frame_indices=None):
         tmp_coordinates[0,:,:] = item[:,:]
         tmp_coordinates = tmp_coordinates[:,indices,:]
 
+    tmp_coordinates = tmp_coordinates[frame_indices,:,:]
+
     return tmp_coordinates
 
 def get_coordinates_from_system(item, indices=None, frame_indices=None):
@@ -39,6 +41,8 @@ def get_coordinates_from_system(item, indices=None, frame_indices=None):
         n_atoms=item.shape[0]
         tmp_coordinates = zeros([n_frames, n_atoms, 3])*item.unit
         tmp_coordinates[0,:,:] = item[:,:]
+
+    tmp_coordinates = tmp_coordinates[frame_indices,:,:]
 
     return tmp_coordinates
 
