@@ -5,7 +5,7 @@ from .multitool import select, extract, merge, info, get_form, get, set, load,\
                        convert, duplicate, write, view, reformat
 from .info_converters import info_forms, info_load, info_convert, info_select, info_viewers
 from .rmsd import rmsd, least_rmsd, least_rmsd_fit
-from .distances import distance, minimum_distance, contact_map, neighbors_lists
+from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists
 from .centers import geometrical_center, center_of_mass, center, recenter
 from .sequence import sequence_alignment, sequence_identity, structure_alignment
 from .radius_of_gyration import radius_of_gyration

@@ -78,6 +78,11 @@ def distance(item_1=None, selection_1="all", selection_groups_1=None, group_beha
                     same_groups = True
                     diff_set = False
 
+        else:
+            if (selection_1 is not None) and (selection_2 is None):
+                if (selection_groups_2 is None):
+                    selection_2 = selection_1
+
         if frame_indices_2 is None:
             frame_indices_2 = frame_indices_1
             same_frames = True
@@ -107,11 +112,7 @@ def distance(item_1=None, selection_1="all", selection_groups_1=None, group_beha
 
         if selection_2 is not None:
 
-            if same_selection:
-                atom_indices_2 = _np.copy(atom_indices_1)
-            else:
-                atom_indices_2 = select(item_2, selection=selection_2, syntaxis=syntaxis)
-
+            atom_indices_2 = select(item_2, selection=selection_2, syntaxis=syntaxis)
             coordinates_2 = get(item_2, target='atom', indices=atom_indices_2,
                                 frame_indices=frame_indices_2, coordinates=True)
         else:
@@ -266,11 +267,11 @@ def distance(item_1=None, selection_1="all", selection_groups_1=None, group_beha
     else:
         raise NotImplementedError(NotImplementedMessage)
 
-def minimum_distance(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None,
+def minimum_distance(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None,
                      as_entity_1=True, frame_indices_1="all",
                      item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None,
                      as_entity_2=True, frame_indices_2=None,
-                     pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
+                     pairs=False, pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
 
     all_dists = distance(item_1=item_1, selection_1=selection_1,
                          selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
@@ -278,36 +279,184 @@ def minimum_distance(item_1=None, selection_1=None, selection_groups_1=None, gro
                          item_2=item_2, selection_2=selection_2,
                          selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
-                         pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
+                         pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
                          syntaxis=syntaxis)
 
-    shape_matrix=all_dists[0,:,:].shape
+    if pairs is False:
 
-    if (as_entity_1 is True) and (as_entity_2 is True):
+        nframes, nelements_1, nelements_2 = all_dists.shape
+        length_units = all_dists.unit
 
-        num_frames=all_dists.shape[0]
-        min_pairs=_np.empty((num_frames,2),dtype=int)
-        min_dists=_np.empty((num_frames),dtype=float)
-        for indice_frame in range(num_frames):
-            ii = _np.argmin(all_dists[indice_frame,:,:])
-            tmp_pair = _np.unravel_index(ii,shape_matrix)
-            min_pairs[indice_frame,0] = tmp_pair[0]
-            min_pairs[indice_frame,1] = tmp_pair[1]
-            min_dists[indice_frame] = all_dists[indice_frame,tmp_pair[0],tmp_pair[1]]
+        if (as_entity_1 is True) and (as_entity_2 is True):
 
-        del(all_dists, shape_matrix, num_frames, indice_frame, ii)
+            pairs=_np.empty((nframes,2),dtype=int)
+            dists=_np.empty((nframes),dtype=float)
+            for indice_frame in range(nframes):
+                ii,jj = _np.unravel_index(all_dists[indice_frame,:,:].argmin(), all_dists[indice_frame,:,:].shape)
+                pairs[indice_frame,0] = ii
+                pairs[indice_frame,1] = jj
+                dists[indice_frame] = all_dists[indice_frame,ii,jj]._value
 
-        return min_pairs, min_dists
+            del(all_dists)
 
-    elif (as_entity_1 is True) and (as_entity_2 is False):
-        pass
+            dists=dists*length_units
 
-    elif (as_entity_1 is False) and (as_entity_2 is True):
-        pass
+            return pairs, dists
+
+        elif (as_entity_1 is False) and (as_entity_2 is True):
+
+            pairs=_np.empty((nframes, nelements_1), dtype=int)
+            dists=_np.empty((nframes, nelements_1), dtype=float)
+            for indice_frame in range(nframes):
+                for ii in range(nelements_1):
+                    jj = all_dists[indice_frame,ii,:].argmin()
+                    pairs[indice_frame,ii]=jj
+                    dists[indice_frame,ii]=all_dists[indice_frame,ii,jj]._value
+
+            del(all_dists)
+
+            dists=dists*length_units
+
+            return pairs, dists
+
+        elif (as_entity_2 is True) and (as_entity_2 is False):
+
+            pairs=_np.empty((nframes, nelements_2), dtype=int)
+            dists=_np.empty((nframes, nelements_2), dtype=float)
+            for indice_frame in range(nframes):
+                for ii in range(nelements_2):
+                    jj = all_dists[indice_frame,:,ii].argmin()
+                    pairs[indice_frame,ii]=jj
+                    dists[indice_frame,ii]=all_dists[indice_frame,jj,ii]._value
+
+            del(all_dists)
+
+            dists=dists*length_units
+
+            return pairs, dists
+
+        else:
+            raise ValueError("If both input arguments 'as_entity_1' and 'as_entity_2' are False, the\
+                    method you are looking for is molmodmt.distance()")
 
     else:
-        raise ValueError("If both input arguments 'as_entity_1' and 'as_entity_2' are False, the\
-                method you are looking for is molmodmt.distance()")
+
+        nframes, nelements = all_dists.shape
+        length_units = all_dists.unit
+
+        if (as_entity_1 is True) and (as_entity_2 is True):
+
+            pairs=_np.empty((nframes),dtype=int)
+            dists=_np.empty((nframes),dtype=float)
+            for indice_frame in range(nframes):
+                ii = all_dists[indice_frame,:].argmin()
+                pairs[indice_frame] = ii
+                dists[indice_frame] = all_dists[indice_frame,ii]._value
+
+            del(all_dists)
+
+            dists=dists*length_units
+
+            return pairs, dists
+
+        else:
+            raise ValueError("If 'pairs=True' both input arguments 'as_entity_1' and 'as_entity_2' need to be True")
+
+def maximum_distance(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None,
+                     as_entity_1=True, frame_indices_1="all",
+                     item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None,
+                     as_entity_2=True, frame_indices_2=None,
+                     pairs=False, pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
+
+    all_dists = distance(item_1=item_1, selection_1=selection_1,
+                         selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
+                         frame_indices_1=frame_indices_1,
+                         item_2=item_2, selection_2=selection_2,
+                         selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
+                         frame_indices_2=frame_indices_2,
+                         pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
+                         syntaxis=syntaxis)
+
+    if pairs is False:
+
+        nframes, nelements_1, nelements_2 = all_dists.shape
+        length_units = all_dists.unit
+
+        if (as_entity_1 is True) and (as_entity_2 is True):
+
+            pairs=_np.empty((nframes,2),dtype=int)
+            dists=_np.empty((nframes),dtype=float)
+            for indice_frame in range(nframes):
+                ii,jj = _np.unravel_index(all_dists[indice_frame,:,:].argmax(), all_dists[indice_frame,:,:].shape)
+                pairs[indice_frame,0] = ii
+                pairs[indice_frame,1] = jj
+                dists[indice_frame] = all_dists[indice_frame,ii,jj]._value
+
+            del(all_dists)
+
+            dists=dists*length_units
+
+            return pairs, dists
+
+        elif (as_entity_1 is False) and (as_entity_2 is True):
+
+            pairs=_np.empty((nframes, nelements_1), dtype=int)
+            dists=_np.empty((nframes, nelements_1), dtype=float)
+            for indice_frame in range(nframes):
+                for ii in range(nelements_1):
+                    jj = all_dists[indice_frame,ii,:].argmax()
+                    pairs[indice_frame,ii]=jj
+                    dists[indice_frame,ii]=all_dists[indice_frame,ii,jj]._value
+
+            del(all_dists)
+
+            dists=dists*length_units
+
+            return pairs, dists
+
+        elif (as_entity_2 is True) and (as_entity_2 is False):
+
+            pairs=_np.empty((nframes, nelements_2), dtype=int)
+            dists=_np.empty((nframes, nelements_2), dtype=float)
+            for indice_frame in range(nframes):
+                for ii in range(nelements_2):
+                    jj = all_dists[indice_frame,:,ii].argmax()
+                    pairs[indice_frame,ii]=jj
+                    dists[indice_frame,ii]=all_dists[indice_frame,jj,ii]._value
+
+            del(all_dists)
+
+            dists=dists*length_units
+
+            return pairs, dists
+
+        else:
+            raise ValueError("If both input arguments 'as_entity_1' and 'as_entity_2' are False, the\
+                    method you are looking for is molmodmt.distance()")
+
+    else:
+
+        nframes, nelements = all_dists.shape
+        length_units = all_dists.unit
+
+        if (as_entity_1 is True) and (as_entity_2 is True):
+
+            pairs=_np.empty((nframes),dtype=int)
+            dists=_np.empty((nframes),dtype=float)
+            for indice_frame in range(nframes):
+                ii = all_dists[indice_frame,:].argmax()
+                pairs[indice_frame] = ii
+                dists[indice_frame] = all_dists[indice_frame,ii]._value
+
+            del(all_dists)
+
+            dists=dists*length_units
+
+            return pairs, dists
+
+        else:
+            raise ValueError("If 'pairs=True' both input arguments 'as_entity_1' and 'as_entity_2' need to be True")
+
 
 def contact_map(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
                 item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
@@ -334,9 +483,13 @@ def contact_map(item_1=None, selection_1=None, selection_groups_1=None, group_be
 
     return contact_map
 
-def neighbors_lists(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
+def neighbors_lists(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
                     item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
+                    as_entity_1=False, as_entity_2=False, threshold=None, num_neighbors=None,
                     pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
+
+    if (threshold is None) and (num_neighbors is None):
+        raise BadCallError(BadCallMessage)
 
     all_dists = distance(item_1=item_1, selection_1=selection_1,
                          selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
@@ -346,9 +499,6 @@ def neighbors_lists(item_1=None, selection_1=None, selection_groups_1=None, grou
                          frame_indices_2=frame_indices_2,
                          pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
                          syntaxis=syntaxis)
-
-    if (threshold is None) and (num_neighbors is None):
-        raise BadCallError(BadCallMessage)
 
     num_frames=all_dists.shape[0]
     num_first_elements=all_dists.shape[1]
