@@ -319,7 +319,7 @@ def minimum_distance(item_1=None, selection_1="all", selection_groups_1=None, gr
 
             return pairs, dists
 
-        elif (as_entity_2 is True) and (as_entity_2 is False):
+        elif (as_entity_1 is True) and (as_entity_2 is False):
 
             pairs=_np.empty((nframes, nelements_2), dtype=int)
             dists=_np.empty((nframes, nelements_2), dtype=float)
@@ -336,8 +336,7 @@ def minimum_distance(item_1=None, selection_1="all", selection_groups_1=None, gr
             return pairs, dists
 
         else:
-            raise ValueError("If both input arguments 'as_entity_1' and 'as_entity_2' are False, the\
-                    method you are looking for is molmodmt.distance()")
+            raise ValueError("If both input arguments 'as_entity_1' and 'as_entity_2' are False, the method you are looking for is molmodmt.distance()")
 
     else:
 
@@ -414,7 +413,7 @@ def maximum_distance(item_1=None, selection_1="all", selection_groups_1=None, gr
 
             return pairs, dists
 
-        elif (as_entity_2 is True) and (as_entity_2 is False):
+        elif (as_entity_1 is True) and (as_entity_2 is False):
 
             pairs=_np.empty((nframes, nelements_2), dtype=int)
             dists=_np.empty((nframes, nelements_2), dtype=float)
