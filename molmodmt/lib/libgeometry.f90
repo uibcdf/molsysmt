@@ -81,6 +81,45 @@ CONTAINS
   DEALLOCATE(tmp_box,tmp_inv)
  
   END SUBROUTINE DISTANCE
+  
+  SUBROUTINE DISTANCE_PAIRS(coors1, coors2, box, ortho, pbc_opt, n1, n2, n_frames, matrix)
+  
+  IMPLICIT NONE
+  INTEGER,INTENT(IN):: ortho, pbc_opt, n1, n2, n_frames
+  DOUBLE PRECISION,DIMENSION(n_frames,n1,3),INTENT(IN)::coors1
+  DOUBLE PRECISION,DIMENSION(n_frames,n2,3),INTENT(IN)::coors2
+  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
+  DOUBLE PRECISION,DIMENSION(n_frames,n1),INTENT(OUT)::matrix
+
+  DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
+  
+  INTEGER::ii,kk
+  DOUBLE PRECISION,DIMENSION(:),ALLOCATABLE::vect,vect_aux,vect_aux2
+  DOUBLE PRECISION,DIMENSION(:,:),ALLOCATABLE::tmp_box,tmp_inv
+
+  ALLOCATE(vect(3),vect_aux(3),vect_aux2(3))
+  ALLOCATE(tmp_box(3,3),tmp_inv(3,3))
+
+  inv=0.0d0
+  IF (pbc_opt==1) THEN
+    CALL BOX2INVBOX (box, inv, n_frames)
+  END IF
+
+  DO kk=1,n_frames
+    tmp_box=box(kk,:,:)
+    tmp_inv=inv(kk,:,:)
+    DO ii=1,n1
+      vect_aux=coors1(kk,ii,:)
+      vect_aux2=coors2(kk,ii,:)
+      matrix(kk,ii)=DIST2POINTS(vect_aux,vect_aux2,tmp_box,tmp_inv,ortho,pbc_opt)
+    END DO
+  END DO
+  
+  DEALLOCATE(vect,vect_aux,vect_aux2)
+  DEALLOCATE(tmp_box,tmp_inv)
+ 
+  END SUBROUTINE DISTANCE_PAIRS
+
 
   !FUNCTION RADIUS_OF_GYRATION (coors,weights,n_frames,n_atoms) RESULT(Rg)
 
