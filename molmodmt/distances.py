@@ -484,7 +484,7 @@ def contact_map(item_1=None, selection_1=None, selection_groups_1=None, group_be
 
 def neighbors_lists(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
                     item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
-                    as_entity_1=False, as_entity_2=False, threshold=None, num_neighbors=None,
+                    threshold=None, num_neighbors=None,
                     pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
 
     if (threshold is None) and (num_neighbors is None):
@@ -496,34 +496,58 @@ def neighbors_lists(item_1=None, selection_1="all", selection_groups_1=None, gro
                          item_2=item_2, selection_2=selection_2,
                          selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
-                         pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
+                         pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
                          syntaxis=syntaxis)
 
-    num_frames=all_dists.shape[0]
-    num_first_elements=all_dists.shape[1]
-    neighbors=[]
 
-    if threshold is not None:
-        for indice_frame in range(num_frames):
-            neighbors_frame=[]
-            for ii in range(num_first_elements):
-                tmp_neighbors = _np.argwhere(all_dists[indice_frame,ii,:]<=threshold)[:,0]
-                tmp_dists = all_dists[indice_frame,ii,tmp_neighbors]
-                sorted_indices = _np.argsort(tmp_dists)
-                neighbors_frame.append([tmp_neighbors[sorted_indices],tmp_dists[sorted_indices]])
-            neighbors.append(neighbors_frame)
-        del(sorted_indices)
-    elif num_neighbors is not None:
-        for indice_frame in range(num_frames):
-            neighbors_frame=[]
-            for ii in range(num_first_elements):
-                tmp_neighbors = _np.argsort(all_dists[indice_frame,ii,:])[:num_neighbors]
-                tmp_dists = all_dists[indice_frame,ii,tmp_neighbors]
-                neighbors_frame.append([_np.array(tmp_neighbors,dtype=int),tmp_dists])
-            neighbors.append(neighbors_frame)
+    nframes, nelements_1, nelements_2 = all_dists.shape
+    length_units = all_dists.unit
 
-    del(all_dists, num_frames, indice_frame)
-    del(tmp_neighbors,tmp_dists)
 
-    return _np.array(neighbors)
+    if num_neighbors is not None and threshold is None:
+
+        neighs=_np.empty((nframes, nelements_1, num_neighbors), dtype=int)
+        dists=_np.empty((nframes, nelements_1, num_neighbors), dtype=float)
+
+        for indice_frame in range(nframes):
+            for ii in range(nelements_1):
+                neighs_aux = _np.argpartition(all_dists[indice_frame,ii,:], num_neighbors-1)[:num_neighbors]
+                dists_aux = all_dists[indice_frame,ii,neighs_aux]
+                #good_order = _np.argsort(dists_aux)
+                #neighs_aux = neighs_aux[good_order]
+                #dists_aux = dists_aux[good_order]
+                neighs[indice_frame,ii,:]=neighs_aux
+                dists[indice_frame,ii,:]=dists_aux
+
+        del(all_dists)
+
+        dists=dists*length_units
+
+        return neighs, dists
+
+    elif threshold is not None and num_neighbors is None:
+
+        neighs=_np.empty((nframes, nelements_1), dtype=object)
+        dists=_np.empty((nframes, nelements_1), dtype=object)
+
+        for indice_frame in range(nframes):
+            for ii in range(nelements_1):
+                neighs_aux = _np.argwhere(all_dists[indice_frame,ii,:]<=threshold)[:,0]
+                dists_aux = all_dists[indice_frame,ii,neighs_aux]
+                good_order = _np.argsort(dists_aux)
+                neighs_aux = neighs_aux[good_order]
+                dists_aux = dists_aux[good_order]
+                neighs[indice_frame,ii]=_np.array(neighs_aux,dtype=int)
+                dists[indice_frame,ii]=_np.array(dists_aux,dtype=float)
+
+        del(all_dists)
+
+        dists=dists*length_units
+
+        return neighs, dists
+
+
+    else:
+        raise ValueError("Use either threshold or num_neighbors, but not both at the same time")
+
 
