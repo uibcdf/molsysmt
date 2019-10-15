@@ -457,9 +457,9 @@ def maximum_distance(item_1=None, selection_1="all", selection_groups_1=None, gr
             raise ValueError("If 'pairs=True' both input arguments 'as_entity_1' and 'as_entity_2' need to be True")
 
 
-def contact_map(item_1=None, selection_1=None, selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
+def contact_map(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
                 item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
-                pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
+                threshold=None, pbc=False, parallel=False, engine='MolModMT', syntaxis='MDTraj'):
 
     all_dists = distance(item_1=item_1, selection_1=selection_1,
                          selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
@@ -467,7 +467,7 @@ def contact_map(item_1=None, selection_1=None, selection_groups_1=None, group_be
                          item_2=item_2, selection_2=selection_2,
                          selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
-                         pbc=pbc, parallel=parallel, output_form='ndarray', engine=engine,
+                         pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
                          syntaxis=syntaxis)
 
     if threshold is None:

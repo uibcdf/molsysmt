@@ -7,7 +7,8 @@ _engines={
     'mdtraj' : 'MDTraj',
     'leap' : 'LEaP',
     'modeller' : 'Modeller',
-    'molmodmt' : 'MolModMT'
+    'molmodmt' : 'MolModMT',
+    'openpocket' : 'OpenPocket'
 }
 
 def digest(engine):

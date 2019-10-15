@@ -20,6 +20,7 @@ from .topology import is_water, is_ion, is_aminoacid, is_nucleotide, residue_nam
 from .chem_and_phys_properties import get_charge, get_net_charge, get_mass, get_net_mass,\
                                get_degrees_of_freedom
 from .pbc import wrap_system_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention
+from .pockets import alpha_spheres
 
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:
