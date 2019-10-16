@@ -208,97 +208,173 @@
            <div itemprop="articleBody">
             
   <h1>Source code for molmodmt.rmsd</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">_np</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span> <span class="k">as</span> <span class="n">_deepcopy</span>
+<span></span><span class="kn">from</span> <span class="nn">.utils.engines</span> <span class="k">import</span> <span class="n">digest</span> <span class="k">as</span> <span class="n">_digest_engines</span>
+<span class="kn">from</span> <span class="nn">.utils.frame_indices</span> <span class="k">import</span> <span class="n">digest</span> <span class="k">as</span> <span class="n">_digest_frame_indices</span>
+<span class="kn">from</span> <span class="nn">.utils.forms</span> <span class="k">import</span> <span class="n">digest</span> <span class="k">as</span> <span class="n">_digest_forms</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">_np</span>
+<span class="c1">#from copy import deepcopy as _deepcopy</span>
 <span class="kn">from</span> <span class="nn">.lib</span> <span class="k">import</span> <span class="n">rmsd</span> <span class="k">as</span> <span class="n">_librmsd</span>
-<span class="kn">from</span> <span class="nn">.multitool</span> <span class="k">import</span> <span class="n">get_form</span> <span class="k">as</span> <span class="n">_get_form</span><span class="p">,</span> <span class="n">select</span> <span class="k">as</span> <span class="n">_select</span><span class="p">,</span> <span class="n">convert</span> <span class="k">as</span> <span class="n">_convert</span>
-<span class="kn">from</span> <span class="nn">.utils.digest_inputs</span> <span class="k">import</span> <span class="n">_comparison_two_systems</span> <span class="k">as</span> <span class="n">_digest_comparison_two_systems</span>
+<span class="c1">#from .multitool import get_form as _get_form, select as _select, convert as _convert</span>
+<span class="c1">#from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems</span>
 
-<div class="viewcode-block" id="rmsd"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.rmsd.html#molmodmt.rmsd">[docs]</a><span class="k">def</span> <span class="nf">rmsd</span><span class="p">(</span><span class="n">ref_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_frame</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;backbone&#39;</span><span class="p">,</span>
-         <span class="n">parallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">precentered</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="rmsd"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.rmsd.html#molmodmt.rmsd">[docs]</a><span class="k">def</span> <span class="nf">rmsd</span> <span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;backbone&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+          <span class="n">reference_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_frame_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+          <span class="n">reference_coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;MolModMT&#39;</span><span class="p">):</span>
 
-    <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">in_form</span><span class="o">=</span><span class="n">_get_form</span><span class="p">(</span><span class="n">ref_item</span><span class="p">)</span>
-        <span class="n">output_item</span><span class="o">=</span><span class="n">ref_item</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">in_form</span><span class="o">=</span><span class="n">_get_form</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-        <span class="n">output_item</span><span class="o">=</span><span class="n">item</span>
+    <span class="kn">from</span> <span class="nn">molmodmt</span> <span class="k">import</span> <span class="n">select</span><span class="p">,</span> <span class="n">get</span>
 
-    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">:</span>
-        <span class="n">x_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.Trajectory&#39;</span>
-    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">:</span>
-        <span class="n">x_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span>
+    <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_frames</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+    <span class="n">n_atom_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">atom_indices</span><span class="p">)</span>
+    <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
+    <span class="n">n_frame_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame_indices</span><span class="p">)</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">_digest_engines</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MolModMT&#39;</span><span class="p">:</span>
 
-    <span class="n">tmp_ref_item</span><span class="p">,</span> <span class="n">ref_atom_indices</span><span class="p">,</span> <span class="n">ref_frame_indices</span><span class="p">,</span> \
-    <span class="n">tmp_item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">,</span>\
-    <span class="n">single_item</span><span class="p">,</span> <span class="n">diff_selection</span> <span class="o">=</span> <span class="n">_digest_comparison_two_systems</span><span class="p">(</span><span class="n">ref_item</span><span class="p">,</span> <span class="n">ref_selection</span><span class="p">,</span> <span class="n">ref_frame</span><span class="p">,</span>
-                                                                 <span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
-                                                                 <span class="n">form</span><span class="o">=</span><span class="n">x_form</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reference_coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 
-    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">:</span>
-        <span class="n">tmp_coordinates</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">tmp_item</span><span class="o">.</span><span class="n">coordinates</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
-        <span class="n">tmp_ref_coordinates</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">tmp_ref_item</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">ref_frame</span><span class="p">,:,:],</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
-        <span class="n">rmsd_val</span><span class="o">=</span><span class="n">_librmsd</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">tmp_ref_coordinates</span><span class="p">,</span> <span class="n">ref_atom_indices</span><span class="p">,</span>
-                               <span class="n">tmp_coordinates</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">,</span>
-                               <span class="n">tmp_ref_item</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">ref_atom_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                               <span class="n">tmp_item</span><span class="o">.</span><span class="n">n_frames</span><span class="p">,</span> <span class="n">tmp_item</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">reference_item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">reference_item</span> <span class="o">=</span> <span class="n">item</span>
+
+            <span class="k">if</span> <span class="n">reference_selection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">reference_selection</span> <span class="o">=</span> <span class="n">selection</span>
+
+            <span class="n">reference_atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">reference_selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+            <span class="n">reference_coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">reference_atom_indices</span><span class="p">,</span>
+                                  <span class="n">frame_indices</span><span class="o">=</span><span class="n">reference_frame_index</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+        <span class="n">length_units</span> <span class="o">=</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">unit</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+        <span class="n">reference_coordinates</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">reference_coordinates</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">reference_coordinates</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="n">n_atom_indices</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;reference selection and selection needs to have the same number of atoms&quot;</span><span class="p">)</span>
+
+        <span class="n">rmsd_val</span> <span class="o">=</span> <span class="n">_librmsd</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">,</span> <span class="n">reference_coordinates</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">,</span>
+                                 <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_frames</span><span class="p">,</span> <span class="n">n_atom_indices</span><span class="p">,</span> <span class="n">n_frame_indices</span><span class="p">)</span>
+
+        <span class="n">rmsd_val</span> <span class="o">=</span> <span class="n">rmsd_val</span> <span class="o">*</span> <span class="n">length_units</span>
+        <span class="k">del</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">length_units</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">rmsd_val</span>
 
 
-    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">mdtraj</span> <span class="k">import</span> <span class="n">rmsd</span> <span class="k">as</span> <span class="n">_mdtraj_rmsd</span>
-        <span class="n">rmsd_val</span> <span class="o">=</span> <span class="n">_mdtraj_rmsd</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">tmp_ref_item</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">ref_frame_indices</span><span class="p">,</span>
+        <span class="n">rmsd_val</span> <span class="o">=</span> <span class="n">_mdtraj_rmsd</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ref_item</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">ref_frame_indices</span><span class="p">,</span>
                                 <span class="n">ref_atom_indices</span><span class="o">=</span><span class="n">ref_atom_indices</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span>
                                 <span class="n">parallel</span><span class="o">=</span><span class="n">parallel</span><span class="p">,</span> <span class="n">precentered</span><span class="o">=</span><span class="n">precentered</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">rmsd_val</span>
 
     <span class="k">else</span><span class="p">:</span>
+
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-<div class="viewcode-block" id="least_rmsd_fit"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.least_rmsd_fit.html#molmodmt.least_rmsd_fit">[docs]</a><span class="k">def</span> <span class="nf">least_rmsd_fit</span><span class="p">(</span><span class="n">ref_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                   <span class="n">ref_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;backbone&#39;</span><span class="p">,</span>
-                   <span class="n">ref_frame_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
-                   <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">,</span>
-                   <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">least_rmsd</span> <span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;backbone&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+          <span class="n">reference_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_frame_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+          <span class="n">reference_coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;MolModMT&#39;</span><span class="p">):</span>
 
-    <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">in_form</span><span class="o">=</span><span class="n">_get_form</span><span class="p">(</span><span class="n">ref_item</span><span class="p">)</span>
-        <span class="n">item</span><span class="o">=</span><span class="n">ref_item</span>
+    <span class="kn">from</span> <span class="nn">molmodmt</span> <span class="k">import</span> <span class="n">select</span><span class="p">,</span> <span class="n">get</span>
+
+    <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_frames</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+    <span class="n">n_atom_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">atom_indices</span><span class="p">)</span>
+    <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
+    <span class="n">n_frame_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame_indices</span><span class="p">)</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">_digest_engines</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MolModMT&#39;</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">reference_coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">reference_item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">reference_item</span> <span class="o">=</span> <span class="n">item</span>
+
+            <span class="k">if</span> <span class="n">reference_selection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">reference_selection</span> <span class="o">=</span> <span class="n">selection</span>
+
+            <span class="n">reference_atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">reference_selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+            <span class="n">reference_coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">reference_atom_indices</span><span class="p">,</span>
+                                  <span class="n">frame_indices</span><span class="o">=</span><span class="n">reference_frame_index</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+        <span class="n">length_units</span> <span class="o">=</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">unit</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+        <span class="n">reference_coordinates</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">reference_coordinates</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">reference_coordinates</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="n">n_atom_indices</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;reference selection and selection needs to have the same number of atoms&quot;</span><span class="p">)</span>
+
+        <span class="n">rmsd_val</span> <span class="o">=</span> <span class="n">_librmsd</span><span class="o">.</span><span class="n">least_rmsd</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">,</span> <span class="n">reference_coordinates</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">,</span>
+                                 <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_frames</span><span class="p">,</span> <span class="n">n_atom_indices</span><span class="p">,</span> <span class="n">n_frame_indices</span><span class="p">)</span>
+
+        <span class="n">rmsd_val</span> <span class="o">=</span> <span class="n">rmsd_val</span> <span class="o">*</span> <span class="n">length_units</span>
+        <span class="k">del</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">length_units</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rmsd_val</span>
+
+    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">:</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">in_form</span><span class="o">=</span><span class="n">_get_form</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">:</span>
-        <span class="n">x_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span>
-    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">:</span>
-        <span class="n">x_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span>
+<div class="viewcode-block" id="least_rmsd_fit"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.least_rmsd_fit.html#molmodmt.least_rmsd_fit">[docs]</a><span class="k">def</span> <span class="nf">least_rmsd_fit</span> <span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;backbone&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+                    <span class="n">reference_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_frame_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">reference_coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;MolModMT&#39;</span><span class="p">):</span>
 
-    <span class="n">tmp_ref_item</span><span class="p">,</span> <span class="n">ref_atom_indices</span><span class="p">,</span> <span class="n">ref_frame_indices</span><span class="p">,</span> \
-    <span class="n">tmp_item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">,</span>\
-    <span class="n">single_item</span><span class="p">,</span> <span class="n">diff_selection</span> <span class="o">=</span> <span class="n">_digest_comparison_two_systems</span><span class="p">(</span><span class="n">ref_item</span><span class="p">,</span> <span class="n">ref_selection</span><span class="p">,</span>
-                                                                 <span class="n">ref_frame_index</span><span class="p">,</span>
-                                                                 <span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">,</span>
-                                                                 <span class="n">form</span><span class="o">=</span><span class="n">x_form</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;molmodmt&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">molmodmt</span> <span class="k">import</span> <span class="n">convert</span><span class="p">,</span> <span class="n">select</span><span class="p">,</span> <span class="n">get</span><span class="p">,</span> <span class="n">duplicate</span>
+    <span class="kn">from</span> <span class="nn">molmodmt</span> <span class="k">import</span> <span class="nb">set</span> <span class="k">as</span> <span class="n">_set</span>
 
-        <span class="n">tmp_coordinates</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">tmp_item</span><span class="o">.</span><span class="n">coordinates</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
-        <span class="n">tmp_ref_coordinates</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">tmp_ref_item</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">ref_frame</span><span class="p">,:,:],</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
-        <span class="n">_librmsd</span><span class="o">.</span><span class="n">least_rmsd_fit</span><span class="p">(</span><span class="n">tmp_ref_coordinates</span><span class="p">,</span> <span class="n">ref_atom_indices</span><span class="p">,</span>
-                                <span class="n">tmp_coordinates</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">,</span>
-                                <span class="n">tmp_ref_item</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">ref_atom_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                <span class="n">tmp_item</span><span class="o">.</span><span class="n">n_frames</span><span class="p">,</span> <span class="n">tmp_item</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_frames</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+    <span class="n">n_atom_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">atom_indices</span><span class="p">)</span>
+    <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
+    <span class="n">n_frame_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame_indices</span><span class="p">)</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">_digest_engines</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">in_form</span><span class="o">==</span><span class="n">x_form</span><span class="p">:</span>
-            <span class="n">tmp_item</span><span class="o">.</span><span class="n">coordinates</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">tmp_coordinates</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">in_form</span><span class="o">==</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">:</span>
-            <span class="n">tmp_item</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">coordinates</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">tmp_coordinates</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">tmp_item</span><span class="o">.</span><span class="n">coordinates</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">tmp_coordinates</span><span class="p">)</span>
-            <span class="n">tmp_item</span><span class="o">=</span><span class="n">_convert</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span><span class="n">in_form</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MolModMT&#39;</span><span class="p">:</span>
 
-        <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">reference_coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 
-    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">reference_item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">reference_item</span> <span class="o">=</span> <span class="n">item</span>
+
+            <span class="k">if</span> <span class="n">reference_selection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">reference_selection</span> <span class="o">=</span> <span class="n">selection</span>
+
+            <span class="n">reference_atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">reference_selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+            <span class="n">reference_coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">reference_atom_indices</span><span class="p">,</span>
+                                  <span class="n">frame_indices</span><span class="o">=</span><span class="n">reference_frame_index</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+        <span class="n">length_units</span> <span class="o">=</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">unit</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+        <span class="n">reference_coordinates</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">reference_coordinates</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">reference_coordinates</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="n">n_atom_indices</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;reference selection and selection needs to have the same number of atoms&quot;</span><span class="p">)</span>
+
+        <span class="n">_librmsd</span><span class="o">.</span><span class="n">least_rmsd_fit</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">atom_indices</span><span class="p">,</span> <span class="n">reference_coordinates</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">,</span>
+                                <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_frames</span><span class="p">,</span> <span class="n">n_atom_indices</span><span class="p">,</span> <span class="n">n_frame_indices</span><span class="p">)</span>
+
+        <span class="n">coordinates</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span><span class="o">*</span><span class="n">length_units</span>
+
+        <span class="n">_set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span><span class="p">)</span>
+
+        <span class="k">del</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">length_units</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tmp_item</span>
+
+    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">:</span>
 
         <span class="n">tmp_item</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">tmp_ref_item</span><span class="p">,</span><span class="n">frame</span><span class="o">=</span><span class="n">ref_frame_indices</span><span class="p">,</span><span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span><span class="n">ref_atom_indices</span><span class="o">=</span><span class="n">ref_atom_indices</span><span class="p">,</span><span class="n">parallel</span><span class="o">=</span><span class="n">parallel</span><span class="p">)</span>
 
@@ -314,6 +390,7 @@
     <span class="k">else</span><span class="p">:</span>
 
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
 </pre></div>
 
            </div>

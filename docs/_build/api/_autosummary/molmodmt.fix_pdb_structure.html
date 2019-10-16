@@ -242,7 +242,39 @@
 <dl class="function">
 <dt id="molmodmt.fix_pdb_structure">
 <code class="sig-prename descclassname">molmodmt.</code><code class="sig-name descname">fix_pdb_structure</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">missing_atoms=True</em>, <em class="sig-param">missing_residues=True</em>, <em class="sig-param">nonstandard_residues=True</em>, <em class="sig-param">missing_terminals=True</em>, <em class="sig-param">missing_loops=False</em>, <em class="sig-param">missing_hydrogens=True</em>, <em class="sig-param">pH=7.4</em>, <em class="sig-param">to_form=None</em>, <em class="sig-param">engine_fix_pdb='PDBFixer'</em>, <em class="sig-param">engine_hydrogens='PDBFixer'</em>, <em class="sig-param">engine_loops='Modeller'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molmodmt/fix.html#fix_pdb_structure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molmodmt.fix_pdb_structure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="simple">
+<dt>fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,</dt><dd><p>missing_terminals=True, missing_loops=False, missing_hydrogens=True,
+pH=7.4, to_form=None, engine_fix_pdb=’PDBFixer’, engine_hydrogens=’PDBFixer’,
+engine_loops=’Modeller’, verbose=False):</p>
+</dd>
+</dl>
+<p>Fixing missing atoms, residues, terminals or loops in the molecular model coming from a pdb file.</p>
+<p>This method fixes the possible missing atoms, residues, loops or terminals in a molecular
+model. The result is a new molecular model, in the desired supported form, with those elements
+fixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>item: molecular model</strong></dt><dd><p>Molecular model in any supported form by MolModMT.</p>
+</dd>
+<dt><strong>arg2: type, default=’value’</strong></dt><dd><p>Paragraph with explanation.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>object: type</dt><dd><p>Paragraph with explanation.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="molmodmt.load.html#molmodmt.load" title="molmodmt.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">molmodmt.load()</span></code></a></dt><dd></dd>
+</dl>
+</div>
+</dd></dl>
 
 </div>
 

@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="es" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="es" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>molmodmt.load &mdash; documentación de MolModMT - 0.1</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="molmodmt.get_form" href="molmodmt.get_form.html" />
+    <link rel="prev" title="API Documentation" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MolModMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">First tasks easily done with MolModMT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#basic-manipulations">Basic manipulations</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">molmodmt.load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.get_form.html">molmodmt.get_form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.get.html">molmodmt.get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.set.html">molmodmt.set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.info.html">molmodmt.info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.select.html">molmodmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.convert.html">molmodmt.convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.extract.html">molmodmt.extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.merge.html">molmodmt.merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.write.html">molmodmt.write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.view.html">molmodmt.view</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#transformations">Transformations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.set.html">molmodmt.set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.remove.html">molmodmt.remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.remove_solvent.html">molmodmt.remove_solvent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.add_missing_hydrogens.html">molmodmt.add_missing_hydrogens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.recenter.html">molmodmt.recenter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.fix_chains.html">molmodmt.fix_chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.fix_pdb_structure.html">molmodmt.fix_pdb_structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.add_loop.html">molmodmt.add_loop</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#observables">Observables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.get.html">molmodmt.get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.distances.html">molmodmt.distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.contact_map.html">molmodmt.contact_map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.neighbors_lists.html">molmodmt.neighbors_lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.center_of_mass.html">molmodmt.center_of_mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.geometrical_center.html">molmodmt.geometrical_center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.radius_of_gyration.html">molmodmt.radius_of_gyration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#comparisons">Comparisons</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.rmsd.html">molmodmt.rmsd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.least_rmsd_fit.html">molmodmt.least_rmsd_fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.sequence_identity.html">molmodmt.sequence_identity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.sequence_alignment.html">molmodmt.sequence_alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.structure_alignment.html">molmodmt.structure_alignment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#modeling">Modeling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="molmodmt.add_loop.html">molmodmt.add_loop</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MolModMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">API Documentation</a> &raquo;</li>
+        
+      <li>molmodmt.load</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api/_autosummary/molmodmt.load.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="molmodmt-load">
+<h1>molmodmt.load<a class="headerlink" href="#molmodmt-load" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="function">
+<dt id="molmodmt.load">
+<code class="sig-prename descclassname">molmodmt.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">to_form='molmodmt.MolMod'</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">frame_indices='all'</em>, <em class="sig-param">syntaxis='MDTraj'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molmodmt/multitool.html#load"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#molmodmt.load" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Loading a molecular model.</p>
+<p>A molecular model coming from a file can be loaded as a new target with any form supported by
+MolModMt. This method is just an alias of <cite>convert</cite>. It was included here only to make the
+usability more intuitive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>item: molecular model</strong></dt><dd><p>Molecular model in any of the supported forms by MolModMT.</p>
+</dd>
+<dt><strong>to_form: str, default=”molmodmt.MolMod”</strong></dt><dd><p>Any accepted form by MolModMt for the output target.</p>
+</dd>
+<dt><strong>selection: str, list, tuple or np.ndarray, defaul=”all”</strong></dt><dd><p>Atoms selection over which this method applies. The selection can be given specified by a
+list, tuple or numpy array of integers (0-based), or by means of a string following any of
+the selection syntaxis parsable by MolModMT.</p>
+</dd>
+<dt><strong>syntaxis: str, default=”mdtraj”</strong></dt><dd><p>Selection syntaxis used in the argument <cite>selection</cite> (in case <cite>selection</cite> is a string). The
+current options supported by MolModMt are “mdtraj” or “amber”. More information about this
+topic can be found in the section “Selection”.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>item: molecular model</dt><dd><p>A new target is returned with the form specified by the corresponding input argument.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="molmodmt.get_form.html" class="btn btn-neutral float-right" title="molmodmt.get_form" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="API Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital
+# Federico Gomez and authors
+# This file is distributed under the same license as the MolModMT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MolModMT \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 15:55-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../Installation.ipynb:13
+msgid "Installation"
+msgstr ""
+
+#: ../Installation.ipynb:15
+msgid ""
+"The latest “stable” version of MolModMT can be installed from the UIBCDF "
+"Anaconda channel:"
+msgstr ""
+
+#: ../Installation.ipynb:21
+msgid ""
+"If you want to work with the not so tested last beta version, the "
+"installation command is the following:"
+msgstr ""
+
+#: ../Installation.ipynb:27
+msgid ""
+"The former beta version is nothing but a quenched version from the main "
+"github repository of this project which it is done from time to time with"
+" few scruples. The raw code fully alive can be installed from this github"
+" repo as follows:"
+msgstr ""
+
+#: ../Installation.ipynb:35
+msgid "In the first two cases, MolModMT can be uninstalled with conda:"
+msgstr ""
+
+#: ../Installation.ipynb:41
+msgid ""
+"But if you installed MolModMT straight from its github central "
+"repository, do the following to uninstall it:"
+msgstr ""
+

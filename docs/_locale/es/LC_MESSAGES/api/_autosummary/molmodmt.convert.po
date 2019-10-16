@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital
+# Federico Gomez and authors
+# This file is distributed under the same license as the MolModMT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MolModMT \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 15:55-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../api/_autosummary/molmodmt.convert.rst:2
+msgid "molmodmt.convert"
+msgstr ""
+
+#: molmodmt.convert:2 of
+msgid ""
+"Transforming a molecular model from its current form into other supported"
+" form."
+msgstr ""
+
+#: molmodmt.convert:4 of
+msgid ""
+"A molecular model in a given accepted form can be converted into a new "
+"target with any form other form supported by MolModMt. The list of "
+"supported forms can be found in the section 'Molecular Model Forms'."
+msgstr ""
+
+#: molmodmt.convert of
+msgid "Parameters"
+msgstr ""
+
+#: molmodmt.convert:11 of
+msgid "**item: molecular model**"
+msgstr ""
+
+#: molmodmt.convert:11 of
+msgid "Molecular model in any of the supported forms by MolModMT."
+msgstr ""
+
+#: molmodmt.convert:14 of
+msgid "**to_form: str, default='molmodmt.MolMod'**"
+msgstr ""
+
+#: molmodmt.convert:14 of
+msgid ""
+"The output object will take the form specified here. This form  supported"
+" form by MolModMt for the output target."
+msgstr ""
+
+#: molmodmt.convert:19 of
+msgid "**selection: str, list, tuple or np.ndarray, defaul='all'**"
+msgstr ""
+
+#: molmodmt.convert:17 of
+msgid ""
+"Atoms selection over which this method applies. The selection can be "
+"given specified by a list, tuple or numpy array of integers (0-based), or"
+" by means of a string following any of the selection syntaxis parsable by"
+" MolModMT."
+msgstr ""
+
+#: molmodmt.convert:24 of
+msgid "**syntaxis: str, default='mdtraj'**"
+msgstr ""
+
+#: molmodmt.convert:22 of
+msgid ""
+"Selection syntaxis used in the argument `selection` (in case `selection` "
+"is a string). The current options supported by MolModMt are 'mdtraj' or "
+"'amber'. More information about this topic can be found in the section "
+"'Selection'."
+msgstr ""
+
+#: molmodmt.convert of
+msgid "Returns"
+msgstr ""
+
+#: molmodmt.convert:35 of
+msgid "item: molecular model in accepted form."
+msgstr ""
+
+#: molmodmt.convert:29 of
+msgid ""
+"A new object is returned with the form specified by the corresponding "
+"input argument."
+msgstr ""
+
+#: molmodmt.convert:40 of
+msgid ":func:`molmodmt.load`"
+msgstr ""
+

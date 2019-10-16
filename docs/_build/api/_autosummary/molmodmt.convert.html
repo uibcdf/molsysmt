@@ -241,9 +241,9 @@
 <h1>molmodmt.convert<a class="headerlink" href="#molmodmt-convert" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="molmodmt.convert">
-<code class="sig-prename descclassname">molmodmt.</code><code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">to_form='molmodmt.MolMod'</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">syntaxis='mdtraj'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molmodmt/multitool.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molmodmt.convert" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">molmodmt.</code><code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">to_form='molmodmt.MolMod'</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">frame_indices='all'</em>, <em class="sig-param">syntaxis='MDTraj'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molmodmt/multitool.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molmodmt.convert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforming a molecular model from its current form into other supported form.</p>
-<p>A molecular model in a given accepted form can be converted into a new object with any form
+<p>A molecular model in a given accepted form can be converted into a new target with any form
 other form supported by MolModMt. The list of supported forms can be found in the section
 ‘Molecular Model Forms’.</p>
 <dl class="field-list simple">
@@ -251,7 +251,7 @@ other form supported by MolModMt. The list of supported forms can be found in th
 <dd class="field-odd"><dl class="simple">
 <dt><strong>item: molecular model</strong></dt><dd><p>Molecular model in any of the supported forms by MolModMT.</p>
 </dd>
-<dt><strong>to_form: str, default=’molmodmt.MolMod’</strong></dt><dd><p>The output object will take the form specified here. This form  supported form by MolModMt for the output object.</p>
+<dt><strong>to_form: str, default=’molmodmt.MolMod’</strong></dt><dd><p>The output object will take the form specified here. This form  supported form by MolModMt for the output target.</p>
 </dd>
 <dt><strong>selection: str, list, tuple or np.ndarray, defaul=’all’</strong></dt><dd><p>Atoms selection over which this method applies. The selection can be given specified by a
 list, tuple or numpy array of integers (0-based), or by means of a string following any of

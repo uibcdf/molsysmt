@@ -259,6 +259,53 @@
                       <span class="n">pH</span><span class="o">=</span><span class="mf">7.4</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">engine_fix_pdb</span><span class="o">=</span><span class="s1">&#39;PDBFixer&#39;</span><span class="p">,</span> <span class="n">engine_hydrogens</span><span class="o">=</span><span class="s1">&#39;PDBFixer&#39;</span><span class="p">,</span>
                       <span class="n">engine_loops</span><span class="o">=</span><span class="s1">&#39;Modeller&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
+    <span class="sd">&quot;&quot;&quot;fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,</span>
+<span class="sd">                      missing_terminals=True, missing_loops=False, missing_hydrogens=True,</span>
+<span class="sd">                      pH=7.4, to_form=None, engine_fix_pdb=&#39;PDBFixer&#39;, engine_hydrogens=&#39;PDBFixer&#39;,</span>
+<span class="sd">                      engine_loops=&#39;Modeller&#39;, verbose=False):</span>
+
+<span class="sd">    Fixing missing atoms, residues, terminals or loops in the molecular model coming from a pdb file.</span>
+
+<span class="sd">    This method fixes the possible missing atoms, residues, loops or terminals in a molecular</span>
+<span class="sd">    model. The result is a new molecular model, in the desired supported form, with those elements</span>
+<span class="sd">    fixed.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    item: molecular model</span>
+<span class="sd">        Molecular model in any supported form by MolModMT. </span>
+
+<span class="sd">    arg2: type, default=&#39;value&#39;</span>
+<span class="sd">        Paragraph with explanation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    object: type</span>
+<span class="sd">       Paragraph with explanation.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    :func:`molmodmt.load`</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+
+<span class="sd">    Todo</span>
+<span class="sd">    ----</span>
+
+<span class="sd">    Warning</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    The method has being tested with the following input forms: pdbid, pdbfile, pdbfixer.PDBFixer</span>
+<span class="sd">    and openmm.Modeller.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="kn">from</span> <span class="nn">.utils.forms</span> <span class="k">import</span> <span class="n">digest</span> <span class="k">as</span> <span class="n">digest_forms</span>
     <span class="kn">from</span> <span class="nn">.utils.engines</span> <span class="k">import</span> <span class="n">digest</span> <span class="k">as</span> <span class="n">digest_engines</span>
     <span class="kn">from</span> <span class="nn">.multitool</span> <span class="k">import</span> <span class="n">convert</span>

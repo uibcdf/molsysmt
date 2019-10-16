@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital
+# Federico Gomez and authors
+# This file is distributed under the same license as the MolModMT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MolModMT \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 15:55-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../api/_autosummary/molmodmt.fix_pdb_structure.rst:2
+msgid "molmodmt.fix\\_pdb\\_structure"
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:5 of
+msgid ""
+"fix_pdb_structure(item, missing_atoms=True, missing_residues=True, "
+"nonstandard_residues=True,"
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:3 of
+msgid ""
+"missing_terminals=True, missing_loops=False, missing_hydrogens=True, "
+"pH=7.4, to_form=None, engine_fix_pdb='PDBFixer', "
+"engine_hydrogens='PDBFixer', engine_loops='Modeller', verbose=False):"
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:7 of
+msgid ""
+"Fixing missing atoms, residues, terminals or loops in the molecular model"
+" coming from a pdb file."
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:9 of
+msgid ""
+"This method fixes the possible missing atoms, residues, loops or "
+"terminals in a molecular model. The result is a new molecular model, in "
+"the desired supported form, with those elements fixed."
+msgstr ""
+
+#: molmodmt.fix_pdb_structure of
+msgid "Parameters"
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:16 of
+msgid "**item: molecular model**"
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:16 of
+msgid "Molecular model in any supported form by MolModMT."
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:19 of
+msgid "**arg2: type, default='value'**"
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:19 molmodmt.fix_pdb_structure:24 of
+msgid "Paragraph with explanation."
+msgstr ""
+
+#: molmodmt.fix_pdb_structure of
+msgid "Returns"
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:30 of
+msgid "object: type"
+msgstr ""
+
+#: molmodmt.fix_pdb_structure:35 of
+msgid ":func:`molmodmt.load`"
+msgstr ""
+

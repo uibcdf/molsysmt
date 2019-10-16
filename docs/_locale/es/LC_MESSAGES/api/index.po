@@ -1,0 +1,266 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital
+# Federico Gomez and authors
+# This file is distributed under the same license as the MolModMT package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: MolModMT \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 15:55-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: ../api/index.rst:6
+msgid "API Documentation"
+msgstr ""
+
+#: ../api/index.rst:9
+msgid "Basic manipulations"
+msgstr ""
+
+#: ../api/index.rst:11
+msgid ""
+"General and basic methods to operate with molecular models and their "
+"forms."
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ""
+":obj:`load <molmodmt.load>`\\ \\(item\\[\\, to\\_form\\, selection\\, "
+"...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid "Loading a molecular model."
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ":obj:`get_form <molmodmt.get_form>`\\ \\(\\[item\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1 ../api/index.rst:61:<autosummary>:1
+msgid ""
+":obj:`get <molmodmt.get>`\\ \\(item\\[\\, target\\, indices\\, "
+"selection\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1 ../api/index.rst:45:<autosummary>:1
+msgid ""
+":obj:`set <molmodmt.set>`\\ \\(item\\[\\, target\\, indices\\, "
+"selection\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ""
+":obj:`info <molmodmt.info>`\\ \\(\\[item\\, target\\, indices\\, "
+"selection\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ""
+":obj:`select <molmodmt.select>`\\ \\(item\\[\\, selection\\, "
+"syntaxis\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid "AAAAAAAAAAAAAAAAAA"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ""
+":obj:`convert <molmodmt.convert>`\\ \\(item\\[\\, to\\_form\\, "
+"selection\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ""
+"Transforming a molecular model from its current form into other supported"
+" form."
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ""
+":obj:`extract <molmodmt.extract>`\\ \\(item\\[\\, selection\\, "
+"frame\\_indices\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ":obj:`merge <molmodmt.merge>`\\ \\(\\[item1\\, item2\\, to\\_form\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ""
+":obj:`write <molmodmt.write>`\\ \\(\\[item\\, filename\\, selection\\, "
+"...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:27:<autosummary>:1
+msgid ""
+":obj:`view <molmodmt.view>`\\ \\(\\[item\\, viewer\\, selection\\, "
+"...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:29
+msgid "Transformations"
+msgstr ""
+
+#: ../api/index.rst:31
+msgid ""
+"Methods to change any property of a molecular model, structural or "
+"topological, without changing its form."
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1
+msgid ""
+":obj:`remove <molmodmt.remove>`\\ \\(item\\[\\, selection\\, "
+"syntaxis\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1
+msgid "Remove a set of atoms from the molecular model"
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1
+msgid ""
+":obj:`remove_solvent <molmodmt.remove_solvent>`\\ \\(item\\[\\, water\\, "
+"cosolutes\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1
+msgid ""
+":obj:`add_missing_hydrogens <molmodmt.add_missing_hydrogens>`\\ "
+"\\(item\\[\\, pH\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1
+msgid "The missing hydrogens of a molecular model are added."
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1
+msgid ":obj:`recenter <molmodmt.recenter>`\\ \\(item\\[\\, selection\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1
+msgid ":obj:`fix_chains <molmodmt.fix_chains>`\\ \\(item\\[\\, chains\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1
+msgid ""
+":obj:`fix_pdb_structure <molmodmt.fix_pdb_structure>`\\ \\(item\\[\\, "
+"missing\\_atoms\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1
+msgid ""
+"fix_pdb_structure(item, missing_atoms=True, missing_residues=True, "
+"nonstandard_residues=True,"
+msgstr ""
+
+#: ../api/index.rst:45:<autosummary>:1 ../api/index.rst:84:<autosummary>:1
+msgid ""
+":obj:`add_loop <molmodmt.add_loop>`\\ \\(item\\[\\, target\\_sequence\\, "
+"finesse\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:47
+msgid "Observables"
+msgstr ""
+
+#: ../api/index.rst:49 ../api/index.rst:65
+msgid ""
+"Methods to extract structural or topological observables of a molecular "
+"model."
+msgstr ""
+
+#: ../api/index.rst:61:<autosummary>:1
+msgid ":obj:`distances <molmodmt.distances>`\\"
+msgstr ""
+
+#: ../api/index.rst:61:<autosummary>:1
+msgid ""
+":obj:`contact_map <molmodmt.contact_map>`\\ \\(\\[item\\_1\\, "
+"selection\\_1\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:61:<autosummary>:1
+msgid ""
+":obj:`neighbors_lists <molmodmt.neighbors_lists>`\\ \\(\\[item\\_1\\, "
+"selection\\_1\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:61:<autosummary>:1
+msgid ""
+":obj:`center_of_mass <molmodmt.center_of_mass>`\\ \\(\\[item\\, "
+"selection\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:61:<autosummary>:1
+msgid ""
+":obj:`geometrical_center <molmodmt.geometrical_center>`\\ \\(\\[item\\, "
+"selection\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:61:<autosummary>:1
+msgid ""
+":obj:`radius_of_gyration <molmodmt.radius_of_gyration>`\\ \\(\\[item\\, "
+"selection\\, frame\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:63
+msgid "Comparisons"
+msgstr ""
+
+#: ../api/index.rst:75:<autosummary>:1
+msgid ""
+":obj:`rmsd <molmodmt.rmsd>`\\ \\(\\[item\\, selection\\, "
+"frame\\_indices\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:75:<autosummary>:1
+msgid ""
+":obj:`least_rmsd_fit <molmodmt.least_rmsd_fit>`\\ \\(\\[item\\, "
+"selection\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:75:<autosummary>:1
+msgid ""
+":obj:`sequence_identity <molmodmt.sequence_identity>`\\ "
+"\\(\\[ref\\_item\\, item\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:75:<autosummary>:1
+msgid ""
+":obj:`sequence_alignment <molmodmt.sequence_alignment>`\\ "
+"\\(\\[ref\\_item\\, item\\, engine\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:75:<autosummary>:1
+msgid ""
+":obj:`structure_alignment <molmodmt.structure_alignment>`\\ "
+"\\(\\[ref\\_item\\, item\\, ...\\]\\)"
+msgstr ""
+
+#: ../api/index.rst:77
+msgid "Modeling"
+msgstr ""
+
+#: ../api/index.rst:86
+msgid "Glossary"
+msgstr ""
+
+#: ../api/index.rst:88
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../api/index.rst:89
+msgid ":ref:`search`"
+msgstr ""
+
