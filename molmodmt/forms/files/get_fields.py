@@ -146,6 +146,7 @@ target_fields = {
             },
 
         'system' : {
+            'form' : _raise_not_implemented_error,
             'name' : _raise_not_implemented_error,
             'index' : _raise_not_implemented_error,
             'id' : _raise_not_implemented_error,

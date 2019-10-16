@@ -29,3 +29,12 @@ def to_aminoacids3_seq(form_id):
     del(_to_aa3_seq)
     return tmp_sequence
 
+###### Get
+
+## system
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

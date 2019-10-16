@@ -314,6 +314,11 @@ def get_n_degrees_of_freedom_from_system (item, indices=None, frame_indices=None
     from molmodmt import get_degrees_of_freedom as _get
     return _get(item, indices=indices)
 
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+
 
 ##### Set
 

@@ -62,7 +62,7 @@ def get_frames_from_atom (item, indices=None, frame_indices=None):
     step, time, xyz, box = load_frame(item, frame_indices, indices)
     return step, time, xyz, box
 
-# System
+# system
 
 def get_frames_from_system (item, indices=None, frame_indices=None):
 
@@ -89,4 +89,9 @@ def get_box_shape_from_system (item, indices=None, frame_indices=None):
 def get_n_atoms_from_system (item, indices=None, frame_indices=None):
 
     return item.topology.n_atoms
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
 

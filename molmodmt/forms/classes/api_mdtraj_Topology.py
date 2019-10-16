@@ -346,7 +346,7 @@ def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
     del(residue_names, residue_name_to_molecule_type)
     return molecule_types
 
-## from system
+## system
 
 def get_n_atoms_from_system (item, indices=None, frame_indices=None):
 
@@ -413,4 +413,9 @@ def get_molecules_from_system (item, indices=None, frame_indices=None):
 def get_n_frames_from_system (item, indices=None, frame_indices=None):
 
     return 0
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
 

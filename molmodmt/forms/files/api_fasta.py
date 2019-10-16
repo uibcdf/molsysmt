@@ -12,3 +12,13 @@ def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
     tmp_item=_Bio_SeqRecord_reader(item,'fasta')
     del(_Bio_SeqRecord_reader)
     return tmp_item
+
+###### Get
+
+## system
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

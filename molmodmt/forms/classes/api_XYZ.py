@@ -10,6 +10,9 @@ is_form={
 }
 
 
+###### Get
+
+## atom
 
 def get_coordinates_from_atom(item, indices=None, frame_indices=None):
 
@@ -28,6 +31,8 @@ def get_coordinates_from_atom(item, indices=None, frame_indices=None):
     tmp_coordinates = tmp_coordinates[frame_indices,:,:]
 
     return tmp_coordinates
+
+## system
 
 def get_coordinates_from_system(item, indices=None, frame_indices=None):
 
@@ -73,4 +78,9 @@ def get_box_from_system(item, indices=None, frame_indices=None):
 def get_box_shape_from_system(item, indices=None, frame_indices=None):
 
     return None
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
 

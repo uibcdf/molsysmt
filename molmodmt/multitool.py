@@ -23,8 +23,7 @@ from .forms.classes import dict_is_form as _dict_classes_is_form, \
     dict_duplicator as _dict_classes_duplicator, \
     dict_merger as _dict_classes_merger, \
     dict_get as _dict_classes_get, \
-    dict_set as _dict_classes_set, \
-    dict_info as _dict_classes_info
+    dict_set as _dict_classes_set
 
 # Files
 from .forms.files import dict_is_form as _dict_files_is_form, \
@@ -35,8 +34,7 @@ from .forms.files import dict_is_form as _dict_files_is_form, \
     dict_duplicator as _dict_files_duplicator, \
     dict_merger as _dict_files_merger, \
     dict_get as _dict_files_get, \
-    dict_set as _dict_files_set, \
-    dict_info as _dict_files_info
+    dict_set as _dict_files_set
 
 # IDs
 from .forms.ids import dict_is_form as _dict_ids_is_form, \
@@ -47,8 +45,7 @@ from .forms.ids import dict_is_form as _dict_ids_is_form, \
     dict_duplicator as _dict_ids_duplicator, \
     dict_merger as _dict_ids_merger, \
     dict_get as _dict_ids_get, \
-    dict_set as _dict_ids_set, \
-    dict_info as _dict_ids_info
+    dict_set as _dict_ids_set
 
 # Sequences
 from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
@@ -59,8 +56,7 @@ from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_duplicator as _dict_seqs_duplicator, \
     dict_merger as _dict_seqs_merger, \
     dict_get as _dict_seqs_get, \
-    dict_set as _dict_seqs_set, \
-    dict_info as _dict_seqs_info
+    dict_set as _dict_seqs_set
 
 # Viewers
 from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
@@ -71,8 +67,7 @@ from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_duplicator as _dict_viewers_duplicator, \
     dict_merger as _dict_viewers_merger, \
     dict_get as _dict_viewers_get, \
-    dict_set as _dict_viewers_set, \
-    dict_info as _dict_viewers_info
+    dict_set as _dict_viewers_set
 
 _dict_is_form = {**_dict_classes_is_form, **_dict_files_is_form,\
                  **_dict_ids_is_form, **_dict_seqs_is_form, **_dict_viewers_is_form}
@@ -90,8 +85,6 @@ _dict_get = {**_dict_classes_get, **_dict_files_get,\
                    **_dict_ids_get, **_dict_seqs_get, **_dict_viewers_get}
 _dict_set = {**_dict_classes_set, **_dict_files_set,\
                    **_dict_ids_set, **_dict_seqs_set, **_dict_viewers_set}
-_dict_info = {**_dict_classes_info, **_dict_files_info,\
-                   **_dict_ids_info, **_dict_seqs_info, **_dict_viewers_info}
 
 ####
 #### Molecular Models attributes
@@ -248,14 +241,15 @@ def info(item=None, target='system', indices=None, selection="all", syntaxis="MD
 
     elif target=='system':
 
-        return df([_dict_info[form_in](item)])
+        raise NotImplementedError
 
     else:
+
         raise NotImplementedError
 
     pass
 
-def get_form(item=None):
+def _get_form(item=None):
 
     if type(item)==str:
         if ':' in item:
@@ -473,10 +467,10 @@ def write(item=None, filename=None, selection='all', frame_indices='all', syntax
 def view(item=None, viewer='nglview', selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     if type(item) in [list,tuple]:
-        form_in = get_form(item[0])
+        form_in = _get_form(item[0])
         tmp_item = merge(item)
     else:
-        form_in = get_form(item)
+        form_in = _get_form(item)
         tmp_item = item
 
     atom_indices = select(tmp_item, selection=selection, syntaxis=syntaxis)

@@ -39,3 +39,12 @@ def to_nglview(item, atom_indices=None, frame_indices=None):
     from nglview import show_file as _nglview_show_file
     return _nglview_show_file(item)
 
+###### Get
+
+## system
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

@@ -319,3 +319,8 @@ def get_n_frames_from_system (item, indices=None, frame_indices=None):
 
     return 0
 
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

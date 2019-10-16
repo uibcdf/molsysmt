@@ -27,3 +27,13 @@ def to_pir(item, filename=None, style=None, atom_indices=None, frame_indices=Non
     handle.close()
     _rewrite(filename=filename, style=style)
     pass
+
+###### Get
+
+## system
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

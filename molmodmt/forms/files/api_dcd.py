@@ -27,3 +27,12 @@ def to_mdanalysis_Universe(item, topology=None, atom_indices=None, frame_indices
     from MDAnalysis import Universe as _mdanalysis_universe
     return _mdanalysis_universe(topology,item)
 
+###### Get
+
+## system
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

@@ -212,3 +212,8 @@ def get_molecules_from_system(item, indices=None, frame_indices=None):
     from .api_mdtraj_Topology import get_molecules_from_system as _get
     return _get(item, indices=indices, frame_indices=frame_indices)
 
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

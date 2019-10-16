@@ -128,3 +128,8 @@ def get_time_from_system(item, indices=None, frame_indices=None):
 
     return item.time[frame_indices]
 
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

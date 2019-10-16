@@ -11,17 +11,6 @@ is_form={
     'molmodmt.MolMod': form_name
 }
 
-def info(item):
-
-    from molmodmt import get
-
-    tmp_dict = {}
-    tmp_dict['form'] = form_name
-    tmp_dict['n_atoms'] = get(item, target='system', n_atoms=True)
-    tmp_dict['trajectory file'] = item.trajectory.file.name
-    tmp_dict['trajectory loaded'] = str(item.trajectory.n_frames)+' frames,'+str(item.trajectory.n_atoms)+' atoms'
-
-    return tmp_dict
 
 def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
 
@@ -343,6 +332,11 @@ def get_time_from_system(item, indices=None, frame_indices=None):
 def get_box_shape_from_system(item, indices=None, frame_indices=None):
 
     return item.trajectory.box_shape
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
 
 ###### Set
 

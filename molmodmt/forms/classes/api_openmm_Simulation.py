@@ -44,4 +44,12 @@ def to_pdb (item, atom_indices=None, frame_indices=None):
     topology.setPeriodicBoxVectors(periodicBoxVectors)
     return _openmm_app_PDBFILE.writeFile(topology, positions, open(filename, 'w'))
 
+###### Get
+
+## system
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
 

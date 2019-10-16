@@ -133,10 +133,14 @@ def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
     return tmp_types
 
 
-## Atom
+## system
 
 def get_n_atoms_from_system (item, indices=None, frame_indices=None):
 
     return len(item.atoms)
 
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
 

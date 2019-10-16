@@ -15,3 +15,13 @@ def select_with_mdtraj(item, selection):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
     raise NotImplementedError
+
+###### Get
+
+## system
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

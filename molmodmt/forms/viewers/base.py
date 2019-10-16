@@ -22,7 +22,6 @@ dict_merger={}
 dict_is_form={}
 dict_get={}
 dict_set={}
-dict_info={}
 
 for api_form in list_api_forms:
     module_api_form=_import_module('.'+api_form,base_package)
@@ -40,7 +39,6 @@ for form_name in list_forms:
     dict_merger[form_name]= {}
     dict_get[form_name]= deepcopy(get_target_dict)
     dict_set[form_name]= deepcopy(set_target_dict)
-    dict_info[form_name]= {}
 
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):
@@ -61,8 +59,6 @@ for form_name in list_forms:
         dict_duplicator[form_name]=getattr(dict_api_forms[form_name],'duplicate')
     if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():
         dict_merger[form_name]=getattr(dict_api_forms[form_name],'merge_two_items')
-    if 'info' in dict_api_forms[form_name].__dict__.keys():
-        dict_info[form_name]=getattr(dict_api_forms[form_name],'info')
 
     for target in dict_get[form_name]:
         for option in dict_get[form_name][target]:

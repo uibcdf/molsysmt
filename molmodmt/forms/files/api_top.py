@@ -59,3 +59,12 @@ def to_top(item, atom_indices=None, frame_indices=None):
     tmp_item.save(filename)
     pass
 
+###### Get
+
+## system
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+

@@ -35,3 +35,12 @@ def to_fasta(item, output_file, atom_indices=None, frame_indices=None):
     tmp_item=_extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return _Bio_SeqRecord_to_fasta(tmp_item, output_file)
 
+###### Get
+
+## system
+
+def get_form_from_system(item, indices=None, frame_indices=None):
+
+    from molmodmt import _get_form
+    return _get_form(item)
+
