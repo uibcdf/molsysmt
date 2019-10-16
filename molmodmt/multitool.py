@@ -204,6 +204,62 @@ def merge(item1=None, item2=None, to_form=None):
 
 def info(item=None, target='system', indices=None, selection="all", syntaxis="MDTraj"):
 
+    """into(item, target='system', indices=None, selection="all", syntaxis="MDTraj")
+
+    Short sentence with brief explanation of action.
+
+    Paragraph with detailed explanation.
+
+    Parameters
+    ----------
+
+    item: molecular model
+        Molecular model in any of the supported forms by MolModMT. (See: XXX)
+
+    target: str, default='system'
+        The nature of the entities this method is going to work with: "atom", "residue", "chain" or
+        "system".
+
+    indices: int, list, tuple or np.ndarray, default=None
+        List of indices referring the set of targetted entities ("atom", "residue" or "chain") this
+        method is going to work with. The set of indices can be given by a list, tuple or numpy
+        array of integers (0-based).
+
+
+    selection: str, list, tuple or np.ndarray, default='all'
+       Atoms selection over which this method applies. The selection can be given by a
+       list, tuple or numpy array of integers (0-based), or by means of a string following any of
+       the selection syntaxis parsable by MolModMT.
+
+    syntaxis: str, default='MDTraj'
+       Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
+       current options supported by MolModMt in section 'Selection'.
+
+    Returns
+    -------
+
+        The method prints out a pandas dataframe with relevant information depending on the target
+        chosen.
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    :func:`molmodmt.get`, :func:`molmodmt.select`
+
+    Notes
+    -----
+
+    Todo
+    ----
+
+    Warning
+    -------
+
+    """
+
     from pandas import DataFrame as df
     form_in, _ = _digest_forms(item)
     target = _singular(target)

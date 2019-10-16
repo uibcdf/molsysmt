@@ -1,6 +1,0 @@
-molmodmt.fix\_pdb\_structure
-============================
-
-.. currentmodule:: molmodmt
-
-.. autofunction:: fix_pdb_structure

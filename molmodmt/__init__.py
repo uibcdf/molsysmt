@@ -25,7 +25,7 @@ from .pockets import alpha_spheres
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:
 
-__all_multitool__ = ['select', 'extract', 'merge', 'info', 'get_form', 'get', 'set', 'load',
+__all_multitool__ = ['select', 'extract', 'merge', 'info', 'get', 'set', 'load',
                     'convert', 'duplicate', 'write', 'view', 'reformat']
 __all_info_converters__ = ['info_forms', 'info_load', 'info_convert', 'info_select', 'info_viewers']
 __all_rmsd__ = ['rmsd', 'least_rmsd', 'least_rmsd_fit']
@@ -47,9 +47,10 @@ __all_chem_and_phys_properties__ = ['get_charge', 'get_net_charge', 'get_mass', 
                                     'get_degrees_of_freedom']
 __all_pbc__ = ['wrap_system_to_pbc_cell', 'unwrap_molecules_from_pbc_cell', 'minimum_image_convention']
 
-__all__ = __all_multitool__ + __all_info_converters__ + __all_rmsd__ + __all_distances__ +\
-        __all_centers__ + __all_sequence__ + __all_radius_of_gyration__ + __all_fix__ +\
-        __all_model_loops__ + __all_remove_atoms__ + __all_potential_energy__ +\
-        __all_solvate_box__ + __all_protonation__ + __all_mutations__ + __all_topology__ +\
-        __all_topology__ + __all_chem_and_phys_properties__ + __all_pbc__
+#__all__ = __all_multitool__ + __all_info_converters__ + __all_rmsd__ + __all_distances__ +\
+#        __all_centers__ + __all_sequence__ + __all_radius_of_gyration__ + __all_fix__ +\
+#        __all_model_loops__ + __all_remove_atoms__ + __all_potential_energy__ +\
+#        __all_solvate_box__ + __all_protonation__ + __all_mutations__ + __all_topology__ +\
+#        __all_topology__ + __all_chem_and_phys_properties__ + __all_pbc__
 
+__all__ = []
