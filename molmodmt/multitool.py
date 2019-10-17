@@ -107,7 +107,7 @@ def select(item, selection='all', syntaxis='MDTraj'):
 
     """select(item, selection='all', syntaxis='MDTraj')
 
-    AAAAAAAAAAAAAAAAAA
+    Get the atom indices corresponding to a selection.
 
     BBBBBBBBBBBBBBBBBB
     CCCCCCCCCCCCCCCCCC
@@ -177,7 +177,7 @@ def extract(item, selection='all', frame_indices='all', syntaxis='MDTraj'):
             selection_is_all = True
 
     if selection_is_all:
-        return item
+        return duplicate(item=None)
     else:
         form_in, _ = _digest_forms(item)
         atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
@@ -202,11 +202,11 @@ def merge(item1=None, item2=None, to_form=None):
         tmp_item2 = convert(item2,form)
         return _dict_merger[form](tmp_item1, tmp_item1)
 
-def info(item=None, target='system', indices=None, selection="all", syntaxis="MDTraj"):
+def info(item=None, target='system', indices=None, selection='all', syntaxis='MDTraj'):
 
-    """into(item, target='system', indices=None, selection="all", syntaxis="MDTraj")
+    """into(item, target='system', indices=None, selection='all', syntaxis='MDTraj')
 
-    Short sentence with brief explanation of action.
+    Print out general information of a molecular model.
 
     Paragraph with detailed explanation.
 
@@ -217,11 +217,11 @@ def info(item=None, target='system', indices=None, selection="all", syntaxis="MD
         Molecular model in any of the supported forms by MolModMT. (See: XXX)
 
     target: str, default='system'
-        The nature of the entities this method is going to work with: "atom", "residue", "chain" or
-        "system".
+        The nature of the entities this method is going to work with: 'atom', 'residue', 'chain' or
+        'system'.
 
     indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ("atom", "residue" or "chain") this
+        List of indices referring the set of targetted entities ('atom', 'residue' or 'chain') this
         method is going to work with. The set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
@@ -237,9 +237,9 @@ def info(item=None, target='system', indices=None, selection="all", syntaxis="MD
 
     Returns
     -------
-
+    None
         The method prints out a pandas dataframe with relevant information depending on the target
-        chosen.
+        and the form of the item.
 
     Examples
     --------
@@ -327,6 +327,63 @@ def _get_form(item=None):
 
 def get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs):
 
+    """get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj')
+
+    Get specific attributes and observables.
+
+    Paragraph with detailed explanation.
+
+    Parameters
+    ----------
+
+    item: molecular model
+        Molecular model in any of the supported forms by MolModMT. (See: XXX)
+
+    target: str, default='system'
+        The nature of the entities this method is going to work with: 'atom', 'residue', 'chain' or
+        'system'.
+
+    indices: int, list, tuple or np.ndarray, default=None
+        List of indices referring the set of targetted entities ('atom', 'residue' or 'chain') this
+        method is going to work with. The set of indices can be given by a list, tuple or numpy
+        array of integers (0-based).
+
+
+    selection: str, list, tuple or np.ndarray, default='all'
+       Atoms selection over which this method applies. The selection can be given by a
+       list, tuple or numpy array of integers (0-based), or by means of a string following any of
+       the selection syntaxis parsable by MolModMT.
+
+    syntaxis: str, default='MDTraj'
+       Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
+       current options supported by MolModMt in section 'Selection'.
+
+    Returns
+    -------
+    None
+        The method prints out a pandas dataframe with relevant information depending on the target
+        chosen.
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    :func:`molmodmt.get`, :func:`molmodmt.select`
+
+    Notes
+    -----
+
+    Todo
+    ----
+
+    Warning
+    -------
+
+    """
+
+
     # selection works as a mask if indices or ids are used
 
     form_in, _ = _digest_forms(item)
@@ -357,7 +414,67 @@ def get(item, target='system', indices=None, selection='all', frame_indices='all
     else:
         return results
 
-def set(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='mdtraj', **kwargs):
+def set(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs):
+
+    """into(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj')
+
+    Set a new value to an attribute.
+
+    Paragraph with detailed explanation.
+
+    Parameters
+    ----------
+
+    item: molecular model
+        Molecular model in any of the supported forms by MolModMT. (See: XXX)
+
+    target: str, default='system'
+        The nature of the entities this method is going to work with: 'atom', 'residue', 'chain' or
+        'system'.
+
+    indices: int, list, tuple or np.ndarray, default=None
+        List of indices referring the set of targetted entities ('atom', 'residue' or 'chain') this
+        method is going to work with. The set of indices can be given by a list, tuple or numpy
+        array of integers (0-based).
+
+    selection: str, list, tuple or np.ndarray, defaul='all'
+       Atoms selection over which this method applies. The selection can be given by a
+       list, tuple or numpy array of integers (0-based), or by means of a string following any of
+       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).
+
+    frame_indices: int, list, tuple, np.ndarray or 'all', default='all'
+        List of indices referring the set of frames this method is going to work with. This set of indices can be given by a list, tuple or numpy
+        array of integers (0-based).
+
+    syntaxis: str, default='MDTraj'
+       Syntaxis used in the argument `selection` (in case it is a string). The
+       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).
+
+    Returns
+    -------
+
+    None
+        XXX.
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    :func:`molmodmt.select`
+
+    Notes
+    -----
+
+    Todo
+    ----
+
+    Warning
+    -------
+
+    """
+
 
     form_in, _ = _digest_forms(item)
     target = _singular(target)
@@ -393,8 +510,8 @@ def load (item, to_form='molmodmt.MolMod', selection='all', frame_indices='all',
 
     Loading a molecular model.
 
-    A molecular model coming from a file can be loaded as a new target with any form supported by
-    MolModMt. This method is just an alias of `convert`. It was included here only to make the
+    A molecular model coming from a file can be loaded as a new object of any form supported by
+    MolModMt (see XXX). This method is just an alias of :func:`molmodmt.convert`. It was included here to make the
     usability more intuitive.
 
     Parameters
@@ -404,29 +521,31 @@ def load (item, to_form='molmodmt.MolMod', selection='all', frame_indices='all',
         Molecular model in any of the supported forms by MolModMT.
 
     to_form: str, default='molmodmt.MolMod'
-        Any accepted form by MolModMt for the output target.
+        Any accepted form by MolModMt for the output object.
 
     selection: str, list, tuple or np.ndarray, defaul='all'
-       Atoms selection over which this method applies. The selection can be given specified by a
+       Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolModMT.
+       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).
 
-    syntaxis: str, default='mdtraj'
-       Selection syntaxis used in the argument `selection` (in case `selection` is a string). The
-       current options supported by MolModMt are 'mdtraj' or 'amber'. More information about this
-       topic can be found in the section 'Selection'.
+    syntaxis: str, default='MDTraj'
+       Syntaxis used in the argument `selection` (in case it is a string). The
+       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).
 
     Returns
     -------
 
        item: molecular model
-       A new target is returned with the form specified by the corresponding input argument.
+
+       A new object is returned with the form specified by the argument `to_form`.
 
     Examples
     --------
 
     See Also
     --------
+
+    :func:`molmodmt.convert`, :func:`molmodmt.select`
 
     Notes
     -----
@@ -438,13 +557,12 @@ def load (item, to_form='molmodmt.MolMod', selection='all', frame_indices='all',
 
 def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs):
 
-    """load(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs)
+    """convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs)
 
-    Transforming a molecular model from its current form into other supported form.
+    Convert a molecular model into other form.
 
-    A molecular model in a given accepted form can be converted into a new target with any form
-    other form supported by MolModMt. The list of supported forms can be found in the section
-    'Molecular Model Forms'.
+    A molecular model in a given accepted form can be converted into any other supported form
+    by MolModMt. The list of supported forms can be found in the section 'XXX'.
 
     Parameters
     ----------
@@ -453,23 +571,24 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
         Molecular model in any of the supported forms by MolModMT.
 
     to_form: str, default='molmodmt.MolMod'
-        The output object will take the form specified here. This form  supported form by MolModMt for the output target.
+        The output object will take the form specified here. This form supported form by MolModMt
+        for the output object.
 
     selection: str, list, tuple or np.ndarray, defaul='all'
-       Atoms selection over which this method applies. The selection can be given specified by a
+       Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolModMT.
+       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).
 
-    syntaxis: str, default='mdtraj'
-       Selection syntaxis used in the argument `selection` (in case `selection` is a string). The
-       current options supported by MolModMt are 'mdtraj' or 'amber'. More information about this
-       topic can be found in the section 'Selection'.
+    syntaxis: str, default='MDTraj'
+       Syntaxis used in the argument `selection` (in case it is a string). The
+       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).
 
     Returns
     -------
 
-       item: molecular model in accepted form.
-       A new object is returned with the form specified by the corresponding input argument.
+       item: molecular model
+
+       A new object is returned with the form specified by the argument `to_form`.
 
     Examples
     --------
@@ -477,7 +596,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
     See Also
     --------
 
-    :func:`molmodmt.load`
+    :func:`molmodmt.load`, :func:`molmodmt.select`
 
     Notes
     -----
@@ -489,6 +608,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
     -------
 
     """
+
     form_in, form_out  = _digest_forms(item, to_form)
     frame_indices = _digest_frame_indices(item, frame_indices)
     atom_indices = select(item, selection=selection, syntaxis=syntaxis)
@@ -535,18 +655,18 @@ def view(item=None, viewer='nglview', selection='all', frame_indices='all', synt
     return _dict_converter[form_in][viewer](tmp_item, atom_indices=atom_indices,
             frame_indices=frame_indices)
 
-def reformat(attribute=None, value=None, is_format=None, to_format=None):
-
-    if (attribute is not None) and attribute in _list_attributes:
-        if is_format is not None:
-            if to_format is not None:
-
-                return _dict_reformatter[attribute][is_format][to_format](value)
-
-            else:
-                raise BadCallError(BadCallMessage)
-        else:
-            raise BadCallError(BadCallMessage)
-    else:
-        raise BadCallError(BadCallMessage)
+#def reformat(attribute=None, value=None, is_format=None, to_format=None):
+#
+#    if (attribute is not None) and attribute in _list_attributes:
+#        if is_format is not None:
+#            if to_format is not None:
+#
+#                return _dict_reformatter[attribute][is_format][to_format](value)
+#
+#            else:
+#                raise BadCallError(BadCallMessage)
+#        else:
+#            raise BadCallError(BadCallMessage)
+#    else:
+#        raise BadCallError(BadCallMessage)
 

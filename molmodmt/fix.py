@@ -1,4 +1,4 @@
-from .multitool import get_form as _get_form
+from .multitool import _get_form
 from .multitool import get as _get
 from .utils.exceptions import *
 

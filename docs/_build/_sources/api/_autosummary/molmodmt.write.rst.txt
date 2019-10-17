@@ -1,0 +1,6 @@
+molmodmt.write
+==============
+
+.. currentmodule:: molmodmt
+
+.. autofunction:: write

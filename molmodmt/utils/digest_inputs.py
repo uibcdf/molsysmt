@@ -1,6 +1,6 @@
 from numpy import asarray as _asarray, arange as _arange
 import numpy as _np
-from molmodmt import get_form as _get_form, get as _get, select as _select, convert as _convert
+from molmodmt import get as _get, select as _select, convert as _convert
 from .exceptions import *
 
 def _one_system(item=None, selection=None, frame=None, form=None, syntaxis='mdtraj'):
