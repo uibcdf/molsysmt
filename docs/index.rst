@@ -29,11 +29,22 @@ Installation and Quick Start Guide
    Installation.ipynb
    Quickstart.ipynb
 
-
 User Guide
 ----------
 
-- Working with molecular models forms
+.. toctree::
+   :maxdepth: 1
+
+   Forms.ipynb
+   Atoms_Selection.ipynb
+
+Examples
+--------
+
+.. toctree::
+   :maxdepth: 1
+
+   ../examples/Distances.ipynb
 
 
 API Documentation

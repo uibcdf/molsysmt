@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# First tasks easily done with MolModMT\n",
+    "# Quick Guide\n",
     "\n",
     "Import the multitool library a start working with its help in tasks such as those mentioned here below:"
    ]

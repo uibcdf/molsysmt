@@ -82,7 +82,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">First tasks easily done with MolModMT</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">Quick Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
@@ -94,6 +94,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
 </ul>
 </li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Forms.html">Molecular model forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Atoms_Selection.html">Atoms selection</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Documentation</a><ul class="current">
@@ -208,20 +212,29 @@
 <dl class="function">
 <dt id="molmodmt.select">
 <code class="sig-prename descclassname">molmodmt.</code><code class="sig-name descname">select</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">syntaxis='MDTraj'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molmodmt/multitool.html#select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molmodmt.select" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the atom indices corresponding to a selection.</p>
-<p>BBBBBBBBBBBBBBBBBB
-CCCCCCCCCCCCCCCCCC
-DDDDDDDDDDDDDDDDDD</p>
+<dd><p>Get the atom indices corresponding to a selection criterion.</p>
+<p>Paragraph with detailed explanation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>item: Molecular model in accepted form.</strong></dt><dd><p>Molecular model in any of the accepted forms by MolModMT.</p>
+<dt><strong>item: molecular model</strong></dt><dd><p>Molecular model in any supported form (see: <a class="reference internal" href="../../Forms.html"><span class="doc">Molecular model forms</span></a>). The object being acted on by the method.</p>
 </dd>
-<dt><strong>selection:</strong></dt><dd></dd>
-<dt><strong>syntaxis:</strong></dt><dd></dd>
+<dt><strong>selection: str, defaul=’all’</strong></dt><dd><p>Selection criterion given by means of a string following any of the selection syntaxis parsable by MolModMT.</p>
+</dd>
+<dt><strong>syntaxis: str, default=’MDTraj’</strong></dt><dd><p>Syntaxis used to write the argument <cite>selection</cite>. The current options supported by MolModMt
+can be found in <a class="reference internal" href="../../Atoms_Selection.html"><span class="doc">Atoms selection</span></a>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Numpy array of integers</dt><dd><p>List of atom indices in agreement with the selection criterion applied over <cite>item</cite>.</p>
+</dd>
 </dl>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<p><a class="reference internal" href="../../Atoms_Selection.html"><span class="doc">Atoms selection</span></a></p>
 </dd></dl>
 
 </div>

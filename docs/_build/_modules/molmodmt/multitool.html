@@ -80,7 +80,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">First tasks easily done with MolModMT</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">Quick Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
@@ -92,6 +92,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
 </ul>
 </li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Forms.html">Molecular model forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Atoms_Selection.html">Atoms selection</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a><ul>
@@ -283,31 +287,46 @@
 
     <span class="sd">&quot;&quot;&quot;select(item, selection=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
 
-<span class="sd">    Get the atom indices corresponding to a selection.</span>
+<span class="sd">    Get the atom indices corresponding to a selection criterion.</span>
 
-<span class="sd">    BBBBBBBBBBBBBBBBBB</span>
-<span class="sd">    CCCCCCCCCCCCCCCCCC</span>
-<span class="sd">    DDDDDDDDDDDDDDDDDD</span>
+<span class="sd">    Paragraph with detailed explanation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 
-<span class="sd">    item: Molecular model in accepted form.</span>
-<span class="sd">        Molecular model in any of the accepted forms by MolModMT.</span>
-<span class="sd">    selection:</span>
-<span class="sd">    syntaxis:</span>
+<span class="sd">    item: molecular model</span>
+<span class="sd">        Molecular model in any supported form (see: :doc:`/Forms`). The object being acted on by the method.</span>
+
+<span class="sd">    selection: str, defaul=&#39;all&#39;</span>
+<span class="sd">       Selection criterion given by means of a string following any of the selection syntaxis parsable by MolModMT.</span>
+
+<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">       Syntaxis used to write the argument `selection`. The current options supported by MolModMt</span>
+<span class="sd">       can be found in :doc:`/Atoms_Selection`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 
+<span class="sd">    Numpy array of integers</span>
+<span class="sd">        List of atom indices in agreement with the selection criterion applied over `item`.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
+
+<span class="sd">    :doc:`/Atoms_Selection`</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
+
+<span class="sd">    Todo</span>
+<span class="sd">    ----</span>
+
+<span class="sd">    Warning</span>
+<span class="sd">    -------</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span> <span class="k">as</span> <span class="n">_array</span>
@@ -335,9 +354,55 @@
     <span class="n">atom_indices</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">atom_indices</span></div>
 
-<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.extract.html#molmodmt.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.extract.html#molmodmt.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">):</span>
 
-    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;extract(item, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
+
+<span class="sd">    Extract a subset of a molecular model.</span>
+
+<span class="sd">    Paragraph with detailed explanation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    item: molecular model</span>
+<span class="sd">        Molecular model in any of the supported forms by MolModMT. (See: XXX)</span>
+
+<span class="sd">    selection: str, list, tuple or np.ndarray, defaul=&#39;all&#39;</span>
+<span class="sd">       Atoms selection over which this method applies. The selection can be given by a</span>
+<span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
+<span class="sd">       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).</span>
+
+<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>
+<span class="sd">       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        The method prints out a pandas dataframe with relevant information depending on the target</span>
+<span class="sd">        and the form of the item.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    :func:`molmodmt.select`</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+
+<span class="sd">    Todo</span>
+<span class="sd">    ----</span>
+
+<span class="sd">    Warning</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="p">)</span>
 
     <span class="c1"># mode in [&#39;removing_selection&#39;,&#39;keeping_selection&#39;]</span>
 
@@ -353,15 +418,75 @@
             <span class="n">selection_is_all</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">if</span> <span class="n">selection_is_all</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">tmp_item</span><span class="o">=</span><span class="n">duplicate</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
         <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
         <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_extractor</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">tmp_item</span></div>
+
+    <span class="k">if</span> <span class="n">form_in</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">form_out</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tmp_item</span></div>
 
 <div class="viewcode-block" id="merge"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.merge.html#molmodmt.merge">[docs]</a><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">item1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;into(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
+
+<span class="sd">    Print out general information of a molecular model.</span>
+
+<span class="sd">    Paragraph with detailed explanation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    item: molecular model</span>
+<span class="sd">        Molecular model in any of the supported forms by MolModMT. (See: XXX)</span>
+
+<span class="sd">    target: str, default=&#39;system&#39;</span>
+<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;residue&#39;, &#39;chain&#39; or</span>
+<span class="sd">        &#39;system&#39;.</span>
+
+<span class="sd">    to_form: str, default=&#39;molmodmt.MolMod&#39;</span>
+<span class="sd">        Any accepted form by MolModMt for the output object.</span>
+
+<span class="sd">    indices: int, list, tuple or np.ndarray, default=None</span>
+<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;residue&#39; or &#39;chain&#39;) this</span>
+<span class="sd">        method is going to work with. The set of indices can be given by a list, tuple or numpy</span>
+<span class="sd">        array of integers (0-based).</span>
+
+<span class="sd">    selection: str, list, tuple or np.ndarray, defaul=&#39;all&#39;</span>
+<span class="sd">       Atoms selection over which this method applies. The selection can be given by a</span>
+<span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
+<span class="sd">       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).</span>
+
+<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>
+<span class="sd">       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        The method prints out a pandas dataframe with relevant information depending on the target</span>
+<span class="sd">        and the form of the item.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    :func:`molmodmt.get`, :func:`molmodmt.select`</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+
+<span class="sd">    Todo</span>
+<span class="sd">    ----</span>
+
+<span class="sd">    Warning</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#item1 can be a list or tuple</span>
 
@@ -590,7 +715,67 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">results</span></div>
 
-<div class="viewcode-block" id="set"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.set.html#molmodmt.set">[docs]</a><span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="set"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.set.html#molmodmt.set">[docs]</a><span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;into(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
+
+<span class="sd">    Set a new value to an attribute.</span>
+
+<span class="sd">    Paragraph with detailed explanation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    item: molecular model</span>
+<span class="sd">        Molecular model in any of the supported forms by MolModMT. (See: XXX)</span>
+
+<span class="sd">    target: str, default=&#39;system&#39;</span>
+<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;residue&#39;, &#39;chain&#39; or</span>
+<span class="sd">        &#39;system&#39;.</span>
+
+<span class="sd">    indices: int, list, tuple or np.ndarray, default=None</span>
+<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;residue&#39; or &#39;chain&#39;) this</span>
+<span class="sd">        method is going to work with. The set of indices can be given by a list, tuple or numpy</span>
+<span class="sd">        array of integers (0-based).</span>
+
+<span class="sd">    selection: str, list, tuple or np.ndarray, defaul=&#39;all&#39;</span>
+<span class="sd">       Atoms selection over which this method applies. The selection can be given by a</span>
+<span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
+<span class="sd">       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).</span>
+
+<span class="sd">    frame_indices: int, list, tuple, np.ndarray or &#39;all&#39;, default=&#39;all&#39;</span>
+<span class="sd">        List of indices referring the set of frames this method is going to work with. This set of indices can be given by a list, tuple or numpy</span>
+<span class="sd">        array of integers (0-based).</span>
+
+<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>
+<span class="sd">       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    None</span>
+<span class="sd">        XXX.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    :func:`molmodmt.select`</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+
+<span class="sd">    Todo</span>
+<span class="sd">    ----</span>
+
+<span class="sd">    Warning</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
 
     <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
     <span class="n">target</span> <span class="o">=</span> <span class="n">_singular</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
@@ -620,9 +805,9 @@
 
     <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.load.html#molmodmt.load">[docs]</a><span class="k">def</span> <span class="nf">load</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.load.html#molmodmt.load">[docs]</a><span class="k">def</span> <span class="nf">load</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;load(item, to_form=&#39;molmodmt.MolMod&#39;, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;, **kwargs)</span>
+    <span class="sd">&quot;&quot;&quot;load(item, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, to_form=&#39;molmodmt.MolMod&#39;, syntaxis=&#39;MDTraj&#39;, **kwargs)</span>
 
 <span class="sd">    Loading a molecular model.</span>
 
@@ -668,12 +853,12 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">to_form</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.convert.html#molmodmt.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.convert.html#molmodmt.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;convert(item, to_form=&#39;molmodmt.MolMod&#39;, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;, **kwargs)</span>
+    <span class="sd">&quot;&quot;&quot;convert(item, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, to_form=&#39;molmodmt.MolMod&#39;, syntaxis=&#39;MDTraj&#39;, **kwargs)</span>
 
 <span class="sd">    Convert a molecular model into other form.</span>
 
@@ -684,16 +869,16 @@
 <span class="sd">    ----------</span>
 
 <span class="sd">    item: molecular model</span>
-<span class="sd">        Molecular model in any of the supported forms by MolModMT.</span>
-
-<span class="sd">    to_form: str, default=&#39;molmodmt.MolMod&#39;</span>
-<span class="sd">        The output object will take the form specified here. This form supported form by MolModMt</span>
-<span class="sd">        for the output object.</span>
+<span class="sd">        Molecular model in any supported form by MolModMT (see: XXX).</span>
 
 <span class="sd">    selection: str, list, tuple or np.ndarray, defaul=&#39;all&#39;</span>
 <span class="sd">       Atoms selection over which this method applies. The selection can be given by a</span>
 <span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
 <span class="sd">       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).</span>
+
+<span class="sd">    to_form: str, default=&#39;molmodmt.MolMod&#39;</span>
+<span class="sd">        The output object will take the form specified here. This form supported form by MolModMt</span>
+<span class="sd">        for the output object.</span>
 
 <span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
 <span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>

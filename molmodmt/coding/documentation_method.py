@@ -1,4 +1,4 @@
-    """into(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj')
+    """method_name(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj')
 
     Print out general information of a molecular model.
 
@@ -8,7 +8,17 @@
     ----------
 
     item: molecular model
-        Molecular model in any of the supported forms by MolModMT. (See: XXX)
+        Molecular model in any supported form (see: XXX). The object being acted on by the method.
+
+    selection: str, list, tuple or np.ndarray, defaul='all'
+       Atoms selection on which the action is applied. The selection can be given by means of a string following any of
+       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`); or addressing
+       the selected atom index or indices (0-based) by means of an integer, or a list, a tuple, or
+       numpy array of integers.
+
+    frame_indices: int, list, tuple, np.ndarray or 'all', default='all'
+        Frames selection on which the action is applied. The frame index or indices
+        (0-based) can be referred by an integer or by a list, tuple or numpy array of integers.
 
     target: str, default='system'
         The nature of the entities this method is going to work with: 'atom', 'residue', 'chain' or
@@ -18,17 +28,12 @@
         Any accepted form by MolModMt for the output object.
 
     indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ('atom', 'residue' or 'chain') this
-        method is going to work with. The set of indices can be given by a list, tuple or numpy
-        array of integers (0-based).
-
-    selection: str, list, tuple or np.ndarray, defaul='all'
-       Atoms selection over which this method applies. The selection can be given by a
-       list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).
+        The index or the set of indices of targetted entities ('atom', 'residue' or 'chain') this
+        method is going to work with. This entity index or indices (0-based) can be given by
+        an integer or a list, tuple or numpy array of integers.
 
     syntaxis: str, default='MDTraj'
-       Syntaxis used in the argument `selection` (in case it is a string). The
+       Syntaxis used to write argument `selection` (in case it is a string). The
        current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).
 
     Returns
@@ -44,6 +49,7 @@
     --------
 
     :func:`molmodmt.get`, :func:`molmodmt.select`
+
     Notes
     -----
 

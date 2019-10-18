@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Installation\n",
+    "# Molecular model forms\n",
     "\n",
     "The latest \"stable\" version of MolModMT can be installed from the UIBCDF Anaconda channel:\n",
     "\n",
