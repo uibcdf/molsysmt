@@ -1,9 +1,9 @@
 
 .. molmodmt documentation master file
 
-================
-MolModMT (HOLA!)
-================
+========
+MolModMT
+========
 
 .. image:: https://zenodo.org/badge/137937243.svg
    :target: https://zenodo.org/badge/latestdoi/137937243
