@@ -1,0 +1,1635 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%load_ext autoreload\n",
+    "%autoreload 2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/home/diego/Myopt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/yank/experiment.py:1170: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.\n",
+      "  \"\"\")\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "e7f841bfa7224d189dcd31bd3d6d4577",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "_ColormakerRegistry()"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import molmodmt as m3t\n",
+    "import nglview as nv\n",
+    "from simtk import unit\n",
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Cálculo de distancias"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El cálculo de distancias en MolModMT se puede hacer actualmente recurriendo a dos motores: el propio conjunto de librerías de MolMoMT programadas para tal efecto y las encontradas en la librería MDTraj (en el futuro se añadirán MDAnalysis y Pytraj). La opción por defecto, si no se especifica otra cosa, es usar el código propio de MolModMT. Si por algún motivo se prefiere realizar los cálculos empleando métodos de MDTraj, se puede añadir el argumento de entrada `engine='MDTraj'` a cada uno de los métodos que aparecen a continuación."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Objeto XYZ"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "MolModMT acepta trabajar con matrices de coordenadas espaciales como la forma más simple de codificar las posiciones de un modelo molecular de átomos iguales, sin información topológica. Es lo que MolModMT denomina objeto `XYZ`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "model_A = np.zeros([6,3], dtype='float64') * unit.angstroms"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'XYZ'"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "m3t.get_form(model_A)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[1, 6]"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "m3t.get(model_A, n_frames=True, n_atoms=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El objeto XYZ debe ser un tensor de tipo array de numpy de rango 3 o 2 según sea: [índice_frame, indice_átomo, coordenada] o [índice_atómo, coordenada], donde coordenada es x, y o z. Es obligatorio que este array de numpy lleve unidades de longitud."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "model_A = np.zeros([2,4,3], dtype='float64') * unit.nanometers"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[2, 4]"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "m3t.get(model_A, n_frames=True, n_atoms=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "En adelante, y para ilustrar la funcionalidad de los métodos aquí presentados, supongamos dos modelos con coordenadas espaciales para tres frames, el primero con tres elementos o átomos y el segundo con dos:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Set_A inicializado a cero:\n",
+    "set_A = np.zeros([3,3,3], dtype='float64') * unit.nanometers\n",
+    "\n",
+    "## coordenadas del primer elemento de Set_A para los tres frames \n",
+    "set_A[0,0,:] = [0, 2, -1] * unit.nanometers\n",
+    "set_A[1,0,:] = [1, 2, -1] * unit.nanometers\n",
+    "set_A[2,0,:] = [0, 2, -1] * unit.nanometers\n",
+    "\n",
+    "## coordenadas del segundo elemento de Set_A para los tres frames\n",
+    "set_A[0,1,:] = [-1, 1, 1] * unit.nanometers\n",
+    "set_A[1,1,:] = [-1, 0, 1] * unit.nanometers\n",
+    "set_A[2,1,:] = [0, 0, 1] * unit.nanometers\n",
+    "\n",
+    "## coordenadas del tercer elemento de Set_A para los tres frames\n",
+    "set_A[0,2,:] = [-2, 0, 1] * unit.nanometers\n",
+    "set_A[1,2,:] = [-2, 0, 0] * unit.nanometers\n",
+    "set_A[2,2,:] = [-1, 1, 0] * unit.nanometers\n",
+    "\n",
+    "# Set_B inicializado a cero:\n",
+    "\n",
+    "set_B = np.zeros([3,2,3], dtype='float64') * unit.nanometers\n",
+    "\n",
+    "## coordenadas del primer elemento de Set_B para los tres frames\n",
+    "set_B[0,0,:] = [4, -2, 0] * unit.nanometers\n",
+    "set_B[1,0,:] = [5, -2, -1] * unit.nanometers\n",
+    "set_B[2,0,:] = [5, -2, 0] * unit.nanometers\n",
+    "\n",
+    "## coordenadas del segundo elemento de Set_B para los tres frames\n",
+    "set_B[0,1,:] = [3, 0, -1] * unit.nanometers\n",
+    "set_B[1,1,:] = [3, 1, 0] * unit.nanometers\n",
+    "set_B[2,1,:] = [4, 1, 1] * unit.nanometers"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Distancias entre elementos"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El caso más sencillo que podemos resolver en cuanto al cálculo de distancias es el de la distancia entre los puntos de un conjunto, o entre dos conjuntos distintos de puntos en el espacio, sin condiciones de contorno periódicas. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Supongamos que queremos calcular las distancias entre todos los elementos de `set_A` para cada uno de sus frames:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El resultado es un tensor de rango 3 donde el primer rango es el índice de frame, en este caso ha tres, y el segundo y el tercer rango corresponden a los indices de los elementos de `set_A`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "De tal manera que la distancia entre el elemento 0-ésimo y el 2-ésimo en el frame 0-ésimo es:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[0,0,2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Si quisíeramos haber calculado únicamente la distancia entre esos dos elementos podríamos haber recurrido a:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=0, selection_2=2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Observa que la forma del array ahora es un tensor de rango 3 donde en este caso el primer rango tiene dimensión 3 (por ser tres frames) y para el resto las dimensiones son iguales a 1:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Esto es porque tenemos tres frames (primer rango) con dos listas de elementos (segundo y tercer rango): `selection_1` y `selection_2`. Y en este caso ambas listas contienen un único elemento, el 0-ésimo en el primer caso y el 2-ésimo en el segundo. Veamos ahora qué pasa si queremos calcular la distancia entre el elemento 0-ésimo y los otros dos:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=0, selection_2=[1,2])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El tensor de distancias tiene ahora dimensión 2 en el último rango. ¿Cómo entonces por ejemplo veríamos cúal es la distancia entre el elemento 0-ésimo y el 2-ésimo para el frame 1-ésimo según el actual objeto `distances`? "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[1,0,1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Para mayor claridad podemos también obtener el resultado del método `molmodmt.distance` como diccionario, donde ahora sí podemos recurrir al índice de elemento expresado en los argumentos `selection_1` y `selection_2`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=0, selection_2=[1,2], output_form='dict')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "En realidad el objeto `distances` es ahora un diccionario de diccionarios para poder rápidamente conocer las distancias entre dos elementos en función del índice de frame. Veamos cómo acceder a la lista de distancias para los diferentes frames (aquí sólo uno) entre el elemento 0-ésimo incluido en `selection_1` y el 2-ésimo incluido en `selection_2` para el frame 1-ésimo:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[0][2][1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Supongamos ahora que tenemos los dos conjuntos de puntos en el espacio en tres instantes de tiempo: `set_A` y `set_B`."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Podemos ahora invocando una sola vez el método `molmodmt.distance` calcular todas las distancias entre los elementos de ambos conjuntos para todos los frames:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, item_2=set_B)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "De esta manera podemos por ejemplo acceder a la distancia entre el elemento 2-ésimo de `set_A` y el elemento 0-ésimo de `set_B` para el segundo frame o frame 1-ésimo."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[1,2,0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "O imprimir esta distancia en función para todos los frames:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[:,2,0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Como vimos en el caso anterior, podemos ordenar que la salida del método `molmodmt.distance` sea en forma de diccionario de diccionarios."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, item_2=set_B, output_form='dict')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Podemos entonces acceder a las mismas distancias que anteriormente:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# distancia entre el elemento 2-ésimo de set_A y 0-ésimo para el segundo frame\n",
+    "print(distances[2][0][1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# distancia entre el elemento 2-ésimo de set_A y 0-ésimo en cada frame\n",
+    "print(distances[2][0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Esta manera de sacar los datos puede ser muy conveniente cuando calculamos distancias entre listas de elementos de ambos conjuntos. Supongamos que queremos calcular las distancias entre los elementos 1-ésimo y 2-ésimo de `set_A` y el elemento 1-ésimo de `set_B` para todos los frames. Primero veamos cómo hacerlo con la salida tipo tensor (salida por defecto):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[1,2], item_2=set_B, selection_2=1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "De esta manera las distancias por ejemplo para ambos frames entre el elemento 2-ésimo de `set_A` con el elemento 1-ésimo de `set_B` se situan ahora en la posición 1-ésima (por ser el 1-ésimo elemento de la lista `selection_1`) frente a la 0-ésima (por ser el elemento 0-ésimo elemento, único en este caso, de la lista `selection_2`) en el segundo y tercer rango del tensor correspondientemente:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[:,1,0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "La salida de `molmodmt.distances` tipo diccionario de diccionarios puede hacer más cómodo el trabajo con las distancias resultado, ya que el diccionario recupera los índices iniciales de cada elemento en ambos conjuntos `set_A` y `set_B`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[1,2], item_2=set_B, selection_2=1, output_form='dict')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "La lista de distancias para los distintos frames entre el elemento 2-ésimo de `set_A` y el 1-ésimo de `set_B`, las mismas que anteriormente, puede ser encontrada según: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[2][1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Por último, supongamos que únicamente queremos calcular la distancia entre estas dos últimas selecciones para el frame 0-ésimo y el 2-ésimo. Podemos incluir también como argumento de entrada en `molmodmt.distance` la selección de una lista de frames:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[1,2], frame_indices_1=[0,2],\n",
+    "                         item_2=set_B, selection_2=1, frame_indices_2=[0,2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Esta vez el resultado es un tensor donde ahora ya no tiene dimensión 3 en el primer rango, sino 2 (dos frames):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Supongamos que queremos acceder a la distancia entre el elemento 2-ésimo de `set_A` con el elemento 1-ésimo de `set_B` en el frame 2-ésimo:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[1,1,0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Puedes comprobar que dado que `frame_indices_1` y `frame_indices_2` son iguales, puedes prescindir de `frame_indices_2`. El resultado será el mismo ya que el método sobreentiende que se trata de la misma selección de índices de frame cuando `frame_indices_2=None` y calcula las distancias entre las respectivas selecciones de elementos de ambos items en cada uno de los frames indicados únicamente en `frame_indices_1`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[1,2], frame_indices_1=[0,2],\n",
+    "                         item_2=set_B, selection_2=1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "En esta situación en la que estamos incluyendo una lista de indices de frames, la salida de `molmodmt.distance` en forma de diccionario de diccionarios tambien respeta los índices originales en el caso de los frames:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[1,2], frame_indices_1=[0,2],\n",
+    "                         item_2=set_B, selection_2=1, output_form='dict')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Ahora podemos conocer las distancias entre dos elementos en un frame determinado sin tener que acudir a los indices de dichos elementos y frame que tienen en las listas `selection_1`, `selection_2` y `frame_indices_1`. Basta con los índices absolutos originales que para el caso anterior son 2-ésimo de `set_A` y 1-ésimo de `set_B` en el frame 2-ésimo:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[2][1][2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Distancias de desplazamiento o distancias entre distintas selecciones de índices de frame\n",
+    "\n",
+    "La final de la sección anterior vimos cómo podemos hacer una selección de índices de frame cuando calculamos las distancias entre los elementos de dos modelos moleculares (objetos XYZ aquí). Podríamos ahora, por ejemplo, con lo aprendido hasta aquí calcular la distancia entre la selección `selection_1` del `item_1` en un cierto frame, por ejemplo el 0-ésimo, y la selección `selection_2` del `item_2` en otro cierto frame, por ejemplo el 2-ésimo:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[1,2], frame_indices_1=0,\n",
+    "                         item_2=set_B, selection_2=1, frame_indices_2=2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 2 es {}'.format(distances[0,1,0]))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "O atendiendo a dos listas de índices de frames que serán enfrentadas secuencialmente: primer elemento de la primera lista frente a primer elemento de la segunda lista, segundo frente a segundo, y así consecutivamente:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[1,2], frame_indices_1=[0,1],\n",
+    "                         item_2=set_B, selection_2=1, frame_indices_2=[1,2])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 1 es {}'.format(distances[0,1,0]))\n",
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 1 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 2 es {}'.format(distances[1,1,0]))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "O el mismo cálculo con su salida en forma de diccionario:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[1,2], frame_indices_1=[0,1],\n",
+    "                         item_2=set_B, selection_2=1, frame_indices_2=[1,2], output_form='dict')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Donde dado que la relación entre índices de frame es uno a uno (el 0-ésimo de `set_A` frente al 1-ésimo de `set_B` y el 1-ésimo de `set_A` frente al 2-ésimo de `set_B`, en este caso), el diccionario resultante apela únicamente al índice original de `frame_indices_1`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 1 es {}'.format(distances[2][1][0]))\n",
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 1 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 2 es {}'.format(distances[2][1][1]))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "De esta manera podríamos incluso enfrentar ciertos elementos del set_A en todos sus frames contra ciertos elementos de set_B de un mismo frame, por ejemplo frente al 0-ésimo."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[0,1,2], frame_indices_1=[0,1,2],\n",
+    "                         item_2=set_B, selection_2=1, frame_indices_2=[0,0,0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 0 es {}'.format(distances[0,2,0]))\n",
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 1 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 0 es {}'.format(distances[1,2,0]))\n",
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 2 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 0 es {}'.format(distances[2,2,0]))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "O igualmente:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[0,1,2], frame_indices_1=[0,1,2],\n",
+    "                         item_2=set_B, selection_2=1, frame_indices_2=[0,0,0], output_form='dict')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 0 es {}'.format(distances[2][1][0]))\n",
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 1 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 0 es {}'.format(distances[2][1][1]))\n",
+    "print('La distancia entre el elemento 2-ésimo del set_A en el frame 2 y el elemento 1-ésimo del set_B\\\n",
+    " en el frame 0 es {}'.format(distances[2][1][2]))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Ya podemos entonces hacer el ejercicio de calcular distancias de desplazamiento de unos mismos elementos entre frames. Por ejemplo, veamos como podríamos responder la pregunta: ¿Cuanto se desplazan los elementos de `set_A` entre frames consecutivos?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, frame_indices_1=[0,1], frame_indices_2=[1,2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Podemos ahora ver cuanto se desplazó por ejemplo el elemento 1-ésimo de `set_A` entre los frames 0-ésimo y 1-ésimo, o entre el 1-ésimo y el 2-esimo."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print('La distancia de desplazamiento del elemento 1-ésimo de set_A entre los frames 0 y 1 es {}'.format(distances[0][1][1]))\n",
+    "print('La distancia de desplazamiento del elemento 1-ésimo de set_A entre los frames 1 y 2 es {}'.format(distances[1][1][1]))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El inconveniente que puede tener esta aproximación al cálculo de distancias de desplazamientos es que es absurdamente cara computacionalmente ya que también hemos tenido que calcular la distancia entre elementos distintos en frames distintos. O dicho de otra manera, para calcular la distancia de 3 elementos entre dos frames hemos tenido que calcular 9 distancias:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "No tienen en este último caso mucho sentido los elementos fuera de la diagonal de la matriz `distances[0,:,:]`. ¿Qué significa la distancia entre la posición del elemento 0-ésimo en el frame 0-ésimo y la posición del elemento 2-ésimo en el frame 1-ésimo, por ejemplo?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances[0,0,2] # En principio no tienen mucho sentido físicamente estos valores cruzados"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Veamos en la siguiente sección como podríamos haber calculado el desplazamiento de los distintos elementos de `set_A` entre distintos frames sin necesidad de calcular los cruces entre distintos elementos del mismo objeto."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Distancias entre pares\n",
+    "\n",
+    "Cuando invocamos el método `molmodmt.distance` para calcular las distancias entre un conjunto de N elementos de `item_1` y M elementos de `item_2` el resultado es un objeto, tensor o diccionario, con NxM distancias por frame. Pero en ocasiones no necesitamos todas estas distancias sino que sólo queremos ciertas distancias entre pares dados por la lectura secuencial de los elementos de `selection_1` y `selection_2` uno a uno. Este cálculo se puede realizar introduciendo el argumento `pairs=True` en la llamada al método. Veamos esto mejor con un ejemplo recuperando los modelos `set_A` y `set_B`:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Calculemos en primer lugar algo sencillo para ilustrar este uso de `molmodmt.distance`. Calculemos la distancia entre los elementos 0-ésimo y 1-ésimo, y entre los elementos 0-ésimo y 2-ésimo de `set_A` para los frames 1-ésimo y 2-ésimo. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[0,0,1], selection_2=[0,2,2], frame_indices_1=[1,2], pairs=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "La primera diferencia que podemos observar en el resultado frente al uso anterior de `molmodmt.distance` es el rango y dimensiones del tensor `distances`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El tensor es de rango 2, y no de rango 3 como anteriormente. Lo cual tiene mucho sentido porque efectivamente solo quisimos calcular 6 distancias correspondientes a tres pares de elementos para dos frames. Los pares son los construidos con el primer elemento de `selection_1` y el primer elemento de `selection_2`, el segundo de `selection_1` y el segundo de `selection_2`, y así sucesivamente. Es por eso que cuando `pairs=True` ambas selecciones deben tener el mísmo número de elementos. Una manera rápida de calcular los pares, si necesitas almacenarlos en una lista, es recurrir al iterador de python `zip`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "list_1 = [0,0,1]\n",
+    "list_2 = [0,2,2]\n",
+    "pairs = []\n",
+    "\n",
+    "for ii,jj in zip(list_1,list_2):\n",
+    "    pairs.append([ii,jj])\n",
+    "\n",
+    "print(pairs)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Así, si necesitamos acudir al tensor resultante `distances` para ver la distancia del tercer par, en este caso [1,2], en el frame 1-ésimo:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[0,2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "De nuevo, el acceso a los datos resultantes puede ser un poco más cómodo si solicitamos que la salida tenga forma de diccionario de diccionarios. En este caso los indices originales de los elementos y los frames se respetan:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[0,0,1], selection_2=[0,2,2], frame_indices_1=[1,2],\n",
+    "                         pairs=True, output_form='dict')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Veamos ahora la misma distancia entre el elemento 1-ésimo y el 2-ésimo para el frame 1-ésimo:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[1][2][1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Esta opción `pairs=True` nos permite entonces calcular las distancias de desplazamiento de los elementos de `set_A` entre frames consecutivos de una manera más económica computacionalmente (a diferencia de lo observado en el final de la sección anterior):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[0,1,2], selection_2=[0,1,2],\n",
+    "                         frame_indices_1=[0,1], frame_indices_2=[1,2], pairs=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Sólo hemos tenido que calcular los 6 desplazamientos de interes, y no los 18 que fueron necesarios cuando `pairs=False` (opción por defecto). Veamos por ejemplo el desplazamiento del elemento 2-ésimo entre el frame 1-ésimo y el 2-ésimo:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[1,2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "De nuevo con la opción `output_form` el acceso a los desplazamientos se hace con los índices originales:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances = m3t.distance(item_1=set_A, selection_1=[0,1,2], selection_2=[0,1,2],\n",
+    "                         frame_indices_1=[0,1], frame_indices_2=[1,2],\n",
+    "                         pairs=True, output_form='dict')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Así entonces, el mismo desplazamiento del 2-ésimo elemento entre el frame 1-ésimo y el 2-ésimo:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(distances[2][2][1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Distancias máximas y mínimas"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "En múchas ocasiones lo que necesitamos calcular los distancias mínimas o distancias máximas. Para facilitar la obtención de estos observables encontramos en MolModMT dos métodos específicos cuya manera de ser usados es similar: `molmodmt.minimum_distance` y `molmodmt.maximum_distance`. Trabajemos en este sección con el cálculo de distancias mínimas para ilustrar el funcionamiento de estos métodos."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Calculemos en primer lugar la distancia mínima entre los elementos de `set_A` y los de `set_B` para cada uno de los tres frames:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "min_pairs, min_distances = m3t.minimum_distance(item_1=set_A, item_2=set_B)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El resultado son dos objetos. El primero (aquí `min_pairs`) recoje la pareja de elementos, uno del item_1 y el otro del item_2 cuya distancia es mínima entre `set_A` y `set_B`, para cada frame. Y el segundo es el vector de distancias mínimas para cada frame. Por ejemplo veamos cúal es la distancia mínima entre `set_A` y `set_B` y cuales el par de elementos que más próximos están para cada frame:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for ii in range(3):\n",
+    "    print('Frame {}: distancia mínima encontrada entre {} de set_A y {} de set_B a {}'.format(ii,min_pairs[ii,0], min_pairs[ii,1], min_distances[ii]))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El orden de los elementos en los objetos de salida atienden, al igual que en la salida de `molmodmt.distance`, a su índice en `selection_1`, `selection_2` y `frame_indices_1`. En el ejemplo anterior los índices originales coinciden con los de las selecciones porque el valor de las tres es `'all'`. Pero esto no tiene por que ser siempre así. Veamos otro ejemplo:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "min_pairs, min_distances = m3t.minimum_distance(item_1=set_A, selection_1=[1,2], item_2=set_B, selection_2=[0,1],\n",
+    "                                               frame_indices_1=[1,2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El primer par que minimiza la distancia para el primer frame seleccionado es:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(min_pairs[0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Y no se refiere a los elemento 0-ésimo de `set_A` frente al 1-ésimos de `set_B` para el frame 0-ésimo, sino al 0-ésimo elemento de `selection_1` frente al 1-ésimo de `selection_2` para el frame 0-ésimo de la lista `frame_indices_1`. Es decir, para el frame 1-ésimo el elemento 1-ésimo de `set_A` y el 1-ésimo de `set_B` minimizan la distancia de todos los pares posibles entre los elementos de cada selección de los modelos. Y la distancia entre estos es:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(min_distances[0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Una variante a este primer uso de `molmodmt.minimum_distance` es el que responde a la siguiente situación. En el primer caso anterior hemos buscado la pareja de elementos que minimiza la distancia entre los dos modelos moleculares. ¿Cómo ahora puedo calcular las distancias mínimas de cada uno de los elementos de un modelo con todos los del otro elemento? O dicho de otra manera, cual es el elemento de `set_B` más próximo al 0-ésimo de `set_A`, ¿y al 1-ésimo de `set_B`? Necesitamos entonces no considerar `set_A` como una entidad compuesta por elementos, si no por una lista de elementos que van a ser considerados individualmente en la busqueda del criterio extremal de la distancia. Para esto tenemos los argumentos `as_entity_1=False` o `as_entity_2=False` según convenga.  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "min_pairs, min_distances = m3t.minimum_distance(item_1=set_A, selection_1=[1,2], frame_indices_1=[1,2],\n",
+    "                                                item_2=set_B, selection_2=[0,1], frame_indices_2=[1,2],\n",
+    "                                                as_entity_1=False, as_entity_2=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Ahora el rango y dimensión de los dos objetos de salida se ajusta a los criterios de entrada solicitados. `item_1` se ha considerado como un conjunto de elementos independientes dados por `selection_1`, e `item_2` como un todo compuesto por los elementos seleccionados por `selection_2`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(min_pairs.shape, min_distances.shape)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Para ambos objetos el primer rango corresponde al índice de frame de la lista `frame_indices_1`. Y el segundo rango da cuenta de los elementos de `set_A` según `selection_1`. Así el elemento de `set_B` más próximo al elemento 2-ésimo de `set_A` es para el frame 1-ésimo es:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "min_pairs[0,1]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El elemento 1-ésimo de la selección `selection_2`, osea el elemento 0-ésimo de `set_B`, es el que está más próximo al elemento 2-ésimo de `set_A` para el frame 1-ésimo, y su distancia es:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(min_distances[0,1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Por último, con estos métodos podemos, por ejemplo, saber qué elemento de un modelo fue el que más o el que menos se desplazo entre frames consecutivos:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "max_pairs, max_distances = m3t.maximum_distance(item_1=set_A, selection_1=[0,1,2], selection_2=[0,1,2],\n",
+    "                                                frame_indices_1=[0,1], frame_indices_2=[1,2], pairs=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El elemento que más se desplaza de `set_A` entre el frame 1-ésimo y el 2-ésimo es:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "max_pairs[1]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Es el elemento 2-ésimo de `set_A`. Es decir, la pareja formada por el elemento 2-ésimo de `selection_1` y el 2-ésimo de `selection_2` que coincide que es la pareja de los elementos 2-ésimos de `set_A`. ¿Por qué una pareja? porque se trata de la distancia entre el elemento 2-ésimo de `set_A` en el frame 1-ésimo, según frame_indices_1, y el elemento 2-ésimo de `set_B` en el frame 2-ésimo, según frame_indices_2. Y la magnitud del desplazamiento de este elemento es para este frame es:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(max_distances[1])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Listas de vecinos"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "En esta sección veremos cómo usar el método `molmodmt.neighbors_lists` para calcular listas de vecinos. Estas listas de vecinos pueden ser definidas de dos maneras según tomen valor uno de los dos argumentos de entrada `num_neighbors` o `threshold`. Veamos en primer lugar el uso de `num_neighbors`, calculemos los dos primeros vecinos de cada uno de los elementos de `set_A`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "neighbors, distances = m3t.neighbors_lists(item_1=set_A, num_neighbors=2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "neighbors, distances = m3t.neighbors_lists(item_1=set_A, threshold=2.0*unit.nanometers)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "distances"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Jugar con las selecciones, etc... el caso  es que tengo que quitar el mismo elemento, por eso sale 0. Y eso sólo cuando es el mismo item, con la misma selección y los mismos frames."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Mapas de contactos\n",
+    "\n",
+    "MolModMT cuenta con un método para especificamente calcular mapas de contactos. Los argumentos de entrada y la manera de uso de este método es muy similar a las funciones descritas anteriormente. Veamos por ejemplo en primer lugar cómo calcular el mapa de contactos entre los elementos de un modelo molecular dada una distancia umbral. Tomaremos como ejemplo el modelo `set_A` definido desde el comienzo de este notebook y la distancia umbral 2.0 nm."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "contactos = m3t.contact_map(item_1=set_A, threshold=2.0*unit.nanometers)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "El resultado es un tensor lógico, o booleano, que codifica el mapa de contactos observado para cada uno de los frames. Es decir, el tensor tiene rango 3 donde el primer rango hace referencia al índice de frame y el segundo y tercer rango a los indices de elementos de `set_A` frente a los mismo indices."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(3, 3, 3)"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "contactos.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "De esta manera por ejemplo podemos ver si el elemento 0-ésimo de `set_A` está en contacto con el elemento 2-esimo de `set_A` en el frame 1-ésimo según:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "False"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "contactos[1][0][2]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "O podemos ver el mapa de contactos del frame 2-ésimo simplemente con:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[ True, False, False],\n",
+       "       [False,  True,  True],\n",
+       "       [False,  True,  True]])"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "contactos[1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import networkx as nx"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "G = nx.from_numpy_matrix(contactos[1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[{0}, {1, 2}]"
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "list(nx.connected_components(G))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Distancias entre grupos "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Distancias mínimas o máximas entre grupos"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Listas de vecinos entre grupos"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Mapas de contactos entre grupos"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "molsys = m3t.load('/home/diego/1brs.pdb', selection='chainid 0 or chainid 3')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m3t.view(molsys)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dists_CAs = m3t.distance(molsys, selection_1=\"chainid 0 and name CA\", selection_2=\"chainid 3 and name CA\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "chain0_CAs = m3t.select(molsys, \"chainid 0 and name CA\")\n",
+    "chain3_CAs = m3t.select(molsys, \"chainid 3 and name CA\")\n",
+    "\n",
+    "ii=10\n",
+    "jj=20\n",
+    "frame_index=0\n",
+    "\n",
+    "print('La distancia entre el átomo {} y el átomo {} es {}'.format(chain0_CAs[ii], chain3_CAs[jj], dists_CAs[frame_index,ii,jj]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dists_CAs = m3t.distance(molsys, selection_1=\"chainid 0 and name CA\", selection_2=\"chainid 3 and name CA\", output_form='dict')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ii=74\n",
+    "jj=1022\n",
+    "frame_index=0\n",
+    "\n",
+    "print('La distancia entre el átomo {} y el átomo {} es {}'.format(ii, jj, dists_CAs[ii][jj][frame_index]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "m3t.get(molsys, target='atom', indices=[74,1022], index=True, id=True, name=True, element=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

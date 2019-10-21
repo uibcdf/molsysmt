@@ -1,0 +1,1607 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cálculo de distancias &mdash; MolModMT 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Documentation" href="../api/index.html" />
+    <link rel="prev" title="Atoms selection" href="../Atoms_Selection.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> MolModMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Quickstart.html">Quick Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Forms.html">Molecular model forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Atoms_Selection.html">Atoms selection</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cálculo de distancias</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Objeto-XYZ">Objeto XYZ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Distancias-entre-elementos">Distancias entre elementos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Distancias-de-desplazamiento-o-distancias-entre-distintas-selecciones-de-índices-de-frame">Distancias de desplazamiento o distancias entre distintas selecciones de índices de frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Distancias-entre-pares">Distancias entre pares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Distancias-máximas-y-mínimas">Distancias máximas y mínimas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Listas-de-vecinos">Listas de vecinos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Mapas-de-contactos">Mapas de contactos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Distancias-entre-grupos">Distancias entre grupos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Distancias-mínimas-o-máximas-entre-grupos">Distancias mínimas o máximas entre grupos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Listas-de-vecinos-entre-grupos">Listas de vecinos entre grupos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Mapas-de-contactos-entre-grupos">Mapas de contactos entre grupos</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#basic-manipulations">Basic manipulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.load.html">molmodmt.load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.convert.html">molmodmt.convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.info.html">molmodmt.info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.select.html">molmodmt.select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.get.html">molmodmt.get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.set.html">molmodmt.set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.extract.html">molmodmt.extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.merge.html">molmodmt.merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.write.html">molmodmt.write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molmodmt.view.html">molmodmt.view</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MolModMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Cálculo de distancias</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/examples/Distances.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">molmodmt</span> <span class="k">as</span> <span class="nn">m3t</span>
+<span class="kn">import</span> <span class="nn">nglview</span> <span class="k">as</span> <span class="nn">nv</span>
+<span class="kn">from</span> <span class="nn">simtk</span> <span class="k">import</span> <span class="n">unit</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/diego/Myopt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/yank/experiment.py:1170: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  &#34;&#34;&#34;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e7f841bfa7224d189dcd31bd3d6d4577", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="section" id="Cálculo-de-distancias">
+<h1>Cálculo de distancias<a class="headerlink" href="#Cálculo-de-distancias" title="Permalink to this headline">¶</a></h1>
+<p>El cálculo de distancias en MolModMT se puede hacer actualmente recurriendo a dos motores: el propio conjunto de librerías de MolMoMT programadas para tal efecto y las encontradas en la librería MDTraj (en el futuro se añadirán MDAnalysis y Pytraj). La opción por defecto, si no se especifica otra cosa, es usar el código propio de MolModMT. Si por algún motivo se prefiere realizar los cálculos empleando métodos de MDTraj, se puede añadir el argumento de entrada <code class="docutils literal notranslate"><span class="pre">engine='MDTraj'</span></code> a cada uno de
+los métodos que aparecen a continuación.</p>
+<div class="section" id="Objeto-XYZ">
+<h2>Objeto XYZ<a class="headerlink" href="#Objeto-XYZ" title="Permalink to this headline">¶</a></h2>
+<p>MolModMT acepta trabajar con matrices de coordenadas espaciales como la forma más simple de codificar las posiciones de un modelo molecular de átomos iguales, sin información topológica. Es lo que MolModMT denomina objeto <code class="docutils literal notranslate"><span class="pre">XYZ</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">model_A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;XYZ&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">model_A</span><span class="p">,</span> <span class="n">n_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[1, 6]
+</pre></div>
+</div>
+</div>
+<p>El objeto XYZ debe ser un tensor de tipo array de numpy de rango 3 o 2 según sea: [índice_frame, indice_átomo, coordenada] o [índice_atómo, coordenada], donde coordenada es x, y o z. Es obligatorio que este array de numpy lleve unidades de longitud.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">model_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">model_A</span><span class="p">,</span> <span class="n">n_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[2, 4]
+</pre></div>
+</div>
+</div>
+<p>En adelante, y para ilustrar la funcionalidad de los métodos aquí presentados, supongamos dos modelos con coordenadas espaciales para tres frames, el primero con tres elementos o átomos y el segundo con dos:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Set_A inicializado a cero:</span>
+<span class="n">set_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="c1">## coordenadas del primer elemento de Set_A para los tres frames</span>
+<span class="n">set_A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="c1">## coordenadas del segundo elemento de Set_A para los tres frames</span>
+<span class="n">set_A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="c1">## coordenadas del tercer elemento de Set_A para los tres frames</span>
+<span class="n">set_A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="c1"># Set_B inicializado a cero:</span>
+
+<span class="n">set_B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="c1">## coordenadas del primer elemento de Set_B para los tres frames</span>
+<span class="n">set_B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_B</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_B</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+
+<span class="c1">## coordenadas del segundo elemento de Set_B para los tres frames</span>
+<span class="n">set_B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_B</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+<span class="n">set_B</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Distancias-entre-elementos">
+<h2>Distancias entre elementos<a class="headerlink" href="#Distancias-entre-elementos" title="Permalink to this headline">¶</a></h2>
+<p>El caso más sencillo que podemos resolver en cuanto al cálculo de distancias es el de la distancia entre los puntos de un conjunto, o entre dos conjuntos distintos de puntos en el espacio, sin condiciones de contorno periódicas.</p>
+<p>Supongamos que queremos calcular las distancias entre todos los elementos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> para cada uno de sus frames:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>El resultado es un tensor de rango 3 donde el primer rango es el índice de frame, en este caso ha tres, y el segundo y el tercer rango corresponden a los indices de los elementos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<p>De tal manera que la distancia entre el elemento 0-ésimo y el 2-ésimo en el frame 0-ésimo es:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Si quisíeramos haber calculado únicamente la distancia entre esos dos elementos podríamos haber recurrido a:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Observa que la forma del array ahora es un tensor de rango 3 donde en este caso el primer rango tiene dimensión 3 (por ser tres frames) y para el resto las dimensiones son iguales a 1:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<p>Esto es porque tenemos tres frames (primer rango) con dos listas de elementos (segundo y tercer rango): <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> y <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>. Y en este caso ambas listas contienen un único elemento, el 0-ésimo en el primer caso y el 2-ésimo en el segundo. Veamos ahora qué pasa si queremos calcular la distancia entre el elemento 0-ésimo y los otros dos:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<p>El tensor de distancias tiene ahora dimensión 2 en el último rango. ¿Cómo entonces por ejemplo veríamos cúal es la distancia entre el elemento 0-ésimo y el 2-ésimo para el frame 1-ésimo según el actual objeto <code class="docutils literal notranslate"><span class="pre">distances</span></code>?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Para mayor claridad podemos también obtener el resultado del método <code class="docutils literal notranslate"><span class="pre">molmodmt.distance</span></code> como diccionario, donde ahora sí podemos recurrir al índice de elemento expresado en los argumentos <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> y <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>En realidad el objeto <code class="docutils literal notranslate"><span class="pre">distances</span></code> es ahora un diccionario de diccionarios para poder rápidamente conocer las distancias entre dos elementos en función del índice de frame. Veamos cómo acceder a la lista de distancias para los diferentes frames (aquí sólo uno) entre el elemento 0-ésimo incluido en <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> y el 2-ésimo incluido en <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> para el frame 1-ésimo:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Supongamos ahora que tenemos los dos conjuntos de puntos en el espacio en tres instantes de tiempo: <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y <code class="docutils literal notranslate"><span class="pre">set_B</span></code>.</p>
+<p>Podemos ahora invocando una sola vez el método <code class="docutils literal notranslate"><span class="pre">molmodmt.distance</span></code> calcular todas las distancias entre los elementos de ambos conjuntos para todos los frames:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>De esta manera podemos por ejemplo acceder a la distancia entre el elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y el elemento 0-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> para el segundo frame o frame 1-ésimo.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>O imprimir esta distancia en función para todos los frames:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[:,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Como vimos en el caso anterior, podemos ordenar que la salida del método <code class="docutils literal notranslate"><span class="pre">molmodmt.distance</span></code> sea en forma de diccionario de diccionarios.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Podemos entonces acceder a las mismas distancias que anteriormente:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># distancia entre el elemento 2-ésimo de set_A y 0-ésimo para el segundo frame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># distancia entre el elemento 2-ésimo de set_A y 0-ésimo en cada frame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Esta manera de sacar los datos puede ser muy conveniente cuando calculamos distancias entre listas de elementos de ambos conjuntos. Supongamos que queremos calcular las distancias entre los elementos 1-ésimo y 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y el elemento 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> para todos los frames. Primero veamos cómo hacerlo con la salida tipo tensor (salida por defecto):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>De esta manera las distancias por ejemplo para ambos frames entre el elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> con el elemento 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> se situan ahora en la posición 1-ésima (por ser el 1-ésimo elemento de la lista <code class="docutils literal notranslate"><span class="pre">selection_1</span></code>) frente a la 0-ésima (por ser el elemento 0-ésimo elemento, único en este caso, de la lista <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>) en el segundo y tercer rango del tensor correspondientemente:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>La salida de <code class="docutils literal notranslate"><span class="pre">molmodmt.distances</span></code> tipo diccionario de diccionarios puede hacer más cómodo el trabajo con las distancias resultado, ya que el diccionario recupera los índices iniciales de cada elemento en ambos conjuntos <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y <code class="docutils literal notranslate"><span class="pre">set_B</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>La lista de distancias para los distintos frames entre el elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y el 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code>, las mismas que anteriormente, puede ser encontrada según:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Por último, supongamos que únicamente queremos calcular la distancia entre estas dos últimas selecciones para el frame 0-ésimo y el 2-ésimo. Podemos incluir también como argumento de entrada en <code class="docutils literal notranslate"><span class="pre">molmodmt.distance</span></code> la selección de una lista de frames:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Esta vez el resultado es un tensor donde ahora ya no tiene dimensión 3 en el primer rango, sino 2 (dos frames):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<p>Supongamos que queremos acceder a la distancia entre el elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> con el elemento 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> en el frame 2-ésimo:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Puedes comprobar que dado que <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code> y <code class="docutils literal notranslate"><span class="pre">frame_indices_2</span></code> son iguales, puedes prescindir de <code class="docutils literal notranslate"><span class="pre">frame_indices_2</span></code>. El resultado será el mismo ya que el método sobreentiende que se trata de la misma selección de índices de frame cuando <code class="docutils literal notranslate"><span class="pre">frame_indices_2=None</span></code> y calcula las distancias entre las respectivas selecciones de elementos de ambos items en cada uno de los frames indicados únicamente en <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<p>En esta situación en la que estamos incluyendo una lista de indices de frames, la salida de <code class="docutils literal notranslate"><span class="pre">molmodmt.distance</span></code> en forma de diccionario de diccionarios tambien respeta los índices originales en el caso de los frames:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Ahora podemos conocer las distancias entre dos elementos en un frame determinado sin tener que acudir a los indices de dichos elementos y frame que tienen en las listas <code class="docutils literal notranslate"><span class="pre">selection_1</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> y <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code>. Basta con los índices absolutos originales que para el caso anterior son 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> en el frame 2-ésimo:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Distancias-de-desplazamiento-o-distancias-entre-distintas-selecciones-de-índices-de-frame">
+<h2>Distancias de desplazamiento o distancias entre distintas selecciones de índices de frame<a class="headerlink" href="#Distancias-de-desplazamiento-o-distancias-entre-distintas-selecciones-de-índices-de-frame" title="Permalink to this headline">¶</a></h2>
+<p>La final de la sección anterior vimos cómo podemos hacer una selección de índices de frame cuando calculamos las distancias entre los elementos de dos modelos moleculares (objetos XYZ aquí). Podríamos ahora, por ejemplo, con lo aprendido hasta aquí calcular la distancia entre la selección <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> del <code class="docutils literal notranslate"><span class="pre">item_1</span></code> en un cierto frame, por ejemplo el 0-ésimo, y la selección <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> del <code class="docutils literal notranslate"><span class="pre">item_2</span></code> en otro cierto frame, por ejemplo el 2-ésimo:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 2 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<p>O atendiendo a dos listas de índices de frames que serán enfrentadas secuencialmente: primer elemento de la primera lista frente a primer elemento de la segunda lista, segundo frente a segundo, y así consecutivamente:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 1 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 1 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 2 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<p>O el mismo cálculo con su salida en forma de diccionario:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Donde dado que la relación entre índices de frame es uno a uno (el 0-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> frente al 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> y el 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> frente al 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code>, en este caso), el diccionario resultante apela únicamente al índice original de <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 1 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 1 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 2 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<p>De esta manera podríamos incluso enfrentar ciertos elementos del set_A en todos sus frames contra ciertos elementos de set_B de un mismo frame, por ejemplo frente al 0-ésimo.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 0 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 1 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 0 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 2 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 0 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<p>O igualmente:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 0 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 0 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 1 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 0 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el elemento 2-ésimo del set_A en el frame 2 y el elemento 1-ésimo del set_B</span><span class="se">\</span>
+<span class="s1"> en el frame 0 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<p>Ya podemos entonces hacer el ejercicio de calcular distancias de desplazamiento de unos mismos elementos entre frames. Por ejemplo, veamos como podríamos responder la pregunta: ¿Cuanto se desplazan los elementos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> entre frames consecutivos?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Podemos ahora ver cuanto se desplazó por ejemplo el elemento 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> entre los frames 0-ésimo y 1-ésimo, o entre el 1-ésimo y el 2-esimo.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia de desplazamiento del elemento 1-ésimo de set_A entre los frames 0 y 1 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia de desplazamiento del elemento 1-ésimo de set_A entre los frames 1 y 2 es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<p>El inconveniente que puede tener esta aproximación al cálculo de distancias de desplazamientos es que es absurdamente cara computacionalmente ya que también hemos tenido que calcular la distancia entre elementos distintos en frames distintos. O dicho de otra manera, para calcular la distancia de 3 elementos entre dos frames hemos tenido que calcular 9 distancias:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<p>No tienen en este último caso mucho sentido los elementos fuera de la diagonal de la matriz <code class="docutils literal notranslate"><span class="pre">distances[0,:,:]</span></code>. ¿Qué significa la distancia entre la posición del elemento 0-ésimo en el frame 0-ésimo y la posición del elemento 2-ésimo en el frame 1-ésimo, por ejemplo?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># En principio no tienen mucho sentido físicamente estos valores cruzados</span>
+</pre></div>
+</div>
+</div>
+<p>Veamos en la siguiente sección como podríamos haber calculado el desplazamiento de los distintos elementos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> entre distintos frames sin necesidad de calcular los cruces entre distintos elementos del mismo objeto.</p>
+</div>
+<div class="section" id="Distancias-entre-pares">
+<h2>Distancias entre pares<a class="headerlink" href="#Distancias-entre-pares" title="Permalink to this headline">¶</a></h2>
+<p>Cuando invocamos el método <code class="docutils literal notranslate"><span class="pre">molmodmt.distance</span></code> para calcular las distancias entre un conjunto de N elementos de <code class="docutils literal notranslate"><span class="pre">item_1</span></code> y M elementos de <code class="docutils literal notranslate"><span class="pre">item_2</span></code> el resultado es un objeto, tensor o diccionario, con NxM distancias por frame. Pero en ocasiones no necesitamos todas estas distancias sino que sólo queremos ciertas distancias entre pares dados por la lectura secuencial de los elementos de <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> y <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> uno a uno. Este cálculo se puede realizar introduciendo el argumento
+<code class="docutils literal notranslate"><span class="pre">pairs=True</span></code> en la llamada al método. Veamos esto mejor con un ejemplo recuperando los modelos <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y <code class="docutils literal notranslate"><span class="pre">set_B</span></code>:</p>
+<p>Calculemos en primer lugar algo sencillo para ilustrar este uso de <code class="docutils literal notranslate"><span class="pre">molmodmt.distance</span></code>. Calculemos la distancia entre los elementos 0-ésimo y 1-ésimo, y entre los elementos 0-ésimo y 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> para los frames 1-ésimo y 2-ésimo.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>La primera diferencia que podemos observar en el resultado frente al uso anterior de <code class="docutils literal notranslate"><span class="pre">molmodmt.distance</span></code> es el rango y dimensiones del tensor <code class="docutils literal notranslate"><span class="pre">distances</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<p>El tensor es de rango 2, y no de rango 3 como anteriormente. Lo cual tiene mucho sentido porque efectivamente solo quisimos calcular 6 distancias correspondientes a tres pares de elementos para dos frames. Los pares son los construidos con el primer elemento de <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> y el primer elemento de <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>, el segundo de <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> y el segundo de <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>, y así sucesivamente. Es por eso que cuando <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code> ambas selecciones deben tener el mísmo número de elementos.
+Una manera rápida de calcular los pares, si necesitas almacenarlos en una lista, es recurrir al iterador de python <code class="docutils literal notranslate"><span class="pre">zip</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">list_1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">list_2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">pairs</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">jj</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">list_1</span><span class="p">,</span><span class="n">list_2</span><span class="p">):</span>
+    <span class="n">pairs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Así, si necesitamos acudir al tensor resultante <code class="docutils literal notranslate"><span class="pre">distances</span></code> para ver la distancia del tercer par, en este caso [1,2], en el frame 1-ésimo:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>De nuevo, el acceso a los datos resultantes puede ser un poco más cómodo si solicitamos que la salida tenga forma de diccionario de diccionarios. En este caso los indices originales de los elementos y los frames se respetan:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Veamos ahora la misma distancia entre el elemento 1-ésimo y el 2-ésimo para el frame 1-ésimo:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Esta opción <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code> nos permite entonces calcular las distancias de desplazamiento de los elementos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> entre frames consecutivos de una manera más económica computacionalmente (a diferencia de lo observado en el final de la sección anterior):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Sólo hemos tenido que calcular los 6 desplazamientos de interes, y no los 18 que fueron necesarios cuando <code class="docutils literal notranslate"><span class="pre">pairs=False</span></code> (opción por defecto). Veamos por ejemplo el desplazamiento del elemento 2-ésimo entre el frame 1-ésimo y el 2-ésimo:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>De nuevo con la opción <code class="docutils literal notranslate"><span class="pre">output_form</span></code> el acceso a los desplazamientos se hace con los índices originales:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Así entonces, el mismo desplazamiento del 2-ésimo elemento entre el frame 1-ésimo y el 2-ésimo:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Distancias-máximas-y-mínimas">
+<h2>Distancias máximas y mínimas<a class="headerlink" href="#Distancias-máximas-y-mínimas" title="Permalink to this headline">¶</a></h2>
+<p>En múchas ocasiones lo que necesitamos calcular los distancias mínimas o distancias máximas. Para facilitar la obtención de estos observables encontramos en MolModMT dos métodos específicos cuya manera de ser usados es similar: <code class="docutils literal notranslate"><span class="pre">molmodmt.minimum_distance</span></code> y <code class="docutils literal notranslate"><span class="pre">molmodmt.maximum_distance</span></code>. Trabajemos en este sección con el cálculo de distancias mínimas para ilustrar el funcionamiento de estos métodos.</p>
+<p>Calculemos en primer lugar la distancia mínima entre los elementos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y los de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> para cada uno de los tres frames:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="p">,</span> <span class="n">min_distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">minimum_distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>El resultado son dos objetos. El primero (aquí <code class="docutils literal notranslate"><span class="pre">min_pairs</span></code>) recoje la pareja de elementos, uno del item_1 y el otro del item_2 cuya distancia es mínima entre <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y <code class="docutils literal notranslate"><span class="pre">set_B</span></code>, para cada frame. Y el segundo es el vector de distancias mínimas para cada frame. Por ejemplo veamos cúal es la distancia mínima entre <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y <code class="docutils literal notranslate"><span class="pre">set_B</span></code> y cuales el par de elementos que más próximos están para cada frame:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Frame </span><span class="si">{}</span><span class="s1">: distancia mínima encontrada entre </span><span class="si">{}</span><span class="s1"> de set_A y </span><span class="si">{}</span><span class="s1"> de set_B a </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span><span class="n">min_pairs</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">min_pairs</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">min_distances</span><span class="p">[</span><span class="n">ii</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<p>El orden de los elementos en los objetos de salida atienden, al igual que en la salida de <code class="docutils literal notranslate"><span class="pre">molmodmt.distance</span></code>, a su índice en <code class="docutils literal notranslate"><span class="pre">selection_1</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> y <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code>. En el ejemplo anterior los índices originales coinciden con los de las selecciones porque el valor de las tres es <code class="docutils literal notranslate"><span class="pre">'all'</span></code>. Pero esto no tiene por que ser siempre así. Veamos otro ejemplo:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="p">,</span> <span class="n">min_distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">minimum_distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                                               <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>El primer par que minimiza la distancia para el primer frame seleccionado es:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">min_pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Y no se refiere a los elemento 0-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> frente al 1-ésimos de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> para el frame 0-ésimo, sino al 0-ésimo elemento de <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> frente al 1-ésimo de <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> para el frame 0-ésimo de la lista <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code>. Es decir, para el frame 1-ésimo el elemento 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> y el 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> minimizan la distancia de todos los pares posibles entre los elementos de cada selección de los modelos. Y la distancia entre estos es:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">min_distances</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Una variante a este primer uso de <code class="docutils literal notranslate"><span class="pre">molmodmt.minimum_distance</span></code> es el que responde a la siguiente situación. En el primer caso anterior hemos buscado la pareja de elementos que minimiza la distancia entre los dos modelos moleculares. ¿Cómo ahora puedo calcular las distancias mínimas de cada uno de los elementos de un modelo con todos los del otro elemento? O dicho de otra manera, cual es el elemento de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> más próximo al 0-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code>, ¿y al 1-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code>? Necesitamos
+entonces no considerar <code class="docutils literal notranslate"><span class="pre">set_A</span></code> como una entidad compuesta por elementos, si no por una lista de elementos que van a ser considerados individualmente en la busqueda del criterio extremal de la distancia. Para esto tenemos los argumentos <code class="docutils literal notranslate"><span class="pre">as_entity_1=False</span></code> o <code class="docutils literal notranslate"><span class="pre">as_entity_2=False</span></code> según convenga.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="p">,</span> <span class="n">min_distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">minimum_distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                                                <span class="n">item_2</span><span class="o">=</span><span class="n">set_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                                                <span class="n">as_entity_1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_entity_2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Ahora el rango y dimensión de los dos objetos de salida se ajusta a los criterios de entrada solicitados. <code class="docutils literal notranslate"><span class="pre">item_1</span></code> se ha considerado como un conjunto de elementos independientes dados por <code class="docutils literal notranslate"><span class="pre">selection_1</span></code>, e <code class="docutils literal notranslate"><span class="pre">item_2</span></code> como un todo compuesto por los elementos seleccionados por <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">min_pairs</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">min_distances</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Para ambos objetos el primer rango corresponde al índice de frame de la lista <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code>. Y el segundo rango da cuenta de los elementos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> según <code class="docutils literal notranslate"><span class="pre">selection_1</span></code>. Así el elemento de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> más próximo al elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> es para el frame 1-ésimo es:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>El elemento 1-ésimo de la selección <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>, osea el elemento 0-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code>, es el que está más próximo al elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> para el frame 1-ésimo, y su distancia es:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">min_distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>Por último, con estos métodos podemos, por ejemplo, saber qué elemento de un modelo fue el que más o el que menos se desplazo entre frames consecutivos:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">max_pairs</span><span class="p">,</span> <span class="n">max_distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">maximum_distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                                                <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>El elemento que más se desplaza de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> entre el frame 1-ésimo y el 2-ésimo es:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">max_pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Es el elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code>. Es decir, la pareja formada por el elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> y el 2-ésimo de <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> que coincide que es la pareja de los elementos 2-ésimos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code>. ¿Por qué una pareja? porque se trata de la distancia entre el elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> en el frame 1-ésimo, según frame_indices_1, y el elemento 2-ésimo de <code class="docutils literal notranslate"><span class="pre">set_B</span></code> en el frame 2-ésimo, según frame_indices_2. Y la magnitud del desplazamiento de este elemento es para este frame es:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">max_distances</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Listas-de-vecinos">
+<h2>Listas de vecinos<a class="headerlink" href="#Listas-de-vecinos" title="Permalink to this headline">¶</a></h2>
+<p>En esta sección veremos cómo usar el método <code class="docutils literal notranslate"><span class="pre">molmodmt.neighbors_lists</span></code> para calcular listas de vecinos. Estas listas de vecinos pueden ser definidas de dos maneras según tomen valor uno de los dos argumentos de entrada <code class="docutils literal notranslate"><span class="pre">num_neighbors</span></code> o <code class="docutils literal notranslate"><span class="pre">threshold</span></code>. Veamos en primer lugar el uso de <code class="docutils literal notranslate"><span class="pre">num_neighbors</span></code>, calculemos los dos primeros vecinos de cada uno de los elementos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">num_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">2.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span>
+</pre></div>
+</div>
+</div>
+<p>Jugar con las selecciones, etc… el caso es que tengo que quitar el mismo elemento, por eso sale 0. Y eso sólo cuando es el mismo item, con la misma selección y los mismos frames.</p>
+</div>
+<div class="section" id="Mapas-de-contactos">
+<h2>Mapas de contactos<a class="headerlink" href="#Mapas-de-contactos" title="Permalink to this headline">¶</a></h2>
+<p>MolModMT cuenta con un método para especificamente calcular mapas de contactos. Los argumentos de entrada y la manera de uso de este método es muy similar a las funciones descritas anteriormente. Veamos por ejemplo en primer lugar cómo calcular el mapa de contactos entre los elementos de un modelo molecular dada una distancia umbral. Tomaremos como ejemplo el modelo <code class="docutils literal notranslate"><span class="pre">set_A</span></code> definido desde el comienzo de este notebook y la distancia umbral 2.0 nm.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">contactos</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">contact_map</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">set_A</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">2.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">nanometers</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>El resultado es un tensor lógico, o booleano, que codifica el mapa de contactos observado para cada uno de los frames. Es decir, el tensor tiene rango 3 donde el primer rango hace referencia al índice de frame y el segundo y tercer rango a los indices de elementos de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> frente a los mismo indices.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">contactos</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>(3, 3, 3)
+</pre></div>
+</div>
+</div>
+<p>De esta manera por ejemplo podemos ver si el elemento 0-ésimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> está en contacto con el elemento 2-esimo de <code class="docutils literal notranslate"><span class="pre">set_A</span></code> en el frame 1-ésimo según:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">contactos</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>False
+</pre></div>
+</div>
+</div>
+<p>O podemos ver el mapa de contactos del frame 2-ésimo simplemente con:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">contactos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>array([[ True, False, False],
+       [False,  True,  True],
+       [False,  True,  True]])
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_matrix</span><span class="p">(</span><span class="n">contactos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">connected_components</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[{0}, {1, 2}]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Distancias-entre-grupos">
+<h2>Distancias entre grupos<a class="headerlink" href="#Distancias-entre-grupos" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="Distancias-mínimas-o-máximas-entre-grupos">
+<h2>Distancias mínimas o máximas entre grupos<a class="headerlink" href="#Distancias-mínimas-o-máximas-entre-grupos" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="Listas-de-vecinos-entre-grupos">
+<h2>Listas de vecinos entre grupos<a class="headerlink" href="#Listas-de-vecinos-entre-grupos" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="Mapas-de-contactos-entre-grupos">
+<h2>Mapas de contactos entre grupos<a class="headerlink" href="#Mapas-de-contactos-entre-grupos" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">molsys</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;/home/diego/1brs.pdb&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;chainid 0 or chainid 3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">molsys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dists_CAs</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;chainid 0 and name CA&quot;</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;chainid 3 and name CA&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">chain0_CAs</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="s2">&quot;chainid 0 and name CA&quot;</span><span class="p">)</span>
+<span class="n">chain3_CAs</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="s2">&quot;chainid 3 and name CA&quot;</span><span class="p">)</span>
+
+<span class="n">ii</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">jj</span><span class="o">=</span><span class="mi">20</span>
+<span class="n">frame_index</span><span class="o">=</span><span class="mi">0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el átomo </span><span class="si">{}</span><span class="s1"> y el átomo </span><span class="si">{}</span><span class="s1"> es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chain0_CAs</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="n">chain3_CAs</span><span class="p">[</span><span class="n">jj</span><span class="p">],</span> <span class="n">dists_CAs</span><span class="p">[</span><span class="n">frame_index</span><span class="p">,</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dists_CAs</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;chainid 0 and name CA&quot;</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;chainid 3 and name CA&quot;</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ii</span><span class="o">=</span><span class="mi">74</span>
+<span class="n">jj</span><span class="o">=</span><span class="mi">1022</span>
+<span class="n">frame_index</span><span class="o">=</span><span class="mi">0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;La distancia entre el átomo </span><span class="si">{}</span><span class="s1"> y el átomo </span><span class="si">{}</span><span class="s1"> es </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">,</span> <span class="n">dists_CAs</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="n">jj</span><span class="p">][</span><span class="n">frame_index</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">74</span><span class="p">,</span><span class="mi">1022</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api/index.html" class="btn btn-neutral float-right" title="API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Atoms_Selection.html" class="btn btn-neutral float-left" title="Atoms selection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

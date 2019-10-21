@@ -1,6 +1,0 @@
-molmodmt.set
-============
-
-.. currentmodule:: molmodmt
-
-.. autofunction:: set
