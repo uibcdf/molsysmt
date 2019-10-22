@@ -10,12 +10,12 @@ is_form = {
     'PDB:id': form_name
     }
 
-def to_pdb(form_id, output_file=None, atom_indices=None, frame_indices=None):
+def to_pdb(form_id, output_file_path=None, atom_indices=None, frame_indices=None):
 
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
-    return _download_pdb(form_id.split(':')[-1],output_file)
+    return _download_pdb(form_id.split(':')[-1],output_file_path)
 
-def to_fasta(item, output_file=None, atom_indices=None, frame_indices=None):
+def to_fasta(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
     tmp_item = item.split(':')[-1]
     url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+tmp_item+'&compressionType=uncompressed'
@@ -25,9 +25,25 @@ def to_fasta(item, output_file=None, atom_indices=None, frame_indices=None):
     if output_file is None:
         return fasta_txt
     else:
-        with open(output_file,'w') as f:
+        with open(output_file_path,'w') as f:
             f.write(fasta_txt)
         pass
+
+def to_mmtf(item, output_file_path=None, atom_indices=None, frame_indices=None):
+
+    from mmtf import fetch
+    from molmodmt import convert
+
+    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return convert(tmp_item, to_form=output_file_path)
+
+def to_mmtf_MMTFDecoder(item, atom_indices=None, frame_indices=None):
+
+    from mmtf import fetch
+    tmp_item = item.split(':')[-1]
+    tmp_item = fetch(tmp_item)
+    del(fetch)
+    return tmp_item
 
 def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
 
@@ -124,6 +140,16 @@ def select_with_MDTraj(item, selection):
 ###### Get
 
 ## system
+
+def get_n_atoms_from_system(item, indices=None, frame_indices=None):
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    return tmp_item.num_atoms
+
+def get_n_frames_from_system(item, indices=None, frame_indices=None):
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    return tmp_item.num_models
 
 def get_form_from_system(item, indices=None, frame_indices=None):
 

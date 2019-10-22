@@ -134,7 +134,7 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', frame_indices='all', s
 
         raise NotImplementedError
 
-def wrap_system_to_pbc_cell(self):
+def wrap_molecules_to_pbc_cell(self):
     #self.coors=asfortran_np.array(self.coors)
     #libbox.wrap_all_inplace(self.coors,self.box,self.invbox,self.orthogonal,self.coors.shape[0])
     #self.coors=ascontiguous_np.array(self.coors)

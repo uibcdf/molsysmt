@@ -15,43 +15,48 @@ MolModMT, Molecular Modeling Multi-Tool, is a swiss army knife to make the resea
 
 Exceptionally few home-made subroutines will be included here to fill specific gaps in our needs. But this should not be, in principle, the main purpose of MolModMT.
 
+.. warning:: |IntroWarningText|
+
+.. |IntroWarningText| replace::
+        At this moment MolModMT is a work in progress project maintened by the UIBCDF Lab. It was concieved as a central repository for those shortcuts and common routines in the daily workflow of our lab. If you think this library is useful to you, use it with caution. Any feedback is welcome.
+
 .. note:: |IntroNoteText|
 
 .. |IntroNoteText| replace::
-        At this moment MolModMT is a work in progress project maintened by the UIBCDF Lab. It was concieved as a central repository for those shortcuts and common routines in the daily workflow of our lab. If you think this library is useful to you, use it with caution. Any feedback is welcome.
-
-Installation and Quick Start Guide
-----------------------------------
+        A version of this web page in spanish will be available soon.
 
 .. toctree::
+   :caption: Installation and Quick Guide
    :maxdepth: 1
 
-   Installation.ipynb
+   Installation.md
    Quickstart.ipynb
 
-User Guide
-----------
-
 .. toctree::
+   :caption: User Guide
    :maxdepth: 1
 
    Forms.ipynb
    Atoms_Selection.ipynb
-
-Examples
---------
+   Basic_Manipulations.ipynb
 
 .. toctree::
+   :caption: Examples
    :maxdepth: 1
 
-   ../examples/Distances.ipynb
+   ../examples/es/Distances.ipynb
 
-
-API Documentation
------------------
 
 .. toctree::
+   :caption: API Documentation
    :maxdepth: 1
 
    api/index
+
+Glossary, indices and tables
+============================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 

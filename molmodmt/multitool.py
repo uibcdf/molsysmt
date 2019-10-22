@@ -141,12 +141,6 @@ def select(item, selection='all', syntaxis='MDTraj'):
     Notes
     -----
 
-    Todo
-    ----
-
-    Warning
-    -------
-
     """
 
     from numpy import array as _array
@@ -213,12 +207,6 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
 
     Notes
     -----
-
-    Todo
-    ----
-
-    Warning
-    -------
 
     """
 
@@ -300,12 +288,6 @@ def merge(item1=None, item2=None, to_form=None):
     Notes
     -----
 
-    Todo
-    ----
-
-    Warning
-    -------
-
     """
 
     #item1 can be a list or tuple
@@ -373,12 +355,6 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='MD
     Notes
     -----
 
-    Todo
-    ----
-
-    Warning
-    -------
-
     """
 
     from pandas import DataFrame as df
@@ -426,7 +402,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='MD
 
     pass
 
-def _get_form(item=None):
+def get_form(item=None):
 
     if type(item)==str:
         if ':' in item:
@@ -495,12 +471,6 @@ def get(item, target='system', indices=None, selection='all', frame_indices='all
 
     Notes
     -----
-
-    Todo
-    ----
-
-    Warning
-    -------
 
     """
 
@@ -587,12 +557,6 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
 
     Notes
     -----
-
-    Todo
-    ----
-
-    Warning
-    -------
 
     """
 
@@ -722,12 +686,6 @@ def convert(item, selection='all', frame_indices='all', to_form='molmodmt.MolMod
     Notes
     -----
 
-    Todo
-    ----
-
-    Warning
-    -------
-
     """
 
     form_in, form_out  = _digest_forms(item, to_form)
@@ -737,11 +695,11 @@ def convert(item, selection='all', frame_indices='all', to_form='molmodmt.MolMod
 
     if type(form_out)==str:
         if form_out.split('.')[-1] in _list_files_forms:
-            form_out=form.split('.')[-1]
-            out_file=form
+            out_file=form_out
+            form_out=form_out.split('.')[-1]
 
     if out_file is not None:
-        return _dict_converter[form_in][form_out](item, filename=out_file,
+        return _dict_converter[form_in][form_out](item, output_file_path=out_file,
                                                   atom_indices=atom_indices, frame_indices=frame_indices,
                                                   **kwargs)
     else:
@@ -764,10 +722,10 @@ def write(item=None, filename=None, selection='all', frame_indices='all', syntax
 def view(item=None, viewer='nglview', selection='all', frame_indices='all', syntaxis='MDTraj'):
 
     if type(item) in [list,tuple]:
-        form_in = _get_form(item[0])
+        form_in = get_form(item[0])
         tmp_item = merge(item)
     else:
-        form_in = _get_form(item)
+        form_in = get_form(item)
         tmp_item = item
 
     atom_indices = select(tmp_item, selection=selection, syntaxis=syntaxis)

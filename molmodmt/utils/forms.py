@@ -21,7 +21,7 @@ def parse_form_name(form):
 
     elif len(fields)==2:
 
-        return fields[0].lower()+'.'+fields[1]
+        return fields[0]+'.'+fields[1]
 
     else:
 
@@ -29,9 +29,9 @@ def parse_form_name(form):
 
 def digest(item, to_form=None):
 
-    from molmodmt import _get_form
+    from molmodmt import get_form
 
-    form_in = _get_form(item)
+    form_in = get_form(item)
 
     if to_form is not None:
         form_out = parse_form_name(to_form)

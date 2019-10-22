@@ -1,0 +1,6 @@
+molmodmt.duplicate
+==================
+
+.. currentmodule:: molmodmt
+
+.. autofunction:: duplicate

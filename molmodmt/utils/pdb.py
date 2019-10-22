@@ -22,4 +22,3 @@ def download_pdb(pdb_id=None, output_file=None):
         urllib.request.urlretrieve(fullurl, output_file)
         pass
 
-
