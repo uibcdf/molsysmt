@@ -59,6 +59,6 @@ def rewrite_to_style(filename, style=None):
 
 def get_form_from_system(item, indices=None, frame_indices=None):
 
-    from molmodmt import _get_form
-    return _get_form(item)
+    from molmodmt import get_form
+    return get_form(item)
 
