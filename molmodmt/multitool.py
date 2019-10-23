@@ -226,7 +226,7 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
             selection_is_all = True
 
     if selection_is_all:
-        tmp_item=duplicate(item=None)
+        tmp_item=duplicate(item=item)
     else:
         atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
         frame_indices = _digest_frame_indices(item, frame_indices)

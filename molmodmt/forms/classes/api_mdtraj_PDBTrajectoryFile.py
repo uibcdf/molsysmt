@@ -36,7 +36,7 @@ def load_frame (item, atom_indices=None, frame_indices=None):
     xyz = xyz.in_units_of(nanometers)
 
     time = zeros([len(frame_indices)],dtype='float64')*picoseconds
-    step = array(indices, dtype='int64')
+    step = array(frame_indices, dtype='int64')
 
     cell_lengths = empty([n_frames,3], dtype='float64')
     cell_angles = empty([n_frames,3], dtype='float64')
