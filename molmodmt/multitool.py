@@ -704,6 +704,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
                                                   **kwargs)
     else:
         if form_out != form_in:
+            print(atom_indices, form_in, form_out)
             return _dict_converter[form_in][form_out](item, atom_indices=atom_indices,
                                                       frame_indices=frame_indices, **kwargs)
         else:
@@ -712,7 +713,6 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
 def duplicate(item=None):
 
     form_in, _ = _digest_forms(item)
-
     return _dict_duplicator[form_in](item)
 
 def write(item=None, filename=None, selection='all', frame_indices='all', syntaxis='MDTraj'):

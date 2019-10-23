@@ -154,6 +154,12 @@ def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
     return item.atom_slice(atom_indices)
 
+def duplicate(item):
+
+    from copy import deepcopy
+
+    return deepcopy(item)
+
 def merge_two_items(item1, item2):
 
     tmp_item = item1.stack(item2)

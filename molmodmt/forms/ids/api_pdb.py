@@ -57,9 +57,9 @@ def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.utils.miscellanea import download_pdb as _download_pdb
-    from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
+    from molmodmt.forms.files.api_pdb import to_mdtraj_Trajectory as _pdb_to_mdtraj_Trajectory
     _tmp_file=_download_pdb(item.split(':')[-1])
-    _tmp_item=_pdb_to_mdtraj(_tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    _tmp_item=_pdb_to_mdtraj_Trajectory(_tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     _remove(_tmp_file)
     return _tmp_item
 

@@ -87,10 +87,6 @@ def to_openmm_PDBFile(item, atom_indices=None, frame_indices=None):
     tmp_item = PDBFile(item)
     return tmp_item
 
-def to_pdbfixer(item, atom_indices=None, frame_indices=None):
-
-    return to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, frame_indices=frame_indices)
-
 def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract
