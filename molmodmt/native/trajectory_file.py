@@ -1,9 +1,9 @@
 class TrajectoryFile():
 
-    def __init__(self, filename=None, mode='read'):
+    def __init__(self, file_path=None, mode='read'):
 
         self.opened = False
-        self.name = None
+        self.path = None
         self.mount_point = None
         self.form = None
         self.n_frames = 0
@@ -11,27 +11,27 @@ class TrajectoryFile():
         self.box_shape = None
         self.atom_indices = None
 
-        if filename is not None and mode=='read':
+        if file_path is not None and mode=='read':
 
             from molmodmt import get, get_form, convert
 
-            self.name = filename
-            self.form = get_form(filename)
+            self.path = file_path
+            self.form = get_form(file_path)
 
             if self.form == 'xtc':
-                self.mount_point = convert(filename,'mdtraj.XTCTrajectoryFile')
+                self.mount_point = convert(file_path, to_form='mdtraj.XTCTrajectoryFile')
                 self.n_frames = get(self.mount_point, n_frames=True)
                 self.n_atoms = get(self.mount_point, n_atoms=True)
                 self.box_shape = get(self.mount_point, box_shape=True)
                 self.opened = True
             elif self.form == 'h5':
-                self.mount_point = convert(filename,'mdtraj.HDF5TrajectoryFile')
+                self.mount_point = convert(file_path, to_form='mdtraj.HDF5TrajectoryFile')
                 self.n_frames = get(self.mount_point, n_frames=True)
                 self.n_atoms = get(self.mount_point, n_atoms=True)
                 self.box_shape = get(self.mount_point, box_shape=True)
                 self.opened = True
             elif self.form == 'pdb':
-                self.mount_point = convert(filename,'mdtraj.PDBTrajectoryFile')
+                self.mount_point = convert(file_path, to_form='mdtraj.PDBTrajectoryFile')
                 self.n_frames = get(self.mount_point, n_frames=True)
                 self.n_atoms = get(self.mount_point, n_atoms=True)
                 self.box_shape = get(self.mount_point, box_shape=True)
@@ -39,10 +39,13 @@ class TrajectoryFile():
             else:
                 raise NotImplementedError
 
-    def load_frames (self, indices=None, atoms_indices=None):
+    def load_frames (self, atom_indices=None, frame_indices=None):
 
         # return: step, time, coordinates, box   (with units)
 
         from molmodmt import get
-        return get(self.mount_point, indices=atoms_indices, frame_indices=indices)
+        step, time, coordinates, box = get(self.mount_point, target='atom', indices=atom_indices,
+                                       frame_indices=frame_indices, frames=True)
+        self.atom_indices=atom_indices
+        return step, time, coordinates, box
 

@@ -13,8 +13,8 @@ def sequence_alignment(ref_item=None, item=None, engine='biopython', prettyprint
 
         from Bio.pairwise2 import align as _biopython_align
         from Bio.SubsMat import MatrixInfo as _biopython_MatrixInfo
-        tmp_ref_seq=_convert(ref_item,'biopython.Seq')
-        tmp_seq=_convert(item,'biopython.Seq')
+        tmp_ref_seq=_convert(ref_item, to_form='biopython.Seq')
+        tmp_seq=_convert(item, to_form='biopython.Seq')
         matrix = getattr(_biopython_MatrixInfo,'gonnet')
         gap_open=-10
         gap_extend=-0.5

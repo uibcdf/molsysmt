@@ -113,7 +113,7 @@ def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstanda
 
     if engine_fix_pdb=='PDBFixer':
 
-        tmp_item = convert(item,'pdbfixer.PDBFixer')
+        tmp_item = convert(item, to_form='pdbfixer.PDBFixer')
 
         if missing_residues:
             tmp_item.findMissingResidues()
@@ -143,7 +143,7 @@ def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstanda
         from .model_loops import add_loop
         tmp_item = add_loop(tmp_item, engine=engine_loops)
 
-    tmp_item = convert(tmp_item, form_out)
+    tmp_item = convert(tmp_item, to_form=form_out)
 
     return tmp_item
 

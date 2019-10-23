@@ -15,7 +15,7 @@ def to_mdtraj_topology(item, atom_indices=None, frame_indices=None):
     tmp_item = extract(tmp_item, selection=atom_indices)
     return tmp_item
 
-def load_frame (item, indices=None, atom_indices=None):
+def load_frame (item, atom_indices=None, frame_indices=None):
 
     from numpy import array, concatenate, zeros, empty
     from molmodmt.utils.pbc import get_box_from_lengths_and_angles
@@ -27,15 +27,15 @@ def load_frame (item, indices=None, atom_indices=None):
     step_list = []
     box_list = []
 
-    n_frames = len(indices)
+    n_frames = len(frame_indices)
 
-    xyz = item.positions[indices,:,:]
+    xyz = item.positions[frame_indices,:,:]
     xyz = xyz.astype('float64')
     xyz = xyz[:,atom_indices,:]
     xyz = xyz*angstroms
     xyz = xyz.in_units_of(nanometers)
 
-    time = zeros([len(indices)],dtype='float64')*picoseconds
+    time = zeros([len(frame_indices)],dtype='float64')*picoseconds
     step = array(indices, dtype='int64')
 
     cell_lengths = empty([n_frames,3], dtype='float64')
@@ -59,14 +59,16 @@ def load_frame (item, indices=None, atom_indices=None):
 
 def get_frames_from_atom (item, indices=None, frame_indices=None):
 
-    step, time, xyz, box = load_frame(item, frame_indices, indices)
+    step, time, xyz, box = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
     return step, time, xyz, box
 
 # system
 
 def get_frames_from_system (item, indices=None, frame_indices=None):
 
-    step, time, xyz, box = load_frame(item, indices=frame_indices)
+    n_atoms = get_n_atoms_from_system(item)
+    atom_indices = list(range(n_atoms))
+    step, time, xyz, box = load_frame(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return step, time, xyz, box
 
 def get_n_frames_from_system (item, indices=None, frame_indices=None):

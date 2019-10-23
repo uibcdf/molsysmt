@@ -60,7 +60,7 @@ def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='Ope
 
     if engine=="OpenMM":
 
-        tmp_item = convert(item, "openmm.Modeller")
+        tmp_item = convert(item, to_form="openmm.Modeller")
         log_residues_changed = tmp_item.addHydrogens(pH=pH)
 
         if verbose:
@@ -74,7 +74,7 @@ def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='Ope
 
     elif engine=='PDBFixer':
 
-        tmp_item = convert(item, "pdbfixer.PDBFixer")
+        tmp_item = convert(item, to_form="pdbfixer.PDBFixer")
         tmp_item.addMissingHydrogens(pH=pH)
 
         if verbose:
@@ -84,7 +84,7 @@ def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='Ope
 
         raise NotImplementedError
 
-    tmp_item = convert(tmp_item, form_in)
+    tmp_item = convert(tmp_item, to_form=form_in)
 
     return tmp_item
 

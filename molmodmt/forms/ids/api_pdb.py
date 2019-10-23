@@ -50,7 +50,7 @@ def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
     from molmodmt.utils.miscellanea import download_pdb as download_pdb
     from molmodmt.native.io_molmod import from_pdb as pdb_to_molmodmt
     tmp_file=download_pdb(item.split(':')[-1])
-    tmp_item=pdb_to_molmodmt(tmp_file, atom_indices=None, frame_indices=None)
+    tmp_item=pdb_to_molmodmt(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     _remove(tmp_file)
     return tmp_item
 
@@ -67,7 +67,7 @@ def to_mdtraj_Topology(form_id, selection='all', frame_indices='all', syntaxis='
 
     from molmodmt import convert as _convert
     tmp_item = to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
-    tmp_item = _convert(tmp_item,'mdtraj.Topology')
+    tmp_item = _convert(tmp_item, to_form='mdtraj.Topology')
     return tmp_item
 
 def to_parmed_Structure(form_id):
@@ -84,7 +84,7 @@ def to_pdbfixer_PDBFixer(form_id, atom_indices=None, frame_indices=None):
     from molmodmt import convert
     pdbid = form_id.split(':')[-1]
     tmp_file=download_pdb(pdbid)
-    tmp_item=convert(tmp_file, 'pdbfixer.PDBFixer', atom_indices=atom_indices,
+    tmp_item=convert(tmp_file, to_form='pdbfixer.PDBFixer', atom_indices=atom_indices,
                      frame_indices=frame_indices)
     _remove(tmp_file)
     return tmp_item
@@ -94,7 +94,7 @@ def to_openmm_Modeller(form_id, atom_indices=None, frame_indices=None):
     from molmodmt import convert
     pdbid = form_id.split(':')[-1]
     tmp_file=download_pdb(pdbid)
-    tmp_item=convert(tmp_file, 'openmm.Modeller', atom_indices=atom_indices,
+    tmp_item=convert(tmp_file, to_form='openmm.Modeller', atom_indices=atom_indices,
                      frame_indices=frame_indices)
     _remove(tmp_file)
     return tmp_item

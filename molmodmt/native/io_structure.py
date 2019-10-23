@@ -3,7 +3,7 @@ from .structure import Structure as _Structure
 
 def from_pdb(item=None, atom_indices=None, frame_indices=None):
     from molmodmt import convert as _convert
-    tmp_item = _convert(item, form='parmed.Structure', selection=atom_indices,
+    tmp_item = _convert(item, to_form='parmed.Structure', selection=atom_indices,
                         frame_indices=frame_indices)
     return tmp_item
 

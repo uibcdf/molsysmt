@@ -2,7 +2,6 @@
 def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=False):
 
     from .multitool import get_form as _get_form, convert as _convert
-    from molmodmt import convert as _convert
 
     form_in = _get_form(item)
 
@@ -20,7 +19,7 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=
 
         tmp_box = _get(item, box=True)
 
-        seq_original = _convert(item, 'aminoacids1:seq')
+        seq_original = _convert(item, to_form='aminoacids1:seq')
         seq_aligned, _, _, _, _ = _sequence_alignment('aminoacids1:'+seq_original,
                                                       'aminoacids1:'+target_sequence)[0]
 
@@ -29,7 +28,7 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=
         tmp_seqfilename = '/tmp/'+tmp_name+'.seq'
         tmp_alifilename = '/tmp/'+tmp_name+'.ali'
 
-        _convert(item, tmp_pdbfilename)
+        _convert(item, to_form=tmp_pdbfilename)
 
         if verbose:
             modeller.log.verbose()
@@ -98,7 +97,7 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=
             pdb_file.close()
 
         print("Best loop model with modeller's objective function:",candidate_value)
-        tmp_item = _convert(candidate_pdb_file, form_in)
+        tmp_item = _convert(candidate_pdb_file, to_form=form_in)
 
         for file_produced in files_produced:
             _remove(file_produced)

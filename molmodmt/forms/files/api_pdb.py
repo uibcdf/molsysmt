@@ -116,7 +116,7 @@ def select_with_MDTraj(item, selection):
     from mdtraj import load_topology as _mdtraj_load_topology
 
     tmp_item = _mdtraj_load_topology(item)
-    tmp_sel=tmp_item.select(selection)
+    tmp_sel = tmp_item.select(selection)
     del(tmp_item)
     return tmp_sel
 

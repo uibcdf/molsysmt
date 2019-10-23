@@ -175,7 +175,7 @@ def least_rmsd_fit (item=None, selection='backbone', frame_indices='all',
         elif in_form=='molmodmt.MolMod':
             item.trajectory._import_mdtraj_data(tmp_item)
         else:
-            item=_convert(tmp_item,in_form)
+            item=_convert(tmp_item, to_form=in_form)
 
     else:
 

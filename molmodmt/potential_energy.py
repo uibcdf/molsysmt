@@ -66,7 +66,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
 
         in_form = _get_form(item)
 
-        topology = _convert(item, 'openmm.Topology')
+        topology = _convert(item, to_form='openmm.Topology')
         positions = _get(item, coordinates=True)
         positions = _reformat(attribute='coordinates', value=positions, is_format=in_form,
                               to_format='openmm')
@@ -108,7 +108,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
             energy_post_min = state_post_min.getPotentialEnergy()
             print("Potential Energy after minimization: {}".format(energy_post_min))
 
-        tmp_item = _convert(simulation, in_form)
+        tmp_item = _convert(simulation, to_form=in_form)
 
         return tmp_item
 

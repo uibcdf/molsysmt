@@ -46,21 +46,21 @@ import numpy as _np
 def from_pdb(item=None, atom_indices=None, frame_indices=None):
 
     from .trajectory import Trajectory
-    tmp_item = Trajectory(filename=item)
+    tmp_item = Trajectory(file_path=item)
     tmp_item.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def from_xtc(item=None, atom_indices=None, frame_indices=None):
 
     from .trajectory import Trajectory
-    tmp_item = Trajectory(filename=item)
+    tmp_item = Trajectory(file_path=item)
     tmp_item.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def from_hdf5(item=None, atom_indices=None, frame_indices=None):
 
     from .trajectory import Trajectory
-    tmp_item = Trajectory(filename=item)
+    tmp_item = Trajectory(file_path=item)
     tmp_item.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 

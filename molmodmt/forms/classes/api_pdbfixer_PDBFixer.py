@@ -108,9 +108,9 @@ def select_with_MDTraj(item, selection):
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import convert, extract
-    tmp_item = convert(item, 'openmm.Modeller')
+    tmp_item = convert(item, to_form='openmm.Modeller')
     tmp_item = extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = convert(tmp_item, 'pdbfixer.PDBFixer')
+    tmp_item = convert(tmp_item, to_form='pdbfixer.PDBFixer')
     return tmp_item
 
 
@@ -120,8 +120,8 @@ def duplicate(item):
     from molmodmt import convert
     from molmodmt.utils.pdb import tmp_pdb_filename
     tmp_file = tmp_pdb_filename()
-    convert(item, tmp_file)
-    tmp_item = convert(tmp_file,'pdbfixer.PDBFixer')
+    convert(item, to_form=tmp_file)
+    tmp_item = convert(tmp_file, to_form='pdbfixer.PDBFixer')
     remove(tmp_file)
     return tmp_item
 

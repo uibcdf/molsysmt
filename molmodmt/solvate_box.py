@@ -97,7 +97,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
 
         pdbfile_in = tmp_filename(".pdb")
-        convert(tmp_item, pdbfile_in)
+        convert(tmp_item, to_form=pdbfile_in)
 
         tleap = TLeap()
         tleap.load_parameters(*leaprc_parameters)
@@ -118,7 +118,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
         tleap.run()
 
-        tmp_item = convert(pdbfile_out, form_in)
+        tmp_item = convert(pdbfile_out, to_form=form_in)
 
         remove(pdbfile_in)
         remove(pdbfile_out)

@@ -48,7 +48,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
 
     tmp_pdbfile = tmp_filename('pdb')
     to_pdb(item, tmp_pdbfile)
-    tmp_item = convert(tmp_pdbfile, 'pdbfixer.PDBFixer')
+    tmp_item = convert(tmp_pdbfile, to_form='pdbfixer.PDBFixer')
     remove(tmp_pdbfile)
     return tmp_item
 

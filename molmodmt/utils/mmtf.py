@@ -97,7 +97,6 @@ def load_mmtf(filename, stride=None, atom_indices=None, frame=None):
         return f.read_as_traj(n_frames=n_frames, stride=stride,
                               atom_indices=atom_indices)
 
-
 @FormatRegistry.register_fileobject('.gro')
 class MMTFTrajectoryFile(object):
     """Interface for reading and writing to MMTF files.
@@ -121,7 +120,6 @@ class MMTFTrajectoryFile(object):
 
     See Also
     --------
-    load_gro : High-level wrapper that returns a ``md.Trajectory``
     """
     distance_unit = 'nanometers'
 
@@ -147,39 +145,39 @@ class MMTFTrajectoryFile(object):
             raise ValueError("invalid mode: %s" % mode)
 
 
-    def write(self, coordinates, topology, time=None, unitcell_vectors=None,
-              precision=3):
-        """Write one or more frames of a molecular dynamics trajectory to disk
-        in the GROMACS GRO format.
+    #def write(self, coordinates, topology, time=None, unitcell_vectors=None,
+    #          precision=3):
+    #    """Write one or more frames of a molecular dynamics trajectory to disk
+    #    in the GROMACS GRO format.
 
-        Parameters
-        ----------
-        coordinates : np.ndarray, dtype=np.float32, shape=(n_frames, n_atoms, 3)
-            The cartesian coordinates of each atom, in units of nanometers.
-        topology : mdtraj.Topology
-            The Topology defining the model to write.
-        time : np.ndarray, dtype=float32, shape=(n_frames), optional
-            The simulation time corresponding to each frame, in picoseconds.
-            If not supplied, the numbers 0..n_frames will be written.
-        unitcell_vectors : np.ndarray, dtype=float32, shape=(n_frames, 3, 3), optional
-            The periodic box vectors of the simulation in each frame, in nanometers.
-        precision : int, optional
-            The number of decimal places to print for coordinates. Default is 3
-        """
-        if not self._open:
-            raise ValueError('I/O operation on closed file')
-        if not self._mode == 'w':
-            raise ValueError('file not opened for writing')
+    #    Parameters
+    #    ----------
+    #    coordinates : np.ndarray, dtype=np.float32, shape=(n_frames, n_atoms, 3)
+    #        The cartesian coordinates of each atom, in units of nanometers.
+    #    topology : mdtraj.Topology
+    #        The Topology defining the model to write.
+    #    time : np.ndarray, dtype=float32, shape=(n_frames), optional
+    #        The simulation time corresponding to each frame, in picoseconds.
+    #        If not supplied, the numbers 0..n_frames will be written.
+    #    unitcell_vectors : np.ndarray, dtype=float32, shape=(n_frames, 3, 3), optional
+    #        The periodic box vectors of the simulation in each frame, in nanometers.
+    #    precision : int, optional
+    #        The number of decimal places to print for coordinates. Default is 3
+    #    """
+    #    if not self._open:
+    #        raise ValueError('I/O operation on closed file')
+    #    if not self._mode == 'w':
+    #        raise ValueError('file not opened for writing')
 
-        coordinates = ensure_type(coordinates, dtype=np.float32, ndim=3, name='coordinates', can_be_none=False, warn_on_cast=False)
-        time = ensure_type(time, dtype=float, ndim=1, name='time', can_be_none=True, shape=(len(coordinates),), warn_on_cast=False)
-        unitcell_vectors = ensure_type(unitcell_vectors, dtype=float, ndim=3, name='unitcell_vectors',
-            can_be_none=True, shape=(len(coordinates), 3, 3), warn_on_cast=False)
+    #    coordinates = ensure_type(coordinates, dtype=np.float32, ndim=3, name='coordinates', can_be_none=False, warn_on_cast=False)
+    #    time = ensure_type(time, dtype=float, ndim=1, name='time', can_be_none=True, shape=(len(coordinates),), warn_on_cast=False)
+    #    unitcell_vectors = ensure_type(unitcell_vectors, dtype=float, ndim=3, name='unitcell_vectors',
+    #        can_be_none=True, shape=(len(coordinates), 3, 3), warn_on_cast=False)
 
-        for i in range(coordinates.shape[0]):
-            frame_time = None if time is None else time[i]
-            frame_box = None if unitcell_vectors is None else unitcell_vectors[i]
-            self._write_frame(coordinates[i], topology, frame_time, frame_box, precision)
+    #    for i in range(coordinates.shape[0]):
+    #        frame_time = None if time is None else time[i]
+    #        frame_box = None if unitcell_vectors is None else unitcell_vectors[i]
+    #        self._write_frame(coordinates[i], topology, frame_time, frame_box, precision)
 
     def read_as_traj(self, n_frames=None, stride=None, atom_indices=None):
         """Read a trajectory from a gro file
@@ -291,6 +289,19 @@ class MMTFTrajectoryFile(object):
 
         n_atoms = mmtf_decoder.num_atoms
         topology = md.Topology()
+
+        if len(mmtf_decoder.bio_assembly)>1:
+            raise NotImplementedError('System with more than a bio_assembly. _read_topology in mmtf.py is not ready yet to handle this situation.')
+
+        if len(mmtf_decoder.bio_assembly[0]['transformList'])>1:
+            raise NotImplementedError('System with more than a transformList of a bio_assembly. _read_topology in mmtf.py is not ready yet to handle this situation.')
+
+        for bio_assembly in mmtf_decoder_bio_assembly:
+            
+            
+
+        for chain_index in transform_list['chainIndexList']:
+
         chain = topology.add_chain()
         residue = None
         atomReplacements = {}

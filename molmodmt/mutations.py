@@ -10,7 +10,7 @@ def mutate (item, residue_indices=None, to_residue_names=None, engine='PDBFixer'
                 to_residue_names = [to_residue_names]
 
             form_in = _get_form(item)
-            tmp_item = _convert(item, "pdbfixer.PDBFixer")
+            tmp_item = _convert(item, to_form="pdbfixer.PDBFixer")
 
             for residue_index, to_residue_name in zip(residue_indices, to_residue_names):
 
@@ -24,7 +24,7 @@ def mutate (item, residue_indices=None, to_residue_names=None, engine='PDBFixer'
                 if verbose: print(mutation_string)
                 tmp_item.applyMutations([mutation_string], in_chain_id)
 
-            tmp_item = _convert(tmp_item, form_in)
+            tmp_item = _convert(tmp_item, to_form=form_in)
 
             return tmp_item
 

@@ -294,15 +294,15 @@ def merge(item1=None, item2=None, to_form=None):
 
     if type(item1) in [list,tuple]:
         _ , form_out = _digest_forms(item1[0], to_form)
-        tmp_item = convert(item1[0], form_out)
+        tmp_item = convert(item1[0], to_form=form_out)
         for in_item in item1[1:]:
-            tmp_item2 = convert(in_item, form_out)
+            tmp_item2 = convert(in_item, to_form=form_out)
             tmp_item = _dict_merger[form](tmp_item, tmp_item2)
         return tmp_item
     else:
         _ , form_out = _digest_forms(item1, to_form)
-        tmp_item1 = convert(item1,form)
-        tmp_item2 = convert(item2,form)
+        tmp_item1 = convert(item1,to_form=form)
+        tmp_item2 = convert(item2,to_form=form)
         return _dict_merger[form](tmp_item1, tmp_item1)
 
 def info(item=None, target='system', indices=None, selection='all', syntaxis='MDTraj'):
@@ -637,12 +637,12 @@ def load (item, selection='all', frame_indices='all', to_form='molmodmt.MolMod',
 
     """
 
-    return convert(item, to_form=to_form, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis, **kwargs)
+    return convert(item, selection=selection, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis, **kwargs)
 
 
-def convert(item, selection='all', frame_indices='all', to_form='molmodmt.MolMod', syntaxis='MDTraj', **kwargs):
+def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs):
 
-    """convert(item, selection='all', frame_indices='all', to_form='molmodmt.MolMod', syntaxis='MDTraj', **kwargs)
+    """convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MDTraj', **kwargs)
 
     Convert a molecular model into other form.
 
@@ -717,7 +717,7 @@ def duplicate(item=None):
 
 def write(item=None, filename=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
-    return convert(item,filename, selection=selection, frame_indices='all', syntaxis=syntaxis)
+    return convert(item, to_form=filename, selection=selection, frame_indices='all', syntaxis=syntaxis)
 
 def view(item=None, viewer='nglview', selection='all', frame_indices='all', syntaxis='MDTraj'):
 

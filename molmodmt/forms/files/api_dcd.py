@@ -14,7 +14,7 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import convert as _molmodmt_convert
     from mdtraj import load_dcd as _mdtraj_load_dcd
-    _mdtraj_topology = _molmodmt_convert(topology,'mdtraj.Topology')
+    _mdtraj_topology = _molmodmt_convert(topology, to_form='mdtraj.Topology')
     tmp_form = _mdtraj_load_dcd(item, top=_mdtraj_topology)
     del(_mdtraj_load_dcd, _mdtraj_topology, _molmodmt_convert)
     return tmp_form
