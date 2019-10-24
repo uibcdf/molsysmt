@@ -13,45 +13,49 @@ is_form={
 
 def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
 
-    return ''.join([ r.name for r in item.residues ])
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return ''.join([ r.name for r in tmp_item.residues ])
 
 def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
-    tmp_item = to_aminoacids3_seq(item)
-    tmp_item = _aminoacids3_to_aminoacids1(tmp_item)
-    del(_aminoacids3_to_aminoacids1)
+    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_to_aminoacids1
+
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = to_aminoacids3_seq(tmp_item)
+    tmp_item = aminoacids3_to_aminoacids1(tmp_item)
     return tmp_item
 
 def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
-    return item.to_openmm()
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item.to_openmm()
 
 def to_yank_Topography(item, atom_indices=None, frame_indices=None):
 
-    from .api_openmm_Topology import to_yank_Topography as _opennn_Topology_to_yank_Topography
-    tmp_form = to_openmm_Topology(item)
-    tmp_form = _opennn_Topology_to_yank_Topography(tmp_form)
-    del(_opennn_Topology_to_yank_Topography)
-    return tmp_form
+    from .api_openmm_Topology import to_yank_Topography as opennn_Topology_to_yank_Topography
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = opennn_Topology_to_yank_Topography(tmp_item)
+    return tmp_item
 
 def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
 
-    from .api_openmm_Topology import to_parmed_Structure as _opennn_Topology_to_parmed_Structure
-    tmp_form = to_openmm_Topology(item)
-    tmp_form = _opennn_Topology_to_parmed_Structure(tmp_form)
-    del(_opennn_Topology_to_parmed_Structure)
-    return tmp_form
+    from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = openmm_Topology_to_parmed_Structure(tmp_form)
+    return tmp_item
 
 def to_parmed_GromacsTopologyFile(item, atom_indices=None, frame_indices=None):
-    from parmed.gromacs import GromacsTopologyFile as _GromacsTopologyFile
-    tmp_form = to_parmed_Structure(item)
-    return _GromacsTopologyFile.from_structure(item)
 
-def to_top(item,filename):
-    from .api_parmed_GromacsTopologyFile import to_top as _to_top
-    tmp_form = to_parmed_GromacsTopologyFile(item)
-    return _to_top(tmp_form,filename)
+    from parmed.gromacs import GromacsTopologyFile as GromacsTopologyFile
+    tmp_item = to_parmed_Structure(item, atom_indices=atom_indices, frame_indices=None)
+    return GromacsTopologyFile.from_structure(tmp_item)
+
+def to_top(item, output_file_path=None, atom_indices=None, frame_indices=None):
+
+    from .api_parmed_GromacsTopologyFile import to_top as parmed_GromacsTopologyFile_to_top
+    tmp_item = to_parmed_GromacsTopologyFile(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return parmed_GromacsTopologyFile_to_top(tmp_item, output_file_path=output_file_path)
 
 # Select
 
@@ -62,58 +66,62 @@ def select_with_MDTraj(item, selection):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    from mdtraj.core.topology import Topology
-    from mdtraj.utils import ilen
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
 
-    atom_indices_to_be_kept = set(atom_indices)
-    newTopology = Topology()
-    old_atom_to_new_atom = {}
+        from mdtraj.core.topology import Topology
+        from mdtraj.utils import ilen
 
-    for chain in item._chains:
-        newChain = newTopology.add_chain()
-        for residue in chain._residues:
-            resSeq = getattr(residue, 'resSeq', None) or residue.index
-            newResidue = newTopology.add_residue(residue.name, newChain,
-                                                 resSeq, residue.segment_id)
-            for atom in residue._atoms:
-                if atom.index in atom_indices_to_be_kept:
-                    try:  # OpenMM Topology objects don't have serial attributes, so we have to check first.
-                        serial = atom.serial
-                    except AttributeError:
-                        serial = None
-                    newAtom = newTopology.add_atom(atom.name, atom.element,
-                                                   newResidue, serial=serial)
-                    old_atom_to_new_atom[atom] = newAtom
+        atom_indices_to_be_kept = set(atom_indices)
+        newTopology = Topology()
+        old_atom_to_new_atom = {}
 
-    bondsiter = item.bonds
-    if not hasattr(bondsiter, '__iter__'):
-        bondsiter = bondsiter()
+        for chain in item._chains:
+            newChain = newTopology.add_chain()
+            for residue in chain._residues:
+                resSeq = getattr(residue, 'resSeq', None) or residue.index
+                newResidue = newTopology.add_residue(residue.name, newChain,
+                                                     resSeq, residue.segment_id)
+                for atom in residue._atoms:
+                    if atom.index in atom_indices_to_be_kept:
+                        try:  # OpenMM Topology objects don't have serial attributes, so we have to check first.
+                            serial = atom.serial
+                        except AttributeError:
+                            serial = None
+                        newAtom = newTopology.add_atom(atom.name, atom.element,
+                                                       newResidue, serial=serial)
+                        old_atom_to_new_atom[atom] = newAtom
 
-    for bond in bondsiter:
-        try:
-            atom1, atom2 = bond
-            newTopology.add_bond(old_atom_to_new_atom[atom1],
-                                 old_atom_to_new_atom[atom2],
-                                 type=bond.type,
-                                 order=bond.order)
-        except KeyError:
-            pass
-            # we only put bonds into the new topology if both of their partners
-            # were indexed and thus HAVE a new atom
+        bondsiter = item.bonds
+        if not hasattr(bondsiter, '__iter__'):
+            bondsiter = bondsiter()
 
-    # Delete empty residues
-    newTopology._residues = [r for r in newTopology._residues if len(r._atoms) > 0]
-    for chain in newTopology._chains:
-        chain._residues = [r for r in chain._residues if len(r._atoms) > 0]
+        for bond in bondsiter:
+            try:
+                atom1, atom2 = bond
+                newTopology.add_bond(old_atom_to_new_atom[atom1],
+                                     old_atom_to_new_atom[atom2],
+                                     type=bond.type,
+                                     order=bond.order)
+            except KeyError:
+                pass
+                # we only put bonds into the new topology if both of their partners
+                # were indexed and thus HAVE a new atom
 
-    # Delete empty chains
-    newTopology._chains = [c for c in newTopology._chains
-                           if len(c._residues) > 0]
-    # Re-set the numAtoms and numResidues
-    newTopology._numAtoms = ilen(newTopology.atoms)
-    newTopology._numResidues = ilen(newTopology.residues)
+        # Delete empty residues
+        newTopology._residues = [r for r in newTopology._residues if len(r._atoms) > 0]
+        for chain in newTopology._chains:
+            chain._residues = [r for r in chain._residues if len(r._atoms) > 0]
 
-    return newTopology
+        # Delete empty chains
+        newTopology._chains = [c for c in newTopology._chains
+                               if len(c._residues) > 0]
+        # Re-set the numAtoms and numResidues
+        newTopology._numAtoms = ilen(newTopology.atoms)
+        newTopology._numResidues = ilen(newTopology.residues)
+
+        return newTopology
 
 # Merge
 

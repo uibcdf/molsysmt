@@ -10,23 +10,37 @@ is_form={
     'Bio.SeqRecord' : form_name
 }
 
-def to_fasta(item, filename=None, atom_indices=None, frame_indices=None):
-    from Bio.SeqIO import write as _Bio_SeqIO_write
-    _Bio_SeqIO_write([item], filename, 'fasta')
-    pass
+def to_fasta(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
-def to_pir(item, filename=None, style=None, atom_indices=None, frame_indices=None):
+    from Bio.SeqIO import write as Bio_SeqIO_write
+
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return Bio_SeqIO_write([tmp_item], filename, 'fasta')
+
+def to_pir(item, output_file_path=None, style=None, atom_indices=None, frame_indices=None):
+
     from Bio.SeqIO.PirIO import PirWriter as _PirWriter
     from molmodmt.forms.files.api_pir import rewrite_to_style as _rewrite
 
-    print(item)
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     handle = open(filename,"w")
     writer = _PirWriter(handle)
     writer.write_file(item)
     handle.close()
-    _rewrite(filename=filename, style=style)
-    pass
+    return _rewrite(filename=filename, style=style)
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+     if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
 
 ###### Get
 

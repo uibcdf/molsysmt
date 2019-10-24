@@ -14,9 +14,10 @@ is_form={
 
 def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt import convert as _convert
-    tmp_item = _convert(item, to_form='mdtraj.Topology')
-    tmp_item = _convert(tmp_item, to_form='aminoacids3:seq')
+    from .api_mdtraj_Topology import to_aminoacids3_seq as mdtraj_Topology_to_aminoacids3_seq
+
+    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_Topology_to_aminoacids3_seq(tmp_item)
     return tmp_item
 
 def to_aminoacids1(item, atom_indices=None, frame_indices=None):
@@ -24,9 +25,9 @@ def to_aminoacids1(item, atom_indices=None, frame_indices=None):
 
 def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt import convert as _convert
+    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_seq_to_aminoacids1_seq
     tmp_item = to_aminoacids3_seq(item)
-    tmp_item = _convert('aminoacids3:'+tmp_item, to_form='aminoacids1:seq')
+    tmp_item = aminoacids3_seq_to_aminoacids1_seq(tmp_item)
     return tmp_item
 
 def to_biopython_Seq(item, atom_indices=None, frame_indices=None):

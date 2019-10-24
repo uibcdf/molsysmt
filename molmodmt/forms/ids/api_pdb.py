@@ -63,10 +63,10 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
     _remove(_tmp_file)
     return _tmp_item
 
-def to_mdtraj_Topology(form_id, selection='all', frame_indices='all', syntaxis='MDTraj'):
+def to_mdtraj_Topology(form_id, atom_indices=None, frame_indices=None):
 
     from molmodmt import convert as _convert
-    tmp_item = to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
+    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = _convert(tmp_item, to_form='mdtraj.Topology')
     return tmp_item
 
@@ -84,7 +84,7 @@ def to_pdbfixer_PDBFixer(form_id, atom_indices=None, frame_indices=None):
     from molmodmt import convert
     pdbid = form_id.split(':')[-1]
     tmp_file=download_pdb(pdbid)
-    tmp_item=convert(tmp_file, to_form='pdbfixer.PDBFixer', atom_indices=atom_indices,
+    tmp_item=convert(tmp_file, to_form='pdbfixer.PDBFixer', selection=atom_indices,
                      frame_indices=frame_indices)
     _remove(tmp_file)
     return tmp_item
@@ -94,7 +94,7 @@ def to_openmm_Modeller(form_id, atom_indices=None, frame_indices=None):
     from molmodmt import convert
     pdbid = form_id.split(':')[-1]
     tmp_file=download_pdb(pdbid)
-    tmp_item=convert(tmp_file, to_form='openmm.Modeller', atom_indices=atom_indices,
+    tmp_item=convert(tmp_file, to_form='openmm.Modeller', selection=atom_indices,
                      frame_indices=frame_indices)
     _remove(tmp_file)
     return tmp_item

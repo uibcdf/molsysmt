@@ -13,8 +13,8 @@ is_form={
 def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indices=None,
                            frame_indices=None):
 
-    from molmodmt import extract as _extract
-    from Bio.SeqRecord import SeqRecord as _Bio_SeqRecord
+    from Bio.SeqRecord import SeqRecord as Bio_SeqRecord
+    from .api_biopython_SeqRecord import extract_subsystem as extract_biopython_SeqRecord
 
     if id is None:
         id = 'None'
@@ -23,17 +23,30 @@ def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indi
     if description is None:
         description = 'None'
 
-    tmp_item=_Bio_SeqRecord(item, id=id, name=name, description=description)
-    tmp_item=_extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
-    del(_Bio_SeqRecord)
+    tmp_item=Bio_SeqRecord(item, id=id, name=name, description=description)
+    tmp_item=extract_biopython_SeqRecord(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_fasta(item, output_file, atom_indices=None, frame_indices=None):
+def to_fasta(item, output_file_path=None, atom_indices=None, frame_indices=None):
+
     from molmodmt import extract as _extract
     from .api_biopython_SeqRecord import _to_fasta as _Bio_SeqRecord_to_fasta
-    tmp_item=to_biopython_SeqRecord(item)
-    tmp_item=_extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
-    return _Bio_SeqRecord_to_fasta(tmp_item, output_file)
+
+    tmp_item=to_biopython_SeqRecord(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return _Bio_SeqRecord_to_fasta(tmp_item, output_file_path=output_file_path)
+
+def duplicate(item):
+
+    raise NotImplementedError
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
 
 ###### Get
 

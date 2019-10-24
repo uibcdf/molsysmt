@@ -93,7 +93,7 @@ def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
     del(_openmm_Topology_to_parmed_Structure)
     return tmp_form
 
-def to_pdb(item, filename=None, atom_indices=None, frame_indices=None):
+def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(filename, 'w'), keepIds=True)
@@ -107,21 +107,27 @@ def select_with_MDTraj(item, selection):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt import convert, extract
-    tmp_item = convert(item, to_form='openmm.Modeller')
-    tmp_item = extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = convert(tmp_item, to_form='pdbfixer.PDBFixer')
+    from .api_openmm_Modeller import to_pdbfixer_PDBFixer as openmm_Modeller_to_pdbfixer_PDBFixer
+    from numpy import arange
+    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    atom_indices2 = arange(len(atom_indices))
+    frame_indices2 = arange(len(frame_indices))
+    tmp_item = openmm_Modeller_to_pdbfixer_PDBFixer(tmp_item, atom_indices=atom_indices2, frame_indices=frame_indices2)
     return tmp_item
-
 
 def duplicate(item):
 
     from os import remove
-    from molmodmt import convert
+    from numpy import arange
+    from molmodmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
     from molmodmt.utils.pdb import tmp_pdb_filename
+    n_atoms = get_n_atoms_from_system(item)
+    n_frames = get_n_frames_from_system(item)
+    atom_indices=arange(n_atoms)
+    frame_indices=arange(n_frames)
     tmp_file = tmp_pdb_filename()
-    convert(item, to_form=tmp_file)
-    tmp_item = convert(tmp_file, to_form='pdbfixer.PDBFixer')
+    to_pdb(item, output_file_path=tmp_pdb_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
 

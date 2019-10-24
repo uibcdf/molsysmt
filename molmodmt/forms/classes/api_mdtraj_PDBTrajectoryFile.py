@@ -10,9 +10,10 @@ is_form={
 
 def to_mdtraj_topology(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt import extract
+    from api_mdtraj_Topology import extract_subsystem as extract_mdtraj_Topology
+
     tmp_item = item.topology
-    tmp_item = extract(tmp_item, selection=atom_indices)
+    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def load_frame (item, atom_indices=None, frame_indices=None):
@@ -54,6 +55,17 @@ def load_frame (item, atom_indices=None, frame_indices=None):
     time = time.in_units_of(m3t_units.time)
 
     return step, time, xyz, box
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+     if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
 
 #### Get
 

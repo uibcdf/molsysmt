@@ -12,24 +12,29 @@ is_form={
 def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from nglview import show_mdtraj as _nglview_show_mdanalysis
-    return _nglview_show_mdanalysis(item)
 
-def to_pdb(item, atom_indices=None, frame_indices=None, output_file=None, multiframe=False):
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    item.atoms.write(output_file, multiframe=multiframe)
+    return _nglview_show_mdanalysis(tmp_item)
 
-    pass
+def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None, multiframe=False):
+
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item.atoms.write(output_file_path, multiframe=multiframe)
 
 def to_MDTraj(item, atom_indices=None, frame_indices=None, multiframe=False):
 
-    import tempfile as _tempfile
+    from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
-    output_file=_tempfile.NamedTemporaryFile(suffix=".pdb").name
-    to_pdb(item,output_file,multiframe)
-    tmp_form=_pdb_to_mdtraj(output_file)
-    _remove(output_file)
 
-    return tmp_form
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_file = tmp_pdb_filename()
+    to_pdb(tmp_item=item, output_file_path=tmp_file, multiframe)
+    tmp_item=_pdb_to_mdtraj(tmp_file)
+    _remove(tmp_file)
+
+    return tmp_item
 
 def select_with_MDTraj(item, selection):
 
@@ -44,6 +49,17 @@ def select_with_MDAnalysis(item, selection):
     del(tmp_atomgroup)
 
     return tmp_sel
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
 
 ###### Get
 

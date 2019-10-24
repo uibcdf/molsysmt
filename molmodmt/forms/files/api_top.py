@@ -46,8 +46,7 @@ def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
     from molmodmt import extract
     tmp_item = to_openmm_GromacsTopFile(item)
     tmp_item = tmp_item.topology
-    if selection is not 'all':
-        tmp_item = extract(tmp_item, atom_indices=None, frame_indices=None)
+    tmp_item = extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_top(item, atom_indices=None, frame_indices=None):

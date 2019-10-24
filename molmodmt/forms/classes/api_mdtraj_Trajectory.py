@@ -10,42 +10,41 @@ is_form={
 
 def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
 
-    return ''.join([ r.name for r in item.topology.residues ])
+    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return ''.join([ r.name for r in tmp_item.residues ])
 
 def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
-    tmp_item = to_aminoacids3_seq(item)
-    tmp_item = _aminoacids3_to_aminoacids1(tmp_item)
-    del(_aminoacids3_to_aminoacids1)
+    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_to_aminoacids1
+    tmp_item = to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = aminoacids3_to_aminoacids1(tmp_item)
     return tmp_item
 
 def to_biopython_Seq(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
-    tmp_item = to_aminoacids1_seq(item)
-    tmp_item = _aminoacids1_to_biopython_Seq(tmp_item)
-    del(_aminoacids1_to_biopython_Seq)
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
+    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = aminoacids1_to_biopython_Seq(tmp_item)
     return tmp_item
 
 def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
-    tmp_item = to_aminoacids1_seq(item)
-    tmp_item = _aminoacids1_to_biopython_SeqRecord(tmp_item)
-    del(_aminoacids1_to_biopython_SeqRecord)
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
+    tmp_item = to_aminoacids1_seq(item, atom_indices=None, frame_indices=None)
+    tmp_item = aminoacids1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
 
 def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.native.io_molmod import from_mdtraj_Trajectory as _molmodmt_MolMod_from_mdtraj_Trajectory
-    tmp_item = _molmodmt_MolMod_from_mdtraj_Trajectory(item, atom_indices=atom_indices)
+    from molmodmt.native.io_molmod import from_mdtraj_Trajectory as molmodmt_MolMod_from_mdtraj_Trajectory
+    tmp_item = molmodmt_MolMod_from_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molmodmt_Trajectory(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.native.io_trajectory import from_mdtraj_Trajectory as _molmodmt_Trajectory_from_mdtraj_Trajectory
-    tmp_item = _molmodmt_Trajectory_from_mdtraj_Trajectory(item, atom_indices=atom_indices)
+    from molmodmt.native.io_trajectory import from_mdtraj_Trajectory as molmodmt_Trajectory_from_mdtraj_Trajectory
+    tmp_item = molmodmt_Trajectory_from_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molmodmt_Topology(item, atom_indices=None, frame_indices=None):

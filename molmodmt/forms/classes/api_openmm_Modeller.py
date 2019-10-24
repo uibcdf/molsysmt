@@ -44,11 +44,11 @@ def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.utils.miscellanea import tmp_filename
     from os import remove
-    from molmodmt import convert
+    from molmodmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
 
     tmp_pdbfile = tmp_filename('pdb')
-    to_pdb(item, tmp_pdbfile)
-    tmp_item = convert(tmp_pdbfile, to_form='pdbfixer.PDBFixer')
+    to_pdb(item, output_file_path=tmp_pdbfile, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_pdbfile)
     remove(tmp_pdbfile)
     return tmp_item
 
@@ -56,10 +56,10 @@ def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
     from molmodmt.native.io_molmod import from_openmm_Modeller as MolMod_from_openmm_Modeller
     return MolMod_from_openmm_Modeller(item, atom_indices=atom_indices)
 
-def to_pdb(item, filename = None, atom_indices=None, frame_indices=None):
+def to_pdb(item, output_file_path = None, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
-    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(filename, 'w'))
+    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(output_file_path, 'w'))
 
 def select_with_MDTraj(item, selection):
 

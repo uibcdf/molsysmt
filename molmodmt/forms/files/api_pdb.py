@@ -91,7 +91,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
 
     from molmodmt import extract
     from pdbfixer.pdbfixer import PDBFixer
-    tmp_item = extract(item, atom_indices=atom_indices)
+    tmp_item = extract(item, selection=atom_indices)
     tmp_item = PDBFixer(tmp_item)
     return tmp_item
 
@@ -115,6 +115,23 @@ def select_with_MDTraj(item, selection):
     tmp_sel = tmp_item.select(selection)
     del(tmp_item)
     return tmp_sel
+
+def duplicate(item):
+
+    from shutil import copy
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    tmp_file = tmp_pdb_filename()
+    copy(item,tmp_file)
+    return tmp_file
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from molmodmt.forms.classes.api_pdbfixer_PDBFixer import to_pdb as pdbfixer_PDBFixer_to_pdb
+    tmp_item = to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_file = tmp_pdb_filename()
+    pdbfixer_PDBFixer_to_pdb(tmp_item, output_file_path=tmp_file)
+    return tmp_file
 
 # System
 
