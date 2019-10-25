@@ -10,22 +10,33 @@ is_form = {
 def to_mdtraj_Trajectory(item, topology=None, atom_indices=None, frame_indices=None):
 
     if not topology:
-        raise ValueError('"topology" argument is required for dcd.to_mdtraj')
+        raise ValueError('"topology" argument is required to convert a dcd file to mdtraj_Trajectory')
 
     from molmodmt import convert
-    from mdtraj import load_dcd as _mdtraj_load_dcd
-    _mdtraj_topology = convert(topology, to_form='mdtraj.Topology')
-    tmp_form = _mdtraj_load_dcd(item, top=_mdtraj_topology)
-    del(_mdtraj_load_dcd, _mdtraj_topology, _molmodmt_convert)
-    return tmp_form
+    from mdtraj import load_dcd as mdtraj_load_dcd
+    from molmodmt.forms.classes.api_mdtraj_Trajectory import extract_subsystem as extract_mdtraj_Trajectory
+    tmp_topology = convert(topology, to_form='mdtraj.Topology')
+    tmp_item = mdtraj_load_dcd(item, top=tmp_topology)
+    tmp_item = extract_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_mdanalysis_Universe(item, topology=None, atom_indices=None, frame_indices=None):
 
     if not topology:
         raise ValueError('"topology" argument is required for dcd.to_mdtraj')
 
-    from MDAnalysis import Universe as _mdanalysis_universe
-    return _mdanalysis_universe(topology,item)
+    raise NotImplementedError
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
 
 ###### Get
 

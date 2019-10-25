@@ -10,8 +10,8 @@ is_form = {
 
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
-    from mdtraj import load_hdf5 as _mdtraj_load
-    tmp_item = _mdtraj_load(item)
+    from mdtraj import load_hdf5 as mdtraj_load_hdf5
+    tmp_item = mdtraj_load_hdf5(item)
     del(_mdtraj_load)
     return tmp_item
 
@@ -33,6 +33,18 @@ def to_mdtraj_HDF5TrajectoryFile(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.formats import HDF5TrajectoryFile
     return HDF5TrajectoryFile(item)
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
+
 
 #### Get
 

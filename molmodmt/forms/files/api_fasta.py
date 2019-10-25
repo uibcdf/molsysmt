@@ -8,10 +8,24 @@ is_form = {
     }
 
 def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
-    from Bio.SeqIO import read as _Bio_SeqRecord_reader
-    tmp_item=_Bio_SeqRecord_reader(item,'fasta')
-    del(_Bio_SeqRecord_reader)
+
+    from Bio.SeqIO import read as Bio_SeqRecord_reader
+    from molmodmt.forms.classes.api_Bio_SeqRecord import extract_subsystem as extract_Bio_SeqRecord
+    tmp_item=Bio_SeqRecord_reader(item,'fasta')
+    tmp_item=extract_Bio_SeqRecord(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
+
 
 ###### Get
 
