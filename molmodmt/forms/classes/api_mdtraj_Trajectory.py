@@ -49,100 +49,80 @@ def to_molmodmt_Trajectory(item, atom_indices=None, frame_indices=None):
 
 def to_molmodmt_Topology(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.native.io_topology import from_mdtraj_Topology as _molmodmt_Topology_from_mdtraj_Trajectory
-    tmp_item = _molmodmt_Topology_from_mdtraj_Trajectory(item, atom_indices=atom_indices)
+    from molmodmt.native.io_topology import from_mdtraj_Topology as molmodmt_Topology_from_mdtraj_Trajectory
+    tmp_item = molmodmt_Topology_from_mdtraj_Trajectory(item, atom_indices=atom_indices)
     return tmp_item
-
-def to_molmodmt(item, atom_indices=None, frame_indices=None):
-
-    return to_molmodmt_MolMod(item, atom_indices=atom_indices)
 
 def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
-    return item.topology
+    from .api_mdtraj_Topology import extract_subsystem as extract_mdtraj_Topology
+    tmp_item=item.topology
+    tmp_item=extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
-    from .api_mdtraj_Topology import to_openmm_Topology as _mdtraj_Topology_to_openmm_Topology
-
-    tmp_form = to_mdtraj_Topology(item)
-    tmp_form = _mdtraj_Topology_to_openmm_Topology(tmp_form)
-    del(_mdtraj_Topology_to_openmm_Topology)
-    return tmp_form
+    from .api_mdtraj_Topology import to_openmm_Topology as mdtraj_Topology_to_openmm_Topology
+    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_Topology_to_openmm_Topology(tmp_item)
+    return tmp_item
 
 def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
-    from simtk.openmm.app import Modeller as _Modeller
-    from molmodmt import reformat as _reformat
-
-    topology = to_openmm_Topology(item)
-    positions = getting(item, coordinates=True)
-    positions = _reformat(attribute='coordinates', value=positions, is_format='mdtraj.Trajectory',
-                         to_format='openmm')
+    from simtk.openmm.app import Modeller
+    from simtk.unit import nanometers
+    topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+    positions = positions*nanometers
     tmp_item = _Modeller(topology, positions)
+    del(topology, positions)
     return tmp_item
 
 def to_yank_Topography(item, atom_indices=None, frame_indices=None):
 
-    from .api_openmm_Topology import to_yank_Topography as _openmm_Topology_to_yank_Topography
+    from .api_openmm_Topology import to_yank_Topography as openmm_Topology_to_yank_Topography
 
-    tmp_form = to_openmm_Topology(item)
-    tmp_form = _openmm_Topology_to_yank_Topography(tmp_form)
-    del(_openmm_Topology_to_yank_Topography)
-    return tmp_form
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = openmm_Topology_to_yank_Topography(tmp_item)
+    return tmp_item
 
 def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
 
-    from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
+    from .api_openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
 
-    tmp_form = to_openmm_Topology(item)
-    tmp_form = _openmm_Topology_to_parmed_Structure(tmp_form)
-    del(_openmm_Topology_to_parmed_Structure)
-    return tmp_form
-
-def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
-
-    return item.topology
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
+    return tmp_item
 
 def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.files.api_pdb import to_pdbfixer as _pdb_to_pdbfixer
-    import tempfile as _tempfile
-    from os import remove as _remove
+    from molmodmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from os import remove as remove
 
-    tmp_pdbfilename = _tempfile.NamedTemporaryFile(suffix=".pdb").name
-    tmp_system = to_pdb(item,tmp_pdbfilename)
-    tmp_item = _pdb_to_pdbfixer(tmp_pdbfilename)
-    _remove(tmp_pdbfilename)
-    del(_pdb_to_pdbfixer, tmp_pdbfilename, _tempfile, _remove)
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_item)
+    remove(tmp_file)
     return tmp_item
 
-def to_pdb(item, filename=None, atom_indices=None, frame_indices=None):
+def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
-    from molmodmt import extract as _extract
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item.save_pdb(output_file_path)
 
-    if selection is not None:
-        tmp_item = _extract(item, selection=atom_indices, frame_indices=frame_indices)
-    else:
-        tmp_item = item
+def to_xtc(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
-    if frame_indices is not None:
-        return item.slice(frame_indices).save_pdb(filename)
-    else:
-        return item.save_pdb(filename)
-
-
-def to_xtc(item, filename=None, atom_indices=None, frame_indices=None):
-
-    return item.save_xtc(filename)
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return item.save_xtc(output_file_path)
 
 def to_nglview(item, atom_indices=None, frame_indices=None):
 
-    from nglview import show_mdtraj as _show_mdtraj
+    from nglview import show_mdtraj as show_mdtraj
     from molmodmt.utils.nglview import standardize_view
-
-    tmp_view = _show_mdtraj(item)
-    tmp_view = standardize_view(tmp_view, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_view = show_mdtraj(tmp_item)
+    tmp_view = standardize_view(tmp_view)
     return tmp_view
 
 def select_with_MDTraj(item, selection):
@@ -151,7 +131,12 @@ def select_with_MDTraj(item, selection):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    return item.atom_slice(atom_indices)
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        tmp_item = item.atom_slice(atom_indices)
+        tmp_item = tmp_item.slice(frame_indices)
+        return tmp_item
 
 def duplicate(item):
 
@@ -172,6 +157,12 @@ def merge_two_items(item1, item2):
 def get_masses_from_atom(item, indices=None, frame_indices=None):
 
     return [atom.element.mass for atom in tmp_item.topology.atoms]
+
+def get_coordinates_from_atom(item, indices=None, frame_indices=None):
+
+    tmp_item=item.xyz(frame_indices,:,:)
+    tmp_item=tmp_item(:,indices,:)
+    return tmp_item
 
 ## residue
 

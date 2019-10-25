@@ -87,19 +87,6 @@ _dict_set = {**_dict_classes_set, **_dict_files_set,\
                    **_dict_ids_set, **_dict_seqs_set, **_dict_viewers_set}
 
 ####
-#### Molecular Models attributes
-####
-
-# Coordinates
-from .attributes.coordinates import list_forms as _list_coordinates_forms, \
-    dict_reformatter as _dict_coordinates_reformatter
-
-_dict_reformatter={}
-_dict_reformatter['coordinates']=_dict_coordinates_reformatter
-
-_list_attributes = list(_dict_reformatter.keys())
-
-####
 #### Methods
 ####
 
@@ -732,19 +719,4 @@ def view(item=None, viewer='nglview', selection='all', frame_indices='all', synt
 
     return _dict_converter[form_in][viewer](tmp_item, atom_indices=atom_indices,
             frame_indices=frame_indices)
-
-#def reformat(attribute=None, value=None, is_format=None, to_format=None):
-#
-#    if (attribute is not None) and attribute in _list_attributes:
-#        if is_format is not None:
-#            if to_format is not None:
-#
-#                return _dict_reformatter[attribute][is_format][to_format](value)
-#
-#            else:
-#                raise BadCallError(BadCallMessage)
-#        else:
-#            raise BadCallError(BadCallMessage)
-#    else:
-#        raise BadCallError(BadCallMessage)
 

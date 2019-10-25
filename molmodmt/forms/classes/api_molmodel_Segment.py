@@ -9,6 +9,17 @@ is_form={
     'molmodel.Segment' : form_name
 }
 
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
+
 ###### Get
 
 ## system

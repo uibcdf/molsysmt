@@ -12,45 +12,57 @@ is_form={
 
 def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt import extract as _extract
-    from simtk.openmm.app.modeller import Modeller as _openmm_Modeller
-    tmp_item = _openm_Modeller(item.topology, item.positions)
-    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+    from simtk.openmm.app.modeller import Modeller
+    from .api_openmm_Modeller import extract as extract_openmm_Modeller
+    tmp_item = Modeller(item.topology, item.positions)
+    tmp_item = extract_openmm_Modeller(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
+
+    from mdtraj.core.topology import Topology as mdtraj_Topology
+    from .api_mdtraj_Topology import extract as extract_mdtraj_Topology
+    tmp_item = mdtraj_Topology.from_openmm(item.topology)
+    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_trajectory
-    from mdtraj.core.topology import Topology as mdtraj_topology
-    from molmodel import extract as _extract
-
-    tmp_item = mdtraj_trajectory(item.positions._value,mdtraj_topology.from_openmm(item.topology))
-
-    if selection is not None:
-        tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
-
+    from simtk.unit import nanometers
+    tmp_topology = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+    coordinates = coordinates.in_units_of(nanometers)._value
+    tmp_item = mdtraj_trajectory(coordinates, tmp_topology)
+    del(tmp_topology, coordinates)
     return tmp_item
 
 def to_nglview(item, atom_indices=None, frame_indices=None):
 
     from nglview import show_parmed as _nglview_show_parmed
-    return _nglview_show_parmed(item)
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = _nglview_show_parmed(tmp_item)
+    return tmp_item
 
-def to_pdb(item, filename, atom_indices=None, frame_indices=None):
+def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
-    return item.save(filename)
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return item.save(output_file_path)
 
-def to_mol2(item, output_file, atom_indices=None, frame_indices=None):
+def to_mol2(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
-    return item.save(filename)
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return item.save(output_file_path)
 
 def select_with_MDTraj(item, selection):
+
     tmp_form=to_mdtraj(item)
     tmp_sel=tmp_form.topology.select(selection)
     del(tmp_form)
     return tmp_sel
 
 def select_with_ParmEd(item, selection):
+
     from parmed.amber import AmberMask as _AmberMask
     tmp_sel = list(_AmberMask(item,selection).Selected())
     del(_AmberMask)
@@ -58,20 +70,22 @@ def select_with_ParmEd(item, selection):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    mode='keeping_selection'
-
-    from molmodmt.utils.atom_indices import atom_indices_to_AmberMask
-    from molmodmt.utils.atom_indices import complementary_atom_indices
-    if mode=='removing_selection':
-        mask = atom_indices_to_AmberMask(item, atom_indices)
-    elif mode=='keeping_selection':
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        from molmodmt.utils.atom_indices import atom_indices_to_AmberMask
+        from molmodmt.utils.atom_indices import complementary_atom_indices
         tmp_atom_indices = complementary_atom_indices(item, atom_indices)
         mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
+        tmp_item = duplicate(item)
+        tmp_item.strip(atom_indices2AmberMask(atom_indices,len(item.atoms),inverse=True))
+        return tmp_item
+
+def duplicate(item):
+
     from copy import deepcopy
     tmp_item = deepcopy(item)
-    tmp_item.strip(atom_indices2AmberMask(atom_indices,len(item.atoms),inverse=True))
     return tmp_item
-
 
 ##### Set
 

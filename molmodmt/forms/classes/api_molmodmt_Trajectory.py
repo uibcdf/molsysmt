@@ -11,62 +11,65 @@ is_form={
 
 # Methods
 
+def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
+    from molmodmt.native.io_trajectory import to_mdtraj_Trajectory as molmodmt_Trajectory_to_mdtraj_Trajectory
+    return molmodmt_Trajectory_to_mtraj_Trajectory(item, selection=atom_indices, frame_indices=frame_indices, syntaxis=syntaxis)
+
+def to_parmed_GromacsTopologyFile(item, atom_indices=None, frame_indices=None):
+    from .api_mdtraj_Topology import to_parmed_GromacsTopologyFile as mdtraj_Topology_to_parmed_GromacsTopologyFile
+    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return mdtraj_Topology_to_GromacsTopologyFile(tmp_item)
+
+def to_xtc(item, output_file_path=None, atom_indices=None, frame_indices=None):
+    from .api_mdtraj_Trajectory import to_xtc as mdtraj_Trajectory_to_xtc
+    tmp_item=to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return mdtraj_Trajectory_to_xtc(tmp_item, output_file_path=output_file_path)
+
+def to_top(item, output_file_path=None, atom_indices=None, frame_indices=None):
+    from .api_mdtraj_Topology import to_top as mdtraj_Topology_to_top
+    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return mdtraj_Topology_to_top(tmp_item, output_file_path=output_file_path)
+
 def select_with_MDTraj(item, selection):
     from .api_mdtraj_Topology import select_with_MDTraj as _select_with_MDTraj
     return _select_with_MDTraj(item.topology_mdtraj,selection)
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
- 
-    from copy import deepcopy
-    from molmodmt.native.trajectory import Trajectory
-    from .api_molmodmt_TrajectoryFile import duplicate as _duplicate_TrajectoryFile
-
-    tmp_item = Trajectory()
-
-    tmp_item.step = deepcopy(item.step)
-    tmp_item.time = deepcopy(item.time)
-    tmp_item.coordinates = deepcopy(item.coordinates)
-    tmp_item.coordinates = tmp_item.coordinates[:,atom_indices,:]
-    tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
-    tmp_item.box = deepcopy(item.box)
-    tmp_item.box_shape = deepcopy(item.box_shape)
-
-    tmp_item.n_frames = len(frame_indices)
-    tmp_item.n_atoms = len(atom_indices)
-
-    tmp_item.file = _duplicate_TrajectoryFile(item.file)
-
-    return tmp_item
-
-def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
-    from molmodmt.native.io_trajectory import to_mdtraj_Trajectory as _to_mdtraj_Trajectory
-    return _to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
-
-def to_parmed_GromacsTopologyFile(item, atom_indices=None, frame_indices=None):
-    from .api_mdtraj_Topology import to_parmed_GromacsTopologyFile as _to_GromacsTopologyFile
-    return _to_GromacsTopologyFile(item.topology_mdtraj, selection=selection, syntaxis=syntaxis)
-
-def to_xtc(item, filename=None, atom_indices=None, frame_indices=None):
-    from .api_mdtraj_Trajectory import to_xtc as _to_xtc
-    tmp_item=to_mdtraj_Trajectory(item, selection=selection, syntaxis=syntaxis)
-    return _to_xtc(tmp_item,filename)
-
-def to_top(item, filename=None, atom_indices=None, frame_indices=None):
-    from .api_mdtraj_Topology import to_top as _to_top
-    return _to_top(item.topology_mdtraj,filename, selection=selection, syntaxis=syntaxis)
-
 def to_nglview(item, atom_indices=None, frame_indices=None):
 
-    from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
-
-    if type(item) in [list,tuple]:
-        tmp_item = []
-        for ii in item:
-            tmp_item.append(to_mdtraj_Trajectory(ii))
-    else:
-        tmp_item = to_mdtraj_Trajectory(item)
-
+    from .api_mdtraj_Trajectory import to_nglview as mdtraj_to_nglview
+    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return _mdtraj_to_nglview(tmp_item)
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+
+        from copy import deepcopy
+        from molmodmt.native.trajectory import Trajectory
+        from .api_molmodmt_TrajectoryFile import duplicate as _duplicate_TrajectoryFile
+
+        tmp_item = Trajectory()
+
+        tmp_item.step = deepcopy(item.step)
+        tmp_item.time = deepcopy(item.time)
+        tmp_item.box = deepcopy(item.box)
+        tmp_item.coordinates = deepcopy(item.coordinates)
+        tmp_item.box_shape = deepcopy(item.box_shape)
+
+        tmp_item.step = tmp_item.step[frame_indices]
+        tmp_item.time = tmp_item.time[frame_indices]
+        tmp_item.box = tmp_item.box[frame_indices]
+        tmp_item.coordinates = tmp_item.coordinates[:,atom_indices,:]
+        tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
+
+        tmp_item.n_frames = len(frame_indices)
+        tmp_item.n_atoms = len(atom_indices)
+
+        tmp_item.file = _duplicate_TrajectoryFile(item.file)
+
+        return tmp_item
 
 def duplicate(item):
 

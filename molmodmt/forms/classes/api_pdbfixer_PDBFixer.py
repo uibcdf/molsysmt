@@ -9,94 +9,85 @@ is_form={
 
 ## Methods
 
-def to_nglview(item, atom_indices=None, frame_indices=None):
-
-    from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
-    tmp_item = to_mdtraj(item)
-    return _mdtraj_to_nglview(tmp_item)
-
 def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
 
-    return ''.join([ r.name for r in item.topology.residues() ])
+    tmp_item = to_openm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return ''.join([ r.name for r in tmp_item.residues() ])
 
 def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as _aminoacids3_to_aminoacids1
-    tmp_item = to_aminoacids3_seq(item)
-    tmp_item = _aminoacids3_to_aminoacids1(tmp_item)
-    del(_aminoacids3_to_aminoacids1)
+    from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_to_aminoacids1
+    tmp_item = to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = aminoacids3_to_aminoacids1(tmp_item)
     return tmp_item
 
 def to_biopython_Seq(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
-    tmp_item = to_aminoacids1_seq(item)
-    tmp_item = _aminoacids1_to_biopython_Seq(tmp_item)
-    del(_aminoacids1_to_biopython_Seq)
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
+    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = aminoacids1_to_biopython_Seq(tmp_item)
     return tmp_item
 
 def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
-    tmp_item = to_aminoacids1_seq(item)
-    tmp_item = _aminoacids1_to_biopython_SeqRecord(tmp_item)
-    del(_aminoacids1_to_biopython_SeqRecord)
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
+    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = aminoacids1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
-
 
 def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
-    from mdtraj.core.topology import Topology as _mdtraj_Topology
-    tmp_form = to_openmm_Topology(item)
-    tmp_form = _mdtraj_Topology.from_openmm(tmp_form)
-    del(_mdtraj_Topology)
-    return tmp_form
+    from mdtraj.core.topology import Topology as mdtraj_Topology
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_Topology.from_openmm(tmp_item)
+    return tmp_item
 
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
-    import simtk.unit as _unit
-    from molmodmt import extract as _extract
-    from .api_openmm_Topology import to_mdtraj_Topology as _openmm_Topology_to_mdtraj_Topology
+    from simtk.unit import nanometers
     from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
-
-    tmp_item_topol = _openmm_Topology_to_mdtraj_Topology(item.topology)
-    tmp_item = _mdtraj_Trajectory(item.positions/_unit.nanometers, tmp_item_topol)
-    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+    tmp_topology = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+    coordinates = coordinates.in_units_of(nanometers)._value
+    tmp_item = _mdtraj_Trajectory(coordinates, tmp_topology)
     return tmp_item
 
 def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
-    from simtk.openmm.app import Modeller as _openmm_app_Modeller
-    return _openmm_app_Modeller(item.topology, item.positions)
+    from simtk.openmm.app import Modeller as openmm_Modeller
+    tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = openmm_Modeller(tmp_topology, coordinates)
+    return tmp_item
 
 def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
-    return item.topology
-
-def to_openmm_Positions(item, atom_indices=None, frame_indices=None):
-
-    return item.positions
+    from .api_openmm_Topology import extract_subsystem as extract_openmm_Topology
+    tmp_item = item.topology
+    tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_yank_Topography(item, atom_indices=None, frame_indices=None):
 
-    from yank import Topography as _yank_Topography
-    tmp_form = to_openmm_Topology(item)
-    tmp_form = _yank_Topography(tmp_form)
-    del(_yank_Topography)
-    return tmp_form
+    from yank import Topography as yank_Topography
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = yank_Topography(tmp_item)
+    return tmp_item
 
 def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
 
-    from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
-    tmp_form = to_openmm_Topology(item)
-    tmp_form = _openmm_Topology_to_parmed_Structure(tmp_form)
-    del(_openmm_Topology_to_parmed_Structure)
-    return tmp_form
+    from .api_openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
+    return tmp_item
 
 def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
-    from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
-    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(filename, 'w'), keepIds=True)
+    from simtk.openmm.app import PDBFile as openmm_app_PDBFILE
+    tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+    return openmm_app_PDBFILE.writeFile(tmp_topology, coordinates, open(output_file_path, 'w'), keepIds=True)
 
 def select_with_MDTraj(item, selection):
 
@@ -105,29 +96,36 @@ def select_with_MDTraj(item, selection):
     del(tmp_form)
     return tmp_sel
 
+def to_nglview(item, atom_indices=None, frame_indices=None):
+
+    from .api_mdtraj_Trajectory import to_nglview as mdtraj_to_nglview
+    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_to_nglview(tmp_item)
+    return tmp_item
+
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    from .api_openmm_Modeller import to_pdbfixer_PDBFixer as openmm_Modeller_to_pdbfixer_PDBFixer
-    from numpy import arange
-    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    atom_indices2 = arange(len(atom_indices))
-    frame_indices2 = arange(len(frame_indices))
-    tmp_item = openmm_Modeller_to_pdbfixer_PDBFixer(tmp_item, atom_indices=atom_indices2, frame_indices=frame_indices2)
-    return tmp_item
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        from simtk.openmm.app import Modeller as openmm_Modeller
+        from .api_openmm_Topology import extract_subsystem as extract_openmm_Topology
+        from .api_openmm_Modeller import to_pdbfixer_PDBFixer as openmm_Modeller_to_pdbfixer_PDBFixer
+        tmp_topology = item.topology
+        tmp_topology = extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = openmm_Modeller(tmp_topology, coordinates)
+        tmp_item = openmm_Modeller_to_pdbfixer_PDBFixer(tmp_item)
+        return tmp_item
 
 def duplicate(item):
 
     from os import remove
-    from numpy import arange
     from molmodmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
     from molmodmt.utils.pdb import tmp_pdb_filename
-    n_atoms = get_n_atoms_from_system(item)
-    n_frames = get_n_frames_from_system(item)
-    atom_indices=arange(n_atoms)
-    frame_indices=arange(n_frames)
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_pdb_filename, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    to_pdb(item, output_file_path=tmp_file)
+    tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_file)
     remove(tmp_file)
     return tmp_item
 

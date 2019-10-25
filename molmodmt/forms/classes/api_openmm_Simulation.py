@@ -10,43 +10,71 @@ is_form={
 
 def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
+    tmp_item=item.topology
+    tmp_item=extract_subsystem(atom_indices=atom_indices, frame_indices=frame_indices)
     return item.topology
 
 def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
-    from simtk.openmm.app import Modeller as _Modeller
-
-    topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=None)
-    state = item.context.getState(getPositions=True)
-    positions = state.getPositions()
-    tmp_item =_Modeller(topology, positions)
+    from simtk.openmm.app import Modeller
+    topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = Modeller(topology, positions)
     return tmp_item
 
-def to_pdbfixer_PDBFixer (item, atom_indices=None, frame_indices=None):
+def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
 
+    from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
-    from molmodmt.utils.miscellanea import tmp_filename as _tmp_filename
-    from os import remove as _remove
-
-    tmp_pdbfile = _tmp_filename('.pdb')
-    to_pdb(item, output_file_path=tmp_pdbfile, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_pdbfile)
-    _remove(tmp_pdbfile)
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_file)
+    remove(tmp_pdbfile)
     return tmp_item
 
 def to_pdb (item, output_file_path=None, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
-    topology = to_openmm_Topology(item, atom_indices=atom_indices)
-    state = item.context.getState(getPositions=True)
-    positions = state.getPositions()
-    periodicBoxVectors = state.getPeriodicBoxVectors()
-    topology.setPeriodicBoxVectors(periodicBoxVectors)
+    topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+    box = get_box_from_system(item, frame_indices=frame_indices)
+    topology.setPeriodicBoxVectors(box)
     return _openmm_app_PDBFILE.writeFile(topology, positions, open(output_file_path, 'w'))
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
 
 ###### Get
 
+def get_coordinates_from_atom(item, indices=None, frame_indices=None):
+
+    state = item.context.getState(getPositions=True)
+    coordinates = state.getPositions()
+    coordinates = coordinates[indices,:]
+    return coordinates
+
 ## system
+
+def get_coordinates_from_system(item, indices=None, frame_indices=None):
+
+    state = item.context.getState(getPositions=True)
+    coordinates = state.getPositions()
+    return coordinates
+
+def get_box_from_system(item, indices=None, frame_indices=None):
+
+    state = item.context.getState()
+    box = state.getPeriodicBoxVectors()
+    return box
 
 def get_form_from_system(item, indices=None, frame_indices=None):
 

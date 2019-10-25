@@ -10,21 +10,36 @@ is_form={
 def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.core.topology import Topology as mdtraj_topology
-    return mdtraj_topology.from_openmm(item.topology)
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_topology.from_openmm(tmp_item)
+    return tmp_item
 
-def to_mol2(item, filename, atom_indices=None, frame_indices=None):
-    return item.save(filename)
+def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
-def to_top(item, filename, atom_indices=None, frame_indices=None):
-    return item.save(filename)
+    from .api_openmm_Topology import extract_subsystem as extract_openmm_topology
+    tmp_item = item.topology
+    tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_mol2(item, output_file_path=None, atom_indices=None, frame_indices=None):
+
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return item.save(output_file_path)
+
+def to_top(item, output_file_path=None, atom_indices=None, frame_indices=None):
+
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return item.save(output_file_path)
 
 def select_with_MDTraj(item, selection):
+
     tmp_form=to_mdtraj_Topology(item)
     tmp_sel=tmp_form.select(selection)
     del(tmp_form)
     return tmp_sel
 
 def select_with_ParmEd(item, selection):
+
     from parmed.amber import AmberMask as _AmberMask
     tmp_sel = list(_AmberMask(item,selection).Selected())
     del(_AmberMask)
@@ -32,20 +47,23 @@ def select_with_ParmEd(item, selection):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.utils.atom_indices import atom_indices_to_AmberMask
-    from molmodmt.utils.atom_indices import complementary_atom_indices
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
 
-    mode='keeping_selection'
-
-    if mode=='removing_selection':
-        mask = atom_indices_to_AmberMask(item, atom_indices)
-    elif mode=='keeping_selection':
+        from copy import deepcopy
+        from molmodmt.utils.atom_indices import atom_indices_to_AmberMask
+        from molmodmt.utils.atom_indices import complementary_atom_indices
         tmp_atom_indices = complementary_atom_indices(item, atom_indices)
         mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
+        tmp_item = duplicate(item)
+        tmp_item.strip(atom_indices_to_AmberMask(tmp_item,atom_indices))
+        return tmp_item
+
+def duplicate(item):
+
     from copy import deepcopy
-    tmp_item = deepcopy(item)
-    tmp_item.strip(atom_indices_to_AmberMask(tmp_item,atom_indices))
-    return tmp_item
+    return deepcopy(item)
 
 ##### Set
 

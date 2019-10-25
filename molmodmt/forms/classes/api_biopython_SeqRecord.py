@@ -33,7 +33,7 @@ def to_pir(item, output_file_path=None, style=None, atom_indices=None, frame_ind
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-     if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is None) and (frame_indices is None):
         return item
     else:
         raise NotImplementedError

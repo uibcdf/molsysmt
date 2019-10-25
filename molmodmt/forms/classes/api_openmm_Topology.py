@@ -16,68 +16,59 @@ def to_molmod_Topology(item, atom_indices=None, frame_indices=None):
     return _from_openmm_Topology(item, atom_indices=atom_indices)
 
 def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
-    from molmodmt import extract as _extract
-    from mdtraj.core.topology import Topology as _mdtraj_Topology
-    tmp_item = _mdtraj_Topology.from_openmm(item)
-    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
-    del(_mdtraj_Topology)
+
+    from .api_mdtraj_Topology import extract_subsystem as extract_mdtraj_Topology
+    from mdtraj.core.topology import Topology as mdtraj_Topology
+    tmp_item = mdtraj_Topology.from_openmm(item)
+    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
-
-def to_mdtraj(item, atom_indices=None, frame_indices=None):
-
-    return to_mdtraj_Topology(item, selection=selection, syntaxis=syntaxis)
 
 def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt import extract as _extract
-    from parmed.openmm import load_topology as _openmm_Topology_to_parmed_Estructure
-    tmp_item = _openmm_Topology_to_parmed_Estructure(item)
-    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
-    del(_openmm_Topology_to_parmed_Estructure)
+    from parmed.openmm import load_topology as openmm_Topology_to_parmed_Structure
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
     return tmp_item
 
 def to_yank_Topography(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt import extract as _extract
-    from yank import Topography as _yank_Topography
-    tmp_item = _yank_Topography(item)
-    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
-    del(_yank_Topography)
+    from yank import Topography as yank_Topography
+    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = yank_Topography(tmp_item)
     return tmp_item
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    mode='keeping_selection'
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
 
-    if mode=='removing_selection':
-        from molmodmt.utils.atom_indices import complementary_atom_indices
-        atom_indices_to_be_kept = complementary_atom_indices(item, atom_indices)
-    elif mode=='keeping_selection':
+        from simtk.openmm.app import Topology
         atom_indices_to_be_kept = atom_indices
+        newAtoms = {}
+        set_atom_indices = set(atom_indices_to_be_kept)
+        for chain in item.chains():
+            needNewChain = True
+            for residue in chain.residues():
+                needNewResidue = True
+                for atom in residue.atoms():
+                    if atom.index in set_atom_indices:
+                        if needNewChain:
+                            newChain = newTopology.addChain(chain.id)
+                            needNewChain = False;
+                        if needNewResidue:
+                            newResidue = newTopology.addResidue(residue.name, newChain, residue.id, residue.insertionCode)
+                            needNewResidue = False;
+                        newAtom = newTopology.addAtom(atom.name, atom.element, newResidue, atom.id)
+                        newAtoms[atom] = newAtom
+        for bond in item.bonds():
+            if bond[0].index in set_atom_indices and bond[1].index in set_atom_indices:
+                newTopology.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
+        return newTopology
 
-    from simtk.openmm.app import Topology
-    newTopology = Topology()
-    newTopology.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
-    newAtoms = {}
-    set_atom_indices = set(atom_indices_to_be_kept)
-    for chain in item.chains():
-        needNewChain = True
-        for residue in chain.residues():
-            needNewResidue = True
-            for atom in residue.atoms():
-                if atom.index in set_atom_indices:
-                    if needNewChain:
-                        newChain = newTopology.addChain(chain.id)
-                        needNewChain = False;
-                    if needNewResidue:
-                        newResidue = newTopology.addResidue(residue.name, newChain, residue.id, residue.insertionCode)
-                        needNewResidue = False;
-                    newAtom = newTopology.addAtom(atom.name, atom.element, newResidue, atom.id)
-                    newAtoms[atom] = newAtom
-    for bond in item.bonds():
-        if bond[0].index in set_atom_indices and bond[1].index in set_atom_indices:
-            newTopology.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
-    return newTopology
+def duplicate(item):
+
+    raise NotImplementedError
 
 def select_with_MDTraj(item, selection):
 

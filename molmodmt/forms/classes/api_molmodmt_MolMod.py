@@ -6,8 +6,6 @@ form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
     _molmodmt_MolMod : form_name,
-    'molmod': form_name,
-    'MolMod': form_name,
     'molmodmt.MolMod': form_name
 }
 
@@ -20,58 +18,57 @@ def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
     tmp_item = mdtraj_Topology_to_aminoacids3_seq(tmp_item)
     return tmp_item
 
-def to_aminoacids1(item, atom_indices=None, frame_indices=None):
-    return to_aminoacids1_seq(item, atom_indices=atom_indices)
-
 def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_seq_to_aminoacids1_seq
-    tmp_item = to_aminoacids3_seq(item)
+    tmp_item = to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids3_seq_to_aminoacids1_seq(tmp_item)
     return tmp_item
 
 def to_biopython_Seq(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as _aminoacids1_to_biopython_Seq
-    tmp_item = to_aminoacids1_seq(item)
-    tmp_item = _aminoacids1_to_biopython_Seq(tmp_item)
-    del(_aminoacids1_to_biopython_Seq)
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
+    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = aminoacids1_to_biopython_Seq(tmp_item)
     return tmp_item
 
 def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as _aminoacids1_to_biopython_SeqRecord
-    tmp_item = to_aminoacids1_seq(item)
-    tmp_item = _aminoacids1_to_biopython_SeqRecord(tmp_item)
-    del(_aminoacids1_to_biopython_SeqRecord)
+    from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
+    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = aminoacids1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
 
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
     from simtk import unit as _unit
-    from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
+    from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
 
-    tmp_item_topology = to_mdtraj_Topology(item, atom_indices=item.trajectory.file.atom_indices)
-    tmp_box_lengths = item.trajectory.get_box_lengths().in_units_of(_unit.nanometers)._value
-    tmp_box_angles = item.trajectory.get_box_angles().in_units_of(_unit.degrees)._value
-    tmp_coordinates = item.trajectory.coordinates.in_units_of(_unit.nanometers)._value
-    tmp_time=item.trajectory.time.in_units_of(_unit.picoseconds)._value
-    tmp_item = _mdtraj_Trajectory(tmp_coordinates,tmp_item_topology, tmp_time,
+    tmp_item_topology = to_mdtraj_Topology(item, atom_indices=atom_indices)
+    tmp_box_lengths = get_box_lengths_from_system(item, frame_indices=frame_indices)
+    tmp_box_lengths = tmp_box_lengths.in_units_of(_unit.nanometers)._value
+    tmp_box_angles = get_box_angles_from_system(item, frame_indices=frame_indices)
+    tmp_box_angles = tmp_box_angles.in_units_of(_unit.degrees)._value
+    tmp_coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+    tmp_coordinates = tmp_coordinates.in_units_of(_unit.nanometers)._value
+    tmp_time = get_coordinates_from_system(item, frame_indices=frame_indices)
+    tmp_time = tmp_time.in_units_of(_unit.picoseconds)._value
+    tmp_item = mdtraj_Trajectory(tmp_coordinates,tmp_item_topology, tmp_time,
             unitcell_lengths=tmp_box_lengths, unitcell_angles=tmp_box_angles)
 
     return tmp_item
 
 def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
-    from .api_molmodmt_Topology import to_mdtraj_Topology as _to_mdtraj_Topology
-    return _to_mdtraj_Topology(item.topology, atom_indices=atom_indices,
+    from .api_molmodmt_Topology import to_mdtraj_Topology as molmodmt_Topology_to_mdtraj_Topology
+    return molmodmt_Topology_to_mdtraj_Topology(item.topology, atom_indices=atom_indices,
+                                                frame_indices=frame_indices)
+
+def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None):
+
+    from molmodmt.native.io_molmod import to_pdb as molmodmt_MolMod_to_pdb
+    return molmodmt_MolMod_to_pdb(item, output_file_path=output_file_path, selection=atom_indices,
             frame_indices=frame_indices)
-
-def to_pdb(item, filename=None, atom_indices=None, frame_indices=None):
-
-    from molmodmt.native.io_molmod import to_pdb as _to_pdb
-
-    return _to_pdb(item, filename=filename, selection=atom_indices, frame_indices=frame_indices)
 
 def select_with_MDTraj(item, selection=None):
     from molmodmt import select
@@ -79,20 +76,18 @@ def select_with_MDTraj(item, selection=None):
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
-    return item.extract(atom_indices)
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
 
 def to_nglview(item, atom_indices=None, frame_indices=None):
 
-    from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
+    from .api_mdtraj_Trajectory import to_nglview as mdtraj_to_nglview
 
-    if type(item) in [list,tuple]:
-        tmp_item = []
-        for ii in item:
-            tmp_item.append(to_mdtraj_Trajectory(ii))
-    else:
-        tmp_item = to_mdtraj_Trajectory(item)
+    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return _mdtraj_to_nglview(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return mdtraj_to_nglview(tmp_item)
 
 def duplicate(item):
 
@@ -334,6 +329,18 @@ def get_box_shape_from_system(item, indices=None, frame_indices=None):
 
     return item.trajectory.box_shape
 
+def get_box_lengths_from_system(item, indices=None, frame_indices=None):
+
+    tmp_box_lengths = item.trajectory.get_box_lengths()
+    tmp_box_lengths = tmp_box_lengths[frame_indices,:]
+    returm tmp_box_lengths
+
+def get_box_angles_from_system(item, indices=None, frame_indices=None):
+
+    tmp_box_angles = item.trajectory.get_box_angles()
+    tmp_box_angles = tmp_box_angles[frame_indices,:]
+    returm tmp_box_angles
+
 def get_form_from_system(item, indices=None, frame_indices=None):
 
     from molmodmt import get_form
@@ -350,8 +357,4 @@ def set_coordinates_to_system(item, indices=None, frame_indices=None, value=None
 
     item.trajectory.coordinates = value
     pass
-
-
-
-
 

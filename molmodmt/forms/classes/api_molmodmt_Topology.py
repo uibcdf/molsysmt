@@ -18,11 +18,17 @@ def to_mdtraj_Topology (item, atom_indices=None, frame_indices=None):
     tmp_item = extract(item, selection=atom_indices)
     return tmp_item
 
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
 def duplicate(item):
 
-    from .api_mdtraj_Topology import duplicate as _duplicate_mdtraj_Topology
-
-    return _duplicate_mdtraj_Topology(item)
+    from .api_mdtraj_Topology import duplicate as duplicate_mdtraj_Topology
+    return duplicate_mdtraj_Topology(item)
 
 ###### Get
 
