@@ -8,16 +8,16 @@ is_form={
     _yank_Topography: form_name
 }
 
-def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import extract_subsystem as extract_openmm_Topology
     tmp_item = item.topology()
     tmp_item = extract_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -30,7 +30,7 @@ def duplicate(item):
 
 ## system
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

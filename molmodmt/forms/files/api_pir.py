@@ -53,9 +53,9 @@ def rewrite_to_style(filename, style=None):
     else:
         pass
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -68,7 +68,7 @@ def duplicate(item):
 
 ## system
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

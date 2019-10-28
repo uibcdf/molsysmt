@@ -10,8 +10,7 @@ is_form={
     'Bio.Seq' : form_name
 }
 
-def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indices=None,
-                           frame_indices=None):
+def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indices='all', frame_indices='all'):
 
     from Bio.SeqRecord import SeqRecord as Bio_SeqRecord
     from .api_biopython_SeqRecord import extract_subsystem as extract_biopython_SeqRecord
@@ -28,7 +27,7 @@ def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indi
 
     return tmp_item
 
-def to_fasta(item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import extract as _extract
     from .api_biopython_SeqRecord import _to_fasta as _Bio_SeqRecord_to_fasta
@@ -41,9 +40,9 @@ def duplicate(item):
 
     raise NotImplementedError
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -52,7 +51,7 @@ def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
 ## system
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

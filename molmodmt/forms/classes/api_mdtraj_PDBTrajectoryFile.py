@@ -8,7 +8,7 @@ is_form={
     'mdtraj.PDBTrajectoryFile': form_name
     }
 
-def to_mdtraj_topology(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_topology(item, atom_indices='all', frame_indices='all'):
 
     from api_mdtraj_Topology import extract_subsystem as extract_mdtraj_Topology
 
@@ -16,7 +16,7 @@ def to_mdtraj_topology(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def load_frame (item, atom_indices=None, frame_indices=None):
+def load_frame (item, atom_indices='all', frame_indices='all'):
 
     from numpy import array, concatenate, zeros, empty
     from molmodmt.utils.pbc import get_box_from_lengths_and_angles
@@ -56,9 +56,9 @@ def load_frame (item, atom_indices=None, frame_indices=None):
 
     return step, time, xyz, box
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-     if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -69,25 +69,25 @@ def duplicate(item):
 
 #### Get
 
-def get_frames_from_atom (item, indices=None, frame_indices=None):
+def get_frames_from_atom (item, indices='all', frame_indices='all'):
 
     step, time, xyz, box = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
     return step, time, xyz, box
 
 # system
 
-def get_frames_from_system (item, indices=None, frame_indices=None):
+def get_frames_from_system (item, indices='all', frame_indices='all'):
 
     n_atoms = get_n_atoms_from_system(item)
     atom_indices = list(range(n_atoms))
     step, time, xyz, box = load_frame(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return step, time, xyz, box
 
-def get_n_frames_from_system (item, indices=None, frame_indices=None):
+def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
     return item.positions.shape[0]
 
-def get_box_shape_from_system (item, indices=None, frame_indices=None):
+def get_box_shape_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt.utils.pbc import get_shape_from_angles
     from simtk.unit import degrees
@@ -100,11 +100,11 @@ def get_box_shape_from_system (item, indices=None, frame_indices=None):
     shape = get_shape_from_angles(cell_angles)
     return shape
 
-def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return item.topology.n_atoms
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

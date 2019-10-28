@@ -7,22 +7,22 @@ is_form = {
     'PDB': form_name
     }
 
-def to_molmodmt_MolMod(item, topology=None, atom_indices=None, frame_indices=None):
+def to_molmodmt_MolMod(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt.native.io_molmod import from_pdb as _from_pdb
     return _from_pdb(item, topology=topology, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molmodmt_Topology(item, atom_indices=None, frame_indices=None):
+def to_molmodmt_Topology(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.native.io_topology import from_pdb as _from_pdb
     return _from_pdb(item, atom_indices=atom_indices)
 
-def to_molmodmt_Trajectory(item, topology=None, atom_indices=None, frame_indices=None):
+def to_molmodmt_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt.native.io_trajectory import from_pdb as _from_pdb
     return _from_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
+def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
 
     from parmed import load_file as parmed_file_loader
     from molmodmt.forms.classes.api_parmed_Structure import extract_subsystem as extract_parmed
@@ -30,7 +30,7 @@ def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdanalysis_Universe(item, atom_indices=None, frame_indices=None):
+def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis import Universe as mdanalysis_Universe
     from molmodmt.forms.classes.api_mdtraj_Universe import extract_subsystem as extract_universe
@@ -38,7 +38,7 @@ def to_mdanalysis_Universe(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_topology as mdtraj_load_topology
     from molmodmt.forms.classes.api_mdtraj_Topology import extract_subsystem as extract_mdtraj_topology
@@ -46,7 +46,7 @@ def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_mdtraj_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_pdb as mdtraj_pdb_loader
     from molmodmt.forms.classes.api_mdtraj_Trajectory import extract_subsystem as extract_mdtraj_trajectory
@@ -54,13 +54,13 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_mdtraj_trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdtraj_PDBTrajectoryFile(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_PDBTrajectoryFile(item, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats.pdb import PDBTrajectoryFile
 
     return PDBTrajectoryFile(item)
 
-def to_mol2(item, output_file_path=None, atom_indices=None, frame_indices='all'):
+def to_mol2(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from parmed import load_file as parmed_file_loader
     from molmodmt.forms.classes.api_parmed_Structure import extract_subsystem as extract_parmed
@@ -68,7 +68,7 @@ def to_mol2(item, output_file_path=None, atom_indices=None, frame_indices='all')
     tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item.save(output_file_path)
 
-def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from molmodmt.forms.classes.api_openmm_Topology import extract_subsystem as extract_openmm_topology
@@ -76,7 +76,7 @@ def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
+def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from simtk.openmm.app.modeller import Modeller
@@ -86,7 +86,7 @@ def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_modeller(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_openmm_PDBFile(item, atom_indices=None, frame_indices=None):
+def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from molmodmt.forms.classes.api_openmm_PDBFile import extract_subsystem as extract_pdbfile
@@ -94,15 +94,15 @@ def to_openmm_PDBFile(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_pdbfile(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
 
     from pdbfixer.pdbfixer import PDBFixer
-    from molmodmt.forms.classes.api_openmm_PDBFixer import extract_subsystem as extract_pdbfixer
-    tmp_item = PDBFixer(tmp_item)
+    from molmodmt.forms.classes.api_pdbfixer_PDBFixer import extract_subsystem as extract_pdbfixer
+    tmp_item = PDBFixer(item)
     tmp_item = extract_pdbfixer(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_nglview(item, atom_indices=None, frame_indices=None):
+def to_nglview(item, atom_indices='all', frame_indices='all'):
 
     from nglview import show_file as _nglview_show_file
     from os import remove
@@ -111,7 +111,7 @@ def to_nglview(item, atom_indices=None, frame_indices=None):
     remove(tmp_file)
     return tmp_item
 
-def to_yank_Topography(item, atom_indices=None, frame_indices=None):
+def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_yank_Topography as openmm_to_yank_Topography
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -134,9 +134,9 @@ def duplicate(item):
     copy(item,tmp_file)
     return tmp_file
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         from molmodmt.utils.pdb import tmp_pdb_filename
@@ -150,7 +150,7 @@ def extract_subsystem(item, atom_indices=None, frame_indices=None):
 
 # System
 
-#def get_frames_from_system (item, indices=None, frame_indices=None):
+#def get_frames_from_system (item, indices='all', frame_indices='all'):
 #
 #    from molmodmt import get
 #    tmp_item = to_mdtraj_XTCTrajectoryFile(item)
@@ -160,7 +160,7 @@ def extract_subsystem(item, atom_indices=None, frame_indices=None):
 #    del(tmp_item, get)
 #    return xyz, time, step, box
 
-def get_n_frames_from_system (item, indices=None, frame_indices=None):
+def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt import get
     from mdtraj.formats.pdb import PDBTrajectoryFile
@@ -170,7 +170,7 @@ def get_n_frames_from_system (item, indices=None, frame_indices=None):
     del(tmp_item, get)
     return n_frames
 
-def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt import get
     from mdtraj.formats.pdb import PDBTrajectoryFile
@@ -180,7 +180,7 @@ def get_n_atoms_from_system (item, indices=None, frame_indices=None):
     del(tmp_item, get)
     return n_atoms
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

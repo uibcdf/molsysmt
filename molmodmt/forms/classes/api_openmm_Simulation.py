@@ -8,13 +8,13 @@ is_form={
     'openmm.Simulation' : form_name,
 }
 
-def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     tmp_item=item.topology
     tmp_item=extract_subsystem(atom_indices=atom_indices, frame_indices=frame_indices)
     return item.topology
 
-def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
+def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import Modeller
     topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -22,7 +22,7 @@ def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
     tmp_item = Modeller(topology, positions)
     return tmp_item
 
-def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
@@ -33,7 +33,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
     remove(tmp_pdbfile)
     return tmp_item
 
-def to_pdb (item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_pdb (item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -42,9 +42,9 @@ def to_pdb (item, output_file_path=None, atom_indices=None, frame_indices=None):
     topology.setPeriodicBoxVectors(box)
     return _openmm_app_PDBFILE.writeFile(topology, positions, open(output_file_path, 'w'))
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -55,7 +55,7 @@ def duplicate(item):
 
 ###### Get
 
-def get_coordinates_from_atom(item, indices=None, frame_indices=None):
+def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     state = item.context.getState(getPositions=True)
     coordinates = state.getPositions()
@@ -64,19 +64,19 @@ def get_coordinates_from_atom(item, indices=None, frame_indices=None):
 
 ## system
 
-def get_coordinates_from_system(item, indices=None, frame_indices=None):
+def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
     state = item.context.getState(getPositions=True)
     coordinates = state.getPositions()
     return coordinates
 
-def get_box_from_system(item, indices=None, frame_indices=None):
+def get_box_from_system(item, indices='all', frame_indices='all'):
 
     state = item.context.getState()
     box = state.getPeriodicBoxVectors()
     return box
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

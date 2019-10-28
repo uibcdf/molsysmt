@@ -10,9 +10,9 @@ is_form={
 }
 
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -25,7 +25,7 @@ def duplicate(item):
 
 ## atom
 
-def get_coordinates_from_atom(item, indices=None, frame_indices=None):
+def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     tmp_coordinates=None
 
@@ -45,7 +45,7 @@ def get_coordinates_from_atom(item, indices=None, frame_indices=None):
 
 ## system
 
-def get_coordinates_from_system(item, indices=None, frame_indices=None):
+def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
     tmp_coordinates=None
 
@@ -62,7 +62,7 @@ def get_coordinates_from_system(item, indices=None, frame_indices=None):
 
     return tmp_coordinates
 
-def get_n_frames_from_system(item, indices=None, frame_indices=None):
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     n_frames=0
     if len(item.shape)==3:
@@ -72,7 +72,7 @@ def get_n_frames_from_system(item, indices=None, frame_indices=None):
 
     return n_frames
 
-def get_n_atoms_from_system(item, indices=None, frame_indices=None):
+def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
     n_atoms=0
     if len(item.shape)==3:
@@ -82,15 +82,15 @@ def get_n_atoms_from_system(item, indices=None, frame_indices=None):
 
     return n_atoms
 
-def get_box_from_system(item, indices=None, frame_indices=None):
+def get_box_from_system(item, indices='all', frame_indices='all'):
 
     return None
 
-def get_box_shape_from_system(item, indices=None, frame_indices=None):
+def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
     return None
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

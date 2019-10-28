@@ -7,26 +7,26 @@ is_form={
     _parmed_GromacsTopologyFile : form_name
 }
 
-def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology as mdtraj_topology
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_topology.from_openmm(tmp_item)
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import extract_subsystem as extract_openmm_topology
     tmp_item = item.topology
     tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mol2(item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_mol2(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return item.save(output_file_path)
 
-def to_top(item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_top(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return item.save(output_file_path)
@@ -45,9 +45,9 @@ def select_with_ParmEd(item, selection):
     del(_AmberMask)
     return tmp_sel
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
 
@@ -69,19 +69,19 @@ def duplicate(item):
 
 ## Atom
 
-def get_n_atoms_from_atom (item, indices=None, frame_indices=None):
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     return len(item.atoms)
 
-def get_n_residues_from_atom (item, indices=None, frame_indices=None):
+def get_n_residues_from_atom (item, indices='all', frame_indices='all'):
 
     return len(item.residues)
 
-def get_mass_from_atom (item, indices=None, frame_indices=None):
+def get_mass_from_atom (item, indices='all', frame_indices='all'):
 
     return [atom.mass for atom in item.atoms]
 
-def get_bonded_atoms_from_atom (item, indices=None, frame_indices=None):
+def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     tmp_bonded = [[] for ii in range(len(st.atoms))]
     for bond in st.bonds:
@@ -90,7 +90,7 @@ def get_bonded_atoms_from_atom (item, indices=None, frame_indices=None):
 
     return tmp_bonded
 
-def get_bonds_from_atom (item, indices=None, frame_indices=None):
+def get_bonds_from_atom (item, indices='all', frame_indices='all'):
 
     tmp_bonds = []
     for bond in item.bonds:
@@ -98,7 +98,7 @@ def get_bonds_from_atom (item, indices=None, frame_indices=None):
 
     return tmp_bonds
 
-def get_graph_from_atom (item, indices=None, frame_indices=None):
+def get_graph_from_atom (item, indices='all', frame_indices='all'):
 
     from networkx import Graph as _Graph
     tmp_graph = _Graph(getting(item,bonds=True))
@@ -107,13 +107,13 @@ def get_graph_from_atom (item, indices=None, frame_indices=None):
             tmp_graph.add_node(atom.idx)
     result.append(tmp_graph)
 
-def get_molecules_from_atom (item, indices=None, frame_indices=None):
+def get_molecules_from_atom (item, indices='all', frame_indices='all'):
 
     from networkx import connected_components as _connected_components
     tmp_graph = getting(item, graph=True)
     result.append([list(ii) for ii in _connected_components(tmp_graph)])
 
-def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
+def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.utils.types import residue2molecule_types
     tmp_molecules = getting(item,molecules=True)
@@ -126,15 +126,15 @@ def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
 
 ## System
 
-def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return len(item.atoms)
 
-def get_n_frames_from_system (item, indices=None, frame_indices=None):
+def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
     return 0
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

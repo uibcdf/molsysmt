@@ -10,7 +10,7 @@ is_form={
 }
 
 
-def to_mdtraj_Topology (item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Topology (item, atom_indices='all', frame_indices='all'):
 
     from molmodmt import extract
 
@@ -18,9 +18,9 @@ def to_mdtraj_Topology (item, atom_indices=None, frame_indices=None):
     tmp_item = extract(item, selection=atom_indices)
     return tmp_item
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -34,87 +34,87 @@ def duplicate(item):
 
 ## atom
 
-def get_index_from_atom (item, indices=None, frame_indices=None):
+def get_index_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_index_from_atom as _get
     return _get(item, indices=indices)
 
-def get_id_from_atom (item, indices=None, frame_indices=None):
+def get_id_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_id_from_atom as _get
     return _get(item, indices=indices)
 
-def get_name_from_atom (item, indices=None, frame_indices=None):
+def get_name_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_name_from_atom as _get
     return _get(item, indices=indices)
 
-def get_element_from_atom (item, indices=None, frame_indices=None):
+def get_element_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_element_from_atom as _get
     return _get(item, indices=indices)
 
-def get_residue_index_from_atom (item, indices=None, frame_indices=None):
+def get_residue_index_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_residue_index_from_atom as _get
     return _get(item, indices=indices)
 
-def get_residue_name_from_atom (item, indices=None, frame_indices=None):
+def get_residue_name_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_residue_name_from_atom as _get
     return _get(item, indices=indices)
 
-def get_residue_id_from_atom (item, indices=None, frame_indices=None):
+def get_residue_id_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_residue_id_from_atom as _get
     return _get(item, indices=indices)
 
-def get_chain_index_from_atom (item, indices=None, frame_indices=None):
+def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_chain_index_from_atom as _get
     return _get(item, indices=indices)
 
-def get_chain_name_from_atom (item, indices=None, frame_indices=None):
+def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_chain_name_from_atom as _get
     return _get(item, indices=indices)
 
-def get_chain_id_from_atom (item, indices=None, frame_indices=None):
+def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_chain_id_from_atom as _get
     return _get(item, indices=indices)
 
-def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
+def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_aminoacids_from_atom as _get
     return _get(item, indices=indices)
 
-def get_n_nucleotides_from_atom (item, indices=None, frame_indices=None):
+def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_nucleotides_from_atom as _get
     return _get(item, indices=indices)
 
-def get_n_waters_from_atom (item, indices=None, frame_indices=None):
+def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_waters_from_atom as _get
     return _get(item, indices=indices)
 
-def get_n_ions_from_atom (item, indices=None, frame_indices=None):
+def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_ions_from_atom as _get
     return _get(item, indices=indices)
 
-def get_bonded_atoms_from_atom(item, indices=None, frame_indices=None):
+def get_bonded_atoms_from_atom(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_bonded_atoms_from_atom as _get
     return _get(item, indices=indices)
 
-def get_molecules_from_atom(item, indices=None, frame_indices=None):
+def get_molecules_from_atom(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_molecules_from_atom as _get
     return _get(item, indices=indices)
 
-def get_molecule_type_from_atom(item, indices=None, frame_indices=None):
+def get_molecule_type_from_atom(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_molecule_type_from_atom as _get
     return _get(item, indices=indices)
@@ -126,96 +126,96 @@ def get_molecule_type_from_atom(item, indices=None, frame_indices=None):
 
 ## system
 
-def get_n_atoms_from_system(item, indices=None, frame_indices=None):
+def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_atoms_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_residues_from_system(item, indices=None, frame_indices=None):
+def get_n_residues_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_residues_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_chains_from_system(item, indices=None, frame_indices=None):
+def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_chains_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_aminoacids_from_system (item, indices=None, frame_indices=None):
+def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_aminoacids_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_nucleotides_from_system (item, indices=None, frame_indices=None):
+def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_nucleotides_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_waters_from_system (item, indices=None, frame_indices=None):
+def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_waters_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_ions_from_system (item, indices=None, frame_indices=None):
+def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_ions_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_molecules_from_system(item, indices=None, frame_indices=None):
+def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_molecules_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_bonds_from_system(item, indices=None, frame_indices=None):
+def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_n_bonds_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_frames_from_system(item, indices=None, frame_indices=None):
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Trayectory import get_n_frames_from_system as _get
     return _get(item, indices=indices)
 
-def get_masses_from_system(item, indices=None, frame_indices=None):
+def get_masses_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_masses_from_system as _get
     return _get(item, indices=indices)
 
-def get_bonded_atoms_from_system(item, indices=None, frame_indices=None):
+def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_bonded_atoms_from_system as _get
     return _get(item, indices=indices)
 
-def get_bonds_from_system(item, indices=None, frame_indices=None):
+def get_bonds_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_bonds_from_system as _get
     return _get(item, indices=indices)
 
-def get_graph_from_system(item, indices=None, frame_indices=None):
+def get_graph_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_graph_from_system as _get
     return _get(item, indices=indices)
 
-def get_molecules_from_system(item, indices=None, frame_indices=None):
+def get_molecules_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import get_molecules_from_system as _get
     return _get(item, indices=indices)
 
-def get_box_from_system(item, indices=None, frame_indices=None):
+def get_box_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Trajectory import get_box_from_system as _get
     return _get(item, indices=indices)
 
-def get_cell_from_system(item, indices=None, frame_indices=None):
+def get_cell_from_system(item, indices='all', frame_indices='all'):
 
     from .api_mdtraj_Trajectory import get_cell_from_system as _get
     return _get(item, indices=indices)
 
-def get_n_frames_from_system(item, indices=None, frame_indices=None):
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     return 0
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

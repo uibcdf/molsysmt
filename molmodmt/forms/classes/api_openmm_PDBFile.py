@@ -8,7 +8,7 @@ is_form={
     'openmm.PDBFile' : form_name
 }
 
-def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt import extract as _extract
     import simtk.unit as _unit
@@ -18,29 +18,29 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
     tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_mdtraj_Topology as openmm_Topology_to_mdtraj_Topology
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_mdtraj_Topology(tmp_item)
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import extract_subsystem as extract_openmm_Topology
     tmp_item=item.getTopology()
     tmp_item=extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_nglview(item, atom_indices=None, frame_indices=None):
+def to_nglview(item, atom_indices='all', frame_indices='all'):
 
     from .api_mdtraj_Trajectory import to_nglview as mdtraj_Trajectory_to_nglview
     tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return _mdtraj_Trajectory_to_nglview(tmp_item)
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -53,7 +53,7 @@ def duplicate(item):
 
 ## Atom
 
-def get_coordinates_from_atom(item, indices=None, frame_indices=None):
+def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     tmp_unit = item.positions.unit
     tmp_positions = [item.positions[ii]._value for ii in indices]
@@ -61,7 +61,7 @@ def get_coordinates_from_atom(item, indices=None, frame_indices=None):
 
 ## System
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

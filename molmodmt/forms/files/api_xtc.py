@@ -7,7 +7,7 @@ is_form = {
     'xtc': form_name
     }
 
-def to_mdtraj_Trajectory(item, topology=None, atom_indices=None, frame_indices=None):
+def to_mdtraj_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert, select
 
@@ -43,11 +43,11 @@ def to_mdtraj_Trajectory(item, topology=None, atom_indices=None, frame_indices=N
 
     return tmp_form
 
-def to_parmed_Structure(item, topology=None, atom_indices=None, frame_indices=None):
+def to_parmed_Structure(item, topology=None, atom_indices='all', frame_indices='all'):
 
-    return to_parmed_GromacsTopologyFile(item, topology, atom_indices=None, frame_indices=None)
+    return to_parmed_GromacsTopologyFile(item, topology, atom_indices='all', frame_indices='all')
 
-def to_parmed_GromacsTopologyFile(item, topology=None, atom_indices=None, frame_indices=None):
+def to_parmed_GromacsTopologyFile(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import extract as _extract
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
@@ -55,19 +55,19 @@ def to_parmed_GromacsTopologyFile(item, topology=None, atom_indices=None, frame_
     tmp_item=_extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molmodmt_MolMod(item, topology=None, atom_indices=None, frame_indices=None):
+def to_molmodmt_MolMod(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt.native.io_molmod import from_xtc
     return from_xtc(item, topology=topology, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_XTCTrajectoryFile(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import XTCTrajectoryFile
     return XTCTrajectoryFile(item)
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -78,7 +78,7 @@ def duplicate(item):
 
 #### Get
 
-def get_frames_from_atom (item, indices=None, frame_indices=None):
+def get_frames_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt import get
     tmp_item = to_mdtraj_XTCTrajectoryFile(item)
@@ -90,7 +90,7 @@ def get_frames_from_atom (item, indices=None, frame_indices=None):
 
 # System
 
-def get_frames_from_system (item, indices=None, frame_indices=None):
+def get_frames_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt import get
     tmp_item = to_mdtraj_XTCTrajectoryFile(item)
@@ -100,7 +100,7 @@ def get_frames_from_system (item, indices=None, frame_indices=None):
     del(tmp_item, get)
     return xyz, time, step, box
 
-def get_n_frames_from_system (item, indices=None, frame_indices=None):
+def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt import get
     tmp_item = to_mdtraj_XTCTrajectoryFile(item)
@@ -109,7 +109,7 @@ def get_n_frames_from_system (item, indices=None, frame_indices=None):
     del(tmp_item, get)
     return n_frames
 
-def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt import get
     tmp_item = to_mdtraj_XTCTrajectoryFile(item)
@@ -118,7 +118,7 @@ def get_n_atoms_from_system (item, indices=None, frame_indices=None):
     del(tmp_item, get)
     return n_atoms
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

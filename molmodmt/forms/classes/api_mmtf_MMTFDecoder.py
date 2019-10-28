@@ -9,15 +9,15 @@ is_form={
 }
 
 
-def to_mmtf(item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from mmtf.api.default_api import write_mmtf, MMTFDecoder
     tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return write_mmtf(output_file_path, tmp_item, MMTFDecoder.pass_data_on)
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -32,15 +32,15 @@ def duplicate(item):
 
 ## system
 
-def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return item.num_atoms
 
-def get_n_frames_from_system(item, indices=None, frame_indices=None):
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     return item.num_models
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

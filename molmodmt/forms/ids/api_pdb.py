@@ -9,20 +9,21 @@ is_form = {
     'PDB:id': form_name
     }
 
-def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.miscellanea import download_pdb as download_pdb
     from molmodmt.forms.files.api_pdb import extract_subsystem as extract_pdb
-    from shutil import copy
+    from shutil import move
     tmp_item = item.split(':')[-1]
     download_pdb(tmp_item, output_file_path)
     tmp_item = extract_pdb(output_file_path, atom_indices=atom_indices, frame_indices=frame_indices)
-    copy(tmp_item, output_file_path)
+    if tmp_item!=output_file_path:
+        move(tmp_item, output_file_path)
     pass
 
-def to_fasta(item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
-    from shutil import copy
+    from shutil import move
     from molmodmt.forms.files.api_fasta import extract_subsystem as extract_fasta
     tmp_item = item.split(':')[-1]
     url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+tmp_item+'&compressionType=uncompressed'
@@ -34,10 +35,11 @@ def to_fasta(item, output_file_path=None, atom_indices=None, frame_indices=None)
     f.close()
     tmp_item = extract_fasta(output_file_path, atom_indices=atom_indices,
             frame_indices=frame_indices)
-    copy(tmp_item, output_file_path)
+    if tmp_item!=output_file_path:
+        move(tmp_item, output_file_path)
     pass
 
-def to_mmtf(item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from mmtf import fetch
     from molmodmt.forms.classes.api_mmtf_MMTFDecoder import to_mmtf as MMTFDecoder_to_mmtf
@@ -45,16 +47,16 @@ def to_mmtf(item, output_file_path=None, atom_indices=None, frame_indices=None):
     tmp_item = to_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return MMTFDecoder_to_mmtf(tmp_item, output_file_path=output_file_path)
 
-def to_mmtf_MMTFDecoder(item, atom_indices=None, frame_indices=None):
+def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
     from mmtf import fetch
     from molmodmt.forms.classes.api_mmtf_MMTFDecoder import extract_subsystem as extract_MMTFDecoder
     tmp_item = item.split(':')[-1]
     tmp_item = fetch(tmp_item)
-    tmp_item = extract_MMTFDecoder(tmp_item, atom_indices=atom_indices, atom_indices=atom_indices)
+    tmp_item = extract_MMTFDecoder(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
+def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.native.io_molmod import from_pdb as pdb_to_molmodmt
@@ -65,7 +67,7 @@ def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
     remove(tmp_file)
     return tmp_item
 
-def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
@@ -76,7 +78,7 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
     remove(tmp_file)
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_mdtraj_Topology as pdb_to_mdtraj_Topology
@@ -87,7 +89,7 @@ def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
     remove(tmp_file)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
+def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_parmed_Structure as pdb_to_parmed_Structure
@@ -98,7 +100,7 @@ def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
     remove(tmp_file)
     return tmp_item
 
-def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
@@ -109,7 +111,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
     remove(tmp_file)
     return tmp_item
 
-def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
+def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_openmm_Modeller as pdb_to_openmm_Modeller
@@ -120,7 +122,7 @@ def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
     remove(tmp_file)
     return tmp_item
 
-def to_yank_Topography(item, atom_indices=None, frame_indices=None):
+def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_yank_Topography as pdb_to_yank_Topography
@@ -132,7 +134,7 @@ def to_yank_Topography(item, atom_indices=None, frame_indices=None):
     return tmp_item
 
 
-def to_mdanalysis_Universe(item, atom_indices=None, frame_indices=None):
+def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_mdanalysis_Universe as pdb_mdanalysis_Universe
@@ -143,7 +145,7 @@ def to_mdanalysis_Universe(item, atom_indices=None, frame_indices=None):
     remove(tmp_file)
     return tmp_item
 
-def to_pytraj_Trajectory(item, atom_indices=None, frame_indices=None):
+def to_pytraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.forms.files.api_pdb import to_pytraj_Trajectory as pdb_pytraj_Trajectory
@@ -154,7 +156,7 @@ def to_pytraj_Trajectory(item, atom_indices=None, frame_indices=None):
     remove(tmp_file)
     return tmp_item
 
-def to_nglview(item, atom_indices=None, frame_indices=None):
+def to_nglview(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
     from nglview import show_file as nglview_show_file
@@ -171,9 +173,9 @@ def select_with_MDTraj(item, selection):
     del(tmp_form)
     return tmp_sel
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -186,17 +188,17 @@ def duplicate(item):
 
 ## system
 
-def get_n_atoms_from_system(item, indices=None, frame_indices=None):
+def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
     tmp_item = to_mmtf_MMTFDecoder(item)
     return tmp_item.num_atoms
 
-def get_n_frames_from_system(item, indices=None, frame_indices=None):
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     tmp_item = to_mmtf_MMTFDecoder(item)
     return tmp_item.num_models
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

@@ -9,41 +9,41 @@ is_form={
 
 ## Methods
 
-def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
+def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
     tmp_item = to_openm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return ''.join([ r.name for r in tmp_item.residues() ])
 
-def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
+def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_to_aminoacids1
     tmp_item = to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids3_to_aminoacids1(tmp_item)
     return tmp_item
 
-def to_biopython_Seq(item, atom_indices=None, frame_indices=None):
+def to_biopython_Seq(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids1_to_biopython_Seq(tmp_item)
     return tmp_item
 
-def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
+def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology as mdtraj_Topology
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_Topology.from_openmm(tmp_item)
     return tmp_item
 
-def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 
     from simtk.unit import nanometers
     from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
@@ -53,7 +53,7 @@ def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
     tmp_item = _mdtraj_Trajectory(coordinates, tmp_topology)
     return tmp_item
 
-def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
+def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import Modeller as openmm_Modeller
     tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -61,28 +61,28 @@ def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
     tmp_item = openmm_Modeller(tmp_topology, coordinates)
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import extract_subsystem as extract_openmm_Topology
     tmp_item = item.topology
     tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_yank_Topography(item, atom_indices=None, frame_indices=None):
+def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
 
     from yank import Topography as yank_Topography
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = yank_Topography(tmp_item)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
+def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
     return tmp_item
 
-def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import PDBFile as openmm_app_PDBFILE
     tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -96,16 +96,16 @@ def select_with_MDTraj(item, selection):
     del(tmp_form)
     return tmp_sel
 
-def to_nglview(item, atom_indices=None, frame_indices=None):
+def to_nglview(item, atom_indices='all', frame_indices='all'):
 
     from .api_mdtraj_Trajectory import to_nglview as mdtraj_to_nglview
     tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_to_nglview(tmp_item)
     return tmp_item
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         from simtk.openmm.app import Modeller as openmm_Modeller
@@ -133,192 +133,192 @@ def duplicate(item):
 
 ## Atom
 
-def get_n_atoms_from_atom (item, indices=None, frame_indices=None):
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_atoms_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_atom_name_from_atom (item, indices=None, frame_indices=None):
+def get_atom_name_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_atom_name_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_atom_index_from_atom (item, indices=None, frame_indices=None):
+def get_atom_index_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_atom_index_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_atom_id_from_atom (item, indices=None, frame_indices=None):
+def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_atom_id_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_atom_type_from_atom (item, indices=None, frame_indices=None):
+def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_atom_type_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_residues_from_atom (item, indices=None, frame_indices=None):
+def get_n_residues_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_residues_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_residue_name_from_atom (item, indices=None, frame_indices=None):
+def get_residue_name_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_residue_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_residue_index_from_atom (item, indices=None, frame_indices=None):
+def get_residue_index_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_residue_index_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_residue_id_from_atom (item, indices=None, frame_indices=None):
+def get_residue_id_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_residue_id_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_chain_index_from_atom (item, indices=None, frame_indices=None):
+def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_chain_index_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_chain_id_from_atom (item, indices=None, frame_indices=None):
+def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_chain_id_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
+def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_aminoacids_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_nucleotides_from_atom (item, indices=None, frame_indices=None):
+def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_nucleotides_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_waters_from_atom (item, indices=None, frame_indices=None):
+def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_waters_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_ions_from_atom (item, indices=None, frame_indices=None):
+def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_ions_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_mass_from_atom (item, indices=None, frame_indices=None):
+def get_mass_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt import get_mass as _get
     return _get(item, indices=indices)
 
-def get_net_mass_from_atom (item, indices=None, frame_indices=None):
+def get_net_mass_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt import get_net_mass as _get
     return _get(item, indices=indices)
 
-def get_charge_from_atom (item, indices=None, frame_indices=None):
+def get_charge_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt import get_charge as _get
     return _get(item, indices=indices)
-def get_net_charge_from_atom (item, indices=None, frame_indices=None):
+def get_net_charge_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt import get_net_charge as _get
     return _get(item, indices=indices)
 
-def get_n_degrees_of_freedom_from_atom (item, indices=None, frame_indices=None):
+def get_n_degrees_of_freedom_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt import get_degrees_of_freedom_charge as _get
     return _get(item, indices=indices)
 
-def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
+def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_molecule_type_from_atom as _get
     return _get(item, indices=indices)
 
-def get_coordinates_from_atom (item, indices=None, frame_indices=None):
+def get_coordinates_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Positions import get_coordinates_from_atom as _get
     return _get(item, indices=indices)
 
 ## residue
 
-def get_n_residues_from_residue (item, indices=None, frame_indices=None):
+def get_n_residues_from_residue (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_residues_from_residue as _get
     return _get(item, indices=indices)
 
-def get_residue_name_from_residue (item, indices=None, frame_indices=None):
+def get_residue_name_from_residue (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_residue_name_from_residue as _get
     return _get(item, indices=indices)
 
-def get_residue_index_from_residue (item, indices=None, frame_indices=None):
+def get_residue_index_from_residue (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_residue_index_from_residue as _get
     return _get(item, indices=indices)
 
-def get_residue_id_from_residue (item, indices=None, frame_indices=None):
+def get_residue_id_from_residue (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_residue_id_from_residue as _get
     return _get(item, indices=indices)
 
-def get_chain_index_from_residue (item, indices=None, frame_indices=None):
+def get_chain_index_from_residue (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_chain_index_from_residue as _get
     return _get(item, indices=indices)
 
-def get_chain_id_from_residue (item, indices=None, frame_indices=None):
+def get_chain_id_from_residue (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_chain_id_from_residue as _get
     return _get(item, indices=indices)
 
-def get_molecule_type_from_residue (item, indices=None, frame_indices=None):
+def get_molecule_type_from_residue (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_molecule_type_from_residue as _get
     return _get(item, indices=indices)
 
 ## chain
 
-def get_chain_index_from_chain (item, indices=None, frame_indices=None):
+def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_chain_index_from_chain as _get
     return _get(item, indices=indices)
 
-def get_chain_id_from_chain (item, indices=None, frame_indices=None):
+def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_chain_id_from_chain as _get
     return _get(item, indices=indices)
 
-def get_molecule_type_from_chain (item, indices=None, frame_indices=None):
+def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_molecule_type_from_chain as _get
     return _get(item, indices=indices)
 
 ## system
 
-def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_atoms_from_system as _get
     return _get(item, indices=indices)
 
-def get_charge_from_system (item, indices=None, frame_indices=None):
+def get_charge_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt import get_charge as _get
     return _get(item, indices=indices)
 
-def get_net_charge_from_system (item, indices=None, frame_indices=None):
+def get_net_charge_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt import get_net_charge as _get
     return _get(item, indices=indices)
 
-def get_n_degrees_of_freedom_from_system (item, indices=None, frame_indices=None):
+def get_n_degrees_of_freedom_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt import get_degrees_of_freedom as _get
     return _get(item, indices=indices)
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)
@@ -326,7 +326,7 @@ def get_form_from_system(item, indices=None, frame_indices=None):
 
 ##### Set
 
-def set_name_to_residue(item, indices=None, frame_indices=None, value=None):
+def set_name_to_residue(item, indices='all', frame_indices='all', value=None):
     for residue in tmp_item.topology.residues():
         if residue.index in indices:
             name = value[np.where(indices == residue.index)[0][0]]

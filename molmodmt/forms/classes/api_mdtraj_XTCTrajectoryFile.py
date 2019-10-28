@@ -10,7 +10,7 @@ is_form={
     'mdtraj.XTCTrajectoryFile': form_name
     }
 
-def load_frame (item, indices=None, atom_indices=None):
+def load_frame (item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.math import serie_to_chunks
 
@@ -49,9 +49,9 @@ def load_frame (item, indices=None, atom_indices=None):
 
     return step, time, xyz, box
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -62,23 +62,23 @@ def duplicate(item):
 
 #### Get
 
-def get_frames_from_atom (item, indices=None, frame_indices=None):
+def get_frames_from_atom (item, indices='all', frame_indices='all'):
 
     step, time, xyz, box = load_frame(item, frame_indices, indices)
     return step, time, xyz, box
 
 # system
 
-def get_frames_from_system (item, indices=None, frame_indices=None):
+def get_frames_from_system (item, indices='all', frame_indices='all'):
 
     step, time, xyz, box = load_frame(item, indices=frame_indices)
     return step, time, xyz, box
 
-def get_n_frames_from_system (item, indices=None, frame_indices=None):
+def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
     return len(item.offsets)
 
-def get_box_shape_from_system (item, indices=None, frame_indices=None):
+def get_box_shape_from_system (item, indices='all', frame_indices='all'):
 
     from molmodmt.utils.pbc import get_shape_from_box
     position = item.tell()
@@ -88,7 +88,7 @@ def get_box_shape_from_system (item, indices=None, frame_indices=None):
     del(xyz, time, step, box)
     return shape
 
-def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     position = item.tell()
     xyz, time, step, box = item.read(n_frames=1)
@@ -97,7 +97,7 @@ def get_n_atoms_from_system (item, indices=None, frame_indices=None):
     item.seek(position)
     return n_atoms
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

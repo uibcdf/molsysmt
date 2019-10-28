@@ -8,7 +8,7 @@ is_form = {
     'UniProt:id': form_name
     }
 
-def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
+def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
     import urllib as _urllib
 
@@ -22,16 +22,16 @@ def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
     del(url_fasta,request_fasta,response_fasta,fasta_result)
     return tmp_sequence
 
-def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
+def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
     from molmodmt.forms.seqs.api_aminoacids1 import to_aminoacids3_seq as _to_aa3_seq
     tmp_sequence = to_aminoacids1_seq(item)
     tmp_sequence = _to_aa3_seq(tmp_sequence)
     del(_to_aa3_seq)
     return tmp_sequence
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -44,7 +44,7 @@ def duplicate(item):
 
 ## system
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

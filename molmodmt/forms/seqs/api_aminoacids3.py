@@ -9,7 +9,7 @@ is_form={
 
 ### Corresponde al formato IUPAC extended protein que aparece en Biopython
 
-def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
+def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
     from Bio.SeqUtils import seq1
     from .api_aminoacids1 import extract_subsystem as extract_seq1
@@ -17,21 +17,21 @@ def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_seq1(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_biopython_Seq(item, atom_indices=None, frame_indices=None):
+def to_biopython_Seq(item, atom_indices='all', frame_indices='all'):
 
     from .api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = _aminoacis1_to_biopython_Seq(tmp_item)
     return tmp_item
 
-def to_biopython_SeqRecord(item, atom_indices=None, frame_indices=None):
+def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all'):
 
     from .api_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacis1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
 
-def to_fasta(item, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from .api_aminoacids1 import to_fasta as aminoacids1_to_fasta
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -43,8 +43,8 @@ def get_shape(item):
 def select_with_MDTraj(item, selection):
     raise NotImplementedError
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
-    if (atom_indices is None) and (frame_indices is None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -58,7 +58,7 @@ def duplicate(item):
 
 ## system
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)

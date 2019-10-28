@@ -10,12 +10,12 @@ is_form={
     _simtk_openmm_app_Topology:form_name
 }
 
-def to_molmod_Topology(item, atom_indices=None, frame_indices=None):
+def to_molmod_Topology(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.native.io_topology import from_openmm_Topology as _from_openmm_Topology
     return _from_openmm_Topology(item, atom_indices=atom_indices)
 
-def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import extract_subsystem as extract_mdtraj_Topology
     from mdtraj.core.topology import Topology as mdtraj_Topology
@@ -23,23 +23,23 @@ def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
     tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
+def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
 
     from parmed.openmm import load_topology as openmm_Topology_to_parmed_Structure
     tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
     return tmp_item
 
-def to_yank_Topography(item, atom_indices=None, frame_indices=None):
+def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
 
     from yank import Topography as yank_Topography
     tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = yank_Topography(tmp_item)
     return tmp_item
 
-def extract_subsystem(item, atom_indices=None, frame_indices=None):
+def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is None) and (frame_indices is None):
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
 
@@ -77,36 +77,36 @@ def select_with_MDTraj(item, selection):
 
 #### Get
 
-def get_n_atoms_from_atom(item, indices=None, frame_indices=None):
+def get_n_atoms_from_atom(item, indices='all', frame_indices='all'):
 
     return len(indices)
 
-def get_atom_name_from_atom(item, indices=None, frame_indices=None):
+def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms())
     atom_name=[atom[ii].name for ii in indices]
     del(atom)
     return atom_name
 
-def get_atom_index_from_atom(item, indices=None, frame_indices=None):
+def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
 
     return indices
 
-def get_atom_id_from_atom(item, indices=None, frame_indices=None):
+def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms())
     atom_id=[atom[ii].id for ii in indices]
     del(atom)
     return atom_id
 
-def get_atom_type_from_atom(item, indices=None, frame_indices=None):
+def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms())
     atom_type=[atom[ii].element.symbol for ii in indices]
     del(atom)
     return atom_type
 
-def get_n_residues_from_atom(item, indices=None, frame_indices=None):
+def get_n_residues_from_atom(item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms())
     residue_indices = [atom[ii].residue.index for ii in indices]
@@ -114,7 +114,7 @@ def get_n_residues_from_atom(item, indices=None, frame_indices=None):
     del(atom)
     return len(residue_indices)
 
-def get_residue_name_from_atom(item, indices=None, frame_indices=None):
+def get_residue_name_from_atom(item, indices='all', frame_indices='all'):
 
     residue_indices = get_residue_index_from_atom (item, indices=indices)
     residue=list(item.residues())
@@ -122,43 +122,43 @@ def get_residue_name_from_atom(item, indices=None, frame_indices=None):
     del(residue, residue_indices)
     return residue_names
 
-def get_residue_index_from_atom(item, indices=None, frame_indices=None):
+def get_residue_index_from_atom(item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms())
     residue_indices = [atom[ii].residue.index for ii in indices]
     del(atom)
     return residue_indices
 
-def get_residue_id_from_atom(item, indices=None, frame_indices=None):
+def get_residue_id_from_atom(item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms())
     residue_ids = [atom[ii].residue.id for ii in indices]
     del(atom)
     return residue_ids
 
-def get_chain_index_from_atom(item, indices=None, frame_indices=None):
+def get_chain_index_from_atom(item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms())
     chain_indices = [atom[ii].residue.chain.index for ii in indices]
     del(atom)
     return chain_indices
 
-def get_chain_id_from_atom (item, indices=None, frame_indices=None):
+def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms())
     chain_ids = [atom[ii].residue.chain.id for ii in indices]
     del(atom)
     return chain_ids
 
-def get_n_chains_from_atom (item, indices=None, frame_indices=None):
+def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
 
     pass
 
-def get_n_molecules_from_atom (item, indices=None, frame_indices=None):
+def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
 
     pass
 
-def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
+def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import is_aminoacid
     residue_indices = get_residue_index_from_atom(item, indices=indices)
@@ -170,7 +170,7 @@ def get_n_aminoacids_from_atom (item, indices=None, frame_indices=None):
     del(residue_indices, residue_names)
     return n_aminoacids
 
-def get_n_nucleotides_from_atom (item, indices=None, frame_indices=None):
+def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import is_nucleotide
     residue_indices = get_residue_index_from_atom(item, indices=indices)
@@ -182,7 +182,7 @@ def get_n_nucleotides_from_atom (item, indices=None, frame_indices=None):
     del(residue_indices, residue_names)
     return n_nucleotides
 
-def get_n_waters_from_atom (item, indices=None, frame_indices=None):
+def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import is_water
     residue_indices = get_residue_index_from_atom(item, indices=indices)
@@ -194,7 +194,7 @@ def get_n_waters_from_atom (item, indices=None, frame_indices=None):
     del(residue_indices, residue_names)
     return n_waters
 
-def get_n_ions_from_atom (item, indices=None, frame_indices=None):
+def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import is_ion
     residue_indices = get_residue_index_from_atom(item, indices=indices)
@@ -206,7 +206,7 @@ def get_n_ions_from_atom (item, indices=None, frame_indices=None):
     del(residue_indices, residue_names)
     return n_ions
 
-def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
+def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import residue_name_to_molecule_type
     residue_names = get_residue_name_from_atom(item, indices=indices)
@@ -216,43 +216,43 @@ def get_molecule_type_from_atom (item, indices=None, frame_indices=None):
 
 ## Residue
 
-def get_n_atoms_from_residue (item, indices=None, frame_indices=None):
+def get_n_atoms_from_residue (item, indices='all', frame_indices='all'):
 
     return len(indices)
 
-def get_residue_name_from_residue (item, indices=None, frame_indices=None):
+def get_residue_name_from_residue (item, indices='all', frame_indices='all'):
 
     residue=list(item.residues())
     residue_names = [residue[ii].name for ii in indices]
     del(residue)
     return residue_names
 
-def get_residue_index_from_residue (item, indices=None, frame_indices=None):
+def get_residue_index_from_residue (item, indices='all', frame_indices='all'):
 
     return indices
 
-def get_residue_id_from_residue (item, indices=None, frame_indices=None):
+def get_residue_id_from_residue (item, indices='all', frame_indices='all'):
 
     residue=list(item.residues())
     residue_ids = [residue[ii].id for ii in indices]
     del(residue)
     result.append(residue_ids)
 
-def get_chain_index_from_residue (item, indices=None, frame_indices=None):
+def get_chain_index_from_residue (item, indices='all', frame_indices='all'):
 
     residue=list(item.residues())
     chain_indices = [residue[ii].chain.index for ii in indices]
     del(residue)
     return chain_indices
 
-def get_chain_id_from_residue (item, indices=None, frame_indices=None):
+def get_chain_id_from_residue (item, indices='all', frame_indices='all'):
 
     residue=list(item.residues())
     chain_ids = [residue[ii].chain.id for ii in indices]
     del(residue)
     return chain_ids
 
-def get_molecule_type_from_residue (item, indices=None, frame_indices=None):
+def get_molecule_type_from_residue (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import residue_name_to_molecule_type
     residue=list(item.residues())
@@ -263,25 +263,25 @@ def get_molecule_type_from_residue (item, indices=None, frame_indices=None):
 
 ## Chain
 
-def get_chain_index_from_chain (item, indices=None, frame_indices=None):
+def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
 
     chain=list(item.chains())
     chain_indices = [chain[ii].index for ii in indices]
     del(chain)
     return chain_indices
 
-def get_chain_id_from_chain (item, indices=None, frame_indices=None):
+def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
 
     chain=list(item.chains())
     chain_ids = [chain[ii].id for ii in indices]
     del(chain)
     return chain_ids
 
-def get_n_chains_from_chain (item, indices=None, frame_indices=None):
+def get_n_chains_from_chain (item, indices='all', frame_indices='all'):
 
     return len(indices)
 
-def get_molecule_type_from_chain (item, indices=None, frame_indices=None):
+def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import residue_name_to_molecule_type
     chain=list(item.chains())
@@ -294,23 +294,23 @@ def get_molecule_type_from_chain (item, indices=None, frame_indices=None):
 
 ## System
 
-def get_n_atoms_from_system (item, indices=None, frame_indices=None):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return item.getNumAtoms()
 
-def get_charge_from_system (item, indices=None, frame_indices=None):
+def get_charge_from_system (item, indices='all', frame_indices='all'):
 
     return 'por hacer'
 
-def get_net_charge_from_system (item, indices=None, frame_indices=None):
+def get_net_charge_from_system (item, indices='all', frame_indices='all'):
 
     return 'por hacer'
 
-def get_n_frames_from_system (item, indices=None, frame_indices=None):
+def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
     return 0
 
-def get_form_from_system(item, indices=None, frame_indices=None):
+def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
     return get_form(item)
