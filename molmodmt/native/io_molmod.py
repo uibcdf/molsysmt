@@ -55,7 +55,7 @@
 #    tmp_item.topography = None
 #    return tmp_item
 
-def from_pdb(item=None, topology=None, atom_indices=None, frame_indices=None):
+def from_pdb(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert
     from .molmod import MolMod
@@ -71,7 +71,7 @@ def from_pdb(item=None, topology=None, atom_indices=None, frame_indices=None):
 
     return tmp_item
 
-def from_xtc(item=None, topology=None, atom_indices=None, frame_indices=None):
+def from_xtc(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert
     from .molmod import MolMod
@@ -84,7 +84,7 @@ def from_xtc(item=None, topology=None, atom_indices=None, frame_indices=None):
 
     return tmp_item
 
-def from_hdf5(item=None, topology=None, atom_indices=None, frame_indices=None):
+def from_hdf5(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert
     from .molmod import MolMod

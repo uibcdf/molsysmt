@@ -7,13 +7,14 @@ class MolMod():
         self.topology = None
         self.topography = None
 
-    def extract(self, atom_indices=None, frame_indices=None):
+    def extract(self, atom_indices='all', frame_indices='all'):
 
-        from molmodmt import extract as _extract
+        from .molmodmt.forms.classes.api_molmodmt_Topology import extract_subsystem as extract_topology
+        from .molmodmt.forms.classes.api_molmodmt_Trajectory import extract_subsystem as extract_trajectory
 
         tmp_item = MolMod()
-        tmp_item.topology = _extract(self.topology, selection=atom_indices)
-        tmp_item.trajectory = _extract(self.trajectory, selection=atom_indices)
+        tmp_item.topology = extract_topology(self.topology, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item.trajectory = extract_trajectory(self.trajectory, atom_indices=atom_indices, frame_indices=frame_indices)
         tmp_item.topography = None
         tmp_item.structure = None
 
@@ -23,7 +24,7 @@ class MolMod():
         from molmodmt import select as _select
         return _select(self.topology, selection=selection, syntaxis=syntaxis)
 
-    def load_frames(self, frame_indices=None, selection=None, syntaxis='MDTraj'):
+    def load_frames(self, frame_indices='all', selection='all', syntaxis='MDTraj'):
         atom_indices = self.select(selection=selection, syntaxis=syntaxis)
-        return self.trajectory.load_frames(frame_indices=frame_indices, atom_indices=atom_indices)
+        return self.trajectory.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
 

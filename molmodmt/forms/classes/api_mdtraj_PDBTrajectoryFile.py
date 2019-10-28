@@ -23,6 +23,8 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
     from molmodmt.utils import units as m3t_units
     from simtk.unit import angstroms, nanometers, degrees, picoseconds
 
+    print(atom_indices, frame_indices)
+
     xyz_list = []
     time_list = []
     step_list = []

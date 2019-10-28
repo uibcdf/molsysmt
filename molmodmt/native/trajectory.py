@@ -26,6 +26,7 @@ class Trajectory():
         from .trajectory_file import TrajectoryFile
         self.file = TrajectoryFile(file_path=file_path)
         self.box_shape = self.file.box_shape
+
     def _set_frames(self, step=None, time=None, coordinates=None, box=None):
 
         self.coordinates = coordinates.in_units_of(m3t_units.length)
@@ -79,10 +80,9 @@ class Trajectory():
 
         return angles
 
-    def load_frames (self, atom_indices=None, frame_indices=None):
+    def load_frames (self, atom_indices='all', frame_indices='all'):
 
-        step, time, coordinates, box = self.file.load_frames(atom_indices=atom_indices,
-                frame_indices=frame_indices)
+        step, time, coordinates, box = self.file.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
 
         self._set_frames(step, time, coordinates, box)
 
