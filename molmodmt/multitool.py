@@ -199,8 +199,6 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
 
     form_in, form_out = _digest_forms(item, to_form)
 
-    # mode in ['removing_selection','keeping_selection']
-
     selection_is_all = False
 
     if type(selection)==str:
@@ -212,11 +210,28 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
         if n_atoms == n_atoms_selection:
             selection_is_all = True
 
-    if selection_is_all:
+    frame_indices_is_all = False
+
+    if type(frame_indices)==str:
+        if frame_indices=="all":
+            frame_indices_is_all = True
+    elif hasattr(selection, '__iter__'):
+        n_frames_selection = len(frame_indices)
+        n_frames = _dict_get[form_in]['system']['n_frames'](item)
+        if n_frames == n_frames_selection:
+            frame_indices_is_all = True
+
+    if selection_is_all and frame_indices_is_all:
         tmp_item=duplicate(item=item)
     else:
-        atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
-        frame_indices = _digest_frame_indices(item, frame_indices)
+        if selection_is_all:
+            atom_indices=None
+        else:
+            atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
+        if frame_indices_is_all:
+            frame_indices=None
+        else:
+            frame_indices = _digest_frame_indices(item, frame_indices)
         tmp_item = _dict_extractor[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     if form_in!=form_out:
@@ -676,8 +691,16 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
     """
 
     form_in, form_out  = _digest_forms(item, to_form)
+
     frame_indices = _digest_frame_indices(item, frame_indices)
-    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+    if type(selection) is str:
+        if selection=='all':
+            atom_indices=None
+        else:
+            atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+    else:
+        atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+
     out_file = None
 
     if type(form_out)==str:

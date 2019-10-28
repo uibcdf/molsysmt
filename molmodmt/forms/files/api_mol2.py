@@ -28,16 +28,27 @@ def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
     del(_parmed_to_modeller)
     return tmp_form
 
-def to_pdb(item, out_file, atom_indices=None, frame_indices=None):
+def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
     from parmed import load_file as _parmed_file_loader
     tmp_form = _parmed_file_loader(item)
-    tmp_form.save(out_file)
+    tmp_form.save(output_file_path)
     pass
 
 def to_nglview(item, atom_indices=None, frame_indices=None):
     from nglview import show_file as _nglview_show_file
     return _nglview_show_file(item)
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
 
 ###### Get
 

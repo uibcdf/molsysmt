@@ -8,7 +8,7 @@ is_form = {
     'UniProt:id': form_name
     }
 
-def to_aminoacids1_seq(form_id):
+def to_aminoacids1_seq(item, atom_indices=None, frame_indices=None):
 
     import urllib as _urllib
 
@@ -22,12 +22,23 @@ def to_aminoacids1_seq(form_id):
     del(url_fasta,request_fasta,response_fasta,fasta_result)
     return tmp_sequence
 
-def to_aminoacids3_seq(form_id):
+def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
     from molmodmt.forms.seqs.api_aminoacids1 import to_aminoacids3_seq as _to_aa3_seq
-    tmp_sequence = to_aminoacids1_seq(form_id)
+    tmp_sequence = to_aminoacids1_seq(item)
     tmp_sequence = _to_aa3_seq(tmp_sequence)
     del(_to_aa3_seq)
     return tmp_sequence
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
 
 ###### Get
 

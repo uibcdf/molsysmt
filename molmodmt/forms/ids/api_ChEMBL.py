@@ -11,6 +11,17 @@ is_form = {
 def to_UniProt_id(form_id):
     pass
 
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
+
 ###### Get
 
 ## system

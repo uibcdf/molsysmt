@@ -11,44 +11,58 @@ is_form={
 
 def to_aminoacids3_seq(item, atom_indices=None, frame_indices=None):
     from Bio.SeqUtils import seq3
-    tmp_seq=seq3(item.replace('aminoacids1:',''))
-    tmp_item=tmp_seq
-    del(seq3,tmp_seq)
+    from .api_aminoacids3 import extract_subsystem as extract_aminoacids3
+    tmp_item=seq3(item.replace('aminoacids1:',''))
+    tmp_item=extract_aminoacids3(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_biopython_Seq(item, atom_indices=None, frame_indices=None):
-    from Bio.Seq import Seq as _bio_Seq
+
+    from molmodmt.forms.classes.api_biopython_Seq import extract_subsystem as extract_biopython_Seq
+    from Bio.Seq import Seq as bio_Seq
     from Bio.Alphabet.IUPAC import ExtendedIUPACProtein
-    tmp_item=_bio_Seq(item.replace('aminoacids1:',''),ExtendedIUPACProtein())
-    del(_bio_Seq)
+    tmp_item = bio_Seq(item.replace('aminoacids1:',''), ExtendedIUPACProtein())
+    tmp_item = extract_biopython_Seq(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indices=None,
-                           frame_indices=None):
-    from molmodmt.forms.classes.api_biopython_Seq import to_biopython_SeqRecord as _Seq_to_SeqRecord
-    tmp_item=to_biopython_Seq(item, selection=selection, syntaxis=syntaxis)
-    tmp_item=_Seq_to_SeqRecord(tmp_item)
-    del(_Seq_to_SeqRecord)
+def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indices=None, frame_indices=None):
+
+    from molmodmt.forms.classes.api_biopython_Seq import to_biopython_SeqRecord as Seq_to_SeqRecord
+    tmp_item=to_biopython_Seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item=Seq_to_SeqRecord(tmp_item)
     return tmp_item
 
-def to_fasta(item, filename=None, atom_indices=None, frame_indices=None):
-    from molmodmt.forms.classes.api_biopython_SeqRecord import to_fasta as  _SeqRecord_to_fasta
-    tmp_item=to_biopython_SeqRecord(item)
-    return _SeqRecord_to_fasta(tmp_item,output_file)
+def to_fasta(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
-def to_pir(item, filename=None, id=None, style=None, atom_indices=None, frame_indices=None):
-    from molmodmt.forms.classes.api_biopython_SeqRecord import to_pir as  _SeqRecord_to_pir
-    tmp_item= to_biopython_SeqRecord(item, id=id, selection=selection, syntaxis=syntaxis)
-    return _SeqRecord_to_pir(tmp_item, filename=filename, style=style)
+    from molmodmt.forms.classes.api_biopython_SeqRecord import to_fasta as SeqRecord_to_fasta
+    tmp_item=to_biopython_SeqRecord(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return SeqRecord_to_fasta(tmp_item, output_file_path)
+
+def to_pir(item, output_file_path=None, id=None, style=None, atom_indices=None, frame_indices=None):
+
+    from molmodmt.forms.classes.api_biopython_SeqRecord import to_pir as SeqRecord_to_pir
+    tmp_item= to_biopython_SeqRecord(item, id=id, atom_indices=atom_indices, frame_indices=frame_indices)
+    return SeqRecor_to_pir(tmp_item, output_file_path=output_file_path, style=style)
 
 def get_shape(item):
+
     raise NotImplementedError
 
 def select_with_MDTraj(item, selection):
+
     raise NotImplementedError
 
 def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
     raise NotImplementedError
+
 
 ###### Get
 

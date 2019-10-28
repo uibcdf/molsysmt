@@ -7,10 +7,23 @@ is_form = {
     }
 
 
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
+
 def to_mmtf_MMTFDecoder(item, filename=None, atom_indices=None, frame_indices=None):
 
     from mmtf import parse
     return parse(filename)
+
+##### Get
 
 # System
 

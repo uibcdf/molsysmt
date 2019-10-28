@@ -16,49 +16,56 @@ def to_parmed_GromacsTopologyFile(item, atom_indices=None, frame_indices=None):
 
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
     tmp_item=_parmed_from_gromacs(item)
-    if selection is not 'all':
-        from molmodmt import extract
-        tmp_item = extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract_subsystem(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molmodmt_Structure(item, atom_indices=None, frame_indices=None):
 
     from molmodmt.native.io_structure import from_gromacs_Topology
-    return from_gromacs_Topology(item, selection=None, syntaxis='MDTraj')
+    return from_gromacs_Topology(item, selection=atom_indices)
 
 def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
     from mdtraj.core.topology import Topology
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = Topology.from_openmm(tmp_item)
-
     return tmp_item
 
 def to_openmm_GromacsTopFile(item, atom_indices=None, frame_indices=None):
 
     from simtk.openmm.app import GromacsTopFile
-    if selection is not None:
-        raise ValueError("The method `to_openmm_GromacsTopFile` from api_top.py does not admit selections")
-    return GromacsTopFile(item)
+    from molmodmt.forms.classes.api_openmm_GromacsTopFile import extract_subsystem as extract_gromacstopfile
+    tmp_item = GromacsTopFile(item)
+    tmp_item = extract_extract_gromacstopfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_openmm_Topology(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt import extract
+    from molmodmt.formats.classes.api_openmm_Topology import extract_subsystem as extract_openmm_topology
     tmp_item = to_openmm_GromacsTopFile(item)
     tmp_item = tmp_item.topology
-    tmp_item = extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_top(item, atom_indices=None, frame_indices=None):
+def to_top(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
-    from molmodmt import extract
+    from molmodmt.forms.classes.api_openmm_GromacsTopFile import extract_subsystem as extract_gromacstopfile
     tmp_item = to_parmed_GromacsTopologyFile(item)
-    if selection is not 'all':
-        tmp_item = extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
-    tmp_item.save(filename)
+    tmp_item = extract_gromacstopfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.save(output_file_path)
+    del(tmp_item)
     pass
 
-###### Get
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
 
 ## system
 

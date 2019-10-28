@@ -12,13 +12,7 @@ def to_mdtraj_Trajectory(item, topology=None, atom_indices=None, frame_indices=N
     if not topology:
         raise ValueError('"topology" argument is required to convert a dcd file to mdtraj_Trajectory')
 
-    from molmodmt import convert
-    from mdtraj import load_dcd as mdtraj_load_dcd
-    from molmodmt.forms.classes.api_mdtraj_Trajectory import extract_subsystem as extract_mdtraj_Trajectory
-    tmp_topology = convert(topology, to_form='mdtraj.Topology')
-    tmp_item = mdtraj_load_dcd(item, top=tmp_topology)
-    tmp_item = extract_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item
+    raise NotImplementedError
 
 def to_mdanalysis_Universe(item, topology=None, atom_indices=None, frame_indices=None):
 

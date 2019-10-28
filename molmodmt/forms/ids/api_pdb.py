@@ -1,5 +1,4 @@
 from os.path import basename as _basename
-from os import remove as _remove
 import urllib as _urllib
 import json as _json
 
@@ -10,132 +9,178 @@ is_form = {
     'PDB:id': form_name
     }
 
-def to_pdb(form_id, output_file_path=None, atom_indices=None, frame_indices=None):
+def to_pdb(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
-    from molmodmt.utils.miscellanea import download_pdb as _download_pdb
-    return _download_pdb(form_id.split(':')[-1],output_file_path)
+    from molmodmt.utils.miscellanea import download_pdb as download_pdb
+    from molmodmt.forms.files.api_pdb import extract_subsystem as extract_pdb
+    from shutil import copy
+    tmp_item = item.split(':')[-1]
+    download_pdb(tmp_item, output_file_path)
+    tmp_item = extract_pdb(output_file_path, atom_indices=atom_indices, frame_indices=frame_indices)
+    copy(tmp_item, output_file_path)
+    pass
 
 def to_fasta(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
+    from shutil import copy
+    from molmodmt.forms.files.api_fasta import extract_subsystem as extract_fasta
     tmp_item = item.split(':')[-1]
     url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+tmp_item+'&compressionType=uncompressed'
     request = urllib.request.Request(url)
     response = urllib.request.urlopen(request)
     fasta_txt = response.read().decode('utf-8')
-    if output_file is None:
-        return fasta_txt
-    else:
-        with open(output_file_path,'w') as f:
-            f.write(fasta_txt)
-        pass
+    with open(output_file_path,'w') as f:
+        f.write(fasta_txt)
+    f.close()
+    tmp_item = extract_fasta(output_file_path, atom_indices=atom_indices,
+            frame_indices=frame_indices)
+    copy(tmp_item, output_file_path)
+    pass
 
 def to_mmtf(item, output_file_path=None, atom_indices=None, frame_indices=None):
 
     from mmtf import fetch
-    from molmodmt import convert
+    from molmodmt.forms.classes.api_mmtf_MMTFDecoder import to_mmtf as MMTFDecoder_to_mmtf
 
     tmp_item = to_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return convert(tmp_item, to_form=output_file_path)
+    return MMTFDecoder_to_mmtf(tmp_item, output_file_path=output_file_path)
 
 def to_mmtf_MMTFDecoder(item, atom_indices=None, frame_indices=None):
 
     from mmtf import fetch
+    from molmodmt.forms.classes.api_mmtf_MMTFDecoder import extract_subsystem as extract_MMTFDecoder
     tmp_item = item.split(':')[-1]
     tmp_item = fetch(tmp_item)
-    del(fetch)
+    tmp_item = extract_MMTFDecoder(tmp_item, atom_indices=atom_indices, atom_indices=atom_indices)
     return tmp_item
 
 def to_molmodmt_MolMod(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.utils.miscellanea import download_pdb as download_pdb
+    from molmodmt.utils.pdb import tmp_pdb_filename
     from molmodmt.native.io_molmod import from_pdb as pdb_to_molmodmt
-    tmp_file=download_pdb(item.split(':')[-1])
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file)
     tmp_item=pdb_to_molmodmt(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
-    _remove(tmp_file)
+    remove(tmp_file)
     return tmp_item
 
 def to_mdtraj_Trajectory(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.utils.miscellanea import download_pdb as _download_pdb
-    from molmodmt.forms.files.api_pdb import to_mdtraj_Trajectory as _pdb_to_mdtraj_Trajectory
-    _tmp_file=_download_pdb(item.split(':')[-1])
-    _tmp_item=_pdb_to_mdtraj_Trajectory(_tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
-    _remove(_tmp_file)
-    return _tmp_item
-
-def to_mdtraj_Topology(form_id, atom_indices=None, frame_indices=None):
-
-    from molmodmt import convert as _convert
-    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = _convert(tmp_item, to_form='mdtraj.Topology')
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from molmodmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file)
+    tmp_item=pdb_to_mdtraj_Trajectory(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    remove(tmp_file)
     return tmp_item
 
-def to_parmed_Structure(form_id):
+def to_mdtraj_Topology(item, atom_indices=None, frame_indices=None):
 
-    from molmodmt.forms.files.api_pdb import to_parmed_Structure as _pdb_to_parmed_Structure
-    _tmp_file=to_pdb(form_id)
-    _tmp_form=_pdb_to_parmed_Structure(_tmp_file)
-    _remove(_tmp_file)
-    del(_pdb_to_parmed_Structure)
-    return _tmp_form
-
-def to_pdbfixer_PDBFixer(form_id, atom_indices=None, frame_indices=None):
-    from molmodmt.utils.miscellanea import download_pdb
-    from molmodmt import convert
-    pdbid = form_id.split(':')[-1]
-    tmp_file=download_pdb(pdbid)
-    tmp_item=convert(tmp_file, to_form='pdbfixer.PDBFixer', selection=atom_indices,
-                     frame_indices=frame_indices)
-    _remove(tmp_file)
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from molmodmt.forms.files.api_pdb import to_mdtraj_Topology as pdb_to_mdtraj_Topology
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file)
+    tmp_item=pdb_to_mdtraj_Topology(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    remove(tmp_file)
     return tmp_item
 
-def to_openmm_Modeller(form_id, atom_indices=None, frame_indices=None):
-    from molmodmt.utils.miscellanea import download_pdb
-    from molmodmt import convert
-    pdbid = form_id.split(':')[-1]
-    tmp_file=download_pdb(pdbid)
-    tmp_item=convert(tmp_file, to_form='openmm.Modeller', selection=atom_indices,
-                     frame_indices=frame_indices)
-    _remove(tmp_file)
+def to_parmed_Structure(item, atom_indices=None, frame_indices=None):
+
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from molmodmt.forms.files.api_pdb import to_parmed_Structure as pdb_to_parmed_Structure
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file)
+    tmp_item=pdb_to_parmed_Structure(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    remove(tmp_file)
     return tmp_item
 
-def to_yank_Topography(form_id, atom_indices=None, frame_indices=None):
-    from molmodmt.forms.files.api_pdb import to_yank_Topography as _pdb_to_yank_Topography
-    _tmp_file=to_pdb(form_id)
-    _tmp_form=_pdb_to_yank_Topography(_tmp_file)
-    _remove(_tmp_file)
-    del(_pdb_to_yank_Topography)
-    return _tmp_form
+def to_pdbfixer_PDBFixer(item, atom_indices=None, frame_indices=None):
 
-def to_mdanalysis(form_id, atom_indices=None, frame_indices=None):
-    from molmodmt.forms.files.api_pdb import to_mdanalysis as _pdb_to_mdanalysis
-    _tmp_file=to_pdb(form_id)
-    _tmp_form=_pdb_to_mdanalysis(_tmp_file)
-    _remove(_tmp_file)
-    del(_pdb_to_mdanalysis)
-    return _tmp_form
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from molmodmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file)
+    tmp_item=pdb_to_pdbfixer_PDBFixer(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    remove(tmp_file)
+    return tmp_item
 
-def to_pytraj_Trajectory(form_id, atom_indices=None, frame_indices=None):
-    from pytraj import fetch_pdb as _pytraj_fetch_pdb
-    _tmp_form=_pytraj_fetch_pdb(form_id)
-    del(_pytraj_fetch_pdb)
-    return _tmp_form
+def to_openmm_Modeller(item, atom_indices=None, frame_indices=None):
 
-def to_nglview(form_id, atom_indices=None, frame_indices=None):
-    # from nglview import show_pdbid as _nglview_show_pdbid
-    # return _nglview_show_pdbid(form_id.split(':')[-1])
-    from molmodmt.utils.miscellanea import download_pdb as _download_pdb
-    from nglview import show_file as _nglview_show_file
-    tmp_pdb_file = _download_pdb(form_id.split(':')[-1])
-    tmp_view = _nglview_show_file(tmp_pdb_file)
-    _remove(tmp_pdb_file)
-    return tmp_view
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from molmodmt.forms.files.api_pdb import to_openmm_Modeller as pdb_to_openmm_Modeller
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file)
+    tmp_item=pdb_to_openmm_Modeller(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    remove(tmp_file)
+    return tmp_item
+
+def to_yank_Topography(item, atom_indices=None, frame_indices=None):
+
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from molmodmt.forms.files.api_pdb import to_yank_Topography as pdb_to_yank_Topography
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file)
+    tmp_item=pdb_to_yank_Topography(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    remove(tmp_file)
+    return tmp_item
+
+
+def to_mdanalysis_Universe(item, atom_indices=None, frame_indices=None):
+
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from molmodmt.forms.files.api_pdb import to_mdanalysis_Universe as pdb_mdanalysis_Universe
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file)
+    tmp_item=pdb_to_mdanalysis_Universe(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    remove(tmp_file)
+    return tmp_item
+
+def to_pytraj_Trajectory(item, atom_indices=None, frame_indices=None):
+
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from molmodmt.forms.files.api_pdb import to_pytraj_Trajectory as pdb_pytraj_Trajectory
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file)
+    tmp_item=pdb_to_pytraj_Trajectory(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    remove(tmp_file)
+    return tmp_item
+
+def to_nglview(item, atom_indices=None, frame_indices=None):
+
+    from molmodmt.utils.pdb import tmp_pdb_filename
+    from nglview import show_file as nglview_show_file
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_file_path=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = nglview_show_file(tmp_file)
+    remove(tmp_file)
+    return tmp_item
 
 def select_with_MDTraj(item, selection):
     tmp_form=to_mdtraj(item)
     tmp_sel=tmp_form.topology.select(selection)
     del(tmp_form)
     return tmp_sel
+
+def extract_subsystem(item, atom_indices=None, frame_indices=None):
+
+    if (atom_indices is None) and (frame_indices is None):
+        return item
+    else:
+        raise NotImplementedError
+
+def duplicate(item):
+
+    raise NotImplementedError
 
 ###### Get
 
