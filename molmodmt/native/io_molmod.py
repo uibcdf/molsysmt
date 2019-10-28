@@ -58,14 +58,15 @@
 def from_pdb(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert
+    from .molmodmt.forms.files.api_pdb import to_molmodmt_Trajectory as pdb_to_Trajectory
     from .molmod import MolMod
 
     if topology is None:
         topology = item
 
     tmp_item = MolMod()
-    tmp_item.topology = convert(topology, to_form='molmodmt.Topology', selection=atom_indices)
-    tmp_item.trajectory = convert(item, to_form='molmodmt.Trajectory', selection=atom_indices, frame_indices=frame_indices)
+    tmp_item.topology = convert(topology, to_form='molmodmt.Topology', selection=atom_indices, frame_indices=frame_indices)
+    tmp_item.trajectory = pdb_to_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item.topography = None
     tmp_item.structure = None
 
@@ -74,11 +75,12 @@ def from_pdb(item, topology=None, atom_indices='all', frame_indices='all'):
 def from_xtc(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert
+    from .molmodmt.forms.files.api_xtc import to_molmodmt_Trajectory as xtc_to_Trajectory
     from .molmod import MolMod
 
     tmp_item = MolMod()
-    tmp_item.topology = convert(topology, to_form='molmodmt.Topology', selection=atom_indices)
-    tmp_item.trajectory = convert(item, to_form='molmodmt.Trajectory', selection=atom_indices, frame_indices=frame_indices)
+    tmp_item.topology = convert(topology, to_form='molmodmt.Topology', selection=atom_indices, frame_indices=frame_indices)
+    tmp_item.trajectory = xtc_to_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item.topography = None
     tmp_item.structure = None
 
@@ -87,22 +89,17 @@ def from_xtc(item, topology=None, atom_indices='all', frame_indices='all'):
 def from_hdf5(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert
+    from .molmodmt.forms.files.api_h5 import to_molmodmt_Trajectory as h5_to_Trajectory
     from .molmod import MolMod
 
     if topology is None:
         topology = item
 
     tmp_item = MolMod()
-    tmp_item.topology = convert(topology, to_form='molmodmt.Topology', selection=atom_indices)
-    tmp_item.trajectory = convert(item, to_form='molmodmt.Trajectory', selection=atom_indices, frame_indices=frame_indices)
+    tmp_item.topology = convert(topology, to_form='molmodmt.Topology', selection=atom_indices, frame_indices=frame_indices)
+    tmp_item.trajectory = h5_to_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item.topography = None
     tmp_item.structure = None
 
     return tmp_item
-
-#def to_pdb(item=None, filename=None, selection='all', frame_indices='all', syntaxis='MDTraj'):
-#
-#    from molmodmt import convert as _convert
-#    tmp_item = _convert(item, 'mdtraj', selection=selection, syntaxis=syntaxis)
-#    return _convert(tmp_item, filename, frame_indices=frame_indices)
 
