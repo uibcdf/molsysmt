@@ -306,7 +306,7 @@ def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
 
-    from molmodmt import get
+    n_molecules = get_molecules_from_atom (item, indices=indices, frame_indices=frame_indices)
     return len(get(item, indices=indices, molecules=True))
 
 def get_masses_from_atom (item, indices='all', frame_indices='all'):
@@ -370,23 +370,56 @@ def get_n_chains_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
-    atom_indices = list(range(get_n_atoms_from_system(item)))
-    return get_n_aminoacids_from_atom (item, indices=atom_indices)
+    from molmodmt.topology import is_aminoacid
+
+    n_aminoacids=0
+
+    for residue in item.residues:
+        if is_aminoacid(residue.name):
+            n_aminoacids+=1
+
+    return n_aminoacids
 
 def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
-    atom_indices = list(range(get_n_atoms_from_system(item)))
-    return get_n_nucleotides_from_atom (item, indices=atom_indices)
+    from molmodmt.topology import is_nucleotide
+
+    n_nucleotides=0
+
+    for residue in item.residues:
+        if is_nucleotide(residue.name):
+            n_nucleotides+=1
+
+    return n_nucleotides
 
 def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
-    atom_indices = list(range(get_n_atoms_from_system(item)))
-    return get_n_waters_from_atom (item, indices=atom_indices)
+    from molmodmt.topology import is_water
+
+    n_waters=0
+
+    for residue in item.residues:
+        if is_water(residue.name):
+            n_waters+=1
+
+    return n_waters
 
 def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
-    atom_indices = list(range(get_n_atoms_from_system(item)))
-    return get_n_ions_from_atom (item, indices=atom_indices)
+    from molmodmt.topology import is_ion
+
+    n_ions=0
+
+    for residue in item.residues:
+        if is_ion(residue.name):
+            n_ions+=1
+
+    return n_ions
+
+def get_n_molecules_from_system (item, indices='all', frame_indices='all'):
+
+    n_molecules = len(get_molecules_from_system(item))
+    return n_molecules
 
 def get_n_bonds_from_system (item, indices='all', frame_indices='all'):
 

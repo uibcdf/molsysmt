@@ -170,15 +170,33 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_atoms
+    from .api_mdtraj_Topology import get_n_atoms_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_residues_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_residues
+    from .api_mdtraj_Topology import get_n_residues_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_n_chains_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_mdtraj_Topology import get_n_chains_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    return len(get_molecules_from_system(item))
+    from .api_mdtraj_Topology import get_n_molecules_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_n_waters_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_mdtraj_Topology import get_n_waters_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_n_ions_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_mdtraj_Topology import get_n_ions_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
@@ -190,23 +208,23 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Topology import get_bonded_atoms_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    from .api_mdtraj_Topology import get_bonded_atoms_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Topology import get_bonds_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    from .api_mdtraj_Topology import get_bonds_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_graph_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Topology import get_graph_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    from .api_mdtraj_Topology import get_graph_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Topology import get_molecules_from_system as _get
-    return _get(item, indices=indices, frame_indices=frame_indices)
+    from .api_mdtraj_Topology import get_molecules_from_system as get
+    return get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 

@@ -58,7 +58,7 @@
 def from_pdb(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert
-    from .molmodmt.forms.files.api_pdb import to_molmodmt_Trajectory as pdb_to_Trajectory
+    from .io_trajectory import from_pdb as pdb_to_Trajectory
     from .molmod import MolMod
 
     if topology is None:
@@ -75,7 +75,7 @@ def from_pdb(item, topology=None, atom_indices='all', frame_indices='all'):
 def from_xtc(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert
-    from .molmodmt.forms.files.api_xtc import to_molmodmt_Trajectory as xtc_to_Trajectory
+    from .io_trajectory import from_xtc as xtc_to_Trajectory
     from .molmod import MolMod
 
     tmp_item = MolMod()
@@ -89,7 +89,7 @@ def from_xtc(item, topology=None, atom_indices='all', frame_indices='all'):
 def from_hdf5(item, topology=None, atom_indices='all', frame_indices='all'):
 
     from molmodmt import convert
-    from .molmodmt.forms.files.api_h5 import to_molmodmt_Trajectory as h5_to_Trajectory
+    from .io_trajectory import from_h5 as h5_to_Trajectory
     from .molmod import MolMod
 
     if topology is None:

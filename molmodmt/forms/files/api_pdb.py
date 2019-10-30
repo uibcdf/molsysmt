@@ -15,7 +15,7 @@ def to_molmodmt_MolMod(item, topology=None, atom_indices='all', frame_indices='a
 def to_molmodmt_Topology(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.native.io_topology import from_pdb as _from_pdb
-    return _from_pdb(item, atom_indices=atom_indices)
+    return _from_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molmodmt_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
 

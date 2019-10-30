@@ -22,8 +22,11 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
     from molmodmt.utils.pbc import get_box_from_lengths_and_angles
     from molmodmt.utils import units as m3t_units
     from simtk.unit import angstroms, nanometers, degrees, picoseconds
+    from molmodmt.utils.atom_indices import digest as _digest_atom_indices
+    from molmodmt.utils.frame_indices import digest as _digest_frame_indices
 
-    print(atom_indices, frame_indices)
+    atom_indices = _digest_atom_indices(item, atom_indices)
+    frame_indices = _digest_frame_indices(item, frame_indices)
 
     xyz_list = []
     time_list = []
@@ -80,9 +83,7 @@ def get_frames_from_atom (item, indices='all', frame_indices='all'):
 
 def get_frames_from_system (item, indices='all', frame_indices='all'):
 
-    n_atoms = get_n_atoms_from_system(item)
-    atom_indices = list(range(n_atoms))
-    step, time, xyz, box = load_frame(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    step, time, xyz, box = load_frame(item, atom_indices='all', frame_indices=frame_indices)
     return step, time, xyz, box
 
 def get_n_frames_from_system (item, indices='all', frame_indices='all'):

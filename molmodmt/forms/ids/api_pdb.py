@@ -41,20 +41,11 @@ def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all
 
 def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
-    from mmtf import fetch
-    from molmodmt.forms.classes.api_mmtf_MMTFDecoder import to_mmtf as MMTFDecoder_to_mmtf
-
-    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return MMTFDecoder_to_mmtf(tmp_item, output_file_path=output_file_path)
+    raise NotImplementedError
 
 def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
-    from mmtf import fetch
-    from molmodmt.forms.classes.api_mmtf_MMTFDecoder import extract_subsystem as extract_MMTFDecoder
-    tmp_item = item.split(':')[-1]
-    tmp_item = fetch(tmp_item)
-    tmp_item = extract_MMTFDecoder(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item
+    raise NotImplementedError
 
 def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
 

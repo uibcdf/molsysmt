@@ -368,7 +368,12 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='MD
 
     elif target=='system':
 
-        raise NotImplementedError
+        form, n_atoms, n_residues, n_chains, n_molecules, n_waters, n_ions, n_frames = get(item, target=target,
+                form=True, n_atoms=True, n_residues=True, n_chains=True, n_molecules=True,
+                n_waters=True, n_ions=True, n_frames=True)
+
+        return df({'form':form, 'atoms':n_atoms, 'residues':n_residues, 'chains':n_chains,
+            'molecules':n_molecules, 'waters':n_waters, 'ions':n_ions, 'frames':n_frames}, index=[0])
 
     else:
 
@@ -454,8 +459,6 @@ def get(item, target='system', indices=None, selection='all', frame_indices='all
     form_in, _ = _digest_forms(item)
     target = _singular(target)
     attributes = [ key for key in kwargs.keys() if kwargs[key] ]
-
-    frame_indices = _digest_frame_indices(item, frame_indices)
 
     if indices is None:
         if target == 'atom':

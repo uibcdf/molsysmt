@@ -2,17 +2,15 @@
 def digest(item, frame_indices):
 
     from numpy import arange, array
-    from molmodmt.multitool import get_form
-    from molmodmt.multitool import _dict_get
+    from molmodmt.multitool import get
 
-    if frame_indices is None:
-        n_frames = 0
+    if frame_indices is 'all':
+        n_frames = get(item, target='system', n_frames=True)
         frame_indices = arange(n_frames, dtype='int64')
     elif type(frame_indices)==int:
         frame_indices = array([frame_indices], dtype='int64')
-    elif type(frame_indices)==str:
-        if frame_indices == 'all':
-            frame_indices = None
+    elif type(frame_indices) in [tuple, list]:
+        frame_indices = array(frame_indices, dtype='int64')
 
     return frame_indices
 
