@@ -1,3 +1,0 @@
-
-class Ion:
-    pass

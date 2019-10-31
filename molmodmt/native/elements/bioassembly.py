@@ -6,6 +6,7 @@ class BioAssembly:
         self.index = None
         self.name = None
         self.type = None
+        self.matrix = None
 
         self.atom = []
         self.n_atoms = 0
@@ -22,7 +23,7 @@ class BioAssembly:
         self.molecule = []
         self.n_molecules = 0
 
-        self.n_entity = []
+        self.entity = []
         self.n_entities = 0
 
         self.ion = []

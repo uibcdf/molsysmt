@@ -1,12 +1,12 @@
 
 class Group:
 
-    def __init__(self):
+    def __init__(self, id=None, index=None, name=None, type=None):
 
-        self.index = None
-        self.id = None
-        self.name = None # HISD
-        self.type = None # HIS
+        self.id = id
+        self.index = index
+        self.name = name
+        self.type = type
 
         self.atom = []
         self.n_atoms = 0

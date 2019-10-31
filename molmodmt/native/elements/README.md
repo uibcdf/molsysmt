@@ -6,45 +6,20 @@ Set of python classes corresponding to the fundamental elements to work with mol
 ```
 
 
-# Bioassembly
+atom ---> group ---> component ---> chain ---> molecule ---> entity ---> bioassembly
+                                                  |
+                                                  |
+                                                  |
+                                                  V
+                                               ion
+                                               water
+                                               cosolute
+                                               small molecule
+                                               peptide
+                                               protein
+                                               rna
+                                               dna
 
-Association of entities.
-
-# Entities
-
-atom ------> group ------> segment ------> chain ------> entity
-
-## Protein
-
-atom ------> group ------> segment ------> chain ------> entity
-
-## Peptide
-
-atom ------> group ------> segment ------> entity
-
-## DNA
-
-atom ------> group ------> segment ------> chain ------> entity
-
-## RNA
-
-atom ------> group ------> segment ------> entity
-
-## Small Molecules
-
-atom ------> group -------> entity
-
-## Water
-
-atom ------> group -------> entity
-
-## Ion
-
-atom ------> group -------> entity
-
-## Cosolutes
-
-atom ------> group -------> entity
 
 ```
 

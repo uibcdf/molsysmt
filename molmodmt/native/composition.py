@@ -2,13 +2,13 @@ class Composition():
 
     def __init__(self):
 
-        self.bioassembly = []
-        self.entity = [] # naturalezas: HIF1, water, ion, etc.
-        self.molecule = [] # unidad biológica o molécula
-        self.chain = [] # cadena de proteina
-        self.component = [] # algo unido covalentemente por similitud con las componentes de un grafo, (segmentos en una cadena, por ejemplo)
-        self.group = []
-        self.atom = []
+        self.bioassembly = ()
+        self.entity = ()
+        self.molecule = ()
+        self.chain = ()
+        self.component = ()
+        self.group = ()
+        self.atom = ()
 
         self.n_bioassemblies = 0
         self.n_entities = 0
@@ -18,14 +18,14 @@ class Composition():
         self.n_groups = 0
         self.n_atoms = 0
 
-        self.ion = []
-        self.water = []
-        self.cosolute = []
-        self.small_molecule = []
-        self.protein = []
-        self.peptide = []
-        self.dna = []
-        self.rna = []
+        self.ion = ()
+        self.water = ()
+        self.cosolute = ()
+        self.small_molecule = ()
+        self.protein = ()
+        self.peptide = ()
+        self.dna = ()
+        self.rna = ()
 
         self.n_ions = 0
         self.n_waters = 0
@@ -35,6 +35,9 @@ class Composition():
         self.n_peptides = 0
         self.n_dnas = 0
         self.n_rnas = 0
+
+        self.bonds = ()
+        self.n_bonds = 0
 
     def extract(self, atom_indices='all'):
 
