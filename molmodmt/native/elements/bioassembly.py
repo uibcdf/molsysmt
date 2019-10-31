@@ -7,33 +7,42 @@ class BioAssembly:
         self.name = None
         self.type = None
 
-        self.chain = []
-        self.entity = []
-        self.segment = []
-        self.group = []
         self.atom = []
-        self.bond = []
+        self.n_atoms = 0
 
-        self.num_chains = 0
-        self.num_entities = 0
-        self.num_segments = 0
-        self.num_groups = 0
-        self.num_atoms = 0
-        self.num_bonds = 0
+        self.group = []
+        self.n_groups = 0
+
+        self.component = []
+        self.n_components = 0
+
+        self.chain = []
+        self.n_chains = 0
+
+        self.molecule = []
+        self.n_molecules = 0
+
+        self.n_entity = []
+        self.n_entities = 0
 
         self.ion = []
-        self.water = []
-        self.small_molecule = []
-        self.protein = []
-        self.peptide = []
-        self.dna = []
-        self.rna = []
+        self.n_ions = 0
 
-        self.num_ions = 0
-        self.num_waters = 0
-        self.num_small_molecules = 0
-        self.num_proteins = 0
-        self.num_peptides = 0
-        self.num_dnas = 0
-        self.num_rnas = 0
+        self.water = []
+        self.n_waters = 0
+
+        self.small_molecule = []
+        self.n_small_molecules = 0
+
+        self.peptide = []
+        self.n_peptides = 0
+
+        self.protein = []
+        self.n_proteins = 0
+
+        self.dna = []
+        self.n_dnas = 0
+
+        self.rna = []
+        self.n_rnas = 0
 

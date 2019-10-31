@@ -6,22 +6,17 @@ class Chain:
         self.id = None
         self.index = None
         self.name = None
-        self.type = None
 
-        self.bioassembly_id = None
-        self.bioassembly_index = None
-        self.bioassembly_name = None
-        self.bioassembly_type = None
-
-        self.entity = []
-        self.segment = []
-        self.group = []
         self.atom = []
-        self.bond = []
+        self.n_atoms = 0
 
-        self.num_entities = 0
-        self.num_segments = 0
-        self.num_groups = 0
-        self.num_atoms = 0
-        self.num_bonds = 0
+        self.group = []
+        self.n_groups = 0
+
+        self.component = []
+        self.n_components = 0
+
+        self.molecule = None
+        self.entity = None
+        self.bioassembly = None
 
