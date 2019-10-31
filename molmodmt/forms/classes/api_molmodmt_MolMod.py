@@ -91,19 +91,7 @@ def to_nglview(item, atom_indices='all', frame_indices='all'):
 
 def duplicate(item):
 
-    from molmodmt.native.molmod import MolMod
-    from .api_molmodmt_Trajectory import duplicate as duplicate_Trajectory
-    from .api_molmodmt_Structure import duplicate as duplicate_Structure
-    from .api_molmodmt_Topology import duplicate as duplicate_Topology
-    from .api_molmodmt_Topography import duplicate as duplicate_Topography
-
-    tmp_item = MolMod()
-    tmp_item.trajectory = duplicate_Trajectory(item.trajectory)
-    tmp_item.topology = duplicate_Topology(item.topology)
-    tmp_item.structure = duplicate_Structure(item.structure)
-    tmp_item.topography = duplicate_Topography(item.topography)
-
-    return tmp_item
+    return tmp_item.duplicate()
 
 ###### Get
 

@@ -48,3 +48,10 @@ class TrajectoryFile():
         self.atom_indices=atom_indices
         return step, time, coordinates, box
 
+    def duplicate (self):
+
+        from copy import deepcopy
+        tmp_item = TrajectoryFile(filename=self.name, mode='read')
+        tmp_item.atom_indices = deepcopy(item.atom_indices)
+        return tmp_item
+

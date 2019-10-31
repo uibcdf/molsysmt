@@ -1,6 +1,6 @@
-from simtk.openmm.app.topology import Topology as _openmm_Topology
+# Topology is mdtraj.Topology
 
-class Topology(_openmm_Topology):
+class Topology():
 
     pass
 

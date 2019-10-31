@@ -18,15 +18,7 @@ def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
 def duplicate(item):
 
-    from copy import deepcopy
-
-    tmp_item = _molmodmt_TrajectoryFile(filename=item.name, mode='read')
-    tmp_item.atom_indices = deepcopy(item.atom_indices)
-
-    # close de file if it was closed
-    # put the needle in the same position of original file of item
-
-    return tmp_item
+    return item.duplicate()
 
 ###### Get
 

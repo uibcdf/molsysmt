@@ -90,6 +90,49 @@ class Trajectory():
 
         pass
 
+    def extract (self, atom_indices='all', frame_indices='all'):
+
+        from copy import deepcopy
+
+        tmp_item = Trajectory()
+
+        tmp_item.step = self.step[frame_indices]
+        tmp_item.time = self.time[frame_indices]
+        tmp_item.box = self.box[frame_indices]
+        tmp_item.coordinates = self.coordinates[:,atom_indices,:]
+        tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
+        tmp_item.box_shape = deepcopy(self.box_shape)
+
+        tmp_item.n_frames = len(frame_indices)
+        tmp_item.n_atoms = len(atom_indices)
+
+        tmp_item.file = item.file.duplicate()
+
+        return tmp_item
+
+    def duplicate (self):
+
+        from copy import deepcopy
+
+        tmp_item = Trajectory()
+
+        tmp_item.length_units = deepcopy(self.length_units)
+        tmp_item.time_units = deepcopy(self.time_units)
+
+        tmp_item.step = deepcopy(self.step)
+        tmp_item.time = deepcopy(self.time)
+        tmp_item.coordinates = deepcopy(self.coordinates)
+        tmp_item.box = deepcopy(self.box)
+        tmp_item.box_shape = deepcopy(self.box_shape)
+
+        tmp_item.n_frames = deepcopy(self.n_frames)
+        tmp_item.n_atoms = deepcopy(self.n_atoms)
+
+        tmp_item.file = self.file.duplicate()
+
+        return tmp_item
+
+
     #def cell2box(self):
     #    self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell, self.n_frames)
     #    pass
@@ -101,14 +144,6 @@ class Trajectory():
     #def box2invbox(self):
     #    self.invbox=_libbox.box2invbox(self.box, self.n_frames)
     #    pass
-
-    #def extract(self, atom_indices=None):
-
-    #    tmp_item=deepcopy(self)
-    #    tmp_item.coordinates=tmp_item.coordinates[:,atom_indices,:]
-    #    tmp_item.n_atoms=len(atom_indices)
-
-    #    return tmp_item
 
     #def iterload(self, chunk=100, stride=1, skip=0, atom_indices=None):
 

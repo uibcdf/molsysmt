@@ -45,55 +45,11 @@ def extract_subsystem(item, atom_indices='all', frame_indices='all'):
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
-
-        from copy import deepcopy
-        from molmodmt.native.trajectory import Trajectory
-        from .api_molmodmt_TrajectoryFile import duplicate as _duplicate_TrajectoryFile
-
-        tmp_item = Trajectory()
-
-        tmp_item.step = deepcopy(item.step)
-        tmp_item.time = deepcopy(item.time)
-        tmp_item.box = deepcopy(item.box)
-        tmp_item.coordinates = deepcopy(item.coordinates)
-        tmp_item.box_shape = deepcopy(item.box_shape)
-
-        tmp_item.step = tmp_item.step[frame_indices]
-        tmp_item.time = tmp_item.time[frame_indices]
-        tmp_item.box = tmp_item.box[frame_indices]
-        tmp_item.coordinates = tmp_item.coordinates[:,atom_indices,:]
-        tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
-
-        tmp_item.n_frames = len(frame_indices)
-        tmp_item.n_atoms = len(atom_indices)
-
-        tmp_item.file = _duplicate_TrajectoryFile(item.file)
-
-        return tmp_item
+        return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
 def duplicate(item):
 
-    from copy import deepcopy
-    from molmodmt.native.trajectory import Trajectory
-    from .api_molmodmt_TrajectoryFile import duplicate as _duplicate_TrajectoryFile
-
-    tmp_item = Trajectory()
-
-    tmp_item.length_units = deepcopy(item.length_units)
-    tmp_item.time_units = deepcopy(item.time_units)
-
-    tmp_item.step = deepcopy(item.step)
-    tmp_item.time = deepcopy(item.time)
-    tmp_item.coordinates = deepcopy(item.coordinates)
-    tmp_item.box = deepcopy(item.box)
-    tmp_item.box_shape = deepcopy(item.box_shape)
-
-    tmp_item.n_frames = deepcopy(item.n_frames)
-    tmp_item.n_atoms = deepcopy(item.n_atoms)
-
-    tmp_item.file = _duplicate_TrajectoryFile(item.file)
-
-    return tmp_item
+    return item.duplicate()
 
 ###### Get
 

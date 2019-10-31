@@ -1,12 +1,12 @@
 from os.path import basename as _basename
 from molmodmt.utils.exceptions import *
-from molmodmt.native.topography import Topography as _molmodmt_Topography
+from molmodmt.native.structure_obtention import StructureObtention as _molmodmt_StructureObtention
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    _molmodmt_Topography : form_name,
-    'molmodmt.Topography': form_name
+    _molmodmt_StructureObtention : form_name,
+    'molmodmt.StructureObtention': form_name
 }
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
