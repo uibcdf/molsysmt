@@ -1,16 +1,14 @@
 
 class Atom:
 
-    def __init__(self, atoms=[], order=None):
+    def __init__(self, atoms=None, order=None):
 
-        self.atom_ids = []
         self.atom = atoms
+        self.group = None
         self.order = order
 
-        for atom in atoms:
-            self.atom_ids.append(atom.id)
-
-        self.atom_ids = set(self.atom_ids)
+        if self.atom is not None:
+            self.group = [atom.group for atom in self.atom]
 
         self.component = None
         self.chain = None

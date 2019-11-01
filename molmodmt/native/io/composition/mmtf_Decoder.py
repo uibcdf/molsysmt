@@ -23,6 +23,10 @@ def import_mmtf_Decoder(item):
         chain = Chain(id=id, index=index, name=name)
         tmp_item.chain.append(chain)
 
+    # Inter group bonds
+    #if hasattr(mmtf, 'bond_atom_list'):
+
+
     #https://github.com/rcsb/mmtf/blob/master/spec.md#bondatomlist
     #https://mmtf.rcsb.org/faq.html
     #https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473584/
@@ -31,6 +35,7 @@ def import_mmtf_Decoder(item):
     tmp_item.n_atoms = len(tmp_item.atom)
     tmp_item.n_groups = len(tmp_item.group)
     tmp_item.n_chains = len(tmp_item.chain)
+    tmp_item.n_bonds = len(tmp_item.bond)
 
     return tmp_item
 

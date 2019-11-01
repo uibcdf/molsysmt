@@ -8,6 +8,7 @@ class Atom:
         self.name = name
         self.type = type
         self.element = element
+        self.formal_charge = None
 
         self.bonded_atoms = []
 
