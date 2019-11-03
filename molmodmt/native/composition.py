@@ -36,7 +36,7 @@ class Composition():
         self.n_dnas = 0
         self.n_rnas = 0
 
-        self.bonds = ()
+        self.bond = ()
         self.n_bonds = 0
 
     def extract(self, atom_indices='all'):

@@ -5,6 +5,8 @@ class Molecule():
 
         self.id = None
         self.index = None
+        self.name = None
+        self.type = None
 
         self.atom = []
         self.n_atoms = 0

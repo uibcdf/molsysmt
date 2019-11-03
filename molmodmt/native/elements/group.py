@@ -7,7 +7,8 @@ class Group:
         self.index = index
         self.name = name
         self.type = type
-        self.chemical_group_type = None
+
+        self.chemical_type = None
         self.formal_charge = None #(sum of atoms formal charge)
 
         self.atom = []

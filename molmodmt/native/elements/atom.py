@@ -1,15 +1,15 @@
 
 class Atom:
 
-    def __init__(self, id=None, index=None, name=None, type=None, element=None):
+    def __init__(self, id=None, index=None, name=None, type=None):
 
         self.id = id
         self.index = index
         self.name = name
         self.type = type
-        self.element = element
-        self.formal_charge = None
 
+        self.element = None
+        self.formal_charge = None
         self.bonded_atoms = []
 
         self.group = None

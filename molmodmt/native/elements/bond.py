@@ -1,15 +1,12 @@
 
-class Atom:
+class Bond():
 
     def __init__(self, atoms=None, order=None):
 
         self.atom = atoms
-        self.group = None
         self.order = order
 
-        if self.atom is not None:
-            self.group = [atom.group for atom in self.atom]
-
+        self.group = None
         self.component = None
         self.chain = None
         self.molecule = None

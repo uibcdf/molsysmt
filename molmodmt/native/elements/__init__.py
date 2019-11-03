@@ -5,3 +5,5 @@ from .chain import Chain
 from .component import Component
 from .group import Group
 from .atom import Atom
+from .bond import Bond
+from . import groups

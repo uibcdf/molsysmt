@@ -1,4 +1,4 @@
-# polymer segment
+# covalent unit
 
 class Component():
 
