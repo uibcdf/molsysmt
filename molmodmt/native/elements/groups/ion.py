@@ -1,6 +1,6 @@
-from molmodmt.native.elements import Atom
+from molmodmt.native.elements import Group
 
-class Ion(Atom):
+class Ion(Group):
 
     def __init__(self, id=None, index=None, name=None, type=None):
 

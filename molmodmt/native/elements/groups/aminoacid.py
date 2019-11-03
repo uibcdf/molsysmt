@@ -1,6 +1,6 @@
-from molmodmt.native.elements import Atom
+from molmodmt.native.elements import Group
 
-class AminoAcid(Atom):
+class AminoAcid(Group):
 
     def __init__(self, id=None, index=None, name=None, type=None):
 

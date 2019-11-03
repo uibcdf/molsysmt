@@ -45,6 +45,7 @@ def import_mmtf_Decoder(item):
             tmp_atom.element = atom_element
             tmp_atom.formal_charge = atom_formal_charge
             tmp_atom.group = group
+            group.atom.append(tmp_atom)
             count_atoms+=1
         tmp_item.group.append(group)
 
@@ -56,10 +57,19 @@ def import_mmtf_Decoder(item):
         bond = elements.Bond(atoms=[tmp_atom_0, tmp_atom_1], order=bond_order)
         tmp_item.bond.append(bond)
 
-
-    for id, index, name in zip(range(item.num_chains), item.chain_id_list, item.chain_name_list):
+    count_groups=0
+    for id, index, name, n_groups in zip(range(item.num_chains), item.chain_id_list, item.chain_name_list, item.groups_per_chain):
         chain = elements.Chain(id=id, index=index, name=name)
+        for group_id in range(count_groups, n_groups):
+            tmp_group = tmp_item.group[group_id]
+            tmp_group.chain=chain
+            chain.group.append(tmp_group)
+            for tmp_atom in tmp_group.atom:
+                tmp_atom.chain=chain
+                chain.atom.append(tmp_atom)
         tmp_item.chain.append(chain)
+        count_groups+=n_groups
+
 
     # Inter group bonds
     #if hasattr(mmtf, 'bond_atom_list'):
