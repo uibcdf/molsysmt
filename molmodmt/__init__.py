@@ -16,7 +16,8 @@ from .potential_energy import energy_minimization
 from .solvate_box import solvate
 from .protonation import add_missing_hydrogens
 from .mutations import mutate
-from .topology import groups_classification, residues_classification
+from .topology import group_name_to_molecule_type, group_name_is_water, group_name_is_ion,\
+                      group_name_is_aminoacid, group_name_is_nucleotide
 from .chem_and_phys_properties import get_charge, get_net_charge, get_mass, get_net_mass,\
                                get_degrees_of_freedom
 from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention

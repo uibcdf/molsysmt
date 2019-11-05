@@ -70,6 +70,20 @@ def import_mmtf_Decoder(item):
         tmp_item.chain.append(chain)
         count_groups+=n_groups
 
+    n_entities = len(item.entity_list)
+    for id, entity_mmtf in zip(range(n_entities), item.entity_list):
+        name = entity_mmtf['description']
+        type = entity_mmtf['type']
+        entity_class = MMTFDecoder_entity_to_entity_class(entity_mmtf)
+        if entity_class is None:
+            entity = elements.Entity(id=id, name=name)
+        else:
+            entity = getattr(elements.entities, group_class)(id=id, name=name)
+        entity.mmtf_type = type
+        for chain_id in entity_mmtf['chainIndexList']:
+            tmp_chain = tmp_item.chain[chain_id]
+            entity.chain.append(tmp_chain)
+        tmp_item.entity.append(entity)
 
     # Inter group bonds
     #if hasattr(mmtf, 'bond_atom_list'):
@@ -82,6 +96,7 @@ def import_mmtf_Decoder(item):
     tmp_item.n_atoms = len(tmp_item.atom)
     tmp_item.n_groups = len(tmp_item.group)
     tmp_item.n_chains = len(tmp_item.chain)
+    tmp_item.n_entities = len(tmp_item.entity)
     tmp_item.n_bonds = len(tmp_item.bond)
 
     return tmp_item

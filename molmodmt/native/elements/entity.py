@@ -8,6 +8,8 @@ class Entity:
         self.name = None
         self.type = None
 
+        self.mmtf_type = None
+
         self.atom = []
         self.n_atoms = 0
 
