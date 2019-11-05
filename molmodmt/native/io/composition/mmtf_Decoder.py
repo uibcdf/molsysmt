@@ -3,7 +3,8 @@ def import_mmtf_Decoder(item):
 
     from molmodmt.native.composition import Composition
     from molmodmt.native import elements
-    from molmodmt.utils.groups.classification import MMTFDecoder_group_to_group_class
+    from molmodmt.utils.composition.classification import MMTFDecoder_group_to_group_class
+    from molmodmt.utils.composition.classification import MMTFDecoder_entity_to_entity_class
     import numpy as np
 
     tmp_item = Composition()

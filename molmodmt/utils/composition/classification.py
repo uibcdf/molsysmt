@@ -4,7 +4,7 @@ def MMTFDecoder_group_to_group_class(mmtf_group):
 
     from molmodmt import group_name_to_molecule_type
 
-    molecule_type = name_to_molecule_type(mmtf_group['groupName'])
+    molecule_type = group_name_to_molecule_type(mmtf_group['groupName'])
     if molecule_type == 'protein':
         return 'AminoAcid'
     elif molecule_type == 'dna':
