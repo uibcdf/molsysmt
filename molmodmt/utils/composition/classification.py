@@ -22,6 +22,8 @@ def MMTFDecoder_group_to_group_class(mmtf_group):
 
 def MMTFDecoder_entity_to_entity_class(mmtf_entity):
 
+    from molmodmt import sequence_to_molecule_type
+
     if mmtf_entity['type']=='water':
         return 'Water'
     elif mmtf_entity['type']=='polymer':
