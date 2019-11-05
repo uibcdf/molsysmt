@@ -7,3 +7,4 @@ from .group import Group
 from .atom import Atom
 from .bond import Bond
 from . import groups
+from . import entities

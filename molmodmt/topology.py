@@ -43,7 +43,7 @@ def group_name_is_nucleotide(name):
     return ((name in dna_residues) or (name in rna_residues))
 
 
-def sequence_name_to_molecule_type(sequence):
+def sequence_to_molecule_type(sequence):
 
     tmp_type='unknown'
 

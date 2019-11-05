@@ -9,11 +9,6 @@ def import_mmtf_Decoder(item):
 
     tmp_item = Composition()
 
-    tmp_item.atom = []
-    tmp_item.group = []
-    tmp_item.chain = []
-    tmp_item.bond = []
-
     for id, index in zip(range(item.num_atoms), item.atom_id_list):
         atom = elements.Atom(id=id, index=index)
         tmp_item.atom.append(atom)
@@ -83,8 +78,34 @@ def import_mmtf_Decoder(item):
         entity.mmtf_type = type
         for chain_id in entity_mmtf['chainIndexList']:
             tmp_chain = tmp_item.chain[chain_id]
+            tmp_chain.entity = entity
             entity.chain.append(tmp_chain)
+            for tmp_group in tmp_chain.group:
+                tmp_group.entity=entity
+                entity.group.append(tmp_group)
+                for tmp_atom in tmp_group.atom:
+                    entity.atom.append(tmp_atom)
+                    tmp_atom.entity=entity
         tmp_item.entity.append(entity)
+
+    n_bioassembly = len(item.bio_assembly)
+    for id in range(n_bioassembly):
+        name = item.bio_assembly[id]['name']
+        bioassembly = elements.BioAssembly(id=id, name=name)
+        bioassembly.mmtf_transform_list = item.bio_assembly[id]['transformList']
+        if len(item.bio_assembly[id]['transformList'])>1:
+            raise NotImplementedError('MMTF transform list with len larger than 1')
+            tmp_chain = tmp_item.chain[chain_id]
+            tmp_chain.bioassembly = bioassembly
+            bioassembly.chain.append(tmp_chain)
+            for tmp_group in tmp_chain.group:
+                tmp_group.bioassembly=bioassembly
+                bioassembly.group.append(tmp_group)
+                for tmp_atom in tmp_group.atom:
+                    bioassembly.atom.append(tmp_atom)
+                    tmp_atom.bioassembly=bioassembly
+        tmp_item.bioassembly.append(bioassembly)
+
 
     # Inter group bonds
     #if hasattr(mmtf, 'bond_atom_list'):
@@ -97,7 +118,9 @@ def import_mmtf_Decoder(item):
     tmp_item.n_atoms = len(tmp_item.atom)
     tmp_item.n_groups = len(tmp_item.group)
     tmp_item.n_chains = len(tmp_item.chain)
+    tmp_item.n_molecules = len(tmp_item.molecule)
     tmp_item.n_entities = len(tmp_item.entity)
+    tmp_item.n_bioassemblies = len(tmp_item.bioassembly)
     tmp_item.n_bonds = len(tmp_item.bond)
 
     return tmp_item

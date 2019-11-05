@@ -1,13 +1,14 @@
 
 class Entity:
 
-    def __init__(self):
+    def __init__(self, id=None, index=None, name=None, type=None):
 
         self.id = None
         self.index = None
         self.name = None
         self.type = None
 
+        self.description = None
         self.mmtf_type = None
 
         self.atom = []

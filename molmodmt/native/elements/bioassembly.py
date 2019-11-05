@@ -1,12 +1,13 @@
 class BioAssembly:
 
-    def __init__(self):
+    def __init__(self, id=None, index=None, name=None, type=None):
 
-        self.id = None
-        self.index = None
-        self.name = None
-        self.type = None
-        self.matrix = None
+        self.id = id
+        self.index = index
+        self.name = name
+        self.type = type
+
+        self.mmtf_transform_list = None
 
         self.atom = []
         self.n_atoms = 0
@@ -25,25 +26,4 @@ class BioAssembly:
 
         self.entity = []
         self.n_entities = 0
-
-        self.ion = []
-        self.n_ions = 0
-
-        self.water = []
-        self.n_waters = 0
-
-        self.small_molecule = []
-        self.n_small_molecules = 0
-
-        self.peptide = []
-        self.n_peptides = 0
-
-        self.protein = []
-        self.n_proteins = 0
-
-        self.dna = []
-        self.n_dnas = 0
-
-        self.rna = []
-        self.n_rnas = 0
 
