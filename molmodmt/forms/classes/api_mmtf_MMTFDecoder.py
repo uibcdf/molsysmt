@@ -15,6 +15,12 @@ def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'
     tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return write_mmtf(output_file_path, tmp_item, MMTFDecoder.pass_data_on)
 
+def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
+
+    
+
+    pass
+
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
