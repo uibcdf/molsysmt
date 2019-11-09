@@ -39,8 +39,7 @@ def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
     from molmodmt.forms.classes.api_mmtf_MMTFDecoder import to_molmodmt_MolMod as mmtf_MMTFDecoder_to_molmodmt_MolMod
     tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
     tmp_item = mmtf_MMTFDecoder_to_molmodmt_MolMod(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    raise tmp_item
+    return tmp_item
 
 def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 

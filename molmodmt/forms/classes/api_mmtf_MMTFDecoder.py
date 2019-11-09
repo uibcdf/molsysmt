@@ -17,9 +17,8 @@ def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'
 
 def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
 
-    
-
-    pass
+    from molmodmt.native.io.molmod import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molmodmt_MolMod
+    return mmtf_MMTFDecoder_to_molmodmt_MolMod(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 

@@ -39,6 +39,8 @@ class Composition():
         self.bond = []
         self.n_bonds = 0
 
+        self._dataframe = None
+
     def extract(self, atom_indices='all'):
 
         if atom_indices is 'all':

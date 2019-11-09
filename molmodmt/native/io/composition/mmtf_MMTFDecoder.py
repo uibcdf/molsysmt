@@ -1,5 +1,5 @@
 
-def import_mmtf_Decoder(item):
+def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.native.composition import Composition
     from molmodmt.native import elements
