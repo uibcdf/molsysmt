@@ -1,6 +1,6 @@
 from molmodmt.utils.exceptions import *
 
-def MMTFDecoder_group_to_group_class(mmtf_group):
+def MMTFDecoder_group_to_group_class_type(mmtf_group):
 
     from molmodmt import group_name_to_molecule_type
 
@@ -20,7 +20,7 @@ def MMTFDecoder_group_to_group_class(mmtf_group):
 
     pass
 
-def MMTFDecoder_entity_to_entity_class(mmtf_entity):
+def MMTFDecoder_entity_to_entity_class_type(mmtf_entity):
 
     from molmodmt import sequence_to_molecule_type
 

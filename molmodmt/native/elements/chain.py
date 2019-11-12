@@ -1,11 +1,12 @@
 
 class Chain:
 
-    def __init__(self, id=None, index=None, name=None):
+    def __init__(self, index=None, id=None, name=None, type=None):
 
-        self.id = id
         self.index = index
+        self.id = id
         self.name = name
+        self.type = None
 
         self.atom = []
         self.n_atoms = 0

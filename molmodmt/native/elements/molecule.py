@@ -1,12 +1,12 @@
 
 class Molecule():
 
-    def __init__(self):
+    def __init__(self, index=None, id=None, name=None, type=None):
 
-        self.id = None
-        self.index = None
-        self.name = None
-        self.type = None
+        self.index = index
+        self.id = id
+        self.name = name
+        self.type = type
 
         self.atom = []
         self.n_atoms = 0

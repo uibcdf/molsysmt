@@ -1,10 +1,10 @@
 
 class Group:
 
-    def __init__(self, id=None, index=None, name=None, type=None):
+    def __init__(self, index=None, id=None, name=None, type=None):
 
-        self.id = id
         self.index = index
+        self.id = id
         self.name = name
         self.type = type
 
@@ -19,4 +19,13 @@ class Group:
         self.molecule = None
         self.entity = None
         self.bioassembly = None
+
+def group_class_initialization(class_type=None):
+
+    from . import groups
+
+    if class_type is None:
+        return Group()
+    else:
+        return getattr(groups, class_type)()
 

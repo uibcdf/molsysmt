@@ -1,12 +1,12 @@
 
 class Entity:
 
-    def __init__(self, id=None, index=None, name=None, type=None):
+    def __init__(self, index=None, id=None, name=None, type=None):
 
-        self.id = None
-        self.index = None
-        self.name = None
-        self.type = None
+        self.index = index
+        self.id = id
+        self.name = name
+        self.type = type
 
         self.description = None
         self.mmtf_type = None
@@ -27,4 +27,14 @@ class Entity:
         self.n_molecules = 0
 
         self.bioassembly = None
+
+
+def entity_class_initialization(class_type=None):
+
+    from . import entities
+
+    if class_type is None:
+        return Entity()
+    else:
+        return getattr(entities, class_type)()
 

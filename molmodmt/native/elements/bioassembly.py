@@ -1,13 +1,13 @@
-class BioAssembly:
+class BioAssembly():
 
-    def __init__(self, id=None, index=None, name=None, type=None):
+    def __init__(self, index=None, id=None, name=None, type=None):
 
-        self.id = id
         self.index = index
+        self.id = id
         self.name = name
         self.type = type
 
-        self.mmtf_transform_list = None
+        self.transformation = []
 
         self.atom = []
         self.n_atoms = 0
@@ -26,4 +26,11 @@ class BioAssembly:
 
         self.entity = []
         self.n_entities = 0
+
+class BioAssembly_Transformation():
+
+    def __init__(self):
+
+        self.chain_indices = []
+        self.matrix = []
 
