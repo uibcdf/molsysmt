@@ -9,6 +9,20 @@ is_form={
     'molmodmt.Composition': form_name
 }
 
+def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
+
+    from .api_networkx_Graph import extract_subsystem as extract_networkx_Graph
+    from networkx import empty_graph
+
+    G = empty_graph(item.n_atoms)
+
+    for bond in item.bond:
+        G.add_edge(bond.atom[0].index, bond.atom[1].index)
+
+    tmp_item = extract_networkx_Graph(G, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

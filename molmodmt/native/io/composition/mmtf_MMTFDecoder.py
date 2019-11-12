@@ -84,6 +84,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
             atom.element = atom_element
             atom.formal_charge = atom_formal_charge
 
+            atom.group = group
             group.atom.append(atom)
 
             tmp_item.atom.append(atom)
@@ -121,18 +122,40 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
     # components
 
+    from networkx import empty_graph, connected_components
 
+    G = empty_graph(len(tmp_item.atom))
 
-    # global attributes:
+    for bond in tmp_item.bond:
+        G.add_edge(bond.atom[0].index, bond.atom[1].index)
 
-    tmp_item.n_atoms = len(tmp_item.atom)
-    tmp_item.n_groups = len(tmp_item.group)
-    tmp_item.n_components = len(tmp_item.group)
-    tmp_item.n_chains = len(tmp_item.chain)
-    tmp_item.n_molecules = len(tmp_item.molecule)
-    tmp_item.n_entities = len(tmp_item.entity)
-    tmp_item.n_bioassemblies = len(tmp_item.bioassembly)
-    tmp_item.n_bonds = len(tmp_item.bond)
+    atom_indices_per_component = list(connected_components(G))
+    del(G, empty_graph, connected_components)
+
+    index_component = 0
+
+    for atom_indices_of_component in atom_indices_per_component:
+
+        component = elements.Component()
+
+        component.index = index_component
+        component.id = None
+        component.name = None
+        component.type = None
+
+        for atom_index in atom_indices_of_component:
+
+            atom = tmp_item.atom[atom_index]
+            atom.component = component
+            component.atom.append(atom)
+
+            group = atom.group
+            if group not in component.group:
+                component.group.append(group)
+                group.component = component
+
+        tmp_item.component.append(component)
+        index_component += 1
 
     # complete nested objects in chains:
 
@@ -143,10 +166,15 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         for index_group in range(count_groups, count_groups+n_groups):
             group = tmp_item.group[index_group]
             chain.group.append(group)
+            group.chain = chain
             for atom in group.atom:
-                atom.group = group
                 atom.chain = chain
                 chain.atom.append(atom)
+            component = group.component
+            if component not in chain.component:
+                chain.component.append(component)
+                component.chain = chain
+
         count_groups+=n_groups
 
     # complete nested objects in bioassemblies:
@@ -157,6 +185,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         for index_chain in bioassembly.transformation[0].chain_indices:
             chain = tmp_item.chain[index_chain]
             bioassembly.chain.append(chain)
+            bioassembly.component.extend(chain.component)
             bioassembly.group.extend(chain.group)
             bioassembly.atom.extend(chain.atom)
 
@@ -204,6 +233,51 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         tmp_item.entity.append(entity)
         index_entity += 1
 
+    # global attributes:
+
+    tmp_item.n_atoms = len(tmp_item.atom)
+    tmp_item.n_groups = len(tmp_item.group)
+    tmp_item.n_components = len(tmp_item.component)
+    tmp_item.n_chains = len(tmp_item.chain)
+    tmp_item.n_molecules = len(tmp_item.molecule)
+    tmp_item.n_entities = len(tmp_item.entity)
+    tmp_item.n_bioassemblies = len(tmp_item.bioassembly)
+    tmp_item.n_bonds = len(tmp_item.bond)
+
+    # local attributes
+
+    for group in tmp_item.group:
+        group.n_atoms = len(group.atom)
+
+    for component in tmp_item.component:
+        component.n_atoms = len(component.atom)
+        component.n_groups = len(component.group)
+
+    for chain in tmp_item.chain:
+        chain.n_atoms = len(chain.atom)
+        chain.n_groups = len(chain.group)
+        chain.n_components = len(chain.component)
+
+    for molecule in tmp_item.molecule:
+        molecule.n_atoms = len(molecule.atom)
+        molecule.n_groups = len(molecule.group)
+        molecule.n_components = len(molecule.component)
+        molecule.n_chains = len(molecule.chain)
+
+    for entity in tmp_item.entity:
+        entity.n_atoms = len(entity.atom)
+        entity.n_groups = len(entity.group)
+        entity.n_components = len(entity.component)
+        entity.n_chains = len(entity.chain)
+        entity.n_molecules = len(entity.molecule)
+
+    for bioassembly in tmp_item.bioassembly:
+        bioassembly.n_atoms = len(bioassembly.atom)
+        bioassembly.n_groups = len(bioassembly.group)
+        bioassembly.n_components = len(bioassembly.component)
+        bioassembly.n_chains = len(bioassembly.chain)
+        bioassembly.n_molecules = len(bioassembly.molecule)
+        bioassembly.n_entities = len(bioassembly.entity)
 
     return tmp_item
 

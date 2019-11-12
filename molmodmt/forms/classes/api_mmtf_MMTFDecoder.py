@@ -20,6 +20,11 @@ def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
     from molmodmt.native.io.molmod import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molmodmt_MolMod
     return mmtf_MMTFDecoder_to_molmodmt_MolMod(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
+def to_molmodmt_Composition(item, atom_indices='all', frame_indices='all'):
+
+    from molmodmt.native.io.composition import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molmodmt_Composition
+    return mmtf_MMTFDecoder_to_molmodmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
