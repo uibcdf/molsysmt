@@ -50,6 +50,26 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     return item.num_models
 
+def get_frames_from_system (item, indices='all', frame_indices='all'):
+
+    from numpy import arange, empty, zeros, column_stack
+
+    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
+    n_atoms = get_n_atoms_from_system(item, indices='all', frame_indices='all')
+
+    step = arange(n_frames, dtype=int)
+    time = arange(n_frames, dtype=float)
+    xyz = column_stack([bb.x_coord_list, bb.y_coord_list, bb.z_coord_list])
+    xyz = xyz.reshape([-1,bb.num_atoms,3])
+
+    cell_lengths = empty([n_frames,3], dtype='float64')
+    cell_angles = empty([n_frames,3], dtype='float64')
+    for ii in range(3):
+        cell_lengths[:,ii] = item.unit_cell[ii]
+        cell_angles[:,ii] = item.unit_cell[ii+3]
+
+    return step, time, xyz, box
+
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     from molmodmt import get_form
