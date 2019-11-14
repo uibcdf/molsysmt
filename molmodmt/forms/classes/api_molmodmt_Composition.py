@@ -23,7 +23,36 @@ def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
+
 def to_pandas_DataFrame(item, atom_indices='all', frame_indices='all'):
+
+    from pandas import DataFrame, Series
+
+    tmp_item = DataFrame()
+
+    # atom.index
+    serie = Series(atom.index for atom in item.atom)
+    tmp_item['index']= serie.values
+    tmp_item.set_index(serie.values)
+    del(serie)
+
+    attributes = ['name', 'id', 'element', 'type']
+
+    for attribute in attributes:
+        serie = Series(getattr(atom, attribute) for atom in item.atom)
+        tmp_item['atom.'+attribute]= serie.values
+        del(serie)
+
+    attributes = ['group.index', 'group.name', 'group.id', 'group.type']
+
+    for attribute in attributes:
+        serie = Series(getattr(atom, attribute) for atom in item.atom)
+        tmp_item[attribute]= serie.values
+        del(serie)
+
+    return tmp_item
+
+def to_pandas_DataFrame2(item, atom_indices='all', frame_indices='all'):
 
     from pandas import DataFrame, Series
 
