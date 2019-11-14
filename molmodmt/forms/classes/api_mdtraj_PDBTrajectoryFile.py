@@ -20,7 +20,7 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     from numpy import array, concatenate, zeros, empty
     from molmodmt.utils.pbc import get_box_from_lengths_and_angles
-    from molmodmt.utils import units as m3t_units
+    from molmodmt.utils import units as molmodmt_units
     from simtk.unit import angstroms, nanometers, degrees, picoseconds
     from molmodmt.utils.atom_indices import digest as _digest_atom_indices
     from molmodmt.utils.frame_indices import digest as _digest_frame_indices
@@ -55,9 +55,9 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
 
-    xyz = xyz.in_units_of(m3t_units.length)
-    box = box.in_units_of(m3t_units.length)
-    time = time.in_units_of(m3t_units.time)
+    xyz = xyz.in_units_of(molmodmt_units.length)
+    box = box.in_units_of(molmodmt_units.length)
+    time = time.in_units_of(molmodmt_units.time)
 
     return step, time, xyz, box
 

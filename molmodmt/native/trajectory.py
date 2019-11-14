@@ -10,7 +10,7 @@ from molmodmt.utils.exceptions import *
 
 class Trajectory():
 
-    def __init__(self, file_path=None):
+    def __init__(self, file_path=None, atom_indices='all', frame_indices='all'):
 
         self.step  = None
         self.time  = None
@@ -18,21 +18,20 @@ class Trajectory():
                                 # and order=F, with units nanometers
         self.box  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
                           # cell is the matrix with the vectors
-
-        self.box_shape   = None #
+        self.atom_indices = None
         self.n_frames = 0
         self.n_atoms = 0
 
-        from .trajectory_file import TrajectoryFile
-        self.file = TrajectoryFile(file_path=file_path)
-        self.box_shape = self.file.box_shape
+        if file_path is not None:
+            self.load_frames_from_file(file_path=file_path, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    def _set_frames(self, step=None, time=None, coordinates=None, box=None):
+    def _set_frames(self, atom_indices=None, step=None, time=None, coordinates=None, box=None):
 
         self.coordinates = coordinates.in_units_of(m3t_units.length)
         self.time  = time.in_units_of(m3t_units.time)
         self.step  = step
         self.box  = box.in_units_of(m3t_units.length)
+        self.atom_indices = atom_indices
 
         if box is not None:
             if box[0] is None:
@@ -80,11 +79,18 @@ class Trajectory():
 
         return angles
 
-    def load_frames (self, atom_indices='all', frame_indices='all'):
+    def load_frames_from_file (self, file_path=None, atom_indices='all', frame_indices='all'):
+
+        if file_path is not None:
+
+            from .trajectory_file import TrajectoryFile
+            self.file = TrajectoryFile(file_path=file_path)
+            self.box_shape = self.file.box_shape
+
 
         step, time, coordinates, box = self.file.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
 
-        self._set_frames(step, time, coordinates, box)
+        self._set_frames(atom_indices, step, time, coordinates, box)
 
         del(coordinates, time, step, box)
 
@@ -92,21 +98,28 @@ class Trajectory():
 
     def extract (self, atom_indices='all', frame_indices='all'):
 
-        from copy import deepcopy
+        if atom_indices is 'all' and frame_indices is 'all':
 
-        tmp_item = Trajectory()
+            tmp_item = duplicate(self)
 
-        tmp_item.step = self.step[frame_indices]
-        tmp_item.time = self.time[frame_indices]
-        tmp_item.box = self.box[frame_indices]
-        tmp_item.coordinates = self.coordinates[:,atom_indices,:]
-        tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
-        tmp_item.box_shape = deepcopy(self.box_shape)
+        else:
 
-        tmp_item.n_frames = len(frame_indices)
-        tmp_item.n_atoms = len(atom_indices)
+            from copy import deepcopy
 
-        tmp_item.file = item.file.duplicate()
+            tmp_item = Trajectory()
+
+            tmp_item.step = self.step[frame_indices]
+            tmp_item.time = self.time[frame_indices]
+            tmp_item.box = self.box[frame_indices]
+            tmp_item.coordinates = self.coordinates[:,atom_indices,:]
+            tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
+            tmp_item.box_shape = deepcopy(self.box_shape)
+
+            tmp_item.atom_indices = atom_indices
+            tmp_item.n_frames = len(frame_indices)
+            tmp_item.n_atoms = len(atom_indices)
+
+            tmp_item.file = item.file.duplicate()
 
         return tmp_item
 
@@ -125,6 +138,7 @@ class Trajectory():
         tmp_item.box = deepcopy(self.box)
         tmp_item.box_shape = deepcopy(self.box_shape)
 
+        tmp_item.atom_indices = deepcopy(self.atom_indices)
         tmp_item.n_frames = deepcopy(self.n_frames)
         tmp_item.n_atoms = deepcopy(self.n_atoms)
 

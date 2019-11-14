@@ -18,10 +18,13 @@ def duplicate(item):
 
     raise NotImplementedError
 
-def to_mmtf_MMTFDecoder(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
+    from molmodmt.forms.classes.api_mmtf_MMTFDecoder import extract_subsystem as extract_mmtf_MMTFDecoder
     from mmtf import parse
-    return parse(output_file_path)
+    tmp_item = parse(output_file_path)
+    tmp_item = extract_mmtf_MMTFDecoder(tmp_item, atom_indices='all', frame_indices='all')
+    return tmp_item
 
 ##### Get
 
