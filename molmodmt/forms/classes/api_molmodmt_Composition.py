@@ -23,186 +23,49 @@ def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-
 def to_pandas_DataFrame(item, atom_indices='all', frame_indices='all'):
 
     from pandas import DataFrame, Series
 
     tmp_item = DataFrame()
 
-    # atom.index
-    serie = Series(atom.index for atom in item.atom)
-    tmp_item['index']= serie.values
-    tmp_item.set_index(serie.values)
-    del(serie)
+    tmp_item['atom.index'] = Series(atom.index for atom in item.atom).values
+    tmp_item['atom.name'] = Series(atom.name for atom in item.atom).values
+    tmp_item['atom.id'] = Series(atom.id for atom in item.atom).values
+    tmp_item['atom.type'] = Series(atom.type for atom in item.atom).values
+    tmp_item['atom.element'] = Series(atom.element for atom in item.atom).values
 
-    attributes = ['name', 'id', 'element', 'type']
+    tmp_item['group.index'] = Series(atom.group.index for atom in item.atom).values
+    tmp_item['group.name'] = Series(atom.group.name for atom in item.atom).values
+    tmp_item['group.id'] = Series(atom.group.id for atom in item.atom).values
+    tmp_item['group.type'] = Series(atom.group.type for atom in item.atom).values
 
-    for attribute in attributes:
-        serie = Series(getattr(atom, attribute) for atom in item.atom)
-        tmp_item['atom.'+attribute]= serie.values
-        del(serie)
+    tmp_item['component.index'] = Series(atom.component.index for atom in item.atom).values
+    tmp_item['component.name'] = Series(atom.component.name for atom in item.atom).values
+    tmp_item['component.id'] = Series(atom.component.id for atom in item.atom).values
+    tmp_item['component.type'] = Series(atom.component.type for atom in item.atom).values
 
-    attributes = ['group.index', 'group.name', 'group.id', 'group.type']
+    tmp_item['chain.index'] = Series(atom.chain.index for atom in item.atom).values
+    tmp_item['chain.name'] = Series(atom.chain.name for atom in item.atom).values
+    tmp_item['chain.id'] = Series(atom.chain.id for atom in item.atom).values
+    tmp_item['chain.type'] = Series(atom.chain.type for atom in item.atom).values
 
-    for attribute in attributes:
-        serie = Series(getattr(atom, attribute) for atom in item.atom)
-        tmp_item[attribute]= serie.values
-        del(serie)
+    #tmp_item['molecule.index'] = Series(atom.molecule.index for atom in item.atom).values
+    #tmp_item['molecule.name'] = Series(atom.molecule.name for atom in item.atom).values
+    #tmp_item['molecule.id'] = Series(atom.molecule.id for atom in item.atom).values
+    #tmp_item['molecule.type'] = Series(atom.molecule.type for atom in item.atom).values
 
-    return tmp_item
+    tmp_item['entity.index'] = Series(atom.entity.index for atom in item.atom).values
+    tmp_item['entity.name'] = Series(atom.entity.name for atom in item.atom).values
+    tmp_item['entity.id'] = Series(atom.entity.id for atom in item.atom).values
+    tmp_item['entity.type'] = Series(atom.entity.type for atom in item.atom).values
 
-def to_pandas_DataFrame2(item, atom_indices='all', frame_indices='all'):
+    tmp_item['bioassembly.index'] = Series(atom.bioassembly.index for atom in item.atom).values
+    tmp_item['bioassembly.name'] = Series(atom.bioassembly.name for atom in item.atom).values
+    tmp_item['bioassembly.id'] = Series(atom.bioassembly.id for atom in item.atom).values
+    tmp_item['bioassembly.type'] = Series(atom.bioassembly.type for atom in item.atom).values
 
-    from pandas import DataFrame, Series
-
-    tmp_item = DataFrame()
-
-    # atom.index
-    serie = Series(atom.index for atom in item.atom)
-    tmp_item['atom.index']= serie.values
-    tmp_item.set_index(serie.values)
-    del(serie)
-
-    # atom.name
-    serie = Series(atom.name for atom in item.atom)
-    tmp_item['atom.name']= serie.values
-    del(serie)
-
-    # atom.id
-    serie = Series(atom.id for atom in item.atom)
-    tmp_item['atom.id']= serie.values
-    del(serie)
-
-    # atom.element
-    serie = Series(atom.element for atom in item.atom)
-    tmp_item['atom.element']= serie.values
-    del(serie)
-
-    # atom.type
-    serie = Series(atom.type for atom in item.atom)
-    tmp_item['atom.type']= serie.values
-    del(serie)
-
-    # atom.group.index
-    serie = Series(atom.group.index for atom in item.atom)
-    tmp_item['group.index']= serie.values
-    del(serie)
-
-    # atom.group.name
-    serie = Series(atom.group.name for atom in item.atom)
-    tmp_item['group.name']= serie.values
-    del(serie)
-
-    # atom.group.id
-    serie = Series(atom.group.id for atom in item.atom)
-    tmp_item['group.id']= serie.values
-    del(serie)
-
-    # atom.group.type
-    serie = Series(atom.group.type for atom in item.atom)
-    tmp_item['group.type']= serie.values
-    del(serie)
-
-    # atom.component.index
-    serie = Series(atom.component.index for atom in item.atom)
-    tmp_item['component.index']= serie.values
-    del(serie)
-
-    # atom.component.name
-    serie = Series(atom.component.name for atom in item.atom)
-    tmp_item['component.name']= serie.values
-    del(serie)
-
-    # atom.component.id
-    serie = Series(atom.component.id for atom in item.atom)
-    tmp_item['component.id']= serie.values
-    del(serie)
-
-    # atom.component.type
-    serie = Series(atom.component.type for atom in item.atom)
-    tmp_item['component.type']= serie.values
-    del(serie)
-
-    # atom.chain.index
-    serie = Series(atom.chain.index for atom in item.atom)
-    tmp_item['chain.index']= serie.values
-    del(serie)
-
-    # atom.chain.name
-    serie = Series(atom.chain.name for atom in item.atom)
-    tmp_item['chain.name']= serie.values
-    del(serie)
-
-    # atom.chain.id
-    serie = Series(atom.chain.id for atom in item.atom)
-    tmp_item['chain.id']= serie.values
-    del(serie)
-
-    # atom.chain.type
-    serie = Series(atom.chain.type for atom in item.atom)
-    tmp_item['chain.type']= serie.values
-    del(serie)
-
-    ## atom.molecule.index
-    #serie = Series(atom.molecule.index for atom in item.atom)
-    #tmp_item['molecule.index']= serie.values
-    #del(serie)
-
-    ## atom.molecule.name
-    #serie = Series(atom.molecule.name for atom in item.atom)
-    #tmp_item['molecule.name']= serie.values
-    #del(serie)
-
-    ## atom.molecule.id
-    #serie = Series(atom.molecule.id for atom in item.atom)
-    #tmp_item['molecule.id']= serie.values
-    #del(serie)
-
-    ## atom.molecule.type
-    #serie = Series(atom.molecule.type for atom in item.atom)
-    #tmp_item['molecule.type']= serie.values
-    #del(serie)
-
-    # atom.entity.index
-    serie = Series(atom.entity.index for atom in item.atom)
-    tmp_item['entity.index']= serie.values
-    del(serie)
-
-    # atom.entity.name
-    serie = Series(atom.entity.name for atom in item.atom)
-    tmp_item['entity.name']= serie.values
-    del(serie)
-
-    # atom.entity.id
-    serie = Series(atom.entity.id for atom in item.atom)
-    tmp_item['entity.id']= serie.values
-    del(serie)
-
-    # atom.entity.type
-    serie = Series(atom.entity.type for atom in item.atom)
-    tmp_item['entity.type']= serie.values
-    del(serie)
-
-    # atom.bioassembly.index
-    serie = Series(atom.bioassembly.index for atom in item.atom)
-    tmp_item['bioassembly.index']= serie.values
-    del(serie)
-
-    # atom.bioassembly.name
-    serie = Series(atom.bioassembly.name for atom in item.atom)
-    tmp_item['bioassembly.name']= serie.values
-    del(serie)
-
-    # atom.bioassembly.id
-    serie = Series(atom.bioassembly.id for atom in item.atom)
-    tmp_item['bioassembly.id']= serie.values
-    del(serie)
-
-    # atom.bioassembly.type
-    serie = Series(atom.bioassembly.type for atom in item.atom)
-    tmp_item['bioassembly.type']= serie.values
-    del(serie)
+    tmp_item.set_index(tmp_item['atom.index'].values)
 
     return tmp_item
 
@@ -216,6 +79,12 @@ def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 def duplicate(item):
 
     return item.duplicate()
+
+def select_with_Pandas(item, selection):
+
+    from molmodmt.native.selector import dataframe_select
+    atom_indices = dataframe_select(item, selection)
+    return atom_indices
 
 ###### Get
 

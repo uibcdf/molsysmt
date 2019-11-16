@@ -70,9 +70,16 @@ def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all')
     return molmodmt_MolMod_to_pdb(item, output_file_path=output_file_path, selection=atom_indices,
             frame_indices=frame_indices)
 
-def select_with_MDTraj(item, selection=None):
+def select_with_MDTraj(item, selection):
+
     from molmodmt import select
     return select(item.topology, selection=selection, syntaxis="MDTraj")
+
+def select_with_Pandas(item, selection):
+
+    from molmodmt.native.selector import dataframe_select
+    atom_indices = dataframe_select(item.composition, selection)
+    return atom_indices
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 

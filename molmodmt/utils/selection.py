@@ -1,6 +1,7 @@
 from .exceptions import *
 
 _parser={
+    'pandas' : 'Pandas',
     'amber' : 'Amber',
     'mdanalysis' : 'MDAnalysis',
     'mdtraj' : 'MDTraj',

@@ -41,6 +41,11 @@ class Composition():
 
         self._dataframe = None
 
+    def _update_dataframe(self):
+
+        from molmodmt.forms.classes.api_molmodmt_Composition import to_pandas_DataFrame
+        self._dataframe = to_pandas_DataFrame(self)
+
     def extract(self, atom_indices='all'):
 
         if atom_indices is 'all':

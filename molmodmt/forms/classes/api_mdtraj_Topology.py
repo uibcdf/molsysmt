@@ -57,10 +57,22 @@ def to_top(item, output_file_path=None, atom_indices='all', frame_indices='all')
     tmp_item = to_parmed_GromacsTopologyFile(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return parmed_GromacsTopologyFile_to_top(tmp_item, output_file_path=output_file_path)
 
+def to_pandas_DataFrame(item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
 # Select
 
 def select_with_MDTraj(item, selection):
     return item.select(selection)
+
+def select_with_Pandas(item, selection):
+
+    from molmodmt.native.selector import dataframe_select
+    tmp_item = to_pandas_DataFrame(item)
+    atom_indices = dataframe_select(tmp_item, selection)
+    del(tmp_item)
+    return atom_indices
 
 # Extract
 

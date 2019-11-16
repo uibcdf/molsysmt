@@ -129,6 +129,12 @@ def select_with_MDTraj(item, selection):
 
     return item.topology.select(selection)
 
+def select_with_Pandas(item, selection):
+
+    from .api_mdtraj_Topology import select_with_Pandas as topology_select_with_Pandas
+
+    return topology_select_with_Pandas(item.topology, selection)
+
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

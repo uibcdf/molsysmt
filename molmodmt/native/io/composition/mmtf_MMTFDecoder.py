@@ -188,6 +188,14 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
             bioassembly.component.extend(chain.component)
             bioassembly.group.extend(chain.group)
             bioassembly.atom.extend(chain.atom)
+        for atom in bioassembly.atom:
+            atom.bioassembly = bioassembly
+        for group in bioassembly.group:
+            group.bioassembly = group
+        for component in bioassembly.component:
+            component.bioassembly = component
+        #for molecule in molecule.component:
+        #    molecule.bioassembly = molecule
 
     # entities
 
@@ -210,23 +218,19 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
             entity.sequence = mmtf_entity['sequence']
 
         for index_chain in mmtf_entity['chainIndexList']:
-
             chain = tmp_item.chain[index_chain]
-
             entity.chain.append(chain)
             entity.component.extend(chain.component)
             entity.group.extend(chain.group)
             entity.atom.extend(chain.atom)
-
         for chain in entity.chain:
             chain.entity = entity
-
+        #for molecule in entity.molecule:
+        #    molecule.entity = entity
         for component in entity.component:
             component.entity = entity
-
         for group in entity.group:
             group.entity = entity
-
         for atom in entity.atom:
             atom.entity = entity
 
@@ -278,6 +282,8 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         bioassembly.n_chains = len(bioassembly.chain)
         bioassembly.n_molecules = len(bioassembly.molecule)
         bioassembly.n_entities = len(bioassembly.entity)
+
+    tmp_item._update_dataframe()
 
     return tmp_item
 
