@@ -61,7 +61,7 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
     tmp_coordinates = tmp_coordinates[:, indices, :]
     return tmp_coordinates
 
-## residue
+## group
 
 ## chain
 

@@ -73,9 +73,9 @@ def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     return len(item.atoms)
 
-def get_n_residues_from_atom (item, indices='all', frame_indices='all'):
+def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
-    return len(item.residues)
+    return len(item.groups)
 
 def get_mass_from_atom (item, indices='all', frame_indices='all'):
 
@@ -115,11 +115,11 @@ def get_molecules_from_atom (item, indices='all', frame_indices='all'):
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from molmodmt.utils.types import residue2molecule_types
+    from molmodmt.utils.types import group2molecule_types
     tmp_molecules = getting(item,molecules=True)
     tmp_types = []
     for molecule in tmp_molecules:
-        tmp_types.append(residue2molecule_types(item.atoms[molecule[0]].residue.name))
+        tmp_types.append(group2molecule_types(item.atoms[molecule[0]].group.name))
     if len(tmp_types)==1:
         tmp_types=tmp_types[0]
     return tmp_types

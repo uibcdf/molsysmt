@@ -60,8 +60,8 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 
 def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import to_mdtraj_Topology as molmodmt_Topology_to_mdtraj_Topology
-    return molmodmt_Topology_to_mdtraj_Topology(item.topology, atom_indices=atom_indices,
+    from .api_molmodmt_Composition import to_mdtraj_Topology as molmodmt_Composition_to_mdtraj_Topology
+    return molmodmt_Composition_to_mdtraj_Topology(item.composition, atom_indices=atom_indices,
                                                 frame_indices=frame_indices)
 
 def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
@@ -72,14 +72,13 @@ def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all')
 
 def select_with_MDTraj(item, selection):
 
-    from molmodmt import select
-    return select(item.topology, selection=selection, syntaxis="MDTraj")
+    from .api_molmodmt_Composition import select_with_MDTraj as select_Composition_with_MDTraj
+    return select_Composition_with_MDTraj(item.composition, selection)
 
 def select_with_Pandas(item, selection):
 
-    from molmodmt.native.selector import dataframe_select
-    atom_indices = dataframe_select(item.composition, selection)
-    return atom_indices
+    from .api_molmodmt_Composition import select_with_Pandas as select_Composition_with_Pandas
+    return select_Composition_with_Pandas(item.composition, selection)
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
@@ -106,73 +105,73 @@ def duplicate(item):
 
 def get_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_index_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_index_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_id_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_id_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_name_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_name_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_element_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_element_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_element_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
-def get_residue_name_from_atom (item, indices='all', frame_indices='all'):
+def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_residue_name_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_group_name_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
-def get_residue_index_from_atom (item, indices='all', frame_indices='all'):
+def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_residue_index_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_group_index_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
-def get_residue_id_from_atom (item, indices='all', frame_indices='all'):
+def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_residue_id_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_group_id_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_chain_name_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_chain_name_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_chain_index_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_chain_index_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_chain_id_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_chain_id_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_aminoacids_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_aminoacids_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_nucleotides_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_nucleotides_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_waters_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_waters_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_ions_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_ions_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
@@ -181,36 +180,20 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
 def get_bonded_atoms_from_atom(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_bonded_atoms_from_atom as _get
-    trajectory_indices = item.trajectory.file.atom_indices
-    tmp_indices = [trajectory_indices[ii] for ii in indices]
-    bonded_atoms_topology = _get(item.topology, indices=tmp_indices, frame_indices=frame_indices)
-    traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
-    bonded_atoms = {}
-    for ii_topology, ii_bonded_topology in bonded_atoms_topology.items():
-        bonded_atoms[traduction[ii_topology]]=[traduction[jj] for jj in ii_bonded_topology]
-
-    return bonded_atoms
+    from .api_molmodmt_Composition import get_bonded_atoms_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_molecules_from_atom(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_molecules_from_atom as _get
-    trajectory_indices = item.trajectory.file.atom_indices
-    tmp_indices = [trajectory_indices[ii] for ii in indices]
-    molecules_topology = _get(item.topology, indices=tmp_indices, frame_indices=frame_indices)
-    traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
-    molecules = []
-    for tmp_molecule in molecules_topology:
-        molecules.append([traduction[ii] for ii in tmp_molecule])
-
-    return molecules
+    from .api_molmodmt_Composition import get_molecules_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_atom(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_molecule_type_from_atom as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_molecule_type_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
-## residue
+## group
 
 ## chain
 
@@ -221,35 +204,35 @@ def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
     from .api_molmodmt_Trajectory import get_n_atoms_from_system as _get
     return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
-def get_n_residues_from_system(item, indices='all', frame_indices='all'):
+def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_residues_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_groups_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_chains_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_chains_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_aminoacids_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_aminoacids_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_nucleotides_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_nucleotides_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_waters_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_waters_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_ions_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_ions_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
@@ -262,48 +245,34 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_n_bonds_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_n_bonds_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 
 def get_masses_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_masses_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_masses_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_bonded_atoms_from_atom as _get
-    trajectory_indices = item.trajectory.file.atom_indices
-    bonded_atoms_topology = _get(item.topology, indices=trajectory_indices, frame_indices=frame_indices)
-    traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
-    bonded_atoms = {}
-    for ii_topology, ii_bonded_topology in bonded_atoms_topology.items():
-        bonded_atoms[traduction[ii_topology]]=[traduction[jj] for jj in ii_bonded_topology]
-
-    return bonded_atoms
+    from .api_molmodmt_Composition import get_bonded_atoms_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_bonds_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_bonds_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_graph_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_graph_from_system as _get
-    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+    from .api_molmodmt_Composition import get_graph_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Topology import get_molecules_from_atom as _get
-    trajectory_indices = item.trajectory.file.atom_indices
-    molecules_topology = _get(item.topology, indices=trajectory_indices, frame_indices=frame_indices)
-    traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
-    molecules = []
-    for tmp_molecule in molecules_topology:
-        molecules.append([traduction[ii] for ii in tmp_molecule])
-
-    return molecules
+    from .api_molmodmt_Composition import get_molecules_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
@@ -338,8 +307,7 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
-    from molmodmt import get_form
-    return get_form(item)
+    return form_name
 
 ###### Set
 

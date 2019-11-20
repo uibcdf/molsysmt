@@ -48,24 +48,24 @@ def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
     from .api_openmm_Topology import get_atom_type_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_residues_from_atom (item, indices='all', frame_indices='all'):
+def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_n_residues_from_atom as _get
+    from .api_openmm_Topology import get_n_groups_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_residue_name_from_atom (item, indices='all', frame_indices='all'):
+def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_n_residue_from_atom as _get
+    from .api_openmm_Topology import get_n_group_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_residue_index_from_atom (item, indices='all', frame_indices='all'):
+def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_residue_index_from_atom as _get
+    from .api_openmm_Topology import get_group_index_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_residue_id_from_atom (item, indices='all', frame_indices='all'):
+def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_residue_id_from_atom as _get
+    from .api_openmm_Topology import get_group_id_from_atom as _get
     _get(item.topology, indices=indices)
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
@@ -132,41 +132,41 @@ def get_coordinates_from_atom (item, indices='all', frame_indices='all'):
     from .api_openmm_Positions import get_coordinates_from_atom as _get
     return _get(item, indices=indices)
 
-## residue
+## group
 
-def get_n_residues_from_residue (item, indices='all', frame_indices='all'):
+def get_n_groups_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_n_residues_from_residue as _get
+    from .api_openmm_Topology import get_n_groups_from_group as _get
     return _get(item, indices=indices)
 
-def get_residue_name_from_residue (item, indices='all', frame_indices='all'):
+def get_group_name_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_residue_name_from_residue as _get
+    from .api_openmm_Topology import get_group_name_from_group as _get
     return _get(item, indices=indices)
 
-def get_residue_index_from_residue (item, indices='all', frame_indices='all'):
+def get_group_index_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_residue_index_from_residue as _get
+    from .api_openmm_Topology import get_group_index_from_group as _get
     return _get(item, indices=indices)
 
-def get_residue_id_from_residue (item, indices='all', frame_indices='all'):
+def get_group_id_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_residue_id_from_residue as _get
+    from .api_openmm_Topology import get_group_id_from_group as _get
     return _get(item, indices=indices)
 
-def get_chain_index_from_residue (item, indices='all', frame_indices='all'):
+def get_chain_index_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_chain_index_from_residue as _get
+    from .api_openmm_Topology import get_chain_index_from_group as _get
     return _get(item, indices=indices)
 
-def get_chain_id_from_residue (item, indices='all', frame_indices='all'):
+def get_chain_id_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_chain_id_from_residue as _get
+    from .api_openmm_Topology import get_chain_id_from_group as _get
     return _get(item, indices=indices)
 
-def get_molecule_type_from_residue (item, indices='all', frame_indices='all'):
+def get_molecule_type_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_molecule_type_from_residue as _get
+    from .api_openmm_Topology import get_molecule_type_from_group as _get
     return _get(item, indices=indices)
 
 ## chain

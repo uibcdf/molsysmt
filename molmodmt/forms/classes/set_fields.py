@@ -8,7 +8,7 @@ target_fields = {
             'name' : _raise_not_implemented_error
             },
 
-        'residue' : {
+        'group' : {
             'name' : _raise_not_implemented_error
             },
 

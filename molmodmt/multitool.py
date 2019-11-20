@@ -226,14 +226,14 @@ def merge(item1=None, item2=None, to_form=None):
         Molecular model in any of the supported forms by MolModMT. (See: XXX)
 
     target: str, default='system'
-        The nature of the entities this method is going to work with: 'atom', 'residue', 'chain' or
+        The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
         'system'.
 
     to_form: str, default='molmodmt.MolMod'
         Any accepted form by MolModMt for the output object.
 
     indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ('atom', 'residue' or 'chain') this
+        List of indices referring the set of targetted entities ('atom', 'group' or 'chain') this
         method is going to work with. The set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
@@ -294,11 +294,11 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Pa
         Molecular model in any of the supported forms by MolModMT. (See: XXX)
 
     target: str, default='system'
-        The nature of the entities this method is going to work with: 'atom', 'residue', 'chain' or
+        The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
         'system'.
 
     indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ('atom', 'residue' or 'chain') this
+        List of indices referring the set of targetted entities ('atom', 'group' or 'chain') this
         method is going to work with. The set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
@@ -331,28 +331,32 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Pa
 
     """
 
+    # Patch to keep "residue":
+    if target=='residue':
+        target='group'
+
     from pandas import DataFrame as df
     form_in, _ = _digest_forms(item)
     target = _singular(target)
 
     if target=='atom':
 
-        atom_index, atom_id, atom_name, atom_element, residue_index, residue_id, residue_name, chain_index, chain_id,\
+        atom_index, atom_id, atom_name, atom_element, group_index, group_id, group_name, chain_index, chain_id,\
         chain_name, molecule_type = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                             index=True, id=True, name=True, element=True,
-                            residue_index=True, residue_id=True, residue_name=True,
+                            group_index=True, group_id=True, group_name=True,
                             chain_index=True, chain_id=True, chain_name=True,
                             molecule_type=True)
 
         return df({'index':atom_index, 'id':atom_id, 'name':atom_name, 'element':atom_element,
-                   'residue index':residue_index, 'residue id':residue_id, 'residue name':residue_name,
+                   'group index':group_index, 'group id':group_id, 'group name':group_name,
                    'chain index':chain_index, 'chain id':chain_id, 'chain name':chain_name, 'molecule type':molecule_type})
 
-    elif target=='residue':
+    elif target=='group':
 
         index, id, name, chain_index, chain_id,\
         molecule_type = get(item, target=target, selection=selection, syntaxis=syntaxis,
-                            residue_index=True, residue_id=True, residue_name=True,
+                            group_index=True, group_id=True, group_name=True,
                             chain_index=True, chain_id=True, molecule_type=True)
 
 
@@ -368,11 +372,11 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Pa
 
     elif target=='system':
 
-        form, n_atoms, n_residues, n_chains, n_molecules, n_waters, n_ions, n_frames = get(item, target=target,
-                form=True, n_atoms=True, n_residues=True, n_chains=True, n_molecules=True,
+        form, n_atoms, n_groups, n_chains, n_molecules, n_waters, n_ions, n_frames = get(item, target=target,
+                form=True, n_atoms=True, n_groups=True, n_chains=True, n_molecules=True,
                 n_waters=True, n_ions=True, n_frames=True)
 
-        return df({'form':form, 'atoms':n_atoms, 'residues':n_residues, 'chains':n_chains,
+        return df({'form':form, 'atoms':n_atoms, 'groups':n_groups, 'chains':n_chains,
             'molecules':n_molecules, 'waters':n_waters, 'ions':n_ions, 'frames':n_frames}, index=[0])
 
     else:
@@ -416,11 +420,11 @@ def get(item, target='system', indices=None, selection='all', frame_indices='all
         Molecular model in any of the supported forms by MolModMT. (See: XXX)
 
     target: str, default='system'
-        The nature of the entities this method is going to work with: 'atom', 'residue', 'chain' or
+        The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
         'system'.
 
     indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ('atom', 'residue' or 'chain') this
+        List of indices referring the set of targetted entities ('atom', 'group' or 'chain') this
         method is going to work with. The set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
@@ -453,18 +457,31 @@ def get(item, target='system', indices=None, selection='all', frame_indices='all
 
     """
 
-
     # selection works as a mask if indices or ids are used
 
     form_in, _ = _digest_forms(item)
     target = _singular(target)
     attributes = [ key for key in kwargs.keys() if kwargs[key] ]
 
+    # Patch to keep "residue":
+    if target=='residue':
+        target='group'
+
+    tmp_attributes=[]
+    for attribute in attributes:
+        if 'residue' in attribute:
+            tmp_attributes.append(attribute.replace('residue','group'))
+        else:
+            tmp_attributes.append(attribute)
+    attributes=tmp_attributes
+
+    # doing the work here
+
     if indices is None:
         if target == 'atom':
             indices = select(item, selection=selection, syntaxis=syntaxis)
-        elif target == 'residue':
-            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, residue_index=True)
+        elif target == 'group':
+            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, group_index=True)
             indices = list(_unique(indices))
         elif target == 'chain':
             indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
@@ -497,11 +514,11 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
         Molecular model in any of the supported forms by MolModMT. (See: XXX)
 
     target: str, default='system'
-        The nature of the entities this method is going to work with: 'atom', 'residue', 'chain' or
+        The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
         'system'.
 
     indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ('atom', 'residue' or 'chain') this
+        List of indices referring the set of targetted entities ('atom', 'group' or 'chain') this
         method is going to work with. The set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
@@ -542,11 +559,28 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
     target = _singular(target)
     attributes = [ key for key in kwargs.keys() ]
 
+    # Patch to keep "residue":
+    if target=='residue':
+        target='group'
+
+    tmp_attributes=[]
+    for attribute in attributes:
+        if 'residue' in attribute:
+            tmp_attribute = attribute.replace('residue','group')
+            tmp_attributes.append(tmp_attribute)
+            kwargs [tmp_attribute]= kwargs[attribute]
+            del(kwargs[attribute])
+        else:
+            tmp_attributes.append(attribute)
+    attributes=tmp_attributes
+
+    # doing the work here
+
     if indices is None:
         if target == 'atom':
             indices = select(item, selection=selection, syntaxis=syntaxis)
-        elif target == 'residue':
-            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, residue_index=True)
+        elif target == 'group':
+            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, group_index=True)
             indices = list(_unique(indices))
         elif target == 'chain':
             indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, chain_index=True)

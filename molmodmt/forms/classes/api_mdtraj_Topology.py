@@ -15,7 +15,7 @@ def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return ''.join([ r.name for r in tmp_item.residues ])
+    return ''.join([ r.name for r in tmp_item.groups ])
 
 def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
@@ -91,11 +91,11 @@ def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
         for chain in item._chains:
             newChain = newTopology.add_chain()
-            for residue in chain._residues:
-                resSeq = getattr(residue, 'resSeq', None) or residue.index
-                newResidue = newTopology.add_residue(residue.name, newChain,
-                                                     resSeq, residue.segment_id)
-                for atom in residue._atoms:
+            for group in chain._groups:
+                resSeq = getattr(group, 'resSeq', None) or group.index
+                newResidue = newTopology.add_group(group.name, newChain,
+                                                     resSeq, group.segment_id)
+                for atom in group._atoms:
                     if atom.index in atom_indices_to_be_kept:
                         try:  # OpenMM Topology objects don't have serial attributes, so we have to check first.
                             serial = atom.serial
@@ -121,17 +121,17 @@ def extract_subsystem(item, atom_indices='all', frame_indices='all'):
                 # we only put bonds into the new topology if both of their partners
                 # were indexed and thus HAVE a new atom
 
-        # Delete empty residues
-        newTopology._residues = [r for r in newTopology._residues if len(r._atoms) > 0]
+        # Delete empty groups
+        newTopology._groups = [r for r in newTopology._groups if len(r._atoms) > 0]
         for chain in newTopology._chains:
-            chain._residues = [r for r in chain._residues if len(r._atoms) > 0]
+            chain._groups = [r for r in chain._groups if len(r._atoms) > 0]
 
         # Delete empty chains
         newTopology._chains = [c for c in newTopology._chains
-                               if len(c._residues) > 0]
+                               if len(c._groups) > 0]
         # Re-set the numAtoms and numResidues
         newTopology._numAtoms = ilen(newTopology.atoms)
-        newTopology._numResidues = ilen(newTopology.residues)
+        newTopology._numResidues = ilen(newTopology.groups)
 
         return newTopology
 
@@ -187,24 +187,24 @@ def get_element_from_atom (item, indices='all', frame_indices='all'):
     del(atom)
     return elements
 
-def get_residue_name_from_atom (item, indices='all', frame_indices='all'):
+def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms)
-    names = [atom[ii].residue.name for ii in indices]
+    names = [atom[ii].group.name for ii in indices]
     del(atom)
     return names
 
-def get_residue_index_from_atom (item, indices='all', frame_indices='all'):
+def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms)
-    values = [atom[ii].residue.index for ii in indices]
+    values = [atom[ii].group.index for ii in indices]
     del(atom)
     return values
 
-def get_residue_id_from_atom (item, indices='all', frame_indices='all'):
+def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms)
-    values = [atom[ii].residue.resSeq for ii in indices]
+    values = [atom[ii].group.resSeq for ii in indices]
     del(atom)
     return values
 
@@ -221,29 +221,29 @@ def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
         id_to_index[chains[ii].index]=ii
 
     atom=list(item.atoms)
-    values = [id_to_index[atom[ii].residue.chain.index] for ii in indices]
+    values = [id_to_index[atom[ii].group.chain.index] for ii in indices]
     del(atom, chains)
     return values
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms)
-    values = [atom[ii].residue.chain.index for ii in indices]
+    values = [atom[ii].group.chain.index for ii in indices]
     del(atom)
     return values
 
-def get_n_residues_from_atom (item, indices='all', frame_indices='all'):
+def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms)
-    residue_indices = [atom[ii].residue.index for ii in indices]
-    residue_indices = list(set(residue_indices))
+    group_indices = [atom[ii].group.index for ii in indices]
+    group_indices = list(set(group_indices))
     del(atom)
-    return len(residue_indices)
+    return len(group_indices)
 
 def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
 
     atom=list(item.atoms)
-    chain_indices = [atom[ii].residue.chain.index for ii in indices]
+    chain_indices = [atom[ii].group.chain.index for ii in indices]
     chain_indices = list(set(chain_indices))
     del(atom)
     return len(chain_indices)
@@ -252,68 +252,68 @@ def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import is_aminoacid
 
-    residue_indices = get_residue_index_from_atom(item, indices=indices)
-    residue_indices = list(set(residue_indices))
+    group_indices = get_group_index_from_atom(item, indices=indices)
+    group_indices = list(set(group_indices))
 
-    residue=list(item.residues)
-    residue_names = [residue[ii].name for ii in residue_indices]
-    del(residue)
+    group=list(item.groups)
+    group_names = [group[ii].name for ii in group_indices]
+    del(group)
 
     n_aminoacids=0
-    for residue_name in residue_names:
-        if is_aminoacid(residue_name): n_aminoacids+=1
-    del(residue_indices, residue_names)
+    for group_name in group_names:
+        if is_aminoacid(group_name): n_aminoacids+=1
+    del(group_indices, group_names)
     return n_aminoacids
 
 def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import is_nucleotide
 
-    residue_indices = get_residue_index_from_atom(item, indices=indices)
-    residue_indices = list(set(residue_indices))
+    group_indices = get_group_index_from_atom(item, indices=indices)
+    group_indices = list(set(group_indices))
 
-    residue=list(item.residues)
-    residue_names = [residue[ii].name for ii in residue_indices]
-    del(residue)
+    group=list(item.groups)
+    group_names = [group[ii].name for ii in group_indices]
+    del(group)
 
     n_nucleotides=0
-    for residue_name in residue_names:
-        if is_nucleotide(residue_name): n_nucleotides+=1
-    del(residue_indices, residue_names)
+    for group_name in group_names:
+        if is_nucleotide(group_name): n_nucleotides+=1
+    del(group_indices, group_names)
     return n_nucleotides
 
 def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import is_water
 
-    residue_indices = get_residue_index_from_atom(item, indices=indices)
-    residue_indices = list(set(residue_indices))
+    group_indices = get_group_index_from_atom(item, indices=indices)
+    group_indices = list(set(group_indices))
 
-    residue=list(item.residues)
-    residue_names = [residue[ii].name for ii in residue_indices]
-    del(residue)
+    group=list(item.groups)
+    group_names = [group[ii].name for ii in group_indices]
+    del(group)
 
     n_waters=0
-    for residue_name in residue_names:
-        if is_water(residue_name): n_waters+=1
-    del(residue_indices, residue_names)
+    for group_name in group_names:
+        if is_water(group_name): n_waters+=1
+    del(group_indices, group_names)
     return n_waters
 
 def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
     from molmodmt.topology import is_ion
 
-    residue_indices = get_residue_index_from_atom(item, indices=indices)
-    residue_indices = list(set(residue_indices))
+    group_indices = get_group_index_from_atom(item, indices=indices)
+    group_indices = list(set(group_indices))
 
-    residue=list(item.residues)
-    residue_names = [residue[ii].name for ii in residue_indices]
-    del(residue)
+    group=list(item.groups)
+    group_names = [group[ii].name for ii in group_indices]
+    del(group)
 
     n_ions=0
-    for residue_name in residue_names:
-        if is_ion(residue_name): n_ions+=1
-    del(residue_indices, residue_names)
+    for group_name in group_names:
+        if is_ion(group_name): n_ions+=1
+    del(group_indices, group_names)
     return n_ions
 
 def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
@@ -360,10 +360,10 @@ def get_molecules_from_atom (item, indices='all', frame_indices='all'):
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from molmodmt.topology import residue_name_to_molecule_type
-    residue_names = get_residue_name_from_atom(item, indices=indices)
-    molecule_types = [residue_name_to_molecule_type(ii) for ii in residue_names]
-    del(residue_names, residue_name_to_molecule_type)
+    from molmodmt.topology import group_name_to_molecule_type
+    group_names = get_group_name_from_atom(item, indices=indices)
+    molecule_types = [group_name_to_molecule_type(ii) for ii in group_names]
+    del(group_names, group_name_to_molecule_type)
     return molecule_types
 
 ## system
@@ -372,9 +372,9 @@ def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return item.n_atoms
 
-def get_n_residues_from_system (item, indices='all', frame_indices='all'):
+def get_n_groups_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_residues
+    return item.n_groups
 
 def get_n_chains_from_system (item, indices='all', frame_indices='all'):
 
@@ -386,8 +386,8 @@ def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
     n_aminoacids=0
 
-    for residue in item.residues:
-        if is_aminoacid(residue.name):
+    for group in item.groups:
+        if is_aminoacid(group.name):
             n_aminoacids+=1
 
     return n_aminoacids
@@ -398,8 +398,8 @@ def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
     n_nucleotides=0
 
-    for residue in item.residues:
-        if is_nucleotide(residue.name):
+    for group in item.groups:
+        if is_nucleotide(group.name):
             n_nucleotides+=1
 
     return n_nucleotides
@@ -410,8 +410,8 @@ def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
     n_waters=0
 
-    for residue in item.residues:
-        if is_water(residue.name):
+    for group in item.groups:
+        if is_water(group.name):
             n_waters+=1
 
     return n_waters
@@ -422,8 +422,8 @@ def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
     n_ions=0
 
-    for residue in item.residues:
-        if is_ion(residue.name):
+    for group in item.groups:
+        if is_ion(group.name):
             n_ions+=1
 
     return n_ions

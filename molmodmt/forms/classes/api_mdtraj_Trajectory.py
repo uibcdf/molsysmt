@@ -12,7 +12,7 @@ def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return ''.join([ r.name for r in tmp_item.residues ])
+    return ''.join([ r.name for r in tmp_item.groups ])
 
 def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
@@ -170,7 +170,7 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
     tmp_item=tmp_item[:,indices,:]
     return tmp_item
 
-## residue
+## group
 
 ## system
 
@@ -179,9 +179,9 @@ def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
     from .api_mdtraj_Topology import get_n_atoms_from_system as get
     return get(item.topology, indices=indices, frame_indices=frame_indices)
 
-def get_n_residues_from_system(item, indices='all', frame_indices='all'):
+def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Topology import get_n_residues_from_system as get
+    from .api_mdtraj_Topology import get_n_groups_from_system as get
     return get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):

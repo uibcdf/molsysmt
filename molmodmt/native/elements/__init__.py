@@ -7,6 +7,7 @@ from .group import Group
 from .atom import Atom
 from .bond import Bond
 from . import groups
+from . import molecules
 from . import entities
 from .entity import entity_class_initialization
 from .group import group_class_initialization

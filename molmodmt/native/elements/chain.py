@@ -17,7 +17,9 @@ class Chain:
         self.component = []
         self.n_components = 0
 
-        self.molecule = None
+        self.molecule = []
+        self.n_molecules = 0
+
         self.entity = None
         self.bioassembly = None
 

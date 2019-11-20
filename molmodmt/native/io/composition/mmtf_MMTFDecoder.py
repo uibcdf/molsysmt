@@ -32,8 +32,6 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         tmp_item.bioassembly.append(bioassembly)
         index_bioassembly += 1
 
-    # molecules
-
     # chains
 
     for index_chain in range(item.num_chains):
@@ -194,8 +192,6 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
             group.bioassembly = group
         for component in bioassembly.component:
             component.bioassembly = component
-        #for molecule in molecule.component:
-        #    molecule.bioassembly = molecule
 
     # entities
 
@@ -225,8 +221,6 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
             entity.atom.extend(chain.atom)
         for chain in entity.chain:
             chain.entity = entity
-        #for molecule in entity.molecule:
-        #    molecule.entity = entity
         for component in entity.component:
             component.entity = entity
         for group in entity.group:
@@ -236,6 +230,59 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
         tmp_item.entity.append(entity)
         index_entity += 1
+
+    # molecules:
+
+    index_molecule = 0
+
+    for entity in tmp_item.entity:
+
+        if entity.type == "Protein":
+            molecule = elements.molecules.Protein()
+            molecule.index = index_molecule
+            molecule.id = None
+            molecule.name = entity.name
+            molecule.type = entity.type
+            molecule.sequence = entity.sequence
+            for chain in entity.chain:
+                molecule.chain.append(chain)
+                chain.molecule = molecule
+                for component in chain.component:
+                    molecule.component.append(component)
+                    component.molecule = molecule
+                for group in component.group:
+                    molecule.group.append(group)
+                    group.molecule = molecule
+                for atom in group.atom:
+                    molecule.atom.append(atom)
+                    atom.molecule = molecule
+            tmp_item.molecule.append(molecule)
+            index_molecule += 1
+
+        elif entity.type == "Water":
+            for chain in entity.chain:
+                for component in chain.component:
+                    molecule = elements.molecules.Protein()
+                    molecule.index = index_molecule
+                    molecule.id = None
+                    molecule.name = None
+                    molecule.type = entity.type
+                    molecule.chain = chain
+                    molecule.component.append(component)
+                    component.molecule = molecule
+                    chain.molecule.append(molecule)
+                    for group in component.group:
+                        molecule.group.append(group)
+                        group.molecule = molecule
+                    for atom in group.atom:
+                        molecule.atom.append(atom)
+                        atom.molecule = molecule
+                    tmp_item.molecule.append(molecule)
+                    index_molecule += 1
+
+        else:
+            print(entity.type)
+            raise NotImplementedError
 
     # global attributes:
 
@@ -261,12 +308,19 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         chain.n_atoms = len(chain.atom)
         chain.n_groups = len(chain.group)
         chain.n_components = len(chain.component)
+        try:
+            chain.n_molecules = len(chain.molecule)
+        except:
+            chain.n_molecules = 0
 
     for molecule in tmp_item.molecule:
         molecule.n_atoms = len(molecule.atom)
         molecule.n_groups = len(molecule.group)
         molecule.n_components = len(molecule.component)
-        molecule.n_chains = len(molecule.chain)
+        try:
+            molecule.n_chains = len(molecule.chain)
+        except:
+            chain.n_chains = 0
 
     for entity in tmp_item.entity:
         entity.n_atoms = len(entity.atom)
