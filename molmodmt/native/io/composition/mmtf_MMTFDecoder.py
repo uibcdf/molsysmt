@@ -250,12 +250,12 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
                 for component in chain.component:
                     molecule.component.append(component)
                     component.molecule = molecule
-                for group in component.group:
-                    molecule.group.append(group)
-                    group.molecule = molecule
-                for atom in group.atom:
-                    molecule.atom.append(atom)
-                    atom.molecule = molecule
+                    for group in component.group:
+                        molecule.group.append(group)
+                        group.molecule = molecule
+                        for atom in group.atom:
+                            molecule.atom.append(atom)
+                            atom.molecule = molecule
             tmp_item.molecule.append(molecule)
             index_molecule += 1
 
@@ -274,9 +274,9 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
                     for group in component.group:
                         molecule.group.append(group)
                         group.molecule = molecule
-                    for atom in group.atom:
-                        molecule.atom.append(atom)
-                        atom.molecule = molecule
+                        for atom in group.atom:
+                            molecule.atom.append(atom)
+                            atom.molecule = molecule
                     tmp_item.molecule.append(molecule)
                     index_molecule += 1
 
