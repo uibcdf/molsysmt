@@ -16,6 +16,11 @@ def parse(selection='all'):
 
 def dataframe_select(item, selection='all'):
 
+    import inspect
+    print("hola")
+    print(inspect.stack()[1][0])
+    print(inspect.stack()[1][0].f_globals['lista'])
+
     parsed_selection = parse(selection)
     atom_indices = query_dataframe(item, selection=parsed_selection)
     return atom_indices

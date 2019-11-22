@@ -388,7 +388,6 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Pa
         form, n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities = get(item, target=target,
                 form=True, n_atoms=True, n_groups=True, n_components=True, n_chains=True, n_molecules=True, n_entities=True)
 
-
         n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas, n_rnas = get(item, target=target,
                 n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
                 n_dnas=True, n_rnas=True)

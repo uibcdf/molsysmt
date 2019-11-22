@@ -35,7 +35,7 @@ _common_fields = {
         'chain_name' : _raise_not_implemented_error,
 
         'n_molecules' : _raise_not_implemented_error,
-        'molecule_name' : _raise_not_implemend_error,
+        'molecule_name' : _raise_not_implemented_error,
         'molecule_index' : _raise_not_implemented_error,
         'molecule_id' : _raise_not_implemented_error,
         'molecule_type' : _raise_not_implemented_error,

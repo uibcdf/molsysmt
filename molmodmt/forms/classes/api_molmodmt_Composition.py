@@ -185,9 +185,21 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
     return item.n_groups
 
+def get_n_components_from_system(item, indices='all', frame_indices='all'):
+
+    return item.n_components
+
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
     return item.n_chains
+
+def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
+
+    return item.n_molecules
+
+def get_n_entities_from_system(item, indices='all', frame_indices='all'):
+
+    return item.n_entities
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
@@ -197,13 +209,37 @@ def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
+def get_n_ions_from_system (item, indices='all', frame_indices='all'):
+
+    return item.n_ions
+
 def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
     return item.n_waters
 
-def get_n_ions_from_system (item, indices='all', frame_indices='all'):
+def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_ions
+    return item.n_cosolutes
+
+def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
+
+    return item.n_small_molecules
+
+def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
+
+    return item.n_peptides
+
+def get_n_proteins_from_system (item, indices='all', frame_indices='all'):
+
+    return item.n_proteins
+
+def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
+
+    return item.n_dnas
+
+def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
+
+    return item.n_rnas
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 

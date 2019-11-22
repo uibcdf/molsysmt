@@ -209,9 +209,29 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
     from .api_molmodmt_Composition import get_n_groups_from_system as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
+def get_n_components_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_components_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_components_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_components_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
     from .api_molmodmt_Composition import get_n_chains_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_molecules_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_entities_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_entities_from_system as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
@@ -224,14 +244,44 @@ def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
     from .api_molmodmt_Composition import get_n_nucleotides_from_system as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
+def get_n_ions_from_system (item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_ions_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
 def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
     from .api_molmodmt_Composition import get_n_waters_from_system as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
-def get_n_ions_from_system (item, indices='all', frame_indices='all'):
+def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molmodmt_Composition import get_n_ions_from_system as _get
+    from .api_molmodmt_Composition import get_n_cosolutes_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_small_molecules_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_peptides_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_proteins_from_system (item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_proteins_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_dnas_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
+
+    from .api_molmodmt_Composition import get_n_dnas_from_system as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):

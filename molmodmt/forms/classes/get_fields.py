@@ -35,7 +35,7 @@ _common_fields = {
         'chain_name' : _raise_not_implemented_error,
 
         'n_molecules' : _raise_not_implemented_error,
-        'molecule_name' : _raise_not_implemend_error,
+        'molecule_name' : _raise_not_implemented_error,
         'molecule_index' : _raise_not_implemented_error,
         'molecule_id' : _raise_not_implemented_error,
         'molecule_type' : _raise_not_implemented_error,
@@ -87,6 +87,7 @@ _molecule_fields = deepcopy(_common_fields)
 _entity_fields = deepcopy(_common_fields)
 
 _system_fields = deepcopy(_common_fields)
+_system_fields['form'] = _raise_not_implemented_error
 _system_fields['box'] = _raise_not_implemented_error
 _system_fields['box_lengths'] = _raise_not_implemented_error
 _system_fields['box_angles'] = _raise_not_implemented_error

@@ -22,8 +22,15 @@ def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.forms.classes.api_mmtf_MMTFDecoder import extract_subsystem as extract_mmtf_MMTFDecoder
     from mmtf import parse
-    tmp_item = parse(output_file_path)
+    tmp_item = parse(item)
     tmp_item = extract_mmtf_MMTFDecoder(tmp_item, atom_indices='all', frame_indices='all')
+    return tmp_item
+
+def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
+
+    from molmodmt.forms.classes.api_mmtf_MMTFDecoder import to_molmodmt_MolMod as mmtf_MMTFDecoder_to_molmodmt_MolMod
+    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
+    tmp_item = mmtf_MMTFDecoder_to_molmodmt_MolMod(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 ##### Get
