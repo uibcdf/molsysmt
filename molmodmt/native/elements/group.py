@@ -20,12 +20,20 @@ class Group:
         self.entity = None
         self.bioassembly = None
 
-def group_class_initialization(class_type=None):
+def group_class_initialization(group_type=None):
 
     from . import groups
 
-    if class_type is None:
+    if group_type is None:
         return Group()
+    elif group_type == 'aminoacid':
+        return groups.AminoAcid()
+    elif group_type == 'nucleotide':
+        return groups.Nucleotide()
+    elif group_type == 'ion':
+        return groups.Ion()
+    elif group_type == 'water':
+        return groups.Water()
     else:
-        return getattr(groups, class_type)()
+        raise ValueError("Group type not recognized")
 

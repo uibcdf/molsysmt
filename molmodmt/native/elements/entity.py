@@ -29,12 +29,28 @@ class Entity:
         self.bioassembly = None
 
 
-def entity_class_initialization(class_type=None):
+def entity_class_initialization(entity_type=None):
 
     from . import entities
 
-    if class_type is None:
+    if entity_type is None:
         return Entity()
+    elif entity_type is "ion":
+        return entities.Ion()
+    elif entity_type is "water":
+        return entities.Water()
+    elif entity_type is "cosolute":
+        return entities.Cosolute()
+    elif entity_type is "small_molecule":
+        return entities.SmallMolecule()
+    elif entity_type is "peptide":
+        return entities.Peptide()
+    elif entity_type is "dna":
+        return entities.DNA()
+    elif entity_type is "rna":
+        return entities.RNA()
+    elif entity_type is "protein":
+        return entities.Protein()
     else:
-        return getattr(entities, class_type)()
+        raise ValueError("Entity type not recognized.")
 

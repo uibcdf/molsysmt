@@ -363,6 +363,11 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Pa
         return df({'name':name, 'index':index, 'id':id, 'chain index':chain_index, 'chain id':chain_id,
                    'molecule type':molecule_type})
 
+    elif target=='component':
+
+        raise NotImplementedError
+
+
     elif target=='chain':
 
         index, id, molecule_type = get(item, target=target, selection=selection, syntaxis=syntaxis,
@@ -370,14 +375,42 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Pa
 
         return df({'index':index, 'id':id, 'molecule type':molecule_type})
 
+    elif target=='molecule':
+
+        raise NotImplementedError
+
+    elif target=='entity':
+
+        raise NotImplementedError
+
     elif target=='system':
 
-        form, n_atoms, n_groups, n_chains, n_molecules, n_waters, n_ions, n_frames = get(item, target=target,
-                form=True, n_atoms=True, n_groups=True, n_chains=True, n_molecules=True,
-                n_waters=True, n_ions=True, n_frames=True)
+        form, n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities = get(item, target=target,
+                form=True, n_atoms=True, n_groups=True, n_components=True, n_chains=True, n_molecules=True, n_entities=True)
 
-        return df({'form':form, 'atoms':n_atoms, 'groups':n_groups, 'chains':n_chains,
-            'molecules':n_molecules, 'waters':n_waters, 'ions':n_ions, 'frames':n_frames}, index=[0])
+
+        n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas, n_rnas = get(item, target=target,
+                n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
+                n_dnas=True, n_rnas=True)
+
+        n_frames = get(item, target=target, n_frames=True)
+
+        tmp_df = df({'form':form, 'atoms':n_atoms, 'groups':n_groups, 'components':n_components,
+            'chains':n_chains, 'molecules':n_molecules, 'entities':n_entities,
+            'waters':n_waters, 'ions':n_ions, 'cosolutes':n_cosolutes, 'small_molecules':n_small_molecules,
+            'peptides':n_peptides, 'proteins':n_proteins, 'dnas':n_dnas, 'rnas':n_rnas,
+            'frames':n_frames}, index=[0])
+
+        if n_ions==0: tmp_df.drop(columns=['ions'], inplace=True)
+        if n_waters==0: tmp_df.drop(columns=['waters'], inplace=True)
+        if n_cosolutes==0: tmp_df.drop(columns=['cosolutes'], inplace=True)
+        if n_small_molecules==0: tmp_df.drop(columns=['small_molecules'], inplace=True)
+        if n_peptides==0: tmp_df.drop(columns=['peptides'], inplace=True)
+        if n_proteins==0: tmp_df.drop(columns=['proteins'], inplace=True)
+        if n_dnas==0: tmp_df.drop(columns=['dnas'], inplace=True)
+        if n_rnas==0: tmp_df.drop(columns=['rnas'], inplace=True)
+
+        return tmp_df
 
     else:
 

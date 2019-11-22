@@ -210,7 +210,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         entity.mmtf_type = mmtf_entity['type']
         entity.description = mmtf_entity['description']
 
-        if entity.type in ['Protein']:
+        if entity.type in ['protein']:
             entity.sequence = mmtf_entity['sequence']
 
         for index_chain in mmtf_entity['chainIndexList']:
@@ -237,7 +237,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
     for entity in tmp_item.entity:
 
-        if entity.type == "Protein":
+        if entity.type == "protein":
             molecule = elements.molecules.Protein()
             molecule.index = index_molecule
             molecule.id = None
@@ -259,7 +259,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
             tmp_item.molecule.append(molecule)
             index_molecule += 1
 
-        elif entity.type == "Water":
+        elif entity.type == "water":
             for chain in entity.chain:
                 for component in chain.component:
                     molecule = elements.molecules.Protein()
@@ -282,7 +282,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
         else:
             print(entity.type)
-            raise NotImplementedError
+            raise ValueError("Entity type not recognized")
 
     # global attributes:
 
@@ -338,6 +338,38 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         bioassembly.n_entities = len(bioassembly.entity)
 
     tmp_item._update_dataframe()
+
+    # ion, water, cosolute, small_molecule, protein, peptide, dna, rna.
+
+    for molecule in tmp_item.molecule:
+        if molecule.type == 'ion':
+            tmp_item.ion.append(molecule)
+        elif molecule.type == 'water':
+            tmp_item.water.append(molecule)
+        elif molecule.type == 'cosolute':
+            tmp_item.cosolute.append(molecule)
+        elif molecule.type == 'small_molecule':
+            tmp_item.small_molecule.append(molecule)
+        elif molecule.type == 'protein':
+            tmp_item.protein.append(molecule)
+        elif molecule.type == 'peptide':
+            tmp_item.peptide.append(molecule)
+        elif molecule.type == 'dna':
+            tmp_item.dna.append(molecule)
+        elif molecule.type == 'rna':
+            tmp_item.dna.append(molecule)
+        else:
+            print(molecule.type)
+            raise ValueError("Molecule type not recognized")
+
+    tmp_item.n_ion = len(tmp_item.ion)
+    tmp_item.n_waters = len(tmp_item.water)
+    tmp_item.n_cosolutes = len(tmp_item.cosolute)
+    tmp_item.n_small_molecules = len(tmp_item.small_molecule)
+    tmp_item.n_proteins = len(tmp_item.protein)
+    tmp_item.n_peptides = len(tmp_item.peptide)
+    tmp_item.n_dnas = len(tmp_item.dna)
+    tmp_item.n_rnas = len(tmp_item.rna)
 
     return tmp_item
 

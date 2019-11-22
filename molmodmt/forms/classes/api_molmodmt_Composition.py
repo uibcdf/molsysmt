@@ -199,23 +199,23 @@ def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.n_waters
 
 def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.n_ions
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    return n_molecules
+    return item.n_molecules
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    return n_bonds
+    return item.n_bonds
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
-    return form_name
+    return item.form_name
 
 def get_masses_from_system(item, indices='all', frame_indices='all'):
 

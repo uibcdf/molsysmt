@@ -236,7 +236,8 @@ def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    return len(get_molecules_from_system(item, indices=indices))
+    from .api_molmodmt_Composition import get_n_molecules_from_system as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
