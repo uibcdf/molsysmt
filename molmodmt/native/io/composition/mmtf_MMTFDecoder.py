@@ -337,7 +337,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         bioassembly.n_molecules = len(bioassembly.molecule)
         bioassembly.n_entities = len(bioassembly.entity)
 
-    tmp_item._update_dataframe()
+    tmp_item.update_dataframe()
 
     # ion, water, cosolute, small_molecule, protein, peptide, dna, rna.
 

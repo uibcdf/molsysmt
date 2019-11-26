@@ -23,51 +23,9 @@ def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def to_pandas_DataFrame(item, atom_indices='all', frame_indices='all'):
+def to_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
 
-    from pandas import DataFrame, Series
-
-    tmp_item = DataFrame()
-
-    tmp_item['atom.index'] = Series(atom.index for atom in item.atom).values
-    tmp_item['atom.name'] = Series(atom.name for atom in item.atom).values
-    tmp_item['atom.id'] = Series(atom.id for atom in item.atom).values
-    tmp_item['atom.type'] = Series(atom.type for atom in item.atom).values
-    tmp_item['atom.element'] = Series(atom.element for atom in item.atom).values
-
-    tmp_item['group.index'] = Series(atom.group.index for atom in item.atom).values
-    tmp_item['group.name'] = Series(atom.group.name for atom in item.atom).values
-    tmp_item['group.id'] = Series(atom.group.id for atom in item.atom).values
-    tmp_item['group.type'] = Series(atom.group.type for atom in item.atom).values
-
-    tmp_item['component.index'] = Series(atom.component.index for atom in item.atom).values
-    tmp_item['component.name'] = Series(atom.component.name for atom in item.atom).values
-    tmp_item['component.id'] = Series(atom.component.id for atom in item.atom).values
-    tmp_item['component.type'] = Series(atom.component.type for atom in item.atom).values
-
-    tmp_item['chain.index'] = Series(atom.chain.index for atom in item.atom).values
-    tmp_item['chain.name'] = Series(atom.chain.name for atom in item.atom).values
-    tmp_item['chain.id'] = Series(atom.chain.id for atom in item.atom).values
-    tmp_item['chain.type'] = Series(atom.chain.type for atom in item.atom).values
-
-    tmp_item['molecule.index'] = Series(atom.molecule.index for atom in item.atom).values
-    tmp_item['molecule.name'] = Series(atom.molecule.name for atom in item.atom).values
-    tmp_item['molecule.id'] = Series(atom.molecule.id for atom in item.atom).values
-    tmp_item['molecule.type'] = Series(atom.molecule.type for atom in item.atom).values
-
-    tmp_item['entity.index'] = Series(atom.entity.index for atom in item.atom).values
-    tmp_item['entity.name'] = Series(atom.entity.name for atom in item.atom).values
-    tmp_item['entity.id'] = Series(atom.entity.id for atom in item.atom).values
-    tmp_item['entity.type'] = Series(atom.entity.type for atom in item.atom).values
-
-    tmp_item['bioassembly.index'] = Series(atom.bioassembly.index for atom in item.atom).values
-    tmp_item['bioassembly.name'] = Series(atom.bioassembly.name for atom in item.atom).values
-    tmp_item['bioassembly.id'] = Series(atom.bioassembly.id for atom in item.atom).values
-    tmp_item['bioassembly.type'] = Series(atom.bioassembly.type for atom in item.atom).values
-
-    tmp_item.set_index(tmp_item['atom.index'].values)
-
-    return tmp_item
+    return item.copy()
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
