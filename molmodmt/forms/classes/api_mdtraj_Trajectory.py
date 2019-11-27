@@ -41,6 +41,13 @@ def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
     tmp_item = molmodmt_MolMod_from_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
+def to_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+
+    from .api_mdtraj_Topology import to_molmodmt_DataFrame as mdtraj_Topology_to_molmodmt_DataFrame
+    tmp_item = to_mdtraj_Topology(item, atom_indices='all', frame_indices='all')
+    tmp_item = mdtraj_Topology_to_molmodmt_DataFrame(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
 #def to_molmodmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 #
 #    from molmodmt.native.io_trajectory import from_mdtraj_Trajectory as molmodmt_Trajectory_from_mdtraj_Trajectory

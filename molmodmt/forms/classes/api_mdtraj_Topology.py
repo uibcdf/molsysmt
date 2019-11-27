@@ -26,6 +26,12 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
     tmp_item = aminoacids3_to_aminoacids1(tmp_item)
     return tmp_item
 
+def to_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+
+    from molmodmt.native.io.dataframe import from_mdtraj_Topology as molmodmt_DataFrame_from_mdtraj_Topology
+    tmp_item = molmodmt_DataFrame_from_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
