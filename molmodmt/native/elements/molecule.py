@@ -9,15 +9,19 @@ class Molecule():
         self.type = type
 
         self.atom = []
+        self.atoms = []
         self.n_atoms = 0
 
         self.group = []
+        self.groups = []
         self.n_groups = 0
 
         self.component = []
+        self.components = []
         self.n_components = 0
 
         self.chain = []
+        self.chains = []
         self.n_chains = 0
 
         self.entity = None

@@ -1,5 +1,6 @@
 
-def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
+def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioassembly_index=0,
+        bioassembly_name=None):
 
     from molmodmt.native.composition import Composition
     from molmodmt.native import elements
@@ -7,86 +8,90 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
     from molmodmt.utils.composition.classification import MMTFDecoder_entity_to_entity_class_type
     import numpy as np
 
+    if bioassembly_name is not None:
+        name_found = False
+        index_bioassembly = 0
+        for mmtf_bioassembly in item.bio_assembly:
+            if bioassembly_name == mmtf_bioassembly['name']:
+                name_found = True
+                break
+            else:
+                index_bioassembly += 1
+        if not name_found:
+            raise ValueError("Bioassembly name not found in mmtf item.")
+    else:
+        bioassembly_name = item.bio_assembly[bioassembly_index]['name']
+
     tmp_item = Composition()
 
-    # bioassemblies
+    # bioassembly
 
-    index_bioassembly = 0
+    mmtf_bioassembly = item.bio_assembly[bioassembly_index]
 
-    for mmtf_bioassembly in item.bio_assembly:
+    bioassembly = elements.BioAssembly(index=bioassembly_index, id=bioassembly_name, name=bioassembly_name)
 
-        bioassembly = elements.BioAssembly()
+    for transformation in mmtf_bioassembly['transformList']:
 
-        bioassembly.index = index_bioassembly
-        bioassembly.id = None
-        bioassembly.name = mmtf_bioassembly['name']
-        bioassembly.type = None
+        bioassembly_transformation = elements.BioAssembly_Transformation()
+        bioassembly_transformation.chain_indices = transformation['chainIndexList']
+        bioassembly_transformation.matrix = np.reshape(transformation['matrix'],(4,4))
+        bioassembly.transformation.append(bioassembly_transformation)
 
-        for transformation in mmtf_bioassembly['transformList']:
+    # Sanity checks
 
-            bioassembly_transformation = elements.BioAssembly_Transformation()
-            bioassembly_transformation.chain_indices = transformation['chainIndexList']
-            bioassembly_transformation.matrix = np.reshape(transformation['matrix'],(4,4))
-            bioassembly.transformation.append(bioassembly_transformation)
+    if len(bioassembly.transformation)>1:
+        raise NotImplementedError("The bioassembly has more than a transformation.")
 
-        tmp_item.bioassembly.append(bioassembly)
-        index_bioassembly += 1
+    for n_chain_per_model in mmtf_bioassembly.chains_per_model:
+        if n_chain_per_model != mmtf_bioassembly.num_chains:
+            raise NotImplementedError("The bioassembly has models with different number of chains")
+
+    if len(bioassembly_transformation.chain_indices) != mmtf_bioassembly.num_chains:
+        raise NotImplementedError("The bioassembly has a different number of chains than the total amount of chains")
+
+    if len(item.group_type_list)!=item.num_groups:
+        raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
+
 
     # chains
 
-    for index_chain in range(item.num_chains):
+    for chain_index, chain_id, chain_name in zip(range(item.num_chains), item.chain_id_list, item.chain_name_list):
 
-        chain = elements.Chain()
-
-        chain.index = index_chain
-        chain.id = item.chain_id_list[index_chain]
-        chain.name = item.chain_name_list[index_chain]
-        chain.type = None
-
-        tmp_item.chain.append(chain)
+        chain = elements.Chain(index=chain_index, id=chain_id, name=chain_name)
+        bioassembly.chain.append(chain)
 
     # groups, atoms and bonds intra group
 
-    index_atom = 0
+    atom_index = 0
     count_atoms = 0
-    index_group = 0
 
-    for mmtf_group_type in item.group_type_list:
+    for mmtf_group_type, group_index, group_id in zip(item.group_type_list, range(item.num_groups), item.group_id_list):
 
         mmtf_group = item.group_list[mmtf_group_type]
-        group_class_type = MMTFDecoder_group_to_group_class_type(mmtf_group)
-        group = elements.group_class_initialization(group_class_type)
-
-        group.index = index_group
-        group.id = item.group_id_list[index_group]
-        group.name = mmtf_group['groupName']
-        group.type = group_class_type
+        group_type = MMTFDecoder_group_to_group_class_type(mmtf_group)
+        group = elements.group_initialization_wizard(index=group_index, id=group_id, name=mmtf_group['groupName'], type=group_type)
 
         group.chemical_type = mmtf_group['chemCompType']
         group.formal_charge=np.sum(mmtf_group['formalChargeList'])
 
-        if group_class_type in ['AminoAcid', 'Nucleotide']:
+        if group_type in ['aminoacid', 'nucleotide']:
             group.lettercode = mmtf_group['singleLetterCode']
 
         # atoms
 
         for atom_name, atom_element, atom_formal_charge in zip(mmtf_group['atomNameList'], mmtf_group['elementList'], mmtf_group['formalChargeList']):
 
-            atom = elements.Atom()
+            atom_id = item.atom_id_list[atom_index]
 
-            atom.index = index_atom
-            atom.id = item.atom_id_list[index_atom]
-            atom.name = atom_name
-            atom.type = atom_name
+            atom = elements.Atom(index=atom_index, id=atom_id, name=atom_name, type=atom_element)
 
-            atom.element = atom_element
             atom.formal_charge = atom_formal_charge
 
-            atom.group = group
             group.atom.append(atom)
+            atom.group = group
+            bioassembly.atom.append(atom)
 
-            tmp_item.atom.append(atom)
-            index_atom+=1
+            atom_index+=1
 
         # bonds intra group
 
@@ -94,27 +99,20 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
             tmp_atom_0 = tmp_item.atom[bond_pair[0]+count_atoms]
             tmp_atom_1 = tmp_item.atom[bond_pair[1]+count_atoms]
-            tmp_atom_0.bonded_atoms.append(tmp_atom_1)
-            tmp_atom_1.bonded_atoms.append(tmp_atom_0)
 
-            bond = elements.Bond()
-            bond.atom = [tmp_atom_0, tmp_atom_1]
-            bond.order = bond_order
+            bond = elements.Bond(atoms=[tmp_atom_0, tmp_atom_1], order=bond_order)
 
             tmp_item.bond.append(bond)
 
         count_atoms += len(group.atom)
 
-        tmp_item.group.append(group)
-        index_group += 1
+        bioassembly.group.append(group)
 
     # bonds inter-groups
 
     for bond_pair, bond_order in zip(np.reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
         tmp_atom_0 = tmp_item.atom[bond_pair[0]]
         tmp_atom_1 = tmp_item.atom[bond_pair[1]]
-        tmp_atom_0.bonded_atoms.append(tmp_atom_1)
-        tmp_atom_1.bonded_atoms.append(tmp_atom_0)
         bond = elements.Bond(atoms=[tmp_atom_0, tmp_atom_1], order=bond_order)
         tmp_item.bond.append(bond)
 
@@ -130,31 +128,26 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
     atom_indices_per_component = list(connected_components(G))
     del(G, empty_graph, connected_components)
 
-    index_component = 0
+    component_index = 0
 
     for atom_indices_of_component in atom_indices_per_component:
 
-        component = elements.Component()
-
-        component.index = index_component
-        component.id = None
-        component.name = None
-        component.type = None
+        component = elements.Component(index=component_index)
 
         for atom_index in atom_indices_of_component:
 
-            atom = tmp_item.atom[atom_index]
-            atom.component = component
+            atom = bioassembly.atom[atom_index]
             component.atom.append(atom)
 
-            group = atom.group
-            if group not in component.group:
-                component.group.append(group)
-                group.component = component
+        bioassembly.component.append(component)
+        component_index += 1
 
-        tmp_item.component.append(component)
-        index_component += 1
 
+
+
+
+    # End
+    tmp_item.bioassembly=bioassembly
     # complete nested objects in chains:
 
     count_groups = 0
@@ -284,50 +277,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
             print(entity.type)
             raise ValueError("Entity type not recognized")
 
-    # global attributes:
-
-    tmp_item.n_atoms = len(tmp_item.atom)
-    tmp_item.n_groups = len(tmp_item.group)
-    tmp_item.n_components = len(tmp_item.component)
-    tmp_item.n_chains = len(tmp_item.chain)
-    tmp_item.n_molecules = len(tmp_item.molecule)
-    tmp_item.n_entities = len(tmp_item.entity)
-    tmp_item.n_bioassemblies = len(tmp_item.bioassembly)
-    tmp_item.n_bonds = len(tmp_item.bond)
-
     # local attributes
-
-    for group in tmp_item.group:
-        group.n_atoms = len(group.atom)
-
-    for component in tmp_item.component:
-        component.n_atoms = len(component.atom)
-        component.n_groups = len(component.group)
-
-    for chain in tmp_item.chain:
-        chain.n_atoms = len(chain.atom)
-        chain.n_groups = len(chain.group)
-        chain.n_components = len(chain.component)
-        try:
-            chain.n_molecules = len(chain.molecule)
-        except:
-            chain.n_molecules = 0
-
-    for molecule in tmp_item.molecule:
-        molecule.n_atoms = len(molecule.atom)
-        molecule.n_groups = len(molecule.group)
-        molecule.n_components = len(molecule.component)
-        try:
-            molecule.n_chains = len(molecule.chain)
-        except:
-            chain.n_chains = 0
-
-    for entity in tmp_item.entity:
-        entity.n_atoms = len(entity.atom)
-        entity.n_groups = len(entity.group)
-        entity.n_components = len(entity.component)
-        entity.n_chains = len(entity.chain)
-        entity.n_molecules = len(entity.molecule)
 
     for bioassembly in tmp_item.bioassembly:
         bioassembly.n_atoms = len(bioassembly.atom)
@@ -336,40 +286,6 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
         bioassembly.n_chains = len(bioassembly.chain)
         bioassembly.n_molecules = len(bioassembly.molecule)
         bioassembly.n_entities = len(bioassembly.entity)
-
-    tmp_item.update_dataframe()
-
-    # ion, water, cosolute, small_molecule, protein, peptide, dna, rna.
-
-    for molecule in tmp_item.molecule:
-        if molecule.type == 'ion':
-            tmp_item.ion.append(molecule)
-        elif molecule.type == 'water':
-            tmp_item.water.append(molecule)
-        elif molecule.type == 'cosolute':
-            tmp_item.cosolute.append(molecule)
-        elif molecule.type == 'small_molecule':
-            tmp_item.small_molecule.append(molecule)
-        elif molecule.type == 'protein':
-            tmp_item.protein.append(molecule)
-        elif molecule.type == 'peptide':
-            tmp_item.peptide.append(molecule)
-        elif molecule.type == 'dna':
-            tmp_item.dna.append(molecule)
-        elif molecule.type == 'rna':
-            tmp_item.dna.append(molecule)
-        else:
-            print(molecule.type)
-            raise ValueError("Molecule type not recognized")
-
-    tmp_item.n_ion = len(tmp_item.ion)
-    tmp_item.n_waters = len(tmp_item.water)
-    tmp_item.n_cosolutes = len(tmp_item.cosolute)
-    tmp_item.n_small_molecules = len(tmp_item.small_molecule)
-    tmp_item.n_proteins = len(tmp_item.protein)
-    tmp_item.n_peptides = len(tmp_item.peptide)
-    tmp_item.n_dnas = len(tmp_item.dna)
-    tmp_item.n_rnas = len(tmp_item.rna)
 
     return tmp_item
 

@@ -9,17 +9,16 @@ class Component():
         self.name = name
         self.type = type
 
-        self.bonds = None
-        self.n_bonds = 0
-
         self.atom = []
+        self.atoms = []
         self.n_atoms = 0
 
         self.group = []
+        self.groups = []
         self.n_groups = 0
 
-        self.chain = None
         self.molecule = None
+        self.chain = None
         self.entity = None
         self.bioassembly = None
 

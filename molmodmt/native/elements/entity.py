@@ -12,19 +12,24 @@ class Entity:
         self.mmtf_type = None
 
         self.atom = []
+        self.atoms = []
         self.n_atoms = 0
 
         self.group = []
+        self.groups = []
         self.n_groups = 0
 
         self.component = []
+        self.components = []
         self.n_components = 0
 
-        self.chain = []
-        self.n_chains = 0
-
         self.molecule = []
+        self.molecules = []
         self.n_molecules = 0
+
+        self.chain = []
+        self.chains = []
+        self.n_chains = 0
 
         self.bioassembly = None
 

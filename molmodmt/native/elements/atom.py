@@ -8,9 +8,7 @@ class Atom:
         self.name = name
         self.type = type
 
-        self.element = None
         self.formal_charge = None
-        self.bonded_atoms = []
 
         self.group = None
         self.component = None
@@ -18,4 +16,12 @@ class Atom:
         self.molecule = None
         self.entity = None
         self.bioassembly = None
+
+        self.bonded_atom = []
+        self.bonded_atoms = []
+        self.n_bonded_atoms = 0
+
+        self.bond = []
+        self.bonds = []
+        self.n_bonds = 0
 
