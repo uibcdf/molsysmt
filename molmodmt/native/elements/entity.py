@@ -34,28 +34,28 @@ class Entity:
         self.bioassembly = None
 
 
-def entity_class_initialization(entity_type=None):
+def entity_initialization_wizard(index=None, id=None, name=None, type=None):
 
     from . import entities
 
-    if entity_type is None:
-        return Entity()
-    elif entity_type is "ion":
-        return entities.Ion()
-    elif entity_type is "water":
-        return entities.Water()
-    elif entity_type is "cosolute":
-        return entities.Cosolute()
-    elif entity_type is "small_molecule":
-        return entities.SmallMolecule()
-    elif entity_type is "peptide":
-        return entities.Peptide()
-    elif entity_type is "dna":
-        return entities.DNA()
-    elif entity_type is "rna":
-        return entities.RNA()
-    elif entity_type is "protein":
-        return entities.Protein()
+    if type is None:
+        return Entity(index=index, id=id, name=name)
+    elif type is "ion":
+        return entities.Ion(index=index, id=id, name=name)
+    elif type is "water":
+        return entities.Water(index=index, id=id, name=name)
+    elif type is "cosolute":
+        return entities.Cosolute(index=index, id=id, name=name)
+    elif type is "small_molecule":
+        return entities.SmallMolecule(index=index, id=id, name=name)
+    elif type is "peptide":
+        return entities.Peptide(index=index, id=id, name=name)
+    elif type is "dna":
+        return entities.DNA(index=index, id=id, name=name)
+    elif type is "rna":
+        return entities.RNA(index=index, id=id, name=name)
+    elif type is "protein":
+        return entities.Protein(index=index, id=id, name=name)
     else:
         raise ValueError("Entity type not recognized.")
 

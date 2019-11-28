@@ -1,14 +1,13 @@
 
 class Bond():
 
-    def __init__(self, atoms=None, order=None):
+    def __init__(self, index=None, atoms=None, order=None):
 
+        self.index = index
         self.atom = atoms
         self.order = order
 
-        self.group = None
         self.component = None
-        self.chain = None
         self.molecule = None
         self.entity = None
         self.bioassembly = None
