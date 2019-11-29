@@ -23,7 +23,7 @@ class Atom:
 
         self.bond = []
         self.bonds = []
-        self.n_bonds = 0
+        = 0
 
     def __sanity_check (self, group=False, component=False, chain=False, molecule=False,
             entity=False, bioassembly=False):

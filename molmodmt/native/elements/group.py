@@ -12,7 +12,7 @@ class Group:
         self.formal_charge = None #(sum of atoms formal charge)
 
         self.atom = []
-        self.atoms = []
+        self.atom_indices = []
         self.n_atoms = 0
 
         self.component = None
