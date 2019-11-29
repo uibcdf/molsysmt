@@ -1,7 +1,37 @@
 
 class Entity:
 
+    """Entity element.
+
+    Blablabla descripcion.
+
+    Attributes
+    ----------
+    index : int
+        Description of index.
+    id : int or str
+        Description of id.
+    """
+
+
     def __init__(self, index=None, id=None, name=None, type=None):
+
+        """Init method for entity.
+
+        Bla bla parrafo de inicialización.
+
+        Parameters
+        ----------
+        index : int
+            Description of index.
+        id : int
+            Description of index.
+        name : int
+            Description of index.
+        type : int
+            Description of index.
+        """
+
 
         self.index = index
         self.id = id
