@@ -1,30 +1,87 @@
 
 class Chain:
 
-    def __init__(self, index=None, id=None, name=None):
+    """Chain element.
+
+    Blablabla descripcion.
+
+    Attributes
+    ----------
+
+    index : int
+        Description of index.
+    id : int or str
+        Description of id.
+    name : str
+        Description of name.
+    type : int
+        Description of type.
+
+    atom : list of objects
+        Description of atom
+    atom_indices : list of ints
+        Description of atom
+    n_atoms : list of ints
+        Description of n_atoms
+
+    group : list of objects
+        Description of group
+    group_indices : list of ints
+        Description of group_indices
+    n_groups : list of ints
+        Description of n_groups
+
+    component : list of objects
+        Description of component
+    component_indices : list of ints
+        Description of component_indices
+    n_components : list of ints
+        Description of n_components
+
+    molecule : list of objects
+        Description of molecule
+    molecule_indices : list of ints
+        Description of molecule_indices
+    n_molecules : list of ints
+        Description of n_molecules
+
+    entity : list of objects
+        Description of entity
+    entity_indices : list of ints
+        Description of entity_indices
+    n_entities : list of ints
+        Description of n_entities
+
+    bioassembly : object
+        Description of bioassembly
+
+    """
+
+    def __init__(self, index=None, id=None, name=None, type=None):
 
         self.index = index
         self.id = id
         self.name = name
+        self.type = type
 
         self.atom = []
-        self.atoms = []
+        self.atom_indices = []
         self.n_atoms = 0
 
         self.group = []
-        self.groups = []
+        self.group_indices = []
         self.n_groups = 0
 
         self.component = []
-        self.components = []
+        self.component_indices = []
         self.n_components = 0
 
         self.molecule = []
-        self.molecules = []
+        self.molecule_indices = []
         self.n_molecules = 0
 
         self.entity = []
-        self.entities = []
+        self.entity_indices = []
         self.n_entities = 0
 
         self.bioassembly = None

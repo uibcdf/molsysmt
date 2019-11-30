@@ -52,6 +52,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :maxdepth: 1
 
    api/index
+   api/index_elements
 
 Glossary, indices and tables
 ============================

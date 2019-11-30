@@ -1,7 +1,74 @@
 
 class Molecule():
 
+    """Molecule element.
+
+    Blablabla descripcion.
+
+    Attributes
+    ----------
+
+    index : int
+        Description of index.
+    id : int or str
+        Description of id.
+    name : str
+        Description of name.
+    type : int
+        Description of type.
+
+    atom : list of objects
+        Description of atom
+    atom_indices : list of ints
+        Description of atom
+    n_atoms : list of ints
+        Description of n_atoms
+
+    group : list of objects
+        Description of group
+    group_indices : list of ints
+        Description of group_indices
+    n_groups : list of ints
+        Description of n_groups
+
+    component : list of objects
+        Description of component
+    component_indices : list of ints
+        Description of component_indices
+    n_components : list of ints
+        Description of n_components
+
+    chain : list of objects
+        Description of chain
+    chain_indices : list of ints
+        Description of chain_indices
+    n_chains : list of ints
+        Description of n_chains
+
+    entity : object
+        Description of entity
+    bioassembly : object
+        Description of bioassembly
+
+    """
+
     def __init__(self, index=None, id=None, name=None, type=None):
+
+        """Init method for molecule.
+
+        Bla bla parrafo de inicialización.
+
+        Parameters
+        ----------
+        index : int
+            Description of index.
+        id : int
+            Description of id.
+        name : int
+            Description of name.
+        type : int
+            Description of type.
+        """
 
         self.index = index
         self.id = id
@@ -9,19 +76,19 @@ class Molecule():
         self.type = type
 
         self.atom = []
-        self.atoms = []
+        self.atom_indices = []
         self.n_atoms = 0
 
         self.group = []
-        self.groups = []
+        self.group_indices = []
         self.n_groups = 0
 
         self.component = []
-        self.components = []
+        self.component_indices = []
         self.n_components = 0
 
         self.chain = []
-        self.chains = []
+        self.chain_indices = []
         self.n_chains = 0
 
         self.entity = None

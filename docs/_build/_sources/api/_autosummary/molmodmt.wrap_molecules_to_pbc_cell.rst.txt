@@ -1,6 +1,0 @@
-molmodmt.wrap\_molecules\_to\_pbc\_cell
-=======================================
-
-.. currentmodule:: molmodmt
-
-.. autofunction:: wrap_molecules_to_pbc_cell

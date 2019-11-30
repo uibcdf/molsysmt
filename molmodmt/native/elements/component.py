@@ -95,7 +95,8 @@ class Component():
         self.bioassembly = None
 
         self.bond = []
-        self.bonds = []
+        self.bond_indices = []
+        self.bonded_atom_indices = []
         self.n_bonds = 0
 
         self.bonded_atoms = []
