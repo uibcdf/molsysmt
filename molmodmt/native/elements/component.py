@@ -2,7 +2,79 @@
 
 class Component():
 
+    """Component element.
+
+    Blablabla descripcion.
+
+    Attributes
+    ----------
+
+    index : int
+        Description of index.
+    id : int or str
+        Description of id.
+    name : str
+        Description of name.
+    type : str
+        Description of type.
+
+    bonded_atom : x
+        Description of bonded_atom.
+    bonded_atoms : x
+        Description of bonded_atoms.
+    n_atoms : x
+        Description of n_atoms.
+
+    group : x
+        Description of group.
+    groups : x
+        Description of groups.
+    n_groups : x
+        Description of n_groups.
+
+    molecule : obj
+        Description of molecule.
+    chain : obj
+        Description of chain.
+    entity : obj
+        Description of molecule.
+    bioassembly : obj
+        Description of bioassembly.
+
+    bond : x
+        Description of bond.
+    bonds : x
+        Description of bonds.
+    n_bonds: x
+        Description of n_bonds.
+
+    bonded_atoms : x
+        Description of bonded_atoms.
+    n_bonded_atoms : x
+        Description of n_bonded_atoms.
+
+     """
+
+
     def __init__(self, index=None, id=None, name=None, type=None):
+
+        """Init method for component.
+
+        Bla bla parrafo de inicialización.
+
+        Parameters
+        ----------
+        index : int
+            Description of index.
+        id : int
+            Description of index.
+        name : int
+            Description of index.
+        type : int
+            Description of index.
+
+        """
+
 
         self.index = index
         self.id = id

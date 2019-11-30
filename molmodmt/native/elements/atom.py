@@ -1,7 +1,73 @@
 
 class Atom:
 
+    """Atom element.
+
+    Blablabla descripcion.
+
+    Attributes
+    ----------
+    
+    index : int
+        Description of index.
+    id : int or str
+        Description of id.
+    name : str
+        Description of name.
+    type : str
+        Description of type.
+
+    
+    formal_charge : float
+        Description of formal change.
+    
+    group : obj
+        Description of group.
+    component : obj
+        Description of component.
+    chain : obj
+        Description of chain.
+    molecule : obj
+        Description of molecule.        
+    entity : obj
+        Description of molecule.
+    bioassembly : obj
+        Description of bioassembly.
+
+    bonded_atom : x
+        Description of bonded_atom.
+    bonded_atoms : x
+        Description of bonded_atoms.
+    n_bonded_atoms : x
+        Description of n_bonded_atoms.
+
+    bond : x
+        Description of bond.
+    bonds : x
+        Description of bonds.
+        
+    """
+
+
     def __init__(self, index=None, id=None, name=None, type=None):
+
+
+        """Init method for atom.
+
+        Bla bla parrafo de inicialización.
+
+        Parameters
+        ----------
+        index : int
+            Description of index.
+        id : int
+            Description of index.
+        name : int
+            Description of index.
+        type : int
+            Description of index.
+        """
+
 
         self.index = index
         self.id = id
