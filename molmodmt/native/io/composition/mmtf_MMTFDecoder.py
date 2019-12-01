@@ -28,23 +28,18 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     # sanity checks
 
-    if len(bioassembly.transformation)>1:
+    if len(mmtf_bioassembly['transformList'])>1:
         raise NotImplementedError("The bioassembly has more than a transformation.")
 
-    for n_chain_per_model in mmtf_bioassembly.chains_per_model:
-        if n_chain_per_model != mmtf_bioassembly.num_chains:
+    for n_chain_per_model in item.chains_per_model:
+        if n_chain_per_model != item.num_chains:
             raise NotImplementedError("The bioassembly has models with different number of chains")
 
-    if len(bioassembly_transformation.chain_indices) != mmtf_bioassembly.num_chains:
+    if len(mmtf_bioassembly['transformList'][0]['chainIndexList']) != item.num_chains:
         raise NotImplementedError("The bioassembly has a different number of chains than the total amount of chains")
 
     if len(item.group_type_list)!=item.num_groups:
         raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
-
-    # composition
-
-    tmp_item = Composition()
-
     # bioassembly
 
     bioassembly = elements.BioAssembly(index=bioassembly_index, id=bioassembly_name, name=bioassembly_name)
@@ -93,15 +88,14 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         bioassembly.group.append(group)
 
         # bonds intra-group
-
         for bond_pair, bond_order in zip(np.reshape(mmtf_group['bondAtomList'],(-1,2)), mmtf_group['bondOrderList']):
 
-            tmp_atom_0 = tmp_item.atom[bond_pair[0]+count_atoms]
-            tmp_atom_1 = tmp_item.atom[bond_pair[1]+count_atoms]
+            tmp_atom_0 = bioassembly.atom[bond_pair[0]+count_atoms]
+            tmp_atom_1 = bioassembly.atom[bond_pair[1]+count_atoms]
 
             bond = elements.Bond(atoms=[tmp_atom_0, tmp_atom_1], order=bond_order)
 
-            tmp_item.bond.append(bond)
+            bioassembly.bond.append(bond)
 
         count_atoms += len(group.atom)
 
@@ -109,18 +103,18 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     # bonds inter-groups
 
     for bond_pair, bond_order in zip(np.reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
-        tmp_atom_0 = tmp_item.atom[bond_pair[0]]
-        tmp_atom_1 = tmp_item.atom[bond_pair[1]]
+        tmp_atom_0 = bioassembly.atom[bond_pair[0]]
+        tmp_atom_1 = bioassembly.atom[bond_pair[1]]
         bond = elements.Bond(atoms=[tmp_atom_0, tmp_atom_1], order=bond_order)
-        tmp_item.bond.append(bond)
+        bioassembly.bond.append(bond)
 
     # components
 
     from networkx import empty_graph, connected_components
 
-    G = empty_graph(len(tmp_item.atom))
+    G = empty_graph(len(bioassembly.atom))
 
-    for bond in tmp_item.bond:
+    for bond in bioassembly.bond:
         G.add_edge(bond.atom[0].index, bond.atom[1].index)
 
     atom_indices_per_component = list(connected_components(G))
@@ -154,10 +148,10 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     for chain_index, chain_id, chain_name in zip(range(item.num_chains), item.chain_id_list, item.chain_name_list):
 
         chain = elements.Chain(index=chain_index, id=chain_id, name=chain_name)
-        n_groups_chain = item.groups_per_chain[index_chain]
+        n_groups_chain = item.groups_per_chain[chain_index]
 
-        for index_group in range(count_groups, count_groups+n_groups_chain):
-            group = tmp_item.group[index_group]
+        for group_index in range(count_groups, count_groups+n_groups_chain):
+            group = bioassembly.group[group_index]
             group.chain = chain
             chain.group.append(group)
             for atom in group.atom:
@@ -168,7 +162,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
                 chain.component.append(component)
                 component.chain = chain
 
-        count_groups+=n_groups
+        count_groups+=n_groups_chain
 
         bioassembly.chain.append(chain)
 
@@ -188,8 +182,8 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         if entity.type in ['protein']:
             entity.sequence = mmtf_entity['sequence']
 
-        for index_chain in mmtf_entity['chainIndexList']:
-            chain = tmp_item.chain[index_chain]
+        for chain_index in mmtf_entity['chainIndexList']:
+            chain = bioassembly.chain[chain_index]
             entity.chain.append(chain)
             entity.component.extend(chain.component)
             entity.group.extend(chain.group)
@@ -204,16 +198,16 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
             atom.entity = entity
 
         bioassembly.entity.append(entity)
-        index_entity += 1
+        entity_index += 1
 
     # molecules:
 
     molecule_index = 0
 
-    for entity in tmp_item.entity:
+    for entity in bioassembly.entity:
 
         if entity.type == "protein":
-            molecule = molecule_initalization_wizard(index=molecule_index, id=None, name=entity.name, type="protein")
+            molecule = elements.molecule_initialization_wizard(index=molecule_index, id=None, name=entity.name, type="protein")
             molecule.sequence = entity.sequence
             for chain in entity.chain:
                 molecule.chain.append(chain)
@@ -228,12 +222,12 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
                             molecule.atom.append(atom)
                             atom.molecule = molecule
             bioassembly.molecule.append(molecule)
-            index_molecule += 1
+            molecule_index += 1
 
         elif entity.type == "water":
             for chain in entity.chain:
                 for component in chain.component:
-                    molecule = molecule_initalization_wizard(index=molecule_index, id=None, name="water", type="water")
+                    molecule = elements.molecule_initialization_wizard(index=molecule_index, id=None, name="water", type="water")
                     molecule.chain = chain
                     molecule.component.append(component)
                     component.molecule = molecule
@@ -245,7 +239,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
                             molecule.atom.append(atom)
                             atom.molecule = molecule
                     bioassembly.molecule.append(molecule)
-                    index_molecule += 1
+                    molecule_index += 1
 
         else:
             print(entity.type)
@@ -255,6 +249,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     # End
 
+    tmp_item = Composition()
     tmp_item.bioassembly=bioassembly
 
 #

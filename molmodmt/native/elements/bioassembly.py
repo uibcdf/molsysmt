@@ -194,9 +194,8 @@ class BioAssembly():
             count_bonds = 0
             for bond in self.bond:
                 self.bond_indices.append(bond.index)
-                atom_0 = bond.atom[0]
-                atom_1 = bond.atom[1]
                 self.bonded_atom_indices[count_bonds, :] = [bond.atom[0].index, bond.atom[1].index]
+                count_bonds += 1
 
     def __update_all(self):
 

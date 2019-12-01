@@ -7,7 +7,7 @@ class Atom:
 
     Attributes
     ----------
-    
+
     index : int
         Description of index.
     id : int or str
@@ -17,10 +17,9 @@ class Atom:
     type : str
         Description of type.
 
-    
     formal_charge : float
         Description of formal change.
-    
+
     group : obj
         Description of group.
     component : obj
@@ -28,26 +27,21 @@ class Atom:
     chain : obj
         Description of chain.
     molecule : obj
-        Description of molecule.        
+        Description of molecule.
     entity : obj
         Description of molecule.
     bioassembly : obj
         Description of bioassembly.
 
-    bonded_atom : x
-        Description of bonded_atom.
-    bonded_atoms : x
-        Description of bonded_atoms.
-    n_bonded_atoms : x
-        Description of n_bonded_atoms.
-
     bond : x
         Description of bond.
-    bonds : x
-        Description of bonds.
-        
+    bond_indices : x
+        Description of bond_indices.
+    bonded_atom_indices : x
+        Description of bonded atom indices.
+    n_bonds : x
+        Description of n_bonds.
     """
-
 
     def __init__(self, index=None, id=None, name=None, type=None):
 
@@ -68,7 +62,6 @@ class Atom:
             Description of index.
         """
 
-
         self.index = index
         self.id = id
         self.name = name
@@ -83,13 +76,10 @@ class Atom:
         self.entity = None
         self.bioassembly = None
 
-        self.bonded_atom = []
-        self.bonded_atoms = []
-        self.n_bonded_atoms = 0
-
         self.bond = []
-        self.bonds = []
-        = 0
+        self.bond_indices = []
+        self.bond_atom_indices = []
+        self.n_bonds = 0
 
     def __sanity_check (self, group=False, component=False, chain=False, molecule=False,
             entity=False, bioassembly=False):
@@ -119,21 +109,20 @@ class Atom:
         from numpy import empty
 
         self.n_bonds = len(self.bond)
-        self.n_bonded_atoms = self.n_bonds
 
         if self.n_bonds>0:
-            self.bonded_atoms = empty([self.n_bonds, 2], dtype=int)
-            self.bonds = []
-            count_bonds = 0
+            self.bond_indices = []
+            self.bonded_atom_indices = []
             for bond in self.bond:
-                self.bonds.append(bond.index)
+                self.bond_indices.append(bond.index)
                 atom_0 = bond.atom[0]
                 atom_1 = bond.atom[1]
-                self.bonded_atoms[count_bonds, :] = [atom_0.index, atom_1.index]
                 if atom_0.index != self.index:
                     self.bonded_atom.append(atom_1)
+                    self.bonded_atom_indices.append(atom_1.indices)
                 elif atom_1.index != self.index:
                     self.bonded_atom.append(atom_0)
+                    self.bonded_atom_indices.append(atom_0.indices)
                 else:
                     raise Exception("Atom index does not participate in one of its bonds")
 

@@ -142,24 +142,24 @@ def molecule_initialization_wizard(index=None, id=None, name=None, type=None):
 
     from . import molecules
 
-    if molecule_type is None:
-        return Molecule(intex=index, id=id, name=name)
-    elif molecule_type is "ion":
-        return molecules.Ion(intex=index, id=id, name=name)
-    elif molecule_type is "water":
-        return molecules.Water(intex=index, id=id, name=name)
-    elif molecule_type is "cosolute":
-        return molecules.Cosolute(intex=index, id=id, name=name)
-    elif molecule_type is "small_molecule":
-        return molecules.SmallMolecule(intex=index, id=id, name=name)
-    elif molecule_type is "peptide":
-        return molecules.Peptide(intex=index, id=id, name=name)
-    elif molecule_type is "dna":
-        return molecules.DNA(intex=index, id=id, name=name)
-    elif molecule_type is "rna":
-        return molecules.RNA(intex=index, id=id, name=name)
-    elif molecule_type is "protein":
-        return molecules.Protein(intex=index, id=id, name=name)
+    if type is None:
+        return Molecule(index=index, id=id, name=name)
+    elif type is "ion":
+        return molecules.Ion(index=index, id=id, name=name)
+    elif type is "water":
+        return molecules.Water(index=index, id=id, name=name)
+    elif type is "cosolute":
+        return molecules.Cosolute(index=index, id=id, name=name)
+    elif type is "small_molecule":
+        return molecules.SmallMolecule(index=index, id=id, name=name)
+    elif type is "peptide":
+        return molecules.Peptide(index=index, id=id, name=name)
+    elif type is "dna":
+        return molecules.DNA(index=index, id=id, name=name)
+    elif type is "rna":
+        return molecules.RNA(index=index, id=id, name=name)
+    elif type is "protein":
+        return molecules.Protein(index=index, id=id, name=name)
     else:
         raise ValueError("Entity type not recognized.")
 

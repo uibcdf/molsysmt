@@ -41,6 +41,12 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    Basic_Manipulations.ipynb
 
 .. toctree::
+   :caption: Elements
+   :maxdepth: 1
+
+   ../molmodmt/native/elements/README.md
+
+.. toctree::
    :caption: Examples
    :maxdepth: 1
 

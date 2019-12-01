@@ -18,13 +18,6 @@ class Component():
     type : str
         Description of type.
 
-    bonded_atom : x
-        Description of bonded_atom.
-    bonded_atoms : x
-        Description of bonded_atoms.
-    n_atoms : x
-        Description of n_atoms.
-
     group : x
         Description of group.
     groups : x
@@ -43,15 +36,12 @@ class Component():
 
     bond : x
         Description of bond.
-    bonds : x
-        Description of bonds.
+    bond_indices : x
+        Description of bond_indices.
+    bonded_atom_indices : x
+        Description of bonded_atom_indices.
     n_bonds: x
         Description of n_bonds.
-
-    bonded_atoms : x
-        Description of bonded_atoms.
-    n_bonded_atoms : x
-        Description of n_bonded_atoms.
 
      """
 
@@ -75,7 +65,6 @@ class Component():
 
         """
 
-
         self.index = index
         self.id = id
         self.name = name
@@ -98,9 +87,6 @@ class Component():
         self.bond_indices = []
         self.bonded_atom_indices = []
         self.n_bonds = 0
-
-        self.bonded_atoms = []
-        self.n_bonded_atoms = 0
 
     def __sanity_check (self, atom=False, group=False, chain=False, molecule=False,
             entity=False, bioassembly=False):
@@ -140,17 +126,15 @@ class Component():
         from numpy import empty
 
         self.n_bonds = len(self.bond)
-        self.n_bonded_atoms = self.n_bonds
 
         if self.n_bonds>0:
-            self.bonded_atoms = empty([self.n_bonds, 2], dtype=int)
-            self.bonds = []
+            self.bond_indices = []
+            self.bonded_atom_indices = empty([self.n_bonds, 2], dtype=int)
             count_bonds = 0
             for bond in self.bond:
-                self.bonds.append(bond.index)
-                atom_0 = bond.atom[0]
-                atom_1 = bond.atom[1]
-                self.bonded_atoms[count_bonds, :] = [atom_0.index, atom_1.index]
+                self.bond_indices.append(bond.index)
+                self.bonded_atom_indices[count_bonds, :] = [bond.atom[0].index, bond.atom[1].index]
+                count_bonds += 1
 
     def __update_all(self):
 
