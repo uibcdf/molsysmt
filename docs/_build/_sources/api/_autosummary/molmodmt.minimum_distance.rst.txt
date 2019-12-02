@@ -1,0 +1,6 @@
+molmodmt.minimum\_distance
+==========================
+
+.. currentmodule:: molmodmt
+
+.. autofunction:: minimum_distance

@@ -1,0 +1,6 @@
+molmodmt.least\_rmsd
+====================
+
+.. currentmodule:: molmodmt
+
+.. autofunction:: least_rmsd

@@ -1,0 +1,22 @@
+molmodmt.native.elements.chain
+==============================
+
+.. automodule:: molmodmt.native.elements.chain
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Chain
+   
+   
+
+   
+   
+   
