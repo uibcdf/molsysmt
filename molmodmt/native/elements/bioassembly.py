@@ -129,60 +129,106 @@ class BioAssembly():
         self.n_bonds = 0
 
 
-    def __sanity_check (self, atom=False, group=False, component=False, molecule=False,
-            chain=False, entity=False):
+    def _sanity_check (self, atoms=True, groups=True, components=True, molecules=True,
+            chains=True, entities=True, bonds=True, children_elements=False):
 
-        from molmodmt.util.exceptions import IncompleteElementError
+        from molmodmt.utils.exceptions import IncompleteElementError
 
-        if atom and (len(self.atom)>0):
-            raise IncompleteElementError("Bioassembly index {} has no atoms".format(self.index))
+        if atoms:
+            if len(self.atom)==0:
+                raise IncompleteElementError("Bioassembly index {} has no atoms".format(self.index))
+            elif children_elements:
+                for atom in self.atom:
+                    atom._sanity_check()
 
-        if group and (len(self.group)>0):
-            raise IncompleteElementError("Bioassembly index {} has no groups".format(self.index))
+        if groups:
+            if len(self.group)==0:
+                raise IncompleteElementError("Bioassembly index {} has no groups".format(self.index))
+            elif children_elements:
+                for group in self.group:
+                    group._sanity_check()
 
-        if component and (len(self.component)>0):
-            raise IncompleteElementError("Bioassembly index {} has no components".format(self.index))
+        if components:
+            if len(self.component)==0:
+                raise IncompleteElementError("Bioassembly index {} has no components".format(self.index))
+            elif children_elements:
+                for component in self.component:
+                    component._sanity_check()
 
-        if molecule and (len(self.molecule)>0):
-            raise IncompleteElementError("Bioassembly index {} has no molecules".format(self.index))
+        if molecules:
+            if len(self.molecule)==0:
+                raise IncompleteElementError("Bioassembly index {} has no molecules".format(self.index))
+            elif children_elements:
+                for molecule in self.molecule:
+                    molecule._sanity_check()
 
-        if chain and (len(self.chain)>0):
-            raise IncompleteElementError("Bioassembly index {} has no chains".format(self.index))
+        if chains:
+            if len(self.chain)==0:
+                raise IncompleteElementError("Bioassembly index {} has no chains".format(self.index))
+            elif children_elements:
+                for chain in self.chain:
+                    chain._sanity_check()
 
-        if entity and (len(self.entity)>0):
-            raise IncompleteElementError("Bioassembly index {} has no entities".format(self.index))
+        if entities:
+            if len(self.entity)==0:
+                raise IncompleteElementError("Bioassembly index {} has no entities".format(self.index))
+            elif children_elements:
+                for entity in self.entity:
+                    entity._sanity_check()
 
-    def __update_atoms(self):
+        if bonds:
+            if len(self.bond)==0:
+                raise IncompleteElementError("Bioassembly index {} has no bonds".format(self.index))
+            elif children_elements:
+                for bond in self.bond:
+                    bond._sanity_check()
+
+    def _update_atoms(self):
 
         self.n_atoms = len(self.atom)
         self.atom_indices = [atom.index for atom in self.atom]
 
-    def __update_groups(self):
+    def _update_groups(self, children_elements=False):
 
         self.n_groups = len(self.group)
         self.group_indices = [group.index for group in self.group]
+        if children_elements:
+            for group in self.group:
+                group._update_all()
 
-    def __update_components(self):
+    def _update_components(self, children_elements=False):
 
         self.n_components = len(self.component)
         self.component_indices = [component.index for component in self.component]
+        if children_elements:
+            for component in self.component:
+                component._update_all()
 
-    def __update_molecules(self):
+    def _update_molecules(self, children_elements=False):
 
         self.n_molecules = len(self.molecule)
         self.molecule_indices = [molecule.index for molecule in self.molecule]
+        if children_elements:
+            for molecule in self.molecule:
+                molecule._update_all()
 
-    def __update_chains(self):
+    def _update_chains(self, children_elements=False):
 
         self.n_chains = len(self.chain)
         self.chain_indices = [chain.index for chain in self.chain]
+        if children_elements:
+            for chain in self.chain:
+                chain._update_all()
 
-    def __update_entities(self):
+    def _update_entities(self, children_elements=False):
 
         self.n_entities = len(self.entity)
         self.entity_indices = [entity.index for entity in self.entity]
+        if children_elements:
+            for entity in self.entity:
+                entity._update_all()
 
-    def __update_bonds(self):
+    def _update_bonds(self):
 
         from numpy import empty
 
@@ -197,13 +243,15 @@ class BioAssembly():
                 self.bonded_atom_indices[count_bonds, :] = [bond.atom[0].index, bond.atom[1].index]
                 count_bonds += 1
 
-    def __update_all(self):
+    def _update_all(self, children_elements=False):
 
-        self.__update_atoms()
-        self.__update_groups()
-        self.__update_components()
-        self.__update_molecules()
-        self.__update_bonds()
+        self._update_atoms()
+        self._update_groups(children_elements=children_elements)
+        self._update_components(children_elements=children_elements)
+        self._update_molecules(children_elements=children_elements)
+        self._update_chains(children_elements=children_elements)
+        self._update_entities(children_elements=children_elements)
+        self._update_bonds()
 
 class BioAssembly_Transformation():
 

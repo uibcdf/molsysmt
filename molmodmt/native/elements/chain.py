@@ -38,19 +38,8 @@ class Chain:
     n_components : list of ints
         Description of n_components
 
-    molecule : list of objects
-        Description of molecule
-    molecule_indices : list of ints
-        Description of molecule_indices
-    n_molecules : list of ints
-        Description of n_molecules
-
-    entity : list of objects
+    entity : object
         Description of entity
-    entity_indices : list of ints
-        Description of entity_indices
-    n_entities : list of ints
-        Description of n_entities
 
     bioassembly : object
         Description of bioassembly
@@ -76,69 +65,65 @@ class Chain:
         self.component_indices = []
         self.n_components = 0
 
-        self.molecule = []
-        self.molecule_indices = []
-        self.n_molecules = 0
-
-        self.entity = []
-        self.entity_indices = []
-        self.n_entities = 0
-
+        self.entity = None
         self.bioassembly = None
 
-    def __sanity_check (self, atom=False, group=False, component=False, molecule=False,
-            entity=False, bioassembly=False):
+    def _sanity_check (self, atoms=False, groups=False, components=False,
+            entity=False, bioassembly=False, children_elements=False):
 
-        from molmodmt.util.exceptions import IncompleteElementError
+        from molmodmt.utils.exceptions import IncompleteElementError
 
-        if atom and (len(self.atom)>0):
-            raise IncompleteElementError("Chain index {} has no atoms".format(self.index))
+        if atoms:
+            if len(self.atom)==0:
+                raise IncompleteElementError("Chain index {} has no atoms".format(self.index))
+            elif children_elements:
+                for atom in self.atom:
+                    self.atom._sanity_check()
 
-        if group and (len(self.group)>0):
-            raise IncompleteElementError("Chain index {} has no groups".format(self.index))
+        if groups:
+            if len(self.group)==0:
+                raise IncompleteElementError("Chain index {} has no groups".format(self.index))
+            elif children_elements:
+                for group in self.group:
+                    group._sanity_check()
 
-        if component and (len(self.component)>0):
-            raise IncompleteElementError("Chain index {} has no components".format(self.index))
+        if components:
+            if len(self.component)==0:
+                raise IncompleteElementError("Chain index {} has no components".format(self.index))
+            elif children_elements:
+                for component in self.component:
+                    component._sanity_check()
 
-        if molecule and (len(self.molecule)>0):
-            raise IncompleteElementError("Chain index {} has no molecules".format(self.index))
-
-        if entity and (len(self.entity)>0):
-            raise IncompleteElementError("Chain index {} has no entities".format(self.index))
+        if entity and (self.entity is None):
+            raise IncompleteElementError("Chain index {} has no entity".format(self.index))
 
         if bioassembly and (self.bioassembly is None):
             raise IncompleteElementError("Chain index {} has no bioassembly".format(self.index))
 
-    def __update_atoms(self):
+    def _update_atoms(self):
 
         self.n_atoms = len(self.atom)
-        self.atoms = [atom.index for atom in self.atom]
+        self.atom_indices = [atom.index for atom in self.atom]
 
-    def __update_groups(self):
+    def _update_groups(self, children_elements=False):
 
         self.n_groups = len(self.group)
-        self.groups = [group.index for group in self.group]
+        self.group_indices = [group.index for group in self.group]
+        if children_elements:
+            for group in self.group:
+                group._update_all()
 
-    def __update_components(self):
+    def _update_components(self, children_elements=False):
 
         self.n_components = len(self.component)
-        self.components = [component.index for component in self.component]
+        self.component_indices = [component.index for component in self.component]
+        if children_elements:
+            for component in self.component:
+                component._update_all()
 
-    def __update_molecules(self):
+    def _update_all(self, children_elements=False):
 
-        self.n_molecules = len(self.molecule)
-        self.molecules = [molecule.index for molecule in self.molecule]
-
-    def __update_entities(self):
-
-        self.n_entities = len(self.entity)
-        self.entities = [entity.index for entity in self.entity]
-
-    def __update_all(self):
-
-        self.__update_atoms()
-        self.__update_groups()
-        self.__update_components()
-        self.__update_molecules()
-        self.__update_entities()
+        self._update_atoms()
+        self._update_groups(children_elements=children_elements)
+        self._update_components(children_elements=children_elements)
 

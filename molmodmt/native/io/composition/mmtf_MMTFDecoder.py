@@ -78,8 +78,9 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
             atom.formal_charge = atom_formal_charge
 
-            group.atom.append(atom)
             atom.group = group
+            group.atom.append(atom)
+            atom.bioassembly = bioassembly
             bioassembly.atom.append(atom)
 
             atom_index+=1
@@ -188,8 +189,8 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
             entity.component.extend(chain.component)
             entity.group.extend(chain.group)
             entity.atom.extend(chain.atom)
-        #for chain in entity.chain:
-        #    chain.entity = entity
+        for chain in entity.chain:
+            chain.entity = entity
         for component in entity.component:
             component.entity = entity
         for group in entity.group:
@@ -197,6 +198,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         for atom in entity.atom:
             atom.entity = entity
 
+        entity.bioassembly=bioassembly
         bioassembly.entity.append(entity)
         entity_index += 1
 
@@ -209,9 +211,9 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         if entity.type == "protein":
             molecule = elements.molecule_initialization_wizard(index=molecule_index, id=None, name=entity.name, type="protein")
             molecule.sequence = entity.sequence
+            molecule.entity = entity
+            entity.molecule.append(molecule)
             for chain in entity.chain:
-                molecule.chain.append(chain)
-                chain.molecule = molecule
                 for component in chain.component:
                     molecule.component.append(component)
                     component.molecule = molecule
@@ -221,6 +223,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
                         for atom in group.atom:
                             molecule.atom.append(atom)
                             atom.molecule = molecule
+            molecule.bioassembly = bioassembly
             bioassembly.molecule.append(molecule)
             molecule_index += 1
 
@@ -228,16 +231,35 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
             for chain in entity.chain:
                 for component in chain.component:
                     molecule = elements.molecule_initialization_wizard(index=molecule_index, id=None, name="water", type="water")
-                    molecule.chain = chain
                     molecule.component.append(component)
                     component.molecule = molecule
-                    chain.molecule.append(molecule)
+                    molecule.entity = entity
+                    entity.molecule.append(molecule)
                     for group in component.group:
                         molecule.group.append(group)
                         group.molecule = molecule
                         for atom in group.atom:
                             molecule.atom.append(atom)
                             atom.molecule = molecule
+                    molecule.bioassembly = bioassembly
+                    bioassembly.molecule.append(molecule)
+                    molecule_index += 1
+
+        elif entity.type == "ion":
+            for chain in entity.chain:
+                for component in chain.component:
+                    molecule = elements.molecule_initialization_wizard(index=molecule_index, id=None, name=component.group[0].name, type="ion")
+                    molecule.component.append(component)
+                    component.molecule = molecule
+                    molecule.entity = entity
+                    entity.molecule.append(molecule)
+                    for group in component.group:
+                        molecule.group.append(group)
+                        group.molecule = molecule
+                        for atom in group.atom:
+                            molecule.atom.append(atom)
+                            atom.molecule = molecule
+                    molecule.bioassembly = bioassembly
                     bioassembly.molecule.append(molecule)
                     molecule_index += 1
 
@@ -245,40 +267,17 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
             print(entity.type)
             raise ValueError("Entity type not recognized")
 
+    # sanity_check and update
 
+    bioassembly._sanity_check(children_elements=True)
+    bioassembly._update_all(children_elements=True)
 
     # End
 
     tmp_item = Composition()
     tmp_item.bioassembly=bioassembly
-
-#
-#    # complete nested objects in bioassemblies:
-#
-#    for bioassembly in tmp_item.bioassembly:
-#        if len(bioassembly.transformation)>1:
-#            raise NotImplementedError("Not prepared to work with multiple transformations")
-#        for index_chain in bioassembly.transformation[0].chain_indices:
-#            chain = tmp_item.chain[index_chain]
-#            bioassembly.chain.append(chain)
-#            bioassembly.component.extend(chain.component)
-#            bioassembly.group.extend(chain.group)
-#            bioassembly.atom.extend(chain.atom)
-#        for atom in bioassembly.atom:
-#            atom.bioassembly = bioassembly
-#        for group in bioassembly.group:
-#            group.bioassembly = group
-#        for component in bioassembly.component:
-#            component.bioassembly = component
-#    # local attributes
-#
-#    for bioassembly in tmp_item.bioassembly:
-#        bioassembly.n_atoms = len(bioassembly.atom)
-#        bioassembly.n_groups = len(bioassembly.group)
-#        bioassembly.n_components = len(bioassembly.component)
-#        bioassembly.n_chains = len(bioassembly.chain)
-#        bioassembly.n_molecules = len(bioassembly.molecule)
-#        bioassembly.n_entities = len(bioassembly.entity)
+    tmp_item._update_from_bioassembly()
+    tmp_item._update_dataframe()
 
     return tmp_item
 

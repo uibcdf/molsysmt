@@ -54,9 +54,9 @@ class Bond():
         if self.atom is not None:
             self.atom_indices = [self.atom[0].index, self.atom[1].index]
 
-    def __sanity_check (self, component=False, molecule=False, entity=False, bioassembly=False):
+    def _sanity_check (self, component=False, molecule=False, entity=False, bioassembly=False):
 
-        from molmodmt.util.exceptions import IncompleteElementError
+        from molmodmt.utils.exceptions import IncompleteElementError
 
         if component and (self.component is None):
             raise IncompleteElementError("Bond index {} has no component".format(self.index))

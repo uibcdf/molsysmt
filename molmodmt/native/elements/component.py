@@ -18,10 +18,17 @@ class Component():
     type : str
         Description of type.
 
+    atom : x
+        Description of atom.
+    atom_indices : x
+        Description of atom_indices.
+    n_atoms : x
+        Description of n_atoms.
+
     group : x
         Description of group.
-    groups : x
-        Description of groups.
+    group_indices : x
+        Description of group_indices.
     n_groups : x
         Description of n_groups.
 
@@ -71,11 +78,11 @@ class Component():
         self.type = type
 
         self.atom = []
-        self.atoms = []
+        self.atom_indices = []
         self.n_atoms = 0
 
         self.group = []
-        self.groups = []
+        self.group_indices = []
         self.n_groups = 0
 
         self.molecule = None
@@ -88,16 +95,24 @@ class Component():
         self.bonded_atom_indices = []
         self.n_bonds = 0
 
-    def __sanity_check (self, atom=False, group=False, chain=False, molecule=False,
-            entity=False, bioassembly=False):
+    def _sanity_check (self, atoms=True, groups=True, chain=True, molecule=True,
+            entity=True, bioassembly=True, children_elements=False):
 
-        from molmodmt.util.exceptions import IncompleteElementError
+        from molmodmt.utils.exceptions import IncompleteElementError
 
-        if atom and (len(self.atom)>0):
-            raise IncompleteElementError("Component index {} has no atoms".format(self.index))
+        if atoms:
+            if len(self.atom)==0:
+                raise IncompleteElementError("Component index {} has no atoms".format(self.index))
+            elif children_elements:
+                for atom in self.atom:
+                    atom._sanity_check()
 
-        if group and (len(self.group)>0):
-            raise IncompleteElementError("Component index {} has no component".format(self.index))
+        if groups: 
+            if len(self.group)==0:
+                raise IncompleteElementError("Component index {} has no groups".format(self.index))
+            elif children_elements:
+                for group in self.group:
+                    group._sanity_check()
 
         if chain and (self.chain is None):
             raise IncompleteElementError("Component index {} has no chain".format(self.index))
@@ -111,17 +126,20 @@ class Component():
         if bioassembly and (self.bioassembly is None):
             raise IncompleteElementError("Component index {} has no bioassembly".format(self.index))
 
-    def __update_atoms(self):
+    def _update_atoms(self):
 
         self.n_atoms = len(self.atom)
-        self.atoms = [atom.index for atom in self.atom]
+        self.atom_indices = [atom.index for atom in self.atom]
 
-    def __update_groups(self):
+    def _update_groups(self, children_elements=False):
 
         self.n_groups = len(self.group)
-        self.groups = [group.index for group in self.group]
+        self.group_indices = [group.index for group in self.group]
+        if children_elements:
+            for group in self.group:
+                group._update_all()
 
-    def __update_bonds(self):
+    def _update_bonds(self):
 
         from numpy import empty
 
@@ -136,9 +154,9 @@ class Component():
                 self.bonded_atom_indices[count_bonds, :] = [bond.atom[0].index, bond.atom[1].index]
                 count_bonds += 1
 
-    def __update_all(self):
+    def _update_all(self, children_elements=False):
 
-        self.__update_atoms()
-        self.__update_groups()
-        self.__update_bonds()
+        self._update_atoms()
+        self._update_groups(children_elements=children_elements)
+        self._update_bonds()
 

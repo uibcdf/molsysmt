@@ -78,13 +78,13 @@ class Atom:
 
         self.bond = []
         self.bond_indices = []
-        self.bond_atom_indices = []
+        self.bonded_atom_indices = []
         self.n_bonds = 0
 
-    def __sanity_check (self, group=False, component=False, chain=False, molecule=False,
-            entity=False, bioassembly=False):
+    def _sanity_check (self, group=True, component=True, chain=True, molecule=True,
+            entity=True, bioassembly=True):
 
-        from molmodmt.util.exceptions import IncompleteElementError
+        from molmodmt.utils.exceptions import IncompleteElementError
 
         if group and (self.group is None):
             raise IncompleteElementError("Atom index {} has no group".format(self.index))
@@ -104,7 +104,7 @@ class Atom:
         if bioassembly and (self.bioassembly is None):
             raise IncompleteElementError("Atom index {} has no bioassembly".format(self.index))
 
-    def __update_bonds(self):
+    def _update_bonds(self):
 
         from numpy import empty
 
@@ -126,7 +126,7 @@ class Atom:
                 else:
                     raise Exception("Atom index does not participate in one of its bonds")
 
-    def __update_all(self):
+    def _update_all(self):
 
-        self.__update_bonds()
+        self._update_bonds()
 
