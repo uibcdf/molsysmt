@@ -4,7 +4,7 @@ class Water(Group):
 
     def __init__(self, index=None, id=None, name=None, type=None):
 
-        super().__init__(index=None, id=id, name=name, type=type)
+        super().__init__(index=index, id=id, name=name, type="water")
 
         self.model = None
 
