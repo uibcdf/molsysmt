@@ -90,9 +90,9 @@ _dict_set = {**_dict_classes_set, **_dict_files_set,\
 #### Methods
 ####
 
-def select(item, selection='all', syntaxis='Pandas'):
+def select(item, selection='all', output_indices='atom', syntaxis='MolModMT'):
 
-    """select(item, selection='all', syntaxis='Pandas')
+    """select(item, selection='all', output_indices='atom', syntaxis='MolModMT')
 
     Get the atom indices corresponding to a selection criterion.
 
@@ -104,10 +104,14 @@ def select(item, selection='all', syntaxis='Pandas'):
     item: molecular model
         Molecular model in any supported form (see: :doc:`/Forms`). The object being acted on by the method.
 
-    selection: str, defaul='all'
+    selection: str, default='all'
        Selection criterion given by means of a string following any of the selection syntaxis parsable by MolModMT.
 
-    syntaxis: str, default='Pandas'
+    output_indices: str, default='atom'
+       The output list can correspond to 'atom', 'group', 'component', 'molecule', 'chain' or 'entity'
+       indices.
+
+    syntaxis: str, default='MolModMT'
        Syntaxis used to write the argument `selection`. The current options supported by MolModMt
        can be found in :doc:`/Atoms_Selection`.
 
@@ -115,7 +119,9 @@ def select(item, selection='all', syntaxis='Pandas'):
     -------
 
     Numpy array of integers
-        List of atom indices in agreement with the selection criterion applied over `item`.
+        List of indices in agreement with the selection criterion applied over `item`. The nature
+        of the indices is chosen with the impot argument 'output_indices': 'atom' (default),
+        'group', 'component', 'molecule', 'chain' or 'entity'.
 
     Examples
     --------

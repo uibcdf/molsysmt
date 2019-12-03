@@ -1,0 +1,23 @@
+molmodmt.native.elements.bioassembly
+====================================
+
+.. automodule:: molmodmt.native.elements.bioassembly
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      BioAssembly
+      BioAssembly_Transformation
+   
+   
+
+   
+   
+   

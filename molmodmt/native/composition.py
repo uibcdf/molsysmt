@@ -5,68 +5,70 @@ class Composition():
         self.bioassembly = None
 
         self.entity = []
-        self.entities = []
+        self.entity_indices = []
         self.n_entities = 0
 
         self.molecule = []
-        self.molecules = []
+        self.molecule_indices = []
         self.n_molecules = 0
 
         self.chain = []
-        self.chains = []
+        self.chain_indices = []
         self.n_chains = 0
 
         self.component = []
-        self.components = []
+        self.component_indices = []
         self.n_components = 0
 
         self.group = []
-        self.groups = []
+        self.group_indices = []
         self.n_groups = 0
 
         self.atom = []
-        self.atoms = []
+        self.atom_indices = []
         self.n_atoms = 0
 
-        self.ion = []
-        self.ions = []
-        self.n_ions = 0
-
-        self.water = []
-        self.waters = []
-        self.n_waters = 0
-
-        self.cosolute = []
-        self.cosolutes = []
-        self.n_cosolutes = 0
-
-        self.small_molecule = []
-        self.small_molecules = []
-        self.n_small_molecules = 0
-
-        self.protein = []
-        self.proteins = []
-        self.n_proteins = 0
-
-        self.peptide = []
-        self.peptides = []
-        self.n_peptides = 0
-
-        self.dna = []
-        self.dnas = []
-        self.n_dnas = 0
-
-        self.rna = []
-        self.rnas = []
-        self.n_rnas = 0
-
         self.bond = []
-        self.bonds = []
+        self.bond_indices = []
+        self.bonded_atom_indices = []
         self.n_bonds = 0
 
         self.dataframe = None
 
-    def update_dataframe(self):
+    def _update_from_bioassembly(self):
+
+        if self.bioassembly is not None:
+
+            self.entity = self.bioassembly.entity
+            self.entity_indices = self.bioassembly.entity_indices
+            self.n_entities = self.bioassembly.n_entities
+
+            self.molecule = self.bioassembly.molecule
+            self.molecule_indices = self.bioassembly.molecule_indices
+            self.n_molecules = self.bioassembly.n_molecules
+
+            self.chain = self.bioassembly.chain
+            self.chain_indices = self.bioassembly.chain_indices
+            self.n_chains = self.bioassembly.n_chains
+
+            self.component = self.bioassembly.component
+            self.component_indices = self.bioassembly.component_indices
+            self.n_components = self.bioassembly.n_components
+
+            self.group = self.bioassembly.group
+            self.groups = self.bioassembly.group_indices
+            self.n_groups = self.bioassembly.n_groups
+
+            self.atom = self.bioassembly.atom
+            self.atom_indices = self.bioassembly.atom_indices
+            self.n_atoms = self.bioassembly.n_atoms
+
+            self.bond = self.bioassembly.bond
+            self.bond_indices = self.bioassembly.bond_indices
+            self.bonded_atom_indices = self.bioassembly.bonded_atom_indices
+            self.n_bonds = self.bioassembly.n_bonds
+
+    def _update_dataframe(self):
 
         from molmodmt.native import DataFrame
         from pandas import Series
@@ -77,7 +79,6 @@ class Composition():
         tmp_item['atom.name'] = Series(atom.name for atom in self.atom).values
         tmp_item['atom.id'] = Series(atom.id for atom in self.atom).values
         tmp_item['atom.type'] = Series(atom.type for atom in self.atom).values
-        tmp_item['atom.element'] = Series(atom.element for atom in self.atom).values
 
         tmp_item['group.index'] = Series(atom.group.index for atom in self.atom).values
         tmp_item['group.name'] = Series(atom.group.name for atom in self.atom).values
@@ -123,4 +124,10 @@ class Composition():
     def duplicate(self):
 
         raise NotImplementedError
+
+    def select(self, selection, output_indices='atom'):
+
+        from molmodmt.native.selector import dataframe_select
+        indices = dataframe_select(self.dataframe, selection, output_indices=output_indices)
+        return indices
 

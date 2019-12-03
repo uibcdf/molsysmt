@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MolMod form &mdash; MolModMT 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Basic manipulations" href="api/index.html" />
+    <link rel="prev" title="Selection Tutorial and Examples" href="Selection.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> MolModMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation and Quick Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quick Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Forms.html">Molecular model forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Selection.html">Selection Tutorial and Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MolMod form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#trajectory">Trajectory</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Basic manipulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.load.html">molmodmt.load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.convert.html">molmodmt.convert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.info.html">molmodmt.info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.select.html">molmodmt.select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.get.html">molmodmt.get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.set.html">molmodmt.set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.extract.html">molmodmt.extract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.duplicate.html">molmodmt.duplicate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.merge.html">molmodmt.merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.write.html">molmodmt.write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.view.html">molmodmt.view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html#estructural-observables-and-transformations">Estructural observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.get.html">molmodmt.get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.distance.html">molmodmt.distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.maximum_distance.html">molmodmt.maximum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.minimum_distance.html">molmodmt.minimum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.neighbors_lists.html">molmodmt.neighbors_lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.center.html">molmodmt.center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.center_of_mass.html">molmodmt.center_of_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.geometrical_center.html">molmodmt.geometrical_center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.recenter.html">molmodmt.recenter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.radius_of_gyration.html">molmodmt.radius_of_gyration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.rmsd.html">molmodmt.rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.least_rmsd.html">molmodmt.least_rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.least_rmsd_fit.html">molmodmt.least_rmsd_fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.wrap_molecules_to_pbc_cell.html">molmodmt.wrap_molecules_to_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.unwrap_molecules_from_pbc_cell.html">molmodmt.unwrap_molecules_from_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.minimum_image_convention.html">molmodmt.minimum_image_convention</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.get.html">molmodmt.get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.get.html">molmodmt.get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index_elements.html">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.native.elements.atom.html">molmodmt.native.elements.atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.native.elements.group.html">molmodmt.native.elements.group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.native.elements.component.html">molmodmt.native.elements.component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.native.elements.molecule.html">molmodmt.native.elements.molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.native.elements.entity.html">molmodmt.native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.native.elements.bioassembly.html">molmodmt.native.elements.bioassembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.native.elements.chain.html">molmodmt.native.elements.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/_autosummary/molmodmt.native.elements.bond.html">molmodmt.native.elements.bond</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MolModMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>MolMod form</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/MolMod.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="molmod-form">
+<h1>MolMod form<a class="headerlink" href="#molmod-form" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="composition">
+<h2>Composition<a class="headerlink" href="#composition" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="elements">
+<h3>Elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h3>
+<p>The fundamental elements are atoms, groups, components, molecules, entities and bioassemblies. They act as
+building blocks of superior elements, defining this way hierarchical organization levels of a
+molecular model. A bioassembly is composed by entities with one or more molecules. A molecule is composed by
+components, a component by groups, and finnaly a by atoms.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">atom</span> <span class="o">---&gt;</span> <span class="n">group</span> <span class="o">---&gt;</span> <span class="n">component</span> <span class="o">---&gt;</span> <span class="n">molecule</span> <span class="o">---&gt;</span> <span class="n">entities</span> <span class="o">---&gt;</span> <span class="n">bioassembly</span>
+                         <span class="o">|</span>                           <span class="o">^</span>
+                         <span class="o">|</span>                           <span class="o">|</span>
+                         <span class="o">---------&gt;</span> <span class="n">chain</span> <span class="o">------------</span>
+</pre></div>
+</div>
+<div class="section" id="atom">
+<h4>Atom<a class="headerlink" href="#atom" title="Permalink to this headline">¶</a></h4>
+<p>Atoms are the indivisible element of a classical molecular model.</p>
+<p>Refer api</p>
+</div>
+<div class="section" id="group">
+<h4>Group<a class="headerlink" href="#group" title="Permalink to this headline">¶</a></h4>
+<p>Sets of atoms are sometimes defined as building block elements of more complex structures. This is
+the case of aminoacids and nucleotides. This is then the immediately superior hierarchical level
+over “atoms”.</p>
+<p>Refer api :class:<code class="docutils literal notranslate"><span class="pre">molmodmt.native.elements.atom</span></code></p>
+</div>
+</div>
+<div class="section" id="component">
+<h3>Component<a class="headerlink" href="#component" title="Permalink to this headline">¶</a></h3>
+<p>Components are composed by one or many groups, and thereby by one or many atoms.
+Components are uniquely defined as the set of atoms, and groups, covalently bonded.
+The name “component” is taken from graph or network theory where the “components” of a graph or a
+network are the connected set of nodes (any node of a component is connected by at least a path of edges to any
+other node of the same component).
+Thereby, a polymer made by nucleotides or aminoacids is a component, no matter is a fragment of a protein or one of the strands of a DNA fragment. And in coherence with this definition, an ion, a water molecule or a small molecules are also components.</p>
+</div>
+<div class="section" id="molecule">
+<h3>Molecule<a class="headerlink" href="#molecule" title="Permalink to this headline">¶</a></h3>
+<p>A molecule is composed by one or many components. A protein quaternary structure is composed by more than a polymer of
+aminoacids, more than a component. In the same way a fragment of DNA is composed by two nucleotides
+strands (components). While a peptide or a single folded protein are made by a single component.
+And in coherence with this definition, an ion or a water molecule are perse a molecules composed by
+single components.</p>
+</div>
+<div class="section" id="chains">
+<h3>Chains<a class="headerlink" href="#chains" title="Permalink to this headline">¶</a></h3>
+<p>Chains are ambiguously defined. Chain, as thy can be found in the protein data bank, are sets of components for sure. But it can not be
+said that chains are composed always by molecules or that molecules are composed always by chains.
+A set of molecules can sometimes define a chain (e.g.: crystal waters), or a molecule can be made up by more than a chain (e.g.: protein complex).</p>
+</div>
+<div class="section" id="entities">
+<h3>Entities<a class="headerlink" href="#entities" title="Permalink to this headline">¶</a></h3>
+<p>Entities are set of molecules defined by the same molecular nature. Water is an entity made by all
+water molecules in the bioassembly, e.g. Or Urea can be another entity present in the molecular
+model, or “Epstein Barr Nuclear Antigen 1” or “Trypanosoma Cruzi Triosephosphate Isomerase”, no
+matter the number of molecules of each nature can be found in the molecular model.</p>
+</div>
+<div class="section" id="bioassemblies">
+<h3>Bioassemblies<a class="headerlink" href="#bioassemblies" title="Permalink to this headline">¶</a></h3>
+<p>The last hierarchical level are bioassemblies. A bioassembly is the arrangement or the assembly of
+all other elements. Per se a bioassembly can be a molecular model. But to be precise a molecular
+model can be made by differenc bioassembly (see protein data bank).</p>
+</div>
+</div>
+<div class="section" id="trajectory">
+<h2>Trajectory<a class="headerlink" href="#trajectory" title="Permalink to this headline">¶</a></h2>
+<p>Bla bla</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api/index.html" class="btn btn-neutral float-right" title="Basic manipulations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Selection.html" class="btn btn-neutral float-left" title="Selection Tutorial and Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

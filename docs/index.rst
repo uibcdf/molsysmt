@@ -34,24 +34,19 @@ Exceptionally few home-made subroutines will be included here to fill specific g
 
 .. toctree::
    :caption: User Guide
-   :maxdepth: 1
+   :maxdepth: 2
 
    Forms.ipynb
-   Atoms_Selection.ipynb
-   Basic_Manipulations.ipynb
-
-.. toctree::
-   :caption: Examples
-   :maxdepth: 1
-
-   ../examples/es/Distances.ipynb
-
+   Selection.ipynb
+   MolMod.md
+      Elements.md
 
 .. toctree::
    :caption: API Documentation
    :maxdepth: 1
 
    api/index
+   api/index_elements
 
 Glossary, indices and tables
 ============================

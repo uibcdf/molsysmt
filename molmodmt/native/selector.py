@@ -13,8 +13,9 @@ def query_dataframe(item, selection='all'):
             globals()[var_name]=stack()[count][0].f_globals[var_name]
 
     selection = selection.replace(".","_")
-    item.columns = [column.replace(".", "_") for column in item.columns] 
+    item.columns = [column.replace(".", "_") for column in item.columns]
     atom_indices = item.query(selection).index.to_numpy()
+    item.columns = [column.replace("_", ".") for column in item.columns]
     return atom_indices
 
 def parse(selection='all'):
@@ -25,8 +26,15 @@ def parse(selection='all'):
 
     return parsed_selection
 
-def dataframe_select(item, selection='all'):
+def dataframe_select(item, selection='all', output_indices='atom'):
 
     parsed_selection = parse(selection)
-    atom_indices = query_dataframe(item, selection=parsed_selection)
-    return atom_indices
+    indices = query_dataframe(item, selection=parsed_selection)
+    if output_indices in ['group', 'component', 'chain', 'molecule', 'entity']:
+        from numpy import unique
+        indices = item.iloc[indices][output_indices+'.index'].values
+        indices = unique(indices)
+    elif output_indices!='atom':
+        raise ValueError('Wrong input argument in "ouput_indices"')
+    return indices
+

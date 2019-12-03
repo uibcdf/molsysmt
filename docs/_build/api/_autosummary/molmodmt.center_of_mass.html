@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -99,22 +100,22 @@
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Forms.html">Molecular model forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Atoms_Selection.html">Atoms selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Selection.html">Selection Tutorial and Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MolMod.html">MolMod form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#group">Group</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../examples/es/Distances.html">Getting distances</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Objeto-XYZ">Objeto XYZ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-entre-elementos">Distancias entre elementos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-de-desplazamiento-o-distancias-entre-distintas-selecciones-de-índices-de-frame">Distancias de desplazamiento o distancias entre distintas selecciones de índices de frame</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-entre-pares">Distancias entre pares</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-máximas-y-mínimas">Distancias máximas y mínimas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Listas-de-vecinos">Listas de vecinos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Mapas-de-contactos">Mapas de contactos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-entre-grupos">Distancias entre grupos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-mínimas-o-máximas-entre-grupos">Distancias mínimas o máximas entre grupos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Listas-de-vecinos-entre-grupos">Listas de vecinos entre grupos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Mapas-de-contactos-entre-grupos">Mapas de contactos entre grupos</a></li>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
 </ul>
@@ -159,6 +160,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="molmodmt.get.html">molmodmt.get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index_elements.html">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.atom.html">molmodmt.native.elements.atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.group.html">molmodmt.native.elements.group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.component.html">molmodmt.native.elements.component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.molecule.html">molmodmt.native.elements.molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.entity.html">molmodmt.native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.bioassembly.html">molmodmt.native.elements.bioassembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.chain.html">molmodmt.native.elements.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.bond.html">molmodmt.native.elements.bond</a></li>
 </ul>
 </li>
 </ul>

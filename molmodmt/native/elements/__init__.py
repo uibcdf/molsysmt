@@ -9,5 +9,7 @@ from .bond import Bond
 from . import groups
 from . import molecules
 from . import entities
-from .entity import entity_class_initialization
-from .group import group_class_initialization
+from .entity import entity_initialization_wizard
+from .group import group_initialization_wizard
+from .molecule import molecule_initialization_wizard
+

@@ -25,6 +25,7 @@
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
         <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -97,22 +98,22 @@
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Forms.html">Molecular model forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Atoms_Selection.html">Atoms selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Selection.html">Selection Tutorial and Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MolMod.html">MolMod form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#group">Group</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../examples/es/Distances.html">Getting distances</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Objeto-XYZ">Objeto XYZ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-entre-elementos">Distancias entre elementos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-de-desplazamiento-o-distancias-entre-distintas-selecciones-de-índices-de-frame">Distancias de desplazamiento o distancias entre distintas selecciones de índices de frame</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-entre-pares">Distancias entre pares</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-máximas-y-mínimas">Distancias máximas y mínimas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Listas-de-vecinos">Listas de vecinos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Mapas-de-contactos">Mapas de contactos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-entre-grupos">Distancias entre grupos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Distancias-mínimas-o-máximas-entre-grupos">Distancias mínimas o máximas entre grupos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Listas-de-vecinos-entre-grupos">Listas de vecinos entre grupos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../examples/es/Distances.html#Mapas-de-contactos-entre-grupos">Mapas de contactos entre grupos</a></li>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
 </ul>
@@ -157,6 +158,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.get.html">molmodmt.get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index_elements.html">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.atom.html">molmodmt.native.elements.atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.group.html">molmodmt.native.elements.group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.component.html">molmodmt.native.elements.component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.molecule.html">molmodmt.native.elements.molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.entity.html">molmodmt.native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.bioassembly.html">molmodmt.native.elements.bioassembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.chain.html">molmodmt.native.elements.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.bond.html">molmodmt.native.elements.bond</a></li>
 </ul>
 </li>
 </ul>
@@ -311,25 +323,12 @@
                    <span class="o">**</span><span class="n">_dict_ids_set</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_seqs_set</span><span class="p">,</span> <span class="o">**</span><span class="n">_dict_viewers_set</span><span class="p">}</span>
 
 <span class="c1">####</span>
-<span class="c1">#### Molecular Models attributes</span>
-<span class="c1">####</span>
-
-<span class="c1"># Coordinates</span>
-<span class="kn">from</span> <span class="nn">.attributes.coordinates</span> <span class="k">import</span> <span class="n">list_forms</span> <span class="k">as</span> <span class="n">_list_coordinates_forms</span><span class="p">,</span> \
-    <span class="n">dict_reformatter</span> <span class="k">as</span> <span class="n">_dict_coordinates_reformatter</span>
-
-<span class="n">_dict_reformatter</span><span class="o">=</span><span class="p">{}</span>
-<span class="n">_dict_reformatter</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">_dict_coordinates_reformatter</span>
-
-<span class="n">_list_attributes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_dict_reformatter</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-<span class="c1">####</span>
 <span class="c1">#### Methods</span>
 <span class="c1">####</span>
 
-<div class="viewcode-block" id="select"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.select.html#molmodmt.select">[docs]</a><span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="select"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.select.html#molmodmt.select">[docs]</a><span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">output_indices</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolModMT&#39;</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;select(item, selection=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
+    <span class="sd">&quot;&quot;&quot;select(item, selection=&#39;all&#39;, output_indices=&#39;atom&#39;, syntaxis=&#39;MolModMT&#39;)</span>
 
 <span class="sd">    Get the atom indices corresponding to a selection criterion.</span>
 
@@ -341,10 +340,14 @@
 <span class="sd">    item: molecular model</span>
 <span class="sd">        Molecular model in any supported form (see: :doc:`/Forms`). The object being acted on by the method.</span>
 
-<span class="sd">    selection: str, defaul=&#39;all&#39;</span>
+<span class="sd">    selection: str, default=&#39;all&#39;</span>
 <span class="sd">       Selection criterion given by means of a string following any of the selection syntaxis parsable by MolModMT.</span>
 
-<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">    output_indices: str, default=&#39;atom&#39;</span>
+<span class="sd">       The output list can correspond to &#39;atom&#39;, &#39;group&#39;, &#39;component&#39;, &#39;molecule&#39;, &#39;chain&#39; or &#39;entity&#39;</span>
+<span class="sd">       indices.</span>
+
+<span class="sd">    syntaxis: str, default=&#39;MolModMT&#39;</span>
 <span class="sd">       Syntaxis used to write the argument `selection`. The current options supported by MolModMt</span>
 <span class="sd">       can be found in :doc:`/Atoms_Selection`.</span>
 
@@ -352,7 +355,9 @@
 <span class="sd">    -------</span>
 
 <span class="sd">    Numpy array of integers</span>
-<span class="sd">        List of atom indices in agreement with the selection criterion applied over `item`.</span>
+<span class="sd">        List of indices in agreement with the selection criterion applied over `item`. The nature</span>
+<span class="sd">        of the indices is chosen with the impot argument &#39;output_indices&#39;: &#39;atom&#39; (default),</span>
+<span class="sd">        &#39;group&#39;, &#39;component&#39;, &#39;molecule&#39;, &#39;chain&#39; or &#39;entity&#39;.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -392,9 +397,9 @@
     <span class="n">atom_indices</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">atom_indices</span></div>
 
-<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.extract.html#molmodmt.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.extract.html#molmodmt.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;Pandas&#39;</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;extract(item, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
+    <span class="sd">&quot;&quot;&quot;extract(item, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;Pandas&#39;)</span>
 
 <span class="sd">    Extract a subset of a molecular model.</span>
 
@@ -411,7 +416,7 @@
 <span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
 <span class="sd">       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).</span>
 
-<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">    syntaxis: str, default=&#39;Pandas&#39;</span>
 <span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>
 <span class="sd">       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).</span>
 
@@ -436,25 +441,12 @@
 
     <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="p">)</span>
 
-    <span class="c1"># mode in [&#39;removing_selection&#39;,&#39;keeping_selection&#39;]</span>
-
-    <span class="n">selection_is_all</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">selection</span><span class="o">==</span><span class="s2">&quot;all&quot;</span><span class="p">:</span>
-            <span class="n">selection_is_all</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">):</span>
-        <span class="n">n_atoms_selection</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
-        <span class="n">n_atoms</span> <span class="o">=</span> <span class="n">_dict_get</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="s1">&#39;system&#39;</span><span class="p">][</span><span class="s1">&#39;n_atoms&#39;</span><span class="p">](</span><span class="n">item</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">n_atoms</span> <span class="o">==</span> <span class="n">n_atoms_selection</span><span class="p">:</span>
-            <span class="n">selection_is_all</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="k">if</span> <span class="n">selection_is_all</span><span class="p">:</span>
-        <span class="n">tmp_item</span><span class="o">=</span><span class="n">duplicate</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">selection</span> <span class="ow">is</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+        <span class="n">atom_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
-        <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
-        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_extractor</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
+
+    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_extractor</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">form_in</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
         <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">form_out</span><span class="p">)</span>
@@ -463,7 +455,7 @@
 
 <div class="viewcode-block" id="merge"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.merge.html#molmodmt.merge">[docs]</a><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">item1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;into(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
+    <span class="sd">&quot;&quot;&quot;into(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;Pandas&#39;)</span>
 
 <span class="sd">    Print out general information of a molecular model.</span>
 
@@ -476,14 +468,14 @@
 <span class="sd">        Molecular model in any of the supported forms by MolModMT. (See: XXX)</span>
 
 <span class="sd">    target: str, default=&#39;system&#39;</span>
-<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;residue&#39;, &#39;chain&#39; or</span>
+<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;group&#39;, &#39;chain&#39; or</span>
 <span class="sd">        &#39;system&#39;.</span>
 
 <span class="sd">    to_form: str, default=&#39;molmodmt.MolMod&#39;</span>
 <span class="sd">        Any accepted form by MolModMt for the output object.</span>
 
 <span class="sd">    indices: int, list, tuple or np.ndarray, default=None</span>
-<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;residue&#39; or &#39;chain&#39;) this</span>
+<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;group&#39; or &#39;chain&#39;) this</span>
 <span class="sd">        method is going to work with. The set of indices can be given by a list, tuple or numpy</span>
 <span class="sd">        array of integers (0-based).</span>
 
@@ -492,7 +484,7 @@
 <span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
 <span class="sd">       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).</span>
 
-<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">    syntaxis: str, default=&#39;Pandas&#39;</span>
 <span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>
 <span class="sd">       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).</span>
 
@@ -518,20 +510,20 @@
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">item1</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">]:</span>
         <span class="n">_</span> <span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">to_form</span><span class="p">)</span>
-        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">form_out</span><span class="p">)</span>
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="n">form_out</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">in_item</span> <span class="ow">in</span> <span class="n">item1</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-            <span class="n">tmp_item2</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">in_item</span><span class="p">,</span> <span class="n">form_out</span><span class="p">)</span>
+            <span class="n">tmp_item2</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">in_item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">form_out</span><span class="p">)</span>
             <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_merger</span><span class="p">[</span><span class="n">form</span><span class="p">](</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">tmp_item2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">tmp_item</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">_</span> <span class="p">,</span> <span class="n">form_out</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span> <span class="n">to_form</span><span class="p">)</span>
-        <span class="n">tmp_item1</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span><span class="n">form</span><span class="p">)</span>
-        <span class="n">tmp_item2</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item2</span><span class="p">,</span><span class="n">form</span><span class="p">)</span>
+        <span class="n">tmp_item1</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span><span class="n">to_form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+        <span class="n">tmp_item2</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item2</span><span class="p">,</span><span class="n">to_form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_dict_merger</span><span class="p">[</span><span class="n">form</span><span class="p">](</span><span class="n">tmp_item1</span><span class="p">,</span> <span class="n">tmp_item1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="info"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.info.html#molmodmt.info">[docs]</a><span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="info"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.info.html#molmodmt.info">[docs]</a><span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;Pandas&#39;</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;into(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
+    <span class="sd">&quot;&quot;&quot;into(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, syntaxis=&#39;Pandas&#39;)</span>
 
 <span class="sd">    Print out general information of a molecular model.</span>
 
@@ -544,11 +536,11 @@
 <span class="sd">        Molecular model in any of the supported forms by MolModMT. (See: XXX)</span>
 
 <span class="sd">    target: str, default=&#39;system&#39;</span>
-<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;residue&#39;, &#39;chain&#39; or</span>
+<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;group&#39;, &#39;chain&#39; or</span>
 <span class="sd">        &#39;system&#39;.</span>
 
 <span class="sd">    indices: int, list, tuple or np.ndarray, default=None</span>
-<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;residue&#39; or &#39;chain&#39;) this</span>
+<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;group&#39; or &#39;chain&#39;) this</span>
 <span class="sd">        method is going to work with. The set of indices can be given by a list, tuple or numpy</span>
 <span class="sd">        array of integers (0-based).</span>
 
@@ -558,7 +550,7 @@
 <span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
 <span class="sd">       the selection syntaxis parsable by MolModMT.</span>
 
-<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">    syntaxis: str, default=&#39;Pandas&#39;</span>
 <span class="sd">       Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find</span>
 <span class="sd">       current options supported by MolModMt in section &#39;Selection&#39;.</span>
 
@@ -581,33 +573,42 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1"># Patch to keep &quot;residue&quot;:</span>
+    <span class="k">if</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;residue&#39;</span><span class="p">:</span>
+        <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span>
+
     <span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
     <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
     <span class="n">target</span> <span class="o">=</span> <span class="n">_singular</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;atom&#39;</span><span class="p">:</span>
 
-        <span class="n">atom_index</span><span class="p">,</span> <span class="n">atom_id</span><span class="p">,</span> <span class="n">atom_name</span><span class="p">,</span> <span class="n">atom_element</span><span class="p">,</span> <span class="n">residue_index</span><span class="p">,</span> <span class="n">residue_id</span><span class="p">,</span> <span class="n">residue_name</span><span class="p">,</span> <span class="n">chain_index</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span>\
+        <span class="n">atom_index</span><span class="p">,</span> <span class="n">atom_id</span><span class="p">,</span> <span class="n">atom_name</span><span class="p">,</span> <span class="n">atom_element</span><span class="p">,</span> <span class="n">group_index</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">chain_index</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span>\
         <span class="n">chain_name</span><span class="p">,</span> <span class="n">molecule_type</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span>
                             <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">residue_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">residue_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">residue_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">group_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">molecule_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">df</span><span class="p">({</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="n">atom_index</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="n">atom_id</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">atom_name</span><span class="p">,</span> <span class="s1">&#39;element&#39;</span><span class="p">:</span><span class="n">atom_element</span><span class="p">,</span>
-                   <span class="s1">&#39;residue index&#39;</span><span class="p">:</span><span class="n">residue_index</span><span class="p">,</span> <span class="s1">&#39;residue id&#39;</span><span class="p">:</span><span class="n">residue_id</span><span class="p">,</span> <span class="s1">&#39;residue name&#39;</span><span class="p">:</span><span class="n">residue_name</span><span class="p">,</span>
+                   <span class="s1">&#39;group index&#39;</span><span class="p">:</span><span class="n">group_index</span><span class="p">,</span> <span class="s1">&#39;group id&#39;</span><span class="p">:</span><span class="n">group_id</span><span class="p">,</span> <span class="s1">&#39;group name&#39;</span><span class="p">:</span><span class="n">group_name</span><span class="p">,</span>
                    <span class="s1">&#39;chain index&#39;</span><span class="p">:</span><span class="n">chain_index</span><span class="p">,</span> <span class="s1">&#39;chain id&#39;</span><span class="p">:</span><span class="n">chain_id</span><span class="p">,</span> <span class="s1">&#39;chain name&#39;</span><span class="p">:</span><span class="n">chain_name</span><span class="p">,</span> <span class="s1">&#39;molecule type&#39;</span><span class="p">:</span><span class="n">molecule_type</span><span class="p">})</span>
 
-    <span class="k">elif</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;residue&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;group&#39;</span><span class="p">:</span>
 
         <span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">chain_index</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span>\
         <span class="n">molecule_type</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span>
-                            <span class="n">residue_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">residue_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">residue_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">group_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">molecule_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
         <span class="k">return</span> <span class="n">df</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="nb">id</span><span class="p">,</span> <span class="s1">&#39;chain index&#39;</span><span class="p">:</span><span class="n">chain_index</span><span class="p">,</span> <span class="s1">&#39;chain id&#39;</span><span class="p">:</span><span class="n">chain_id</span><span class="p">,</span>
                    <span class="s1">&#39;molecule type&#39;</span><span class="p">:</span><span class="n">molecule_type</span><span class="p">})</span>
+
+    <span class="k">elif</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;component&#39;</span><span class="p">:</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
 
     <span class="k">elif</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;chain&#39;</span><span class="p">:</span>
 
@@ -616,9 +617,41 @@
 
         <span class="k">return</span> <span class="n">df</span><span class="p">({</span><span class="s1">&#39;index&#39;</span><span class="p">:</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="nb">id</span><span class="p">,</span> <span class="s1">&#39;molecule type&#39;</span><span class="p">:</span><span class="n">molecule_type</span><span class="p">})</span>
 
-    <span class="k">elif</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;system&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;molecule&#39;</span><span class="p">:</span>
 
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">elif</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;entity&#39;</span><span class="p">:</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">elif</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;system&#39;</span><span class="p">:</span>
+
+        <span class="n">form</span><span class="p">,</span> <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_groups</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">n_chains</span><span class="p">,</span> <span class="n">n_molecules</span><span class="p">,</span> <span class="n">n_entities</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span>
+                <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_chains</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_molecules</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_entities</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">n_ions</span><span class="p">,</span> <span class="n">n_waters</span><span class="p">,</span> <span class="n">n_cosolutes</span><span class="p">,</span> <span class="n">n_small_molecules</span><span class="p">,</span> <span class="n">n_peptides</span><span class="p">,</span> <span class="n">n_proteins</span><span class="p">,</span> <span class="n">n_dnas</span><span class="p">,</span> <span class="n">n_rnas</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span>
+                <span class="n">n_ions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_waters</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_cosolutes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_small_molecules</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_peptides</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_proteins</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">n_dnas</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_rnas</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">n_frames</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">n_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">tmp_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">({</span><span class="s1">&#39;form&#39;</span><span class="p">:</span><span class="n">form</span><span class="p">,</span> <span class="s1">&#39;atoms&#39;</span><span class="p">:</span><span class="n">n_atoms</span><span class="p">,</span> <span class="s1">&#39;groups&#39;</span><span class="p">:</span><span class="n">n_groups</span><span class="p">,</span> <span class="s1">&#39;components&#39;</span><span class="p">:</span><span class="n">n_components</span><span class="p">,</span>
+            <span class="s1">&#39;chains&#39;</span><span class="p">:</span><span class="n">n_chains</span><span class="p">,</span> <span class="s1">&#39;molecules&#39;</span><span class="p">:</span><span class="n">n_molecules</span><span class="p">,</span> <span class="s1">&#39;entities&#39;</span><span class="p">:</span><span class="n">n_entities</span><span class="p">,</span>
+            <span class="s1">&#39;waters&#39;</span><span class="p">:</span><span class="n">n_waters</span><span class="p">,</span> <span class="s1">&#39;ions&#39;</span><span class="p">:</span><span class="n">n_ions</span><span class="p">,</span> <span class="s1">&#39;cosolutes&#39;</span><span class="p">:</span><span class="n">n_cosolutes</span><span class="p">,</span> <span class="s1">&#39;small_molecules&#39;</span><span class="p">:</span><span class="n">n_small_molecules</span><span class="p">,</span>
+            <span class="s1">&#39;peptides&#39;</span><span class="p">:</span><span class="n">n_peptides</span><span class="p">,</span> <span class="s1">&#39;proteins&#39;</span><span class="p">:</span><span class="n">n_proteins</span><span class="p">,</span> <span class="s1">&#39;dnas&#39;</span><span class="p">:</span><span class="n">n_dnas</span><span class="p">,</span> <span class="s1">&#39;rnas&#39;</span><span class="p">:</span><span class="n">n_rnas</span><span class="p">,</span>
+            <span class="s1">&#39;frames&#39;</span><span class="p">:</span><span class="n">n_frames</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">n_ions</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ions&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_waters</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;waters&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_cosolutes</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cosolutes&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_small_molecules</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;small_molecules&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_peptides</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;peptides&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_proteins</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;proteins&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_dnas</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;dnas&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_rnas</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="n">tmp_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rnas&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tmp_df</span>
 
     <span class="k">else</span><span class="p">:</span>
 
@@ -626,7 +659,7 @@
 
     <span class="k">pass</span></div>
 
-<span class="k">def</span> <span class="nf">_get_form</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_form</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
@@ -646,9 +679,9 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This item&#39;s form has not been implemented yet&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="get"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.get.html#molmodmt.get">[docs]</a><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="get"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.get.html#molmodmt.get">[docs]</a><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;Pandas&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;get(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
+    <span class="sd">&quot;&quot;&quot;get(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;Pandas&#39;)</span>
 
 <span class="sd">    Get specific attributes and observables.</span>
 
@@ -661,11 +694,11 @@
 <span class="sd">        Molecular model in any of the supported forms by MolModMT. (See: XXX)</span>
 
 <span class="sd">    target: str, default=&#39;system&#39;</span>
-<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;residue&#39;, &#39;chain&#39; or</span>
+<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;group&#39;, &#39;chain&#39; or</span>
 <span class="sd">        &#39;system&#39;.</span>
 
 <span class="sd">    indices: int, list, tuple or np.ndarray, default=None</span>
-<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;residue&#39; or &#39;chain&#39;) this</span>
+<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;group&#39; or &#39;chain&#39;) this</span>
 <span class="sd">        method is going to work with. The set of indices can be given by a list, tuple or numpy</span>
 <span class="sd">        array of integers (0-based).</span>
 
@@ -675,7 +708,7 @@
 <span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
 <span class="sd">       the selection syntaxis parsable by MolModMT.</span>
 
-<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">    syntaxis: str, default=&#39;Pandas&#39;</span>
 <span class="sd">       Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find</span>
 <span class="sd">       current options supported by MolModMt in section &#39;Selection&#39;.</span>
 
@@ -698,20 +731,31 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-
     <span class="c1"># selection works as a mask if indices or ids are used</span>
 
     <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
     <span class="n">target</span> <span class="o">=</span> <span class="n">_singular</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
     <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span> <span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="p">]</span>
 
-    <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
+    <span class="c1"># Patch to keep &quot;residue&quot;:</span>
+    <span class="k">if</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;residue&#39;</span><span class="p">:</span>
+        <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span>
+
+    <span class="n">tmp_attributes</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;residue&#39;</span> <span class="ow">in</span> <span class="n">attribute</span><span class="p">:</span>
+            <span class="n">tmp_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attribute</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;residue&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tmp_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+    <span class="n">attributes</span><span class="o">=</span><span class="n">tmp_attributes</span>
+
+    <span class="c1"># doing the work here</span>
 
     <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;atom&#39;</span><span class="p">:</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;residue&#39;</span><span class="p">:</span>
-            <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="n">residue_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;group&#39;</span><span class="p">:</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_unique</span><span class="p">(</span><span class="n">indices</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;chain&#39;</span><span class="p">:</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -729,9 +773,9 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">results</span></div>
 
-<div class="viewcode-block" id="set"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.set.html#molmodmt.set">[docs]</a><span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="set"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.set.html#molmodmt.set">[docs]</a><span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;Pandas&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;into(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;MDTraj&#39;)</span>
+    <span class="sd">&quot;&quot;&quot;into(item, target=&#39;system&#39;, indices=None, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;Pandas&#39;)</span>
 
 <span class="sd">    Set a new value to an attribute.</span>
 
@@ -744,11 +788,11 @@
 <span class="sd">        Molecular model in any of the supported forms by MolModMT. (See: XXX)</span>
 
 <span class="sd">    target: str, default=&#39;system&#39;</span>
-<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;residue&#39;, &#39;chain&#39; or</span>
+<span class="sd">        The nature of the entities this method is going to work with: &#39;atom&#39;, &#39;group&#39;, &#39;chain&#39; or</span>
 <span class="sd">        &#39;system&#39;.</span>
 
 <span class="sd">    indices: int, list, tuple or np.ndarray, default=None</span>
-<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;residue&#39; or &#39;chain&#39;) this</span>
+<span class="sd">        List of indices referring the set of targetted entities (&#39;atom&#39;, &#39;group&#39; or &#39;chain&#39;) this</span>
 <span class="sd">        method is going to work with. The set of indices can be given by a list, tuple or numpy</span>
 <span class="sd">        array of integers (0-based).</span>
 
@@ -761,7 +805,7 @@
 <span class="sd">        List of indices referring the set of frames this method is going to work with. This set of indices can be given by a list, tuple or numpy</span>
 <span class="sd">        array of integers (0-based).</span>
 
-<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">    syntaxis: str, default=&#39;Pandas&#39;</span>
 <span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>
 <span class="sd">       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).</span>
 
@@ -789,11 +833,28 @@
     <span class="n">target</span> <span class="o">=</span> <span class="n">_singular</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
     <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span> <span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">]</span>
 
+    <span class="c1"># Patch to keep &quot;residue&quot;:</span>
+    <span class="k">if</span> <span class="n">target</span><span class="o">==</span><span class="s1">&#39;residue&#39;</span><span class="p">:</span>
+        <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span>
+
+    <span class="n">tmp_attributes</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;residue&#39;</span> <span class="ow">in</span> <span class="n">attribute</span><span class="p">:</span>
+            <span class="n">tmp_attribute</span> <span class="o">=</span> <span class="n">attribute</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;residue&#39;</span><span class="p">,</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+            <span class="n">tmp_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_attribute</span><span class="p">)</span>
+            <span class="n">kwargs</span> <span class="p">[</span><span class="n">tmp_attribute</span><span class="p">]</span><span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
+            <span class="k">del</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">attribute</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tmp_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+    <span class="n">attributes</span><span class="o">=</span><span class="n">tmp_attributes</span>
+
+    <span class="c1"># doing the work here</span>
+
     <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;atom&#39;</span><span class="p">:</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;residue&#39;</span><span class="p">:</span>
-            <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="n">residue_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;group&#39;</span><span class="p">:</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_unique</span><span class="p">(</span><span class="n">indices</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">target</span> <span class="o">==</span> <span class="s1">&#39;chain&#39;</span><span class="p">:</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -813,9 +874,9 @@
 
     <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.load.html#molmodmt.load">[docs]</a><span class="k">def</span> <span class="nf">load</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.load.html#molmodmt.load">[docs]</a><span class="k">def</span> <span class="nf">load</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;Pandas&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;load(item, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, to_form=&#39;molmodmt.MolMod&#39;, syntaxis=&#39;MDTraj&#39;, **kwargs)</span>
+    <span class="sd">&quot;&quot;&quot;load(item, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, to_form=&#39;molmodmt.MolMod&#39;, syntaxis=&#39;Pandas&#39;, **kwargs)</span>
 
 <span class="sd">    Loading a molecular model.</span>
 
@@ -837,7 +898,7 @@
 <span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
 <span class="sd">       the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).</span>
 
-<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">    syntaxis: str, default=&#39;Pandas&#39;</span>
 <span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>
 <span class="sd">       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).</span>
 
@@ -861,12 +922,12 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">to_form</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">to_form</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.convert.html#molmodmt.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.convert.html#molmodmt.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molmodmt.MolMod&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;Pandas&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;convert(item, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, to_form=&#39;molmodmt.MolMod&#39;, syntaxis=&#39;MDTraj&#39;, **kwargs)</span>
+    <span class="sd">&quot;&quot;&quot;convert(item, to_form=&#39;molmodmt.MolMod&#39;, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, syntaxis=&#39;Pandas&#39;, **kwargs)</span>
 
 <span class="sd">    Convert a molecular model into other form.</span>
 
@@ -888,7 +949,7 @@
 <span class="sd">        The output object will take the form specified here. This form supported form by MolModMt</span>
 <span class="sd">        for the output object.</span>
 
-<span class="sd">    syntaxis: str, default=&#39;MDTraj&#39;</span>
+<span class="sd">    syntaxis: str, default=&#39;Pandas&#39;</span>
 <span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>
 <span class="sd">       current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).</span>
 
@@ -913,17 +974,21 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">form_in</span><span class="p">,</span> <span class="n">form_out</span>  <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="p">)</span>
-    <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
-    <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">selection</span> <span class="ow">is</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+        <span class="n">atom_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+
     <span class="n">out_file</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">form_out</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">form_out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">_list_files_forms</span><span class="p">:</span>
-            <span class="n">form_out</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">out_file</span><span class="o">=</span><span class="n">form</span>
+            <span class="n">out_file</span><span class="o">=</span><span class="n">form_out</span>
+            <span class="n">form_out</span><span class="o">=</span><span class="n">form_out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">out_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span>
+        <span class="k">return</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">output_file_path</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span>
                                                   <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span>
                                                   <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -936,20 +1001,19 @@
 <div class="viewcode-block" id="duplicate"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.duplicate.html#molmodmt.duplicate">[docs]</a><span class="k">def</span> <span class="nf">duplicate</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
     <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-
     <span class="k">return</span> <span class="n">_dict_duplicator</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="write"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.write.html#molmodmt.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="write"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.write.html#molmodmt.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;Pandas&#39;</span><span class="p">):</span>
 
-    <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="view"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.view.html#molmodmt.view">[docs]</a><span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;nglview&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="view"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.view.html#molmodmt.view">[docs]</a><span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;nglview&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;Pandas&#39;</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">]:</span>
-        <span class="n">form_in</span> <span class="o">=</span> <span class="n">_get_form</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">form_in</span> <span class="o">=</span> <span class="n">get_form</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">form_in</span> <span class="o">=</span> <span class="n">_get_form</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">form_in</span> <span class="o">=</span> <span class="n">get_form</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">item</span>
 
     <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
@@ -957,21 +1021,6 @@
 
     <span class="k">return</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">viewer</span><span class="p">](</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span>
             <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span></div>
-
-<span class="c1">#def reformat(attribute=None, value=None, is_format=None, to_format=None):</span>
-<span class="c1">#</span>
-<span class="c1">#    if (attribute is not None) and attribute in _list_attributes:</span>
-<span class="c1">#        if is_format is not None:</span>
-<span class="c1">#            if to_format is not None:</span>
-<span class="c1">#</span>
-<span class="c1">#                return _dict_reformatter[attribute][is_format][to_format](value)</span>
-<span class="c1">#</span>
-<span class="c1">#            else:</span>
-<span class="c1">#                raise BadCallError(BadCallMessage)</span>
-<span class="c1">#        else:</span>
-<span class="c1">#            raise BadCallError(BadCallMessage)</span>
-<span class="c1">#    else:</span>
-<span class="c1">#        raise BadCallError(BadCallMessage)</span>
 
 </pre></div>
 
