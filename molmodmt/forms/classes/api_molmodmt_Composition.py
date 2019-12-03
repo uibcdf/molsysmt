@@ -42,7 +42,7 @@ def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
 
-def select_with_Pandas(item, selection):
+def select_with_MolModMT(item, selection):
 
     from molmodmt.native.selector import dataframe_select
     atom_indices = dataframe_select(item._dataframe, selection)

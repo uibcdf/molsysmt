@@ -72,7 +72,7 @@ def to_pandas_DataFrame(item, atom_indices='all', frame_indices='all'):
 def select_with_MDTraj(item, selection):
     return item.select(selection)
 
-def select_with_Pandas(item, selection):
+def select_with_MolModMT(item, selection):
 
     from molmodmt.native.selector import dataframe_select
     tmp_item = to_pandas_DataFrame(item)

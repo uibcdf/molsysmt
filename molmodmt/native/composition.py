@@ -125,3 +125,9 @@ class Composition():
 
         raise NotImplementedError
 
+    def select(self, selection, output_indices='atom'):
+
+        from molmodmt.native.selector import dataframe_select
+        indices = dataframe_select(self.dataframe, selection, output_indices=output_indices)
+        return indices
+

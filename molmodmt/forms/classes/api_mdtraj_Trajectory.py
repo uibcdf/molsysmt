@@ -136,7 +136,7 @@ def select_with_MDTraj(item, selection):
 
     return item.topology.select(selection)
 
-def select_with_Pandas(item, selection):
+def select_with_MolModMT(item, selection):
 
     from .api_mdtraj_Topology import select_with_Pandas as topology_select_with_Pandas
 

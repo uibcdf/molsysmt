@@ -75,7 +75,7 @@ def select_with_MDTraj(item, selection):
     from .api_molmodmt_Composition import select_with_MDTraj as select_Composition_with_MDTraj
     return select_Composition_with_MDTraj(item.composition, selection)
 
-def select_with_Pandas(item, selection):
+def select_with_MolModMT(item, selection):
 
     from .api_molmodmt_Composition import select_with_Pandas as select_Composition_with_Pandas
     return select_Composition_with_Pandas(item.composition, selection)

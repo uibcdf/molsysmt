@@ -65,7 +65,7 @@ class Group:
         self.index = index
         self.id = id
         self.name = name
-        self.type = None
+        self.type = type
 
         self.chemical_type = None
         self.formal_charge = None #(sum of atoms formal charge)
