@@ -98,8 +98,24 @@
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Forms.html">Molecular model forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Atoms_Selection.html">Atoms selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Basic_Manipulations.html">Atoms selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Selection.html">Selection Tutorial and Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MolMod.html">MolMod form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#trajectory">Trajectory</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -150,6 +166,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.component.html">molmodmt.native.elements.component</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.molecule.html">molmodmt.native.elements.molecule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.entity.html">molmodmt.native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.bioassembly.html">molmodmt.native.elements.bioassembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.chain.html">molmodmt.native.elements.chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molmodmt.native.elements.bond.html">molmodmt.native.elements.bond</a></li>
 </ul>
@@ -309,9 +326,9 @@
 <span class="c1">#### Methods</span>
 <span class="c1">####</span>
 
-<div class="viewcode-block" id="select"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.select.html#molmodmt.select">[docs]</a><span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;Pandas&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="select"><a class="viewcode-back" href="../../api/_autosummary/molmodmt.select.html#molmodmt.select">[docs]</a><span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">output_indices</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolModMT&#39;</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;select(item, selection=&#39;all&#39;, syntaxis=&#39;Pandas&#39;)</span>
+    <span class="sd">&quot;&quot;&quot;select(item, selection=&#39;all&#39;, output_indices=&#39;atom&#39;, syntaxis=&#39;MolModMT&#39;)</span>
 
 <span class="sd">    Get the atom indices corresponding to a selection criterion.</span>
 
@@ -323,10 +340,14 @@
 <span class="sd">    item: molecular model</span>
 <span class="sd">        Molecular model in any supported form (see: :doc:`/Forms`). The object being acted on by the method.</span>
 
-<span class="sd">    selection: str, defaul=&#39;all&#39;</span>
+<span class="sd">    selection: str, default=&#39;all&#39;</span>
 <span class="sd">       Selection criterion given by means of a string following any of the selection syntaxis parsable by MolModMT.</span>
 
-<span class="sd">    syntaxis: str, default=&#39;Pandas&#39;</span>
+<span class="sd">    output_indices: str, default=&#39;atom&#39;</span>
+<span class="sd">       The output list can correspond to &#39;atom&#39;, &#39;group&#39;, &#39;component&#39;, &#39;molecule&#39;, &#39;chain&#39; or &#39;entity&#39;</span>
+<span class="sd">       indices.</span>
+
+<span class="sd">    syntaxis: str, default=&#39;MolModMT&#39;</span>
 <span class="sd">       Syntaxis used to write the argument `selection`. The current options supported by MolModMt</span>
 <span class="sd">       can be found in :doc:`/Atoms_Selection`.</span>
 
@@ -334,7 +355,9 @@
 <span class="sd">    -------</span>
 
 <span class="sd">    Numpy array of integers</span>
-<span class="sd">        List of atom indices in agreement with the selection criterion applied over `item`.</span>
+<span class="sd">        List of indices in agreement with the selection criterion applied over `item`. The nature</span>
+<span class="sd">        of the indices is chosen with the impot argument &#39;output_indices&#39;: &#39;atom&#39; (default),</span>
+<span class="sd">        &#39;group&#39;, &#39;component&#39;, &#39;molecule&#39;, &#39;chain&#39; or &#39;entity&#39;.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>

@@ -34,18 +34,12 @@ Exceptionally few home-made subroutines will be included here to fill specific g
 
 .. toctree::
    :caption: User Guide
-   :maxdepth: 1
+   :maxdepth: 2
 
    Forms.ipynb
-   Atoms_Selection.ipynb
-   Basic_Manipulations.ipynb
-
-.. toctree::
-   :caption: Elements
-   :maxdepth: 1
-
-   ../molmodmt/native/elements/README.md
-
+   Selection.ipynb
+   MolMod.md
+      Elements.md
 
 .. toctree::
    :caption: API Documentation

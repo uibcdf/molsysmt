@@ -1,4 +1,3 @@
-
 .. currentmodule:: molmodmt.native.elements
 
 Elements
@@ -14,7 +13,7 @@ Elements making up a molecular model.
    component
    molecule
    entity
-   bioassemby
+   bioassembly
    chain
    bond
 

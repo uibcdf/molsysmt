@@ -100,8 +100,24 @@
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Forms.html">Molecular model forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Atoms_Selection.html">Atoms selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Basic_Manipulations.html">Atoms selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Selection.html">Selection Tutorial and Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MolMod.html">MolMod form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#trajectory">Trajectory</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
@@ -152,6 +168,7 @@
 <li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.component.html">molmodmt.native.elements.component</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.molecule.html">molmodmt.native.elements.molecule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.entity.html">molmodmt.native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.bioassembly.html">molmodmt.native.elements.bioassembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.chain.html">molmodmt.native.elements.chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molmodmt.native.elements.bond.html">molmodmt.native.elements.bond</a></li>
 </ul>
@@ -250,7 +267,7 @@
 <h1>molmodmt.select<a class="headerlink" href="#molmodmt-select" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="molmodmt.select">
-<code class="sig-prename descclassname">molmodmt.</code><code class="sig-name descname">select</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">syntaxis='Pandas'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molmodmt/multitool.html#select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molmodmt.select" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">molmodmt.</code><code class="sig-name descname">select</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">output_indices='atom'</em>, <em class="sig-param">syntaxis='MolModMT'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molmodmt/multitool.html#select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molmodmt.select" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the atom indices corresponding to a selection criterion.</p>
 <p>Paragraph with detailed explanation.</p>
 <dl class="field-list simple">
@@ -258,22 +275,27 @@
 <dd class="field-odd"><dl class="simple">
 <dt><strong>item: molecular model</strong></dt><dd><p>Molecular model in any supported form (see: <a class="reference internal" href="../../Forms.html"><span class="doc">Molecular model forms</span></a>). The object being acted on by the method.</p>
 </dd>
-<dt><strong>selection: str, defaul=’all’</strong></dt><dd><p>Selection criterion given by means of a string following any of the selection syntaxis parsable by MolModMT.</p>
+<dt><strong>selection: str, default=’all’</strong></dt><dd><p>Selection criterion given by means of a string following any of the selection syntaxis parsable by MolModMT.</p>
 </dd>
-<dt><strong>syntaxis: str, default=’Pandas’</strong></dt><dd><p>Syntaxis used to write the argument <cite>selection</cite>. The current options supported by MolModMt
-can be found in <a class="reference internal" href="../../Atoms_Selection.html"><span class="doc">Atoms selection</span></a>.</p>
+<dt><strong>output_indices: str, default=’atom’</strong></dt><dd><p>The output list can correspond to ‘atom’, ‘group’, ‘component’, ‘molecule’, ‘chain’ or ‘entity’
+indices.</p>
+</dd>
+<dt><strong>syntaxis: str, default=’MolModMT’</strong></dt><dd><p>Syntaxis used to write the argument <cite>selection</cite>. The current options supported by MolModMt
+can be found in <span class="xref std std-doc">/Atoms_Selection</span>.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt>Numpy array of integers</dt><dd><p>List of atom indices in agreement with the selection criterion applied over <cite>item</cite>.</p>
+<dt>Numpy array of integers</dt><dd><p>List of indices in agreement with the selection criterion applied over <cite>item</cite>. The nature
+of the indices is chosen with the impot argument ‘output_indices’: ‘atom’ (default),
+‘group’, ‘component’, ‘molecule’, ‘chain’ or ‘entity’.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p><a class="reference internal" href="../../Atoms_Selection.html"><span class="doc">Atoms selection</span></a></p>
+<p><span class="xref std std-doc">/Atoms_Selection</span></p>
 </dd></dl>
 
 </div>

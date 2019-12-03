@@ -98,8 +98,24 @@
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../Forms.html">Molecular model forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../Atoms_Selection.html">Atoms selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../Basic_Manipulations.html">Atoms selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Selection.html">Selection Tutorial and Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../MolMod.html">MolMod form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../MolMod.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../MolMod.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../MolMod.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../MolMod.html#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../MolMod.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../MolMod.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../MolMod.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../MolMod.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../MolMod.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../MolMod.html#trajectory">Trajectory</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -150,6 +166,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/_autosummary/molmodmt.native.elements.component.html">molmodmt.native.elements.component</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/_autosummary/molmodmt.native.elements.molecule.html">molmodmt.native.elements.molecule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/_autosummary/molmodmt.native.elements.entity.html">molmodmt.native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/_autosummary/molmodmt.native.elements.bioassembly.html">molmodmt.native.elements.bioassembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/_autosummary/molmodmt.native.elements.chain.html">molmodmt.native.elements.chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/_autosummary/molmodmt.native.elements.bond.html">molmodmt.native.elements.bond</a></li>
 </ul>
@@ -273,9 +290,9 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">atom_indices</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">atom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">atom</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__sanity_check</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">molecule</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">entity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bioassembly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_sanity_check</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">molecule</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">entity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bioassembly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
-        <span class="kn">from</span> <span class="nn">molmodmt.util.exceptions</span> <span class="k">import</span> <span class="n">IncompleteElementError</span>
+        <span class="kn">from</span> <span class="nn">molmodmt.utils.exceptions</span> <span class="k">import</span> <span class="n">IncompleteElementError</span>
 
         <span class="k">if</span> <span class="n">component</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">component</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">IncompleteElementError</span><span class="p">(</span><span class="s2">&quot;Bond index </span><span class="si">{}</span><span class="s2"> has no component&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
