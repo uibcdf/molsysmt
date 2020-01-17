@@ -4,11 +4,21 @@ from simtk.unit.quantity import Quantity
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    'xyz' : form_name,
-    'XYZ' : form_name,
-    Quantity : form_name
 }
 
+def this_Quantity_is_XYZ(item):
+
+    from numpy import ndarray
+
+    is_XYZ = False
+
+    list_base_dimensions = list(item.unit.iter_base_dimensions())
+
+    if len(list_base_dimensions)==1:
+        if list_base_dimensions[0][0].name == 'length':
+            is_XYZ = True
+
+    return is_XYZ
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 

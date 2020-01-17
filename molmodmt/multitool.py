@@ -425,7 +425,18 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Pa
 
 def get_form(item=None):
 
+    from simtk.unit import Quantity
+
+    if type(item) == Quantity:
+
+        from .forms.classes.api_XYZ import this_Quantity_is_XYZ
+        if this_Quantity_is_XYZ(item):
+            return 'XYZ'
+        else:
+            raise NotImplementedError("This item's form has not been implemented yet")
+
     if type(item)==str:
+
         if ':' in item:
             prefix=item.split(':')[0]
             if prefix+':id' in _dict_ids_is_form.keys():
