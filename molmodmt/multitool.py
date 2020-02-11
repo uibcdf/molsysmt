@@ -527,16 +527,19 @@ def get(item, target='system', indices=None, selection='all', frame_indices='all
     # doing the work here
 
     if indices is None:
-        if target == 'atom':
-            indices = select(item, selection=selection, syntaxis=syntaxis)
-        elif target == 'group':
-            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, group_index=True)
-            indices = list(_unique(indices))
-        elif target == 'chain':
-            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
-            indices = list(_unique(indices))
-        elif target == 'system':
-            indices = 0
+        if selection is not 'all':
+            if target == 'atom':
+                indices = select(item, selection=selection, syntaxis=syntaxis)
+            elif target == 'group':
+                indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, group_index=True)
+                indices = list(_unique(indices))
+            elif target == 'chain':
+                indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
+                indices = list(_unique(indices))
+            elif target == 'system':
+                indices = 0
+        else:
+            indices='all'
 
     results = []
     for attribute in attributes:

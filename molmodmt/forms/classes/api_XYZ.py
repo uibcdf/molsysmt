@@ -6,19 +6,50 @@ form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 is_form={
 }
 
+def item_in_good_shape(item):
+
+    tmp_item = item
+
+    if len(tmp_item.shape)==2:
+        from numpy import expand_dims
+        tmp_item = expand_dims(tmp_item, axis=0)*item.unit
+
+    return tmp_item
+
+def this_Quantity_has_XYZ_shape(item):
+
+    # Only np.arrays of shape [n_frames, n_particles, coordinates] or [n_particles, coordinates] are
+    # admitted
+
+    has_right_shape = False
+
+    shape = item.shape
+
+    if len(shape)==3 and shape[-1]==3:
+        has_right_shape = True
+    elif len(shape)==2 and shape[-1]==3:
+        has_right_shape = True
+
+    return has_right_shape
+
 def this_Quantity_is_XYZ(item):
+
+    # Only np.arrays of shape [n_frames, n_particles, coordinates] or [n_particles, coordinates] are
+    # admitted
 
     from numpy import ndarray
 
-    is_XYZ = False
+    is_length = False
 
     list_base_dimensions = list(item.unit.iter_base_dimensions())
 
     if len(list_base_dimensions)==1:
         if list_base_dimensions[0][0].name == 'length':
-            is_XYZ = True
+            is_length = True
 
-    return is_XYZ
+    has_right_shape = this_Quantity_has_XYZ_shape(item)
+
+    return (has_right_shape and is_length)
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
@@ -37,19 +68,14 @@ def duplicate(item):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    tmp_coordinates=None
+    tmp_item = item_in_good_shape(item)
+    tmp_coordinates=tmp_item[:,:,:]
 
-    if len(item.shape)==3:
-        tmp_coordinates = item[:,indices,:]
-    elif len(item.shape)==2:
-        from numpy import zeros
-        n_frames=1
-        n_atoms=item.shape[0]
-        tmp_coordinates = zeros([n_frames, n_atoms, 3])*item.unit
-        tmp_coordinates[0,:,:] = item[:,:]
-        tmp_coordinates = tmp_coordinates[:,indices,:]
+    if indices is not 'all':
+        tmp_coordinates = tmp_item[:,indices,:]
 
-    tmp_coordinates = tmp_coordinates[frame_indices,:,:]
+    if frame_indices is not 'all':
+        tmp_coordinates = tmp_coordinates[frame_indices,:,:]
 
     return tmp_coordinates
 
@@ -57,40 +83,22 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
-    tmp_coordinates=None
-
-    if len(item.shape)==3:
-        tmp_coordinates = item
-    elif len(item.shape)==2:
-        from numpy import zeros
-        n_frames=1
-        n_atoms=item.shape[0]
-        tmp_coordinates = zeros([n_frames, n_atoms, 3])*item.unit
-        tmp_coordinates[0,:,:] = item[:,:]
-
-    tmp_coordinates = tmp_coordinates[frame_indices,:,:]
+    tmp_item = item_in_good_shape(item)
+    tmp_coordinates=tmp_item[:,:,:]
+    if frame_indices is not 'all':
+        tmp_coordinates = tmp_coordinates[frame_indices,:,:]
 
     return tmp_coordinates
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    n_frames=0
-    if len(item.shape)==3:
-        n_frames = item.shape[0]
-    elif len(item.shape)==2:
-        n_frames = 1
-
-    return n_frames
+    tmp_item = item_in_good_shape(item)
+    return tmp_item.shape[0]
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    n_atoms=0
-    if len(item.shape)==3:
-        n_atoms = item.shape[1]
-    elif len(item.shape)==2:
-        n_atoms = item.shape[0]
-
-    return n_atoms
+    tmp_item = item_in_good_shape(item)
+    return tmp_item.shape[1]
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
