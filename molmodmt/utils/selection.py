@@ -8,14 +8,19 @@ _parser={
     'parmed' : 'ParmEd'
 }
 
-def digest(selection, syntaxis="MolModMT"):
+def digest_syntaxis(syntaxis):
 
     try:
         syntaxis = _parser[syntaxis.lower()]
+        return syntaxis
     except:
         raise BadCallError('Wrong way of invoking this method. Either the engine is not implemented, either is mispelled.\n\
                            Check the online documentation  for more information: http://www.uibcdf.org/MolModMT')
 
+
+def digest(selection, syntaxis="MolModMT"):
+
+    syntaxis = digest_syntaxis(syntaxis)
 
     from molmodmt.topology import ion_residues
 
