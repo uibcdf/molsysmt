@@ -1,6 +1,8 @@
 
 def query_dataframe(item, selection='all'):
 
+    from re import findall
+
     if '@' in selection:
         from inspect import stack
         count = 0
@@ -8,7 +10,7 @@ def query_dataframe(item, selection='all'):
             count +=1
             if stack_frame.function == 'select':
                 break
-        var_names = [name[1:] for name in selection.split(' ') if name.startswith('@')]
+        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
         for var_name in var_names:
             globals()[var_name]=stack()[count][0].f_globals[var_name]
 
