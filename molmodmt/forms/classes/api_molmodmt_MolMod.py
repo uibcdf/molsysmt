@@ -77,8 +77,8 @@ def select_with_MDTraj(item, selection):
 
 def select_with_MolModMT(item, selection):
 
-    from .api_molmodmt_Composition import select_with_Pandas as select_Composition_with_Pandas
-    return select_Composition_with_Pandas(item.composition, selection)
+    from .api_molmodmt_Composition import select_with_MolModMT as select_Composition_with_MolModMT
+    return select_Composition_with_MolModMT(item.composition, selection)
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 

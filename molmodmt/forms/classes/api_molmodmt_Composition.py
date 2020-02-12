@@ -45,7 +45,7 @@ def select_with_MDTraj(item, selection):
 def select_with_MolModMT(item, selection):
 
     from molmodmt.native.selector import dataframe_select
-    atom_indices = dataframe_select(item._dataframe, selection)
+    atom_indices = dataframe_select(item.dataframe, selection)
     return atom_indices
 
 ###### Get

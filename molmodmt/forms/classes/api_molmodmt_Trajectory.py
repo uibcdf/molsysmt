@@ -57,8 +57,14 @@ def duplicate(item):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    tmp_coordinates = item.coordinates[frame_indices]
-    tmp_coordinates = tmp_coordinates[:, indices, :]
+    tmp_coordinates = item.coordinates
+
+    if frame_indices is not 'all':
+        tmp_coordinates = tmp_coordinates[frame_indices,:,:]
+
+    if indices is not 'all':
+        tmp_coordinates = tmp_coordinates[:,indices,:]
+
     return tmp_coordinates
 
 ## group
