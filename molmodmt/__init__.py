@@ -2,7 +2,7 @@ from . import utils
 
 from .native.molmod import MolMod
 from .multitool import select, extract, merge, info, get, set, load,\
-                       convert, duplicate, write, view, get_form
+                       convert, duplicate, write, view, get_form, remove
 from .info_converters import info_forms, info_load, info_convert, info_select, info_viewers
 from .rmsd import rmsd, least_rmsd, least_rmsd_fit
 from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists
@@ -11,7 +11,7 @@ from .sequence import sequence_alignment, sequence_identity, structure_alignment
 from .radius_of_gyration import radius_of_gyration
 from .fix import fix_chains, fix_pdb_structure
 from .model_loops import add_loop
-from .remove_atoms import remove, remove_solvent, remove_hydrogens
+from .remove_atoms import remove_solvent, remove_hydrogens
 from .potential_energy import energy_minimization
 from .solvate_box import solvate
 from .protonation import add_missing_hydrogens
@@ -41,7 +41,7 @@ from .pockets import alpha_spheres
 #                                    'get_degrees_of_freedom']
 
 __all_multitool__ = ['load', 'convert', 'info', 'select', 'get', 'set', 'load', 'convert',
-        'duplicate', 'write', 'view', 'get_form']
+        'duplicate', 'write', 'view', 'get_form', 'extract', 'remove']
 __all_rmsd__ = ['rmsd', 'least_rmsd', 'least_rmsd_fit']
 __all_distances__ = ['distance', 'maximum_distance', 'minimum_distance', 'contact_map',
                      'neighbors_lists']
@@ -50,7 +50,7 @@ __all_sequence__ = []
 __all_radius_of_gyration__ = ['radius_of_gyration']
 __all_fix__ = []
 __all_model_loops__ = []
-__all_remove_atoms__ = []
+__all_remove_atoms__ = ['remove_solvent', 'remove_hydrogens']
 __all_potential_energy__ = []
 __all_solvate_box__ = []
 __all_protonation__ = []

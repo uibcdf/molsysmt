@@ -231,7 +231,7 @@ def remove(item, selection=None, frame_indices=None, syntaxis='MolModMT'):
 
     return extract(item, selection=selection_to_be_kept, frame_indices=frame_indices_to_be_kept, syntaxis=syntaxis)
 
-def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='MolModMT')
+def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='MolModMT'):
 
     """extract(item, selection='all', frame_indices='all', syntaxis='MolModMT')
 
