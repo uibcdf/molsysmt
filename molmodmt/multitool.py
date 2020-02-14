@@ -5,10 +5,14 @@ from .utils.arguments import singular as _singular
 from .utils.forms import digest as _digest_forms
 from .utils.frame_indices import digest as _digest_frame_indices
 from .utils.selection import digest as _digest_selection
+from .utils.atom_indices import intersection_indices as _intersection_indices
 from numpy import unique as _unique
 from numpy import ndarray as _ndarray
+from numpy import array as _array
 from numpy import sort as _sort
 from numpy import arange as _arange
+from numpy import int as _int
+from numpy import int64 as _int64
 
 ####
 #### Molecular Models forms
@@ -90,9 +94,9 @@ _dict_set = {**_dict_classes_set, **_dict_files_set,\
 #### Methods
 ####
 
-def select(item, selection='all', output_indices='atom', mask=None, syntaxis='MolModMT'):
+def select(item, selection='all', target='atom', mask=None, syntaxis='MolModMT'):
 
-    """select(item, selection='all', output_indices='atom', syntaxis='MolModMT')
+    """select(item, selection='all', target='atom', syntaxis='MolModMT')
 
     Get the atom indices corresponding to a selection criterion.
 
@@ -110,8 +114,8 @@ def select(item, selection='all', output_indices='atom', mask=None, syntaxis='Mo
     mask: list, tuple, numpy array or None. default=None
        XXX
 
-    output_indices: str, default='atom'
-       The output list can correspond to 'atom', 'group', 'component', 'molecule', 'chain' or 'entity'
+    target: str, default='atom'
+       The output indices list can correspond to 'atom', 'group', 'component', 'molecule', 'chain' or 'entity'
        indices.
 
     syntaxis: str, default='MolModMT'
@@ -139,12 +143,6 @@ def select(item, selection='all', output_indices='atom', mask=None, syntaxis='Mo
 
     """
 
-    from numpy import array as _array
-    from numpy import ndarray as _ndarray
-    from numpy import int as _int
-    from numpy import int64 as _int64
-    from numpy import arange as _arange
-
     form_in, _ = _digest_forms(item)
 
     if type(selection)==str:
@@ -153,7 +151,7 @@ def select(item, selection='all', output_indices='atom', mask=None, syntaxis='Mo
             atom_indices = _arange(n_atoms, dtype='int64')
         else:
             selection, syntaxis = _digest_selection(selection, syntaxis)
-            atom_indices = _dict_selector[form_in][syntaxis](item, selection, mask)
+            atom_indices = _dict_selector[form_in][syntaxis](item, selection)
     elif type(selection) in [int, _int64, _int]:
         atom_indices = _array([selection], dtype='int64')
     elif hasattr(selection, '__iter__'):
@@ -161,8 +159,19 @@ def select(item, selection='all', output_indices='atom', mask=None, syntaxis='Mo
     else :
         atom_indices = None
 
-    atom_indices.sort()
-    return atom_indices
+    output_indices = []
+
+    if target=='atom':
+        output_indices = atom_indices
+    elif target=='group':
+        output_indices = get(item, selection=atom_indices, group_indices=True)
+    else:
+        raise NotImplementedError
+
+    if mask is not None:
+        output_indices = _intersection_indices(output_indices,mask)
+
+    return output_indices
 
 def remove(item, selection=None, frame_indices=None, syntaxis='MolModMT'):
 
@@ -253,7 +262,7 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).
 
-    syntaxis: str, default='Pandas'
+    syntaxis: str, default='MolModMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).
 
@@ -292,9 +301,9 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
 
 def merge(item1=None, item2=None, to_form=None):
 
-    """into(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='Pandas')
+    """merge(item1=None, item2=None, to_form=None)
 
-    Print out general information of a molecular model.
+    XXX
 
     Paragraph with detailed explanation.
 
@@ -321,7 +330,7 @@ def merge(item1=None, item2=None, to_form=None):
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).
 
-    syntaxis: str, default='Pandas'
+    syntaxis: str, default='MolModMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).
 
@@ -358,9 +367,9 @@ def merge(item1=None, item2=None, to_form=None):
         tmp_item2 = convert(item2,to_form=form)
         return _dict_merger[form](tmp_item1, tmp_item1)
 
-def info(item=None, target='system', indices=None, selection='all', syntaxis='Pandas'):
+def info(item=None, target='system', indices=None, selection='all', syntaxis='MolModMT'):
 
-    """into(item, target='system', indices=None, selection='all', syntaxis='Pandas')
+    """info(item, target='system', indices=None, selection='all', syntaxis='MolModMT')
 
     Print out general information of a molecular model.
 
@@ -387,7 +396,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Pa
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolModMT.
 
-    syntaxis: str, default='Pandas'
+    syntaxis: str, default='MolModMT'
        Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
        current options supported by MolModMt in section 'Selection'.
 
@@ -527,9 +536,9 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='Pandas', **kwargs):
+def get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolModMT', **kwargs):
 
-    """get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='Pandas')
+    """get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolModMT')
 
     Get specific attributes and observables.
 
@@ -556,7 +565,7 @@ def get(item, target='system', indices=None, selection='all', frame_indices='all
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolModMT.
 
-    syntaxis: str, default='Pandas'
+    syntaxis: str, default='MolModMT'
        Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
        current options supported by MolModMt in section 'Selection'.
 
@@ -624,9 +633,9 @@ def get(item, target='system', indices=None, selection='all', frame_indices='all
     else:
         return results
 
-def set(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='Pandas', **kwargs):
+def set(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolModMT', **kwargs):
 
-    """into(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='Pandas')
+    """into(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolModMT')
 
     Set a new value to an attribute.
 
@@ -656,7 +665,7 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
         List of indices referring the set of frames this method is going to work with. This set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
-    syntaxis: str, default='Pandas'
+    syntaxis: str, default='MolModMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).
 
@@ -725,9 +734,9 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
 
     pass
 
-def load (item, selection='all', frame_indices='all', to_form='molmodmt.MolMod', syntaxis='Pandas', **kwargs):
+def load (item, selection='all', frame_indices='all', to_form='molmodmt.MolMod', syntaxis='MolModMT', **kwargs):
 
-    """load(item, selection='all', frame_indices='all', to_form='molmodmt.MolMod', syntaxis='Pandas', **kwargs)
+    """load(item, selection='all', frame_indices='all', to_form='molmodmt.MolMod', syntaxis='MolModMT', **kwargs)
 
     Loading a molecular model.
 
@@ -749,7 +758,7 @@ def load (item, selection='all', frame_indices='all', to_form='molmodmt.MolMod',
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolModMT (see: :func:`molmodmt.select`).
 
-    syntaxis: str, default='Pandas'
+    syntaxis: str, default='MolModMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).
 
@@ -776,9 +785,9 @@ def load (item, selection='all', frame_indices='all', to_form='molmodmt.MolMod',
     return convert(item, selection=selection, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis, **kwargs)
 
 
-def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='Pandas', **kwargs):
+def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MolModMT', **kwargs):
 
-    """convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='Pandas', **kwargs)
+    """convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all', syntaxis='MolModMT', **kwargs)
 
     Convert a molecular model into other form.
 
@@ -800,7 +809,7 @@ def convert(item, to_form='molmodmt.MolMod', selection='all', frame_indices='all
         The output object will take the form specified here. This form supported form by MolModMt
         for the output object.
 
-    syntaxis: str, default='Pandas'
+    syntaxis: str, default='MolModMT'
        Syntaxis used in the argument `selection` (in case it is a string). The
        current options supported by MolModMt can be found in section XXX (see: :func:`molmodmt.select`).
 
@@ -854,11 +863,11 @@ def duplicate(item=None):
     form_in, _ = _digest_forms(item)
     return _dict_duplicator[form_in](item)
 
-def write(item=None, filename=None, selection='all', frame_indices='all', syntaxis='Pandas'):
+def write(item=None, filename=None, selection='all', frame_indices='all', syntaxis='MolModMT'):
 
     return convert(item, to_form=filename, selection=selection, frame_indices='all', syntaxis=syntaxis)
 
-def view(item=None, viewer='nglview', selection='all', frame_indices='all', syntaxis='Pandas'):
+def view(item=None, viewer='nglview', selection='all', frame_indices='all', syntaxis='MolModMT'):
 
     if type(item) in [list,tuple]:
         form_in = get_form(item[0])

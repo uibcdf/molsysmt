@@ -38,11 +38,11 @@ def duplicate(item):
 
     return item.duplicate()
 
-def select_with_MDTraj(item, selection, mask=None):
+def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
 
-def select_with_MolModMT(item, selection, mask=None):
+def select_with_MolModMT(item, selection):
 
     from molmodmt.native.selector import dataframe_select
     atom_indices = dataframe_select(item.dataframe, selection)
@@ -52,43 +52,97 @@ def select_with_MolModMT(item, selection, mask=None):
 
 def get_index_from_atom (item, indices='all', frame_indices='all'):
 
-    return item.n_atoms
+    if indices is 'all':
+        output_list = item.dataframe['atom.index'].to_list()
+    else:
+        output_list = item.dataframe['atom.index'][indices].to_list()
+
+    return output_list
 
 def get_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        output_list = item.dataframe['atom.id'].to_list()
+    else:
+        output_list = item.dataframe['atom.id'][indices].to_list()
+
+    return output_list
 
 def get_name_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        output_list = item.dataframe['atom.name'].to_list()
+    else:
+        output_list = item.dataframe['atom.name'][indices].to_list()
+
+    return output_list
+
+def get_type_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['atom.type'].to_list()
+    else:
+        output_list = item.dataframe['atom.type'][indices].to_list()
+
+    return output_list
 
 def get_element_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return get_type_from_atom (item, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        output_list = item.dataframe['group.name'].to_list()
+    else:
+        output_list = item.dataframe['group.name'][indices].to_list()
+
+    return output_list
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        output_list = item.dataframe['group.index'].to_list()
+    else:
+        output_list = item.dataframe['group.index'][indices].to_list()
+
+    return output_list
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        output_list = item.dataframe['group.id'].to_list()
+    else:
+        output_list = item.dataframe['group.id'][indices].to_list()
+
+    return output_list
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        output_list = item.dataframe['chain.name'].to_list()
+    else:
+        output_list = item.dataframe['chain.name'][indices].to_list()
+
+    return output_list
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        output_list = item.dataframe['chain.index'].to_list()
+    else:
+        output_list = item.dataframe['chain.index'][indices].to_list()
+
+    return output_list
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        output_list = item.dataframe['chain.id'].to_list()
+    else:
+        output_list = item.dataframe['chain.id'][indices].to_list()
+
+    return output_list
 
 def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
 

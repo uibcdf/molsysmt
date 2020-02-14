@@ -90,6 +90,7 @@ def remove_hydrogens (item, selection="all", syntaxis="MolModMT"):
 
     from .utils.selection import digest_syntaxis
     from .multitool import select, remove
+    from .utils.atom_indices import intersection_indices
 
     syntaxis = digest_syntaxis(syntaxis)
 
@@ -109,7 +110,7 @@ def remove_hydrogens (item, selection="all", syntaxis="MolModMT"):
 
 
     atom_indices_selected = select(item, selection=selection, syntaxis=syntaxis)
-    atom_indices_to_be_removed = list(set(atom_indices_selected).intersection(set(atom_indices_hydrogens)))
+    atom_indices_to_be_removed = intersection_indices(atom_indices_selected,atom_indices_hydrogens)
 
     tmp_item = remove(item, atom_indices_to_be_removed)
 
