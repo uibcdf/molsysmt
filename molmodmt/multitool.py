@@ -90,7 +90,7 @@ _dict_set = {**_dict_classes_set, **_dict_files_set,\
 #### Methods
 ####
 
-def select(item, selection='all', output_indices='atom', syntaxis='MolModMT'):
+def select(item, selection='all', output_indices='atom', mask=None, syntaxis='MolModMT'):
 
     """select(item, selection='all', output_indices='atom', syntaxis='MolModMT')
 
@@ -106,6 +106,9 @@ def select(item, selection='all', output_indices='atom', syntaxis='MolModMT'):
 
     selection: str, default='all'
        Selection criterion given by means of a string following any of the selection syntaxis parsable by MolModMT.
+
+    mask: list, tuple, numpy array or None. default=None
+       XXX
 
     output_indices: str, default='atom'
        The output list can correspond to 'atom', 'group', 'component', 'molecule', 'chain' or 'entity'
@@ -150,7 +153,7 @@ def select(item, selection='all', output_indices='atom', syntaxis='MolModMT'):
             atom_indices = _arange(n_atoms, dtype='int64')
         else:
             selection, syntaxis = _digest_selection(selection, syntaxis)
-            atom_indices = _dict_selector[form_in][syntaxis](item, selection)
+            atom_indices = _dict_selector[form_in][syntaxis](item, selection, mask)
     elif type(selection) in [int, _int64, _int]:
         atom_indices = _array([selection], dtype='int64')
     elif hasattr(selection, '__iter__'):

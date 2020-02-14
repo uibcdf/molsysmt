@@ -38,11 +38,11 @@ def duplicate(item):
 
     return item.duplicate()
 
-def select_with_MDTraj(item, selection):
+def select_with_MDTraj(item, selection, mask=None):
 
     raise NotImplementedError
 
-def select_with_MolModMT(item, selection):
+def select_with_MolModMT(item, selection, mask=None):
 
     from molmodmt.native.selector import dataframe_select
     atom_indices = dataframe_select(item.dataframe, selection)
@@ -100,7 +100,9 @@ def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    atom_indices = select_with_MolModMT(item, 'molecule.type=water')
+
+    return len(atom_indices)
 
 def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
