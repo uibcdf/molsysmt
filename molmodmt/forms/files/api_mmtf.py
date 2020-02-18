@@ -40,6 +40,12 @@ def to_molmodmt_Composition(item, atom_indices='all', frame_indices='all'):
     tmp_item = mmtf_MMTFDecoder_to_molmodmt_Composition(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
+def to_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+
+    from molmodmt.forms.classes.api_mmtf_MMTFDecoder import to_molmodmt_DataFrame as mmtf_MMTFDecoder_to_molmodmt_DataFrame
+    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
+    tmp_item = mmtf_MMTFDecoder_to_molmodmt_DataFrame(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 ##### Get
 

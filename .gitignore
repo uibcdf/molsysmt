@@ -11,3 +11,5 @@ record.txt
 dist/*
 */build/
 build/
+*.swp
+

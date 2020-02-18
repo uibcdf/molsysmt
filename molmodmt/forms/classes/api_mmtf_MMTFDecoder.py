@@ -25,6 +25,11 @@ def to_molmodmt_Composition(item, atom_indices='all', frame_indices='all'):
     from molmodmt.native.io.composition import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molmodmt_Composition
     return mmtf_MMTFDecoder_to_molmodmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
+def to_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+
+    from molmodmt.native.io.dataframe import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molmodmt_Composition
+    return mmtf_MMTFDecoder_to_molmodmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
 def to_molmodmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.native.io.trajectory import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molmodmt_Trajectory

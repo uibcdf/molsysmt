@@ -1,17 +1,17 @@
+from pandas import DataFrame as PandasDataFrame
 
-def DataFrame():
+class DataFrame(PandasDataFrame):
 
-    from pandas import DataFrame
+    def __init__(self):
 
-    tmp_item = DataFrame()
+        composition_columns = ['atom.index', 'atom.name', 'atom.id', 'atom.type', 'atom.formal_charge', 'atom.bonded_atom_indices',
+                               'group.index', 'group.name', 'group.id', 'group.type',
+                               'component.index', 'component.name', 'component.id', 'component.type',
+                               'chain.index', 'chain.name', 'chain.id', 'chain.type',
+                               'molecule.index', 'molecule.name', 'molecule.id', 'molecule.type',
+                               'entity.index', 'entity.name', 'entity.id', 'entity.type',
+                               'bioassembly.index', 'bioassembly.name', 'bioassembly.id', 'bioassembly.type']
 
-    composition_columns = ['atom.index', 'atom.name', 'atom.id', 'atom.type',
-                           'group.index', 'group.name', 'group.id', 'group.type',
-                           'component.index', 'component.name', 'component.id', 'component.type',
-                           'chain.index', 'chain.name', 'chain.id', 'chain.type',
-                           'molecule.index', 'molecule.name', 'molecule.id', 'molecule.type',
-                           'entity.index', 'entity.name', 'entity.id', 'entity.type',
-                           'bioassembly.index', 'bioassembly.name', 'bioassembly.id', 'bioassembly.type']
 
-    return DataFrame(columns=composition_columns)
+        super().__init__(columns=composition_columns)
 

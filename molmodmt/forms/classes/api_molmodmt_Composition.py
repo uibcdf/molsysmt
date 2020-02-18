@@ -50,6 +50,8 @@ def select_with_MolModMT(item, selection):
 
 ###### Get
 
+## atom
+
 def get_index_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
@@ -86,19 +88,6 @@ def get_type_from_atom (item, indices='all', frame_indices='all'):
 
     return output_list
 
-def get_element_from_atom (item, indices='all', frame_indices='all'):
-
-    return get_type_from_atom (item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_atom (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item.dataframe['group.name'].to_list()
-    else:
-        output_list = item.dataframe['group.name'][indices].to_list()
-
-    return output_list
-
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
@@ -116,6 +105,177 @@ def get_group_id_from_atom (item, indices='all', frame_indices='all'):
         output_list = item.dataframe['group.id'][indices].to_list()
 
     return output_list
+
+def get_group_name_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['group.name'].to_list()
+    else:
+        output_list = item.dataframe['group.name'][indices].to_list()
+
+    return output_list
+
+def get_group_type_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['group.type'].to_list()
+    else:
+        output_list = item.dataframe['group.type'][indices].to_list()
+
+    return output_list
+
+def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['component.index'].to_list()
+    else:
+        output_list = item.dataframe['component.index'][indices].to_list()
+
+    return output_list
+
+def get_component_id_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['component.id'].to_list()
+    else:
+        output_list = item.dataframe['component.id'][indices].to_list()
+
+    return output_list
+
+def get_component_name_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['component.name'].to_list()
+    else:
+        output_list = item.dataframe['component.name'][indices].to_list()
+
+    return output_list
+
+def get_component_type_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['component.type'].to_list()
+    else:
+        output_list = item.dataframe['component.type'][indices].to_list()
+
+    return output_list
+
+def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['chain.index'].to_list()
+    else:
+        output_list = item.dataframe['chain.index'][indices].to_list()
+
+    return output_list
+
+def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['chain.id'].to_list()
+    else:
+        output_list = item.dataframe['chain.id'][indices].to_list()
+
+    return output_list
+
+def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['chain.name'].to_list()
+    else:
+        output_list = item.dataframe['chain.name'][indices].to_list()
+
+    return output_list
+
+def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['chain.type'].to_list()
+    else:
+        output_list = item.dataframe['chain.type'][indices].to_list()
+
+    return output_list
+
+def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['molecule.index'].to_list()
+    else:
+        output_list = item.dataframe['molecule.index'][indices].to_list()
+
+    return output_list
+
+def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['molecule.id'].to_list()
+    else:
+        output_list = item.dataframe['molecule.id'][indices].to_list()
+
+    return output_list
+
+def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['molecule.name'].to_list()
+    else:
+        output_list = item.dataframe['molecule.name'][indices].to_list()
+
+    return output_list
+
+def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['molecule.type'].to_list()
+    else:
+        output_list = item.dataframe['molecule.type'][indices].to_list()
+
+    return output_list
+
+def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['molecule.index'].to_list()
+    else:
+        output_list = item.dataframe['molecule.index'][indices].to_list()
+
+    return output_list
+
+def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['molecule.id'].to_list()
+    else:
+        output_list = item.dataframe['molecule.id'][indices].to_list()
+
+    return output_list
+
+def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['molecule.name'].to_list()
+    else:
+        output_list = item.dataframe['molecule.name'][indices].to_list()
+
+    return output_list
+
+def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output_list = item.dataframe['molecule.type'].to_list()
+    else:
+        output_list = item.dataframe['molecule.type'][indices].to_list()
+
+    return output_list
+
+
+
+
+
+
+
+
+
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
@@ -154,13 +314,33 @@ def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
 
-    atom_indices = select_with_MolModMT(item, 'molecule.type=water')
+    from numpy import unique
 
-    return len(atom_indices)
+    df=item.dataframe
+
+    if indices is 'all':
+        output_list = df.loc[df['molecule.type'] == 'water']['group.index'].to_list()
+    else:
+        output_list = df.loc[df['molecule.type'][indices] == 'water']['group.index'].to_list()
+
+    output_list = unique(output_list)
+
+    return output_list.shape[0]
 
 def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from numpy import unique
+
+    df=item.dataframe
+
+    if indices is 'all':
+        output_list = df.loc[df['molecule.type'] == 'ion']['group.index'].to_list()
+    else:
+        output_list = df.loc[df['molecule.type'][indices] == 'ion']['group.index'].to_list()
+
+    output_list = unique(output_list)
+
+    return output_list.shape[0]
 
 def get_bonded_atoms_from_atom(item, indices='all', frame_indices='all'):
 
@@ -183,7 +363,12 @@ def get_molecules_from_atom(item, indices='all', frame_indices='all'):
 
 def get_molecule_type_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        output_list = item.dataframe['molecule.type'].to_list()
+    else:
+        output_list = item.dataframe['molecule.type'][indices].to_list()
+
+    return output_list
 
 ## group
 
