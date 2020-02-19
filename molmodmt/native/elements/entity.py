@@ -199,7 +199,7 @@ class Entity:
         self._update_chains(children_elements=children_elements)
         self._update_molecules(children_elements=children_elements)
 
-def entity_initialization_wizard(index=None, id=None, name=None, type=None):
+def entity_init_wizard(index=None, id=None, name=None, type=None):
 
     from . import entities
 

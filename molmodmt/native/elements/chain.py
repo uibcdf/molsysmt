@@ -127,3 +127,7 @@ class Chain:
         self._update_groups(children_elements=children_elements)
         self._update_components(children_elements=children_elements)
 
+def chain_init_wizard(index=None, id=None, name=None, type=None):
+
+    return Chain(index=index, id=id, name=name, type=type)
+

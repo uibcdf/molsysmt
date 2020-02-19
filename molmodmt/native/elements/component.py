@@ -160,3 +160,7 @@ class Component():
         self._update_groups(children_elements=children_elements)
         self._update_bonds()
 
+def component_init_wizard(index=None, id=None, name=None, type=None):
+
+    return Component(index=index, id=id, name=name, type=type)
+

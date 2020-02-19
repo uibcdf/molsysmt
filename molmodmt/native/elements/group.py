@@ -116,7 +116,7 @@ class Group:
 
         self._update_atoms()
 
-def group_initialization_wizard(index=None, id=None, name=None, type=None):
+def group_init_wizard(index=None, id=None, name=None, type=None):
 
     from . import groups
 

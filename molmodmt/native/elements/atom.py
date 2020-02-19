@@ -130,3 +130,7 @@ class Atom:
 
         self._update_bonds()
 
+def atom_init_wizard(index=None, id=None, name=None, type=None):
+
+    return Atom(index=index, id=id, name=name, type=type)
+

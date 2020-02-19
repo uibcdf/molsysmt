@@ -142,7 +142,7 @@ class Molecule():
         self._update_groups(children_elements=children_elements)
         self._update_components(children_elements=children_elements)
 
-def molecule_initialization_wizard(index=None, id=None, name=None, type=None):
+def molecule_init_wizard(index=None, id=None, name=None, type=None):
 
     from . import molecules
 

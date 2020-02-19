@@ -2,7 +2,9 @@ class Composition():
 
     def __init__(self):
 
-        self.bioassembly = None
+        self.bioassembly = []
+        self.bioassembly_indices = []
+        self.n_bioassemblies = 0
 
         self.entity = []
         self.entity_indices = []

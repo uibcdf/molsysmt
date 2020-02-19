@@ -260,3 +260,7 @@ class BioAssembly_Transformation():
         self.chain_indices = []
         self.matrix = []
 
+def bioassembly_init_wizard(index=None, id=None, name=None, type=None):
+
+    return BioAssembly(index=index, id=id, name=name, type=type)
+

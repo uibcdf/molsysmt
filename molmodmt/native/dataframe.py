@@ -4,7 +4,7 @@ class DataFrame(PandasDataFrame):
 
     def __init__(self):
 
-        composition_columns = ['atom.index', 'atom.name', 'atom.id', 'atom.type', 'atom.formal_charge', 'atom.bonded_atom_indices',
+        composition_columns = ['atom.index', 'atom.name', 'atom.id', 'atom.type', 'atom.bonded_atom_indices',
                                'group.index', 'group.name', 'group.id', 'group.type',
                                'component.index', 'component.name', 'component.id', 'component.type',
                                'chain.index', 'chain.name', 'chain.id', 'chain.type',

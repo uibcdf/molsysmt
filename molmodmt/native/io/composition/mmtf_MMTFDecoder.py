@@ -42,7 +42,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
     # bioassembly
 
-    bioassembly = elements.BioAssembly(index=bioassembly_index, id=bioassembly_name, name=bioassembly_name)
+    bioassembly = elements.bioassembly_init_wizard(index=bioassembly_index, id=bioassembly_name, name=bioassembly_name)
 
     for transformation in mmtf_bioassembly['transformList']:
 
@@ -60,7 +60,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
         mmtf_group = item.group_list[mmtf_group_type]
         group_type = MMTFDecoder_group_to_group_class_type(mmtf_group)
-        group = elements.group_initialization_wizard(index=group_index, id=group_id, name=mmtf_group['groupName'], type=group_type)
+        group = elements.group_init_wizard(index=group_index, id=group_id, name=mmtf_group['groupName'], type=group_type)
 
         group.chemical_type = mmtf_group['chemCompType']
         group.formal_charge=np.sum(mmtf_group['formalChargeList'])
@@ -74,7 +74,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
             atom_id = item.atom_id_list[atom_index]
 
-            atom = elements.Atom(index=atom_index, id=atom_id, name=atom_name, type=atom_element)
+            atom = elements.atom_init_wizard(index=atom_index, id=atom_id, name=atom_name, type=atom_element)
 
             atom.formal_charge = atom_formal_charge
 
@@ -125,7 +125,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     for atom_indices_of_component in atom_indices_per_component:
 
-        component = elements.Component(index=component_index)
+        component = elements.component_init_wizard(index=component_index)
 
         for atom_index in atom_indices_of_component:
 
@@ -148,7 +148,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     for chain_index, chain_id, chain_name in zip(range(item.num_chains), item.chain_id_list, item.chain_name_list):
 
-        chain = elements.Chain(index=chain_index, id=chain_id, name=chain_name)
+        chain = elements.chain_init_wizard(index=chain_index, id=chain_id, name=chain_name)
         n_groups_chain = item.groups_per_chain[chain_index]
 
         for group_index in range(count_groups, count_groups+n_groups_chain):
@@ -175,7 +175,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
         entity_type = MMTFDecoder_entity_to_entity_class_type(mmtf_entity)
         entity_name = mmtf_entity['description']
-        entity = elements.entity_initialization_wizard(index=entity_index, id=None, name=entity_name, type=entity_type)
+        entity = elements.entity_init_wizard(index=entity_index, id=None, name=entity_name, type=entity_type)
 
         entity.mmtf_type = mmtf_entity['type']
         entity.description = mmtf_entity['description']
@@ -209,7 +209,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     for entity in bioassembly.entity:
 
         if entity.type == "protein":
-            molecule = elements.molecule_initialization_wizard(index=molecule_index, id=None, name=entity.name, type="protein")
+            molecule = elements.molecule_init_wizard(index=molecule_index, id=None, name=entity.name, type="protein")
             molecule.sequence = entity.sequence
             molecule.entity = entity
             entity.molecule.append(molecule)
@@ -230,7 +230,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         elif entity.type == "water":
             for chain in entity.chain:
                 for component in chain.component:
-                    molecule = elements.molecule_initialization_wizard(index=molecule_index, id=None, name="water", type="water")
+                    molecule = elements.molecule_init_wizard(index=molecule_index, id=None, name="water", type="water")
                     molecule.component.append(component)
                     component.molecule = molecule
                     molecule.entity = entity
@@ -248,7 +248,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         elif entity.type == "ion":
             for chain in entity.chain:
                 for component in chain.component:
-                    molecule = elements.molecule_initialization_wizard(index=molecule_index, id=None, name=component.group[0].name, type="ion")
+                    molecule = elements.molecule_init_wizard(index=molecule_index, id=None, name=component.group[0].name, type="ion")
                     molecule.component.append(component)
                     component.molecule = molecule
                     molecule.entity = entity
