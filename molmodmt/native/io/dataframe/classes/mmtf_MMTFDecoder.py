@@ -43,7 +43,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     group_id_array = empty(n_atoms, dtype=int)
     group_type_array = empty(n_atoms, dtype=object)
 
-    G = empty_graph(item.num_atoms)
+    G = empty_graph(n_atoms)
 
     atom_index = 0
 

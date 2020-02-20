@@ -10,10 +10,20 @@ is_form={
     _simtk_openmm_app_Topology:form_name
 }
 
-def to_molmod_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
 
-    from molmodmt.native.io_topology import from_openmm_Topology as _from_openmm_Topology
-    return _from_openmm_Topology(item, atom_indices=atom_indices)
+    from molmodmt.native.io.dataframe import from_openmm_Topology as molmodmt_DataFrame_from_openmm_Topology
+    return molmodmt_DataFrame_from_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_molmodmt_Composition(item, atom_indices='all', frame_indices='all'):
+
+    from molmodmt.native.io.composition import from_openmm_Topology as molmodmt_Composition_from_openmm_Topology
+    return molmodmt_Composition_from_openmm_Topology(item, atom_indices=atom_indices)
+
+def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
+
+    from molmodmt.native.io.molmod import from_openmm_Topology as molmodmt_MolMod_from_openmm_Topology
+    return molmodmt_MolMod_from_openmm_Topology(item, atom_indices=atom_indices)
 
 def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
