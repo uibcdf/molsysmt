@@ -133,3 +133,4 @@ def group_init_wizard(index=None, id=None, name=None, type=None):
     else:
         raise ValueError("Group type not recognized")
 
+

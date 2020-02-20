@@ -1,5 +1,3 @@
-from molmodmt.utils.exceptions import *
-
 def MMTFDecoder_group_to_group_class_type(mmtf_group):
 
     from molmodmt import group_name_to_molecule_type
@@ -43,4 +41,5 @@ def MMTFDecoder_entity_to_entity_class_type(mmtf_entity):
         return None
 
     pass
+
 

@@ -16,8 +16,7 @@ from .potential_energy import energy_minimization
 from .solvate_box import solvate
 from .protonation import add_missing_hydrogens
 from .mutations import mutate
-from .topology import group_name_to_molecule_type, group_name_is_water, group_name_is_ion,\
-                      group_name_is_aminoacid, group_name_is_nucleotide, sequence_to_molecule_type
+from . import elements as elements
 from .chem_and_phys_properties import get_charge, get_net_charge, get_mass, get_net_mass,\
                                get_degrees_of_freedom
 from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention
@@ -55,18 +54,18 @@ __all_potential_energy__ = []
 __all_solvate_box__ = []
 __all_protonation__ = []
 __all_mutations__ = []
-__all_topology__ = []
+__all_elements__ = []
 __all_chem_and_phys_properties__ = []
 __all_pbc__ = ['wrap_molecules_to_pbc_cell', 'unwrap_molecules_from_pbc_cell', 'minimum_image_convention']
 
 __all__ = __all_multitool__ + __all_rmsd__ + __all_distances__ +\
         __all_centers__ + __all_sequence__ + __all_radius_of_gyration__ + __all_fix__ +\
         __all_model_loops__ + __all_remove_atoms__ + __all_potential_energy__ +\
-        __all_solvate_box__ + __all_protonation__ + __all_mutations__ + __all_topology__ +\
-        __all_topology__ + __all_chem_and_phys_properties__ + __all_pbc__
+        __all_solvate_box__ + __all_protonation__ + __all_mutations__ +\
+        __all_elements__ + __all_chem_and_phys_properties__ + __all_pbc__
 
 del(__all_multitool__, __all_rmsd__, __all_distances__, __all_centers__,
         __all_sequence__, __all_radius_of_gyration__, __all_fix__, __all_model_loops__,
         __all_remove_atoms__, __all_potential_energy__, __all_solvate_box__, __all_protonation__,
-        __all_mutations__, __all_topology__, __all_chem_and_phys_properties__)
+        __all_mutations__, __all_elements__, __all_chem_and_phys_properties__, __all_pbc__)
 

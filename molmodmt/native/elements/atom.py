@@ -33,8 +33,8 @@ class Atom:
     bioassembly : obj
         Description of bioassembly.
 
-    bond : x
-        Description of bond.
+    bond_with_atom_index : x
+        Dictionary.
     bond_indices : x
         Description of bond_indices.
     bonded_atom_indices : x
@@ -76,7 +76,7 @@ class Atom:
         self.entity = None
         self.bioassembly = None
 
-        self.bond = []
+        self.bond_with_atom_index = {}
         self.bond_indices = []
         self.bonded_atom_indices = []
         self.n_bonds = 0

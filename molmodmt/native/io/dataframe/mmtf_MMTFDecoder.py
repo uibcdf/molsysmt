@@ -4,8 +4,8 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     from molmodmt.native import DataFrame
     from numpy import empty, array, arange, reshape, where, unique, nan
-    from molmodmt.utils.composition.classification import MMTFDecoder_group_to_group_class_type
-    from molmodmt.utils.composition.classification import MMTFDecoder_entity_to_entity_class_type
+    from molmodmt.elements.group import name_to_type as group_name_to_group_type
+    from molmodmt.elements.entity import type_from_MMTFDecoder_entity as entity_type_from_MMTFDecoder_entity
     from networkx import empty_graph, connected_components
 
     tmp_item = DataFrame()
@@ -51,7 +51,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
         mmtf_group = item.group_list[mmtf_group_type]
         group_name = mmtf_group['groupName']
-        group_type = MMTFDecoder_group_to_group_class_type(mmtf_group)
+        group_type = group_name_to_group_type(group_name)
 
         # bonds intra-groups in graph
 
@@ -165,7 +165,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     for mmtf_entity in item.entity_list:
 
-        entity_type = MMTFDecoder_entity_to_entity_class_type(mmtf_entity)
+        entity_type = entity_type_from_MMTFDecoder_entity(mmtf_entity)
         entity_name = mmtf_entity['description']
 
         for chain_index in mmtf_entity['chainIndexList']:

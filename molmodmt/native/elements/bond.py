@@ -46,11 +46,6 @@ class Bond():
         self.atom_indices = None
         self.order = order
 
-        self.component = None
-        self.molecule = None
-        self.entity = None
-        self.bioassembly = None
-
         if self.atom is not None:
             self.atom_indices = [self.atom[0].index, self.atom[1].index]
 

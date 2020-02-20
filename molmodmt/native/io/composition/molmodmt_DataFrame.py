@@ -12,11 +12,10 @@ def from_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
     entities = []
     molecules = []
     bioassemblies = []
-    bonds = []
 
     n_atoms = item.shape[0]
 
-    # atoms, group, chain, entity, molecule
+    # atoms, groups, chains, entities, molecules
 
     atom_index_array = item["atom.index"].to_numpy()
     atom_name_array = item["atom.name"].to_numpy()
@@ -43,10 +42,10 @@ def from_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
     entity_id_array = item["entity.id"].to_numpy()
     entity_type_array = item["entity.type"].to_numpy()
 
-    molecule_index_array = item["entity.index"].to_numpy()
-    molecule_name_array = item["entity.name"].to_numpy()
-    molecule_id_array = item["entity.id"].to_numpy()
-    molecule_type_array = item["entity.type"].to_numpy()
+    molecule_index_array = item["molecule.index"].to_numpy()
+    molecule_name_array = item["molecule.name"].to_numpy()
+    molecule_id_array = item["molecule.id"].to_numpy()
+    molecule_type_array = item["molecule.type"].to_numpy()
 
     bioassembly_index_array = item["bioassembly.index"].to_numpy()
     bioassembly_name_array = item["bioassembly.name"].to_numpy()
@@ -224,7 +223,7 @@ def from_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
             bioassembly.entity_indices.append(entity_index)
             bioassembly.n_entities+=1
 
-    del(atom_index_array, atom_name_array, atom_id_array, atom_type_array)
+    del(atom_name_array, atom_id_array, atom_type_array)
     del(group_index_array, group_name_array, group_id_array, group_type_array)
     del(component_index_array, component_name_array, component_id_array, component_type_array)
     del(molecule_index_array, molecule_name_array, molecule_id_array, molecule_type_array)
@@ -262,10 +261,46 @@ def from_molmodmt_DataFrame(item, atom_indices='all', frame_indices='all'):
     tmp_item.n_atoms = len(atoms)
     tmp_item.atom_indices = arange(tmp_item.n_atoms)
 
+    del(atoms, groups, components, molecules, chains, entities, bioassemblies)
+
+    # bonds
+
+    atom_bonded_atom_indices_array = item["atom.bonded_atom_indices"].to_numpy()
+
+    bond_index=0
+    bonds = []
+    bonded_atom_indices_list=[]
+
+    for atom_index_0, bonded_atom_indices in zip(atom_index_array, atom_bonded_atom_indices_array):
+
+        atom_0 = tmp_item.atom[atom_index_0]
+        for atom_index_1 in bonded_atom_indices:
+            if atom_index_0 < atom_index_1:
+                atom_1 = tmp_item.atom[atom_index_1]
+
+                bond = elements.Bond(index=bond_index, atoms=[atom_0,atom_1])
+
+                atom_0.bond_with_atom_index[atom_index_1]=bond
+                atom_0.bond_indices.append(bond_index)
+                atom_0.bonded_atom_indices.append(atom_index_1)
+                atom_0.n_bonds+=1
+
+                atom_1.bond_with_atom_index[atom_index_0]=bond
+                atom_1.bond_indices.append(bond_index)
+                atom_1.bonded_atom_indices.append(atom_index_0)
+                atom_1.n_bonds+=1
+
+                bonds.append(bond)
+                bonded_atom_indices_list.append([atom_index_0,atom_index_1])
+                bond_index+=1
+
     tmp_item.bond = bonds
     tmp_item.n_bonds = len(bonds)
     tmp_item.bond_indices = arange(tmp_item.n_bonds)
-    #tmp_item.bonded_atom_indices
+    tmp_item.bonded_atom_indices = bonded_atom_indices_list
+
+    del(atom_index_array, atom_bonded_atom_indices_array, bonded_atom_indices)
+    del(bonds)
 
     tmp_item.dataframe = item.copy()
 

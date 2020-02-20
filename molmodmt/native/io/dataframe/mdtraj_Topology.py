@@ -14,7 +14,6 @@ def from_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item['atom.name'] = mdtraj_DataFrame['name'].values
     tmp_item['atom.id'] = mdtraj_DataFrame['serial'].values
     tmp_item['atom.type'] = mdtraj_DataFrame['element'].values
-    tmp_item['atom.element'] = mdtraj_DataFrame['element'].values
 
     tmp_item['group.index'] = Series(atom.residue.index for atom in item.atoms).values
     tmp_item['group.name'] = mdtraj_DataFrame['resName'].values
