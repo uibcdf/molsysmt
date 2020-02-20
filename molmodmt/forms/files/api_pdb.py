@@ -91,7 +91,7 @@ def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all'):
     from simtk.openmm.app.pdbfile import PDBFile
     from molmodmt.forms.classes.api_openmm_PDBFile import extract_subsystem as extract_pdbfile
     tmp_item = PDBFile(item)
-    tmp_item = extract_pdbfile(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract_pdbfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
@@ -99,7 +99,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
     from pdbfixer.pdbfixer import PDBFixer
     from molmodmt.forms.classes.api_pdbfixer_PDBFixer import extract_subsystem as extract_pdbfixer
     tmp_item = PDBFixer(item)
-    tmp_item = extract_pdbfixer(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract_pdbfixer(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_nglview(item, atom_indices='all', frame_indices='all'):
