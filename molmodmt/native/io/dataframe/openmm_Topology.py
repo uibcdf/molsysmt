@@ -6,6 +6,61 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     tmp_item = DataFrame()
 
+    n_atoms = item.getNumAtoms()
+
+    atom_index_array = empty(n_atoms, dtype=int)
+    atom_name_array = empty(n_atoms, dtype=object)
+    atom_id_array = empty(n_atoms, dtype=int)
+    atom_type_array = empty(n_atoms, dtype=object)
+    atom_bonded_atom_indices_array = empty(n_atoms, dtype=object)
+
+    group_index_array = empty(n_atoms, dtype=int)
+    group_name_array = empty(n_atoms, dtype=object)
+    group_id_array = empty(n_atoms, dtype=int)
+    group_type_array = empty(n_atoms, dtype=object)
+
+    chain_index_array = empty(n_atoms, dtype=int)
+    #chain_name_array = empty(n_atoms, dtype=object)
+    chain_id_array = empty(n_atoms, dtype=int)
+    #chain_type_array = empty(n_atoms, dtype=object)
+
+    atom_index = 0
+
+    for atom in item.atoms():
+
+        atom_index_array[atom_index] = atom.index
+        atom_name_array[atom_index] = atom.name
+        atom_id_array[atom_index] = atom.id
+        atom_type_array[atom_index] = atom.element.symbol
+
+        group_index_array[atom_index] = atom.residue.index
+        group_name_array[atom_index] = atom.residue.name
+        group_id_array[atom_index] = atom.residue.id
+        group_type_array[atom_index] = group_name_to_group_type(atom.residue.name)
+
+        chain_index_array[atom_index] = atom.residue.chain.index
+        chain_id_array[atom_index] = atom.residue.chain.id
+
+        atom_index+=1
+
+    tmp_item["atom.index"] = atom_index_array
+    tmp_item["atom.name"] = atom_name_array
+    tmp_item["atom.id"] = atom_id_array
+    tmp_item["atom.type"] = atom_type_array
+    del(atom_name_array, atom_id_array, atom_type_array)
+
+    tmp_item["group.index"] = group_index_array
+    tmp_item["group.name"] = group_name_array
+    tmp_item["group.id"] = group_id_array
+    tmp_item["group.type"] = group_type_array
+    del(group_name_array, group_id_array, group_type_array)
+
+    tmp_item["chain.index"] = chain_index_array
+    tmp_item["chain.id"] = chain_id_array
+    del(chain_id_array)
+
+
+
 
 ################
     from molmodmt.native import DataFrame
