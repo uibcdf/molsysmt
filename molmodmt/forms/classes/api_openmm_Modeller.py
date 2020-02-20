@@ -53,7 +53,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
     return tmp_item
 
 def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
-    from molmodmt.native.io_molmod import from_openmm_Modeller as MolMod_from_openmm_Modeller
+    from molmodmt.native.io.molmod.classes import from_openmm_Modeller as MolMod_from_openmm_Modeller
     return MolMod_from_openmm_Modeller(item, atom_indices=atom_indices)
 
 def to_pdb(item, output_file_path = None, atom_indices='all', frame_indices='all'):

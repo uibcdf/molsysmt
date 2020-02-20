@@ -57,7 +57,7 @@ def to_parmed_GromacsTopologyFile(item, topology=None, atom_indices='all', frame
 
 def to_molmodmt_MolMod(item, topology=None, atom_indices='all', frame_indices='all'):
 
-    from molmodmt.native.io_molmod import from_xtc
+    from molmodmt.native.io.molmod.files import from_xtc
     return from_xtc(item, topology=topology, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', frame_indices='all'):

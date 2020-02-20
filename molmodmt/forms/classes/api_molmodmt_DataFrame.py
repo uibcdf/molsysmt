@@ -11,7 +11,7 @@ is_form={
 
 def to_molmodmt_Composition(item, atom_indices='all', frame_indices='all'):
 
-    from molmodmt.native.io.composition import from_molmodmt_DataFrame as molmodmt_DataFrame_to_molmodmt_Composition
+    from molmodmt.native.io.composition.classes import from_molmodmt_DataFrame as molmodmt_DataFrame_to_molmodmt_Composition
     return molmodmt_DataFrame_to_molmodmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def extract_subsystem(item, atom_inices='all', frame_indices='all'):

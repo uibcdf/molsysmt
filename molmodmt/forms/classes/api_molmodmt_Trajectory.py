@@ -12,7 +12,7 @@ is_form={
 # Methods
 
 def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
-    from molmodmt.native.io_trajectory import to_mdtraj_Trajectory as molmodmt_Trajectory_to_mdtraj_Trajectory
+    from molmodmt.native.io.trajectory.classes import to_mdtraj_Trajectory as molmodmt_Trajectory_to_mdtraj_Trajectory
     return molmodmt_Trajectory_to_mtraj_Trajectory(item, selection=atom_indices, frame_indices=frame_indices, syntaxis=syntaxis)
 
 def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all'):

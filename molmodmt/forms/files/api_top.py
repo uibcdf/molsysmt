@@ -21,7 +21,7 @@ def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all')
 
 def to_molmodmt_Structure(item, atom_indices='all', frame_indices='all'):
 
-    from molmodmt.native.io_structure import from_gromacs_Topology
+    from molmodmt.native.io.structure.classes import from_gromacs_Topology
     return from_gromacs_Topology(item, selection=atom_indices)
 
 def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):

@@ -50,7 +50,7 @@ def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
 
     from molmodmt.utils.pdb import tmp_pdb_filename
-    from molmodmt.native.io_molmod import from_pdb as pdb_to_molmodmt
+    from molmodmt.native.io.molmod.files import from_pdb as pdb_to_molmodmt
     from os import remove
     tmp_file = tmp_pdb_filename()
     to_pdb(item, output_file_path=tmp_file)

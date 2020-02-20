@@ -66,7 +66,7 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
 def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
-    from molmodmt.native.io_molmod import to_pdb as molmodmt_MolMod_to_pdb
+    from molmodmt.native.io.molmod.files import to_pdb as molmodmt_MolMod_to_pdb
     return molmodmt_MolMod_to_pdb(item, output_file_path=output_file_path, selection=atom_indices,
             frame_indices=frame_indices)
 

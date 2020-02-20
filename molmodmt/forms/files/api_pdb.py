@@ -9,17 +9,17 @@ is_form = {
 
 def to_molmodmt_MolMod(item, topology=None, atom_indices='all', frame_indices='all'):
 
-    from molmodmt.native.io_molmod import from_pdb as _from_pdb
+    from molmodmt.native.io.molmod.files import from_pdb as _from_pdb
     return _from_pdb(item, topology=topology, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molmodmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molmodmt.native.io_topology import from_pdb as _from_pdb
+    from molmodmt.native.io.topology.files import from_pdb as _from_pdb
     return _from_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molmodmt_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
 
-    from molmodmt.native.io_trajectory import from_pdb as _from_pdb
+    from molmodmt.native.io.trajectory.files import from_pdb as _from_pdb
     return _from_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):

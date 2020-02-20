@@ -26,7 +26,7 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
 def to_molmodmt_MolMod(item, atom_indices='all', frame_indices='all'):
 
-    from molmodmt.native.io_molmod import from_hdf5 as _from_hdf5
+    from molmodmt.native.io.molmod.files import from_hdf5 as _from_hdf5
     return _from_hdf5(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', frame_indices='all'):
