@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
-# This file is distributed under the same license as the MolModMT package.
+# This file is distributed under the same license as the MolSysMT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: MolModMT \n"
+"Project-Id-Version: MolSysMT \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 15:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -16,63 +16,63 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../api/_autosummary/molmodmt.load.rst:2
-msgid "molmodmt.load"
+#: ../api/_autosummary/molsysmt.load.rst:2
+msgid "molsysmt.load"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:2
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:2
 msgid "Loading a molecular model."
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:4
-msgid "A molecular model coming from a file can be loaded as a new target with any form supported by MolModMt. This method is just an alias of `convert`. It was included here only to make the usability more intuitive."
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:4
+msgid "A molecular model coming from a file can be loaded as a new target with any form supported by MolSysMt. This method is just an alias of `convert`. It was included here only to make the usability more intuitive."
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:0
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:0
 msgid "Parameters"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:11
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:11
 msgid "**item: molecular model**"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:11
-msgid "Molecular model in any of the supported forms by MolModMT."
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:11
+msgid "Molecular model in any of the supported forms by MolSysMT."
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:14
-msgid "**to_form: str, default='molmodmt.MolMod'**"
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:14
+msgid "**to_form: str, default='molsysmt.MolSys'**"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:14
-msgid "Any accepted form by MolModMt for the output target."
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:14
+msgid "Any accepted form by MolSysMt for the output target."
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:19
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:19
 msgid "**selection: str, list, tuple or np.ndarray, defaul='all'**"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:17
-msgid "Atoms selection over which this method applies. The selection can be given specified by a list, tuple or numpy array of integers (0-based), or by means of a string following any of the selection syntaxis parsable by MolModMT."
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:17
+msgid "Atoms selection over which this method applies. The selection can be given specified by a list, tuple or numpy array of integers (0-based), or by means of a string following any of the selection syntaxis parsable by MolSysMT."
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:24
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:24
 msgid "**syntaxis: str, default='mdtraj'**"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:22
-msgid "Selection syntaxis used in the argument `selection` (in case `selection` is a string). The current options supported by MolModMt are 'mdtraj' or 'amber'. More information about this topic can be found in the section 'Selection'."
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:22
+msgid "Selection syntaxis used in the argument `selection` (in case `selection` is a string). The current options supported by MolSysMt are 'mdtraj' or 'amber'. More information about this topic can be found in the section 'Selection'."
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:0
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:0
 msgid "Returns"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:41
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:41
 msgid "item: molecular model"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.load:29
+#: ../../molsysmt/multitool.py:docstring of molsysmt.load:29
 msgid "A new target is returned with the form specified by the corresponding input argument."
 msgstr ""
 

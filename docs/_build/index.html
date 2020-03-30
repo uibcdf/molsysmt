@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>MolModMT &mdash; MolModMT 0.1 documentation</title>
+  <title>MolSysMT &mdash; MolSysMT 0.1 documentation</title>
   
 
   
@@ -50,7 +50,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> MolModMT
+            <a href="#" class="icon icon-home"> MolSysMT
           
 
           
@@ -92,7 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Atoms-selection">Atoms selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Molecular-systems-as-MolSysMT’s-forms">Molecular systems as MolSysMT’s forms</a></li>
 </ul>
 </li>
 </ul>
@@ -100,21 +100,21 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Forms.html">Molecular model forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Selection Tutorial and Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MolMod.html">MolMod form</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MolMod.html#composition">Composition</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#elements">Elements</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="MolMod.html#atom">Atom</a></li>
-<li class="toctree-l4"><a class="reference internal" href="MolMod.html#group">Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MolSys.html">MolSys form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MolSys.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MolSys.html#group">Group</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#component">Component</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#molecule">Molecule</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#chains">Chains</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#entities">Entities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#bioassemblies">Bioassemblies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#bioassemblies">Bioassemblies</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="MolMod.html#trajectory">Trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
 </ul>
@@ -186,7 +186,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">MolModMT</a>
+          <a href="#">MolSysMT</a>
         
       </nav>
 
@@ -217,7 +217,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>MolModMT</li>
+      <li>MolSysMT</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -260,15 +260,15 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="molmodmt">
-<h1>MolModMT<a class="headerlink" href="#molmodmt" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="molsysmt">
+<h1>MolSysMT<a class="headerlink" href="#molsysmt" title="Permalink to this headline">¶</a></h1>
 <a class="reference external image-reference" href="https://zenodo.org/badge/latestdoi/137937243"><img alt="https://zenodo.org/badge/137937243.svg" src="https://zenodo.org/badge/137937243.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/uibcdf/MolModMT/blob/master/License"><img alt="https://anaconda.org/uibcdf/molmodmt/badges/license.svg" src="https://anaconda.org/uibcdf/molmodmt/badges/license.svg" /></a>
-<p>MolModMT, Molecular Models Multi-Tool, is a swiss army knife to make the researchers life easier and the learning barrier of new lab student lower. This is done by simplifying the sintaxis of your script and reducing the amount of commands you have to remind to have some simple stuff done. Just that. In this sense MolModMT is probably better defined as a ‘front-end’, a ‘wrapper’ o meta-library. Thereby all credit should be given to the fellows who developed and push those tools in the core of MolModMT as openmm, mdtraj, yank, mdanalysis, parmed, nglview, and many others gratefully listed in the main README.md file of the source repository.</p>
-<p>Exceptionally few home-made subroutines will be included here to fill specific gaps in our needs. But this should not be, in principle, the main purpose of MolModMT.</p>
+<a class="reference external image-reference" href="https://github.com/uibcdf/MolSysMT/blob/master/License"><img alt="https://anaconda.org/uibcdf/molsysmt/badges/license.svg" src="https://anaconda.org/uibcdf/molsysmt/badges/license.svg" /></a>
+<p>MolSysMT, Molecular Models Multi-Tool, is a swiss army knife to make the researchers life easier and the learning barrier of new lab student lower. This is done by simplifying the sintaxis of your script and reducing the amount of commands you have to remind to have some simple stuff done. Just that. In this sense MolSysMT is probably better defined as a ‘front-end’, a ‘wrapper’ o meta-library. Thereby all credit should be given to the fellows who developed and push those tools in the core of MolSysMT as openmm, mdtraj, yank, mdanalysis, parmed, nglview, and many others gratefully listed in the main README.md file of the source repository.</p>
+<p>Exceptionally few home-made subroutines will be included here to fill specific gaps in our needs. But this should not be, in principle, the main purpose of MolSysMT.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>At this moment MolModMT is a work in progress project maintened by the UIBCDF Lab. It was concieved as a central repository for those shortcuts and common routines in the daily workflow of our lab. If you think this library is useful to you, use it with caution. Any feedback is welcome.</p>
+<p>At this moment MolSysMT is a work in progress project maintened by the UIBCDF Lab. It was concieved as a central repository for those shortcuts and common routines in the daily workflow of our lab. If you think this library is useful to you, use it with caution. Any feedback is welcome.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -286,9 +286,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Forms.html">Molecular model forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Selection Tutorial and Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MolMod.html">MolMod form</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MolMod.html#composition">Composition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="MolMod.html#trajectory">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MolSys.html">MolSys form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#composition">Composition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
 </ul>

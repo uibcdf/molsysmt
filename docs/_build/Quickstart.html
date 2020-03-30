@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quick Guide &mdash; MolModMT 0.1 documentation</title>
+  <title>Quick Guide &mdash; MolSysMT 0.1 documentation</title>
   
 
   
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> MolModMT
+            <a href="index.html" class="icon icon-home"> MolSysMT
           
 
           
@@ -93,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Atoms-selection">Atoms selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Molecular-systems-as-MolSysMT’s-forms">Molecular systems as MolSysMT’s forms</a></li>
 </ul>
 </li>
 </ul>
@@ -101,21 +101,21 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Forms.html">Molecular model forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Selection Tutorial and Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MolMod.html">MolMod form</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="MolMod.html#composition">Composition</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#elements">Elements</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="MolMod.html#atom">Atom</a></li>
-<li class="toctree-l4"><a class="reference internal" href="MolMod.html#group">Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MolSys.html">MolSys form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MolSys.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MolSys.html#group">Group</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#component">Component</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#molecule">Molecule</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#chains">Chains</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#entities">Entities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MolMod.html#bioassemblies">Bioassemblies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#bioassemblies">Bioassemblies</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="MolMod.html#trajectory">Trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
 </ul>
@@ -187,7 +187,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">MolModMT</a>
+          <a href="index.html">MolSysMT</a>
         
       </nav>
 
@@ -487,39 +487,39 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">molmodmt</span> <span class="k">as</span> <span class="nn">molmodmt</span>
+<span></span><span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">molsysmt</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="Fetching-molecular-systems-from-web-databases">
 <h2>Fetching molecular systems from web databases<a class="headerlink" href="#Fetching-molecular-systems-from-web-databases" title="Permalink to this headline">¶</a></h2>
-<p>You probably don’t remember how to fetch a pdb from the protein data bank to be loaded in your script as a parmed, pdbfixer, mdtraj, nglview, pytraj or mdanalysis native object -just to mention some-. MolModMT has a unique command to do it:</p>
+<p>You probably don’t remember how to fetch a pdb from the protein data bank to be loaded in your script as a parmed, pdbfixer, mdtraj, nglview, pytraj or mdanalysis native object -just to mention some-. MolSysMT has a unique command to do it:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_parmed</span>     <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
-<span class="n">system_pdbfixer</span>   <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
-<span class="n">system_mdtraj</span>     <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
-<span class="n">system_mdanalysis</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;mdanalysis&#39;</span><span class="p">)</span>
-<span class="n">system_nglview</span>    <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;nglview&#39;</span><span class="p">)</span>
-<span class="n">system_pytraj</span>     <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;pytraj&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_parmed</span>     <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
+<span class="n">system_pdbfixer</span>   <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
+<span class="n">system_mdtraj</span>     <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
+<span class="n">system_mdanalysis</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;mdanalysis&#39;</span><span class="p">)</span>
+<span class="n">system_nglview</span>    <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;nglview&#39;</span><span class="p">)</span>
+<span class="n">system_pytraj</span>     <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;pytraj&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>The class, or in MolModMT syntaxis, the form of each object can be checked as:</p>
+<p>The class, or in MolSysMT syntaxis, the form of each object can be checked as:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_mdanalysis</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_nglview</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_pytraj</span><span class="p">))</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_mdanalysis</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_nglview</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_pytraj</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -538,13 +538,13 @@ nglview
 </div>
 <div class="section" id="Loading-molecular-systems-and-trajectories">
 <h2>Loading molecular systems and trajectories<a class="headerlink" href="#Loading-molecular-systems-and-trajectories" title="Permalink to this headline">¶</a></h2>
-<p>Some files with different formats of molecular systems are stored in MolModMT as example:</p>
+<p>Some files with different formats of molecular systems are stored in MolSysMT as example:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">pdb</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">pdb</span>
 </pre></div>
 </div>
 </div>
@@ -554,8 +554,8 @@ nglview
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;1l2y&#39;: &#39;/home/diego/Myusr/src/UIBCDFGitHub/LabTools/MolModMT/molmodmt/utils/data/pdb/1l2y.pdb&#39;,
- &#39;1li2&#39;: &#39;/home/diego/Myusr/src/UIBCDFGitHub/LabTools/MolModMT/molmodmt/utils/data/pdb/1li2.pdb&#39;}
+{&#39;1l2y&#39;: &#39;/home/diego/Myusr/src/UIBCDFGitHub/LabTools/MolSysMT/molsysmt/utils/data/pdb/1l2y.pdb&#39;,
+ &#39;1li2&#39;: &#39;/home/diego/Myusr/src/UIBCDFGitHub/LabTools/MolSysMT/molsysmt/utils/data/pdb/1li2.pdb&#39;}
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -563,7 +563,7 @@ nglview
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">mol2</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">mol2</span>
 </pre></div>
 </div>
 </div>
@@ -573,17 +573,17 @@ nglview
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;caffeine&#39;: &#39;/home/diego/Myusr/src/UIBCDFGitHub/LabTools/MolModMT/molmodmt/utils/data/mol2/caffeine.mol2&#39;}
+{&#39;caffeine&#39;: &#39;/home/diego/Myusr/src/UIBCDFGitHub/LabTools/MolSysMT/molsysmt/utils/data/mol2/caffeine.mol2&#39;}
 </pre></div></div>
 </div>
-<p>Lets work with some of the to show how MolModMT can load them in several forms:</p>
+<p>Lets work with some of the to show how MolSysMT can load them in several forms:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">PDB_example_file</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">pdb</span><span class="p">[</span><span class="s1">&#39;1l2y&#39;</span><span class="p">]</span>
-<span class="n">MOL2_example_file</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">mol2</span><span class="p">[</span><span class="s1">&#39;caffeine&#39;</span><span class="p">]</span>
+<span></span><span class="n">PDB_example_file</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">pdb</span><span class="p">[</span><span class="s1">&#39;1l2y&#39;</span><span class="p">]</span>
+<span class="n">MOL2_example_file</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">mol2</span><span class="p">[</span><span class="s1">&#39;caffeine&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -592,10 +592,10 @@ nglview
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_pdbfixer</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
-<span class="n">system_parmed</span>   <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
-<span class="n">system_modeller</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MOL2_example_file</span><span class="p">,</span><span class="s1">&#39;modeller&#39;</span><span class="p">)</span>
-<span class="n">system_mdtraj</span>   <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MOL2_example_file</span><span class="p">,</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_pdbfixer</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
+<span class="n">system_parmed</span>   <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
+<span class="n">system_modeller</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MOL2_example_file</span><span class="p">,</span><span class="s1">&#39;modeller&#39;</span><span class="p">)</span>
+<span class="n">system_mdtraj</span>   <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MOL2_example_file</span><span class="p">,</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -604,9 +604,9 @@ nglview
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/diego/Myusr/opt/miniconda3/envs/MolModMT_dev/lib/python3.6/site-packages/pandas/io/parsers.py:2230: FutureWarning: split() requires a non-empty pattern match.
+/home/diego/Myusr/opt/miniconda3/envs/MolSysMT_dev/lib/python3.6/site-packages/pandas/io/parsers.py:2230: FutureWarning: split() requires a non-empty pattern match.
   yield pat.split(line.strip())
-/home/diego/Myusr/opt/miniconda3/envs/MolModMT_dev/lib/python3.6/site-packages/pandas/io/parsers.py:2232: FutureWarning: split() requires a non-empty pattern match.
+/home/diego/Myusr/opt/miniconda3/envs/MolSysMT_dev/lib/python3.6/site-packages/pandas/io/parsers.py:2232: FutureWarning: split() requires a non-empty pattern match.
   yield pat.split(line.strip())
 </pre></div></div>
 </div>
@@ -615,10 +615,10 @@ nglview
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_modeller</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">))</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_modeller</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -642,7 +642,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_modeller</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;modeller&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_modeller</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;modeller&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -651,7 +651,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_modeller</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_modeller</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -669,7 +669,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_mdtraj</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">system_modeller</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_mdtraj</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">system_modeller</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -678,7 +678,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -696,7 +696,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_parmed</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_parmed</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -705,7 +705,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -726,7 +726,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_mdtraj</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_mdtraj</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -738,7 +738,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_aminoacids1</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;aminoacids3:TyrGlyGlyPheMet&#39;</span><span class="p">,</span><span class="s1">&#39;aminoacids1:seq&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_aminoacids1</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;aminoacids3:TyrGlyGlyPheMet&#39;</span><span class="p">,</span><span class="s1">&#39;aminoacids1:seq&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -747,7 +747,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_aminoacids3</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;aminoacids1:YGGFM&#39;</span><span class="p">,</span><span class="s1">&#39;aminoacids3:seq&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_aminoacids3</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;aminoacids1:YGGFM&#39;</span><span class="p">,</span><span class="s1">&#39;aminoacids3:seq&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -756,7 +756,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_biopython</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;aminoacids1:YGGFM&#39;</span><span class="p">,</span><span class="s1">&#39;biopython.SeqRecord&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_biopython</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;aminoacids1:YGGFM&#39;</span><span class="p">,</span><span class="s1">&#39;biopython.SeqRecord&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -768,7 +768,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_parmed</span>   <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_parmed</span>   <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -777,7 +777,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">,</span><span class="s1">&#39;foo.mol2&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">,</span><span class="s1">&#39;foo.mol2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -786,7 +786,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="s1">&#39;1sux.pdb&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span><span class="s1">&#39;1sux.pdb&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -795,7 +795,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;aminoacids1:YGGFM&#39;</span><span class="p">,</span><span class="s1">&#39;metenk.fasta&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;aminoacids1:YGGFM&#39;</span><span class="p">,</span><span class="s1">&#39;metenk.fasta&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -817,10 +817,10 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_mdtraj</span>     <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
-<span class="n">system_pdbfixer</span>   <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
-<span class="n">system_mdanalysis</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;mdanalysis&#39;</span><span class="p">)</span>
-<span class="n">system_parmed</span>     <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
+<span></span><span class="n">system_mdtraj</span>     <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;mdtraj&#39;</span><span class="p">)</span>
+<span class="n">system_pdbfixer</span>   <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
+<span class="n">system_mdanalysis</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;mdanalysis&#39;</span><span class="p">)</span>
+<span class="n">system_parmed</span>     <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -829,7 +829,7 @@ mdtraj.Trajectory
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/diego/Myusr/opt/miniconda3/envs/MolModMT_dev/lib/python3.6/site-packages/mdtraj/formats/pdb/pdbfile.py:196: UserWarning: Unlikely unit cell vectors detected in PDB file likely resulting from a dummy CRYST1 record. Discarding unit cell vectors.
+/home/diego/Myusr/opt/miniconda3/envs/MolSysMT_dev/lib/python3.6/site-packages/mdtraj/formats/pdb/pdbfile.py:196: UserWarning: Unlikely unit cell vectors detected in PDB file likely resulting from a dummy CRYST1 record. Discarding unit cell vectors.
   warnings.warn(&#39;Unlikely unit cell vectors detected in PDB file likely &#39;
 </pre></div></div>
 </div>
@@ -838,7 +838,7 @@ mdtraj.Trajectory
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -856,7 +856,7 @@ array([177, 184, 198, 209, 220, 227, 251, 265, 279, 293])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -874,7 +874,7 @@ array([177, 184, 198, 209, 220, 227, 251, 265, 279, 293])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_mdanalysis</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_mdanalysis</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -883,17 +883,17 @@ array([177, 184, 198, 209, 220, 227, 251, 265, 279, 293])
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/diego/Myusr/opt/miniconda3/envs/MolModMT_dev/lib/python3.6/site-packages/mdtraj/utils/unitcell.py:78: UserWarning: All your angles were less than 2*pi. Did you accidentally give me radians?
+/home/diego/Myusr/opt/miniconda3/envs/MolSysMT_dev/lib/python3.6/site-packages/mdtraj/utils/unitcell.py:78: UserWarning: All your angles were less than 2*pi. Did you accidentally give me radians?
   warnings.warn(&#39;All your angles were less than 2*pi. Did you accidentally give me radians?&#39;)
-/home/diego/Myusr/opt/miniconda3/envs/MolModMT_dev/lib/python3.6/site-packages/mdtraj/utils/unitcell.py:87: RuntimeWarning: invalid value encountered in true_divide
+/home/diego/Myusr/opt/miniconda3/envs/MolSysMT_dev/lib/python3.6/site-packages/mdtraj/utils/unitcell.py:87: RuntimeWarning: invalid value encountered in true_divide
   cy = c_length*(np.cos(alpha) - np.cos(beta)*np.cos(gamma)) / np.sin(gamma)
-/home/diego/Myusr/opt/miniconda3/envs/MolModMT_dev/lib/python3.6/site-packages/mdtraj/utils/unitcell.py:99: RuntimeWarning: invalid value encountered in greater
+/home/diego/Myusr/opt/miniconda3/envs/MolSysMT_dev/lib/python3.6/site-packages/mdtraj/utils/unitcell.py:99: RuntimeWarning: invalid value encountered in greater
   c[np.logical_and(c&gt;-tol, c&lt;tol)] = 0.0
-/home/diego/Myusr/opt/miniconda3/envs/MolModMT_dev/lib/python3.6/site-packages/mdtraj/utils/unitcell.py:99: RuntimeWarning: invalid value encountered in less
+/home/diego/Myusr/opt/miniconda3/envs/MolSysMT_dev/lib/python3.6/site-packages/mdtraj/utils/unitcell.py:99: RuntimeWarning: invalid value encountered in less
   c[np.logical_and(c&gt;-tol, c&lt;tol)] = 0.0
-/home/diego/Myusr/opt/miniconda3/envs/MolModMT_dev/lib/python3.6/site-packages/numpy/linalg/linalg.py:2022: RuntimeWarning: invalid value encountered in det
+/home/diego/Myusr/opt/miniconda3/envs/MolSysMT_dev/lib/python3.6/site-packages/numpy/linalg/linalg.py:2022: RuntimeWarning: invalid value encountered in det
   r = _umath_linalg.det(a, signature=signature)
-/home/diego/Myusr/opt/miniconda3/envs/MolModMT_dev/lib/python3.6/site-packages/mdtraj/formats/pdb/pdbfile.py:194: RuntimeWarning: divide by zero encountered in true_divide
+/home/diego/Myusr/opt/miniconda3/envs/MolSysMT_dev/lib/python3.6/site-packages/mdtraj/formats/pdb/pdbfile.py:194: RuntimeWarning: divide by zero encountered in true_divide
   particle_density = traj.top.n_atoms / traj.unitcell_volumes[0]
 </pre></div></div>
 </div>
@@ -911,7 +911,7 @@ array([177, 184, 198, 209, 220, 227, 251, 265, 279, 293])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -929,7 +929,7 @@ array([177, 184, 198, 209, 220, 227, 251, 265, 279, 293])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -947,7 +947,7 @@ array([177, 184, 198, 209, 220, 227, 251, 265, 279, 293])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;pdb:1l2y&quot;</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;pdb:1l2y&quot;</span><span class="p">,</span><span class="s1">&#39;name CA and resid 10 to 20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -965,7 +965,7 @@ array([177, 184, 198, 209, 220, 227, 251, 265, 279, 293])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_mdanalysis</span><span class="p">,</span><span class="s1">&#39;name CA and (resid 10:20)&#39;</span><span class="p">,</span><span class="s1">&#39;mdanalysis&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_mdanalysis</span><span class="p">,</span><span class="s1">&#39;name CA and (resid 10:20)&#39;</span><span class="p">,</span><span class="s1">&#39;mdanalysis&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -983,7 +983,7 @@ array([171, 178, 185, 199, 210, 221, 228, 252, 266, 280, 294])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">,</span><span class="s1">&#39;:10-20@CA&#39;</span><span class="p">,</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">,</span><span class="s1">&#39;:10-20@CA&#39;</span><span class="p">,</span><span class="s1">&#39;parmed&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1004,7 +1004,7 @@ array([171, 178, 185, 199, 210, 221, 228, 252, 266, 280, 294])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">view</span><span class="o">=</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">MOL2_example_file</span><span class="p">)</span>
+<span></span><span class="n">view</span><span class="o">=</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">MOL2_example_file</span><span class="p">)</span>
 <span class="n">view</span>
 </pre></div>
 </div>
@@ -1046,7 +1046,7 @@ array([171, 178, 185, 199, 210, 221, 228, 252, 266, 280, 294])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">view</span><span class="o">=</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="s1">&#39;pdb:1l2y&#39;</span><span class="p">)</span>
+<span></span><span class="n">view</span><span class="o">=</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="s1">&#39;pdb:1l2y&#39;</span><span class="p">)</span>
 <span class="n">view</span>
 </pre></div>
 </div>
@@ -1088,8 +1088,8 @@ array([171, 178, 185, 199, 210, 221, 228, 252, 266, 280, 294])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">system_pdbfixer</span> <span class="o">=</span> <span class="n">molmodmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
-<span class="n">view</span><span class="o">=</span><span class="n">molmodmt</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">)</span>
+<span></span><span class="n">system_pdbfixer</span> <span class="o">=</span> <span class="n">molsysmt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_example_file</span><span class="p">,</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">=</span><span class="n">molsysmt</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">)</span>
 <span class="n">view</span>
 </pre></div>
 </div>
@@ -1127,15 +1127,15 @@ array([171, 178, 185, 199, 210, 221, 228, 252, 266, 280, 294])
 </div>
 </div>
 </div>
-<div class="section" id="Molecular-systems-as-MolModMT’s-forms">
-<h2>Molecular systems as MolModMT’s forms<a class="headerlink" href="#Molecular-systems-as-MolModMT’s-forms" title="Permalink to this headline">¶</a></h2>
-<p>MolModMT’s works with methods as <code class="docutils literal notranslate"><span class="pre">load</span></code> or <code class="docutils literal notranslate"><span class="pre">convert</span></code> over different forms of a molecular model. This way, the same molecular model can take de form of a pdb file, a parmed structure or a pytraj object. In order to list the different forms MolModMT currently recognize, check the method <code class="docutils literal notranslate"><span class="pre">info_forms</span></code>:</p>
+<div class="section" id="Molecular-systems-as-MolSysMT’s-forms">
+<h2>Molecular systems as MolSysMT’s forms<a class="headerlink" href="#Molecular-systems-as-MolSysMT’s-forms" title="Permalink to this headline">¶</a></h2>
+<p>MolSysMT’s works with methods as <code class="docutils literal notranslate"><span class="pre">load</span></code> or <code class="docutils literal notranslate"><span class="pre">convert</span></code> over different forms of a molecular model. This way, the same molecular model can take de form of a pdb file, a parmed structure or a pytraj object. In order to list the different forms MolSysMT currently recognize, check the method <code class="docutils literal notranslate"><span class="pre">info_forms</span></code>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">info_forms</span><span class="p">()</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">info_forms</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1173,7 +1173,7 @@ array([171, 178, 185, 199, 210, 221, 228, 252, 266, 280, 294])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">info_load</span><span class="p">(</span><span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;pdb&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">info_load</span><span class="p">(</span><span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;pdb&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1191,7 +1191,7 @@ array([171, 178, 185, 199, 210, 221, 228, 252, 266, 280, 294])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molmodmt</span><span class="o">.</span><span class="n">info_load</span><span class="p">(</span><span class="n">from_form</span><span class="o">=</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
+<span></span><span class="n">molsysmt</span><span class="o">.</span><span class="n">info_load</span><span class="p">(</span><span class="n">from_form</span><span class="o">=</span><span class="s1">&#39;pdbfixer&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

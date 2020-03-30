@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital
 # Federico Gomez and authors
-# This file is distributed under the same license as the MolModMT package.
+# This file is distributed under the same license as the MolSysMT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: MolModMT \n"
+"Project-Id-Version: MolSysMT \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 15:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -34,7 +34,7 @@ msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
 msgid ""
-":obj:`load <molmodmt.load>`\\ \\(item\\[\\, to\\_form\\, selection\\, "
+":obj:`load <molsysmt.load>`\\ \\(item\\[\\, to\\_form\\, selection\\, "
 "...\\]\\)"
 msgstr ""
 
@@ -43,30 +43,30 @@ msgid "Loading a molecular model."
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
-msgid ":obj:`get_form <molmodmt.get_form>`\\ \\(\\[item\\]\\)"
+msgid ":obj:`get_form <molsysmt.get_form>`\\ \\(\\[item\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1 ../api/index.rst:61:<autosummary>:1
 msgid ""
-":obj:`get <molmodmt.get>`\\ \\(item\\[\\, target\\, indices\\, "
+":obj:`get <molsysmt.get>`\\ \\(item\\[\\, target\\, indices\\, "
 "selection\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1 ../api/index.rst:45:<autosummary>:1
 msgid ""
-":obj:`set <molmodmt.set>`\\ \\(item\\[\\, target\\, indices\\, "
+":obj:`set <molsysmt.set>`\\ \\(item\\[\\, target\\, indices\\, "
 "selection\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
 msgid ""
-":obj:`info <molmodmt.info>`\\ \\(\\[item\\, target\\, indices\\, "
+":obj:`info <molsysmt.info>`\\ \\(\\[item\\, target\\, indices\\, "
 "selection\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
 msgid ""
-":obj:`select <molmodmt.select>`\\ \\(item\\[\\, selection\\, "
+":obj:`select <molsysmt.select>`\\ \\(item\\[\\, selection\\, "
 "syntaxis\\]\\)"
 msgstr ""
 
@@ -76,7 +76,7 @@ msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
 msgid ""
-":obj:`convert <molmodmt.convert>`\\ \\(item\\[\\, to\\_form\\, "
+":obj:`convert <molsysmt.convert>`\\ \\(item\\[\\, to\\_form\\, "
 "selection\\, ...\\]\\)"
 msgstr ""
 
@@ -88,23 +88,23 @@ msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
 msgid ""
-":obj:`extract <molmodmt.extract>`\\ \\(item\\[\\, selection\\, "
+":obj:`extract <molsysmt.extract>`\\ \\(item\\[\\, selection\\, "
 "frame\\_indices\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
-msgid ":obj:`merge <molmodmt.merge>`\\ \\(\\[item1\\, item2\\, to\\_form\\]\\)"
+msgid ":obj:`merge <molsysmt.merge>`\\ \\(\\[item1\\, item2\\, to\\_form\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
 msgid ""
-":obj:`write <molmodmt.write>`\\ \\(\\[item\\, filename\\, selection\\, "
+":obj:`write <molsysmt.write>`\\ \\(\\[item\\, filename\\, selection\\, "
 "...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:27:<autosummary>:1
 msgid ""
-":obj:`view <molmodmt.view>`\\ \\(\\[item\\, viewer\\, selection\\, "
+":obj:`view <molsysmt.view>`\\ \\(\\[item\\, viewer\\, selection\\, "
 "...\\]\\)"
 msgstr ""
 
@@ -120,7 +120,7 @@ msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1
 msgid ""
-":obj:`remove <molmodmt.remove>`\\ \\(item\\[\\, selection\\, "
+":obj:`remove <molsysmt.remove>`\\ \\(item\\[\\, selection\\, "
 "syntaxis\\]\\)"
 msgstr ""
 
@@ -130,13 +130,13 @@ msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1
 msgid ""
-":obj:`remove_solvent <molmodmt.remove_solvent>`\\ \\(item\\[\\, water\\, "
+":obj:`remove_solvent <molsysmt.remove_solvent>`\\ \\(item\\[\\, water\\, "
 "cosolutes\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1
 msgid ""
-":obj:`add_missing_hydrogens <molmodmt.add_missing_hydrogens>`\\ "
+":obj:`add_missing_hydrogens <molsysmt.add_missing_hydrogens>`\\ "
 "\\(item\\[\\, pH\\, ...\\]\\)"
 msgstr ""
 
@@ -145,16 +145,16 @@ msgid "The missing hydrogens of a molecular model are added."
 msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1
-msgid ":obj:`recenter <molmodmt.recenter>`\\ \\(item\\[\\, selection\\, ...\\]\\)"
+msgid ":obj:`recenter <molsysmt.recenter>`\\ \\(item\\[\\, selection\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1
-msgid ":obj:`fix_chains <molmodmt.fix_chains>`\\ \\(item\\[\\, chains\\]\\)"
+msgid ":obj:`fix_chains <molsysmt.fix_chains>`\\ \\(item\\[\\, chains\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1
 msgid ""
-":obj:`fix_pdb_structure <molmodmt.fix_pdb_structure>`\\ \\(item\\[\\, "
+":obj:`fix_pdb_structure <molsysmt.fix_pdb_structure>`\\ \\(item\\[\\, "
 "missing\\_atoms\\, ...\\]\\)"
 msgstr ""
 
@@ -166,7 +166,7 @@ msgstr ""
 
 #: ../api/index.rst:45:<autosummary>:1 ../api/index.rst:84:<autosummary>:1
 msgid ""
-":obj:`add_loop <molmodmt.add_loop>`\\ \\(item\\[\\, target\\_sequence\\, "
+":obj:`add_loop <molsysmt.add_loop>`\\ \\(item\\[\\, target\\_sequence\\, "
 "finesse\\, ...\\]\\)"
 msgstr ""
 
@@ -181,36 +181,36 @@ msgid ""
 msgstr ""
 
 #: ../api/index.rst:61:<autosummary>:1
-msgid ":obj:`distances <molmodmt.distances>`\\"
+msgid ":obj:`distances <molsysmt.distances>`\\"
 msgstr ""
 
 #: ../api/index.rst:61:<autosummary>:1
 msgid ""
-":obj:`contact_map <molmodmt.contact_map>`\\ \\(\\[item\\_1\\, "
+":obj:`contact_map <molsysmt.contact_map>`\\ \\(\\[item\\_1\\, "
 "selection\\_1\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:61:<autosummary>:1
 msgid ""
-":obj:`neighbors_lists <molmodmt.neighbors_lists>`\\ \\(\\[item\\_1\\, "
+":obj:`neighbors_lists <molsysmt.neighbors_lists>`\\ \\(\\[item\\_1\\, "
 "selection\\_1\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:61:<autosummary>:1
 msgid ""
-":obj:`center_of_mass <molmodmt.center_of_mass>`\\ \\(\\[item\\, "
+":obj:`center_of_mass <molsysmt.center_of_mass>`\\ \\(\\[item\\, "
 "selection\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:61:<autosummary>:1
 msgid ""
-":obj:`geometrical_center <molmodmt.geometrical_center>`\\ \\(\\[item\\, "
+":obj:`geometrical_center <molsysmt.geometrical_center>`\\ \\(\\[item\\, "
 "selection\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:61:<autosummary>:1
 msgid ""
-":obj:`radius_of_gyration <molmodmt.radius_of_gyration>`\\ \\(\\[item\\, "
+":obj:`radius_of_gyration <molsysmt.radius_of_gyration>`\\ \\(\\[item\\, "
 "selection\\, frame\\, ...\\]\\)"
 msgstr ""
 
@@ -220,31 +220,31 @@ msgstr ""
 
 #: ../api/index.rst:75:<autosummary>:1
 msgid ""
-":obj:`rmsd <molmodmt.rmsd>`\\ \\(\\[item\\, selection\\, "
+":obj:`rmsd <molsysmt.rmsd>`\\ \\(\\[item\\, selection\\, "
 "frame\\_indices\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:75:<autosummary>:1
 msgid ""
-":obj:`least_rmsd_fit <molmodmt.least_rmsd_fit>`\\ \\(\\[item\\, "
+":obj:`least_rmsd_fit <molsysmt.least_rmsd_fit>`\\ \\(\\[item\\, "
 "selection\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:75:<autosummary>:1
 msgid ""
-":obj:`sequence_identity <molmodmt.sequence_identity>`\\ "
+":obj:`sequence_identity <molsysmt.sequence_identity>`\\ "
 "\\(\\[ref\\_item\\, item\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:75:<autosummary>:1
 msgid ""
-":obj:`sequence_alignment <molmodmt.sequence_alignment>`\\ "
+":obj:`sequence_alignment <molsysmt.sequence_alignment>`\\ "
 "\\(\\[ref\\_item\\, item\\, engine\\, ...\\]\\)"
 msgstr ""
 
 #: ../api/index.rst:75:<autosummary>:1
 msgid ""
-":obj:`structure_alignment <molmodmt.structure_alignment>`\\ "
+":obj:`structure_alignment <molsysmt.structure_alignment>`\\ "
 "\\(\\[ref\\_item\\, item\\, ...\\]\\)"
 msgstr ""
 

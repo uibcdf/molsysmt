@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital
 # Federico Gomez and authors
-# This file is distributed under the same license as the MolModMT package.
+# This file is distributed under the same license as the MolSysMT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: MolModMT \n"
+"Project-Id-Version: MolSysMT \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 15:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: ../api/_autosummary/molmodmt.add_missing_hydrogens.rst:2
-msgid "molmodmt.add\\_missing\\_hydrogens"
+#: ../api/_autosummary/molsysmt.add_missing_hydrogens.rst:2
+msgid "molsysmt.add\\_missing\\_hydrogens"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:2 of
+#: molsysmt.add_missing_hydrogens:2 of
 msgid ""
 "The missing hydrogens of a molecular model are added. This method does "
 "not remove any hydrogen already present."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:5 of
+#: molsysmt.add_missing_hydrogens:5 of
 msgid ""
 "Regarding the protonation states of the aminoacids the documentation "
 "corresponding to the chosen engine should be checked for further details."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:8 of
+#: molsysmt.add_missing_hydrogens:8 of
 msgid ""
 "OpenMM: The protonation state is determined according the frequency of "
 "the variant at the specified pH, and the participation of Cysteines in "
@@ -46,54 +46,54 @@ msgid ""
 "python/generated/simtk.openmm.app.modeller.Modeller.html#simtk.openmm.app.modeller.Modeller.addHydrogens>`_."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:10 of
+#: molsysmt.add_missing_hydrogens:10 of
 msgid ""
 "PDBFixer: The protonation state is determined according to the frequency "
 "of the variant at the specified pH. See the `PDBFixer Manual "
 "<http://htmlpreview.github.io/?https://raw.github.com/pandegroup/pdbfixer/master/Manual.html>`_."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens of
+#: molsysmt.add_missing_hydrogens of
 msgid "Parameters"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:15 of
+#: molsysmt.add_missing_hydrogens:15 of
 msgid "**item: Molecular model in accepted form.**"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:15 of
-msgid "Molecular model in any of the accepted forms by MolModMT."
+#: molsysmt.add_missing_hydrogens:15 of
+msgid "Molecular model in any of the accepted forms by MolSysMT."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:18 of
+#: molsysmt.add_missing_hydrogens:18 of
 msgid "**pH: float, default: 7.4**"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:18 of
+#: molsysmt.add_missing_hydrogens:18 of
 msgid "The pH based on which to determine the aminoacids protonation states."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:21 of
+#: molsysmt.add_missing_hydrogens:21 of
 msgid "**forcefield: str, default: 'AMBER99SB-ILDN'**"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:21 of
+#: molsysmt.add_missing_hydrogens:21 of
 msgid ""
 "Name of the forcefield to be used by OpenMM ([check the list of names "
 "accepted here]())"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:30 of
+#: molsysmt.add_missing_hydrogens:30 of
 msgid "**engine: str ('OpenMM' or 'PDBFixer'), default: 'OpenMM'**"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:30 of
+#: molsysmt.add_missing_hydrogens:30 of
 msgid ""
 "Name of the engine used to add the missing hydrogens. The following "
 "options are available:"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:25 of
+#: molsysmt.add_missing_hydrogens:25 of
 msgid ""
 "'OpenMM': The method openmm.app.modeller.Modeller.addHydrogens is "
 "included in the workflow. See the `OpenMM User Manual "
@@ -103,30 +103,30 @@ msgid ""
 "python/generated/simtk.openmm.app.modeller.Modeller.html#simtk.openmm.app.modeller.Modeller.addHydrogens>`_."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:30 of
+#: molsysmt.add_missing_hydrogens:30 of
 msgid ""
 "'PDBFixer': The method pdbfixer.PDBFixer.addMissingHydrogens() is "
 "included in the workflow. See the `PDBFixer Manual "
 "<http://htmlpreview.github.io/?https://raw.github.com/pandegroup/pdbfixer/master/Manual.html>`_."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:33 of
+#: molsysmt.add_missing_hydrogens:33 of
 msgid "**verbose: bool, default: False**"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:33 of
+#: molsysmt.add_missing_hydrogens:33 of
 msgid "The method prints out useful information if verbose=`True`."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens of
+#: molsysmt.add_missing_hydrogens of
 msgid "Returns"
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:51 of
+#: molsysmt.add_missing_hydrogens:51 of
 msgid "**item** : Molecular model in the same form as input `item`."
 msgstr ""
 
-#: molmodmt.add_missing_hydrogens:38 of
+#: molsysmt.add_missing_hydrogens:38 of
 msgid ""
 "A new molecular model with the missing hydrogens added is returned. The "
 "form will be the same as the input model."

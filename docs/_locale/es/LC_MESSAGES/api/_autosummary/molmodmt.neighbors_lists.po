@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital
 # Federico Gomez and authors
-# This file is distributed under the same license as the MolModMT package.
+# This file is distributed under the same license as the MolSysMT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: MolModMT \n"
+"Project-Id-Version: MolSysMT \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 15:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: ../api/_autosummary/molmodmt.neighbors_lists.rst:2
-msgid "molmodmt.neighbors\\_lists"
+#: ../api/_autosummary/molsysmt.neighbors_lists.rst:2
+msgid "molsysmt.neighbors\\_lists"
 msgstr ""
 

@@ -23,13 +23,13 @@ from recommonmark.parser import CommonMarkParser
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
 sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('./../molmodmt'))
+sys.path.insert(0, os.path.abspath('./../molsysmt'))
 
 print(sys.path)
 
 # -- Project information -----------------------------------------------------
 
-project = 'MolModMT'
+project = 'MolSysMT'
 copyright = '2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
 author = 'UIBCDF Lab'
 
@@ -154,7 +154,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'molmodmtdoc'
+htmlhelp_basename = 'molsysmtdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -181,7 +181,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'molmodmt.tex', 'molmodmt Documentation',
+    (master_doc, 'molsysmt.tex', 'molsysmt Documentation',
      'UIBCDF', 'manual'),
 ]
 
@@ -191,7 +191,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'molmodsaks', 'molmodsaks Documentation',
+    (master_doc, 'molsyssaks', 'molsyssaks Documentation',
      [author], 1)
 ]
 
@@ -202,8 +202,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'molmodsaks', 'molmodsaks Documentation',
-     author, 'molmodsaks', 'One line description of project.',
+    (master_doc, 'molsyssaks', 'molsyssaks Documentation',
+     author, 'molsyssaks', 'One line description of project.',
      'Miscellaneous'),
 ]
 

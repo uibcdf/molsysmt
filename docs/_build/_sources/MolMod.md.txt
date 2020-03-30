@@ -1,4 +1,4 @@
-# MolMod form
+# MolSys form
 
 ## Composition
 
@@ -28,7 +28,7 @@ Sets of atoms are sometimes defined as building block elements of more complex s
 the case of aminoacids and nucleotides. This is then the immediately superior hierarchical level
 over "atoms".
 
-Refer api :class:`molmodmt.native.elements.atom`
+Refer api :class:`molsysmt.native.elements.atom`
 
 ### Component
 

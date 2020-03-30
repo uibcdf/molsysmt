@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
-# This file is distributed under the same license as the MolModMT package.
+# This file is distributed under the same license as the MolSysMT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: MolModMT \n"
+"Project-Id-Version: MolSysMT \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 15:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../Quickstart.ipynb:13
-msgid "First tasks easily done with MolModMT"
+msgid "First tasks easily done with MolSysMT"
 msgstr ""
 
 #: ../Quickstart.ipynb:15
@@ -29,11 +29,11 @@ msgid "Fetching molecular systems from web databases"
 msgstr ""
 
 #: ../Quickstart.ipynb:33
-msgid "You probably don’t remember how to fetch a pdb from the protein data bank to be loaded in your script as a parmed, pdbfixer, mdtraj, nglview, pytraj or mdanalysis native object -just to mention some-. MolModMT has a unique command to do it:"
+msgid "You probably don’t remember how to fetch a pdb from the protein data bank to be loaded in your script as a parmed, pdbfixer, mdtraj, nglview, pytraj or mdanalysis native object -just to mention some-. MolSysMT has a unique command to do it:"
 msgstr ""
 
 #: ../Quickstart.ipynb:53
-msgid "The class, or in MolModMT syntaxis, the form of each object can be checked as:"
+msgid "The class, or in MolSysMT syntaxis, the form of each object can be checked as:"
 msgstr ""
 
 #: ../Quickstart.ipynb:114
@@ -41,11 +41,11 @@ msgid "Loading molecular systems and trajectories"
 msgstr ""
 
 #: ../Quickstart.ipynb:116
-msgid "Some files with different formats of molecular systems are stored in MolModMT as example:"
+msgid "Some files with different formats of molecular systems are stored in MolSysMT as example:"
 msgstr ""
 
 #: ../Quickstart.ipynb:154
-msgid "Lets work with some of the to show how MolModMT can load them in several forms:"
+msgid "Lets work with some of the to show how MolSysMT can load them in several forms:"
 msgstr ""
 
 #: ../Quickstart.ipynb:270
@@ -77,11 +77,11 @@ msgid "Viewing molecular systems and trajectories"
 msgstr ""
 
 #: ../Quickstart.ipynb:823
-msgid "Molecular systems as MolModMT’s forms"
+msgid "Molecular systems as MolSysMT’s forms"
 msgstr ""
 
 #: ../Quickstart.ipynb:825
-msgid "MolModMT’s works with methods as ``load`` or ``convert`` over different forms of a molecular model. This way, the same molecular model can take de form of a pdb file, a parmed structure or a pytraj object. In order to list the different forms MolModMT currently recognize, check the method ``info_forms``:"
+msgid "MolSysMT’s works with methods as ``load`` or ``convert`` over different forms of a molecular model. This way, the same molecular model can take de form of a pdb file, a parmed structure or a pytraj object. In order to list the different forms MolSysMT currently recognize, check the method ``info_forms``:"
 msgstr ""
 
 #: ../Quickstart.ipynb:866

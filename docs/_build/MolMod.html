@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>MolMod form &mdash; MolModMT 0.1 documentation</title>
+  <title>MolSys form &mdash; MolSysMT 0.1 documentation</title>
   
 
   
@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Basic manipulations" href="api/index.html" />
-    <link rel="prev" title="Selection Tutorial and Examples" href="Selection.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +49,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> MolModMT
+            <a href="index.html" class="icon icon-home"> MolSysMT
           
 
           
@@ -93,31 +91,14 @@
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Atoms-selection">Atoms selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Molecular-systems-as-MolSysMT’s-forms">Molecular systems as MolSysMT’s forms</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="Forms.html">Molecular model forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Selection Tutorial and Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">MolMod form</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#composition">Composition</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#elements">Elements</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#atom">Atom</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#group">Group</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#component">Component</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#molecule">Molecule</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#chains">Chains</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#entities">Entities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bioassemblies">Bioassemblies</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#trajectory">Trajectory</a></li>
-</ul>
-</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -187,7 +168,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">MolModMT</a>
+          <a href="index.html">MolSysMT</a>
         
       </nav>
 
@@ -218,7 +199,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>MolMod form</li>
+      <li>MolSys form</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -261,8 +242,8 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="molmod-form">
-<h1>MolMod form<a class="headerlink" href="#molmod-form" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="molsys-form">
+<h1>MolSys form<a class="headerlink" href="#molsys-form" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="composition">
 <h2>Composition<a class="headerlink" href="#composition" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="elements">
@@ -287,7 +268,7 @@ components, a component by groups, and finnaly a by atoms.</p>
 <p>Sets of atoms are sometimes defined as building block elements of more complex structures. This is
 the case of aminoacids and nucleotides. This is then the immediately superior hierarchical level
 over “atoms”.</p>
-<p>Refer api :class:<code class="docutils literal notranslate"><span class="pre">molmodmt.native.elements.atom</span></code></p>
+<p>Refer api :class:<code class="docutils literal notranslate"><span class="pre">molsysmt.native.elements.atom</span></code></p>
 </div>
 </div>
 <div class="section" id="component">
@@ -338,15 +319,6 @@ model can be made by differenc bioassembly (see protein data bank).</p>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="api/index.html" class="btn btn-neutral float-right" title="Basic manipulations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="Selection.html" class="btn btn-neutral float-left" title="Selection Tutorial and Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

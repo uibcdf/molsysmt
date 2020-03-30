@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
-# This file is distributed under the same license as the MolModMT package.
+# This file is distributed under the same license as the MolSysMT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: MolModMT \n"
+"Project-Id-Version: MolSysMT \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 15:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -16,56 +16,56 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../api/_autosummary/molmodmt.fix_pdb_structure.rst:2
-msgid "molmodmt.fix\\_pdb\\_structure"
+#: ../api/_autosummary/molsysmt.fix_pdb_structure.rst:2
+msgid "molsysmt.fix\\_pdb\\_structure"
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:5
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:5
 msgid "fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,"
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:3
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:3
 msgid "missing_terminals=True, missing_loops=False, missing_hydrogens=True, pH=7.4, to_form=None, engine_fix_pdb='PDBFixer', engine_hydrogens='PDBFixer', engine_loops='Modeller', verbose=False):"
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:7
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:7
 msgid "Fixing missing atoms, residues, terminals or loops in the molecular model coming from a pdb file."
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:9
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:9
 msgid "This method fixes the possible missing atoms, residues, loops or terminals in a molecular model. The result is a new molecular model, in the desired supported form, with those elements fixed."
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:0
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:0
 msgid "Parameters"
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:16
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:16
 msgid "**item: molecular model**"
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:16
-msgid "Molecular model in any supported form by MolModMT."
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:16
+msgid "Molecular model in any supported form by MolSysMT."
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:19
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:19
 msgid "**arg2: type, default='value'**"
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:19
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:24
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:19
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:24
 msgid "Paragraph with explanation."
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:0
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:0
 msgid "Returns"
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:30
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:30
 msgid "object: type"
 msgstr ""
 
-#: ../../molmodmt/fix.py:docstring of molmodmt.fix_pdb_structure:35
-msgid ":func:`molmodmt.load`"
+#: ../../molsysmt/fix.py:docstring of molsysmt.fix_pdb_structure:35
+msgid ":func:`molsysmt.load`"
 msgstr ""
 

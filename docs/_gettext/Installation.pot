@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
-# This file is distributed under the same license as the MolModMT package.
+# This file is distributed under the same license as the MolSysMT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: MolModMT \n"
+"Project-Id-Version: MolSysMT \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 15:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -21,7 +21,7 @@ msgid "Installation"
 msgstr ""
 
 #: ../Installation.ipynb:15
-msgid "The latest “stable” version of MolModMT can be installed from the UIBCDF Anaconda channel:"
+msgid "The latest “stable” version of MolSysMT can be installed from the UIBCDF Anaconda channel:"
 msgstr ""
 
 #: ../Installation.ipynb:21
@@ -33,10 +33,10 @@ msgid "The former beta version is nothing but a quenched version from the main g
 msgstr ""
 
 #: ../Installation.ipynb:35
-msgid "In the first two cases, MolModMT can be uninstalled with conda:"
+msgid "In the first two cases, MolSysMT can be uninstalled with conda:"
 msgstr ""
 
 #: ../Installation.ipynb:41
-msgid "But if you installed MolModMT straight from its github central repository, do the following to uninstall it:"
+msgid "But if you installed MolSysMT straight from its github central repository, do the following to uninstall it:"
 msgstr ""
 

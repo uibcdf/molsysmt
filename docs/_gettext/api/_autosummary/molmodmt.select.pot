@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
-# This file is distributed under the same license as the MolModMT package.
+# This file is distributed under the same license as the MolSysMT package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: MolModMT \n"
+"Project-Id-Version: MolSysMT \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 15:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -16,35 +16,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../api/_autosummary/molmodmt.select.rst:2
-msgid "molmodmt.select"
+#: ../api/_autosummary/molsysmt.select.rst:2
+msgid "molsysmt.select"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.select:2
+#: ../../molsysmt/multitool.py:docstring of molsysmt.select:2
 msgid "AAAAAAAAAAAAAAAAAA"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.select:4
+#: ../../molsysmt/multitool.py:docstring of molsysmt.select:4
 msgid "BBBBBBBBBBBBBBBBBB CCCCCCCCCCCCCCCCCC DDDDDDDDDDDDDDDDDD"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.select:0
+#: ../../molsysmt/multitool.py:docstring of molsysmt.select:0
 msgid "Parameters"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.select:11
+#: ../../molsysmt/multitool.py:docstring of molsysmt.select:11
 msgid "**item: Molecular model in accepted form.**"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.select:11
-msgid "Molecular model in any of the accepted forms by MolModMT."
+#: ../../molsysmt/multitool.py:docstring of molsysmt.select:11
+msgid "Molecular model in any of the accepted forms by MolSysMT."
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.select:14
+#: ../../molsysmt/multitool.py:docstring of molsysmt.select:14
 msgid "**selection:**"
 msgstr ""
 
-#: ../../molmodmt/multitool.py:docstring of molmodmt.select:30
+#: ../../molsysmt/multitool.py:docstring of molsysmt.select:30
 msgid "**syntaxis:**"
 msgstr ""
 
