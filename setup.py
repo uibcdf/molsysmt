@@ -4,59 +4,59 @@ from numpy.distutils.extension import Extension
 #import distutils.extension
 
 ext_math = Extension(
-    name = 'molmodmt.lib.libmath',
+    name = 'molsysmt.lib.libmath',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/lib/libmath.f90'],
+    sources = ['molsysmt/lib/libmath.f90'],
 )
 
 ext_pbc = Extension(
-    name = 'molmodmt.lib.libpbc',
+    name = 'molsysmt.lib.libpbc',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/lib/libpbc.f90'],
+    sources = ['molsysmt/lib/libpbc.f90'],
 )
 
 ext_com = Extension(
-    name = 'molmodmt.lib.libcom',
+    name = 'molsysmt.lib.libcom',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/lib/libcom.f90'],
+    sources = ['molsysmt/lib/libcom.f90'],
 )
 
 ext_box = Extension(
-    name = 'molmodmt.lib.libbox',
+    name = 'molsysmt.lib.libbox',
     extra_compile_args = [],
     libraries = [],
     language = 'f90',
-    sources = ['molmodmt/lib/libbox.f90','molmodmt/lib/libpbc.f90'],
+    sources = ['molsysmt/lib/libbox.f90','molsysmt/lib/libpbc.f90'],
 )
 
 ext_geometry = Extension(
-    name = 'molmodmt.lib.libgeometry',
+    name = 'molsysmt.lib.libgeometry',
     extra_compile_args = [],
     libraries = ['lapack'],
     language = 'f90',
-    sources = ['molmodmt/lib/libgeometry.f90','molmodmt/lib/libpbc.f90','molmodmt/lib/libbox.f90'],
+    sources = ['molsysmt/lib/libgeometry.f90','molsysmt/lib/libpbc.f90','molsysmt/lib/libbox.f90'],
 )
 
 ext_rmsd = Extension(
-    name = 'molmodmt.lib.librmsd',
+    name = 'molsysmt.lib.librmsd',
     extra_compile_args = [],
     libraries = ['lapack'],
     language = 'f90',
-    sources = ['molmodmt/lib/librmsd.f90'],
+    sources = ['molsysmt/lib/librmsd.f90'],
 )
 
 # ext_io_dcd = Extension(
-#     name = 'molmodmt.moldyn.Readers.MyIOformats.libdcdfile',
+#     name = 'molsysmt.moldyn.Readers.MyIOformats.libdcdfile',
 #     extra_compile_args = [],
 #     libraries = [],
 #     language = 'f90',
-#     sources = ['molmodmt/moldyn/Readers/MyIOformats/libdcdfile.f90'],
+#     sources = ['molsysmt/moldyn/Readers/MyIOformats/libdcdfile.f90'],
 # )
 
 extensions_list=[]
@@ -64,17 +64,17 @@ extensions_lib=[ext_com, ext_pbc, ext_box, ext_math, ext_geometry, ext_rmsd]
 extensions_list.extend(extensions_lib)
 
 setup(
-    name='molmodmt',
+    name='molsysmt',
     version='0.0.4',
     author='UIBCDF Lab',
     author_email='uibcdf@gmail.com',
-    package_dir={'molmodmt': 'molmodmt'},
+    package_dir={'molsysmt': 'molsysmt'},
     packages=find_packages(),
     ext_modules=extensions_list,
-    package_data={'molmodnmt': []},
+    package_data={'molsysmt': []},
     scripts=[],
     url='http://uibcdf.org',
-    download_url ='https://github.com/uibcdf/MolModMT',
+    download_url ='https://github.com/uibcdf/MolSysMT',
     license='MIT',
     description="---",
     long_description="---",

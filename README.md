@@ -1,8 +1,8 @@
-# MolModMT
+# MolSysMT
 
-[![Anaconda Cloud Badge](https://anaconda.org/uibcdf/molmodmt/badges/version.svg)](https://anaconda.org/uibcdf/molmodmt)
-[![Anaconda Cloud Downloads](https://anaconda.org/uibcdf/molmodmt/badges/downloads.svg)](https://anaconda.org/uibcdf/molmodmt)
-[![Anaconda-Server Badge](https://anaconda.org/uibcdf/molmodmt/badges/license.svg)](https://anaconda.org/uibcdf/molmodmt)
+[![Anaconda Cloud Badge](https://anaconda.org/uibcdf/molsysmt/badges/version.svg)](https://anaconda.org/uibcdf/molsysmt)
+[![Anaconda Cloud Downloads](https://anaconda.org/uibcdf/molsysmt/badges/downloads.svg)](https://anaconda.org/uibcdf/molsysmt)
+[![Anaconda-Server Badge](https://anaconda.org/uibcdf/molsysmt/badges/license.svg)](https://anaconda.org/uibcdf/molsysmt)
 [![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
 
 
@@ -13,10 +13,10 @@
 **[Team](#team)**
 
 
-Molecular Modelling Multi-Tool
+Molecular Systems Multi-Tool
 
 This library was thought as a humble frontend to make the life of a computational molecular biology lab, the UIBCDF,  easier. 
-MolModMT is design to cover specific needs, or to speed up workflows, when you are working with tools such as:
+MolSysMT is design to cover specific needs, or to speed up workflows, when you are working with tools such as:
 
 - MDTraj
 - MDAnalysis
@@ -29,7 +29,7 @@ MolModMT is design to cover specific needs, or to speed up workflows, when you a
 - NGLview
 - pdbtools?
 
-Although MolModMT was not concived to do what other tools do better, this
+Although MolSysMT was not concived to do what other tools do better, this
 toolkit can be used alone to do few simple tasks.
 
 All credit should be given to the developers and mantainers of these former packages and the libraries they depend on.
@@ -63,13 +63,13 @@ Other python packages as those mentioned here(link to section) and included in t
 
 ### GitHub
 ```bash
-git clone git@github.com:UIBCDF/MolDynMT.git
-cd MolDynMT
+git clone git@github.com:UIBCDF/MolSysMT.git
+cd MolSysMT
 python setup.py develop
 ```
 
 ```bash
-pip uninstall moldynmt
+pip uninstall molsysmt
 ```
 
 #### Updating
@@ -77,7 +77,7 @@ To be written
 
 ## Documentation
 
-http://www.uibcdf.org/MolModMT/
+http://www.uibcdf.org/MolSysMT/
 
 ## License
 
@@ -101,7 +101,7 @@ Liliana M. Moreno Vargas
 ## Citation
 
 ### Last version DOI:   
-Cite the las version with the following DOI provided by Zenodo:    
+Cite the last version with the following DOI provided by Zenodo:    
 <br/>
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530946.svg)](https://doi.org/10.5281/zenodo.2530946)    
 
