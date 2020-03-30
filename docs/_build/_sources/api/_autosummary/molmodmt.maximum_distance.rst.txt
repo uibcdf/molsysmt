@@ -1,6 +1,0 @@
-molmodmt.maximum\_distance
-==========================
-
-.. currentmodule:: molmodmt
-
-.. autofunction:: maximum_distance

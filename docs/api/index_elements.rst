@@ -1,4 +1,4 @@
-.. currentmodule:: molmodmt.native.elements
+.. currentmodule:: molsysmt.native.elements
 
 Elements
 -------------------

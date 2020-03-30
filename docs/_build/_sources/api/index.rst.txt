@@ -1,5 +1,4 @@
-
-.. currentmodule:: molmodmt
+.. currentmodule:: molsysmt
 
 Basic manipulations
 -------------------

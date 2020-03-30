@@ -1,6 +1,0 @@
-molmodmt.unwrap\_molecules\_from\_pbc\_cell
-===========================================
-
-.. currentmodule:: molmodmt
-
-.. autofunction:: unwrap_molecules_from_pbc_cell
