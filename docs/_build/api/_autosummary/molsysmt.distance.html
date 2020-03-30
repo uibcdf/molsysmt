@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>molsysmt.distance &mdash; MolModMT 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="molsysmt.maximum_distance" href="molsysmt.maximum_distance.html" />
+    <link rel="prev" title="molsysmt.view" href="molsysmt.view.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MolModMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation and Quick Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">Quick Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Molecular-systems-as-MolModMT’s-forms">Molecular systems as MolModMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Forms.html">Molecular model forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Selection.html">Selection Tutorial and Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MolMod.html">MolMod form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../MolMod.html#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolMod.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../MolMod.html#trajectory">Trajectory</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Basic manipulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.load.html">molsysmt.load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.convert.html">molsysmt.convert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.info.html">molsysmt.info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.select.html">molsysmt.select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.set.html">molsysmt.set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.extract.html">molsysmt.extract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.duplicate.html">molsysmt.duplicate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.merge.html">molsysmt.merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.write.html">molsysmt.write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.view.html">molsysmt.view</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#estructural-observables-and-transformations">Estructural observables and transformations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">molsysmt.distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.maximum_distance.html">molsysmt.maximum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_distance.html">molsysmt.minimum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.neighbors_lists.html">molsysmt.neighbors_lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.center.html">molsysmt.center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.center_of_mass.html">molsysmt.center_of_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.geometrical_center.html">molsysmt.geometrical_center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.recenter.html">molsysmt.recenter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.radius_of_gyration.html">molsysmt.radius_of_gyration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.rmsd.html">molsysmt.rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.least_rmsd.html">molsysmt.least_rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.least_rmsd_fit.html">molsysmt.least_rmsd_fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.wrap_molecules_to_pbc_cell.html">molsysmt.wrap_molecules_to_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.unwrap_molecules_from_pbc_cell.html">molsysmt.unwrap_molecules_from_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_image_convention.html">molsysmt.minimum_image_convention</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index_elements.html">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.atom.html">molsysmt.native.elements.atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.group.html">molsysmt.native.elements.group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.component.html">molsysmt.native.elements.component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.molecule.html">molsysmt.native.elements.molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.entity.html">molsysmt.native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bioassembly.html">molsysmt.native.elements.bioassembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.chain.html">molsysmt.native.elements.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bond.html">molsysmt.native.elements.bond</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MolModMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Basic manipulations</a> &raquo;</li>
+        
+      <li>molsysmt.distance</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/api/_autosummary/molsysmt.distance.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="molsysmt-distance">
+<h1>molsysmt.distance<a class="headerlink" href="#molsysmt-distance" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="molsysmt.distance">
+<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">distance</code><span class="sig-paren">(</span><em class="sig-param">item_1=None</em>, <em class="sig-param">selection_1='all'</em>, <em class="sig-param">selection_groups_1=None</em>, <em class="sig-param">group_behavior_1=None</em>, <em class="sig-param">frame_indices_1='all'</em>, <em class="sig-param">item_2=None</em>, <em class="sig-param">selection_2=None</em>, <em class="sig-param">selection_groups_2=None</em>, <em class="sig-param">group_behavior_2=None</em>, <em class="sig-param">frame_indices_2=None</em>, <em class="sig-param">pairs=False</em>, <em class="sig-param">crossed_frames=False</em>, <em class="sig-param">pbc=False</em>, <em class="sig-param">parallel=False</em>, <em class="sig-param">output_form='tensor'</em>, <em class="sig-param">engine='MolSysMT'</em>, <em class="sig-param">syntaxis='MDTraj'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/distances.html#distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.distance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="molsysmt.maximum_distance.html" class="btn btn-neutral float-right" title="molsysmt.maximum_distance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="molsysmt.view.html" class="btn btn-neutral float-left" title="molsysmt.view" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+molsysmt.duplicate
+==================
+
+.. currentmodule:: molsysmt
+
+.. autofunction:: duplicate

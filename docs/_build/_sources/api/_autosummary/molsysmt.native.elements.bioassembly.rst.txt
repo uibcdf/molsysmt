@@ -1,0 +1,29 @@
+molsysmt.native.elements.bioassembly
+====================================
+
+.. automodule:: molsysmt.native.elements.bioassembly
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      bioassembly_init_wizard
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      BioAssembly
+      BioAssembly_Transformation
+   
+   
+
+   
+   
+   

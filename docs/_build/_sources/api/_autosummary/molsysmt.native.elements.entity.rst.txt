@@ -1,0 +1,28 @@
+molsysmt.native.elements.entity
+===============================
+
+.. automodule:: molsysmt.native.elements.entity
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      entity_init_wizard
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Entity
+   
+   
+
+   
+   
+   

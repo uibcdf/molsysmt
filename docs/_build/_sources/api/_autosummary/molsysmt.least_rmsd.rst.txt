@@ -1,0 +1,6 @@
+molsysmt.least\_rmsd
+====================
+
+.. currentmodule:: molsysmt
+
+.. autofunction:: least_rmsd

@@ -1,0 +1,6 @@
+molsysmt.maximum\_distance
+==========================
+
+.. currentmodule:: molsysmt
+
+.. autofunction:: maximum_distance

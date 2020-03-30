@@ -1,0 +1,6 @@
+molsysmt.write
+==============
+
+.. currentmodule:: molsysmt
+
+.. autofunction:: write

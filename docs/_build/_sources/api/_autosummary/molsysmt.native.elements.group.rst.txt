@@ -1,0 +1,28 @@
+molsysmt.native.elements.group
+==============================
+
+.. automodule:: molsysmt.native.elements.group
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      group_init_wizard
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Group
+   
+   
+
+   
+   
+   

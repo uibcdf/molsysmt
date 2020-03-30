@@ -1,0 +1,28 @@
+molsysmt.native.elements.component
+==================================
+
+.. automodule:: molsysmt.native.elements.component
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      component_init_wizard
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Component
+   
+   
+
+   
+   
+   

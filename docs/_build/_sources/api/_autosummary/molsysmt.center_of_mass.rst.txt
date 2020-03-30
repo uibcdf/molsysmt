@@ -1,0 +1,6 @@
+molsysmt.center\_of\_mass
+=========================
+
+.. currentmodule:: molsysmt
+
+.. autofunction:: center_of_mass

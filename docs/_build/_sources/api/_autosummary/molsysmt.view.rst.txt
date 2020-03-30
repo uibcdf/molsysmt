@@ -1,0 +1,6 @@
+molsysmt.view
+=============
+
+.. currentmodule:: molsysmt
+
+.. autofunction:: view
