@@ -44,7 +44,7 @@ def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
 
-def select_with_MolSysMT(item, selection):
+def select_with_molsysmt(item, selection):
 
     from molsysmt.native.selector import dataframe_select
     atom_indices = dataframe_select(item.dataframe, selection)
@@ -56,23 +56,23 @@ def select_with_MolSysMT(item, selection):
 
 def get_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_MolSysMT_DataFrame import get_index_from_atom as _get
-    return get(item.dataframe, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_DataFrame import get_index_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_MolSysMT_DataFrame import get_id_from_atom as _get
-    return get(item.dataframe, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_DataFrame import get_id_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_MolSysMT_DataFrame import get_name_from_atom as _get
-    return get(item.dataframe, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_DataFrame import get_name_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_MolSysMT_DataFrame import get_type_from_atom as _get
-    return get(item.dataframe, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_DataFrame import get_type_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
@@ -250,71 +250,83 @@ def get_molecule_type_from_atom(item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_atoms
+    from .api_molsysmt_DataFrame import get_n_atoms_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_groups
+    from .api_molsysmt_DataFrame import get_n_groups_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_components
+    from .api_molsysmt_DataFrame import get_n_components_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_chains
+    from .api_molsysmt_DataFrame import get_n_chains_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_molecules
+    from .api_molsysmt_DataFrame import get_n_molecules_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_entities
+    from .api_molsysmt_DataFrame import get_n_entities_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_molsysmt_DataFrame import get_n_aminoacids_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_molsysmt_DataFrame import get_n_nucleotides_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_ions
+    from .api_molsysmt_DataFrame import get_n_ions_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_waters
+    from .api_molsysmt_DataFrame import get_n_waters_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_cosolutes
+    from .api_molsysmt_DataFrame import get_n_cosolutes_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_small_molecules
+    from .api_molsysmt_DataFrame import get_n_small_molecules_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_peptides
+    from .api_molsysmt_DataFrame import get_n_peptides_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_proteins_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_proteins
+    from .api_molsysmt_DataFrame import get_n_proteins_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_dnas
+    from .api_molsysmt_DataFrame import get_n_dnas_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_rnas
-
-def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
-
-    return item.n_molecules
+    from .api_molsysmt_DataFrame import get_n_rnas_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 

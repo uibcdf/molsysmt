@@ -464,26 +464,32 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
     if target=='atom':
 
-        atom_index, atom_id, atom_name, atom_element, group_index, group_id, group_name, chain_index, chain_id,\
-        chain_name, molecule_type = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
-                            index=True, id=True, name=True, element=True,
-                            group_index=True, group_id=True, group_name=True,
-                            chain_index=True, chain_id=True, chain_name=True,
-                            molecule_type=True)
+        atom_index, atom_id, atom_name, atom_type,\
+        group_index, group_id, group_name, group_type,\
+        chain_index, chain_id, chain_name,\
+        molecule_index, molecule_type,\
+        entity_index, entity_name= get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+                                       atom_index=True, atom_id=True, atom_name=True, atom_type=True,
+                                       group_index=True, group_id=True, group_name=True, group_type=True,
+                                       chain_index=True, chain_id=True, chain_name=True,
+                                       molecule_index=True, molecule_type=True,
+                                       entity_index=True, entity_name=True)
 
-        return df({'index':atom_index, 'id':atom_id, 'name':atom_name, 'element':atom_element,
-                   'group index':group_index, 'group id':group_id, 'group name':group_name,
-                   'chain index':chain_index, 'chain id':chain_id, 'chain name':chain_name, 'molecule type':molecule_type})
+        return df({'index':atom_index, 'id':atom_id, 'name':atom_name, 'type':atom_type,
+                   'group index':group_index, 'group id':group_id, 'group name':group_name, 'group type':group_type,
+                   'chain index':chain_index, 'chain id':chain_id, 'chain name':chain_name,
+                   'molecule index':molecule_index, 'molecule type':molecule_type,
+                   'entity index':entity_index, 'entity name':entity_name}).style.hide_index()
 
     elif target=='group':
 
-        index, id, name, chain_index, chain_id,\
+        group_index, group_id, group_name, chain_index, chain_id,\
         molecule_type = get(item, target=target, selection=selection, syntaxis=syntaxis,
-                            group_index=True, group_id=True, group_name=True,
+                            group_index=True, group_id=True, group_name=True, group_type=True,
                             chain_index=True, chain_id=True, molecule_type=True)
 
 
-        return df({'name':name, 'index':index, 'id':id, 'chain index':chain_index, 'chain id':chain_id,
+        return df({'name':group_name, 'index':group_index, 'id':group_id, 'chain index':chain_index, 'chain id':chain_id,
                    'molecule type':molecule_type})
 
     elif target=='component':

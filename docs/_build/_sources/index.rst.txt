@@ -33,6 +33,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    Quickstart.ipynb
 
 .. toctree::
+   :name: user_guide
    :caption: User Guide
    :maxdepth: 1
 

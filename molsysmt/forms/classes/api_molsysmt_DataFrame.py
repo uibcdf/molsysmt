@@ -373,71 +373,87 @@ def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.shape[0]
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item['group.index'].iloc[-1]+1
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item['component.index'].iloc[-1]+1
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item['chain.index'].iloc[-1]+1
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item['molecule.index'].iloc[-1]+1
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item['entity.index'].iloc[-1]+1
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    mask=(item['group.type']=='aminoacid').to_numpy()
+    serie_indices=item['group.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    mask=(item['group.type']=='nucleotide').to_numpy()
+    serie_indices=item['group.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    mask=(item['molecule.type']=='ion').to_numpy()
+    serie_indices=item['molecule.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    mask=(item['molecule.type']=='water').to_numpy()
+    serie_indices=item['molecule.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    mask=(item['molecule.type']=='cosolute').to_numpy()
+    serie_indices=item['molecule.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    mask=(item['molecule.type']=='small_molecule').to_numpy()
+    serie_indices=item['molecule.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    mask=(item['molecule.type']=='peptide').to_numpy()
+    serie_indices=item['molecule.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_proteins_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    mask=(item['molecule.type']=='protein').to_numpy()
+    serie_indices=item['molecule.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    mask=(item['molecule.type']=='dna').to_numpy()
+    serie_indices=item['molecule.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
-
-def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    mask=(item['molecule.type']=='rna').to_numpy()
+    serie_indices=item['molecule.index'][mask]
+    return serie_indices.unique().shape[0]
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 

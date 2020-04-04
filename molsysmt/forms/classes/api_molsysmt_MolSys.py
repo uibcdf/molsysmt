@@ -121,18 +121,20 @@ def get_name_from_atom (item, indices='all', frame_indices='all'):
 
 def get_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_element_from_atom as _get
+    from .api_molsysmt_Composition import get_type_from_atom as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
-def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
+    return get_index_from_atom(item, indices=indices, frame_indices='all')
 
-    from .api_molsysmt_Composition import get_n_atoms_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
+    return get_id_from_atom(item, indices=indices, frame_indices='all')
 
-def get_group_name_from_atom (item, indices='all', frame_indices='all'):
+def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
+    return get_name_from_atom(item, indices=indices, frame_indices='all')
 
-    from .api_molsysmt_Composition import get_group_name_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
+    return get_type_from_atom(item, indices=indices, frame_indices='all')
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
@@ -142,6 +144,16 @@ def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_Composition import get_group_id_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_group_name_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_group_name_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_group_type_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_group_type_from_atom as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
@@ -178,6 +190,36 @@ def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_DataFrame import get_molecule_type_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_n_atoms_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_n_groups_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_components_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_n_components_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_n_molecules_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_n_chains_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_n_entities_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
 
