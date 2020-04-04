@@ -1,6 +1,5 @@
-molsysmt.recenter
-=================
-
+recenter
+========
 .. currentmodule:: molsysmt
 
 .. autofunction:: recenter

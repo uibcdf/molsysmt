@@ -22,13 +22,32 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     del(_mdtraj_load_mol2)
     return tmp_form
 
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
+
+    from mdtraj import load_mol2 as _mdtraj_load_mol2
+    tmp_form = _mdtraj_load_mol2(item).topology
+    del(_mdtraj_load_mol2)
+    return tmp_form
+
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_openmm_Topology as mdtraj_Topology_to_openmm_Topology
+    tmp_form = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=atom_indices)
+    tmp_form = mdtraj_Topology_to_openmm_Topology(tmp_form)
+    return tmp_form
+
 def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.engines.api_parmed import to_modeller as _parmed_to_modeller
-    tmp_form = to_parmed(item)
-    tmp_form = _parmed_to_modeller(tmp_form)
-    del(_parmed_to_modeller)
+    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_openmm_Modeller as mdtraj_Trajectory_to_openmm_Modeller
+    tmp_form = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=atom_indices)
+    tmp_form = mdtraj_Trajectory_to_openmm_Modeller(tmp_form)
     return tmp_form
+
+    #from molsysmt.forms.engines.api_parmed import to_modeller as _parmed_to_modeller
+    #tmp_form = to_parmed(item)
+    #tmp_form = _parmed_to_modeller(tmp_form)
+    #del(_parmed_to_modeller)
+    #return tmp_form
 
 def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 

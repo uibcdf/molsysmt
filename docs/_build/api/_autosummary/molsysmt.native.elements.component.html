@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>molsysmt.native.elements.component &mdash; MolSysMT 0.1 documentation</title>
+  <title>native.elements.component &mdash; MolSysMT 0.1 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="molsysmt.native.elements.molecule" href="molsysmt.native.elements.molecule.html" />
-    <link rel="prev" title="molsysmt.native.elements.group" href="molsysmt.native.elements.group.html" /> 
+    <link rel="next" title="native.elements.molecule" href="molsysmt.native.elements.molecule.html" />
+    <link rel="prev" title="native.elements.group" href="molsysmt.native.elements.group.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,8 +99,14 @@
 </ul>
 <p class="caption"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Forms.html">Molecular model forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Selection.html">Selection Tutorial and Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Forms.html">Molecular systems forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Forms.html#Files">Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Forms.html#Classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Forms.html#Ids">Ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Forms.html#Sequences">Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Forms.html#Viewers">Viewers</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../MolSys.html">MolSys form</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#composition">Composition</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#elements">Elements</a><ul>
@@ -118,59 +124,96 @@
 <li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Load.html">How to load a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-a-file">From a file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#Fetching-molecular-models-from-web-databases">Fetching molecular models from web databases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-the-Protein-Data-Bank">From the Protein Data Bank</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-MMTF-file">From MMTF file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html">How to convert a form into other form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Convert.html#PDB-ID-to-molsysmt.MolSys">PDB ID to molsysmt.MolSys</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Convert.html#PDB-ID-to-mmtf.MMTFDecoder">PDB ID to mmtf.MMTFDecoder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Info.html">Getting brief description of a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Selection.html">Elements selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Selection.html#Including-other-elements-attributes">Including other elements attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Selection.html#Including-external-variables">Including external variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Selection.html#Including-mask-filters">Including mask filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Selection.html#Selection-of-other-elements">Selection of other elements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Selection.html#MDTraj-selection-syntaxis">MDTraj selection syntaxis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Selection.html#Amber-selection-syntaxis">Amber selection syntaxis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Get.html">How to get attributes from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Get.html#Atom-attributes">Atom attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Get.html#From-MolSysMT.DataFrame">From MolSysMT.DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Get.html#From-MolSysMT.MolSys">From MolSysMT.MolSys</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/View.html">Viewing a molecular system</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Basic manipulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.load.html">molsysmt.load</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.convert.html">molsysmt.convert</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.info.html">molsysmt.info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.select.html">molsysmt.select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.set.html">molsysmt.set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.extract.html">molsysmt.extract</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.duplicate.html">molsysmt.duplicate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.merge.html">molsysmt.merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.write.html">molsysmt.write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.view.html">molsysmt.view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.load.html">load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.convert.html">convert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.info.html">info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.select.html">select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.set.html">set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.extract.html">extract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.duplicate.html">duplicate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.merge.html">merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.write.html">write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.view.html">view</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html#estructural-observables-and-transformations">Estructural observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.distance.html">molsysmt.distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.maximum_distance.html">molsysmt.maximum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_distance.html">molsysmt.minimum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.neighbors_lists.html">molsysmt.neighbors_lists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.center.html">molsysmt.center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.center_of_mass.html">molsysmt.center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.geometrical_center.html">molsysmt.geometrical_center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.recenter.html">molsysmt.recenter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.radius_of_gyration.html">molsysmt.radius_of_gyration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.rmsd.html">molsysmt.rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.least_rmsd.html">molsysmt.least_rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.least_rmsd_fit.html">molsysmt.least_rmsd_fit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.wrap_molecules_to_pbc_cell.html">molsysmt.wrap_molecules_to_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.unwrap_molecules_from_pbc_cell.html">molsysmt.unwrap_molecules_from_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_image_convention.html">molsysmt.minimum_image_convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.distance.html">distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.maximum_distance.html">maximum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_distance.html">minimum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.neighbors_lists.html">neighbors_lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.center.html">center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.center_of_mass.html">center_of_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.geometrical_center.html">geometrical_center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.recenter.html">recenter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.radius_of_gyration.html">radius_of_gyration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.rmsd.html">rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.least_rmsd.html">least_rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.least_rmsd_fit.html">least_rmsd_fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.wrap_molecules_to_pbc_cell.html">wrap_molecules_to_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.unwrap_molecules_from_pbc_cell.html">unwrap_molecules_from_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_image_convention.html">minimum_image_convention</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">get</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">get</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index_elements.html">Elements</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.atom.html">molsysmt.native.elements.atom</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.group.html">molsysmt.native.elements.group</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">molsysmt.native.elements.component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.molecule.html">molsysmt.native.elements.molecule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.entity.html">molsysmt.native.elements.entity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bioassembly.html">molsysmt.native.elements.bioassembly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.chain.html">molsysmt.native.elements.chain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bond.html">molsysmt.native.elements.bond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.atom.html">native.elements.atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.group.html">native.elements.group</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">native.elements.component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.molecule.html">native.elements.molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.entity.html">native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bioassembly.html">native.elements.bioassembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.chain.html">native.elements.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bond.html">native.elements.bond</a></li>
 </ul>
 </li>
 </ul>
@@ -220,7 +263,7 @@
         
           <li><a href="../index_elements.html">Elements</a> &raquo;</li>
         
-      <li>molsysmt.native.elements.component</li>
+      <li>native.elements.component</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -264,7 +307,7 @@
 }
 </style>
 <div class="section" id="module-molsysmt.native.elements.component">
-<span id="molsysmt-native-elements-component"></span><h1>molsysmt.native.elements.component<a class="headerlink" href="#module-molsysmt.native.elements.component" title="Permalink to this headline">¶</a></h1>
+<span id="native-elements-component"></span><h1>native.elements.component<a class="headerlink" href="#module-molsysmt.native.elements.component" title="Permalink to this headline">¶</a></h1>
 <p class="rubric">Functions</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -340,10 +383,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="molsysmt.native.elements.molecule.html" class="btn btn-neutral float-right" title="molsysmt.native.elements.molecule" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="molsysmt.native.elements.molecule.html" class="btn btn-neutral float-right" title="native.elements.molecule" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="molsysmt.native.elements.group.html" class="btn btn-neutral float-left" title="molsysmt.native.elements.group" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="molsysmt.native.elements.group.html" class="btn btn-neutral float-left" title="native.elements.group" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

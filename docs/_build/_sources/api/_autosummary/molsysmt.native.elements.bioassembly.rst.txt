@@ -1,6 +1,5 @@
-molsysmt.native.elements.bioassembly
-====================================
-
+native.elements.bioassembly
+===========================
 .. automodule:: molsysmt.native.elements.bioassembly
 
    

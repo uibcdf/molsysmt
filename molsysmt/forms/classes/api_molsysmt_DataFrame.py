@@ -60,261 +60,270 @@ def get_type_from_atom (item, indices='all', frame_indices='all'):
 def get_atom_index_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['atom.index'].to_list()
+        output = item['atom.index'].to_list()
     else:
-        output_list = item.dataframe['atom.index'][indices].to_list()
+        output = item['atom.index'][indices].to_list()
 
-    return output_list
+    return output
 
 def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['atom.id'].to_list()
+        output = item['atom.id'].to_list()
     else:
-        output_list = item.dataframe['atom.id'][indices].to_list()
+        output = item['atom.id'][indices].to_list()
 
-    return output_list
+    return output
 
 def get_atom_name_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['atom.name'].to_list()
+        output = item['atom.name'].to_list()
     else:
-        output_list = item.dataframe['atom.name'][indices].to_list()
+        output = item['atom.name'][indices].to_list()
 
-    return output_list
+    return output
 
 def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['atom.type'].to_list()
+        output = item['atom.type'].to_list()
     else:
-        output_list = item.dataframe['atom.type'][indices].to_list()
+        output = item['atom.type'][indices].to_list()
 
-    return output_list
+    return output
+
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item.shape[0]
+    else:
+        output = len(indices)
+
+    return output
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['group.index'].to_list()
+        output_list = item['group.index'].to_list()
     else:
-        output_list = item.dataframe['group.index'][indices].to_list()
+        output_list = item['group.index'][indices].to_list()
 
     return output_list
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['group.id'].to_list()
+        output_list = item['group.id'].to_list()
     else:
-        output_list = item.dataframe['group.id'][indices].to_list()
+        output_list = item['group.id'][indices].to_list()
 
     return output_list
 
 def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['group.name'].to_list()
+        output_list = item['group.name'].to_list()
     else:
-        output_list = item.dataframe['group.name'][indices].to_list()
+        output_list = item['group.name'][indices].to_list()
 
     return output_list
 
 def get_group_type_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['group.type'].to_list()
+        output_list = item['group.type'].to_list()
     else:
-        output_list = item.dataframe['group.type'][indices].to_list()
+        output_list = item['group.type'][indices].to_list()
 
     return output_list
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['component.index'].to_list()
+        output_list = item['component.index'].to_list()
     else:
-        output_list = item.dataframe['component.index'][indices].to_list()
+        output_list = item['component.index'][indices].to_list()
 
     return output_list
 
 def get_component_id_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['component.id'].to_list()
+        output_list = item['component.id'].to_list()
     else:
-        output_list = item.dataframe['component.id'][indices].to_list()
+        output_list = item['component.id'][indices].to_list()
 
     return output_list
 
 def get_component_name_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['component.name'].to_list()
+        output_list = item['component.name'].to_list()
     else:
-        output_list = item.dataframe['component.name'][indices].to_list()
+        output_list = item['component.name'][indices].to_list()
 
     return output_list
 
 def get_component_type_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['component.type'].to_list()
+        output_list = item['component.type'].to_list()
     else:
-        output_list = item.dataframe['component.type'][indices].to_list()
+        output_list = item['component.type'][indices].to_list()
 
     return output_list
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['chain.index'].to_list()
+        output_list = item['chain.index'].to_list()
     else:
-        output_list = item.dataframe['chain.index'][indices].to_list()
+        output_list = item['chain.index'][indices].to_list()
 
     return output_list
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['chain.id'].to_list()
+        output_list = item['chain.id'].to_list()
     else:
-        output_list = item.dataframe['chain.id'][indices].to_list()
+        output_list = item['chain.id'][indices].to_list()
 
     return output_list
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['chain.name'].to_list()
+        output_list = item['chain.name'].to_list()
     else:
-        output_list = item.dataframe['chain.name'][indices].to_list()
+        output_list = item['chain.name'][indices].to_list()
 
     return output_list
 
 def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['chain.type'].to_list()
+        output_list = item['chain.type'].to_list()
     else:
-        output_list = item.dataframe['chain.type'][indices].to_list()
+        output_list = item['chain.type'][indices].to_list()
 
     return output_list
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['molecule.index'].to_list()
+        output_list = item['molecule.index'].to_list()
     else:
-        output_list = item.dataframe['molecule.index'][indices].to_list()
+        output_list = item['molecule.index'][indices].to_list()
 
     return output_list
 
 def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['molecule.id'].to_list()
+        output_list = item['molecule.id'].to_list()
     else:
-        output_list = item.dataframe['molecule.id'][indices].to_list()
+        output_list = item['molecule.id'][indices].to_list()
 
     return output_list
 
 def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['molecule.name'].to_list()
+        output_list = item['molecule.name'].to_list()
     else:
-        output_list = item.dataframe['molecule.name'][indices].to_list()
+        output_list = item['molecule.name'][indices].to_list()
 
     return output_list
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['molecule.type'].to_list()
+        output_list = item['molecule.type'].to_list()
     else:
-        output_list = item.dataframe['molecule.type'][indices].to_list()
+        output_list = item['molecule.type'][indices].to_list()
 
     return output_list
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['entity.index'].to_list()
+        output_list = item['entity.index'].to_list()
     else:
-        output_list = item.dataframe['entity.index'][indices].to_list()
+        output_list = item['entity.index'][indices].to_list()
 
     return output_list
 
 def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['entity.id'].to_list()
+        output_list = item['entity.id'].to_list()
     else:
-        output_list = item.dataframe['entity.id'][indices].to_list()
+        output_list = item['entity.id'][indices].to_list()
 
     return output_list
 
 def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['entity.name'].to_list()
+        output_list = item['entity.name'].to_list()
     else:
-        output_list = item.dataframe['entity.name'][indices].to_list()
+        output_list = item['entity.name'][indices].to_list()
 
     return output_list
 
 def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['entity.type'].to_list()
+        output_list = item['entity.type'].to_list()
     else:
-        output_list = item.dataframe['entity.type'][indices].to_list()
+        output_list = item['entity.type'][indices].to_list()
 
     return output_list
 
 def get_bioassembly_index_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['bioassembly.index'].to_list()
+        output_list = item['bioassembly.index'].to_list()
     else:
-        output_list = item.dataframe['bioassembly.index'][indices].to_list()
+        output_list = item['bioassembly.index'][indices].to_list()
 
     return output_list
 
 def get_bioassembly_id_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['bioassembly.id'].to_list()
+        output_list = item['bioassembly.id'].to_list()
     else:
-        output_list = item.dataframe['bioassembly.id'][indices].to_list()
+        output_list = item['bioassembly.id'][indices].to_list()
 
     return output_list
 
 def get_bioassembly_name_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['bioassembly.name'].to_list()
+        output_list = item['bioassembly.name'].to_list()
     else:
-        output_list = item.dataframe['bioassembly.name'][indices].to_list()
+        output_list = item['bioassembly.name'][indices].to_list()
 
     return output_list
 
 def get_bioassembly_type_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['bioassembly.type'].to_list()
+        output_list = item['bioassembly.type'].to_list()
     else:
-        output_list = item.dataframe['bioassembly.type'][indices].to_list()
+        output_list = item['bioassembly.type'][indices].to_list()
 
     return output_list
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item.dataframe['bioassembly.type'].to_list()
+        output_list = item['bioassembly.type'].to_list()
     else:
-        output_list = item.dataframe['bioassembly.type'][indices].to_list()
+        output_list = item['bioassembly.type'][indices].to_list()
 
     return output_list
 
@@ -328,12 +337,33 @@ def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from numpy import unique
+
+    df=item
+
+    if indices is 'all':
+        output_list = df.loc[df['molecule.type'] == 'water']['group.index'].to_list()
+    else:
+        output_list = df.loc[df['molecule.type'][indices] == 'water']['group.index'].to_list()
+
+    output_list = unique(output_list)
+
+    return output_list.shape[0]
 
 def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from numpy import unique
 
+    df=item
+
+    if indices is 'all':
+        output_list = df.loc[df['molecule.type'] == 'ion']['group.index'].to_list()
+    else:
+        output_list = df.loc[df['molecule.type'][indices] == 'ion']['group.index'].to_list()
+
+    output_list = unique(output_list)
+
+    return output_list.shape[0]
 
 ## group
 

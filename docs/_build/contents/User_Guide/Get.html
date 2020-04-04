@@ -1,0 +1,916 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to get attributes from a molecular system &mdash; MolSysMT 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Viewing a molecular system" href="View.html" />
+    <link rel="prev" title="Elements selection" href="Selection.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MolSysMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation and Quick Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">Quick Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Molecular-systems-as-MolSysMT’s-forms">Molecular systems as MolSysMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Forms.html">Molecular systems forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Files">Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Ids">Ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Sequences">Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Viewers">Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../MolSys.html">MolSys form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../MolSys.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../MolSys.html#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#trajectory">Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Load.html">How to load a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Load.html#From-a-file">From a file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Load.html#Fetching-molecular-models-from-web-databases">Fetching molecular models from web databases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Load.html#From-the-Protein-Data-Bank">From the Protein Data Bank</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Load.html#From-MMTF-file">From MMTF file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Convert.html">How to convert a form into other form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#PDB-ID-to-molsysmt.MolSys">PDB ID to molsysmt.MolSys</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Convert.html#PDB-ID-to-mmtf.MMTFDecoder">PDB ID to mmtf.MMTFDecoder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Info.html">Getting brief description of a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-other-elements-attributes">Including other elements attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-external-variables">Including external variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-mask-filters">Including mask filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Selection-of-other-elements">Selection of other elements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#MDTraj-selection-syntaxis">MDTraj selection syntaxis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Amber-selection-syntaxis">Amber selection syntaxis</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to get attributes from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Atom-attributes">Atom attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#From-MolSysMT.DataFrame">From MolSysMT.DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#From-MolSysMT.MolSys">From MolSysMT.MolSys</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">Basic manipulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.load.html">load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.convert.html">convert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.info.html">info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.select.html">select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.set.html">set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.extract.html">extract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.duplicate.html">duplicate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.merge.html">merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.write.html">write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.view.html">view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#estructural-observables-and-transformations">Estructural observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.distance.html">distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.maximum_distance.html">maximum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.minimum_distance.html">minimum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.neighbors_lists.html">neighbors_lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.center.html">center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.center_of_mass.html">center_of_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.geometrical_center.html">geometrical_center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.recenter.html">recenter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.radius_of_gyration.html">radius_of_gyration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.rmsd.html">rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.least_rmsd.html">least_rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.least_rmsd_fit.html">least_rmsd_fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.wrap_molecules_to_pbc_cell.html">wrap_molecules_to_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.unwrap_molecules_from_pbc_cell.html">unwrap_molecules_from_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.minimum_image_convention.html">minimum_image_convention</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index_elements.html">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.atom.html">native.elements.atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.group.html">native.elements.group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.component.html">native.elements.component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.molecule.html">native.elements.molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.entity.html">native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bioassembly.html">native.elements.bioassembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.chain.html">native.elements.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bond.html">native.elements.bond</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MolSysMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>How to get attributes from a molecular system</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/contents/User_Guide/Get.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    min-width: 5ex;
+    padding-top: 0.3rem;
+    padding-right: 0.3rem;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 0.3rem;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">msm</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="How-to-get-attributes-from-a-molecular-system">
+<h1>How to get attributes from a molecular system<a class="headerlink" href="#How-to-get-attributes-from-a-molecular-system" title="Permalink to this headline">¶</a></h1>
+<p>Any attribute such as name, index, id or type, of the components of a molecular system, as well as some simple observables, can be obtained by means of the method ‘molsysmt.get()’. Lets load a molecular system in any form to play with it:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code> has an input argument named <code class="docutils literal notranslate"><span class="pre">target</span></code> to choose the nature of the elements over which the inquery works: ‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’ or ‘system’.</p>
+<p>As first lets obtain the names of the atoms with indices 32, 33 and 34 (0-based):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">names</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">34</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Atom names:&#39;</span><span class="p">,</span><span class="n">names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Atom names: [&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;]
+</pre></div></div>
+</div>
+<p>The number of attributes we want to know from these atoms is no limited to one. We can ask <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code> to extract as many attributes as you desire:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">names</span><span class="p">,</span> <span class="n">group_indices</span><span class="p">,</span> <span class="n">group_names</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">34</span><span class="p">],</span>
+                                            <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Atom names:&#39;</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Group indices:&#39;</span><span class="p">,</span> <span class="n">group_indices</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Group names:&#39;</span><span class="p">,</span> <span class="n">group_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Atom names: [&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;]
+Group indices: [4, 4, 4]
+Group names: [&#39;ILE&#39;, &#39;ILE&#39;, &#39;ILE&#39;]
+</pre></div></div>
+</div>
+<p>Notice that if no indices list is provided, the method applies over all elements of the targeted entity. See for example:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">n_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">34</span><span class="p">],</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">n_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3983
+</pre></div></div>
+</div>
+<p>At last, <code class="docutils literal notranslate"><span class="pre">msm.get()</span></code> can also take the input argument <code class="docutils literal notranslate"><span class="pre">selection</span></code>. The use of <code class="docutils literal notranslate"><span class="pre">selection</span></code>, and the set of different syntaxis you can use in MolSysMT, is explained in secction XXX. See for example:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==20&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;, &#39;O&#39;, &#39;CB&#39;, &#39;CG&#39;, &#39;CD&#39;], [148, 149, 150, 151, 152, 153, 154]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type=&quot;protein&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-21-ec6b83f82603&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>msm<span class="ansi-blue-fg">.</span>get<span class="ansi-blue-fg">(</span>molecular_system<span class="ansi-blue-fg">,</span> target<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;atom&#39;</span><span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;molecule.type=&#34;protein&#34;&#39;</span><span class="ansi-blue-fg">,</span> n_atoms<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-fg">(item, target, indices, selection, frame_indices, syntaxis, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    633</span>         <span class="ansi-green-fg">if</span> selection <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    634</span>             <span class="ansi-green-fg">if</span> target <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;atom&#39;</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 635</span><span class="ansi-red-fg">                 </span>indices <span class="ansi-blue-fg">=</span> select<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span>selection<span class="ansi-blue-fg">,</span> syntaxis<span class="ansi-blue-fg">=</span>syntaxis<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    636</span>             <span class="ansi-green-fg">elif</span> target <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;group&#39;</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    637</span>                 indices <span class="ansi-blue-fg">=</span> get<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> target<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;atom&#39;</span><span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span>selection<span class="ansi-blue-fg">,</span> syntaxis<span class="ansi-blue-fg">=</span>syntaxis<span class="ansi-blue-fg">,</span> group_index<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">select</span><span class="ansi-blue-fg">(item, selection, target, mask, syntaxis)</span>
+<span class="ansi-green-intense-fg ansi-bold">    173</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    174</span>             selection<span class="ansi-blue-fg">,</span> syntaxis <span class="ansi-blue-fg">=</span> _digest_selection<span class="ansi-blue-fg">(</span>selection<span class="ansi-blue-fg">,</span> syntaxis<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 175</span><span class="ansi-red-fg">             </span>atom_indices <span class="ansi-blue-fg">=</span> _dict_selector<span class="ansi-blue-fg">[</span>form_in<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>syntaxis<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    176</span>     <span class="ansi-green-fg">elif</span> type<span class="ansi-blue-fg">(</span>selection<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">[</span>int<span class="ansi-blue-fg">,</span> _int64<span class="ansi-blue-fg">,</span> _int<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    177</span>         atom_indices <span class="ansi-blue-fg">=</span> _array<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>selection<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> dtype<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;int64&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/forms/classes/api_molsysmt_MolSys.py</span> in <span class="ansi-cyan-fg">select_with_MolSysMT</span><span class="ansi-blue-fg">(item, selection)</span>
+<span class="ansi-green-intense-fg ansi-bold">     80</span>
+<span class="ansi-green-intense-fg ansi-bold">     81</span>     <span class="ansi-green-fg">from</span> <span class="ansi-blue-fg">.</span>api_molsysmt_Composition <span class="ansi-green-fg">import</span> select_with_MolSysMT <span class="ansi-green-fg">as</span> select_Composition_with_MolSysMT
+<span class="ansi-green-fg">---&gt; 82</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> select_Composition_with_MolSysMT<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">.</span>composition<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     83</span>
+<span class="ansi-green-intense-fg ansi-bold">     84</span> <span class="ansi-green-fg">def</span> extract_subsystem<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> atom_indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/forms/classes/api_molsysmt_Composition.py</span> in <span class="ansi-cyan-fg">select_with_MolSysMT</span><span class="ansi-blue-fg">(item, selection)</span>
+<span class="ansi-green-intense-fg ansi-bold">     48</span>
+<span class="ansi-green-intense-fg ansi-bold">     49</span>     <span class="ansi-green-fg">from</span> molsysmt<span class="ansi-blue-fg">.</span>native<span class="ansi-blue-fg">.</span>selector <span class="ansi-green-fg">import</span> dataframe_select
+<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">     </span>atom_indices <span class="ansi-blue-fg">=</span> dataframe_select<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">.</span>dataframe<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     51</span>     <span class="ansi-green-fg">return</span> atom_indices
+<span class="ansi-green-intense-fg ansi-bold">     52</span>
+
+<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/native/selector.py</span> in <span class="ansi-cyan-fg">dataframe_select</span><span class="ansi-blue-fg">(item, selection, output_indices)</span>
+<span class="ansi-green-intense-fg ansi-bold">     32</span>
+<span class="ansi-green-intense-fg ansi-bold">     33</span>     parsed_selection <span class="ansi-blue-fg">=</span> parse<span class="ansi-blue-fg">(</span>selection<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 34</span><span class="ansi-red-fg">     </span>indices <span class="ansi-blue-fg">=</span> query_dataframe<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span>parsed_selection<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     35</span>     <span class="ansi-green-fg">if</span> output_indices <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;group&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;component&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;chain&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;molecule&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;entity&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     36</span>         <span class="ansi-green-fg">from</span> numpy <span class="ansi-green-fg">import</span> unique
+
+<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/native/selector.py</span> in <span class="ansi-cyan-fg">query_dataframe</span><span class="ansi-blue-fg">(item, selection)</span>
+<span class="ansi-green-intense-fg ansi-bold">     17</span>     selection <span class="ansi-blue-fg">=</span> selection<span class="ansi-blue-fg">.</span>replace<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;.&#34;</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;_&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     18</span>     item<span class="ansi-blue-fg">.</span>columns <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>column<span class="ansi-blue-fg">.</span>replace<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;.&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;_&#34;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> column <span class="ansi-green-fg">in</span> item<span class="ansi-blue-fg">.</span>columns<span class="ansi-blue-fg">]</span>
+<span class="ansi-green-fg">---&gt; 19</span><span class="ansi-red-fg">     </span>atom_indices <span class="ansi-blue-fg">=</span> item<span class="ansi-blue-fg">.</span>query<span class="ansi-blue-fg">(</span>selection<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>index<span class="ansi-blue-fg">.</span>to_numpy<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     20</span>     item<span class="ansi-blue-fg">.</span>columns <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>column<span class="ansi-blue-fg">.</span>replace<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;_&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;.&#34;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> column <span class="ansi-green-fg">in</span> item<span class="ansi-blue-fg">.</span>columns<span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">     21</span>     <span class="ansi-green-fg">return</span> atom_indices
+
+<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/frame.py</span> in <span class="ansi-cyan-fg">query</span><span class="ansi-blue-fg">(self, expr, inplace, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">   3229</span>         kwargs<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;level&#34;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;level&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-cyan-fg">1</span>
+<span class="ansi-green-intense-fg ansi-bold">   3230</span>         kwargs<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;target&#34;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span>
+<span class="ansi-green-fg">-&gt; 3231</span><span class="ansi-red-fg">         </span>res <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>eval<span class="ansi-blue-fg">(</span>expr<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   3232</span>
+<span class="ansi-green-intense-fg ansi-bold">   3233</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/frame.py</span> in <span class="ansi-cyan-fg">eval</span><span class="ansi-blue-fg">(self, expr, inplace, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">   3344</span>         kwargs<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;resolvers&#34;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>get<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;resolvers&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> tuple<span class="ansi-blue-fg">(</span>resolvers<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   3345</span>
+<span class="ansi-green-fg">-&gt; 3346</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> _eval<span class="ansi-blue-fg">(</span>expr<span class="ansi-blue-fg">,</span> inplace<span class="ansi-blue-fg">=</span>inplace<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   3347</span>
+<span class="ansi-green-intense-fg ansi-bold">   3348</span>     <span class="ansi-green-fg">def</span> select_dtypes<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> include<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> exclude<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">-&gt;</span> <span class="ansi-blue-fg">&#34;DataFrame&#34;</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/eval.py</span> in <span class="ansi-cyan-fg">eval</span><span class="ansi-blue-fg">(expr, parser, engine, truediv, local_dict, global_dict, resolvers, level, target, inplace)</span>
+<span class="ansi-green-intense-fg ansi-bold">    330</span>         )
+<span class="ansi-green-intense-fg ansi-bold">    331</span>
+<span class="ansi-green-fg">--&gt; 332</span><span class="ansi-red-fg">         </span>parsed_expr <span class="ansi-blue-fg">=</span> Expr<span class="ansi-blue-fg">(</span>expr<span class="ansi-blue-fg">,</span> engine<span class="ansi-blue-fg">=</span>engine<span class="ansi-blue-fg">,</span> parser<span class="ansi-blue-fg">=</span>parser<span class="ansi-blue-fg">,</span> env<span class="ansi-blue-fg">=</span>env<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    333</span>
+<span class="ansi-green-intense-fg ansi-bold">    334</span>         <span class="ansi-red-fg"># construct the engine and evaluate the parsed expression</span>
+
+<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, expr, engine, parser, env, level)</span>
+<span class="ansi-green-intense-fg ansi-bold">    762</span>         self<span class="ansi-blue-fg">.</span>parser <span class="ansi-blue-fg">=</span> parser
+<span class="ansi-green-intense-fg ansi-bold">    763</span>         self<span class="ansi-blue-fg">.</span>_visitor <span class="ansi-blue-fg">=</span> _parsers<span class="ansi-blue-fg">[</span>parser<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>env<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>engine<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>parser<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 764</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>terms <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>parse<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    765</span>
+<span class="ansi-green-intense-fg ansi-bold">    766</span>     <span class="ansi-blue-fg">@</span>property
+
+<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">parse</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    779</span>     <span class="ansi-green-fg">def</span> parse<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    780</span>         <span class="ansi-blue-fg">&#34;&#34;&#34;Parse an expression&#34;&#34;&#34;</span>
+<span class="ansi-green-fg">--&gt; 781</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_visitor<span class="ansi-blue-fg">.</span>visit<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>expr<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    782</span>
+<span class="ansi-green-intense-fg ansi-bold">    783</span>     <span class="ansi-blue-fg">@</span>property
+
+<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">visit</span><span class="ansi-blue-fg">(self, node, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    373</span>         method <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#34;visit_&#34;</span> <span class="ansi-blue-fg">+</span> type<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__name__
+<span class="ansi-green-intense-fg ansi-bold">    374</span>         visitor <span class="ansi-blue-fg">=</span> getattr<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> method<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 375</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> visitor<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    376</span>
+<span class="ansi-green-intense-fg ansi-bold">    377</span>     <span class="ansi-green-fg">def</span> visit_Module<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">visit_Module</span><span class="ansi-blue-fg">(self, node, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    379</span>             <span class="ansi-green-fg">raise</span> SyntaxError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;only a single expression is allowed&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    380</span>         expr <span class="ansi-blue-fg">=</span> node<span class="ansi-blue-fg">.</span>body<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-fg">--&gt; 381</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>visit<span class="ansi-blue-fg">(</span>expr<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    382</span>
+<span class="ansi-green-intense-fg ansi-bold">    383</span>     <span class="ansi-green-fg">def</span> visit_Expr<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">visit</span><span class="ansi-blue-fg">(self, node, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    373</span>         method <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#34;visit_&#34;</span> <span class="ansi-blue-fg">+</span> type<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__name__
+<span class="ansi-green-intense-fg ansi-bold">    374</span>         visitor <span class="ansi-blue-fg">=</span> getattr<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> method<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 375</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> visitor<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    376</span>
+<span class="ansi-green-intense-fg ansi-bold">    377</span>     <span class="ansi-green-fg">def</span> visit_Module<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">visit_Assign</span><span class="ansi-blue-fg">(self, node, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    583</span>             <span class="ansi-green-fg">raise</span> SyntaxError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;left hand side of an assignment must be a single name&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    584</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>env<span class="ansi-blue-fg">.</span>target <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 585</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;cannot assign without a target object&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    586</span>
+<span class="ansi-green-intense-fg ansi-bold">    587</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">ValueError</span>: cannot assign without a target object
+</pre></div></div>
+</div>
+<div class="section" id="Atom-attributes">
+<h2>Atom attributes<a class="headerlink" href="#Atom-attributes" title="Permalink to this headline">¶</a></h2>
+<p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code> has an input argument to choose the nature of the entities</p>
+</div>
+<div class="section" id="From-MolSysMT.DataFrame">
+<h2>From MolSysMT.DataFrame<a class="headerlink" href="#From-MolSysMT.DataFrame" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;MolSysMT.DataFrame&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">21</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">46</span><span class="p">],</span> <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="From-MolSysMT.MolSys">
+<h2>From MolSysMT.MolSys<a class="headerlink" href="#From-MolSysMT.MolSys" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">21</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">46</span><span class="p">],</span> <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==20&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">n_waters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">n_ions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="View.html" class="btn btn-neutral float-right" title="Viewing a molecular system" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Selection.html" class="btn btn-neutral float-left" title="Elements selection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

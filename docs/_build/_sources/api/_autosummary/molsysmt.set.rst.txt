@@ -1,6 +1,5 @@
-molsysmt.set
-============
-
+set
+===
 .. currentmodule:: molsysmt
 
 .. autofunction:: set

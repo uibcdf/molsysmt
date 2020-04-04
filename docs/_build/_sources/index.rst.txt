@@ -11,7 +11,7 @@ MolSysMT
 .. image:: https://anaconda.org/uibcdf/molsysmt/badges/license.svg
    :target: https://github.com/uibcdf/MolSysMT/blob/master/License
 
-MolSysMT, Molecular Models Multi-Tool, is a swiss army knife to make the researchers life easier and the learning barrier of new lab student lower. This is done by simplifying the sintaxis of your script and reducing the amount of commands you have to remind to have some simple stuff done. Just that. In this sense MolSysMT is probably better defined as a 'front-end', a 'wrapper' o meta-library. Thereby all credit should be given to the fellows who developed and push those tools in the core of MolSysMT as openmm, mdtraj, yank, mdanalysis, parmed, nglview, and many others gratefully listed in the main README.md file of the source repository.
+MolSysMT, Molecular System Multi-Tool, is a swiss army knife to make the researchers life easier and the learning barrier of new lab student lower. This is done by simplifying the sintaxis of your script and reducing the amount of commands you have to remind to have some simple stuff done. Just that. In this sense MolSysMT is probably better defined as a 'front-end', a 'wrapper' o meta-library. Thereby all credit should be given to the fellows who developed and push those tools in the core of MolSysMT as openmm, mdtraj, yank, mdanalysis, parmed, nglview, and many others gratefully listed in the main README.md file of the source repository.
 
 Exceptionally few home-made subroutines will be included here to fill specific gaps in our needs. But this should not be, in principle, the main purpose of MolSysMT.
 
@@ -34,12 +34,17 @@ Exceptionally few home-made subroutines will be included here to fill specific g
 
 .. toctree::
    :caption: User Guide
-   :maxdepth: 2
+   :maxdepth: 1
 
-   Forms.ipynb
-   Selection.ipynb
+   contents/User_Guide/Forms.ipynb
    MolSys.md
-      Elements.md
+   Elements.md
+   contents/User_Guide/Load.ipynb
+   contents/User_Guide/Convert.ipynb
+   contents/User_Guide/Info.ipynb
+   contents/User_Guide/Selection.ipynb
+   contents/User_Guide/Get.ipynb
+   contents/User_Guide/View.ipynb
 
 .. toctree::
    :caption: API Documentation

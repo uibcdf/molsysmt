@@ -1,6 +1,5 @@
-molsysmt.native.elements.group
-==============================
-
+native.elements.group
+=====================
 .. automodule:: molsysmt.native.elements.group
 
    

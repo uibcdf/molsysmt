@@ -1,6 +1,5 @@
-molsysmt.select
-===============
-
+select
+======
 .. currentmodule:: molsysmt
 
 .. autofunction:: select

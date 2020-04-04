@@ -1,16 +1,15 @@
-def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioassembly_index=0,
-        bioassembly_name=None):
+def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioassembly_index=0, bioassembly_name=None):
 
 
-    from molsysmt.native.io.dataframe import from_mmtf_MMTFDecoder as dataframe_from_mmtf_MMTFDecoder
-    from molsysmt.native.io.composition import from_molsysmt_DataFrame as composition_from_molsysmt_DataFrame
+    from molsysmt.native.io.dataframe.classes import from_mmtf_MMTFDecoder as molsysmt_dataframe_from_mmtf_MMTFDecoder
+    from molsysmt.native.io.composition.classes import from_molsysmt_DataFrame as molsysmt_composition_from_molsysmt_DataFrame
     from numpy import reshape, sum
 
-    dataframe = dataframe_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices,
+    dataframe = molsysmt_dataframe_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices,
             frame_indices=frame_indices, bioassembly_index=bioassembly_index,
             bioassembly_name=bioassembly_name)
 
-    tmp_item = composition_from_molsysmt_DataFrame(dataframe)
+    tmp_item = molsysmt_composition_from_molsysmt_DataFrame(dataframe)
 
     from  molsysmt.native.elements import BioAssembly_Transformation
 

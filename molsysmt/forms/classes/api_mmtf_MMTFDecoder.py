@@ -18,23 +18,23 @@ def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.classes import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molsysmt_MolSys
-    return mmtf_MMTFDecoder_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.molsys.classes import from_mmtf_MMTFDecoder as molsysmt_MolSys_from_mmtf_MMTFDecoder
+    return molsysmt_MolSys_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.composition.classes import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molsysmt_Composition
-    return mmtf_MMTFDecoder_to_molsysmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.composition.classes import from_mmtf_MMTFDecoder as molsysmt_Composition_from_mmtf_MMTFDecoder
+    return molsysmt_Composition_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.dataframe.classes import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molsysmt_Composition
-    return mmtf_MMTFDecoder_to_molsysmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.dataframe.classes import from_mmtf_MMTFDecoder as molsysmt_Composition_from_mmtf_MMTFDecoder
+    return molsysmt_Composition_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.classes import from_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_molsysmt_Trajectory
-    return mmtf_MMTFDecoder_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.trajectory.classes import from_mmtf_MMTFDecoder as molsysmt_Trajectory_from_mmtf_MMTFDecoder
+    return molsysmt_Trajectory_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 

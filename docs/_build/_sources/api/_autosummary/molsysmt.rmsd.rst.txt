@@ -1,6 +1,5 @@
-molsysmt.rmsd
-=============
-
+rmsd
+====
 .. currentmodule:: molsysmt
 
 .. autofunction:: rmsd

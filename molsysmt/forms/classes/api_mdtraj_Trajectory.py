@@ -82,7 +82,7 @@ def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
     topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     positions = positions*nanometers
-    tmp_item = _Modeller(topology, positions)
+    tmp_item = Modeller(topology, positions)
     del(topology, positions)
     return tmp_item
 
@@ -174,8 +174,11 @@ def get_masses_from_atom(item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    tmp_item=item.xyz[frame_indices,:,:]
-    tmp_item=tmp_item[:,indices,:]
+    tmp_item=item.xyz
+    if frame_indices is not 'all':
+        tmp_item=item_item[frame_indices,:,:]
+    if indices is not 'all':
+        tmp_item=tmp_item[:,indices,:]
     return tmp_item
 
 ## group

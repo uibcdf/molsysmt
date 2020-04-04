@@ -1,0 +1,759 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to convert a form into other form &mdash; MolSysMT 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Getting brief description of a molecular system" href="Info.html" />
+    <link rel="prev" title="How to load a molecular system" href="Load.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MolSysMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation and Quick Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Quickstart.html">Quick Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quickstart.html#Molecular-systems-as-MolSysMT’s-forms">Molecular systems as MolSysMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Forms.html">Molecular systems forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Files">Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Ids">Ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Sequences">Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Viewers">Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../MolSys.html">MolSys form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#composition">Composition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#elements">Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../MolSys.html#atom">Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../MolSys.html#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#component">Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#molecule">Molecule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#chains">Chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#entities">Entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../MolSys.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#trajectory">Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Load.html">How to load a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Load.html#From-a-file">From a file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Load.html#Fetching-molecular-models-from-web-databases">Fetching molecular models from web databases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Load.html#From-the-Protein-Data-Bank">From the Protein Data Bank</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Load.html#From-MMTF-file">From MMTF file</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to convert a form into other form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#PDB-ID-to-molsysmt.MolSys">PDB ID to molsysmt.MolSys</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#PDB-ID-to-mmtf.MMTFDecoder">PDB ID to mmtf.MMTFDecoder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Info.html">Getting brief description of a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-other-elements-attributes">Including other elements attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-external-variables">Including external variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-mask-filters">Including mask filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Selection-of-other-elements">Selection of other elements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#MDTraj-selection-syntaxis">MDTraj selection syntaxis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Amber-selection-syntaxis">Amber selection syntaxis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Get.html">How to get attributes from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Atom-attributes">Atom attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#From-MolSysMT.DataFrame">From MolSysMT.DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#From-MolSysMT.MolSys">From MolSysMT.MolSys</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">Basic manipulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.load.html">load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.convert.html">convert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.info.html">info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.select.html">select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.set.html">set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.extract.html">extract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.duplicate.html">duplicate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.merge.html">merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.write.html">write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.view.html">view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#estructural-observables-and-transformations">Estructural observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.distance.html">distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.maximum_distance.html">maximum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.minimum_distance.html">minimum_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.neighbors_lists.html">neighbors_lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.center.html">center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.center_of_mass.html">center_of_mass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.geometrical_center.html">geometrical_center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.recenter.html">recenter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.radius_of_gyration.html">radius_of_gyration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.rmsd.html">rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.least_rmsd.html">least_rmsd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.least_rmsd_fit.html">least_rmsd_fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.wrap_molecules_to_pbc_cell.html">wrap_molecules_to_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.unwrap_molecules_from_pbc_cell.html">unwrap_molecules_from_pbc_cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.minimum_image_convention.html">minimum_image_convention</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">get</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index_elements.html">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.atom.html">native.elements.atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.group.html">native.elements.group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.component.html">native.elements.component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.molecule.html">native.elements.molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.entity.html">native.elements.entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bioassembly.html">native.elements.bioassembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.chain.html">native.elements.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bond.html">native.elements.bond</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MolSysMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>How to convert a form into other form</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/contents/User_Guide/Convert.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    min-width: 5ex;
+    padding-top: 0.3rem;
+    padding-right: 0.3rem;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 0.3rem;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">m3t</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/diego/Myopt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/yank/experiment.py:1170: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  &#34;&#34;&#34;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e5b8d0b53fed42bb9d50b5780b727e2e", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="section" id="How-to-convert-a-form-into-other-form">
+<h1>How to convert a form into other form<a class="headerlink" href="#How-to-convert-a-form-into-other-form" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="PDB-ID-to-molsysmt.MolSys">
+<h2>PDB ID to molsysmt.MolSys<a class="headerlink" href="#PDB-ID-to-molsysmt.MolSys" title="Permalink to this headline">¶</a></h2>
+<p>This is text</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">molecular_model</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1TCD&#39;</span><span class="p">,</span> <span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>form</th>
+      <th>atoms</th>
+      <th>residues</th>
+      <th>chains</th>
+      <th>molecules</th>
+      <th>waters</th>
+      <th>ions</th>
+      <th>frames</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>molsysmt.MolSys</td>
+      <td>3983</td>
+      <td>662</td>
+      <td>4</td>
+      <td>0</td>
+      <td>165</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Check that the number of molecules could not be computed since the topology inferred by a pdb file does not include bonds.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">n_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3890
+</pre></div></div>
+</div>
+<div class="section" id="PDB-ID-to-mmtf.MMTFDecoder">
+<h3>PDB ID to mmtf.MMTFDecoder<a class="headerlink" href="#PDB-ID-to-mmtf.MMTFDecoder" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;1SUX.mmtf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">molecular_model</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;mmtf.MMTFDecoder&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">molecular_model</span><span class="o">.</span><span class="n">atom_id_list</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">molecular_model</span><span class="o">.</span><span class="n">num_atoms</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">len</span><span class="p">(</span><span class="n">molecular_model</span><span class="o">.</span><span class="n">atom_id_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">molecular_model</span><span class="o">.</span><span class="n">num_chains</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Info.html" class="btn btn-neutral float-right" title="Getting brief description of a molecular system" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Load.html" class="btn btn-neutral float-left" title="How to load a molecular system" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

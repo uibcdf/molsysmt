@@ -1,6 +1,5 @@
-molsysmt.native.elements.entity
-===============================
-
+native.elements.entity
+======================
 .. automodule:: molsysmt.native.elements.entity
 
    

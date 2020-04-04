@@ -1,6 +1,5 @@
-molsysmt.extract
-================
-
+extract
+=======
 .. currentmodule:: molsysmt
 
 .. autofunction:: extract

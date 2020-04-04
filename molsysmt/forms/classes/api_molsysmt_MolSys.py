@@ -119,9 +119,14 @@ def get_name_from_atom (item, indices='all', frame_indices='all'):
     from .api_molsysmt_Composition import get_name_from_atom as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
-def get_element_from_atom (item, indices='all', frame_indices='all'):
+def get_type_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_Composition import get_element_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_n_atoms_from_atom as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_atom (item, indices='all', frame_indices='all'):
@@ -153,6 +158,26 @@ def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_Composition import get_chain_id_from_atom as _get
     return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_molecule_index_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_molecule_id_from_atom as _get
+    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Composition import get_molecule_name_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_type_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
 

@@ -185,7 +185,21 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT')
     if target=='atom':
         output_indices = atom_indices
     elif target=='group':
-        output_indices = get(item, selection=atom_indices, group_indices=True)
+        output_indices = get(item, target='atom', indices=atom_indices, group_index=True)
+        output_indices = _unique(output_indices)
+    elif target=='component':
+        output_indices = get(item, target='atom', indices=atom_indices, component_index=True)
+        output_indices = _unique(output_indices)
+    elif target=='chain':
+        output_indices = get(item, target='atom', indices=atom_indices, chain_index=True)
+        output_indices = _unique(output_indices)
+    elif target=='molecule':
+        output_indices = get(item, target='atom', indices=atom_indices, molecule_index=True)
+        output_indices = _unique(output_indices)
+    elif target=='entity':
+        output_indices = get(item, target='atom', indices=atom_indices, entity_index=True)
+        output_indices = _unique(output_indices)
+
     else:
         raise NotImplementedError
 

@@ -1,11 +1,12 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
-from molsysmt.native.composition import Composition as _molsysmt_Composition
+from molsysmt.native.composition import Composition as molsysmt_Composition
+from molsysmt.native.io import composition as io_composition
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    _molsysmt_Composition : form_name,
+    molsysmt_Composition : form_name,
     'molsysmt.Composition': form_name
 }
 
@@ -25,9 +26,8 @@ def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
-
-    return item.copy()
+from molsysmt.native.io.composition.classes.molsysmt_DataFrame import to_molsysmt_DataFrame
+from molsysmt.native.io.composition.seqs.aminoacids1 import to_aminoacids1_seq
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
@@ -56,293 +56,163 @@ def select_with_MolSysMT(item, selection):
 
 def get_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['atom.index'].to_list()
-    else:
-        output_list = item.dataframe['atom.index'][indices].to_list()
-
-    return output_list
+    from .api_MolSysMT_DataFrame import get_index_from_atom as _get
+    return get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['atom.id'].to_list()
-    else:
-        output_list = item.dataframe['atom.id'][indices].to_list()
-
-    return output_list
+    from .api_MolSysMT_DataFrame import get_id_from_atom as _get
+    return get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['atom.name'].to_list()
-    else:
-        output_list = item.dataframe['atom.name'][indices].to_list()
-
-    return output_list
+    from .api_MolSysMT_DataFrame import get_name_from_atom as _get
+    return get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['atom.type'].to_list()
-    else:
-        output_list = item.dataframe['atom.type'][indices].to_list()
+    from .api_MolSysMT_DataFrame import get_type_from_atom as _get
+    return get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-    return output_list
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_atoms_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['group.index'].to_list()
-    else:
-        output_list = item.dataframe['group.index'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_group_index_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['group.id'].to_list()
-    else:
-        output_list = item.dataframe['group.id'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_group_id_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['group.name'].to_list()
-    else:
-        output_list = item.dataframe['group.name'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_group_name_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['group.type'].to_list()
-    else:
-        output_list = item.dataframe['group.type'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_group_type_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['component.index'].to_list()
-    else:
-        output_list = item.dataframe['component.index'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_component_index_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_component_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['component.id'].to_list()
-    else:
-        output_list = item.dataframe['component.id'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_component_id_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['component.name'].to_list()
-    else:
-        output_list = item.dataframe['component.name'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_component_name_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['component.type'].to_list()
-    else:
-        output_list = item.dataframe['component.type'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_component_type_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['chain.index'].to_list()
-    else:
-        output_list = item.dataframe['chain.index'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_chain_index_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['chain.id'].to_list()
-    else:
-        output_list = item.dataframe['chain.id'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_chain_id_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['chain.name'].to_list()
-    else:
-        output_list = item.dataframe['chain.name'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_chain_name_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['chain.type'].to_list()
-    else:
-        output_list = item.dataframe['chain.type'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_chain_type_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['molecule.index'].to_list()
-    else:
-        output_list = item.dataframe['molecule.index'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_molecule_index_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['molecule.id'].to_list()
-    else:
-        output_list = item.dataframe['molecule.id'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_molecule_id_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['molecule.name'].to_list()
-    else:
-        output_list = item.dataframe['molecule.name'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_molecule_name_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['molecule.type'].to_list()
-    else:
-        output_list = item.dataframe['molecule.type'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_molecule_type_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['molecule.index'].to_list()
-    else:
-        output_list = item.dataframe['molecule.index'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_molecule_index_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['molecule.id'].to_list()
-    else:
-        output_list = item.dataframe['molecule.id'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_molecule_id_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['molecule.name'].to_list()
-    else:
-        output_list = item.dataframe['molecule.name'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_molecule_name_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['molecule.type'].to_list()
-    else:
-        output_list = item.dataframe['molecule.type'][indices].to_list()
-
-    return output_list
-
-
-
-
-
-
-
-
-
+    from .api_molsysmt_DataFrame import get_molecule_type_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['chain.name'].to_list()
-    else:
-        output_list = item.dataframe['chain.name'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_chain_name_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['chain.index'].to_list()
-    else:
-        output_list = item.dataframe['chain.index'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_chain_index_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item.dataframe['chain.id'].to_list()
-    else:
-        output_list = item.dataframe['chain.id'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_chain_id_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_molsysmt_DataFrame import get_n_aminoacids_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_molsysmt_DataFrame import get_n_nucleotides_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
 
-    from numpy import unique
-
-    df=item.dataframe
-
-    if indices is 'all':
-        output_list = df.loc[df['molecule.type'] == 'water']['group.index'].to_list()
-    else:
-        output_list = df.loc[df['molecule.type'][indices] == 'water']['group.index'].to_list()
-
-    output_list = unique(output_list)
-
-    return output_list.shape[0]
+    from .api_molsysmt_DataFrame import get_n_waters_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
 
-    from numpy import unique
-
-    df=item.dataframe
-
-    if indices is 'all':
-        output_list = df.loc[df['molecule.type'] == 'ion']['group.index'].to_list()
-    else:
-        output_list = df.loc[df['molecule.type'][indices] == 'ion']['group.index'].to_list()
-
-    output_list = unique(output_list)
-
-    return output_list.shape[0]
+    from .api_molsysmt_DataFrame import get_n_ions_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_bonded_atoms_from_atom(item, indices='all', frame_indices='all'):
 

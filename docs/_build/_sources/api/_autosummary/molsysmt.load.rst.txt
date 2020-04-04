@@ -1,6 +1,5 @@
-molsysmt.load
-=============
-
+load
+====
 .. currentmodule:: molsysmt
 
 .. autofunction:: load
