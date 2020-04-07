@@ -466,31 +466,42 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         atom_index, atom_id, atom_name, atom_type,\
         group_index, group_id, group_name, group_type,\
+        component_index,\
         chain_index, chain_id, chain_name,\
         molecule_index, molecule_type,\
         entity_index, entity_name= get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                        atom_index=True, atom_id=True, atom_name=True, atom_type=True,
                                        group_index=True, group_id=True, group_name=True, group_type=True,
+                                       component_index=True,
                                        chain_index=True, chain_id=True, chain_name=True,
                                        molecule_index=True, molecule_type=True,
                                        entity_index=True, entity_name=True)
 
         return df({'index':atom_index, 'id':atom_id, 'name':atom_name, 'type':atom_type,
                    'group index':group_index, 'group id':group_id, 'group name':group_name, 'group type':group_type,
+                   'component index':component_index,
                    'chain index':chain_index, 'chain id':chain_id, 'chain name':chain_name,
                    'molecule index':molecule_index, 'molecule type':molecule_type,
                    'entity index':entity_index, 'entity name':entity_name}).style.hide_index()
 
     elif target=='group':
 
-        group_index, group_id, group_name, chain_index, chain_id,\
-        molecule_type = get(item, target=target, selection=selection, syntaxis=syntaxis,
-                            group_index=True, group_id=True, group_name=True, group_type=True,
-                            chain_index=True, chain_id=True, molecule_type=True)
+        group_index, group_id, group_name, group_type,\
+        component_index,\
+        chain_index, chain_id, chain_name,\
+        molecule_index, molecule_type,\
+        entity_index, entity_name = get(item, target=target, selection=selection, syntaxis=syntaxis,
+                                        group_index=True, group_id=True, group_name=True, group_type=True,
+                                        component_index=True,
+                                        chain_index=True, chain_id=True, chain_name=True,
+                                        molecule_index=True, molecule_type=True,
+                                        entity_index=True, entity_name=True)
 
-
-        return df({'name':group_name, 'index':group_index, 'id':group_id, 'chain index':chain_index, 'chain id':chain_id,
-                   'molecule type':molecule_type})
+        return df({'index':group_index, 'id':group_id, 'name':group_name, 'type':group_type,
+                   'component index':component_index,
+                   'chain index':chain_index, 'chain id':chain_id, 'chain name':chain_name,
+                   'molecule index':molecule_index, 'molecule type':molecule_type,
+                   'entity index':entity_index, 'entity name':entity_name}).style.hide_index()
 
     elif target=='component':
 
@@ -538,7 +549,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
         if n_dnas==0: tmp_df.drop(columns=['dnas'], inplace=True)
         if n_rnas==0: tmp_df.drop(columns=['rnas'], inplace=True)
 
-        return tmp_df
+        return tmp_df.style.hide_index()
 
     else:
 
@@ -577,7 +588,7 @@ def get_form(item=None):
         except:
             raise NotImplementedError("This item's form has not been implemented yet")
 
-def get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+def get(item, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
     """get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT')
 
@@ -649,20 +660,21 @@ def get(item, target='system', indices=None, selection='all', frame_indices='all
 
     # doing the work here
 
-    if indices is None:
-        if selection is not 'all':
-            if target == 'atom':
-                indices = select(item, selection=selection, syntaxis=syntaxis)
-            elif target == 'group':
-                indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, group_index=True)
-                indices = list(_unique(indices))
-            elif target == 'chain':
-                indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
-                indices = list(_unique(indices))
-            elif target == 'system':
-                indices = 0
+    if type(indices)==str:
+        if indices in ['all', 'All', 'ALL']:
+            indices = 'all'
         else:
-            indices='all'
+            raise ValueError()
+    elif type(indices) in [int, _int64, _int]:
+        indices = _array([indices], dtype='int64')
+    elif hasattr(indices, '__iter__'):
+        indices = _array(indices, dtype='int64')
+
+    if indices is None:
+        if selection not in ['all', 'All', 'ALL']:
+            indices = select(item, target=target, selection=selection, syntaxis=syntaxis)
+        else:
+            indices = 'all'
 
     results = []
     for attribute in attributes:
@@ -764,7 +776,7 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
             indices = 0
 
     if frame_indices == 'all':
-        n_frames = get(item, n_frames=True)
+        n_frames = get(item, target='system', n_frames=True)
         frame_indices = _arange(n_frames)
     elif type(frame_indices)==int:
         frame_indices = [frame_indices]

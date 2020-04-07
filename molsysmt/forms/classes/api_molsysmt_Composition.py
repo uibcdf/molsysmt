@@ -44,7 +44,7 @@ def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
 
-def select_with_molsysmt(item, selection):
+def select_with_MolSysMT(item, selection):
 
     from molsysmt.native.selector import dataframe_select
     atom_indices = dataframe_select(item.dataframe, selection)
@@ -56,27 +56,38 @@ def select_with_molsysmt(item, selection):
 
 def get_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_index_from_atom as _get
-    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+    return get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
 
 def get_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_id_from_atom as _get
-    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+    return get_atom_id_from_atom(item, indices=indices, frame_indices=frame_indices)
 
 def get_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_name_from_atom as _get
-    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+    return get_atom_name_from_atom(item, indices=indices, frame_indices=frame_indices)
 
 def get_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_type_from_atom as _get
+    return get_atom_type_from_atom(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_index_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_n_atoms_from_atom as _get
+    from .api_molsysmt_DataFrame import get_atom_id_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_name_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_name_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_type_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
@@ -159,94 +170,996 @@ def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
     from .api_molsysmt_DataFrame import get_molecule_type_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_molecule_index_from_atom as _get
+    from .api_molsysmt_DataFrame import get_entity_index_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
+def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_molecule_id_from_atom as _get
+    from .api_molsysmt_DataFrame import get_entity_id_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
+def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_molecule_name_from_atom as _get
+    from .api_molsysmt_DataFrame import get_entity_name_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
+def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_molecule_type_from_atom as _get
+    from .api_molsysmt_DataFrame import get_entity_type_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
+def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_chain_name_from_atom as _get
+    from .api_molsysmt_DataFrame import get_bonded_atoms_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_chain_index_from_atom as _get
+    from .api_molsysmt_DataFrame import get_n_atoms_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
+def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_chain_id_from_atom as _get
+    from .api_molsysmt_DataFrame import get_n_groups_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
+def get_n_components_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_n_aminoacids_from_atom as _get
+    from .api_molsysmt_DataFrame import get_n_components_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
+def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_n_nucleotides_from_atom as _get
+    from .api_molsysmt_DataFrame import get_n_molecules_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
+def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_n_waters_from_atom as _get
+    from .api_molsysmt_DataFrame import get_n_chains_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
+def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_n_ions_from_atom as _get
+    from .api_molsysmt_DataFrame import get_n_entities_from_atom as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_bonded_atoms_from_atom(item, indices='all', frame_indices='all'):
+def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_molsysmt_DataFrame import get_n_bonds_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-    #from .api_molsysmt_Composition import get_bonded_atoms_from_atom as _get
-    #trajectory_indices = item.trajectory.file.atom_indices
-    #tmp_indices = [trajectory_indices[ii] for ii in indices]
-    #bonded_atoms_composition = _get(item.composition, indices=tmp_indices, frame_indices=frame_indices)
-    #traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
-    #bonded_atoms = {}
-    #for ii_composition, ii_bonded_composition in bonded_atoms_composition.items():
-    #    bonded_atoms[traduction[ii_composition]]=[traduction[jj] for jj in ii_bonded_composition]
+def get_mass_from_atom(item, indices='all', frame_indices='all'):
 
-    #return bonded_atoms
+    from .api_molsysmt_DataFrame import get_mass_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_molecules_from_atom(item, indices='all', frame_indices='all'):
+def get_charge_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
-
-def get_molecule_type_from_atom(item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item.dataframe['molecule.type'].to_list()
-    else:
-        output_list = item.dataframe['molecule.type'][indices].to_list()
-
-    return output_list
+    from .api_molsysmt_DataFrame import get_charge_from_atom as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 ## group
 
+def get_index_from_group (item, indices='all', frame_indices='all'):
+    get_group_index_from_group (item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_group (item, indices='all', frame_indices='all'):
+
+    get_group_id_from_group (item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_group (item, indices='all', frame_indices='all'):
+
+    get_group_name_from_group (item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_group (item, indices='all', frame_indices='all'):
+
+    get_group_type_from_group (item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_index_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_id_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_id_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_name_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_name_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_type_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_type_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_index_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_index_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_id_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_id_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_name_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_name_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_type_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_type_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_index_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_index_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_id_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_id_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_name_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_name_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_type_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_type_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_index_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_index_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_id_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_id_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_name_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_name_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_type_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_type_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_index_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_index_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_id_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_id_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_name_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_name_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_type_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_type_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_index_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_index_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_id_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_id_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_name_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_name_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_type_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_type_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_atoms_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_atoms_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_groups_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_groups_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_components_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_components_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_molecules_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_molecules_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_chains_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_chains_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_entities_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_entities_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_bonds_from_group (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_bonds_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_mass_from_group(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_mass_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_charge_from_group(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_charge_from_group as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+## component
+
+def get_index_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_index_from_component (item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_id_from_component (item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_name_from_component (item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_type_from_component (item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_index_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_id_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_id_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_name_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_name_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_type_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_type_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_index_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_index_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_id_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_id_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_name_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_name_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_type_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_type_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_name_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_name_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_index_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_index_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_id_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_id_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_type_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_type_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_name_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_name_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_index_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_index_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_id_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_id_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_type_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_type_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_index_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_index_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_id_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_id_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_name_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_name_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_type_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_type_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_index_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_index_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_id_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_id_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_name_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_name_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_type_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_type_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_atoms_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_atoms_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_groups_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_groups_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_components_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_components_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_molecules_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_molecules_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_chains_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_chains_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_entities_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_entities_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_bonds_from_component (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_bonds_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_mass_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_mass_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_charge_from_component(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_charge_from_component as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+## molecule
+
+def get_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_id_from_molecule (item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_name_from_molecule (item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_type_from_molecule (item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_index_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_id_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_id_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_name_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_name_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_type_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_type_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_index_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_index_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_id_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_id_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_name_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_name_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_type_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_type_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_name_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_index_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_id_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_type_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_name_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_index_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_id_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_type_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_index_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_id_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_name_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_type_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_index_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_id_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_name_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_type_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_atoms_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_atoms_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_groups_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_groups_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_components_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_components_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_molecules_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_molecules_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_chains_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_chains_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_entities_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_entities_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_bonds_from_molecule (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_bonds_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_mass_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_mass_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_charge_from_molecule(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_charge_from_molecule as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
 ## chain
 
+def get_index_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_index_from_chain (item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_id_from_chain (item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_name_from_chain (item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_type_from_chain (item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_index_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_id_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_id_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_name_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_name_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_type_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_type_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_index_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_index_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_id_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_id_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_name_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_name_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_type_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_type_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_name_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_name_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_index_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_index_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_id_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_id_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_type_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_type_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_name_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_index_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_id_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_type_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_index_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_index_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_id_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_id_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_name_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_name_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_type_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_index_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_index_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_id_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_id_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_name_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_name_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_type_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_type_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_atoms_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_atoms_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_groups_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_groups_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_components_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_components_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_molecules_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_molecules_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_chains_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_chains_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_entities_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_entities_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_bonds_from_chain (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_bonds_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_mass_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_mass_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_charge_from_chain(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_charge_from_chain as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+## entity
+
+def get_index_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_id_from_entity (item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_name_from_entity (item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_type_from_entity (item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_index_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_id_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_id_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_name_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_name_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_atom_type_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_atom_type_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_index_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_index_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_id_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_id_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_name_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_name_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_group_type_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_group_type_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_name_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_name_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_index_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_index_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_id_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_id_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_component_type_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_component_type_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_name_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_name_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_index_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_index_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_id_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_id_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_chain_type_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_chain_type_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_index_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_index_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_id_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_id_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_name_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_name_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_type_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_molecule_type_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_index_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_index_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_id_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_name_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_entity_type_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_atoms_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_atoms_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_groups_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_groups_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_components_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_components_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_molecules_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_molecules_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_chains_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_chains_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_entities_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_entities_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_n_bonds_from_entity (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_bonds_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_mass_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_mass_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_charge_from_entity(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_charge_from_entity as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
 ## system
+
+def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_bonded_atoms_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
@@ -278,6 +1191,11 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all'):
     from .api_molsysmt_DataFrame import get_n_entities_from_system as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
+def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import get_n_bonds_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_DataFrame import get_n_aminoacids_from_system as _get
@@ -292,7 +1210,6 @@ def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_DataFrame import get_n_ions_from_system as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
-
 def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_DataFrame import get_n_waters_from_system as _get
@@ -325,54 +1242,19 @@ def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_DataFrame import get_n_rnas_from_system as _get
+    from .api_molsysmt_DataFrame import get_n_dnas_from_system as _get
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
-def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+def get_mass_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_bonds
+    from .api_molsysmt_DataFrame import get_mass_from_system as _get
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
+
+def get_charge_from_system(item, indices='all', frame_indices='all'):
+
+    return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
-    return item.form_name
-
-def get_masses_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-    #from .api_molsysmt_Composition import get_bonded_atoms_from_atom as _get
-    #trajectory_indices = item.trajectory.file.atom_indices
-    #bonded_atoms_composition = _get(item.composition, indices=trajectory_indices, frame_indices=frame_indices)
-    #traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
-    #bonded_atoms = {}
-    #for ii_composition, ii_bonded_composition in bonded_atoms_composition.items():
-    #    bonded_atoms[traduction[ii_composition]]=[traduction[jj] for jj in ii_bonded_composition]
-
-    #return bonded_atoms
-
-def get_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_graph_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_molecules_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-    #from .api_molsysmt_Composition import get_molecules_from_atom as _get
-    #trajectory_indices = item.trajectory.file.atom_indices
-    #molecules_composition = _get(item.composition, indices=trajectory_indices, frame_indices=frame_indices)
-    #traduction = { trajectory_indices[ii] : ii for ii in range(len(trajectory_indices)) }
-    #molecules = []
-    #for tmp_molecule in molecules_composition:
-    #    molecules.append([traduction[ii] for ii in tmp_molecule])
-
-    #return molecules
+    return form_name
 
