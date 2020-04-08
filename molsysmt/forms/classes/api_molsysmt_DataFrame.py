@@ -1,7 +1,7 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
 from molsysmt.native import DataFrame
-from numpy import array as _array
+from numpy import array as _array, unique as _unique, ndenumerate as _ndenumerate
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -63,307 +63,197 @@ def get_atom_index_from_atom (item, indices='all', frame_indices='all'):
     if indices is 'all':
         output = item['atom.index'].to_numpy()
     else:
-        output = item['atom.index'][indices].to_numpy()
-
+        output = indices
     return output
 
 def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output = item['atom.id'].to_numpy()
-    else:
-        output = item['atom.id'][indices].to_numpy()
-
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['atom.id'][tmp_indices].to_numpy()
     return output
 
 def get_atom_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output = item['atom.name'].to_numpy()
-    else:
-        output = item['atom.name'][indices].to_numpy()
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['atom.name'][tmp_indices].to_numpy()
     return output
 
 def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output = item['atom.type'].to_numpy()
-    else:
-        output = item['atom.type'][indices].to_numpy()
-
-    return output
-
-def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output = item.shape[0]
-    else:
-        output = indices.shape[0]
-
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['atom.type'][tmp_indices].to_numpy()
     return output
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['group.index'].to_numpy()
-    else:
-        output_list = item['group.index'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['group.index'][tmp_indices].to_numpy()
+    return output
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['group.id'].to_numpy()
-    else:
-        output_list = item['group.id'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['group.id'][tmp_indices].to_numpy()
+    return output
 
 def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['group.name'].to_numpy()
-    else:
-        output_list = item['group.name'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['group.name'][tmp_indices].to_numpy()
+    return output
 
 def get_group_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['group.type'].to_numpy()
-    else:
-        output_list = item['group.type'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['group.type'][tmp_indices].to_numpy()
+    return output
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['component.index'].to_numpy()
-    else:
-        output_list = item['component.index'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['component.index'][tmp_indices].to_numpy()
+    return output
 
 def get_component_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['component.id'].to_numpy()
-    else:
-        output_list = item['component.id'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['component.id'][tmp_indices].to_numpy()
+    return output
 
 def get_component_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['component.name'].to_numpy()
-    else:
-        output_list = item['component.name'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['component.name'][tmp_indices].to_numpy()
+    return output
 
 def get_component_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['component.type'].to_numpy()
-    else:
-        output_list = item['component.type'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['component.type'][tmp_indices].to_numpy()
+    return output
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['chain.index'].to_numpy()
-    else:
-        output_list = item['chain.index'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['chain.index'][tmp_indices].to_numpy()
+    return output
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['chain.id'].to_numpy()
-    else:
-        output_list = item['chain.id'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['chain.id'][tmp_indices].to_numpy()
+    return output
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['chain.name'].to_numpy()
-    else:
-        output_list = item['chain.name'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['chain.name'][tmp_indices].to_numpy()
+    return output
 
 def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['chain.type'].to_numpy()
-    else:
-        output_list = item['chain.type'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['chain.type'][tmp_indices].to_numpy()
+    return output
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['molecule.index'].to_numpy()
-    else:
-        output_list = item['molecule.index'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['molecule.index'][tmp_indices].to_numpy()
+    return output
 
 def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['molecule.id'].to_numpy()
-    else:
-        output_list = item['molecule.id'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['molecule.id'][tmp_indices].to_numpy()
+    return output
 
 def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['molecule.name'].to_numpy()
-    else:
-        output_list = item['molecule.name'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['molecule.name'][tmp_indices].to_numpy()
+    return output
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['molecule.type'].to_numpy()
-    else:
-        output_list = item['molecule.type'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['molecule.type'][tmp_indices].to_numpy()
+    return output
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['entity.index'].to_numpy()
-    else:
-        output_list = item['entity.index'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['entity.index'][tmp_indices].to_numpy()
+    return output
 
 def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['entity.id'].to_numpy()
-    else:
-        output_list = item['entity.id'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['entity.id'][tmp_indices].to_numpy()
+    return output
 
 def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['entity.name'].to_numpy()
-    else:
-        output_list = item['entity.name'][indices].to_numpy()
-
-    return output_list
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['entity.name'][tmp_indices].to_numpy()
+    return output
 
 def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['entity.type'].to_numpy()
-    else:
-        output_list = item['entity.type'][indices].to_numpy()
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output = item['entity.type'][tmp_indices].to_numpy()
+    return output
 
-    return output_list
-
-def get_bioassembly_index_from_atom (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item['bioassembly.index'].to_numpy()
-    else:
-        output_list = item['bioassembly.index'][indices].to_numpy()
-
-    return output_list
-
-def get_bioassembly_id_from_atom (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item['bioassembly.id'].to_numpy()
-    else:
-        output_list = item['bioassembly.id'][indices].to_numpy()
-
-    return output_list
-
-def get_bioassembly_name_from_atom (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item['bioassembly.name'].to_numpy()
-    else:
-        output_list = item['bioassembly.name'][indices].to_numpy()
-
-    return output_list
-
-def get_bioassembly_type_from_atom (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item['bioassembly.type'].to_numpy()
-    else:
-        output_list = item['bioassembly.type'][indices].to_numpy()
-
-    return output_list
-
-def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item['bioassembly.type'].to_numpy()
-    else:
-        output_list = item['bioassembly.type'][indices].to_numpy()
-
-    return output_list
-
-def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
+def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    output = get_atom_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
+
+    output = get_group_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_components_from_atom (item, indices='all', frame_indices='all'):
+
+    output = get_component_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
+
+    output = get_molecule_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
+
+    output = get_chain_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
+
+    output = get_entity_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_bonds_from_atom (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
+def get_mass_from_atom (item, indices='all', frame_indices='all'):
 
-    from numpy import unique
+    raise NotImplementedError
 
-    df=item
+def get_charge_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = df.loc[df['molecule.type'] == 'water']['group.index'].to_numpy()
-    else:
-        output_list = df.loc[df['molecule.type'][indices] == 'water']['group.index'].to_numpy()
-
-    output_list = unique(output_list)
-
-    return output_list.shape[0]
-
-def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
-
-    from numpy import unique
-
-    df=item
-
-    if indices is 'all':
-        output_list = df.loc[df['molecule.type'] == 'ion']['group.index'].to_numpy()
-    else:
-        output_list = df.loc[df['molecule.type'][indices] == 'ion']['group.index'].to_numpy()
-
-    output_list = unique(output_list)
-
-    return output_list.shape[0]
+    raise NotImplementedError
 
 ## group
 
@@ -395,391 +285,1191 @@ def get_atom_index_from_group (item, indices='all', frame_indices='all'):
 
 def get_atom_id_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output = item['atom.id'].to_numpy()
-    else:
-        mask = item['group.index'].isin(indices)
-        output = item['atom.id'][mask].to_numpy()
-
+    tmp_indices = get_atom_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_id_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
     return output
 
 def get_atom_name_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output = item['atom.name'].to_numpy()
-    else:
-        mask = item['group.index'].isin(indices)
-        output = item['atom.name'][mask].to_numpy()
-
+    tmp_indices = get_atom_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_name_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
     return output
 
 def get_atom_type_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output = item['atom.type'].to_numpy()
-    else:
-        mask = item['group.index'].isin(indices)
-        output = item['atom.type'][mask].to_numpy()
-
+    tmp_indices = get_atom_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_type_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
     return output
 
 def get_group_index_from_group (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = item['group.index'].unique()
+        output = item['group.index'].unique()
     else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'group.index'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+        output = indices
+    return output
 
 def get_group_id_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['group.id'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'group.id'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['group.id'][right_locs].to_numpy()
+    return output
 
 def get_group_name_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['group.name'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'group.name'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['group.name'][right_locs].to_numpy()
+    return output
 
 def get_group_type_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['group.type'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'group.type'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['group.type'][right_locs].to_numpy()
+    return output
 
 def get_component_index_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['component.index'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'component.index'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['component.index'][right_locs].to_numpy()
+    return output
 
 def get_component_id_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['component.id'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'component.id'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['component.id'][right_locs].to_numpy()
+    return output
 
 def get_component_name_from_group (item, indices='all', frame_indices='all'):
-    if indices is 'all':
-        output_list = item['component.name'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'component.name'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
 
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['component.name'][right_locs].to_numpy()
+    return output
 
 def get_component_type_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['component.type'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'component.type'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['component.type'][right_locs].to_numpy()
+    return output
 
 def get_chain_index_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['chain.index'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'chain.index'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.index'][right_locs].to_numpy()
+    return output
 
 def get_chain_id_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['chain.id'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'chain.id'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.id'][right_locs].to_numpy()
+    return output
 
 def get_chain_name_from_group (item, indices='all', frame_indices='all'):
-    if indices is 'all':
-        output_list = item['chain.name'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'chain.name'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
 
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.name'][right_locs].to_numpy()
+    return output
 
 def get_chain_type_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['chain.type'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'chain.type'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.type'][right_locs].to_numpy()
+    return output
 
 def get_molecule_index_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['molecule.index'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'molecule.index'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.index'][right_locs].to_numpy()
+    return output
 
 def get_molecule_id_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['molecule.id'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'molecule.id'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.id'][right_locs].to_numpy()
+    return output
 
 def get_molecule_name_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['molecule.name'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'molecule.name'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.name'][right_locs].to_numpy()
+    return output
 
 def get_molecule_type_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['molecule.type'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'molecule.type'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.type'][right_locs].to_numpy()
+    return output
 
 def get_entity_index_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['entity.index'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'entity.index'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.index'][right_locs].to_numpy()
+    return output
 
 def get_entity_id_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['entity.id'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'entity.id'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.id'][right_locs].to_numpy()
+    return output
 
 def get_entity_name_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['entity.name'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'entity.name'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.name'][right_locs].to_numpy()
+    return output
 
 def get_entity_type_from_group (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        output_list = item['entity.type'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'entity.type'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
-
-def get_bioassembly_index_from_group (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item['bioassembly.index'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'bioassembly.index'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
-
-def get_bioassembly_id_from_group (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item['bioassembly.id'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'bioassembly.id'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
-
-def get_bioassembly_name_from_group (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item['bioassembly.name'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'bioassembly.name'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
-
-def get_bioassembly_type_from_group (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        output_list = item['bioassembly.type'].unique()
-    else:
-        output_list = []
-        for index in indices:
-            ii = item.loc[item['group.index']==index,'bioassembly.type'].iloc[0]
-            output_list.append(ii)
-        output_list = _array(output_list)
-
-    return output_list
+    tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['group.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.type'][right_locs].to_numpy()
+    return output
 
 def get_n_atoms_from_group (item, indices='all', frame_indices='all'):
 
+    output = get_atom_index_from_group (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_groups_from_group (item, indices='all', frame_indices='all'):
+
+    output = get_group_index_from_group (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_components_from_group (item, indices='all', frame_indices='all'):
+
+    output = get_component_index_from_group (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_molecules_from_group (item, indices='all', frame_indices='all'):
+
+    output = get_molecule_index_from_group (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_chains_from_group (item, indices='all', frame_indices='all'):
+
+    output = get_chain_index_from_group (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_entities_from_group (item, indices='all', frame_indices='all'):
+
+    output = get_entity_index_from_group (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_bonds_from_group (item, indices='all', frame_indices='all'):
+
     raise NotImplementedError
 
-def get_n_aminoacids_from_group (item, indices='all', frame_indices='all'):
+def get_mass_from_group (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_n_nucleotides_from_group (item, indices='all', frame_indices='all'):
+def get_charge_from_group (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_n_waters_from_group (item, indices='all', frame_indices='all'):
+## component
 
-    from numpy import unique
+def get_index_from_component (item, indices='all', frame_indices='all'):
 
-    df=item
+    return get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_id_from_component(item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_name_from_component(item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_type_from_component(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_component (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = df.loc[df['molecule.type'] == 'water']['group.index'].to_numpy()
+        output = item['atom.index'].to_numpy()
     else:
-        output_list = df.loc[df['molecule.type'][indices] == 'water']['group.index'].to_numpy()
+        mask = item['component.index'].isin(indices)
+        output = item['atom.index'][mask].to_numpy()
+    return output
 
-    output_list = unique(output_list)
+def get_atom_id_from_component (item, indices='all', frame_indices='all'):
 
-    return output_list.shape[0]
+    tmp_indices = get_atom_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_id_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
 
-def get_n_ions_from_group (item, indices='all', frame_indices='all'):
+def get_atom_name_from_component (item, indices='all', frame_indices='all'):
 
-    from numpy import unique
+    tmp_indices = get_atom_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_name_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
 
-    df=item
+def get_atom_type_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_type_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_index_from_component (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        output_list = df.loc[df['molecule.type'] == 'ion']['group.index'].to_numpy()
+        output = item['group.index'].unique()
     else:
-        output_list = df.loc[df['molecule.type'][indices] == 'ion']['group.index'].to_numpy()
+        mask = item['component.index'].isin(indices)
+        output = item['group.index'][mask].unique()
+    return output
 
-    output_list = unique(output_list)
+def get_group_id_from_component (item, indices='all', frame_indices='all'):
 
-    return output_list.shape[0]
+    tmp_indices = get_group_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_type_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
 
+def get_group_name_from_component (item, indices='all', frame_indices='all'):
 
+    tmp_indices = get_group_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_name_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_type_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_type_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_index_from_component (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['component.index'].unique()
+    else:
+        output = indices
+    return output
+
+def get_component_id_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['component.id'][right_locs].to_numpy()
+    return output
+
+def get_component_name_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['component.name'][right_locs].to_numpy()
+    return output
+
+def get_component_type_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['component.type'][right_locs].to_numpy()
+    return output
+
+def get_chain_index_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.index'][right_locs].to_numpy()
+    return output
+
+def get_chain_id_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.id'][right_locs].to_numpy()
+    return output
+
+def get_chain_name_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.name'][right_locs].to_numpy()
+    return output
+
+def get_chain_type_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.type'][right_locs].to_numpy()
+    return output
+
+def get_molecule_index_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.index'][right_locs].to_numpy()
+    return output
+
+def get_molecule_id_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.id'][right_locs].to_numpy()
+    return output
+
+def get_molecule_name_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.name'][right_locs].to_numpy()
+    return output
+
+def get_molecule_type_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.type'][right_locs].to_numpy()
+    return output
+
+def get_entity_index_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.index'][right_locs].to_numpy()
+    return output
+
+def get_entity_id_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.id'][right_locs].to_numpy()
+    return output
+
+def get_entity_name_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.name'][right_locs].to_numpy()
+    return output
+
+def get_entity_type_from_component (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['component.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.type'][right_locs].to_numpy()
+    return output
+
+def get_n_atoms_from_component (item, indices='all', frame_indices='all'):
+
+    output = get_atom_index_from_component (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_groups_from_component (item, indices='all', frame_indices='all'):
+
+    output = get_group_index_from_component (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_components_from_component (item, indices='all', frame_indices='all'):
+
+    output = get_component_index_from_component (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_molecules_from_component (item, indices='all', frame_indices='all'):
+
+    output = get_molecule_index_from_component (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_chains_from_component (item, indices='all', frame_indices='all'):
+
+    output = get_chain_index_from_component (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_entities_from_component (item, indices='all', frame_indices='all'):
+
+    output = get_entity_index_from_component (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_bonds_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## molecule
+
+def get_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_id_from_molecule(item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_name_from_molecule(item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_type_from_molecule(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['atom.index'].to_numpy()
+    else:
+        mask = item['molecule.index'].isin(indices)
+        output = item['atom.index'][mask].to_numpy()
+
+    return output
+
+def get_atom_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_id_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_atom_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_id_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_atom_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_id_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['group.index'].unique()
+    else:
+        mask = item['molecule.index'].isin(indices)
+        output = item['group.index'][mask].unique()
+
+    return output
+
+def get_group_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_id_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_name_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_id_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['component.index'].unique()
+    else:
+        mask = item['molecule.index'].isin(indices)
+        output = item['component.index'][mask].unique()
+
+    return output
+
+def get_component_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    output = get_component_id_component_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    output = get_component_name_component_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    output = get_component_type_component_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_chain_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.index'][right_locs].to_numpy()
+    return output
+
+def get_chain_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.id'][right_locs].to_numpy()
+    return output
+
+def get_chain_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.nane'][right_locs].to_numpy()
+    return output
+
+def get_chain_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.type'][right_locs].to_numpy()
+    return output
+
+def get_molecule_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['molecule.index'].unique()
+    else:
+        output = indices
+    return output
+
+def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.id'][right_locs].to_numpy()
+    return output
+
+def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.name'][right_locs].to_numpy()
+    return output
+
+def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.type'][right_locs].to_numpy()
+    return output
+
+def get_entity_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.index'][right_locs].to_numpy()
+    return output
+
+def get_entity_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.id'][right_locs].to_numpy()
+    return output
+
+def get_entity_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.name'][right_locs].to_numpy()
+    return output
+
+def get_entity_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['molecule.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.type'][right_locs].to_numpy()
+    return output
+
+def get_n_atoms_from_molecule (item, indices='all', frame_indices='all'):
+
+    output = get_atom_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_groups_from_molecule (item, indices='all', frame_indices='all'):
+
+    output = get_group_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_components_from_molecule (item, indices='all', frame_indices='all'):
+
+    output = get_component_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_molecules_from_molecule (item, indices='all', frame_indices='all'):
+
+    output = get_molecule_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_chains_from_molecule (item, indices='all', frame_indices='all'):
+
+    output = get_chain_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_entities_from_molecule (item, indices='all', frame_indices='all'):
+
+    output = get_entity_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_bonds_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 
 ## chain
 
+def get_index_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_id_from_chain(item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_name_from_chain(item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_type_from_chain(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_chain (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['atom.index'].to_numpy()
+    else:
+        mask = item['chain.index'].isin(indices)
+        output = item['atom.index'][mask].to_numpy()
+
+    return output
+
+def get_atom_id_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_id_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_atom_name_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_name_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_atom_type_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_type_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_index_from_chain (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['group.index'].unique()
+    else:
+        mask = item['chain.index'].isin(indices)
+        output = item['group.index'][mask].unique()
+
+    return output
+
+def get_group_id_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_type_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_name_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_name_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_type_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_type_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_index_from_chain (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['component.index'].unique()
+    else:
+        mask = item['chain.index'].isin(indices)
+        output = item['component.index'][mask].unique()
+
+    return output
+
+def get_component_id_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    output = get_component_id_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_name_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    output = get_component_name_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_type_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    output = get_component_type_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['chain.index'].unique()
+    else:
+        output = indices
+    return output
+
+def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.id'][right_locs].to_numpy()
+    return output
+
+def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.name'][right_locs].to_numpy()
+    return output
+
+def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['chain.type'][right_locs].to_numpy()
+    return output
+
+def get_molecule_index_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.index'][right_locs].to_numpy()
+    return output
+
+def get_molecule_id_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.id'][right_locs].to_numpy()
+    return output
+
+def get_molecule_name_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.name'][right_locs].to_numpy()
+    return output
+
+def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['molecule.type'][right_locs].to_numpy()
+    return output
+
+def get_entity_index_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.index'][right_locs].to_numpy()
+    return output
+
+def get_entity_id_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.id'][right_locs].to_numpy()
+    return output
+
+def get_entity_name_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.name'][right_locs].to_numpy()
+    return output
+
+def get_entity_type_from_chain (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['chain.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.type'][right_locs].to_numpy()
+    return output
+
+def get_n_atoms_from_chain (item, indices='all', frame_indices='all'):
+
+    output = get_atom_index_from_chain (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_groups_from_chain (item, indices='all', frame_indices='all'):
+
+    output = get_group_index_from_chain (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_components_from_chain (item, indices='all', frame_indices='all'):
+
+    output = get_component_index_from_chain (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_molecules_from_chain (item, indices='all', frame_indices='all'):
+
+    output = get_molecule_index_from_chain (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_chains_from_chain (item, indices='all', frame_indices='all'):
+
+    output = get_chain_index_from_chain (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_entities_from_chain (item, indices='all', frame_indices='all'):
+
+    output = get_entity_index_from_chain (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_bonds_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## entity
+
+def get_index_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_id_from_entity(item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_name_from_entity(item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_type_from_entity(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_entity (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['atom.index'].to_numpy()
+    else:
+        mask = item['entity.index'].isin(indices)
+        output = item['atom.index'][mask].to_numpy()
+    return output
+
+def get_atom_id_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_id_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_atom_name_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_name_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_atom_type_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_atom_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_atom_type_from_atom(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_index_from_entity (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['group.index'].unique()
+    else:
+        mask = item['entity.index'].isin(indices)
+        output = item['group.index'][mask].unique()
+    return output
+
+def get_group_id_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_id_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_name_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_name_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_group_type_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_group_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_group_type_from_group(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_index_from_entity (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['component.index'].unique()
+    else:
+        mask = item['entity.index'].isin(indices)
+        output = item['component.index'][mask].unique()
+    return output
+
+def get_component_id_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_component_id_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_name_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_component_name_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_component_type_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_component_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_component_type_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_chain_index_from_entity (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['chain.index'].unique()
+    else:
+        mask = item['entity.index'].isin(indices)
+        output = item['chain.index'][mask].unique()
+    return output
+
+def get_chain_id_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_chain_id_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_chain_name_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_chain_name_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_chain_type_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_chain_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_chain_type_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_molecule_index_from_entity (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['molecule.index'].unique()
+    else:
+        mask = item['entity.index'].isin(indices)
+        output = item['molecule.index'][mask].unique()
+    return output
+
+def get_molecule_id_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_molecule_id_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_molecule_name_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_molecule_name_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_molecule_type_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_molecule_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    output = get_molecule_type_from_component(item, indices=tmp_indices, frame_indices=frame_indices)
+    return output
+
+def get_entity_index_from_entity (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        output = item['entity.index'].unique()
+    else:
+        output = indices
+    return output
+
+def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_entity_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['entity.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.id'][right_locs].to_numpy()
+    return output
+
+def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_entity_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['entity.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.name'][right_locs].to_numpy()
+    return output
+
+def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
+
+    tmp_indices = get_entity_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+    all_indices = item['entity.index'].to_numpy()
+    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
+    output = item['entity.type'][right_locs].to_numpy()
+    return output
+
+def get_n_atoms_from_entity (item, indices='all', frame_indices='all'):
+
+    output = get_atom_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_groups_from_entity (item, indices='all', frame_indices='all'):
+
+    output = get_group_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_components_from_entity (item, indices='all', frame_indices='all'):
+
+    output = get_component_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_molecules_from_entity (item, indices='all', frame_indices='all'):
+
+    output = get_molecule_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_chains_from_entity (item, indices='all', frame_indices='all'):
+
+    output = get_chain_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    return output.shape[0]
+
+def get_n_entities_from_entity (item, indices='all', frame_indices='all'):
+
+    output = get_chain_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    output = _unique(output)
+    return output.shape[0]
+
+def get_n_bonds_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
 ## system
+
+def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
@@ -787,23 +1477,32 @@ def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    return item['group.index'].iloc[-1]+1
+    output = item['group.index'].unique()
+    return output.shape[0]
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    return item['component.index'].iloc[-1]+1
+    output = item['component.index'].unique()
+    return output.shape[0]
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    return item['chain.index'].iloc[-1]+1
+    output = item['chain.index'].unique()
+    return output.shape[0]
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    return item['molecule.index'].iloc[-1]+1
+    output = item['molecule.index'].unique()
+    return output.shape[0]
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    return item['entity.index'].iloc[-1]+1
+    output = item['entity.index'].unique()
+    return output.shape[0]
+
+def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
@@ -865,31 +1564,15 @@ def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
     serie_indices=item['molecule.index'][mask]
     return serie_indices.unique().shape[0]
 
-def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+def get_mass_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
-
-def get_masses_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_graph_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_molecules_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return form_name
 

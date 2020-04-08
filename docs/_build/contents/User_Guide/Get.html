@@ -140,7 +140,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Info.html">Getting brief description of a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Info.html">Getting a brief description of a molecular system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
@@ -155,9 +155,10 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to get attributes from a molecular system</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Atom-attributes">Atom attributes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#From-MolSysMT.DataFrame">From MolSysMT.DataFrame</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#From-MolSysMT.MolSys">From MolSysMT.MolSys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some examples over atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Some-examples-over-system">Some examples over system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Getting-trajectory-times-and-coordinates,-and-pbc-box-attributes">Getting trajectory times and coordinates, and pbc box attributes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a></li>
@@ -533,7 +534,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -543,9 +544,9 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="How-to-get-attributes-from-a-molecular-system">
 <h1>How to get attributes from a molecular system<a class="headerlink" href="#How-to-get-attributes-from-a-molecular-system" title="Permalink to this headline">¶</a></h1>
-<p>Any attribute such as name, index, id or type, of the components of a molecular system, as well as some simple observables, can be obtained by means of the method ‘molsysmt.get()’. Lets load a molecular system in any form to play with it:</p>
+<p>Any attribute of the elements composing a molecular system such as name, index, id or type, as well as some simple observables, can be obtained by means of the method <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code>. Lets load a molecular system to play a bit with it:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -553,14 +554,15 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code> has an input argument named <code class="docutils literal notranslate"><span class="pre">target</span></code> to choose the nature of the elements over which the inquery works: ‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’ or ‘system’.</p>
-<p>As first lets obtain the names of the atoms with indices 32, 33 and 34 (0-based):</p>
+<p>As first example lets obtain the names of the atoms with indices 32, 33 and 34 (0-based). The method <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code> has an input argument named <code class="docutils literal notranslate"><span class="pre">target</span></code> to choose the nature of the elements over which the inquery works: ‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’ or ‘system’. By default <code class="docutils literal notranslate"><span class="pre">target</span></code> is ‘atom’. Now lets pay attention to the input argument <code class="docutils literal notranslate"><span class="pre">indices</span></code>. <code class="docutils literal notranslate"><span class="pre">indices</span></code> allows us to specify a set of targetted elements by their indices, again, over which the inquery
+works. This way:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">names</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">34</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="c1"># name of atoms with index 32, 33 or 34</span>
+<span class="n">names</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">34</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Atom names:&#39;</span><span class="p">,</span><span class="n">names</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -570,16 +572,17 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Atom names: [&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;]
+Atom names: [&#39;N&#39; &#39;CA&#39; &#39;C&#39;]
 </pre></div></div>
 </div>
 <p>The number of attributes we want to know from these atoms is no limited to one. We can ask <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code> to extract as many attributes as you desire:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">names</span><span class="p">,</span> <span class="n">group_indices</span><span class="p">,</span> <span class="n">group_names</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">34</span><span class="p">],</span>
+<span></span><span class="c1"># name, group index and group name of atoms with index 32, 33 or 34</span>
+<span class="n">names</span><span class="p">,</span> <span class="n">group_indices</span><span class="p">,</span> <span class="n">group_names</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">34</span><span class="p">],</span>
                                             <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Atom names:&#39;</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Group indices:&#39;</span><span class="p">,</span> <span class="n">group_indices</span><span class="p">)</span>
@@ -592,36 +595,19 @@ Atom names: [&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Atom names: [&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;]
-Group indices: [4, 4, 4]
-Group names: [&#39;ILE&#39;, &#39;ILE&#39;, &#39;ILE&#39;]
+Atom names: [&#39;N&#39; &#39;CA&#39; &#39;C&#39;]
+Group indices: [4 4 4]
+Group names: [&#39;ILE&#39; &#39;ILE&#39; &#39;ILE&#39;]
 </pre></div></div>
 </div>
 <p>Notice that if no indices list is provided, the method applies over all elements of the targeted entity. See for example:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">n_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">34</span><span class="p">],</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-3
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">n_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="c1"># number of atoms in the molecular system</span>
+<span class="n">n_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -634,31 +620,14 @@ Group names: [&#39;ILE&#39;, &#39;ILE&#39;, &#39;ILE&#39;]
 3983
 </pre></div></div>
 </div>
-<p>At last, <code class="docutils literal notranslate"><span class="pre">msm.get()</span></code> can also take the input argument <code class="docutils literal notranslate"><span class="pre">selection</span></code>. The use of <code class="docutils literal notranslate"><span class="pre">selection</span></code>, and the set of different syntaxis you can use in MolSysMT, is explained in secction XXX. See for example:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==20&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[[&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;, &#39;O&#39;, &#39;CB&#39;, &#39;CG&#39;, &#39;CD&#39;], [148, 149, 150, 151, 152, 153, 154]]
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type=&quot;protein&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="c1"># number of chains in the molecular system</span>
+<span class="n">n_chains</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">n_chains</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_chains</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -667,200 +636,816 @@ Group names: [&#39;ILE&#39;, &#39;ILE&#39;, &#39;ILE&#39;]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-21-ec6b83f82603&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>msm<span class="ansi-blue-fg">.</span>get<span class="ansi-blue-fg">(</span>molecular_system<span class="ansi-blue-fg">,</span> target<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;atom&#39;</span><span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;molecule.type=&#34;protein&#34;&#39;</span><span class="ansi-blue-fg">,</span> n_atoms<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-fg">(item, target, indices, selection, frame_indices, syntaxis, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    633</span>         <span class="ansi-green-fg">if</span> selection <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    634</span>             <span class="ansi-green-fg">if</span> target <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;atom&#39;</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 635</span><span class="ansi-red-fg">                 </span>indices <span class="ansi-blue-fg">=</span> select<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span>selection<span class="ansi-blue-fg">,</span> syntaxis<span class="ansi-blue-fg">=</span>syntaxis<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    636</span>             <span class="ansi-green-fg">elif</span> target <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;group&#39;</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    637</span>                 indices <span class="ansi-blue-fg">=</span> get<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> target<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;atom&#39;</span><span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span>selection<span class="ansi-blue-fg">,</span> syntaxis<span class="ansi-blue-fg">=</span>syntaxis<span class="ansi-blue-fg">,</span> group_index<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">select</span><span class="ansi-blue-fg">(item, selection, target, mask, syntaxis)</span>
-<span class="ansi-green-intense-fg ansi-bold">    173</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    174</span>             selection<span class="ansi-blue-fg">,</span> syntaxis <span class="ansi-blue-fg">=</span> _digest_selection<span class="ansi-blue-fg">(</span>selection<span class="ansi-blue-fg">,</span> syntaxis<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 175</span><span class="ansi-red-fg">             </span>atom_indices <span class="ansi-blue-fg">=</span> _dict_selector<span class="ansi-blue-fg">[</span>form_in<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>syntaxis<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    176</span>     <span class="ansi-green-fg">elif</span> type<span class="ansi-blue-fg">(</span>selection<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">[</span>int<span class="ansi-blue-fg">,</span> _int64<span class="ansi-blue-fg">,</span> _int<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    177</span>         atom_indices <span class="ansi-blue-fg">=</span> _array<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>selection<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> dtype<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;int64&#39;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/forms/classes/api_molsysmt_MolSys.py</span> in <span class="ansi-cyan-fg">select_with_MolSysMT</span><span class="ansi-blue-fg">(item, selection)</span>
-<span class="ansi-green-intense-fg ansi-bold">     80</span>
-<span class="ansi-green-intense-fg ansi-bold">     81</span>     <span class="ansi-green-fg">from</span> <span class="ansi-blue-fg">.</span>api_molsysmt_Composition <span class="ansi-green-fg">import</span> select_with_MolSysMT <span class="ansi-green-fg">as</span> select_Composition_with_MolSysMT
-<span class="ansi-green-fg">---&gt; 82</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> select_Composition_with_MolSysMT<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">.</span>composition<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     83</span>
-<span class="ansi-green-intense-fg ansi-bold">     84</span> <span class="ansi-green-fg">def</span> extract_subsystem<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> atom_indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/forms/classes/api_molsysmt_Composition.py</span> in <span class="ansi-cyan-fg">select_with_MolSysMT</span><span class="ansi-blue-fg">(item, selection)</span>
-<span class="ansi-green-intense-fg ansi-bold">     48</span>
-<span class="ansi-green-intense-fg ansi-bold">     49</span>     <span class="ansi-green-fg">from</span> molsysmt<span class="ansi-blue-fg">.</span>native<span class="ansi-blue-fg">.</span>selector <span class="ansi-green-fg">import</span> dataframe_select
-<span class="ansi-green-fg">---&gt; 50</span><span class="ansi-red-fg">     </span>atom_indices <span class="ansi-blue-fg">=</span> dataframe_select<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">.</span>dataframe<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     51</span>     <span class="ansi-green-fg">return</span> atom_indices
-<span class="ansi-green-intense-fg ansi-bold">     52</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/native/selector.py</span> in <span class="ansi-cyan-fg">dataframe_select</span><span class="ansi-blue-fg">(item, selection, output_indices)</span>
-<span class="ansi-green-intense-fg ansi-bold">     32</span>
-<span class="ansi-green-intense-fg ansi-bold">     33</span>     parsed_selection <span class="ansi-blue-fg">=</span> parse<span class="ansi-blue-fg">(</span>selection<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 34</span><span class="ansi-red-fg">     </span>indices <span class="ansi-blue-fg">=</span> query_dataframe<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span>parsed_selection<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     35</span>     <span class="ansi-green-fg">if</span> output_indices <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;group&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;component&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;chain&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;molecule&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;entity&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     36</span>         <span class="ansi-green-fg">from</span> numpy <span class="ansi-green-fg">import</span> unique
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/native/selector.py</span> in <span class="ansi-cyan-fg">query_dataframe</span><span class="ansi-blue-fg">(item, selection)</span>
-<span class="ansi-green-intense-fg ansi-bold">     17</span>     selection <span class="ansi-blue-fg">=</span> selection<span class="ansi-blue-fg">.</span>replace<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;.&#34;</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;_&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     18</span>     item<span class="ansi-blue-fg">.</span>columns <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>column<span class="ansi-blue-fg">.</span>replace<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;.&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;_&#34;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> column <span class="ansi-green-fg">in</span> item<span class="ansi-blue-fg">.</span>columns<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">---&gt; 19</span><span class="ansi-red-fg">     </span>atom_indices <span class="ansi-blue-fg">=</span> item<span class="ansi-blue-fg">.</span>query<span class="ansi-blue-fg">(</span>selection<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>index<span class="ansi-blue-fg">.</span>to_numpy<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     20</span>     item<span class="ansi-blue-fg">.</span>columns <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>column<span class="ansi-blue-fg">.</span>replace<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;_&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;.&#34;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> column <span class="ansi-green-fg">in</span> item<span class="ansi-blue-fg">.</span>columns<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     21</span>     <span class="ansi-green-fg">return</span> atom_indices
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/frame.py</span> in <span class="ansi-cyan-fg">query</span><span class="ansi-blue-fg">(self, expr, inplace, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3229</span>         kwargs<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;level&#34;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;level&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-cyan-fg">1</span>
-<span class="ansi-green-intense-fg ansi-bold">   3230</span>         kwargs<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;target&#34;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span>
-<span class="ansi-green-fg">-&gt; 3231</span><span class="ansi-red-fg">         </span>res <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>eval<span class="ansi-blue-fg">(</span>expr<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3232</span>
-<span class="ansi-green-intense-fg ansi-bold">   3233</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/frame.py</span> in <span class="ansi-cyan-fg">eval</span><span class="ansi-blue-fg">(self, expr, inplace, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3344</span>         kwargs<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;resolvers&#34;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>get<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;resolvers&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> tuple<span class="ansi-blue-fg">(</span>resolvers<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3345</span>
-<span class="ansi-green-fg">-&gt; 3346</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> _eval<span class="ansi-blue-fg">(</span>expr<span class="ansi-blue-fg">,</span> inplace<span class="ansi-blue-fg">=</span>inplace<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3347</span>
-<span class="ansi-green-intense-fg ansi-bold">   3348</span>     <span class="ansi-green-fg">def</span> select_dtypes<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> include<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> exclude<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">-&gt;</span> <span class="ansi-blue-fg">&#34;DataFrame&#34;</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/eval.py</span> in <span class="ansi-cyan-fg">eval</span><span class="ansi-blue-fg">(expr, parser, engine, truediv, local_dict, global_dict, resolvers, level, target, inplace)</span>
-<span class="ansi-green-intense-fg ansi-bold">    330</span>         )
-<span class="ansi-green-intense-fg ansi-bold">    331</span>
-<span class="ansi-green-fg">--&gt; 332</span><span class="ansi-red-fg">         </span>parsed_expr <span class="ansi-blue-fg">=</span> Expr<span class="ansi-blue-fg">(</span>expr<span class="ansi-blue-fg">,</span> engine<span class="ansi-blue-fg">=</span>engine<span class="ansi-blue-fg">,</span> parser<span class="ansi-blue-fg">=</span>parser<span class="ansi-blue-fg">,</span> env<span class="ansi-blue-fg">=</span>env<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    333</span>
-<span class="ansi-green-intense-fg ansi-bold">    334</span>         <span class="ansi-red-fg"># construct the engine and evaluate the parsed expression</span>
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, expr, engine, parser, env, level)</span>
-<span class="ansi-green-intense-fg ansi-bold">    762</span>         self<span class="ansi-blue-fg">.</span>parser <span class="ansi-blue-fg">=</span> parser
-<span class="ansi-green-intense-fg ansi-bold">    763</span>         self<span class="ansi-blue-fg">.</span>_visitor <span class="ansi-blue-fg">=</span> _parsers<span class="ansi-blue-fg">[</span>parser<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>env<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>engine<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>parser<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 764</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>terms <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>parse<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    765</span>
-<span class="ansi-green-intense-fg ansi-bold">    766</span>     <span class="ansi-blue-fg">@</span>property
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">parse</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    779</span>     <span class="ansi-green-fg">def</span> parse<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    780</span>         <span class="ansi-blue-fg">&#34;&#34;&#34;Parse an expression&#34;&#34;&#34;</span>
-<span class="ansi-green-fg">--&gt; 781</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_visitor<span class="ansi-blue-fg">.</span>visit<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>expr<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    782</span>
-<span class="ansi-green-intense-fg ansi-bold">    783</span>     <span class="ansi-blue-fg">@</span>property
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">visit</span><span class="ansi-blue-fg">(self, node, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    373</span>         method <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#34;visit_&#34;</span> <span class="ansi-blue-fg">+</span> type<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__name__
-<span class="ansi-green-intense-fg ansi-bold">    374</span>         visitor <span class="ansi-blue-fg">=</span> getattr<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> method<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 375</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> visitor<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    376</span>
-<span class="ansi-green-intense-fg ansi-bold">    377</span>     <span class="ansi-green-fg">def</span> visit_Module<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">visit_Module</span><span class="ansi-blue-fg">(self, node, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    379</span>             <span class="ansi-green-fg">raise</span> SyntaxError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;only a single expression is allowed&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    380</span>         expr <span class="ansi-blue-fg">=</span> node<span class="ansi-blue-fg">.</span>body<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">--&gt; 381</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>visit<span class="ansi-blue-fg">(</span>expr<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    382</span>
-<span class="ansi-green-intense-fg ansi-bold">    383</span>     <span class="ansi-green-fg">def</span> visit_Expr<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">visit</span><span class="ansi-blue-fg">(self, node, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    373</span>         method <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#34;visit_&#34;</span> <span class="ansi-blue-fg">+</span> type<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__name__
-<span class="ansi-green-intense-fg ansi-bold">    374</span>         visitor <span class="ansi-blue-fg">=</span> getattr<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> method<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 375</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> visitor<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    376</span>
-<span class="ansi-green-intense-fg ansi-bold">    377</span>     <span class="ansi-green-fg">def</span> visit_Module<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> node<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/pandas/core/computation/expr.py</span> in <span class="ansi-cyan-fg">visit_Assign</span><span class="ansi-blue-fg">(self, node, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    583</span>             <span class="ansi-green-fg">raise</span> SyntaxError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;left hand side of an assignment must be a single name&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    584</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>env<span class="ansi-blue-fg">.</span>target <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 585</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;cannot assign without a target object&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    586</span>
-<span class="ansi-green-intense-fg ansi-bold">    587</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">ValueError</span>: cannot assign without a target object
+4
 </pre></div></div>
 </div>
-<div class="section" id="Atom-attributes">
-<h2>Atom attributes<a class="headerlink" href="#Atom-attributes" title="Permalink to this headline">¶</a></h2>
-<p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code> has an input argument to choose the nature of the entities</p>
-</div>
-<div class="section" id="From-MolSysMT.DataFrame">
-<h2>From MolSysMT.DataFrame<a class="headerlink" href="#From-MolSysMT.DataFrame" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<p>The method <code class="docutils literal notranslate"><span class="pre">msm.get()</span></code> can also take the input argument <code class="docutils literal notranslate"><span class="pre">selection</span></code>. The use of <code class="docutils literal notranslate"><span class="pre">selection</span></code> is explained in secction XXX. Lets see how <code class="docutils literal notranslate"><span class="pre">msm.get()</span></code> works with <code class="docutils literal notranslate"><span class="pre">selection</span></code> with a simple example:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;MolSysMT.DataFrame&#39;</span><span class="p">)</span>
+<span></span><span class="c1"># Indices of atoms in group with index 20 (with molsysmt.select()!!!)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">21</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">46</span><span class="p">],</span> <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([148, 149, 150, 151, 152, 153, 154])
+</pre></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="From-MolSysMT.MolSys">
-<h2>From MolSysMT.MolSys<a class="headerlink" href="#From-MolSysMT.MolSys" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">21</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">46</span><span class="p">],</span> <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="c1"># Names and indices of atoms in group with index 20 (with molsysmt.get()!!!)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==20&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==20&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[array([&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;, &#39;O&#39;, &#39;CB&#39;, &#39;CG&#39;, &#39;CD&#39;], dtype=object),
+ array([148, 149, 150, 151, 152, 153, 154])]
+</pre></div></div>
 </div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">n_waters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">n_ions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="c1"># number of atoms in molecules of type protein</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type==&quot;protein&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3818
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="c1"># number of molecules of type water</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">n_molecules</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+165
+</pre></div></div>
+</div>
+<div class="section" id="Table-with-attributes-you-can-get">
+<h2>Table with attributes you can get<a class="headerlink" href="#Table-with-attributes-you-can-get" title="Permalink to this headline">¶</a></h2>
+<p>The following table shows the list of attribute arguments you can use in <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code>, togethere with their meaning and the list of elements each of them can be used with.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 38%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Element the property applies</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>‘index’</p></td>
+<td><p><strong>index or indices</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘id’</p></td>
+<td><p><strong>id or ids</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘name’</p></td>
+<td><p><strong>name or names</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘type’</p></td>
+<td><p><strong>type or types</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘atom_index’</p></td>
+<td><p><strong>atom index or indices</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘atom_id’</p></td>
+<td><p><strong>atom id or ids</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘atom_name’</p></td>
+<td><p><strong>atom name or names</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘atom_type’</p></td>
+<td><p><strong>atom type or types</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘group_index’</p></td>
+<td><p><strong>group index or indices</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘group_id’</p></td>
+<td><p><strong>group id or ids</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘group_name’</p></td>
+<td><p><strong>group name or names</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘group_type’</p></td>
+<td><p><strong>group type or types</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘component_index’</p></td>
+<td><p><strong>component index or indices</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘component_id’</p></td>
+<td><p><strong>component id or ids</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘component_name’</p></td>
+<td><p><strong>component name or names</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘component_type’</p></td>
+<td><p><strong>component type or types</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘molecule_index’</p></td>
+<td><p><strong>molecule index or indices</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘molecule_id’</p></td>
+<td><p><strong>molecule id or ids</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘molecule_name’</p></td>
+<td><p><strong>molecule name or names</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘molecule_type’</p></td>
+<td><p><strong>molecule type or types</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘chain_index’</p></td>
+<td><p><strong>chain index or indices</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘chain_id’</p></td>
+<td><p><strong>chain id or ids</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘chain_name’</p></td>
+<td><p><strong>chain name or names</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘chain_type’</p></td>
+<td><p><strong>chain type or types</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘entity_index’</p></td>
+<td><p><strong>entity index or indices</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘entity_id’</p></td>
+<td><p><strong>entity id or ids</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘entity_name’</p></td>
+<td><p><strong>entity name or names</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘entity_type’</p></td>
+<td><p><strong>entity type or types</strong> of the list of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘bonded_atoms’</p></td>
+<td><p><strong>bonded atoms</strong> to the list of atoms defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘n_atoms’</p></td>
+<td><p><strong>number of atoms</strong> in the set of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘n_groups’</p></td>
+<td><p><strong>number of groups</strong> in the set of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘n_components’</p></td>
+<td><p><strong>number of components</strong> in the set of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘n_molecules’</p></td>
+<td><p><strong>number of molecules</strong> in the set of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘n_chains’</p></td>
+<td><p><strong>number of chains</strong> in the set of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘n_entities’</p></td>
+<td><p><strong>number of entities</strong> in the set of targeted elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘n_bonds’</p></td>
+<td><p><strong>number of bonds</strong> present in the set of elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘n_aminoacids’</p></td>
+<td><p><strong>number of groups aminoacid type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘n_nucleotides’</p></td>
+<td><p><strong>number of groups nucleotide type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘n_ions’</p></td>
+<td><p><strong>number of molecules ion type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘n_waters’</p></td>
+<td><p><strong>number of molecules water type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘n_cosolutes’</p></td>
+<td><p><strong>number of molecules cosolute type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘n_small_molecules’</p></td>
+<td><p><strong>number of molecules small molecule type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘n_peptides’</p></td>
+<td><p><strong>number of molecules peptide type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘n_proteins’</p></td>
+<td><p><strong>number of molecules protein type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘n_adns’</p></td>
+<td><p><strong>number of molecules adn type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘n_arns’</p></td>
+<td><p><strong>number of molecules arn type</strong> in the system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘mass’</p></td>
+<td><p><strong>mass</strong> of every targeted element defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘charge’</p></td>
+<td><p><strong>formal charge</strong> of every targeted element defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘coordinates’</p></td>
+<td><p><strong>coordinates of atoms</strong> present in the set of elements defined by <code class="docutils literal notranslate"><span class="pre">indices</span></code> or <code class="docutils literal notranslate"><span class="pre">selection</span></code></p></td>
+<td><p>‘atom’, ‘group’, ‘component’, ‘chain’, ‘molecule’, ‘entity’, ‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘box’</p></td>
+<td><p><strong>box vectors</strong> defining the periodic box of the system -if any-</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘box_shape’</p></td>
+<td><p><strong>box shape</strong> of the periodic box of the system -if any-</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘box_lengths’</p></td>
+<td><p><strong>edge lengths</strong> of the periodic box of the system -if any-</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘box_angles’</p></td>
+<td><p><strong>vertices angles</strong> of the periodic box of the system -if any-</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘time’</p></td>
+<td><p><strong>times</strong> stored in the trajectory</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-even"><td><p>‘n_frames’</p></td>
+<td><p><strong>number of frames</strong> stored in the trajectory</p></td>
+<td><p>‘system’</p></td>
+</tr>
+<tr class="row-odd"><td><p>‘form’</p></td>
+<td><p><strong>form</strong> of the molecular system</p></td>
+<td><p>‘system’</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">
+<h2>Some examples over atoms, groups, components, chains, molecules or entities<a class="headerlink" href="#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities" title="Permalink to this headline">¶</a></h2>
+<p>Here you can find some additional examples where <code class="docutils literal notranslate"><span class="pre">msm.get()</span></code> works over atoms, groups, components, chains, molecules or entities:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Name of atoms with index 0, 1 or 2</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Name of atoms with index 0, 1 or 2</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom.index in [0,1,2]&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Group id of atoms with index 0, 1 or 2</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom.index in [0,1,2]&#39;</span><span class="p">,</span> <span class="n">group_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([4, 4, 4])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of groups in atoms with index 0, 1 or 2</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom.index in [0,1,2]&#39;</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Id of groups with index 0, 1 or 2</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="nb">id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([4, 5, 6])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Id of groups with index 0, 1 or 2</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index in [0,1,2]&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([4, 5, 6])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Index of atoms in groups with index 0 or 1</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([ 0,  1,  2, ..., 13, 14, 15])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Index of groups in molecule with index 0</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([  0,   1,   2, ..., 494, 495, 496])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Names of groups in molecule of index 0</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;LYS&#39;, &#39;PRO&#39;, &#39;GLN&#39;, ..., &#39;ALA&#39;, &#39;THR&#39;, &#39;LYS&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of molecules of type protein</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type==&quot;protein&quot;&#39;</span><span class="p">,</span> <span class="n">n_molecules</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of groups in molecules of type protein</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type==&quot;protein&quot;&#39;</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+497
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of groups in molecules of type water</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+165
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Name of entity with index 0</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;TRIOSEPHOSPHATE ISOMERASE&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Type of entity with index 1</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;water&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of molecules in entity with index 1</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_molecules</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+165
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Index of molecules in entity with index 1</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;entity&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">molecule_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([  1,   2,   3, ..., 163, 164, 165])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Molecule type of groups with index 10, 11 or 12</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">],</span> <span class="n">molecule_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;protein&#39;, &#39;protein&#39;, &#39;protein&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Molecule type of molecules with index 1 to 9</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">molecule_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;,
+       &#39;water&#39;, &#39;water&#39;], dtype=object)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of groups of type aminoacid</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.type==&quot;aminoacid&quot;&#39;</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+497
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Some-examples-over-system">
+<h2>Some examples over system<a class="headerlink" href="#Some-examples-over-system" title="Permalink to this headline">¶</a></h2>
+<p>The element system has some specific observables accounting for the amount of type of elements such as the number of aminoacid groups, ion molecules or protein molecules:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of aminoacid groups in the system</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">n_aminoacids</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+497
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of ion molecules in the system</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">n_ions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of protein molecules in the system</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">n_proteins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of rna molecules in the system</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">n_rnas</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of atoms in the system</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3983
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of entities in the system</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">n_entities</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Getting-trajectory-times-and-coordinates,-and-pbc-box-attributes">
+<h2>Getting trajectory times and coordinates, and pbc box attributes<a class="headerlink" href="#Getting-trajectory-times-and-coordinates,-and-pbc-box-attributes" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

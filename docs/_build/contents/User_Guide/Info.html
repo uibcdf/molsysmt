@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting brief description of a molecular system &mdash; MolSysMT 0.1 documentation</title>
+  <title>Getting a brief description of a molecular system &mdash; MolSysMT 0.1 documentation</title>
   
 
   
@@ -140,7 +140,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting brief description of a molecular system</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting a brief description of a molecular system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
@@ -155,9 +155,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Get.html">How to get attributes from a molecular system</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Atom-attributes">Atom attributes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#From-MolSysMT.DataFrame">From MolSysMT.DataFrame</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#From-MolSysMT.MolSys">From MolSysMT.MolSys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some examples over atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-examples-over-system">Some examples over system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Getting-trajectory-times-and-coordinates,-and-pbc-box-attributes">Getting trajectory times and coordinates, and pbc box attributes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a></li>
@@ -261,7 +262,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>Getting brief description of a molecular system</li>
+      <li>Getting a brief description of a molecular system</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -532,38 +533,368 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="section" id="Getting-brief-description-of-a-molecular-system">
-<h1>Getting brief description of a molecular system<a class="headerlink" href="#Getting-brief-description-of-a-molecular-system" title="Permalink to this headline">¶</a></h1>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">m3t</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ab9f961c2f36450f9f26665990dc5c75", "version_major": 2, "version_minor": 0}</script></div>
-</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_model</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">)</span>
+<span></span><span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">msm</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
+<div class="section" id="Getting-a-brief-description-of-a-molecular-system">
+<h1>Getting a brief description of a molecular system<a class="headerlink" href="#Getting-a-brief-description-of-a-molecular-system" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >atoms</th>        <th class="col_heading level0 col2" >groups</th>        <th class="col_heading level0 col3" >components</th>        <th class="col_heading level0 col4" >chains</th>        <th class="col_heading level0 col5" >molecules</th>        <th class="col_heading level0 col6" >entities</th>        <th class="col_heading level0 col7" >waters</th>        <th class="col_heading level0 col8" >proteins</th>        <th class="col_heading level0 col9" >frames</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col1" class="data row0 col1" >3983</td>
+                        <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col2" class="data row0 col2" >662</td>
+                        <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col3" class="data row0 col3" >167</td>
+                        <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col4" class="data row0 col4" >4</td>
+                        <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col5" class="data row0 col5" >166</td>
+                        <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col6" class="data row0 col6" >2</td>
+                        <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col7" class="data row0 col7" >165</td>
+                        <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col8" class="data row0 col8" >1</td>
+                        <td id="T_ecdd73bc_76d9_11ea_8302_a3b9f3ff3938row0_col9" class="data row0 col9" >1</td>
+            </tr>
+    </tbody></table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >group index</th>        <th class="col_heading level0 col5" >group id</th>        <th class="col_heading level0 col6" >group name</th>        <th class="col_heading level0 col7" >group type</th>        <th class="col_heading level0 col8" >component_index</th>        <th class="col_heading level0 col9" >chain index</th>        <th class="col_heading level0 col10" >chain id</th>        <th class="col_heading level0 col11" >chain name</th>        <th class="col_heading level0 col12" >molecule index</th>        <th class="col_heading level0 col13" >molecule type</th>        <th class="col_heading level0 col14" >entity index</th>        <th class="col_heading level0 col15" >entity name</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col0" class="data row0 col0" >9</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col1" class="data row0 col1" >10</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col2" class="data row0 col2" >N</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col3" class="data row0 col3" >N</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col5" class="data row0 col5" >5</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col6" class="data row0 col6" >PRO</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col7" class="data row0 col7" >aminoacid</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col8" class="data row0 col8" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col9" class="data row0 col9" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col10" class="data row0 col10" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col11" class="data row0 col11" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col12" class="data row0 col12" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col13" class="data row0 col13" >protein</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col14" class="data row0 col14" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row0_col15" class="data row0 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col0" class="data row1 col0" >10</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col1" class="data row1 col1" >11</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col2" class="data row1 col2" >CA</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col3" class="data row1 col3" >C</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col4" class="data row1 col4" >1</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col5" class="data row1 col5" >5</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col6" class="data row1 col6" >PRO</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col7" class="data row1 col7" >aminoacid</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col8" class="data row1 col8" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col9" class="data row1 col9" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col10" class="data row1 col10" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col11" class="data row1 col11" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col12" class="data row1 col12" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col13" class="data row1 col13" >protein</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col14" class="data row1 col14" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row1_col15" class="data row1 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col0" class="data row2 col0" >11</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col1" class="data row2 col1" >12</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col2" class="data row2 col2" >C</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col3" class="data row2 col3" >C</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col4" class="data row2 col4" >1</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col5" class="data row2 col5" >5</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col6" class="data row2 col6" >PRO</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col7" class="data row2 col7" >aminoacid</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col8" class="data row2 col8" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col9" class="data row2 col9" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col10" class="data row2 col10" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col11" class="data row2 col11" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col12" class="data row2 col12" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col13" class="data row2 col13" >protein</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col14" class="data row2 col14" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row2_col15" class="data row2 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col0" class="data row3 col0" >12</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col1" class="data row3 col1" >13</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col2" class="data row3 col2" >O</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col3" class="data row3 col3" >O</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col4" class="data row3 col4" >1</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col5" class="data row3 col5" >5</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col6" class="data row3 col6" >PRO</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col7" class="data row3 col7" >aminoacid</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col8" class="data row3 col8" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col9" class="data row3 col9" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col10" class="data row3 col10" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col11" class="data row3 col11" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col12" class="data row3 col12" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col13" class="data row3 col13" >protein</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col14" class="data row3 col14" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row3_col15" class="data row3 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col0" class="data row4 col0" >13</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col1" class="data row4 col1" >14</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col2" class="data row4 col2" >CB</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col3" class="data row4 col3" >C</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col4" class="data row4 col4" >1</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col5" class="data row4 col5" >5</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col6" class="data row4 col6" >PRO</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col7" class="data row4 col7" >aminoacid</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col8" class="data row4 col8" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col9" class="data row4 col9" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col10" class="data row4 col10" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col11" class="data row4 col11" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col12" class="data row4 col12" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col13" class="data row4 col13" >protein</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col14" class="data row4 col14" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row4_col15" class="data row4 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col0" class="data row5 col0" >14</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col1" class="data row5 col1" >15</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col2" class="data row5 col2" >CG</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col3" class="data row5 col3" >C</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col4" class="data row5 col4" >1</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col5" class="data row5 col5" >5</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col6" class="data row5 col6" >PRO</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col7" class="data row5 col7" >aminoacid</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col8" class="data row5 col8" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col9" class="data row5 col9" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col10" class="data row5 col10" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col11" class="data row5 col11" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col12" class="data row5 col12" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col13" class="data row5 col13" >protein</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col14" class="data row5 col14" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row5_col15" class="data row5 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col0" class="data row6 col0" >15</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col1" class="data row6 col1" >16</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col2" class="data row6 col2" >CD</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col3" class="data row6 col3" >C</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col4" class="data row6 col4" >1</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col5" class="data row6 col5" >5</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col6" class="data row6 col6" >PRO</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col7" class="data row6 col7" >aminoacid</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col8" class="data row6 col8" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col9" class="data row6 col9" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col10" class="data row6 col10" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col11" class="data row6 col11" >A</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col12" class="data row6 col12" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col13" class="data row6 col13" >protein</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col14" class="data row6 col14" >0</td>
+                        <td id="T_ef17b21e_76d9_11ea_8302_a3b9f3ff3938row6_col15" class="data row6 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+    </tbody></table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==4&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >group index</th>        <th class="col_heading level0 col5" >group id</th>        <th class="col_heading level0 col6" >group name</th>        <th class="col_heading level0 col7" >group type</th>        <th class="col_heading level0 col8" >component_index</th>        <th class="col_heading level0 col9" >chain index</th>        <th class="col_heading level0 col10" >chain id</th>        <th class="col_heading level0 col11" >chain name</th>        <th class="col_heading level0 col12" >molecule index</th>        <th class="col_heading level0 col13" >molecule type</th>        <th class="col_heading level0 col14" >entity index</th>        <th class="col_heading level0 col15" >entity name</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col0" class="data row0 col0" >32</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col1" class="data row0 col1" >33</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col2" class="data row0 col2" >N</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col3" class="data row0 col3" >N</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col4" class="data row0 col4" >4</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col5" class="data row0 col5" >8</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col6" class="data row0 col6" >ILE</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col7" class="data row0 col7" >aminoacid</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col8" class="data row0 col8" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col9" class="data row0 col9" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col10" class="data row0 col10" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col11" class="data row0 col11" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col12" class="data row0 col12" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col13" class="data row0 col13" >protein</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col14" class="data row0 col14" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row0_col15" class="data row0 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col0" class="data row1 col0" >33</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col1" class="data row1 col1" >34</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col2" class="data row1 col2" >CA</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col3" class="data row1 col3" >C</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col4" class="data row1 col4" >4</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col5" class="data row1 col5" >8</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col6" class="data row1 col6" >ILE</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col7" class="data row1 col7" >aminoacid</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col8" class="data row1 col8" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col9" class="data row1 col9" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col10" class="data row1 col10" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col11" class="data row1 col11" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col12" class="data row1 col12" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col13" class="data row1 col13" >protein</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col14" class="data row1 col14" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row1_col15" class="data row1 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col0" class="data row2 col0" >34</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col1" class="data row2 col1" >35</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col2" class="data row2 col2" >C</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col3" class="data row2 col3" >C</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col4" class="data row2 col4" >4</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col5" class="data row2 col5" >8</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col6" class="data row2 col6" >ILE</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col7" class="data row2 col7" >aminoacid</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col8" class="data row2 col8" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col9" class="data row2 col9" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col10" class="data row2 col10" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col11" class="data row2 col11" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col12" class="data row2 col12" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col13" class="data row2 col13" >protein</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col14" class="data row2 col14" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row2_col15" class="data row2 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col0" class="data row3 col0" >35</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col1" class="data row3 col1" >36</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col2" class="data row3 col2" >O</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col3" class="data row3 col3" >O</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col4" class="data row3 col4" >4</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col5" class="data row3 col5" >8</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col6" class="data row3 col6" >ILE</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col7" class="data row3 col7" >aminoacid</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col8" class="data row3 col8" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col9" class="data row3 col9" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col10" class="data row3 col10" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col11" class="data row3 col11" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col12" class="data row3 col12" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col13" class="data row3 col13" >protein</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col14" class="data row3 col14" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row3_col15" class="data row3 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col0" class="data row4 col0" >36</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col1" class="data row4 col1" >37</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col2" class="data row4 col2" >CB</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col3" class="data row4 col3" >C</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col4" class="data row4 col4" >4</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col5" class="data row4 col5" >8</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col6" class="data row4 col6" >ILE</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col7" class="data row4 col7" >aminoacid</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col8" class="data row4 col8" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col9" class="data row4 col9" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col10" class="data row4 col10" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col11" class="data row4 col11" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col12" class="data row4 col12" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col13" class="data row4 col13" >protein</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col14" class="data row4 col14" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row4_col15" class="data row4 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col0" class="data row5 col0" >37</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col1" class="data row5 col1" >38</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col2" class="data row5 col2" >CG1</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col3" class="data row5 col3" >C</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col4" class="data row5 col4" >4</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col5" class="data row5 col5" >8</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col6" class="data row5 col6" >ILE</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col7" class="data row5 col7" >aminoacid</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col8" class="data row5 col8" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col9" class="data row5 col9" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col10" class="data row5 col10" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col11" class="data row5 col11" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col12" class="data row5 col12" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col13" class="data row5 col13" >protein</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col14" class="data row5 col14" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row5_col15" class="data row5 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col0" class="data row6 col0" >38</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col1" class="data row6 col1" >39</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col2" class="data row6 col2" >CG2</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col3" class="data row6 col3" >C</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col4" class="data row6 col4" >4</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col5" class="data row6 col5" >8</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col6" class="data row6 col6" >ILE</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col7" class="data row6 col7" >aminoacid</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col8" class="data row6 col8" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col9" class="data row6 col9" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col10" class="data row6 col10" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col11" class="data row6 col11" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col12" class="data row6 col12" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col13" class="data row6 col13" >protein</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col14" class="data row6 col14" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row6_col15" class="data row6 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+            <tr>
+                                <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col0" class="data row7 col0" >39</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col1" class="data row7 col1" >40</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col2" class="data row7 col2" >CD1</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col3" class="data row7 col3" >C</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col4" class="data row7 col4" >4</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col5" class="data row7 col5" >8</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col6" class="data row7 col6" >ILE</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col7" class="data row7 col7" >aminoacid</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col8" class="data row7 col8" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col9" class="data row7 col9" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col10" class="data row7 col10" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col11" class="data row7 col11" >A</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col12" class="data row7 col12" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col13" class="data row7 col13" >protein</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col14" class="data row7 col14" >0</td>
+                        <td id="T_f713ce76_76d9_11ea_8302_a3b9f3ff3938row7_col15" class="data row7 col15" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+    </tbody></table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -573,40 +904,42 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-4-b8fec688145e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>m3t<span class="ansi-blue-fg">.</span>info<span class="ansi-blue-fg">(</span>molecular_model<span class="ansi-blue-fg">)</span>
+<span class="ansi-red-fg">NotImplementedError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-10-1ae0552dfc6f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>msm<span class="ansi-blue-fg">.</span>info<span class="ansi-blue-fg">(</span>molecular_system<span class="ansi-blue-fg">,</span> target<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;group&#39;</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">~/Projects/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">info</span><span class="ansi-blue-fg">(item, target, indices, selection, syntaxis)</span>
-<span class="ansi-green-intense-fg ansi-bold">    479</span>         n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas, n_rnas = get(item, target=target,
-<span class="ansi-green-intense-fg ansi-bold">    480</span>                 n_ions<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> n_waters<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> n_cosolutes<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> n_small_molecules<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> n_peptides<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> n_proteins<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">--&gt; 481</span><span class="ansi-red-fg">                 n_dnas=True, n_rnas=True)
-</span><span class="ansi-green-intense-fg ansi-bold">    482</span>
-<span class="ansi-green-intense-fg ansi-bold">    483</span>         n_frames <span class="ansi-blue-fg">=</span> get<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> target<span class="ansi-blue-fg">=</span>target<span class="ansi-blue-fg">,</span> n_frames<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">info</span><span class="ansi-blue-fg">(item, target, indices, selection, syntaxis)</span>
+<span class="ansi-green-intense-fg ansi-bold">    496</span>                                         chain_index<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> chain_id<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> chain_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    497</span>                                         molecule_index<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> molecule_type<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-fg">--&gt; 498</span><span class="ansi-red-fg">                                         entity_index=True, entity_name=True)
+</span><span class="ansi-green-intense-fg ansi-bold">    499</span>
+<span class="ansi-green-intense-fg ansi-bold">    500</span>         return df({&#39;index&#39;:group_index, &#39;id&#39;:group_id, &#39;name&#39;:group_name, &#39;type&#39;:group_type,
 
-<span class="ansi-green-fg">~/Projects/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-fg">(item, target, indices, selection, frame_indices, syntaxis, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    626</span>     results <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    627</span>     <span class="ansi-green-fg">for</span> attribute <span class="ansi-green-fg">in</span> attributes<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 628</span><span class="ansi-red-fg">         </span>result <span class="ansi-blue-fg">=</span> _dict_get<span class="ansi-blue-fg">[</span>form_in<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>target<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>attribute<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> indices<span class="ansi-blue-fg">=</span>indices<span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span>frame_indices<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    629</span>         results<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>result<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    630</span>
+<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-fg">(item, target, indices, selection, frame_indices, syntaxis, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    678</span>     results <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">    679</span>     <span class="ansi-green-fg">for</span> attribute <span class="ansi-green-fg">in</span> attributes<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 680</span><span class="ansi-red-fg">         </span>result <span class="ansi-blue-fg">=</span> _dict_get<span class="ansi-blue-fg">[</span>form_in<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>target<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>attribute<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> indices<span class="ansi-blue-fg">=</span>indices<span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span>frame_indices<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    681</span>         results<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>result<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    682</span>
 
-<span class="ansi-green-fg">~/Projects/MolSysMT/molsysmt/forms/classes/api_molsysmt_MolSys.py</span> in <span class="ansi-cyan-fg">get_n_ions_from_system</span><span class="ansi-blue-fg">(item, indices, frame_indices)</span>
-<span class="ansi-green-intense-fg ansi-bold">    248</span>
-<span class="ansi-green-intense-fg ansi-bold">    249</span>     <span class="ansi-green-fg">from</span> <span class="ansi-blue-fg">.</span>api_molsysmt_Composition <span class="ansi-green-fg">import</span> get_n_ions_from_system <span class="ansi-green-fg">as</span> _get
-<span class="ansi-green-fg">--&gt; 250</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> _get<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">.</span>composition<span class="ansi-blue-fg">,</span> indices<span class="ansi-blue-fg">=</span>indices<span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span>frame_indices<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    251</span>
-<span class="ansi-green-intense-fg ansi-bold">    252</span> <span class="ansi-green-fg">def</span> get_n_waters_from_system <span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/forms/classes/get_fields.py</span> in <span class="ansi-cyan-fg">_raise_not_implemented_error</span><span class="ansi-blue-fg">(item, indices, frame_indices)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">def</span> _raise_not_implemented_error<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> indices<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">raise</span> NotImplementedError
+<span class="ansi-green-intense-fg ansi-bold">      5</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> _common_fields = {
 
-<span class="ansi-green-fg">~/Projects/MolSysMT/molsysmt/forms/classes/api_molsysmt_Composition.py</span> in <span class="ansi-cyan-fg">get_n_ions_from_system</span><span class="ansi-blue-fg">(item, indices, frame_indices)</span>
-<span class="ansi-green-intense-fg ansi-bold">    226</span> <span class="ansi-green-fg">def</span> get_n_ions_from_system <span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    227</span>
-<span class="ansi-green-fg">--&gt; 228</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> item<span class="ansi-blue-fg">.</span>n_ions
-<span class="ansi-green-intense-fg ansi-bold">    229</span>
-<span class="ansi-green-intense-fg ansi-bold">    230</span> <span class="ansi-green-fg">def</span> get_n_waters_from_system <span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">AttributeError</span>: &#39;Composition&#39; object has no attribute &#39;n_ions&#39;
+<span class="ansi-red-fg">NotImplementedError</span>:
 </pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
