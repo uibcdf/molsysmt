@@ -1,12 +1,12 @@
 package:
-  name: molmodmt
-  version: 0.0.4
+  name: molsysmt
+  version: 0.0.5
 
 source:
   path: ../../
 
 build:
-  number: 4
+  number: 1
 
 requirements:
   build:
@@ -27,7 +27,6 @@ requirements:
     - parmed
     - yank
     - jupyterlab
-    - molmodel
     - pytraj
 
 about:
@@ -36,5 +35,5 @@ about:
   summary: ""
   description: |
     This toolkit library provides some useful classes, functions, pipes and wrappers daily used in the uibcdf lab when molecular systems and molecular dynamics are manipulated.
-  dev_url: https://github.com/uibcdf/MolModMT
-  doc_url: https://uibcdf.org/MolModMT
+  dev_url: https://github.com/uibcdf/MolSysMT
+  doc_url: https://uibcdf.org/MolSysMT
