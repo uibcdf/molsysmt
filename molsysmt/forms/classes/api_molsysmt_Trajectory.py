@@ -69,34 +69,87 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     return tmp_coordinates
 
-## group
+def get_n_atoms_from_atom(item, indices='all', frame_indices='all'):
 
-## chain
+    if indices is 'all':
+        output=item.coordinates.shape[1]
+    else:
+        output=indices.shape[0]
+
+    return output
+
+def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
+
+    return get_n_frames_from_system(item, indices='all', frame_indices='all')
+
 
 ## system
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_atoms
+    if indices is 'all':
+        output=item.coordinates.shape[1]
+    else:
+        output=indices.shape[0]
+
+    return output
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_frames
+    if frame_indices is 'all':
+        output=item.coordinates.shape[0]
+    else:
+        output=frame_indices.shape[0]
+
+    return output
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
-    return item.coordinates[frame_indices]
+    if frame_indices is 'all':
+        output=item.coordinates
+    else:
+        output=item.coordinates[frame_indices,:,:]
+    return output
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    return item.box[frame_indices]
+    if frame_indices is 'all':
+        output=item.box
+    else:
+        output=item.box[frame_indices,:,:]
+    return output
+
+def get_box_shape_from_system(item, indices='all', frame_indices='all'):
+
+    return item.box_shape
+
+def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
+
+    tmp_box_lengths = item.get_box_lengths()
+    if frame_indices is 'all':
+        output = tmp_box_lengths
+    else:
+        output = tmp_box_lengths[frame_indices,:]
+    return output
+
+def get_box_angles_from_system(item, indices='all', frame_indices='all'):
+
+    tmp_box_angles = item.get_box_angles()
+    if frame_indices is 'all':
+        output = tmp_box_angles
+    else:
+        output = tmp_box_angles[frame_indices,:]
+    return output
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    return item.time[frame_indices]
+    if frame_indices is 'all':
+        output = item.time
+    else:
+        output = item.time[frame_indices]
+    return output
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import get_form
-    return get_form(item)
+    return form_name
 

@@ -42,9 +42,9 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    Elements.md
    contents/User_Guide/Load.ipynb
    contents/User_Guide/Convert.ipynb
-   contents/User_Guide/Info.ipynb
    contents/User_Guide/Selection.ipynb
    contents/User_Guide/Get.ipynb
+   contents/User_Guide/Info.ipynb
    contents/User_Guide/View.ipynb
 
 .. toctree::

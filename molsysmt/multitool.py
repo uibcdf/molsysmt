@@ -9,6 +9,7 @@ from .utils.atom_indices import intersection_indices as _intersection_indices
 from numpy import unique as _unique
 from numpy import ndarray as _ndarray
 from numpy import array as _array
+from numpy import array as _empty
 from numpy import sort as _sort
 from numpy import arange as _arange
 from numpy import int as _int
@@ -467,20 +468,20 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
         atom_index, atom_id, atom_name, atom_type,\
         group_index, group_id, group_name, group_type,\
         component_index,\
-        chain_index, chain_id, chain_name,\
+        chain_index,\
         molecule_index, molecule_type,\
         entity_index, entity_name= get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                        atom_index=True, atom_id=True, atom_name=True, atom_type=True,
                                        group_index=True, group_id=True, group_name=True, group_type=True,
                                        component_index=True,
-                                       chain_index=True, chain_id=True, chain_name=True,
+                                       chain_index=True,
                                        molecule_index=True, molecule_type=True,
                                        entity_index=True, entity_name=True)
 
         return df({'index':atom_index, 'id':atom_id, 'name':atom_name, 'type':atom_type,
                    'group index':group_index, 'group id':group_id, 'group name':group_name, 'group type':group_type,
                    'component index':component_index,
-                   'chain index':chain_index, 'chain id':chain_id, 'chain name':chain_name,
+                   'chain index':chain_index,
                    'molecule index':molecule_index, 'molecule type':molecule_type,
                    'entity index':entity_index, 'entity name':entity_name}).style.hide_index()
 
@@ -488,40 +489,120 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         group_index, group_id, group_name, group_type,\
         component_index,\
-        chain_index, chain_id, chain_name,\
+        chain_index,\
         molecule_index, molecule_type,\
-        entity_index, entity_name = get(item, target=target, selection=selection, syntaxis=syntaxis,
+        entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                         group_index=True, group_id=True, group_name=True, group_type=True,
                                         component_index=True,
-                                        chain_index=True, chain_id=True, chain_name=True,
+                                        chain_index=True,
                                         molecule_index=True, molecule_type=True,
                                         entity_index=True, entity_name=True)
 
+        n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in group_index ]
+
         return df({'index':group_index, 'id':group_id, 'name':group_name, 'type':group_type,
+                   'n atoms':n_atoms,
                    'component index':component_index,
-                   'chain index':chain_index, 'chain id':chain_id, 'chain name':chain_name,
+                   'chain index':chain_index,
                    'molecule index':molecule_index, 'molecule type':molecule_type,
                    'entity index':entity_index, 'entity name':entity_name}).style.hide_index()
 
     elif target=='component':
 
-        raise NotImplementedError
+        component_index,\
+        chain_index,\
+        molecule_index, molecule_type,\
+        entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+                                        component_index=True,
+                                        chain_index=True,
+                                        molecule_index=True, molecule_type=True,
+                                        entity_index=True, entity_name=True)
 
+        n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in component_index ]
+        n_groups = [ get(item, target=target, indices=index, n_groups=True) for index in component_index ]
+
+
+        return df({'index':component_index,
+                   'n atoms':n_atoms, 'n groups':n_groups,
+                   'chain index':chain_index,
+                   'molecule index':molecule_index, 'molecule type':molecule_type,
+                   'entity index':entity_index, 'entity name':entity_name}).style.hide_index()
 
     elif target=='chain':
 
-        index, id, molecule_type = get(item, target=target, selection=selection, syntaxis=syntaxis,
-                                       chain_index=True, chain_id=True, molecule_type=True)
+        chain_index, chain_id, chain_name,\
+        molecule_index, molecule_type,\
+        entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+                                        chain_index=True, chain_id=True, chain_name=True,
+                                        molecule_index=True, molecule_type=True,
+                                        entity_index=True, entity_name=True)
 
-        return df({'index':index, 'id':id, 'molecule type':molecule_type})
+        n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in chain_index ]
+        n_groups = [ get(item, target=target, indices=index, n_groups=True) for index in chain_index ]
+        n_components = [ get(item, target=target, indices=index, n_components=True) for index in chain_index ]
+
+        if len(molecule_index.shape)>1:
+            n_objects = molecule_index.shape[0]
+            aux_obj_array = _empty([n_objects], dtype='object')
+            for ii in range(n_objects):
+                aux_obj_array[ii]=molecule_index[ii]
+            molecule_index=aux_obj_array
+
+        for ii in range(len(molecule_index)):
+            if len(molecule_index[ii])==1:
+                molecule_index[ii]=molecule_index[ii][0]
+                molecule_type[ii]=molecule_type[ii][0]
+
+        return df({'index':chain_index, 'id':chain_id, 'name':chain_name,
+                   'n atoms':n_atoms, 'n groups':n_groups, 'n components':n_components,
+                   'molecule index':molecule_index, 'molecule type':molecule_type,
+                   'entity index':entity_index, 'entity name':entity_name}).style.hide_index()
 
     elif target=='molecule':
 
-        raise NotImplementedError
+        molecule_index, molecule_name, molecule_type,\
+        chain_index,\
+        entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+                                        molecule_index=True, molecule_name=True, molecule_type=True,
+                                        chain_index=True,
+                                        entity_index=True, entity_name=True)
+
+        n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in molecule_index ]
+        n_groups = [ get(item, target=target, indices=index, n_groups=True) for index in molecule_index ]
+        n_components = [ get(item, target=target, indices=index, n_components=True) for index in molecule_index ]
+
+        if len(chain_index.shape)>1:
+            n_objects = chain_index.shape[0]
+            aux_obj_array = _empty([n_objects], dtype='object')
+            for ii in range(n_objects):
+                aux_obj_array[ii]=chain_index[ii]
+            chain_index=aux_obj_array
+
+        for ii in range(len(chain_index)):
+            if len(chain_index[ii])==1:
+                chain_index[ii]=chain_index[ii][0]
+
+        return df({'index':molecule_index, 'name':molecule_name, 'type':molecule_type,
+                   'n atoms':n_atoms, 'n groups':n_groups, 'n components':n_components,
+                   'chain index':chain_index,
+                   'entity index':entity_index, 'entity name':entity_name}).style.hide_index()
 
     elif target=='entity':
 
-        raise NotImplementedError
+        entity_index, entity_name, entity_type = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+                                        entity_index=True, entity_name=True, entity_type=True)
+
+        n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in entity_index ]
+        n_groups = [ get(item, target=target, indices=index, n_groups=True) for index in entity_index ]
+        n_components = [ get(item, target=target, indices=index, n_components=True) for index in entity_index ]
+        n_chains = [ get(item, target=target, indices=index, n_chains=True) for index in entity_index ]
+        n_molecules = [ get(item, target=target, indices=index, n_molecules=True) for index in entity_index ]
+
+
+        return df({'index':entity_index, 'name':entity_name, 'type': entity_type,
+                   'n atoms':n_atoms, 'n groups':n_groups, 'n components':n_components,
+                   'n chains':n_chains, 'n molecules':n_molecules
+                   }).style.hide_index()
 
     elif target=='system':
 
@@ -534,20 +615,20 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         n_frames = get(item, target=target, n_frames=True)
 
-        tmp_df = df({'form':form, 'atoms':n_atoms, 'groups':n_groups, 'components':n_components,
-            'chains':n_chains, 'molecules':n_molecules, 'entities':n_entities,
-            'waters':n_waters, 'ions':n_ions, 'cosolutes':n_cosolutes, 'small_molecules':n_small_molecules,
-            'peptides':n_peptides, 'proteins':n_proteins, 'dnas':n_dnas, 'rnas':n_rnas,
-            'frames':n_frames}, index=[0])
+        tmp_df = df({'form':form, 'n atoms':n_atoms, 'n groups':n_groups, 'n components':n_components,
+            'n chains':n_chains, 'n molecules':n_molecules, 'n entities':n_entities,
+            'n waters':n_waters, 'n ions':n_ions, 'n cosolutes':n_cosolutes, 'n small molecules':n_small_molecules,
+            'n peptides':n_peptides, 'n proteins':n_proteins, 'n dnas':n_dnas, 'n rnas':n_rnas,
+            'n frames':n_frames}, index=[0])
 
-        if n_ions==0: tmp_df.drop(columns=['ions'], inplace=True)
-        if n_waters==0: tmp_df.drop(columns=['waters'], inplace=True)
-        if n_cosolutes==0: tmp_df.drop(columns=['cosolutes'], inplace=True)
-        if n_small_molecules==0: tmp_df.drop(columns=['small_molecules'], inplace=True)
-        if n_peptides==0: tmp_df.drop(columns=['peptides'], inplace=True)
-        if n_proteins==0: tmp_df.drop(columns=['proteins'], inplace=True)
-        if n_dnas==0: tmp_df.drop(columns=['dnas'], inplace=True)
-        if n_rnas==0: tmp_df.drop(columns=['rnas'], inplace=True)
+        if n_ions==0: tmp_df.drop(columns=['n ions'], inplace=True)
+        if n_waters==0: tmp_df.drop(columns=['n waters'], inplace=True)
+        if n_cosolutes==0: tmp_df.drop(columns=['n cosolutes'], inplace=True)
+        if n_small_molecules==0: tmp_df.drop(columns=['n small molecules'], inplace=True)
+        if n_peptides==0: tmp_df.drop(columns=['n peptides'], inplace=True)
+        if n_proteins==0: tmp_df.drop(columns=['n proteins'], inplace=True)
+        if n_dnas==0: tmp_df.drop(columns=['n dnas'], inplace=True)
+        if n_rnas==0: tmp_df.drop(columns=['n rnas'], inplace=True)
 
         return tmp_df.style.hide_index()
 
@@ -675,6 +756,17 @@ def get(item, target='atom', indices=None, selection='all', frame_indices='all',
             indices = select(item, target=target, selection=selection, syntaxis=syntaxis)
         else:
             indices = 'all'
+
+    if type(frame_indices)==str:
+        if frame_indices in ['all', 'All', 'ALL']:
+            frame_indices = 'all'
+        else:
+            raise ValueError()
+    elif type(frame_indices) in [int, _int64, _int]:
+        frame_indices = _array([frame_indices], dtype='int64')
+    elif hasattr(frame_indices, '__iter__'):
+        frame_indices = _array(frame_indices, dtype='int64')
+
 
     results = []
     for attribute in attributes:
