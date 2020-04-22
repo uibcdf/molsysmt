@@ -126,11 +126,7 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to load a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#From-a-file">From a file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Fetching-molecular-models-from-web-databases">Fetching molecular models from web databases</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#From-the-Protein-Data-Bank">From the Protein Data Bank</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#From-MMTF-file">From MMTF file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#From-internet-databases">From internet databases</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Convert.html">How to convert a form into other form</a><ul>
@@ -556,14 +552,13 @@ div.rendered_html tbody tr:hover {
 <p>Probably the first operation to begin to work with the model of a molecular system is loading it. There is a method to do that with MolSysMT no matter the original form or the desired output form: <code class="docutils literal notranslate"><span class="pre">molsysmt.load()</span></code>. Lets see some simple examples.</p>
 <div class="section" id="From-a-file">
 <h2>From a file<a class="headerlink" href="#From-a-file" title="Permalink to this headline">¶</a></h2>
-<p>MolSysMT is able to load several file formats, see the section <a class="reference internal" href="Forms.html#Files"><span class="std std-ref">‘Molecular systems forms’</span></a>. Here you can find some examples:</p>
+<p>MolSysMT is able to load several file formats, see the section <a class="reference internal" href="Forms.html#Files"><span class="std std-ref">‘Molecular systems forms’</span></a>. The following cells show some examples with three files (you can find here) loaded as different forms:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">PDB_file</span> <span class="o">=</span> <span class="s1">&#39;1brs.pdb&#39;</span>
-
 <span class="n">system_pdbfixer</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;pdbfixer.PDBFixer&#39;</span><span class="p">)</span>
 <span class="n">system_parmed</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;parmed.Structure&#39;</span><span class="p">)</span>
 </pre></div>
@@ -580,533 +575,48 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">MMTF_file</span> <span class="o">=</span> <span class="s1">&#39;1tcd.mmtf&#39;</span>
 <span class="n">system_aminoacids1_seq</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MMTF_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;aminoacids1:seq&#39;</span><span class="p">)</span>
-<span class="n">system_mdtraj</span>   <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MMTF_file</span><span class="p">)</span>
+<span class="n">system_molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MMTF_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The form of these last objects can be checked with the method <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code>. Although there is a documentation section to explain the use <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code> to obtain attributes and observables of the molecular system and its elements, knowing how to get the form name of a system is enough at this point:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ImportError</span>                               Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-6-a42bf44229cf&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> MMTF_file <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;1tcd.mmtf&#39;</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>system_aminoacids1_seq <span class="ansi-blue-fg">=</span> msm<span class="ansi-blue-fg">.</span>load<span class="ansi-blue-fg">(</span>MMTF_file<span class="ansi-blue-fg">,</span> to_form<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;aminoacids1:seq&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> system_mdtraj   <span class="ansi-blue-fg">=</span> msm<span class="ansi-blue-fg">.</span>load<span class="ansi-blue-fg">(</span>MMTF_file<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">load</span><span class="ansi-blue-fg">(item, selection, frame_indices, to_form, syntaxis, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    804</span>     &#34;&#34;&#34;
-<span class="ansi-green-intense-fg ansi-bold">    805</span>
-<span class="ansi-green-fg">--&gt; 806</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> convert<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span>selection<span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span>frame_indices<span class="ansi-blue-fg">,</span> to_form<span class="ansi-blue-fg">=</span>to_form<span class="ansi-blue-fg">,</span> syntaxis<span class="ansi-blue-fg">=</span>syntaxis<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    807</span>
-<span class="ansi-green-intense-fg ansi-bold">    808</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">convert</span><span class="ansi-blue-fg">(item, to_form, selection, frame_indices, syntaxis, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    876</span>         <span class="ansi-green-fg">if</span> form_out <span class="ansi-blue-fg">!=</span> form_in<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    877</span>             return _dict_converter[form_in][form_out](item, atom_indices=atom_indices,
-<span class="ansi-green-fg">--&gt; 878</span><span class="ansi-red-fg">                                                       frame_indices=frame_indices, **kwargs)
-</span><span class="ansi-green-intense-fg ansi-bold">    879</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    880</span>             <span class="ansi-green-fg">return</span> extract<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> selection<span class="ansi-blue-fg">=</span>atom_indices<span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span>frame_indices<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/forms/files/api_mmtf.py</span> in <span class="ansi-cyan-fg">to_aminoacids1_seq</span><span class="ansi-blue-fg">(item, atom_indices, frame_indices)</span>
-<span class="ansi-green-intense-fg ansi-bold">     51</span> <span class="ansi-green-fg">def</span> to_aminoacids1_seq<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> atom_indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;all&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     52</span>
-<span class="ansi-green-fg">---&gt; 53</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">from</span> molsysmt<span class="ansi-blue-fg">.</span>forms<span class="ansi-blue-fg">.</span>classes<span class="ansi-blue-fg">.</span>api_molsysmt_Composition <span class="ansi-green-fg">import</span> to_aminoacids1_seq <span class="ansi-green-fg">as</span> molsysmt_Composition_to_aminoacids1_seq
-<span class="ansi-green-intense-fg ansi-bold">     54</span>     tmp_item <span class="ansi-blue-fg">=</span> to_molsysmt_Composition<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> atom_indices<span class="ansi-blue-fg">=</span>atom_indices<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     55</span>     tmp_item <span class="ansi-blue-fg">=</span> molsysmt_Composition_to_aminoacids1_seq<span class="ansi-blue-fg">(</span>tmp_item<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">ImportError</span>: cannot import name &#39;to_aminoacids1_seq&#39; from &#39;molsysmt.forms.classes.api_molsysmt_Composition&#39; (/home/diego/Proyectos/MolSysMT/molsysmt/forms/classes/api_molsysmt_Composition.py)
+&#39;pdbfixer.PDBFixer&#39;
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
-<div class="alert alert-block alert-info"><p>Note: As you will see in Basic Manipuations, the method <code class="docutils literal notranslate"><span class="pre">molsysmt.load</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">molsysmt.convert</span></code>. The only reason to include <code class="docutils literal notranslate"><span class="pre">molsysmt.load</span></code> in MolSysMT is that ‘loading’ an initial object is more intuitive for many users than ‘converting’ a form.</p>
-</div></div>
-<div class="section" id="Fetching-molecular-models-from-web-databases">
-<h2>Fetching molecular models from web databases<a class="headerlink" href="#Fetching-molecular-models-from-web-databases" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="From-the-Protein-Data-Bank">
-<h3>From the Protein Data Bank<a class="headerlink" href="#From-the-Protein-Data-Bank" title="Permalink to this headline">¶</a></h3>
-<p>The way to tell MolSysMT that a string is a PDB ID code is adding ‘pdb:’ at the begining of the string as suffix. For instance, the ‘pdb:1SUX’ item is recognized as a molecular model encoded by its PDB ID, or using the MolSysMT’s jargon: as a molecular model in its ‘pdb:id’ form.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>Let see how this PDB ID can be used as input as the input item of <code class="docutils literal notranslate"><span class="pre">molsysmt.load()</span></code></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_model</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
-<p>In its most simple way of calling <code class="docutils literal notranslate"><span class="pre">molsysmt.load()</span></code>, the output is a molecular model in the native form of MolSysMT.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
-<p>You probably don’t remember how to fetch a pdb from the protein data bank to be loaded in your script as a parmed, pdbfixer, mdtraj, nglview, pytraj, mdanalysis, or mmtf native object -just to mention some-. One of the MolSysMT main features is the ability</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_model</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;mmtf.MMTFDecoder&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">mmtf</span> <span class="kn">import</span> <span class="n">fetch</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">aa</span> <span class="o">=</span> <span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;1sux&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">mmtf</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">help</span><span class="p">(</span><span class="n">mmtf</span><span class="o">.</span><span class="n">write_mmtf</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">mmtf</span><span class="o">.</span><span class="n">write_mmtf</span><span class="p">(</span><span class="s1">&#39;prueba.mmtf&#39;</span><span class="p">,</span><span class="n">aa</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">mmtf</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">write_mmtf</span><span class="p">(</span><span class="s1">&#39;nada.mmtf&#39;</span><span class="p">,</span><span class="n">aa</span><span class="p">,</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="From-MMTF-file">
-<h2>From MMTF file<a class="headerlink" href="#From-MMTF-file" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast docutils container">
+<p>This way we can easily verify the files were loaded with the form required:</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_model</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.DataFrame&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_model</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>atom.index</th>
-      <th>atom.name</th>
-      <th>atom.id</th>
-      <th>atom.type</th>
-      <th>atom.bonded_atom_indices</th>
-      <th>group.index</th>
-      <th>group.name</th>
-      <th>group.id</th>
-      <th>group.type</th>
-      <th>component.index</th>
-      <th>...</th>
-      <th>molecule.id</th>
-      <th>molecule.type</th>
-      <th>entity.index</th>
-      <th>entity.name</th>
-      <th>entity.id</th>
-      <th>entity.type</th>
-      <th>bioassembly.index</th>
-      <th>bioassembly.name</th>
-      <th>bioassembly.id</th>
-      <th>bioassembly.type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>N</td>
-      <td>1</td>
-      <td>N</td>
-      <td>[1]</td>
-      <td>0</td>
-      <td>LYS</td>
-      <td>4</td>
-      <td>aminoacid</td>
-      <td>0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>TRIOSEPHOSPHATE ISOMERASE</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>CA</td>
-      <td>2</td>
-      <td>C</td>
-      <td>[0, 2, 4]</td>
-      <td>0</td>
-      <td>LYS</td>
-      <td>4</td>
-      <td>aminoacid</td>
-      <td>0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>TRIOSEPHOSPHATE ISOMERASE</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2</td>
-      <td>C</td>
-      <td>3</td>
-      <td>C</td>
-      <td>[1, 3, 9]</td>
-      <td>0</td>
-      <td>LYS</td>
-      <td>4</td>
-      <td>aminoacid</td>
-      <td>0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>TRIOSEPHOSPHATE ISOMERASE</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>3</td>
-      <td>O</td>
-      <td>4</td>
-      <td>O</td>
-      <td>[2]</td>
-      <td>0</td>
-      <td>LYS</td>
-      <td>4</td>
-      <td>aminoacid</td>
-      <td>0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>TRIOSEPHOSPHATE ISOMERASE</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>4</td>
-      <td>CB</td>
-      <td>5</td>
-      <td>C</td>
-      <td>[1, 5]</td>
-      <td>0</td>
-      <td>LYS</td>
-      <td>4</td>
-      <td>aminoacid</td>
-      <td>0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>TRIOSEPHOSPHATE ISOMERASE</td>
-      <td>NaN</td>
-      <td>protein</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>3978</th>
-      <td>3978</td>
-      <td>O</td>
-      <td>3979</td>
-      <td>O</td>
-      <td>[]</td>
-      <td>657</td>
-      <td>HOH</td>
-      <td>339</td>
-      <td>water</td>
-      <td>162</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>1</td>
-      <td>water</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3979</th>
-      <td>3979</td>
-      <td>O</td>
-      <td>3980</td>
-      <td>O</td>
-      <td>[]</td>
-      <td>658</td>
-      <td>HOH</td>
-      <td>340</td>
-      <td>water</td>
-      <td>163</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>1</td>
-      <td>water</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3980</th>
-      <td>3980</td>
-      <td>O</td>
-      <td>3981</td>
-      <td>O</td>
-      <td>[]</td>
-      <td>659</td>
-      <td>HOH</td>
-      <td>341</td>
-      <td>water</td>
-      <td>164</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>1</td>
-      <td>water</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3981</th>
-      <td>3981</td>
-      <td>O</td>
-      <td>3982</td>
-      <td>O</td>
-      <td>[]</td>
-      <td>660</td>
-      <td>HOH</td>
-      <td>342</td>
-      <td>water</td>
-      <td>165</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>1</td>
-      <td>water</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3982</th>
-      <td>3982</td>
-      <td>O</td>
-      <td>3983</td>
-      <td>O</td>
-      <td>[]</td>
-      <td>661</td>
-      <td>HOH</td>
-      <td>343</td>
-      <td>water</td>
-      <td>166</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>1</td>
-      <td>water</td>
-      <td>NaN</td>
-      <td>water</td>
-      <td>0</td>
-      <td>1</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>3983 rows × 29 columns</p>
-</div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span><span class="n">group_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_pdbfixer: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_parmed: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_openmm: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_openmm</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_mdtraj: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_aminoacids1_seq: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_aminoacids1_seq</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_molsys: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_molsys</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1115,38 +625,52 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NotImplementedError</span>                       Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-10-a7ae1b71fc29&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>msm<span class="ansi-blue-fg">.</span>get<span class="ansi-blue-fg">(</span>molecular_model<span class="ansi-blue-fg">,</span>group_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/multitool.py</span> in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-fg">(item, target, indices, selection, frame_indices, syntaxis, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    647</span>     results <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    648</span>     <span class="ansi-green-fg">for</span> attribute <span class="ansi-green-fg">in</span> attributes<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 649</span><span class="ansi-red-fg">         </span>result <span class="ansi-blue-fg">=</span> _dict_get<span class="ansi-blue-fg">[</span>form_in<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>target<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>attribute<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> indices<span class="ansi-blue-fg">=</span>indices<span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span>frame_indices<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    650</span>         results<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>result<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    651</span>
-
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/forms/classes/get_fields.py</span> in <span class="ansi-cyan-fg">_raise_not_implemented_error</span><span class="ansi-blue-fg">(item, indices, frame_indices)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">def</span> _raise_not_implemented_error<span class="ansi-blue-fg">(</span>item<span class="ansi-blue-fg">,</span> indices<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> frame_indices<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">raise</span> NotImplementedError
-<span class="ansi-green-intense-fg ansi-bold">      5</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span> _common_fields = {
-
-<span class="ansi-red-fg">NotImplementedError</span>:
+Form of object system_pdbfixer:  pdbfixer.PDBFixer
+Form of object system_parmed:  parmed.Structure
+Form of object system_openmm:  openmm.Modeller
+Form of object system_mdtraj:  mdtraj.Trajectory
+Form of object system_aminoacids1_seq:  aminoacids1:seq
+Form of object system_molsys:  molsysmt.MolSys
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</div>
+<div class="section" id="From-internet-databases">
+<h2>From internet databases<a class="headerlink" href="#From-internet-databases" title="Permalink to this headline">¶</a></h2>
+<p>There is a special family of molecular system forms in MolSysMT: the id codes. Referring to certain systems by means of their PDB, UniProt or ChEMBL id code allows all of us working with shared purged and validated information. Thereby almost every python library or computational tool includes a way to fetch a system straight from the web server with few effort for the user. MolSysMT also does it. You probably don’t remember how to fetch a system from a server to be included in your work flow
+with parmed, pdbfixer, mdtraj, pytraj or mdanalysis native object -just to mention some-. MolSysMT assists you with a common method with a unique syntaxis for all these different molecular system forms or python objects.</p>
+<p>As you can see in section XXX, the way to tell MolSysMT that a string is an id code is adding a suffix with the name of the id nature follwed by “:” and the code. For instance, the ‘pdb:1SUX’ string is recognized by MolSysMT as a molecular model encoded by its PDB ID:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
 </div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;pdb:id&#39;
+</pre></div></div>
+</div>
+<p>Let see now how this PDB id can be used as the input item of <code class="docutils literal notranslate"><span class="pre">molsysmt.load()</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">system_mdtraj</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The set of id codes MolSysMT can work with can be found in the XXX.</p>
+<p>Finally, the method <code class="docutils literal notranslate"><span class="pre">molsysmt.load()</span></code> works with some input arguments such as <code class="docutils literal notranslate"><span class="pre">selection</span></code> or <code class="docutils literal notranslate"><span class="pre">indices</span></code>. Nothing was said about them in this section, you will find some examples on the use of these arguments in the section about the method <code class="docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code>.</p>
+<div class="alert alert-block alert-info"><p>Note: As you will see in the following section (How to), the method <code class="docutils literal notranslate"><span class="pre">molsysmt.load</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">molsysmt.convert</span></code>. The only reason to include <code class="docutils literal notranslate"><span class="pre">molsysmt.load</span></code> in MolSysMT is that ‘loading’ an initial object is more intuitive for many users than ‘converting’ a form.</p>
+</div></div>
 </div>
 
 

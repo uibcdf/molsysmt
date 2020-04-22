@@ -43,11 +43,17 @@ def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all
 
 def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_mmtf import to_mmtf as mmtf_to_mmtf_file
+    tmp_item = 'mmtf:'+item.split(':')[-1]
+    return mmtf_to_mmtf_file (tmp_item, output_file_path=output_file_path, atom_indices=atom_indices, frame_indices=frame_indices)
+
 
 def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_mmtf import to_mmtf_MMTFDecoder as mmtf_to_mmtf_MMTFDecoder
+    tmp_item = 'mmtf:'+item.split(':')[-1]
+    tmp_item = mmtf_to_mmtf_MMTFDecoder(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
@@ -193,6 +199,5 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import get_form
-    return get_form(item)
+    return form_name
 

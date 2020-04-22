@@ -13,18 +13,20 @@ info=["",""]
 
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Topology import to_aminoacids3_seq as mdtraj_Topology_to_aminoacids3_seq
+    from .api_molsysmt_Composition import to_aminoacids3_seq as molsysmt_composition_to_aminoacids3_seq
+    tmp_item = molsysmt_composition_to_aminoacids3_seq(item.composition, atom_indices=atom_indices,
+                                                      frame_indices=frame_indices)
 
-    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = mdtraj_Topology_to_aminoacids3_seq(tmp_item)
     return tmp_item
 
 def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_seq_to_aminoacids1_seq
-    tmp_item = to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = aminoacids3_seq_to_aminoacids1_seq(tmp_item)
+    from .api_molsysmt_Composition import to_aminoacids1_seq as molsysmt_composition_to_aminoacids1_seq
+    tmp_item = molsysmt_composition_to_aminoacids1_seq(item.composition,
+                                                      frame_indices=frame_indices)
+
     return tmp_item
+
 
 def to_biopython_Seq(item, atom_indices='all', frame_indices='all'):
 

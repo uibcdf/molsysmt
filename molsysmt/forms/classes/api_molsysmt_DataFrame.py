@@ -1,6 +1,6 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
-from molsysmt.native import DataFrame
+from molsysmt.native.dataframe import DataFrame
 from numpy import array as _array, unique as _unique, ndenumerate as _ndenumerate, concatenate as _concatenate
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
@@ -11,6 +11,17 @@ is_form={
 }
 
 info=["",""]
+
+def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
+
+
+    from molsysmt.native.io.dataframe.seqs import to_aminoacids3_seq as molsysmt_DataFrame_to_aminoacids3_seq
+    return molsysmt_DataFrame_to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.dataframe.seqs import to_aminoacids1_seq as molsysmt_DataFrame_to_aminoacids1_seq
+    return molsysmt_DataFrame_to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
 

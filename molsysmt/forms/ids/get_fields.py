@@ -87,6 +87,7 @@ _molecule_fields = deepcopy(_common_fields)
 _entity_fields = deepcopy(_common_fields)
 
 _system_fields = deepcopy(_common_fields)
+_system_fields['form'] = _raise_not_implemented_error
 _system_fields['box'] = _raise_not_implemented_error
 _system_fields['box_lengths'] = _raise_not_implemented_error
 _system_fields['box_angles'] = _raise_not_implemented_error

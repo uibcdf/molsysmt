@@ -124,11 +124,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Load.html">How to load a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-a-file">From a file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#Fetching-molecular-models-from-web-databases">Fetching molecular models from web databases</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-the-Protein-Data-Bank">From the Protein Data Bank</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-MMTF-file">From MMTF file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-internet-databases">From internet databases</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html">How to convert a form into other form</a><ul>
@@ -927,7 +923,7 @@
 
     <span class="k">pass</span></div>
 
-<span class="k">def</span> <span class="nf">get_form</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_get_form</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
     <span class="kn">from</span> <span class="nn">simtk.unit</span> <span class="kn">import</span> <span class="n">Quantity</span>
 
@@ -1304,10 +1300,10 @@
 <div class="viewcode-block" id="view"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.view.html#molsysmt.view">[docs]</a><span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;nglview&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">]:</span>
-        <span class="n">form_in</span> <span class="o">=</span> <span class="n">get_form</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">form_in</span> <span class="o">=</span> <span class="n">_get_form</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">form_in</span> <span class="o">=</span> <span class="n">get_form</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">form_in</span> <span class="o">=</span> <span class="n">_get_form</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">item</span>
 
     <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>

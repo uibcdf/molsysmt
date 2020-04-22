@@ -638,7 +638,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
     pass
 
-def get_form(item=None):
+def _get_form(item=None):
 
     from simtk.unit import Quantity
 
@@ -1015,10 +1015,10 @@ def write(item=None, filename=None, selection='all', frame_indices='all', syntax
 def view(item=None, viewer='nglview', selection='all', frame_indices='all', syntaxis='MolSysMT'):
 
     if type(item) in [list,tuple]:
-        form_in = get_form(item[0])
+        form_in = _get_form(item[0])
         tmp_item = merge(item)
     else:
-        form_in = get_form(item)
+        form_in = _get_form(item)
         tmp_item = item
 
     atom_indices = select(tmp_item, selection=selection, syntaxis=syntaxis)

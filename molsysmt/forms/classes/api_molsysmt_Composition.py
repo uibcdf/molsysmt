@@ -12,6 +12,20 @@ is_form={
 
 info=["",""]
 
+def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import to_aminoacids3_seq as molsysmt_dataframe_to_aminoacids3_seq
+    tmp_item = molsysmt_dataframe_to_aminoacids3_seq(item.dataframe, atom_indices=atom_indices,
+                                                      frame_indices=frame_indices)
+    return tmp_item
+
+def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
+
+    from .api_molsysmt_DataFrame import to_aminoacids1_seq as molsysmt_dataframe_to_aminoacids1_seq
+    tmp_item = molsysmt_dataframe_to_aminoacids1_seq(item.dataframe, atom_indices=atom_indices,
+                                                      frame_indices=frame_indices)
+    return tmp_item
+
 def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
 
     from .api_networkx_Graph import extract_subsystem as extract_networkx_Graph
@@ -26,8 +40,11 @@ def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-from molsysmt.native.io.composition.classes.molsysmt_DataFrame import to_molsysmt_DataFrame
-from molsysmt.native.io.composition.seqs.aminoacids1 import to_aminoacids1_seq
+def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.composition.classes.molsysmt_DataFrame import to_molsysmt_DataFrame as molsysmt_Composition_to_molsysmt_DataFrame
+    tmp_item = molsysmt_Composition_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 

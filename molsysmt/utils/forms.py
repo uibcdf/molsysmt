@@ -29,9 +29,9 @@ def parse_form_name(form):
 
 def digest(item, to_form=None):
 
-    from molsysmt import get_form
+    from molsysmt.multitool import _get_form
 
-    form_in = get_form(item)
+    form_in = _get_form(item)
 
     if to_form is not None:
         form_out = parse_form_name(to_form)

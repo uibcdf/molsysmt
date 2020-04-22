@@ -13,10 +13,8 @@ info=["",""]
 
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
     from Bio.SeqUtils import seq3
-    from .api_aminoacids3 import extract_subsystem as extract_aminoacids3
     tmp_item=seq3(item.replace('aminoacids1:',''))
-    tmp_item=extract_aminoacids3(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item
+    return 'aminoacids3:'+tmp_item
 
 def to_biopython_Seq(item, atom_indices='all', frame_indices='all'):
 
@@ -72,6 +70,5 @@ def duplicate(item):
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import get_form
-    return get_form(item)
+    return form_name
 

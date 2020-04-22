@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -14,32 +14,9 @@
    "cell_type": "code",
    "execution_count": 3,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "/home/diego/Myopt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/yank/experiment.py:1170: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.\n",
-      "  \"\"\")\n"
-     ]
-    },
-    {
-     "data": {
-      "application/vnd.jupyter.widget-view+json": {
-       "model_id": "e5b8d0b53fed42bb9d50b5780b727e2e",
-       "version_major": 2,
-       "version_minor": 0
-      },
-      "text/plain": [
-       "_ColormakerRegistry()"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
-    }
-   ],
+   "outputs": [],
    "source": [
-    "import molsysmt as m3t"
+    "import molsysmt as msm"
    ]
   },
   {
@@ -64,73 +41,111 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "molecular_model = m3t.convert('pdb:1TCD', 'molsysmt.MolSys')"
+    "#molecular_model = msm.convert('pdb:1TCD', 'molsysmt.MolSys')"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 5,
    "metadata": {},
+   "outputs": [],
+   "source": [
+    "molecular_system = msm.convert('1tcd.mmtf', 'molsysmt.MolSys')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
    "outputs": [
     {
      "data": {
       "text/html": [
-       "<div>\n",
-       "<style scoped>\n",
-       "    .dataframe tbody tr th:only-of-type {\n",
-       "        vertical-align: middle;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe tbody tr th {\n",
-       "        vertical-align: top;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe thead th {\n",
-       "        text-align: right;\n",
-       "    }\n",
-       "</style>\n",
-       "<table border=\"1\" class=\"dataframe\">\n",
-       "  <thead>\n",
-       "    <tr style=\"text-align: right;\">\n",
-       "      <th></th>\n",
-       "      <th>form</th>\n",
-       "      <th>atoms</th>\n",
-       "      <th>residues</th>\n",
-       "      <th>chains</th>\n",
-       "      <th>molecules</th>\n",
-       "      <th>waters</th>\n",
-       "      <th>ions</th>\n",
-       "      <th>frames</th>\n",
-       "    </tr>\n",
-       "  </thead>\n",
-       "  <tbody>\n",
-       "    <tr>\n",
-       "      <th>0</th>\n",
-       "      <td>molsysmt.MolSys</td>\n",
-       "      <td>3983</td>\n",
-       "      <td>662</td>\n",
-       "      <td>4</td>\n",
-       "      <td>0</td>\n",
-       "      <td>165</td>\n",
-       "      <td>0</td>\n",
-       "      <td>1</td>\n",
-       "    </tr>\n",
-       "  </tbody>\n",
-       "</table>\n",
-       "</div>"
+       "<style  type=\"text/css\" >\n",
+       "</style><table id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747\" ><thead>    <tr>        <th class=\"col_heading level0 col0\" >form</th>        <th class=\"col_heading level0 col1\" >n atoms</th>        <th class=\"col_heading level0 col2\" >n groups</th>        <th class=\"col_heading level0 col3\" >n components</th>        <th class=\"col_heading level0 col4\" >n chains</th>        <th class=\"col_heading level0 col5\" >n molecules</th>        <th class=\"col_heading level0 col6\" >n entities</th>        <th class=\"col_heading level0 col7\" >n waters</th>        <th class=\"col_heading level0 col8\" >n proteins</th>        <th class=\"col_heading level0 col9\" >n frames</th>    </tr></thead><tbody>\n",
+       "                <tr>\n",
+       "                                <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col0\" class=\"data row0 col0\" >molsysmt.MolSys</td>\n",
+       "                        <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col1\" class=\"data row0 col1\" >3983</td>\n",
+       "                        <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col2\" class=\"data row0 col2\" >662</td>\n",
+       "                        <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col3\" class=\"data row0 col3\" >167</td>\n",
+       "                        <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col4\" class=\"data row0 col4\" >4</td>\n",
+       "                        <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col5\" class=\"data row0 col5\" >166</td>\n",
+       "                        <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col6\" class=\"data row0 col6\" >2</td>\n",
+       "                        <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col7\" class=\"data row0 col7\" >165</td>\n",
+       "                        <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col8\" class=\"data row0 col8\" >1</td>\n",
+       "                        <td id=\"T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col9\" class=\"data row0 col9\" >1</td>\n",
+       "            </tr>\n",
+       "    </tbody></table>"
       ],
       "text/plain": [
-       "              form  atoms  residues  chains  molecules  waters  ions  frames\n",
-       "0  molsysmt.MolSys   3983       662       4          0     165     0       1"
+       "<pandas.io.formats.style.Styler at 0x7f486339d790>"
       ]
      },
-     "execution_count": 5,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "m3t.info(molecular_model)"
+    "msm.info(molecular_system)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'aminoacids3:LysProGlnProIleAlaAlaAlaAsnTrpLysCysAsnGlySerGluSerLeuLeuValProLeuIleGluThrLeuAsnAlaAlaThrPheAspHisAspValGlnCysValValAlaProThrPheLeuHisIleProMetThrLysAlaArgLeuThrAsnProLysPheGlnIleAlaAlaGlnAsnAlaIleThrArgSerGlyAlaPheThrGlyGluValSerLeuGlnIleLeuLysAspTyrGlyIleSerTrpValValLeuGlyHisSerGluArgArgLeuTyrTyrGlyGluThrAsnGluIleValAlaGluLysValAlaGlnAlaCysAlaAlaGlyPheHisValIleValCysValGlyGluThrAsnGluGluArgGluAlaGlyArgThrAlaAlaValValLeuThrGlnLeuAlaAlaValAlaGlnLysLeuSerLysGluAlaTrpSerArgValValIleAlaTyrGluProValTrpAlaIleGlyThrGlyLysValAlaThrProGlnGlnAlaGlnGluValHisGluLeuLeuArgArgTrpValArgSerLysLeuGlyThrAspIleAlaAlaGlnLeuArgIleLeuTyrGlyGlySerValThrAlaLysAsnAlaArgThrLeuTyrGlnMetArgAspIleAsnGlyPheLeuValGlyGlyAlaSerLeuLysProGluPheValGluIleIleGluAlaThrLysSerLysProGlnProIleAlaAlaAlaAsnTrpLysCysAsnGlySerGluSerLeuLeuValProLeuIleGluThrLeuAsnAlaAlaThrPheAspHisAspValGlnCysValValAlaProThrPheLeuHisIleProMetThrLysAlaArgLeuThrAsnProLysPheGlnIleAlaAlaGlnAsnAlaIleThrArgSerGlyAlaPheThrGlyGluValSerLeuGlnIleLeuLysAspTyrGlyIleSerTrpValValLeuGlyHisSerGluArgArgLeuTyrTyrGlyGluThrAsnGluIleValAlaGluLysValAlaGlnAlaCysAlaAlaGlyPheHisValIleValCysValGlyGluThrAsnGluGluArgGluAlaGlyArgThrAlaAlaValValLeuThrGlnLeuAlaAlaValAlaGlnLysLeuSerLysGluAlaTrpSerArgValValIleAlaTyrGluProValTrpAlaIleGlyThrGlyLysValAlaThrProGlnGlnAlaGlnGluValHisGluLeuLeuArgArgTrpValArgSerLysLeuGlyThrAspIleAlaAlaGlnLeuArgIleLeuTyrGlyGlySerValThrAlaLysAsnAlaArgThrLeuTyrGlnMetArgAspIleAsnGlyPheLeuValGlyGlyAlaSerLeuLysProGluPheValGluIleIleGluAlaThrLysHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHoh'"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "msm.convert(molecular_system, to_form='aminoacids3:seq')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'aminoacids3:seq'"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "msm.multitool._get_form(seq)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "seq"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "msm.convert(seq,to_form='aminoacids1:seq')"
    ]
   },
   {
@@ -142,20 +157,9 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": null,
    "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "3890"
-      ]
-     },
-     "execution_count": 6,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
     "m3t.get(molecular_model, n_bonds=True)"
    ]
@@ -169,7 +173,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -224,7 +228,12 @@
   {
    "cell_type": "markdown",
    "metadata": {},
-   "source": []
+   "source": [
+    "system_mmtf = msm.load('pdb:1SUX', to_form='1sux.pdb')\n",
+    "system_mmtf = msm.load('pdb:1SUX', to_form='1sux.mmtf')\n",
+    "system_mmtf = msm.load('pdb:1SUX', to_form='mmtf.MMTFDecoder')\n",
+    "system_parmed = msm.load('pdb:1SUX', to_form='parmed.Structure')"
+   ]
   }
  ],
  "metadata": {

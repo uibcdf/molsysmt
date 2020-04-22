@@ -15,3 +15,11 @@ class DataFrame(PandasDataFrame):
 
         super().__init__(columns=composition_columns)
 
+    def copy(self):
+
+        item = DataFrame()
+        for column in self.columns:
+            item[column]=self[column]
+
+        return item
+

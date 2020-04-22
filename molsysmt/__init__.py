@@ -2,7 +2,7 @@ from . import utils
 
 from .native.molsys import MolSys
 from .multitool import select, extract, merge, info, get, set, load,\
-                       convert, duplicate, write, view, get_form, remove
+                       convert, duplicate, write, view, remove
 from .info_multitool import info_forms, info_load, info_convert, info_select, info_viewers
 from .rmsd import rmsd, least_rmsd, least_rmsd_fit
 from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists

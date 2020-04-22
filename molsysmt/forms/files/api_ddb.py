@@ -26,6 +26,5 @@ def duplicate(item):
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import get_form
-    return get_form(item)
+    return form_name
 
