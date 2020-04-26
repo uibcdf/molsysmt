@@ -266,7 +266,7 @@ def get_charge_from_atom (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def form_name_from_atom (item, indices='all', frame_indices='all'):
+def get_form_from_atom (item, indices='all', frame_indices='all'):
 
     return form_name
 

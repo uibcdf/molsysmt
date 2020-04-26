@@ -21,6 +21,7 @@ def from_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
     atom_name_array = item["atom.name"].to_numpy()
     atom_id_array = item["atom.id"].to_numpy()
     atom_type_array = item["atom.type"].to_numpy()
+    atom_formal_charge_array = item["atom.formal_charge"].to_numpy()
 
     group_index_array = item["group.index"].to_numpy()
     group_name_array = item["group.name"].to_numpy()
@@ -59,7 +60,7 @@ def from_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
     former_molecule_index = -1
     former_bioassembly_index = -1
 
-    iterator = zip(atom_index_array, atom_name_array, atom_id_array, atom_type_array,
+    iterator = zip(atom_index_array, atom_name_array, atom_id_array, atom_type_array, atom_formal_charge_array,
             group_index_array, group_name_array, group_id_array, group_type_array,
             component_index_array, component_name_array, component_id_array, component_type_array,
             chain_index_array, chain_name_array, chain_id_array, chain_type_array,
@@ -67,7 +68,7 @@ def from_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
             molecule_index_array, molecule_name_array, molecule_id_array, molecule_type_array,
             bioassembly_index_array, bioassembly_name_array, bioassembly_id_array, bioassembly_type_array)
 
-    for atom_index, atom_name, atom_id, atom_type, group_index, group_name, group_id, group_type,\
+    for atom_index, atom_name, atom_id, atom_type, atom_formal_charge, group_index, group_name, group_id, group_type,\
     component_index, component_name, component_id, component_type, chain_index, chain_name,\
     chain_id, chain_type, entity_index, entity_name, entity_id, entity_type, molecule_index,\
     molecule_name, molecule_id, molecule_type, bioassembly_index, bioassembly_name, bioassembly_id,\
@@ -81,6 +82,7 @@ def from_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
         new_bioassembly = (former_bioassembly_index!=bioassembly_index)
 
         atom = elements.Atom(index=atom_index, id=atom_id, name=atom_name, type=atom_type)
+        atom.formal_charge = atom_formal_charge
         atoms.append(atom)
 
         if new_group:

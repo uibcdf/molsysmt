@@ -1,7 +1,6 @@
 
 def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
-
     from molsysmt.native import DataFrame
     from numpy import empty, array, arange, reshape, where, unique, nan, sort
     from molsysmt.elements.group import name_to_type as group_name_to_group_type
@@ -10,6 +9,8 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item = DataFrame()
 
     n_atoms = item.getNumAtoms()
+
+    # atoms, groups and chains
 
     atom_index_array = empty(n_atoms, dtype=int)
     atom_name_array = empty(n_atoms, dtype=object)
@@ -23,9 +24,9 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     group_type_array = empty(n_atoms, dtype=object)
 
     chain_index_array = empty(n_atoms, dtype=int)
-    #chain_name_array = empty(n_atoms, dtype=object)
+    chain_name_array = empty(n_atoms, dtype=object)
     chain_id_array = empty(n_atoms, dtype=object)
-    #chain_type_array = empty(n_atoms, dtype=object)
+    chain_type_array = empty(n_atoms, dtype=object)
 
     atom_index = 0
 
@@ -60,7 +61,14 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     tmp_item["chain.index"] = chain_index_array
     tmp_item["chain.id"] = chain_id_array
-    del(chain_index_array, chain_id_array)
+    del(chain_index_array, chain_id_array, chain_name_array, chain_type_array)
+
+    # components
+
+    component_index_array = empty(n_atoms, dtype=int)
+    component_name_array = empty(n_atoms, dtype=object)
+    component_id_array = empty(n_atoms, dtype=int)
+    component_type_array = empty(n_atoms, dtype=object)
 
     G = empty_graph(n_atoms)
 
@@ -79,11 +87,6 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     atom_indices_per_component = list(connected_components(G))
     del(G)
 
-    component_index_array = empty(n_atoms, dtype=int)
-    #component_name_array = empty(n_atoms, dtype=object)
-    #component_id_array = empty(n_atoms, dtype=int)
-    #component_type_array = empty(n_atoms, dtype=object)
-
     component_index = 0
 
     for atom_indices_of_component in atom_indices_per_component:
@@ -95,22 +98,32 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     tmp_item["component.index"] = component_index_array
 
-    del(component_index_array)
+    del(component_index_array, component_name_array, component_id_array, component_type_array)
 
-    bioassembly_index_array = empty(n_atoms, dtype=int)
-    bioassembly_index_array.fill(0)
-    tmp_item["bioassembly.index"] = bioassembly_index_array
-    del(bioassembly_index_array)
+    # molecule
 
     molecule_index_array = empty(n_atoms, dtype=int)
     molecule_index_array.fill(0)
     tmp_item["molecule.index"] = molecule_index_array
     del(molecule_index_array)
 
+    # entity
+
     entity_index_array = empty(n_atoms, dtype=int)
     entity_index_array.fill(0)
     tmp_item["entity.index"] = entity_index_array
     del(entity_index_array)
+
+    # bioassembly
+
+    bioassembly_index_array = empty(n_atoms, dtype=int)
+    bioassembly_index_array.fill(0)
+    tmp_item["bioassembly.index"] = bioassembly_index_array
+    del(bioassembly_index_array)
+
+    # nan to None
+
+    tmp_item._nan_to_None()
 
     return tmp_item
 

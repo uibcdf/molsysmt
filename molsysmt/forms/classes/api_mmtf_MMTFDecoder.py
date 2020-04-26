@@ -47,11 +47,21 @@ def duplicate(item):
 
     raise NotImplementedError
 
+def select_with_MDTraj(item, selection):
+
+    raise NotImplementedError
+
+def select_with_MolSysMT(item, selection):
+
+    from .api_molsysmt_DataFrame import select_with_MolSysMT as select_DataFrame_with_MolSysMT
+    tmp_item = to_molsysmt_DataFrame(item)
+    return select_DataFrame_with_MolSysMT(tmp_item, selection)
+
 ###### Get
 
 ## atom
 
-def get_frames_from_atom (item, indices='all', frame_indices='all'):
+def get_frame_from_atom (item, indices='all', frame_indices='all'):
 
     from numpy import arange, empty, zeros, column_stack
     from molsysmt.utils.pbc import get_box_from_lengths_and_angles
@@ -104,7 +114,7 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     return item.num_models
 
-def get_frames_from_system (item, indices='all', frame_indices='all'):
+def get_frame_from_system (item, indices='all', frame_indices='all'):
 
     from numpy import arange, empty, zeros, column_stack
     from molsysmt.utils.pbc import get_box_from_lengths_and_angles

@@ -5,8 +5,8 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     from molsysmt.native.io.composition.classes import from_molsysmt_DataFrame as molsysmt_composition_from_molsysmt_DataFrame
     from numpy import reshape, sum
 
-    dataframe = molsysmt_dataframe_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices,
-            frame_indices=frame_indices, bioassembly_index=bioassembly_index,
+    dataframe = molsysmt_dataframe_from_mmtf_MMTFDecoder(item, atom_indices='all',
+            frame_indices='all', bioassembly_index=bioassembly_index,
             bioassembly_name=bioassembly_name)
 
     tmp_item = molsysmt_composition_from_molsysmt_DataFrame(dataframe)
@@ -27,7 +27,6 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     # groups
 
-    atom_index=0
     count_atoms = 0
 
     for mmtf_group_type, group_index in zip(item.group_type_list, range(item.num_groups)):
@@ -39,35 +38,26 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         if group.type in ['aminoacid', 'nucleotide']:
             group.lettercode = mmtf_group['singleLetterCode']
 
-        # atoms
+        ## bonds intra-group
+        #for bond_pair, bond_order in zip(reshape(mmtf_group['bondAtomList'],(-1,2)), mmtf_group['bondOrderList']):
 
-        for atom_formal_charge in mmtf_group['formalChargeList']:
+        #    atom_index_0 = bond_pair[0]+count_atoms
+        #    atom_index_1 = bond_pair[1]+count_atoms
 
-            atom = tmp_item.atom[atom_index]
-            atom.formal_charge = atom_formal_charge
+        #    bond = tmp_item.atom[atom_index_0].bond_with_atom_index[atom_index_1]
+        #    bond.order = bond_order
 
-            atom_index+=1
-
-        # bonds intra-group
-        for bond_pair, bond_order in zip(reshape(mmtf_group['bondAtomList'],(-1,2)), mmtf_group['bondOrderList']):
-
-            atom_index_0 = bond_pair[0]+count_atoms
-            atom_index_1 = bond_pair[1]+count_atoms
-
-            bond = tmp_item.atom[atom_index_0].bond_with_atom_index[atom_index_1]
-            bond.order = bond_order
-
-        count_atoms += len(group.atom)
+        #count_atoms += len(group.atom)
 
     # bonds inter-groups
 
-    for bond_pair, bond_order in zip(reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
+    #for bond_pair, bond_order in zip(reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
 
-        atom_index_0 = bond_pair[0]
-        atom_index_1 = bond_pair[1]
+    #    atom_index_0 = bond_pair[0]
+    #    atom_index_1 = bond_pair[1]
 
-        bond = tmp_item.atom[atom_index_0].bond_with_atom_index[atom_index_1]
-        bond.order = bond_order
+    #    bond = tmp_item.atom[atom_index_0].bond_with_atom_index[atom_index_1]
+    #    bond.order = bond_order
 
     # entities
 
@@ -96,6 +86,8 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
 
     # End
+
+    tmp_item = tmp_item.extract(atom_indices=atom_indices)
 
     return tmp_item
 

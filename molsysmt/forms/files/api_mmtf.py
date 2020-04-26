@@ -62,6 +62,19 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
     tmp_item = molsysmt_Composition_to_aminoacids1_seq(tmp_item)
     return tmp_item
 
+def select_with_MDTraj(item, selection):
+
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import select_with_MDTraj as select_mmtf_MMTFDecoder_with_MDTraj
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    return select_mmtf_MMTFDecoder_with_MDTraj(tmp_item, selection)
+
+def select_with_MolSysMT(item, selection):
+
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import select_with_MolSysMT as select_mmtf_MMTFDecoder_with_MolSysMT
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    return select_mmtf_MMTFDecoder_with_MolSysMT(tmp_item, selection)
+
+
 ##### Get
 
 # System

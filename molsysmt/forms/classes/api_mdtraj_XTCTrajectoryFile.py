@@ -64,16 +64,16 @@ def duplicate(item):
 
 #### Get
 
-def get_frames_from_atom (item, indices='all', frame_indices='all'):
+def get_frame_from_atom (item, indices='all', frame_indices='all'):
 
-    step, time, xyz, box = load_frame(item, frame_indices, indices)
+    step, time, xyz, box = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
     return step, time, xyz, box
 
 # system
 
-def get_frames_from_system (item, indices='all', frame_indices='all'):
+def get_frame_from_system (item, indices='all', frame_indices='all'):
 
-    step, time, xyz, box = load_frame(item, indices=frame_indices)
+    step, time, xyz, box = load_frame(item, frame_indices=frame_indices)
     return step, time, xyz, box
 
 def get_n_frames_from_system (item, indices='all', frame_indices='all'):

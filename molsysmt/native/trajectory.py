@@ -85,10 +85,8 @@ class Trajectory():
 
             from .trajectory_file import TrajectoryFile
             self.file = TrajectoryFile(file_path=file_path)
-            self.box_shape = self.file.box_shape
 
-
-        step, time, coordinates, box = self.file.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
+        step, time, coordinates, box = self.file.read_frames(atom_indices=atom_indices, frame_indices=frame_indices)
 
         self._set_frames(atom_indices, step, time, coordinates, box)
 
@@ -113,7 +111,6 @@ class Trajectory():
             tmp_item.box = self.box[frame_indices]
             tmp_item.coordinates = self.coordinates[:,atom_indices,:]
             tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
-            tmp_item.box_shape = deepcopy(self.box_shape)
 
             tmp_item.atom_indices = atom_indices
             tmp_item.n_frames = len(frame_indices)
@@ -136,7 +133,6 @@ class Trajectory():
         tmp_item.time = deepcopy(self.time)
         tmp_item.coordinates = deepcopy(self.coordinates)
         tmp_item.box = deepcopy(self.box)
-        tmp_item.box_shape = deepcopy(self.box_shape)
 
         tmp_item.atom_indices = deepcopy(self.atom_indices)
         tmp_item.n_frames = deepcopy(self.n_frames)

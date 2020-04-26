@@ -20,7 +20,7 @@ def to_mdtraj_topology(item, atom_indices='all', frame_indices='all'):
 
 def load_frame (item, atom_indices='all', frame_indices='all'):
 
-    from numpy import array, concatenate, zeros, empty
+    from numpy import array, concatenate, zeros, empty, full
     from molsysmt.utils.pbc import get_box_from_lengths_and_angles
     from molsysmt.utils import units as molsysmt_units
     from simtk.unit import angstroms, nanometers, degrees, picoseconds
@@ -46,19 +46,25 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
     time = zeros([len(frame_indices)],dtype='float64')*picoseconds
     step = array(frame_indices, dtype='int64')
 
-    cell_lengths = empty([n_frames,3], dtype='float64')
-    cell_angles = empty([n_frames,3], dtype='float64')
-    for ii in range(3):
-        cell_lengths[:,ii] = item.unitcell_lengths[ii]
-        cell_angles[:,ii] = item.unitcell_angles[ii]
+    if item.unitcell_lengths is not None:
 
-    cell_lengths = cell_lengths*angstroms
-    cell_angles = cell_angles*degrees
+        cell_lengths = empty([n_frames,3], dtype='float64')
+        cell_angles = empty([n_frames,3], dtype='float64')
+        for ii in range(3):
+            cell_lengths[:,ii] = item.unitcell_lengths[ii]
+            cell_angles[:,ii] = item.unitcell_angles[ii]
 
-    box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
+        cell_lengths = cell_lengths*angstroms
+        cell_angles = cell_angles*degrees
+
+        box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
+        box = box.in_units_of(molsysmt_units.length)
+
+    else:
+
+        box = full(n_frames, None)*molsysmt_units.length
 
     xyz = xyz.in_units_of(molsysmt_units.length)
-    box = box.in_units_of(molsysmt_units.length)
     time = time.in_units_of(molsysmt_units.time)
 
     return step, time, xyz, box
@@ -76,14 +82,14 @@ def duplicate(item):
 
 #### Get
 
-def get_frames_from_atom (item, indices='all', frame_indices='all'):
+def get_frame_from_atom (item, indices='all', frame_indices='all'):
 
     step, time, xyz, box = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
     return step, time, xyz, box
 
 # system
 
-def get_frames_from_system (item, indices='all', frame_indices='all'):
+def get_frame_from_system (item, indices='all', frame_indices='all'):
 
     step, time, xyz, box = load_frame(item, atom_indices='all', frame_indices=frame_indices)
     return step, time, xyz, box

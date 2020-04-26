@@ -16,8 +16,8 @@ info=["",""]
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return ''.join([ r.name for r in tmp_item.groups ])
+    tmp_item = 'aminoacids3:'+''.join([ r.name.title() for r in item.residues ])
+    return tmp_item
 
 def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
@@ -164,316 +164,991 @@ def duplicate(item):
 ### Get
 ########################
 
-## from atom
-
-def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    return len(indices)
+## Atom
 
 def get_index_from_atom (item, indices='all', frame_indices='all'):
 
-    return indices
+    return get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
 
 def get_id_from_atom (item, indices='all', frame_indices='all'):
 
-    atom=list(item.atoms)
-    ids = [atom[ii].serial for ii in indices]
-    del(atom)
-    return ids
+    return get_atom_id_from_atom(item, indices=indices, frame_indices=frame_indices)
 
 def get_name_from_atom (item, indices='all', frame_indices='all'):
 
-    atom=list(item.atoms)
-    names = [atom[ii].name for ii in indices]
-    del(atom)
-    return names
+    return get_atom_name_from_atom(item, indices=indices, frame_indices=frame_indices)
 
-def get_element_from_atom (item, indices='all', frame_indices='all'):
+def get_type_from_atom (item, indices='all', frame_indices='all'):
 
-    atom=list(item.atoms)
-    elements = [atom[ii].element.symbol for ii in indices]
-    del(atom)
-    return elements
+    return get_atom_type_from_atom(item, indices=indices, frame_indices=frame_indices)
 
-def get_group_name_from_atom (item, indices='all', frame_indices='all'):
+def get_atom_index_from_atom (item, indices='all', frame_indices='all'):
 
-    atom=list(item.atoms)
-    names = [atom[ii].group.name for ii in indices]
-    del(atom)
-    return names
+    raise NotImplementedError
+
+def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_name_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    atom=list(item.atoms)
-    values = [atom[ii].group.index for ii in indices]
-    del(atom)
-    return values
+    raise NotImplementedError
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
-    atom=list(item.atoms)
-    values = [atom[ii].group.resSeq for ii in indices]
-    del(atom)
-    return values
+    raise NotImplementedError
 
-def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
+def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
-    names = [None for ii in indices]
-    return names
+    raise NotImplementedError
+
+def get_group_type_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_id_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_name_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_type_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    chains = list(item.chains)
-    id_to_index={}
-    for ii in range(len(chains)):
-        id_to_index[chains[ii].index]=ii
-
-    atom=list(item.atoms)
-    values = [id_to_index[atom[ii].group.chain.index] for ii in indices]
-    del(atom, chains)
-    return values
+    raise NotImplementedError
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
-    atom=list(item.atoms)
-    values = [atom[ii].group.chain.index for ii in indices]
-    del(atom)
-    return values
+    raise NotImplementedError
 
-def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
+def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
-    atom=list(item.atoms)
-    group_indices = [atom[ii].group.index for ii in indices]
-    group_indices = list(set(group_indices))
-    del(atom)
-    return len(group_indices)
+    raise NotImplementedError
 
-def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
+def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
 
-    atom=list(item.atoms)
-    chain_indices = [atom[ii].group.chain.index for ii in indices]
-    chain_indices = list(set(chain_indices))
-    del(atom)
-    return len(chain_indices)
+    raise NotImplementedError
 
-def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
+def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.topology import is_aminoacid
+    raise NotImplementedError
 
-    group_indices = get_group_index_from_atom(item, indices=indices)
-    group_indices = list(set(group_indices))
+def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
 
-    group=list(item.groups)
-    group_names = [group[ii].name for ii in group_indices]
-    del(group)
+    raise NotImplementedError
 
-    n_aminoacids=0
-    for group_name in group_names:
-        if is_aminoacid(group_name): n_aminoacids+=1
-    del(group_indices, group_names)
-    return n_aminoacids
+def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
-def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.topology import is_nucleotide
-
-    group_indices = get_group_index_from_atom(item, indices=indices)
-    group_indices = list(set(group_indices))
-
-    group=list(item.groups)
-    group_names = [group[ii].name for ii in group_indices]
-    del(group)
-
-    n_nucleotides=0
-    for group_name in group_names:
-        if is_nucleotide(group_name): n_nucleotides+=1
-    del(group_indices, group_names)
-    return n_nucleotides
-
-def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.topology import is_water
-
-    group_indices = get_group_index_from_atom(item, indices=indices)
-    group_indices = list(set(group_indices))
-
-    group=list(item.groups)
-    group_names = [group[ii].name for ii in group_indices]
-    del(group)
-
-    n_waters=0
-    for group_name in group_names:
-        if is_water(group_name): n_waters+=1
-    del(group_indices, group_names)
-    return n_waters
-
-def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.topology import is_ion
-
-    group_indices = get_group_index_from_atom(item, indices=indices)
-    group_indices = list(set(group_indices))
-
-    group=list(item.groups)
-    group_names = [group[ii].name for ii in group_indices]
-    del(group)
-
-    n_ions=0
-    for group_name in group_names:
-        if is_ion(group_name): n_ions+=1
-    del(group_indices, group_names)
-    return n_ions
-
-def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
-
-    n_molecules = get_molecules_from_atom (item, indices=indices, frame_indices=frame_indices)
-    return len(get(item, indices=indices, molecules=True))
-
-def get_masses_from_atom (item, indices='all', frame_indices='all'):
-
-    return [atom.element.mass for atom in item.atoms]
-
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    set_indices = set(indices)
-    tmp_bonded = { ii:[] for ii in indices}
-    for bond in item.bonds:
-        if bond.atom1.index in set_indices:
-            if bond.atom2.index in set_indices:
-                tmp_bonded[bond.atom1.index].append(bond.atom2.index)
-                tmp_bonded[bond.atom2.index].append(bond.atom1.index)
-    return tmp_bonded
-
-def get_bonds_from_atom (item, indices='all', frame_indices='all'):
-
-    tmp_bonds = []
-    for bond in item.bonds:
-        tmp_bonds.append([bond.atom1.index,bond.atom2.index])
-    return tmp_bonds
-
-def get_graph_from_atom (item, indices='all', frame_indices='all'):
-
-    return item.to_bondgraph()
-
-def get_molecules_from_atom (item, indices='all', frame_indices='all'):
-
-    set_indices = set(indices)
-    tmp_molecules = []
-    for mm in item.find_molecules():
-        molecule = [ii.index for ii in mm if ii.index in set_indices]
-        if len(molecule)>0:
-            tmp_molecules.append(molecule)
-
-    return tmp_molecules
+    raise NotImplementedError
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.topology import group_name_to_molecule_type
-    group_names = get_group_name_from_atom(item, indices=indices)
-    molecule_types = [group_name_to_molecule_type(ii) for ii in group_names]
-    del(group_names, group_name_to_molecule_type)
-    return molecule_types
+    raise NotImplementedError
+
+def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_components_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_bonds_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_form_from_atom (item, indices='all', frame_indices='all'):
+
+    return form_name
+
+## group
+
+def get_index_from_group (item, indices='all', frame_indices='all'):
+
+    return get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_group (item, indices='all', frame_indices='all'):
+
+    return get_group_id_from_group(item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_group (item, indices='all', frame_indices='all'):
+
+    return get_group_name_from_group(item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_group (item, indices='all', frame_indices='all'):
+
+    return get_group_type_from_group(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_id_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_name_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_type_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_index_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_id_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_name_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_type_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_index_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_id_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_name_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_type_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_index_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_id_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_name_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_type_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_index_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_id_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_name_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_type_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_index_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_id_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_name_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_type_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_atoms_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_groups_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_components_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_molecules_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_chains_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_entities_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_bonds_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_group (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## component
+
+def get_index_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_id_from_component(item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_name_from_component(item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_component (item, indices='all', frame_indices='all'):
+
+    return get_component_type_from_component(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_id_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_name_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_index_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_id_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_name_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_type_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_index_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_id_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_name_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_type_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_index_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_id_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_name_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_type_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_index_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_id_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_name_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_type_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_index_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_id_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_name_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_type_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_atoms_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_groups_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_components_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_molecules_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_chains_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_entities_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_bonds_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_component (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## molecule
+
+def get_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_id_from_molecule(item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_name_from_molecule(item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    return get_molecule_type_from_molecule(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_index_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_atoms_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_groups_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_components_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_molecules_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_chains_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_entities_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_bonds_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_molecule (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## chain
+
+def get_index_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_id_from_chain(item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_name_from_chain(item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_chain (item, indices='all', frame_indices='all'):
+
+    return get_chain_type_from_chain(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_id_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_name_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_type_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_index_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_id_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_name_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_type_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_index_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_id_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_name_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_type_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_index_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_id_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_name_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_index_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_id_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_name_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_type_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_atoms_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_groups_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_components_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_molecules_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_chains_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_entities_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_bonds_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## entity
+
+def get_index_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_index_from_entity(item, indices=indices, frame_indices=frame_indices)
+
+def get_id_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_id_from_entity(item, indices=indices, frame_indices=frame_indices)
+
+def get_name_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_name_from_entity(item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_entity (item, indices='all', frame_indices='all'):
+
+    return get_entity_type_from_entity(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_id_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_name_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_type_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_index_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_id_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_name_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_type_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_index_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_id_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_name_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_type_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_index_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_id_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_name_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_type_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_index_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_id_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_name_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_type_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_index_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_atoms_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_groups_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_components_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_molecules_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_chains_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_entities_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_bonds_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_mass_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_charge_from_entity (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 
 ## system
 
-def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
+def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_atoms
+    raise NotImplementedError
 
-def get_n_groups_from_system (item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_groups
+    raise NotImplementedError
 
-def get_n_chains_from_system (item, indices='all', frame_indices='all'):
+def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    return item.n_chains
+    raise NotImplementedError
+
+def get_n_components_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_chains_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_entities_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
-    from molsysmt.topology import is_aminoacid
-
-    n_aminoacids=0
-
-    for group in item.groups:
-        if is_aminoacid(group.name):
-            n_aminoacids+=1
-
-    return n_aminoacids
+    raise NotImplementedError
 
 def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
-    from molsysmt.topology import is_nucleotide
-
-    n_nucleotides=0
-
-    for group in item.groups:
-        if is_nucleotide(group.name):
-            n_nucleotides+=1
-
-    return n_nucleotides
-
-def get_n_waters_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.topology import is_water
-
-    n_waters=0
-
-    for group in item.groups:
-        if is_water(group.name):
-            n_waters+=1
-
-    return n_waters
+    raise NotImplementedError
 
 def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
-    from molsysmt.topology import is_ion
+    raise NotImplementedError
 
-    n_ions=0
+def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
-    for group in item.groups:
-        if is_ion(group.name):
-            n_ions+=1
+    raise NotImplementedError
 
-    return n_ions
+def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 
-def get_n_molecules_from_system (item, indices='all', frame_indices='all'):
+    raise NotImplementedError
 
-    n_molecules = len(get_molecules_from_system(item))
-    return n_molecules
+def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
 
-def get_n_bonds_from_system (item, indices='all', frame_indices='all'):
+    raise NotImplementedError
 
-    return item.n_bonds
+def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
 
-def get_bonded_atoms_from_system (item, indices='all', frame_indices='all'):
+    raise NotImplementedError
 
-    tmp_bonded = [[] for ii in range(item.n_atoms)]
-    for bond in item.bonds:
-        tmp_bonded[bond.atom1.index].append(bond.atom2.index)
-        tmp_bonded[bond.atom2.index].append(bond.atom1.index)
-    return tmp_bonded
+def get_n_proteins_from_system (item, indices='all', frame_indices='all'):
 
-def get_bonds_from_system (item, indices='all', frame_indices='all'):
+    raise NotImplementedError
 
-    tmp_bonds = []
-    for bond in item.bonds:
-        tmp_bonds.append([bond.atom1.index,bond.atom2.index])
-    return tmp_bonds
+def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
 
-def get_graph_from_system (item, indices='all', frame_indices='all'):
+    raise NotImplementedError
 
-    return item.to_bondgraph()
+def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
 
-def get_molecules_from_system (item, indices='all', frame_indices='all'):
+    raise NotImplementedError
 
-    tmp_molecules = []
-    for mm in item.find_molecules():
-        tmp_molecules.append([ii.index for ii in mm])
-    return tmp_molecules
+def get_mass_from_system(item, indices='all', frame_indices='all'):
 
-def get_n_frames_from_system (item, indices='all', frame_indices='all'):
+    raise NotImplementedError
 
-    return 0
+def get_charge_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 

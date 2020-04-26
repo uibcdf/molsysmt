@@ -37,6 +37,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     atom_id_array = empty(n_atoms, dtype=int)
     atom_type_array = empty(n_atoms, dtype=object)
     atom_bonded_atom_indices_array = empty(n_atoms, dtype=object)
+    atom_formal_charge_array = empty(n_atoms, dtype=float)
 
     group_index_array = empty(n_atoms, dtype=int)
     group_name_array = empty(n_atoms, dtype=object)
@@ -64,6 +65,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
             atom_name_array[atom_index] = atom_name
             atom_id_array[atom_index] = item.atom_id_list[atom_index]
             atom_type_array[atom_index] = atom_type
+            atom_formal_charge_array[atom_index] = atom_formal_charge
 
             group_index_array[atom_index] = group_index
             group_name_array[atom_index] = group_name
@@ -75,7 +77,8 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     tmp_item["atom.name"] = atom_name_array
     tmp_item["atom.id"] = atom_id_array
     tmp_item["atom.type"] = atom_type_array
-    del(atom_name_array, atom_id_array, atom_type_array)
+    tmp_item["atom.formal_charge"] = atom_formal_charge_array
+    del(atom_name_array, atom_id_array, atom_type_array, atom_formal_charge_array)
 
     tmp_item["group.index"] = group_index_array
     tmp_item["group.name"] = group_name_array
@@ -272,6 +275,8 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     tmp_item["bioassembly.name"] = bioassembly_name_array
 
     del(bioassembly_index_array, bioassembly_name_array)
+
+    tmp_item = tmp_item.extract(atom_indices)
 
     return tmp_item
 

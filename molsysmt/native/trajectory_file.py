@@ -12,10 +12,11 @@ class TrajectoryFile():
 
         if file_path is not None and mode=='read':
 
-            from molsysmt import get, get_form, convert
+            from molsysmt.multitool import _get_form
+            from molsysmt import get, convert
 
             self.path = file_path
-            self.form = get_form(file_path)
+            self.form = _get_form(file_path)
 
             if self.form == 'xtc':
                 self.mount_point = convert(file_path, to_form='mdtraj.XTCTrajectoryFile')
@@ -28,8 +29,8 @@ class TrajectoryFile():
             else:
                 raise NotImplementedError
 
-            self.n_frames = get(self.mount_point, n_frames=True)
-            self.n_atoms = get(self.mount_point, n_atoms=True)
+            self.n_frames = get(self.mount_point, target='system', n_frames=True)
+            self.n_atoms = get(self.mount_point, target='system', n_atoms=True)
             self.opened = True
 
     def read_frames (self, atom_indices='all', frame_indices='all'):

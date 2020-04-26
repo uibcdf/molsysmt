@@ -11,20 +11,29 @@ info=["",""]
 
 info = ["Protein Data Bank file format","https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
 
-def to_molsysmt_MolSys(item, topology=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.files import from_pdb as _from_pdb
-    return _from_pdb(item, topology=topology, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.molsys.files import from_pdb as pdb_to_molsysmt_MolSys
+    tmp_item = pdb_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.files import from_pdb as _from_pdb
-    return _from_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.composition.files import from_pdb as pdb_to_molsysmt_Composition
+    tmp_item = pdb_to_molsysmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.dataframe.files import from_pdb as pdb_to_molsysmt_DataFrame
+    tmp_item = pdb_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_molsysmt_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.files import from_pdb as _from_pdb
-    return _from_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.trajectory.files import from_pdb as pdb_to_molsysmt_Trajectory
+    tmp_item = pdb_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
 
