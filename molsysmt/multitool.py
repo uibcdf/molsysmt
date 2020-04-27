@@ -879,57 +879,6 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
 
     pass
 
-def load (item, selection='all', frame_indices='all', to_form='molsysmt.MolSys', syntaxis='MolSysMT', **kwargs):
-
-    """load(item, selection='all', frame_indices='all', to_form='molsysmt.MolSys', syntaxis='MolSysMT', **kwargs)
-
-    Loading a molecular model.
-
-    A molecular model coming from a file can be loaded as a new object of any form supported by
-    MolSysMt (see XXX). This method is just an alias of :func:`molsysmt.convert`. It was included here to make the
-    usability more intuitive.
-
-    Parameters
-    ----------
-
-    item: molecular model
-        Molecular model in any of the supported forms by MolSysMT.
-
-    to_form: str, default='molsysmt.MolSys'
-        Any accepted form by MolSysMt for the output object.
-
-    selection: str, list, tuple or np.ndarray, defaul='all'
-       Atoms selection over which this method applies. The selection can be given by a
-       list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
-
-    syntaxis: str, default='MolSysMT'
-       Syntaxis used in the argument `selection` (in case it is a string). The
-       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
-
-    Returns
-    -------
-
-       item: molecular model
-
-       A new object is returned with the form specified by the argument `to_form`.
-
-    Examples
-    --------
-
-    See Also
-    --------
-
-    :func:`molsysmt.convert`, :func:`molsysmt.select`
-
-    Notes
-    -----
-
-    """
-
-    return convert(item, selection=selection, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis, **kwargs)
-
-
 def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
     """convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs)

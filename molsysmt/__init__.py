@@ -1,7 +1,7 @@
 from . import utils
 
 from .native.molsys import MolSys
-from .multitool import select, extract, merge, info, get, set, load,\
+from .multitool import select, extract, merge, info, get, set, \
                        convert, duplicate, write, view, remove
 from .info_multitool import info_forms, info_load, info_convert, info_select, info_viewers
 from .rmsd import rmsd, least_rmsd, least_rmsd_fit
@@ -39,7 +39,7 @@ from .pockets import alpha_spheres
 #__all_chem_and_phys_properties__ = ['get_charge', 'get_net_charge', 'get_mass', 'get_net_mass',
 #                                    'get_degrees_of_freedom']
 
-__all_multitool__ = ['load', 'convert', 'info', 'select', 'get', 'set', 'load', 'convert',
+__all_multitool__ = ['convert', 'info', 'select', 'get', 'set', 'convert',
         'duplicate', 'write', 'view', 'get_form', 'extract', 'remove']
 __all_rmsd__ = ['rmsd', 'least_rmsd', 'least_rmsd_fit']
 __all_distances__ = ['distance', 'maximum_distance', 'minimum_distance', 'contact_map',

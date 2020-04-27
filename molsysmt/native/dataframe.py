@@ -10,8 +10,7 @@ class DataFrame(PandasDataFrame):
                                'component.index', 'component.name', 'component.id', 'component.type',
                                'chain.index', 'chain.name', 'chain.id', 'chain.type',
                                'molecule.index', 'molecule.name', 'molecule.id', 'molecule.type',
-                               'entity.index', 'entity.name', 'entity.id', 'entity.type',
-                               'bioassembly.index', 'bioassembly.name', 'bioassembly.id', 'bioassembly.type']
+                               'entity.index', 'entity.name', 'entity.id', 'entity.type']
 
 
         super().__init__(columns=composition_columns)
@@ -39,8 +38,7 @@ class DataFrame(PandasDataFrame):
 
         list_columns_where_nan = ['group.type', 'component.name', 'component.type',
                                  'chain.name', 'chain.type', 'molecule.name', 'molecule.type',
-                                 'entity.name', 'entity.type', 'bioassembly.name',
-                                  'bioassembly.type']
+                                 'entity.name', 'entity.type']
 
         for column in list_columns_where_nan:
             self[column].where(self[column].notnull(), None, inplace=True)

@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="native.elements.chain" href="molsysmt.native.elements.chain.html" />
-    <link rel="prev" title="native.elements.entity" href="molsysmt.native.elements.entity.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -124,18 +122,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Load.html">How to load a molecular system</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-a-file">From a file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-internet-databases">From internet databases</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html">How to convert a form into other form</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Convert.html#PDB-ID-to-molsysmt.MolSys">PDB ID to molsysmt.MolSys</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Convert.html#PDB-ID-to-mmtf.MMTFDecoder">PDB ID to mmtf.MMTFDecoder</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html">How to convert a form into other form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html#From-load">From load</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Selection.html">Elements selection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
@@ -169,9 +157,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/View.html">Viewing a molecular system</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Basic manipulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.load.html">load</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.convert.html">convert</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.info.html">info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.select.html">select</a></li>
@@ -211,13 +198,12 @@
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">get</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index_elements.html">Elements</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index_elements.html">Elements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.atom.html">native.elements.atom</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.group.html">native.elements.group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.component.html">native.elements.component</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.molecule.html">native.elements.molecule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.entity.html">native.elements.entity</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">native.elements.bioassembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.chain.html">native.elements.chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bond.html">native.elements.bond</a></li>
 </ul>
@@ -267,8 +253,6 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index_elements.html">Elements</a> &raquo;</li>
-        
       <li>native.elements.bioassembly</li>
     
     
@@ -312,102 +296,8 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="module-molsysmt.native.elements.bioassembly">
-<span id="native-elements-bioassembly"></span><h1>native.elements.bioassembly<a class="headerlink" href="#module-molsysmt.native.elements.bioassembly" title="Permalink to this headline">¶</a></h1>
-<p class="rubric">Functions</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bioassembly_init_wizard</span></code>([index, id, name, type])</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Classes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#molsysmt.native.elements.bioassembly.BioAssembly" title="molsysmt.native.elements.bioassembly.BioAssembly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BioAssembly</span></code></a>([index, id, name, type])</p></td>
-<td><p>BioAssembly element.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">BioAssembly_Transformation</span></code>()</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<dl class="class">
-<dt id="molsysmt.native.elements.bioassembly.BioAssembly">
-<em class="property">class </em><code class="sig-prename descclassname">molsysmt.native.elements.bioassembly.</code><code class="sig-name descname">BioAssembly</code><span class="sig-paren">(</span><em class="sig-param">index=None</em>, <em class="sig-param">id=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">type=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/native/elements/bioassembly.html#BioAssembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.native.elements.bioassembly.BioAssembly" title="Permalink to this definition">¶</a></dt>
-<dd><p>BioAssembly element.</p>
-<p>Blablabla descripcion.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>index</strong><span class="classifier">int</span></dt><dd><p>Description of index.</p>
-</dd>
-<dt><strong>id</strong><span class="classifier">int or str</span></dt><dd><p>Description of id.</p>
-</dd>
-<dt><strong>name</strong><span class="classifier">str</span></dt><dd><p>Description of name.</p>
-</dd>
-<dt><strong>type</strong><span class="classifier">int</span></dt><dd><p>Description of type.</p>
-</dd>
-<dt><strong>transformation</strong><span class="classifier">str</span></dt><dd><p>Description of transformation.</p>
-</dd>
-<dt><strong>atom</strong><span class="classifier">list of objects</span></dt><dd><p>Description of atom</p>
-</dd>
-<dt><strong>atom_indices</strong><span class="classifier">list of ints</span></dt><dd><p>Description of atom</p>
-</dd>
-<dt><strong>n_atoms</strong><span class="classifier">list of ints</span></dt><dd><p>Description of n_atoms</p>
-</dd>
-<dt><strong>group</strong><span class="classifier">list of objects</span></dt><dd><p>Description of group</p>
-</dd>
-<dt><strong>group_indices</strong><span class="classifier">list of ints</span></dt><dd><p>Description of group_indices</p>
-</dd>
-<dt><strong>n_groups</strong><span class="classifier">list of ints</span></dt><dd><p>Description of n_groups</p>
-</dd>
-<dt><strong>component</strong><span class="classifier">list of objects</span></dt><dd><p>Description of component</p>
-</dd>
-<dt><strong>component_indices</strong><span class="classifier">list of ints</span></dt><dd><p>Description of component_indices</p>
-</dd>
-<dt><strong>n_components</strong><span class="classifier">list of ints</span></dt><dd><p>Description of n_components</p>
-</dd>
-<dt><strong>molecule</strong><span class="classifier">list of objects</span></dt><dd><p>Description of molecule</p>
-</dd>
-<dt><strong>molecule_indices</strong><span class="classifier">list of ints</span></dt><dd><p>Description of molecule_indices</p>
-</dd>
-<dt><strong>n_molecules</strong><span class="classifier">list of ints</span></dt><dd><p>Description of n_molecules</p>
-</dd>
-<dt><strong>chain</strong><span class="classifier">list of objects</span></dt><dd><p>Description of chain</p>
-</dd>
-<dt><strong>chain_indices</strong><span class="classifier">list of ints</span></dt><dd><p>Description of chain_indices</p>
-</dd>
-<dt><strong>n_chains</strong><span class="classifier">list of ints</span></dt><dd><p>Description of n_chains</p>
-</dd>
-<dt><strong>entity</strong><span class="classifier">list of objects</span></dt><dd><p>Description of entity</p>
-</dd>
-<dt><strong>entity_indices</strong><span class="classifier">list of ints</span></dt><dd><p>Description of entity_indices</p>
-</dd>
-<dt><strong>n_entities</strong><span class="classifier">list of ints</span></dt><dd><p>Description of n_entities</p>
-</dd>
-<dt><strong>bond</strong><span class="classifier">list of objects</span></dt><dd><p>Description of bond</p>
-</dd>
-<dt><strong>bond_indices</strong><span class="classifier">list of ints</span></dt><dd><p>Description of bond_indices</p>
-</dd>
-<dt><strong>bonded_atom_indices</strong><span class="classifier">list of ints</span></dt><dd><p>Description of bonded_atom_indices</p>
-</dd>
-<dt><strong>n_bonds</strong><span class="classifier">list of ints</span></dt><dd><p>Description of n_bonds</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+<div class="section" id="native-elements-bioassembly">
+<h1>native.elements.bioassembly<a class="headerlink" href="#native-elements-bioassembly" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -415,15 +305,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="molsysmt.native.elements.chain.html" class="btn btn-neutral float-right" title="native.elements.chain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="molsysmt.native.elements.entity.html" class="btn btn-neutral float-left" title="native.elements.entity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

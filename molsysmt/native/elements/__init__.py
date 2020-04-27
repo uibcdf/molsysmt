@@ -1,4 +1,3 @@
-from .bioassembly import BioAssembly, BioAssembly_Transformation, bioassembly_init_wizard
 from .entity import Entity, entity_init_wizard
 from .molecule import Molecule, molecule_init_wizard
 from .chain import Chain, chain_init_wizard

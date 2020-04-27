@@ -35,9 +35,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="convert" href="molsysmt.convert.html" />
-    <link rel="prev" title="Basic manipulations" href="../index.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -124,18 +122,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Load.html">How to load a molecular system</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-a-file">From a file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-internet-databases">From internet databases</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html">How to convert a form into other form</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Convert.html#PDB-ID-to-molsysmt.MolSys">PDB ID to molsysmt.MolSys</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Convert.html#PDB-ID-to-mmtf.MMTFDecoder">PDB ID to mmtf.MMTFDecoder</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html">How to convert a form into other form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html#From-load">From load</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Selection.html">Elements selection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
@@ -169,9 +157,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/View.html">Viewing a molecular system</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Basic manipulations</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">load</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Basic manipulations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.convert.html">convert</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.info.html">info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.select.html">select</a></li>
@@ -217,7 +204,6 @@
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.component.html">native.elements.component</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.molecule.html">native.elements.molecule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.entity.html">native.elements.entity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bioassembly.html">native.elements.bioassembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.chain.html">native.elements.chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bond.html">native.elements.bond</a></li>
 </ul>
@@ -267,8 +253,6 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">Basic manipulations</a> &raquo;</li>
-        
       <li>load</li>
     
     
@@ -314,44 +298,6 @@
 </style>
 <div class="section" id="load">
 <h1>load<a class="headerlink" href="#load" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="molsysmt.load">
-<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">frame_indices='all'</em>, <em class="sig-param">to_form='molsysmt.MolSys'</em>, <em class="sig-param">syntaxis='MolSysMT'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/multitool.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loading a molecular model.</p>
-<p>A molecular model coming from a file can be loaded as a new object of any form supported by
-MolSysMt (see XXX). This method is just an alias of <a class="reference internal" href="molsysmt.convert.html#molsysmt.convert" title="molsysmt.convert"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code></a>. It was included here to make the
-usability more intuitive.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>item: molecular model</strong></dt><dd><p>Molecular model in any of the supported forms by MolSysMT.</p>
-</dd>
-<dt><strong>to_form: str, default=’molsysmt.MolSys’</strong></dt><dd><p>Any accepted form by MolSysMt for the output object.</p>
-</dd>
-<dt><strong>selection: str, list, tuple or np.ndarray, defaul=’all’</strong></dt><dd><p>Atoms selection over which this method applies. The selection can be given by a
-list, tuple or numpy array of integers (0-based), or by means of a string following any of
-the selection syntaxis parsable by MolSysMT (see: <a class="reference internal" href="molsysmt.select.html#molsysmt.select" title="molsysmt.select"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.select()</span></code></a>).</p>
-</dd>
-<dt><strong>syntaxis: str, default=’MolSysMT’</strong></dt><dd><p>Syntaxis used in the argument <cite>selection</cite> (in case it is a string). The
-current options supported by MolSysMt can be found in section XXX (see: <a class="reference internal" href="molsysmt.select.html#molsysmt.select" title="molsysmt.select"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.select()</span></code></a>).</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>item: molecular model</dt><dd><p>A new object is returned with the form specified by the argument <cite>to_form</cite>.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference internal" href="molsysmt.convert.html#molsysmt.convert" title="molsysmt.convert"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code></a>, <a class="reference internal" href="molsysmt.select.html#molsysmt.select" title="molsysmt.select"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.select()</span></code></a></dt><dd></dd>
-</dl>
-</div>
-</dd></dl>
-
 </div>
 
 
@@ -359,15 +305,6 @@ current options supported by MolSysMt can be found in section XXX (see: <a class
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="molsysmt.convert.html" class="btn btn-neutral float-right" title="convert" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../index.html" class="btn btn-neutral float-left" title="Basic manipulations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

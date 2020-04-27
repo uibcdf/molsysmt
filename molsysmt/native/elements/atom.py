@@ -30,8 +30,6 @@ class Atom:
         Description of molecule.
     entity : obj
         Description of molecule.
-    bioassembly : obj
-        Description of bioassembly.
 
     bond_with_atom_index : x
         Dictionary.
@@ -74,7 +72,6 @@ class Atom:
         self.chain = None
         self.molecule = None
         self.entity = None
-        self.bioassembly = None
 
         self.bond_with_atom_index = {}
         self.bond_indices = []
@@ -100,9 +97,6 @@ class Atom:
 
         if entity and (self.entity is None):
             raise IncompleteElementError("Atom index {} has no entity".format(self.index))
-
-        if bioassembly and (self.bioassembly is None):
-            raise IncompleteElementError("Atom index {} has no bioassembly".format(self.index))
 
     def _update_bonds(self):
 

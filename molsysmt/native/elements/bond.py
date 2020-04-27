@@ -21,8 +21,6 @@ class Bond():
         Description of molecule.
     entity : obj
         Description of entity.
-    bioassembly : obj
-        Description of bioassembly.
     """
 
     def __init__(self, index=None, atoms=None, order=None):
@@ -61,7 +59,4 @@ class Bond():
 
         if entity and (self.entity is None):
             raise IncompleteElementError("Bond index {} has no entity".format(self.index))
-
-        if bioassembly and (self.bioassembly is None):
-            raise IncompleteElementError("Bond index {} has no bioassembly".format(self.index))
 

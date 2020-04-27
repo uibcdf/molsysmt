@@ -40,7 +40,6 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/User_Guide/Forms.ipynb
    MolSys.md
    Elements.md
-   contents/User_Guide/Load.ipynb
    contents/User_Guide/Convert.ipynb
    contents/User_Guide/Selection.ipynb
    contents/User_Guide/Get.ipynb

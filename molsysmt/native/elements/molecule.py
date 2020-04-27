@@ -40,8 +40,6 @@ class Molecule():
 
     entity : object
         Description of entity
-    bioassembly : object
-        Description of bioassembly
 
     """
 
@@ -81,7 +79,6 @@ class Molecule():
         self.n_components = 0
 
         self.entity = None
-        self.bioassembly = None
 
     def _sanity_check (self, atoms=True, groups=True, components=True,
             entity=True, bioassembly=True, children_elements=False):
@@ -111,9 +108,6 @@ class Molecule():
 
         if entity and (self.entity is None):
             raise IncompleteElementError("Molecule index {} has no entity".format(self.index))
-
-        if bioassembly and (self.bioassembly is None):
-            raise IncompleteElementError("Molecule index {} has no bioassembly".format(self.index))
 
     def _update_atoms(self):
 

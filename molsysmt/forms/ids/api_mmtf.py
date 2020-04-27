@@ -38,23 +38,26 @@ def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys
-    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.molsys.ids import from_mmtf as mmtf_to_molsysmt_MolSys
+    tmp_item = mmtf_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Composition as mmtf_MMTFDecoder_to_molsysmt_Composition
-    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Composition(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.composition.ids import from_mmtf as mmtf_to_molsysmt_Composition
+    tmp_item = mmtf_to_molsysmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.dataframe.ids import from_mmtf as mmtf_to_molsysmt_DataFrame
+    tmp_item = mmtf_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
-    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.trajectory.ids import from_mmtf as mmtf_to_molsysmt_Trajectory
+    tmp_item = mmtf_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):

@@ -38,8 +38,6 @@ class Component():
         Description of chain.
     entity : obj
         Description of molecule.
-    bioassembly : obj
-        Description of bioassembly.
 
     """
 
@@ -79,7 +77,6 @@ class Component():
         self.molecule = None
         self.chain = None
         self.entity = None
-        self.bioassembly = None
 
     def _sanity_check (self, atoms=True, groups=True, chain=True, molecule=True,
             entity=True, bioassembly=True, children_elements=False):
@@ -108,9 +105,6 @@ class Component():
 
         if entity and (self.entity is None):
             raise IncompleteElementError("Component index {} has no entity".format(self.index))
-
-        if bioassembly and (self.bioassembly is None):
-            raise IncompleteElementError("Component index {} has no bioassembly".format(self.index))
 
     def _update_atoms(self):
 

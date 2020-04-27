@@ -37,8 +37,6 @@ class Group:
         Description of molecule.        
     entity : obj
         Description of molecule.
-    bioassembly : obj
-        Description of bioassembly.
          
     """
 
@@ -78,7 +76,6 @@ class Group:
         self.chain = None
         self.molecule = None
         self.entity = None
-        self.bioassembly = None
 
     def _sanity_check (self, atoms=True, component=True, chain=True, molecule=True,
             entity=True, bioassembly=True, children_elements=True):
@@ -103,9 +100,6 @@ class Group:
 
         if entity and (self.entity is None):
             raise IncompleteElementError("Group index {} has no entity".format(self.index))
-
-        if bioassembly and (self.bioassembly is None):
-            raise IncompleteElementError("Group index {} has no bioassembly".format(self.index))
 
     def _update_atoms(self):
 

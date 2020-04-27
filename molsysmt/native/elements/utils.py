@@ -42,4 +42,3 @@ def MMTFDecoder_entity_to_entity_class_type(mmtf_entity):
 
     pass
 
-

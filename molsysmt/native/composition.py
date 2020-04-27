@@ -2,10 +2,6 @@ class Composition():
 
     def __init__(self):
 
-        self.bioassembly = []
-        self.bioassembly_indices = []
-        self.n_bioassemblies = 0
-
         self.entity = []
         self.entity_indices = []
         self.n_entities = 0
@@ -37,38 +33,38 @@ class Composition():
 
         self.dataframe = None
 
-    def _update_from_bioassembly(self):
+    #def _update_from_bioassembly(self):
 
-        if self.bioassembly is not None:
+    #    if self.bioassembly is not None:
 
-            self.entity = self.bioassembly.entity
-            self.entity_indices = self.bioassembly.entity_indices
-            self.n_entities = self.bioassembly.n_entities
+    #        self.entity = self.bioassembly.entity
+    #        self.entity_indices = self.bioassembly.entity_indices
+    #        self.n_entities = self.bioassembly.n_entities
 
-            self.molecule = self.bioassembly.molecule
-            self.molecule_indices = self.bioassembly.molecule_indices
-            self.n_molecules = self.bioassembly.n_molecules
+    #        self.molecule = self.bioassembly.molecule
+    #        self.molecule_indices = self.bioassembly.molecule_indices
+    #        self.n_molecules = self.bioassembly.n_molecules
 
-            self.chain = self.bioassembly.chain
-            self.chain_indices = self.bioassembly.chain_indices
-            self.n_chains = self.bioassembly.n_chains
+    #        self.chain = self.bioassembly.chain
+    #        self.chain_indices = self.bioassembly.chain_indices
+    #        self.n_chains = self.bioassembly.n_chains
 
-            self.component = self.bioassembly.component
-            self.component_indices = self.bioassembly.component_indices
-            self.n_components = self.bioassembly.n_components
+    #        self.component = self.bioassembly.component
+    #        self.component_indices = self.bioassembly.component_indices
+    #        self.n_components = self.bioassembly.n_components
 
-            self.group = self.bioassembly.group
-            self.groups = self.bioassembly.group_indices
-            self.n_groups = self.bioassembly.n_groups
+    #        self.group = self.bioassembly.group
+    #        self.groups = self.bioassembly.group_indices
+    #        self.n_groups = self.bioassembly.n_groups
 
-            self.atom = self.bioassembly.atom
-            self.atom_indices = self.bioassembly.atom_indices
-            self.n_atoms = self.bioassembly.n_atoms
+    #        self.atom = self.bioassembly.atom
+    #        self.atom_indices = self.bioassembly.atom_indices
+    #        self.n_atoms = self.bioassembly.n_atoms
 
-            self.bond = self.bioassembly.bond
-            self.bond_indices = self.bioassembly.bond_indices
-            self.bonded_atom_indices = self.bioassembly.bonded_atom_indices
-            self.n_bonds = self.bioassembly.n_bonds
+    #        self.bond = self.bioassembly.bond
+    #        self.bond_indices = self.bioassembly.bond_indices
+    #        self.bonded_atom_indices = self.bioassembly.bonded_atom_indices
+    #        self.n_bonds = self.bioassembly.n_bonds
 
     def _update_dataframe(self):
 
@@ -106,11 +102,6 @@ class Composition():
         tmp_item['entity.name'] = Series(atom.entity.name for atom in self.atom).values
         tmp_item['entity.id'] = Series(atom.entity.id for atom in self.atom).values
         tmp_item['entity.type'] = Series(atom.entity.type for atom in self.atom).values
-
-        tmp_item['bioassembly.index'] = Series(atom.bioassembly.index for atom in self.atom).values
-        tmp_item['bioassembly.name'] = Series(atom.bioassembly.name for atom in self.atom).values
-        tmp_item['bioassembly.id'] = Series(atom.bioassembly.id for atom in self.atom).values
-        tmp_item['bioassembly.type'] = Series(atom.bioassembly.type for atom in self.atom).values
 
         tmp_item.set_index(tmp_item['atom.index'].values)
 

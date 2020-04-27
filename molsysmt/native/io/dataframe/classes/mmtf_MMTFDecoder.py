@@ -1,6 +1,5 @@
 
-def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioassembly_index=0,
-        bioassembly_name=None):
+def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioassembly_index=0, bioassembly_name=None):
 
     from molsysmt.native import DataFrame
     from numpy import empty, array, arange, reshape, where, unique, nan
@@ -152,12 +151,12 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     entity_index_array = empty(n_atoms, dtype=int)
     entity_name_array = empty(n_atoms, dtype=object)
-    #entity_id_array = empty(n_atoms, dtype=object)
+    entity_id_array = empty(n_atoms, dtype=object)
     entity_type_array = empty(n_atoms, dtype=object)
 
     molecule_index_array = empty(n_atoms, dtype=int)
     molecule_name_array = empty(n_atoms, dtype=object)
-    #molecule_id_array = empty(n_atoms, dtype=object)
+    molecule_id_array = empty(n_atoms, dtype=object)
     molecule_type_array = empty(n_atoms, dtype=object)
 
     molecule_name_array.fill(nan)
@@ -178,6 +177,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
                 entity_index_array[atom_index] = entity_index
                 entity_name_array[atom_index] = entity_name
                 entity_type_array[atom_index] = entity_type
+                entity_id_array[atom_index] = entity_index
 
         if entity_type == "protein":
 
@@ -190,6 +190,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
                     molecule_index_array[atom_index] = molecule_index
                     molecule_name_array[atom_index] = molecule_name
                     molecule_type_array[atom_index] = molecule_type
+                    molecule_id_array[atom_index] = molecule_index
 
             molecule_index += 1
 
@@ -207,6 +208,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
                         molecule_index_array[atom_index] = molecule_index
                         molecule_name_array[atom_index] = molecule_name
                         molecule_type_array[atom_index] = molecule_type
+                        molecule_id_array[atom_index] = molecule_index
 
                     molecule_index += 1
 
@@ -224,6 +226,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
                         molecule_index_array[atom_index] = molecule_index
                         molecule_name_array[atom_index] = molecule_name
                         molecule_type_array[atom_index] = molecule_type
+                        molecule_id_array[atom_index] = molecule_index
 
                     molecule_index += 1
 
@@ -236,45 +239,18 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     tmp_item["entity.index"] = entity_index_array
     tmp_item["entity.name"] = entity_name_array
     tmp_item["entity.type"] = entity_type_array
+    tmp_item["entity.id"] = entity_id_array
 
-    del(entity_index_array, entity_name_array, entity_type_array)
+    del(entity_index_array, entity_name_array, entity_type_array, entity_id_array)
 
     tmp_item["molecule.index"] = molecule_index_array
     tmp_item["molecule.name"] = molecule_name_array
     tmp_item["molecule.type"] = molecule_type_array
+    tmp_item["molecule.id"] = molecule_id_array
 
-    del(molecule_index_array, molecule_name_array, molecule_type_array)
+    del(molecule_index_array, molecule_name_array, molecule_type_array, molecule_id_array)
 
     del(group_index_array, chain_index_array, component_index_array)
-
-    # bioassembly
-
-    bioassembly_index_array = empty(n_atoms, dtype=int)
-    bioassembly_name_array = empty(n_atoms, dtype=object)
-    #bioassembly_id_array = empty(n_atoms, dtype=object)
-    #bioassembly_type_array = empty(n_atoms, dtype=object)
-
-    if bioassembly_name is not None:
-        name_found = False
-        index_bioassembly = 0
-        for mmtf_bioassembly in item.bio_assembly:
-            if bioassembly_name == mmtf_bioassembly['name']:
-                name_found = True
-                break
-            else:
-                index_bioassembly += 1
-        if not name_found:
-            raise ValueError("Bioassembly name not found in mmtf item.")
-    else:
-        bioassembly_name = item.bio_assembly[bioassembly_index]['name']
-
-    bioassembly_index_array.fill(bioassembly_index)
-    bioassembly_name_array.fill(bioassembly_name)
-
-    tmp_item["bioassembly.index"] = bioassembly_index_array
-    tmp_item["bioassembly.name"] = bioassembly_name_array
-
-    del(bioassembly_index_array, bioassembly_name_array)
 
     tmp_item = tmp_item.extract(atom_indices)
 

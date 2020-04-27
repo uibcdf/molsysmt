@@ -122,18 +122,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Load.html">How to load a molecular system</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-a-file">From a file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Load.html#From-internet-databases">From internet databases</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html">How to convert a form into other form</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Convert.html#PDB-ID-to-molsysmt.MolSys">PDB ID to molsysmt.MolSys</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Convert.html#PDB-ID-to-mmtf.MMTFDecoder">PDB ID to mmtf.MMTFDecoder</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html">How to convert a form into other form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Convert.html#From-load">From load</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Selection.html">Elements selection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
@@ -169,7 +159,6 @@
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">Basic manipulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.load.html">load</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.convert.html">convert</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.info.html">info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.select.html">select</a></li>
@@ -215,7 +204,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.component.html">native.elements.component</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.molecule.html">native.elements.molecule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.entity.html">native.elements.entity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bioassembly.html">native.elements.bioassembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.chain.html">native.elements.chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bond.html">native.elements.bond</a></li>
 </ul>
@@ -1163,57 +1151,6 @@
         <span class="n">_dict_set</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">target</span><span class="p">][</span><span class="n">attribute</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.load.html#molsysmt.load">[docs]</a><span class="k">def</span> <span class="nf">load</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-    <span class="sd">&quot;&quot;&quot;load(item, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, to_form=&#39;molsysmt.MolSys&#39;, syntaxis=&#39;MolSysMT&#39;, **kwargs)</span>
-
-<span class="sd">    Loading a molecular model.</span>
-
-<span class="sd">    A molecular model coming from a file can be loaded as a new object of any form supported by</span>
-<span class="sd">    MolSysMt (see XXX). This method is just an alias of :func:`molsysmt.convert`. It was included here to make the</span>
-<span class="sd">    usability more intuitive.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-
-<span class="sd">    item: molecular model</span>
-<span class="sd">        Molecular model in any of the supported forms by MolSysMT.</span>
-
-<span class="sd">    to_form: str, default=&#39;molsysmt.MolSys&#39;</span>
-<span class="sd">        Any accepted form by MolSysMt for the output object.</span>
-
-<span class="sd">    selection: str, list, tuple or np.ndarray, defaul=&#39;all&#39;</span>
-<span class="sd">       Atoms selection over which this method applies. The selection can be given by a</span>
-<span class="sd">       list, tuple or numpy array of integers (0-based), or by means of a string following any of</span>
-<span class="sd">       the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).</span>
-
-<span class="sd">    syntaxis: str, default=&#39;MolSysMT&#39;</span>
-<span class="sd">       Syntaxis used in the argument `selection` (in case it is a string). The</span>
-<span class="sd">       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-
-<span class="sd">       item: molecular model</span>
-
-<span class="sd">       A new object is returned with the form specified by the argument `to_form`.</span>
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-
-<span class="sd">    :func:`molsysmt.convert`, :func:`molsysmt.select`</span>
-
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">to_form</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.convert.html#molsysmt.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 

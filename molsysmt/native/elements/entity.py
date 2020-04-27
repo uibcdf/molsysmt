@@ -57,9 +57,6 @@ class Entity:
     n_chains : list of ints
         Description of n_chains
 
-    bioassembly : object
-        Description of bioassembly
-
     """
 
     def __init__(self, index=None, id=None, name=None, type=None):
@@ -109,8 +106,6 @@ class Entity:
         self.chain_indices = []
         self.n_chains = 0
 
-        self.bioassembly = None
-
     def _sanity_check(self, atoms=True, groups=True, components=True, chains=True, molecules=True,
            bioassembly=True, children_elements=False):
 
@@ -150,9 +145,6 @@ class Entity:
             elif children_elements:
                 for chain in self.chain:
                     chain._sanity_check()
-
-        if bioassembly and (self.bioassembly is None):
-            raise IncompleteElementError("Entity index {} has no bioassembly".format(self.index))
 
     def _update_atoms(self):
 

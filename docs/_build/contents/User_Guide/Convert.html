@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Elements selection" href="Selection.html" />
-    <link rel="prev" title="How to load a molecular system" href="Load.html" /> 
+    <link rel="prev" title="MolSys form" href="../../MolSys.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -124,18 +124,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../MolSys.html#trajectory">Trajectory</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Load.html">How to load a molecular system</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Load.html#From-a-file">From a file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Load.html#From-internet-databases">From internet databases</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How to convert a form into other form</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#PDB-ID-to-molsysmt.MolSys">PDB ID to molsysmt.MolSys</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#PDB-ID-to-mmtf.MMTFDecoder">PDB ID to mmtf.MMTFDecoder</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to convert a form into other form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#From-load">From load</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
@@ -171,7 +161,6 @@
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">Basic manipulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.load.html">load</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.convert.html">convert</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.info.html">info</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.select.html">select</a></li>
@@ -217,7 +206,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.component.html">native.elements.component</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.molecule.html">native.elements.molecule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.entity.html">native.elements.entity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bioassembly.html">native.elements.bioassembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.chain.html">native.elements.chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bond.html">native.elements.bond</a></li>
 </ul>
@@ -549,91 +537,479 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="How-to-convert-a-form-into-other-form">
 <h1>How to convert a form into other form<a class="headerlink" href="#How-to-convert-a-form-into-other-form" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="PDB-ID-to-molsysmt.MolSys">
-<h2>PDB ID to molsysmt.MolSys<a class="headerlink" href="#PDB-ID-to-molsysmt.MolSys" title="Permalink to this headline">¶</a></h2>
-<p>This is text</p>
+<p>The meaning of molecular system ‘form’, in the context of MolSysMT, has been described previously in the section XXX. There is in MolSysMT a method to convert a form into other form: <code class="docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code>. This method is the keystone of this library, the hinge all other methods and tools in MolSysMT rotates on. And in addition, the joining piece connecting the pipes of your work-flow when using different python libraries.</p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code> requires at least two input arguments: the original pre-existing item in whatever form accepted by MolSysMT (see XXX), and the name of the output form:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">#molecular_model = msm.convert(&#39;pdb:1TCD&#39;, &#39;molsysmt.MolSys&#39;)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;mmtf:1tcd&#39;</span><span class="p">,</span> <span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<p>The id code <code class="docutils literal notranslate"><span class="pre">1tcd</span></code> from the MMTF Protein Data Bank is converted into a native <code class="docutils literal notranslate"><span class="pre">molsysmt.MolSys</span></code> python object. At this point, you probably think that this operation can also be done with the method <code class="docutils literal notranslate"><span class="pre">molsysmt.load()</span></code>. And you are right. Actually, <code class="docutils literal notranslate"><span class="pre">molsysmt.load()</span></code> is nothing but an alias of <code class="docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code>. Although redundant, a loading method was included in MolSysMT just for the sake of intuitive usability. But it could be removed from the library since <code class="docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code> has
+the same functionality.</p>
+<p>The following cells illustrate some conversions you can do with <code class="docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code>:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">,</span> <span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1sux&#39;</span><span class="p">,</span> <span class="s1">&#39;1sux.pdb&#39;</span><span class="p">)</span> <span class="c1"># fetching a pdb file to save it locally</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;mmtf:1sux&#39;</span><span class="p">,</span> <span class="s1">&#39;1sux.mmtf&#39;</span><span class="p">)</span> <span class="c1"># fetching an mmtf to save it locally</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1tcd.pdb&#39;</span><span class="p">,</span> <span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span> <span class="c1"># loading a pdb file as an mdtraj.Trajectory object</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">seq_aa3</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;aminoacids3:seq&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">seq_aa3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+aminoacids3:LysProGlnProIleAlaAlaAlaAsnTrpLysCysAsnGlySerGluSerLeuLeuValProLeuIleGluThrLeuAsnAlaAlaThrPheAspHisAspValGlnCysValValAlaProThrPheLeuHisIleProMetThrLysAlaArgLeuThrAsnProLysPheGlnIleAlaAlaGlnAsnAlaIleThrArgSerGlyAlaPheThrGlyGluValSerLeuGlnIleLeuLysAspTyrGlyIleSerTrpValValLeuGlyHisSerGluArgArgLeuTyrTyrGlyGluThrAsnGluIleValAlaGluLysValAlaGlnAlaCysAlaAlaGlyPheHisValIleValCysValGlyGluThrAsnGluGluArgGluAlaGlyArgThrAlaAlaValValLeuThrGlnLeuAlaAlaValAlaGlnLysLeuSerLysGluAlaTrpSerArgValValIleAlaTyrGluProValTrpAlaIleGlyThrGlyLysValAlaThrProGlnGlnAlaGlnGluValHisGluLeuLeuArgArgTrpValArgSerLysLeuGlyThrAspIleAlaAlaGlnLeuArgIleLeuTyrGlyGlySerValThrAlaLysAsnAlaArgThrLeuTyrGlnMetArgAspIleAsnGlyPheLeuValGlyGlyAlaSerLeuLysProGluPheValGluIleIleGluAlaThrLysSerLysProGlnProIleAlaAlaAlaAsnTrpLysCysAsnGlySerGluSerLeuLeuValProLeuIleGluThrLeuAsnAlaAlaThrPheAspHisAspValGlnCysValValAlaProThrPheLeuHisIleProMetThrLysAlaArgLeuThrAsnProLysPheGlnIleAlaAlaGlnAsnAlaIleThrArgSerGlyAlaPheThrGlyGluValSerLeuGlnIleLeuLysAspTyrGlyIleSerTrpValValLeuGlyHisSerGluArgArgLeuTyrTyrGlyGluThrAsnGluIleValAlaGluLysValAlaGlnAlaCysAlaAlaGlyPheHisValIleValCysValGlyGluThrAsnGluGluArgGluAlaGlyArgThrAlaAlaValValLeuThrGlnLeuAlaAlaValAlaGlnLysLeuSerLysGluAlaTrpSerArgValValIleAlaTyrGluProValTrpAlaIleGlyThrGlyLysValAlaThrProGlnGlnAlaGlnGluValHisGluLeuLeuArgArgTrpValArgSerLysLeuGlyThrAspIleAlaAlaGlnLeuArgIleLeuTyrGlyGlySerValThrAlaLysAsnAlaArgThrLeuTyrGlnMetArgAspIleAsnGlyPheLeuValGlyGlyAlaSerLeuLysProGluPheValGluIleIleGluAlaThrLysHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHoh
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">seq_aa1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">seq_aa3</span><span class="p">,</span> <span class="s1">&#39;aminoacids1:seq&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">seq_aa1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+aminoacids1:KPQPIAAANWKCNGSESLLVPLIETLNAATFDHDVQCVVAPTFLHIPMTKARLTNPKFQIAAQNAITRSGAFTGEVSLQILKDYGISWVVLGHSERRLYYGETNEIVAEKVAQACAAGFHVIVCVGETNEEREAGRTAAVVLTQLAAVAQKLSKEAWSRVVIAYEPVWAIGTGKVATPQQAQEVHELLRRWVRSKLGTDIAAQLRILYGGSVTAKNARTLYQMRDINGFLVGGASLKPEFVEIIEATKSKPQPIAAANWKCNGSESLLVPLIETLNAATFDHDVQCVVAPTFLHIPMTKARLTNPKFQIAAQNAITRSGAFTGEVSLQILKDYGISWVVLGHSERRLYYGETNEIVAEKVAQACAAGFHVIVCVGETNEEREAGRTAAVVLTQLAAVAQKLSKEAWSRVVIAYEPVWAIGTGKVATPQQAQEVHELLRRWVRSKLGTDIAAQLRILYGGSVTAKNARTLYQMRDINGFLVGGASLKPEFVEIIEATKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+</pre></div></div>
+</div>
+<p>The conversion can be done over the entiry system or over a part of it. The input argument <code class="docutils literal notranslate"><span class="pre">selection</span></code> works with most of the MolSysMT methods, with <code class="docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code> also. To know more about how to perform selections there is a section on this documentation entitled “XXX”. By now, lets see some simple selections to see how it operates:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">system_molsysmt</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.DataFrame&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type==&quot;protein&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_molsysmt</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;molsysmt.DataFrame&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">system_molsysmt</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
-<style  type="text/css" >
-</style><table id="T_15c0c002_82ad_11ea_969d_6de95b74b747" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n waters</th>        <th class="col_heading level0 col8" >n proteins</th>        <th class="col_heading level0 col9" >n frames</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col1" class="data row0 col1" >3983</td>
-                        <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col2" class="data row0 col2" >662</td>
-                        <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col3" class="data row0 col3" >167</td>
-                        <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col4" class="data row0 col4" >4</td>
-                        <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col5" class="data row0 col5" >166</td>
-                        <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col6" class="data row0 col6" >2</td>
-                        <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col7" class="data row0 col7" >165</td>
-                        <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col8" class="data row0 col8" >1</td>
-                        <td id="T_15c0c002_82ad_11ea_969d_6de95b74b747row0_col9" class="data row0 col9" >1</td>
-            </tr>
-    </tbody></table></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>atom.index</th>
+      <th>atom.name</th>
+      <th>atom.id</th>
+      <th>atom.type</th>
+      <th>atom.formal_charge</th>
+      <th>atom.bonded_atom_indices</th>
+      <th>group.index</th>
+      <th>group.name</th>
+      <th>group.id</th>
+      <th>group.type</th>
+      <th>...</th>
+      <th>molecule.id</th>
+      <th>molecule.type</th>
+      <th>entity.index</th>
+      <th>entity.name</th>
+      <th>entity.id</th>
+      <th>entity.type</th>
+      <th>bioassembly.index</th>
+      <th>bioassembly.name</th>
+      <th>bioassembly.id</th>
+      <th>bioassembly.type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>N</td>
+      <td>1</td>
+      <td>N</td>
+      <td>0.0</td>
+      <td>[1]</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>CA</td>
+      <td>2</td>
+      <td>C</td>
+      <td>0.0</td>
+      <td>[0, 2, 4]</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>C</td>
+      <td>3</td>
+      <td>C</td>
+      <td>0.0</td>
+      <td>[1, 3, 9]</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>O</td>
+      <td>4</td>
+      <td>O</td>
+      <td>0.0</td>
+      <td>[2]</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>CB</td>
+      <td>5</td>
+      <td>C</td>
+      <td>0.0</td>
+      <td>[1, 5]</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>3813</th>
+      <td>3813</td>
+      <td>CG</td>
+      <td>3814</td>
+      <td>C</td>
+      <td>0.0</td>
+      <td>[3812, 3814]</td>
+      <td>496</td>
+      <td>LYS</td>
+      <td>251</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3814</th>
+      <td>3814</td>
+      <td>CD</td>
+      <td>3815</td>
+      <td>C</td>
+      <td>0.0</td>
+      <td>[3813, 3815]</td>
+      <td>496</td>
+      <td>LYS</td>
+      <td>251</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3815</th>
+      <td>3815</td>
+      <td>CE</td>
+      <td>3816</td>
+      <td>C</td>
+      <td>0.0</td>
+      <td>[3814, 3816]</td>
+      <td>496</td>
+      <td>LYS</td>
+      <td>251</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3816</th>
+      <td>3816</td>
+      <td>NZ</td>
+      <td>3817</td>
+      <td>N</td>
+      <td>1.0</td>
+      <td>[3815]</td>
+      <td>496</td>
+      <td>LYS</td>
+      <td>251</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3817</th>
+      <td>3817</td>
+      <td>OXT</td>
+      <td>3818</td>
+      <td>O</td>
+      <td>0.0</td>
+      <td>[3810]</td>
+      <td>496</td>
+      <td>LYS</td>
+      <td>251</td>
+      <td>aminoacid</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>NaN</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>3818 rows × 30 columns</p>
+</div></div>
 </div>
+</div>
+<div class="section" id="From-load">
+<h1>From load<a class="headerlink" href="#From-load" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;aminoacids3:seq&#39;</span><span class="p">)</span>
+<span></span><span class="n">PDB_file</span> <span class="o">=</span> <span class="s1">&#39;1brs.pdb&#39;</span>
+<span class="n">system_pdbfixer</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;pdbfixer.PDBFixer&#39;</span><span class="p">)</span>
+<span class="n">system_parmed</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">PDB_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;parmed.Structure&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;aminoacids3:LysProGlnProIleAlaAlaAlaAsnTrpLysCysAsnGlySerGluSerLeuLeuValProLeuIleGluThrLeuAsnAlaAlaThrPheAspHisAspValGlnCysValValAlaProThrPheLeuHisIleProMetThrLysAlaArgLeuThrAsnProLysPheGlnIleAlaAlaGlnAsnAlaIleThrArgSerGlyAlaPheThrGlyGluValSerLeuGlnIleLeuLysAspTyrGlyIleSerTrpValValLeuGlyHisSerGluArgArgLeuTyrTyrGlyGluThrAsnGluIleValAlaGluLysValAlaGlnAlaCysAlaAlaGlyPheHisValIleValCysValGlyGluThrAsnGluGluArgGluAlaGlyArgThrAlaAlaValValLeuThrGlnLeuAlaAlaValAlaGlnLysLeuSerLysGluAlaTrpSerArgValValIleAlaTyrGluProValTrpAlaIleGlyThrGlyLysValAlaThrProGlnGlnAlaGlnGluValHisGluLeuLeuArgArgTrpValArgSerLysLeuGlyThrAspIleAlaAlaGlnLeuArgIleLeuTyrGlyGlySerValThrAlaLysAsnAlaArgThrLeuTyrGlnMetArgAspIleAsnGlyPheLeuValGlyGlyAlaSerLeuLysProGluPheValGluIleIleGluAlaThrLysSerLysProGlnProIleAlaAlaAlaAsnTrpLysCysAsnGlySerGluSerLeuLeuValProLeuIleGluThrLeuAsnAlaAlaThrPheAspHisAspValGlnCysValValAlaProThrPheLeuHisIleProMetThrLysAlaArgLeuThrAsnProLysPheGlnIleAlaAlaGlnAsnAlaIleThrArgSerGlyAlaPheThrGlyGluValSerLeuGlnIleLeuLysAspTyrGlyIleSerTrpValValLeuGlyHisSerGluArgArgLeuTyrTyrGlyGluThrAsnGluIleValAlaGluLysValAlaGlnAlaCysAlaAlaGlyPheHisValIleValCysValGlyGluThrAsnGluGluArgGluAlaGlyArgThrAlaAlaValValLeuThrGlnLeuAlaAlaValAlaGlnLysLeuSerLysGluAlaTrpSerArgValValIleAlaTyrGluProValTrpAlaIleGlyThrGlyLysValAlaThrProGlnGlnAlaGlnGluValHisGluLeuLeuArgArgTrpValArgSerLysLeuGlyThrAspIleAlaAlaGlnLeuArgIleLeuTyrGlyGlySerValThrAlaLysAsnAlaArgThrLeuTyrGlnMetArgAspIleAsnGlyPheLeuValGlyGlyAlaSerLeuLysProGluPheValGluIleIleGluAlaThrLysHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHohHoh&#39;
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">multitool</span><span class="o">.</span><span class="n">_get_form</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&#39;aminoacids3:seq&#39;
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-975bf6838d87&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> PDB_file <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;1brs.pdb&#39;</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>system_pdbfixer <span class="ansi-blue-fg">=</span> msm<span class="ansi-blue-fg">.</span>load<span class="ansi-blue-fg">(</span>PDB_file<span class="ansi-blue-fg">,</span> to_form<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;pdbfixer.PDBFixer&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> system_parmed <span class="ansi-blue-fg">=</span> msm<span class="ansi-blue-fg">.</span>load<span class="ansi-blue-fg">(</span>PDB_file<span class="ansi-blue-fg">,</span> to_form<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;parmed.Structure&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;msm&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -641,7 +1017,9 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq</span>
+<span></span><span class="n">MOL2_file</span> <span class="o">=</span> <span class="s1">&#39;caffeine.mol2&#39;</span>
+<span class="n">system_openmm</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MOL2_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.Modeller&#39;</span><span class="p">)</span>
+<span class="n">system_mdtraj</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MOL2_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -650,28 +1028,9 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span><span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;aminoacids1:seq&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>Check that the number of molecules could not be computed since the topology inferred by a pdb file does not include bonds.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_model</span><span class="p">,</span> <span class="n">n_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="PDB-ID-to-mmtf.MMTFDecoder">
-<h3>PDB ID to mmtf.MMTFDecoder<a class="headerlink" href="#PDB-ID-to-mmtf.MMTFDecoder" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m3t</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;1SUX.mmtf&#39;</span><span class="p">)</span>
+<span></span><span class="n">MMTF_file</span> <span class="o">=</span> <span class="s1">&#39;1tcd.mmtf&#39;</span>
+<span class="n">system_aminoacids1_seq</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MMTF_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;aminoacids1:seq&#39;</span><span class="p">)</span>
+<span class="n">system_molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">MMTF_file</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -680,7 +1039,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_model</span> <span class="o">=</span> <span class="n">m3t</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;mmtf.MMTFDecoder&#39;</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -689,7 +1048,12 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_model</span><span class="o">.</span><span class="n">atom_id_list</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_pdbfixer: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_pdbfixer</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_parmed: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_parmed</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_openmm: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_openmm</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_mdtraj: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_mdtraj</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_aminoacids1_seq: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_aminoacids1_seq</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Form of object system_molsys: &#39;</span><span class="p">,</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">system_molsys</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -698,7 +1062,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_model</span><span class="o">.</span><span class="n">num_atoms</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -707,20 +1071,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">len</span><span class="p">(</span><span class="n">molecular_model</span><span class="o">.</span><span class="n">atom_id_list</span><span class="p">)</span>
+<span></span><span class="n">system_mdtraj</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_model</span><span class="o">.</span><span class="n">num_chains</span>
-</pre></div>
-</div>
-</div>
-<p>system_mmtf = msm.load(‘pdb:1SUX’, to_form=‘1sux.pdb’) system_mmtf = msm.load(‘pdb:1SUX’, to_form=‘1sux.mmtf’) system_mmtf = msm.load(‘pdb:1SUX’, to_form=‘mmtf.MMTFDecoder’) system_parmed = msm.load(‘pdb:1SUX’, to_form=‘parmed.Structure’)</p>
 </div>
 </div>
 </div>
@@ -736,7 +1088,7 @@ div.rendered_html tbody tr:hover {
         <a href="Selection.html" class="btn btn-neutral float-right" title="Elements selection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Load.html" class="btn btn-neutral float-left" title="How to load a molecular system" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../../MolSys.html" class="btn btn-neutral float-left" title="MolSys form" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

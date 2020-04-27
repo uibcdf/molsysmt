@@ -41,9 +41,6 @@ class Chain:
     entity : object
         Description of entity
 
-    bioassembly : object
-        Description of bioassembly
-
     """
 
     def __init__(self, index=None, id=None, name=None, type=None):
@@ -66,7 +63,6 @@ class Chain:
         self.n_components = 0
 
         self.entity = None
-        self.bioassembly = None
 
     def _sanity_check (self, atoms=False, groups=False, components=False,
             entity=False, bioassembly=False, children_elements=False):
@@ -96,9 +92,6 @@ class Chain:
 
         if entity and (self.entity is None):
             raise IncompleteElementError("Chain index {} has no entity".format(self.index))
-
-        if bioassembly and (self.bioassembly is None):
-            raise IncompleteElementError("Chain index {} has no bioassembly".format(self.index))
 
     def _update_atoms(self):
 
