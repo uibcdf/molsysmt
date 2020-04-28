@@ -37,9 +37,6 @@ def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return aminoacis1_to_fasta(tmp_item, output_file_path=output_file_path)
 
-def get_shape(item):
-    raise NotImplementedError
-
 def select_with_MDTraj(item, selection):
     raise NotImplementedError
 

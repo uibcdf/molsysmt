@@ -9,9 +9,6 @@ is_form={
 
 info=["",""]
 
-def get_shape(item):
-    raise NotImplementedError
-
 def select_with_mdtraj(item, selection):
     raise NotImplementedError
 

@@ -44,10 +44,6 @@ def to_pir(item, output_file_path=None, id=None, style=None, atom_indices='all',
     tmp_item= to_biopython_SeqRecord(item, id=id, atom_indices=atom_indices, frame_indices=frame_indices)
     return SeqRecor_to_pir(tmp_item, output_file_path=output_file_path, style=style)
 
-def get_shape(item):
-
-    raise NotImplementedError
-
 def select_with_MDTraj(item, selection):
 
     raise NotImplementedError

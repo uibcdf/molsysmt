@@ -8,9 +8,6 @@ is_form={
 
 info=["",""]
 
-def get_shape(item):
-    raise NotImplementedError
-
 def select_with_MDTraj(item, selection):
     raise NotImplementedError
 
