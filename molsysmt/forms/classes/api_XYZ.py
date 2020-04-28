@@ -81,6 +81,23 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     return tmp_coordinates
 
+def get_n_atoms_from_atom(item, indices='all', frame_indices='all'):
+
+    if indices=='all':
+        tmp_item = item_in_good_shape(item)
+        return tmp_item.shape[1]
+    else:
+        return len(indices)
+
+def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
+
+    tmp_item = item_in_good_shape(item)
+    return tmp_item.shape[0]
+
+def get_form_from_atom(item, indices='all', frame_indices='all'):
+
+    return form_name
+
 ## system
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
@@ -91,11 +108,6 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all'):
         tmp_coordinates = tmp_coordinates[frame_indices,:,:]
 
     return tmp_coordinates
-
-def get_n_frames_from_system(item, indices='all', frame_indices='all'):
-
-    tmp_item = item_in_good_shape(item)
-    return tmp_item.shape[0]
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
@@ -109,6 +121,12 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
     return None
+
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+
+    tmp_item = item_in_good_shape(item)
+    return tmp_item.shape[0]
+
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 

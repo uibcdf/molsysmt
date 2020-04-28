@@ -26,6 +26,8 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -36,7 +38,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Basic manipulations" href="../../api/index.html" />
+    <link rel="next" title="Getting distances" href="Distances.html" />
     <link rel="prev" title="Printing out a summary information on a molecular system and its elements" href="Info.html" /> 
 </head>
 
@@ -156,6 +158,17 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Viewing a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Distances.html">Getting distances</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#The-XYZ-molecular-system-form">The XYZ molecular system form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#Distance-between-atoms-in-space">Distance between atoms in space</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atoms-of-a-system">Distance between atoms of a system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atoms-of-two-systems">Distance between atoms of two systems</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#Displacement-distances">Displacement distances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#Distances-between-atoms-positions-in-different-frames">Distances between atoms positions in different frames</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -906,7 +919,7 @@ div.rendered_html tbody tr:hover {
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../api/index.html" class="btn btn-neutral float-right" title="Basic manipulations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Distances.html" class="btn btn-neutral float-right" title="Getting distances" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Info.html" class="btn btn-neutral float-left" title="Printing out a summary information on a molecular system and its elements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

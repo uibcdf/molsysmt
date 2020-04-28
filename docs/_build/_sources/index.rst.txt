@@ -45,6 +45,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/User_Guide/Get.ipynb
    contents/User_Guide/Info.ipynb
    contents/User_Guide/View.ipynb
+   contents/User_Guide/Distances.ipynb
 
 .. toctree::
    :caption: API Documentation

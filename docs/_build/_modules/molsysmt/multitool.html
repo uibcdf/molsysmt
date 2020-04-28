@@ -26,6 +26,8 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -154,6 +156,17 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/View.html">Viewing a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Distances.html">Getting distances</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#The-XYZ-molecular-system-form">The XYZ molecular system form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-in-space">Distance between atoms in space</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-of-a-system">Distance between atoms of a system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-of-two-systems">Distance between atoms of two systems</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances">Displacement distances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distances-between-atoms-positions-in-different-frames">Distances between atoms positions in different frames</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -281,7 +294,7 @@
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">unique</span> <span class="k">as</span> <span class="n">_unique</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span> <span class="k">as</span> <span class="n">_ndarray</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span> <span class="k">as</span> <span class="n">_array</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span> <span class="k">as</span> <span class="n">_empty</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">empty</span> <span class="k">as</span> <span class="n">_empty</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sort</span> <span class="k">as</span> <span class="n">_sort</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span> <span class="k">as</span> <span class="n">_arange</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="nb">int</span> <span class="k">as</span> <span class="n">_int</span>
@@ -815,10 +828,13 @@
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">molecule_index</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
             <span class="n">n_objects</span> <span class="o">=</span> <span class="n">molecule_index</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">aux_obj_array</span> <span class="o">=</span> <span class="n">_empty</span><span class="p">([</span><span class="n">n_objects</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
+            <span class="n">aux_obj1_array</span> <span class="o">=</span> <span class="n">_empty</span><span class="p">([</span><span class="n">n_objects</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
+            <span class="n">aux_obj2_array</span> <span class="o">=</span> <span class="n">_empty</span><span class="p">([</span><span class="n">n_objects</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_objects</span><span class="p">):</span>
-                <span class="n">aux_obj_array</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="n">molecule_index</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
-            <span class="n">molecule_index</span><span class="o">=</span><span class="n">aux_obj_array</span>
+                <span class="n">aux_obj1_array</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="n">molecule_index</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                <span class="n">aux_obj2_array</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="n">molecule_type</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+            <span class="n">molecule_index</span><span class="o">=</span><span class="n">aux_obj1_array</span>
+            <span class="n">molecule_type</span><span class="o">=</span><span class="n">aux_obj2_array</span>
 
         <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">molecule_index</span><span class="p">)):</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">molecule_index</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>

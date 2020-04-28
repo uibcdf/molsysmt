@@ -145,7 +145,7 @@ def distance(item_1=None, selection_1="all", selection_groups_1=None, group_beha
         if (nframes_2!=len(frame_indices_2)):
             raise NotImplementedError("Coordinates extraction from item_2 not implemented for frame_indices_2")
 
-        box, box_shape = get(item_1, box=True, box_shape=True, frame_indices=frame_indices_1)
+        box, box_shape = get(item_1, target='system', box=True, box_shape=True, frame_indices=frame_indices_1)
 
         orthogonal = 0
         if box_shape == 'cubic':
