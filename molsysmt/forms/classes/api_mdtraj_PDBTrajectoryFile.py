@@ -82,6 +82,8 @@ def duplicate(item):
 
 #### Get
 
+# atom
+
 def get_frame_from_atom (item, indices='all', frame_indices='all'):
 
     step, time, xyz, box = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
@@ -114,6 +116,11 @@ def get_box_shape_from_system (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return item.topology.n_atoms
+
+def get_frame_from_atom (item, indices='all', frame_indices='all'):
+
+    step, time, xyz, box = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
+    return step, time, xyz, box
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 

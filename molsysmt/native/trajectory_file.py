@@ -36,7 +36,8 @@ class TrajectoryFile():
     def read_frames (self, atom_indices='all', frame_indices='all'):
 
         from molsysmt import get
-        step, time, coordinates, box = get(self.mount_point, target='atom', indices=atom_indices, frame_indices=frame_indices, frames=True)
+        from molsysmt.multitool import _get_form
+        step, time, coordinates, box = get(self.mount_point, target='atom', indices=atom_indices, frame_indices=frame_indices, frame=True)
         self.atom_indices=atom_indices
         return step, time, coordinates, box
 

@@ -125,7 +125,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Convert.html">How to convert a form into other form</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Convert.html#From-load">From load</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
@@ -205,8 +204,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.group.html">native.elements.group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.component.html">native.elements.component</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.molecule.html">native.elements.molecule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.entity.html">native.elements.entity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.chain.html">native.elements.chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.entity.html">native.elements.entity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bond.html">native.elements.bond</a></li>
 </ul>
 </li>
@@ -526,8 +525,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -535,30 +534,15 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/diego/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/yank-0.24.2-py3.7-linux-x86_64.egg/yank/experiment.py:1170: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
-  &#34;&#34;&#34;)
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d5098b20f2da46fa89770b4f9fc91a81", "version_major": 2, "version_minor": 0}</script></div>
-</div>
 <div class="section" id="Printing-out-a-summary-information-on-a-molecular-system-and-its-elements">
 <h1>Printing out a summary information on a molecular system and its elements<a class="headerlink" href="#Printing-out-a-summary-information-on-a-molecular-system-and-its-elements" title="Permalink to this headline">¶</a></h1>
 <p>There is in MolSysMT a method to print out a brief overview of a molecular system and its elements. Lets load a molecular system to illustrate with some simple examples how it works:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -566,7 +550,7 @@ div.rendered_html tbody tr:hover {
 <h2>Summary information on atoms<a class="headerlink" href="#Summary-information-on-atoms" title="Permalink to this headline">¶</a></h2>
 <p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.info()</span></code> can be applied over any element of the molecular system. Lets see an example where the summary information is shown for a set of atoms:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -575,81 +559,81 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >group index</th>        <th class="col_heading level0 col5" >group id</th>        <th class="col_heading level0 col6" >group name</th>        <th class="col_heading level0 col7" >group type</th>        <th class="col_heading level0 col8" >component index</th>        <th class="col_heading level0 col9" >chain index</th>        <th class="col_heading level0 col10" >molecule index</th>        <th class="col_heading level0 col11" >molecule type</th>        <th class="col_heading level0 col12" >entity index</th>        <th class="col_heading level0 col13" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_f093080a_88b8_11ea_9545_df154069b87d" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >group index</th>        <th class="col_heading level0 col5" >group id</th>        <th class="col_heading level0 col6" >group name</th>        <th class="col_heading level0 col7" >group type</th>        <th class="col_heading level0 col8" >component index</th>        <th class="col_heading level0 col9" >chain index</th>        <th class="col_heading level0 col10" >molecule index</th>        <th class="col_heading level0 col11" >molecule type</th>        <th class="col_heading level0 col12" >entity index</th>        <th class="col_heading level0 col13" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col0" class="data row0 col0" >9</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col1" class="data row0 col1" >10</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col2" class="data row0 col2" >N</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col3" class="data row0 col3" >N</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col5" class="data row0 col5" >5</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col6" class="data row0 col6" >PRO</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col7" class="data row0 col7" >aminoacid</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col8" class="data row0 col8" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col9" class="data row0 col9" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col10" class="data row0 col10" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col11" class="data row0 col11" >protein</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col12" class="data row0 col12" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row0_col13" class="data row0 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col0" class="data row0 col0" >9</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col1" class="data row0 col1" >10</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col2" class="data row0 col2" >N</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col3" class="data row0 col3" >N</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col4" class="data row0 col4" >1</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col5" class="data row0 col5" >5</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col6" class="data row0 col6" >PRO</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col7" class="data row0 col7" >aminoacid</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col8" class="data row0 col8" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col9" class="data row0 col9" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col10" class="data row0 col10" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col11" class="data row0 col11" >protein</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col12" class="data row0 col12" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow0_col13" class="data row0 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col0" class="data row1 col0" >10</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col1" class="data row1 col1" >11</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col2" class="data row1 col2" >CA</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col3" class="data row1 col3" >C</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col4" class="data row1 col4" >1</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col5" class="data row1 col5" >5</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col6" class="data row1 col6" >PRO</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col7" class="data row1 col7" >aminoacid</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col8" class="data row1 col8" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col9" class="data row1 col9" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col10" class="data row1 col10" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col11" class="data row1 col11" >protein</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col12" class="data row1 col12" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row1_col13" class="data row1 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col0" class="data row1 col0" >10</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col1" class="data row1 col1" >11</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col2" class="data row1 col2" >CA</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col3" class="data row1 col3" >C</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col4" class="data row1 col4" >1</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col5" class="data row1 col5" >5</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col6" class="data row1 col6" >PRO</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col7" class="data row1 col7" >aminoacid</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col8" class="data row1 col8" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col9" class="data row1 col9" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col10" class="data row1 col10" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col11" class="data row1 col11" >protein</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col12" class="data row1 col12" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow1_col13" class="data row1 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col0" class="data row2 col0" >11</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col1" class="data row2 col1" >12</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col2" class="data row2 col2" >C</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col3" class="data row2 col3" >C</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col4" class="data row2 col4" >1</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col5" class="data row2 col5" >5</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col6" class="data row2 col6" >PRO</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col7" class="data row2 col7" >aminoacid</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col8" class="data row2 col8" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col9" class="data row2 col9" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col10" class="data row2 col10" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col11" class="data row2 col11" >protein</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col12" class="data row2 col12" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row2_col13" class="data row2 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col0" class="data row2 col0" >11</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col1" class="data row2 col1" >12</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col2" class="data row2 col2" >C</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col3" class="data row2 col3" >C</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col4" class="data row2 col4" >1</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col5" class="data row2 col5" >5</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col6" class="data row2 col6" >PRO</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col7" class="data row2 col7" >aminoacid</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col8" class="data row2 col8" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col9" class="data row2 col9" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col10" class="data row2 col10" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col11" class="data row2 col11" >protein</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col12" class="data row2 col12" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow2_col13" class="data row2 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col0" class="data row3 col0" >12</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col1" class="data row3 col1" >13</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col2" class="data row3 col2" >O</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col3" class="data row3 col3" >O</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col4" class="data row3 col4" >1</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col5" class="data row3 col5" >5</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col6" class="data row3 col6" >PRO</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col7" class="data row3 col7" >aminoacid</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col8" class="data row3 col8" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col9" class="data row3 col9" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col10" class="data row3 col10" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col11" class="data row3 col11" >protein</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col12" class="data row3 col12" >0</td>
-                        <td id="T_4f89624e_8433_11ea_a0d8_7b5bf079c4b1row3_col13" class="data row3 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col0" class="data row3 col0" >12</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col1" class="data row3 col1" >13</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col2" class="data row3 col2" >O</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col3" class="data row3 col3" >O</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col4" class="data row3 col4" >1</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col5" class="data row3 col5" >5</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col6" class="data row3 col6" >PRO</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col7" class="data row3 col7" >aminoacid</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col8" class="data row3 col8" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col9" class="data row3 col9" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col10" class="data row3 col10" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col11" class="data row3 col11" >protein</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col12" class="data row3 col12" >0</td>
+                        <td id="T_f093080a_88b8_11ea_9545_df154069b87drow3_col13" class="data row3 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
     </tbody></table></div>
 </div>
 <p>The method can also take a selection input argument:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -658,91 +642,91 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >group index</th>        <th class="col_heading level0 col5" >group id</th>        <th class="col_heading level0 col6" >group name</th>        <th class="col_heading level0 col7" >group type</th>        <th class="col_heading level0 col8" >component index</th>        <th class="col_heading level0 col9" >chain index</th>        <th class="col_heading level0 col10" >molecule index</th>        <th class="col_heading level0 col11" >molecule type</th>        <th class="col_heading level0 col12" >entity index</th>        <th class="col_heading level0 col13" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_f61381b0_88b8_11ea_9545_df154069b87d" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >group index</th>        <th class="col_heading level0 col5" >group id</th>        <th class="col_heading level0 col6" >group name</th>        <th class="col_heading level0 col7" >group type</th>        <th class="col_heading level0 col8" >component index</th>        <th class="col_heading level0 col9" >chain index</th>        <th class="col_heading level0 col10" >molecule index</th>        <th class="col_heading level0 col11" >molecule type</th>        <th class="col_heading level0 col12" >entity index</th>        <th class="col_heading level0 col13" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col0" class="data row0 col0" >45</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col1" class="data row0 col1" >46</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col2" class="data row0 col2" >N</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col3" class="data row0 col3" >N</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col4" class="data row0 col4" >6</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col5" class="data row0 col5" >10</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col6" class="data row0 col6" >ALA</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col7" class="data row0 col7" >aminoacid</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col8" class="data row0 col8" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col9" class="data row0 col9" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col10" class="data row0 col10" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col11" class="data row0 col11" >protein</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col12" class="data row0 col12" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row0_col13" class="data row0 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col0" class="data row0 col0" >45</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col1" class="data row0 col1" >46</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col2" class="data row0 col2" >N</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col3" class="data row0 col3" >N</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col4" class="data row0 col4" >6</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col5" class="data row0 col5" >10</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col6" class="data row0 col6" >ALA</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col7" class="data row0 col7" >aminoacid</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col8" class="data row0 col8" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col9" class="data row0 col9" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col10" class="data row0 col10" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col11" class="data row0 col11" >protein</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col12" class="data row0 col12" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow0_col13" class="data row0 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col0" class="data row1 col0" >46</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col1" class="data row1 col1" >47</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col2" class="data row1 col2" >CA</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col3" class="data row1 col3" >C</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col4" class="data row1 col4" >6</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col5" class="data row1 col5" >10</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col6" class="data row1 col6" >ALA</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col7" class="data row1 col7" >aminoacid</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col8" class="data row1 col8" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col9" class="data row1 col9" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col10" class="data row1 col10" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col11" class="data row1 col11" >protein</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col12" class="data row1 col12" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row1_col13" class="data row1 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col0" class="data row1 col0" >46</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col1" class="data row1 col1" >47</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col2" class="data row1 col2" >CA</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col3" class="data row1 col3" >C</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col4" class="data row1 col4" >6</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col5" class="data row1 col5" >10</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col6" class="data row1 col6" >ALA</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col7" class="data row1 col7" >aminoacid</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col8" class="data row1 col8" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col9" class="data row1 col9" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col10" class="data row1 col10" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col11" class="data row1 col11" >protein</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col12" class="data row1 col12" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow1_col13" class="data row1 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col0" class="data row2 col0" >47</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col1" class="data row2 col1" >48</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col2" class="data row2 col2" >C</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col3" class="data row2 col3" >C</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col4" class="data row2 col4" >6</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col5" class="data row2 col5" >10</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col6" class="data row2 col6" >ALA</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col7" class="data row2 col7" >aminoacid</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col8" class="data row2 col8" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col9" class="data row2 col9" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col10" class="data row2 col10" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col11" class="data row2 col11" >protein</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col12" class="data row2 col12" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row2_col13" class="data row2 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col0" class="data row2 col0" >47</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col1" class="data row2 col1" >48</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col2" class="data row2 col2" >C</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col3" class="data row2 col3" >C</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col4" class="data row2 col4" >6</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col5" class="data row2 col5" >10</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col6" class="data row2 col6" >ALA</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col7" class="data row2 col7" >aminoacid</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col8" class="data row2 col8" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col9" class="data row2 col9" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col10" class="data row2 col10" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col11" class="data row2 col11" >protein</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col12" class="data row2 col12" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow2_col13" class="data row2 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col0" class="data row3 col0" >48</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col1" class="data row3 col1" >49</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col2" class="data row3 col2" >O</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col3" class="data row3 col3" >O</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col4" class="data row3 col4" >6</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col5" class="data row3 col5" >10</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col6" class="data row3 col6" >ALA</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col7" class="data row3 col7" >aminoacid</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col8" class="data row3 col8" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col9" class="data row3 col9" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col10" class="data row3 col10" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col11" class="data row3 col11" >protein</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col12" class="data row3 col12" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row3_col13" class="data row3 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col0" class="data row3 col0" >48</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col1" class="data row3 col1" >49</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col2" class="data row3 col2" >O</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col3" class="data row3 col3" >O</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col4" class="data row3 col4" >6</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col5" class="data row3 col5" >10</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col6" class="data row3 col6" >ALA</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col7" class="data row3 col7" >aminoacid</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col8" class="data row3 col8" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col9" class="data row3 col9" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col10" class="data row3 col10" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col11" class="data row3 col11" >protein</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col12" class="data row3 col12" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow3_col13" class="data row3 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col0" class="data row4 col0" >49</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col1" class="data row4 col1" >50</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col2" class="data row4 col2" >CB</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col3" class="data row4 col3" >C</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col4" class="data row4 col4" >6</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col5" class="data row4 col5" >10</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col6" class="data row4 col6" >ALA</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col7" class="data row4 col7" >aminoacid</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col8" class="data row4 col8" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col9" class="data row4 col9" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col10" class="data row4 col10" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col11" class="data row4 col11" >protein</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col12" class="data row4 col12" >0</td>
-                        <td id="T_63d589b2_8433_11ea_a0d8_7b5bf079c4b1row4_col13" class="data row4 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col0" class="data row4 col0" >49</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col1" class="data row4 col1" >50</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col2" class="data row4 col2" >CB</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col3" class="data row4 col3" >C</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col4" class="data row4 col4" >6</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col5" class="data row4 col5" >10</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col6" class="data row4 col6" >ALA</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col7" class="data row4 col7" >aminoacid</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col8" class="data row4 col8" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col9" class="data row4 col9" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col10" class="data row4 col10" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col11" class="data row4 col11" >protein</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col12" class="data row4 col12" >0</td>
+                        <td id="T_f61381b0_88b8_11ea_9545_df154069b87drow4_col13" class="data row4 col13" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -751,7 +735,7 @@ div.rendered_html tbody tr:hover {
 <h2>Summary information on groups<a class="headerlink" href="#Summary-information-on-groups" title="Permalink to this headline">¶</a></h2>
 <p>Lets see an example where the summary information is shown for a set of groups:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -760,63 +744,63 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_f9d6f516_88b8_11ea_9545_df154069b87d" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col0" class="data row0 col0" >20</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col1" class="data row0 col1" >24</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col2" class="data row0 col2" >PRO</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col3" class="data row0 col3" >aminoacid</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col4" class="data row0 col4" >7</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col5" class="data row0 col5" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col6" class="data row0 col6" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col7" class="data row0 col7" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col8" class="data row0 col8" >protein</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col9" class="data row0 col9" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row0_col10" class="data row0 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col0" class="data row0 col0" >20</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col1" class="data row0 col1" >24</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col2" class="data row0 col2" >PRO</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col3" class="data row0 col3" >aminoacid</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col4" class="data row0 col4" >7</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col5" class="data row0 col5" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col6" class="data row0 col6" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col7" class="data row0 col7" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col8" class="data row0 col8" >protein</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col9" class="data row0 col9" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow0_col10" class="data row0 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col0" class="data row1 col0" >21</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col1" class="data row1 col1" >25</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col2" class="data row1 col2" >LEU</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col3" class="data row1 col3" >aminoacid</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col4" class="data row1 col4" >8</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col5" class="data row1 col5" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col6" class="data row1 col6" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col7" class="data row1 col7" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col8" class="data row1 col8" >protein</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col9" class="data row1 col9" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row1_col10" class="data row1 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col0" class="data row1 col0" >21</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col1" class="data row1 col1" >25</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col2" class="data row1 col2" >LEU</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col3" class="data row1 col3" >aminoacid</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col4" class="data row1 col4" >8</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col5" class="data row1 col5" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col6" class="data row1 col6" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col7" class="data row1 col7" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col8" class="data row1 col8" >protein</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col9" class="data row1 col9" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow1_col10" class="data row1 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col0" class="data row2 col0" >22</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col1" class="data row2 col1" >26</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col2" class="data row2 col2" >ILE</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col3" class="data row2 col3" >aminoacid</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col4" class="data row2 col4" >8</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col5" class="data row2 col5" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col6" class="data row2 col6" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col7" class="data row2 col7" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col8" class="data row2 col8" >protein</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col9" class="data row2 col9" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row2_col10" class="data row2 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col0" class="data row2 col0" >22</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col1" class="data row2 col1" >26</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col2" class="data row2 col2" >ILE</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col3" class="data row2 col3" >aminoacid</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col4" class="data row2 col4" >8</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col5" class="data row2 col5" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col6" class="data row2 col6" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col7" class="data row2 col7" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col8" class="data row2 col8" >protein</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col9" class="data row2 col9" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow2_col10" class="data row2 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col0" class="data row3 col0" >23</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col1" class="data row3 col1" >27</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col2" class="data row3 col2" >GLU</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col3" class="data row3 col3" >aminoacid</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col4" class="data row3 col4" >9</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col5" class="data row3 col5" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col6" class="data row3 col6" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col7" class="data row3 col7" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col8" class="data row3 col8" >protein</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col9" class="data row3 col9" >0</td>
-                        <td id="T_6a5def36_8433_11ea_a0d8_7b5bf079c4b1row3_col10" class="data row3 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col0" class="data row3 col0" >23</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col1" class="data row3 col1" >27</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col2" class="data row3 col2" >GLU</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col3" class="data row3 col3" >aminoacid</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col4" class="data row3 col4" >9</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col5" class="data row3 col5" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col6" class="data row3 col6" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col7" class="data row3 col7" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col8" class="data row3 col8" >protein</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col9" class="data row3 col9" >0</td>
+                        <td id="T_f9d6f516_88b8_11ea_9545_df154069b87drow3_col10" class="data row3 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -825,7 +809,7 @@ div.rendered_html tbody tr:hover {
 <h2>Summary information on components<a class="headerlink" href="#Summary-information-on-components" title="Permalink to this headline">¶</a></h2>
 <p>Find here now an example on how the method <code class="docutils literal notranslate"><span class="pre">molsysmt.info()</span></code> works over components:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -834,31 +818,31 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >chain index</th>        <th class="col_heading level0 col4" >molecule index</th>        <th class="col_heading level0 col5" >molecule type</th>        <th class="col_heading level0 col6" >entity index</th>        <th class="col_heading level0 col7" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_fc338234_88b8_11ea_9545_df154069b87d" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >chain index</th>        <th class="col_heading level0 col4" >molecule index</th>        <th class="col_heading level0 col5" >molecule type</th>        <th class="col_heading level0 col6" >entity index</th>        <th class="col_heading level0 col7" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row0_col1" class="data row0 col1" >1906</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row0_col2" class="data row0 col2" >248</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row0_col3" class="data row0 col3" >0</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row0_col4" class="data row0 col4" >0</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row0_col5" class="data row0 col5" >protein</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row0_col6" class="data row0 col6" >0</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row0_col7" class="data row0 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_fc338234_88b8_11ea_9545_df154069b87drow0_col0" class="data row0 col0" >0</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow0_col1" class="data row0 col1" >1906</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow0_col2" class="data row0 col2" >248</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow0_col3" class="data row0 col3" >0</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow0_col4" class="data row0 col4" >0</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow0_col5" class="data row0 col5" >protein</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow0_col6" class="data row0 col6" >0</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow0_col7" class="data row0 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row1_col0" class="data row1 col0" >1</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row1_col1" class="data row1 col1" >1912</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row1_col2" class="data row1 col2" >249</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row1_col3" class="data row1 col3" >1</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row1_col4" class="data row1 col4" >0</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row1_col5" class="data row1 col5" >protein</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row1_col6" class="data row1 col6" >0</td>
-                        <td id="T_843a3874_8433_11ea_a0d8_7b5bf079c4b1row1_col7" class="data row1 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_fc338234_88b8_11ea_9545_df154069b87drow1_col0" class="data row1 col0" >1</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow1_col1" class="data row1 col1" >1912</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow1_col2" class="data row1 col2" >249</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow1_col3" class="data row1 col3" >1</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow1_col4" class="data row1 col4" >0</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow1_col5" class="data row1 col5" >protein</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow1_col6" class="data row1 col6" >0</td>
+                        <td id="T_fc338234_88b8_11ea_9545_df154069b87drow1_col7" class="data row1 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -867,7 +851,7 @@ div.rendered_html tbody tr:hover {
 <h2>Summary information on chains<a class="headerlink" href="#Summary-information-on-chains" title="Permalink to this headline">¶</a></h2>
 <p>If the summary information on all chains in the molecular system needs to be printed out:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -876,59 +860,59 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >n atoms</th>        <th class="col_heading level0 col4" >n groups</th>        <th class="col_heading level0 col5" >n components</th>        <th class="col_heading level0 col6" >molecule index</th>        <th class="col_heading level0 col7" >molecule type</th>        <th class="col_heading level0 col8" >entity index</th>        <th class="col_heading level0 col9" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_fdbf97aa_88b8_11ea_9545_df154069b87d" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >n atoms</th>        <th class="col_heading level0 col4" >n groups</th>        <th class="col_heading level0 col5" >n components</th>        <th class="col_heading level0 col6" >molecule index</th>        <th class="col_heading level0 col7" >molecule type</th>        <th class="col_heading level0 col8" >entity index</th>        <th class="col_heading level0 col9" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col1" class="data row0 col1" >A</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col2" class="data row0 col2" >A</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col3" class="data row0 col3" >1906</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col4" class="data row0 col4" >248</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col6" class="data row0 col6" >0</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col7" class="data row0 col7" >protein</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col8" class="data row0 col8" >0</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row0_col9" class="data row0 col9" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col0" class="data row0 col0" >0</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col1" class="data row0 col1" >A</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col2" class="data row0 col2" >A</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col3" class="data row0 col3" >1906</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col4" class="data row0 col4" >248</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col5" class="data row0 col5" >1</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col6" class="data row0 col6" >0</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col7" class="data row0 col7" >protein</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col8" class="data row0 col8" >0</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow0_col9" class="data row0 col9" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col0" class="data row1 col0" >1</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col1" class="data row1 col1" >B</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col2" class="data row1 col2" >B</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col3" class="data row1 col3" >1912</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col4" class="data row1 col4" >249</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col5" class="data row1 col5" >1</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col6" class="data row1 col6" >0</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col7" class="data row1 col7" >protein</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col8" class="data row1 col8" >0</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row1_col9" class="data row1 col9" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col0" class="data row1 col0" >1</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col1" class="data row1 col1" >B</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col2" class="data row1 col2" >B</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col3" class="data row1 col3" >1912</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col4" class="data row1 col4" >249</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col5" class="data row1 col5" >1</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col6" class="data row1 col6" >0</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col7" class="data row1 col7" >protein</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col8" class="data row1 col8" >0</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow1_col9" class="data row1 col9" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col0" class="data row2 col0" >2</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col1" class="data row2 col1" >C</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col2" class="data row2 col2" >A</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col3" class="data row2 col3" >73</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col4" class="data row2 col4" >73</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col5" class="data row2 col5" >73</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col6" class="data row2 col6" >[ 1  2  3 ... 71 72 73]</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col7" class="data row2 col7" >['water' 'water' 'water' ... 'water' 'water' 'water']</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col8" class="data row2 col8" >1</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row2_col9" class="data row2 col9" >water</td>
+                                <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col0" class="data row2 col0" >2</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col1" class="data row2 col1" >C</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col2" class="data row2 col2" >A</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col3" class="data row2 col3" >73</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col4" class="data row2 col4" >73</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col5" class="data row2 col5" >73</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col6" class="data row2 col6" >[ 1  2  3 ... 71 72 73]</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col7" class="data row2 col7" >['water' 'water' 'water' ... 'water' 'water' 'water']</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col8" class="data row2 col8" >1</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow2_col9" class="data row2 col9" >water</td>
             </tr>
             <tr>
-                                <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col0" class="data row3 col0" >3</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col1" class="data row3 col1" >D</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col2" class="data row3 col2" >B</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col3" class="data row3 col3" >92</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col4" class="data row3 col4" >92</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col5" class="data row3 col5" >92</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col6" class="data row3 col6" >[ 74  75  76 ... 163 164 165]</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col7" class="data row3 col7" >['water' 'water' 'water' ... 'water' 'water' 'water']</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col8" class="data row3 col8" >1</td>
-                        <td id="T_f3c08d14_8434_11ea_a0d8_7b5bf079c4b1row3_col9" class="data row3 col9" >water</td>
+                                <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col0" class="data row3 col0" >3</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col1" class="data row3 col1" >D</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col2" class="data row3 col2" >B</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col3" class="data row3 col3" >92</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col4" class="data row3 col4" >92</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col5" class="data row3 col5" >92</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col6" class="data row3 col6" >[ 74  75  76 ... 163 164 165]</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col7" class="data row3 col7" >['water' 'water' 'water' ... 'water' 'water' 'water']</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col8" class="data row3 col8" >1</td>
+                        <td id="T_fdbf97aa_88b8_11ea_9545_df154069b87drow3_col9" class="data row3 col9" >water</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -936,8 +920,8 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Summary-information-on-molecules">
 <h2>Summary information on molecules<a class="headerlink" href="#Summary-information-on-molecules" title="Permalink to this headline">¶</a></h2>
 <p>The following is an example on how the method works when the targetted element is ‘molecule’:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -945,12 +929,32 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_ffeabaf0_88b8_11ea_9545_df154069b87d" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >name</th>        <th class="col_heading level0 col2" >type</th>        <th class="col_heading level0 col3" >n atoms</th>        <th class="col_heading level0 col4" >n groups</th>        <th class="col_heading level0 col5" >n components</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >entity index</th>        <th class="col_heading level0 col8" >entity name</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_ffeabaf0_88b8_11ea_9545_df154069b87drow0_col0" class="data row0 col0" >0</td>
+                        <td id="T_ffeabaf0_88b8_11ea_9545_df154069b87drow0_col1" class="data row0 col1" >TRIOSEPHOSPHATE ISOMERASE</td>
+                        <td id="T_ffeabaf0_88b8_11ea_9545_df154069b87drow0_col2" class="data row0 col2" >protein</td>
+                        <td id="T_ffeabaf0_88b8_11ea_9545_df154069b87drow0_col3" class="data row0 col3" >3818</td>
+                        <td id="T_ffeabaf0_88b8_11ea_9545_df154069b87drow0_col4" class="data row0 col4" >497</td>
+                        <td id="T_ffeabaf0_88b8_11ea_9545_df154069b87drow0_col5" class="data row0 col5" >2</td>
+                        <td id="T_ffeabaf0_88b8_11ea_9545_df154069b87drow0_col6" class="data row0 col6" >[0 1]</td>
+                        <td id="T_ffeabaf0_88b8_11ea_9545_df154069b87drow0_col7" class="data row0 col7" >0</td>
+                        <td id="T_ffeabaf0_88b8_11ea_9545_df154069b87drow0_col8" class="data row0 col8" >TRIOSEPHOSPHATE ISOMERASE</td>
+            </tr>
+    </tbody></table></div>
+</div>
 </div>
 <div class="section" id="Summary-information-on-entities">
 <h2>Summary information on entities<a class="headerlink" href="#Summary-information-on-entities" title="Permalink to this headline">¶</a></h2>
 <p>If the targetted element is ‘entity’ the method prints out the next summary information:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -958,18 +962,68 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_01aa0cce_88b9_11ea_9545_df154069b87d" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >name</th>        <th class="col_heading level0 col2" >type</th>        <th class="col_heading level0 col3" >n atoms</th>        <th class="col_heading level0 col4" >n groups</th>        <th class="col_heading level0 col5" >n components</th>        <th class="col_heading level0 col6" >n chains</th>        <th class="col_heading level0 col7" >n molecules</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow0_col0" class="data row0 col0" >0</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow0_col1" class="data row0 col1" >TRIOSEPHOSPHATE ISOMERASE</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow0_col2" class="data row0 col2" >protein</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow0_col3" class="data row0 col3" >3818</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow0_col4" class="data row0 col4" >497</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow0_col5" class="data row0 col5" >2</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow0_col6" class="data row0 col6" >2</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow0_col7" class="data row0 col7" >1</td>
+            </tr>
+            <tr>
+                                <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow1_col0" class="data row1 col0" >1</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow1_col1" class="data row1 col1" >water</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow1_col2" class="data row1 col2" >water</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow1_col3" class="data row1 col3" >165</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow1_col4" class="data row1 col4" >165</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow1_col5" class="data row1 col5" >165</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow1_col6" class="data row1 col6" >2</td>
+                        <td id="T_01aa0cce_88b9_11ea_9545_df154069b87drow1_col7" class="data row1 col7" >165</td>
+            </tr>
+    </tbody></table></div>
+</div>
 </div>
 <div class="section" id="Summary-information-on-a-molecular-system">
 <h2>Summary information on a molecular system<a class="headerlink" href="#Summary-information-on-a-molecular-system" title="Permalink to this headline">¶</a></h2>
 <p>At last, a summary information can be shown on the whole molecular system as follows:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_038d3a0c_88b9_11ea_9545_df154069b87d" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n waters</th>        <th class="col_heading level0 col8" >n proteins</th>        <th class="col_heading level0 col9" >n frames</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col1" class="data row0 col1" >3983</td>
+                        <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col2" class="data row0 col2" >662</td>
+                        <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col3" class="data row0 col3" >167</td>
+                        <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col4" class="data row0 col4" >4</td>
+                        <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col5" class="data row0 col5" >166</td>
+                        <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col6" class="data row0 col6" >2</td>
+                        <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col7" class="data row0 col7" >165</td>
+                        <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col8" class="data row0 col8" >1</td>
+                        <td id="T_038d3a0c_88b9_11ea_9545_df154069b87drow0_col9" class="data row0 col9" >1</td>
+            </tr>
+    </tbody></table></div>
 </div>
 </div>
 </div>

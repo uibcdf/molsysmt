@@ -94,6 +94,58 @@ def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
     return output
 
+def get_n_groups_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_components_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_chains_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_entities_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_ions_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_waters_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_cosolutes_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_small_molecules_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_peptides_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_proteins_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_dnas_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_n_rnas_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     if frame_indices is 'all':

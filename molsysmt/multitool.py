@@ -9,7 +9,7 @@ from .utils.atom_indices import intersection_indices as _intersection_indices
 from numpy import unique as _unique
 from numpy import ndarray as _ndarray
 from numpy import array as _array
-from numpy import array as _empty
+from numpy import empty as _empty
 from numpy import sort as _sort
 from numpy import arange as _arange
 from numpy import int as _int
@@ -543,10 +543,13 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         if len(molecule_index.shape)>1:
             n_objects = molecule_index.shape[0]
-            aux_obj_array = _empty([n_objects], dtype='object')
+            aux_obj1_array = _empty([n_objects], dtype='object')
+            aux_obj2_array = _empty([n_objects], dtype='object')
             for ii in range(n_objects):
-                aux_obj_array[ii]=molecule_index[ii]
-            molecule_index=aux_obj_array
+                aux_obj1_array[ii]=molecule_index[ii]
+                aux_obj2_array[ii]=molecule_type[ii]
+            molecule_index=aux_obj1_array
+            molecule_type=aux_obj2_array
 
         for ii in range(len(molecule_index)):
             if len(molecule_index[ii])==1:

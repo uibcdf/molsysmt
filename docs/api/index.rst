@@ -8,7 +8,6 @@ General and basic methods to operate with molecular models and their forms.
 .. autosummary::
    :toctree: _autosummary
 
-   load
    convert
    info
    select

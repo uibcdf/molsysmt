@@ -12,8 +12,7 @@ Elements making up a molecular model.
    group
    component
    molecule
-   entity
-   bioassembly
    chain
+   entity
    bond
 

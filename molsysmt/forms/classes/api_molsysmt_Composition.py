@@ -1275,6 +1275,10 @@ def get_charge_from_system(item, indices='all', frame_indices='all'):
 
     return _get(item.dataframe, indices=indices, frame_indices=frame_indices)
 
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+
+    return 0
+
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
