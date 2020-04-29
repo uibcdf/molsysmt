@@ -163,10 +163,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#Distance-between-atoms-in-space">Distance between atoms in space</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Distance-between-atoms-of-a-system">Distance between atoms of a system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Distance-between-atoms-of-two-systems">Distance between atoms of two systems</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Displacement-distances">Displacement distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Distances-between-atoms-positions-in-different-frames">Distances between atoms positions in different frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Displacement-distances">Displacement distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Distance-between-atoms-pairs">Distance between atoms pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Minimum-and-Maximum-distance">Minimum and Maximum distance</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#Neighbor-lists">Neighbor lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Contact-maps">Contact maps</a></li>
 </ul>
 </li>
 </ul>
@@ -539,7 +543,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -557,7 +561,7 @@ div.rendered_html tbody tr:hover {
 <h2>The XYZ molecular system form<a class="headerlink" href="#The-XYZ-molecular-system-form" title="Permalink to this headline">¶</a></h2>
 <p>The first case, and the most simple one, is getting distances from a points distribution in space. MolSysMT accepts a molecular system form where only spatial coordinates are described, with out topological information: the <code class="docutils literal notranslate"><span class="pre">XYZ</span></code> form.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -566,7 +570,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -575,7 +579,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -585,7 +589,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">XYZ</span></code> form accepts numpy arrays with length units of the shape <span class="math notranslate nohighlight">\([n\_frames, n\_atoms, 3]\)</span> or <span class="math notranslate nohighlight">\([n\_atoms, 3]\)</span>. In case of having an array of rank 2, MolSysMT always understands <span class="math notranslate nohighlight">\(n\_frames=1\)</span> and the first rank as the number of atoms:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -594,7 +598,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -604,7 +608,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>Lets create a couple of <code class="docutils literal notranslate"><span class="pre">XYZ</span></code> molecular systems with more than a frame. These two systems will help us illustrate the firts distance calculations:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -652,7 +656,7 @@ div.rendered_html tbody tr:hover {
 <h3>Distance between atoms of a system<a class="headerlink" href="#Distance-between-atoms-of-a-system" title="Permalink to this headline">¶</a></h3>
 <p>The first case shows how to get the distance between all points of a system at every frame</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -662,7 +666,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>The result is an array of rank 3. Where the first axe or rank corresponds to the number of frames and the other two, the second and third axe, accounts for the point or atom indices:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -671,7 +675,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -681,7 +685,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>This way every distance between atoms at each frame is stored. Lets print out the distance between the 0-th and the 2-th atom at frame 1-th:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -699,7 +703,7 @@ Distance at frame 1-th between atoms 0-th and 2-th: 3.7416573867739413 nm
 </div>
 <p>If only the distance between atoms 0-th and 2-th at every frame is required, there is no need to compute <span class="math notranslate nohighlight">\(n\_atoms x n\_atoms\)</span> distances. The input arguments <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> help us to define the range of elements of the output distance matrix:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -709,7 +713,7 @@ Distance at frame 1-th between atoms 0-th and 2-th: 3.7416573867739413 nm
 </div>
 <p>This time the output is an array of rank 3 with shape <span class="math notranslate nohighlight">\([3,1,1]\)</span>. The distance for just a pair of atoms was computed for three frames:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -718,7 +722,7 @@ Distance at frame 1-th between atoms 0-th and 2-th: 3.7416573867739413 nm
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -727,7 +731,7 @@ Distance at frame 1-th between atoms 0-th and 2-th: 3.7416573867739413 nm
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -748,7 +752,7 @@ Distance at frame 2-th between atoms 0-th and 2-th: 1.7320508075688772 nm
 </div>
 <p>Lets try now to get the distance between the atom 1-th and the atoms 0-th and 2-th at every frame:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -758,7 +762,7 @@ Distance at frame 2-th between atoms 0-th and 2-th: 1.7320508075688772 nm
 </div>
 <p>As you will guess, the output matrix is an array of rank three this time with shape <span class="math notranslate nohighlight">\([3,1,2]\)</span>:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -767,7 +771,7 @@ Distance at frame 2-th between atoms 0-th and 2-th: 1.7320508075688772 nm
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -777,7 +781,7 @@ Distance at frame 2-th between atoms 0-th and 2-th: 1.7320508075688772 nm
 </div>
 <p>If we want now to print out the distance between atoms 1-th and 2-th for frame 0-th:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -795,7 +799,7 @@ Distance at frame 0-th between atoms 1-th and 2-th: 1.4142135623730951 nm
 </div>
 <p>The position of each atom in lists <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> is used to locate the corresponding distance in the output array. If instead, you want to use the original atom indices to locate a distance, the input argument <code class="docutils literal notranslate"><span class="pre">output_form='dict'</span></code> can help:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -805,7 +809,7 @@ Distance at frame 0-th between atoms 1-th and 2-th: 1.4142135623730951 nm
 </div>
 <p>This way the output is no longer a numpy array of rank 3, the output object is now a dictionary of dictionaries of dictionaries. Where the set keys of the first dictionary corresponds to the atom indices of <code class="docutils literal notranslate"><span class="pre">selection_1</span></code>:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -814,7 +818,7 @@ Distance at frame 0-th between atoms 1-th and 2-th: 1.4142135623730951 nm
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -824,7 +828,7 @@ dict_keys([1])
 </div>
 <p>The second nested dictionary has the atom indices of <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> as keys:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -833,7 +837,7 @@ dict_keys([1])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -843,7 +847,7 @@ dict_keys([0, 2])
 </div>
 <p>And the third and last nested dictionary is defined with the frame indices as keys:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -852,7 +856,7 @@ dict_keys([0, 2])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -862,7 +866,7 @@ dict_keys([0, 1, 2])
 </div>
 <p>Thus, the distance now between atoms 0-th and 2-th in frame 1-th is:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -880,7 +884,7 @@ Distance at frame 0-th between atoms 1-th and 2-th: 1.4142135623730951 nm
 </div>
 <p>Just like <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> can limit the range of atom indices of the calculation, <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code> can be used to define the list of frames where the method applies:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -889,7 +893,7 @@ Distance at frame 0-th between atoms 1-th and 2-th: 1.4142135623730951 nm
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -907,7 +911,7 @@ Distance at frame 2-th between atoms 1-th and 2-th: 1.7320508075688772 nm
 </div>
 <p>You can check again that with <code class="docutils literal notranslate"><span class="pre">output_form='dict'</span></code> the original indics for atoms and frames work to locate a distance:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -916,7 +920,7 @@ Distance at frame 2-th between atoms 1-th and 2-th: 1.7320508075688772 nm
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -937,7 +941,7 @@ Distance at frame 2-th between atoms 1-th and 2-th: 1.7320508075688772 nm
 <h3>Distance between atoms of two systems<a class="headerlink" href="#Distance-between-atoms-of-two-systems" title="Permalink to this headline">¶</a></h3>
 <p>The second case shows how to get the distance between atoms of two systems at every frame</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -947,7 +951,7 @@ Distance at frame 2-th between atoms 1-th and 2-th: 1.7320508075688772 nm
 </div>
 <p>As it was shown previously, the result is an array of rank 3. Again, where the first axe or rank corresponds to the number of frames and the other two, the second and third axe, accounts for the atom indices -this time in each system-:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -956,7 +960,7 @@ Distance at frame 2-th between atoms 1-th and 2-th: 1.7320508075688772 nm
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -966,7 +970,7 @@ Distance at frame 2-th between atoms 1-th and 2-th: 1.7320508075688772 nm
 </div>
 <p>Lets print out the distance between atom 1-th of <code class="docutils literal notranslate"><span class="pre">molecular_system_A</span></code> and atom 0-th of <code class="docutils literal notranslate"><span class="pre">molecular_system_B</span></code> at every frame:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -987,7 +991,7 @@ Distance at frame 2-th between atom 1-th of A and atom 0-th of B: 5.477225575051
 </div>
 <p>Now that <code class="docutils literal notranslate"><span class="pre">item_1</span></code> and <code class="docutils literal notranslate"><span class="pre">item_2</span></code> contain different systems, <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> do not work over the same system as in previous subsection, but over each molecular system (<code class="docutils literal notranslate"><span class="pre">selection_1</span></code> over <code class="docutils literal notranslate"><span class="pre">item_1</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> over <code class="docutils literal notranslate"><span class="pre">item_2</span></code>). Lets get the distance only between atom 1-th of <code class="docutils literal notranslate"><span class="pre">molecular_system_A</span></code> and atom 0-th of <code class="docutils literal notranslate"><span class="pre">molecular_system_B</span></code> for every frame:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -996,7 +1000,7 @@ Distance at frame 2-th between atom 1-th of A and atom 0-th of B: 5.477225575051
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1005,7 +1009,7 @@ Distance at frame 2-th between atom 1-th of A and atom 0-th of B: 5.477225575051
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1014,7 +1018,7 @@ Distance at frame 2-th between atom 1-th of A and atom 0-th of B: 5.477225575051
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1036,7 +1040,7 @@ Distance at frame 2-th between atom 1-th of A and atom 0-th of B: 5.477225575051
 <p>Again, the input argument <code class="docutils literal notranslate"><span class="pre">output_form='dict'</span></code> lets us play with the original indices in the output object. As it was described in the previous subsection, this dictionary of dictionaries of dictionaries has three keys: the first one corresponds to the atom indices of <code class="docutils literal notranslate"><span class="pre">item_1</span></code>, the second one corresponds to the atom indices of <code class="docutils literal notranslate"><span class="pre">item_2</span></code> and the third one to the frame indices. This way the distance now between atom 1-th of <code class="docutils literal notranslate"><span class="pre">molecular_system_A</span></code> and atom 0-th of <code class="docutils literal notranslate"><span class="pre">molecular_system_B</span></code> at
 frame 1-th:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1046,7 +1050,7 @@ frame 1-th:</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1064,7 +1068,7 @@ Distance at frame 1-th between atom 1-th of A and atom 0-th of B: 6.633249580710
 </div>
 <p>Notice that <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code> was used to define the frame indices where the distance is computed. If only <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code> is used, the same list of indices is used sequentially for both systems <code class="docutils literal notranslate"><span class="pre">item_1</span></code> and <code class="docutils literal notranslate"><span class="pre">item_2</span></code>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1074,7 +1078,7 @@ Distance at frame 1-th between atom 1-th of A and atom 0-th of B: 6.633249580710
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1084,7 +1088,7 @@ Distance at frame 1-th between atom 1-th of A and atom 0-th of B: 6.633249580710
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1093,7 +1097,7 @@ Distance at frame 1-th between atom 1-th of A and atom 0-th of B: 6.633249580710
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1106,7 +1110,7 @@ array([[[ True,  True],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1123,11 +1127,516 @@ Distance at frame 2-th between atom 2-th of A and atom 1-th of B: 5.099019513592
 </pre></div></div>
 </div>
 </div>
-<div class="section" id="Displacement-distances">
-<h3>Displacement distances<a class="headerlink" href="#Displacement-distances" title="Permalink to this headline">¶</a></h3>
-</div>
 <div class="section" id="Distances-between-atoms-positions-in-different-frames">
 <h3>Distances between atoms positions in different frames<a class="headerlink" href="#Distances-between-atoms-positions-in-different-frames" title="Permalink to this headline">¶</a></h3>
+<p>At the end of last subsection we saw how, in addition to the input arguments <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>, the input arguments <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code> and <code class="docutils literal notranslate"><span class="pre">frame_indices_2</span></code> alter the way distances are computed. Lets use the four arguments in the next example to revisit their function:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">molecular_system_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>The distance between atoms 1-th and 2-th of <code class="docutils literal notranslate"><span class="pre">molecular_system_A</span></code> and atom 1-th of <code class="docutils literal notranslate"><span class="pre">molecular_system_B</span></code> are computed. But, these distances are not between spatial positions in the same frame index. When two frame indices lists are provided by means of <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code> and <code class="docutils literal notranslate"><span class="pre">frame_indices_2</span></code>, pairs of frames are taken sequentially. In this case positions of <code class="docutils literal notranslate"><span class="pre">item_1</span></code> at frame 0-th are confronted againts positions of <code class="docutils literal notranslate"><span class="pre">item_2</span></code> at frame 1-th, and the results are stored in the first frame
+of the distances output. Then, according to the last cell frame indices, positions of <code class="docutils literal notranslate"><span class="pre">item_1</span></code> at frame 1-th are confronted againts positions of <code class="docutils literal notranslate"><span class="pre">item_2</span></code> at frame 2-th. Thus, lets print out for example the distance between the position of atom 2-th of <code class="docutils literal notranslate"><span class="pre">item_1</span></code> in frame 1-th and the position of atom 1-th of <code class="docutils literal notranslate"><span class="pre">item_2</span></code> in frame 2-th:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The distance between atom 2-th of A at frame 1-th and atom 1-th of B at frame 2-th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The distance between atom 2-th of A at frame 1-th and atom 1-th of B at frame 2-th is: 6.164414002968976 nm
+</pre></div></div>
+</div>
+<p>In this case, when the output object is a dictionary of dictionaries of dictionaries, the last nested keys correspond to the frame indices in <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code>. Lets compute de same distances as before printing out the same specific distance:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">molecular_system_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The distance between atom 2-th of A at frame 1-th and atom 1-th of B at frame 2-th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The distance between atom 2-th of A at frame 1-th and atom 1-th of B at frame 2-th is: 6.164414002968976 nm
+</pre></div></div>
+</div>
+<p>The possibility to calculate distances between crossing frame indices opens the door to get displacement lengths as it is shown in next subsection.</p>
+</div>
+<div class="section" id="Displacement-distances">
+<h3>Displacement distances<a class="headerlink" href="#Displacement-distances" title="Permalink to this headline">¶</a></h3>
+<p>When both input arguments <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code> and <code class="docutils literal notranslate"><span class="pre">frame_indices_2</span></code> are used over a unique set of atoms of the same molecular system, the distances computed acquired a simple physical meaning: displacements. Lets see the following case:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<p>The shape of the output object is:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(2, 1, 1)
+</pre></div></div>
+</div>
+<p>The length of the distance walked by atom 1-th of <code class="docutils literal notranslate"><span class="pre">molecular_system_A</span></code> between frames 0-th and 1-th is:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The displacement length of atom 1-th between frames 0-th and 1th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The displacement length of atom 1-th between frames 0-th and 1th is: 1.0 nm
+</pre></div></div>
+</div>
+<p>While the displacement length of the same atom between the next two consecutive frames is:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The displacement length of atom 1-th between frames 1-th and 2-th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The displacement length of atom 1-th between frames 1-th and 2-th is: 1.0 nm
+</pre></div></div>
+</div>
+<p>If we want to get the length distance an atom moves between a fixed frame, 0-th for instance, and the rest of frames we can invoke the command <code class="docutils literal notranslate"><span class="pre">molsysmt.distance()</span></code> this way:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                         <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The displacement length of atom 1-th between its position at frame 0-th and all other frames is:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The displacement length of atom 1-th between frames 0-th and </span><span class="si">{}</span><span class="s1">-th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">ii</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The displacement length of atom 1-th between frames 0-th and 0-th is: 0.0 nm
+The displacement length of atom 1-th between frames 0-th and 1-th is: 1.0 nm
+The displacement length of atom 1-th between frames 0-th and 2-th is: 1.4142135623730951 nm
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Distance-between-atoms-pairs">
+<h3>Distance between atoms pairs<a class="headerlink" href="#Distance-between-atoms-pairs" title="Permalink to this headline">¶</a></h3>
+<p>When the method <code class="docutils literal notranslate"><span class="pre">molsysmt.distance()</span></code> is invoked to calculate the distances between a set of <span class="math notranslate nohighlight">\(N\)</span> atoms of <code class="docutils literal notranslate"><span class="pre">item_1</span></code> and a set of <span class="math notranslate nohighlight">\(M\)</span> atoms of <code class="docutils literal notranslate"><span class="pre">item_2</span></code>, the result is an object, a numpy array or a dictionary, with <span class="math notranslate nohighlight">\(N x M\)</span> distances per frame. Sometimes all these different distances are not needed, but only those between specific atom pairs. These atom pairs can be given by the elements in <code class="docutils literal notranslate"><span class="pre">selection_1</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> coupled sequantially one to one. This option is
+activated when the input argument <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code> the shape of the output numpy array is <span class="math notranslate nohighlight">\([n\_frames, N]\)</span>, where <span class="math notranslate nohighlight">\(N\)</span> is the number of pairs: [0,1], [0,2] and [1,2], in this case.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(2, 3)
+</pre></div></div>
+</div>
+<p>Lets print out the distance between atoms 0-th and 2-th in frame 1-th:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The distance between the pair of atoms 0-th and 2-th in frame 1-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The distance between the pair of atoms 0-th and 2-th in frame 1-th: 3.7416573867739413 nm
+</pre></div></div>
+</div>
+<p>The dictionary output form also works for atom pairs in the same way as with <code class="docutils literal notranslate"><span class="pre">pairs=False</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_form</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The distance between the pair of atoms 0-th and 2-th in frame 1-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The distance between the pair of atoms 0-th and 2-th in frame 1-th: 3.7416573867739413 nm
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Minimum-and-Maximum-distance">
+<h3>Minimum and Maximum distance<a class="headerlink" href="#Minimum-and-Maximum-distance" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes the minimum and maximum distance between two sets of atoms needs to be obtained. Although this step could be done with the method <code class="docutils literal notranslate"><span class="pre">molsysmt.distance()</span></code> and a little coding, MolSysMT includes two methods to make it even easier: <code class="docutils literal notranslate"><span class="pre">molsysmt.minimum_distance()</span></code> and <code class="docutils literal notranslate"><span class="pre">molsysmt.maximum_distance()</span></code>. Lets see in the following cells how they work.</p>
+<p>As first example, lets get the minimum distance between both molecular systems A and B:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="p">,</span> <span class="n">min_distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">minimum_distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">item_2</span><span class="o">=</span><span class="n">molecular_system_B</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The result is offered as two numpy arrays: the list of atoms pairs minimizing the distance for each frame, and the corresponding value of the minimum distance (for each frame also).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(3, 2)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[0, 1],
+       [0, 1],
+       [1, 1]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(3,)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_distances</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Quantity(value=array([3.60555128, 2.44948974, 4.12310563]), unit=nanometer)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The minimum distance in frame 2-th is given by atom </span><span class="si">{}</span><span class="s1">-th of A and atom </span><span class="si">{}</span><span class="s1">-th of B: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">min_pairs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">min_pairs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">min_distances</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The minimum distance in frame 2-th is given by atom 1-th of A and atom 1-th of B: 4.123105625617661 nm
+</pre></div></div>
+</div>
+<p>All input arguments described in previous subsections can also be used with <code class="docutils literal notranslate"><span class="pre">molsysmt.minimum_distance()</span></code> and <code class="docutils literal notranslate"><span class="pre">molsysmt.maximum_distance()</span></code>. Lets see an example:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="p">,</span> <span class="n">min_distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">minimum_distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                                               <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Remember that with <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code>, the output does not longer refer atoms indices but pairs indices. That is the reason why the shape of min_pairs is now:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(2,)
+</pre></div></div>
+</div>
+<p>While,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(2,)
+</pre></div></div>
+</div>
+<p>Which means that the minimum displacement between consecutive frames was observed for:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Atom </span><span class="si">{}</span><span class="s1">-th had the minimum displacement of A between frames </span><span class="si">{}</span><span class="s1">-th and </span><span class="si">{}</span><span class="s1">-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">min_pairs</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="n">ii</span><span class="p">,</span> <span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_distances</span><span class="p">[</span><span class="n">ii</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Atom 0-th had the minimum displacement of A between frames 0-th and 1-th: 1.0 nm
+Atom 0-th had the minimum displacement of A between frames 1-th and 2-th: 1.0 nm
+</pre></div></div>
+</div>
+<p>There are situations in which we have a list of atoms of a set A and the minimum distance with a second set of atoms B needs to be known for every single atom of A. In this case the first set has to be considered not as entity (as set) in view of getting a single minimum distance. Lets illustrate this with an example:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="p">,</span> <span class="n">min_distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">minimum_distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                                                <span class="n">item_2</span><span class="o">=</span><span class="n">molecular_system_B</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                                                <span class="n">as_entity_1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_entity_2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The output corresponds to the minimum distance of atom 1-th of A to any atom of B and the minimum distance of atom 2-th of A to any atom of B, at every frame:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_pairs</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(3, 2)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">min_distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(3, 2)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Atom 1-th of A has the minimum distance to B with its atom </span><span class="si">{}</span><span class="s1">-th in frame 1-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selection_2</span><span class="p">[</span><span class="n">min_pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="n">min_distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Atom 1-th of A has the minimum distance to B with its atom 1-th in frame 1-th: 4.242640687119285 nm
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The </span><span class="si">{}</span><span class="s1">-th is the closest atom of B to atom 1-th of A at frame </span><span class="si">{}</span><span class="s1">-th with </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selection_2</span><span class="p">[</span><span class="n">min_pairs</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span><span class="n">ii</span><span class="p">,</span> <span class="n">min_distances</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The 1-th is the closest atom of B to atom 1-th of A at frame 0-th with 4.58257569495584 nm
+The 1-th is the closest atom of B to atom 1-th of A at frame 1-th with 4.242640687119285 nm
+The 1-th is the closest atom of B to atom 1-th of A at frame 2-th with 4.123105625617661 nm
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Neighbor-lists">
+<h2>Neighbor lists<a class="headerlink" href="#Neighbor-lists" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="Contact-maps">
+<h2>Contact maps<a class="headerlink" href="#Contact-maps" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1135,7 +1644,6 @@ Distance at frame 2-th between atom 2-th of A and atom 1-th of B: 5.099019513592
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
-</div>
 </div>
 </div>
 </div>
