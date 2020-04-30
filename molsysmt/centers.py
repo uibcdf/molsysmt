@@ -5,8 +5,8 @@ from .lib import geometry as _libgeometry
 import numpy as _np
 from .utils.exceptions import *
 
-def center(item=None, selection=None, selection_groups=None, weights=None, frame_indices='all',
-           syntaxis='MDTraj', engine='MolSysMT', parallel=False):
+def center(item=None, selection=None, groups_of_atoms=None, weights=None, frame_indices='all',
+           syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
     from molsysmt import convert, select, get, extract
     from molsysmt.utils.math import serialized_lists
@@ -22,11 +22,11 @@ def center(item=None, selection=None, selection_groups=None, weights=None, frame
 
     if engine=='MolSysMT':
 
-        if selection_groups is None:
-            atom_indices = select(item, selection, syntaxis)
-            selection_groups = [atom_indices]
+        if groups_of_atoms is None:
+            atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+            groups_of_atoms = [atom_indices]
 
-        groups_serialized = serialized_lists(selection_groups, dtype='int64')
+        groups_serialized = serialized_lists(groups_of_atoms, dtype='int64')
 
         if weights is None:
             weights_array = _np.ones((groups_serialized.n_values))
@@ -56,23 +56,23 @@ def center(item=None, selection=None, selection_groups=None, weights=None, frame
         raise NotImplementedError(NotImplementedMessage)
 
 
-def geometrical_center(item=None, selection=None, selection_groups=None, frame_indices='all',
-                   syntaxis='MDTraj', engine='MolSysMT', parallel=False):
+def geometric_center(item=None, selection=None, groups_of_atoms=None, frame_indices='all',
+                   syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
-    return center(item=item, selection=selection, selection_groups=selection_groups,
+    return center(item=item, selection=selection, groups_of_atoms=groups_of_atoms,
                   weights=None, frame_indices=frame_indices, syntaxis=syntaxis,
                   engine=engine, parallel=parallel)
 
-def center_of_mass(item=None, selection=None, selection_groups=None, frame_indices='all',
-                   syntaxis='MDTraj', engine='MolSysMT', parallel=False):
+def center_of_mass(item=None, selection=None, groups_of_atoms=None, frame_indices='all',
+                   syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
-    return center(item=item, selection=selection, selection_groups=selection_groups,
+    return center(item=item, selection=selection, groups_of_atoms=groups_of_atoms,
                   weights='masses', frame_indices=frame_indices, syntaxis=syntaxis,
                   engine=engine, parallel=parallel)
 
 
 def recenter(item, selection='all', selection_center='all', coordinates_center=None,
-        center_of_selection='geometrical_center', frame_indices='all', syntaxis='MDTraj', engine='MolSysMT'):
+        center_of_selection='geometric_center', frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT'):
 
     from molsysmt import select, get, duplicate
     from molsysmt import set as _set
@@ -98,8 +98,8 @@ def recenter(item, selection='all', selection_center='all', coordinates_center=N
         if coordinates_center is None:
             coordinates_center = _np.zeros([n_frame_indices,3],dtype='float64')*length_units
 
-        if center_of_selection == 'geometrical_center':
-            coordinates_selection_center = geometrical_center(item=tmp_item, selection=selection_center, selection_groups=None,
+        if center_of_selection == 'geometric_center':
+            coordinates_selection_center = geometric_center(item=tmp_item, selection=selection_center, groups_of_atoms=None,
                                            frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
 
         translation = coordinates_center - coordinates_selection_center[:,0,:]

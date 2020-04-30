@@ -39,7 +39,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="radius_of_gyration" href="molsysmt.radius_of_gyration.html" />
-    <link rel="prev" title="geometrical_center" href="molsysmt.geometrical_center.html" /> 
+    <link rel="prev" title="geometric_center" href="molsysmt.geometric_center.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -164,9 +164,18 @@
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-of-a-system">Distance between atoms of a system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-of-two-systems">Distance between atoms of two systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distances-between-atoms-positions-in-different-frames">Distances between atoms positions in different frames</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances">Displacement distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances-of-atoms">Displacement distances of atoms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-pairs">Distance between atoms pairs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Minimum-and-Maximum-distance">Minimum and Maximum distance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-in-space">Distance between atom groups in space</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-of-a-system">Distance between atom groups of a system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-of-two-systems">Distance between atom groups of two systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distances-between-atom-groups-positions-in-different-frames">Distances between atom groups positions in different frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances-of-atom-groups">Displacement distances of atom groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-pairs">Distance between atom groups pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Minimum-and-Maximum-distance-of-atom-groups">Minimum and Maximum distance of atom groups</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Neighbor-lists">Neighbor lists</a></li>
@@ -197,7 +206,7 @@
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.neighbors_lists.html">neighbors_lists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.center.html">center</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.center_of_mass.html">center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.geometrical_center.html">geometrical_center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.geometric_center.html">geometric_center</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">recenter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.radius_of_gyration.html">radius_of_gyration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.rmsd.html">rmsd</a></li>
@@ -320,7 +329,7 @@
 <h1>recenter<a class="headerlink" href="#recenter" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="molsysmt.recenter">
-<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">recenter</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">selection_center='all'</em>, <em class="sig-param">coordinates_center=None</em>, <em class="sig-param">center_of_selection='geometrical_center'</em>, <em class="sig-param">frame_indices='all'</em>, <em class="sig-param">syntaxis='MDTraj'</em>, <em class="sig-param">engine='MolSysMT'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/centers.html#recenter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.recenter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">recenter</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">selection='all'</em>, <em class="sig-param">selection_center='all'</em>, <em class="sig-param">coordinates_center=None</em>, <em class="sig-param">center_of_selection='geometric_center'</em>, <em class="sig-param">frame_indices='all'</em>, <em class="sig-param">syntaxis='MolSysMT'</em>, <em class="sig-param">engine='MolSysMT'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/centers.html#recenter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.recenter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -336,7 +345,7 @@
         <a href="molsysmt.radius_of_gyration.html" class="btn btn-neutral float-right" title="radius_of_gyration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="molsysmt.geometrical_center.html" class="btn btn-neutral float-left" title="geometrical_center" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="molsysmt.geometric_center.html" class="btn btn-neutral float-left" title="geometric_center" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -7,14 +7,14 @@ import numpy as _np
 from .lib import geometry as _libgeometry
 from .utils.exceptions import *
 from .centers import center_of_mass as _center_of_mass
-from .centers import geometrical_center as _geometrical_center
+from .centers import geometric_center as _geometric_center
 from .utils.engines import digest as _digest_engines
 from .utils.frame_indices import digest as _digest_frame_indices
 
-def distance(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
-             item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
+def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
+             item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
              pairs=False, crossed_frames=False, pbc=False, parallel=False, output_form='tensor', engine='MolSysMT',
-             syntaxis='MDTraj'):
+             syntaxis='MolSysMT'):
 
     # group_behavior in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
@@ -34,15 +34,15 @@ def distance(item_1=None, selection_1="all", selection_groups_1=None, group_beha
     if group_behavior_1=='minimum_distance' or group_behavior_2=='minimum_distance':
         if group_behavior_1=='minimum_distance' and group_behavior_2=='minimum_distance':
             raise NotImplementedError(NotImplementedMessage)
-            #num_groups_1=len(selection_groups_1)
-            #num_groups_2=len(selection_groups_2)
+            #num_groups_1=len(groups_of_atoms_1)
+            #num_groups_2=len(groups_of_atoms_2)
             #frame_indices = _digest_frame_indices(item, frame_indices_1)
             #num_frames=len(frame_indices)
             #dists = _np.zeros((num_frames, num_groups_1, num_groups_2),dtype=float)
             #for ii in range(num_groups_1):
-            #    group1 = selection_groups_2[ii]
+            #    group1 = groups_of_atoms_2[ii]
             #    for jj in range(num_groups_2):
-            #        group2 = selection_groups_2[jj]
+            #        group2 = groups_of_atoms_2[jj]
             #        _, min_dist = min_distances(item_1=item_1, selection_1=group1,
             #                                    frame_indices_1=frame_indices_1,
             #                                    item_2=item_2, selection_2=group2,
@@ -61,26 +61,29 @@ def distance(item_1=None, selection_1="all", selection_groups_1=None, group_beha
         same_groups = False
         same_frames = False
 
+        if groups_of_atoms_1 is not None:
+            selection_1=None
+
         if item_2 is None:
 
             item_2 = item_1
             same_item = True
 
             if (selection_1 is not None) and (selection_2 is None):
-                if (selection_groups_2 is None):
+                if (groups_of_atoms_2 is None):
                     selection_2 = selection_1
                     same_selection = True
                     diff_set = False
 
-            if selection_groups_1 is not None:
-                if (selection_2 is None) and (selection_groups_2 is None):
-                    selection_groups_2=selection_groups_1
+            if groups_of_atoms_1 is not None:
+                if (selection_2 is None) and (groups_of_atoms_2 is None):
+                    groups_of_atoms_2=groups_of_atoms_1
                     same_groups = True
                     diff_set = False
 
         else:
             if (selection_1 is not None) and (selection_2 is None):
-                if (selection_groups_2 is None):
+                if (groups_of_atoms_2 is None):
                     selection_2 = selection_1
 
         if frame_indices_2 is None:
@@ -94,40 +97,57 @@ def distance(item_1=None, selection_1="all", selection_groups_1=None, group_beha
 
         if selection_1 is not None:
 
-            atom_indices_1 = select(item_1, selection=selection_1, syntaxis=syntaxis)
-            coordinates_1 = get(item_1, target='atom', indices=atom_indices_1,
-                            frame_indices=frame_indices_1, coordinates=True)
+            if group_behavior_1 == 'center_of_mass':
+                coordinates_1 = _center_of_mass(item_1, selection=selection_1, frame_indices=frame_indices_1)
+                atom_indices_1 = [0]
+            elif group_behavior_1 == 'geometric_center':
+                coordinates_1 = _geometric_center(item_1, selection=selection_1, frame_indices=frame_indices_1)
+                atom_indices_1 = [0]
+            else:
+                atom_indices_1 = select(item_1, selection=selection_1, syntaxis=syntaxis)
+                coordinates_1 = get(item_1, target='atom', indices=atom_indices_1,
+                                    frame_indices=frame_indices_1, coordinates=True)
         else:
 
             if group_behavior_1 == 'center_of_mass':
-                coordinates_1 = _center_of_mass(item_1, selection_groups=selection_groups_1,
+                coordinates_1 = _center_of_mass(item_1, groups_of_atoms=groups_of_atoms_1,
                                                 frame_indices=frame_indices_1)
-                atom_indices_1 = list(len(coordinates_1.shape[1]))
-            elif group_behavior_1 == 'geometrical_center':
-                coordinates_1 = _geometrical_center(item_1,selection_groups=selection_groups_1,
-                                                    frame=frame_indices_1)
-                atom_indices_1 = list(len(coordinates_1.shape[1]))
+                atom_indices_1 = _np.range(coordinates_1.shape[1])
+            elif group_behavior_1 == 'geometric_center':
+                coordinates_1 = _geometric_center(item_1,groups_of_atoms=groups_of_atoms_1,
+                                                    frame_indices=frame_indices_1)
+                atom_indices_1 = _np.arange(coordinates_1.shape[1])
             else:
                 raise ValueError("Value of argument group_behavior_1 not recognized.")
 
         if selection_2 is not None:
 
-            atom_indices_2 = select(item_2, selection=selection_2, syntaxis=syntaxis)
-            coordinates_2 = get(item_2, target='atom', indices=atom_indices_2,
-                                frame_indices=frame_indices_2, coordinates=True)
+            if group_behavior_2 == 'center_of_mass':
+                coordinates_2 = _center_of_mass(item_2, selection=selection_2, frame_indices=frame_indices_2)
+                atom_indices_2 = [0]
+            elif group_behavior_2 == 'geometric_center':
+                coordinates_2 = _geometric_center(item_2, selection=selection_2,
+                                                  frame_indices=frame_indices_2)
+                atom_indices_2 = [0]
+            else:
+                atom_indices_2 = select(item_2, selection=selection_2, syntaxis=syntaxis)
+                coordinates_2 = get(item_2, target='atom', indices=atom_indices_2,
+                                    frame_indices=frame_indices_2, coordinates=True)
+
         else:
 
             if same_groups and same_frames:
                 atom_indices_2 = _np.copy(atom_indices_1)
-                coordinates_2 = _np.copy(coordinates_1)
+                coordinates_2 = _np.copy(coordinates_1)*coordinates_1.unit
             else:
                 if group_behavior_2 == 'center_of_mass':
-                    coordinates_2 = _center_of_mass(item_2, selection_groups=selection_groups_2,
+                    coordinates_2 = _center_of_mass(item_2, groups_of_atoms=groups_of_atoms_2,
                                                 frame_indices=frame_indices_2)
-                    atom_indices_2 = list(len(coordinates_2.shape[1]))
-                elif group_behavior_2 == 'geometrical_center':
-                    coordinates_2 = _geometrical_center(item_2,selection_groups=selection_groups_2,
-                                                frame=frame_indices_2)
+                    atom_indices_2 = _np.arange(coordinates_2.shape[1])
+                elif group_behavior_2 == 'geometric_center':
+                    coordinates_2 = _geometric_center(item_2,groups_of_atoms=groups_of_atoms_2,
+                                                frame_indices=frame_indices_2)
+                    atom_indices_2 = _np.arange(coordinates_2.shape[1])
                 else:
                     raise ValueError("Value of argument group_behavior_2 not recognized.")
 
@@ -267,17 +287,17 @@ def distance(item_1=None, selection_1="all", selection_groups_1=None, group_beha
     else:
         raise NotImplementedError(NotImplementedMessage)
 
-def minimum_distance(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None,
+def minimum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None,
                      as_entity_1=True, frame_indices_1="all",
-                     item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None,
+                     item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None,
                      as_entity_2=True, frame_indices_2=None,
                      pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
 
     all_dists = distance(item_1=item_1, selection_1=selection_1,
-                         selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
+                         groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
                          frame_indices_1=frame_indices_1,
                          item_2=item_2, selection_2=selection_2,
-                         selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
+                         groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
                          pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
                          syntaxis=syntaxis)
@@ -361,17 +381,17 @@ def minimum_distance(item_1=None, selection_1="all", selection_groups_1=None, gr
         else:
             raise ValueError("If 'pairs=True' both input arguments 'as_entity_1' and 'as_entity_2' need to be True")
 
-def maximum_distance(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None,
+def maximum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None,
                      as_entity_1=True, frame_indices_1="all",
-                     item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None,
+                     item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None,
                      as_entity_2=True, frame_indices_2=None,
                      pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
 
     all_dists = distance(item_1=item_1, selection_1=selection_1,
-                         selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
+                         groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
                          frame_indices_1=frame_indices_1,
                          item_2=item_2, selection_2=selection_2,
-                         selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
+                         groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
                          pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
                          syntaxis=syntaxis)
@@ -457,15 +477,15 @@ def maximum_distance(item_1=None, selection_1="all", selection_groups_1=None, gr
             raise ValueError("If 'pairs=True' both input arguments 'as_entity_1' and 'as_entity_2' need to be True")
 
 
-def contact_map(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
-                item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
+def contact_map(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
+                item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
                 threshold=None, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
 
     all_dists = distance(item_1=item_1, selection_1=selection_1,
-                         selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
+                         groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
                          frame_indices_1=frame_indices_1,
                          item_2=item_2, selection_2=selection_2,
-                         selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
+                         groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
                          pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
                          syntaxis=syntaxis)
@@ -482,8 +502,8 @@ def contact_map(item_1=None, selection_1="all", selection_groups_1=None, group_b
 
     return contact_map
 
-def neighbors_lists(item_1=None, selection_1="all", selection_groups_1=None, group_behavior_1=None, frame_indices_1="all",
-                    item_2=None, selection_2=None, selection_groups_2=None, group_behavior_2=None, frame_indices_2=None,
+def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
+                    item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
                     threshold=None, num_neighbors=None,
                     pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
 
@@ -491,10 +511,10 @@ def neighbors_lists(item_1=None, selection_1="all", selection_groups_1=None, gro
         raise BadCallError(BadCallMessage)
 
     all_dists = distance(item_1=item_1, selection_1=selection_1,
-                         selection_groups_1=selection_groups_1, group_behavior_1=group_behavior_1,
+                         groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
                          frame_indices_1=frame_indices_1,
                          item_2=item_2, selection_2=selection_2,
-                         selection_groups_2=selection_groups_2, group_behavior_2=group_behavior_2,
+                         groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
                          frame_indices_2=frame_indices_2,
                          pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
                          syntaxis=syntaxis)

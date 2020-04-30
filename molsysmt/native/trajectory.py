@@ -18,6 +18,7 @@ class Trajectory():
                                 # and order=F, with units nanometers
         self.box  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
                           # cell is the matrix with the vectors
+        self.box_shape = None
         self.atom_indices = None
         self.n_frames = 0
         self.n_atoms = 0
@@ -27,15 +28,17 @@ class Trajectory():
 
     def _set_frames(self, atom_indices=None, step=None, time=None, coordinates=None, box=None):
 
+        from molsysmt import box_shape_from_box_vectors
+
         self.coordinates = coordinates.in_units_of(m3t_units.length)
         self.time  = time.in_units_of(m3t_units.time)
         self.step  = step
-        self.box  = box.in_units_of(m3t_units.length)
         self.atom_indices = atom_indices
 
         if box is not None:
             if box[0] is None:
                 self.box = None
+            self.box  = box.in_units_of(m3t_units.length)
 
         if self.coordinates is not None:
             self.n_frames = self.coordinates.shape[0]
@@ -61,21 +64,23 @@ class Trajectory():
             if _np.isfortran(ii)==False:
                 ii=_np.asfortranarray(ii)
 
+        self.box_shape = box_shape_from_box_vectors(self.box)
+
         pass
 
     def get_box_lengths(self):
 
-        from molsysmt.utils.pbc import get_box_lengths as _get_box_lengths
+        from molsysmt import box_lengths_from_box_vectors
 
-        lengths = _get_box_lengths(self.box)
+        lengths = box_lengths_from_box_vectors(self.box)
 
         return lengths
 
     def get_box_angles(self):
 
-        from molsysmt.utils.pbc import get_box_angles as _get_box_angles
+        from molsysmt import box_angles_from_box_vectors
 
-        angles = _get_box_angles(self.box)
+        angles = box_angles_from_box_vectors(self.box)
 
         return angles
 
@@ -133,6 +138,7 @@ class Trajectory():
         tmp_item.time = deepcopy(self.time)
         tmp_item.coordinates = deepcopy(self.coordinates)
         tmp_item.box = deepcopy(self.box)
+        tmp_item.box_shape = deepcopy(self.box_shape)
 
         tmp_item.atom_indices = deepcopy(self.atom_indices)
         tmp_item.n_frames = deepcopy(self.n_frames)

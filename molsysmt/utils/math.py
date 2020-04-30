@@ -11,7 +11,7 @@ class serialized_lists():
         self.n_indices = None
 
 
-        if type(item) is list:
+        if type(item) is list or type(item) is _np.ndarray:
 
             """
             item = [[3,4,5],[1,10],[3,4,6,7],[8],[2,9,1]]

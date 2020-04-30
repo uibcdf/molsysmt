@@ -164,9 +164,18 @@
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-of-a-system">Distance between atoms of a system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-of-two-systems">Distance between atoms of two systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distances-between-atoms-positions-in-different-frames">Distances between atoms positions in different frames</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances">Displacement distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances-of-atoms">Displacement distances of atoms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-pairs">Distance between atoms pairs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Minimum-and-Maximum-distance">Minimum and Maximum distance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-in-space">Distance between atom groups in space</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-of-a-system">Distance between atom groups of a system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-of-two-systems">Distance between atom groups of two systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distances-between-atom-groups-positions-in-different-frames">Distances between atom groups positions in different frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances-of-atom-groups">Displacement distances of atom groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-pairs">Distance between atom groups pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Minimum-and-Maximum-distance-of-atom-groups">Minimum and Maximum distance of atom groups</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Neighbor-lists">Neighbor lists</a></li>
@@ -197,7 +206,7 @@
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.neighbors_lists.html">neighbors_lists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.center.html">center</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.center_of_mass.html">center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.geometrical_center.html">geometrical_center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsysmt.geometric_center.html">geometric_center</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.recenter.html">recenter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.radius_of_gyration.html">radius_of_gyration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.rmsd.html">rmsd</a></li>
@@ -320,7 +329,7 @@
 <h1>distance<a class="headerlink" href="#distance" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="molsysmt.distance">
-<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">distance</code><span class="sig-paren">(</span><em class="sig-param">item_1=None</em>, <em class="sig-param">selection_1='all'</em>, <em class="sig-param">selection_groups_1=None</em>, <em class="sig-param">group_behavior_1=None</em>, <em class="sig-param">frame_indices_1='all'</em>, <em class="sig-param">item_2=None</em>, <em class="sig-param">selection_2=None</em>, <em class="sig-param">selection_groups_2=None</em>, <em class="sig-param">group_behavior_2=None</em>, <em class="sig-param">frame_indices_2=None</em>, <em class="sig-param">pairs=False</em>, <em class="sig-param">crossed_frames=False</em>, <em class="sig-param">pbc=False</em>, <em class="sig-param">parallel=False</em>, <em class="sig-param">output_form='tensor'</em>, <em class="sig-param">engine='MolSysMT'</em>, <em class="sig-param">syntaxis='MDTraj'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/distances.html#distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.distance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">distance</code><span class="sig-paren">(</span><em class="sig-param">item_1=None</em>, <em class="sig-param">selection_1='all'</em>, <em class="sig-param">groups_of_atoms_1=None</em>, <em class="sig-param">group_behavior_1=None</em>, <em class="sig-param">frame_indices_1='all'</em>, <em class="sig-param">item_2=None</em>, <em class="sig-param">selection_2=None</em>, <em class="sig-param">groups_of_atoms_2=None</em>, <em class="sig-param">group_behavior_2=None</em>, <em class="sig-param">frame_indices_2=None</em>, <em class="sig-param">pairs=False</em>, <em class="sig-param">crossed_frames=False</em>, <em class="sig-param">pbc=False</em>, <em class="sig-param">parallel=False</em>, <em class="sig-param">output_form='tensor'</em>, <em class="sig-param">engine='MolSysMT'</em>, <em class="sig-param">syntaxis='MolSysMT'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/distances.html#distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.distance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

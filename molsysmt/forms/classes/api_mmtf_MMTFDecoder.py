@@ -64,7 +64,7 @@ def select_with_MolSysMT(item, selection):
 def get_frame_from_atom (item, indices='all', frame_indices='all'):
 
     from numpy import arange, empty, zeros, column_stack
-    from molsysmt.utils.pbc import get_box_from_lengths_and_angles
+    from molsysmt import box_vectors_from_box_lengths_and_angles
     from molsysmt.utils import units as molsysmt_units
     from simtk.unit import angstroms, degrees, picoseconds
 
@@ -77,26 +77,33 @@ def get_frame_from_atom (item, indices='all', frame_indices='all'):
     xyz = xyz.reshape([-1, item.num_atoms, 3])
     xyz = xyz*angstroms
 
-    cell_lengths = empty([n_frames,3], dtype='float64')
-    cell_angles = empty([n_frames,3], dtype='float64')
-    for ii in range(3):
-        cell_lengths[:,ii] = item.unit_cell[ii]
-        cell_angles[:,ii] = item.unit_cell[ii+3]
+    if item.unit_cell is not None:
 
-    cell_lengths = cell_lengths*angstroms
-    cell_angles = cell_angles*degrees
+        cell_lengths = empty([n_frames,3], dtype='float64')
+        cell_angles = empty([n_frames,3], dtype='float64')
+        for ii in range(3):
+            cell_lengths[:,ii] = item.unit_cell[ii]
+            cell_angles[:,ii] = item.unit_cell[ii+3]
 
-    box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
+        cell_lengths = cell_lengths*angstroms
+        cell_angles = cell_angles*degrees
+
+        box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
+        box = box.in_units_of(molsysmt_units.length)
+
+    else:
+
+        box = None
 
     xyz = xyz.in_units_of(molsysmt_units.length)
-    box = box.in_units_of(molsysmt_units.length)
     time = time.in_units_of(molsysmt_units.time)
 
     if frame_indices is not 'all':
         xyz = xyz[frame_indices,:,:]
-        box = box[frame_indices,:,:]
         time = time[frame_indices]
         step = step[frame_indices]
+        if box is not None:
+            box = box[frame_indices,:,:]
 
     if indices is not 'all':
         xyz = xyz[:,indices,:]
@@ -116,42 +123,7 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
 def get_frame_from_system (item, indices='all', frame_indices='all'):
 
-    from numpy import arange, empty, zeros, column_stack
-    from molsysmt.utils.pbc import get_box_from_lengths_and_angles
-    from molsysmt.utils import units as molsysmt_units
-    from simtk.unit import angstroms, degrees, picoseconds
-
-    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
-    n_atoms = get_n_atoms_from_system(item, indices='all', frame_indices='all')
-
-    step = arange(n_frames, dtype=int)
-    time = zeros(n_frames, dtype=float)*picoseconds
-    xyz = column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
-    xyz = xyz.reshape([-1, item.num_atoms, 3])
-    xyz = xyz*angstroms
-
-    cell_lengths = empty([n_frames,3], dtype='float64')
-    cell_angles = empty([n_frames,3], dtype='float64')
-    for ii in range(3):
-        cell_lengths[:,ii] = item.unit_cell[ii]
-        cell_angles[:,ii] = item.unit_cell[ii+3]
-
-    cell_lengths = cell_lengths*angstroms
-    cell_angles = cell_angles*degrees
-
-    box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
-
-    xyz = xyz.in_units_of(molsysmt_units.length)
-    box = box.in_units_of(molsysmt_units.length)
-    time = time.in_units_of(molsysmt_units.time)
-
-    if frame_indices is not 'all':
-        xyz = xyz[frame_indices,:,:]
-        box = box[frame_indices,:,:]
-        time = time[frame_indices]
-        step = step[frame_indices]
-
-    return step, time, xyz, box
+    return get_frame_from_atom (item, indices='all', frame_indices=frame_indices)
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 

@@ -1,6 +1,0 @@
-geometrical_center
-===================
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: geometrical_center

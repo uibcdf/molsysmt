@@ -162,9 +162,18 @@
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-of-a-system">Distance between atoms of a system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-of-two-systems">Distance between atoms of two systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distances-between-atoms-positions-in-different-frames">Distances between atoms positions in different frames</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances">Displacement distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances-of-atoms">Displacement distances of atoms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atoms-pairs">Distance between atoms pairs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Minimum-and-Maximum-distance">Minimum and Maximum distance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-in-space">Distance between atom groups in space</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-of-a-system">Distance between atom groups of a system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-of-two-systems">Distance between atom groups of two systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distances-between-atom-groups-positions-in-different-frames">Distances between atom groups positions in different frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Displacement-distances-of-atom-groups">Displacement distances of atom groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Distance-between-atom-groups-pairs">Distance between atom groups pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Minimum-and-Maximum-distance-of-atom-groups">Minimum and Maximum distance of atom groups</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Neighbor-lists">Neighbor lists</a></li>
@@ -195,7 +204,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.neighbors_lists.html">neighbors_lists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.center.html">center</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.center_of_mass.html">center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.geometrical_center.html">geometrical_center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.geometric_center.html">geometric_center</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.recenter.html">recenter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.radius_of_gyration.html">radius_of_gyration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.rmsd.html">rmsd</a></li>
@@ -292,6 +301,80 @@
 <span class="kn">from</span> <span class="nn">.utils.forms</span> <span class="kn">import</span> <span class="n">digest</span> <span class="k">as</span> <span class="n">_digest_forms</span>
 <span class="kn">from</span> <span class="nn">molsysmt.lib</span> <span class="kn">import</span> <span class="n">box</span> <span class="k">as</span> <span class="n">_libbox</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">_np</span>
+
+<span class="k">def</span> <span class="nf">box_shape_from_box_angles</span><span class="p">(</span><span class="n">angles</span><span class="p">):</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">shape</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">angles</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">angles</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">angles</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">alpha</span><span class="o">==</span><span class="mf">90.00</span> <span class="ow">and</span> <span class="n">beta</span><span class="o">==</span><span class="mf">90.00</span> <span class="ow">and</span> <span class="n">gamma</span><span class="o">==</span><span class="mf">90.00</span><span class="p">:</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="s1">&#39;cubic&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="s1">&#39;triclinic&#39;</span>
+
+    <span class="k">return</span> <span class="n">shape</span>
+
+<span class="k">def</span> <span class="nf">box_shape_from_box_vectors</span><span class="p">(</span><span class="n">box</span><span class="p">):</span>
+
+    <span class="kn">from</span> <span class="nn">molsysmt.lib</span> <span class="kn">import</span> <span class="n">box</span> <span class="k">as</span> <span class="n">_libbox</span>
+
+    <span class="n">n_frames</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">angles</span> <span class="o">=</span> <span class="n">_libbox</span><span class="o">.</span><span class="n">angles_box</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">n_frames</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">box_shape_from_box_angles</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">box_lengths_from_box_vectors</span><span class="p">(</span><span class="n">box</span><span class="p">):</span>
+
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">asfortranarray</span><span class="p">,</span> <span class="n">ascontiguousarray</span>
+
+    <span class="n">length_units</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">unit</span>
+    <span class="n">n_frames</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tmp_box</span> <span class="o">=</span>  <span class="n">asfortranarray</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="n">lengths</span> <span class="o">=</span> <span class="n">_libbox</span><span class="o">.</span><span class="n">length_edges_box</span><span class="p">(</span><span class="n">tmp_box</span><span class="p">,</span> <span class="n">n_frames</span><span class="p">)</span>
+    <span class="n">lengths</span> <span class="o">=</span> <span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="k">del</span><span class="p">(</span><span class="n">tmp_box</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lengths</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="n">length_units</span>
+
+<span class="k">def</span> <span class="nf">box_angles_from_box_vectors</span><span class="p">(</span><span class="n">box</span><span class="p">):</span>
+
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">asfortranarray</span><span class="p">,</span> <span class="n">ascontiguousarray</span>
+    <span class="kn">from</span> <span class="nn">simtk.unit</span> <span class="kn">import</span> <span class="n">degrees</span>
+
+    <span class="n">n_frames</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tmp_box</span> <span class="o">=</span>  <span class="n">asfortranarray</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="n">angles</span> <span class="o">=</span> <span class="n">_libbox</span><span class="o">.</span><span class="n">angles_box</span><span class="p">(</span><span class="n">tmp_box</span><span class="p">,</span> <span class="n">n_frames</span><span class="p">)</span>
+    <span class="n">angles</span> <span class="o">=</span> <span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="k">del</span><span class="p">(</span><span class="n">tmp_box</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">angles</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="n">degrees</span>
+
+<span class="k">def</span> <span class="nf">box_vectors_from_box_lengths_and_angles</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">angles</span><span class="p">):</span>
+
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">asfortranarray</span><span class="p">,</span> <span class="n">ascontiguousarray</span>
+
+    <span class="n">length_units</span> <span class="o">=</span> <span class="n">lengths</span><span class="o">.</span><span class="n">unit</span>
+    <span class="n">angle_units</span> <span class="o">=</span> <span class="n">angles</span><span class="o">.</span><span class="n">unit</span>
+    <span class="n">tmp_lengths</span> <span class="o">=</span>  <span class="n">asfortranarray</span><span class="p">(</span><span class="n">lengths</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="n">tmp_angles</span> <span class="o">=</span>  <span class="n">asfortranarray</span><span class="p">(</span><span class="n">angles</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="n">n_frames</span> <span class="o">=</span> <span class="n">lengths</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">box</span> <span class="o">=</span> <span class="n">_libbox</span><span class="o">.</span><span class="n">lengths_and_angles_to_box</span><span class="p">(</span><span class="n">tmp_lengths</span><span class="p">,</span> <span class="n">tmp_angles</span><span class="p">,</span> <span class="n">n_frames</span><span class="p">)</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+    <span class="k">del</span><span class="p">(</span><span class="n">tmp_lengths</span><span class="p">,</span> <span class="n">tmp_angles</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">box</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="n">length_units</span>
+
+
 
 <div class="viewcode-block" id="minimum_image_convention"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.minimum_image_convention.html#molsysmt.minimum_image_convention">[docs]</a><span class="k">def</span> <span class="nf">minimum_image_convention</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">reference_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                              <span class="n">reference_coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">center_of_selection</span><span class="o">=</span><span class="s1">&#39;geometrical_center&#39;</span><span class="p">,</span>

@@ -34,7 +34,7 @@ Methods to extract or to modify structural and geometrical observables of a mole
    neighbors_lists
    center
    center_of_mass
-   geometrical_center
+   geometric_center
    recenter
    radius_of_gyration
    rmsd

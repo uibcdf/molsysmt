@@ -62,7 +62,7 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     else:
 
-        box = full(n_frames, None)*molsysmt_units.length
+        box = None
 
     xyz = xyz.in_units_of(molsysmt_units.length)
     time = time.in_units_of(molsysmt_units.time)

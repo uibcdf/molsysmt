@@ -11,20 +11,22 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     # sanity checks
 
-    mmtf_bioassembly = item.bio_assembly[bioassembly_index]
+    if len(item.bio_assembly)>0:
 
-    if len(mmtf_bioassembly['transformList'])>1:
-        raise NotImplementedError("The bioassembly has more than a transformation.")
+        mmtf_bioassembly = item.bio_assembly[bioassembly_index]
 
-    for n_chain_per_model in item.chains_per_model:
-        if n_chain_per_model != item.num_chains:
-            raise NotImplementedError("The bioassembly has models with different number of chains")
+        if len(mmtf_bioassembly['transformList'])>1:
+            raise NotImplementedError("The bioassembly has more than a transformation.")
 
-    if len(mmtf_bioassembly['transformList'][0]['chainIndexList']) != item.num_chains:
-        raise NotImplementedError("The bioassembly has a different number of chains than the total amount of chains")
+        for n_chain_per_model in item.chains_per_model:
+            if n_chain_per_model != item.num_chains:
+                raise NotImplementedError("The bioassembly has models with different number of chains")
 
-    if len(item.group_type_list)!=item.num_groups:
-        raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
+        if len(mmtf_bioassembly['transformList'][0]['chainIndexList']) != item.num_chains:
+            raise NotImplementedError("The bioassembly has a different number of chains than the total amount of chains")
+
+        if len(item.group_type_list)!=item.num_groups:
+            raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
 
     # atoms, groups and bonds intra group in graph
 
