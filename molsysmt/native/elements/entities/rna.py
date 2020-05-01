@@ -6,3 +6,8 @@ class RNA(Entity):
 
         super().__init__(id=id, index=index, name=name, type='rna')
 
+    def copy(self):
+
+        tmp_item = RNA(index=self.index, id=self.id, name=self.name)
+        return tmp_item
+

@@ -85,10 +85,7 @@ def select_with_MolSysMT(item, selection):
 
 def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
-    else:
-        raise NotImplementedError
+    return item.extract(selection=atom_indices, frame_indices=frame_indices)
 
 def to_nglview(item, atom_indices='all', frame_indices='all'):
 

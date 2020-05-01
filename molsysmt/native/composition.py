@@ -33,94 +33,100 @@ class Composition():
 
         self.dataframe = None
 
-    #def _update_from_bioassembly(self):
-
-    #    if self.bioassembly is not None:
-
-    #        self.entity = self.bioassembly.entity
-    #        self.entity_indices = self.bioassembly.entity_indices
-    #        self.n_entities = self.bioassembly.n_entities
-
-    #        self.molecule = self.bioassembly.molecule
-    #        self.molecule_indices = self.bioassembly.molecule_indices
-    #        self.n_molecules = self.bioassembly.n_molecules
-
-    #        self.chain = self.bioassembly.chain
-    #        self.chain_indices = self.bioassembly.chain_indices
-    #        self.n_chains = self.bioassembly.n_chains
-
-    #        self.component = self.bioassembly.component
-    #        self.component_indices = self.bioassembly.component_indices
-    #        self.n_components = self.bioassembly.n_components
-
-    #        self.group = self.bioassembly.group
-    #        self.groups = self.bioassembly.group_indices
-    #        self.n_groups = self.bioassembly.n_groups
-
-    #        self.atom = self.bioassembly.atom
-    #        self.atom_indices = self.bioassembly.atom_indices
-    #        self.n_atoms = self.bioassembly.n_atoms
-
-    #        self.bond = self.bioassembly.bond
-    #        self.bond_indices = self.bioassembly.bond_indices
-    #        self.bonded_atom_indices = self.bioassembly.bonded_atom_indices
-    #        self.n_bonds = self.bioassembly.n_bonds
-
-    def _update_dataframe(self):
-
-        from molsysmt.native import DataFrame
-        from pandas import Series
-
-        tmp_item = DataFrame()
-
-        tmp_item['atom.index'] = Series(atom.index for atom in self.atom).values
-        tmp_item['atom.name'] = Series(atom.name for atom in self.atom).values
-        tmp_item['atom.id'] = Series(atom.id for atom in self.atom).values
-        tmp_item['atom.type'] = Series(atom.type for atom in self.atom).values
-
-        tmp_item['group.index'] = Series(atom.group.index for atom in self.atom).values
-        tmp_item['group.name'] = Series(atom.group.name for atom in self.atom).values
-        tmp_item['group.id'] = Series(atom.group.id for atom in self.atom).values
-        tmp_item['group.type'] = Series(atom.group.type for atom in self.atom).values
-
-        tmp_item['component.index'] = Series(atom.component.index for atom in self.atom).values
-        tmp_item['component.name'] = Series(atom.component.name for atom in self.atom).values
-        tmp_item['component.id'] = Series(atom.component.id for atom in self.atom).values
-        tmp_item['component.type'] = Series(atom.component.type for atom in self.atom).values
-
-        tmp_item['chain.index'] = Series(atom.chain.index for atom in self.atom).values
-        tmp_item['chain.name'] = Series(atom.chain.name for atom in self.atom).values
-        tmp_item['chain.id'] = Series(atom.chain.id for atom in self.atom).values
-        tmp_item['chain.type'] = Series(atom.chain.type for atom in self.atom).values
-
-        tmp_item['molecule.index'] = Series(atom.molecule.index for atom in self.atom).values
-        tmp_item['molecule.name'] = Series(atom.molecule.name for atom in self.atom).values
-        tmp_item['molecule.id'] = Series(atom.molecule.id for atom in self.atom).values
-        tmp_item['molecule.type'] = Series(atom.molecule.type for atom in self.atom).values
-
-        tmp_item['entity.index'] = Series(atom.entity.index for atom in self.atom).values
-        tmp_item['entity.name'] = Series(atom.entity.name for atom in self.atom).values
-        tmp_item['entity.id'] = Series(atom.entity.id for atom in self.atom).values
-        tmp_item['entity.type'] = Series(atom.entity.type for atom in self.atom).values
-
-        tmp_item.set_index(tmp_item['atom.index'].values)
-
-        self.dataframe = tmp_item
-
-    def extract(self, atom_indices='all'):
+    def extract(self, atom_indices='all', frame_indices='all'):
 
         if atom_indices is 'all':
-            return self
+            return self.copy()
         else:
             raise NotImplementedError
 
-    def duplicate(self):
+    pass
 
-        raise NotImplementedError
+    def copy(self):
 
-    def select(self, selection, output_indices='atom'):
+        tmp_item = Composition()
 
-        from molsysmt.native.selector import dataframe_select
-        indices = dataframe_select(self.dataframe, selection, output_indices=output_indices)
-        return indices
+        for original_atom in self.atom:
+            new_atom = original_atom.copy()
+            tmp_item.atom.append(new_atom)
+
+        for original_group in self.group:
+            new_group = original_group.copy()
+            for atom_index in original_group.atom_indices:
+                atom=tmp_item.atom[atom_index]
+                new_group.add_atom(atom)
+                atom.group=new_group
+            tmp_item.group.append(new_group)
+
+        for original_component in self.component:
+            new_component = original_component.copy()
+            for atom_index in original_component.atom_indices:
+                atom=tmp_item.atom[atom_index]
+                new_component.add_atom(atom)
+                atom.component=new_component
+            for group_index in original_component.group_indices:
+                group=tmp_item.group[group_index]
+                new_component.add_group(group)
+                group.component=new_component
+            tmp_item.component.append(new_component)
+
+        for original_molecule in self.molecule:
+            new_molecule = original_molecule.copy()
+            for atom_index in original_molecule.atom_indices:
+                atom=tmp_item.atom[atom_index]
+                new_molecule.add_atom(atom)
+                atom.molecule=new_molecule
+            for group_index in original_molecule.group_indices:
+                group=tmp_item.group[group_index]
+                new_molecule.add_group(group)
+                group.molecule=new_molecule
+            for component_index in original_molecule.component_indices:
+                component=tmp_item.component[component_index]
+                new_molecule.add_component(component)
+                component.molecule=new_molecule
+            tmp_item.molecule.append(new_molecule)
+
+        for original_chain in self.chain:
+            new_chain = original_chain.copy()
+            for atom_index in original_chain.atom_indices:
+                atom=tmp_item.atom[atom_index]
+                new_chain.add_atom(atom)
+                atom.chain=new_chain
+            for group_index in original_chain.group_indices:
+                group=tmp_item.group[group_index]
+                new_chain.add_group(group)
+                group.chain=new_chain
+            for component_index in original_chain.component_indices:
+                component=tmp_item.component[component_index]
+                new_chain.add_component(component)
+                component.chain=new_chain
+            tmp_item.chain.append(new_chain)
+
+        for original_entity in self.entity:
+            new_entity = original_entity.copy()
+            for atom_index in original_entity.atom_indices:
+                atom=tmp_item.atom[atom_index]
+                new_entity.add_atom(atom)
+                atom.entity=new_entity
+            for group_index in original_entity.group_indices:
+                group=tmp_item.group[group_index]
+                new_entity.add_group(group)
+                group.entity=new_entity
+            for component_index in original_entity.component_indices:
+                component=tmp_item.component[component_index]
+                new_entity.add_component(component)
+                component.entity=new_entity
+            for chain_index in original_entity.chain_indices:
+                chain=tmp_item.chain[chain_index]
+                new_entity.add_chain(chain)
+                chain.entity=new_entity
+            for molecule_index in original_entity.molecule_indices:
+                molecule=tmp_item.molecule[molecule_index]
+                new_entity.add_molecule(molecule)
+                molecule.entity=new_entity
+            tmp_item.entity.append(new_entity)
+
+        tmp_item.dataframe = self.dataframe.copy()
+
+        return tmp_item
 

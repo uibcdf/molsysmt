@@ -15,7 +15,7 @@ list_forms=[]
 dict_converter={}
 dict_selector={}
 dict_extractor={}
-dict_duplicator={}
+dict_copier={}
 dict_merger={}
 dict_is_form={}
 dict_get={}
@@ -34,7 +34,7 @@ for form_name in list_forms:
     dict_converter[form_name]= {}
     dict_selector[form_name]= {}
     dict_extractor[form_name]= {}
-    dict_duplicator[form_name]= {}
+    dict_copier[form_name]= {}
     dict_merger[form_name]= {}
     dict_get[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{}, 'entity':{}, 'system':{}}
     dict_set[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{}, 'entity':{}, 'system':{}}
@@ -61,8 +61,8 @@ for form_name in list_forms:
 
     if 'extract_subsystem' in dict_api_forms[form_name].__dict__.keys():
         dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_subsystem')
-    if 'duplicate' in dict_api_forms[form_name].__dict__.keys():
-        dict_duplicator[form_name]=getattr(dict_api_forms[form_name],'duplicate')
+    if 'copy' in dict_api_forms[form_name].__dict__.keys():
+        dict_copier[form_name]=getattr(dict_api_forms[form_name],'copy')
     if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():
         dict_merger[form_name]=getattr(dict_api_forms[form_name],'merge_two_items')
 

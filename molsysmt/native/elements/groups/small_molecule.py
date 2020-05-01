@@ -6,3 +6,8 @@ class SmallMolecule(Group):
 
         super().__init__(index=index, id=id, name=name, type="small_molecule")
 
+    def copy(self):
+
+        tmp_item = SmallMolecule(index=self.index, id=self.id, name=self.name)
+        return tmp_item
+

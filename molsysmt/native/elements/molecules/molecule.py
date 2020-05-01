@@ -43,7 +43,8 @@ class Molecule():
 
     """
 
-    def __init__(self, index=None, id=None, name=None, type=None):
+    def __init__(self, index=None, id=None, name=None, type=None,
+                atoms=[], groups=[], components=[]):
 
         """Init method for molecule.
 
@@ -66,19 +67,50 @@ class Molecule():
         self.name = name
         self.type = type
 
-        self.atom = []
-        self.atom_indices = []
-        self.n_atoms = 0
+        self.atom = atoms
+        self.atom_indices = [atom.index for atom in atoms]
+        self.n_atoms = len(atoms)
 
-        self.group = []
-        self.group_indices = []
-        self.n_groups = 0
+        self.group = groups
+        self.group_indices = [group.index for group in groups]
+        self.n_groups = len(groups)
 
-        self.component = []
-        self.component_indices = []
-        self.n_components = 0
+        self.component = components
+        self.component_indices = [component.index for component in components]
+        self.n_components = len(components)
 
         self.entity = None
+
+    def formal_charge(self):
+
+        value=0
+        for atom in self.atom:
+            value+=atom.formal_charge
+
+        return value
+
+    def add_atom (self, atom):
+
+        self.atom.append(atom)
+        self.atom_indices.append(atom.index)
+        self.n_atoms+=1
+
+    def add_group (self, group):
+
+        self.group.append(group)
+        self.group_indices.append(group.index)
+        self.n_groups+=1
+
+    def add_component (self, component):
+
+        self.component.append(component)
+        self.component_indices.append(component.index)
+        self.n_components+=1
+
+    def copy(self):
+
+        tmp_item = Molecule(index=self.index, id=self.id, name=self.name)
+        return tmp_item
 
     def _sanity_check (self, atoms=True, groups=True, components=True,
             entity=True, bioassembly=True, children_elements=False):
@@ -109,55 +141,4 @@ class Molecule():
         if entity and (self.entity is None):
             raise IncompleteElementError("Molecule index {} has no entity".format(self.index))
 
-    def _update_atoms(self):
-
-        self.n_atoms = len(self.atom)
-        self.atom_indices = [atom.index for atom in self.atom]
-
-    def _update_groups(self, children_elements=False):
-
-        self.n_groups = len(self.group)
-        self.group_indices = [group.index for group in self.group]
-        if children_elements:
-            for group in self.group:
-                group._update_all()
-
-    def _update_components(self, children_elements=False):
-
-        self.n_components = len(self.component)
-        self.component_indices = [component.index for component in self.component]
-        if children_elements:
-            for component in self.component:
-                component._update_all()
-
-    def _update_all(self, children_elements=False):
-
-        self._update_atoms()
-        self._update_groups(children_elements=children_elements)
-        self._update_components(children_elements=children_elements)
-
-def molecule_init_wizard(index=None, id=None, name=None, type=None):
-
-    from . import molecules
-
-    if type is None:
-        return Molecule(index=index, id=id, name=name)
-    elif type is "ion":
-        return molecules.Ion(index=index, id=id, name=name)
-    elif type is "water":
-        return molecules.Water(index=index, id=id, name=name)
-    elif type is "cosolute":
-        return molecules.Cosolute(index=index, id=id, name=name)
-    elif type is "small_molecule":
-        return molecules.SmallMolecule(index=index, id=id, name=name)
-    elif type is "peptide":
-        return molecules.Peptide(index=index, id=id, name=name)
-    elif type is "dna":
-        return molecules.DNA(index=index, id=id, name=name)
-    elif type is "rna":
-        return molecules.RNA(index=index, id=id, name=name)
-    elif type is "protein":
-        return molecules.Protein(index=index, id=id, name=name)
-    else:
-        raise ValueError("Entity type not recognized.")
 

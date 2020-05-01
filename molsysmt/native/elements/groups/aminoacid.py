@@ -1,4 +1,4 @@
-from molsysmt.native.elements import Group
+from .group import Group
 
 class AminoAcid(Group):
 
@@ -7,4 +7,10 @@ class AminoAcid(Group):
         super().__init__(index=index, id=id, name=name, type='aminoacid')
 
         self.lettercode = None
+
+    def copy(self):
+
+        tmp_item = AminoAcid(index=self.index, id=self.id, name=self.name)
+        tmp_item.lettercode = self.lettercode
+        return tmp_item
 

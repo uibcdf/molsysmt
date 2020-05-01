@@ -6,3 +6,8 @@ class Ion(Entity):
 
         super().__init__(id=id, index=index, name=name, type='ion')
 
+    def copy(self):
+
+        tmp_item = Ion(index=self.index, id=self.id, name=self.name)
+        return tmp_item
+

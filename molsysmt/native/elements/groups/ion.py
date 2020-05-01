@@ -6,5 +6,8 @@ class Ion(Group):
 
         super().__init__(index=index, id=id, name=name, type='ion')
 
-        self.model = None
+    def copy(self):
+
+        tmp_item = Ion(index=self.index, id=self.id, name=self.name)
+        return tmp_item
 

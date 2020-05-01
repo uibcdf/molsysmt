@@ -9,35 +9,22 @@ class MolSys():
         self.structure_obtention = None
         self.card = None
 
-    def extract(self, selection='all', frame_indices='all', syntaxis='MDTraj'):
+    def extract(self, atom_indices='all', frame_indices='all', syntaxis='MDTraj'):
 
-        from molsysmt.utils.atom_indices import digest as digest_atom_indices
         from molsysmt.utils.frame_indices import digest as digest_frame_indices
 
-        if (selection is 'all') and (frame_indices is 'all'):
+        if (atom_indices is 'all') and (frame_indices is 'all'):
 
             return self
 
         else:
 
-            atom_indices = self.select(selection=selection, syntaxis=syntaxis)
-            frame_indices = digest_frame_indices(frame_indices)
-
-            from .molsysmt.forms.classes.api_mdtraj_Topology import extract_subsystem as extract_mdtraj_Topology
-
+            frame_indices = digest_frame_indices(self, frame_indices)
             tmp_item = MolSys()
-            tmp_item.topology = extract_topology(self.topology, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_item.composition = self.composition.extract(atom_indices=atom_indices, frame_indices=frame_indices)
             tmp_item.trajectory = self.trajectory.extract(atom_indices=atom_indices, frame_indices=frame_indices)
-            tmp_item.topography = self.extract(atom_indices=atom_indices, frame_indices=frame_indices)
-            self.structure_obtention = self.structure_obtention.extract(atom_indices=atom_indices, frame_indices=frame_indices)
-            self.card = self.card.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
             return tmp_item
-
-    def select(self, selection=None, syntaxis='MDTraj'):
-
-        from molsysmt import select as _select
-        return _select(self.topology, selection=selection, syntaxis=syntaxis)
 
     def load_frames(self, selection='all', frame_indices='all', syntaxis='MDTraj'):
 

@@ -6,3 +6,8 @@ class Peptide(Entity):
 
         super().__init__(id=id, index=index, name=name, type='peptide')
 
+    def copy(self):
+
+        tmp_item = Peptide(index=self.index, id=self.id, name=self.name)
+        return tmp_item
+

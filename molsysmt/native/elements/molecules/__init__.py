@@ -1,3 +1,4 @@
+from .molecule import Molecule
 from .ion import Ion
 from .water import Water
 from .cosolute import Cosolute

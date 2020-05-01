@@ -59,7 +59,8 @@ class Entity:
 
     """
 
-    def __init__(self, index=None, id=None, name=None, type=None):
+    def __init__(self, index=None, id=None, name=None, type=None,
+                atoms=[], groups=[], components=[], chains=[], molecules=[]):
 
         """Init method for entity.
 
@@ -83,28 +84,60 @@ class Entity:
         self.name = name
         self.type = type
 
-        self.description = None
-        self.mmtf_type = None
+        self.atom = atoms
+        self.atom_indices = [atom.index for atom in atoms]
+        self.n_atoms = len(atoms)
 
-        self.atom = []
-        self.atom_indices = []
-        self.n_atoms = 0
+        self.group = groups
+        self.group_indices = [group.index for group in groups]
+        self.n_groups = len(groups)
 
-        self.group = []
-        self.group_indices = []
-        self.n_groups = 0
+        self.component = components
+        self.component_indices = [component.index for component in components]
+        self.n_components = len(components)
 
-        self.component = []
-        self.component_indices = []
-        self.n_components = 0
+        self.molecule = molecules
+        self.molecule_indices = [molecule.index for molecule in molecules]
+        self.n_molecules = len(molecules)
 
-        self.molecule = []
-        self.molecule_indices = []
-        self.n_molecules = 0
+        self.chain = chains
+        self.chain_indices = [chain.index for chain in chains]
+        self.n_chains = len(chains)
 
-        self.chain = []
-        self.chain_indices = []
-        self.n_chains = 0
+    def add_atom (self, atom):
+
+        self.atom.append(atom)
+        self.atom_indices.append(atom.index)
+        self.n_atoms+=1
+
+    def add_group (self, group):
+
+        self.group.append(group)
+        self.group_indices.append(group.index)
+        self.n_groups+=1
+
+    def add_component (self, component):
+
+        self.component.append(component)
+        self.component_indices.append(component.index)
+        self.n_components+=1
+
+    def add_molecule (self, molecule):
+
+        self.molecule.append(molecule)
+        self.molecule_indices.append(molecule.index)
+        self.n_molecules+=1
+
+    def add_chain (self, chain):
+
+        self.chain.append(chain)
+        self.chain.append(chain.index)
+        self.n_chains+=1
+
+    def copy(self):
+
+        tmp_item = Entity(index=self.index, id=self.id, name=self.name)
+        return tmp_item
 
     def _sanity_check(self, atoms=True, groups=True, components=True, chains=True, molecules=True,
            bioassembly=True, children_elements=False):
@@ -145,74 +178,4 @@ class Entity:
             elif children_elements:
                 for chain in self.chain:
                     chain._sanity_check()
-
-    def _update_atoms(self):
-
-        self.n_atoms = len(self.atom)
-        self.atom_indices = [atom.index for atom in self.atom]
-
-    def _update_groups(self, children_elements=False):
-
-        self.n_groups = len(self.group)
-        self.group_indices = [group.index for group in self.group]
-        if children_elements:
-            for group in self.group:
-                group._update_all()
-
-    def _update_components(self, children_elements=False):
-
-        self.n_components = len(self.component)
-        self.component_indices = [component.index for component in self.component]
-        if children_elements:
-            for component in self.component:
-                component._update_all()
-
-    def _update_chains(self, children_elements=False):
-
-        self.n_chains = len(self.chain)
-        self.chain_indices = [chain.index for chain in self.chain]
-        if children_elements:
-            for chain in self.chain:
-                chain._update_all()
-
-    def _update_molecules(self, children_elements=False):
-
-        self.n_molecules = len(self.molecule)
-        self.molecule_indices = [molecule.index for molecule in self.molecule]
-        if children_elements:
-            for molecule in self.molecule:
-                molecule._update_all()
-
-    def _update_all(self, children_elements=False):
-
-        self._update_atoms()
-        self._update_groups(children_elements=children_elements)
-        self._update_components(children_elements=children_elements)
-        self._update_chains(children_elements=children_elements)
-        self._update_molecules(children_elements=children_elements)
-
-def entity_init_wizard(index=None, id=None, name=None, type=None):
-
-    from . import entities
-
-    if type is None:
-        return Entity(index=index, id=id, name=name)
-    elif type is "ion":
-        return entities.Ion(index=index, id=id, name=name)
-    elif type is "water":
-        return entities.Water(index=index, id=id, name=name)
-    elif type is "cosolute":
-        return entities.Cosolute(index=index, id=id, name=name)
-    elif type is "small_molecule":
-        return entities.SmallMolecule(index=index, id=id, name=name)
-    elif type is "peptide":
-        return entities.Peptide(index=index, id=id, name=name)
-    elif type is "dna":
-        return entities.DNA(index=index, id=id, name=name)
-    elif type is "rna":
-        return entities.RNA(index=index, id=id, name=name)
-    elif type is "protein":
-        return entities.Protein(index=index, id=id, name=name)
-    else:
-        raise ValueError("Entity type not recognized.")
 

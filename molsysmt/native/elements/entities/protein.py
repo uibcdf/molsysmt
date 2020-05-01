@@ -6,3 +6,8 @@ class Protein(Entity):
 
         super().__init__(id=id, index=index, name=name, type='protein')
 
+    def copy(self):
+
+        tmp_item = Protein(index=self.index, id=self.id, name=self.name)
+        return tmp_item
+

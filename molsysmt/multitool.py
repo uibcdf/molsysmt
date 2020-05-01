@@ -26,7 +26,7 @@ from .forms.classes import dict_is_form as _dict_classes_is_form, \
     dict_converter as _dict_classes_converter, \
     dict_selector as _dict_classes_selector, \
     dict_extractor as _dict_classes_extractor, \
-    dict_duplicator as _dict_classes_duplicator, \
+    dict_copier as _dict_classes_copier, \
     dict_merger as _dict_classes_merger, \
     dict_get as _dict_classes_get, \
     dict_set as _dict_classes_set
@@ -38,7 +38,7 @@ from .forms.files import dict_is_form as _dict_files_is_form, \
     dict_converter as _dict_files_converter, \
     dict_selector as _dict_files_selector, \
     dict_extractor as _dict_files_extractor, \
-    dict_duplicator as _dict_files_duplicator, \
+    dict_copier as _dict_files_copier, \
     dict_merger as _dict_files_merger, \
     dict_get as _dict_files_get, \
     dict_set as _dict_files_set
@@ -50,7 +50,7 @@ from .forms.ids import dict_is_form as _dict_ids_is_form, \
     dict_converter as _dict_ids_converter, \
     dict_selector as _dict_ids_selector, \
     dict_extractor as _dict_ids_extractor, \
-    dict_duplicator as _dict_ids_duplicator, \
+    dict_copier as _dict_ids_copier, \
     dict_merger as _dict_ids_merger, \
     dict_get as _dict_ids_get, \
     dict_set as _dict_ids_set
@@ -62,7 +62,7 @@ from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_converter as _dict_seqs_converter, \
     dict_selector as _dict_seqs_selector, \
     dict_extractor as _dict_seqs_extractor, \
-    dict_duplicator as _dict_seqs_duplicator, \
+    dict_copier as _dict_seqs_copier, \
     dict_merger as _dict_seqs_merger, \
     dict_get as _dict_seqs_get, \
     dict_set as _dict_seqs_set
@@ -74,7 +74,7 @@ from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_converter as _dict_viewers_converter, \
     dict_selector as _dict_viewers_selector, \
     dict_extractor as _dict_viewers_extractor, \
-    dict_duplicator as _dict_viewers_duplicator, \
+    dict_copier as _dict_viewers_copier, \
     dict_merger as _dict_viewers_merger, \
     dict_get as _dict_viewers_get, \
     dict_set as _dict_viewers_set
@@ -89,8 +89,8 @@ _dict_selector = {**_dict_classes_selector, **_dict_files_selector,\
                    **_dict_ids_selector, **_dict_seqs_selector, **_dict_viewers_selector}
 _dict_extractor = {**_dict_classes_extractor, **_dict_files_extractor,\
                    **_dict_ids_extractor, **_dict_seqs_extractor, **_dict_viewers_extractor}
-_dict_duplicator = {**_dict_classes_duplicator, **_dict_files_duplicator,\
-                   **_dict_ids_duplicator, **_dict_seqs_duplicator, **_dict_viewers_duplicator}
+_dict_copier = {**_dict_classes_copier, **_dict_files_copier,\
+                   **_dict_ids_copier, **_dict_seqs_copier, **_dict_viewers_copier}
 _dict_merger    = {**_dict_classes_merger, **_dict_files_merger,\
                    **_dict_ids_merger, **_dict_seqs_merger, **_dict_viewers_merger}
 _dict_get = {**_dict_classes_get, **_dict_files_get,\
@@ -955,10 +955,10 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
         else:
             return extract(item, selection=atom_indices, frame_indices=frame_indices)
 
-def duplicate(item=None):
+def copy(item=None):
 
     form_in, _ = _digest_forms(item)
-    return _dict_duplicator[form_in](item)
+    return _dict_copier[form_in](item)
 
 def write(item=None, filename=None, selection='all', frame_indices='all', syntaxis='MolSysMT'):
 

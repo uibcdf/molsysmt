@@ -1,3 +1,4 @@
+from .entity import Entity
 from .dna import DNA
 from .rna import RNA
 from .protein import Protein

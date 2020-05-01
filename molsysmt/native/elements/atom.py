@@ -78,6 +78,12 @@ class Atom:
         self.bonded_atom_indices = []
         self.n_bonds = 0
 
+    def copy(self):
+
+        tmp_item = Atom(index=self.index, id=self.id, name=self.name, type=self.type)
+        tmp_item.formal_charge = self.formal_charge
+        return tmp_item
+
     def _sanity_check (self, group=True, component=True, chain=True, molecule=True,
             entity=True, bioassembly=True):
 
@@ -120,11 +126,4 @@ class Atom:
                 else:
                     raise Exception("Atom index does not participate in one of its bonds")
 
-    def _update_all(self):
-
-        self._update_bonds()
-
-def atom_init_wizard(index=None, id=None, name=None, type=None):
-
-    return Atom(index=index, id=id, name=name, type=type)
 
