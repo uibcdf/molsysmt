@@ -8,20 +8,20 @@ is_form = {
 
 info=["",""]
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 
 def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract_subsystem as extract_mmtf_MMTFDecoder
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract as extract_mmtf_MMTFDecoder
     from mmtf import parse
     tmp_item = parse(item)
     tmp_item = extract_mmtf_MMTFDecoder(tmp_item, atom_indices='all', frame_indices='all')

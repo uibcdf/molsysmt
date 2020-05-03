@@ -2,7 +2,7 @@ from . import utils
 
 from .native.molsys import MolSys
 from .multitool import select, extract, merge, info, get, set, \
-                       convert, duplicate, write, view, remove
+                       convert, copy, write, view, remove
 from .info_multitool import info_forms, info_load, info_convert, info_select, info_viewers
 from .rmsd import rmsd, least_rmsd, least_rmsd_fit
 from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists
@@ -43,7 +43,7 @@ from .pockets import alpha_spheres
 #                                    'get_degrees_of_freedom']
 
 __all_multitool__ = ['convert', 'info', 'select', 'get', 'set', 'convert',
-        'duplicate', 'write', 'view', 'get_form', 'extract', 'remove']
+        'copy', 'write', 'view', 'get_form', 'extract', 'remove']
 __all_rmsd__ = ['rmsd', 'least_rmsd', 'least_rmsd_fit']
 __all_distances__ = ['distance', 'maximum_distance', 'minimum_distance', 'contact_map',
                      'neighbors_lists']

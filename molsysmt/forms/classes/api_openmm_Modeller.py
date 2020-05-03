@@ -68,14 +68,14 @@ def select_with_MDTraj(item, selection):
     tmp_item = to_mdtraj_Topology(item)
     return tmp_item.select(selection)
 
-def duplicate(item):
+def copy(item):
 
     from simtk.openmm.app import Modeller as _Modeller
 
     tmp_item = _Modeller(item.topology, item.positions)
     return tmp_item
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
@@ -83,7 +83,7 @@ def extract_subsystem(item, atom_indices='all', frame_indices='all'):
 
         from api_openmm_Topology import extract_atom_indices as _extract_topology
 
-        tmp_item = duplicate(item)
+        tmp_item = copy(item)
         tmp_item.topology = _extract_topology(item.topology, atom_indices)
         tmp_item.positions = get_coordinates_from_atom(item, atom_indices)
 
@@ -97,8 +97,8 @@ def merge_two_items(item1, item2):
     tmp_item = tmp_item1.stack(tmp_item2)
     tmp_item = _from_mdtraj_Trajectory(tmp_item)
 
-    #from molsysmt import duplicate as _duplicate, get as _get
-    #tmp_item = duplicate(item1)
+    #from molsysmt import copy as _copy, get as _get
+    #tmp_item = copy(item1)
     #topology2 = to_openmm_Topology(item2)
     #positions2 = _get(item2, coordinates=True)
     #tmp_item = tmp_item.add(topology2, positions2)

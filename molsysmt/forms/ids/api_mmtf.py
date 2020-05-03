@@ -30,7 +30,7 @@ def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'
 def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
     from mmtf import fetch
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract_subsystem as extract_MMTFDecoder
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract as extract_MMTFDecoder
     tmp_item = item.split(':')[-1]
     tmp_item = fetch(tmp_item)
     tmp_item = extract_MMTFDecoder(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -95,14 +95,14 @@ def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

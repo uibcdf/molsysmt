@@ -85,7 +85,7 @@ class Chain:
         self.group_indices.append(group.index)
         self.n_groups+=1
 
-    def add_component (self, atom):
+    def add_component (self, component):
 
         self.component.append(component)
         self.component_indices.append(component.index)

@@ -18,7 +18,7 @@ def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all')
 
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
     tmp_item=_parmed_from_gromacs(item)
-    tmp_item = extract_subsystem(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_Structure(item, atom_indices='all', frame_indices='all'):
@@ -36,14 +36,14 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 def to_openmm_GromacsTopFile(item, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import GromacsTopFile
-    from molsysmt.forms.classes.api_openmm_GromacsTopFile import extract_subsystem as extract_gromacstopfile
+    from molsysmt.forms.classes.api_openmm_GromacsTopFile import extract as extract_gromacstopfile
     tmp_item = GromacsTopFile(item)
     tmp_item = extract_extract_gromacstopfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.formats.classes.api_openmm_Topology import extract_subsystem as extract_openmm_topology
+    from molsysmt.formats.classes.api_openmm_Topology import extract as extract_openmm_topology
     tmp_item = to_openmm_GromacsTopFile(item)
     tmp_item = tmp_item.topology
     tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -51,21 +51,21 @@ def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
 def to_top(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_GromacsTopFile import extract_subsystem as extract_gromacstopfile
+    from molsysmt.forms.classes.api_openmm_GromacsTopFile import extract as extract_gromacstopfile
     tmp_item = to_parmed_GromacsTopologyFile(item)
     tmp_item = extract_gromacstopfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item.save(output_file_path)
     del(tmp_item)
     pass
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

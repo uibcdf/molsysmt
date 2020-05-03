@@ -1,10 +1,12 @@
-from molsysmt.native.elements import Molecule
+from .molecule import Molecule
 
 class DNA(Molecule):
 
-    def __init__(self, index=None, id=None, name=None):
+    def __init__(self, index=None, id=None, name=None, atoms=[],
+                 groups=[], components=[]):
 
-        super().__init__(id=id, index=index, name=name, type="dna")
+        super().__init__(id=id, index=index, name=name, type="dna",
+                         atoms=[], groups=[], components=[])
 
     def copy(self):
 

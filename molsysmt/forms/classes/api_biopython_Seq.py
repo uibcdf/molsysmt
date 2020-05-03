@@ -15,7 +15,7 @@ info=["",""]
 def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indices='all', frame_indices='all'):
 
     from Bio.SeqRecord import SeqRecord as Bio_SeqRecord
-    from .api_biopython_SeqRecord import extract_subsystem as extract_biopython_SeqRecord
+    from .api_biopython_SeqRecord import extract as extract_biopython_SeqRecord
 
     if id is None:
         id = 'None'
@@ -38,11 +38,11 @@ def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all
 
     return _Bio_SeqRecord_to_fasta(tmp_item, output_file_path=output_file_path)
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item

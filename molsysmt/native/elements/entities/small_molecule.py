@@ -1,10 +1,12 @@
-from molsysmt.native.elements import Entity
+from .entity import Entity
 
 class SmallMolecule(Entity):
 
-    def __init__(self, id=None, index=None, name=None):
+    def __init__(self, id=None, index=None, name=None, atoms=[], groups=[],
+                 components=[], chains=[], molecules=[]):
 
-        super().__init__(id=id, index=index, name=name, type='small_molecule')
+        super().__init__(id=id, index=index, name=name, type='small_molecule', atoms=[],
+                         groups=[], components=[], chains=[], molecules=[])
 
     def copy(self):
 

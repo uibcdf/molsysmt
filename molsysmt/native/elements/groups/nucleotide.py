@@ -1,10 +1,10 @@
-from molsysmt.native.elements import Group
+from .group import Group
 
 class Nucleotide(Group):
 
-    def __init__(self, index=None, id=None, name=None):
+    def __init__(self, index=None, id=None, name=None, atoms=[]):
 
-        super().__init__(index=index, id=id, name=name, type='nucleotide')
+        super().__init__(index=index, id=id, name=name, type='nucleotide', atoms=atoms)
 
         self.lettercode = None
 

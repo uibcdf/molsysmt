@@ -67,14 +67,14 @@ def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', frame_indices='all'):
     from mdtraj.formats import XTCTrajectoryFile
     return XTCTrajectoryFile(item)
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

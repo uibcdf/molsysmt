@@ -5,54 +5,37 @@ def make_atom(index=None, id=None, name=None, type=None):
     return Atom(index=index, id=id, name=name, type=type)
 
 
-def make_group(index=None, id=None, name=None, type=None,
-               atom_indices=[]):
+def make_group(index=None, id=None, name=None, type=None, atoms=[]):
 
-    from .groups import *
-
-    atom_indices=atom_indices.copy()
+    from .groups import Group, AminoAcid, Nucleotide, Ion, Water, Cosolute, SmallMolecule
 
     if type is None:
 
-        return Group(index=index, id=id, name=name,
-                     chemical_type=chemical_type, formal_charge=formal_charge,
-                     atom_indices=atom_indices)
+        return Group(index=index, id=id, name=name, atoms=atoms)
 
     elif type == 'aminoacid':
 
-        return AminoAcid(index=index, id=id, name=name,
-                         chemical_type=chemical_type, formal_charge=formal_charge,
-                         atom_indices=atom_indices)
+        return AminoAcid(index=index, id=id, name=name, atoms=atoms)
 
     elif type == 'nucleotide':
 
-        return Nucleotide(index=index, id=id, name=name,
-                          chemical_type=chemical_type, formal_charge=formal_charge,
-                          atom_indices=atom_indices)
+        return Nucleotide(index=index, id=id, name=name, atoms=atoms)
 
     elif type == 'ion':
 
-        return Ion(index=index, id=id, name=name,
-                        chemical_type=chemical_type, formal_charge=formal_charge,
-                        atom_indices=atom_indices)
+        return Ion(index=index, id=id, name=name, atoms=atoms)
 
     elif type == 'water':
 
-        return Water(index=index, id=id, name=name,
-                     chemical_type=chemical_type, formal_charge=formal_charge,
-                     atom_indices=atom_indices)
+        return Water(index=index, id=id, name=name, atoms=atoms)
 
     elif type == 'cosolute':
 
-        return Cosolute(index=index, id=id, name=name,
-                        chemical_type=chemical_type, formal_charge=formal_charge,
-                        atom_indices=atom_indices)
+        return Cosolute(index=index, id=id, name=name, atoms=atoms)
 
     elif type == 'small_molecule':
 
-        return SmallMolecule(index=index, id=id, name=name,
-                             chemical_type=chemical_type, formal_charge=formal_charge,
-                             atom_indices=atom_indices)
+        return SmallMolecule(index=index, id=id, name=name, atoms=atoms)
 
     else:
 
@@ -60,79 +43,64 @@ def make_group(index=None, id=None, name=None, type=None,
 
 
 def make_component(index=None, id=None, name=None, type=None,
-                  atom_indices=[], group_indices=[]):
+                  atoms=[], groups=[]):
 
     from .component import Component
 
-    atom_indices=atom_indices.copy()
-    group_indices=group_indices.copy()
-
     return Component(index=index, id=id, name=name, type=type,
-                     atom_indices=atom_indices, group_indices=group_indices)
+                     atoms=atoms, groups=groups)
 
 
 def make_molecule(index=None, id=None, name=None, type=None,
-                 atom_indices=[], group_indices=[], component_indices=[]):
+                 atoms=[], groups=[], components=[]):
 
-    atom_indices=atom_indices.copy()
-    group_indices=group_indices.copy()
-    component_indices=component_indices.copy()
-
-    from .molecules import *
+    from .molecules import Molecule, Ion, Water, Cosolute, SmallMolecule,\
+    Peptide, DNA, RNA, Protein
 
     if type is None:
 
-        return Molecule(index=index, id=id, name=name,
-                        atom_indices=atom_indices, group_indices=group_indices,
-                        component_indices=component_indices)
+        return Molecule(index=index, id=id, name=name, atoms=atoms,
+                        groups=groups, components=components)
 
     elif type is "ion":
 
-        return Ion(index=index, id=id, name=name,
-                   atom_indices=atom_indices, group_indices=group_indices,
-                   component_indices=component_indices)
+        return Ion(index=index, id=id, name=name, atoms=atoms,
+                   groups=groups, components=components)
 
     elif type is "water":
 
-        return Water(index=index, id=id, name=name,
-                     atom_indices=atom_indices, group_indices=group_indices,
-                     component_indices=component_indices)
+        return Water(index=index, id=id, name=name, atoms=atoms,
+                     groups=groups, components=components)
 
     elif type is "cosolute":
 
-        return Cosolute(index=index, id=id, name=name,
-                        atom_indices=atom_indices, group_indices=group_indices,
-                        component_indices=component_indices)
+        return Cosolute(index=index, id=id, name=name, atoms=atoms,
+                        groups=groups, components=components)
 
     elif type is "small_molecule":
 
-        return SmallMolecule(index=index, id=id, name=name,
-                             atom_indices=atom_indices, group_indices=group_indices,
-                             component_indices=component_indices)
+        return SmallMolecule(index=index, id=id, name=name, atoms=atoms,
+                             groups=groups, components=components)
 
     elif type is "peptide":
 
-        return Peptide(index=index, id=id, name=name,
-                       atom_indices=atom_indices, group_indices=group_indices,
-                       component_indices=component_indices)
+        return Peptide(index=index, id=id, name=name, atoms=atoms,
+                       groups=groups, components=components)
 
     elif type is "dna":
 
-        return DNA(index=index, id=id, name=name,
-                   atom_indices=atom_indices, group_indices=group_indices,
-                   component_indices=component_indices)
+        return DNA(index=index, id=id, name=name, atoms=atoms,
+                   groups=groups, components=components)
 
     elif type is "rna":
 
-        return RNA(index=index, id=id, name=name,
-                   atom_indices=atom_indices, group_indices=group_indices,
-                   component_indices=component_indices)
+        return RNA(index=index, id=id, name=name, atoms=atoms,
+                   groups=groups, components=components)
 
     elif type is "protein":
 
-        return Protein(index=index, id=id, name=name,
-                       atom_indices=atom_indices, group_indices=group_indices,
-                       component_indices=component_indices)
+        return Protein(index=index, id=id, name=name, atoms=atoms,
+                       groups=groups, components=components)
 
     else:
 
@@ -140,92 +108,83 @@ def make_molecule(index=None, id=None, name=None, type=None,
 
 
 def make_chain(index=None, id=None, name=None, type=None,
-               atom_indices=[], group_indices=[], component_indices=[]):
+               atoms=[], groups=[], components=[]):
 
     from .chain import Chain
 
-    atom_indices=atom_indices.copy()
-    group_indices=group_indices.copy()
-    component_indices=component_indices.copy()
-
     return Chain(index=index, id=id, name=name, type=type,
-                 atom_indices=atom_indices, group_indices=group_indices,
-                 component_indices=component_indices)
+                 atoms=atoms, groups=groups,
+                 components=components)
 
 def make_entity(index=None, id=None, name=None, type=None,
-                atom_indices=[], group_indices=[], component_indices=[],
-                chain_indices=[], molecule_indices=[]):
+                atoms=[], groups=[], components=[],
+                chains=[], molecules=[]):
 
-    atom_indices=atom_indices.copy()
-    group_indices=group_indices.copy()
-    component_indices=component_indices.copy()
-    chain_indices=chain_indices.copy()
-    molecule_indices=molecule_indices.copy()
-
-    from .entities import *
+    from .entities import Ion, Water, Cosolute, SmallMolecule, Peptide, DNA, RNA,\
+            Protein
 
     if type is None:
 
         return Entity(index=index, id=id, name=name,
-                      atom_indices=atom_indices, group_indices=group_indices,
-                      component_indices=component_indices,
-                      chain_indices=chain_indices, molecule_indices=molecule_indices)
+                      atoms=atoms, groups=groups,
+                      components=components,
+                      chains=chains, molecules=molecules)
 
     elif type is "ion":
 
         return Ion(index=index, id=id, name=name,
-                   atom_indices=atom_indices, group_indices=group_indices,
-                   component_indices=component_indices,
-                   chain_indices=chain_indices, molecule_indices=molecule_indices)
+                   atoms=atoms, groups=groups,
+                   components=components,
+                   chains=chains, molecules=molecules)
 
     elif type is "water":
 
         return Water(index=index, id=id, name=name,
-                     atom_indices=atom_indices, group_indices=group_indices,
-                     component_indices=component_indices,
-                     chain_indices=chain_indices, molecule_indices=molecule_indices)
+                     atoms=atoms, groups=groups,
+                     components=components,
+                     chains=chains, molecules=molecules)
 
     elif type is "cosolute":
 
         return Cosolute(index=index, id=id, name=name,
-                        atom_indices=atom_indices, group_indices=group_indices,
-                        component_indices=component_indices,
-                        chain_indices=chain_indices, molecule_indices=molecule_indices)
+                        atoms=atoms, groups=groups,
+                        components=components,
+                        chains=chains, molecules=molecules)
 
     elif type is "small_molecule":
 
         return SmallMolecule(index=index, id=id, name=name,
-                             atom_indices=atom_indices, group_indices=group_indices,
-                             component_indices=component_indices,
-                             chain_indices=chain_indices, molecule_indices=molecule_indices)
+                             atoms=atoms, groups=groups,
+                             components=components,
+                             chains=chains, molecules=molecules)
 
     elif type is "peptide":
 
         return Peptide(index=index, id=id, name=name,
-                       atom_indices=atom_indices, group_indices=group_indices,
-                       component_indices=component_indices,
-                       chain_indices=chain_indices, molecule_indices=molecule_indices)
+                       atoms=atoms, groups=groups,
+                       components=components,
+                       chains=chains, molecules=molecules)
 
     elif type is "dna":
 
         return DNA(index=index, id=id, name=name,
-                   atom_indices=atom_indices, group_indices=group_indices,
-                   component_indices=component_indices,
-                   chain_indices=chain_indices, molecule_indices=molecule_indices)
+                   atoms=atoms, groups=groups,
+                   components=components,
+                   chains=chains, molecules=molecules)
 
     elif type is "rna":
 
         return RNA(index=index, id=id, name=name,
-                   atom_indices=atom_indices, group_indices=group_indices,
-                   component_indices=component_indices,
-                   chain_indices=chain_indices, molecule_indices=molecule_indices)
+                   atoms=atoms, groups=groups,
+                   components=components,
+                   chains=chains, molecules=molecules)
 
     elif type is "protein":
 
         return Protein(index=index, id=id, name=name,
-                       atom_indices=atom_indices, group_indices=group_indices,
-                       component_indices=component_indices,
-                       chain_indices=chain_indices, molecule_indices=molecule_indices)
+                       atoms=atoms, groups=groups,
+                       components=components,
+                       chains=chains, molecules=molecules)
 
     else:
 
@@ -236,6 +195,5 @@ def make_bond(index=None, atoms=None, order=None):
     from .bond import Bond
 
     return Bond(index=index, atoms=atoms, order=order)
-
 
 

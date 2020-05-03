@@ -11,16 +11,16 @@ is_form={
 
 info=["",""]
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
-def duplicate(item):
+def copy(item):
 
-    return item.duplicate()
+    return item.copy()
 
 ###### Get
 

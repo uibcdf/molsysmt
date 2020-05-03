@@ -83,7 +83,7 @@ def select_with_MolSysMT(item, selection):
     from .api_molsysmt_Composition import select_with_MolSysMT as select_Composition_with_MolSysMT
     return select_Composition_with_MolSysMT(item.composition, selection)
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     return item.extract(selection=atom_indices, frame_indices=frame_indices)
 
@@ -95,9 +95,9 @@ def to_nglview(item, atom_indices='all', frame_indices='all'):
 
     return mdtraj_to_nglview(tmp_item)
 
-def duplicate(item):
+def copy(item):
 
-    return tmp_item.duplicate()
+    return tmp_item.copy()
 
 ###### Get
 

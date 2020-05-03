@@ -59,8 +59,8 @@ for form_name in list_forms:
             option, target = method[4:].split('_to_')
             dict_set[form_name][target][option]=getattr(dict_api_forms[form_name], method)
 
-    if 'extract_subsystem' in dict_api_forms[form_name].__dict__.keys():
-        dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract_subsystem')
+    if 'extract' in dict_api_forms[form_name].__dict__.keys():
+        dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract')
     if 'copy' in dict_api_forms[form_name].__dict__.keys():
         dict_copier[form_name]=getattr(dict_api_forms[form_name],'copy')
     if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():

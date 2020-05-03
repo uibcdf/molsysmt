@@ -71,32 +71,32 @@ def from_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
         new_chain = (former_chain_index!=chain_index)
         new_entity = (former_entity_index!=entity_index)
 
-        atom = elements.Atom(index=atom_index, id=atom_id, name=atom_name, type=atom_type)
+        atom = elements.make_atom(index=atom_index, id=atom_id, name=atom_name, type=atom_type)
         atom.formal_charge = atom_formal_charge
         atoms.append(atom)
 
         if new_group:
-            group = elements.group_init_wizard(index=group_index, id=group_id, name=group_name, type=group_type)
+            group = elements.make_group(index=group_index, id=group_id, name=group_name, type=group_type)
             groups.append(group)
             former_group_index = group_index
 
         if new_component:
-            component = elements.component_init_wizard(index=component_index, id=component_id, name=component_name, type=component_type)
+            component = elements.make_component(index=component_index, id=component_id, name=component_name, type=component_type)
             components.append(component)
             former_component_index = component_index
 
         if new_molecule:
-            molecule = elements.molecule_init_wizard(index=molecule_index, id=molecule_id, name=molecule_name, type=molecule_type)
+            molecule = elements.make_molecule(index=molecule_index, id=molecule_id, name=molecule_name, type=molecule_type)
             molecules.append(molecule)
             former_molecule_index = molecule_index
 
         if new_chain:
-            chain = elements.chain_init_wizard(index=chain_index, id=chain_id, name=chain_name, type=chain_type)
+            chain = elements.make_chain(index=chain_index, id=chain_id, name=chain_name, type=chain_type)
             chains.append(chain)
             former_chain_index = chain_index
 
         if new_entity:
-            entity = elements.entity_init_wizard(index=entity_index, id=entity_id, name=entity_name, type=entity_type)
+            entity = elements.make_entity(index=entity_index, id=entity_id, name=entity_name, type=entity_type)
             entities.append(entity)
             former_entity_index = entity_index
 
@@ -228,17 +228,9 @@ def from_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
             if atom_index_0 < atom_index_1:
                 atom_1 = tmp_item.atom[atom_index_1]
 
-                bond = elements.Bond(index=bond_index, atoms=[atom_0,atom_1])
-
-                atom_0.bond_with_atom_index[atom_index_1]=bond
-                atom_0.bond_indices.append(bond_index)
-                atom_0.bonded_atom_indices.append(atom_index_1)
-                atom_0.n_bonds+=1
-
-                atom_1.bond_with_atom_index[atom_index_0]=bond
-                atom_1.bond_indices.append(bond_index)
-                atom_1.bonded_atom_indices.append(atom_index_0)
-                atom_1.n_bonds+=1
+                bond = elements.make_bond(index=bond_index, atoms=[atom_0,atom_1])
+                atom_0.add_bond(bond)
+                atom_1.add_bond(bond)
 
                 bonds.append(bond)
                 bonded_atom_indices_list.append([atom_index_0,atom_index_1])

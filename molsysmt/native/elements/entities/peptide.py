@@ -1,10 +1,12 @@
-from molsysmt.native.elements import Entity
+from .entity import Entity
 
 class Peptide(Entity):
 
-    def __init__(self, id=None, index=None, name=None):
+    def __init__(self, id=None, index=None, name=None, atoms=[], groups=[],
+                 components=[], chains=[], molecules=[]):
 
-        super().__init__(id=id, index=index, name=name, type='peptide')
+        super().__init__(id=id, index=index, name=name, type='peptide', atoms=[],
+                         groups=[], components=[], chains=[], molecules=[])
 
     def copy(self):
 

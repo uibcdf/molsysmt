@@ -31,14 +31,14 @@ def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
     del(_to_aa3_seq)
     return tmp_sequence
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

@@ -28,16 +28,13 @@ def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
     from molsysmt.native.io.composition.classes import from_molsysmt_DataFrame as molsysmt_DataFrame_to_molsysmt_Composition
     return molsysmt_DataFrame_to_molsysmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
-    else:
-        return item.iloc(atom_indices)
+    return item.extract(atom_indices=atom_indices)
 
-def duplicate(item):
+def copy(item):
 
-    raise NotImplementedError
+    return item.copy()
 
 def select_with_MDTraj(item, selection):
 

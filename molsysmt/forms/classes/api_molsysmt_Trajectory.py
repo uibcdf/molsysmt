@@ -42,16 +42,16 @@ def to_nglview(item, atom_indices='all', frame_indices='all'):
     tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return _mdtraj_to_nglview(tmp_item)
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
-def duplicate(item):
+def copy(item):
 
-    return item.duplicate()
+    return item.copy()
 
 ###### Get
 

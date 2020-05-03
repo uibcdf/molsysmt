@@ -29,7 +29,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
 def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Topology import extract_subsystem as extract_mdtraj_Topology
+    from .api_mdtraj_Topology import extract as extract_mdtraj_Topology
     from mdtraj.core.topology import Topology as mdtraj_Topology
     tmp_item = mdtraj_Topology.from_openmm(item)
     tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -38,18 +38,18 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
 
     from parmed.openmm import load_topology as openmm_Topology_to_parmed_Structure
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
     return tmp_item
 
 def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
 
     from yank import Topography as yank_Topography
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = yank_Topography(tmp_item)
     return tmp_item
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
@@ -78,7 +78,7 @@ def extract_subsystem(item, atom_indices='all', frame_indices='all'):
                 newTopology.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
         return newTopology
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

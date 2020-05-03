@@ -18,19 +18,19 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import extract_subsystem as extract_openmm_topology
+    from .api_openmm_Topology import extract as extract_openmm_topology
     tmp_item = item.topology
     tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_mol2(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return item.save(output_file_path)
 
 def to_top(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return item.save(output_file_path)
 
 def select_with_MDTraj(item, selection):
@@ -47,7 +47,7 @@ def select_with_ParmEd(item, selection):
     del(_AmberMask)
     return tmp_sel
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
@@ -58,11 +58,11 @@ def extract_subsystem(item, atom_indices='all', frame_indices='all'):
         from molsysmt.utils.atom_indices import complementary_atom_indices
         tmp_atom_indices = complementary_atom_indices(item, atom_indices)
         mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
-        tmp_item = duplicate(item)
+        tmp_item = copy(item)
         tmp_item.strip(atom_indices_to_AmberMask(tmp_item,atom_indices))
         return tmp_item
 
-def duplicate(item):
+def copy(item):
 
     from copy import deepcopy
     return deepcopy(item)

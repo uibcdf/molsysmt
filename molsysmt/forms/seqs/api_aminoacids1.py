@@ -18,7 +18,7 @@ def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
 def to_biopython_Seq(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_biopython_Seq import extract_subsystem as extract_biopython_Seq
+    from molsysmt.forms.classes.api_biopython_Seq import extract as extract_biopython_Seq
     from Bio.Seq import Seq as bio_Seq
     from Bio.Alphabet.IUPAC import ExtendedIUPACProtein
     tmp_item = bio_Seq(item.replace('aminoacids1:',''), ExtendedIUPACProtein())
@@ -48,14 +48,14 @@ def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

@@ -17,7 +17,8 @@ def query_dataframe(item, selection='all'):
     selection = selection.replace(".","_")
     item.columns = [column.replace(".", "_") for column in item.columns]
     atom_indices = item.query(selection).index.to_numpy()
-    item.columns = [column.replace("_", ".") for column in item.columns]
+    item.columns = [column.replace("_", ".",1) for column in item.columns]
+    
     return atom_indices
 
 def parse(selection='all'):

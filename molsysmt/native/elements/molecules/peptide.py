@@ -1,10 +1,12 @@
-from molsysmt.native.elements import Molecule
+from .molecule import Molecule
 
 class Peptide(Molecule):
 
-    def __init__(self, index=None, id=None, name=None):
+    def __init__(self, index=None, id=None, name=None, atoms=[],
+                 groups=[], components=[]):
 
-        super().__init__(index=index, id=id, name=name, type="peptide")
+        super().__init__(index=index, id=id, name=name, type="peptide",
+                         atoms=[], groups=[], components=[])
 
     def copy(self):
 

@@ -14,7 +14,7 @@ info=["",""]
 def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.utils.miscellanea import download_pdb as download_pdb
-    from molsysmt.forms.files.api_pdb import extract_subsystem as extract_pdb
+    from molsysmt.forms.files.api_pdb import extract as extract_pdb
     from shutil import move
     tmp_item = item.split(':')[-1]
     download_pdb(tmp_item, output_file_path)
@@ -26,7 +26,7 @@ def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all')
 def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from shutil import move
-    from molsysmt.forms.files.api_fasta import extract_subsystem as extract_fasta
+    from molsysmt.forms.files.api_fasta import extract as extract_fasta
     tmp_item = item.split(':')[-1]
     url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+tmp_item+'&compressionType=uncompressed'
     request = urllib.request.Request(url)
@@ -172,14 +172,14 @@ def select_with_MDTraj(item, selection):
     del(tmp_form)
     return tmp_sel
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

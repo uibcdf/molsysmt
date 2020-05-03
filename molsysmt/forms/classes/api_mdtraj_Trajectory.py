@@ -68,7 +68,7 @@ def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 
 def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Topology import extract_subsystem as extract_mdtraj_Topology
+    from .api_mdtraj_Topology import extract as extract_mdtraj_Topology
     tmp_item=item.topology
     tmp_item=extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
@@ -121,19 +121,19 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
 
 def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item.save_pdb(output_file_path)
 
 def to_xtc(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return item.save_xtc(output_file_path)
 
 def to_nglview(item, atom_indices='all', frame_indices='all'):
 
     from nglview import show_mdtraj as show_mdtraj
     from molsysmt.utils.nglview import standardize_view
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_view = show_mdtraj(tmp_item)
     tmp_view = standardize_view(tmp_view)
     return tmp_view
@@ -148,7 +148,7 @@ def select_with_MolSysMT(item, selection):
 
     return topology_select_with_Pandas(item.topology, selection)
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
@@ -157,7 +157,7 @@ def extract_subsystem(item, atom_indices='all', frame_indices='all'):
         tmp_item = tmp_item.slice(frame_indices)
         return tmp_item
 
-def duplicate(item):
+def copy(item):
 
     from copy import deepcopy
 

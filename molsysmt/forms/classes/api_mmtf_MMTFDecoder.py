@@ -13,7 +13,7 @@ info=["",""]
 def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
     from mmtf.api.default_api import write_mmtf, MMTFDecoder
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return write_mmtf(output_file_path, tmp_item, MMTFDecoder.pass_data_on)
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
@@ -36,14 +36,14 @@ def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
     from molsysmt.native.io.trajectory.classes import from_mmtf_MMTFDecoder as molsysmt_Trajectory_from_mmtf_MMTFDecoder
     return molsysmt_Trajectory_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

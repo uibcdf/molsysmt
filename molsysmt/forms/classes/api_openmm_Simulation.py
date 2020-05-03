@@ -13,7 +13,7 @@ info=["",""]
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     tmp_item=item.topology
-    tmp_item=extract_subsystem(atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item=extract(atom_indices=atom_indices, frame_indices=frame_indices)
     return item.topology
 
 def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
@@ -44,14 +44,14 @@ def to_pdb (item, output_file_path=None, atom_indices='all', frame_indices='all'
     topology.setPeriodicBoxVectors(box)
     return _openmm_app_PDBFILE.writeFile(topology, positions, open(output_file_path, 'w'))
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

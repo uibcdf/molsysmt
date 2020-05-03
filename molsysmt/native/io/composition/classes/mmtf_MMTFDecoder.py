@@ -13,7 +13,8 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     # End
 
-    tmp_item = tmp_item.extract(atom_indices=atom_indices)
+    if atom_indices is not 'all':
+        tmp_item = tmp_item.extract(atom_indices=atom_indices)
 
     return tmp_item
 

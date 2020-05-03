@@ -78,6 +78,15 @@ class Atom:
         self.bonded_atom_indices = []
         self.n_bonds = 0
 
+    def add_bond(self, bond):
+
+        for atom_index in bond.atom_indices:
+            if atom_index!=self.index:
+                self.bond_with_atom_index[atom_index]=bond
+                self.bond_indices.append(bond.index)
+                self.bonded_atom_indices.append(atom_index)
+                self.n_bonds+=1
+
     def copy(self):
 
         tmp_item = Atom(index=self.index, id=self.id, name=self.name, type=self.type)

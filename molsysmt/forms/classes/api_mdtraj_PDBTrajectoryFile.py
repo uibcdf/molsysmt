@@ -12,7 +12,7 @@ info=["",""]
 
 def to_mdtraj_topology(item, atom_indices='all', frame_indices='all'):
 
-    from api_mdtraj_Topology import extract_subsystem as extract_mdtraj_Topology
+    from api_mdtraj_Topology import extract as extract_mdtraj_Topology
 
     tmp_item = item.topology
     tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -69,14 +69,14 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     return step, time, xyz, box
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 

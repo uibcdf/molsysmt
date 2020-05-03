@@ -15,7 +15,7 @@ info=["",""]
 
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = 'aminoacids3:'+''.join([ r.name.title() for r in item.residues ])
     return tmp_item
 
@@ -23,7 +23,7 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_to_aminoacids1
 
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = to_aminoacids3_seq(tmp_item)
     tmp_item = aminoacids3_to_aminoacids1(tmp_item)
     return tmp_item
@@ -36,7 +36,7 @@ def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
 
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
-    tmp_item = extract_subsystem(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item.to_openmm()
 
 def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
@@ -84,7 +84,7 @@ def select_with_MolSysMT(item, selection):
 
 # Extract
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
@@ -156,7 +156,7 @@ def merge_two_items(item1, item2, in_place=False):
 
 # Duplicate
 
-def duplicate(item):
+def copy(item):
 
     return item.copy()
 

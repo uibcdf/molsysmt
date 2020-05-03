@@ -28,7 +28,7 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
 def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
 
-    from .api_networkx_Graph import extract_subsystem as extract_networkx_Graph
+    from .api_networkx_Graph import extract as extract_networkx_Graph
     from networkx import empty_graph
 
     G = empty_graph(item.n_atoms)
@@ -46,16 +46,16 @@ def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
     tmp_item = molsysmt_Composition_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
-def duplicate(item):
+def copy(item):
 
-    return item.duplicate()
+    return item.copy()
 
 def select_with_MDTraj(item, selection):
 

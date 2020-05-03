@@ -29,7 +29,7 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import extract_subsystem as extract_openmm_Topology
+    from .api_openmm_Topology import extract as extract_openmm_Topology
     tmp_item=item.getTopology()
     tmp_item=extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
@@ -40,14 +40,14 @@ def to_nglview(item, atom_indices='all', frame_indices='all'):
     tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return _mdtraj_Trajectory_to_nglview(tmp_item)
 
-def extract_subsystem(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
         raise NotImplementedError
 
-def duplicate(item):
+def copy(item):
 
     raise NotImplementedError
 
