@@ -120,8 +120,8 @@ def make_entity(index=None, id=None, name=None, type=None,
                 atoms=[], groups=[], components=[],
                 chains=[], molecules=[]):
 
-    from .entities import Ion, Water, Cosolute, SmallMolecule, Peptide, DNA, RNA,\
-            Protein
+    from .entities import Entity, Ion, Water, Cosolute, SmallMolecule, Peptide, \
+    DNA, RNA, Protein
 
     if type is None:
 
