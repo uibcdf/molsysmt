@@ -28,10 +28,15 @@ def box_shape_from_box_angles(angles):
 def box_shape_from_box_vectors(box):
 
     from molsysmt.lib import box as _libbox
+    
+    if box == None:
+        return None
 
-    n_frames = box.shape[0]
-    angles = _libbox.angles_box(box._value, n_frames)
-    return box_shape_from_box_angles(angles)
+    else:
+        
+        n_frames = box.shape[0]
+        angles = _libbox.angles_box(box._value, n_frames)
+        return box_shape_from_box_angles(angles)
 
 def box_lengths_from_box_vectors(box):
 

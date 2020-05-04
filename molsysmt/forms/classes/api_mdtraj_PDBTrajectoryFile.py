@@ -21,7 +21,7 @@ def to_mdtraj_topology(item, atom_indices='all', frame_indices='all'):
 def load_frame (item, atom_indices='all', frame_indices='all'):
 
     from numpy import array, concatenate, zeros, empty, full
-    from molsysmt.utils.pbc import get_box_from_lengths_and_angles
+    from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
     from molsysmt.utils import units as molsysmt_units
     from simtk.unit import angstroms, nanometers, degrees, picoseconds
     from molsysmt.utils.atom_indices import digest as _digest_atom_indices
@@ -57,7 +57,7 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
         cell_lengths = cell_lengths*angstroms
         cell_angles = cell_angles*degrees
 
-        box = get_box_from_lengths_and_angles(cell_lengths, cell_angles)
+        box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
         box = box.in_units_of(molsysmt_units.length)
 
     else:
