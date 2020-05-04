@@ -13,6 +13,7 @@ from .fix import fix_chains, fix_pdb_structure
 from .model_loops import add_loop
 from .remove_atoms import remove_solvent, remove_hydrogens
 from .potential_energy import energy_minimization
+from .peptides import build_peptide
 from .solvate_box import solvate
 from .protonation import add_missing_hydrogens
 from .mutations import mutate
@@ -54,6 +55,7 @@ __all_fix__ = []
 __all_model_loops__ = []
 __all_remove_atoms__ = ['remove_solvent', 'remove_hydrogens']
 __all_potential_energy__ = []
+__all_peptides__ = ['build_peptide']
 __all_solvate_box__ = []
 __all_protonation__ = []
 __all_mutations__ = []
@@ -65,11 +67,11 @@ __all_pbc__ = ['wrap_molecules_to_pbc_cell', 'unwrap_molecules_from_pbc_cell',
 
 __all__ = __all_multitool__ + __all_rmsd__ + __all_distances__ +\
         __all_centers__ + __all_sequence__ + __all_radius_of_gyration__ + __all_fix__ +\
-        __all_model_loops__ + __all_remove_atoms__ + __all_potential_energy__ +\
+        __all_model_loops__ + __all_remove_atoms__ + __all_potential_energy__ + __all_peptides__ +\
         __all_solvate_box__ + __all_protonation__ + __all_mutations__ +\
         __all_elements__ + __all_chem_and_phys_properties__ + __all_pbc__
 
-del(__all_multitool__, __all_rmsd__, __all_distances__, __all_centers__,
+del(__all_multitool__, __all_rmsd__, __all_distances__, __all_centers__, __all_peptides__,
         __all_sequence__, __all_radius_of_gyration__, __all_fix__, __all_model_loops__,
         __all_remove_atoms__, __all_potential_energy__, __all_solvate_box__, __all_protonation__,
         __all_mutations__, __all_elements__, __all_chem_and_phys_properties__, __all_pbc__)

@@ -2,8 +2,6 @@ import os
 import tempfile
 import urllib.request
 
-from pdbfixer.pdbfixer import proteinResidues, rnaResidues, dnaResidues
-
 def tmp_filename(extension=None):
 
     if not extension.startswith("."):

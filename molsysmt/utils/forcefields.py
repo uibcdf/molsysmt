@@ -2,6 +2,7 @@ from .engines import digest as _digest_engines
 
 forcefields = [
 
+    'AMBER96',
     'AMBER99SB-ILDN',
     'TIP3P',
     'TIP4P',
@@ -20,6 +21,7 @@ _openmm = {
 
 _leap = {
 
+    'AMBER96' : 'oldff/leaprc.ff96',
     'AMBER99SB-ILDN' : 'oldff/leaprc.ff99SBildn',
     'TIP3P' : 'leaprc.water.tip3p',
     'SPC' : 'leaprc.water.spc',
