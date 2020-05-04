@@ -1,7 +1,5 @@
 import numpy as _np
 import molsysmt.utils.units as m3t_units
-from molsysmt.lib import box as _libbox
-from molsysmt.lib import com as _libcom
 from molsysmt.utils.exceptions import *
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
@@ -128,7 +126,7 @@ class Trajectory():
 
         return tmp_item
 
-    def duplicate (self):
+    def copy (self):
 
         from copy import deepcopy
 

@@ -165,10 +165,12 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    if frame_indices is 'all':
-        output=item.box
-    else:
-        output=item.box[frame_indices,:,:]
+    output=None
+    if item.box is not None:
+        if frame_indices is 'all':
+            output=item.box
+        else:
+            output=item.box[frame_indices,:,:]
     return output
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):

@@ -168,7 +168,11 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
         box, box_shape = get(item_1, target='system', box=True, box_shape=True, frame_indices=frame_indices_1)
 
         orthogonal = 0
-        if box_shape == 'cubic':
+        if box_shape is None:
+            orthogonal =1
+            if pbc:
+                raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
+        elif box_shape == 'cubic':
             orthogonal =1
 
         if box is None:
