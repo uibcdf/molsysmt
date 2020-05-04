@@ -85,7 +85,7 @@ def select_with_MolSysMT(item, selection):
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
-    return item.extract(selection=atom_indices, frame_indices=frame_indices)
+    return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_nglview(item, atom_indices='all', frame_indices='all'):
 

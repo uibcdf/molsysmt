@@ -23,6 +23,8 @@ class Trajectory():
         self.n_frames = 0
         self.n_atoms = 0
 
+        self.file = None
+
         if file_path is not None:
             self.load_frames_from_file(file_path=file_path, atom_indices=atom_indices, frame_indices=frame_indices)
 
@@ -121,7 +123,8 @@ class Trajectory():
             tmp_item.n_frames = len(frame_indices)
             tmp_item.n_atoms = len(atom_indices)
 
-            tmp_item.file = item.file.duplicate()
+            if self.file is not None:
+                tmp_item.file = self.file.duplicate()
 
         return tmp_item
 

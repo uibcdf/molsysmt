@@ -9,7 +9,7 @@ class MolSys():
         self.structure_obtention = None
         self.card = None
 
-    def extract(self, atom_indices='all', frame_indices='all', syntaxis='MDTraj'):
+    def extract(self, atom_indices='all', frame_indices='all'):
 
         from molsysmt.utils.frame_indices import digest as digest_frame_indices
 
