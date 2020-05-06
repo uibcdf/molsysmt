@@ -10,6 +10,9 @@ is_form = {
 
 info=["",""]
 
+with_topology=True
+with_trajectory=True
+
 def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

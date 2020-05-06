@@ -10,6 +10,8 @@ is_form={
 }
 
 info=["",""]
+with_topology=False
+with_trajectory=True
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

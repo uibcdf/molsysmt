@@ -10,6 +10,8 @@ is_form = {
     }
 
 info=["",""]
+with_topology=False
+with_trajectory=True
 
 info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
 
@@ -19,10 +21,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
     tmp_item = inpcrd_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.composition.files import from_inpcrd as inpcrd_to_molsysmt_Composition
-    tmp_item = inpcrd_to_molsysmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.files import from_inpcrd as inpcrd_to_molsysmt_Topology
+    tmp_item = inpcrd_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
@@ -97,6 +99,18 @@ def extract(item, atom_indices='all', frame_indices='all'):
 
 ###### Get
 
+# Atom
+
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_mdtraj_AmberRestartFile import get_n_atoms_from_system as _get
+    tmp_item = to_mdtraj_AmberRestartFile(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_form_from_atom(item, indices='all', frame_indices='all'):
+
+    return get_form_from_system(item)
+
 # System
 
 def get_n_frames_from_system (item, indices='all', frame_indices='all'):
@@ -107,9 +121,7 @@ def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mdtraj_AmberRestartFile import get_n_atoms_from_system as _get
-    tmp_item = to_mdtraj_AmberRestartFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return get_n_atoms_from_atom(item)
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 

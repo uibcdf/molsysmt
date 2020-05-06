@@ -7,6 +7,8 @@ is_form={
 }
 
 info=["",""]
+with_topology=False
+with_trajectory=False
 
 _dssp_to_abc = {"I" : "c", # coil
                 "S" : "c",

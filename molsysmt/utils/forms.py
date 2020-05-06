@@ -1,41 +1,19 @@
 
-
-def parse_form_name(form):
-
-    fields = form.split('.')
-
-    if len(fields) == 1:
-
-        form_lower = form.lower()
-
-        if form_lower == 'mdtraj':
-            return 'mdtraj.Trajectory'
-        elif form_lower == 'openmm':
-            return 'openmm.Modeller'
-        elif form_lower == 'pdbfixer':
-            return 'pdbfixer.PDBFixer'
-        elif form_lower == 'molsysmt':
-            return 'molsysmt.MolSys'
-        else:
-            return form
-
-    elif len(fields)==2:
-
-        return fields[0]+'.'+fields[1]
-
-    else:
-
-        return form
-
 def digest(item, to_form=None):
 
     from molsysmt.multitool import _get_form
 
-    form_in = _get_form(item)
+    if type(item) in [list,tuple]:
+        form_in=[]
+        for ii in item:
+            form_in.append(_get_form(ii))
+    else:
+        form_in=_get_form(item)
 
     if to_form is not None:
-        form_out = parse_form_name(to_form)
-        return form_in, form_out
+        form_out=to_form
     else:
-        return form_in, form_in
+        form_out=form_in
+
+    return form_in, form_out
 

@@ -10,19 +10,21 @@ is_form={
 }
 
 info=["",""]
+with_topology=True
+with_trajectory=True
 
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import to_aminoacids3_seq as molsysmt_composition_to_aminoacids3_seq
-    tmp_item = molsysmt_composition_to_aminoacids3_seq(item.composition, atom_indices=atom_indices,
+    from .api_molsysmt_Topology import to_aminoacids3_seq as molsysmt_topology_to_aminoacids3_seq
+    tmp_item = molsysmt_topology_to_aminoacids3_seq(item.topology, atom_indices=atom_indices,
                                                       frame_indices=frame_indices)
 
     return tmp_item
 
 def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import to_aminoacids1_seq as molsysmt_composition_to_aminoacids1_seq
-    tmp_item = molsysmt_composition_to_aminoacids1_seq(item.composition,
+    from .api_molsysmt_Topology import to_aminoacids1_seq as molsysmt_topology_to_aminoacids1_seq
+    tmp_item = molsysmt_topology_to_aminoacids1_seq(item.topology,
                                                       frame_indices=frame_indices)
 
     return tmp_item
@@ -63,8 +65,8 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 
 def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import to_mdtraj_Topology as molsysmt_Composition_to_mdtraj_Topology
-    return molsysmt_Composition_to_mdtraj_Topology(item.composition, atom_indices=atom_indices,
+    from .api_molsysmt_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
+    return molsysmt_Topology_to_mdtraj_Topology(item.topology, atom_indices=atom_indices,
                                                 frame_indices=frame_indices)
 
 def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
@@ -75,13 +77,13 @@ def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all')
 
 def select_with_MDTraj(item, selection):
 
-    from .api_molsysmt_Composition import select_with_MDTraj as select_Composition_with_MDTraj
-    return select_Composition_with_MDTraj(item.composition, selection)
+    from .api_molsysmt_Topology import select_with_MDTraj as select_Topology_with_MDTraj
+    return select_Topology_with_MDTraj(item.topology, selection)
 
 def select_with_MolSysMT(item, selection):
 
-    from .api_molsysmt_Composition import select_with_MolSysMT as select_Composition_with_MolSysMT
-    return select_Composition_with_MolSysMT(item.composition, selection)
+    from .api_molsysmt_Topology import select_with_MolSysMT as select_Topology_with_MolSysMT
+    return select_Topology_with_MolSysMT(item.topology, selection)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -121,173 +123,173 @@ def get_type_from_atom (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_index_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_index_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_id_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_id_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_name_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_name_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_type_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_type_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_index_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_index_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_id_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_id_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_name_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_name_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_type_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_type_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_name_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_name_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_index_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_index_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_id_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_id_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_type_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_type_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_name_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_name_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_index_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_index_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_id_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_id_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_type_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_type_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_index_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_index_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_id_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_id_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_name_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_name_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_type_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_type_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_index_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_index_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_id_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_id_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_name_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_name_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_type_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_type_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_bonded_atoms_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_bonded_atoms_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_atoms_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_atoms_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_groups_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_groups_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_components_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_components_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_molecules_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_molecules_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_chains_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_chains_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_entities_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_entities_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_bonds_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_bonds_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_mass_from_atom(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_mass_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_mass_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_charge_from_atom(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_charge_from_atom as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_charge_from_atom as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
@@ -323,168 +325,168 @@ def get_type_from_group (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_index_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_index_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_id_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_id_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_id_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_name_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_name_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_name_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_type_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_type_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_type_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_index_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_index_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_id_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_id_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_id_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_name_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_name_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_type_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_type_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_name_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_name_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_index_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_index_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_id_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_id_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_id_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_type_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_type_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_name_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_name_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_index_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_index_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_id_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_id_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_id_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_type_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_type_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_index_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_index_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_id_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_id_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_id_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_name_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_name_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_type_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_type_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_index_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_index_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_id_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_id_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_id_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_name_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_name_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_name_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_type_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_type_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_type_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_atoms_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_atoms_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_atoms_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_groups_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_groups_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_components_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_components_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_molecules_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_molecules_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_chains_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_chains_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_entities_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_entities_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_group (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_bonds_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_bonds_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_mass_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_mass_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_mass_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_charge_from_group(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_charge_from_group as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_charge_from_group as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_group(item, indices='all', frame_indices='all'):
 
@@ -511,168 +513,168 @@ def get_type_from_component (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_index_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_index_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_id_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_id_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_id_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_name_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_name_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_name_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_type_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_type_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_type_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_index_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_index_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_id_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_id_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_id_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_name_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_name_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_type_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_type_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_name_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_name_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_index_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_index_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_id_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_id_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_id_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_type_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_type_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_name_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_name_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_index_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_index_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_id_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_id_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_id_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_type_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_type_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_index_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_index_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_id_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_id_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_id_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_name_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_name_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_type_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_type_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_index_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_index_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_id_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_id_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_id_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_name_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_name_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_name_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_type_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_type_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_type_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_atoms_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_atoms_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_atoms_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_groups_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_groups_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_components_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_components_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_molecules_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_molecules_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_chains_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_chains_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_entities_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_entities_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_component (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_bonds_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_bonds_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_mass_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_mass_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_mass_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_charge_from_component(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_charge_from_component as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_charge_from_component as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_component(item, indices='all', frame_indices='all'):
 
@@ -700,168 +702,168 @@ def get_type_from_molecule (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_index_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_index_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_id_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_id_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_id_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_name_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_name_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_name_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_type_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_type_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_type_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_index_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_index_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_id_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_id_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_id_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_name_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_name_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_type_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_type_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_name_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_name_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_index_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_index_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_id_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_id_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_id_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_type_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_type_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_name_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_name_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_index_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_index_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_id_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_id_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_id_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_type_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_type_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_index_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_index_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_id_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_id_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_name_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_name_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_type_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_type_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_index_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_index_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_id_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_id_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_id_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_name_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_name_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_name_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_type_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_type_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_atoms_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_atoms_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_atoms_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_groups_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_groups_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_components_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_components_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_molecules_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_molecules_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_chains_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_chains_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_entities_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_entities_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_molecule (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_bonds_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_bonds_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_mass_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_mass_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_mass_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_charge_from_molecule(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_charge_from_molecule as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_charge_from_molecule as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_molecule(item, indices='all', frame_indices='all'):
 
@@ -889,168 +891,168 @@ def get_type_from_chain (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_index_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_index_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_id_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_id_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_id_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_name_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_name_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_name_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_type_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_type_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_type_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_index_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_index_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_id_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_id_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_id_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_name_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_name_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_type_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_type_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_name_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_name_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_index_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_index_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_id_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_id_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_id_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_type_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_type_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_name_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_name_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_index_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_index_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_id_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_id_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_type_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_type_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_index_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_index_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_id_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_id_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_id_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_name_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_name_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_type_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_type_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_index_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_index_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_id_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_id_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_id_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_name_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_name_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_name_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_type_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_type_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_type_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_atoms_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_atoms_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_atoms_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_groups_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_groups_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_components_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_components_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_molecules_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_molecules_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_chains_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_chains_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_entities_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_entities_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_chain (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_bonds_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_bonds_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_mass_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_mass_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_mass_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_charge_from_chain(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_charge_from_chain as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_charge_from_chain as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_chain(item, indices='all', frame_indices='all'):
 
@@ -1077,168 +1079,168 @@ def get_type_from_entity (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_index_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_index_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_id_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_id_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_id_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_name_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_name_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_name_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_atom_type_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_atom_type_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_atom_type_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_index_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_index_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_id_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_id_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_id_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_name_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_name_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_group_type_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_group_type_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_name_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_name_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_index_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_index_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_id_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_id_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_id_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_component_type_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_component_type_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_name_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_name_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_index_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_index_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_id_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_id_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_id_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_chain_type_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_chain_type_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_index_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_index_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_id_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_id_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_id_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_name_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_name_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_molecule_type_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_molecule_type_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_index_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_index_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_id_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_id_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_name_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_name_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_entity_type_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_entity_type_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_atoms_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_atoms_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_atoms_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_groups_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_groups_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_components_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_components_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_molecules_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_molecules_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_chains_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_chains_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_entities_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_entities_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_entity (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_bonds_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_bonds_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_mass_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_mass_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_mass_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_charge_from_entity(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_charge_from_entity as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_charge_from_entity as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_entity(item, indices='all', frame_indices='all'):
 
@@ -1250,103 +1252,103 @@ def get_coordinates_from_entity(item, indices='all', frame_indices='all'):
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_bonded_atoms_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_bonded_atoms_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_atoms_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_atoms_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_groups_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_groups_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_components_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_components_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_chains_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_chains_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_molecules_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_molecules_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_entities_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_entities_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_bonds_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_bonds_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_aminoacids_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_aminoacids_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_nucleotides_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_nucleotides_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_ions_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_ions_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_ions_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_waters_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_waters_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_waters_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_cosolutes_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_cosolutes_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_small_molecules_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_small_molecules_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_peptides_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_peptides_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_proteins_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_proteins_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_proteins_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_dnas_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_dnas_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_n_dnas_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_n_dnas_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_mass_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_mass_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_mass_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_charge_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Composition import get_mass_from_system as _get
-    return _get(item.composition, indices=indices, frame_indices=frame_indices)
+    from .api_molsysmt_Topology import get_mass_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 

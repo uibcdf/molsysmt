@@ -14,6 +14,7 @@ from numpy import sort as _sort
 from numpy import arange as _arange
 from numpy import int as _int
 from numpy import int64 as _int64
+from numpy import nonzero as _nonzero
 
 ####
 #### Molecular Models forms
@@ -29,7 +30,9 @@ from .forms.classes import dict_is_form as _dict_classes_is_form, \
     dict_copier as _dict_classes_copier, \
     dict_merger as _dict_classes_merger, \
     dict_get as _dict_classes_get, \
-    dict_set as _dict_classes_set
+    dict_set as _dict_classes_set, \
+    dict_with_topology as _dict_classes_with_topology, \
+    dict_with_trajectory as _dict_classes_with_trajectory
 
 # Files
 from .forms.files import dict_is_form as _dict_files_is_form, \
@@ -41,7 +44,9 @@ from .forms.files import dict_is_form as _dict_files_is_form, \
     dict_copier as _dict_files_copier, \
     dict_merger as _dict_files_merger, \
     dict_get as _dict_files_get, \
-    dict_set as _dict_files_set
+    dict_set as _dict_files_set, \
+    dict_with_topology as _dict_files_with_topology, \
+    dict_with_trajectory as _dict_files_with_trajectory
 
 # IDs
 from .forms.ids import dict_is_form as _dict_ids_is_form, \
@@ -53,7 +58,9 @@ from .forms.ids import dict_is_form as _dict_ids_is_form, \
     dict_copier as _dict_ids_copier, \
     dict_merger as _dict_ids_merger, \
     dict_get as _dict_ids_get, \
-    dict_set as _dict_ids_set
+    dict_set as _dict_ids_set, \
+    dict_with_topology as _dict_ids_with_topology, \
+    dict_with_trajectory as _dict_ids_with_trajectory
 
 # Sequences
 from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
@@ -65,7 +72,9 @@ from .forms.seqs import dict_is_form as _dict_seqs_is_form, \
     dict_copier as _dict_seqs_copier, \
     dict_merger as _dict_seqs_merger, \
     dict_get as _dict_seqs_get, \
-    dict_set as _dict_seqs_set
+    dict_set as _dict_seqs_set, \
+    dict_with_topology as _dict_seqs_with_topology, \
+    dict_with_trajectory as _dict_seqs_with_trajectory
 
 # Viewers
 from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
@@ -77,7 +86,9 @@ from .forms.viewers import dict_is_form as _dict_viewers_is_form, \
     dict_copier as _dict_viewers_copier, \
     dict_merger as _dict_viewers_merger, \
     dict_get as _dict_viewers_get, \
-    dict_set as _dict_viewers_set
+    dict_set as _dict_viewers_set, \
+    dict_with_topology as _dict_viewers_with_topology, \
+    dict_with_trajectory as _dict_viewers_with_trajectory
 
 _dict_is_form = {**_dict_classes_is_form, **_dict_files_is_form,\
                  **_dict_ids_is_form, **_dict_seqs_is_form, **_dict_viewers_is_form}
@@ -97,6 +108,10 @@ _dict_get = {**_dict_classes_get, **_dict_files_get,\
                    **_dict_ids_get, **_dict_seqs_get, **_dict_viewers_get}
 _dict_set = {**_dict_classes_set, **_dict_files_set,\
                    **_dict_ids_set, **_dict_seqs_set, **_dict_viewers_set}
+_dict_with_topology = {**_dict_classes_with_topology, **_dict_files_with_topology,\
+                   **_dict_ids_with_topology, **_dict_seqs_with_topology, **_dict_viewers_with_topology}
+_dict_with_trajectory = {**_dict_classes_with_trajectory, **_dict_files_with_trajectory,\
+                   **_dict_ids_with_trajectory, **_dict_seqs_with_trajectory, **_dict_viewers_with_trajectory}
 
 _dict_type = {}
 for form in _list_classes_forms:
@@ -932,28 +947,86 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
 
     form_in, form_out  = _digest_forms(item, to_form)
 
-    if selection is 'all':
-        atom_indices='all'
-    else:
-        atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+    if type(form_in) != list:
 
-    out_file = None
+        if selection is 'all':
+            atom_indices='all'
+        else:
+            atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 
-    if type(form_out)==str:
-        if form_out.split('.')[-1] in _list_files_forms:
-            out_file=form_out
-            form_out=form_out.split('.')[-1]
+        out_file = None
 
-    if out_file is not None:
-        return _dict_converter[form_in][form_out](item, output_file_path=out_file,
-                                                  atom_indices=atom_indices, frame_indices=frame_indices,
-                                                  **kwargs)
-    else:
-        if form_out != form_in:
+        if type(form_out)==str:
+            if form_out.split('.')[-1] in _list_files_forms:
+                out_file=form_out
+                form_out=form_out.split('.')[-1]
+
+        if out_file is not None:
+            return _dict_converter[form_in][form_out](item, output_file_path=out_file,
+                                                      atom_indices=atom_indices, frame_indices=frame_indices,
+                                                      **kwargs)
+        else:
             return _dict_converter[form_in][form_out](item, atom_indices=atom_indices,
                                                       frame_indices=frame_indices, **kwargs)
+    else:
+
+        if len(form_in)!=2:
+            raise ValueError('The length of input items list is not 2.')
+
+        topology_item = None
+        topology_form = None
+        trajectory_item = None
+        trajectory_form = None
+        with_topology = _array([_dict_with_topology[form_in[0]], _dict_with_topology[form_in[1]]])
+        n_topologies = with_topology.sum()
+        with_trajectory = _array([_dict_with_trajectory[form_in[0]],
+                                  _dict_with_trajectory[form_in[1]]])
+        n_trajectories = with_trajectory.sum()
+
+        if n_topologies == 0:
+            raise ValueError('There is no input item with topology')
+        elif n_topologies == 1:
+            topology_index = _nonzero(with_topology)[0][0]
+            trajectory_index = _nonzero(~with_topology)[0][0]
+            if with_trajectory[trajectory_index] is False:
+                raise ValueError('The item {} has the topology of the molecular system but {} has\
+                                 no coordinates'.format(form_in[topology_index], form_in[trajectory_index]))
+        elif n_topologies == 2:
+            if n_trajectories ==0:
+                raise ValueError('Both items have topological information but no coordinates.')
+            elif n_trajectories == 2:
+                print('Both items have topology and coordinates. The first one will be taken form\
+                      topology and the second one for coordiantes.')
+            else:
+                trajectory_index = _nonzero(with_trajectory)[0][0]
+                topology_index = _nonzero(~with_trajectory)[0][0]
+
+        topology_item = item[topology_index]
+        topology_form = form_in[topology_index]
+        trajectory_item = item[trajectory_index]
+        trajectory_form = form_in[trajectory_index]
+
+        if selection is 'all':
+            atom_indices='all'
         else:
-            return extract(item, selection=atom_indices, frame_indices=frame_indices)
+            atom_indices = select(topology_item, selection=selection, syntaxis=syntaxis)
+
+        out_file = None
+
+        if type(form_out)==str:
+            if form_out.split('.')[-1] in _list_files_forms:
+                out_file=form_out
+                form_out=form_out.split('.')[-1]
+
+        if out_file is not None:
+            return _dict_converter[topology_form][form_out](item, trajectory_item=trajectory_item, output_file_path=out_file,
+                                                      atom_indices=atom_indices, frame_indices=frame_indices,
+                                                      **kwargs)
+        else:
+            return _dict_converter[topology_form][form_out](item, trajectory_item=trajectory_item, atom_indices=atom_indices,
+                                                      frame_indices=frame_indices, **kwargs)
+
+
 
 def copy(item=None):
 

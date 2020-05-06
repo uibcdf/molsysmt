@@ -1,16 +1,17 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
-from molsysmt.native.composition import Composition as molsysmt_Composition
-from molsysmt.native.io import composition as io_composition
+from molsysmt.native.topology import Topology as molsysmt_Topology
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    molsysmt_Composition : form_name,
-    'molsysmt.Composition': form_name
+    molsysmt_Topology : form_name,
+    'molsysmt.Topology': form_name
 }
 
 info=["",""]
+with_topology=True
+with_trajectory=False
 
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
@@ -42,8 +43,8 @@ def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
 
 def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.composition.classes.molsysmt_DataFrame import to_molsysmt_DataFrame as molsysmt_Composition_to_molsysmt_DataFrame
-    tmp_item = molsysmt_Composition_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.classes.molsysmt_DataFrame import to_molsysmt_DataFrame as molsysmt_Topology_to_molsysmt_DataFrame
+    tmp_item = molsysmt_Topology_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):

@@ -9,6 +9,8 @@ is_form={
     }
 
 info=["",""]
+with_topology=False
+with_trajectory=True
 
 def load_frame (item, atom_indices='all', frame_indices='all'):
 

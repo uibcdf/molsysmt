@@ -9,6 +9,8 @@ is_form = {
     }
 
 info=["",""]
+with_topology=True
+with_trajectory=False
 
 def to_UniProt_id(form_id):
     pass

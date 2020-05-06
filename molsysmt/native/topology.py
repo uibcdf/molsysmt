@@ -1,4 +1,4 @@
-class Composition():
+class Topology():
 
     def __init__(self):
 
@@ -35,7 +35,7 @@ class Composition():
 
     def extract(self, atom_indices='all', frame_indices='all'):
 
-        from .io.composition.classes import from_molsysmt_DataFrame
+        from .io.topology.classes import from_molsysmt_DataFrame
 
         if atom_indices is 'all':
             tmp_item = from_molsysmt_DataFrame(self.dataframe)

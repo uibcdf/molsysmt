@@ -7,6 +7,8 @@ is_form={
 }
 
 info=["",""]
+with_topology=False
+with_trajectory=False
 
 def select_with_MDTraj(item, selection):
     raise NotImplementedError

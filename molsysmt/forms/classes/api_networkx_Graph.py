@@ -10,6 +10,8 @@ is_form={
 }
 
 info=["",""]
+with_topology=True
+with_trajectory=False
 
 def select_with_MDTraj(item, selection):
 

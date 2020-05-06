@@ -37,6 +37,8 @@ is_form = {
     }
 
 info=["",""]
+with_topology=True
+with_trajectory=False
 
 def rewrite_to_style(filename, style=None):
 

@@ -7,6 +7,8 @@ is_form={
 }
 
 info=["",""]
+with_topology=False
+with_trajectory=True
 
 def item_in_good_shape(item):
 

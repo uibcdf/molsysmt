@@ -10,6 +10,8 @@ is_form = {
     }
 
 info=["",""]
+with_topology=True
+with_trajectory=True
 
 def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 

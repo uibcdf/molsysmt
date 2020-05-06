@@ -9,8 +9,10 @@ is_form={
     }
 
 info=["",""]
+with_topology=True
+with_trajectory=True
 
-def to_mdtraj_topology(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from api_mdtraj_Topology import extract as extract_mdtraj_Topology
 

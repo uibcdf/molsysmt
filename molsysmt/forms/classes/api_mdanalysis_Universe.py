@@ -10,8 +10,10 @@ is_form={
 }
 
 info=["",""]
+with_topology=True
+with_trajectory=True
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_mdtraj as _nglview_show_mdanalysis
 
@@ -19,21 +21,21 @@ def to_nglview(item, atom_indices='all', frame_indices='all'):
 
     return _nglview_show_mdanalysis(tmp_item)
 
-def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all', multiframe=False):
+def to_pdb(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all', multiframe=False):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item.atoms.write(output_file_path, multiframe=multiframe)
 
-def to_MDTraj(item, atom_indices='all', frame_indices='all', multiframe=False):
+def to_mdtraj_Trajectory (item, trajectory_item=None, atom_indices='all', frame_indices='all', multiframe=False):
 
     from molsysmt.utils.pdb import tmp_pdb_filename
-    from molsysmt.forms.files.api_pdb import to_mdtraj as _pdb_to_mdtraj
+    from molsysmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_file = tmp_pdb_filename()
     to_pdb(tmp_item=item, output_file_path=tmp_file, multiframe=multiframe)
-    tmp_item=_pdb_to_mdtraj(tmp_file)
+    tmp_item=pdb_to_mdtraj_Trajectory(tmp_file)
     _remove(tmp_file)
 
     return tmp_item

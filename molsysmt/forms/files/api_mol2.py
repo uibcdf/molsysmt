@@ -8,6 +8,8 @@ is_form = {
     }
 
 info=["",""]
+with_topology=True
+with_trajectory=True
 
 def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
 

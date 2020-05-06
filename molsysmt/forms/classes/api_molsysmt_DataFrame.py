@@ -11,6 +11,8 @@ is_form={
 }
 
 info=["",""]
+with_topology=True
+with_trajectory=False
 
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
@@ -23,10 +25,10 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
     from molsysmt.native.io.dataframe.seqs import to_aminoacids1_seq as molsysmt_DataFrame_to_aminoacids1_seq
     return molsysmt_DataFrame_to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.composition.classes import from_molsysmt_DataFrame as molsysmt_DataFrame_to_molsysmt_Composition
-    return molsysmt_DataFrame_to_molsysmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.classes import from_molsysmt_DataFrame as molsysmt_DataFrame_to_molsysmt_Topology
+    return molsysmt_DataFrame_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

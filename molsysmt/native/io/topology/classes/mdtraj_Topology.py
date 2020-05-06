@@ -1,12 +1,12 @@
 def from_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.dataframe import from_mdtraj_Topology as dataframe_from_mmtf_MMTFDecoder
-    from molsysmt.native.io.composition import from_molsysmt_DataFrame as composition_from_molsysmt_DataFrame
+    from molsysmt.native.io.topology import from_molsysmt_DataFrame as topology_from_molsysmt_DataFrame
     from numpy import reshape, sum
 
     dataframe = dataframe_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    tmp_item = composition_from_molsysmt_DataFrame(dataframe)
+    tmp_item = topology_from_molsysmt_DataFrame(dataframe)
 
     # groups
 

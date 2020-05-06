@@ -9,6 +9,8 @@ is_form={
 }
 
 info=["",""]
+with_topology=True
+with_trajectory=True
 
 def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'):
 
@@ -21,15 +23,15 @@ def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
     from molsysmt.native.io.molsys.classes import from_mmtf_MMTFDecoder as molsysmt_MolSys_from_mmtf_MMTFDecoder
     return molsysmt_MolSys_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.composition.classes import from_mmtf_MMTFDecoder as molsysmt_Composition_from_mmtf_MMTFDecoder
-    return molsysmt_Composition_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.classes import from_mmtf_MMTFDecoder as molsysmt_Topology_from_mmtf_MMTFDecoder
+    return molsysmt_Topology_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.dataframe.classes import from_mmtf_MMTFDecoder as molsysmt_Composition_from_mmtf_MMTFDecoder
-    return molsysmt_Composition_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.dataframe.classes import from_mmtf_MMTFDecoder as molsysmt_Topology_from_mmtf_MMTFDecoder
+    return molsysmt_Topology_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 

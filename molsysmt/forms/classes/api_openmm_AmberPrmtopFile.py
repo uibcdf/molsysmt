@@ -9,6 +9,12 @@ is_form={
 }
 
 info=["",""]
+with_topology=True
+with_trajectory=False
+
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+
+    return item.topology
 
 def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 

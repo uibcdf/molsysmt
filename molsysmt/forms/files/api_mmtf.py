@@ -7,6 +7,8 @@ is_form = {
     }
 
 info=["",""]
+with_topology=True
+with_trajectory=True
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -34,11 +36,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
     tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Composition as mmtf_MMTFDecoder_to_molsysmt_Composition
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Topology as mmtf_MMTFDecoder_to_molsysmt_Topology
     tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Composition(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
@@ -57,9 +59,9 @@ def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 
 def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_molsysmt_Composition import to_aminoacids1_seq as molsysmt_Composition_to_aminoacids1_seq
-    tmp_item = to_molsysmt_Composition(item, atom_indices=atom_indices)
-    tmp_item = molsysmt_Composition_to_aminoacids1_seq(tmp_item)
+    from molsysmt.forms.classes.api_molsysmt_Topology import to_aminoacids1_seq as molsysmt_Topology_to_aminoacids1_seq
+    tmp_item = to_molsysmt_Topology(item, atom_indices=atom_indices)
+    tmp_item = molsysmt_Topology_to_aminoacids1_seq(tmp_item)
     return tmp_item
 
 def select_with_MDTraj(item, selection):

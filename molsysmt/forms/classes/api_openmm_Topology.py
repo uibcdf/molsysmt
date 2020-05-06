@@ -11,16 +11,18 @@ is_form={
 }
 
 info=["",""]
+with_topology=True
+with_trajectory=False
 
 def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.dataframe.classes import from_openmm_Topology as molsysmt_DataFrame_from_openmm_Topology
     return molsysmt_DataFrame_from_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.composition.classes import from_openmm_Topology as molsysmt_Composition_from_openmm_Topology
-    return molsysmt_Composition_from_openmm_Topology(item, atom_indices=atom_indices)
+    from molsysmt.native.io.topology.classes import from_openmm_Topology as molsysmt_Topology_from_openmm_Topology
+    return molsysmt_Topology_from_openmm_Topology(item, atom_indices=atom_indices)
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 

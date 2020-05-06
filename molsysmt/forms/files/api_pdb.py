@@ -7,9 +7,9 @@ is_form = {
     'PDB': form_name
     }
 
-info=["",""]
-
 info = ["Protein Data Bank file format","https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
+with_topology=True
+with_trajectory=True
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
@@ -17,10 +17,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
     tmp_item = pdb_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.composition.files import from_pdb as pdb_to_molsysmt_Composition
-    tmp_item = pdb_to_molsysmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.files import from_pdb as pdb_to_molsysmt_Topology
+    tmp_item = pdb_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):

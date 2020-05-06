@@ -8,6 +8,8 @@ is_form = {
     }
 
 info=["",""]
+with_topology=False
+with_trajectory=True
 
 def to_mdtraj_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
 

@@ -21,6 +21,8 @@ dict_is_form={}
 dict_get={}
 dict_set={}
 dict_info={}
+dict_with_topology={}
+dict_with_trajectory={}
 
 for api_form in list_api_forms:
     module_api_form=_import_module('.'+api_form,base_package)
@@ -39,6 +41,8 @@ for form_name in list_forms:
     dict_get[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{}, 'entity':{}, 'system':{}}
     dict_set[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{}, 'entity':{}, 'system':{}}
     dict_info[form_name]=getattr(dict_api_forms[form_name],'info')
+    dict_with_topology[form_name]=getattr(dict_api_forms[form_name],'with_topology')
+    dict_with_trajectory[form_name]=getattr(dict_api_forms[form_name],'with_trajectory')
 
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):

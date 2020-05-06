@@ -7,6 +7,8 @@ is_form = {
     }
 
 info=["",""]
+with_topology=False
+with_trajectory=True
 
 info = ["AMBER mdcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
 
@@ -16,10 +18,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
     tmp_item = mdcrd_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Composition(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.composition.files import from_mdcrd as mdcrd_to_molsysmt_Composition
-    tmp_item = mdcrd_to_molsysmt_Composition(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.files import from_mdcrd as mdcrd_to_molsysmt_Topology
+    tmp_item = mdcrd_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):

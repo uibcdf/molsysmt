@@ -4,7 +4,7 @@ class DataFrame(PandasDataFrame):
 
     def __init__(self):
 
-        composition_columns = ['atom.index', 'atom.name', 'atom.id', 'atom.type',
+        topology_columns = ['atom.index', 'atom.name', 'atom.id', 'atom.type',
                                'atom.formal_charge', 'atom.bonded_atom_indices',
                                'group.index', 'group.name', 'group.id', 'group.type',
                                'component.index', 'component.name', 'component.id', 'component.type',
@@ -13,7 +13,7 @@ class DataFrame(PandasDataFrame):
                                'entity.index', 'entity.name', 'entity.id', 'entity.type']
 
 
-        super().__init__(columns=composition_columns)
+        super().__init__(columns=topology_columns)
 
     def extract(self, atom_indices='all'):
 

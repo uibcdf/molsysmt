@@ -1,7 +1,7 @@
 
 def from_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.composition import Composition
+    from molsysmt.native.topology import Topology
     from molsysmt.native import elements
     from numpy import arange
 
@@ -185,7 +185,7 @@ def from_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
     del(chain_index_array, chain_name_array, chain_id_array, chain_type_array)
     del(entity_index_array, entity_name_array, entity_id_array, entity_type_array)
 
-    tmp_item = Composition()
+    tmp_item = Topology()
 
     tmp_item.entity = entities
     tmp_item.n_entities = len(entities)

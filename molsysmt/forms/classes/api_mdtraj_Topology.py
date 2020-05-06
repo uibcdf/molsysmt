@@ -10,16 +10,18 @@ is_form={
 }
 
 info=["",""]
+with_topology=True
+with_trajectory=False
 
 ## To other form
 
-def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
+def to_aminoacids3_seq(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = 'aminoacids3:'+''.join([ r.name.title() for r in item.residues ])
     return tmp_item
 
-def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_to_aminoacids1
 
@@ -28,44 +30,44 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
     tmp_item = aminoacids3_to_aminoacids1(tmp_item)
     return tmp_item
 
-def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.dataframe.classes import from_mdtraj_Topology as molsysmt_DataFrame_from_mdtraj_Topology
     tmp_item = molsysmt_DataFrame_from_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item.to_openmm()
 
-def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
+def to_yank_Topography(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_yank_Topography as opennn_Topology_to_yank_Topography
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = opennn_Topology_to_yank_Topography(tmp_item)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_form)
     return tmp_item
 
-def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all'):
+def to_parmed_GromacsTopologyFile(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from parmed.gromacs import GromacsTopologyFile as GromacsTopologyFile
     tmp_item = to_parmed_Structure(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return GromacsTopologyFile.from_structure(tmp_item)
 
-def to_top(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_top(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from .api_parmed_GromacsTopologyFile import to_top as parmed_GromacsTopologyFile_to_top
     tmp_item = to_parmed_GromacsTopologyFile(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return parmed_GromacsTopologyFile_to_top(tmp_item, output_file_path=output_file_path)
 
-def to_pandas_DataFrame(item, atom_indices='all', frame_indices='all'):
+def to_pandas_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

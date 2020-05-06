@@ -4,7 +4,7 @@ class MolSys():
 
         self.trajectory = None
         self.topology = None
-        self.composition = None
+        self.topology = None
         self.topography = None
         self.structure_obtention = None
         self.card = None
@@ -21,7 +21,7 @@ class MolSys():
 
             frame_indices = digest_frame_indices(self, frame_indices)
             tmp_item = MolSys()
-            tmp_item.composition = self.composition.extract(atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_item.topology = self.topology.extract(atom_indices=atom_indices, frame_indices=frame_indices)
             tmp_item.trajectory = self.trajectory.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
             return tmp_item
@@ -36,7 +36,7 @@ class MolSys():
         tmp_item = MolSys()
         tmp_item.trajectory = self.trajectory.duplicate()
         tmp_item.topology = self.topology.copy()
-        tmp_item.composition = self.composition.duplicate()
+        tmp_item.topology = self.topology.duplicate()
         tmp_item.topography = self.topography.duplicate()
         tmp_item.structure_obtention = self.structure_obtention.duplicate()
 
