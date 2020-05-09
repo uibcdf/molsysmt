@@ -1,7 +1,8 @@
-def build_peptide (item, solvent='GBSA OBC', to_form='molsysmt.MolSys', forcefield=['AMBER96'],
+def build_peptide (item, forcefield='AMBER96', implicit_solvent='GBSA OBC', water_model=None, to_form='molsysmt.MolSys',
                    engine='LEaP', logfile=True, verbose=True):
 
-    # solvent in ['vacuum', 'GBSA OBC', 'explicit']
+    # implicit_solvent in ['vacuum', 'GBSA OBC', 'explicit']
+    # water_model in ['TIP3P']
 
     from molsysmt.utils.forcefields import digest as digest_forcefield
     from molsysmt import convert
@@ -17,7 +18,9 @@ def build_peptide (item, solvent='GBSA OBC', to_form='molsysmt.MolSys', forcefie
 
         current_directory = getcwd()
         working_directory = tmp_directory()
-        print(working_directory)
+        if verbose:
+            print('Working directory:', working_directory)
+
         tmp_prmtop = tmp_filename(dir=working_directory, extension='prmtop')
         tmp_crd = tmp_filename(dir=working_directory, extension='crd')
 
@@ -25,8 +28,11 @@ def build_peptide (item, solvent='GBSA OBC', to_form='molsysmt.MolSys', forcefie
         sequence = tmp_item[12:].upper()
         sequence = ' '.join([sequence[ii:ii+3] for ii in range(0, len(sequence), 3)])
 
+        if type(forcefield) in [list, tuple]:
+            forcefield_command = "source {}\n".format(' '.join(forcefield))
+        else:
+            forcefield_command = "source {}\n".format(forcefield)
 
-        forcefield_command = "source {}\n".format(' '.join(forcefield))
         GBSA_OBC_command = "set default PBRadii mbondi2\n"
         make_peptide_command = "peptide = sequence {{ {} }}\n".format(sequence)
         check_peptide_command = "check peptide\n"
@@ -37,7 +43,7 @@ def build_peptide (item, solvent='GBSA OBC', to_form='molsysmt.MolSys', forcefie
         commands_list =[]
         commands_list.append(forcefield_command)
 
-        if solvent == 'GBSA OBC':
+        if implicit_solvent == 'GBSA OBC':
             commands_list.append(GBSA_OBC_command)
 
         commands_list.append(make_peptide_command)
@@ -59,12 +65,11 @@ def build_peptide (item, solvent='GBSA OBC', to_form='molsysmt.MolSys', forcefie
         if logfile:
             copyfile(working_directory+'/leap.log',current_directory+'/build_peptide.log')
 
-        #tmp_item = convert([tmp_prmtop, tmp_crd], to_form=to_form)
-        tmp_item = None
-
-        copyfile(tmp_prmtop,current_directory+'/peptide.prmtop')
-        copyfile(tmp_crd,current_directory+'/peptide.crd')
         chdir(current_directory)
+
+        tmp_item = convert([tmp_prmtop, tmp_crd], to_form=to_form)
+
         rmtree(working_directory)
 
     return tmp_item
+

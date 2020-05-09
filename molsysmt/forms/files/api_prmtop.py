@@ -11,6 +11,14 @@ info = ["AMBER  parameter/topology file format","https://ambermd.org/FileFormats
 with_topology=True
 with_trajectory=False
 
+def to_prmtop(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    if atom_indices=='all':
+        from shutil import copyfile
+        copyfile(item, output_file_path)
+    else:
+        raise NotImplementedError("Not implemented yet")
+
 def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_prmtop as prmtop_to_molsysmt_MolSys

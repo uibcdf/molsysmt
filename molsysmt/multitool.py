@@ -949,87 +949,105 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
     # either is 'all' or numpy.array
     # to avoid select or getting numframes inside api methods.
 
-    form_in, form_out  = _digest_forms(item, to_form)
+    if type(to_form) in [list, tuple]:
 
-    if type(form_in) != list:
+        tmp_item=[]
+        for item_out in to_form:
+            tmp_item.append(convert(item, to_form=item_out, selection=selection,
+                            frame_indices=frame_indices, syntaxis=syntaxis))
 
-        if selection is 'all':
-            atom_indices='all'
-        else:
-            atom_indices = select(item, selection=selection, syntaxis=syntaxis)
-
-        out_file = None
-
-        if type(form_out)==str:
-            if form_out.split('.')[-1] in _list_files_forms:
-                out_file=form_out
-                form_out=form_out.split('.')[-1]
-
-        if out_file is not None:
-            return _dict_converter[form_in][form_out](item, output_file_path=out_file,
-                                                      atom_indices=atom_indices, frame_indices=frame_indices,
-                                                      **kwargs)
-        else:
-            return _dict_converter[form_in][form_out](item, atom_indices=atom_indices,
-                                                      frame_indices=frame_indices, **kwargs)
     else:
 
-        if len(form_in)!=2:
-            raise ValueError('The length of input items list is not 2.')
+        form_in, form_out  = _digest_forms(item, to_form)
 
-        topology_item = None
-        topology_form = None
-        trajectory_item = None
-        trajectory_form = None
-        with_topology = _array([_dict_with_topology[form_in[0]], _dict_with_topology[form_in[1]]])
-        n_topologies = with_topology.sum()
-        with_trajectory = _array([_dict_with_trajectory[form_in[0]],
-                                  _dict_with_trajectory[form_in[1]]])
-        n_trajectories = with_trajectory.sum()
+        if type(form_in) != list:
 
-        if n_topologies == 0:
-            raise ValueError('There is no input item with topology')
-        elif n_topologies == 1:
-            topology_index = _nonzero(with_topology)[0][0]
-            trajectory_index = _nonzero(~with_topology)[0][0]
-            if with_trajectory[trajectory_index] is False:
-                raise ValueError('The item {} has the topology of the molecular system but {} has\
-                                 no coordinates'.format(form_in[topology_index], form_in[trajectory_index]))
-        elif n_topologies == 2:
-            if n_trajectories ==0:
-                raise ValueError('Both items have topological information but no coordinates.')
-            elif n_trajectories == 2:
-                print('Both items have topology and coordinates. The first one will be taken form\
-                      topology and the second one for coordiantes.')
+            if selection is 'all':
+                atom_indices='all'
             else:
-                trajectory_index = _nonzero(with_trajectory)[0][0]
-                topology_index = _nonzero(~with_trajectory)[0][0]
+                atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 
-        topology_item = item[topology_index]
-        topology_form = form_in[topology_index]
-        trajectory_item = item[trajectory_index]
-        trajectory_form = form_in[trajectory_index]
+            out_file = None
 
-        if selection is 'all':
-            atom_indices='all'
+            if type(form_out)==str:
+                if form_out.split('.')[-1] in _list_files_forms:
+                    out_file=form_out
+                    form_out=form_out.split('.')[-1]
+
+            if out_file is not None:
+                tmp_item = _dict_converter[form_in][form_out](item, output_file_path=out_file,
+                                                          atom_indices=atom_indices, frame_indices=frame_indices,
+                                                          **kwargs)
+            else:
+                tmp_item = _dict_converter[form_in][form_out](item, atom_indices=atom_indices,
+                                                          frame_indices=frame_indices, **kwargs)
         else:
-            atom_indices = select(topology_item, selection=selection, syntaxis=syntaxis)
 
-        out_file = None
+            if len(form_in)!=2:
+                raise ValueError('The length of input items list is not 2.')
 
-        if type(form_out)==str:
-            if form_out.split('.')[-1] in _list_files_forms:
-                out_file=form_out
-                form_out=form_out.split('.')[-1]
+            topology_item = None
+            topology_form = None
+            trajectory_item = None
+            trajectory_form = None
+            with_topology = _array([_dict_with_topology[form_in[0]], _dict_with_topology[form_in[1]]])
+            n_topologies = with_topology.sum()
+            with_trajectory = _array([_dict_with_trajectory[form_in[0]],
+                                      _dict_with_trajectory[form_in[1]]])
+            n_trajectories = with_trajectory.sum()
 
-        if out_file is not None:
-            return _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_file_path=out_file,
-                                                      atom_indices=atom_indices, frame_indices=frame_indices,
-                                                      **kwargs)
-        else:
-            return _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
-                                                      frame_indices=frame_indices, **kwargs)
+            if n_topologies == 0:
+                raise ValueError('There is no input item with topology')
+            elif n_topologies == 1:
+                topology_index = _nonzero(with_topology)[0][0]
+                trajectory_index = _nonzero(~with_topology)[0][0]
+                if with_trajectory[trajectory_index] is False:
+                    raise ValueError('The item {} has the topology of the molecular system but {} has\
+                                     no coordinates'.format(form_in[topology_index], form_in[trajectory_index]))
+            elif n_topologies == 2:
+                if n_trajectories ==0:
+                    raise ValueError('Both items have topological information but no coordinates.')
+                elif n_trajectories == 2:
+                    print('Both items have topology and coordinates. The first one will be taken form\
+                          topology and the second one for coordiantes.')
+                else:
+                    trajectory_index = _nonzero(with_trajectory)[0][0]
+                    topology_index = _nonzero(~with_trajectory)[0][0]
 
+            topology_item = item[topology_index]
+            topology_form = form_in[topology_index]
+            trajectory_item = item[trajectory_index]
+            trajectory_form = form_in[trajectory_index]
+
+            if selection is 'all':
+                atom_indices='all'
+            else:
+                atom_indices = select(topology_item, selection=selection, syntaxis=syntaxis)
+
+            out_file = None
+
+            if type(form_out)==str:
+                if form_out.split('.')[-1] in _list_files_forms:
+                    out_file=form_out
+                    form_out=form_out.split('.')[-1]
+
+            try:
+                if out_file is not None:
+                    tmp_item = _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_file_path=out_file,
+                                                              atom_indices=atom_indices, frame_indices=frame_indices,
+                                                              **kwargs)
+                else:
+                    tmp_item = _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
+                                                              frame_indices=frame_indices, **kwargs)
+            except:
+                if out_file is not None:
+                    tmp_item = _dict_converter[trajectory_form][form_out](trajectory_item, output_file_path=out_file,
+                                                              atom_indices=atom_indices, frame_indices=frame_indices,
+                                                              **kwargs)
+                else:
+                    tmp_item = _dict_converter[trajectory_form][form_out](trajectory_item, atom_indices=atom_indices,
+                                                              frame_indices=frame_indices, **kwargs)
+    return tmp_item
 
 
 def copy(item=None):

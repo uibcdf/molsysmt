@@ -15,6 +15,14 @@ with_trajectory=True
 
 info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
 
+def to_inpcrd(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    if frame_indices=='all':
+        from shutil import copyfile
+        copyfile(item, output_file_path)
+    else:
+        raise NotImplementedError("Not implemented yet")
+
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_inpcrd as inpcrd_to_molsysmt_MolSys
