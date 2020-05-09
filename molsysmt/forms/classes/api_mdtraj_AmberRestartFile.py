@@ -25,14 +25,14 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     xyz, time, cell_lengths, cell_angles = item.read()
 
-    xyz = item.positions[frame_indices,:,:]
+    xyz = xyz[frame_indices,:,:]
     xyz = xyz[:,atom_indices,:]
     xyz = xyz*angstroms
 
     time = time[frame_indices]*picoseconds
     step = None
 
-    if item.unitcell_lengths is not None:
+    if cell_lengths is not None:
 
         cell_lengths = cell_lengths*angstroms
         cell_angles = cell_angles*degrees

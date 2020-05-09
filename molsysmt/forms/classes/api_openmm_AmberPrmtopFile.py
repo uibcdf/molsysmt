@@ -12,19 +12,26 @@ info=["",""]
 with_topology=True
 with_trajectory=False
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from .api_openmm_Topology import to_molsysmt_DataFrame as openmm_Topology_to_molsysmt_DataFrame
+    tmp_item = to_openmm_Topology(item)
+    tmp_item = openmm_Topology_to_molsysmt_DataFrame(item, atom_indices=atom_indices)
+    return tmp_item
+
+def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     return item.topology
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -38,6 +45,14 @@ def extract(item, atom_indices='all', frame_indices='all'):
 def copy(item):
 
     raise NotImplementedError
+
+def select_with_MolSysMT(item, selection):
+
+    from molsysmt.native.selector import dataframe_select
+
+    tmp_item = to_molsysmt_DataFrame(item)
+    atom_indices = dataframe_select(tmp_item, selection)
+    return atom_indices
 
 ##### Set
 

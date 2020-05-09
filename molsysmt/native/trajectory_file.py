@@ -24,6 +24,8 @@ class TrajectoryFile():
                 self.mount_point = convert(file_path, to_form='mdtraj.HDF5TrajectoryFile')
             elif self.form == 'pdb':
                 self.mount_point = convert(file_path, to_form='mdtraj.PDBTrajectoryFile')
+            elif self.form == 'inpcrd':
+                self.mount_point = convert(file_path, to_form='mdtraj.AmberRestartFile')
             elif self.form == 'mmtf':
                 self.mount_point = convert(file_path, to_form='mmtf.MMTFDecoder')
             else:

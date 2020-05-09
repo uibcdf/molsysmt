@@ -945,6 +945,10 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
 
     """
 
+    # atom_indices and frame_indices is solved here
+    # either is 'all' or numpy.array
+    # to avoid select or getting numframes inside api methods.
+
     form_in, form_out  = _digest_forms(item, to_form)
 
     if type(form_in) != list:
@@ -1019,11 +1023,11 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                 form_out=form_out.split('.')[-1]
 
         if out_file is not None:
-            return _dict_converter[topology_form][form_out](item, trajectory_item=trajectory_item, output_file_path=out_file,
+            return _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_file_path=out_file,
                                                       atom_indices=atom_indices, frame_indices=frame_indices,
                                                       **kwargs)
         else:
-            return _dict_converter[topology_form][form_out](item, trajectory_item=trajectory_item, atom_indices=atom_indices,
+            return _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
                                                       frame_indices=frame_indices, **kwargs)
 
 

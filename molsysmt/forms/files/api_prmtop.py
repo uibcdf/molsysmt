@@ -14,7 +14,7 @@ with_trajectory=False
 def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_prmtop as prmtop_to_molsysmt_MolSys
-    tmp_item = prmtop_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = prmtop_to_molsysmt_MolSys(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
@@ -32,7 +32,7 @@ def to_molsysmt_DataFrame(item, trajectory_item=None, atom_indices='all', frame_
 def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_prmtop as prmtop_to_molsysmt_Trajectory
-    tmp_item = prmtop_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = prmtop_to_molsysmt_Trajectory(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_parmed_Structure(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
@@ -55,7 +55,10 @@ def to_openmm_AmberPrmtopFile(item, trajectory_item=None, atom_indices='all', fr
 
 def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.forms.classes.api_openmm_AmberPrmtopFile import to_openmm_Topology as openmm_AmberPrmtopFile_to_openmm_Topology
+    tmp_item = to_openmm_AmberPrmtopFile(item)
+    tmp_item = openmm_AmberPrmtopFile_to_openmm_Topology(tmp_item, atom_indices=atom_indices)
+    return tmp_item
 
 def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
@@ -75,7 +78,11 @@ def select_with_MDTraj(item, selection):
 
 def select_with_MolSysMT(item, selection):
 
-    raise NotImplementedError
+    from molsysmt.forms.classes.api_molsysmt_DataFrame import select_with_MolSysMT as select_molsysmt_DataFrame_with_MolSysMT
+    tmp_item = to_molsysmt_DataFrame(item)
+    atom_indices=select_molsysmt_DataFrame_with_MolSysMT(tmp_item, selection)
+    return atom_indices
+
 
 def copy(item):
 

@@ -56,7 +56,6 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     raise NotImplementedError
 
 def to_mdtraj_AmberRestartFile(item, atom_indices='all', frame_indices='all'):
-
     from mdtraj.formats import AmberRestartFile
     return AmberRestartFile(item)
 
