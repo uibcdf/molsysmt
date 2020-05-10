@@ -1,8 +1,11 @@
-def build_peptide (item, forcefield='AMBER96', implicit_solvent='GBSA OBC', water_model=None, to_form='molsysmt.MolSys',
-                   engine='LEaP', logfile=True, verbose=True):
+import simtk.unit as unit
 
-    # implicit_solvent in ['vacuum', 'GBSA OBC', 'explicit']
+def build_peptide (item, forcefield='AMBER96', implicit_solvent=None, water_model='TIP3P', to_form='molsysmt.MolSys',
+                   box_geometry='cubic', clearance=10*unit.angstroms, engine='LEaP', logfile=True, verbose=True):
+
+    # implicit_solvent in ['GBSA OBC']
     # water_model in ['TIP3P']
+    # box_geometry: "cubic" or "truncated_octahedral"
 
     from molsysmt.utils.forcefields import digest as digest_forcefield
     from molsysmt import convert
@@ -33,7 +36,19 @@ def build_peptide (item, forcefield='AMBER96', implicit_solvent='GBSA OBC', wate
         else:
             forcefield_command = "source {}\n".format(forcefield)
 
-        GBSA_OBC_command = "set default PBRadii mbondi2\n"
+        if box_geometry=="cubic":
+            solvate_command='solvateBox'
+        elif box_geometry=="truncated_octahedral":
+            solvate_command='solvateOct'
+
+        if water_model in ['SPC', 'TIP3P']:
+            solvent_model='TIP3PBOX'
+        else:
+            raise NotImplementedError
+
+
+        implicit_solvent_command = "set default PBRadii mbondi2\n"
+        explicit_solvent_command = "{} peptide {} {} iso\n".format(solvate_command, solvent_model, str(clearance.value_in_unit(unit.angstroms)))
         make_peptide_command = "peptide = sequence {{ {} }}\n".format(sequence)
         check_peptide_command = "check peptide\n"
         check_charge_command = "charge peptide\n"
@@ -42,13 +57,15 @@ def build_peptide (item, forcefield='AMBER96', implicit_solvent='GBSA OBC', wate
 
         commands_list =[]
         commands_list.append(forcefield_command)
-
-        if implicit_solvent == 'GBSA OBC':
-            commands_list.append(GBSA_OBC_command)
-
         commands_list.append(make_peptide_command)
         commands_list.append(check_peptide_command)
         commands_list.append(check_charge_command)
+
+        if implicit_solvent == 'GBSA OBC':
+            commands_list.append(implicit_solvent_command)
+        else:
+            commands_list.append(explicit_solvent_command)
+
         commands_list.append(saving_command)
         commands_list.append(quit_command)
 
