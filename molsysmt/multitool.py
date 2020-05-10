@@ -956,6 +956,9 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
             tmp_item.append(convert(item, to_form=item_out, selection=selection,
                             frame_indices=frame_indices, syntaxis=syntaxis))
 
+        if not any(tmp_item):
+            tmp_item=None
+
     else:
 
         form_in, form_out  = _digest_forms(item, to_form)
@@ -1047,6 +1050,7 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                 else:
                     tmp_item = _dict_converter[trajectory_form][form_out](trajectory_item, atom_indices=atom_indices,
                                                               frame_indices=frame_indices, **kwargs)
+
     return tmp_item
 
 
