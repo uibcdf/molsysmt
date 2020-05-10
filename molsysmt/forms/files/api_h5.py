@@ -29,8 +29,8 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.files import from_hdf5 as _from_hdf5
-    return _from_hdf5(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.molsys.files import from_h5 as _from_h5
+    return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', frame_indices='all'):
 

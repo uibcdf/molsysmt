@@ -17,12 +17,17 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     #All of the data shall be n units of “nanometers”, “picoseconds”, “kelvin”, “degrees” and “kilojoules_per_mole”
 
-    from numpy import array, concatenate
+    from numpy import array, concatenate, arange
     from molsysmt.utils.math import serie_to_chunks
-    from molsysmt.utils.pbc import get_box_from_lengths_and_angles
+    from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
     from simtk.unit import nanometers, picoseconds, degrees
 
-    starts_serie_frames, size_serie_frames = serie_to_chunks(indices)
+    if frame_indices is 'all':
+        frame_indices = arange(get_n_frames_from_system(item))
+    if atom_indices is 'all':
+        atom_indices = arange(get_n_atoms_from_system(item))
+
+    starts_serie_frames, size_serie_frames = serie_to_chunks(frame_indices)
 
     xyz_list = []
     time_list = []
@@ -38,7 +43,7 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
         time_list.append(time)
         cell_lengths = frame_hdf5.cell_lengths
         cell_angles = frame_hdf5.cell_angles
-        box = get_box_from_lengths_and_angles(cell_lengths*nanometers, cell_angles*degrees)
+        box = box_vectors_from_box_lengths_and_angles(cell_lengths*nanometers, cell_angles*degrees)
         box_list.append(box._value)
 
     step = array([],dtype=int)
@@ -80,12 +85,15 @@ def get_frame_from_atom (item, indices='all', frame_indices='all'):
     step, time, xyz, box = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
     return step, time, xyz, box
 
+def get_form_from_atom(item, indices='all', frame_indices='all'):
+
+    return get_form_from_system(item)
+
 # system
 
 def get_frame_from_system (item, indices='all', frame_indices='all'):
 
-    step, time, xyz, box = load_frame(item, frame_indices=frame_indices)
-    return step, time, xyz, box
+    return get_frame_from_atom(item, indices='all', frame_indices=frame_indices)
 
 def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
