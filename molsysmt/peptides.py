@@ -57,13 +57,15 @@ def build_peptide (item, forcefield='AMBER96', implicit_solvent=None, water_mode
 
         commands_list =[]
         commands_list.append(forcefield_command)
+
+        if implicit_solvent == 'GBSA OBC':
+            commands_list.append(implicit_solvent_command)
+
         commands_list.append(make_peptide_command)
         commands_list.append(check_peptide_command)
         commands_list.append(check_charge_command)
 
-        if implicit_solvent == 'GBSA OBC':
-            commands_list.append(implicit_solvent_command)
-        else:
+        if implicit_solvent != 'GBSA OBC':
             commands_list.append(explicit_solvent_command)
 
         commands_list.append(saving_command)
