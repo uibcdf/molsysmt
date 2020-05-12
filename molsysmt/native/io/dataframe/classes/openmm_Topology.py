@@ -1,3 +1,73 @@
+def to_openmm_Topology(item, trajectory_item='all', atom_indices='all', frame_indices='all'):
+
+    import simtk.openmm as mm
+    import simtk.openmm.app as app
+    import simtk.unit as unit
+
+    n_atoms = item.shape[0]
+
+    atom_index_array = item["atom.index"].to_numpy()
+    atom_name_array = item["atom.name"].to_numpy()
+    atom_id_array = item["atom.id"].to_numpy()
+    atom_type_array = item["atom.type"].to_numpy()
+    atom_formal_charge_array = item["atom.formal_charge"].to_numpy()
+
+    group_index_array = item["group.index"].to_numpy()
+    group_name_array = item["group.name"].to_numpy()
+    group_id_array = item["group.id"].to_numpy()
+    group_type_array = item["group.type"].to_numpy()
+
+    chain_index_array = item["chain.index"].to_numpy()
+    chain_name_array = item["chain.name"].to_numpy()
+    chain_id_array = item["chain.id"].to_numpy()
+    chain_type_array = item["chain.type"].to_numpy()
+
+    atom_bonded_atom_indices_array = item["atom.bonded_atom_indices"].to_numpy()
+
+    tmp_item = app.Topology()
+
+    former_group_index = -1
+    former_chain_index = -1
+
+    list_new_atoms = []
+
+    for ii in range(n_atoms):
+
+        atom_index = atom_index_array[ii]
+        atom_name = atom_name_array[ii]
+        atom_id = atom_id_array[ii]
+        atom_type = atom_type_array[ii]
+
+        group_index = group_index_array[ii]
+        chain_index = chain_index_array[ii]
+
+        new_group = (former_group_index!=group_index)
+        new_chain = (former_chain_index!=chain_index)
+
+        if new_chain:
+            chain = tmp_item.addChain()
+            former_chain_index = chain_index
+
+        if new_group:
+            residue_name = group_name_array[ii]
+            residue_id = group_id_array[ii]
+            residue = tmp_item.addResidue(residue_name, chain, id=str(residue_id))
+            former_group_index = group_index
+
+        element = app.Element.getBySymbol(atom_type)
+        atom = tmp_item.addAtom(atom_name, element, residue)
+
+        list_new_atoms.append(atom)
+
+    for ii, bonded_atom_indices in zip(atom_index_array, atom_bonded_atom_indices_array):
+
+        atom_0 = list_new_atoms[ii]
+        for jj in bonded_atom_indices:
+            if ii < jj:
+                atom_1 = list_new_atoms[jj]
+                tmp_item.addBond(atom_0, atom_1) # falta bond type and bond order
+
+    return tmp_item
 
 def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
@@ -113,13 +183,6 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     entity_index_array.fill(0)
     tmp_item["entity.index"] = entity_index_array
     del(entity_index_array)
-
-    # bioassembly
-
-    bioassembly_index_array = empty(n_atoms, dtype=int)
-    bioassembly_index_array.fill(0)
-    tmp_item["bioassembly.index"] = bioassembly_index_array
-    del(bioassembly_index_array)
 
     # nan to None
 

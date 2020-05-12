@@ -1,9 +1,10 @@
-def from_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
+def from_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    from .openmm_Topology import from_openmm_Topology
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_openmm_Topology as mdtraj_Topology_to_openmm_Topology
+    from .openmm_Topology import from_openmm_Topology as openmm_Topology_to_molsysmt_Topology
 
-    tmp_item = item.to_openmm()
-    tmp_item = from_openmm_Topology(tmp_item)
+    tmp_item = mdtraj_Topology_to_openmm_Topology(item)
+    tmp_item = openmm_Topology_to_molsysmt_Topology(tmp_item)
 
     return tmp_item
 

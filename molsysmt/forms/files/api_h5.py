@@ -11,31 +11,46 @@ info=["",""]
 with_topology=True
 with_trajectory=True
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_hdf5 as mdtraj_load_hdf5
     tmp_item = mdtraj_load_hdf5(item)
     del(_mdtraj_load)
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
+    tmp_item2 = tmp_item.topology
+    tmp_item.close()
+    del(tmp_item)
+    return tmp_item2
+
+def to_mdtraj_HDF5TrajectoryFile(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import HDF5TrajectoryFile
-    hdf5=HDF5TrajectoryFile(item)
-    tmp_item = hdf5.topology
-    hdf5.close()
-    del(hdf5, HDF5TrajectoryFile)
+    return HDF5TrajectoryFile(item)
+
+def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    tmp_item = to_mdtraj_Topology(item)
+    tmp_item = tmp_item.to_openmm()
     return tmp_item
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_h5 as _from_h5
     return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    from mdtraj.formats import HDF5TrajectoryFile
-    return HDF5TrajectoryFile(item)
+    from molsysmt.native.io.topology.files import from_h5 as _from_h5
+    return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_molsysmt_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.dataframe.files import from_h5 as _from_h5
+    return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

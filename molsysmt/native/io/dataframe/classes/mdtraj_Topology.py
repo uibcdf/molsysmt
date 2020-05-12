@@ -1,8 +1,6 @@
-
-def from_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
+def from_mdtraj_Topology(item, trajectory_item='all', atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import DataFrame
-    from molsysmt.forms.classes.api_molsysmt_DataFrame import extract_subsystem
     from numpy import empty, array, arange, reshape, where, unique, nan, sort
     from molsysmt.elements.group import name_to_type as group_name_to_group_type
     from networkx import empty_graph, connected_components
@@ -49,9 +47,6 @@ def from_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
     del(G)
 
     component_index_array = empty(n_atoms, dtype=int)
-    #component_name_array = empty(n_atoms, dtype=object)
-    #component_id_array = empty(n_atoms, dtype=int)
-    #component_type_array = empty(n_atoms, dtype=object)
 
     component_index = 0
 
@@ -78,12 +73,6 @@ def from_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item["chain.index"] = chain_index_array
 
     del(group_index_array, chain_index_array)
-
-    bioassembly_index_array = empty(n_atoms, dtype=int)
-    bioassembly_index_array.fill(0)
-    tmp_item["bioassembly.index"] = bioassembly_index_array
-
-    del(bioassembly_index_array)
 
     molecule_index_array = empty(n_atoms, dtype=int)
     molecule_index_array.fill(0)

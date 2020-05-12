@@ -91,11 +91,11 @@ class DataFrame(PandasDataFrame):
         for column in list_columns_where_nan:
             self[column].where(self[column].notnull(), None, inplace=True)
 
-    def _to_pdb_string(self, trajectory_item, frame_indices='all', engine='OpenMM'):
+    def _to_pdb_string(self, trajectory_item, frame_indices='all'):
 
         from molsysmt.native.io.dataframe.files import to_pdb as molsysmt_DataFrame_to_pdb
 
-        pdb_string=molsysmt_DataFrame_to_pdb(self, output_file_path='.pdb', atom_indices='all',
+        pdb_string=molsysmt_DataFrame_to_pdb(self, trajectory_item=trajectory_item, output_file_path='.pdb', atom_indices='all',
                                              frame_indices=frame_indices, engine=engine)
 
         return pdb_string
