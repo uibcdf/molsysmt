@@ -40,11 +40,11 @@ def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all'):
     tmp_item = aminoacis1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
 
-def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_fasta(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from .api_aminoacids1 import to_fasta as aminoacids1_to_fasta
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return aminoacis1_to_fasta(tmp_item, output_file_path=output_file_path)
+    return aminoacis1_to_fasta(tmp_item, output_filepath=output_filepath)
 
 def select_with_MDTraj(item, selection):
     raise NotImplementedError

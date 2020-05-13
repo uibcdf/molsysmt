@@ -1,6 +1,6 @@
 class TrajectoryFile():
 
-    def __init__(self, file_path=None, mode='read'):
+    def __init__(self, filepath=None, mode='read'):
 
         self.opened = False
         self.path = None
@@ -10,24 +10,24 @@ class TrajectoryFile():
         self.n_atoms = 0
         self.atom_indices = None
 
-        if file_path is not None and mode=='read':
+        if filepath is not None and mode=='read':
 
             from molsysmt.multitool import _get_form
             from molsysmt import get, convert
 
-            self.path = file_path
-            self.form = _get_form(file_path)
+            self.path = filepath
+            self.form = _get_form(filepath)
 
             if self.form == 'xtc':
-                self.mount_point = convert(file_path, to_form='mdtraj.XTCTrajectoryFile')
+                self.mount_point = convert(filepath, to_form='mdtraj.XTCTrajectoryFile')
             elif self.form == 'h5':
-                self.mount_point = convert(file_path, to_form='mdtraj.HDF5TrajectoryFile')
+                self.mount_point = convert(filepath, to_form='mdtraj.HDF5TrajectoryFile')
             elif self.form == 'pdb':
-                self.mount_point = convert(file_path, to_form='mdtraj.PDBTrajectoryFile')
+                self.mount_point = convert(filepath, to_form='mdtraj.PDBTrajectoryFile')
             elif self.form == 'inpcrd':
-                self.mount_point = convert(file_path, to_form='mdtraj.AmberRestartFile')
+                self.mount_point = convert(filepath, to_form='mdtraj.AmberRestartFile')
             elif self.form == 'mmtf':
-                self.mount_point = convert(file_path, to_form='mmtf.MMTFDecoder')
+                self.mount_point = convert(filepath, to_form='mmtf.MMTFDecoder')
             else:
                 raise NotImplementedError
 
@@ -35,7 +35,7 @@ class TrajectoryFile():
             self.n_atoms = get(self.mount_point, target='system', n_atoms=True)
             self.opened = True
 
-    def read_frames (self, atom_indices='all', frame_indices='all'):
+    def read_frames(self, atom_indices='all', frame_indices='all'):
 
         from molsysmt import get
         from molsysmt.multitool import _get_form
@@ -43,10 +43,8 @@ class TrajectoryFile():
         self.atom_indices=atom_indices
         return step, time, coordinates, box
 
-    def duplicate (self):
+    def copy(self):
 
-        from copy import deepcopy
-        tmp_item = TrajectoryFile(filename=self.name, mode='read')
-        tmp_item.atom_indices = deepcopy(item.atom_indices)
+        tmp_item = TrajectoryFile(filepath=self.path, mode='read')
         return tmp_item
 

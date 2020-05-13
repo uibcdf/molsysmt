@@ -31,14 +31,14 @@ def to_biopython_SeqRecord(item, id=None, name=None, description=None, trajector
 
     return tmp_item
 
-def to_fasta(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_fasta(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt import extract as _extract
     from .api_biopython_SeqRecord import _to_fasta as _Bio_SeqRecord_to_fasta
 
     tmp_item=to_biopython_SeqRecord(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return _Bio_SeqRecord_to_fasta(tmp_item, output_file_path=output_file_path)
+    return _Bio_SeqRecord_to_fasta(tmp_item, output_filepath=output_filepath)
 
 def copy(item):
 

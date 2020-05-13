@@ -13,19 +13,19 @@ info=["",""]
 with_topology=True
 with_trajectory=True
 
-def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.utils.miscellanea import download_pdb as download_pdb
     from molsysmt.forms.files.api_pdb import extract as extract_pdb
     from shutil import move
     tmp_item = item.split(':')[-1]
-    download_pdb(tmp_item, output_file_path)
-    tmp_item = extract_pdb(output_file_path, atom_indices=atom_indices, frame_indices=frame_indices)
-    if tmp_item!=output_file_path:
-        move(tmp_item, output_file_path)
+    download_pdb(tmp_item, output_filepath)
+    tmp_item = extract_pdb(output_filepath, atom_indices=atom_indices, frame_indices=frame_indices)
+    if tmp_item!=output_filepath:
+        move(tmp_item, output_filepath)
     pass
 
-def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_fasta(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from shutil import move
     from molsysmt.forms.files.api_fasta import extract as extract_fasta
@@ -34,20 +34,20 @@ def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all
     request = urllib.request.Request(url)
     response = urllib.request.urlopen(request)
     fasta_txt = response.read().decode('utf-8')
-    with open(output_file_path,'w') as f:
+    with open(output_filepath,'w') as f:
         f.write(fasta_txt)
     f.close()
-    tmp_item = extract_fasta(output_file_path, atom_indices=atom_indices,
+    tmp_item = extract_fasta(output_filepath, atom_indices=atom_indices,
             frame_indices=frame_indices)
-    if tmp_item!=output_file_path:
-        move(tmp_item, output_file_path)
+    if tmp_item!=output_filepath:
+        move(tmp_item, output_filepath)
     pass
 
-def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_mmtf(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from .api_mmtf import to_mmtf as mmtf_to_mmtf_file
     tmp_item = 'mmtf:'+item.split(':')[-1]
-    return mmtf_to_mmtf_file (tmp_item, output_file_path=output_file_path, atom_indices=atom_indices, frame_indices=frame_indices)
+    return mmtf_to_mmtf_file (tmp_item, output_filepath=output_filepath, atom_indices=atom_indices, frame_indices=frame_indices)
 
 
 def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
@@ -63,7 +63,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
     from molsysmt.native.io.molsys.files import from_pdb as pdb_to_molsysmt
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file)
+    to_pdb(item, output_filepath=tmp_file)
     tmp_item=pdb_to_molsysmt(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
@@ -74,7 +74,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     from molsysmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file)
+    to_pdb(item, output_filepath=tmp_file)
     tmp_item=pdb_to_mdtraj_Trajectory(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
@@ -85,7 +85,7 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
     from molsysmt.forms.files.api_pdb import to_mdtraj_Topology as pdb_to_mdtraj_Topology
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file)
+    to_pdb(item, output_filepath=tmp_file)
     tmp_item=pdb_to_mdtraj_Topology(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
@@ -96,7 +96,7 @@ def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
     from molsysmt.forms.files.api_pdb import to_parmed_Structure as pdb_to_parmed_Structure
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file)
+    to_pdb(item, output_filepath=tmp_file)
     tmp_item=pdb_to_parmed_Structure(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
@@ -107,7 +107,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
     from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file)
+    to_pdb(item, output_filepath=tmp_file)
     tmp_item=pdb_to_pdbfixer_PDBFixer(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
@@ -118,7 +118,7 @@ def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
     from molsysmt.forms.files.api_pdb import to_openmm_Modeller as pdb_to_openmm_Modeller
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file)
+    to_pdb(item, output_filepath=tmp_file)
     tmp_item=pdb_to_openmm_Modeller(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
@@ -129,7 +129,7 @@ def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
     from molsysmt.forms.files.api_pdb import to_yank_Topography as pdb_to_yank_Topography
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file)
+    to_pdb(item, output_filepath=tmp_file)
     tmp_item=pdb_to_yank_Topography(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
@@ -141,7 +141,7 @@ def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
     from molsysmt.forms.files.api_pdb import to_mdanalysis_Universe as pdb_mdanalysis_Universe
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file)
+    to_pdb(item, output_filepath=tmp_file)
     tmp_item=pdb_to_mdanalysis_Universe(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
@@ -152,7 +152,7 @@ def to_pytraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     from molsysmt.forms.files.api_pdb import to_pytraj_Trajectory as pdb_pytraj_Trajectory
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file)
+    to_pdb(item, output_filepath=tmp_file)
     tmp_item=pdb_to_pytraj_Trajectory(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
     return tmp_item
@@ -163,7 +163,7 @@ def to_nglview(item, atom_indices='all', frame_indices='all'):
     from nglview import show_file as nglview_show_file
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    to_pdb(item, output_filepath=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = nglview_show_file(tmp_file)
     remove(tmp_file)
     return tmp_item

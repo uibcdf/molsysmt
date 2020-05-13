@@ -34,17 +34,17 @@ def to_biopython_SeqRecord(item, id=None, name=None, description=None, atom_indi
     tmp_item=Seq_to_SeqRecord(tmp_item)
     return tmp_item
 
-def to_fasta(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_fasta(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_biopython_SeqRecord import to_fasta as SeqRecord_to_fasta
     tmp_item=to_biopython_SeqRecord(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return SeqRecord_to_fasta(tmp_item, output_file_path)
+    return SeqRecord_to_fasta(tmp_item, output_filepath)
 
-def to_pir(item, output_file_path=None, id=None, style=None, atom_indices='all', frame_indices='all'):
+def to_pir(item, output_filepath=None, id=None, style=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_biopython_SeqRecord import to_pir as SeqRecord_to_pir
     tmp_item= to_biopython_SeqRecord(item, id=id, atom_indices=atom_indices, frame_indices=frame_indices)
-    return SeqRecor_to_pir(tmp_item, output_file_path=output_file_path, style=style)
+    return SeqRecor_to_pir(tmp_item, output_filepath=output_filepath, style=style)
 
 def select_with_MDTraj(item, selection):
 

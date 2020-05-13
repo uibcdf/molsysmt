@@ -15,7 +15,6 @@ def to_mdtraj_Trajectory(item, trajectory_item=None, atom_indices='all', frame_i
 
     from mdtraj import load_hdf5 as mdtraj_load_hdf5
     tmp_item = mdtraj_load_hdf5(item)
-    del(_mdtraj_load)
     return tmp_item
 
 def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
@@ -50,6 +49,11 @@ def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_i
 def to_molsysmt_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.dataframe.files import from_h5 as _from_h5
+    return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.trajectory.files import from_h5 as _from_h5
     return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def extract(item, atom_indices='all', frame_indices='all'):

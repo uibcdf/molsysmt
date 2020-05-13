@@ -51,12 +51,12 @@ def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_top(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_top(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_GromacsTopFile import extract as extract_gromacstopfile
     tmp_item = to_parmed_GromacsTopologyFile(item)
     tmp_item = extract_gromacstopfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item.save(output_file_path)
+    tmp_item.save(output_filepath)
     del(tmp_item)
     pass
 

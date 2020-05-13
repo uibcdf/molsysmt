@@ -14,7 +14,7 @@ info=["",""]
 with_topology=True
 with_trajectory=False
 
-def to_fasta(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_fasta(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from Bio.SeqIO import write as Bio_SeqIO_write
 
@@ -22,7 +22,7 @@ def to_fasta(item, output_file_path=None, trajectory_item=None, atom_indices='al
 
     return Bio_SeqIO_write([tmp_item], filename, 'fasta')
 
-def to_pir(item, output_file_path=None, style=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_pir(item, output_filepath=None, style=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from Bio.SeqIO.PirIO import PirWriter as _PirWriter
     from molsysmt.forms.files.api_pir import rewrite_to_style as _rewrite

@@ -116,20 +116,20 @@ def to_pdbfixer_PDBFixer(item, trajectory_item=None, atom_indices='all', frame_i
     from os import remove as remove
 
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    to_pdb(item, output_filepath=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_item)
     remove(tmp_file)
     return tmp_item
 
-def to_pdb(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item.save_pdb(output_file_path)
+    return tmp_item.save_pdb(output_filepath)
 
-def to_xtc(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_xtc(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save_xtc(output_file_path)
+    return item.save_xtc(output_filepath)
 
 def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 

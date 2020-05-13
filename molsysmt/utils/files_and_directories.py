@@ -5,7 +5,7 @@ def tmp_file(dir=None, extension=None):
     if not extension.startswith("."):
         extension="."+extension
 
-    return tempfile.NamedTemporaryFile(suffix=extension, dir=dir, delete=True)
+    return tempfile.NamedTemporaryFile(suffix=extension, dir=dir, delete=False)
 
 
 def tmp_filename(dir=None, extension=None):

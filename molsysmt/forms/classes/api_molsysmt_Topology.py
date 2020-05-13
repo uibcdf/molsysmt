@@ -47,6 +47,12 @@ def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
     tmp_item = molsysmt_Topology_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
+def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+    from molsysmt.native.io.topology.files import to_pdb as molsysmt_Topology_to_pdb
+    return molsysmt_Topology_to_pdb(item, output_filepath=output_filepath,
+                                    trajectory_item=trajectory_item,  atom_indices=atom_indices,
+                                    frame_indices=frame_indices)
+
 def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

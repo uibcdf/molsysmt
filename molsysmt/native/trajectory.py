@@ -5,10 +5,11 @@ from molsysmt.utils.exceptions import *
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
 
 # Un frame tiene: step, time, coordinates, cell
+# Units: length -> nanometers, time -> picoseconds, angle -> degrees
 
 class Trajectory():
 
-    def __init__(self, file_path=None, atom_indices='all', frame_indices='all'):
+    def __init__(self, filepath=None, atom_indices='all', frame_indices='all'):
 
         self.step  = None
         self.time  = None
@@ -23,8 +24,8 @@ class Trajectory():
 
         self.file = None
 
-        if file_path is not None:
-            self.load_frames_from_file(file_path=file_path, atom_indices=atom_indices, frame_indices=frame_indices)
+        if filepath is not None:
+            self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices, frame_indices=frame_indices)
 
     def _set_frames(self, atom_indices=None, step=None, time=None, coordinates=None, box=None):
 
@@ -84,12 +85,12 @@ class Trajectory():
 
         return angles
 
-    def load_frames_from_file (self, file_path=None, atom_indices='all', frame_indices='all'):
+    def load_frames_from_file (self, filepath=None, atom_indices='all', frame_indices='all'):
 
-        if file_path is not None:
+        if filepath is not None:
 
             from .trajectory_file import TrajectoryFile
-            self.file = TrajectoryFile(file_path=file_path)
+            self.file = TrajectoryFile(filepath=filepath)
 
         step, time, coordinates, box = self.file.read_frames(atom_indices=atom_indices, frame_indices=frame_indices)
 
@@ -103,7 +104,7 @@ class Trajectory():
 
         if atom_indices is 'all' and frame_indices is 'all':
 
-            tmp_item = duplicate(self)
+            tmp_item = self.copy()
 
         else:
 
@@ -132,9 +133,6 @@ class Trajectory():
 
         tmp_item = Trajectory()
 
-        tmp_item.length_units = deepcopy(self.length_units)
-        tmp_item.time_units = deepcopy(self.time_units)
-
         tmp_item.step = deepcopy(self.step)
         tmp_item.time = deepcopy(self.time)
         tmp_item.coordinates = deepcopy(self.coordinates)
@@ -145,7 +143,7 @@ class Trajectory():
         tmp_item.n_frames = deepcopy(self.n_frames)
         tmp_item.n_atoms = deepcopy(self.n_atoms)
 
-        tmp_item.file = self.file.duplicate()
+        tmp_item.file = self.file.copy()
 
         return tmp_item
 

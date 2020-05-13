@@ -61,11 +61,11 @@ def to_parmed_GromacsTopologyFile(item, trajectory_item=None, atom_indices='all'
     tmp_item = to_parmed_Structure(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return GromacsTopologyFile.from_structure(tmp_item)
 
-def to_top(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_top(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from .api_parmed_GromacsTopologyFile import to_top as parmed_GromacsTopologyFile_to_top
     tmp_item = to_parmed_GromacsTopologyFile(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return parmed_GromacsTopologyFile_to_top(tmp_item, output_file_path=output_file_path)
+    return parmed_GromacsTopologyFile_to_top(tmp_item, output_filepath=output_filepath)
 
 def to_pandas_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 

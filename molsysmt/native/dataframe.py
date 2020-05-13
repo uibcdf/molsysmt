@@ -95,8 +95,6 @@ class DataFrame(PandasDataFrame):
 
         from molsysmt.native.io.dataframe.files import to_pdb as molsysmt_DataFrame_to_pdb
 
-        pdb_string=molsysmt_DataFrame_to_pdb(self, trajectory_item=trajectory_item, output_file_path='.pdb', atom_indices='all',
-                                             frame_indices=frame_indices, engine=engine)
-
-        return pdb_string
+        return molsysmt_DataFrame_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
+                                         atom_indices='all', frame_indices=frame_indices)
 

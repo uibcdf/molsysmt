@@ -32,19 +32,19 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
     from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_file_path=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    to_pdb(item, output_filepath=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_file)
     remove(tmp_pdbfile)
     return tmp_item
 
-def to_pdb (item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_pdb (item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
     topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     box = get_box_from_system(item, frame_indices=frame_indices)
     topology.setPeriodicBoxVectors(box)
-    return _openmm_app_PDBFILE.writeFile(topology, positions, open(output_file_path, 'w'))
+    return _openmm_app_PDBFILE.writeFile(topology, positions, open(output_filepath, 'w'))
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

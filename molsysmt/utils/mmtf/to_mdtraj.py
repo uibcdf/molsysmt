@@ -125,13 +125,13 @@ class MMTFTrajectoryFile(object):
 
     def __init__(self, filename, mode='r', force_overwrite=True):
         self._open = False
-        self._file_path = None
+        self._filepath = None
         self._mode = mode
 
         if mode == 'r':
             self._open = False
             self._frame_index = 0
-            self._file_path = filename
+            self._filepath = filename
             try:
                 self.n_atoms, self.topology = self._read_topology()
         elif mode == 'w':
@@ -285,7 +285,7 @@ class MMTFTrajectoryFile(object):
 
         from mmtf import parse
 
-        mmtf_decoder = parse(self._file_path)
+        mmtf_decoder = parse(self._filepath)
 
         n_atoms = mmtf_decoder.num_atoms
         topology = md.Topology()

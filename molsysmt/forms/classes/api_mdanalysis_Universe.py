@@ -21,11 +21,11 @@ def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='al
 
     return _nglview_show_mdanalysis(tmp_item)
 
-def to_pdb(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all', multiframe=False):
+def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all', multiframe=False):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return tmp_item.atoms.write(output_file_path, multiframe=multiframe)
+    return tmp_item.atoms.write(output_filepath, multiframe=multiframe)
 
 def to_mdtraj_Trajectory (item, trajectory_item=None, atom_indices='all', frame_indices='all', multiframe=False):
 
@@ -34,7 +34,7 @@ def to_mdtraj_Trajectory (item, trajectory_item=None, atom_indices='all', frame_
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_file = tmp_pdb_filename()
-    to_pdb(tmp_item=item, output_file_path=tmp_file, multiframe=multiframe)
+    to_pdb(tmp_item=item, output_filepath=tmp_file, multiframe=multiframe)
     tmp_item=pdb_to_mdtraj_Trajectory(tmp_file)
     _remove(tmp_file)
 

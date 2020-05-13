@@ -39,6 +39,13 @@ def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
     from molsysmt.native.io.dataframe.classes import to_mdtraj_Topology as molsysmt_DataFrame_to_mdtraj_Topology
     return molsysmt_DataFrame_to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
+def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+    from molsysmt.native.io.dataframe.files import to_pdb as molsysmt_DataFrame_to_pdb
+    return molsysmt_DataFrame_to_pdb(item, output_filepath=output_filepath,
+                                    trajectory_item=trajectory_item,  atom_indices=atom_indices,
+                                    frame_indices=frame_indices)
+
+
 def extract(item, atom_indices='all', frame_indices='all'):
 
     return item.extract(atom_indices=atom_indices)

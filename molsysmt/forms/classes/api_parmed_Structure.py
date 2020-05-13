@@ -10,9 +10,13 @@ is_form={
 
 info=["",""]
 with_topology=True
-with_trajectory=False
+with_trajectory=True
 
 ## Methods
+
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+
+    return item.topology
 
 def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
 
@@ -48,15 +52,15 @@ def to_nglview(item, atom_indices='all', frame_indices='all'):
     tmp_item = _nglview_show_parmed(tmp_item)
     return tmp_item
 
-def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save(output_file_path)
+    return item.save(output_filepath)
 
-def to_mol2(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_mol2(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save(output_file_path)
+    return item.save(output_filepath)
 
 def select_with_MDTraj(item, selection):
 

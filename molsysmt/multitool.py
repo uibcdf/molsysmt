@@ -956,7 +956,11 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
             tmp_item.append(convert(item, to_form=item_out, selection=selection,
                             frame_indices=frame_indices, syntaxis=syntaxis))
 
-        if not any(tmp_item):
+        any_not_None = False
+        for ii in tmp_item:
+           any_not_None+=(ii is not None)
+
+        if not any_not_None:
             tmp_item=None
 
     else:
@@ -978,7 +982,7 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                     form_out=form_out.split('.')[-1]
 
             if out_file is not None:
-                tmp_item = _dict_converter[form_in][form_out](item, output_file_path=out_file,
+                tmp_item = _dict_converter[form_in][form_out](item, output_filepath=out_file,
                                                           atom_indices=atom_indices, frame_indices=frame_indices,
                                                           **kwargs)
             else:
@@ -1036,7 +1040,7 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
 
             try:
                 if out_file is not None:
-                    tmp_item = _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_file_path=out_file,
+                    tmp_item = _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_filepath=out_file,
                                                               atom_indices=atom_indices, frame_indices=frame_indices,
                                                               **kwargs)
                 else:
@@ -1044,7 +1048,7 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                                                               frame_indices=frame_indices, **kwargs)
             except:
                 if out_file is not None:
-                    tmp_item = _dict_converter[trajectory_form][form_out](trajectory_item, output_file_path=out_file,
+                    tmp_item = _dict_converter[trajectory_form][form_out](trajectory_item, output_filepath=out_file,
                                                               atom_indices=atom_indices, frame_indices=frame_indices,
                                                               **kwargs)
                 else:

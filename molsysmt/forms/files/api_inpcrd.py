@@ -15,11 +15,11 @@ with_trajectory=True
 
 info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
 
-def to_inpcrd(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_inpcrd(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     if frame_indices=='all':
         from shutil import copyfile
-        copyfile(item, output_file_path)
+        copyfile(item, output_filepath)
     else:
         raise NotImplementedError("Not implemented yet")
 

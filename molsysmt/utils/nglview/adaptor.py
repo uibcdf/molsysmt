@@ -35,7 +35,7 @@ class register_backend:
 class MolSysMTTrajectory(Trajectory, Structure):
     '''MolSysMT adaptor.
 
-    Visit [MolSysmt documentation webpage](xxx) for further info.
+    Visit `MolSysmt documentation webpage <http://www.uibcdf.org/MolSysMT>`_ for further info.
 
     Example
     -------
@@ -47,21 +47,29 @@ class MolSysMTTrajectory(Trajectory, Structure):
     >>> w
     '''
 
-    def __init__(self, molsys, atom_indices='all', frame_indices='all'):
-        self.dataframe = molsys.topology.dataframe.extract(atom_indices)
-        self.trajectory = molsys.trajectory.extract(atom_indices, frame_indices)
+    def __init__(self, molsys, selection='all', frame_indices='all'):
+
+        try:
+            import molsysmt as msm
+        except ImportError:
+            raise ImportError(
+                "'MolSysMTTrajectory' requires the molsysmt package")
+
+        self.pdb = msm.convert(molsys, to_form='.pdb', selection=selection, frame_indices=0)
+        self.coordinates = 10.0*msm.get(molsys, target='system', frame_indices=frame_indices,
+                                        coordinates=True)._value
         self.ext = "pdb"
         self.params = {}
         self.id = str(uuid.uuid4())
 
     def get_coordinates(self, index):
-            return 10.0*self.trajectory.coordinates[index]._value
+            return self.coordinates[index]
 
     @property
     def n_frames(self):
-        return self.trajectory.n_frames
+        return self.coordinates.shape[0]
 
     def get_structure_string(self):
 
-        return self.dataframe._to_pdb(self.trajectory, frame_indices=0)
+        return self.pdb
 

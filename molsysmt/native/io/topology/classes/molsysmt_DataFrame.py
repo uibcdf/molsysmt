@@ -1,5 +1,8 @@
+def to_molsysmt_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-def from_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+    return item.dataframe
+
+def from_molsysmt_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.topology import Topology
     from molsysmt.native import elements

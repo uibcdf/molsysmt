@@ -12,11 +12,11 @@ info=["",""]
 with_topology=True
 with_trajectory=True
 
-def to_mmtf(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_mmtf(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from mmtf.api.default_api import write_mmtf, MMTFDecoder
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return write_mmtf(output_file_path, tmp_item, MMTFDecoder.pass_data_on)
+    return write_mmtf(output_filepath, tmp_item, MMTFDecoder.pass_data_on)
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 

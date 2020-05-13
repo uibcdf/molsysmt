@@ -11,11 +11,11 @@ info = ["AMBER  parameter/topology file format","https://ambermd.org/FileFormats
 with_topology=True
 with_trajectory=False
 
-def to_prmtop(item, output_file_path=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_prmtop(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     if atom_indices=='all':
         from shutil import copyfile
-        copyfile(item, output_file_path)
+        copyfile(item, output_filepath)
     else:
         raise NotImplementedError("Not implemented yet")
 

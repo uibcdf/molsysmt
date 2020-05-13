@@ -101,7 +101,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
         tleap = TLeap()
         tleap.load_parameters(*leaprc_parameters)
-        tleap.load_unit(unit_name='MolecularSystem', file_path=pdbfile_in)
+        tleap.load_unit(unit_name='MolecularSystem', filepath=pdbfile_in)
         tleap.solvate(unit_name='MolecularSystem', solvent_model=solvent_model,
                       clearance=clearance, box_geometry=box_geometry)
 

@@ -24,15 +24,15 @@ def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all')
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return mdtraj_Topology_to_GromacsTopologyFile(tmp_item)
 
-def to_xtc(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_xtc(item, output_filepath=None, atom_indices='all', frame_indices='all'):
     from .api_mdtraj_Trajectory import to_xtc as mdtraj_Trajectory_to_xtc
     tmp_item=to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return mdtraj_Trajectory_to_xtc(tmp_item, output_file_path=output_file_path)
+    return mdtraj_Trajectory_to_xtc(tmp_item, output_filepath=output_filepath)
 
-def to_top(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_top(item, output_filepath=None, atom_indices='all', frame_indices='all'):
     from .api_mdtraj_Topology import to_top as mdtraj_Topology_to_top
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return mdtraj_Topology_to_top(tmp_item, output_file_path=output_file_path)
+    return mdtraj_Topology_to_top(tmp_item, output_filepath=output_filepath)
 
 def select_with_MDTraj(item, selection):
     from .api_mdtraj_Topology import select_with_MDTraj as _select_with_MDTraj

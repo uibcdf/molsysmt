@@ -73,13 +73,13 @@ def to_mdtraj_PDBTrajectoryFile(item, atom_indices='all', frame_indices='all'):
 
     return PDBTrajectoryFile(item)
 
-def to_mol2(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_mol2(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from parmed import load_file as parmed_file_loader
     from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
     tmp_item = parmed_file_loader(item)
     tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item.save(output_file_path)
+    return tmp_item.save(output_filepath)
 
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
@@ -156,7 +156,7 @@ def extract(item, atom_indices='all', frame_indices='all'):
         from molsysmt.forms.classes.api_pdbfixer_PDBFixer import to_pdb as pdbfixer_PDBFixer_to_pdb
         tmp_item = to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, frame_indices=frame_indices)
         tmp_file = tmp_pdb_filename()
-        pdbfixer_PDBFixer_to_pdb(tmp_item, output_file_path=tmp_file)
+        pdbfixer_PDBFixer_to_pdb(tmp_item, output_filepath=tmp_file)
         return tmp_file
 
 ###### Get

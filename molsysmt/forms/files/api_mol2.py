@@ -51,11 +51,11 @@ def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
     #del(_parmed_to_modeller)
     #return tmp_form
 
-def to_pdb(item, output_file_path=None, atom_indices='all', frame_indices='all'):
+def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from parmed import load_file as _parmed_file_loader
     tmp_form = _parmed_file_loader(item)
-    tmp_form.save(output_file_path)
+    tmp_form.save(output_filepath)
     pass
 
 def to_nglview(item, atom_indices='all', frame_indices='all'):
