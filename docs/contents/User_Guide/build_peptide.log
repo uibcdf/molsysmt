@@ -1,4 +1,4 @@
-log started: Sat May  9 23:41:10 2020
+log started: Wed May 13 23:42:25 2020
 
 Log file: ./leap.log
 >> #
@@ -368,7 +368,7 @@ The number of boxes:  x= 3  y= 3  z= 3
   Volume: 60995.990 A^3 (oct)
   Total mass 31325.936 amu,  Density 0.853 g/cc
   Added 1715 residues.
-> saveAmberParm peptide /tmp/tmpfah5w_89/tmp99ic8myv.prmtop /tmp/tmpfah5w_89/tmp9in8fhjg.crd
+> saveAmberParm peptide /tmp/tmplmh9p4fh/tmplhecniai.prmtop /tmp/tmplmh9p4fh/tmphkfvc3ld.crd
 Checking Unit.
 Building topology.
 Building atom parameters.

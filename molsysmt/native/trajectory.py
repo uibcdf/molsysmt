@@ -1,5 +1,5 @@
 import numpy as _np
-import molsysmt.utils.units as m3t_units
+import molsysmt.utils.units as msm_units
 from molsysmt.utils.exceptions import *
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
@@ -31,15 +31,19 @@ class Trajectory():
 
         from molsysmt import box_shape_from_box_vectors
 
-        self.coordinates = coordinates.in_units_of(m3t_units.length)
-        self.time  = time.in_units_of(m3t_units.time)
+        self.coordinates = coordinates.in_units_of(msm_units.length)
         self.step  = step
         self.atom_indices = atom_indices
+
+        if time is not None:
+            self.time  = time.in_units_of(msm_units.time)
+        else:
+            self.time = None
 
         if box is not None:
             if box[0] is None:
                 self.box = None
-            self.box  = box.in_units_of(m3t_units.length)
+            self.box  = box.in_units_of(msm_units.length)
 
         if self.coordinates is not None:
             self.n_frames = self.coordinates.shape[0]

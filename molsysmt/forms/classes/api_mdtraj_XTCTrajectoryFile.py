@@ -16,9 +16,14 @@ with_trajectory=True
 
 def load_frame (item, atom_indices='all', frame_indices='all'):
 
+    if frame_indices is 'all':
+
+        n_frames= get_n_frames_from_system(item)
+        frame_indices = _np.arange(n_frames)
+
     from molsysmt.utils.math import serie_to_chunks
 
-    starts_serie_frames, size_serie_frames = serie_to_chunks(indices)
+    starts_serie_frames, size_serie_frames = serie_to_chunks(frame_indices)
 
     xyz_list = []
     time_list = []
@@ -27,7 +32,10 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        xyz, time, step, box = item.read(n_frames=size, atom_indices=atom_indices)
+        if atom_indices is 'all':
+            xyz, time, step, box = item.read(n_frames=size)
+        else:
+            xyz, time, step, box = item.read(n_frames=size, atom_indices=atom_indices)
         xyz_list.append(xyz)
         time_list.append(time)
         step_list.append(step)

@@ -28,6 +28,8 @@ class TrajectoryFile():
                 self.mount_point = convert(filepath, to_form='mdtraj.AmberRestartFile')
             elif self.form == 'mmtf':
                 self.mount_point = convert(filepath, to_form='mmtf.MMTFDecoder')
+            elif self.form == 'gro':
+                self.mount_point = convert(filepath, to_form='openmm.GromacsGroFile')
             else:
                 raise NotImplementedError
 
