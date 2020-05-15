@@ -75,7 +75,7 @@ def structure_alignment(ref_item=None, item=None,
                         parallel=True,
                         engine_sequence_alignment = 'biopython',
                         engine_least_rmsd_fit = 'mdtraj',
-                        syntaxis='mdtraj'):
+                        syntaxis='MolSysMT'):
 
     from .rmsd import least_rmsd_fit as _least_rmsd_fit
     from .multitool import extract as _extract
@@ -150,7 +150,8 @@ def structure_alignment(ref_item=None, item=None,
     else:
         raise NotImplementedError
 
-def sequence_identity(ref_item=None, item=None, intersection_set=None, engine='biopython', **kwards):
+def sequence_identity(ref_item=None, item=None, target_intersection_set=None,
+                      target_non_intersection_set=None, engine='biopython', **kwards):
 
     if engine=='biopython':
 
@@ -178,15 +179,9 @@ def sequence_identity(ref_item=None, item=None, intersection_set=None, engine='b
             if res2 != '-':
                 ii_2+=1
         seq_id = 100 * float(seq_id) / float(len_shorter_seq)
-        if intersection_set=='residues':
-            from .multitool import convert as _convert
-            tmp_item = _convert(ref_item).topology
-            set_1 = [tmp_item.residue(ii).resSeq for ii in intersect_1]
-            tmp_item = _convert(item).topology
-            set_2 = [tmp_item.residue(ii).resSeq for ii in intersect_2]
-            del(_convert,tmp_item)
-            return seq_id, [set_1, set_2]
-        elif intersection_set=='atoms':
+        if target_intersection_set=='group':
+            return seq_id, intersect_1, intersect_2
+        elif target_intersection_set=='atom':
             from .multitool import convert as _convert
             set_1 = []
             tmp_item = _convert(ref_item).topology
@@ -199,7 +194,7 @@ def sequence_identity(ref_item=None, item=None, intersection_set=None, engine='b
                 for tmp_atom in tmp_residue.atoms:
                     set_2.append(tmp_atom.index)
             del(_convert,tmp_item,tmp_residue,tmp_atom)
-            return seq_id, [set_1, set_2]
+            return seq_id, set_1, set_2
         else:
             return seq_id
 
