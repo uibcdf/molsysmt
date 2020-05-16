@@ -1,5 +1,5 @@
-minimum_distance
-=================
+molsysmt.minimum\_distance
+==========================
 
 .. currentmodule:: molsysmt
 

@@ -1,4 +1,5 @@
-# Installation
+Installation
+------------
 
 The latest "stable" version of MolSysMT can be installed from the UIBCDF Anaconda channel:
 

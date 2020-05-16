@@ -1,14 +1,9 @@
-native.elements.chain
-=====================
+molsysmt.native.elements.chain
+==============================
+
 .. automodule:: molsysmt.native.elements.chain
 
    
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      chain_init_wizard
    
    
 

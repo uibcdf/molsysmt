@@ -1,5 +1,5 @@
-least_rmsd_fit
-=================
+molsysmt.least\_rmsd\_fit
+=========================
 
 .. currentmodule:: molsysmt
 

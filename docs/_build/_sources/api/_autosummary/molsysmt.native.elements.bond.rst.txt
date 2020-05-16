@@ -1,5 +1,6 @@
-native.elements.bond
-====================
+molsysmt.native.elements.bond
+=============================
+
 .. automodule:: molsysmt.native.elements.bond
 
    

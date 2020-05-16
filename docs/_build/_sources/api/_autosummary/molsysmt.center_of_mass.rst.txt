@@ -1,5 +1,5 @@
-center_of_mass
-=================
+molsysmt.center\_of\_mass
+=========================
 
 .. currentmodule:: molsysmt
 

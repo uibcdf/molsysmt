@@ -1,5 +1,5 @@
-minimum_image_convention
-===========================
+molsysmt.minimum\_image\_convention
+===================================
 
 .. currentmodule:: molsysmt
 

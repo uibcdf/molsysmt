@@ -1,5 +1,5 @@
-maximum_distance
-=================
+molsysmt.maximum\_distance
+==========================
 
 .. currentmodule:: molsysmt
 

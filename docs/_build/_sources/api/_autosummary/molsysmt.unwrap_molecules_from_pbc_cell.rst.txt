@@ -1,5 +1,5 @@
-unwrap_molecules_from_pbc_cell
-=====================================
+molsysmt.unwrap\_molecules\_from\_pbc\_cell
+===========================================
 
 .. currentmodule:: molsysmt
 

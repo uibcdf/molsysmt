@@ -1,14 +1,9 @@
-native.elements.atom
-====================
+molsysmt.native.elements.atom
+=============================
+
 .. automodule:: molsysmt.native.elements.atom
 
    
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      atom_init_wizard
    
    
 

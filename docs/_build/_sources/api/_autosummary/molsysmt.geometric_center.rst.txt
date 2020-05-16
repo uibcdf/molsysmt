@@ -1,5 +1,5 @@
-geometric_center
-=================
+molsysmt.geometric\_center
+==========================
 
 .. currentmodule:: molsysmt
 

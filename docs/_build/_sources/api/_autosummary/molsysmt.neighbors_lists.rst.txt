@@ -1,5 +1,5 @@
-neighbors_lists
-================
+molsysmt.neighbors\_lists
+=========================
 
 .. currentmodule:: molsysmt
 

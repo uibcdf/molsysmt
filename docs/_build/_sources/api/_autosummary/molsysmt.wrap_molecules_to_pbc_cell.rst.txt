@@ -1,5 +1,5 @@
-wrap_molecules_to_pbc_cell
-=================================
+molsysmt.wrap\_molecules\_to\_pbc\_cell
+=======================================
 
 .. currentmodule:: molsysmt
 
