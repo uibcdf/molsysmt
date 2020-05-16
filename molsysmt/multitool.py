@@ -5,6 +5,7 @@ from .utils.arguments import singular as _singular
 from .utils.forms import digest as _digest_forms
 from .utils.frame_indices import digest as _digest_frame_indices
 from .utils.selection import digest as _digest_selection
+from .utils.selection import indices_to_syntaxis as _indices_to_syntaxis
 from .utils.atom_indices import intersection_indices as _intersection_indices
 from numpy import unique as _unique
 from numpy import ndarray as _ndarray
@@ -131,7 +132,9 @@ _list_types = ['class', 'file', 'id', 'seq', 'viewer']
 #### Methods
 ####
 
-def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT'):
+def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
+
+    # to_syntaxis: 'NGLView', 'MDTraj', ...
 
     """select(item, selection='all', target='atom', syntaxis='MolSysMT')
 
@@ -164,7 +167,7 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT')
 
     Numpy array of integers
         List of indices in agreement with the selection criterion applied over `item`. The nature
-        of the indices is chosen with the impot argument 'output_indices': 'atom' (default),
+        of the indices is chosen with the input argument 'output_indices': 'atom' (default),
         'group', 'component', 'molecule', 'chain' or 'entity'.
 
     Examples
@@ -222,7 +225,10 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT')
     if mask is not None:
         output_indices = _intersection_indices(output_indices,mask)
 
-    return output_indices
+    if to_syntaxis is None:
+        return output_indices
+    else:
+        return _indices_to_syntaxis(item, output_indices, target=target, to_syntaxis=to_syntaxis)
 
 def remove(item, selection=None, frame_indices=None, syntaxis='MolSysMT'):
 
