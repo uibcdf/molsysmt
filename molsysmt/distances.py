@@ -514,6 +514,33 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
     if (threshold is None) and (num_neighbors is None):
         raise BadCallError(BadCallMessage)
 
+    same_set = False
+
+    same_items = False
+    same_selections = False
+    same_groups = False
+    same_frames = False
+
+    if groups_of_atoms_1 is not None:
+        selection_1=None
+
+    if item_2 is None:
+        same_items = True
+        if (selection_1 is not None) and (selection_2 is None) and (groups_of_atoms_2 is None):
+            same_selections = True
+        elif (groups_of_atoms_1 is not None) and (selection_2 is None) and (groups_of_atoms_2 is None):
+            same_groups = True
+    else:
+        if (selection_1 is not None) and (selection_2 is None) and (groups_of_atoms_2 is None):
+            same_selections=True
+        elif (groups_of_atoms_1 is not None) and (selection_2 is None) and (groups_of_atoms_2 is None):
+            same_groups = True
+
+    if frame_indices_2 is None:
+        same_frames = True
+
+    same_set= same_items and (same_selections or same_groups) and same_frames
+
     all_dists = distance(item_1=item_1, selection_1=selection_1,
                          groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
                          frame_indices_1=frame_indices_1,
@@ -523,25 +550,30 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
                          pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
                          syntaxis=syntaxis)
 
-
     nframes, nelements_1, nelements_2 = all_dists.shape
     length_units = all_dists.unit
-
 
     if num_neighbors is not None and threshold is None:
 
         neighs=_np.empty((nframes, nelements_1, num_neighbors), dtype=int)
         dists=_np.empty((nframes, nelements_1, num_neighbors), dtype=float)
 
+        offset = 0
+        if same_set:
+            offset = 1
+
         for indice_frame in range(nframes):
             for ii in range(nelements_1):
-                neighs_aux = _np.argpartition(all_dists[indice_frame,ii,:], num_neighbors-1)[:num_neighbors]
+                neighs_aux = _np.argpartition(all_dists[indice_frame,ii,:], num_neighbors+offset)[:num_neighbors+offset]
                 dists_aux = all_dists[indice_frame,ii,neighs_aux]
-                #good_order = _np.argsort(dists_aux)
-                #neighs_aux = neighs_aux[good_order]
-                #dists_aux = dists_aux[good_order]
-                neighs[indice_frame,ii,:]=neighs_aux
-                dists[indice_frame,ii,:]=dists_aux
+                good_order = _np.argsort(dists_aux)
+                neighs_aux = neighs_aux[good_order]
+                dists_aux = dists_aux[good_order]
+                neighs[indice_frame,ii,:]=neighs_aux[offset:]
+                dists[indice_frame,ii,:]=dists_aux[offset:]
+                if same_set:
+                    if dists_aux[0]._value > 0.01:
+                        raise ValueError("Error in algorithm, sets are different.")
 
         del(all_dists)
 
