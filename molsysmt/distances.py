@@ -483,7 +483,7 @@ def maximum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, gro
 
 def contact_map(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
                 item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
-                threshold=None, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
+                threshold=None, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
     all_dists = distance(item_1=item_1, selection_1=selection_1,
                          groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
@@ -586,6 +586,10 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
         neighs=_np.empty((nframes, nelements_1), dtype=object)
         dists=_np.empty((nframes, nelements_1), dtype=object)
 
+        offset = 0
+        if same_set:
+            offset = 1
+
         for indice_frame in range(nframes):
             for ii in range(nelements_1):
                 neighs_aux = _np.argwhere(all_dists[indice_frame,ii,:]<=threshold)[:,0]
@@ -593,8 +597,12 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
                 good_order = _np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
-                neighs[indice_frame,ii]=_np.array(neighs_aux,dtype=int)
-                dists[indice_frame,ii]=_np.array(dists_aux,dtype=float)
+                neighs[indice_frame,ii]=_np.array(neighs_aux,dtype=int)[offset:]
+                dists[indice_frame,ii]=_np.array(dists_aux,dtype=float)[offset:]
+                if same_set:
+                    if dists_aux[0]._value > 0.01:
+                        raise ValueError("Error in algorithm, sets are different.")
+
 
         del(all_dists)
 
