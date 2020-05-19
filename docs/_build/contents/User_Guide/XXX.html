@@ -171,15 +171,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Distances.html#Neighbor-lists">Neighbor lists</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Distances.html#Neighbor-atoms-lists">Neighbor atoms lists</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Distances.html#Neighbor-atom-groups-lists">Neighbor atom groups lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#First-closest-neighbor-atoms-or-groups">First closest neighbor atoms or groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Closest-neighbor-atoms-or-groups-below-a-distance-threshold">Closest neighbor atoms or groups below a distance threshold</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Distances.html#Contact-maps">Contact maps</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Distances.html#Contact-maps-from-atoms">Contact maps from atoms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Distances.html#Contact-maps-from-atom-groups">Contact maps from atom groups</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#Contact-maps">Contact maps</a></li>
 </ul>
 </li>
 </ul>
@@ -561,7 +557,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -569,6 +565,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">simtk.unit</span> <span class="k">as</span> <span class="nn">unit</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 </div>
@@ -576,7 +573,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e2c9fee253fb43a5ba3debd77c968f15", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a01ffac915ad448eb577b180f5ce259a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -590,11 +587,38 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">aa</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span><span class="mi">4</span><span class="p">)[:</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([2, 3, 0, 1])
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">e2s</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
