@@ -9,7 +9,7 @@ from .lib import rmsd as _librmsd
 
 def rmsd (item=None, selection='backbone', frame_indices='all',
           reference_item=None, reference_selection=None, reference_frame_index=0,
-          reference_coordinates=None, parallel=True, syntaxis='MDTraj', engine='MolSysMT'):
+          reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
 
     from molsysmt import select, get
 
@@ -19,7 +19,6 @@ def rmsd (item=None, selection='backbone', frame_indices='all',
     frame_indices = _digest_frame_indices(item, frame_indices)
     n_frame_indices = len(frame_indices)
     engine = _digest_engines(engine)
-    form_in, _ = _digest_forms(item, engine)
 
     if engine=='MolSysMT':
 
@@ -65,7 +64,7 @@ def rmsd (item=None, selection='backbone', frame_indices='all',
 
 def least_rmsd (item=None, selection='backbone', frame_indices='all',
           reference_item=None, reference_selection=None, reference_frame_index=0,
-          reference_coordinates=None, parallel=True, syntaxis='MDTraj', engine='MolSysMT'):
+          reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
 
     from molsysmt import select, get
 
@@ -75,7 +74,6 @@ def least_rmsd (item=None, selection='backbone', frame_indices='all',
     frame_indices = _digest_frame_indices(item, frame_indices)
     n_frame_indices = len(frame_indices)
     engine = _digest_engines(engine)
-    form_in, _ = _digest_forms(item, engine)
 
     if engine=='MolSysMT':
 
@@ -116,9 +114,9 @@ def least_rmsd (item=None, selection='backbone', frame_indices='all',
 
 def least_rmsd_fit (item=None, selection='backbone', frame_indices='all',
                     reference_item=None, reference_selection=None, reference_frame_index=0,
-                    reference_coordinates=None, parallel=True, syntaxis='MDTraj', engine='MolSysMT'):
+                    to_form=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
 
-    from molsysmt import convert, select, get, duplicate
+    from molsysmt import convert, select, get
     from molsysmt import set as _set
 
     n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
@@ -127,25 +125,21 @@ def least_rmsd_fit (item=None, selection='backbone', frame_indices='all',
     frame_indices = _digest_frame_indices(item, frame_indices)
     n_frame_indices = len(frame_indices)
     engine = _digest_engines(engine)
-    form_in, _ = _digest_forms(item, engine)
-    tmp_item = duplicate(item)
 
     if engine=='MolSysMT':
 
-        if reference_coordinates is None:
+        if reference_item is None:
+            reference_item = item
 
-            if reference_item is None:
-                reference_item = item
+        if reference_selection is None:
+            reference_selection = selection
 
-            if reference_selection is None:
-                reference_selection = selection
+        reference_atom_indices = select(reference_item, selection=reference_selection, syntaxis=syntaxis)
 
-            reference_atom_indices = select(reference_item, selection=reference_selection, syntaxis=syntaxis)
+        reference_coordinates = get(reference_item, target='atom', indices=reference_atom_indices,
+                                    frame_indices=reference_frame_index, coordinates=True)
 
-            reference_coordinates = get(reference_item, target='atom', indices=reference_atom_indices,
-                                  frame_indices=reference_frame_index, coordinates=True)
-
-        coordinates = get(tmp_item, coordinates=True, frame_indices='all')
+        coordinates = get(item, coordinates=True, frame_indices='all')
         length_units = coordinates.unit
         coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
         reference_coordinates = _np.asfortranarray(reference_coordinates._value, dtype='float64')
@@ -158,11 +152,18 @@ def least_rmsd_fit (item=None, selection='backbone', frame_indices='all',
 
         coordinates=_np.ascontiguousarray(coordinates)*length_units
 
-        _set(tmp_item, coordinates=coordinates)
+        if to_form is None:
 
-        del(coordinates, length_units)
+            _set(item, target='system', coordinates=coordinates)
+            del(coordinates, length_units)
+            pass
 
-        return tmp_item
+        else:
+
+            tmp_item = convert(item, to_form=to_form)
+            _set(tmp_item, target='system', coordinates=coordinates)
+            del(coordinates, length_units)
+            return tmp_item
 
     elif engine=='MDTraj':
 

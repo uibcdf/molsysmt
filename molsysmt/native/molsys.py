@@ -2,12 +2,8 @@ class MolSys():
 
     def __init__(self):
 
+        self.topology = None
         self.trajectory = None
-        self.topology = None
-        self.topology = None
-        self.topography = None
-        self.structure_obtention = None
-        self.card = None
 
     def extract(self, atom_indices='all', frame_indices='all'):
 
@@ -15,7 +11,7 @@ class MolSys():
 
         if (atom_indices is 'all') and (frame_indices is 'all'):
 
-            return self
+            return self.copy()
 
         else:
 
@@ -31,14 +27,11 @@ class MolSys():
         atom_indices = self.select(selection=selection, syntaxis=syntaxis)
         return self.trajectory.load_frames(atom_indices=atom_indices, frame_indices=frame_indices)
 
-    def duplicate(self):
+    def copy(self):
 
         tmp_item = MolSys()
-        tmp_item.trajectory = self.trajectory.duplicate()
+        tmp_item.trajectory = self.trajectory.copy()
         tmp_item.topology = self.topology.copy()
-        tmp_item.topology = self.topology.duplicate()
-        tmp_item.topography = self.topography.duplicate()
-        tmp_item.structure_obtention = self.structure_obtention.duplicate()
 
         return tmp_item
 
