@@ -141,14 +141,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Info.html">Printing out a summary information on a molecular system and its elements</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-atoms">Summary information on atoms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-groups">Summary information on groups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-components">Summary information on components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-chains">Summary information on chains</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-molecules">Summary information on molecules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-entities">Summary information on entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-a-molecular-system">Summary information on a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Info.html">Printing out a summary information on a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#As-a-DataFrame">As a DataFrame</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-atoms">Summary information on atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-groups">Summary information on groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-components">Summary information on components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-chains">Summary information on chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-molecules">Summary information on molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-entities">Summary information on entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-a-molecular-system">Summary information on a molecular system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#As-a-string">As a string</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id1">Summary information on atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id2">Summary information on groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id3">Summary information on components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id4">Summary information on chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id5">Summary information on molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id6">Summary information on entities</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/View.html">Viewing a molecular system</a></li>
@@ -178,6 +190,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Contact-maps">Contact maps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/RMSD.html">RMSD, Least RMSD and Least RMSD fit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/RMSD.html#RMSD">RMSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/RMSD.html#Least-RMSD">Least RMSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/RMSD.html#Least-RMSD-fit">Least RMSD fit</a></li>
 </ul>
 </li>
 </ul>
@@ -323,7 +341,7 @@
 <h1>molsysmt.rmsd<a class="headerlink" href="#molsysmt-rmsd" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="molsysmt.rmsd">
-<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">rmsd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">selection</span><span class="o">=</span><span class="default_value">'backbone'</span></em>, <em class="sig-param"><span class="n">frame_indices</span><span class="o">=</span><span class="default_value">'all'</span></em>, <em class="sig-param"><span class="n">reference_item</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reference_selection</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reference_frame_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">reference_coordinates</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parallel</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">syntaxis</span><span class="o">=</span><span class="default_value">'MDTraj'</span></em>, <em class="sig-param"><span class="n">engine</span><span class="o">=</span><span class="default_value">'MolSysMT'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/rmsd.html#rmsd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">rmsd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">selection</span><span class="o">=</span><span class="default_value">'backbone'</span></em>, <em class="sig-param"><span class="n">frame_indices</span><span class="o">=</span><span class="default_value">'all'</span></em>, <em class="sig-param"><span class="n">reference_item</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reference_selection</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reference_frame_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">reference_coordinates</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parallel</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">syntaxis</span><span class="o">=</span><span class="default_value">'MolSysMT'</span></em>, <em class="sig-param"><span class="n">engine</span><span class="o">=</span><span class="default_value">'MolSysMT'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/rmsd.html#rmsd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

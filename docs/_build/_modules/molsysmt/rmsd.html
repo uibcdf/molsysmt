@@ -139,14 +139,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Info.html">Printing out a summary information on a molecular system and its elements</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-atoms">Summary information on atoms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-groups">Summary information on groups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-components">Summary information on components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-chains">Summary information on chains</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-molecules">Summary information on molecules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-entities">Summary information on entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-a-molecular-system">Summary information on a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/Info.html">Printing out a summary information on a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#As-a-DataFrame">As a DataFrame</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-atoms">Summary information on atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-groups">Summary information on groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-components">Summary information on components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-chains">Summary information on chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-molecules">Summary information on molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-entities">Summary information on entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#Summary-information-on-a-molecular-system">Summary information on a molecular system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Info.html#As-a-string">As a string</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id1">Summary information on atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id2">Summary information on groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id3">Summary information on components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id4">Summary information on chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id5">Summary information on molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../contents/User_Guide/Info.html#id6">Summary information on entities</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/View.html">Viewing a molecular system</a></li>
@@ -176,6 +188,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/Distances.html#Contact-maps">Contact maps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/User_Guide/RMSD.html">RMSD, Least RMSD and Least RMSD fit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/RMSD.html#RMSD">RMSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/RMSD.html#Least-RMSD">Least RMSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/User_Guide/RMSD.html#Least-RMSD-fit">Least RMSD fit</a></li>
 </ul>
 </li>
 </ul>
@@ -301,7 +319,7 @@
 
 <div class="viewcode-block" id="rmsd"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.rmsd.html#molsysmt.rmsd">[docs]</a><span class="k">def</span> <span class="nf">rmsd</span> <span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;backbone&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
           <span class="n">reference_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_frame_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-          <span class="n">reference_coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
+          <span class="n">reference_coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
 
     <span class="kn">from</span> <span class="nn">molsysmt</span> <span class="kn">import</span> <span class="n">select</span><span class="p">,</span> <span class="n">get</span>
 
@@ -311,7 +329,6 @@
     <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
     <span class="n">n_frame_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame_indices</span><span class="p">)</span>
     <span class="n">engine</span> <span class="o">=</span> <span class="n">_digest_engines</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
-    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">:</span>
 
@@ -357,7 +374,7 @@
 
 <div class="viewcode-block" id="least_rmsd"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.least_rmsd.html#molsysmt.least_rmsd">[docs]</a><span class="k">def</span> <span class="nf">least_rmsd</span> <span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;backbone&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
           <span class="n">reference_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_frame_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-          <span class="n">reference_coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
+          <span class="n">reference_coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
 
     <span class="kn">from</span> <span class="nn">molsysmt</span> <span class="kn">import</span> <span class="n">select</span><span class="p">,</span> <span class="n">get</span>
 
@@ -367,7 +384,6 @@
     <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
     <span class="n">n_frame_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame_indices</span><span class="p">)</span>
     <span class="n">engine</span> <span class="o">=</span> <span class="n">_digest_engines</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
-    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">:</span>
 
@@ -408,9 +424,9 @@
 
 <div class="viewcode-block" id="least_rmsd_fit"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.least_rmsd_fit.html#molsysmt.least_rmsd_fit">[docs]</a><span class="k">def</span> <span class="nf">least_rmsd_fit</span> <span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;backbone&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
                     <span class="n">reference_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference_frame_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                    <span class="n">reference_coordinates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
+                    <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
 
-    <span class="kn">from</span> <span class="nn">molsysmt</span> <span class="kn">import</span> <span class="n">convert</span><span class="p">,</span> <span class="n">select</span><span class="p">,</span> <span class="n">get</span><span class="p">,</span> <span class="n">duplicate</span>
+    <span class="kn">from</span> <span class="nn">molsysmt</span> <span class="kn">import</span> <span class="n">convert</span><span class="p">,</span> <span class="n">select</span><span class="p">,</span> <span class="n">get</span>
     <span class="kn">from</span> <span class="nn">molsysmt</span> <span class="kn">import</span> <span class="nb">set</span> <span class="k">as</span> <span class="n">_set</span>
 
     <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_frames</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -419,25 +435,21 @@
     <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">_digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
     <span class="n">n_frame_indices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame_indices</span><span class="p">)</span>
     <span class="n">engine</span> <span class="o">=</span> <span class="n">_digest_engines</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
-    <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
-    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">duplicate</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">:</span>
 
-        <span class="k">if</span> <span class="n">reference_coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">reference_item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">reference_item</span> <span class="o">=</span> <span class="n">item</span>
 
-            <span class="k">if</span> <span class="n">reference_item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">reference_item</span> <span class="o">=</span> <span class="n">item</span>
+        <span class="k">if</span> <span class="n">reference_selection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">reference_selection</span> <span class="o">=</span> <span class="n">selection</span>
 
-            <span class="k">if</span> <span class="n">reference_selection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">reference_selection</span> <span class="o">=</span> <span class="n">selection</span>
+        <span class="n">reference_atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">reference_selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
 
-            <span class="n">reference_atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">reference_selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+        <span class="n">reference_coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">reference_atom_indices</span><span class="p">,</span>
+                                    <span class="n">frame_indices</span><span class="o">=</span><span class="n">reference_frame_index</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-            <span class="n">reference_coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">reference_item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">reference_atom_indices</span><span class="p">,</span>
-                                  <span class="n">frame_indices</span><span class="o">=</span><span class="n">reference_frame_index</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
         <span class="n">length_units</span> <span class="o">=</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">unit</span>
         <span class="n">coordinates</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">coordinates</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
         <span class="n">reference_coordinates</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">reference_coordinates</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
@@ -450,11 +462,18 @@
 
         <span class="n">coordinates</span><span class="o">=</span><span class="n">_np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span><span class="o">*</span><span class="n">length_units</span>
 
-        <span class="n">_set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">to_form</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 
-        <span class="k">del</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">length_units</span><span class="p">)</span>
+            <span class="n">_set</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span><span class="p">)</span>
+            <span class="k">del</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">length_units</span><span class="p">)</span>
+            <span class="k">pass</span>
 
-        <span class="k">return</span> <span class="n">tmp_item</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">to_form</span><span class="p">)</span>
+            <span class="n">_set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span><span class="p">)</span>
+            <span class="k">del</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">length_units</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tmp_item</span>
 
     <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">:</span>
 
