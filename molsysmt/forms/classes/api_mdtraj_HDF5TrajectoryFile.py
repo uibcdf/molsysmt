@@ -31,7 +31,6 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     xyz_list = []
     time_list = []
-    step_list = []
     box_list = []
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
@@ -46,7 +45,6 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
         box = box_vectors_from_box_lengths_and_angles(cell_lengths*nanometers, cell_angles*degrees)
         box_list.append(box._value)
 
-    step = array([],dtype=int)
     xyz = concatenate(xyz_list)
     del(xyz_list)
     time = concatenate(time_list)
@@ -57,11 +55,11 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
     xyz = xyz.astype('float64')
     box = box.astype('float64')
     time = time.astype('float64')
-    step = step.astype('int64')
 
     xyz = xyz*nanometers
     box = box*nanometers
     time = time*picoseconds
+    step = None
 
     return step, time, xyz, box
 

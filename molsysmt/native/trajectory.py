@@ -116,18 +116,38 @@ class Trajectory():
 
             tmp_item = Trajectory()
 
-            tmp_item.step = self.step[frame_indices]
-            tmp_item.time = self.time[frame_indices]
-            tmp_item.box = self.box[frame_indices]
-            tmp_item.coordinates = self.coordinates[:,atom_indices,:]
-            tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
+            if self.step is not None:
+                if frame_indices is not 'all':
+                    tmp_item.step = self.step[frame_indices]
+                else:
+                    tmp_item.step = deepcopy(self.step)
+
+            if self.time is not None:
+                if frame_indices is not 'all':
+                    tmp_item.time = self.time[frame_indices]
+                else:
+                    tmp_item.time = deepcopy(self.time)
+
+            if self.box is not None:
+                if frame_indices is not 'all':
+                    tmp_item.box = self.box[frame_indices]
+                else:
+                    tmp_item.box = deepcopy(self.box)
+
+            if atom_indices is not 'all':
+                tmp_item.coordinates = self.coordinates[:,atom_indices,:]
+            else:
+                tmp_item.coordinates = deepcopy(self.coordinates)
+
+            if frame_indices is not 'all':
+                tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
 
             tmp_item.atom_indices = atom_indices
-            tmp_item.n_frames = len(frame_indices)
-            tmp_item.n_atoms = len(atom_indices)
+            tmp_item.n_frames = tmp_item.coordinates.shape[0]
+            tmp_item.n_atoms = tmp_item.coordinates.shape[1]
 
             if self.file is not None:
-                tmp_item.file = self.file.duplicate()
+                tmp_item.file = self.file.copy()
 
         return tmp_item
 
