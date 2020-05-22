@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Viewing a molecular system &mdash; MolSysMT 0.1 documentation</title>
+  <title>Removing atoms from a molecular system &mdash; MolSysMT 0.1 documentation</title>
   
 
   
@@ -38,8 +38,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Getting distances, neighbor lists and contact maps." href="Distances.html" />
-    <link rel="prev" title="Removing atoms from a molecular system" href="Remove.html" /> 
+    <link rel="next" title="Viewing a molecular system" href="View.html" />
+    <link rel="prev" title="Extracting a subsystem" href="Extract.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -164,13 +164,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Extract.html">Extracting a subsystem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Remove.html">Removing atoms from a molecular system</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-atoms">Removing atoms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-hydrogen-atoms">Removing hydrogen atoms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-the-solvent">Removing the solvent</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Removing atoms from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Removing-atoms">Removing atoms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Removing-hydrogen-atoms">Removing hydrogen atoms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Removing-the-solvent">Removing the solvent</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Viewing a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Geometric Observables</span></p>
 <ul>
@@ -302,13 +302,13 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>Viewing a molecular system</li>
+      <li>Removing atoms from a molecular system</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/contents/User_Guide/View.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/contents/User_Guide/Remove.ipynb.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -576,99 +576,16 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
-</pre></div>
+<div class="section" id="Removing-atoms-from-a-molecular-system">
+<h1>Removing atoms from a molecular system<a class="headerlink" href="#Removing-atoms-from-a-molecular-system" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Removing-atoms">
+<h2>Removing atoms<a class="headerlink" href="#Removing-atoms" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
+<div class="section" id="Removing-hydrogen-atoms">
+<h2>Removing hydrogen atoms<a class="headerlink" href="#Removing-hydrogen-atoms" title="Permalink to this headline">¶</a></h2>
 </div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">msm</span>
-<span class="kn">from</span> <span class="nn">nglview.widget</span> <span class="kn">import</span> <span class="n">NGLWidget</span>
-<span class="kn">import</span> <span class="nn">nglview</span> <span class="k">as</span> <span class="nn">nv</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "10f8024174734f4f9c2a30d8f0b66dd6", "version_major": 2, "version_minor": 0}</script></div>
-</div>
-<div class="section" id="Viewing-a-molecular-system">
-<h1>Viewing a molecular system<a class="headerlink" href="#Viewing-a-molecular-system" title="Permalink to this headline">¶</a></h1>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">help</span><span class="p">(</span><span class="n">nv</span><span class="o">.</span><span class="n">show_molsysmt</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Help on function show_molsysmt in module nglview.show:
-
-show_molsysmt(molsys, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, **kwargs)
-    Show NGL widget with molsysmt.MolSys object.
-
-    Visit `MolSysmt documentation webpage &lt;http://www.uibcdf.org/MolSysMT&gt;`_ for further info.
-
-    Examples
-    --------
-    &gt;&gt;&gt; import nglview as nv # doctest: +SKIP
-    ... import molsysmt as msm
-    ... t = msm.convert([nv.datafiles.GRO, nv.datafiles.XTC])
-    ... w = nv.show_molsysmt(t)
-    ... w
-
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">t</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="n">nv</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">GRO</span><span class="p">,</span> <span class="n">nv</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">XTC</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">w</span><span class="o">=</span><span class="n">nv</span><span class="o">.</span><span class="n">show_molsysmt</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">w</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f423573f2e8547f18ebd8bc63c9e873d", "version_major": 2, "version_minor": 0}</script></div>
-</div>
+<div class="section" id="Removing-the-solvent">
+<h2>Removing the solvent<a class="headerlink" href="#Removing-the-solvent" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -676,6 +593,7 @@ show_molsysmt(molsys, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, **kw
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -688,10 +606,10 @@ show_molsysmt(molsys, selection=&#39;all&#39;, frame_indices=&#39;all&#39;, **kw
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Distances.html" class="btn btn-neutral float-right" title="Getting distances, neighbor lists and contact maps." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="View.html" class="btn btn-neutral float-right" title="Viewing a molecular system" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Remove.html" class="btn btn-neutral float-left" title="Removing atoms from a molecular system" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Extract.html" class="btn btn-neutral float-left" title="Extracting a subsystem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

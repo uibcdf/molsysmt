@@ -33,8 +33,8 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    Quickstart.ipynb
 
 .. toctree::
-   :name: user_guide
-   :caption: User Guide
+   :name: basic_manipulations
+   :caption: Basic Manipulations
    :maxdepth: 1
 
    contents/User_Guide/Forms.ipynb
@@ -44,7 +44,15 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/User_Guide/Selection.ipynb
    contents/User_Guide/Get.ipynb
    contents/User_Guide/Info.ipynb
+   contents/User_Guide/Extract.ipynb
+   contents/User_Guide/Remove.ipynb
    contents/User_Guide/View.ipynb
+
+.. toctree::
+   :name: geometric_observables
+   :caption: Geometric Observables
+   :maxdepth: 1
+
    contents/User_Guide/Distances.ipynb
    contents/User_Guide/RMSD.ipynb
 
