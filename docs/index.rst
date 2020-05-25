@@ -26,35 +26,67 @@ Exceptionally few home-made subroutines will be included here to fill specific g
         A version of this web page in spanish will be available soon.
 
 .. toctree::
+   :name: installation_quickguide
    :caption: Installation and Quick Guide
    :maxdepth: 1
 
-   Installation.md
-   Quickstart.ipynb
+   contents/Installation.md
+   contents/Quickstart.ipynb
+
+.. toctree::
+   :name: forms_elements
+   :caption: Forms and elements
+   :maxdepth: 1
+
+   contents/Forms.ipynb
+   contents/Elements.md
+   contents/MolSys.md
 
 .. toctree::
    :name: basic_manipulations
-   :caption: Basic Manipulations
+   :caption: Basic tools
    :maxdepth: 1
 
-   contents/User_Guide/Forms.ipynb
-   MolSys.md
-   Elements.md
-   contents/User_Guide/Convert.ipynb
-   contents/User_Guide/Selection.ipynb
-   contents/User_Guide/Get.ipynb
-   contents/User_Guide/Info.ipynb
-   contents/User_Guide/Extract.ipynb
-   contents/User_Guide/Remove.ipynb
-   contents/User_Guide/View.ipynb
+   contents/Convert.ipynb
+   contents/Selection.ipynb
+   contents/Get.ipynb
+   contents/Info.ipynb
+   contents/Duplicate.ipynb
+   contents/Extract.ipynb
+   contents/Remove.ipynb
+   contents/View.ipynb
 
 .. toctree::
-   :name: geometric_observables
-   :caption: Geometric Observables
+   :name: building_system
+   :caption: Building tools
    :maxdepth: 1
 
-   contents/User_Guide/Distances.ipynb
-   contents/User_Guide/RMSD.ipynb
+   contents/Fix.ipynb
+   contents/Solvation.ipynb
+   contents/Protonation.ipynb
+   contents/Model_loop.ipynb
+   contents/Build_peptide.ipynb
+   contents/Energy_minimization.ipynb
+
+.. toctree::
+   :name: structural_observables
+   :caption: Structural tools
+   :maxdepth: 1
+
+   contents/Distances.ipynb
+   contents/PBC.ipynb
+   contents/Centers.ipynb
+   contents/RMSD.ipynb
+   contents/Rg.ipynb
+   contents/Dihedral_angles.ipynb
+
+.. toctree::
+   :name: topological_observables
+   :caption: Topological tools
+   :maxdepth: 1
+
+   contents/Alignment.ipynb
+   contents/Mutations.ipynb
 
 .. toctree::
    :caption: API Documentation

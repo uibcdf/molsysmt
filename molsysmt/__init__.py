@@ -1,5 +1,7 @@
 from . import utils
 
+from . import test_systems
+
 from .native.molsys import MolSys
 from .multitool import select, extract, merge, info, get, set, \
                        convert, copy, write, view, remove

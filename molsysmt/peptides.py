@@ -15,78 +15,53 @@ def build_peptide (item, forcefield='AMBER96', implicit_solvent=None, water_mode
 
     if engine=="LEaP":
 
+        from molsysmt.utils import TLeap
         from molsysmt.utils.files_and_directories import tmp_directory, tmp_filename
         from shutil import rmtree, copyfile
-        import subprocess
-
-        current_directory = getcwd()
-        working_directory = tmp_directory()
-        if verbose:
-            print('Working directory:', working_directory)
-
-        tmp_prmtop = tmp_filename(dir=working_directory, extension='prmtop')
-        tmp_crd = tmp_filename(dir=working_directory, extension='crd')
 
         forcefield = digest_forcefield(forcefield, 'LEap')
+
         sequence = tmp_item[12:].upper()
         sequence = ' '.join([sequence[ii:ii+3] for ii in range(0, len(sequence), 3)])
-
-        if type(forcefield) in [list, tuple]:
-            forcefield_command = "source {}\n".format(' '.join(forcefield))
-        else:
-            forcefield_command = "source {}\n".format(forcefield)
-
-        if box_geometry=="cubic":
-            solvate_command='solvateBox'
-        elif box_geometry=="truncated_octahedral":
-            solvate_command='solvateOct'
 
         if water_model in ['SPC', 'TIP3P']:
             solvent_model='TIP3PBOX'
         else:
             raise NotImplementedError
 
-
-        implicit_solvent_command = "set default PBRadii mbondi2\n"
-        explicit_solvent_command = "{} peptide {} {} iso\n".format(solvate_command, solvent_model, str(clearance.value_in_unit(unit.angstroms)))
-        make_peptide_command = "peptide = sequence {{ {} }}\n".format(sequence)
-        check_peptide_command = "check peptide\n"
-        check_charge_command = "charge peptide\n"
-        saving_command = "saveAmberParm peptide {} {}\n".format(tmp_prmtop, tmp_crd)
-        quit_command = "quit\n"
-
-        commands_list =[]
-        commands_list.append(forcefield_command)
-
-        if implicit_solvent == 'GBSA OBC':
-            commands_list.append(implicit_solvent_command)
-
-        commands_list.append(make_peptide_command)
-        commands_list.append(check_peptide_command)
-        commands_list.append(check_charge_command)
-
-        if implicit_solvent != 'GBSA OBC':
-            commands_list.append(explicit_solvent_command)
-
-        commands_list.append(saving_command)
-        commands_list.append(quit_command)
-
-        leap_file = open(working_directory+'/leap.in', "w")
-        leap_file.writelines(commands_list)
-        leap_file.close()
-
-        chdir(working_directory)
-
-        leap_output = subprocess.check_output(['tleap', '-f', 'leap.in']).decode()
+        current_directory = getcwd()
+        working_directory = tmp_directory()
+        tmp_prmtop = tmp_filename(dir=working_directory, extension='prmtop')
+        tmp_inpcrd = tmp_prmtop.replace('prmtop','inpcrd')
+        tmp_logfile = tmp_prmtop.replace('prmtop','leap.log')
 
         if verbose:
-            print(leap_output)
+            print('Working directory:', working_directory)
+
+        tleap = TLeap()
+
+        tleap.load_parameters(forcefield)
+
+        if implicit_solvent == 'GBSA OBC':
+            tleap.set_global_parameter(PBRadii='mbondi2')
+
+        tleap.make_sequence('peptide', sequence)
+        tleap.check_unit('peptide')
+        tleap.get_total_charge('peptide')
+
+        if implicit_solvent is None:
+            tleap.solvate('peptide', solvent_model, clearance, box_geometry)
+
+        tleap.save_unit('peptide', tmp_prmtop)
+
+        errors=tleap.run(verbose=verbose)
+
+        del(tleap)
+
         if logfile:
-            copyfile(working_directory+'/leap.log',current_directory+'/build_peptide.log')
+            copyfile(tmp_logfile, current_directory+'/build_peptide.log')
 
-        chdir(current_directory)
-
-        tmp_item = convert([tmp_prmtop, tmp_crd], to_form=to_form)
+        tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)
 
         rmtree(working_directory)
 

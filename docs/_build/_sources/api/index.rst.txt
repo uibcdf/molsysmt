@@ -19,7 +19,7 @@ General and basic methods to operate with molecular models and their forms.
    write
    view
 
-Estructural observables and transformations
+Geometric observables and transformations
 -------------------------------------------
 
 Methods to extract or to modify structural and geometrical observables of a molecular model.
