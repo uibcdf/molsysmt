@@ -64,6 +64,26 @@ def copy(item):
 
 # atom
 
+def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        return get_n_atoms_from_system(item)
+    else:
+        return len(indices)
+
+def get_n_frames_from_atom (item, indices='all', frame_indices='all'):
+
+    if frame_indices is 'all':
+        return get_n_frames_from_system(item)
+    else:
+        return len(frame_indices)
+
+
+def get_coordinates_from_atom (item, indices='all', frame_indices='all'):
+
+    _, _, xyz, _ = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
+    return xyz
+
 def get_frame_from_atom (item, indices='all', frame_indices='all'):
 
     step, time, xyz, box = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
@@ -71,6 +91,11 @@ def get_frame_from_atom (item, indices='all', frame_indices='all'):
     return step, time, xyz, box
 
 # system
+
+def get_coordinates_from_system (item, indices='all', frame_indices='all'):
+
+    _, _, xyz, _ = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
+    return xyz
 
 def get_frame_from_system (item, indices='all', frame_indices='all'):
 

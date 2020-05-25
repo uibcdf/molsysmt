@@ -62,8 +62,23 @@ def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
 def to_pdb(item, output_filepath = None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
-    return _openmm_app_PDBFILE.writeFile(item.topology, item.positions, open(output_filepath, 'w'))
+    from io import StringIO
+    from simtk.openmm.app import PDBFile
+    from simtk.openmm.version import short_version
+
+    tmp_io = StringIO()
+    PDBFile.writeFile(item.topology, item.positions, tmp_io)
+    filedata = tmp_io.getvalue()
+    filedata = filedata.replace('WITH OPENMM '+short_version, 'WITH OPENMM '+short_version+' BY MOLSYSMT')
+    tmp_io.close()
+    del(tmp_io)
+
+    if output_filepath=='.pdb':
+        return filedata
+    else:
+        with open(output_filepath, 'w') as file:
+            file.write(filedata)
+        pass
 
 def select_with_MDTraj(item, selection):
 

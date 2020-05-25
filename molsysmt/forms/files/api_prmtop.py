@@ -19,6 +19,15 @@ def to_prmtop(item, output_filepath=None, trajectory_item=None, atom_indices='al
     else:
         raise NotImplementedError("Not implemented yet")
 
+def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
+           frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Modeller import to_pdb as openmm_Modeller_to_pdb
+    tmp_item = to_openmm_Modeller(item, trajectory_item=trajectory_item, atom_indices=atom_indices,
+                                 frame_indices=frame_indices)
+
+    return openmm_Modeller_to_pdb(tmp_item, output_filepath=output_filepath)
+
 def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_prmtop as prmtop_to_molsysmt_MolSys
@@ -70,7 +79,12 @@ def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
 
 def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Modeller as openmm_Topology_to_openmm_Modeller
+    tmp_item = to_openmm_Topology(item)
+    tmp_item = openmm_Topology_to_openmm_Modeller(tmp_item, trajectory_item=trajectory_item,
+                                                  atom_indices=atom_indices,
+                                                  frame_indices=frame_indices)
+    return tmp_item
 
 def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
@@ -90,7 +104,6 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_molsysmt_DataFrame(item)
     atom_indices=select_molsysmt_DataFrame_with_MolSysMT(tmp_item, selection)
     return atom_indices
-
 
 def copy(item):
 

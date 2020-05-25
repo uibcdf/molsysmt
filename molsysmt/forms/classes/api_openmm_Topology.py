@@ -51,31 +51,37 @@ def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
     tmp_item = yank_Topography(tmp_item)
     return tmp_item
 
+def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt import get
+    from simtk.openmm.app import Modeller
+
+    positions = get(trajectory_item, target='atom', indices=atom_indices,
+                    frame_indices=frame_indices, coordinates=True)
+    tmp_item = Modeller(item, positions[0])
+    return tmp_item
+
 def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
            frame_indices='all'):
 
     from molsysmt import get as _get
     from simtk.openmm.app import PDBFile
     from simtk.openmm.version import short_version
+    from io import StringIO
 
-    coordinates = _get(trajectory_item, target="system", frame_indices=frame_indices, coordinates=True)
+    coordinates = _get(trajectory_item, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+
+    tmp_io = StringIO()
+    PDBFile.writeFile(item, coordinates[0], tmp_io)
+    filedata = tmp_io.getvalue()
+    filedata = filedata.replace('WITH OPENMM '+short_version, 'WITH OPENMM '+short_version+' BY MOLSYSMT')
+    tmp_io.close()
+    del(tmp_io)
 
     if output_filepath=='.pdb':
-        from os import remove
-        from molsysmt.utils.files_and_directories import tmp_filename
-        tmp_pdbfile = tmp_filename(extension='pdb')
-        PDBFile.writeFile(item, coordinates[0], open(tmp_pdbfile, 'w'))
-        with open(tmp_pdbfile, 'r') as file :
-            filedata = file.read()
-        filedata = filedata.replace('WITH OPENMM '+short_version, 'WITH OPENMM '+short_version+' BY MOLSYSMT')
-        remove(tmp_pdbfile)
         return filedata
     else:
-        PDBFile.writeFile(item, coordinates[0], open(output_filepath, 'w'))
-        with open('output.pdb', 'r') as file :
-            filedata = file.read()
-        filedata = filedata.replace('WITH OPENMM '+short_version, 'WITH OPENMM '+short_version+' BY MOLSYSMT')
-        with open('output.pdb', 'w') as file:
+        with open(output_filepath, 'w') as file:
             file.write(filedata)
         pass
 
