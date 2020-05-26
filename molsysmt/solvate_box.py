@@ -62,9 +62,13 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
         current_directory = getcwd()
         working_directory = tmp_directory()
         pdbfile_in = tmp_filename(dir=working_directory, extension='pdb')
+        convert(item, to_form=pdbfile_in)
+
         pdbfile_out = tmp_filename(dir=working_directory, extension='pdb')
         tmp_logfile = pdbfile_out.replace('pdb','leap.log')
-        convert(item, to_form=pdbfile_in)
+
+        #pdbfile_out = tmp_filename(dir=working_directory, extension='pdb')
+        #tmp_logfile = pdbfile_out.replace('pdb','leap.log')
 
         forcefield_parameters = digest_forcefield([forcefield, water], 'LEap')
 
