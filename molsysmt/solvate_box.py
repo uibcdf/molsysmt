@@ -87,12 +87,12 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
         if num_anions != 0:
             if num_anions=='neutralize':
                 num_anions=0
-            tleap.add_ions('MolecularSystem', anion, num_ions=num_anions, replace_solvent=False)
+            tleap.add_ions('MolecularSystem', anion, num_ions=num_anions, replace_solvent=True)
 
         if num_cations != 0:
             if num_cations=='neutralize':
                 num_cations=0
-            tleap.add_ions('MolecularSystem', cation, num_ions=num_cations, replace_solvent=False)
+            tleap.add_ions('MolecularSystem', cation, num_ions=num_cations, replace_solvent=True)
 
         tleap.save_unit('MolecularSystem', pdbfile_out)
         errors=tleap.run(working_directory=working_directory, verbose=verbose)

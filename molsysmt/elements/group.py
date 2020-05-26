@@ -17,33 +17,71 @@ def name_to_type(name):
 
     tmp_type=None
 
-    if name in water_names:
+    if name_is_type_water(name):
         tmp_type='water'
-    elif name in aminoacid_names:
-        tmp_type='aminoacid'
-    elif name in ion_names:
+    elif name_is_type_ion(name):
         tmp_type='ion'
-    elif name in nucleotide_names:
+    elif name_is_type_cosolute(name):
+        tmp_type='cosolute'
+    elif name_is_type_small_molecule(name):
+        tmp_type='small_molecule'
+    elif name_is_type_aminoacid(name):
+        tmp_type='aminoacid'
+    elif name_is_type_nucleoatide(name):
         tmp_type='nucleotide'
 
     return tmp_type
 
-def is_water(name):
+def name_is_type_water(name):
     return (name in water_names)
 
-def is_ion(name):
+def name_is_type_ion(name):
     return (name in ion_names)
 
-def is_cosolute(name):
-    raise NotImplementedError
+def name_is_type_cosolute(name):
+    #NotImplementedError
+    return False
 
-def is_small_molecule(name):
-    raise NotImplementedError
+def name_is_type_small_molecule(name):
+    #NotImplementedError
+    return False
 
-def is_aminoacid(name):
+def name_is_type_aminoacid(name):
     return (name in aminoacid_names)
 
-def is_nucleotide(name):
+def name_is_type_nucleotide(name):
     return (name in nucleotide_names)
 
+def is_type(item, indices='all', selection=None, syntaxis='MolSysMT'):
+
+    from molsysmt import select, get
+
+    if selection is not None:
+        indices = select(item, target='group', selection=selection, syntaxis=syntaxis)
+
+    group_names = get(item, target='group', indices=indices, group_name=True)
+
+    return list(map(name_to_type,group_names))
+
+def name_is_in_molecule_type():
+
+    tmp_type=None
+
+    if name_is_type_water(name):
+        tmp_type='water'
+    elif name_is_type_ion(name):
+        tmp_type='ion'
+    elif name_is_type_cosolute(name):
+        tmp_type='cosolute'
+    elif name_is_type_small_molecule(name):
+        tmp_type='small_molecule'
+    elif name_is_type_aminoacid(name):
+        tmp_type='peptide or protein'
+    elif name_is_type_nucleoatide(name):
+        if name in rna_names:
+            tmp_type='rna'
+        elif name in dna_names:
+            tmp_type='dna'
+
+    return tmp_type
 
