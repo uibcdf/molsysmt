@@ -355,17 +355,16 @@ class TLeap:
         """Run script and return warning messages in leap log file."""
 
         current_directory = os.getcwd()
-        rm_working_directory = False
+        tmp_working_directory = False
 
         if working_directory is None:
+            tmp_working_directory = True
             working_directory = tempfile.mkdtemp()
-            rm_working_directory = True
+            # Copy input files
+            for local_file, file_path in self._input_file_paths.items():
+                shutil.copy(file_path, local_file)
 
         os.chdir(working_directory)
-
-        # Copy input files
-        for local_file, file_path in self._input_file_paths.items():
-            shutil.copy(file_path, local_file)
 
         # Save script and run tleap
         self.export_script('leap.in')
@@ -388,11 +387,12 @@ class TLeap:
 
         # Copy back output files. If something goes wrong, some files may not exist
         known_error_msg = []
-        try:
-            for local_file, file_path in self._output_file_paths.items():
-                shutil.copy(local_file, file_path)
-        except IOError:
-            known_error_msg.append("Could not create one of the system files.")
+        if tmp_working_directory:
+            try:
+                for local_file, file_path in self._output_file_paths.items():
+                    shutil.copy(local_file, file_path)
+            except IOError:
+                known_error_msg.append("Could not create one of the system files.")
 
         # Look for errors in log that don't raise CalledProcessError
         error_patterns = ['Argument #\d+ is type \S+ must be of type: \S+']
@@ -417,7 +417,7 @@ class TLeap:
             raise RuntimeError(final_error.format(log_path, '\n---------\n'.join(known_error_msg)))
 
         os.chdir(current_directory)
-        if rm_working_directory:
+        if tmp_working_directory:
             shutil.rmtree(working_directory)
 
         # Check for and return warnings

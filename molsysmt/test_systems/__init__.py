@@ -4,6 +4,7 @@ files={
     'pentalanine.h5' : str(_Path(__file__).parent.joinpath('pentalanine.h5')),
     'pentalanine.inpcrd' : str(_Path(__file__).parent.joinpath('pentalanine.inpcrd')),
     'pentalanine.prmtop' : str(_Path(__file__).parent.joinpath('pentalanine.prmtop')),
+    'metenkephalin.pdb' : str(_Path(__file__).parent.joinpath('metenkephalin.pdb')),
     '1brs.pdb' : str(_Path(__file__).parent.joinpath('1brs.pdb')),
     '1brs.mmtf' : str(_Path(__file__).parent.joinpath('1brs.mmtf')),
     '1sux.pdb' : str(_Path(__file__).parent.joinpath('1sux.pdb')),

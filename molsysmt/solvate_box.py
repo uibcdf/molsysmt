@@ -15,7 +15,7 @@ Methods and wrappers to create and solvate boxes
 
 def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angstroms, water='TIP3P',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
-             add_hydrogens=False, forcefield='AMBER99SB-ILDN', engine="LEaP", to_form= None, verbose=False):
+             forcefield='AMBER99SB-ILDN', engine="LEaP", to_form= None, logfile=False, verbose=False):
     """solvate(item, geometry=None, water=None, engine=None)
 
     Methods and wrappers to create and solvate boxes
@@ -44,48 +44,29 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
     -----
     """
 
-    from .multitool import duplicate, convert, get
-    from .utils.forms import digest_forms
-    from copy import deepcopy
+    from .utils.forms import digest as digest_forms
 
-    tmp_item = duplicate(item)
-    form_in, form_out = digest_forms(item)
-
-    if num_anions=="neutralize" and num_cations=="neutralize":
-
-        from .multitool import get
-        charge = get(tmp_item, target="system", charge=True)
-
-        num_anions = 0
-        num_cations = 0
-
-        if charge>0:
-            num_cations=abs(charge)
-        elif charge<0:
-            num_anions=abs(charge)
-
-        if verbose:
-            print("Adding {} {} and {} {} to neutralize the box.".format(num_cations, cation,
-                                                                         num_anions, anion))
-
-    if add_hydrogens==True:
-
-        from .remove_atoms import remove_hydrogens
-        print("Hydrogens were removed. The engine building the box will protonate the system.")
-        tmp_item = remove_hydrogens(tmp_item)
+    form_in, _ = digest_forms(item)
+    if to_form is None:
+        to_form = form_in
 
     if engine=="LEaP":
 
-        from .multitool import convert as _convert
-        from .multitool import get_form as _get_form
-        from yank.utils import TLeap
-        from .utils.miscellanea import tmp_filename
-        from .utils.forcefields import switcher as ff_switcher
+        from molsysmt.utils import TLeap
+        from molsysmt.utils.files_and_directories import tmp_directory, tmp_filename
+        from shutil import rmtree, copyfile
+        from os import getcwd, chdir
+        from molsysmt.utils.forcefields import digest as digest_forcefield
+        from molsysmt import convert
 
-        leaprc_parameters = []
-        leaprc_parameters.append(ff_switcher['LEaP']['AMBER99SB-ILDN'])
-        #leaprc_parameters.append(ff_switcher['LEaP']['GAFF'])
-        leaprc_parameters.append(ff_switcher['LEaP'][water])
+        current_directory = getcwd()
+        working_directory = tmp_directory()
+        pdbfile_in = tmp_filename(dir=working_directory, extension='pdb')
+        pdbfile_out = tmp_filename(dir=working_directory, extension='pdb')
+        tmp_logfile = pdbfile_out.replace('pdb','leap.log')
+        convert(item, to_form=pdbfile_in)
+
+        forcefield_parameters = digest_forcefield([forcefield, water], 'LEap')
 
         solvent_model=None
         if water=='SPC':
@@ -95,33 +76,35 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
         elif water =='TIP4P':
             solvent_model='TIP4PBOX'
 
-
-        pdbfile_in = tmp_filename(".pdb")
-        convert(tmp_item, to_form=pdbfile_in)
+        if verbose:
+            print('Working directory:', working_directory)
 
         tleap = TLeap()
-        tleap.load_parameters(*leaprc_parameters)
-        tleap.load_unit(unit_name='MolecularSystem', filepath=pdbfile_in)
-        tleap.solvate(unit_name='MolecularSystem', solvent_model=solvent_model,
-                      clearance=clearance, box_geometry=box_geometry)
+        tleap.load_parameters(*forcefield_parameters)
+        tleap.load_unit('MolecularSystem', pdbfile_in)
+        tleap.solvate('MolecularSystem', solvent_model, clearance, box_geometry=box_geometry)
 
-        if abs(num_anions):
-            tleap.add_ions(unit_name='MolecularSystem', ion=anion, num_ions=num_anions,
-                           replace_solvent=True)
+        if num_anions != 0:
+            if num_anions=='neutralize':
+                num_anions=0
+            tleap.add_ions('MolecularSystem', anion, num_ions=num_anions, replace_solvent=False)
 
-        if abs(num_cations):
-            tleap.add_ions(unit_name='MolecularSystem', ion=cation, num_ions=num_cations,
-                           replace_solvent=True)
+        if num_cations != 0:
+            if num_cations=='neutralize':
+                num_cations=0
+            tleap.add_ions('MolecularSystem', cation, num_ions=num_cations, replace_solvent=False)
 
-        pdbfile_out = tmp_filename(".pdb")
-        tleap.save_unit(unit_name='MolecularSystem', output_path=pdbfile_out)
+        tleap.save_unit('MolecularSystem', pdbfile_out)
+        errors=tleap.run(working_directory=working_directory, verbose=verbose)
 
-        tleap.run()
+        del(tleap)
 
-        tmp_item = convert(pdbfile_out, to_form=form_in)
+        if logfile:
+            copyfile(tmp_logfile, current_directory+'/build_peptide.log')
 
-        remove(pdbfile_in)
-        remove(pdbfile_out)
+        tmp_item = convert(pdbfile_out, to_form=to_form)
+
+        rmtree(working_directory)
 
         return tmp_item
 
