@@ -1,4 +1,16 @@
 
+def complementary_frame_indices(item, frame_indices):
+
+    from numpy import ones
+    from numpy import where
+    from molsysmt import get
+
+    n_frames = get(item, target='system', n_frames=True)
+
+    mask = ones(n_frames,dtype=bool)
+    mask[frame_indices]=False
+    return list(where(mask)[0])
+
 def digest(item, frame_indices):
 
     from numpy import arange, array

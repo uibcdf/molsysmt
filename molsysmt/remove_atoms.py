@@ -29,7 +29,7 @@ def remove_solvent (item, water=True, ions=True, cosolutes=True, include_selecti
 
         if syntaxis == 'MolSysMT':
 
-            atom_indices_water = select(item, 'molecule.type water', syntaxis=syntaxis)
+            atom_indices_water = select(item, 'group.type=="water"', syntaxis=syntaxis)
 
         elif syntaxis == 'MDTraj':
 
@@ -46,7 +46,7 @@ def remove_solvent (item, water=True, ions=True, cosolutes=True, include_selecti
 
         if syntaxis == 'MolSysMT':
 
-            atom_indices_ions = select(item, 'molecule.type ion', syntaxis=syntaxis)
+            atom_indices_ions = select(item, 'group.type=="ion"', syntaxis=syntaxis)
 
         elif syntaxis == 'MDTraj':
 
@@ -62,7 +62,7 @@ def remove_solvent (item, water=True, ions=True, cosolutes=True, include_selecti
 
         if syntaxis == 'MolSysMT':
 
-            atom_indices_cosolutes = select(item, 'molecule.type cosolute', syntaxis=syntaxis)
+            atom_indices_cosolutes = select(item, 'group.type=="cosolute"', syntaxis=syntaxis)
 
         elif syntaxis == 'MDTraj':
 
@@ -86,7 +86,7 @@ def remove_solvent (item, water=True, ions=True, cosolutes=True, include_selecti
     return tmp_item
 
 
-def remove_hydrogens (item, selection="all", syntaxis="MolSysMT"):
+def remove_hydrogens (item, selection="all", to_form=None, inplace=True, syntaxis="MolSysMT"):
 
     from .utils.selection import digest_syntaxis
     from .multitool import select, remove
@@ -98,7 +98,7 @@ def remove_hydrogens (item, selection="all", syntaxis="MolSysMT"):
 
     if syntaxis == 'MolSysMT':
 
-        atom_indices_hydrogens = select(item, 'atom.type "H"', syntaxis=syntaxis)
+        atom_indices_hydrogens = select(item, 'atom.type=="H"', syntaxis=syntaxis)
 
     elif syntaxis == 'MDTraj':
 

@@ -64,9 +64,9 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
         pdbfile_in = tmp_filename(dir=working_directory, extension='pdb')
         convert(item, to_form=pdbfile_in)
 
-        pdbfile_out = tmp_filename(dir=working_directory, extension='pdb')
-        tmp_logfile = pdbfile_out.replace('pdb','leap.log')
-
+        tmp_prmtop = tmp_filename(dir=working_directory, extension='prmtop')
+        tmp_inpcrd = tmp_prmtop.replace('prmtop','inpcrd')
+        tmp_logfile = tmp_prmtop.replace('prmtop','leap.log')
         #pdbfile_out = tmp_filename(dir=working_directory, extension='pdb')
         #tmp_logfile = pdbfile_out.replace('pdb','leap.log')
 
@@ -86,6 +86,8 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
         tleap = TLeap()
         tleap.load_parameters(*forcefield_parameters)
         tleap.load_unit('MolecularSystem', pdbfile_in)
+        tleap.check_unit('MolecularSystem')
+        tleap.get_total_charge('MolecularSystem')
         tleap.solvate('MolecularSystem', solvent_model, clearance, box_geometry=box_geometry)
 
         if num_anions != 0:
@@ -98,7 +100,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
                 num_cations=0
             tleap.add_ions('MolecularSystem', cation, num_ions=num_cations, replace_solvent=True)
 
-        tleap.save_unit('MolecularSystem', pdbfile_out)
+        tleap.save_unit('MolecularSystem', tmp_prmtop)
         errors=tleap.run(working_directory=working_directory, verbose=verbose)
 
         del(tleap)
@@ -106,7 +108,8 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
         if logfile:
             copyfile(tmp_logfile, current_directory+'/build_peptide.log')
 
-        tmp_item = convert(pdbfile_out, to_form=to_form)
+        #tmp_item = convert(pdbfile_out, to_form=to_form)
+        tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)
 
         rmtree(working_directory)
 

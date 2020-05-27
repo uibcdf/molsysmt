@@ -230,7 +230,7 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT',
     else:
         return _indices_to_syntaxis(item, output_indices, target=target, to_syntaxis=to_syntaxis)
 
-def remove(item, selection=None, frame_indices=None, syntaxis='MolSysMT'):
+def remove(item, selection=None, frame_indices=None, to_form=None, syntaxis='MolSysMT'):
 
     """remove(item, selection=None, frame_indices=None, syntaxis='MolSysMT')
 
@@ -296,9 +296,13 @@ def remove(item, selection=None, frame_indices=None, syntaxis='MolSysMT'):
         atom_indices_to_be_kept = complementary_atom_indices(item, atom_indices_to_be_removed)
 
     if frame_indices is not None:
-        raise NotImplementedError("Removing frames is not implemented yet")
+        from .utils.frame_indices import digest as digest_frame_indices
+        from .utils.frame_indices import complementary_frame_indices
+        frame_indices_to_be_removed = digest_frame_indices(item, frame_indices)
+        frame_indices_to_be_kept = complementary_frame_indices(item, frame_indices_to_be_removed)
 
-    return extract(item, selection=selection_to_be_kept, frame_indices=frame_indices_to_be_kept, syntaxis=syntaxis)
+    return extract(item, selection=atom_indices_to_be_kept, frame_indices=frame_indices_to_be_kept,
+                   to_form=to_form, syntaxis=syntaxis)
 
 def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='MolSysMT'):
 
@@ -349,12 +353,25 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
     else:
         atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
 
-    tmp_item = _dict_extractor[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices)
+    out_file = None
 
-    if form_in!=form_out:
-        tmp_item = convert(tmp_item, to_form=form_out)
+    if type(form_out)==str:
+        if form_out.split('.')[-1] in _list_files_forms:
+            out_file=form_out
+            form_out=form_out.split('.')[-1]
 
-    return tmp_item
+    if (out_file is not None) and (form_in==form_out) :
+
+        return _dict_extractor[form_in](item, output_filepath=out_file, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    else:
+
+        tmp_item = _dict_extractor[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+        if form_in!=form_out:
+            tmp_item = convert(tmp_item, to_form=form_out)
+
+        return tmp_item
 
 def merge(item1=None, item2=None, to_form=None):
 
@@ -1139,9 +1156,14 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                     form_out=form_out.split('.')[-1]
 
             if out_file is not None:
-                tmp_item = _dict_converter[form_in][form_out](item, output_filepath=out_file,
+                if form_in!=form_out:
+                    tmp_item = _dict_converter[form_in][form_out](item, output_filepath=out_file,
                                                           atom_indices=atom_indices, frame_indices=frame_indices,
                                                           **kwargs)
+                else:
+                    tmp_item = extract(item, selection=atom_indices, frame_indices=frame_indices,
+                                       to_form=out_file)
+
             else:
                 if form_in!=form_out:
                     tmp_item = _dict_converter[form_in][form_out](item, atom_indices=atom_indices,

@@ -13,7 +13,7 @@ def complementary_atom_indices(item, atom_indices):
     from numpy import where
     from molsysmt import get
 
-    n_atoms = get(item, element='system', n_atoms=True)
+    n_atoms = get(item, target='system', n_atoms=True)
 
     mask = ones(n_atoms,dtype=bool)
     mask[atom_indices]=False

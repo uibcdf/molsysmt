@@ -147,17 +147,11 @@ def copy(item):
     copy(item,tmp_file)
     return tmp_file
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def extract(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
-    else:
-        from molsysmt.utils.pdb import tmp_pdb_filename
-        from molsysmt.forms.classes.api_pdbfixer_PDBFixer import to_pdb as pdbfixer_PDBFixer_to_pdb
-        tmp_item = to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_file = tmp_pdb_filename()
-        pdbfixer_PDBFixer_to_pdb(tmp_item, output_filepath=tmp_file)
-        return tmp_file
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_pdb as molsysmt_MolSys_to_pdb
+    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return molsysmt_MolSys_to_pdb(tmp_item, output_filepath=output_filepath)
 
 ###### Get
 

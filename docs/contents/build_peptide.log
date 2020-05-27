@@ -1,4 +1,4 @@
-log started: Tue May 26 17:38:08 2020
+log started: Wed May 27 01:51:50 2020
 
 Log file: ./leap.log
 >> #
@@ -553,54 +553,76 @@ Reading title:
 Li/Merz ion parameters of divalent to tetravalent ions for TIP3P water model (12-6 normal usage set)
 >> 
 > 
-> MolecularSystem = loadPdb tmpalqd4fxp.pdb
-Loading PDB file: ./tmpalqd4fxp.pdb
+> MolecularSystem = loadPdb tmpobqq7j8i.pdb
+Loading PDB file: ./tmpobqq7j8i.pdb
 Matching PDB residue names to LEaP variables.
 Mapped residue ASN, term: Terminal/beginning, seq. number: 0 to: NASN.
 Mapped residue SER, term: Terminal/last, seq. number: 19 to: CSER.
-Created a new atom named: H within residue: .R<NASN 1>
-  total atoms in file: 304
-  Leap added 1 missing atom according to residue templates:
-       1 H / lone pairs
-  The file contained 1 atoms not in residue templates
+  total atoms in file: 154
+  Leap added 150 missing atoms according to residue templates:
+       150 H / lone pairs
+> check MolecularSystem
+Checking 'MolecularSystem'....
 
 /home/diego/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/bin/teLeap: Warning!
-Since the number of added atoms equals the number of missing atoms, it is likely
-that some atoms had incorrect names; you may want to use addPdbAtomMap to map
-these names, or change the names in the PDB file.
-
+The unperturbed charge of the unit (1.000000) is not zero.
+Checking parameters for unit 'MolecularSystem'.
+Checking for bond parameters.
+Checking for angle parameters.
+check:  Warnings: 1
+Unit is OK.
+> charge MolecularSystem
+Total unperturbed charge:   1.000000
+Total perturbed charge:     1.000000
 > solvateOct MolecularSystem TIP3PBOX 14.0 iso
-Scaling up box by a factor of 1.229251 to meet diagonal cut criterion
-  Solute vdw bounding box:              26.059 23.207 16.292
-  Total bounding box for atom centers:  60.478 60.478 60.478
-      (box expansion for 'iso' is  25.2%)
+Scaling up box by a factor of 1.258389 to meet diagonal cut criterion
+  Solute vdw bounding box:              26.062 23.198 16.265
+  Total bounding box for atom centers:  61.297 61.297 61.297
+      (box expansion for 'iso' is  24.9%)
   Solvent unit box:                     18.774 18.774 18.774
 The number of boxes:  x= 4  y= 4  z= 4
-  Volume: 116178.318 A^3 (oct)
-  Mass > 60956.658 amu,  Density > 0.871 g/cc
-      (type - hence mass - of one or more atoms could not be found)
-  Added 3263 residues.
+  Volume: 120883.663 A^3 (oct)
+  Total mass 63677.074 amu,  Density 0.875 g/cc
+  Added 3414 residues.
 > addIonsRand MolecularSystem Cl- 0
 1 Cl- ion required to neutralize.
-Adding 1 counter ions to "MolecularSystem". 3262 solvent molecules will remain.
-0: Placed Cl- in MolecularSystem at (-8.73, 5.12, -17.20).
+Adding 1 counter ions to "MolecularSystem". 3413 solvent molecules will remain.
+0: Placed Cl- in MolecularSystem at (7.90, 16.72, 14.54).
 > addIonsRand MolecularSystem Na+ 0
 
 /home/diego/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/bin/teLeap: Warning!
 addIonsRand: 1st Ion & target unit have charges of the same sign:
      unit charge = 4.44089e-15; ion1 charge = 1;
      can't neutralize.
-> savePDB MolecularSystem tmps54kdczq.pdb
-Writing pdb file: tmps54kdczq.pdb
-   printing CRYST1 record to PDB file with box info
+> saveAmberParm MolecularSystem tmpau5n1fre.prmtop tmpau5n1fre.inpcrd
+Checking Unit.
+Building topology.
+Building atom parameters.
+Building bond parameters.
+Building angle parameters.
+Building proper torsion parameters.
+Building improper torsion parameters.
+ ** Warning: No sp2 improper torsion term for  C*-CN-CB-CA
+        atoms are: CG CE2 CD2 CE3
+ ** Warning: No sp2 improper torsion term for  NA-CA-CN-CB
+        atoms are: NE1 CZ2 CE2 CD2
+ total 61 improper torsions applied
+Building H-Bond parameters.
+Incorporating Non-Bonded adjustments.
+Not Marking per-residue atom chain types.
+Marking per-residue atom chain types.
+  (Residues lacking connect0/connect1 - 
+   these don't have chain types marked:
 
-/home/diego/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/bin/teLeap: Warning!
- Converting N-terminal residue name to PDB format: NASN -> ASN
+	res	total affected
 
-/home/diego/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/bin/teLeap: Warning!
- Converting C-terminal residue name to PDB format: CSER -> SER
+	CSER	1
+	NASN	1
+	WAT	3413
+  )
+ (no restraints)
 > 
 > quit
 	Quit
 
-Exiting LEaP: Errors = 0; Warnings = 4; Notes = 0.
+Exiting LEaP: Errors = 0; Warnings = 2; Notes = 0.

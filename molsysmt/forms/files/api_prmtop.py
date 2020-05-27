@@ -29,7 +29,6 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
     return openmm_Modeller_to_pdb(tmp_item, output_filepath=output_filepath)
 
 def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
     from molsysmt.native.io.molsys.files import from_prmtop as prmtop_to_molsysmt_MolSys
     tmp_item = prmtop_to_molsysmt_MolSys(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
