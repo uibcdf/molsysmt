@@ -70,9 +70,12 @@ def extract(item, atom_indices='all', frame_indices='all'):
     else:
         raise NotImplementedError
 
-def copy(item):
+def copy(item, output_filepath=None):
 
-    raise NotImplementedError
+    from shutil import copyfile
+
+    er=copyfile(item, output_filepath)
+    pass
 
 
 #### Get

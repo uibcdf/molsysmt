@@ -167,12 +167,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Duplicate.html">Duplicating a system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Extract.html">Extracting a molecular subsystem</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Extract.html#How-to-extract-a-molecular-subsystem">How to extract a molecular subsystem</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Remove.html">Removing atoms from a molecular system</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Remove.html">Removing atoms and frames from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-frames">Removing frames</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-atoms">Removing atoms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-hydrogen-atoms">Removing hydrogen atoms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-the-solvent">Removing the solvent</a></li>
@@ -183,7 +183,10 @@
 <p class="caption"><span class="caption-text">Building tools</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Fix.html">Fixing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Solvation.html">Solvation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Solvation.html">Adding solvent</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Solvation.html#Octahedral">Octahedral</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Building a peptide from its sequence</a><ul>
@@ -191,6 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Alanine-pentapeptide-in-implicit-solvent">Alanine pentapeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Alanine-pentapeptide-in-explicit-solvent">Alanine pentapeptide in explicit solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
@@ -282,13 +286,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index_elements.html">Elements</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.native.elements.atom.html">molsysmt.native.elements.atom</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.native.elements.component.html">molsysmt.native.elements.component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.native.elements.chain.html">molsysmt.native.elements.chain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.native.elements.bond.html">molsysmt.native.elements.bond</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index_elements.html">Elements</a></li>
 </ul>
 
             
@@ -631,14 +629,14 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b2d2e71d2b4f4d198330405e82f1e8c9", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a8b3338cfd454a4a9d997192641527bb", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Building-a-peptide-from-its-sequence">
 <h1>Building a peptide from its sequence<a class="headerlink" href="#Building-a-peptide-from-its-sequence" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Alanine-dipeptide-in-implicit-solvent">
 <h2>Alanine dipeptide in implicit solvent<a class="headerlink" href="#Alanine-dipeptide-in-implicit-solvent" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -651,7 +649,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Alanine-dipeptide-in-explicit-solvent">
 <h2>Alanine dipeptide in explicit solvent<a class="headerlink" href="#Alanine-dipeptide-in-explicit-solvent" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -665,7 +663,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Alanine-pentapeptide-in-implicit-solvent">
 <h2>Alanine pentapeptide in implicit solvent<a class="headerlink" href="#Alanine-pentapeptide-in-implicit-solvent" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -678,13 +676,35 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Alanine-pentapeptide-in-explicit-solvent">
 <h2>Alanine pentapeptide in explicit solvent<a class="headerlink" href="#Alanine-pentapeptide-in-explicit-solvent" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">msm</span><span class="o">.</span><span class="n">build_peptide</span><span class="p">(</span><span class="s1">&#39;aminoacids3:AceAlaAlaAlaAlaAlaNme&#39;</span><span class="p">,</span> <span class="n">forcefield</span><span class="o">=</span><span class="s1">&#39;AMBER96&#39;</span><span class="p">,</span>
                   <span class="n">water_model</span><span class="o">=</span><span class="s1">&#39;TIP3P&#39;</span><span class="p">,</span> <span class="n">box_geometry</span><span class="o">=</span><span class="s1">&#39;truncated_octahedral&#39;</span><span class="p">,</span>
                   <span class="n">to_form</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pentalanine_amber96_tip3p.prmtop&#39;</span><span class="p">,</span><span class="s1">&#39;pentalanine_amber96_tip3p.inpcrd&#39;</span><span class="p">],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Met-enkephalin-in-implicit-solvent">
+<h2>Met-enkephalin in implicit solvent<a class="headerlink" href="#Met-enkephalin-in-implicit-solvent" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">build_peptide</span><span class="p">(</span><span class="s1">&#39;aminoacids3:TyrGlyGlyPheMet&#39;</span><span class="p">,</span> <span class="n">forcefield</span><span class="o">=</span><span class="s1">&#39;AMBER96&#39;</span><span class="p">,</span> <span class="n">implicit_solvent</span><span class="o">=</span><span class="s1">&#39;GBSA OBC&#39;</span><span class="p">,</span>
+                  <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;metenkephalin.pdb&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
 </pre></div>
 </div>
 </div>

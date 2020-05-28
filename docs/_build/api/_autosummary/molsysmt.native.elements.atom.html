@@ -37,9 +37,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="molsysmt.native.elements.component" href="molsysmt.native.elements.component.html" />
-    <link rel="prev" title="Elements" href="../index_elements.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -167,12 +165,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/Duplicate.html">Duplicating a system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Extract.html">Extracting a molecular subsystem</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Extract.html#How-to-extract-a-molecular-subsystem">How to extract a molecular subsystem</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/Remove.html">Removing atoms from a molecular system</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/Remove.html">Removing atoms and frames from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/Remove.html#Removing-frames">Removing frames</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Remove.html#Removing-atoms">Removing atoms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Remove.html#Removing-hydrogen-atoms">Removing hydrogen atoms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Remove.html#Removing-the-solvent">Removing the solvent</a></li>
@@ -183,7 +181,10 @@
 <p class="caption"><span class="caption-text">Building tools</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Fix.html">Fixing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/Solvation.html">Solvation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/Solvation.html">Adding solvent</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/Solvation.html#Octahedral">Octahedral</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Protonation.html">Protonation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Build_peptide.html">Building a peptide from its sequence</a><ul>
@@ -191,6 +192,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Build_peptide.html#Alanine-pentapeptide-in-implicit-solvent">Alanine pentapeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Build_peptide.html#Alanine-pentapeptide-in-explicit-solvent">Alanine pentapeptide in explicit solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Energy_minimization.html">Energy minimization</a></li>
@@ -242,7 +244,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Mutations.html">Mutations</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Basic manipulations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.convert.html">molsysmt.convert</a></li>
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.info.html">molsysmt.info</a></li>
@@ -282,13 +284,7 @@
 <li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index_elements.html">Elements</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">molsysmt.native.elements.atom</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.component.html">molsysmt.native.elements.component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.chain.html">molsysmt.native.elements.chain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.native.elements.bond.html">molsysmt.native.elements.bond</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../index_elements.html">Elements</a></li>
 </ul>
 
             
@@ -334,8 +330,6 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index_elements.html">Elements</a> &raquo;</li>
-        
       <li>molsysmt.native.elements.atom</li>
     
     
@@ -379,61 +373,8 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="module-molsysmt.native.elements.atom">
-<span id="molsysmt-native-elements-atom"></span><h1>molsysmt.native.elements.atom<a class="headerlink" href="#module-molsysmt.native.elements.atom" title="Permalink to this headline">¶</a></h1>
-<p class="rubric">Classes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#molsysmt.native.elements.atom.Atom" title="molsysmt.native.elements.atom.Atom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Atom</span></code></a>([index, id, name, type])</p></td>
-<td><p>Atom element.</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py class">
-<dt id="molsysmt.native.elements.atom.Atom">
-<em class="property">class </em><code class="sig-prename descclassname">molsysmt.native.elements.atom.</code><code class="sig-name descname">Atom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/native/elements/atom.html#Atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.native.elements.atom.Atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Atom element.</p>
-<p>Blablabla descripcion.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>index</strong><span class="classifier">int</span></dt><dd><p>Description of index.</p>
-</dd>
-<dt><strong>id</strong><span class="classifier">int or str</span></dt><dd><p>Description of id.</p>
-</dd>
-<dt><strong>name</strong><span class="classifier">str</span></dt><dd><p>Description of name.</p>
-</dd>
-<dt><strong>type</strong><span class="classifier">str</span></dt><dd><p>Description of type.</p>
-</dd>
-<dt><strong>formal_charge</strong><span class="classifier">float</span></dt><dd><p>Description of formal change.</p>
-</dd>
-<dt><strong>group</strong><span class="classifier">obj</span></dt><dd><p>Description of group.</p>
-</dd>
-<dt><strong>component</strong><span class="classifier">obj</span></dt><dd><p>Description of component.</p>
-</dd>
-<dt><strong>chain</strong><span class="classifier">obj</span></dt><dd><p>Description of chain.</p>
-</dd>
-<dt><strong>molecule</strong><span class="classifier">obj</span></dt><dd><p>Description of molecule.</p>
-</dd>
-<dt><strong>entity</strong><span class="classifier">obj</span></dt><dd><p>Description of molecule.</p>
-</dd>
-<dt><strong>bond_with_atom_index</strong><span class="classifier">x</span></dt><dd><p>Dictionary.</p>
-</dd>
-<dt><strong>bond_indices</strong><span class="classifier">x</span></dt><dd><p>Description of bond_indices.</p>
-</dd>
-<dt><strong>bonded_atom_indices</strong><span class="classifier">x</span></dt><dd><p>Description of bonded atom indices.</p>
-</dd>
-<dt><strong>n_bonds</strong><span class="classifier">x</span></dt><dd><p>Description of n_bonds.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+<div class="section" id="molsysmt-native-elements-atom">
+<h1>molsysmt.native.elements.atom<a class="headerlink" href="#molsysmt-native-elements-atom" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -441,15 +382,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="molsysmt.native.elements.component.html" class="btn btn-neutral float-right" title="molsysmt.native.elements.component" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../index_elements.html" class="btn btn-neutral float-left" title="Elements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

@@ -165,12 +165,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Duplicate.html">Duplicating a system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Extract.html">Extracting a molecular subsystem</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Extract.html#How-to-extract-a-molecular-subsystem">How to extract a molecular subsystem</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Remove.html">Removing atoms from a molecular system</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Remove.html">Removing atoms and frames from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-frames">Removing frames</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-atoms">Removing atoms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-hydrogen-atoms">Removing hydrogen atoms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-the-solvent">Removing the solvent</a></li>
@@ -181,7 +181,10 @@
 <p class="caption"><span class="caption-text">Building tools</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Fix.html">Fixing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Solvation.html">Solvation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Solvation.html">Adding solvent</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Solvation.html#Octahedral">Octahedral</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Build_peptide.html">Building a peptide from its sequence</a><ul>
@@ -189,6 +192,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-pentapeptide-in-implicit-solvent">Alanine pentapeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-pentapeptide-in-explicit-solvent">Alanine pentapeptide in explicit solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
@@ -280,13 +284,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index_elements.html">Elements</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.native.elements.atom.html">molsysmt.native.elements.atom</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.native.elements.component.html">molsysmt.native.elements.component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.native.elements.chain.html">molsysmt.native.elements.chain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.native.elements.bond.html">molsysmt.native.elements.bond</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index_elements.html">Elements</a></li>
 </ul>
 
             
@@ -616,8 +614,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -629,14 +627,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a01ffac915ad448eb577b180f5ce259a", "version_major": 2, "version_minor": 0}</script></div>
-</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -647,38 +639,11 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">aa</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span><span class="mi">4</span><span class="p">)[:</span><span class="mi">4</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-array([2, 3, 0, 1])
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">e2s</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span></span>
 </pre></div>
 </div>
 </div>

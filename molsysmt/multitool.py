@@ -1123,6 +1123,11 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
     # either is 'all' or numpy.array
     # to avoid select or getting numframes inside api methods.
 
+    same_system = False
+
+    if selection is 'all' and frame_indices is 'all':
+        same_system = True
+
     if type(to_form) in [list, tuple]:
 
         tmp_item=[]
@@ -1160,6 +1165,9 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                     tmp_item = _dict_converter[form_in][form_out](item, output_filepath=out_file,
                                                           atom_indices=atom_indices, frame_indices=frame_indices,
                                                           **kwargs)
+                elif same_system:
+                    tmp_item = copy(item, output_filepath=out_file)
+
                 else:
                     tmp_item = extract(item, selection=atom_indices, frame_indices=frame_indices,
                                        to_form=out_file)
@@ -1168,6 +1176,9 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                 if form_in!=form_out:
                     tmp_item = _dict_converter[form_in][form_out](item, atom_indices=atom_indices,
                                                                   frame_indices=frame_indices, **kwargs)
+                elif same_system:
+                    tmp_item = copy(item)
+
                 else:
                     tmp_item = extract(item, selection=atom_indices, frame_indices=frame_indices)
 
@@ -1222,29 +1233,63 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                     form_out=form_out.split('.')[-1]
 
             try:
+
                 if out_file is not None:
-                    tmp_item = _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_filepath=out_file,
+
+                    if topology_form!=form_out:
+                        tmp_item = _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_filepath=out_file,
                                                               atom_indices=atom_indices, frame_indices=frame_indices,
                                                               **kwargs)
+                    elif same_system:
+                        tmp_item = copy(topology_item, output_filepath=out_file)
+
+                    else:
+                        tmp_item = extract(topology_item, selection=atom_indices, frame_indices=frame_indices,
+                                           to_form=out_file)
+
                 else:
-                    tmp_item = _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
-                                                              frame_indices=frame_indices, **kwargs)
+                    if topology_form!=form_out:
+                        tmp_item = _dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
+                                                                      frame_indices=frame_indices, **kwargs)
+                    elif same_system:
+                        tmp_item = copy(topology_item)
+
+                    else:
+                        tmp_item = extract(topology_item, selection=atom_indices, frame_indices=frame_indices)
+
             except:
+
                 if out_file is not None:
-                    tmp_item = _dict_converter[trajectory_form][form_out](trajectory_item, output_filepath=out_file,
+
+                    if trajectory_form!=form_out:
+                        tmp_item = _dict_converter[trajectory_form][form_out](trajectory_item, output_filepath=out_file,
                                                               atom_indices=atom_indices, frame_indices=frame_indices,
                                                               **kwargs)
+                    elif same_system:
+                        tmp_item = copy(trajectory_item, output_filepath=out_file)
+                    else:
+                        tmp_item = extract(trajectory_item, selection=atom_indices, frame_indices=frame_indices,
+                                           to_form=out_file)
+
                 else:
-                    tmp_item = _dict_converter[trajectory_form][form_out](trajectory_item, atom_indices=atom_indices,
-                                                              frame_indices=frame_indices, **kwargs)
+                    if trajectory_form!=form_out:
+                        tmp_item = _dict_converter[trajectory_form][form_out](trajectory_item, atom_indices=atom_indices,
+                                                                      frame_indices=frame_indices, **kwargs)
+                    elif same_system:
+                        tmp_item = copy(trajectory_item)
+                    else:
+                        tmp_item = extract(trajectory_form, selection=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
-
-def copy(item=None):
+def copy(item=None, output_filepath=None):
 
     form_in, _ = _digest_forms(item)
-    return _dict_copier[form_in](item)
+
+    if output_filepath is None:
+        return _dict_copier[form_in](item)
+    else:
+        return _dict_copier[form_in](item, output_filepath=output_filepath)
 
 def write(item=None, filename=None, selection='all', frame_indices='all', syntaxis='MolSysMT'):
 

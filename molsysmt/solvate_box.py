@@ -15,7 +15,8 @@ Methods and wrappers to create and solvate boxes
 
 def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angstroms, water='TIP3P',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
-             forcefield='AMBER99SB-ILDN', engine="LEaP", to_form= None, logfile=False, verbose=False):
+             ionic_strength= 0.0*unit.molar, forcefield='AMBER99SB-ILDN', engine="LEaP",
+             to_form= None, logfile=False, verbose=False):
     """solvate(item, geometry=None, water=None, engine=None)
 
     Methods and wrappers to create and solvate boxes
@@ -46,9 +47,43 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
     from .utils.forms import digest as digest_forms
 
-    form_in, _ = digest_forms(item)
-    if to_form is None:
-        to_form = form_in
+    form_in, form_out = digest_forms(item)
+
+    if engine=="OpenMM":
+
+        if box_geometry=="truncated_octahedral":
+            raise NotImplementedError
+
+        from molsysmt import convert
+        from molsysmt.utils.forcefields import digest as digest_forcefield
+        from simtk.openmm.app import ForceField
+
+        solvent_model=None
+        if water=='SPC':
+            solvent_model='tip3p'
+        elif water=='TIP3P':
+            solvent_model='tip3p'
+        elif water=='TIP3PFB':
+            solvent_model='tip3pfb'
+        elif water=='SPCE':
+            solvent_model='spce'
+        elif water =='TIP4PEW':
+            solvent_model='tip4pew'
+        elif water =='TIP4PFB':
+            solvent_model='tip4pfb'
+        elif water =='TIP5P':
+            solvent_model='tip5p'
+
+        forcefield_parameters = digest_forcefield([forcefield, water], 'OpenMM')
+        modeller = convert(item, to_form='openmm.Modeller')
+        forcefield = ForceField(*forcefield_parameters)
+        modeller.addSolvent(forcefield, model=solvent_model, padding=clearance,
+                            ionicStrength=ionic_strength, positiveIon=cation,
+                            negativeIon=anion)
+        tmp_item = convert(modeller, to_form=form_out)
+        del(modeller)
+
+        return tmp_item
 
     if engine=="LEaP":
 
@@ -109,7 +144,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
             copyfile(tmp_logfile, current_directory+'/build_peptide.log')
 
         #tmp_item = convert(pdbfile_out, to_form=to_form)
-        tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)
+        tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=form_out)
 
         rmtree(working_directory)
 

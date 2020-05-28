@@ -165,12 +165,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/Duplicate.html">Duplicating a system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Extract.html">Extracting a molecular subsystem</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Extract.html#How-to-extract-a-molecular-subsystem">How to extract a molecular subsystem</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/Remove.html">Removing atoms from a molecular system</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/Remove.html">Removing atoms and frames from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/Remove.html#Removing-frames">Removing frames</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Remove.html#Removing-atoms">Removing atoms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Remove.html#Removing-hydrogen-atoms">Removing hydrogen atoms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Remove.html#Removing-the-solvent">Removing the solvent</a></li>
@@ -181,7 +181,10 @@
 <p class="caption"><span class="caption-text">Building tools</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Fix.html">Fixing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../contents/Solvation.html">Solvation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/Solvation.html">Adding solvent</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/Solvation.html#Octahedral">Octahedral</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Protonation.html">Protonation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Build_peptide.html">Building a peptide from its sequence</a><ul>
@@ -189,6 +192,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Build_peptide.html#Alanine-pentapeptide-in-implicit-solvent">Alanine pentapeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Build_peptide.html#Alanine-pentapeptide-in-explicit-solvent">Alanine pentapeptide in explicit solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Energy_minimization.html">Energy minimization</a></li>
@@ -280,13 +284,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/index_elements.html">Elements</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.atom.html">molsysmt.native.elements.atom</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.component.html">molsysmt.native.elements.component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.chain.html">molsysmt.native.elements.chain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.native.elements.bond.html">molsysmt.native.elements.bond</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index_elements.html">Elements</a></li>
 </ul>
 
             
@@ -582,7 +580,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_indices_to_syntaxis</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">output_indices</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="n">to_syntaxis</span><span class="p">)</span></div>
 
-<span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;remove(item, selection=None, frame_indices=None, syntaxis=&#39;MolSysMT&#39;)</span>
 
@@ -648,9 +646,13 @@
         <span class="n">atom_indices_to_be_kept</span> <span class="o">=</span> <span class="n">complementary_atom_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices_to_be_removed</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">frame_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Removing frames is not implemented yet&quot;</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">.utils.frame_indices</span> <span class="kn">import</span> <span class="n">digest</span> <span class="k">as</span> <span class="n">digest_frame_indices</span>
+        <span class="kn">from</span> <span class="nn">.utils.frame_indices</span> <span class="kn">import</span> <span class="n">complementary_frame_indices</span>
+        <span class="n">frame_indices_to_be_removed</span> <span class="o">=</span> <span class="n">digest_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices</span><span class="p">)</span>
+        <span class="n">frame_indices_to_be_kept</span> <span class="o">=</span> <span class="n">complementary_frame_indices</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">frame_indices_to_be_removed</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection_to_be_kept</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices_to_be_kept</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">atom_indices_to_be_kept</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices_to_be_kept</span><span class="p">,</span>
+                   <span class="n">to_form</span><span class="o">=</span><span class="n">to_form</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
 
 <div class="viewcode-block" id="extract"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.extract.html#molsysmt.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
 
@@ -701,12 +703,25 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">atom_indices</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
 
-    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_extractor</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">if</span> <span class="n">form_in</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
-        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">form_out</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">form_out</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">form_out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">_list_files_forms</span><span class="p">:</span>
+            <span class="n">out_file</span><span class="o">=</span><span class="n">form_out</span>
+            <span class="n">form_out</span><span class="o">=</span><span class="n">form_out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">return</span> <span class="n">tmp_item</span></div>
+    <span class="k">if</span> <span class="p">(</span><span class="n">out_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">form_in</span><span class="o">==</span><span class="n">form_out</span><span class="p">)</span> <span class="p">:</span>
+
+        <span class="k">return</span> <span class="n">_dict_extractor</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_extractor</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">form_in</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
+            <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">form_out</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tmp_item</span></div>
 
 <div class="viewcode-block" id="merge"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.merge.html#molsysmt.merge">[docs]</a><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">item1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">item2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
@@ -1458,6 +1473,11 @@
     <span class="c1"># either is &#39;all&#39; or numpy.array</span>
     <span class="c1"># to avoid select or getting numframes inside api methods.</span>
 
+    <span class="n">same_system</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">selection</span> <span class="ow">is</span> <span class="s1">&#39;all&#39;</span> <span class="ow">and</span> <span class="n">frame_indices</span> <span class="ow">is</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+        <span class="n">same_system</span> <span class="o">=</span> <span class="kc">True</span>
+
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">to_form</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]:</span>
 
         <span class="n">tmp_item</span><span class="o">=</span><span class="p">[]</span>
@@ -1491,13 +1511,24 @@
                     <span class="n">form_out</span><span class="o">=</span><span class="n">form_out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="n">out_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span>
+                <span class="k">if</span> <span class="n">form_in</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
+                    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span>
                                                           <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span>
                                                           <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">same_system</span><span class="p">:</span>
+                    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span>
+                                       <span class="n">to_form</span><span class="o">=</span><span class="n">out_file</span><span class="p">)</span>
+
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">form_in</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
                     <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">form_in</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span>
                                                                   <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">same_system</span><span class="p">:</span>
+                    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
 
@@ -1552,29 +1583,63 @@
                     <span class="n">form_out</span><span class="o">=</span><span class="n">form_out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
             <span class="k">try</span><span class="p">:</span>
+
                 <span class="k">if</span> <span class="n">out_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">topology_form</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">topology_item</span><span class="p">,</span> <span class="n">trajectory_item</span><span class="o">=</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span>
+
+                    <span class="k">if</span> <span class="n">topology_form</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">topology_form</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">topology_item</span><span class="p">,</span> <span class="n">trajectory_item</span><span class="o">=</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span>
                                                               <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span>
                                                               <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">same_system</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">topology_item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">)</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">topology_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span>
+                                           <span class="n">to_form</span><span class="o">=</span><span class="n">out_file</span><span class="p">)</span>
+
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">topology_form</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">topology_item</span><span class="p">,</span> <span class="n">trajectory_item</span><span class="o">=</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span>
-                                                              <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">topology_form</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">topology_form</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">topology_item</span><span class="p">,</span> <span class="n">trajectory_item</span><span class="o">=</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span>
+                                                                      <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">same_system</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">topology_item</span><span class="p">)</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">topology_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
+
             <span class="k">except</span><span class="p">:</span>
+
                 <span class="k">if</span> <span class="n">out_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">trajectory_form</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span>
+
+                    <span class="k">if</span> <span class="n">trajectory_form</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">trajectory_form</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span>
                                                               <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span>
                                                               <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">same_system</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">out_file</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span>
+                                           <span class="n">to_form</span><span class="o">=</span><span class="n">out_file</span><span class="p">)</span>
+
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">trajectory_form</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span>
-                                                              <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">trajectory_form</span><span class="o">!=</span><span class="n">form_out</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">_dict_converter</span><span class="p">[</span><span class="n">trajectory_form</span><span class="p">][</span><span class="n">form_out</span><span class="p">](</span><span class="n">trajectory_item</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span>
+                                                                      <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">same_system</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">trajectory_item</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">trajectory_form</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">tmp_item</span></div>
 
-
-<span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
     <span class="n">form_in</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_digest_forms</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_dict_copier</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">output_filepath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_dict_copier</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_dict_copier</span><span class="p">[</span><span class="n">form_in</span><span class="p">](</span><span class="n">item</span><span class="p">,</span> <span class="n">output_filepath</span><span class="o">=</span><span class="n">output_filepath</span><span class="p">)</span>
 
 <div class="viewcode-block" id="write"><a class="viewcode-back" href="../../api/_autosummary/molsysmt.write.html#molsysmt.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">syntaxis</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">):</span>
 

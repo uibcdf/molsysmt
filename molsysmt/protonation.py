@@ -55,7 +55,7 @@ def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='Ope
     from .utils.forms import digest as digest_forms
     from .utils.engines import digest as digest_engines
 
-    form_in, _ = digest_forms(item)
+    form_in, form_out = digest_forms(item)
     engine = digest_engines(engine)
 
     if engine=="OpenMM":
@@ -84,7 +84,7 @@ def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='Ope
 
         raise NotImplementedError
 
-    tmp_item = convert(tmp_item, to_form=form_in)
+    tmp_item = convert(tmp_item, to_form=form_out)
 
     return tmp_item
 
