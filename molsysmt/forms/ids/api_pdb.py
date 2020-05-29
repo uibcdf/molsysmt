@@ -20,9 +20,8 @@ def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
     from shutil import move
     tmp_item = item.split(':')[-1]
     download_pdb(tmp_item, output_filepath)
-    tmp_item = extract_pdb(output_filepath, atom_indices=atom_indices, frame_indices=frame_indices)
-    if tmp_item!=output_filepath:
-        move(tmp_item, output_filepath)
+    if atom_indices is not 'all' or frame_indices is not 'all':
+        _ = extract_pdb(output_filepath, output_filepath=output_filepath, atom_indices=atom_indices, frame_indices=frame_indices)
     pass
 
 def to_fasta(item, output_filepath=None, atom_indices='all', frame_indices='all'):

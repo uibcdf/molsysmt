@@ -139,19 +139,26 @@ def select_with_MDTraj(item, selection):
     del(tmp_item)
     return tmp_sel
 
-def copy(item):
+def copy(item, output_filepath=None):
 
     from shutil import copy
     from molsysmt.utils.pdb import tmp_pdb_filename
-    tmp_file = tmp_pdb_filename()
-    copy(item,tmp_file)
-    return tmp_file
+    if output_filepath is None:
+        output_filepath = tmp_pdb_filename()
+    copy(item, output_filepath)
+    return output_filepath
 
 def extract(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_molsysmt_MolSys import to_pdb as molsysmt_MolSys_to_pdb
-    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return molsysmt_MolSys_to_pdb(tmp_item, output_filepath=output_filepath)
+    if atom_indices is 'all' and frame_indices is 'all':
+
+        return copy(item, output_filepath=output_filepath)
+
+    else:
+
+        from molsysmt.forms.classes.api_molsysmt_MolSys import to_pdb as molsysmt_MolSys_to_pdb
+        tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        return molsysmt_MolSys_to_pdb(tmp_item, output_filepath=output_filepath)
 
 ###### Get
 

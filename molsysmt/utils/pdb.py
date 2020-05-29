@@ -9,16 +9,16 @@ def tmp_pdb_filename():
     return filename
 
 
-def download_pdb(pdb_id=None, output_file=None):
+def download_pdb(pdb_id=None, output_filepath=None):
 
     filetype='pdb'
     fullurl = 'https://files.rcsb.org/download/'+pdb_id.capitalize()+'.'+filetype
 
     if output_file is None:
-        filename=tmp_filename("pdb")
+        filename=tmp_pdb_filename()
         urllib.request.urlretrieve(fullurl, filename)
         return filename
     else:
-        urllib.request.urlretrieve(fullurl, output_file)
+        urllib.request.urlretrieve(fullurl, output_filepath)
         pass
 
