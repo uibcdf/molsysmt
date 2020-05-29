@@ -14,9 +14,11 @@ def to_openmm_Modeller (item, trajectory_item=None, atom_indices='all', frame_in
 
     from simtk.openmm.app import Modeller
     from .openmm_Topology import to_openmm_Topology as molsysmt_MolSys_to_openmm_Topology
+    from molsysmt.forms.classes.api_molsysmt_MolSys import get_coordinates_from_atom
 
-    tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices)
+    tmp_topology = molsysmt_MolSys_to_openmm_Topology(item, atom_indices=atom_indices)
     tmp_positions = get_coordinates_from_atom(item, indices=atom_indices,
                                               frame_indices=frame_indices)
+
     return Modeller(tmp_topology, tmp_positions[0])
 

@@ -233,7 +233,24 @@ def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom (item, indices='all', frame_indices='all'):
 
-    return item.positions[indices]
+    from numpy import array as _array
+
+    coordinates = _array(item.positions._value)
+    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
+
+    if indices is not 'all':
+        coordinates = coordinates.positions[:,indices,:]
+
+    coordinates = coordinates * item.positions.unit
+
+    return coordinates
+
+def get_frame_from_atom (item, indices='all', frame_indices='all'):
+
+    coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+    box = get_box_from_system(item)
+
+    return None, None, coordinates, box
 
 ## group
 
@@ -315,6 +332,30 @@ def get_n_degrees_of_freedom_from_system (item, indices='all', frame_indices='al
 
     from molsysmt import get_degrees_of_freedom as _get
     return _get(item, indices=indices)
+
+def get_box_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_openmm_Topology import get_box_from_system as _get
+
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, frame_indices=frame_indices)
+
+def get_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    from numpy import array as _array
+
+    coordinates = _array(item.positions._value)
+    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
+    coordinates = coordinates * item.positions.unit
+
+    return coordinates
+
+def get_frame_from_system (item, indices='all', frame_indices='all'):
+
+    coordinates = get_coordinates_from_system(item, frame_indices=frame_indices)
+    box = get_box_from_system(item)
+
+    return None, None, coordinates, box
 
 
 def get_form_from_system(item, indices='all', frame_indices='all'):

@@ -355,6 +355,20 @@ def get_net_charge_from_system (item, indices='all', frame_indices='all'):
 
     return 'por hacer'
 
+def get_box_from_system (item, indices='all', frame_indices='all'):
+
+    from numpy import array as _array
+
+    box = item.getPeriodicBoxVectors()
+
+    if box is not None:
+        box = _array(box._value)
+        box = box.reshape(1, box.shape[0], box.shape[1])
+        box = box * box.unit
+
+    return box
+
+
 def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
     return 0

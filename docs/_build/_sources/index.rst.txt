@@ -51,7 +51,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/Selection.ipynb
    contents/Get.ipynb
    contents/Info.ipynb
-   contents/Duplicate.ipynb
+   contents/Copy.ipynb
    contents/Extract.ipynb
    contents/Remove.ipynb
    contents/View.ipynb
