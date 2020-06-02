@@ -1,4 +1,4 @@
-# Argos, P., Rao, J. K. M. & Hargrave, P. A., Eur. J. Biochem. 2005, 128, 565–575.
+# Argos, P., Rao, J. K. M. & Hargrave, P. A.; Eur. J. Biochem. 2005, 128, 565–575.
 
 argos={
 
@@ -26,4 +26,30 @@ eisenberg = {
     'TRP':  0.810,
     'TYR':  0.260,
     'VAL':  1.080
+}
+
+
+# Sweet R.M., Eisenberg D.; J. Mol. Biol. 171:479-488(1983).
+
+Sweet ={
+    'ALA': -0.400,
+    'ARG': -0.590,
+    'ASN': -0.920,
+    'ASP': -1.310,
+    'CYS':  0.170,
+    'GLN': -0.910,
+    'GLU': -1.220,
+    'GLY': -0.670,
+    'HIS': -0.640,
+    'ILE':  1.250,
+    'LEU':  1.220,
+    'LYS': -0.670,
+    'MET':  1.020,
+    'PHE':  1.920,
+    'PRO': -0.490,
+    'SER': -0.550,
+    'THR': -0.280,
+    'TRP':  0.500,
+    'TYR':  1.670,
+    'VAL':  0.910
 }
