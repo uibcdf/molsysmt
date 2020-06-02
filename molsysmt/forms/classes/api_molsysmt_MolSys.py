@@ -49,22 +49,12 @@ def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all'):
     tmp_item = aminoacids1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    from simtk import unit as _unit
-    from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
+    from molsysmt.native.io.molsys.classes import to_mdtraj_Trajectory as molsysmt_MolSys_to_mdtraj_Trajectory
 
-    tmp_item_topology = to_mdtraj_Topology(item, atom_indices=atom_indices)
-    tmp_box_lengths = get_box_lengths_from_system(item, frame_indices=frame_indices)
-    tmp_box_lengths = tmp_box_lengths.in_units_of(_unit.nanometers)._value
-    tmp_box_angles = get_box_angles_from_system(item, frame_indices=frame_indices)
-    tmp_box_angles = tmp_box_angles.in_units_of(_unit.degrees)._value
-    tmp_coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
-    tmp_coordinates = tmp_coordinates.in_units_of(_unit.nanometers)._value
-    tmp_time = get_coordinates_from_system(item, frame_indices=frame_indices)
-    tmp_time = tmp_time.in_units_of(_unit.picoseconds)._value
-    tmp_item = mdtraj_Trajectory(tmp_coordinates,tmp_item_topology, tmp_time,
-            unitcell_lengths=tmp_box_lengths, unitcell_angles=tmp_box_angles)
+    tmp_item = molsysmt_MolSys_to_mdtraj_Trajectory(item, atom_indices=atom_indices,
+                                                   frame_indices=frame_indices)
 
     return tmp_item
 
@@ -1387,13 +1377,17 @@ def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
     tmp_box_lengths = item.trajectory.get_box_lengths()
-    tmp_box_lengths = tmp_box_lengths[frame_indices,:]
+    if frame_indices is not 'all':
+        tmp_box_lengths = tmp_box_lengths[frame_indices,:]
+
     return tmp_box_lengths
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
     tmp_box_angles = item.trajectory.get_box_angles()
-    tmp_box_angles = tmp_box_angles[frame_indices,:]
+    if frame_indices is not 'all':
+        tmp_box_angles = tmp_box_angles[frame_indices,:]
+
     return tmp_box_angles
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
