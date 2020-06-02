@@ -1,7 +1,25 @@
-# Argos, P., Rao, J. K. M. & Hargrave, P. A.; Eur. J. Biochem. 2005, 128, 565–575.
+# Argos, P., Rao, J. K. M. & Hargrave, P. A.; Eur. J. Biochem. 1982, 128, 565–575.
 
 argos={
-
+    'ALA': 0.610,
+    'ARG': 0.600,
+    'ASN': 0.060,
+    'CYS': 1.070,
+    'GLN': 0.000,
+    'GLU': 0.470,
+    'GLY': 0.070,
+    'HIS': 0.610,
+    'ILE': 2.220,
+    'LEU': 1.530,
+    'LYS': 1.150,
+    'MET': 1.180,
+    'PHE': 2.020,
+    'PRO': 1.950,
+    'SER': 0.050,
+    'THR': 0.050,
+    'TRP': 2.650,
+    'TYR': 1.880,
+    'VAL': 1.320 
 }
 
 # Eisenberg D., Schwarz E., Komarony M., Wall R. J. Mol. Biol. 179:125-142(1984).
