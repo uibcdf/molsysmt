@@ -3,6 +3,7 @@ def to_openmm_Topology(item, trajectory_item='all', atom_indices='all', frame_in
     import simtk.openmm as mm
     import simtk.openmm.app as app
     import simtk.unit as unit
+    from numpy import unique
 
     n_atoms = item.shape[0]
 
@@ -72,7 +73,7 @@ def to_openmm_Topology(item, trajectory_item='all', atom_indices='all', frame_in
 def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import Topology
-    from numpy import empty, array, arange, reshape, where, unique, nan, sort
+    from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
     from molsysmt.elements.group import name_to_type as group_name_to_group_type
     from networkx import empty_graph, connected_components
 
@@ -127,7 +128,7 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item["group.name"] = group_name_array
     tmp_item["group.id"] = group_id_array
     tmp_item["group.type"] = group_type_array
-    del(group_index_array, group_name_array, group_id_array, group_type_array)
+    del(group_index_array, group_id_array, group_name_array, group_type_array)
 
     tmp_item["chain.index"] = chain_index_array
     tmp_item["chain.id"] = chain_id_array
@@ -136,9 +137,6 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     # components
 
     component_index_array = empty(n_atoms, dtype=int)
-    component_name_array = empty(n_atoms, dtype=object)
-    component_id_array = empty(n_atoms, dtype=int)
-    component_type_array = empty(n_atoms, dtype=object)
 
     G = empty_graph(n_atoms)
 
@@ -154,35 +152,32 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item["atom.bonded_atom_indices"] = atom_bonded_atom_indices_array
     del(atom_bonded_atom_indices_array)
 
-    atom_indices_per_component = list(connected_components(G))
-    del(G)
-
     component_index = 0
 
-    for atom_indices_of_component in atom_indices_per_component:
-        for atom_index in atom_indices_of_component:
-
-            component_index_array[atom_index] = component_index
-
+    for atom_indices_of_component in connected_components(G):
+        aux_list = list(atom_indices_of_component)
+        component_index_array[aux_list] = component_index
         component_index += 1
 
     tmp_item["component.index"] = component_index_array
 
-    del(component_index_array, component_name_array, component_id_array, component_type_array)
+    del(G)
 
     # molecule
 
-    molecule_index_array = empty(n_atoms, dtype=int)
-    molecule_index_array.fill(0)
-    tmp_item["molecule.index"] = molecule_index_array
-    del(molecule_index_array)
+    tmp_item["molecule.index"] = component_index_array
+
+    del(component_index_array)
 
     # entity
 
-    entity_index_array = empty(n_atoms, dtype=int)
-    entity_index_array.fill(0)
+    entity_index_array = zeros(n_atoms, dtype=int)
     tmp_item["entity.index"] = entity_index_array
     del(entity_index_array)
+
+    # rebuild components, molecules and entities:
+
+    tmp_item._rebuild_components_molecules_entities()
 
     # nan to None
 

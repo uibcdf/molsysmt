@@ -15,6 +15,21 @@ class Topology(PandasDataFrame):
 
         super().__init__(columns=topology_columns)
 
+        atoms_in_groups = []
+        atoms_in_components = []
+        atoms_in_chains = []
+        atoms_in_molecules = []
+        atoms_in_entities = []
+        groups_in_components = []
+        groups_in_chains = []
+        groups_in_molecules = []
+        groups_in_entities = []
+        components_in_chains = []
+        components_in_molecules = []
+        components_in_entities = []
+        molecules_in_entities = []
+        chains_in_entities = []
+
     def extract(self, atom_indices='all', frame_indices='all'):
 
         if type(atom_indices)==str:
@@ -97,4 +112,53 @@ class Topology(PandasDataFrame):
 
         return molsysmt_DataFrame_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
                                          atom_indices='all', frame_indices=frame_indices)
+
+    #def _rebuild_auxiliary_lists(self):
+
+    #    atom_index_array = self['atom.index'].to_numpy()
+    #    group_index_array = self['group.index'].to_numpy()
+    #    component_index_array = self['component.index'].to_numpy()
+    #    molecule_index_array = self['molecule.index'].to_numpy()
+    #    chain_index_array = self['chain.index'].to_numpy()
+    #    entity_index_array = self['entity.index'].to_numpy()
+
+    #    for atom_index, group_index, component_index, molecule_index, chain_index,
+    #    entity_index in zip(atom_index_array, group_index_array, component_index_array,
+    #                       molecule_index_array, chain_index_array)
+    #    n_atoms = self['atom.index'][-1]
+
+    #def _rebuild_components_molecules_entities(self):
+
+    #    from numpy import unique, argwhere
+
+    #    group_index_array = self['group.index'].to_numpy()
+    #    group_type_array = self['group.type'].to_numpy()
+    #    component_index_array = self['component.index'].to_numpy()
+
+    #    n_components = component_index_array[-1]+1
+
+    #    for component_index in range(n_components):
+    #        atom_indices_in_component = argwhere(component_index_array == component_index)
+    #        aux_group_type = group_type_array[atom_indices_in_component[0]]
+    #        tmp_component_type = None
+    #        if aux_group_type in ['water','ion','cosolute','small_molecule']:
+    #            tmp_component_type=aux_group_type
+    #        elif aux_group_type == 'nucleotide':
+    #            if aux_group_type in rna_names:
+    #                tmp_component_type = 'rna'
+    #            elif aux_group_type in dna_names:
+    #                tmp_component_type = 'dna'
+    #        elif aux_group_type == 'aminoacid':
+    #            aux_n_groups = unique(group_index_array[atom_indices_in_component]).shape[0]
+    #            if aux_n_groups>=50:
+    #                tmp_component_type = 'protein'
+    #            else:
+    #                tmp_component_type = 'peptide'
+    #        component_type_array[aux_list]=tmp_component_type
+
+    #    self['component.type']=component_type_array
+
+    #    del(group_index_array, group_type_array, component_index_array)
+
+    #    pass
 
