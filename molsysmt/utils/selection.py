@@ -41,12 +41,12 @@ def indices_to_syntaxis(item, indices, target='atom', to_syntaxis=None):
             output_string = '@'+','.join([str(ii) for ii in indices])
         elif target=='group':
             from molsysmt import get
-            group_ids = get(item, target='group', indices=indices, group_id=True)
-            output_string = ' '.join([str(ii) for ii in group_ids])
+            group_ids, chain_ids = get(item, target='group', indices=indices, group_id=True, chain_id=True)
+            output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
         elif target=='chain':
             from molsysmt import get
-            chain_names = get(item, target='chain', indices=indices, chain_name=True)
-            output_string = ' '.join([':'+ii for ii in chain_names])
+            chain_ids = get(item, target='chain', indices=indices, chain_id=True)
+            output_string = ' '.join([':'+ii for ii in chain_ids])
         else:
             raise NotImplementedError
 

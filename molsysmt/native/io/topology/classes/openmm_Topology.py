@@ -46,7 +46,8 @@ def to_openmm_Topology(item, trajectory_item='all', atom_indices='all', frame_in
         new_chain = (former_chain_index!=chain_index)
 
         if new_chain:
-            chain = tmp_item.addChain()
+            chain_id = chain_id_array[ii]
+            chain = tmp_item.addChain(id=str(chain_id))
             former_chain_index = chain_index
 
         if new_group:
@@ -177,7 +178,7 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     # rebuild components, molecules and entities:
 
-    tmp_item._rebuild_components_molecules_entities()
+    #tmp_item._rebuild_components_molecules_entities()
 
     # nan to None
 

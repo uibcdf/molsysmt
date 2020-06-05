@@ -26,13 +26,16 @@ def to_mdtraj_Trajectory(item, trajectory_item=None, atom_indices='all', frame_i
 
     tmp_item_topology = molsysmt_MolSys_to_mdtraj_Topology(item, atom_indices=atom_indices)
     tmp_box_lengths = get_box_lengths_from_system(item, frame_indices=frame_indices)
-    tmp_box_lengths = tmp_box_lengths.in_units_of(nanometers)._value
+    if tmp_box_lengths is not None:
+        tmp_box_lengths = tmp_box_lengths.in_units_of(nanometers)._value
     tmp_box_angles = get_box_angles_from_system(item, frame_indices=frame_indices)
-    tmp_box_angles = tmp_box_angles.in_units_of(degrees)._value
+    if tmp_box_angles is not None:
+        tmp_box_angles = tmp_box_angles.in_units_of(degrees)._value
     tmp_coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     tmp_coordinates = tmp_coordinates.in_units_of(nanometers)._value
     tmp_time = get_time_from_system(item, frame_indices=frame_indices)
-    tmp_time = tmp_time.in_units_of(picoseconds)._value
+    if tmp_time is not None:
+        tmp_time = tmp_time.in_units_of(picoseconds)._value
     tmp_item = mdtraj_Trajectory(tmp_coordinates,tmp_item_topology, tmp_time,
                                  unitcell_lengths=tmp_box_lengths, unitcell_angles=tmp_box_angles)
 

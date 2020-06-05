@@ -1,4 +1,3 @@
-
 def group_names_to_type(group_names):
 
     from .groups import name_to_type

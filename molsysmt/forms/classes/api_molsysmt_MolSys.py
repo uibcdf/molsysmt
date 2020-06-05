@@ -100,11 +100,13 @@ def extract(item, atom_indices='all', frame_indices='all'):
 
 def to_nglview(item, atom_indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Trajectory import to_nglview as mdtraj_to_nglview
+    from nglview import show_molsysmt
+    from molsysmt.nglview import standardize_view
 
-    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_view = show_molsysmt(item, selection=atom_indices, frame_indices=frame_indices)
+    standardize_view(tmp_view)
 
-    return mdtraj_to_nglview(tmp_item)
+    return tmp_view
 
 def copy(item):
 
@@ -1377,17 +1379,15 @@ def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
     tmp_box_lengths = item.trajectory.get_box_lengths()
-    if frame_indices is not 'all':
+    if tmp_box_lengths is not None and frame_indices is not 'all':
         tmp_box_lengths = tmp_box_lengths[frame_indices,:]
-
     return tmp_box_lengths
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
     tmp_box_angles = item.trajectory.get_box_angles()
-    if frame_indices is not 'all':
+    if tmp_box_angles is not None and frame_indices is not 'all':
         tmp_box_angles = tmp_box_angles[frame_indices,:]
-
     return tmp_box_angles
 
 def get_time_from_system(item, indices='all', frame_indices='all'):

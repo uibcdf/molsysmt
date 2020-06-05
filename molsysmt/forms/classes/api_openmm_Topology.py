@@ -72,7 +72,7 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
     coordinates = _get(trajectory_item, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
 
     tmp_io = StringIO()
-    PDBFile.writeFile(item, coordinates[0], tmp_io)
+    PDBFile.writeFile(item, coordinates[0], tmp_io, keepIds=True)
     filedata = tmp_io.getvalue()
     filedata = filedata.replace('WITH OPENMM '+short_version, 'WITH OPENMM '+short_version+' BY MOLSYSMT')
     tmp_io.close()

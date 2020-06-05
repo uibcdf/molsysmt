@@ -134,10 +134,12 @@ def to_xtc(item, output_filepath=None, trajectory_item=None, atom_indices='all',
 def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_mdtraj as show_mdtraj
-    from molsysmt.utils.nglview import standardize_view
+    from molsysmt.nglview import standardize_view
+
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_view = show_mdtraj(tmp_item)
-    tmp_view = standardize_view(tmp_view)
+    standardize_view(tmp_view)
+
     return tmp_view
 
 def select_with_MDTraj(item, selection):

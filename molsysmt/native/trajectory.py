@@ -77,7 +77,10 @@ class Trajectory():
 
         from molsysmt import box_lengths_from_box_vectors
 
-        lengths = box_lengths_from_box_vectors(self.box)
+        if self.box is not None:
+            lengths = box_lengths_from_box_vectors(self.box)
+        else:
+            lengths = None
 
         return lengths
 
@@ -85,7 +88,10 @@ class Trajectory():
 
         from molsysmt import box_angles_from_box_vectors
 
-        angles = box_angles_from_box_vectors(self.box)
+        if self.box is not None:
+            angles = box_angles_from_box_vectors(self.box)
+        else:
+            angles = None
 
         return angles
 

@@ -15,18 +15,20 @@ nucleotide_names = dna_names + rna_names
 
 def name_to_type(name):
 
+    tmp_type = None
+
     if _name_is_type_water(name):
-        tmp_type='water'
+        tmp_type = 'water'
     elif _name_is_type_ion(name):
-        tmp_type='ion'
+        tmp_type = 'ion'
     elif _name_is_type_cosolute(name):
-        tmp_type='cosolute'
+        tmp_type = 'cosolute'
     elif _name_is_type_small_molecule(name):
-        tmp_type='small_molecule'
+        tmp_type = 'small_molecule'
     elif _name_is_type_aminoacid(name):
-        tmp_type='aminoacid'
+        tmp_type = 'aminoacid'
     elif _name_is_type_nucleotide(name):
-        tmp_type='nucleotide'
+        tmp_type ='nucleotide'
 
     return tmp_type
 
@@ -50,14 +52,4 @@ def _name_is_type_aminoacid(name):
 def _name_is_type_nucleotide(name):
     return (name in nucleotide_names)
 
-def is_type(item, indices='all', selection=None, syntaxis='MolSysMT'):
-
-    from molsysmt import select, get
-
-    if selection is not None:
-        indices = select(item, target='group', selection=selection, syntaxis=syntaxis)
-
-    group_names = get(item, target='group', indices=indices, group_name=True)
-
-    return list(map(name_to_type,group_names))
 
