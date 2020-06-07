@@ -46,28 +46,34 @@ def show_water_as_licorice(view, atom_indices='all', frame_indices='all'):
 
     pass
 
-def show_colored_surface_by_scalar_residue_values(view, values, color_min=[255,255,255],
+def show_colored_surface_by_scalar_residue_values(view, selection, values, color_min=[255,255,255],
                                                   color_max=[255,0,0], value_min=None,
                                                   value_max=None):
 
     from nglview.color import _ColorScheme
     from molsysmt.utils.color import colorscale2hex
+    from molsysmt import select
+
+    groups_selection = select(view, target='group', selection=selection, to_syntaxis='NGLview')
 
     colors = colorscale2hex(values, color_min=color_min, color_max=color_max, value_min=value_min, value_max=value_max)
-    scheme = _ColorScheme([['#'+ii[2:],str(jj)] for ii,jj in zip(colors, range(len(values)))], label='user')
+    scheme = _ColorScheme([['#'+ii[2:], jj] for ii,jj in zip(colors, groups_selection.split(' '))], label='user')
     view.add_surface(selection='protein', color=scheme)
 
     pass
 
-def show_colored_cartoon_by_scalar_residue_values(view, values, color_min=[255,255,255],
+def show_colored_cartoon_by_scalar_residue_values(view, selection, values, color_min=[255,255,255],
                                                   color_max=[255,0,0], value_min=None,
                                                   value_max=None):
 
     from nglview.color import _ColorScheme
     from molsysmt.utils.color import colorscale2hex
+    from molsysmt import select
+
+    groups_selection = select(view, target='group', selection=selection, to_syntaxis='NGLview')
 
     colors = colorscale2hex(values, color_min=color_min, color_max=color_max, value_min=value_min, value_max=value_max)
-    scheme = _ColorScheme([['#'+ii[2:],str(jj)] for ii,jj in zip(colors, range(len(values)))], label='user')
+    scheme = _ColorScheme([['#'+ii[2:], jj] for ii,jj in zip(colors, groups_selection.split(' '))], label='user')
     view.add_cartoon(selection='protein', color=scheme)
 
     # It can also be done as:
