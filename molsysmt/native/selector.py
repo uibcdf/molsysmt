@@ -3,22 +3,32 @@ def query_dataframe(item, selection='all'):
 
     from re import findall
 
+
     if '@' in selection:
-        from inspect import stack
-        count = 0
-        for stack_frame in stack():
-            count +=1
-            if stack_frame.function == 'select':
-                break
+
         var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
+        first_var_name = var_names[0]
+
+        from inspect import stack
+        f_with_vars = None
+        for stack_frame in stack():
+            if first_var_name in stack_frame[0].f_globals.keys():
+                f_with_vars = stack_frame[0].f_globals
+                break
+            elif first_var_name in stack_frame[0].f_locals.keys():
+                f_with_vars = stack_frame[0].f_locals
+
+        if f_with_vars is None:
+            raise ValueError("An @variable in a selection sentence was not found")
+
         for var_name in var_names:
-            globals()[var_name]=stack()[count][0].f_globals[var_name]
+            locals()[var_name]=list(f_with_vars[var_name])
 
     selection = selection.replace(".","_")
     item.columns = [column.replace(".", "_") for column in item.columns]
     atom_indices = item.query(selection).index.to_numpy()
     item.columns = [column.replace("_", ".",1) for column in item.columns]
-    
+
     return atom_indices
 
 def parse(selection='all'):
