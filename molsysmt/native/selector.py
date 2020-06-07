@@ -2,7 +2,7 @@
 def query_dataframe(item, selection='all'):
 
     from re import findall
-
+    from numpy import ndarray
 
     if '@' in selection:
 
@@ -22,7 +22,10 @@ def query_dataframe(item, selection='all'):
             raise ValueError("An @variable in a selection sentence was not found")
 
         for var_name in var_names:
-            locals()[var_name]=list(f_with_vars[var_name])
+            var_value = f_with_vars[var_name]
+            if type(var_value) in [ndarray]:
+                var_value = list(var_value)
+            locals()[var_name]=var_value
 
     selection = selection.replace(".","_")
     item.columns = [column.replace(".", "_") for column in item.columns]
