@@ -505,8 +505,8 @@ def get_entity_type_from_group (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_group (item, indices='all', frame_indices='all'):
 
     output = get_atom_index_from_group (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_groups_from_group (item, indices='all', frame_indices='all'):
 
@@ -776,14 +776,14 @@ def get_entity_type_from_component (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_component (item, indices='all', frame_indices='all'):
 
     output = get_atom_index_from_component (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_groups_from_component (item, indices='all', frame_indices='all'):
 
     output = get_group_index_from_component (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_components_from_component (item, indices='all', frame_indices='all'):
 
@@ -1061,20 +1061,20 @@ def get_entity_type_from_molecule (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_molecule (item, indices='all', frame_indices='all'):
 
     output = get_atom_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_groups_from_molecule (item, indices='all', frame_indices='all'):
 
     output = get_group_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_components_from_molecule (item, indices='all', frame_indices='all'):
 
     output = get_component_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_molecules_from_molecule (item, indices='all', frame_indices='all'):
 
@@ -1084,8 +1084,8 @@ def get_n_molecules_from_molecule (item, indices='all', frame_indices='all'):
 def get_n_chains_from_molecule (item, indices='all', frame_indices='all'):
 
     output = get_chain_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_entities_from_molecule (item, indices='all', frame_indices='all'):
 
@@ -1346,26 +1346,26 @@ def get_entity_type_from_chain (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_chain (item, indices='all', frame_indices='all'):
 
     output = get_atom_index_from_chain (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_groups_from_chain (item, indices='all', frame_indices='all'):
 
     output = get_group_index_from_chain (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_components_from_chain (item, indices='all', frame_indices='all'):
 
     output = get_component_index_from_chain (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_molecules_from_chain (item, indices='all', frame_indices='all'):
 
     output = get_molecule_index_from_chain (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_chains_from_chain (item, indices='all', frame_indices='all'):
 
@@ -1639,32 +1639,32 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_entity (item, indices='all', frame_indices='all'):
 
     output = get_atom_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_groups_from_entity (item, indices='all', frame_indices='all'):
 
     output = get_group_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_components_from_entity (item, indices='all', frame_indices='all'):
 
     output = get_component_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_molecules_from_entity (item, indices='all', frame_indices='all'):
 
     output = get_molecule_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_chains_from_entity (item, indices='all', frame_indices='all'):
 
     output = get_chain_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(_concatenate(output))
-    return output.shape[0]
+    output = [ii.shape[0] for ii in output]
+    return output
 
 def get_n_entities_from_entity (item, indices='all', frame_indices='all'):
 

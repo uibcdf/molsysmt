@@ -15,21 +15,6 @@ class Topology(PandasDataFrame):
 
         super().__init__(columns=topology_columns)
 
-        atoms_in_groups = []
-        atoms_in_components = []
-        atoms_in_chains = []
-        atoms_in_molecules = []
-        atoms_in_entities = []
-        groups_in_components = []
-        groups_in_chains = []
-        groups_in_molecules = []
-        groups_in_entities = []
-        components_in_chains = []
-        components_in_molecules = []
-        components_in_entities = []
-        molecules_in_entities = []
-        chains_in_entities = []
-
     def extract(self, atom_indices='all', frame_indices='all'):
 
         if type(atom_indices)==str:
@@ -112,6 +97,17 @@ class Topology(PandasDataFrame):
 
         return molsysmt_DataFrame_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
                                          atom_indices='all', frame_indices=frame_indices)
+
+    def _build_components_type(self):
+
+        from molsysmt.forms.classes.api_molsysmt_Topology import get_n_components_from_system
+        from molsysmt.forms.classes.api_molsysmt_Topology import get_n_groups_from_component
+
+        n_components = get_n_components_from_system(self)
+        n_groups_per_component = get_n_groups_from_component(self, 'all')
+
+        print(n_components)
+        print(n_groups_per_component)
 
     #def _rebuild_auxiliary_lists(self):
 

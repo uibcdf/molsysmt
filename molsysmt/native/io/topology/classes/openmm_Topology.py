@@ -178,7 +178,7 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     # rebuild components, molecules and entities:
 
-    #tmp_item._rebuild_components_molecules_entities()
+    tmp_item._build_components_type()
 
     # nan to None
 
