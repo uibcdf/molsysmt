@@ -50,6 +50,17 @@ def indices_to_syntaxis(item, indices, target='atom', to_syntaxis=None):
         else:
             raise NotImplementedError
 
+    elif to_syntaxis=='MDTraj':
+
+        if target=='atom':
+            output_string = 'index '+' '.join([str(ii) for ii in indices])
+        elif target=='group':
+            output_string = 'resid '+' '.join([str(ii) for ii in indices])
+        elif target=='chain':
+            output_string = 'chainid '+' '.join([str(ii) for ii in indices])
+        else:
+            raise NotImplementedError
+
     else:
 
         raise NotImplementedError
