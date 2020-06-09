@@ -28,6 +28,8 @@ from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, min
 from .pockets import alpha_spheres
 from .sasa import sasa
 
+from . import physchem
+
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:
 
