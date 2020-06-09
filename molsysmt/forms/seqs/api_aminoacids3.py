@@ -57,7 +57,7 @@ def extract(item, atom_indices='all', frame_indices='all'):
 
 def copy(item):
 
-    raise NotImplementedError
+    return item
 
 
 ###### Get

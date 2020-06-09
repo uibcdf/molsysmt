@@ -119,68 +119,60 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
         atom_index+=1
 
-    tmp_item["atom.index"] = atom_index_array
-    tmp_item["atom.name"] = atom_name_array
-    tmp_item["atom.id"] = atom_id_array
-    tmp_item["atom.type"] = atom_type_array
+    tmp_item.elements["atom_index"] = atom_index_array
+    tmp_item.elements["atom_name"] = atom_name_array
+    tmp_item.elements["atom_id"] = atom_id_array
+    tmp_item.elements["atom_type"] = atom_type_array
     del(atom_index_array, atom_name_array, atom_id_array, atom_type_array)
 
-    tmp_item["group.index"] = group_index_array
-    tmp_item["group.name"] = group_name_array
-    tmp_item["group.id"] = group_id_array
-    tmp_item["group.type"] = group_type_array
+    tmp_item.elements["group_index"] = group_index_array
+    tmp_item.elements["group_name"] = group_name_array
+    tmp_item.elements["group_id"] = group_id_array
+    tmp_item.elements["group_type"] = group_type_array
     del(group_index_array, group_id_array, group_name_array, group_type_array)
 
-    tmp_item["chain.index"] = chain_index_array
-    tmp_item["chain.id"] = chain_id_array
+    tmp_item.elements["chain_index"] = chain_index_array
+    tmp_item.elements["chain_id"] = chain_id_array
     del(chain_index_array, chain_id_array, chain_name_array, chain_type_array)
+
+    # bonds
+
+    n_bonds = item.getNumBonds()
+
+    bond_atom1_array = empty(n_bonds, dtype=int)
+    bond_atom2_array = empty(n_bonds, dtype=int)
+    bond_type_array = empty(n_bonds, dtype=object)
+    bond_order_array = empty(n_bonds, dtype=object)
+
+    bond_index = 0
+
+    for bond in item.bonds():
+
+        bond_atom1_array[bond_index] = bond.atom1.index
+        bond_atom2_array[bond_index] = bond.atom2.index
+        bond_order_array[bond_index] = bond.order
+        bond_type_array[bond_index] = bond.type
+
+        bond_index +=1
+
+    tmp_item.bonds["atom1_index"] = bond_atom1_array
+    tmp_item.bonds["atom2_index"] = bond_atom2_array
+    tmp_item.bonds["order"] = bond_order_array
+    tmp_item.bonds["type"] = bond_type_array
 
     # components
 
-    component_index_array = empty(n_atoms, dtype=int)
+    tmp_item._build_components()
 
-    G = empty_graph(n_atoms)
+    ## molecules
 
-    for bond in item.bonds():
-        G.add_edge(bond.atom1.index, bond.atom2.index)
+    tmp_item._build_molecules()
 
-    for atom_index in range(n_atoms):
-        aux_list = list(G.neighbors(atom_index))
-        if len(aux_list)>1:
-            aux_list = list(sort(aux_list))
-        atom_bonded_atom_indices_array[atom_index] = aux_list
+    ## entity
 
-    tmp_item["atom.bonded_atom_indices"] = atom_bonded_atom_indices_array
-    del(atom_bonded_atom_indices_array)
+    tmp_item._build_entities()
 
-    component_index = 0
-
-    for atom_indices_of_component in connected_components(G):
-        aux_list = list(atom_indices_of_component)
-        component_index_array[aux_list] = component_index
-        component_index += 1
-
-    tmp_item["component.index"] = component_index_array
-
-    del(G)
-
-    # molecule
-
-    tmp_item["molecule.index"] = component_index_array
-
-    del(component_index_array)
-
-    # entity
-
-    entity_index_array = zeros(n_atoms, dtype=int)
-    tmp_item["entity.index"] = entity_index_array
-    del(entity_index_array)
-
-    # rebuild components, molecules and entities:
-
-    tmp_item._build_components_type()
-
-    # nan to None
+    ## nan to None
 
     tmp_item._nan_to_None()
 
