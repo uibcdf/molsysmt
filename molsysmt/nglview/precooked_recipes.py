@@ -46,7 +46,7 @@ def show_water_as_licorice(view, atom_indices='all', frame_indices='all'):
 
     pass
 
-def show_colored_surface_by_scalar_residue_values(view, selection, values, color_min=[255,255,255],
+def show_colored_surface_by_scalar_residue_values(view, values, selection='all', color_min=[255,255,255],
                                                   color_max=[255,0,0], value_min=None,
                                                   value_max=None):
 
@@ -62,7 +62,7 @@ def show_colored_surface_by_scalar_residue_values(view, selection, values, color
 
     pass
 
-def show_colored_cartoon_by_scalar_residue_values(view, selection, values, color_min=[255,255,255],
+def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all', color_min=[255,255,255],
                                                   color_max=[255,0,0], value_min=None,
                                                   value_max=None):
 

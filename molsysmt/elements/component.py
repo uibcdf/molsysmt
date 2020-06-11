@@ -1,11 +1,12 @@
-def group_names_to_type(group_names):
+def group_name_to_type(group_name, n_groups=1):
 
-    from .groups import name_to_type
+    from .groups import name_to_component_type
+    return name_to_component_type(group_name, n_groups)
 
-    group_types = name_to_type(group_names)
-    return group_types_to_type(group_types)
+def group_type_to_type(group_type, n_groups=1):
 
-def group_types_to_type(group_types):
+    from .groups import type_to_component_type
+    return type_to_component_type(grouptypee, n_groups)
 
     if type(group_types) is str:
         if group_types in ['water', 'ion', 'cosolute',  'small molecule']:
@@ -28,14 +29,4 @@ def group_types_to_type(group_types):
 
     return tmp_type
 
-def is_type(item, indices='all', selection=None, syntaxis='MolSysMT'):
-
-    from molsysmt import select, get
-
-    if selection is not None:
-         indices = select(item, taret='component', selection=selection, syntaxis=syntaxis)
-
-    group_types = get(item, target='component', indices=indices, group_type=True)
-
-    return list(map(group_types_to_type,group_types))
 

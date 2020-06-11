@@ -29,6 +29,8 @@ from .pockets import alpha_spheres
 from .sasa import sasa
 
 from . import physchem
+from . import nglview
+
 
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:

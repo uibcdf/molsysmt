@@ -71,8 +71,13 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
 
     coordinates = _get(trajectory_item, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
 
+    if atom_indices is 'all':
+        tmp_item = item
+    else:
+        tmp_item = extract(item, atom_indices=atom_indices)
+
     tmp_io = StringIO()
-    PDBFile.writeFile(item, coordinates[0], tmp_io, keepIds=True)
+    PDBFile.writeFile(tmp_item, coordinates[0], tmp_io, keepIds=True)
     filedata = tmp_io.getvalue()
     filedata = filedata.replace('WITH OPENMM '+short_version, 'WITH OPENMM '+short_version+' BY MOLSYSMT')
     tmp_io.close()
@@ -93,27 +98,28 @@ def extract(item, atom_indices='all', frame_indices='all'):
     else:
 
         from simtk.openmm.app import Topology
+        new_item = Topology()
         atom_indices_to_be_kept = atom_indices
         newAtoms = {}
         set_atom_indices = set(atom_indices_to_be_kept)
         for chain in item.chains():
             needNewChain = True
-            for group in chain.groups():
+            for residue in chain.residues():
                 needNewResidue = True
-                for atom in group.atoms():
+                for atom in residue.atoms():
                     if atom.index in set_atom_indices:
                         if needNewChain:
-                            newChain = newTopology.addChain(chain.id)
+                            newChain = new_item.addChain(chain.id)
                             needNewChain = False;
                         if needNewResidue:
-                            newResidue = newTopology.addResidue(group.name, newChain, group.id, group.insertionCode)
+                            newResidue = new_item.addResidue(residue.name, newChain, residue.id, residue.insertionCode)
                             needNewResidue = False;
-                        newAtom = newTopology.addAtom(atom.name, atom.element, newResidue, atom.id)
+                        newAtom = new_item.addAtom(atom.name, atom.element, newResidue, atom.id)
                         newAtoms[atom] = newAtom
         for bond in item.bonds():
             if bond[0].index in set_atom_indices and bond[1].index in set_atom_indices:
-                newTopology.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
-        return newTopology
+                new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
+        return new_item
 
 def copy(item):
 
