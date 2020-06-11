@@ -14,74 +14,6 @@ class ElementsDF(PandasDataFrame):
 
         super().__init__(columns=topology_columns)
 
-    def extract(self, atom_indices='all', frame_indices='all'):
-
-        if type(atom_indices)==str:
-
-            if atom_indices in ['all', 'All', 'ALL']:
-                return self.copy()
-
-        else:
-
-            #from numpy import arange, empty
-            #from networkx import empty_graph, connected_components
-
-            #tmp_item = Topology()
-            #for column in self.columns:
-            #    tmp_item[column]=self[column][atom_indices]
-
-            #n_atoms=tmp_item.shape[0]
-            #G = empty_graph(n_atoms)
-
-            #tmp_item['atom_index']=arange(n_atoms)
-            #aux_dict=tmp_item['atom_index'].to_dict()
-            #array_bonded_atom_indices=tmp_item['atom_bonded_atom_indices'].to_numpy()
-            #for ii in range(n_atoms):
-            #    bonded_atom_indices=[]
-            #    for old_atom_index in array_bonded_atom_indices[ii]:
-            #        if old_atom_index in aux_dict:
-            #            new_atom_index=aux_dict[old_atom_index]
-            #            bonded_atom_indices.append(new_atom_index)
-            #            if ii<new_atom_index:
-            #                G.add_edge(ii,new_atom_index)
-            #    array_bonded_atom_indices[ii]=bonded_atom_indices.copy()
-            #tmp_item['atom_bonded_atom_indices']=array_bonded_atom_indices
-            #tmp_item.index=arange(n_atoms)
-
-            #atom_indices_per_component = list(connected_components(G))
-            #del(G)
-
-            #component_index_array = empty(n_atoms, dtype=int)
-            #component_index = 0
-            #for atom_indices_of_component in atom_indices_per_component:
-            #    for atom_index in atom_indices_of_component:
-            #        component_index_array[atom_index] = component_index
-            #    component_index += 1
-            #tmp_item["component_index"] = component_index_array
-
-
-            #for column in ['group_index', 'molecule_index', 'chain_index', 'entity_index']:
-            #    aux_array=tmp_item[column].to_numpy()
-            #    old_index=-1
-            #    count=-1
-            #    for ii in range(n_atoms):
-            #        if old_index!=aux_array[ii]:
-            #            old_index=aux_array[ii]
-            #            count+=1
-            #        aux_array[ii]=count
-            #    tmp_item[column]=aux_array
-
-            #return tmp_item
-            pass
-
-    def copy(self):
-
-        item = ElementsDF()
-        for column in self.columns:
-            item[column]=self[column]
-
-        return item
-
     def _nan_to_None(self):
 
         list_columns_where_nan = ['group_type', 'component_name', 'component_type',
@@ -101,25 +33,6 @@ class BondsDF(PandasDataFrame):
 
         super().__init__(columns=topology_columns)
 
-    def extract(self, atom_indices='all', frame_indices='all'):
-
-        if type(atom_indices)==str:
-
-            if atom_indices in ['all', 'All', 'ALL']:
-                return self.copy()
-
-        else:
-
-            raise NotImplementedError
-
-    def copy(self):
-
-        item = BondsDF()
-        for column in self.columns:
-            item[column]=self[column]
-
-        return item
-
     def _nan_to_None(self):
 
         list_columns_where_nan = ['order','type']
@@ -133,6 +46,70 @@ class Topology():
 
         self.elements=ElementsDF()
         self.bonds=BondsDF()
+
+    def extract(self, atom_indices='all', frame_indices='all'):
+
+        if type(atom_indices)==str:
+
+            if atom_indices in ['all', 'All', 'ALL']:
+                return self.copy()
+
+        else:
+
+            from numpy import arange, empty, vectorize, in1d
+
+            tmp_item = Topology()
+            tmp_item.elements = self.elements.iloc[atom_indices].copy()
+
+            bond_atom1 = self.bonds['atom1_index'].to_numpy()
+            bond_atom2 = self.bonds['atom2_index'].to_numpy()
+            mask_atom1 = in1d(bond_atom1, atom_indices)
+            mask_atom2 = in1d(bond_atom2, atom_indices)
+            mask = mask_atom1*mask_atom2
+            tmp_item.bonds = self.bonds[mask].copy()
+            del(bond_atom1, bond_atom2, mask_atom1, mask_atom2)
+
+            n_atoms=tmp_item.elements.shape[0]
+            n_bonds=tmp_item.bonds.shape[0]
+
+            tmp_item.elements['atom_index']=arange(n_atoms)
+            aux_dict=tmp_item.elements['atom_index'].to_dict()
+            tmp_item.elements.index=arange(n_atoms)
+            vaux_dict = vectorize(aux_dict.__getitem__)
+
+            tmp_item.bonds['atom1_index']=vaux_dict(tmp_item.bonds['atom1_index'].to_numpy())
+            tmp_item.bonds['atom2_index']=vaux_dict(tmp_item.bonds['atom2_index'].to_numpy())
+            tmp_item.elements.index=tmp_item.elements['atom_index'].to_numpy()
+
+            tmp_item._build_components()
+
+            for column in ['group_index', 'molecule_index', 'chain_index', 'entity_index']:
+                aux_array=tmp_item.elements[column].to_numpy()
+                old_index=-1
+                count=-1
+                for ii in range(n_atoms):
+                    if old_index!=aux_array[ii]:
+                        old_index=aux_array[ii]
+                        count+=1
+                    aux_array[ii]=count
+                tmp_item.elements[column]=aux_array
+
+        return tmp_item
+
+    def copy(self):
+
+        tmp_item = Topology()
+
+        tmp_item.elements = ElementsDF()
+        tmp_item.bonds = BondsDF()
+
+        for column in self.elements.columns:
+            tmp_item.elements[column]=self.elements[column].to_numpy()
+
+        for column in self.bonds.columns:
+            tmp_item.bonds[column]=self.bonds[column].to_numpy()
+
+        return tmp_item
 
     def _to_pdb_string(self, trajectory_item, frame_indices='all'):
 

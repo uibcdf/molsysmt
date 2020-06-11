@@ -27,10 +27,7 @@ def query_dataframe(item, selection='all'):
                 var_value = list(var_value)
             locals()[var_name]=var_value
 
-    selection = selection.replace(".","_")
-    item.columns = [column.replace(".", "_") for column in item.columns]
     atom_indices = item.query(selection).index.to_numpy()
-    item.columns = [column.replace("_", ".",1) for column in item.columns]
 
     return atom_indices
 

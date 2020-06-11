@@ -5,25 +5,25 @@ def to_openmm_Topology(item, trajectory_item='all', atom_indices='all', frame_in
     import simtk.unit as unit
     from numpy import unique
 
-    n_atoms = item.shape[0]
+    n_atoms = item.elements.shape[0]
 
-    atom_index_array = item["atom.index"].to_numpy()
-    atom_name_array = item["atom.name"].to_numpy()
-    atom_id_array = item["atom.id"].to_numpy()
-    atom_type_array = item["atom.type"].to_numpy()
-    atom_formal_charge_array = item["atom.formal_charge"].to_numpy()
+    atom_index_array = item.elements["atom_index"].to_numpy()
+    atom_name_array = item.elements["atom_name"].to_numpy()
+    atom_id_array = item.elements["atom_id"].to_numpy()
+    atom_type_array = item.elements["atom_type"].to_numpy()
 
-    group_index_array = item["group.index"].to_numpy()
-    group_name_array = item["group.name"].to_numpy()
-    group_id_array = item["group.id"].to_numpy()
-    group_type_array = item["group.type"].to_numpy()
+    group_index_array = item.elements["group_index"].to_numpy()
+    group_name_array = item.elements["group_name"].to_numpy()
+    group_id_array = item.elements["group_id"].to_numpy()
+    group_type_array = item.elements["group_type"].to_numpy()
 
-    chain_index_array = item["chain.index"].to_numpy()
-    chain_name_array = item["chain.name"].to_numpy()
-    chain_id_array = item["chain.id"].to_numpy()
-    chain_type_array = item["chain.type"].to_numpy()
+    chain_index_array = item.elements["chain_index"].to_numpy()
+    chain_name_array = item.elements["chain_name"].to_numpy()
+    chain_id_array = item.elements["chain_id"].to_numpy()
+    chain_type_array = item.elements["chain_type"].to_numpy()
 
-    atom_bonded_atom_indices_array = item["atom.bonded_atom_indices"].to_numpy()
+    bonds_atom1 = item.bonds["atom1_index"].to_numpy()
+    bonds_atom2 = item.bonds["atom2_index"].to_numpy()
 
     tmp_item = app.Topology()
 
@@ -61,13 +61,9 @@ def to_openmm_Topology(item, trajectory_item='all', atom_indices='all', frame_in
 
         list_new_atoms.append(atom)
 
-    for ii, bonded_atom_indices in zip(atom_index_array, atom_bonded_atom_indices_array):
+    for atom_1, atom_2 in zip(bonds_atom1, bonds_atom2):
 
-        atom_0 = list_new_atoms[ii]
-        for jj in bonded_atom_indices:
-            if ii < jj:
-                atom_1 = list_new_atoms[jj]
-                tmp_item.addBond(atom_0, atom_1) # falta bond type and bond order
+        tmp_item.addBond(list_new_atoms[atom_1], list_new_atoms[atom_2]) # falta bond type and bond order
 
     return tmp_item
 
