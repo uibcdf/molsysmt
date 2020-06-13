@@ -654,20 +654,20 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
             n_frames = get(item, target=target, n_frames=True)
 
-            tmp_df = df({'form':form, 'n atoms':n_atoms, 'n groups':n_groups, 'n components':n_components,
-                'n chains':n_chains, 'n molecules':n_molecules, 'n entities':n_entities,
-                'n waters':n_waters, 'n ions':n_ions, 'n cosolutes':n_cosolutes, 'n small molecules':n_small_molecules,
-                'n peptides':n_peptides, 'n proteins':n_proteins, 'n dnas':n_dnas, 'n rnas':n_rnas,
-                'n frames':n_frames}, index=[0])
+            tmp_df = df({'form':form, 'n_atoms':n_atoms, 'n_groups':n_groups, 'n_components':n_components,
+                'n_chains':n_chains, 'n_molecules':n_molecules, 'n_entities':n_entities,
+                'n_waters':n_waters, 'n_ions':n_ions, 'n_cosolutes':n_cosolutes, 'n_small_molecules':n_small_molecules,
+                'n_peptides':n_peptides, 'n_proteins':n_proteins, 'n_dnas':n_dnas, 'n_rnas':n_rnas,
+                'n_frames':n_frames}, index=[0])
 
-            if n_ions==0: tmp_df.drop(columns=['n ions'], inplace=True)
-            if n_waters==0: tmp_df.drop(columns=['n waters'], inplace=True)
-            if n_cosolutes==0: tmp_df.drop(columns=['n cosolutes'], inplace=True)
-            if n_small_molecules==0: tmp_df.drop(columns=['n small molecules'], inplace=True)
-            if n_peptides==0: tmp_df.drop(columns=['n peptides'], inplace=True)
-            if n_proteins==0: tmp_df.drop(columns=['n proteins'], inplace=True)
-            if n_dnas==0: tmp_df.drop(columns=['n dnas'], inplace=True)
-            if n_rnas==0: tmp_df.drop(columns=['n rnas'], inplace=True)
+            if n_ions==0: tmp_df.drop(columns=['n_ions'], inplace=True)
+            if n_waters==0: tmp_df.drop(columns=['n_waters'], inplace=True)
+            if n_cosolutes==0: tmp_df.drop(columns=['n_cosolutes'], inplace=True)
+            if n_small_molecules==0: tmp_df.drop(columns=['n_small_molecules'], inplace=True)
+            if n_peptides==0: tmp_df.drop(columns=['n_peptides'], inplace=True)
+            if n_proteins==0: tmp_df.drop(columns=['n_proteins'], inplace=True)
+            if n_dnas==0: tmp_df.drop(columns=['n_dnas'], inplace=True)
+            if n_rnas==0: tmp_df.drop(columns=['n_rnas'], inplace=True)
 
             return tmp_df.style.hide_index()
 

@@ -564,7 +564,7 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
 
         for indice_frame in range(nframes):
             for ii in range(nelements_1):
-                neighs_aux = _np.argpartition(all_dists[indice_frame,ii,:], num_neighbors+offset)[:num_neighbors+offset]
+                neighs_aux = _np.argpartition(all_dists[indice_frame,ii,:], num_neighbors-1+offset)[:num_neighbors+offset]
                 dists_aux = all_dists[indice_frame,ii,neighs_aux]
                 good_order = _np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
