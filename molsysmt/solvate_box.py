@@ -28,7 +28,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
     num_anions: number of cations to add. integer or "neutralize"
     cation: "NA"  'Cs+', 'K+', 'Li+', 'Na+', and 'Rb+'
     num_cations: number of cations to add. integer or "neutralize"
-    box_geometry: "cubic" or "truncated_octahedral" (Default: "truncated_octahedral")
+    box_geometry: "cubic", "truncated_octahedral" or "rhombic_dodecahedron" (Default: "truncated_octahedral")
 
     Returns
     -------
@@ -51,12 +51,22 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
     if engine=="OpenMM":
 
-        if box_geometry=="truncated_octahedral":
-            raise NotImplementedError
-
         from molsysmt import convert
         from molsysmt.utils.forcefields import digest as digest_forcefield
         from simtk.openmm.app import ForceField
+
+        modeller = convert(item, to_form='openmm.Modeller')
+        max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
+
+        box_size = None
+        box_vectors = None
+
+        if box_geometry=="truncated_octahedral":
+            vectors = mm.Vec3(1,0,0), mm.Vec3(1/3,2*sqrt(2)/3,0), mm.Vec3(-1/3,1/3,sqrt(6)/3)
+            box_vectors = [(max_size+clearance)*v for v in vectors]
+        elif box_geometry=="rhombic_dodecahedron":
+            vectors = mm.Vec3(1,0,0), mm.Vec3(0,1,0), mm.Vec3(0.5,0.5,sqrt(2)/2)
+            box_vectors = [(max_size+clearance)*v for v in vectors]
 
         solvent_model=None
         if water=='SPC':
@@ -75,9 +85,9 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
             solvent_model='tip5p'
 
         forcefield_parameters = digest_forcefield([forcefield, water], 'OpenMM')
-        modeller = convert(item, to_form='openmm.Modeller')
         forcefield = ForceField(*forcefield_parameters)
         modeller.addSolvent(forcefield, model=solvent_model, padding=clearance,
+                            boxVectors = box_vectors,
                             ionicStrength=ionic_strength, positiveIon=cation,
                             negativeIon=anion)
         tmp_item = convert(modeller, to_form=form_out)
@@ -85,7 +95,49 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
         return tmp_item
 
-    if engine=="LEaP":
+    elif engine=="PDBFixer":
+
+        from molsysmt import convert
+
+        pdbfixer = convert(item, to_form='openmm.Modeller')
+        max_size = max(max((pos[i] for pos in pdbfixer.positions))-min((pos[i] for pos in pdbfixer.positions)) for i in range(3))
+
+        box_size = None
+        box_vectors = None
+
+        if box_geometry=="truncated_octahedral":
+            vectors = mm.Vec3(1,0,0), mm.Vec3(1/3,2*sqrt(2)/3,0), mm.Vec3(-1/3,1/3,sqrt(6)/3)
+            box_vectors = [(max_size+clearance)*v for v in vectors]
+        elif box_geometry=="rhombic_dodecahedron":
+            vectors = mm.Vec3(1,0,0), mm.Vec3(0,1,0), mm.Vec3(0.5,0.5,sqrt(2)/2)
+            box_vectors = [(max_size+clearance)*v for v in vectors]
+
+        solvent_model=None
+        if water=='SPC':
+            solvent_model='tip3p'
+        elif water=='TIP3P':
+            solvent_model='tip3p'
+        elif water=='TIP3PFB':
+            solvent_model='tip3pfb'
+        elif water=='SPCE':
+            solvent_model='spce'
+        elif water =='TIP4PEW':
+            solvent_model='tip4pew'
+        elif water =='TIP4PFB':
+            solvent_model='tip4pfb'
+        elif water =='TIP5P':
+            solvent_model='tip5p'
+
+        pdbfixer.addSolvent(model=solvent_model, padding=clearance,
+                            boxVectors = box_vectors,
+                            ionicStrength=ionic_strength, positiveIon=cation,
+                            negativeIon=anion)
+        tmp_item = convert(modeller, to_form=form_out)
+        del(pdbfixer)
+
+        return tmp_item
+
+    elif engine=="LEaP":
 
         from molsysmt.utils import TLeap
         from molsysmt.utils.files_and_directories import tmp_directory, tmp_filename
@@ -150,3 +202,6 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
         return tmp_item
 
+    else:
+
+        raise NotImplementedError
