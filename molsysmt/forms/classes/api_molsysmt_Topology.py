@@ -2,6 +2,7 @@ from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
 from molsysmt.native.topology import Topology
 from numpy import array as _array, unique as _unique, ndenumerate as _ndenumerate, concatenate as _concatenate
+from numpy import arange as _arange
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -269,9 +270,34 @@ def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
     output = _unique(output)
     return output.shape[0]
 
+def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    bonded_atoms=None
+
+    if indices is 'all':
+        bonded_atoms = item.bonds[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
+    else:
+        bonds = get_bonds_from_atom(item, indices=indices)
+        bonded_atoms = item.bonds.iloc[bonds][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
+    return bonded_atoms
+
 def get_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices=='all':
+        return get_bonds_from_system(item)
+    else:
+        return item.bonds.query('atom1_index==@indices and atom2_index==@indices').index.to_numpy(dtype=int, copy=True)
+
+def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        return get_n_bonds_from_system(item)
+    else:
+        bonds = get_bonds_from_atom(item, indices=indices)
+        n_bonds = bonds.shape[0]
+        del(bonds)
+
+    return n_bonds
 
 def get_mass_from_atom (item, indices='all', frame_indices='all'):
 
@@ -1688,7 +1714,12 @@ def get_charge_from_entity (item, indices='all', frame_indices='all'):
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return get_bonded_atoms_from_system(item, indices='all')
+
+def get_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    n_bonds=get_bonds_from_system(item)
+    return _arange(n_bonds)
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
@@ -1721,7 +1752,7 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise item.bonds.shape[0]
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
