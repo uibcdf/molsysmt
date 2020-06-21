@@ -28,6 +28,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -38,7 +39,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="molsysmt.convert" href="_autosummary/molsysmt.convert.html" />
+    <link rel="next" title="Elements" href="index_elements.html" />
     <link rel="prev" title="Mutations" href="../contents/Mutations.html" /> 
 </head>
 
@@ -140,7 +141,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/Get.html">How to get attributes from a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../contents/Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../contents/Get.html#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some examples over atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contents/Get.html#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples over atoms, groups, components, chains, molecules or entities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contents/Get.html#Some-examples-over-system">Some examples over system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contents/Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
@@ -240,6 +241,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/Rg.html">Radius of gyration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/Dihedral_angles.html">Dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/SASA.html">Solvent Accessible Surface Area</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
@@ -248,45 +250,10 @@
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic manipulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.convert.html">molsysmt.convert</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.info.html">molsysmt.info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.select.html">molsysmt.select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.set.html">molsysmt.set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.extract.html">molsysmt.extract</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.merge.html">molsysmt.merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.write.html">molsysmt.write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.view.html">molsysmt.view</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#geometric-observables-and-transformations">Geometric observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.distance.html">molsysmt.distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.maximum_distance.html">molsysmt.maximum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.minimum_distance.html">molsysmt.minimum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.neighbors_lists.html">molsysmt.neighbors_lists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.center.html">molsysmt.center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.center_of_mass.html">molsysmt.center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.geometric_center.html">molsysmt.geometric_center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.recenter.html">molsysmt.recenter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.radius_of_gyration.html">molsysmt.radius_of_gyration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.rmsd.html">molsysmt.rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.least_rmsd.html">molsysmt.least_rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.least_rmsd_fit.html">molsysmt.least_rmsd_fit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.wrap_molecules_to_pbc_cell.html">molsysmt.wrap_molecules_to_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.unwrap_molecules_from_pbc_cell.html">molsysmt.unwrap_molecules_from_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.minimum_image_convention.html">molsysmt.minimum_image_convention</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#topological-observables-and-transformations">Topological observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic manipulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#topological-observables-and-transformations">Topological observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index_elements.html">Elements</a></li>
 </ul>
 
@@ -385,34 +352,34 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.convert.html#molsysmt.convert" title="molsysmt.convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert</span></code></a>(item[, to_form, selection, …])</p></td>
-<td><p>Convert a molecular model into other form.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.info.html#molsysmt.info" title="molsysmt.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a>(item[, target, indices, selection, …])</p></td>
-<td><p>Print out general information of a molecular model.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.select.html#molsysmt.select" title="molsysmt.select"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select</span></code></a>(item[, selection, target, syntaxis])</p></td>
-<td><p>Get the atom indices corresponding to a selection criterion.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">select</span></code></p></td>
+<td><p>This module supports asynchronous I/O on multiple file descriptors.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.get.html#molsysmt.get" title="molsysmt.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a>(item[, target, indices, selection, …])</p></td>
-<td><p>Get specific attributes and observables.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.set.html#molsysmt.set" title="molsysmt.set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set</span></code></a>(item[, target, indices, selection, …])</p></td>
-<td><p>Set a new value to an attribute.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.extract.html#molsysmt.extract" title="molsysmt.extract"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract</span></code></a>(item[, selection, frame_indices, …])</p></td>
-<td><p>Extract a subset of a molecular model.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract</span></code></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">duplicate</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.merge.html#molsysmt.merge" title="molsysmt.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a>([item1, item2, to_form])</p></td>
-<td><p>XXX</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.write.html#molsysmt.write" title="molsysmt.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code></a>([item, filename, selection, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.view.html#molsysmt.view" title="molsysmt.view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">view</span></code></a>([item, viewer, selection, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">view</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -427,52 +394,52 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.get.html#molsysmt.get" title="molsysmt.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a>(item[, target, indices, selection, …])</p></td>
-<td><p>Get specific attributes and observables.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.distance.html#molsysmt.distance" title="molsysmt.distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance</span></code></a>([item_1, selection_1, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.maximum_distance.html#molsysmt.maximum_distance" title="molsysmt.maximum_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maximum_distance</span></code></a>([item_1, selection_1, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.minimum_distance.html#molsysmt.minimum_distance" title="molsysmt.minimum_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimum_distance</span></code></a>([item_1, selection_1, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">maximum_distance</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.neighbors_lists.html#molsysmt.neighbors_lists" title="molsysmt.neighbors_lists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">neighbors_lists</span></code></a>([item_1, selection_1, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimum_distance</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.center.html#molsysmt.center" title="molsysmt.center"><code class="xref py py-obj docutils literal notranslate"><span class="pre">center</span></code></a>([item, selection, groups_of_atoms, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">neighbors_lists</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.center_of_mass.html#molsysmt.center_of_mass" title="molsysmt.center_of_mass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">center_of_mass</span></code></a>([item, selection, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">center</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.geometric_center.html#molsysmt.geometric_center" title="molsysmt.geometric_center"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geometric_center</span></code></a>([item, selection, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">center_of_mass</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.recenter.html#molsysmt.recenter" title="molsysmt.recenter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recenter</span></code></a>(item[, selection, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">geometric_center</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.radius_of_gyration.html#molsysmt.radius_of_gyration" title="molsysmt.radius_of_gyration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">radius_of_gyration</span></code></a>([item, selection, frame, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">recenter</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.rmsd.html#molsysmt.rmsd" title="molsysmt.rmsd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rmsd</span></code></a>([item, selection, frame_indices, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">radius_of_gyration</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.least_rmsd.html#molsysmt.least_rmsd" title="molsysmt.least_rmsd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">least_rmsd</span></code></a>([item, selection, frame_indices, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rmsd</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.least_rmsd_fit.html#molsysmt.least_rmsd_fit" title="molsysmt.least_rmsd_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">least_rmsd_fit</span></code></a>([item, selection, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">least_rmsd</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.wrap_molecules_to_pbc_cell.html#molsysmt.wrap_molecules_to_pbc_cell" title="molsysmt.wrap_molecules_to_pbc_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrap_molecules_to_pbc_cell</span></code></a>(self)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">least_rmsd_fit</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.unwrap_molecules_from_pbc_cell.html#molsysmt.unwrap_molecules_from_pbc_cell" title="molsysmt.unwrap_molecules_from_pbc_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unwrap_molecules_from_pbc_cell</span></code></a>(item[, …])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrap_molecules_to_pbc_cell</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/molsysmt.minimum_image_convention.html#molsysmt.minimum_image_convention" title="molsysmt.minimum_image_convention"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimum_image_convention</span></code></a>(item[, selection, …])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unwrap_molecules_from_pbc_cell</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimum_image_convention</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -487,8 +454,8 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.get.html#molsysmt.get" title="molsysmt.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a>(item[, target, indices, selection, …])</p></td>
-<td><p>Get specific attributes and observables.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -502,8 +469,8 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/molsysmt.get.html#molsysmt.get" title="molsysmt.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a>(item[, target, indices, selection, …])</p></td>
-<td><p>Get specific attributes and observables.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -517,7 +484,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="_autosummary/molsysmt.convert.html" class="btn btn-neutral float-right" title="molsysmt.convert" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="index_elements.html" class="btn btn-neutral float-right" title="Elements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../contents/Mutations.html" class="btn btn-neutral float-left" title="Mutations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

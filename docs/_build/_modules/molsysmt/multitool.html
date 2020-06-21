@@ -28,6 +28,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -138,7 +139,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Get.html">How to get attributes from a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some examples over atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples over atoms, groups, components, chains, molecules or entities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Some-examples-over-system">Some examples over system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
@@ -238,6 +239,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Rg.html">Radius of gyration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Dihedral_angles.html">Dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/SASA.html">Solvent Accessible Surface Area</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
@@ -246,45 +248,10 @@
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">Basic manipulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.convert.html">molsysmt.convert</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.info.html">molsysmt.info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.select.html">molsysmt.select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.set.html">molsysmt.set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.extract.html">molsysmt.extract</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.merge.html">molsysmt.merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.write.html">molsysmt.write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.view.html">molsysmt.view</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.distance.html">molsysmt.distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.maximum_distance.html">molsysmt.maximum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.minimum_distance.html">molsysmt.minimum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.neighbors_lists.html">molsysmt.neighbors_lists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.center.html">molsysmt.center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.center_of_mass.html">molsysmt.center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.geometric_center.html">molsysmt.geometric_center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.recenter.html">molsysmt.recenter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.radius_of_gyration.html">molsysmt.radius_of_gyration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.rmsd.html">molsysmt.rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.least_rmsd.html">molsysmt.least_rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.least_rmsd_fit.html">molsysmt.least_rmsd_fit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.wrap_molecules_to_pbc_cell.html">molsysmt.wrap_molecules_to_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.unwrap_molecules_from_pbc_cell.html">molsysmt.unwrap_molecules_from_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.minimum_image_convention.html">molsysmt.minimum_image_convention</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">Basic manipulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index_elements.html">Elements</a></li>
 </ul>
 

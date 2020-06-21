@@ -18,7 +18,7 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "10f8024174734f4f9c2a30d8f0b66dd6",
+       "model_id": "4da84c1d0485428fb89987a8024e09d8",
        "version_major": 2,
        "version_minor": 0
       },
@@ -45,38 +45,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Help on function show_molsysmt in module nglview.show:\n",
-      "\n",
-      "show_molsysmt(molsys, selection='all', frame_indices='all', **kwargs)\n",
-      "    Show NGL widget with molsysmt.MolSys object.\n",
-      "    \n",
-      "    Visit `MolSysmt documentation webpage <http://www.uibcdf.org/MolSysMT>`_ for further info.\n",
-      "    \n",
-      "    Examples\n",
-      "    --------\n",
-      "    >>> import nglview as nv # doctest: +SKIP\n",
-      "    ... import molsysmt as msm\n",
-      "    ... t = msm.convert([nv.datafiles.GRO, nv.datafiles.XTC])\n",
-      "    ... w = nv.show_molsysmt(t)\n",
-      "    ... w\n",
-      "\n"
-     ]
-    }
-   ],
-   "source": [
-    "help(nv.show_molsysmt)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -85,7 +54,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "msm.info(t)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -94,26 +72,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": null,
    "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "application/vnd.jupyter.widget-view+json": {
-       "model_id": "f423573f2e8547f18ebd8bc63c9e873d",
-       "version_major": 2,
-       "version_minor": 0
-      },
-      "text/plain": [
-       "NGLWidget(max_frame=50)"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
-    }
-   ],
+   "outputs": [],
    "source": [
-    "w"
+    "help(nv.show_molsysmt)"
    ]
   },
   {
@@ -121,7 +84,42 @@
    "execution_count": null,
    "metadata": {},
    "outputs": [],
-   "source": []
+   "source": [
+    "w"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---------------"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "t = msm.convert([nv.datafiles.GRO, nv.datafiles.XTC], to_form='molsysmt.MolSys')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "view = msm.view(t)\n",
+    "view"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "-------------------"
+   ]
   }
  ],
  "metadata": {

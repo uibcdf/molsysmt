@@ -28,6 +28,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -37,9 +38,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="molsysmt.info" href="molsysmt.info.html" />
-    <link rel="prev" title="Basic manipulations" href="../index.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -140,7 +139,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Get.html">How to get attributes from a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some examples over atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples over atoms, groups, components, chains, molecules or entities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Some-examples-over-system">Some examples over system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
@@ -240,6 +239,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Rg.html">Radius of gyration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Dihedral_angles.html">Dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/SASA.html">Solvent Accessible Surface Area</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
@@ -247,46 +247,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Mutations.html">Mutations</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Basic manipulations</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">molsysmt.convert</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.info.html">molsysmt.info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.select.html">molsysmt.select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.set.html">molsysmt.set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.extract.html">molsysmt.extract</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.merge.html">molsysmt.merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.write.html">molsysmt.write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.view.html">molsysmt.view</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#geometric-observables-and-transformations">Geometric observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.distance.html">molsysmt.distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.maximum_distance.html">molsysmt.maximum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_distance.html">molsysmt.minimum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.neighbors_lists.html">molsysmt.neighbors_lists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.center.html">molsysmt.center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.center_of_mass.html">molsysmt.center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.geometric_center.html">molsysmt.geometric_center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.recenter.html">molsysmt.recenter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.radius_of_gyration.html">molsysmt.radius_of_gyration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.rmsd.html">molsysmt.rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.least_rmsd.html">molsysmt.least_rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.least_rmsd_fit.html">molsysmt.least_rmsd_fit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.wrap_molecules_to_pbc_cell.html">molsysmt.wrap_molecules_to_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.unwrap_molecules_from_pbc_cell.html">molsysmt.unwrap_molecules_from_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_image_convention.html">molsysmt.minimum_image_convention</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Basic manipulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#topological-observables-and-transformations">Topological observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../index_elements.html">Elements</a></li>
 </ul>
 
@@ -333,8 +298,6 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">Basic manipulations</a> &raquo;</li>
-        
       <li>molsysmt.convert</li>
     
     
@@ -380,44 +343,6 @@
 </style>
 <div class="section" id="molsysmt-convert">
 <h1>molsysmt.convert<a class="headerlink" href="#molsysmt-convert" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="molsysmt.convert">
-<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em>, <em class="sig-param"><span class="n">to_form</span><span class="o">=</span><span class="default_value">'molsysmt.MolSys'</span></em>, <em class="sig-param"><span class="n">selection</span><span class="o">=</span><span class="default_value">'all'</span></em>, <em class="sig-param"><span class="n">frame_indices</span><span class="o">=</span><span class="default_value">'all'</span></em>, <em class="sig-param"><span class="n">syntaxis</span><span class="o">=</span><span class="default_value">'MolSysMT'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/multitool.html#convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.convert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a molecular model into other form.</p>
-<p>A molecular model in a given accepted form can be converted into any other supported form
-by MolSysMt. The list of supported forms can be found in the section ‘XXX’.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>item: molecular model</strong></dt><dd><p>Molecular model in any supported form by MolSysMT (see: XXX).</p>
-</dd>
-<dt><strong>selection: str, list, tuple or np.ndarray, defaul=’all’</strong></dt><dd><p>Atoms selection over which this method applies. The selection can be given by a
-list, tuple or numpy array of integers (0-based), or by means of a string following any of
-the selection syntaxis parsable by MolSysMT (see: <a class="reference internal" href="molsysmt.select.html#molsysmt.select" title="molsysmt.select"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.select()</span></code></a>).</p>
-</dd>
-<dt><strong>to_form: str, default=’molsysmt.MolSys’</strong></dt><dd><p>The output object will take the form specified here. This form supported form by MolSysMt
-for the output object.</p>
-</dd>
-<dt><strong>syntaxis: str, default=’MolSysMT’</strong></dt><dd><p>Syntaxis used in the argument <cite>selection</cite> (in case it is a string). The
-current options supported by MolSysMt can be found in section XXX (see: <a class="reference internal" href="molsysmt.select.html#molsysmt.select" title="molsysmt.select"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.select()</span></code></a>).</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>item: molecular model</dt><dd><p>A new object is returned with the form specified by the argument <cite>to_form</cite>.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.load()</span></code>, <a class="reference internal" href="molsysmt.select.html#molsysmt.select" title="molsysmt.select"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.select()</span></code></a></dt><dd></dd>
-</dl>
-</div>
-</dd></dl>
-
 </div>
 
 
@@ -425,15 +350,6 @@ current options supported by MolSysMt can be found in section XXX (see: <a class
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="molsysmt.info.html" class="btn btn-neutral float-right" title="molsysmt.info" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../index.html" class="btn btn-neutral float-left" title="Basic manipulations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

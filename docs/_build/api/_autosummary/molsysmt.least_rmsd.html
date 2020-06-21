@@ -28,6 +28,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -37,9 +38,7 @@
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="molsysmt.least_rmsd_fit" href="molsysmt.least_rmsd_fit.html" />
-    <link rel="prev" title="molsysmt.rmsd" href="molsysmt.rmsd.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -140,7 +139,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Get.html">How to get attributes from a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some examples over atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples over atoms, groups, components, chains, molecules or entities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Some-examples-over-system">Some examples over system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contents/Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
@@ -240,6 +239,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Rg.html">Radius of gyration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Dihedral_angles.html">Dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/SASA.html">Solvent Accessible Surface Area</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
@@ -247,46 +247,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../contents/Mutations.html">Mutations</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Basic manipulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.convert.html">molsysmt.convert</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.info.html">molsysmt.info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.select.html">molsysmt.select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.set.html">molsysmt.set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.extract.html">molsysmt.extract</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.merge.html">molsysmt.merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.write.html">molsysmt.write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.view.html">molsysmt.view</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html#geometric-observables-and-transformations">Geometric observables and transformations</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.distance.html">molsysmt.distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.maximum_distance.html">molsysmt.maximum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_distance.html">molsysmt.minimum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.neighbors_lists.html">molsysmt.neighbors_lists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.center.html">molsysmt.center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.center_of_mass.html">molsysmt.center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.geometric_center.html">molsysmt.geometric_center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.recenter.html">molsysmt.recenter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.radius_of_gyration.html">molsysmt.radius_of_gyration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.rmsd.html">molsysmt.rmsd</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">molsysmt.least_rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.least_rmsd_fit.html">molsysmt.least_rmsd_fit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.wrap_molecules_to_pbc_cell.html">molsysmt.wrap_molecules_to_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.unwrap_molecules_from_pbc_cell.html">molsysmt.unwrap_molecules_from_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.minimum_image_convention.html">molsysmt.minimum_image_convention</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Basic manipulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#topological-observables-and-transformations">Topological observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../index_elements.html">Elements</a></li>
 </ul>
 
@@ -333,8 +298,6 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">Basic manipulations</a> &raquo;</li>
-        
       <li>molsysmt.least_rmsd</li>
     
     
@@ -380,11 +343,6 @@
 </style>
 <div class="section" id="molsysmt-least-rmsd">
 <h1>molsysmt.least_rmsd<a class="headerlink" href="#molsysmt-least-rmsd" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="molsysmt.least_rmsd">
-<code class="sig-prename descclassname">molsysmt.</code><code class="sig-name descname">least_rmsd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">selection</span><span class="o">=</span><span class="default_value">'backbone'</span></em>, <em class="sig-param"><span class="n">frame_indices</span><span class="o">=</span><span class="default_value">'all'</span></em>, <em class="sig-param"><span class="n">reference_item</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reference_selection</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reference_frame_index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">reference_coordinates</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parallel</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">syntaxis</span><span class="o">=</span><span class="default_value">'MolSysMT'</span></em>, <em class="sig-param"><span class="n">engine</span><span class="o">=</span><span class="default_value">'MolSysMT'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/molsysmt/rmsd.html#least_rmsd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#molsysmt.least_rmsd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 
 
@@ -392,15 +350,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="molsysmt.least_rmsd_fit.html" class="btn btn-neutral float-right" title="molsysmt.least_rmsd_fit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="molsysmt.rmsd.html" class="btn btn-neutral float-left" title="molsysmt.rmsd" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

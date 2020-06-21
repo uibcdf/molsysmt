@@ -28,6 +28,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -140,7 +141,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Get.html">How to get attributes from a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some examples over atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples over atoms, groups, components, chains, molecules or entities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Get.html#Some-examples-over-system">Some examples over system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
@@ -240,6 +241,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Rg.html">Radius of gyration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SASA.html">Solvent Accessible Surface Area</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
@@ -248,45 +250,10 @@
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Basic manipulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.convert.html">molsysmt.convert</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.info.html">molsysmt.info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.select.html">molsysmt.select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.set.html">molsysmt.set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.extract.html">molsysmt.extract</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.merge.html">molsysmt.merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.write.html">molsysmt.write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.view.html">molsysmt.view</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.distance.html">molsysmt.distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.maximum_distance.html">molsysmt.maximum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.minimum_distance.html">molsysmt.minimum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.neighbors_lists.html">molsysmt.neighbors_lists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.center.html">molsysmt.center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.center_of_mass.html">molsysmt.center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.geometric_center.html">molsysmt.geometric_center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.recenter.html">molsysmt.recenter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.radius_of_gyration.html">molsysmt.radius_of_gyration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.rmsd.html">molsysmt.rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.least_rmsd.html">molsysmt.least_rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.least_rmsd_fit.html">molsysmt.least_rmsd_fit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.wrap_molecules_to_pbc_cell.html">molsysmt.wrap_molecules_to_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.unwrap_molecules_from_pbc_cell.html">molsysmt.unwrap_molecules_from_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.minimum_image_convention.html">molsysmt.minimum_image_convention</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Basic manipulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index_elements.html">Elements</a></li>
 </ul>
 
@@ -624,10 +591,10 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ba3e31c5eae54a91858b14c04443d24e", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d00cb7f6afbd4fc18f382f8196571862"}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -636,7 +603,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -644,6 +611,9 @@ div.rendered_html tbody tr:hover {
 {&#39;pentalanine.h5&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/test_systems/pentalanine.h5&#39;,
  &#39;pentalanine.inpcrd&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/test_systems/pentalanine.inpcrd&#39;,
  &#39;pentalanine.prmtop&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/test_systems/pentalanine.prmtop&#39;,
+ &#39;metenkephalin.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/test_systems/metenkephalin.pdb&#39;,
+ &#39;trp-cage.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/test_systems/trp-cage.pdb&#39;,
+ &#39;trp-cage_solvated.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/test_systems/trp-cage_solvated.pdb&#39;,
  &#39;1brs.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/test_systems/1brs.pdb&#39;,
  &#39;1brs.mmtf&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/test_systems/1brs.mmtf&#39;,
  &#39;1sux.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/test_systems/1sux.pdb&#39;,
@@ -663,7 +633,9 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"768ad014957449e8bff8aeda57d493a8": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d00cb7f6afbd4fc18f382f8196571862": {"model_name": "ColormakerRegistryModel", "model_module": "nglview-js-widgets", "model_module_version": "2.7.5", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "2.7.5", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "2.7.5", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_768ad014957449e8bff8aeda57d493a8"}}}, "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 
 

@@ -28,6 +28,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -140,7 +141,7 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to get attributes from a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some examples over atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples over atoms, groups, components, chains, molecules or entities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Some-examples-over-system">Some examples over system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
@@ -240,6 +241,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Rg.html">Radius of gyration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SASA.html">Solvent Accessible Surface Area</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
@@ -248,45 +250,10 @@
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Basic manipulations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.convert.html">molsysmt.convert</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.info.html">molsysmt.info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.select.html">molsysmt.select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.set.html">molsysmt.set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.extract.html">molsysmt.extract</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.merge.html">molsysmt.merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.write.html">molsysmt.write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.view.html">molsysmt.view</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.distance.html">molsysmt.distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.maximum_distance.html">molsysmt.maximum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.minimum_distance.html">molsysmt.minimum_distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.neighbors_lists.html">molsysmt.neighbors_lists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.center.html">molsysmt.center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.center_of_mass.html">molsysmt.center_of_mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.geometric_center.html">molsysmt.geometric_center</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.recenter.html">molsysmt.recenter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.radius_of_gyration.html">molsysmt.radius_of_gyration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.rmsd.html">molsysmt.rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.least_rmsd.html">molsysmt.least_rmsd</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.least_rmsd_fit.html">molsysmt.least_rmsd_fit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.wrap_molecules_to_pbc_cell.html">molsysmt.wrap_molecules_to_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.unwrap_molecules_from_pbc_cell.html">molsysmt.unwrap_molecules_from_pbc_cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.minimum_image_convention.html">molsysmt.minimum_image_convention</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.get.html">molsysmt.get</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Basic manipulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index_elements.html">Elements</a></li>
 </ul>
 
@@ -617,8 +584,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -626,15 +593,30 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9f3617383d7a48f196d6f8f15795c25f", "version_major": 2, "version_minor": 0}</script></div>
+</div>
 <div class="section" id="How-to-get-attributes-from-a-molecular-system">
 <h1>How to get attributes from a molecular system<a class="headerlink" href="#How-to-get-attributes-from-a-molecular-system" title="Permalink to this headline">¶</a></h1>
 <p>Any attribute of the elements composing a molecular system such as name, index, id or type, as well as some simple observables, can be obtained by means of the method <code class="docutils literal notranslate"><span class="pre">molsysmt.get()</span></code>. Lets load a molecular system to play a bit with it:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">file_path</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -746,7 +728,7 @@ Atom names: [array([&#39;N&#39;, &#39;CA&#39;, &#39;C&#39;, &#39;O&#39;, &#39;CB
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Number of atoms: 23
+Number of atoms: [9, 6, 8]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -830,7 +812,7 @@ Component indices: [[550]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Number of groups: 3
+Number of groups: [1, 1, 1]
 </pre></div></div>
 </div>
 <p>Notice that if no indices list is provided, the method applies over all elements of the targeted entity. See for example:</p>
@@ -1202,8 +1184,8 @@ array([148, 149, 150, 151, 152, 153, 154])
 </table>
 <p>Not every attribute or observable works over every molecular system form. For instance, you have to consider that forms corresponding to python objects with only topological information, such as <code class="docutils literal notranslate"><span class="pre">molsysmt.Composition</span></code> or <code class="docutils literal notranslate"><span class="pre">mdtraj.Topology</span></code>, do not contain coordinates, box, time or n_frames.</p>
 </div>
-<div class="section" id="Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">
-<h2>Some examples over atoms, groups, components, chains, molecules or entities<a class="headerlink" href="#Some-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">
+<h2>Some other examples over atoms, groups, components, chains, molecules or entities<a class="headerlink" href="#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities" title="Permalink to this headline">¶</a></h2>
 <p>Here you can find some additional examples where <code class="docutils literal notranslate"><span class="pre">msm.get()</span></code> works over atoms, groups, components, chains, molecules or entities:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
@@ -1452,7 +1434,7 @@ array([array([&#39;LYS&#39;, &#39;PRO&#39;, &#39;GLN&#39;, ..., &#39;ALA&#39;, &
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-497
+[497]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1528,7 +1510,7 @@ array([&#39;water&#39;], dtype=object)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-165
+[165]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1608,12 +1590,50 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 497
 </pre></div></div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Number of groups of a set of components</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[248, 249]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Total number of groups of a set of comopnents</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;component.index==[0,1]&#39;</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+497
+</pre></div></div>
+</div>
 </div>
 <div class="section" id="Some-examples-over-system">
 <h2>Some examples over system<a class="headerlink" href="#Some-examples-over-system" title="Permalink to this headline">¶</a></h2>
 <p>The element system has some specific observables accounting for the amount of type of elements such as the number of aminoacid groups, ion molecules or protein molecules:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1623,7 +1643,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1632,7 +1652,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1642,7 +1662,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1651,7 +1671,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1661,7 +1681,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1670,7 +1690,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1680,7 +1700,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1689,7 +1709,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1699,7 +1719,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1708,7 +1728,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1718,7 +1738,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1730,7 +1750,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 <div class="section" id="Getting-trajectory-times,-coordinates-and-pbc-box-attributes">
 <h2>Getting trajectory times, coordinates and pbc box attributes<a class="headerlink" href="#Getting-trajectory-times,-coordinates-and-pbc-box-attributes" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1739,7 +1759,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1748,7 +1768,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1757,7 +1777,7 @@ array([&#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;water&#39;, &#39;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1766,7 +1786,7 @@ Quantity(value=array([[[1.8835, 3.8271, 5.0365]]]), unit=nanometer)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1775,7 +1795,7 @@ Quantity(value=array([[[1.8835, 3.8271, 5.0365]]]), unit=nanometer)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1790,7 +1810,7 @@ Quantity(value=array([[[1.8467, 2.7638, 8.3661],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1799,7 +1819,7 @@ Quantity(value=array([[[1.8467, 2.7638, 8.3661],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1808,7 +1828,7 @@ Quantity(value=array([0.]), unit=picosecond)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1817,7 +1837,7 @@ Quantity(value=array([0.]), unit=picosecond)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1828,7 +1848,7 @@ Quantity(value=array([[[4.37099990e+00, 0.00000000e+00, 0.00000000e+00],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1837,7 +1857,7 @@ Quantity(value=array([[[4.37099990e+00, 0.00000000e+00, 0.00000000e+00],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="output_area docutils container">

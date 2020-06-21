@@ -79,6 +79,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/RMSD.ipynb
    contents/Rg.ipynb
    contents/Dihedral_angles.ipynb
+   contents/SASA.ipynb
 
 .. toctree::
    :name: topological_observables
