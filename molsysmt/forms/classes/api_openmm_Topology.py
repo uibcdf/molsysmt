@@ -1149,7 +1149,7 @@ def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return get_n_groups_from_atom(item, 'all')
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 

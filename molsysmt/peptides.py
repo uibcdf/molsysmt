@@ -19,13 +19,18 @@ def build_peptide (item, forcefield='AMBER96', implicit_solvent=None, water_mode
         from molsysmt.utils.files_and_directories import tmp_directory, tmp_filename
         from shutil import rmtree, copyfile
 
-        forcefield = digest_forcefield(forcefield, 'LEap')
-
         sequence = tmp_item[12:].upper()
         sequence = ' '.join([sequence[ii:ii+3] for ii in range(0, len(sequence), 3)])
 
-        if water_model in ['SPC', 'TIP3P']:
+        if type(forcefield) not in [tuple, list]:
+            forcefield = [forcefield]
+
+        if water_model =='SPC':
+            solvent_model='SPCBOX'
+            forcefield.append('SPC')
+        elif water_model == 'TIP3P':
             solvent_model='TIP3PBOX'
+            forcefield.append('TIP3P')
         else:
             raise NotImplementedError
 
@@ -39,8 +44,8 @@ def build_peptide (item, forcefield='AMBER96', implicit_solvent=None, water_mode
             print('Working directory:', working_directory)
 
         tleap = TLeap()
-
-        tleap.load_parameters(forcefield)
+        forcefield = digest_forcefield(forcefield, 'LEap')
+        tleap.load_parameters(*forcefield)
 
         if implicit_solvent == 'GBSA OBC':
             tleap.set_global_parameter(PBRadii='mbondi2')

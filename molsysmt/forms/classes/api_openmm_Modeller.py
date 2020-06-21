@@ -316,7 +316,12 @@ def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_n_atoms_from_system as _get
-    return _get(item, indices=indices)
+    return _get(item.topology, indices=indices)
+
+def get_n_groups_from_system (item, indices='all', frame_indices='all'):
+
+    from .api_openmm_Topology import get_n_groups_from_system as _get
+    return _get(item.topology, indices=indices)
 
 def get_charge_from_system (item, indices='all', frame_indices='all'):
 
@@ -336,9 +341,7 @@ def get_n_degrees_of_freedom_from_system (item, indices='all', frame_indices='al
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import get_box_from_system as _get
-
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, frame_indices=frame_indices)
+    return _get(item.topology, frame_indices=frame_indices)
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 

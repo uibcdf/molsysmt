@@ -141,11 +141,11 @@ def select_with_MDTraj(item, selection):
 
 def copy(item, output_filepath=None):
 
-    from shutil import copy
-    from molsysmt.utils.pdb import tmp_pdb_filename
+    from shutil import copy as copy_file
+    from molsysmt.utils.files_and_directories import tmp_filename
     if output_filepath is None:
-        output_filepath = tmp_pdb_filename()
-    copy(item, output_filepath)
+        output_filepath = tmp_filename(extension='pdb')
+    copy_file(item, output_filepath)
     return output_filepath
 
 def extract(item, output_filepath=None, atom_indices='all', frame_indices='all'):

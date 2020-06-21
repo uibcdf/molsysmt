@@ -21,6 +21,7 @@ _openmm = {
 
 _leap = {
 
+    'AMBER14' : 'leaprc.protein.ff14SB',
     'AMBER96' : 'oldff/leaprc.ff96',
     'AMBER99SB-ILDN' : 'oldff/leaprc.ff99SBildn',
     'TIP3P' : 'leaprc.water.tip3p',

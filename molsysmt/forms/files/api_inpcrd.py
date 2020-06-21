@@ -96,9 +96,14 @@ def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
-def copy(item):
+def copy(item, output_filepath=None):
 
-    raise NotImplementedError
+    from shutil import copy as copy_file
+    from molsysmt.utils.files_and_directories import tmp_filename
+    if output_filepath is None:
+        output_filepath = tmp_filename(extension='inpcrd')
+    copy_file(item, output_filepath)
+    return output_filepath
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
