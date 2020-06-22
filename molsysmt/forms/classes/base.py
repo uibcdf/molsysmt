@@ -38,8 +38,10 @@ for form_name in list_forms:
     dict_extractor[form_name]= {}
     dict_copier[form_name]= {}
     dict_merger[form_name]= {}
-    dict_get[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{}, 'entity':{}, 'system':{}}
-    dict_set[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{}, 'entity':{}, 'system':{}}
+    dict_get[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{},
+                          'entity':{}, 'system':{}, 'bond':{}}
+    dict_set[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{},
+                          'entity':{}, 'system':{}, 'bond':{}}
     dict_info[form_name]=getattr(dict_api_forms[form_name],'info')
     dict_with_topology[form_name]=getattr(dict_api_forms[form_name],'with_topology')
     dict_with_trajectory[form_name]=getattr(dict_api_forms[form_name],'with_trajectory')

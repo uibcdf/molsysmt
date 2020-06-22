@@ -155,8 +155,8 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT',
        XXX
 
     target: str, default='atom'
-       The output indices list can correspond to 'atom', 'group', 'component', 'molecule', 'chain' or 'entity'
-       indices.
+       The output indices list can correspond to 'atom', 'group', 'component', 'molecule', 'chain',
+       'entity' or 'bond' indices.
 
     syntaxis: str, default='MolSysMT'
        Syntaxis used to write the argument `selection`. The current options supported by MolSysMt
@@ -218,6 +218,8 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT',
     elif target=='entity':
         output_indices = get(item, target='atom', indices=atom_indices, entity_index=True)
         output_indices = _unique(output_indices)
+    elif target=='bond':
+        output_indices = get(item, target='atom', indices=atom_indices, all_unique_bond_indices=True)
 
     else:
         raise NotImplementedError

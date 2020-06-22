@@ -231,10 +231,6 @@ def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
     output = item.elements['entity_type'][tmp_indices].to_numpy()
     return output
 
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     output = get_atom_index_from_atom (item, indices=indices, frame_indices=frame_indices)
@@ -272,32 +268,22 @@ def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    bonded_atoms=None
+    raise NotImplementedError
 
-    if indices is 'all':
-        bonded_atoms = item.bonds[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
-    else:
-        bonds = get_bonds_from_atom(item, indices=indices)
-        bonded_atoms = item.bonds.iloc[bonds][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
-    return bonded_atoms
+def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
 
-def get_bonds_from_atom (item, indices='all', frame_indices='all'):
-
-    if indices=='all':
-        return get_bonds_from_system(item)
-    else:
-        return item.bonds.query('atom1_index==@indices and atom2_index==@indices').index.to_numpy(dtype=int, copy=True)
+    raise NotImplementedError
 
 def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        return get_n_bonds_from_system(item)
-    else:
-        bonds = get_bonds_from_atom(item, indices=indices)
-        n_bonds = bonds.shape[0]
-        del(bonds)
+    raise NotImplementedError
 
-    return n_bonds
+def get_all_unique_bond_indices_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices=='all':
+        return get_bond_index_from_system(item)
+    else:
+        return item.bonds.query('atom1_index==@indices and atom2_index==@indices').index.to_numpy(dtype=int, copy=True)
 
 def get_mass_from_atom (item, indices='all', frame_indices='all'):
 
@@ -1829,4 +1815,45 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+## bond
+
+def get_index_from_bond(item, indices='all', frame_indices='all'):
+
+    return get_bond_index_from_bond(item, indices=indices)
+
+def get_bond_index_from_bond(item, indices='all', frame_indices='all'):
+    
+    tmp_out = None
+
+    if indices is 'all':
+
+        n_bonds = get_n_bonds_from_system(item)
+        tmp_out = _arange(n_bonds, dtype=int)
+
+    else:
+        tmp_out = indices
+
+    return tmp_out
+
+def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+
+    tmp_out = None
+
+    if indices is 'all':
+        tmp_out = item.bonds[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
+    else:
+        tmp_out = item.bonds.iloc[indices][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
+
+    return tmp_out
+
+def get_n_bonds_from_bond(item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+
+        return get_n_bonds_from_system(item)
+
+    else:
+
+        return len(indices)
 
