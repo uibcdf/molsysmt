@@ -219,7 +219,7 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT',
         output_indices = get(item, target='atom', indices=atom_indices, entity_index=True)
         output_indices = _unique(output_indices)
     elif target=='bond':
-        output_indices = get(item, target='atom', indices=atom_indices, all_unique_bond_indices=True)
+        output_indices = get(item, target='atom', indices=atom_indices, inner_bond_index=True)
 
     else:
         raise NotImplementedError

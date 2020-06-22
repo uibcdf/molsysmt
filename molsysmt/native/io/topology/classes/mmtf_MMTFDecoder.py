@@ -5,7 +5,6 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     from numpy import empty, array, arange, reshape, where, unique, nan
     from molsysmt.elements.group import name_to_type as group_name_to_group_type
     from molsysmt.elements.entity import type_from_MMTFDecoder_entity as entity_type_from_MMTFDecoder_entity
-    from networkx import empty_graph, connected_components
 
     tmp_item = Topology()
 
@@ -28,11 +27,12 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         if len(item.group_type_list)!=item.num_groups:
             raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
 
-    # atoms, groups and bonds intra group in graph
+    # atoms, groups and bonds intra group
 
     n_atoms = item.num_atoms
+    n_bonds = item.num_bonds
 
-    tmp_item["atom.index"] = arange(n_atoms, dtype=int)
+    tmp_item.elements["atom_index"] = arange(n_atoms, dtype=int)
 
     atom_name_array = empty(n_atoms, dtype=object)
     atom_id_array = empty(n_atoms, dtype=int)
@@ -45,9 +45,13 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     group_id_array = empty(n_atoms, dtype=int)
     group_type_array = empty(n_atoms, dtype=object)
 
-    G = empty_graph(n_atoms)
+    bond_atom1_index_array = empty(n_bonds, dtype=int)
+    bond_atom2_index_array = empty(n_bonds, dtype=int)
+    #bond_type_array = empty(n_bonds, dtype=object)
+    bond_order_array = empty(n_bonds, dtype=int)
 
     atom_index = 0
+    bond_index = 0
 
     for mmtf_group_type, group_index, group_id in zip(item.group_type_list, range(item.num_groups), item.group_id_list):
 
@@ -55,11 +59,14 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
         group_name = mmtf_group['groupName']
         group_type = group_name_to_group_type(group_name)
 
-        # bonds intra-groups in graph
+        # bonds intra-groups
 
         for bond_pair, bond_order in zip(reshape(mmtf_group['bondAtomList'],(-1,2)), mmtf_group['bondOrderList']):
 
-            G.add_edge(bond_pair[0]+atom_index, bond_pair[1]+atom_index)
+            bond_atom1_index_array[bond_index]=bond_pair[0]+atom_index
+            bond_atom2_index_array[bond_index]=bond_pair[1]+atom_index
+            bond_order_array[bond_index]=bond_order
+            bond_index+=1
 
         for atom_name, atom_type, atom_formal_charge in zip(mmtf_group['atomNameList'], mmtf_group['elementList'], mmtf_group['formalChargeList']):
 
@@ -75,51 +82,37 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
             atom_index+=1
 
-    tmp_item["atom.name"] = atom_name_array
-    tmp_item["atom.id"] = atom_id_array
-    tmp_item["atom.type"] = atom_type_array
-    tmp_item["atom.formal_charge"] = atom_formal_charge_array
+    tmp_item.elements["atom_name"] = atom_name_array
+    tmp_item.elements["atom_id"] = atom_id_array
+    tmp_item.elements["atom_type"] = atom_type_array
+    #tmp_item.elements["atom_formal_charge"] = atom_formal_charge_array
     del(atom_name_array, atom_id_array, atom_type_array, atom_formal_charge_array)
 
-    tmp_item["group.index"] = group_index_array
-    tmp_item["group.name"] = group_name_array
-    tmp_item["group.id"] = group_id_array
-    tmp_item["group.type"] = group_type_array
+    tmp_item.elements["group_index"] = group_index_array
+    tmp_item.elements["group_name"] = group_name_array
+    tmp_item.elements["group_id"] = group_id_array
+    tmp_item.elements["group_type"] = group_type_array
     del(group_name_array, group_id_array, group_type_array)
 
     # bonds inter-groups in graph
 
     for bond_pair, bond_order in zip(reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
-        G.add_edge(bond_pair[0], bond_pair[1])
+        bond_atom1_index_array[bond_index]=bond_pair[0]
+        bond_atom2_index_array[bond_index]=bond_pair[1]
+        bond_order_array[bond_index]=bond_order
+        bond_index+=1
 
     #### bonds
 
-    for atom_index in range(item.num_atoms):
-        atom_bonded_atom_indices_array[atom_index] = list(G.neighbors(atom_index))
-
-    tmp_item["atom.bonded_atom_indices"] = atom_bonded_atom_indices_array
-    del(atom_bonded_atom_indices_array)
+    tmp_item.bonds["atom1_index"] = bond_atom1_index_array
+    tmp_item.bonds["atom2_index"] = bond_atom2_index_array
+    tmp_item.bonds["order"] = bond_order_array
+    del(bond_atom1_index_array, bond_atom2_index_array, bond_order_array)
 
     #### components
 
-    atom_indices_per_component = list(connected_components(G))
-    del(G)
-
-    component_index_array = empty(n_atoms, dtype=int)
-    #component_name_array = empty(n_atoms, dtype=object)
-    #component_id_array = empty(n_atoms, dtype=int)
-    #component_type_array = empty(n_atoms, dtype=object)
-
-    component_index = 0
-
-    for atom_indices_of_component in atom_indices_per_component:
-        for atom_index in atom_indices_of_component:
-
-            component_index_array[atom_index] = component_index
-
-        component_index += 1
-
-    tmp_item["component.index"] = component_index_array
+    tmp_item._build_components()
+    component_index_array=tmp_item.elements['component_index'].to_numpy(dtype=int,copy=True)
 
     #### chains
 
@@ -143,9 +136,9 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
         count_groups+=n_groups_chain
 
-    tmp_item["chain.index"] = chain_index_array
-    tmp_item["chain.name"] = chain_name_array
-    tmp_item["chain.id"] = chain_id_array
+    tmp_item.elements["chain_index"] = chain_index_array
+    tmp_item.elements["chain_name"] = chain_name_array
+    tmp_item.elements["chain_id"] = chain_id_array
 
     del(chain_name_array, chain_id_array)
 
@@ -238,23 +231,24 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
         entity_index += 1
 
-    tmp_item["entity.index"] = entity_index_array
-    tmp_item["entity.name"] = entity_name_array
-    tmp_item["entity.type"] = entity_type_array
-    tmp_item["entity.id"] = entity_id_array
+    tmp_item.elements["entity_index"] = entity_index_array
+    tmp_item.elements["entity_name"] = entity_name_array
+    tmp_item.elements["entity_type"] = entity_type_array
+    tmp_item.elements["entity_id"] = entity_id_array
 
     del(entity_index_array, entity_name_array, entity_type_array, entity_id_array)
 
-    tmp_item["molecule.index"] = molecule_index_array
-    tmp_item["molecule.name"] = molecule_name_array
-    tmp_item["molecule.type"] = molecule_type_array
-    tmp_item["molecule.id"] = molecule_id_array
+    tmp_item.elements["molecule_index"] = molecule_index_array
+    tmp_item.elements["molecule_name"] = molecule_name_array
+    tmp_item.elements["molecule_type"] = molecule_type_array
+    tmp_item.elements["molecule_id"] = molecule_id_array
 
     del(molecule_index_array, molecule_name_array, molecule_type_array, molecule_id_array)
 
     del(group_index_array, chain_index_array, component_index_array)
 
-    tmp_item = tmp_item.extract(atom_indices)
+    if atom_indices is not 'all':
+        tmp_item = tmp_item.extract(atom_indices)
 
     return tmp_item
 

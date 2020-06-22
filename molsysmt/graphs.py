@@ -2,7 +2,7 @@ def bondgraph(item, nodes_name='atom_index', selection='all', syntaxis='MolSysMT
               to_form='NetworkX'):
 
     # tengo que incluir la forma NetworkX para convertir.
-    # en el caso de convert, lo que obtengo es es una red con el nombre de los nodos dado por la
+    # en el caso de convert, lo que obtengo es una red con el nombre de los nodos dado por la
     # etiqueta short o con el indice de atomo empezando por cero (todavía no lo he decidido)
 
     # el caso de este método es que nos da un grafo con los nodos nombrados según

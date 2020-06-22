@@ -2,7 +2,7 @@ from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
 from molsysmt.native.topology import Topology
 from numpy import array as _array, unique as _unique, ndenumerate as _ndenumerate, concatenate as _concatenate
-from numpy import arange as _arange
+from numpy import arange as _arange, hstack as _hstack
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -268,22 +268,91 @@ def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    output = None
+
+    from networkx import Graph
+
+    G = Graph()
+    edges = get_atom_index_from_bond(item)
+    G.add_edges_from(edges)
+
+    if indices is 'all':
+
+        indices = get_atom_index_from_atom(item)
+
+    output = _array([_array([n for n in G[ii]]) for ii in indices])
+
+    del(Graph, G, edges)
+
+    return output
 
 def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    output = None
+
+    from networkx import Graph
+
+    G = Graph()
+    edges = get_atom_index_from_bond(item)
+    n_bonds = edges.shape[0]
+    edge_indices = _array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
+    G.add_edges_from(_hstack([edges, edge_indices]))
+
+    if indices is 'all':
+
+        indices = get_atom_index_from_atom(item)
+
+    output = _array([_array([n['index'] for n in G[ii].values()]) for ii in indices])
+
+    del(Graph, G, edges, edge_indices)
+
+    return output
 
 def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    output = None
 
-def get_all_unique_bond_indices_from_atom (item, indices='all', frame_indices='all'):
+    from networkx import Graph
 
-    if indices=='all':
-        return get_bond_index_from_system(item)
+    G = Graph()
+    edges = get_atom_index_from_bond(item)
+    G.add_edges_from(edges)
+
+    if indices is 'all':
+
+        indices = get_atom_index_from_atom(item)
+
+    output = _array([len(G[ii]) for ii in indices])
+
+    del(Graph, G, edges)
+
+    return output
+
+def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
+
+    output = None
+
+    if indices is 'all':
+        output = get_bond_index_from_system(item)
     else:
-        return item.bonds.query('atom1_index==@indices and atom2_index==@indices').index.to_numpy(dtype=int, copy=True)
+        aux_list = list(indices)
+        output = item.bonds.query('atom1_index==@aux_list and atom2_index==@aux_list').index.to_numpy(dtype=int, copy=True)
+
+    return output
+
+def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    bond_indices = get_inner_bond_index_from_atom (item, indices=indices)
+    output = item.bonds.iloc[bond_indices][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
+    del(bond_indices)
+    return(output)
+
+def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
+
+    bond_indices = get_inner_bond_index_from_atom(item, indices=indices)
+    output = bond_indices.shape[0]
+    del(bond_indices)
+    return(output)
 
 def get_mass_from_atom (item, indices='all', frame_indices='all'):
 
@@ -431,7 +500,7 @@ def get_chain_id_from_group (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices)
     all_indices = item.elements['group_index'].to_numpy()
     right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
-    output = item.elemenents['chain_id'][right_locs].to_numpy()
+    output = item.elements['chain_id'][right_locs].to_numpy()
     return output
 
 def get_chain_name_from_group (item, indices='all', frame_indices='all'):
@@ -1698,15 +1767,6 @@ def get_charge_from_entity (item, indices='all', frame_indices='all'):
 
 ## system
 
-def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
-
-    return get_bonded_atoms_from_system(item, indices='all')
-
-def get_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    n_bonds=get_bonds_from_system(item)
-    return _arange(n_bonds)
-
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
     return item.elements.shape[0]
@@ -1738,7 +1798,7 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    raise item.bonds.shape[0]
+    return item.bonds.shape[0]
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
@@ -1822,8 +1882,16 @@ def get_index_from_bond(item, indices='all', frame_indices='all'):
 
     return get_bond_index_from_bond(item, indices=indices)
 
+def get_order_from_bond(item, indices='all', frame_indices='all'):
+
+    return get_bond_order_from_bond(item, indices=indices)
+
+def get_type_from_bond(item, indices='all', frame_indices='all'):
+
+    return get_bond_type_from_bond(item, indices=indices)
+
 def get_bond_index_from_bond(item, indices='all', frame_indices='all'):
-    
+
     tmp_out = None
 
     if indices is 'all':
@@ -1833,6 +1901,28 @@ def get_bond_index_from_bond(item, indices='all', frame_indices='all'):
 
     else:
         tmp_out = indices
+
+    return tmp_out
+
+def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+
+    tmp_out = None
+
+    if indices is 'all':
+        tmp_out = item.bonds['order'].to_numpy(copy=True)
+    else:
+        tmp_out = item.bonds.iloc[indices]['order'].to_numpy(copy=True)
+
+    return tmp_out
+
+def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+
+    tmp_out = None
+
+    if indices is 'all':
+        tmp_out = item.bonds['type'].to_numpy(copy=True)
+    else:
+        tmp_out = item.bonds.iloc[indices]['type'].to_numpy(copy=True)
 
     return tmp_out
 
