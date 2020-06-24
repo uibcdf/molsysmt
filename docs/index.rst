@@ -86,6 +86,8 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :caption: Topological tools
    :maxdepth: 1
 
+   contents/Bondgraph.ipynb
+   contents/Covalent_chains.ipynb
    contents/Alignment.ipynb
    contents/Mutations.ipynb
 

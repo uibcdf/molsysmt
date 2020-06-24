@@ -73,6 +73,7 @@ def from_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_i
     tmp_item = Topology()
 
     n_atoms = item.n_atoms
+    n_bonds = item.n_bonds
 
     mdtraj_dataframe, mdtraj_bonds = item.to_dataframe()
 
@@ -86,26 +87,15 @@ def from_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_i
 
     tmp_item.elements["chain_id"] = mdtraj_dataframe["chainID"]
 
+    tmp_item.bonds["atom1_index"] = array(mdtraj_bonds[:,0], dtype=int)
+    tmp_item.bonds["atom2_index"] = array(mdtraj_bonds[:,1], dtype=int)
+
     del(mdtraj_dataframe)
 
     group_type_array = empty(n_atoms, dtype=object)
 
-    tmp_item.elements["group_type"] = list(map(group_name_to_group_type,tmp_item["group.name"]))
+    tmp_item.elements["group_type"] = list(map(group_name_to_group_type,tmp_item.elements["group_name"]))
 
-    bond_atom1 = empty(n_atoms, dtype=int)
-    bond_atom2 = empty(n_atoms, dtype=int)
-
-    aux=0
-    for mdtraj_bond in mdtraj_bonds:
-        bond_atom1=int(mdtraj_bond[0])
-        bond_atom2=int(mdtraj_bond[1])
-        aux+=1
-
-
-    tmp_item.bonds['atom1_index']=bond_atom_1
-    tmp_item.bonds['atom2_index']=bond_atom_2
-
-    del(bond_atom_1, bond_atom_2)
 
     group_index_array = empty(n_atoms, dtype=int)
     chain_index_array = empty(n_atoms, dtype=int)

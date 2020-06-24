@@ -946,7 +946,7 @@ def get(item, target='atom', indices=None, selection='all', frame_indices='all',
         indices = _array(indices, dtype='int64')
 
     if indices is None:
-        if selection not in ['all', 'All', 'ALL']:
+        if selection is not 'all':
             indices = select(item, target=target, selection=selection, syntaxis=syntaxis)
         else:
             indices = 'all'

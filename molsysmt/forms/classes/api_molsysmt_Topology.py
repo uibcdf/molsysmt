@@ -793,9 +793,9 @@ def get_chain_type_from_component (item, indices='all', frame_indices='all'):
 def get_molecule_index_from_component (item, indices='all', frame_indices='all'):
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
-    all_indices = item.elements['component.index'].to_numpy()
+    all_indices = item.elements['component_index'].to_numpy()
     right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
-    output = item.elements['molecule.index'][right_locs].to_numpy()
+    output = item.elements['molecule_index'][right_locs].to_numpy()
     return output
 
 def get_molecule_id_from_component (item, indices='all', frame_indices='all'):
