@@ -140,6 +140,12 @@ html_static_path = ['_static']
 #### https://github.com/lotharschulz/sphinx-pages/blob/master/conf.py for more
 #### options
 
+# Custom css
+
+html_css_files = [
+    'custom.css',
+]
+
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #
