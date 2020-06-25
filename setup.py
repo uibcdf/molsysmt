@@ -40,7 +40,7 @@ ext_geometry = Extension(
     extra_compile_args = [],
     libraries = ['lapack'],
     language = 'f90',
-    sources = ['molsysmt/lib/libgeometry.f90','molsysmt/lib/libpbc.f90','molsysmt/lib/libbox.f90'],
+    sources = ['molsysmt/lib/libgeometry.f90', 'molsysmt/lib/libmath.f90', 'molsysmt/lib/libpbc.f90','molsysmt/lib/libbox.f90'],
 )
 
 ext_rmsd = Extension(

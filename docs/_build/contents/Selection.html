@@ -141,8 +141,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Get.html">How to get attributes from a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples over atoms, groups, components, chains, molecules or entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-examples-over-system">Some examples over system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples involving atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-systems">Some other examples involving systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-bonds">Some other examples involving bonds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
 </li>
@@ -240,11 +241,17 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Rg.html">Radius of gyration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Getting dihedral angles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-any-dihedral-angle">How to get any dihedral angle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-the-Ramachandran-angles">How to get the Ramachandran angles</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="SASA.html">Solvent Accessible Surface Area</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="Bondgraph.html">Bondgraph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Covalent_chains.html">How to get the covalent chains</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Alignment.html">Sequence alignment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Mutations.html">Mutations</a></li>
 </ul>
@@ -575,7 +582,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -597,7 +604,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1ac3f4511f31414d997b23d5458a7cb8", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9c71b91eb102432aa85c07e9281849d8", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Elements-selection">
 <h1>Elements selection<a class="headerlink" href="#Elements-selection" title="Permalink to this headline">¶</a></h1>
@@ -607,16 +614,16 @@ engine or molecular visualization software have each own syntaxis to write this 
 <h2>MolSysMT selection syntaxis<a class="headerlink" href="#MolSysMT-selection-syntaxis" title="Permalink to this headline">¶</a></h2>
 <p>MolSysMT has its own selection syntaxis based on the attributes of the elements as atoms, groups, molecules, etc. Lets load a molecular system to explain the logic behind this syntaxis:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">file_path</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.pdb&#39;</span><span class="p">]</span>
+<span></span><span class="n">file_path</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -625,8 +632,8 @@ engine or molecular visualization software have each own syntaxis to write this 
 </div>
 </div>
 <p>A molecular system encoded as the native form ‘MolSys’ has a pandas DataFrame with the atoms breakdown:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -634,15 +641,345 @@ engine or molecular visualization software have each own syntaxis to write this 
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>atom_index</th>
+      <th>atom_name</th>
+      <th>atom_id</th>
+      <th>atom_type</th>
+      <th>group_index</th>
+      <th>group_name</th>
+      <th>group_id</th>
+      <th>group_type</th>
+      <th>component_index</th>
+      <th>component_name</th>
+      <th>...</th>
+      <th>chain_id</th>
+      <th>chain_type</th>
+      <th>molecule_index</th>
+      <th>molecule_name</th>
+      <th>molecule_id</th>
+      <th>molecule_type</th>
+      <th>entity_index</th>
+      <th>entity_name</th>
+      <th>entity_id</th>
+      <th>entity_type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>N</td>
+      <td>1</td>
+      <td>N</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>A</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>CA</td>
+      <td>2</td>
+      <td>C</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>A</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>C</td>
+      <td>3</td>
+      <td>C</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>A</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>O</td>
+      <td>4</td>
+      <td>O</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>A</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>CB</td>
+      <td>5</td>
+      <td>C</td>
+      <td>0</td>
+      <td>LYS</td>
+      <td>4</td>
+      <td>aminoacid</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>A</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+      <td>0</td>
+      <td>TRIOSEPHOSPHATE ISOMERASE</td>
+      <td>0</td>
+      <td>protein</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>3978</th>
+      <td>3978</td>
+      <td>O</td>
+      <td>3979</td>
+      <td>O</td>
+      <td>657</td>
+      <td>HOH</td>
+      <td>339</td>
+      <td>water</td>
+      <td>162</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>D</td>
+      <td>NaN</td>
+      <td>161</td>
+      <td>water</td>
+      <td>161</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+    </tr>
+    <tr>
+      <th>3979</th>
+      <td>3979</td>
+      <td>O</td>
+      <td>3980</td>
+      <td>O</td>
+      <td>658</td>
+      <td>HOH</td>
+      <td>340</td>
+      <td>water</td>
+      <td>163</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>D</td>
+      <td>NaN</td>
+      <td>162</td>
+      <td>water</td>
+      <td>162</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+    </tr>
+    <tr>
+      <th>3980</th>
+      <td>3980</td>
+      <td>O</td>
+      <td>3981</td>
+      <td>O</td>
+      <td>659</td>
+      <td>HOH</td>
+      <td>341</td>
+      <td>water</td>
+      <td>164</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>D</td>
+      <td>NaN</td>
+      <td>163</td>
+      <td>water</td>
+      <td>163</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+    </tr>
+    <tr>
+      <th>3981</th>
+      <td>3981</td>
+      <td>O</td>
+      <td>3982</td>
+      <td>O</td>
+      <td>660</td>
+      <td>HOH</td>
+      <td>342</td>
+      <td>water</td>
+      <td>165</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>D</td>
+      <td>NaN</td>
+      <td>164</td>
+      <td>water</td>
+      <td>164</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+    </tr>
+    <tr>
+      <th>3982</th>
+      <td>3982</td>
+      <td>O</td>
+      <td>3983</td>
+      <td>O</td>
+      <td>661</td>
+      <td>HOH</td>
+      <td>343</td>
+      <td>water</td>
+      <td>166</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>D</td>
+      <td>NaN</td>
+      <td>165</td>
+      <td>water</td>
+      <td>165</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+      <td>1</td>
+      <td>water</td>
+    </tr>
+  </tbody>
+</table>
+<p>3983 rows × 24 columns</p>
+</div></div>
+</div>
 <p>As you can see, the column names are the fundamental attributes of the molecular system elements:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="nb">print</span><span class="p">(</span><span class="n">molecular_system</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Index([&#39;atom_index&#39;, &#39;atom_name&#39;, &#39;atom_id&#39;, &#39;atom_type&#39;, &#39;group_index&#39;,
+       &#39;group_name&#39;, &#39;group_id&#39;, &#39;group_type&#39;, &#39;component_index&#39;,
+       &#39;component_name&#39;, &#39;component_id&#39;, &#39;component_type&#39;, &#39;chain_index&#39;,
+       &#39;chain_name&#39;, &#39;chain_id&#39;, &#39;chain_type&#39;, &#39;molecule_index&#39;,
+       &#39;molecule_name&#39;, &#39;molecule_id&#39;, &#39;molecule_type&#39;, &#39;entity_index&#39;,
+       &#39;entity_name&#39;, &#39;entity_id&#39;, &#39;entity_type&#39;],
+      dtype=&#39;object&#39;)
+</pre></div></div>
 </div>
 <p>The syntaxis proposed by Pandas to perform queries in a pandas.DataFrame is the base of the MolSysMT selection procedure. The boolean syntaxis of Pandas includes the following words and symbols:</p>
 <center><table class="docutils align-default">
@@ -704,279 +1041,523 @@ engine or molecular visualization software have each own syntaxis to write this 
 <div class="section" id="Simple-atoms-selection-by-their-attributes-or-properties">
 <h3>Simple atoms selection by their attributes or properties<a class="headerlink" href="#Simple-atoms-selection-by-their-attributes-or-properties" title="Permalink to this headline">¶</a></h3>
 <p>The following are some examples where a list of atoms is obtained matching some selection criteria:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms with name C</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.name == &quot;C&quot;&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_name == &quot;C&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([   2,   11,   18, ..., 3798, 3803, 3810])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms with name CA or CB</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.name in [&quot;CA&quot;,&quot;CB&quot;]&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_name in [&quot;CA&quot;,&quot;CB&quot;]&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([   1,    4,   10, ..., 3805, 3809, 3812])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms of type C or N</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.type==[&quot;C&quot;,&quot;N&quot;]&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_type==[&quot;C&quot;,&quot;N&quot;]&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([   0,    1,    2, ..., 3814, 3815, 3816])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Heavy atoms</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;not atom.type==&quot;H&quot;&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;not atom_type==&quot;H&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([   0,    1,    2, ..., 3980, 3981, 3982])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms of type C not named CA</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.type==&quot;C&quot; and not atom.name==&quot;CA&quot;&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_type==&quot;C&quot; and not atom_name==&quot;CA&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([   2,    4,    5, ..., 3813, 3814, 3815])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms not named CA, CB or C</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.name!=[&quot;CA&quot;,&quot;CB&quot;,&quot;C&quot;]&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_name!=[&quot;CA&quot;,&quot;CB&quot;,&quot;C&quot;]&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([   0,    3,    5, ..., 3980, 3981, 3982])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms with id number lower than 10</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.id&lt;10&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_id&lt;10&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms with id number lower than 10 and higher or equal than 3</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.id&lt;10 and atom.id&gt;=3&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_id&lt;10 and atom_id&gt;=3&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([2, 3, 4, 5, 6, 7, 8])
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Including-other-elements-attributes">
 <h3>Including other elements attributes<a class="headerlink" href="#Including-other-elements-attributes" title="Permalink to this headline">¶</a></h3>
 <p>Atoms can be selected using attributes of other the other elements in the hierarchical organization of the molecular system: ‘group’, ‘component’, ‘molecule’, ‘chain’, ‘entity’ or ‘bioassembly’. You can find further information of these elements in XXX. These are some examples of selection sentences including other criteria than atoms attributes:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms belonging to molecules of type water.</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule.type==&quot;water&quot;&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule_type==&quot;water&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([3818, 3819, 3820, ..., 3980, 3981, 3982])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Heavy atoms belonging to molecules of type protein.</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule.type==&quot;protein&quot; and atom.type!=&quot;H&quot;&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule_type==&quot;protein&quot; and atom_type!=&quot;H&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([   0,    1,    2, ..., 3815, 3816, 3817])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms belonging to residues named GLY, ALA or VAL in chain named A.</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group.name==[&quot;GLY&quot;,&quot;ALA&quot;,&quot;VAL&quot;] and chain.name==&quot;A&quot;&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group_name==[&quot;GLY&quot;,&quot;ALA&quot;,&quot;VAL&quot;] and chain_name==&quot;A&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([  40,   41,   42, ..., 1886, 1887, 1888])
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Including-external-variables">
 <h3>Including external variables<a class="headerlink" href="#Including-external-variables" title="Permalink to this headline">¶</a></h3>
 <p>Pandas query method allows the use of external variables in the logical sentence. To include them, variables names have to be preceded by the character ‘&#64;’. Lets illustrate its use with some examples:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms in groups with indices 10, 11 or 12.</span>
 <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group.index==@indices&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group_index==@indices&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([77, 78, 79, ..., 97, 98, 99])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms named CA, C, O or N in groups with indices 10 to 29.</span>
 <span class="n">indices</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">30</span><span class="p">))</span>
 <span class="n">atoms</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;CA&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">]</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.name==@atoms &amp; atom.index==@indices&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_name==@atoms &amp; atom_index==@indices&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([10, 11, 12, ..., 26, 27, 28])
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Including-mask-filters">
 <h3>Including mask filters<a class="headerlink" href="#Including-mask-filters" title="Permalink to this headline">¶</a></h3>
 <p>Although including masks is not really necessary, <code class="docutils literal notranslate"><span class="pre">molsysmt.select()</span></code> has an optional input argument to do so:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms named C with atom index in range 10 to 29</span>
 <span class="n">indices</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">30</span><span class="p">))</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.name==&quot;C&quot;&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">indices</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_name==&quot;C&quot;&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">indices</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([11, 18, 27])
+</pre></div></div>
 </div>
 <p>The use of masks can always be avoid using the logical sentence:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms named C with atom index in range 10 to 29</span>
 <span class="n">indices</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">30</span><span class="p">))</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.name==&quot;C&quot; and atom.index in @indices&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_name==&quot;C&quot; and atom_index in @indices&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([11, 18, 27])
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Selection-of-other-elements">
 <h3>Selection of other elements<a class="headerlink" href="#Selection-of-other-elements" title="Permalink to this headline">¶</a></h3>
 <p>The selection method of MolSysMT can also return other elements indices than atoms. As many methods in this library, <code class="docutils literal notranslate"><span class="pre">molsysmt.select()</span></code> has an input argument named <code class="docutils literal notranslate"><span class="pre">target</span></code> to select the elements nature of the output list of indices. Lets see some examples:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Groups with indices equal to 0, 100 or 200</span>
 <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">]</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group.index==@indices&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group_index==@indices&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([  0, 100, 200])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Groups with name &quot;ALA&quot;</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group.name==&quot;ALA&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group_name==&quot;ALA&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([  5,   6,   7, ..., 465, 482, 494])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Groups of atoms index 34, 44 or 64</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.index==[34,44,64]&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_index==[34,44,64]&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([4, 5, 9])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Groups belonging to chain named A and molecule of type anything but water</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;chain.name==&quot;A&quot; and molecule.type!=&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;chain_name==&quot;A&quot; and molecule_type!=&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([  0,   1,   2, ..., 245, 246, 247])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Groups of molecules of type water</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule.type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule_type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([497, 498, 499, ..., 659, 660, 661])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Molecules of type water</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule.type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule_type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([  1,   2,   3, ..., 163, 164, 165])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Chains with molecules of type water</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule.type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule_type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([2, 3])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Bonds in group index 5</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group_index==5&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;bond&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([37, 38, 39, 40])
+</pre></div></div>
+</div>
 <p>Finnally, notice that <code class="docutils literal notranslate"><span class="pre">mask</span></code> is always acting over the targeted elements:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Atoms with index from 0 to 4 and from 0 to 2</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom.index in [0,1,2,3,4]&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;atom_index in [0,1,2,3,4]&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0, 1, 2])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Groups with index from 0 to 4 and from 0 to 2</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group.index in [0,1,2,3,4]&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;group_index in [0,1,2,3,4]&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0, 1, 2])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># Molecules with index from 0 to 4 and from 0 to 2</span>
-<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule.index in [0,1,2,3,4]&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="s1">&#39;molecule_index in [0,1,2,3,4]&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0, 1, 2])
+</pre></div></div>
 </div>
 </div>
 </div>
@@ -984,42 +1565,78 @@ engine or molecular visualization software have each own syntaxis to write this 
 <h2>Syntaxis translation<a class="headerlink" href="#Syntaxis-translation" title="Permalink to this headline">¶</a></h2>
 <p>MolSysMT is prepared to easily interact with other tools. The main goal of this library is providing with a set of pipes and joins to set up your workflows, keeping simple the integration of other tools. But different tools have different selection syntaxis. Learning how to use the selection syntaxis of MDTraj, ParmEd or NGLview is something very useful. Those are tools that we all use frequently in our labs. But it happens that we forget soon the rules of each tool. To keep a unique selection
 syntaxis in your projects, MolSysMT includes the input argument <code class="docutils literal notranslate"><span class="pre">to_syntaxis</span></code> in the method <code class="docutils literal notranslate"><span class="pre">molsysmt.select()</span></code>. Lets illustrate some examples:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==[3,4,5]&#39;</span><span class="p">,</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;NGLview&#39;</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_index==[3,4,5]&#39;</span><span class="p">,</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;NGLview&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;@25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==[3,4,5]&#39;</span><span class="p">,</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_index==[3,4,5]&#39;</span><span class="p">,</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;index 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44&#39;
+</pre></div></div>
 </div>
 <p>The output string can be obtained, if the selection is done over other targetted elements, as a sequence of groups or chains:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==[3,4,5]&#39;</span><span class="p">,</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;NGLview&#39;</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_index==[3,4,5]&#39;</span><span class="p">,</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;NGLview&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;7:A 8:A 9:A&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group.index==[3,4,5]&#39;</span><span class="p">,</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_index==[3,4,5]&#39;</span><span class="p">,</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;MDTraj&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;resid 3 4 5&#39;
+</pre></div></div>
 </div>
 <div class="section" id="Output-syntaxis-supported">
 <h3>Output syntaxis supported<a class="headerlink" href="#Output-syntaxis-supported" title="Permalink to this headline">¶</a></h3>

@@ -141,8 +141,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Get.html">How to get attributes from a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples over atoms, groups, components, chains, molecules or entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-examples-over-system">Some examples over system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples involving atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-systems">Some other examples involving systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-bonds">Some other examples involving bonds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
 </li>
@@ -240,11 +241,17 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Rg.html">Radius of gyration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Getting dihedral angles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-any-dihedral-angle">How to get any dihedral angle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-the-Ramachandran-angles">How to get the Ramachandran angles</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="SASA.html">Solvent Accessible Surface Area</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="Bondgraph.html">Bondgraph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Covalent_chains.html">How to get the covalent chains</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Alignment.html">Sequence alignment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Mutations.html">Mutations</a></li>
 </ul>
@@ -591,7 +598,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d00cb7f6afbd4fc18f382f8196571862"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "86f3676f4cf84c3584010fa3e24fbf78"}</script></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -634,7 +641,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"768ad014957449e8bff8aeda57d493a8": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d00cb7f6afbd4fc18f382f8196571862": {"model_name": "ColormakerRegistryModel", "model_module": "nglview-js-widgets", "model_module_version": "2.7.5", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "2.7.5", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "2.7.5", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_768ad014957449e8bff8aeda57d493a8"}}}, "version_major": 2, "version_minor": 0}
+{"state": {"e0fa4ec7bca740a38363c400f23a82e5": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "86f3676f4cf84c3584010fa3e24fbf78": {"model_name": "ColormakerRegistryModel", "model_module": "nglview-js-widgets", "model_module_version": "2.7.5", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "2.7.5", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "2.7.5", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_e0fa4ec7bca740a38363c400f23a82e5"}}}, "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 

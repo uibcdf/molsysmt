@@ -141,8 +141,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Get.html">How to get attributes from a molecular system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-over-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples over atoms, groups, components, chains, molecules or entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-examples-over-system">Some examples over system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples involving atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-systems">Some other examples involving systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-bonds">Some other examples involving bonds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
 </ul>
 </li>
@@ -240,11 +241,17 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Rg.html">Radius of gyration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Getting dihedral angles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-any-dihedral-angle">How to get any dihedral angle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-the-Ramachandran-angles">How to get the Ramachandran angles</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="SASA.html">Solvent Accessible Surface Area</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="Bondgraph.html">Bondgraph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Covalent_chains.html">How to get the covalent chains</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Alignment.html">Sequence alignment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Mutations.html">Mutations</a></li>
 </ul>
@@ -600,7 +607,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e8ccddecec7d423aa138c9d19cd063b1", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8f4059cef13a48b08c5fd4616e6b1f7a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Getting-distances,-neighbor-lists-and-contact-maps.">
 <h1>Getting distances, neighbor lists and contact maps.<a class="headerlink" href="#Getting-distances,-neighbor-lists-and-contact-maps." title="Permalink to this headline">¶</a></h1>
@@ -1711,18 +1718,18 @@ The 1-th is the closest atom of B to atom 1-th of A at frame 2-th with 4.1231056
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n waters</th>        <th class="col_heading level0 col8" >n proteins</th>        <th class="col_heading level0 col9" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_6a747204_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_proteins</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >3983</td>
-                        <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >662</td>
-                        <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >167</td>
-                        <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >4</td>
-                        <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >166</td>
-                        <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >2</td>
-                        <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >165</td>
-                        <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col8" class="data row0 col8" >1</td>
-                        <td id="T_0b1f6746_997f_11ea_9d8f_d746fbd6059crow0_col9" class="data row0 col9" >1</td>
+                                <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >3983</td>
+                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >662</td>
+                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >167</td>
+                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >4</td>
+                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >166</td>
+                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >2</td>
+                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >165</td>
+                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >1</td>
+                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col9" class="data row0 col9" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -1732,7 +1739,8 @@ The 1-th is the closest atom of B to atom 1-th of A at frame 2-th with 4.1231056
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group.index==0&quot;</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group.index==1&quot;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1742,8 +1750,8 @@ The 1-th is the closest atom of B to atom 1-th of A at frame 2-th with 4.1231056
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">n_atoms_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group.index==0&quot;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">n_atoms_2</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group.index==1&quot;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">n_atoms_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">n_atoms_2</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==1&quot;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">n_atoms_1</span><span class="p">,</span> <span class="n">n_atoms_2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1780,8 +1788,9 @@ The 1-th is the closest atom of B to atom 1-th of A at frame 2-th with 4.1231056
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group.index==0&quot;</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group.index==1&quot;</span><span class="p">,</span>
-                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1809,8 +1818,10 @@ The 1-th is the closest atom of B to atom 1-th of A at frame 2-th with 4.1231056
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group.index==0&quot;</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group.index==1&quot;</span><span class="p">,</span>
-                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==1&quot;</span><span class="p">,</span>
+                         <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1839,8 +1850,10 @@ indices to illustrate their use.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">list_groups_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group.index in [0,1,2,3]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">list_groups_2</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group.index in [4,5,6,7,8]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">list_groups_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span>
+                        <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index in [0,1,2,3]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">list_groups_2</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span>
+                        <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index in [4,5,6,7,8]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1869,8 +1882,8 @@ indices to illustrate their use.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group.index==0&quot;</span><span class="p">,</span> <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_groups_2</span><span class="p">,</span>
-                        <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                         <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_groups_2</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1898,8 +1911,9 @@ indices to illustrate their use.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group.index==0&quot;</span><span class="p">,</span> <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_groups_2</span><span class="p">,</span>
-                        <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                         <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_groups_2</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
+                         <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1927,8 +1941,9 @@ indices to illustrate their use.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_groups_1</span><span class="p">,</span> <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_groups_2</span><span class="p">,</span>
-                        <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_groups_1</span><span class="p">,</span>
+                         <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_groups_2</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
+                         <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1956,7 +1971,8 @@ indices to illustrate their use.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_groups_1</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_groups_1</span><span class="p">,</span>
+                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1984,7 +2000,8 @@ indices to illustrate their use.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2003,16 +2020,17 @@ indices to illustrate their use.</p>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_0bbbe5e4_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_0bbbe5e4_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_0bbbe5e4_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >62</td>
-                        <td id="T_0bbbe5e4_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >7</td>
-                        <td id="T_0bbbe5e4_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >1</td>
-                        <td id="T_0bbbe5e4_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >1</td>
-                        <td id="T_0bbbe5e4_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >1</td>
-                        <td id="T_0bbbe5e4_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >1</td>
-                        <td id="T_0bbbe5e4_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >5000</td>
+                                <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >62</td>
+                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >62</td>
+                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >62</td>
+                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >62</td>
+                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2031,97 +2049,97 @@ indices to illustrate their use.</p>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_6b35576c_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >1</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >ACE</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >aminoacid</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >6</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col8" class="data row0 col8" >None</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col9" class="data row0 col9" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow0_col10" class="data row0 col10" >None</td>
+                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >1</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >ACE</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >aminoacid</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >[6]</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >peptide</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col9" class="data row0 col9" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col10" class="data row0 col10" >Peptide0</td>
             </tr>
             <tr>
-                                <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col0" class="data row1 col0" >1</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col1" class="data row1 col1" >2</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col2" class="data row1 col2" >ALA</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col3" class="data row1 col3" >aminoacid</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col4" class="data row1 col4" >10</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col5" class="data row1 col5" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col6" class="data row1 col6" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col7" class="data row1 col7" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col8" class="data row1 col8" >None</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col9" class="data row1 col9" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow1_col10" class="data row1 col10" >None</td>
+                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col0" class="data row1 col0" >1</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col1" class="data row1 col1" >2</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col2" class="data row1 col2" >ALA</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col3" class="data row1 col3" >aminoacid</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col4" class="data row1 col4" >[10]</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col5" class="data row1 col5" >6</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col6" class="data row1 col6" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col7" class="data row1 col7" >6</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col8" class="data row1 col8" >peptide</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col9" class="data row1 col9" >6</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col10" class="data row1 col10" >Peptide6</td>
             </tr>
             <tr>
-                                <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col0" class="data row2 col0" >2</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col1" class="data row2 col1" >3</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col2" class="data row2 col2" >ALA</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col3" class="data row2 col3" >aminoacid</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col4" class="data row2 col4" >10</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col5" class="data row2 col5" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col6" class="data row2 col6" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col7" class="data row2 col7" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col8" class="data row2 col8" >None</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col9" class="data row2 col9" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow2_col10" class="data row2 col10" >None</td>
+                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col0" class="data row2 col0" >2</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col1" class="data row2 col1" >3</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col2" class="data row2 col2" >ALA</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col3" class="data row2 col3" >aminoacid</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col4" class="data row2 col4" >[10]</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col5" class="data row2 col5" >16</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col6" class="data row2 col6" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col7" class="data row2 col7" >16</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col8" class="data row2 col8" >peptide</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col9" class="data row2 col9" >16</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col10" class="data row2 col10" >Peptide16</td>
             </tr>
             <tr>
-                                <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col0" class="data row3 col0" >3</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col1" class="data row3 col1" >4</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col2" class="data row3 col2" >ALA</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col3" class="data row3 col3" >aminoacid</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col4" class="data row3 col4" >10</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col5" class="data row3 col5" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col6" class="data row3 col6" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col7" class="data row3 col7" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col8" class="data row3 col8" >None</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col9" class="data row3 col9" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow3_col10" class="data row3 col10" >None</td>
+                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col0" class="data row3 col0" >3</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col1" class="data row3 col1" >4</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col2" class="data row3 col2" >ALA</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col3" class="data row3 col3" >aminoacid</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col4" class="data row3 col4" >[10]</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col5" class="data row3 col5" >26</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col6" class="data row3 col6" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col7" class="data row3 col7" >26</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col8" class="data row3 col8" >peptide</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col9" class="data row3 col9" >26</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col10" class="data row3 col10" >Peptide26</td>
             </tr>
             <tr>
-                                <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col0" class="data row4 col0" >4</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col1" class="data row4 col1" >5</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col2" class="data row4 col2" >ALA</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col3" class="data row4 col3" >aminoacid</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col4" class="data row4 col4" >10</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col5" class="data row4 col5" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col6" class="data row4 col6" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col7" class="data row4 col7" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col8" class="data row4 col8" >None</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col9" class="data row4 col9" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow4_col10" class="data row4 col10" >None</td>
+                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col0" class="data row4 col0" >4</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col1" class="data row4 col1" >5</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col2" class="data row4 col2" >ALA</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col3" class="data row4 col3" >aminoacid</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col4" class="data row4 col4" >[10]</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col5" class="data row4 col5" >36</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col6" class="data row4 col6" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col7" class="data row4 col7" >36</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col8" class="data row4 col8" >peptide</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col9" class="data row4 col9" >36</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col10" class="data row4 col10" >Peptide36</td>
             </tr>
             <tr>
-                                <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col0" class="data row5 col0" >5</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col1" class="data row5 col1" >6</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col2" class="data row5 col2" >ALA</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col3" class="data row5 col3" >aminoacid</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col4" class="data row5 col4" >10</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col5" class="data row5 col5" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col6" class="data row5 col6" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col7" class="data row5 col7" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col8" class="data row5 col8" >None</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col9" class="data row5 col9" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow5_col10" class="data row5 col10" >None</td>
+                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col0" class="data row5 col0" >5</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col1" class="data row5 col1" >6</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col2" class="data row5 col2" >ALA</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col3" class="data row5 col3" >aminoacid</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col4" class="data row5 col4" >[10]</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col5" class="data row5 col5" >46</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col6" class="data row5 col6" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col7" class="data row5 col7" >46</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col8" class="data row5 col8" >peptide</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col9" class="data row5 col9" >46</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col10" class="data row5 col10" >Peptide46</td>
             </tr>
             <tr>
-                                <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col0" class="data row6 col0" >6</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col1" class="data row6 col1" >7</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col2" class="data row6 col2" >NME</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col3" class="data row6 col3" >aminoacid</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col4" class="data row6 col4" >6</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col5" class="data row6 col5" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col6" class="data row6 col6" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col7" class="data row6 col7" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col8" class="data row6 col8" >None</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col9" class="data row6 col9" >0</td>
-                        <td id="T_0bc2a4ba_997f_11ea_9d8f_d746fbd6059crow6_col10" class="data row6 col10" >None</td>
+                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col0" class="data row6 col0" >6</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col1" class="data row6 col1" >7</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col2" class="data row6 col2" >NME</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col3" class="data row6 col3" >aminoacid</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col4" class="data row6 col4" >[6]</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col5" class="data row6 col5" >56</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col6" class="data row6 col6" >0</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col7" class="data row6 col7" >56</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col8" class="data row6 col8" >peptide</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col9" class="data row6 col9" >56</td>
+                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col10" class="data row6 col10" >Peptide56</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2131,8 +2149,9 @@ indices to illustrate their use.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group.index==0&quot;</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
-                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group.index==6&quot;</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==6&quot;</span><span class="p">,</span>
+                         <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2169,7 +2188,8 @@ indices to illustrate their use.</p>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">list_groups_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_groups_1</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
+<span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_groups_1</span><span class="p">,</span>
+                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
                          <span class="n">frame_indices_1</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2227,8 +2247,10 @@ The distance between geometric_center of group 2-th and group 4-th at frame 3000
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system_A</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;chain.index==0 and molecule.type==&#39;protein&#39;&quot;</span><span class="p">)</span>
-<span class="n">molecular_system_B</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;chain.index==1 and molecule.type==&#39;protein&#39;&quot;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system_A</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span>
+                                 <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;chain_index==0 and molecule_type==&#39;protein&#39;&quot;</span><span class="p">)</span>
+<span class="n">molecular_system_B</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span>
+                                 <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;chain_index==1 and molecule_type==&#39;protein&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2247,17 +2269,17 @@ The distance between geometric_center of group 2-th and group 4-th at frame 3000
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n proteins</th>        <th class="col_heading level0 col8" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_6d177fe2_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_proteins</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >1906</td>
-                        <td id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >248</td>
-                        <td id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >1</td>
-                        <td id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >1</td>
-                        <td id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >1</td>
-                        <td id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >1</td>
-                        <td id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >1</td>
-                        <td id="T_0d4c8080_997f_11ea_9d8f_d746fbd6059crow0_col8" class="data row0 col8" >1</td>
+                                <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >1906</td>
+                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >248</td>
+                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2276,17 +2298,17 @@ The distance between geometric_center of group 2-th and group 4-th at frame 3000
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_0d526acc_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n proteins</th>        <th class="col_heading level0 col8" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_proteins</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_0d526acc_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_0d526acc_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >1912</td>
-                        <td id="T_0d526acc_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >249</td>
-                        <td id="T_0d526acc_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >1</td>
-                        <td id="T_0d526acc_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >1</td>
-                        <td id="T_0d526acc_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >1</td>
-                        <td id="T_0d526acc_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >1</td>
-                        <td id="T_0d526acc_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >1</td>
-                        <td id="T_0d526acc_997f_11ea_9d8f_d746fbd6059crow0_col8" class="data row0 col8" >1</td>
+                                <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >1912</td>
+                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >249</td>
+                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2296,8 +2318,10 @@ The distance between geometric_center of group 2-th and group 4-th at frame 3000
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">list_groups_A</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group.index in [0,1,2,3]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">list_groups_B</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system_B</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group.index in [10,11,12,13]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">list_groups_A</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span>
+                        <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index in [0,1,2,3]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">list_groups_B</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system_B</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span>
+                        <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index in [10,11,12,13]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2306,8 +2330,10 @@ The distance between geometric_center of group 2-th and group 4-th at frame 3000
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_groups_A</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
-                         <span class="n">item_2</span><span class="o">=</span><span class="n">molecular_system_B</span><span class="p">,</span> <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_groups_B</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system_A</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_groups_A</span><span class="p">,</span>
+                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
+                         <span class="n">item_2</span><span class="o">=</span><span class="n">molecular_system_B</span><span class="p">,</span> <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_groups_B</span><span class="p">,</span>
+                         <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2355,7 +2381,8 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2374,16 +2401,17 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_0d971af0_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_6d778392_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_0d971af0_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_0d971af0_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >62</td>
-                        <td id="T_0d971af0_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >7</td>
-                        <td id="T_0d971af0_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >1</td>
-                        <td id="T_0d971af0_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >1</td>
-                        <td id="T_0d971af0_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >1</td>
-                        <td id="T_0d971af0_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >1</td>
-                        <td id="T_0d971af0_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >5000</td>
+                                <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >62</td>
+                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >62</td>
+                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >62</td>
+                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >62</td>
+                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2394,8 +2422,10 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system</span><span class="p">,</span>
-                         <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group.index==0&quot;</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span> <span class="n">frame_indices_1</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group.index==6&quot;</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+                         <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
+                         <span class="n">frame_indices_1</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==6&quot;</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
+                         <span class="n">frame_indices_2</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2427,7 +2457,8 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2454,8 +2485,10 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">displacements</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group.index==0&quot;</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
-                             <span class="n">frame_indices_1</span><span class="o">=</span><span class="n">all_frame_indices</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="n">all_frame_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span></span><span class="n">displacements</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                             <span class="n">group_behavior_1</span><span class="o">=</span><span class="s2">&quot;geometric_center&quot;</span><span class="p">,</span>
+                             <span class="n">frame_indices_1</span><span class="o">=</span><span class="n">all_frame_indices</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                             <span class="n">frame_indices_2</span><span class="o">=</span><span class="n">all_frame_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
 </pre></div>
 </div>
 </div>
@@ -2531,7 +2564,8 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2573,7 +2607,8 @@ array([array([0, 1, 2, 3, 4, 5]),
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_atom_groups</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_atom_groups</span><span class="p">,</span>
+                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2650,8 +2685,9 @@ array([array([0, 1, 2, 3, 4, 5]),
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_atom_groups_1</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
-                        <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_atom_groups_2</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_atom_groups_1</span><span class="p">,</span>
+                         <span class="n">group_behavior_1</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span> <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_atom_groups_2</span><span class="p">,</span>
+                         <span class="n">group_behavior_2</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2727,7 +2763,7 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type==&quot;protein&quot;&#39;</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type==&quot;protein&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2737,26 +2773,26 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >chain index</th>        <th class="col_heading level0 col4" >molecule index</th>        <th class="col_heading level0 col5" >molecule type</th>        <th class="col_heading level0 col6" >entity index</th>        <th class="col_heading level0 col7" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >chain index</th>        <th class="col_heading level0 col4" >molecule index</th>        <th class="col_heading level0 col5" >molecule type</th>        <th class="col_heading level0 col6" >entity index</th>        <th class="col_heading level0 col7" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >0</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >1906</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >248</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >0</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >0</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >protein</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >0</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >[1906]</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >[248]</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >0</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >0</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >protein</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >0</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow1_col0" class="data row1 col0" >1</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow1_col1" class="data row1 col1" >1912</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow1_col2" class="data row1 col2" >249</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow1_col3" class="data row1 col3" >1</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow1_col4" class="data row1 col4" >0</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow1_col5" class="data row1 col5" >protein</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow1_col6" class="data row1 col6" >0</td>
-                        <td id="T_1091c7fa_997f_11ea_9d8f_d746fbd6059crow1_col7" class="data row1 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col0" class="data row1 col0" >1</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col1" class="data row1 col1" >[1912]</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col2" class="data row1 col2" >[249]</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col3" class="data row1 col3" >1</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col4" class="data row1 col4" >0</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col5" class="data row1 col5" >protein</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col6" class="data row1 col6" >0</td>
+                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col7" class="data row1 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2766,8 +2802,10 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">atoms_groups_component_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;component.index==0&#39;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">atoms_groups_component_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;component.index==1&#39;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">atoms_groups_component_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                   <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;component_index==0&#39;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">atoms_groups_component_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                   <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;component_index==1&#39;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2777,8 +2815,10 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">min_pairs</span><span class="p">,</span> <span class="n">min_distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">minimum_distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span>
-                                                <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">atoms_groups_component_0</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
-                                                <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">atoms_groups_component_1</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">)</span>
+                                                <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">atoms_groups_component_0</span><span class="p">,</span>
+                                                <span class="n">group_behavior_1</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
+                                                <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">atoms_groups_component_1</span><span class="p">,</span>
+                                                <span class="n">group_behavior_2</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2825,8 +2865,10 @@ array([69, 12])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">group_index_in_component_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;component.index==0&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">69</span><span class="p">]</span>
-<span class="n">group_index_in_component_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;component.index==1&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">12</span><span class="p">]</span>
+<span></span><span class="n">group_index_in_component_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                     <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;component_index==0&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">69</span><span class="p">]</span>
+<span class="n">group_index_in_component_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                     <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;component_index==1&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">12</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -2835,7 +2877,8 @@ array([69, 12])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="n">group_index_in_component_0</span><span class="p">,</span> <span class="n">group_index_in_component_1</span><span class="p">])</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="n">group_index_in_component_0</span><span class="p">,</span>
+                                                    <span class="n">group_index_in_component_1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -2845,32 +2888,32 @@ array([69, 12])
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_10d68976_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_6fc55f02_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >69</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >73</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >GLY</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >aminoacid</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >4</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >0</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >0</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >0</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col8" class="data row0 col8" >protein</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col9" class="data row0 col9" >0</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow0_col10" class="data row0 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >69</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >73</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >GLY</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >aminoacid</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >[4]</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >0</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >0</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >0</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >protein</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col9" class="data row0 col9" >0</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col10" class="data row0 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col0" class="data row1 col0" >260</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col1" class="data row1 col1" >15</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col2" class="data row1 col2" >CYS</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col3" class="data row1 col3" >aminoacid</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col4" class="data row1 col4" >6</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col5" class="data row1 col5" >1</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col6" class="data row1 col6" >1</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col7" class="data row1 col7" >0</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col8" class="data row1 col8" >protein</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col9" class="data row1 col9" >0</td>
-                        <td id="T_10d68976_997f_11ea_9d8f_d746fbd6059crow1_col10" class="data row1 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col0" class="data row1 col0" >260</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col1" class="data row1 col1" >15</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col2" class="data row1 col2" >CYS</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col3" class="data row1 col3" >aminoacid</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col4" class="data row1 col4" >[6]</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col5" class="data row1 col5" >1</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col6" class="data row1 col6" >1</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col7" class="data row1 col7" >0</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col8" class="data row1 col8" >protein</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col9" class="data row1 col9" >0</td>
+                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col10" class="data row1 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2899,7 +2942,8 @@ Quantity(value=0.38221311908773786, unit=nanometer)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2918,16 +2962,17 @@ Quantity(value=0.38221311908773786, unit=nanometer)
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_110886ec_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_70110b6e_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_110886ec_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_110886ec_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >62</td>
-                        <td id="T_110886ec_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >7</td>
-                        <td id="T_110886ec_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >1</td>
-                        <td id="T_110886ec_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >1</td>
-                        <td id="T_110886ec_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >1</td>
-                        <td id="T_110886ec_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >1</td>
-                        <td id="T_110886ec_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >5000</td>
+                                <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >62</td>
+                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >62</td>
+                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >62</td>
+                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >62</td>
+                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -3014,9 +3059,12 @@ Quantity(value=array([1.42980221, 1.50600047, 1.6863101 , ..., 1.83006115, 1.245
 <span></span><span class="n">list_atom_groups</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">frames</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">n_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 <span class="n">max_group</span><span class="p">,</span> <span class="n">max_distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">maximum_distance</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span>
-                                                <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_atom_groups</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
-                                                <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_atom_groups</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
-                                                <span class="n">frame_indices_1</span><span class="o">=</span><span class="n">frames</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">frame_indices_2</span><span class="o">=</span><span class="n">frames</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+                                                <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">list_atom_groups</span><span class="p">,</span>
+                                                <span class="n">group_behavior_1</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
+                                                <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">list_atom_groups</span><span class="p">,</span>
+                                                <span class="n">group_behavior_2</span><span class="o">=</span><span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
+                                                <span class="n">frame_indices_1</span><span class="o">=</span><span class="n">frames</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                                <span class="n">frame_indices_2</span><span class="o">=</span><span class="n">frames</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
                                                 <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3109,7 +3157,8 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3128,16 +3177,17 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_11764a10_997f_11ea_9d8f_d746fbd6059c" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_709aeafa_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_11764a10_997f_11ea_9d8f_d746fbd6059crow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_11764a10_997f_11ea_9d8f_d746fbd6059crow0_col1" class="data row0 col1" >62</td>
-                        <td id="T_11764a10_997f_11ea_9d8f_d746fbd6059crow0_col2" class="data row0 col2" >7</td>
-                        <td id="T_11764a10_997f_11ea_9d8f_d746fbd6059crow0_col3" class="data row0 col3" >1</td>
-                        <td id="T_11764a10_997f_11ea_9d8f_d746fbd6059crow0_col4" class="data row0 col4" >1</td>
-                        <td id="T_11764a10_997f_11ea_9d8f_d746fbd6059crow0_col5" class="data row0 col5" >1</td>
-                        <td id="T_11764a10_997f_11ea_9d8f_d746fbd6059crow0_col6" class="data row0 col6" >1</td>
-                        <td id="T_11764a10_997f_11ea_9d8f_d746fbd6059crow0_col7" class="data row0 col7" >5000</td>
+                                <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >62</td>
+                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >62</td>
+                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >62</td>
+                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >62</td>
+                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -3147,7 +3197,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">CA_atoms_list</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom.name==&quot;CA&quot;&#39;</span><span class="p">)</span>
+<span></span><span class="n">CA_atoms_list</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom_name==&quot;CA&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3156,7 +3206,8 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="n">CA_atoms_list</span><span class="p">,</span> <span class="n">num_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="n">CA_atoms_list</span><span class="p">,</span>
+                                           <span class="n">num_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3230,7 +3281,8 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="n">CA_atoms_list</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+<span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="n">CA_atoms_list</span><span class="p">,</span>
+                                           <span class="n">selection_2</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
                                            <span class="n">num_neighbors</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3277,8 +3329,12 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">atoms_in_residues_chain_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule.type==&#39;protein&#39; and chain.index==0&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">atoms_in_residues_chain_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule.type==&#39;protein&#39; and chain.index==1&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">atoms_in_residues_chain_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                    <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule_type==&#39;protein&#39; and chain_index==0&quot;</span><span class="p">,</span>
+                                    <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">atoms_in_residues_chain_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                    <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule_type==&#39;protein&#39; and chain_index==1&quot;</span><span class="p">,</span>
+                                    <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3306,8 +3362,10 @@ Number of residues in chain 1: 249
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">atoms_in_residues_chain_0</span><span class="p">,</span>
-                                           <span class="n">group_behavior_1</span><span class="o">=</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span> <span class="n">num_neighbors</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span>
+                                           <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">atoms_in_residues_chain_0</span><span class="p">,</span>
+                                           <span class="n">group_behavior_1</span><span class="o">=</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
+                                           <span class="n">num_neighbors</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3365,8 +3423,10 @@ Number of residues in chain 1: 249
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span>
-                                           <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">atoms_in_residues_chain_0</span><span class="p">,</span> <span class="n">group_behavior_1</span><span class="o">=</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
-                                           <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">atoms_in_residues_chain_1</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
+                                           <span class="n">groups_of_atoms_1</span><span class="o">=</span><span class="n">atoms_in_residues_chain_0</span><span class="p">,</span>
+                                           <span class="n">group_behavior_1</span><span class="o">=</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
+                                           <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">atoms_in_residues_chain_1</span><span class="p">,</span>
+                                           <span class="n">group_behavior_2</span><span class="o">=</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
                                            <span class="n">num_neighbors</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3408,7 +3468,8 @@ Number of residues in chain 1: 249
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">neighbors</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">neighbors_lists</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection_1</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                                           <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">atoms_in_residues_chain_1</span><span class="p">,</span> <span class="n">group_behavior_2</span><span class="o">=</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
+                                           <span class="n">groups_of_atoms_2</span><span class="o">=</span><span class="n">atoms_in_residues_chain_1</span><span class="p">,</span>
+                                           <span class="n">group_behavior_2</span><span class="o">=</span> <span class="s1">&#39;geometric_center&#39;</span><span class="p">,</span>
                                            <span class="n">num_neighbors</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3457,7 +3518,7 @@ Number of residues in chain 1: 249
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">CA_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom.name==&quot;CA&quot;&#39;</span><span class="p">)</span>
+<span></span><span class="n">CA_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom_name==&quot;CA&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3565,8 +3626,12 @@ The 16-th CA is 0.7399875134081655 nm away from the 20-th CA
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">atoms_in_residues_chain_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule.type==&#39;protein&#39; and chain.index==0&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">atoms_in_residues_chain_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule.type==&#39;protein&#39; and chain.index==1&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">atoms_in_residues_chain_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                    <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule_type==&#39;protein&#39; and chain_index==0&quot;</span><span class="p">,</span>
+                                    <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">atoms_in_residues_chain_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                    <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule_type==&#39;protein&#39; and chain_index==1&quot;</span><span class="p">,</span>
+                                    <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3700,7 +3765,7 @@ from <code class="docutils literal notranslate"><span class="pre">molsysmt.dista
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">CA_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom.name==&quot;CA&quot;&#39;</span><span class="p">)</span>
+<span></span><span class="n">CA_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom_name==&quot;CA&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3762,7 +3827,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;atom.name==&#39;CA&#39;&quot;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;atom_name==&#39;CA&#39;&quot;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -3798,8 +3863,8 @@ array([[[ True,  True,  True, ..., False, False, False],
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">CA_atoms_chain_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;atom.name==&#39;CA&#39; and chain.index==0&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">CA_atoms_chain_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;atom.name==&#39;CA&#39; and chain.index==1&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">CA_atoms_chain_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;atom_name==&#39;CA&#39; and chain_index==0&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">CA_atoms_chain_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;atom_name==&#39;CA&#39; and chain_index==1&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3837,8 +3902,10 @@ array([[[ True,  True,  True, ..., False, False, False],
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">atoms_in_residues_chain_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule.type==&#39;protein&#39; and chain.index==0&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">atoms_in_residues_chain_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule.type==&#39;protein&#39; and chain.index==1&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">atoms_in_residues_chain_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                    <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule_type==&#39;protein&#39; and chain_index==0&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">atoms_in_residues_chain_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span>
+                                    <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;molecule_type==&#39;protein&#39; and chain_index==1&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

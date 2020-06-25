@@ -1,4 +1,4 @@
-from .lib.geometry import dihedral_angles as _dihedral_angles
+
 
 def covalent_chains(item, chain=None, selection='all', syntaxis='MolSysMT'):
 
@@ -58,17 +58,15 @@ def covalent_chains(item, chain=None, selection='all', syntaxis='MolSysMT'):
 
 def dihedral_angles(item, quartets=None, frame_indices='all', pbc=False):
 
-    from numpy import array
+    from numpy import array, zeros, asfortranarray, ascontiguousarray
+    from numpy import ndarray
     from molsysmt import get
+    from molsysmt.utils import units as msm_units
+    from .lib import geometry as libgeometry
 
-    if type(quartets) is str:
-        if quartets in ['phi', 'psi', 'omega', 'chi1']:
-            quartets = covalent_chains(item, chain=quartets)
-        else:
-            raise ValueError
-    elif type(quartets) in [list,tuple]:
+    if type(quartets) in [list,tuple]:
         quartets = array(quartets, dtype=int)
-    elif type(quartes) is ndarray:
+    elif type(quartets) is ndarray:
         pass
     else:
         raise ValueError
@@ -86,18 +84,43 @@ def dihedral_angles(item, quartets=None, frame_indices='all', pbc=False):
     else:
         raise ValueError
 
-    coordinates, box, box_shape = get(item, frame_indices=frame_indices, coordinates=True, box=True, box_shape=True)
+    coordinates, box, box_shape = get(item, target='system', frame_indices=frame_indices, coordinates=True, box=True, box_shape=True)
+
+    orthogonal = 0
+    if box_shape is None:
+        orthogonal =1
+        if pbc:
+            raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
+    elif box_shape == 'cubic':
+        orthogonal =1
 
     n_angles = quartets.shape[0]
     n_frames = coordinates.shape[0]
     n_atoms = coordinates.shape[1]
 
-    angles = _dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_frames)
+    if box is None:
+        box= zeros([nframes,3,3])*msm_units.length
+
+    box = asfortranarray(box._value, dtype='float64')
+    coordinates = asfortranarray(coordinates._value, dtype='float64')
+
+    angles = libgeometry.dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_frames)
+    angles = ascontiguousarray(angles)*msm_units.angle
 
     return angles
 
-def ramachandran_map(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def ramachandran_angles(item, selection='all', frame_indices='all', syntaxis='MolSysMT', pbc=False,
+                        plot=False):
 
+    from numpy import vstack
 
-    pass
+    phi_covalent_chain = covalent_chains(item, chain='phi', selection=selection, syntaxis=syntaxis)
+    psi_covalent_chain = covalent_chains(item, chain='psi', selection=selection, syntaxis=syntaxis)
+
+    n_chains = phi_covalent_chain.shape[0]
+
+    angles = dihedral_angles(item, quartets=vstack([phi_covalent_chain, psi_covalent_chain]),
+                             frame_indices=frame_indices, pbc=pbc)
+
+    return phi_covalent_chain, psi_covalent_chain, angles[:,:n_chains], angles[:,n_chains:]
 
