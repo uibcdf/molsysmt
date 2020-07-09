@@ -1,5 +1,5 @@
 
-def query_dataframe(item, selection='all'):
+def query_elements(item, selection='all'):
 
     from re import findall
     from numpy import ndarray
@@ -39,10 +39,10 @@ def parse(selection='all'):
 
     return parsed_selection
 
-def dataframe_select(item, selection='all', output_indices='atom'):
+def elements_select(item, selection='all', output_indices='atom'):
 
     parsed_selection = parse(selection)
-    indices = query_dataframe(item, selection=parsed_selection)
+    indices = query_elements(item, selection=parsed_selection)
     if output_indices in ['group', 'component', 'chain', 'molecule', 'entity']:
         from numpy import unique
         indices = item.iloc[indices][output_indices+'.index'].values

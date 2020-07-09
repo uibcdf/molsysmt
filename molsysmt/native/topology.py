@@ -145,7 +145,7 @@ class Topology():
             component_type = group_type_to_component_type(group_type)
             if component_type == 'peptide':
                 n_groups = get_n_groups_from_atom(self, indices=aux_list)
-                tmp_type = group_type_to_component_type(group_type, n_groups)
+                component_type = group_type_to_component_type(group_type, n_groups)
             component_index_array[aux_list] = component_index
             component_type_array[aux_list] = component_type
             component_index += 1

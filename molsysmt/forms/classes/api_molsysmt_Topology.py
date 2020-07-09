@@ -17,32 +17,32 @@ with_trajectory=False
 
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.dataframe.seqs import to_aminoacids3_seq as molsysmt_DataFrame_to_aminoacids3_seq
-    return molsysmt_DataFrame_to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.seqs import to_aminoacids3_seq as molsysmt_Topology_to_aminoacids3_seq
+    return molsysmt_Topology_to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.dataframe.seqs import to_aminoacids1_seq as molsysmt_DataFrame_to_aminoacids1_seq
-    return molsysmt_DataFrame_to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.seqs import to_aminoacids1_seq as molsysmt_Topology_to_aminoacids1_seq
+    return molsysmt_Topology_to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.classes import from_molsysmt_DataFrame as molsysmt_DataFrame_to_molsysmt_Topology
-    return molsysmt_DataFrame_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.classes import from_molsysmt_Topology as molsysmt_DataFrame_to_molsysmt_Topology
+    return molsysmt_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.dataframe.classes import to_openmm_Topology as molsysmt_DataFrame_to_openmm_Topology
-    return molsysmt_DataFrame_to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.classes import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
+    return molsysmt_Topology_to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.dataframe.classes import to_mdtraj_Topology as molsysmt_DataFrame_to_mdtraj_Topology
-    return molsysmt_DataFrame_to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.classes import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
+    return molsysmt_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
-    from molsysmt.native.io.dataframe.files import to_pdb as molsysmt_DataFrame_to_pdb
-    return molsysmt_DataFrame_to_pdb(item, output_filepath=output_filepath,
+    from molsysmt.native.io.topology.files import to_pdb as molsysmt_Topology_to_pdb
+    return molsysmt_Topology_to_pdb(item, output_filepath=output_filepath,
                                     trajectory_item=trajectory_item,  atom_indices=atom_indices,
                                     frame_indices=frame_indices)
 
@@ -61,8 +61,8 @@ def select_with_MDTraj(item, selection):
 
 def select_with_MolSysMT(item, selection):
 
-    from molsysmt.native.selector import dataframe_select
-    atom_indices = dataframe_select(item.elements, selection)
+    from molsysmt.native.selector import elements_select
+    atom_indices = elements_select(item.elements, selection)
     return atom_indices
 
 ###### Get
