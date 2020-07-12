@@ -5,25 +5,25 @@ def to_openmm_Topology(item, trajectory_item='all', atom_indices='all', frame_in
     import simtk.unit as unit
     from numpy import unique
 
-    n_atoms = item.elements.shape[0]
+    n_atoms = item.atoms_dataframe.shape[0]
 
-    atom_index_array = item.elements["atom_index"].to_numpy()
-    atom_name_array = item.elements["atom_name"].to_numpy()
-    atom_id_array = item.elements["atom_id"].to_numpy()
-    atom_type_array = item.elements["atom_type"].to_numpy()
+    atom_index_array = item.atoms_dataframe["atom_index"].to_numpy()
+    atom_name_array = item.atoms_dataframe["atom_name"].to_numpy()
+    atom_id_array = item.atoms_dataframe["atom_id"].to_numpy()
+    atom_type_array = item.atoms_dataframe["atom_type"].to_numpy()
 
-    group_index_array = item.elements["group_index"].to_numpy()
-    group_name_array = item.elements["group_name"].to_numpy()
-    group_id_array = item.elements["group_id"].to_numpy()
-    group_type_array = item.elements["group_type"].to_numpy()
+    group_index_array = item.atoms_dataframe["group_index"].to_numpy()
+    group_name_array = item.atoms_dataframe["group_name"].to_numpy()
+    group_id_array = item.atoms_dataframe["group_id"].to_numpy()
+    group_type_array = item.atoms_dataframe["group_type"].to_numpy()
 
-    chain_index_array = item.elements["chain_index"].to_numpy()
-    chain_name_array = item.elements["chain_name"].to_numpy()
-    chain_id_array = item.elements["chain_id"].to_numpy()
-    chain_type_array = item.elements["chain_type"].to_numpy()
+    chain_index_array = item.atoms_dataframe["chain_index"].to_numpy()
+    chain_name_array = item.atoms_dataframe["chain_name"].to_numpy()
+    chain_id_array = item.atoms_dataframe["chain_id"].to_numpy()
+    chain_type_array = item.atoms_dataframe["chain_type"].to_numpy()
 
-    bonds_atom1 = item.bonds["atom1_index"].to_numpy()
-    bonds_atom2 = item.bonds["atom2_index"].to_numpy()
+    bonds_atom1 = item.bonds_dataframe["atom1_index"].to_numpy()
+    bonds_atom2 = item.bonds_dataframe["atom2_index"].to_numpy()
 
     tmp_item = app.Topology()
 
@@ -115,20 +115,20 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
         atom_index+=1
 
-    tmp_item.elements["atom_index"] = atom_index_array
-    tmp_item.elements["atom_name"] = atom_name_array
-    tmp_item.elements["atom_id"] = atom_id_array
-    tmp_item.elements["atom_type"] = atom_type_array
+    tmp_item.atoms_dataframe["atom_index"] = atom_index_array
+    tmp_item.atoms_dataframe["atom_name"] = atom_name_array
+    tmp_item.atoms_dataframe["atom_id"] = atom_id_array
+    tmp_item.atoms_dataframe["atom_type"] = atom_type_array
     del(atom_index_array, atom_name_array, atom_id_array, atom_type_array)
 
-    tmp_item.elements["group_index"] = group_index_array
-    tmp_item.elements["group_name"] = group_name_array
-    tmp_item.elements["group_id"] = group_id_array
-    tmp_item.elements["group_type"] = group_type_array
+    tmp_item.atoms_dataframe["group_index"] = group_index_array
+    tmp_item.atoms_dataframe["group_name"] = group_name_array
+    tmp_item.atoms_dataframe["group_id"] = group_id_array
+    tmp_item.atoms_dataframe["group_type"] = group_type_array
     del(group_index_array, group_id_array, group_name_array, group_type_array)
 
-    tmp_item.elements["chain_index"] = chain_index_array
-    tmp_item.elements["chain_id"] = chain_id_array
+    tmp_item.atoms_dataframe["chain_index"] = chain_index_array
+    tmp_item.atoms_dataframe["chain_id"] = chain_id_array
     del(chain_index_array, chain_id_array, chain_name_array, chain_type_array)
 
     # bonds
@@ -151,10 +151,10 @@ def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
         bond_index +=1
 
-    tmp_item.bonds["atom1_index"] = bond_atom1_array
-    tmp_item.bonds["atom2_index"] = bond_atom2_array
-    tmp_item.bonds["order"] = bond_order_array
-    tmp_item.bonds["type"] = bond_type_array
+    tmp_item.bonds_dataframe["atom1_index"] = bond_atom1_array
+    tmp_item.bonds_dataframe["atom2_index"] = bond_atom2_array
+    tmp_item.bonds_dataframe["order"] = bond_order_array
+    tmp_item.bonds_dataframe["type"] = bond_type_array
 
     # components
 

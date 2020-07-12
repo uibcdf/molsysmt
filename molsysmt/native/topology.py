@@ -1,6 +1,6 @@
-from pandas import DataFrame as PandasDataFrame
+from pandas import DataFrame as Pandas_DataFrame
 
-class ElementsDF(PandasDataFrame):
+class Atoms_DataFrame(Pandas_DataFrame):
 
     def __init__(self):
 
@@ -24,7 +24,7 @@ class ElementsDF(PandasDataFrame):
             self[column].where(self[column].notnull(), None, inplace=True)
 
 
-class BondsDF(PandasDataFrame):
+class Bonds_DataFrame(Pandas_DataFrame):
 
     def __init__(self):
 
@@ -44,8 +44,8 @@ class Topology():
 
     def __init__(self):
 
-        self.elements=ElementsDF()
-        self.bonds=BondsDF()
+        self.atoms_dataframe=Atoms_DataFrame()
+        self.bonds_dataframe=Bonds_DataFrame()
 
     def extract(self, atom_indices='all', frame_indices='all'):
 
@@ -59,32 +59,32 @@ class Topology():
             from numpy import arange, empty, vectorize, in1d
 
             tmp_item = Topology()
-            tmp_item.elements = self.elements.iloc[atom_indices].copy()
+            tmp_item.atoms_dataframe = self.atoms_dataframe.iloc[atom_indices].copy()
 
             bond_atom1 = self.bonds['atom1_index'].to_numpy()
             bond_atom2 = self.bonds['atom2_index'].to_numpy()
             mask_atom1 = in1d(bond_atom1, atom_indices)
             mask_atom2 = in1d(bond_atom2, atom_indices)
             mask = mask_atom1*mask_atom2
-            tmp_item.bonds = self.bonds[mask].copy()
+            tmp_item.bonds_dataframe = self.bonds_dataframe[mask].copy()
             del(bond_atom1, bond_atom2, mask_atom1, mask_atom2)
 
-            n_atoms=tmp_item.elements.shape[0]
-            n_bonds=tmp_item.bonds.shape[0]
+            n_atoms=tmp_item.atoms_dataframe.shape[0]
+            n_bonds=tmp_item.bonds_dataframe.shape[0]
 
-            tmp_item.elements['atom_index']=arange(n_atoms)
-            aux_dict=tmp_item.elements['atom_index'].to_dict()
-            tmp_item.elements.index=arange(n_atoms)
+            tmp_item.atoms_dataframe['atom_index']=arange(n_atoms)
+            aux_dict=tmp_item.atoms_dataframe['atom_index'].to_dict()
+            tmp_item.atoms_dataframe.index=arange(n_atoms)
             vaux_dict = vectorize(aux_dict.__getitem__)
 
-            tmp_item.bonds['atom1_index']=vaux_dict(tmp_item.bonds['atom1_index'].to_numpy())
-            tmp_item.bonds['atom2_index']=vaux_dict(tmp_item.bonds['atom2_index'].to_numpy())
-            tmp_item.elements.index=tmp_item.elements['atom_index'].to_numpy()
+            tmp_item.bonds_dataframe['atom1_index']=vaux_dict(tmp_item.bonds_dataframe['atom1_index'].to_numpy())
+            tmp_item.bonds_dataframe['atom2_index']=vaux_dict(tmp_item.bonds_dataframe['atom2_index'].to_numpy())
+            tmp_item.atoms_dataframe.index=tmp_item.atoms_dataframe['atom_index'].to_numpy()
 
             tmp_item._build_components()
 
             for column in ['group_index', 'molecule_index', 'chain_index', 'entity_index']:
-                aux_array=tmp_item.elements[column].to_numpy()
+                aux_array=tmp_item.atoms_dataframe[column].to_numpy()
                 old_index=-1
                 count=-1
                 for ii in range(n_atoms):
@@ -92,7 +92,7 @@ class Topology():
                         old_index=aux_array[ii]
                         count+=1
                     aux_array[ii]=count
-                tmp_item.elements[column]=aux_array
+                tmp_item.atoms_dataframe[column]=aux_array
 
         return tmp_item
 
@@ -100,14 +100,14 @@ class Topology():
 
         tmp_item = Topology()
 
-        tmp_item.elements = ElementsDF()
-        tmp_item.bonds = BondsDF()
+        tmp_item.atoms_dataframe = Atoms_DataFrame()
+        tmp_item.bonds_dataframe = Bonds_DataFrame()
 
-        for column in self.elements.columns:
-            tmp_item.elements[column]=self.elements[column].to_numpy()
+        for column in self.atoms_dataframe.columns:
+            tmp_item.atoms_dataframe[column]=self.atoms_dataframe[column].to_numpy()
 
-        for column in self.bonds.columns:
-            tmp_item.bonds[column]=self.bonds[column].to_numpy()
+        for column in self.bonds_dataframe.columns:
+            tmp_item.bonds_dataframe[column]=self.bonds_dataframe[column].to_numpy()
 
         return tmp_item
 
@@ -120,126 +120,36 @@ class Topology():
 
     def _build_components(self):
 
-        from numpy import empty, stack
-        from networkx import empty_graph, connected_components
-        from molsysmt.forms.classes.api_molsysmt_Topology import get_n_atoms_from_system
-        from molsysmt.forms.classes.api_molsysmt_Topology import get_n_groups_from_atom
-        from molsysmt.forms.classes.api_molsysmt_Topology import get_group_type_from_atom
-        from molsysmt.elements.group import type_to_component_type as group_type_to_component_type
+        from molsysmt.elements.component import get_elements
 
-        n_atoms = get_n_atoms_from_system(self)
+        index_array, id_array, name_array, type_array = get_elements(self)
 
-        component_index_array = empty(n_atoms, dtype=int)
-        component_type_array = empty(n_atoms, dtype=object)
-
-        G = empty_graph(n_atoms)
-
-        G.add_edges_from(stack([self.bonds['atom1_index'].to_numpy(),
-                                self.bonds['atom2_index'].to_numpy()], axis=1))
-
-        component_index = 0
-
-        for atom_indices_of_component in connected_components(G):
-            aux_list = list(atom_indices_of_component)
-            group_type = get_group_type_from_atom(self, indices=[aux_list[0]])[0]
-            component_type = group_type_to_component_type(group_type)
-            if component_type == 'peptide':
-                n_groups = get_n_groups_from_atom(self, indices=aux_list)
-                component_type = group_type_to_component_type(group_type, n_groups)
-            component_index_array[aux_list] = component_index
-            component_type_array[aux_list] = component_type
-            component_index += 1
-
-        self.elements["component_index"] = component_index_array
-        self.elements["component_type"] = component_type_array
-
-        del(G)
-        del(component_index_array, component_type_array)
+        self.atoms_dataframe["component_index"] = index_array
+        self.atoms_dataframe["component_id"] = id_array
+        self.atoms_dataframe["component_name"] = name_array
+        self.atoms_dataframe["component_type"] = type_array
 
     def _build_molecules(self):
 
-        self.elements["molecule_index"] = self.elements["component_index"].to_numpy()
-        self.elements["molecule_type"] = self.elements["component_type"].to_numpy()
+        from molsysmt.elements.molecule import get_elements
+
+        index_array, id_array, name_array, type_array = get_elements(self)
+
+        self.atoms_dataframe["molecule_index"] = index_array
+        self.atoms_dataframe["molecule_id"] = id_array
+        self.atoms_dataframe["molecule_name"] = name_array
+        self.atoms_dataframe["molecule_type"] = type_array
 
     def _build_entities(self):
 
-        from numpy import empty, stack
-        from molsysmt.forms.classes.api_molsysmt_Topology import get_n_atoms_from_system
-        from molsysmt.forms.classes.api_molsysmt_Topology import get_atom_index_from_molecule
-        from molsysmt.forms.classes.api_molsysmt_Topology import get_molecule_index_from_molecule
-        from molsysmt.forms.classes.api_molsysmt_Topology import get_molecule_type_from_molecule
-        from molsysmt.forms.classes.api_molsysmt_Topology import get_group_name_from_atom
+        from molsysmt.elements.entity import get_elements
 
-        entities = {}
-        n_entities = 0
-        n_atoms = get_n_atoms_from_system(self)
+        index_array, id_array, name_array, type_array = get_elements(self)
 
-        n_peptides = 0
-        n_proteins = 0
-
-        entity_index_array = empty(n_atoms, dtype=int)
-        entity_type_array = empty(n_atoms, dtype=object)
-        entity_name_array = empty(n_atoms, dtype=object)
-
-        molecule_index = get_molecule_index_from_molecule(self)
-        atom_indices_in_molecule = get_atom_index_from_molecule(self)
-        molecule_type = get_molecule_type_from_molecule(self)
-
-        for m_index, m_type, m_atoms in zip(molecule_index, molecule_type, atom_indices_in_molecule):
-
-            if m_type == 'water':
-                name = 'water'
-                type = 'water'
-                try:
-                    index = entities[name]
-                except:
-                    entities[name]=n_entities
-                    index=n_entities
-                    n_entities+=1
-            elif m_type == 'ion':
-                group_name = get_group_name_from_atom(self, m_atoms)[0]
-                name = group_name
-                type = 'ion'
-                try:
-                    index = entities[name]
-                except:
-                    entities[name]=n_entities
-                    index=n_entities
-                    n_entities+=1
-            elif m_type == 'peptide':
-                name = 'Peptide'+str(n_peptides)
-                type = 'peptide'
-                n_peptides+=1
-                try:
-                    index = entities[name]
-                except:
-                    entities[name]=n_entities
-                    index=n_entities
-                    n_entities+=1
-            elif m_type == 'protein':
-                name = 'Protein'+str(n_proteins)
-                type = 'protein'
-                n_proteins+=1
-                try:
-                    index = entities[name]
-                except:
-                    entities[name]=n_entities
-                    index=n_entities
-                    n_entities+=1
-
-            entity_index_array[m_atoms]=index
-            entity_type_array[m_atoms]=type
-            entity_name_array[m_atoms]=name
-
-        self.elements['entity_index']=entity_index_array
-        self.elements['entity_type']=entity_type_array
-        self.elements['entity_name']=entity_name_array
-
-        del(entity_index_array, entity_type_array, entity_name_array)
-        del(molecule_index, molecule_type, atom_indices_in_molecule)
-
-        pass
-
+        self.atoms_dataframe["entity_index"] = index_array
+        self.atoms_dataframe["entity_id"] = id_array
+        self.atoms_dataframe["entity_name"] = name_array
+        self.atoms_dataframe["entity_type"] = type_array
 
     def _join_molecules(self, indices=None):
 
@@ -248,6 +158,6 @@ class Topology():
 
     def _nan_to_None(self):
 
-        self.elements._nan_to_None()
-        self.bonds._nan_to_None()
+        self.atoms_dataframe._nan_to_None()
+        self.bonds_dataframe._nan_to_None()
 

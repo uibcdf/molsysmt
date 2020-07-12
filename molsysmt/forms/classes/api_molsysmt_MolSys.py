@@ -84,6 +84,15 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
     return molsysmt_MolSys_to_pdb(item, output_filepath=output_filepath, atom_indices=atom_indices,
                                   frame_indices=frame_indices)
 
+def to_pdbfixer_PDBFixer(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import to_pdbfixer_PDBFixer as molsysmt_MolSys_to_pdbfixer_PDBFixer
+
+    tmp_item = molsysmt_MolSys_to_pdbfixer_PDBFixer(item, trajectory_item=trajectory_item,
+                                                    atom_indices=atom_indices,
+                                                    frame_indices=frame_indices)
+    return tmp_item
+
 def select_with_MDTraj(item, selection):
 
     from .api_molsysmt_Topology import select_with_MDTraj as select_Topology_with_MDTraj
