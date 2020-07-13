@@ -745,9 +745,9 @@ def get_component_id_from_component (item, indices='all', frame_indices='all'):
 def get_component_name_from_component (item, indices='all', frame_indices='all'):
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices)
-    all_indices = item.atoms_dataframe['component.index'].to_numpy()
+    all_indices = item.atoms_dataframe['component_index'].to_numpy()
     right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
-    output = item.atoms_dataframe['component.name'][right_locs].to_numpy()
+    output = item.atoms_dataframe['component_name'][right_locs].to_numpy()
     return output
 
 def get_component_type_from_component (item, indices='all', frame_indices='all'):
@@ -1749,7 +1749,7 @@ def get_n_chains_from_entity (item, indices='all', frame_indices='all'):
 
 def get_n_entities_from_entity (item, indices='all', frame_indices='all'):
 
-    output = get_chain_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    output = get_entity_index_from_entity (item, indices=indices, frame_indices=frame_indices)
     output = _unique(output)
     return output.shape[0]
 
@@ -1798,7 +1798,7 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    return item.bonds.shape[0]
+    return item.bonds_dataframe.shape[0]
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
