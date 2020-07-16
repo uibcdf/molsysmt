@@ -45,8 +45,11 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
     xyz = xyz*angstroms
     xyz = xyz.in_units_of(nanometers)
 
-    time = zeros([len(frame_indices)],dtype='float64')*picoseconds
-    step = array(frame_indices, dtype='int64')
+    #time = zeros([len(frame_indices)],dtype='float64')*picoseconds
+    #step = array(frame_indices, dtype='int64')
+
+    time = array([None for ii in range(n_frames)])*picoseconds
+    step = array([None for ii in range(n_frames)])
 
     if item.unitcell_lengths is not None:
 

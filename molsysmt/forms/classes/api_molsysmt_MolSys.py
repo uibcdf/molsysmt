@@ -34,7 +34,6 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-
 def to_biopython_Seq(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
@@ -334,6 +333,11 @@ def get_charge_from_atom(item, indices='all', frame_indices='all'):
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_Trajectory import get_coordinates_from_atom as _get
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
+
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Trajectory import get_frame_from_atom as _get
     return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
@@ -1422,6 +1426,16 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_Trajectory import get_time_from_system as _get
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
+
+def get_step_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Trajectory import get_step_from_system as _get
+    return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
+
+def get_frame_from_system(item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Trajectory import get_frame_from_system as _get
     return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):

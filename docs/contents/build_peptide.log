@@ -1,4 +1,4 @@
-log started: Fri Jul 10 23:17:37 2020
+log started: Thu Jul 16 01:25:29 2020
 
 Log file: ./leap.log
 >> #
@@ -412,7 +412,9 @@ Li/Merz ion parameters of divalent to tetravalent ions for TIP3P water model (12
 > 
 > set default PBRadii mbondi2
 Using H(N)-modified Bondi radii
-> peptide = sequence { ALA }
+> peptide = sequence { ALA ALA ALA }
+Sequence: ALA
+Sequence: ALA
 Sequence: ALA
 > check peptide
 Checking 'peptide'....
@@ -423,7 +425,7 @@ Unit is OK.
 > charge peptide
 Total unperturbed charge:   0.000000
 Total perturbed charge:     0.000000
-> saveAmberParm peptide tmpe3n_t5g2.prmtop tmpe3n_t5g2.inpcrd
+> saveAmberParm peptide tmp8cft6e1q.prmtop tmp8cft6e1q.inpcrd
 Checking Unit.
 Building topology.
 Building atom parameters.
@@ -431,7 +433,7 @@ Building bond parameters.
 Building angle parameters.
 Building proper torsion parameters.
 Building improper torsion parameters.
- total 0 improper torsions applied
+ total 4 improper torsions applied
 Building H-Bond parameters.
 Incorporating Non-Bonded adjustments.
 Not Marking per-residue atom chain types.

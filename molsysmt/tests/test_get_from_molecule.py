@@ -14,6 +14,7 @@ args = [
     convert('data/1tcd.pdb', to_form='molsysmt.Topology'),
     convert('data/1tcd.pdb', to_form='openmm.Topology'),
     convert('data/1tcd.pdb', to_form='openmm.Modeller'),
+    convert('data/1tcd.pdb', to_form='openmm.PDBFile'),
     convert('data/1tcd.pdb', to_form='pdbfixer.PDBFixer')
 ]
 

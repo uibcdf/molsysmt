@@ -350,8 +350,11 @@ def get_coordinates_from_atom (item, indices='all', frame_indices='all'):
     coordinates = _array(item.positions._value)
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
 
+    if frame_indices is not 'all':
+        coordinates = coordinates[frame_indices,:,:]
+
     if indices is not 'all':
-        coordinates = coordinates.positions[:,indices,:]
+        coordinates = coordinates[:,indices,:]
 
     coordinates = coordinates * item.positions.unit
 
@@ -366,7 +369,7 @@ def get_frame_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return get_n_frames_from_system(item, frame_indices=frame_indices)
 
 def get_form_from_atom(item, indices='all', frame_indices='all'):
 
@@ -1600,6 +1603,8 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
     coordinates = _array(item.positions._value)
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
+    if frame_indices is not 'all':
+        coordinates = coordinates[frame_indices,:,:]
     coordinates = coordinates * item.positions.unit
 
     return coordinates
@@ -1622,7 +1627,21 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from numpy import array as _array
+    from simtk.unit import picoseconds
+
+    n_frames = get_n_frames_from_system(item)
+    output = [None for ii in range(n_frames)]
+    output = _array(output)*picoseconds
+    return output
+
+def get_step_from_system(item, indices='all', frame_indices='all'):
+
+    from numpy import array as _array
+    n_frames = get_n_frames_from_system(item)
+    output = [None for ii in range(n_frames)]
+    output = _array(output)
+    return output
 
 def get_frame_from_system (item, indices='all', frame_indices='all'):
 
@@ -1633,7 +1652,16 @@ def get_frame_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if frame_indices is 'all':
+
+        return 1
+
+    else:
+
+        output = frame_indices.shape[0]
+        if output>1:
+            raise ValueError('The molecular system has a single frame')
+        return output
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 

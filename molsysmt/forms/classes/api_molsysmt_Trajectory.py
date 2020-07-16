@@ -80,6 +80,15 @@ def get_n_atoms_from_atom(item, indices='all', frame_indices='all'):
 
     return output
 
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
+    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
+    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+
+    return tmp_step, tmp_time, tmp_coordinates, tmp_box
+
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
     return get_n_frames_from_system(item, indices='all', frame_indices='all')
@@ -93,67 +102,6 @@ def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
         output=item.coordinates.shape[1]
     else:
         output=indices.shape[0]
-
-    return output
-
-def get_n_groups_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_components_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_chains_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_entities_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_ions_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_waters_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_cosolutes_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_small_molecules_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_peptides_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_proteins_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_dnas_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_rnas_from_system(item, indices='all', frame_indices='all'):
-
-    return None
-
-def get_n_frames_from_system(item, indices='all', frame_indices='all'):
-
-    if frame_indices is 'all':
-        output=item.coordinates.shape[0]
-    else:
-        output=frame_indices.shape[0]
 
     return output
 
@@ -203,6 +151,32 @@ def get_time_from_system(item, indices='all', frame_indices='all'):
         output = item.time
     else:
         output = item.time[frame_indices]
+    return output
+
+def get_step_from_system(item, indices='all', frame_indices='all'):
+
+    if frame_indices is 'all':
+        output = item.step
+    else:
+        output = item.step[frame_indices]
+    return output
+
+def get_frame_from_system(item, indices='all', frame_indices='all'):
+
+    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
+    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
+    tmp_coordinates = get_coordinates_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+
+    return tmp_step, tmp_time, tmp_coordinates, tmp_box
+
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+
+    if frame_indices is 'all':
+        output=item.coordinates.shape[0]
+    else:
+        output=frame_indices.shape[0]
+
     return output
 
 def get_form_from_system(item, indices='all', frame_indices='all'):

@@ -18,6 +18,7 @@ from .potential_energy import energy_minimization
 from .peptides import build_peptide
 from .solvate_box import solvate
 from .protonation import add_missing_hydrogens
+from .terminals_capping import add_terminal_capping
 from .mutations import mutate
 from . import elements as elements
 from .chem_and_phys_properties import get_charge, get_net_charge, get_mass, get_net_mass,\

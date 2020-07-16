@@ -11,6 +11,7 @@ dict_tests={
     'molsysmt.Topology': convert('data/1tcd.pdb', to_form='molsysmt.Topology'),
     'openmm.Topology': convert('data/1tcd.pdb', to_form='openmm.Topology'),
     'openmm.Modeller': convert('data/1tcd.pdb', to_form='openmm.Modeller'),
+    'openmm.PDBFile': convert('data/1tcd.pdb', to_form='openmm.PDBFile'),
     'pdbfixer.PDBFixer': convert('data/1tcd.pdb', to_form='pdbfixer.PDBFixer')
 
 }

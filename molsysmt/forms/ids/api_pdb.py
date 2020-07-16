@@ -133,6 +133,17 @@ def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     remove(tmp_file)
     return tmp_item
 
+def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.utils.pdb import tmp_pdb_filename
+    from molsysmt.forms.files.api_pdb import to_openmm_PDBFile as pdb_to_openmm_PDBFile
+    from os import remove
+    tmp_file = tmp_pdb_filename()
+    to_pdb(item, output_filepath=tmp_file)
+    tmp_item=pdb_to_openmm_PDBFile(tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    remove(tmp_file)
+    return tmp_item
+
 def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.utils.pdb import tmp_pdb_filename

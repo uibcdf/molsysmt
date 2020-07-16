@@ -242,7 +242,7 @@ def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_components_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_comonents_from_atom as _get
+    from molsysmt.forms.classes.api_openmm_Topology import get_n_components_from_atom as _get
     tmp_item = to_openmm_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
@@ -284,15 +284,26 @@ def get_charge_from_atom(item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_coordinates_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    from numpy import array as _array
+
+    coordinates = _array(item.positions._value)
+    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
+
+    if frame_indices is not 'all':
+        print(frame_indices)
+        coordinates = coordinates[frame_indices,:,:]
+
+    if indices is not 'all':
+        print(indices)
+        coordinates = coordinates[:,indices,:]
+
+    coordinates = coordinates * item.positions.unit
+
+    return coordinates
 
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_frames_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return get_n_frames_from_system(item, frame_indices=frame_indices)
 
 def get_form_from_atom(item, indices='all', frame_indices='all'):
 
@@ -384,7 +395,7 @@ def get_component_id_from_group (item, indices='all', frame_indices='all'):
 
 def get_component_type_from_group (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_comopnent_type_from_group as _get
+    from molsysmt.forms.classes.api_openmm_Topology import get_component_type_from_group as _get
     tmp_item = to_openmm_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
@@ -918,7 +929,7 @@ def get_n_groups_from_molecule (item, indices='all', frame_indices='all'):
 
 def get_n_components_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_comonents_from_molecule as _get
+    from molsysmt.forms.classes.api_openmm_Topology import get_n_components_from_molecule as _get
     tmp_item = to_openmm_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
@@ -1532,9 +1543,15 @@ def get_charge_from_system(item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_coordinates_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    from numpy import array as _array
+
+    coordinates = _array(item.positions._value)
+    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
+    if frame_indices is not 'all':
+        coordinates = coordinates[frame_indices,:,:]
+    coordinates = coordinates * item.positions.unit
+
+    return coordinates
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
@@ -1560,29 +1577,44 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
     tmp_item = to_openmm_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
+def get_step_from_system(item, indices='all', frame_indices='all'):
+
+    from numpy import array as _array
+    n_frames = get_n_frames_from_system(item)
+    output = [None for ii in range(n_frames)]
+    output = _array(output)
+    return output
+
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_time_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    from numpy import array as _array
+    from simtk.unit import picoseconds
+
+    n_frames = get_n_frames_from_system(item)
+    output = [None for ii in range(n_frames)]
+    output = _array(output)*picoseconds
+    return output
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_frames_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    if frame_indices is 'all':
+
+        tmp_coordinates_shape = item.getPositions(asNumpy=True).shape
+        if len(tmp_coordinates_shape)==2:
+            output = 1
+        elif len(tmp_coordinates_shape)==3:
+            output = tmp_coordinates_shape[0]
+        return output
+
+    else:
+
+        output = frame_indices.shape[0]
+        if output>1:
+            raise ValueError('The molecular system has a single frame')
+        return output
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
 
-##### Set
-
-## Atom
-
-def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
-
-    tmp_unit = item.positions.unit
-    tmp_positions = [item.positions[ii]._value for ii in indices]
-    result.append(tmp_positions*tmp_unit)
 
