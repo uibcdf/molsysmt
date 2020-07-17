@@ -405,6 +405,15 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     return coordinates
 
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+    box = get_box_from_system(item, frame_indices=frame_indices)
+    step = get_step_from_system(item, frame_indices=frame_indices)
+    time = get_time_from_system(item, frame_indices=frame_indices)
+
+    return step, time, coordinates, box
+
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
     return get_n_frames_from_system(item, frame_indices=frame_indices)
@@ -1649,19 +1658,27 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_openmm_Topology import get_box_from_system as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, frame_indices=frame_indices)
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_openmm_Topology import get_box_shape_from_system as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, frame_indices=frame_indices)
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_openmm_Topology import get_box_lengths_from_system as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, frame_indices=frame_indices)
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from .api_openmm_Topology import get_box_angles_from_system as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, frame_indices=frame_indices)
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
@@ -1680,6 +1697,15 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
     output = [None for ii in range(n_frames)]
     output = _array(output)
     return output
+
+def get_frame_from_system(item, indices='all', frame_indices='all'):
+
+    coordinates = get_coordinates_from_system(item, frame_indices=frame_indices)
+    box = get_box_from_system(item, frame_indices=frame_indices)
+    step = get_step_from_system(item, frame_indices=frame_indices)
+    time = get_time_from_system(item, frame_indices=frame_indices)
+
+    return step, time, coordinates, box
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 

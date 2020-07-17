@@ -78,9 +78,9 @@ def to_mol2(item, output_filepath=None, atom_indices='all', frame_indices='all')
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.pdbfile import PDBFile
-    from molsysmt.forms.classes.api_openmm_Topology import extract as extract_openmm_topology
-    tmp_item = PDBFile(item).getTopology()
-    tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.forms.classes.api_openmm_PDBFile import to_openmm_Topology as openmm_PDBFile_to_openmm_Topology
+    tmp_item = to_openmm_PDBFile(item)
+    tmp_item = openmm_PDBFile_to_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
@@ -132,6 +132,12 @@ def select_with_MDTraj(item, selection):
     tmp_sel = tmp_item.select(selection)
     del(tmp_item)
     return tmp_sel
+
+def select_with_MolSysMT(item, selection):
+
+    from molsysmt.forms.classes.api_openmm_PDBFile import select_with_MolSysMT as select_openmm_PDBFile_with_MolSysMT
+    tmp_item = to_openmm_PDBFile(item)
+    return select_openmm_PDBFile_with_MolSysMT(tmp_item, selection)
 
 def copy(item, output_filepath=None):
 
@@ -381,6 +387,15 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
     from molsysmt.forms.classes.api_openmm_PDBFile import get_coordinates_from_atom as _get
     tmp_item = to_openmm_PDBFile(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+    box = get_box_from_system(item, frame_indices=frame_indices)
+    step = get_step_from_system(item, frame_indices=frame_indices)
+    time = get_time_from_system(item, frame_indices=frame_indices)
+
+    return step, time, coordinates, box
 
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
@@ -1661,6 +1676,14 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
     tmp_item = to_openmm_PDBFile(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
+def get_frame_from_system(item, indices='all', frame_indices='all'):
+
+    coordinates = get_coordinates_from_system(item, frame_indices=frame_indices)
+    box = get_box_from_system(item, frame_indices=frame_indices)
+    step = get_step_from_system(item, frame_indices=frame_indices)
+    time = get_time_from_system(item, frame_indices=frame_indices)
+
+    return step, time, coordinates, box
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 

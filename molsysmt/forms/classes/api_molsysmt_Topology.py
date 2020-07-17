@@ -336,14 +336,14 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
         output = get_bond_index_from_system(item)
     else:
         aux_list = list(indices)
-        output = item.bonds.query('atom1_index==@aux_list and atom2_index==@aux_list').index.to_numpy(dtype=int, copy=True)
+        output = item.bonds_dataframe.query('atom1_index==@aux_list and atom2_index==@aux_list').index.to_numpy(dtype=int, copy=True)
 
     return output
 
 def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     bond_indices = get_inner_bond_index_from_atom (item, indices=indices)
-    output = item.bonds.iloc[bond_indices][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
+    output = item.bonds_dataframe.iloc[bond_indices][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
     del(bond_indices)
     return(output)
 

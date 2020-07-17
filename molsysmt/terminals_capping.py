@@ -41,6 +41,12 @@ def add_terminal_capping(item, N_terminal='ACE', C_terminal='NME', selection='al
         tmp_item.findMissingAtoms()
         tmp_item.addMissingAtoms()
 
+        n_hs = get(tmp_item, target='atom', selection='atom_type=="H"', n_atoms=True)
+
+        if n_hs > 0:
+
+            tmp_item.addMissingHydrogens(pH=7.4)
+
         tmp_item = convert(tmp_item, to_form=form_in)
 
     else:

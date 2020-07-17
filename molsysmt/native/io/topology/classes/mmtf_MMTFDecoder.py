@@ -32,7 +32,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     n_atoms = item.num_atoms
     n_bonds = item.num_bonds
 
-    tmp_item.elements["atom_index"] = arange(n_atoms, dtype=int)
+    tmp_item.atoms_dataframe["atom_index"] = arange(n_atoms, dtype=int)
 
     atom_name_array = empty(n_atoms, dtype=object)
     atom_id_array = empty(n_atoms, dtype=int)
@@ -82,16 +82,16 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
             atom_index+=1
 
-    tmp_item.elements["atom_name"] = atom_name_array
-    tmp_item.elements["atom_id"] = atom_id_array
-    tmp_item.elements["atom_type"] = atom_type_array
-    #tmp_item.elements["atom_formal_charge"] = atom_formal_charge_array
+    tmp_item.atoms_dataframe["atom_name"] = atom_name_array
+    tmp_item.atoms_dataframe["atom_id"] = atom_id_array
+    tmp_item.atoms_dataframe["atom_type"] = atom_type_array
+    #tmp_item.atoms_dataframe["atom_formal_charge"] = atom_formal_charge_array
     del(atom_name_array, atom_id_array, atom_type_array, atom_formal_charge_array)
 
-    tmp_item.elements["group_index"] = group_index_array
-    tmp_item.elements["group_name"] = group_name_array
-    tmp_item.elements["group_id"] = group_id_array
-    tmp_item.elements["group_type"] = group_type_array
+    tmp_item.atoms_dataframe["group_index"] = group_index_array
+    tmp_item.atoms_dataframe["group_name"] = group_name_array
+    tmp_item.atoms_dataframe["group_id"] = group_id_array
+    tmp_item.atoms_dataframe["group_type"] = group_type_array
     del(group_name_array, group_id_array, group_type_array)
 
     # bonds inter-groups in graph
@@ -104,15 +104,15 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
     #### bonds
 
-    tmp_item.bonds["atom1_index"] = bond_atom1_index_array
-    tmp_item.bonds["atom2_index"] = bond_atom2_index_array
-    tmp_item.bonds["order"] = bond_order_array
+    tmp_item.bonds_dataframe["atom1_index"] = bond_atom1_index_array
+    tmp_item.bonds_dataframe["atom2_index"] = bond_atom2_index_array
+    tmp_item.bonds_dataframe["order"] = bond_order_array
     del(bond_atom1_index_array, bond_atom2_index_array, bond_order_array)
 
     #### components
 
     tmp_item._build_components()
-    component_index_array=tmp_item.elements['component_index'].to_numpy(dtype=int,copy=True)
+    component_index_array=tmp_item.atoms_dataframe['component_index'].to_numpy(dtype=int,copy=True)
 
     #### chains
 
@@ -136,9 +136,9 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
         count_groups+=n_groups_chain
 
-    tmp_item.elements["chain_index"] = chain_index_array
-    tmp_item.elements["chain_name"] = chain_name_array
-    tmp_item.elements["chain_id"] = chain_id_array
+    tmp_item.atoms_dataframe["chain_index"] = chain_index_array
+    tmp_item.atoms_dataframe["chain_name"] = chain_name_array
+    tmp_item.atoms_dataframe["chain_id"] = chain_id_array
 
     del(chain_name_array, chain_id_array)
 
@@ -231,17 +231,17 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
 
         entity_index += 1
 
-    tmp_item.elements["entity_index"] = entity_index_array
-    tmp_item.elements["entity_name"] = entity_name_array
-    tmp_item.elements["entity_type"] = entity_type_array
-    tmp_item.elements["entity_id"] = entity_id_array
+    tmp_item.atoms_dataframe["entity_index"] = entity_index_array
+    tmp_item.atoms_dataframe["entity_name"] = entity_name_array
+    tmp_item.atoms_dataframe["entity_type"] = entity_type_array
+    tmp_item.atoms_dataframe["entity_id"] = entity_id_array
 
     del(entity_index_array, entity_name_array, entity_type_array, entity_id_array)
 
-    tmp_item.elements["molecule_index"] = molecule_index_array
-    tmp_item.elements["molecule_name"] = molecule_name_array
-    tmp_item.elements["molecule_type"] = molecule_type_array
-    tmp_item.elements["molecule_id"] = molecule_id_array
+    tmp_item.atoms_dataframe["molecule_index"] = molecule_index_array
+    tmp_item.atoms_dataframe["molecule_name"] = molecule_name_array
+    tmp_item.atoms_dataframe["molecule_type"] = molecule_type_array
+    tmp_item.atoms_dataframe["molecule_id"] = molecule_id_array
 
     del(molecule_index_array, molecule_name_array, molecule_type_array, molecule_id_array)
 

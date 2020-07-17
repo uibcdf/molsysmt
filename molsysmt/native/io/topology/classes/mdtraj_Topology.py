@@ -77,24 +77,24 @@ def from_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_i
 
     mdtraj_dataframe, mdtraj_bonds = item.to_dataframe()
 
-    tmp_item.elements["atom_index"] = list(mdtraj_dataframe.index)
-    tmp_item.elements["atom_id"] = mdtraj_dataframe["serial"]
-    tmp_item.elements["atom_name"] = mdtraj_dataframe["name"]
-    tmp_item.elements["atom_type"] = mdtraj_dataframe["element"]
+    tmp_item.atoms_dataframe["atom_index"] = list(mdtraj_dataframe.index)
+    tmp_item.atoms_dataframe["atom_id"] = mdtraj_dataframe["serial"]
+    tmp_item.atoms_dataframe["atom_name"] = mdtraj_dataframe["name"]
+    tmp_item.atoms_dataframe["atom_type"] = mdtraj_dataframe["element"]
 
-    tmp_item.elements["group_id"] = mdtraj_dataframe["resSeq"]
-    tmp_item.elements["group_name"] = mdtraj_dataframe["resName"]
+    tmp_item.atoms_dataframe["group_id"] = mdtraj_dataframe["resSeq"]
+    tmp_item.atoms_dataframe["group_name"] = mdtraj_dataframe["resName"]
 
-    tmp_item.elements["chain_id"] = mdtraj_dataframe["chainID"]
+    tmp_item.atoms_dataframe["chain_id"] = mdtraj_dataframe["chainID"]
 
-    tmp_item.bonds["atom1_index"] = array(mdtraj_bonds[:,0], dtype=int)
-    tmp_item.bonds["atom2_index"] = array(mdtraj_bonds[:,1], dtype=int)
+    tmp_item.bonds_dataframe["atom1_index"] = array(mdtraj_bonds[:,0], dtype=int)
+    tmp_item.bonds_dataframe["atom2_index"] = array(mdtraj_bonds[:,1], dtype=int)
 
     del(mdtraj_dataframe)
 
     group_type_array = empty(n_atoms, dtype=object)
 
-    tmp_item.elements["group_type"] = list(map(group_name_to_group_type,tmp_item.elements["group_name"]))
+    tmp_item.atoms_dataframe["group_type"] = list(map(group_name_to_group_type,tmp_item.atoms_dataframe["group_name"]))
 
 
     group_index_array = empty(n_atoms, dtype=int)
@@ -105,8 +105,8 @@ def from_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_i
         group_index_array[atom_index] = atom.residue.index
         chain_index_array[atom_index] = atom.residue.chain.index
 
-    tmp_item.elements["group_index"] = group_index_array
-    tmp_item.elements["chain_index"] = chain_index_array
+    tmp_item.atoms_dataframe["group_index"] = group_index_array
+    tmp_item.atoms_dataframe["chain_index"] = chain_index_array
 
     del(group_index_array, chain_index_array)
 

@@ -2403,23 +2403,47 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
     box = item.getPeriodicBoxVectors()
 
     if box is not None:
+        box_unit = box.unit
         box = _array(box._value)
         box = box.reshape(1, box.shape[0], box.shape[1])
-        box = box * box.unit
+        box = box * box_unit
 
-    return box
+    output=None
+
+    if box is not None:
+        if frame_indices is 'all':
+            output=box
+        else:
+            output=box[frame_indices,:,:]
+
+    return output
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt import box_shape_from_box_vectors
+
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    output = box_shape_from_box_vectors(tmp_box)
+
+    return output
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt import box_lengths_from_box_vectors
+
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    output = box_lengths_from_box_vectors(tmp_box)
+
+    return output
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt import box_angles_from_box_vectors
+
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    output = box_angles_from_box_vectors(tmp_box)
+
+    return output
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 

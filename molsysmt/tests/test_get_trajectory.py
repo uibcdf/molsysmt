@@ -124,6 +124,102 @@ def test_time_from_system_2(item):
     output = get(item, target='system', frame_indices=0, time=True)
     assert np.all(output==expected_values['time_from_system_2'])
 
+# box
 
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_box_from_system_1(item):
+    output = get(item, target='system', frame_indices='all', box=True)
+    assert np.allclose(output, expected_values['box_from_system_1'], atol=1e-05)
 
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_box_from_system_2(item):
+    output = get(item, target='system', frame_indices=0, box=True)
+    assert np.allclose(output, expected_values['box_from_system_2'], atol=1e-05)
 
+# box_shape
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_box_shape_from_system_1(item):
+    output = get(item, target='system', frame_indices='all', box_shape=True)
+    assert np.all(output==expected_values['box_shape_from_system_1'])
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_box_shape_from_system_2(item):
+    output = get(item, target='system', frame_indices=0, box_shape=True)
+    assert np.all(output==expected_values['box_shape_from_system_2'])
+
+# box_lengths
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_box_lengths_from_system_1(item):
+    output = get(item, target='system', frame_indices='all', box_lengths=True)
+    assert np.allclose(output, expected_values['box_lengths_from_system_1'], atol=1e-05)
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_box_lengths_from_system_2(item):
+    output = get(item, target='system', frame_indices=0, box_lengths=True)
+    assert np.allclose(output, expected_values['box_lengths_from_system_2'], atol=1e-05)
+
+# box_angles
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_box_angles_from_system_1(item):
+    output = get(item, target='system', frame_indices='all', box_angles=True)
+    assert np.allclose(output, expected_values['box_angles_from_system_1'], atol=1e-05)
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_box_angles_from_system_2(item):
+    output = get(item, target='system', frame_indices=0, box_angles=True)
+    assert np.allclose(output, expected_values['box_angles_from_system_2'], atol=1e-05)
+
+# frame
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_frame_from_atom_1(item):
+    output = get(item, target='atom', frame_indices='all', frame=True)
+    expected_output = expected_values['frame_from_atom_1']
+    eq_step = np.all(output[0]==expected_output[0])
+    eq_time = np.all(output[1]==expected_output[1])
+    eq_coordinates = np.all(output[2]==expected_output[2])
+    eq_box = np.allclose(output[3], expected_output[3], atol=1e-05)
+    assert eq_step*eq_time*eq_box*eq_coordinates
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_frame_from_atom_2(item):
+    output = get(item, target='atom', frame_indices=0, frame=True)
+    expected_output = expected_values['frame_from_atom_2']
+    eq_step = np.all(output[0]==expected_output[0])
+    eq_time = np.all(output[1]==expected_output[1])
+    eq_coordinates = np.all(output[2]==expected_output[2])
+    eq_box = np.allclose(output[3], expected_output[3], atol=1e-05)
+    assert eq_step*eq_time*eq_box*eq_coordinates
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_frame_from_atom_3(item):
+    output = get(item, target='atom', indices=range(20,30), frame_indices=0, frame=True)
+    expected_output = expected_values['frame_from_atom_3']
+    eq_step = np.all(output[0]==expected_output[0])
+    eq_time = np.all(output[1]==expected_output[1])
+    eq_coordinates = np.all(output[2]==expected_output[2])
+    eq_box = np.allclose(output[3], expected_output[3], atol=1e-05)
+    assert eq_step*eq_time*eq_box*eq_coordinates
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_frame_from_system_1(item):
+    output = get(item, target='system', frame_indices='all', frame=True)
+    expected_output = expected_values['frame_from_system_1']
+    eq_step = np.all(output[0]==expected_output[0])
+    eq_time = np.all(output[1]==expected_output[1])
+    eq_coordinates = np.all(output[2]==expected_output[2])
+    eq_box = np.allclose(output[3], expected_output[3], atol=1e-05)
+    assert eq_step*eq_time*eq_box*eq_coordinates
+
+@pytest.mark.parametrize("item", args, ids=get_form)
+def test_frame_from_system_2(item):
+    output = get(item, target='system', frame_indices='all', frame=True)
+    expected_output = expected_values['frame_from_system_2']
+    eq_step = np.all(output[0]==expected_output[0])
+    eq_time = np.all(output[1]==expected_output[1])
+    eq_coordinates = np.all(output[2]==expected_output[2])
+    eq_box = np.allclose(output[3], expected_output[3], atol=1e-05)
+    assert eq_step*eq_time*eq_box*eq_coordinates
