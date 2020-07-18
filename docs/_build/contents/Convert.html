@@ -26,7 +26,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
@@ -192,7 +192,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Build_peptide.html">Building a peptide from its sequence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-implicit-solvent">Alanine dipeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
@@ -201,6 +200,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Terminal_capping.html">Terminal capping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
@@ -605,7 +606,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d1226477ae61430588e71c84698c55fe", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "37a7e94760e74b56aba982aab779825d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="How-to-convert-a-form-into-other-form">
 <h1>How to convert a form into other form<a class="headerlink" href="#How-to-convert-a-form-into-other-form" title="Permalink to this headline">¶</a></h1>
@@ -646,7 +647,8 @@ the same functionality.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1tcd.pdb&#39;</span><span class="p">,</span> <span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span> <span class="c1"># loading a pdb file as an mdtraj.Trajectory object</span>
+<span></span><span class="n">pdb_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.pdb&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">,</span> <span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span> <span class="c1"># loading a pdb file as an mdtraj.Trajectory object</span>
 </pre></div>
 </div>
 </div>
@@ -706,16 +708,17 @@ aminoacids1:KPQPIAAANWKCNGSESLLVPLIETLNAATFDHDVQCVVAPTFLHIPMTKARLTNPKFQIAAQNAITR
 <h2>How to convert just a selection<a class="headerlink" href="#How-to-convert-just-a-selection" title="Permalink to this headline">¶</a></h2>
 <p>The conversion can be done over the entiry system or over a part of it. The input argument <code class="docutils literal notranslate"><span class="pre">selection</span></code> works with most of the MolSysMT methods, with <code class="docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code> also. To know more about how to perform selections there is a section on this documentation entitled “XXX”. By now, lets see some simple selections to see how it operates:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">whole_molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.DataFrame&#39;</span><span class="p">)</span>
+<span></span><span class="n">pdb_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.pdb&#39;</span><span class="p">]</span>
+<span class="n">whole_molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.Topology&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -724,37 +727,37 @@ aminoacids1:KPQPIAAANWKCNGSESLLVPLIETLNAATFDHDVQCVVAPTFLHIPMTKARLTNPKFQIAAQNAITR
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_03c77fac_9744_11ea_ad51_ab35cc475485" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n waters</th>        <th class="col_heading level0 col8" >n proteins</th>        <th class="col_heading level0 col9" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_48212182_c7ee_11ea_8df9_65dac846b923" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_proteins</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col0" class="data row0 col0" >molsysmt.DataFrame</td>
-                        <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col1" class="data row0 col1" >3983</td>
-                        <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col2" class="data row0 col2" >662</td>
-                        <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col3" class="data row0 col3" >167</td>
-                        <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col4" class="data row0 col4" >4</td>
-                        <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col5" class="data row0 col5" >166</td>
-                        <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col6" class="data row0 col6" >2</td>
-                        <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col7" class="data row0 col7" >165</td>
-                        <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col8" class="data row0 col8" >1</td>
-                        <td id="T_03c77fac_9744_11ea_ad51_ab35cc475485row0_col9" class="data row0 col9" >0</td>
+                                <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col0" class="data row0 col0" >openmm.Topology</td>
+                        <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col1" class="data row0 col1" >3983</td>
+                        <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col2" class="data row0 col2" >662</td>
+                        <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col3" class="data row0 col3" >167</td>
+                        <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col4" class="data row0 col4" >4</td>
+                        <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col5" class="data row0 col5" >167</td>
+                        <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col6" class="data row0 col6" >3</td>
+                        <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col7" class="data row0 col7" >165</td>
+                        <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col8" class="data row0 col8" >2</td>
+                        <td id="T_48212182_c7ee_11ea_8df9_65dac846b923row0_col9" class="data row0 col9" >0</td>
             </tr>
     </tbody></table></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.DataFrame&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule.type==&quot;protein&quot;&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.Topology&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type==&quot;protein&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -763,22 +766,22 @@ aminoacids1:KPQPIAAANWKCNGSESLLVPLIETLNAATFDHDVQCVVAPTFLHIPMTKARLTNPKFQIAAQNAITR
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_088dd4b4_9744_11ea_ad51_ab35cc475485" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n proteins</th>        <th class="col_heading level0 col8" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_proteins</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_088dd4b4_9744_11ea_ad51_ab35cc475485row0_col0" class="data row0 col0" >molsysmt.DataFrame</td>
-                        <td id="T_088dd4b4_9744_11ea_ad51_ab35cc475485row0_col1" class="data row0 col1" >3818</td>
-                        <td id="T_088dd4b4_9744_11ea_ad51_ab35cc475485row0_col2" class="data row0 col2" >497</td>
-                        <td id="T_088dd4b4_9744_11ea_ad51_ab35cc475485row0_col3" class="data row0 col3" >2</td>
-                        <td id="T_088dd4b4_9744_11ea_ad51_ab35cc475485row0_col4" class="data row0 col4" >2</td>
-                        <td id="T_088dd4b4_9744_11ea_ad51_ab35cc475485row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_088dd4b4_9744_11ea_ad51_ab35cc475485row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_088dd4b4_9744_11ea_ad51_ab35cc475485row0_col7" class="data row0 col7" >1</td>
-                        <td id="T_088dd4b4_9744_11ea_ad51_ab35cc475485row0_col8" class="data row0 col8" >0</td>
+                                <td id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923row0_col0" class="data row0 col0" >openmm.Topology</td>
+                        <td id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923row0_col1" class="data row0 col1" >3818</td>
+                        <td id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923row0_col2" class="data row0 col2" >497</td>
+                        <td id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923row0_col3" class="data row0 col3" >2</td>
+                        <td id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923row0_col4" class="data row0 col4" >2</td>
+                        <td id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923row0_col5" class="data row0 col5" >2</td>
+                        <td id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923row0_col6" class="data row0 col6" >2</td>
+                        <td id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923row0_col7" class="data row0 col7" >2</td>
+                        <td id="T_4b1e83de_c7ee_11ea_8df9_65dac846b923row0_col8" class="data row0 col8" >0</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -787,16 +790,18 @@ aminoacids1:KPQPIAAANWKCNGSESLLVPLIETLNAATFDHDVQCVVAPTFLHIPMTKARLTNPKFQIAAQNAITR
 <h2>How to combine multiple forms into one<a class="headerlink" href="#How-to-combine-multiple-forms-into-one" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes the molecular system comes from the combination of more than a form. For example, we can have two files with topology and coordinates to be converted into an only molecular form:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="s1">&#39;pentalanine.prmtop&#39;</span><span class="p">,</span><span class="s1">&#39;pentalanine.inpcrd&#39;</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">prmtop_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.prmtop&#39;</span><span class="p">]</span>
+<span class="n">inpcrd_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.inpcrd&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="n">prmtop_file</span><span class="p">,</span> <span class="n">inpcrd_file</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -805,21 +810,23 @@ aminoacids1:KPQPIAAANWKCNGSESLLVPLIETLNAATFDHDVQCVVAPTFLHIPMTKARLTNPKFQIAAQNAITR
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_158af9c6_9744_11ea_ad51_ab35cc475485" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_5024da9a_c7ee_11ea_8df9_65dac846b923" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_peptides</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_158af9c6_9744_11ea_ad51_ab35cc475485row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_158af9c6_9744_11ea_ad51_ab35cc475485row0_col1" class="data row0 col1" >5207</td>
-                        <td id="T_158af9c6_9744_11ea_ad51_ab35cc475485row0_col2" class="data row0 col2" >1722</td>
-                        <td id="T_158af9c6_9744_11ea_ad51_ab35cc475485row0_col3" class="data row0 col3" >1716</td>
-                        <td id="T_158af9c6_9744_11ea_ad51_ab35cc475485row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_158af9c6_9744_11ea_ad51_ab35cc475485row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_158af9c6_9744_11ea_ad51_ab35cc475485row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_158af9c6_9744_11ea_ad51_ab35cc475485row0_col7" class="data row0 col7" >1</td>
+                                <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col1" class="data row0 col1" >5207</td>
+                        <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col2" class="data row0 col2" >1722</td>
+                        <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col3" class="data row0 col3" >1716</td>
+                        <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col5" class="data row0 col5" >1716</td>
+                        <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col6" class="data row0 col6" >2</td>
+                        <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col7" class="data row0 col7" >1715</td>
+                        <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col8" class="data row0 col8" >1</td>
+                        <td id="T_5024da9a_c7ee_11ea_8df9_65dac846b923row0_col9" class="data row0 col9" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -828,85 +835,51 @@ aminoacids1:KPQPIAAANWKCNGSESLLVPLIETLNAATFDHDVQCVVAPTFLHIPMTKARLTNPKFQIAAQNAITR
 <h2>How to convert a form into multiple ones at once<a class="headerlink" href="#How-to-convert-a-form-into-multiple-ones-at-once" title="Permalink to this headline">¶</a></h2>
 <p>In the previous section the way to convert multiple forms into one was illustrated. Lets see now how to produce more than an output form in just a single line:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">dataframe</span><span class="p">,</span> <span class="n">trajectory</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molsysmt.DataFrame&#39;</span><span class="p">,</span><span class="s1">&#39;molsysmt.Trajectory&#39;</span><span class="p">])</span>
+<span></span><span class="n">h5_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">topology</span><span class="p">,</span> <span class="n">trajectory</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">h5_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molsysmt.Topology&#39;</span><span class="p">,</span><span class="s1">&#39;molsysmt.Trajectory&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">topology</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_22036c56_9744_11ea_ad51_ab35cc475485" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_22036c56_9744_11ea_ad51_ab35cc475485row0_col0" class="data row0 col0" >molsysmt.DataFrame</td>
-                        <td id="T_22036c56_9744_11ea_ad51_ab35cc475485row0_col1" class="data row0 col1" >62</td>
-                        <td id="T_22036c56_9744_11ea_ad51_ab35cc475485row0_col2" class="data row0 col2" >7</td>
-                        <td id="T_22036c56_9744_11ea_ad51_ab35cc475485row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_22036c56_9744_11ea_ad51_ab35cc475485row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_22036c56_9744_11ea_ad51_ab35cc475485row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_22036c56_9744_11ea_ad51_ab35cc475485row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_22036c56_9744_11ea_ad51_ab35cc475485row0_col7" class="data row0 col7" >0</td>
-            </tr>
-    </tbody></table></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">trajectory</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<style  type="text/css" >
-</style><table id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n waters</th>        <th class="col_heading level0 col8" >n ions</th>        <th class="col_heading level0 col9" >n cosolutes</th>        <th class="col_heading level0 col10" >n small molecules</th>        <th class="col_heading level0 col11" >n peptides</th>        <th class="col_heading level0 col12" >n proteins</th>        <th class="col_heading level0 col13" >n dnas</th>        <th class="col_heading level0 col14" >n rnas</th>        <th class="col_heading level0 col15" >n frames</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col0" class="data row0 col0" >molsysmt.Trajectory</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col1" class="data row0 col1" >62</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col2" class="data row0 col2" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col3" class="data row0 col3" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col4" class="data row0 col4" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col5" class="data row0 col5" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col6" class="data row0 col6" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col7" class="data row0 col7" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col8" class="data row0 col8" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col9" class="data row0 col9" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col10" class="data row0 col10" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col11" class="data row0 col11" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col12" class="data row0 col12" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col13" class="data row0 col13" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col14" class="data row0 col14" >None</td>
-                        <td id="T_27f6a6f0_9744_11ea_ad51_ab35cc475485row0_col15" class="data row0 col15" >5000</td>
+                                <td id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923row0_col0" class="data row0 col0" >molsysmt.Topology</td>
+                        <td id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_52bb1f6c_c7ee_11ea_8df9_65dac846b923row0_col8" class="data row0 col8" >0</td>
             </tr>
     </tbody></table></div>
 </div>
 <p>Lets now combine both forms into one to see their were properly converted:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pdb_string</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="n">dataframe</span><span class="p">,</span><span class="n">trajectory</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;.pdb&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span></span><span class="n">pdb_string</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="n">topology</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;.pdb&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">pdb_string</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -916,81 +889,81 @@ aminoacids1:KPQPIAAANWKCNGSESLLVPLIETLNAATFDHDVQCVVAPTFLHIPMTKARLTNPKFQIAAQNAITR
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-REMARK   1 CREATED WITH OPENMM 7.4.1 BY MOLSYSMT, 2020-05-16
-HETATM    1  H1  ACE A   1       7.249   2.812  -0.651  1.00  0.00           H
-HETATM    2  CH3 ACE A   1       8.184   3.354  -0.797  1.00  0.00           C
-HETATM    3  H2  ACE A   1       8.246   3.843  -1.769  1.00  0.00           H
-HETATM    4  H3  ACE A   1       8.879   2.516  -0.838  1.00  0.00           H
-HETATM    5  C   ACE A   1       8.514   4.229   0.378  1.00  0.00           C
-HETATM    6  O   ACE A   1       9.025   3.617   1.320  1.00  0.00           O
-ATOM      7  N   ALA A   2       8.131   5.505   0.206  1.00  0.00           N
-ATOM      8  H   ALA A   2       7.661   5.747  -0.654  1.00  0.00           H
-ATOM      9  CA  ALA A   2       8.375   6.544   1.175  1.00  0.00           C
-ATOM     10  HA  ALA A   2       8.686   6.060   2.100  1.00  0.00           H
-ATOM     11  CB  ALA A   2       9.619   7.378   0.809  1.00  0.00           C
-ATOM     12  HB1 ALA A   2       9.428   7.802  -0.177  1.00  0.00           H
-ATOM     13  HB2 ALA A   2       9.801   8.233   1.461  1.00  0.00           H
-ATOM     14  HB3 ALA A   2      10.485   6.719   0.764  1.00  0.00           H
-ATOM     15  C   ALA A   2       7.175   7.353   1.440  1.00  0.00           C
-ATOM     16  O   ALA A   2       6.119   7.117   0.826  1.00  0.00           O
-ATOM     17  N   ALA A   3       7.135   8.129   2.492  1.00  0.00           N
-ATOM     18  H   ALA A   3       8.027   8.283   2.941  1.00  0.00           H
-ATOM     19  CA  ALA A   3       5.868   8.719   3.089  1.00  0.00           C
-ATOM     20  HA  ALA A   3       5.013   8.046   3.150  1.00  0.00           H
-ATOM     21  CB  ALA A   3       6.162   9.148   4.561  1.00  0.00           C
-ATOM     22  HB1 ALA A   3       6.896   9.952   4.495  1.00  0.00           H
-ATOM     23  HB2 ALA A   3       5.266   9.541   5.040  1.00  0.00           H
-ATOM     24  HB3 ALA A   3       6.518   8.267   5.095  1.00  0.00           H
-ATOM     25  C   ALA A   3       5.317   9.947   2.233  1.00  0.00           C
-ATOM     26  O   ALA A   3       4.318   9.800   1.564  1.00  0.00           O
-ATOM     27  N   ALA A   4       6.187  10.941   2.082  1.00  0.00           N
-ATOM     28  H   ALA A   4       7.049  10.754   2.574  1.00  0.00           H
-ATOM     29  CA  ALA A   4       6.055  12.242   1.499  1.00  0.00           C
-ATOM     30  HA  ALA A   4       5.106  12.365   0.978  1.00  0.00           H
-ATOM     31  CB  ALA A   4       6.022  13.257   2.645  1.00  0.00           C
-ATOM     32  HB1 ALA A   4       6.918  13.169   3.259  1.00  0.00           H
-ATOM     33  HB2 ALA A   4       5.848  14.259   2.252  1.00  0.00           H
-ATOM     34  HB3 ALA A   4       5.089  13.129   3.194  1.00  0.00           H
-ATOM     35  C   ALA A   4       7.161  12.473   0.426  1.00  0.00           C
-ATOM     36  O   ALA A   4       8.281  12.043   0.603  1.00  0.00           O
-ATOM     37  N   ALA A   5       6.858  13.029  -0.769  1.00  0.00           N
-ATOM     38  H   ALA A   5       5.889  13.209  -0.988  1.00  0.00           H
-ATOM     39  CA  ALA A   5       7.845  13.174  -1.773  1.00  0.00           C
-ATOM     40  HA  ALA A   5       8.308  12.190  -1.705  1.00  0.00           H
-ATOM     41  CB  ALA A   5       7.181  13.435  -3.147  1.00  0.00           C
-ATOM     42  HB1 ALA A   5       6.635  14.377  -3.192  1.00  0.00           H
-ATOM     43  HB2 ALA A   5       7.828  13.567  -4.014  1.00  0.00           H
-ATOM     44  HB3 ALA A   5       6.390  12.728  -3.397  1.00  0.00           H
-ATOM     45  C   ALA A   5       8.913  14.302  -1.448  1.00  0.00           C
-ATOM     46  O   ALA A   5       8.480  15.471  -1.274  1.00  0.00           O
-ATOM     47  N   ALA A   6      10.234  13.998  -1.471  1.00  0.00           N
-ATOM     48  H   ALA A   6      10.384  13.037  -1.741  1.00  0.00           H
-ATOM     49  CA  ALA A   6      11.193  15.097  -1.604  1.00  0.00           C
-ATOM     50  HA  ALA A   6      10.872  15.927  -0.974  1.00  0.00           H
-ATOM     51  CB  ALA A   6      12.492  14.621  -0.922  1.00  0.00           C
-ATOM     52  HB1 ALA A   6      12.945  13.842  -1.534  1.00  0.00           H
-ATOM     53  HB2 ALA A   6      13.199  15.425  -0.716  1.00  0.00           H
-ATOM     54  HB3 ALA A   6      12.244  14.328   0.098  1.00  0.00           H
-ATOM     55  C   ALA A   6      11.414  15.585  -3.064  1.00  0.00           C
-ATOM     56  O   ALA A   6      12.325  15.162  -3.686  1.00  0.00           O
-HETATM   57  N   NME A   7      10.479  16.532  -3.533  1.00  0.00           N
-HETATM   58  H   NME A   7       9.780  16.751  -2.838  1.00  0.00           H
-HETATM   59  C   NME A   7      10.463  17.018  -4.961  1.00  0.00           C
-HETATM   60  H1  NME A   7      11.460  16.914  -5.389  1.00  0.00           H
-HETATM   61  H2  NME A   7       9.799  16.360  -5.521  1.00  0.00           H
-HETATM   62  H3  NME A   7      10.024  18.011  -5.061  1.00  0.00           H
-TER      63      NME A   7
+REMARK   1 CREATED WITH OPENMM 7.4.2 BY MOLSYSMT, 2020-07-17
+HETATM    1  H1  ACE 0   1       7.249   2.812  -0.651  1.00  0.00           H
+HETATM    2  CH3 ACE 0   1       8.184   3.354  -0.797  1.00  0.00           C
+HETATM    3  H2  ACE 0   1       8.246   3.843  -1.769  1.00  0.00           H
+HETATM    4  H3  ACE 0   1       8.879   2.516  -0.838  1.00  0.00           H
+HETATM    5  C   ACE 0   1       8.514   4.229   0.378  1.00  0.00           C
+HETATM    6  O   ACE 0   1       9.025   3.617   1.320  1.00  0.00           O
+ATOM      7  N   ALA 0   2       8.131   5.505   0.206  1.00  0.00           N
+ATOM      8  H   ALA 0   2       7.661   5.747  -0.654  1.00  0.00           H
+ATOM      9  CA  ALA 0   2       8.375   6.544   1.175  1.00  0.00           C
+ATOM     10  HA  ALA 0   2       8.686   6.060   2.100  1.00  0.00           H
+ATOM     11  CB  ALA 0   2       9.619   7.378   0.809  1.00  0.00           C
+ATOM     12  HB1 ALA 0   2       9.428   7.802  -0.177  1.00  0.00           H
+ATOM     13  HB2 ALA 0   2       9.801   8.233   1.461  1.00  0.00           H
+ATOM     14  HB3 ALA 0   2      10.485   6.719   0.764  1.00  0.00           H
+ATOM     15  C   ALA 0   2       7.175   7.353   1.440  1.00  0.00           C
+ATOM     16  O   ALA 0   2       6.119   7.117   0.826  1.00  0.00           O
+ATOM     17  N   ALA 0   3       7.135   8.129   2.492  1.00  0.00           N
+ATOM     18  H   ALA 0   3       8.027   8.283   2.941  1.00  0.00           H
+ATOM     19  CA  ALA 0   3       5.868   8.719   3.089  1.00  0.00           C
+ATOM     20  HA  ALA 0   3       5.013   8.046   3.150  1.00  0.00           H
+ATOM     21  CB  ALA 0   3       6.162   9.148   4.561  1.00  0.00           C
+ATOM     22  HB1 ALA 0   3       6.896   9.952   4.495  1.00  0.00           H
+ATOM     23  HB2 ALA 0   3       5.266   9.541   5.040  1.00  0.00           H
+ATOM     24  HB3 ALA 0   3       6.518   8.267   5.095  1.00  0.00           H
+ATOM     25  C   ALA 0   3       5.317   9.947   2.233  1.00  0.00           C
+ATOM     26  O   ALA 0   3       4.318   9.800   1.564  1.00  0.00           O
+ATOM     27  N   ALA 0   4       6.187  10.941   2.082  1.00  0.00           N
+ATOM     28  H   ALA 0   4       7.049  10.754   2.574  1.00  0.00           H
+ATOM     29  CA  ALA 0   4       6.055  12.242   1.499  1.00  0.00           C
+ATOM     30  HA  ALA 0   4       5.106  12.365   0.978  1.00  0.00           H
+ATOM     31  CB  ALA 0   4       6.022  13.257   2.645  1.00  0.00           C
+ATOM     32  HB1 ALA 0   4       6.918  13.169   3.259  1.00  0.00           H
+ATOM     33  HB2 ALA 0   4       5.848  14.259   2.252  1.00  0.00           H
+ATOM     34  HB3 ALA 0   4       5.089  13.129   3.194  1.00  0.00           H
+ATOM     35  C   ALA 0   4       7.161  12.473   0.426  1.00  0.00           C
+ATOM     36  O   ALA 0   4       8.281  12.043   0.603  1.00  0.00           O
+ATOM     37  N   ALA 0   5       6.858  13.029  -0.769  1.00  0.00           N
+ATOM     38  H   ALA 0   5       5.889  13.209  -0.988  1.00  0.00           H
+ATOM     39  CA  ALA 0   5       7.845  13.174  -1.773  1.00  0.00           C
+ATOM     40  HA  ALA 0   5       8.308  12.190  -1.705  1.00  0.00           H
+ATOM     41  CB  ALA 0   5       7.181  13.435  -3.147  1.00  0.00           C
+ATOM     42  HB1 ALA 0   5       6.635  14.377  -3.192  1.00  0.00           H
+ATOM     43  HB2 ALA 0   5       7.828  13.567  -4.014  1.00  0.00           H
+ATOM     44  HB3 ALA 0   5       6.390  12.728  -3.397  1.00  0.00           H
+ATOM     45  C   ALA 0   5       8.913  14.302  -1.448  1.00  0.00           C
+ATOM     46  O   ALA 0   5       8.480  15.471  -1.274  1.00  0.00           O
+ATOM     47  N   ALA 0   6      10.234  13.998  -1.471  1.00  0.00           N
+ATOM     48  H   ALA 0   6      10.384  13.037  -1.741  1.00  0.00           H
+ATOM     49  CA  ALA 0   6      11.193  15.097  -1.604  1.00  0.00           C
+ATOM     50  HA  ALA 0   6      10.872  15.927  -0.974  1.00  0.00           H
+ATOM     51  CB  ALA 0   6      12.492  14.621  -0.922  1.00  0.00           C
+ATOM     52  HB1 ALA 0   6      12.945  13.842  -1.534  1.00  0.00           H
+ATOM     53  HB2 ALA 0   6      13.199  15.425  -0.716  1.00  0.00           H
+ATOM     54  HB3 ALA 0   6      12.244  14.328   0.098  1.00  0.00           H
+ATOM     55  C   ALA 0   6      11.414  15.585  -3.064  1.00  0.00           C
+ATOM     56  O   ALA 0   6      12.325  15.162  -3.686  1.00  0.00           O
+HETATM   57  N   NME 0   7      10.479  16.532  -3.533  1.00  0.00           N
+HETATM   58  H   NME 0   7       9.780  16.751  -2.838  1.00  0.00           H
+HETATM   59  C   NME 0   7      10.463  17.018  -4.961  1.00  0.00           C
+HETATM   60  H1  NME 0   7      11.460  16.914  -5.389  1.00  0.00           H
+HETATM   61  H2  NME 0   7       9.799  16.360  -5.521  1.00  0.00           H
+HETATM   62  H3  NME 0   7      10.024  18.011  -5.061  1.00  0.00           H
+TER      63      NME 0   7
 CONECT    1    2
-CONECT    2    1    3    4    5
+CONECT    2    3    4    1    5
 CONECT    3    2
 CONECT    4    2
-CONECT    5    2    6    7
+CONECT    5    6    7    2
 CONECT    6    5
 CONECT    7    5
 CONECT   55   57
-CONECT   57   55   58   59
+CONECT   57   58   55   59
 CONECT   58   57
-CONECT   59   57   60   61   62
+CONECT   59   60   61   62   57
 CONECT   60   59
 CONECT   61   59
 CONECT   62   59
@@ -1002,40 +975,40 @@ END
 <div class="section" id="Some-examples-with-files">
 <h2>Some examples with files<a class="headerlink" href="#Some-examples-with-files" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">PDB_file</span> <span class="o">=</span> <span class="s1">&#39;1brs.pdb&#39;</span>
+<span></span><span class="n">PDB_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1brs.pdb&#39;</span><span class="p">]</span>
 <span class="n">system_pdbfixer</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">PDB_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;pdbfixer.PDBFixer&#39;</span><span class="p">)</span>
 <span class="n">system_parmed</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">PDB_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;parmed.Structure&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">MOL2_file</span> <span class="o">=</span> <span class="s1">&#39;caffeine.mol2&#39;</span>
+<span></span><span class="n">MOL2_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;caffeine.mol2&#39;</span><span class="p">]</span>
 <span class="n">system_openmm</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">MOL2_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.Modeller&#39;</span><span class="p">)</span>
 <span class="n">system_mdtraj</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">MOL2_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">MMTF_file</span> <span class="o">=</span> <span class="s1">&#39;1tcd.mmtf&#39;</span>
+<span></span><span class="n">MMTF_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">]</span>
 <span class="n">system_aminoacids1_seq</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">MMTF_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;aminoacids1:seq&#39;</span><span class="p">)</span>
 <span class="n">system_molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">MMTF_file</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1063,21 +1036,22 @@ Form of object system_molsys:  molsysmt.MolSys
 </div>
 <p>A single file can be converted into more than a form in just a line:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">dataframe</span><span class="p">,</span> <span class="n">trajectory</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molsysmt.DataFrame&#39;</span><span class="p">,</span><span class="s1">&#39;molsysmt.Trajectory&#39;</span><span class="p">])</span>
+<span></span><span class="n">h5_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">topology</span><span class="p">,</span> <span class="n">trajectory</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">h5_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molsysmt.Topology&#39;</span><span class="p">,</span><span class="s1">&#39;molsysmt.Trajectory&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <p>When the output file path is only a dot followed by the file extension, the output is a string insted of a written file. Lets see how this works when two forms are combinend into a pdb string:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pdb_string</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="n">dataframe</span><span class="p">,</span><span class="n">trajectory</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;.pdb&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span></span><span class="n">pdb_string</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="n">topology</span><span class="p">,</span><span class="n">trajectory</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;.pdb&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">pdb_string</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1087,81 +1061,81 @@ Form of object system_molsys:  molsysmt.MolSys
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-REMARK   1 CREATED WITH OPENMM 7.4.1 BY MOLSYSMT, 2020-05-16
-HETATM    1  H1  ACE A   1       7.249   2.812  -0.651  1.00  0.00           H
-HETATM    2  CH3 ACE A   1       8.184   3.354  -0.797  1.00  0.00           C
-HETATM    3  H2  ACE A   1       8.246   3.843  -1.769  1.00  0.00           H
-HETATM    4  H3  ACE A   1       8.879   2.516  -0.838  1.00  0.00           H
-HETATM    5  C   ACE A   1       8.514   4.229   0.378  1.00  0.00           C
-HETATM    6  O   ACE A   1       9.025   3.617   1.320  1.00  0.00           O
-ATOM      7  N   ALA A   2       8.131   5.505   0.206  1.00  0.00           N
-ATOM      8  H   ALA A   2       7.661   5.747  -0.654  1.00  0.00           H
-ATOM      9  CA  ALA A   2       8.375   6.544   1.175  1.00  0.00           C
-ATOM     10  HA  ALA A   2       8.686   6.060   2.100  1.00  0.00           H
-ATOM     11  CB  ALA A   2       9.619   7.378   0.809  1.00  0.00           C
-ATOM     12  HB1 ALA A   2       9.428   7.802  -0.177  1.00  0.00           H
-ATOM     13  HB2 ALA A   2       9.801   8.233   1.461  1.00  0.00           H
-ATOM     14  HB3 ALA A   2      10.485   6.719   0.764  1.00  0.00           H
-ATOM     15  C   ALA A   2       7.175   7.353   1.440  1.00  0.00           C
-ATOM     16  O   ALA A   2       6.119   7.117   0.826  1.00  0.00           O
-ATOM     17  N   ALA A   3       7.135   8.129   2.492  1.00  0.00           N
-ATOM     18  H   ALA A   3       8.027   8.283   2.941  1.00  0.00           H
-ATOM     19  CA  ALA A   3       5.868   8.719   3.089  1.00  0.00           C
-ATOM     20  HA  ALA A   3       5.013   8.046   3.150  1.00  0.00           H
-ATOM     21  CB  ALA A   3       6.162   9.148   4.561  1.00  0.00           C
-ATOM     22  HB1 ALA A   3       6.896   9.952   4.495  1.00  0.00           H
-ATOM     23  HB2 ALA A   3       5.266   9.541   5.040  1.00  0.00           H
-ATOM     24  HB3 ALA A   3       6.518   8.267   5.095  1.00  0.00           H
-ATOM     25  C   ALA A   3       5.317   9.947   2.233  1.00  0.00           C
-ATOM     26  O   ALA A   3       4.318   9.800   1.564  1.00  0.00           O
-ATOM     27  N   ALA A   4       6.187  10.941   2.082  1.00  0.00           N
-ATOM     28  H   ALA A   4       7.049  10.754   2.574  1.00  0.00           H
-ATOM     29  CA  ALA A   4       6.055  12.242   1.499  1.00  0.00           C
-ATOM     30  HA  ALA A   4       5.106  12.365   0.978  1.00  0.00           H
-ATOM     31  CB  ALA A   4       6.022  13.257   2.645  1.00  0.00           C
-ATOM     32  HB1 ALA A   4       6.918  13.169   3.259  1.00  0.00           H
-ATOM     33  HB2 ALA A   4       5.848  14.259   2.252  1.00  0.00           H
-ATOM     34  HB3 ALA A   4       5.089  13.129   3.194  1.00  0.00           H
-ATOM     35  C   ALA A   4       7.161  12.473   0.426  1.00  0.00           C
-ATOM     36  O   ALA A   4       8.281  12.043   0.603  1.00  0.00           O
-ATOM     37  N   ALA A   5       6.858  13.029  -0.769  1.00  0.00           N
-ATOM     38  H   ALA A   5       5.889  13.209  -0.988  1.00  0.00           H
-ATOM     39  CA  ALA A   5       7.845  13.174  -1.773  1.00  0.00           C
-ATOM     40  HA  ALA A   5       8.308  12.190  -1.705  1.00  0.00           H
-ATOM     41  CB  ALA A   5       7.181  13.435  -3.147  1.00  0.00           C
-ATOM     42  HB1 ALA A   5       6.635  14.377  -3.192  1.00  0.00           H
-ATOM     43  HB2 ALA A   5       7.828  13.567  -4.014  1.00  0.00           H
-ATOM     44  HB3 ALA A   5       6.390  12.728  -3.397  1.00  0.00           H
-ATOM     45  C   ALA A   5       8.913  14.302  -1.448  1.00  0.00           C
-ATOM     46  O   ALA A   5       8.480  15.471  -1.274  1.00  0.00           O
-ATOM     47  N   ALA A   6      10.234  13.998  -1.471  1.00  0.00           N
-ATOM     48  H   ALA A   6      10.384  13.037  -1.741  1.00  0.00           H
-ATOM     49  CA  ALA A   6      11.193  15.097  -1.604  1.00  0.00           C
-ATOM     50  HA  ALA A   6      10.872  15.927  -0.974  1.00  0.00           H
-ATOM     51  CB  ALA A   6      12.492  14.621  -0.922  1.00  0.00           C
-ATOM     52  HB1 ALA A   6      12.945  13.842  -1.534  1.00  0.00           H
-ATOM     53  HB2 ALA A   6      13.199  15.425  -0.716  1.00  0.00           H
-ATOM     54  HB3 ALA A   6      12.244  14.328   0.098  1.00  0.00           H
-ATOM     55  C   ALA A   6      11.414  15.585  -3.064  1.00  0.00           C
-ATOM     56  O   ALA A   6      12.325  15.162  -3.686  1.00  0.00           O
-HETATM   57  N   NME A   7      10.479  16.532  -3.533  1.00  0.00           N
-HETATM   58  H   NME A   7       9.780  16.751  -2.838  1.00  0.00           H
-HETATM   59  C   NME A   7      10.463  17.018  -4.961  1.00  0.00           C
-HETATM   60  H1  NME A   7      11.460  16.914  -5.389  1.00  0.00           H
-HETATM   61  H2  NME A   7       9.799  16.360  -5.521  1.00  0.00           H
-HETATM   62  H3  NME A   7      10.024  18.011  -5.061  1.00  0.00           H
-TER      63      NME A   7
+REMARK   1 CREATED WITH OPENMM 7.4.2 BY MOLSYSMT, 2020-07-17
+HETATM    1  H1  ACE 0   1       7.249   2.812  -0.651  1.00  0.00           H
+HETATM    2  CH3 ACE 0   1       8.184   3.354  -0.797  1.00  0.00           C
+HETATM    3  H2  ACE 0   1       8.246   3.843  -1.769  1.00  0.00           H
+HETATM    4  H3  ACE 0   1       8.879   2.516  -0.838  1.00  0.00           H
+HETATM    5  C   ACE 0   1       8.514   4.229   0.378  1.00  0.00           C
+HETATM    6  O   ACE 0   1       9.025   3.617   1.320  1.00  0.00           O
+ATOM      7  N   ALA 0   2       8.131   5.505   0.206  1.00  0.00           N
+ATOM      8  H   ALA 0   2       7.661   5.747  -0.654  1.00  0.00           H
+ATOM      9  CA  ALA 0   2       8.375   6.544   1.175  1.00  0.00           C
+ATOM     10  HA  ALA 0   2       8.686   6.060   2.100  1.00  0.00           H
+ATOM     11  CB  ALA 0   2       9.619   7.378   0.809  1.00  0.00           C
+ATOM     12  HB1 ALA 0   2       9.428   7.802  -0.177  1.00  0.00           H
+ATOM     13  HB2 ALA 0   2       9.801   8.233   1.461  1.00  0.00           H
+ATOM     14  HB3 ALA 0   2      10.485   6.719   0.764  1.00  0.00           H
+ATOM     15  C   ALA 0   2       7.175   7.353   1.440  1.00  0.00           C
+ATOM     16  O   ALA 0   2       6.119   7.117   0.826  1.00  0.00           O
+ATOM     17  N   ALA 0   3       7.135   8.129   2.492  1.00  0.00           N
+ATOM     18  H   ALA 0   3       8.027   8.283   2.941  1.00  0.00           H
+ATOM     19  CA  ALA 0   3       5.868   8.719   3.089  1.00  0.00           C
+ATOM     20  HA  ALA 0   3       5.013   8.046   3.150  1.00  0.00           H
+ATOM     21  CB  ALA 0   3       6.162   9.148   4.561  1.00  0.00           C
+ATOM     22  HB1 ALA 0   3       6.896   9.952   4.495  1.00  0.00           H
+ATOM     23  HB2 ALA 0   3       5.266   9.541   5.040  1.00  0.00           H
+ATOM     24  HB3 ALA 0   3       6.518   8.267   5.095  1.00  0.00           H
+ATOM     25  C   ALA 0   3       5.317   9.947   2.233  1.00  0.00           C
+ATOM     26  O   ALA 0   3       4.318   9.800   1.564  1.00  0.00           O
+ATOM     27  N   ALA 0   4       6.187  10.941   2.082  1.00  0.00           N
+ATOM     28  H   ALA 0   4       7.049  10.754   2.574  1.00  0.00           H
+ATOM     29  CA  ALA 0   4       6.055  12.242   1.499  1.00  0.00           C
+ATOM     30  HA  ALA 0   4       5.106  12.365   0.978  1.00  0.00           H
+ATOM     31  CB  ALA 0   4       6.022  13.257   2.645  1.00  0.00           C
+ATOM     32  HB1 ALA 0   4       6.918  13.169   3.259  1.00  0.00           H
+ATOM     33  HB2 ALA 0   4       5.848  14.259   2.252  1.00  0.00           H
+ATOM     34  HB3 ALA 0   4       5.089  13.129   3.194  1.00  0.00           H
+ATOM     35  C   ALA 0   4       7.161  12.473   0.426  1.00  0.00           C
+ATOM     36  O   ALA 0   4       8.281  12.043   0.603  1.00  0.00           O
+ATOM     37  N   ALA 0   5       6.858  13.029  -0.769  1.00  0.00           N
+ATOM     38  H   ALA 0   5       5.889  13.209  -0.988  1.00  0.00           H
+ATOM     39  CA  ALA 0   5       7.845  13.174  -1.773  1.00  0.00           C
+ATOM     40  HA  ALA 0   5       8.308  12.190  -1.705  1.00  0.00           H
+ATOM     41  CB  ALA 0   5       7.181  13.435  -3.147  1.00  0.00           C
+ATOM     42  HB1 ALA 0   5       6.635  14.377  -3.192  1.00  0.00           H
+ATOM     43  HB2 ALA 0   5       7.828  13.567  -4.014  1.00  0.00           H
+ATOM     44  HB3 ALA 0   5       6.390  12.728  -3.397  1.00  0.00           H
+ATOM     45  C   ALA 0   5       8.913  14.302  -1.448  1.00  0.00           C
+ATOM     46  O   ALA 0   5       8.480  15.471  -1.274  1.00  0.00           O
+ATOM     47  N   ALA 0   6      10.234  13.998  -1.471  1.00  0.00           N
+ATOM     48  H   ALA 0   6      10.384  13.037  -1.741  1.00  0.00           H
+ATOM     49  CA  ALA 0   6      11.193  15.097  -1.604  1.00  0.00           C
+ATOM     50  HA  ALA 0   6      10.872  15.927  -0.974  1.00  0.00           H
+ATOM     51  CB  ALA 0   6      12.492  14.621  -0.922  1.00  0.00           C
+ATOM     52  HB1 ALA 0   6      12.945  13.842  -1.534  1.00  0.00           H
+ATOM     53  HB2 ALA 0   6      13.199  15.425  -0.716  1.00  0.00           H
+ATOM     54  HB3 ALA 0   6      12.244  14.328   0.098  1.00  0.00           H
+ATOM     55  C   ALA 0   6      11.414  15.585  -3.064  1.00  0.00           C
+ATOM     56  O   ALA 0   6      12.325  15.162  -3.686  1.00  0.00           O
+HETATM   57  N   NME 0   7      10.479  16.532  -3.533  1.00  0.00           N
+HETATM   58  H   NME 0   7       9.780  16.751  -2.838  1.00  0.00           H
+HETATM   59  C   NME 0   7      10.463  17.018  -4.961  1.00  0.00           C
+HETATM   60  H1  NME 0   7      11.460  16.914  -5.389  1.00  0.00           H
+HETATM   61  H2  NME 0   7       9.799  16.360  -5.521  1.00  0.00           H
+HETATM   62  H3  NME 0   7      10.024  18.011  -5.061  1.00  0.00           H
+TER      63      NME 0   7
 CONECT    1    2
-CONECT    2    1    3    4    5
+CONECT    2    3    4    1    5
 CONECT    3    2
 CONECT    4    2
-CONECT    5    2    6    7
+CONECT    5    6    7    2
 CONECT    6    5
 CONECT    7    5
 CONECT   55   57
-CONECT   57   55   58   59
+CONECT   57   58   55   59
 CONECT   58   57
-CONECT   59   57   60   61   62
+CONECT   59   60   61   62   57
 CONECT   60   59
 CONECT   61   59
 CONECT   62   59
@@ -1173,20 +1147,11 @@ END
 <div class="section" id="Some-examples-with-IDs">
 <h2>Some examples with IDs<a class="headerlink" href="#Some-examples-with-IDs" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb:1SUX&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
 </pre></div>
 </div>
 </div>

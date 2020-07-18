@@ -18,13 +18,11 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "f2966dc881764612befb9cc04ca8bc5e",
+       "model_id": "95d5ae1a98fe4f938827f91ac6a8ba54",
        "version_major": 2,
        "version_minor": 0
       },
-      "text/plain": [
-       "_ColormakerRegistry()"
-      ]
+      "text/plain": []
      },
      "metadata": {},
      "output_type": "display_data"
@@ -51,7 +49,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "molecular_system = msm.test_systems.files['1tcd.mmtf']\n",
+    "molecular_system = msm.demo_systems.files['1tcd.mmtf']\n",
     "molecular_system = msm.convert(molecular_system, 'molsysmt.MolSys')"
    ]
   },

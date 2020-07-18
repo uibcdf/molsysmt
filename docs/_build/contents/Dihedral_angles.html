@@ -26,7 +26,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
@@ -192,7 +192,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Build_peptide.html">Building a peptide from its sequence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-implicit-solvent">Alanine dipeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
@@ -201,6 +200,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Terminal_capping.html">Terminal capping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
@@ -605,7 +606,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e2022c7315ed4808aecfeee53e9d33ce", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0693a1709a1947d6b70687b23c882f5d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Getting-dihedral-angles">
 <h1>Getting dihedral angles<a class="headerlink" href="#Getting-dihedral-angles" title="Permalink to this headline">¶</a></h1>
@@ -615,7 +616,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
 <span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -635,17 +636,17 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_d89856da_b68d_11ea_99f6_8390e959c28d" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_499e016e_c880_11ea_b533_a1a2467c5ee7" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_d89856da_b68d_11ea_99f6_8390e959c28drow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_d89856da_b68d_11ea_99f6_8390e959c28drow0_col1" class="data row0 col1" >62</td>
-                        <td id="T_d89856da_b68d_11ea_99f6_8390e959c28drow0_col2" class="data row0 col2" >7</td>
-                        <td id="T_d89856da_b68d_11ea_99f6_8390e959c28drow0_col3" class="data row0 col3" >1</td>
-                        <td id="T_d89856da_b68d_11ea_99f6_8390e959c28drow0_col4" class="data row0 col4" >1</td>
-                        <td id="T_d89856da_b68d_11ea_99f6_8390e959c28drow0_col5" class="data row0 col5" >1</td>
-                        <td id="T_d89856da_b68d_11ea_99f6_8390e959c28drow0_col6" class="data row0 col6" >1</td>
-                        <td id="T_d89856da_b68d_11ea_99f6_8390e959c28drow0_col7" class="data row0 col7" >1</td>
-                        <td id="T_d89856da_b68d_11ea_99f6_8390e959c28drow0_col8" class="data row0 col8" >5000</td>
+                                <td id="T_499e016e_c880_11ea_b533_a1a2467c5ee7row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_499e016e_c880_11ea_b533_a1a2467c5ee7row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_499e016e_c880_11ea_b533_a1a2467c5ee7row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_499e016e_c880_11ea_b533_a1a2467c5ee7row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_499e016e_c880_11ea_b533_a1a2467c5ee7row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_499e016e_c880_11ea_b533_a1a2467c5ee7row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_499e016e_c880_11ea_b533_a1a2467c5ee7row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_499e016e_c880_11ea_b533_a1a2467c5ee7row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_499e016e_c880_11ea_b533_a1a2467c5ee7row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -815,7 +816,7 @@ array([14, 16, 18, 20])
 <h2>How to get the Ramachandran angles<a class="headerlink" href="#How-to-get-the-Ramachandran-angles" title="Permalink to this headline">¶</a></h2>
 <p>Getting the <span class="math notranslate nohighlight">\(\phi\)</span> and <span class="math notranslate nohighlight">\(\psi\)</span> dihedral angles of a protein it is almost straightfoward with the above method. But to solve this task even more easily, MolSysMT includes a method called <code class="docutils literal notranslate"><span class="pre">molsysmt.ramachandran_angles</span></code>. Lets see how it works:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -825,7 +826,7 @@ array([14, 16, 18, 20])
 </div>
 <p>The method returns four objects, the covalent chains defining the <span class="math notranslate nohighlight">\(\phi\)</span> and <span class="math notranslate nohighlight">\(\psi\)</span> dihedral angles and two additional objects with the corresponding values for each angle per frame:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -834,7 +835,7 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -843,7 +844,7 @@ array([14, 16, 18, 20])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -852,7 +853,7 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -862,7 +863,7 @@ array([14, 16, 18, 20])
 </div>
 <p>The method also includes the posibility to limit the calculation of the ramachandran angles to an atoms selection over the molecular system:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -873,7 +874,7 @@ array([14, 16, 18, 20])
 </div>
 <p>Now the ramachandran map can be plot using the algorithm you like best:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>

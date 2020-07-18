@@ -18,13 +18,11 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "4de076badb224b199c8c9341d611c7f3",
+       "model_id": "58fa61b0f7de4d90ade289408fe41449",
        "version_major": 2,
        "version_minor": 0
       },
-      "text/plain": [
-       "_ColormakerRegistry()"
-      ]
+      "text/plain": []
      },
      "metadata": {},
      "output_type": "display_data"
@@ -44,16 +42,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [],
    "source": [
-    "pdbfile = msm.test_systems.files['1tcd.pdb']"
+    "pdbfile = msm.demo_systems.files['1tcd.pdb']"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -62,7 +60,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 19,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [
     {
@@ -74,13 +72,13 @@
     }
    ],
    "source": [
-    "n_Hs = msm.get(molecular_system, selection='atom.type==\"H\"', n_atoms=True)\n",
+    "n_Hs = msm.get(molecular_system, selection='atom_type==\"H\"', n_atoms=True)\n",
     "print('{} hydrogens in the system'.format(n_Hs))"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -89,7 +87,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
@@ -101,7 +99,7 @@
     }
    ],
    "source": [
-    "n_Hs = msm.get(molecular_system, selection='atom.type==\"H\"', n_atoms=True)\n",
+    "n_Hs = msm.get(molecular_system, selection='atom_type==\"H\"', n_atoms=True)\n",
     "print('{} hydrogens in the system'.format(n_Hs))"
    ]
   }

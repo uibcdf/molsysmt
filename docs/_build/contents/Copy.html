@@ -26,7 +26,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
@@ -192,7 +192,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Build_peptide.html">Building a peptide from its sequence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-implicit-solvent">Alanine dipeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
@@ -201,6 +200,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Terminal_capping.html">Terminal capping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
@@ -605,21 +606,21 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "744c3fd213de481faed523130a2c14d8", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3e7f020fe4404e0f814db917c4b23518", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Copying-a-molecular-system">
 <h1>Copying a molecular system<a class="headerlink" href="#Copying-a-molecular-system" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">h5file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span></span><span class="n">h5file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -628,7 +629,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -637,26 +638,27 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_43eadde6_a08f_11ea_b8f2_0faa19217608" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_43eadde6_a08f_11ea_b8f2_0faa19217608row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_43eadde6_a08f_11ea_b8f2_0faa19217608row0_col1" class="data row0 col1" >62</td>
-                        <td id="T_43eadde6_a08f_11ea_b8f2_0faa19217608row0_col2" class="data row0 col2" >7</td>
-                        <td id="T_43eadde6_a08f_11ea_b8f2_0faa19217608row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_43eadde6_a08f_11ea_b8f2_0faa19217608row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_43eadde6_a08f_11ea_b8f2_0faa19217608row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_43eadde6_a08f_11ea_b8f2_0faa19217608row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_43eadde6_a08f_11ea_b8f2_0faa19217608row0_col7" class="data row0 col7" >5000</td>
+                                <td id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_82d96550_c7ee_11ea_a390_7926dcf8c1d7row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -665,7 +667,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -674,26 +676,27 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_4edb6f18_a08f_11ea_b8f2_0faa19217608" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_4edb6f18_a08f_11ea_b8f2_0faa19217608row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_4edb6f18_a08f_11ea_b8f2_0faa19217608row0_col1" class="data row0 col1" >62</td>
-                        <td id="T_4edb6f18_a08f_11ea_b8f2_0faa19217608row0_col2" class="data row0 col2" >7</td>
-                        <td id="T_4edb6f18_a08f_11ea_b8f2_0faa19217608row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_4edb6f18_a08f_11ea_b8f2_0faa19217608row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_4edb6f18_a08f_11ea_b8f2_0faa19217608row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_4edb6f18_a08f_11ea_b8f2_0faa19217608row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_4edb6f18_a08f_11ea_b8f2_0faa19217608row0_col7" class="data row0 col7" >5000</td>
+                                <td id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_84dffd8c_c7ee_11ea_a390_7926dcf8c1d7row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -711,7 +714,7 @@ Are both systems different python objects? True
 </div>
 <p>The method works also with systems in files. In this case <code class="docutils literal notranslate"><span class="pre">msm.copy()</span></code> accepts a second input argument: <code class="docutils literal notranslate"><span class="pre">output_filepath</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>

@@ -26,7 +26,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
@@ -192,7 +192,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Build_peptide.html">Building a peptide from its sequence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-implicit-solvent">Alanine dipeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
@@ -201,6 +200,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Terminal_capping.html">Terminal capping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
@@ -606,7 +607,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a7658d8fdbd74ab8ac3297fc11eef3a1", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "56746263e8684155a0b3c723a96802bc"}</script></div>
 </div>
 <div class="section" id="Adding-solvent">
 <h1>Adding solvent<a class="headerlink" href="#Adding-solvent" title="Permalink to this headline">¶</a></h1>
@@ -615,7 +616,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pdbfile</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;metenkephalin.pdb&#39;</span><span class="p">]</span>
+<span></span><span class="n">pdbfile</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;metenkephalin.pdb&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -643,16 +644,17 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_eafb650a_a13a_11ea_a74c_eb15e95d01c7" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_c3df8e32_c88c_11ea_b9cc_9521342412cf" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_eafb650a_a13a_11ea_a74c_eb15e95d01c7row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_eafb650a_a13a_11ea_a74c_eb15e95d01c7row0_col1" class="data row0 col1" >72</td>
-                        <td id="T_eafb650a_a13a_11ea_a74c_eb15e95d01c7row0_col2" class="data row0 col2" >5</td>
-                        <td id="T_eafb650a_a13a_11ea_a74c_eb15e95d01c7row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_eafb650a_a13a_11ea_a74c_eb15e95d01c7row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_eafb650a_a13a_11ea_a74c_eb15e95d01c7row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_eafb650a_a13a_11ea_a74c_eb15e95d01c7row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_eafb650a_a13a_11ea_a74c_eb15e95d01c7row0_col7" class="data row0 col7" >1</td>
+                                <td id="T_c3df8e32_c88c_11ea_b9cc_9521342412cfrow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_c3df8e32_c88c_11ea_b9cc_9521342412cfrow0_col1" class="data row0 col1" >72</td>
+                        <td id="T_c3df8e32_c88c_11ea_b9cc_9521342412cfrow0_col2" class="data row0 col2" >5</td>
+                        <td id="T_c3df8e32_c88c_11ea_b9cc_9521342412cfrow0_col3" class="data row0 col3" >1</td>
+                        <td id="T_c3df8e32_c88c_11ea_b9cc_9521342412cfrow0_col4" class="data row0 col4" >1</td>
+                        <td id="T_c3df8e32_c88c_11ea_b9cc_9521342412cfrow0_col5" class="data row0 col5" >1</td>
+                        <td id="T_c3df8e32_c88c_11ea_b9cc_9521342412cfrow0_col6" class="data row0 col6" >1</td>
+                        <td id="T_c3df8e32_c88c_11ea_b9cc_9521342412cfrow0_col7" class="data row0 col7" >1</td>
+                        <td id="T_c3df8e32_c88c_11ea_b9cc_9521342412cfrow0_col8" class="data row0 col8" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -710,16 +712,18 @@ The molecular system has 0 waters and 0 ions.
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_ef18c2f4_a13a_11ea_a74c_eb15e95d01c7" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >n components</th>        <th class="col_heading level0 col4" >n chains</th>        <th class="col_heading level0 col5" >n molecules</th>        <th class="col_heading level0 col6" >n entities</th>        <th class="col_heading level0 col7" >n frames</th>    </tr></thead><tbody>
+</style><table id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cf" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_peptides</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_ef18c2f4_a13a_11ea_a74c_eb15e95d01c7row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_ef18c2f4_a13a_11ea_a74c_eb15e95d01c7row0_col1" class="data row0 col1" >11646</td>
-                        <td id="T_ef18c2f4_a13a_11ea_a74c_eb15e95d01c7row0_col2" class="data row0 col2" >3862</td>
-                        <td id="T_ef18c2f4_a13a_11ea_a74c_eb15e95d01c7row0_col3" class="data row0 col3" >3858</td>
-                        <td id="T_ef18c2f4_a13a_11ea_a74c_eb15e95d01c7row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_ef18c2f4_a13a_11ea_a74c_eb15e95d01c7row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_ef18c2f4_a13a_11ea_a74c_eb15e95d01c7row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_ef18c2f4_a13a_11ea_a74c_eb15e95d01c7row0_col7" class="data row0 col7" >1</td>
+                                <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col1" class="data row0 col1" >11646</td>
+                        <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col2" class="data row0 col2" >3862</td>
+                        <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col3" class="data row0 col3" >3858</td>
+                        <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col4" class="data row0 col4" >1</td>
+                        <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col5" class="data row0 col5" >3858</td>
+                        <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col6" class="data row0 col6" >2</td>
+                        <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col7" class="data row0 col7" >3857</td>
+                        <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col8" class="data row0 col8" >1</td>
+                        <td id="T_cdbf7b6a_c88c_11ea_b9cc_9521342412cfrow0_col9" class="data row0 col9" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -739,7 +743,7 @@ The molecular system has 0 waters and 0 ions.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-The molecular system has 0 waters and 0 ions.
+The molecular system has 3857 waters and 0 ions.
 </pre></div></div>
 </div>
 <p>With Openmm:</p>
@@ -757,7 +761,7 @@ The molecular system has 0 waters and 0 ions.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom.type==&quot;H&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom_type==&quot;H&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -770,66 +774,30 @@ The molecular system has 0 waters and 0 ions.
 33
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system_solvated</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">solvate</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">box_geometry</span><span class="o">=</span><span class="s1">&#39;cubic&#39;</span><span class="p">,</span>
-                                        <span class="n">clearance</span><span class="o">=</span><span class="mf">14.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s1">&#39;TIP3P&#39;</span><span class="p">,</span>
-                                        <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;OpenMM&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span></span><span class="c1">#molecular_system_solvated = msm.solvate(molecular_system, box_geometry=&#39;cubic&#39;,</span>
+<span class="c1">#                                        clearance=14.0*unit.angstroms, water=&#39;TIP3P&#39;,</span>
+<span class="c1">#                                        engine=&#39;OpenMM&#39;, verbose=False)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-13-37c02ee3abf4&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> molecular_system_solvated = msm.solvate(molecular_system, box_geometry=&#39;cubic&#39;,
-<span class="ansi-green-intense-fg ansi-bold">      2</span>                                         clearance<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">14.0</span><span class="ansi-blue-fg">*</span>unit<span class="ansi-blue-fg">.</span>angstroms<span class="ansi-blue-fg">,</span> water<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;TIP3P&#39;</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg">                                         engine=&#39;OpenMM&#39;, verbose=False)
-</span>
-<span class="ansi-green-fg">~/Proyectos/MolSysMT/molsysmt/solvate_box.py</span> in <span class="ansi-cyan-fg">solvate</span><span class="ansi-blue-fg">(item, box_geometry, clearance, water, anion, num_anions, cation, num_cations, ionic_strength, forcefield, engine, to_form, logfile, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">     80</span>         modeller.addSolvent(forcefield, model=solvent_model, padding=clearance,
-<span class="ansi-green-intense-fg ansi-bold">     81</span>                             ionicStrength<span class="ansi-blue-fg">=</span>ionic_strength<span class="ansi-blue-fg">,</span> positiveIon<span class="ansi-blue-fg">=</span>cation<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">---&gt; 82</span><span class="ansi-red-fg">                             negativeIon=anion)
-</span><span class="ansi-green-intense-fg ansi-bold">     83</span>         tmp_item <span class="ansi-blue-fg">=</span> convert<span class="ansi-blue-fg">(</span>modeller<span class="ansi-blue-fg">,</span> to_form<span class="ansi-blue-fg">=</span>form_out<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     84</span>         <span class="ansi-green-fg">del</span><span class="ansi-blue-fg">(</span>modeller<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/simtk/openmm/app/modeller.py</span> in <span class="ansi-cyan-fg">addSolvent</span><span class="ansi-blue-fg">(self, forcefield, model, boxSize, boxVectors, padding, numAdded, positiveIon, negativeIon, ionicStrength, neutralize)</span>
-<span class="ansi-green-intense-fg ansi-bold">    483</span>         <span class="ansi-red-fg"># Have the ForceField build a System for the solute from which we can determine van der Waals radii.</span>
-<span class="ansi-green-intense-fg ansi-bold">    484</span>
-<span class="ansi-green-fg">--&gt; 485</span><span class="ansi-red-fg">         </span>system <span class="ansi-blue-fg">=</span> forcefield<span class="ansi-blue-fg">.</span>createSystem<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>topology<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    486</span>         nonbonded <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span>
-<span class="ansi-green-intense-fg ansi-bold">    487</span>         <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>system<span class="ansi-blue-fg">.</span>getNumForces<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/Myusr/opt/miniconda3/envs/UIBCDF_lab_dev/lib/python3.7/site-packages/simtk/openmm/app/forcefield.py</span> in <span class="ansi-cyan-fg">createSystem</span><span class="ansi-blue-fg">(self, topology, nonbondedMethod, nonbondedCutoff, constraints, rigidWater, removeCMMotion, hydrogenMass, residueTemplates, ignoreExternalBonds, switchDistance, flexibleConstraints, **args)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1143</span>                             <span class="ansi-green-fg">break</span>
-<span class="ansi-green-intense-fg ansi-bold">   1144</span>             <span class="ansi-green-fg">if</span> matches <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 1145</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;No template found for residue %d (%s).  %s&#39;</span> <span class="ansi-blue-fg">%</span> <span class="ansi-blue-fg">(</span>res<span class="ansi-blue-fg">.</span>index<span class="ansi-blue-fg">+</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> res<span class="ansi-blue-fg">.</span>name<span class="ansi-blue-fg">,</span> _findMatchErrors<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> res<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1146</span>             <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1147</span>                 data<span class="ansi-blue-fg">.</span>recordMatchedAtomParameters<span class="ansi-blue-fg">(</span>res<span class="ansi-blue-fg">,</span> template<span class="ansi-blue-fg">,</span> matches<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">ValueError</span>: No template found for residue 1 (TYR).  The set of atoms matches TYR, but the bonds are different.  Perhaps the chain is missing a terminal group?
-</pre></div></div>
 </div>
 <div class="section" id="Octahedral">
 <h2>Octahedral<a class="headerlink" href="#Octahedral" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pdbfile</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.pdb&#39;</span><span class="p">]</span>
+<span></span><span class="n">pdbfile</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.pdb&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -837,8 +805,8 @@ The molecular system has 0 waters and 0 ions.
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -846,8 +814,29 @@ The molecular system has 0 waters and 0 ions.
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_ce8f5916_c88c_11ea_b9cc_9521342412cf" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_proteins</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col1" class="data row0 col1" >3983</td>
+                        <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col2" class="data row0 col2" >662</td>
+                        <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col3" class="data row0 col3" >167</td>
+                        <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col4" class="data row0 col4" >4</td>
+                        <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col5" class="data row0 col5" >167</td>
+                        <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col6" class="data row0 col6" >3</td>
+                        <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col7" class="data row0 col7" >165</td>
+                        <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col8" class="data row0 col8" >2</td>
+                        <td id="T_ce8f5916_c88c_11ea_b9cc_9521342412cfrow0_col9" class="data row0 col9" >1</td>
+            </tr>
+    </tbody></table></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -857,29 +846,45 @@ The molecular system has 0 waters and 0 ions.
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The molecular system has 165 waters and 0 ions.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">n_Hs</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom.type==&quot;H&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span></span><span class="n">n_Hs</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;atom_type==&quot;H&quot;&#39;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">n_Hs</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system_solvated</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">solvate</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">box_geometry</span><span class="o">=</span><span class="s1">&#39;cubic&#39;</span><span class="p">,</span>
-                                        <span class="n">clearance</span><span class="o">=</span><span class="mf">14.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">angstroms</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s1">&#39;TIP3P&#39;</span><span class="p">,</span>
-                                        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span></span><span class="c1">#molecular_system_solvated = msm.solvate(molecular_system, box_geometry=&#39;cubic&#39;,</span>
+<span class="c1">#                                        clearance=14.0*unit.angstroms, water=&#39;TIP3P&#39;,</span>
+<span class="c1">#                                        verbose=False)</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -887,16 +892,30 @@ The molecular system has 0 waters and 0 ions.
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_cea2800e_c88c_11ea_b9cc_9521342412cf" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_peptides</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col1" class="data row0 col1" >11646</td>
+                        <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col2" class="data row0 col2" >3862</td>
+                        <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col3" class="data row0 col3" >3858</td>
+                        <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col4" class="data row0 col4" >1</td>
+                        <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col5" class="data row0 col5" >3858</td>
+                        <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col6" class="data row0 col6" >2</td>
+                        <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col7" class="data row0 col7" >3857</td>
+                        <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col8" class="data row0 col8" >1</td>
+                        <td id="T_cea2800e_c88c_11ea_b9cc_9521342412cfrow0_col9" class="data row0 col9" >1</td>
+            </tr>
+    </tbody></table></div>
 </div>
-</div>
-</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"15585c3464d8414c9ee12819d793d066": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "56746263e8684155a0b3c723a96802bc": {"model_name": "ColormakerRegistryModel", "model_module": "nglview-js-widgets", "model_module_version": "2.7.7", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "2.7.7", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "2.7.7", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_15585c3464d8414c9ee12819d793d066"}}}, "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 
 

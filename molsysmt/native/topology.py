@@ -61,8 +61,8 @@ class Topology():
             tmp_item = Topology()
             tmp_item.atoms_dataframe = self.atoms_dataframe.iloc[atom_indices].copy()
 
-            bond_atom1 = self.bonds['atom1_index'].to_numpy()
-            bond_atom2 = self.bonds['atom2_index'].to_numpy()
+            bond_atom1 = self.bonds_dataframe['atom1_index'].to_numpy()
+            bond_atom2 = self.bonds_dataframe['atom2_index'].to_numpy()
             mask_atom1 = in1d(bond_atom1, atom_indices)
             mask_atom2 = in1d(bond_atom2, atom_indices)
             mask = mask_atom1*mask_atom2

@@ -3,25 +3,25 @@ def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
     from mdtraj import Topology
     from mdtraj.core import element
 
-    n_atoms = item.elements.shape[0]
+    n_atoms = item.atoms_dataframe.shape[0]
 
-    atom_index_array = item.elements["atom_index"].to_numpy()
-    atom_name_array = item.elements["atom_name"].to_numpy()
-    atom_id_array = item.elements["atom_id"].to_numpy()
-    atom_type_array = item.elements["atom_type"].to_numpy()
+    atom_index_array = item.atoms_dataframe["atom_index"].to_numpy()
+    atom_name_array = item.atoms_dataframe["atom_name"].to_numpy()
+    atom_id_array = item.atoms_dataframe["atom_id"].to_numpy()
+    atom_type_array = item.atoms_dataframe["atom_type"].to_numpy()
 
-    group_index_array = item.elements["group_index"].to_numpy()
-    group_name_array = item.elements["group_name"].to_numpy()
-    group_id_array = item.elements["group_id"].to_numpy()
-    group_type_array = item.elements["group_type"].to_numpy()
+    group_index_array = item.atoms_dataframe["group_index"].to_numpy()
+    group_name_array = item.atoms_dataframe["group_name"].to_numpy()
+    group_id_array = item.atoms_dataframe["group_id"].to_numpy()
+    group_type_array = item.atoms_dataframe["group_type"].to_numpy()
 
-    chain_index_array = item.elements["chain_index"].to_numpy()
-    chain_name_array = item.elements["chain_name"].to_numpy()
-    chain_id_array = item.elements["chain_id"].to_numpy()
-    chain_type_array = item.elements["chain_type"].to_numpy()
+    chain_index_array = item.atoms_dataframe["chain_index"].to_numpy()
+    chain_name_array = item.atoms_dataframe["chain_name"].to_numpy()
+    chain_id_array = item.atoms_dataframe["chain_id"].to_numpy()
+    chain_type_array = item.atoms_dataframe["chain_type"].to_numpy()
 
-    bonds_atom1 = item.bonds["atom1_index"].to_numpy()
-    bonds_atom2 = item.bonds["atom2_index"].to_numpy()
+    bonds_atom1 = item.bonds_dataframe["atom1_index"].to_numpy()
+    bonds_atom2 = item.bonds_dataframe["atom2_index"].to_numpy()
 
     tmp_item = Topology()
 

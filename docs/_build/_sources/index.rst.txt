@@ -64,8 +64,9 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/Fix.ipynb
    contents/Solvation.ipynb
    contents/Protonation.ipynb
-   contents/Model_loop.ipynb
    contents/Build_peptide.ipynb
+   contents/Terminal_capping.ipynb
+   contents/Model_loop.ipynb
    contents/Energy_minimization.ipynb
 
 .. toctree::

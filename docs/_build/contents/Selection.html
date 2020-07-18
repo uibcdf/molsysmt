@@ -26,7 +26,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
@@ -192,7 +192,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Build_peptide.html">Building a peptide from its sequence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-implicit-solvent">Alanine dipeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
@@ -201,6 +200,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Terminal_capping.html">Terminal capping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
@@ -583,7 +584,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -605,7 +606,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9c71b91eb102432aa85c07e9281849d8", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1d83be8ece584d5dbc8c0eb50fc679a3", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Elements-selection">
 <h1>Elements selection<a class="headerlink" href="#Elements-selection" title="Permalink to this headline">¶</a></h1>
@@ -619,7 +620,7 @@ engine or molecular visualization software have each own syntaxis to write this 
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">file_path</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">]</span>
+<span></span><span class="n">file_path</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;1tcd.mmtf&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -638,7 +639,7 @@ engine or molecular visualization software have each own syntaxis to write this 
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">elements</span>
+<span></span><span class="n">molecular_system</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">atoms_dataframe</span>
 </pre></div>
 </div>
 </div>
@@ -700,7 +701,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>4</td>
       <td>aminoacid</td>
       <td>0</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>A</td>
       <td>NaN</td>
@@ -724,7 +725,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>4</td>
       <td>aminoacid</td>
       <td>0</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>A</td>
       <td>NaN</td>
@@ -748,7 +749,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>4</td>
       <td>aminoacid</td>
       <td>0</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>A</td>
       <td>NaN</td>
@@ -772,7 +773,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>4</td>
       <td>aminoacid</td>
       <td>0</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>A</td>
       <td>NaN</td>
@@ -796,7 +797,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>4</td>
       <td>aminoacid</td>
       <td>0</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>A</td>
       <td>NaN</td>
@@ -844,7 +845,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>339</td>
       <td>water</td>
       <td>162</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>D</td>
       <td>NaN</td>
@@ -868,7 +869,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>340</td>
       <td>water</td>
       <td>163</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>D</td>
       <td>NaN</td>
@@ -892,7 +893,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>341</td>
       <td>water</td>
       <td>164</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>D</td>
       <td>NaN</td>
@@ -916,7 +917,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>342</td>
       <td>water</td>
       <td>165</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>D</td>
       <td>NaN</td>
@@ -940,7 +941,7 @@ engine or molecular visualization software have each own syntaxis to write this 
       <td>343</td>
       <td>water</td>
       <td>166</td>
-      <td>NaN</td>
+      <td>None</td>
       <td>...</td>
       <td>D</td>
       <td>NaN</td>
@@ -964,7 +965,7 @@ engine or molecular visualization software have each own syntaxis to write this 
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">molecular_system</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">molecular_system</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">atoms_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -985,9 +986,9 @@ Index([&#39;atom_index&#39;, &#39;atom_name&#39;, &#39;atom_id&#39;, &#39;atom_t
 <p>The syntaxis proposed by Pandas to perform queries in a pandas.DataFrame is the base of the MolSysMT selection procedure. The boolean syntaxis of Pandas includes the following words and symbols:</p>
 <center><table class="docutils align-default">
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 22%" />
-<col style="width: 62%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 68%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Word</p></th>
@@ -1012,27 +1013,27 @@ Index([&#39;atom_index&#39;, &#39;atom_name&#39;, &#39;atom_id&#39;, &#39;atom_t
 <td></td>
 <td><p>in</p></td>
 </tr>
-<tr class="row-even"><td></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>==</p></td>
 <td><p>equal</p></td>
 </tr>
-<tr class="row-odd"><td></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>!=</p></td>
 <td><p>not equal</p></td>
 </tr>
-<tr class="row-even"><td></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>&lt;</p></td>
 <td><p>less than</p></td>
 </tr>
-<tr class="row-odd"><td></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>&lt;=</p></td>
 <td><p>less or equal than</p></td>
 </tr>
-<tr class="row-even"><td></td>
+<tr class="row-even"><td><p></p></td>
 <td><p>&gt;</p></td>
 <td><p>greater than</p></td>
 </tr>
-<tr class="row-odd"><td></td>
+<tr class="row-odd"><td><p></p></td>
 <td><p>&gt;=</p></td>
 <td><p>greater or equal than</p></td>
 </tr>

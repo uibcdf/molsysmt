@@ -26,7 +26,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
@@ -192,7 +192,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Build_peptide.html">Building a peptide from its sequence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-implicit-solvent">Alanine dipeptide in implicit solvent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
@@ -201,6 +200,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Terminal_capping.html">Terminal capping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
@@ -608,7 +609,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8f4059cef13a48b08c5fd4616e6b1f7a", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4d95bb0569d5429ab6b5ffe6e3743034", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Getting-distances,-neighbor-lists-and-contact-maps.">
 <h1>Getting distances, neighbor lists and contact maps.<a class="headerlink" href="#Getting-distances,-neighbor-lists-and-contact-maps." title="Permalink to this headline">¶</a></h1>
@@ -1719,18 +1720,18 @@ The 1-th is the closest atom of B to atom 1-th of A at frame 2-th with 4.1231056
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_6a747204_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_proteins</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_a1f60086_c881_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_proteins</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >3983</td>
-                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >662</td>
-                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >167</td>
-                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >4</td>
-                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >166</td>
-                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >2</td>
-                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >165</td>
-                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >1</td>
-                        <td id="T_6a747204_b5db_11ea_a141_67b0066834f6row0_col9" class="data row0 col9" >1</td>
+                                <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >3983</td>
+                        <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >662</td>
+                        <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >167</td>
+                        <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >4</td>
+                        <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >166</td>
+                        <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >2</td>
+                        <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >165</td>
+                        <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col8" class="data row0 col8" >1</td>
+                        <td id="T_a1f60086_c881_11ea_85df_49c12f88b3e2row0_col9" class="data row0 col9" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2001,7 +2002,7 @@ indices to illustrate their use.</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
 <span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2021,17 +2022,17 @@ indices to illustrate their use.</p>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_a294524a_c881_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >62</td>
-                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >7</td>
-                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >62</td>
-                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >62</td>
-                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >62</td>
-                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >62</td>
-                        <td id="T_6b2d37bc_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >5000</td>
+                                <td id="T_a294524a_c881_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_a294524a_c881_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_a294524a_c881_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_a294524a_c881_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_a294524a_c881_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_a294524a_c881_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_a294524a_c881_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_a294524a_c881_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_a294524a_c881_11ea_85df_49c12f88b3e2row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2050,97 +2051,97 @@ indices to illustrate their use.</p>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_6b35576c_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >1</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >ACE</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >aminoacid</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >[6]</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >peptide</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col9" class="data row0 col9" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row0_col10" class="data row0 col10" >Peptide0</td>
+                                <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >1</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >ACE</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >aminoacid</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >[6]</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col8" class="data row0 col8" >peptide</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col9" class="data row0 col9" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row0_col10" class="data row0 col10" >Peptide0</td>
             </tr>
             <tr>
-                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col0" class="data row1 col0" >1</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col1" class="data row1 col1" >2</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col2" class="data row1 col2" >ALA</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col3" class="data row1 col3" >aminoacid</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col4" class="data row1 col4" >[10]</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col5" class="data row1 col5" >6</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col6" class="data row1 col6" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col7" class="data row1 col7" >6</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col8" class="data row1 col8" >peptide</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col9" class="data row1 col9" >6</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row1_col10" class="data row1 col10" >Peptide6</td>
+                                <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col0" class="data row1 col0" >1</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col1" class="data row1 col1" >2</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col2" class="data row1 col2" >ALA</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col3" class="data row1 col3" >aminoacid</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col4" class="data row1 col4" >[10]</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col5" class="data row1 col5" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col6" class="data row1 col6" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col7" class="data row1 col7" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col8" class="data row1 col8" >peptide</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col9" class="data row1 col9" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row1_col10" class="data row1 col10" >Peptide0</td>
             </tr>
             <tr>
-                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col0" class="data row2 col0" >2</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col1" class="data row2 col1" >3</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col2" class="data row2 col2" >ALA</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col3" class="data row2 col3" >aminoacid</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col4" class="data row2 col4" >[10]</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col5" class="data row2 col5" >16</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col6" class="data row2 col6" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col7" class="data row2 col7" >16</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col8" class="data row2 col8" >peptide</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col9" class="data row2 col9" >16</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row2_col10" class="data row2 col10" >Peptide16</td>
+                                <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col0" class="data row2 col0" >2</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col1" class="data row2 col1" >3</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col2" class="data row2 col2" >ALA</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col3" class="data row2 col3" >aminoacid</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col4" class="data row2 col4" >[10]</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col5" class="data row2 col5" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col6" class="data row2 col6" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col7" class="data row2 col7" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col8" class="data row2 col8" >peptide</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col9" class="data row2 col9" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row2_col10" class="data row2 col10" >Peptide0</td>
             </tr>
             <tr>
-                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col0" class="data row3 col0" >3</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col1" class="data row3 col1" >4</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col2" class="data row3 col2" >ALA</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col3" class="data row3 col3" >aminoacid</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col4" class="data row3 col4" >[10]</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col5" class="data row3 col5" >26</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col6" class="data row3 col6" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col7" class="data row3 col7" >26</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col8" class="data row3 col8" >peptide</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col9" class="data row3 col9" >26</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row3_col10" class="data row3 col10" >Peptide26</td>
+                                <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col0" class="data row3 col0" >3</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col1" class="data row3 col1" >4</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col2" class="data row3 col2" >ALA</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col3" class="data row3 col3" >aminoacid</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col4" class="data row3 col4" >[10]</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col5" class="data row3 col5" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col6" class="data row3 col6" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col7" class="data row3 col7" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col8" class="data row3 col8" >peptide</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col9" class="data row3 col9" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row3_col10" class="data row3 col10" >Peptide0</td>
             </tr>
             <tr>
-                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col0" class="data row4 col0" >4</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col1" class="data row4 col1" >5</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col2" class="data row4 col2" >ALA</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col3" class="data row4 col3" >aminoacid</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col4" class="data row4 col4" >[10]</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col5" class="data row4 col5" >36</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col6" class="data row4 col6" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col7" class="data row4 col7" >36</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col8" class="data row4 col8" >peptide</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col9" class="data row4 col9" >36</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row4_col10" class="data row4 col10" >Peptide36</td>
+                                <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col0" class="data row4 col0" >4</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col1" class="data row4 col1" >5</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col2" class="data row4 col2" >ALA</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col3" class="data row4 col3" >aminoacid</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col4" class="data row4 col4" >[10]</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col5" class="data row4 col5" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col6" class="data row4 col6" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col7" class="data row4 col7" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col8" class="data row4 col8" >peptide</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col9" class="data row4 col9" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row4_col10" class="data row4 col10" >Peptide0</td>
             </tr>
             <tr>
-                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col0" class="data row5 col0" >5</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col1" class="data row5 col1" >6</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col2" class="data row5 col2" >ALA</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col3" class="data row5 col3" >aminoacid</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col4" class="data row5 col4" >[10]</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col5" class="data row5 col5" >46</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col6" class="data row5 col6" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col7" class="data row5 col7" >46</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col8" class="data row5 col8" >peptide</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col9" class="data row5 col9" >46</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row5_col10" class="data row5 col10" >Peptide46</td>
+                                <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col0" class="data row5 col0" >5</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col1" class="data row5 col1" >6</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col2" class="data row5 col2" >ALA</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col3" class="data row5 col3" >aminoacid</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col4" class="data row5 col4" >[10]</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col5" class="data row5 col5" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col6" class="data row5 col6" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col7" class="data row5 col7" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col8" class="data row5 col8" >peptide</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col9" class="data row5 col9" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row5_col10" class="data row5 col10" >Peptide0</td>
             </tr>
             <tr>
-                                <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col0" class="data row6 col0" >6</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col1" class="data row6 col1" >7</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col2" class="data row6 col2" >NME</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col3" class="data row6 col3" >aminoacid</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col4" class="data row6 col4" >[6]</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col5" class="data row6 col5" >56</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col6" class="data row6 col6" >0</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col7" class="data row6 col7" >56</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col8" class="data row6 col8" >peptide</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col9" class="data row6 col9" >56</td>
-                        <td id="T_6b35576c_b5db_11ea_a141_67b0066834f6row6_col10" class="data row6 col10" >Peptide56</td>
+                                <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col0" class="data row6 col0" >6</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col1" class="data row6 col1" >7</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col2" class="data row6 col2" >NME</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col3" class="data row6 col3" >aminoacid</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col4" class="data row6 col4" >[6]</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col5" class="data row6 col5" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col6" class="data row6 col6" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col7" class="data row6 col7" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col8" class="data row6 col8" >peptide</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col9" class="data row6 col9" >0</td>
+                        <td id="T_a29c9b80_c881_11ea_85df_49c12f88b3e2row6_col10" class="data row6 col10" >Peptide0</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2270,17 +2271,17 @@ The distance between geometric_center of group 2-th and group 4-th at frame 3000
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_6d177fe2_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_proteins</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_a36d2534_c881_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_proteins</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >1906</td>
-                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >248</td>
-                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >1</td>
-                        <td id="T_6d177fe2_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >1</td>
+                                <td id="T_a36d2534_c881_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_a36d2534_c881_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >1906</td>
+                        <td id="T_a36d2534_c881_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >248</td>
+                        <td id="T_a36d2534_c881_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_a36d2534_c881_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_a36d2534_c881_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_a36d2534_c881_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_a36d2534_c881_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_a36d2534_c881_11ea_85df_49c12f88b3e2row0_col8" class="data row0 col8" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2299,17 +2300,17 @@ The distance between geometric_center of group 2-th and group 4-th at frame 3000
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_proteins</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_b335df60_c881_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_proteins</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >1912</td>
-                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >249</td>
-                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >1</td>
-                        <td id="T_6d1fbc8e_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >1</td>
+                                <td id="T_b335df60_c881_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_b335df60_c881_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >1912</td>
+                        <td id="T_b335df60_c881_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >249</td>
+                        <td id="T_b335df60_c881_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_b335df60_c881_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_b335df60_c881_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_b335df60_c881_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_b335df60_c881_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_b335df60_c881_11ea_85df_49c12f88b3e2row0_col8" class="data row0 col8" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -2378,17 +2379,17 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 <h3>Distances between atom groups positions in different frames<a class="headerlink" href="#Distances-between-atom-groups-positions-in-different-frames" title="Permalink to this headline">¶</a></h3>
 <p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.distance()</span></code> works with atom groups just like with only atoms. There are two input arguments to select the coordinates of a set of atoms at two different frames:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[103]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[104]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
 <span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[104]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[105]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2397,28 +2398,28 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[104]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[105]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_6d778392_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_d02bac58_c881_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >62</td>
-                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >7</td>
-                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >62</td>
-                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >62</td>
-                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >62</td>
-                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >62</td>
-                        <td id="T_6d778392_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >5000</td>
+                                <td id="T_d02bac58_c881_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_d02bac58_c881_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_d02bac58_c881_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_d02bac58_c881_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_d02bac58_c881_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_d02bac58_c881_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_d02bac58_c881_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_d02bac58_c881_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_d02bac58_c881_11ea_85df_49c12f88b3e2row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
 <p>Let see how <code class="docutils literal notranslate"><span class="pre">frame_indices_1</span></code> and <code class="docutils literal notranslate"><span class="pre">frame_indices_2</span></code> works in this context:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[105]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[106]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2431,7 +2432,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[106]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[107]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2440,7 +2441,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[106]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[107]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2454,17 +2455,17 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 <h3>Displacement distances of atom groups<a class="headerlink" href="#Displacement-distances-of-atom-groups" title="Permalink to this headline">¶</a></h3>
 <p>The possibility to get the distance between the coordinates of an object at two different frames makes the obtention of atom groups displacements straightforward. Lets plot the distance walked by the 0-th group of the former pentalanine peptide between consecutive frames of the trajectory store in <code class="docutils literal notranslate"><span class="pre">pentalanine.h5</span></code>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[107]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[109]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
 <span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[108]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[110]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2473,7 +2474,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[109]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[111]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2482,7 +2483,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[110]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[112]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2494,7 +2495,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[111]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[113]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2503,7 +2504,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[112]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[114]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2521,7 +2522,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 <p>Or we can, for instance, get the distance of the center of mass of the whole molecule from the initial configuration to every time step along the trajectory:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[113]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[115]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2531,7 +2532,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[114]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[116]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2540,7 +2541,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[115]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[117]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2561,17 +2562,17 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 <h3>Distance between atom groups pairs<a class="headerlink" href="#Distance-between-atom-groups-pairs" title="Permalink to this headline">¶</a></h3>
 <p>Lets see the following example where all distances betweeen the geometric center of the residues of pentalanine is computed along a short trajectory:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[116]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[120]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
 <span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[117]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[121]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2580,7 +2581,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[118]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[122]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2589,7 +2590,7 @@ The distance between geometric_center of group 0-th of A and group 10-th of B is
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[118]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[122]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2604,7 +2605,7 @@ array([array([0, 1, 2, 3, 4, 5]),
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[119]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[123]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2614,7 +2615,7 @@ array([array([0, 1, 2, 3, 4, 5]),
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[120]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[124]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2623,7 +2624,7 @@ array([array([0, 1, 2, 3, 4, 5]),
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[120]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[124]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2633,7 +2634,7 @@ array([array([0, 1, 2, 3, 4, 5]),
 </div>
 <p>The method worked needlessly computing the distances between different groups twice, as well as getting the distance between a geometric center to the its self for every residue. This can be avoided thanks to the input argument <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code>. Using <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code>, as it can be seen in the corresponding section about distances of atoms pairs, the distances between atom groups pairs made by consecutive elements of two zipped lists are obtained. Lets see this with a pratical case:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[121]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[125]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2682,7 +2683,7 @@ array([array([0, 1, 2, 3, 4, 5]),
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[122]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[126]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2693,7 +2694,7 @@ array([array([0, 1, 2, 3, 4, 5]),
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[123]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[127]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2702,7 +2703,7 @@ array([array([0, 1, 2, 3, 4, 5]),
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[123]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[127]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2712,7 +2713,7 @@ array([array([0, 1, 2, 3, 4, 5]),
 </div>
 <p>Lets plot the distance of a given pair, 12-th p.e., defined by the groups:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[124]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[128]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2729,7 +2730,7 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[125]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[129]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2751,7 +2752,7 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 <h3>Minimum and Maximum distance of atom groups<a class="headerlink" href="#Minimum-and-Maximum-distance-of-atom-groups" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes the pair of atom groups with the shortest distance between their geometric centers, or centers of mass, needs to be determined. Lets work to illustrate this case with a dimeric protein complex:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[126]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[130]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2760,7 +2761,7 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[127]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[131]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2769,37 +2770,37 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[127]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[131]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >chain index</th>        <th class="col_heading level0 col4" >molecule index</th>        <th class="col_heading level0 col5" >molecule type</th>        <th class="col_heading level0 col6" >entity index</th>        <th class="col_heading level0 col7" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >n atoms</th>        <th class="col_heading level0 col2" >n groups</th>        <th class="col_heading level0 col3" >chain index</th>        <th class="col_heading level0 col4" >molecule index</th>        <th class="col_heading level0 col5" >molecule type</th>        <th class="col_heading level0 col6" >entity index</th>        <th class="col_heading level0 col7" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >[1906]</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >[248]</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >0</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >0</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >protein</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >0</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >[1906]</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >[248]</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >0</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >0</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >protein</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >0</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col0" class="data row1 col0" >1</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col1" class="data row1 col1" >[1912]</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col2" class="data row1 col2" >[249]</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col3" class="data row1 col3" >1</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col4" class="data row1 col4" >0</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col5" class="data row1 col5" >protein</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col6" class="data row1 col6" >0</td>
-                        <td id="T_6f6d53a2_b5db_11ea_a141_67b0066834f6row1_col7" class="data row1 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row1_col0" class="data row1 col0" >1</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row1_col1" class="data row1 col1" >[1912]</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row1_col2" class="data row1 col2" >[249]</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row1_col3" class="data row1 col3" >1</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row1_col4" class="data row1 col4" >0</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row1_col5" class="data row1 col5" >protein</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row1_col6" class="data row1 col6" >0</td>
+                        <td id="T_f70e3d72_c881_11ea_85df_49c12f88b3e2row1_col7" class="data row1 col7" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
     </tbody></table></div>
 </div>
 <p>Lets find out the closest pairs of distance from different components:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[128]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[132]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2811,7 +2812,7 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[129]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[133]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2825,7 +2826,7 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </div>
 <p>There is a single frame in our molecular system, thats why the shape of the numpy array with the pair of groups is the following:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[130]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[134]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2834,7 +2835,7 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[130]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[134]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2844,7 +2845,7 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </div>
 <p>Where the indices found in min_pairs correspond to the n-th and m-th atoms group of the first list and the second list respectively:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[131]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[135]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2853,7 +2854,7 @@ The 12-th pair is made by groups 2-th and 4-th, and its distance along the traje
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[131]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[135]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2862,7 +2863,7 @@ array([69, 12])
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[132]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[136]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2874,7 +2875,7 @@ array([69, 12])
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[133]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[137]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2884,43 +2885,43 @@ array([69, 12])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[133]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[137]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_6fc55f02_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
+</style><table id="T_13b59542_c882_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >index</th>        <th class="col_heading level0 col1" >id</th>        <th class="col_heading level0 col2" >name</th>        <th class="col_heading level0 col3" >type</th>        <th class="col_heading level0 col4" >n atoms</th>        <th class="col_heading level0 col5" >component index</th>        <th class="col_heading level0 col6" >chain index</th>        <th class="col_heading level0 col7" >molecule index</th>        <th class="col_heading level0 col8" >molecule type</th>        <th class="col_heading level0 col9" >entity index</th>        <th class="col_heading level0 col10" >entity name</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >69</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >73</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >GLY</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >aminoacid</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >[4]</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >0</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >0</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >0</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >protein</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col9" class="data row0 col9" >0</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row0_col10" class="data row0 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >69</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >73</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >GLY</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >aminoacid</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >[4]</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >0</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >0</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >0</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col8" class="data row0 col8" >protein</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col9" class="data row0 col9" >0</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row0_col10" class="data row0 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
             <tr>
-                                <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col0" class="data row1 col0" >260</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col1" class="data row1 col1" >15</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col2" class="data row1 col2" >CYS</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col3" class="data row1 col3" >aminoacid</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col4" class="data row1 col4" >[6]</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col5" class="data row1 col5" >1</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col6" class="data row1 col6" >1</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col7" class="data row1 col7" >0</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col8" class="data row1 col8" >protein</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col9" class="data row1 col9" >0</td>
-                        <td id="T_6fc55f02_b5db_11ea_a141_67b0066834f6row1_col10" class="data row1 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
+                                <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col0" class="data row1 col0" >260</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col1" class="data row1 col1" >15</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col2" class="data row1 col2" >CYS</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col3" class="data row1 col3" >aminoacid</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col4" class="data row1 col4" >[6]</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col5" class="data row1 col5" >1</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col6" class="data row1 col6" >1</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col7" class="data row1 col7" >0</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col8" class="data row1 col8" >protein</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col9" class="data row1 col9" >0</td>
+                        <td id="T_13b59542_c882_11ea_85df_49c12f88b3e2row1_col10" class="data row1 col10" >TRIOSEPHOSPHATE ISOMERASE</td>
             </tr>
     </tbody></table></div>
 </div>
 <p>And the corresponding minimum distance between both residues from the two components is:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[134]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[138]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2929,7 +2930,7 @@ array([69, 12])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[134]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[138]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2939,17 +2940,17 @@ Quantity(value=0.38221311908773786, unit=nanometer)
 </div>
 <p>On the other hand, if the maximum distance needs to be obtained, the method to be used is <code class="docutils literal notranslate"><span class="pre">molsysmt.maximum_distance()</span></code>. Lets show how this method works with a short trajectory of the pentalanine peptide.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[135]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[140]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
 <span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[136]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[141]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2958,28 +2959,28 @@ Quantity(value=0.38221311908773786, unit=nanometer)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[136]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[141]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_70110b6e_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >62</td>
-                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >7</td>
-                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >62</td>
-                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >62</td>
-                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >62</td>
-                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >62</td>
-                        <td id="T_70110b6e_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >5000</td>
+                                <td id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_1f1710e6_c882_11ea_85df_49c12f88b3e2row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
 <p>The trajectory has 5000 frames. Lets see, for each frame, whats the pair of residues with the longest distance between their geometric centers:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[137]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[142]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2991,7 +2992,7 @@ Quantity(value=0.38221311908773786, unit=nanometer)
 </div>
 <p>This time we have 5000 pairs of group, one for each frame; and 5000 maximum distances:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[138]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[143]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3000,7 +3001,7 @@ Quantity(value=0.38221311908773786, unit=nanometer)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[138]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[143]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3009,7 +3010,7 @@ Quantity(value=0.38221311908773786, unit=nanometer)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[139]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[144]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3018,7 +3019,7 @@ Quantity(value=0.38221311908773786, unit=nanometer)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[139]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[144]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3033,7 +3034,7 @@ array([[0, 6],
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[140]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[145]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3042,7 +3043,7 @@ array([[0, 6],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[140]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[145]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3053,7 +3054,7 @@ Quantity(value=array([1.42980221, 1.50600047, 1.6863101 , ..., 1.83006115, 1.245
 </div>
 <p>To give a last example on this methods, lets wonder: what is the residue of the peptide with the largest displacement between each frame and the next one? (at each frame, of course)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[141]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[146]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3072,7 +3073,7 @@ Quantity(value=array([1.42980221, 1.50600047, 1.6863101 , ..., 1.83006115, 1.245
 </div>
 <p>Since we are using the option <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code>, the output this time corresponds to the index of the pair made by the elements in both <code class="docutils literal notranslate"><span class="pre">groups_of_atoms_1</span></code> and <code class="docutils literal notranslate"><span class="pre">groups_of_atoms_2</span></code> with the maximum distance, or displacement in this case, for each i-th frame with the consecutive (i+1)-th frame:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[142]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[147]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3081,7 +3082,7 @@ Quantity(value=array([1.42980221, 1.50600047, 1.6863101 , ..., 1.83006115, 1.245
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[142]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[147]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3090,7 +3091,7 @@ Quantity(value=array([1.42980221, 1.50600047, 1.6863101 , ..., 1.83006115, 1.245
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[143]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[148]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3099,7 +3100,7 @@ Quantity(value=array([1.42980221, 1.50600047, 1.6863101 , ..., 1.83006115, 1.245
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[143]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[148]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3109,7 +3110,7 @@ array([2, 0, 6, ..., 6, 6, 6])
 </div>
 <p>And the value of this maximum displacements are:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[144]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[149]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3118,7 +3119,7 @@ array([2, 0, 6, ..., 6, 6, 6])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[144]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[149]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3129,7 +3130,7 @@ Quantity(value=array([0.72087604, 1.2344545 , 0.83900167, ..., 1.31317032, 0.888
 </div>
 <p>This way:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[145]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[150]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3154,17 +3155,17 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 <h3>First closest neighbor atoms or groups<a class="headerlink" href="#First-closest-neighbor-atoms-or-groups" title="Permalink to this headline">¶</a></h3>
 <p>There are two ways to compute distance neighbors. The closest n atoms to a given one can be obtained with the option <code class="docutils literal notranslate"><span class="pre">num_neighbors</span></code> or <code class="docutils literal notranslate"><span class="pre">threshold</span></code>. Lets show with a simple example how this first option works:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[146]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[152]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">test_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
 <span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[147]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[153]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3173,28 +3174,28 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[147]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[153]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_709aeafa_b5db_11ea_a141_67b0066834f6" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_333ffa06_c882_11ea_85df_49c12f88b3e2" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col1" class="data row0 col1" >62</td>
-                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col2" class="data row0 col2" >7</td>
-                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col3" class="data row0 col3" >62</td>
-                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col5" class="data row0 col5" >62</td>
-                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col6" class="data row0 col6" >62</td>
-                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col7" class="data row0 col7" >62</td>
-                        <td id="T_709aeafa_b5db_11ea_a141_67b0066834f6row0_col8" class="data row0 col8" >5000</td>
+                                <td id="T_333ffa06_c882_11ea_85df_49c12f88b3e2row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_333ffa06_c882_11ea_85df_49c12f88b3e2row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_333ffa06_c882_11ea_85df_49c12f88b3e2row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_333ffa06_c882_11ea_85df_49c12f88b3e2row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_333ffa06_c882_11ea_85df_49c12f88b3e2row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_333ffa06_c882_11ea_85df_49c12f88b3e2row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_333ffa06_c882_11ea_85df_49c12f88b3e2row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_333ffa06_c882_11ea_85df_49c12f88b3e2row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_333ffa06_c882_11ea_85df_49c12f88b3e2row0_col8" class="data row0 col8" >5000</td>
             </tr>
     </tbody></table></div>
 </div>
 <p>We can compute the closest 3 CA atoms to each CA atom of the molecular system:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[148]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[154]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3203,7 +3204,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[149]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[155]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3214,7 +3215,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 <p>Two objects are returned. A numpy array with the list of 3 neighbor atom indices per atom in <code class="docutils literal notranslate"><span class="pre">selection_1</span></code>, per frame:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[150]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[156]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3223,7 +3224,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[150]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[156]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3233,7 +3234,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 <p>And the corresponding distances:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[151]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[157]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3242,7 +3243,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[151]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[157]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3252,7 +3253,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 <p>This way, the closest 3 atoms of the first CA atom at frame 2000-th are:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[152]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[158]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3278,7 +3279,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 <p>Lets see now the 4 closest atoms, any kind, to each CA atom of the molecular system:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[153]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[159]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3289,7 +3290,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[154]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[160]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3317,7 +3318,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 <p>Notice that, in this case, <code class="docutils literal notranslate"><span class="pre">msm.neighbors_list</span></code> is built to assume that is working with two different set of atoms since <code class="docutils literal notranslate"><span class="pre">selection_1</span></code><span class="math notranslate nohighlight">\(\neq\)</span><code class="docutils literal notranslate"><span class="pre">selection_2</span></code>. Thats the reason why this time the first neighbor atom is the atom itself.</p>
 <p>The method <code class="docutils literal notranslate"><span class="pre">msm.neighbors_list()</span></code> was built on top of <code class="docutils literal notranslate"><span class="pre">msm.distance()</span></code>, thus the input arguments are almost the same. If you already had a look to the section about atoms distance, you will be probably wonder if <code class="docutils literal notranslate"><span class="pre">msm.neighbors_list</span></code> can also work with atoms groups. Lets illustrate this case with the following cells:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[155]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[161]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3326,7 +3327,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[156]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[162]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3340,7 +3341,7 @@ The 3-th is the group with the maximum displacement between frames 200-th and 20
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[157]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[163]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3359,7 +3360,7 @@ Number of residues in chain 1: 249
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[158]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[164]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3371,7 +3372,7 @@ Number of residues in chain 1: 249
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[159]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[165]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3388,7 +3389,7 @@ Number of residues in chain 1: 249
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[160]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[166]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3419,7 +3420,7 @@ Number of residues in chain 1: 249
 </div>
 <p>The list groups neighbors can be computed also from two molecular systems or two list of groups:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[161]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[167]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3433,7 +3434,7 @@ Number of residues in chain 1: 249
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[162]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[168]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3464,7 +3465,7 @@ Number of residues in chain 1: 249
 </div>
 <p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.neighbors_lists()</span></code> can also mix atoms and atoms groups. Lets, as last example, get the closest geometric centers of residues to a specific atom:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[163]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[169]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3476,7 +3477,7 @@ Number of residues in chain 1: 249
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[164]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[170]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3506,7 +3507,7 @@ Number of residues in chain 1: 249
 <h3>Closest neighbor atoms or groups below a distance threshold<a class="headerlink" href="#Closest-neighbor-atoms-or-groups-below-a-distance-threshold" title="Permalink to this headline">¶</a></h3>
 <p>In addition to the input argument <code class="docutils literal notranslate"><span class="pre">num_neighbors</span></code>, <code class="docutils literal notranslate"><span class="pre">molsysmt.neighbors_lists()</span></code> includes the option of getting those neighbors with a distance below a given threshols: <code class="docutils literal notranslate"><span class="pre">threshold</span></code>. Lets get for the following molecular system the list of CA atoms closest than 8 <span class="math notranslate nohighlight">\(\unicode{xC5}\)</span>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[165]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[171]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3515,7 +3516,7 @@ Number of residues in chain 1: 249
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[166]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[172]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3524,7 +3525,7 @@ Number of residues in chain 1: 249
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[167]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[173]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3534,7 +3535,7 @@ Number of residues in chain 1: 249
 </div>
 <p>In this example, each CA atom has a different number of neighbors. This time the output is not a tensor ranked 3, but a matrix where the elements are not numbers but list of neighbors:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[168]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[174]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3551,7 +3552,7 @@ Number of residues in chain 1: 249
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[169]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[175]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3569,7 +3570,7 @@ Number of residues in chain 1: 249
 </div>
 <p>The molecular system had 1 single frame and 497 CA atoms, lets see now the number of CA neighbors of the first 10 CA atoms in our list:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[170]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[176]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3597,7 +3598,7 @@ The 10° CA has 14 CA neighbors.
 </div>
 <p>Lets print out the neighbors of the 20-th CA in the list:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[171]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[177]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3623,7 +3624,7 @@ The 16-th CA is 0.7399875134081655 nm away from the 20-th CA
 </div>
 <p>As well as for the input argument <code class="docutils literal notranslate"><span class="pre">num_neighbors</span></code> -previous subsection-, the neighbors closest than a given threshold can also be computed between atoms groups or atoms and atoms groups. Lets show a example where the neighbors of the residues of chain 0 in our molecular system are defined as those residues of chain 1 closest the 1.2 nm:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[172]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[178]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3637,7 +3638,7 @@ The 16-th CA is 0.7399875134081655 nm away from the 20-th CA
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[173]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[179]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3650,7 +3651,7 @@ The 16-th CA is 0.7399875134081655 nm away from the 20-th CA
 </div>
 <p>Lets print out the number of contacts in chain 1 per residue of chain 0, if any:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[174]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[180]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3753,7 +3754,7 @@ The 235-th residue of chain 0 has 1 residue contacts in chain 1
 from <code class="docutils literal notranslate"><span class="pre">molsysmt.distance()</span></code>. Lets see a couple of examples in this section.</p>
 <p>Lets get the contact map obtained with the threshold 1.2 nm and the CA atoms from the dimer found in the system with pdb id 1TCD:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[175]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[181]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3762,7 +3763,7 @@ from <code class="docutils literal notranslate"><span class="pre">molsysmt.dista
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[176]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[182]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3771,7 +3772,7 @@ from <code class="docutils literal notranslate"><span class="pre">molsysmt.dista
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[177]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[183]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3780,7 +3781,7 @@ from <code class="docutils literal notranslate"><span class="pre">molsysmt.dista
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[178]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[184]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3789,7 +3790,7 @@ from <code class="docutils literal notranslate"><span class="pre">molsysmt.dista
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[178]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[184]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3805,7 +3806,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </div>
 <p>Our molecular system has a single frame. That’s why the shape of the output is the following:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[179]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[185]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3814,7 +3815,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[179]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[185]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -3824,7 +3825,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </div>
 <p>Where 497 is the total number of CA atoms in our system:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[180]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[186]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3842,7 +3843,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </div>
 <p>Usually the contact map is represented as a plot. The structural motifs can be then easily identify:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[181]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[187]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3860,7 +3861,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </div>
 <p>The contact map can also be computed among elements from different sets. Lets get the contact map with the same threshold but this time between the CA atoms from both chains:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[182]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[188]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3870,7 +3871,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[183]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[189]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3880,7 +3881,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[184]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[190]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3899,7 +3900,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 <p>The molecular system is homodimeric, thereby the interface is symmetric as it can see in this last plot.</p>
 <p>Finnally, <code class="docutils literal notranslate"><span class="pre">molsysmt.contact_map()</span></code> can also work with atoms groups. Instead of getting the contact map between CA atoms, lets do it now with the geometric centers of the residues:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[185]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[191]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3911,7 +3912,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[186]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[192]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -3923,7 +3924,7 @@ array([[[ True,  True,  True, ..., False, False, False],
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[187]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[193]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>

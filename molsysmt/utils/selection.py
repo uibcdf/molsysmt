@@ -25,7 +25,7 @@ def digest(selection, syntaxis="MolSysMT"):
 
     if syntaxis=='MolSysMT':
 
-        selection=selection.replace('backbone','(atom.name==["CA", "N", "C", "O"])')
+        selection=selection.replace('backbone','(atom_name==["CA", "N", "C", "O"])')
 
     #elif syntaxis=="MDTraj":
 

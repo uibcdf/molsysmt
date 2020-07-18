@@ -31,23 +31,15 @@ def query_elements(item, selection='all'):
 
     return atom_indices
 
-def parse(selection='all'):
-
-    # "all", "backbone", "sidechain"
-
-    parsed_selection = selection
-
-    return parsed_selection
-
 def elements_select(item, selection='all', output_indices='atom'):
 
-    parsed_selection = parse(selection)
-    indices = query_elements(item, selection=parsed_selection)
+    indices = query_elements(item, selection=selection)
     if output_indices in ['group', 'component', 'chain', 'molecule', 'entity']:
         from numpy import unique
         indices = item.iloc[indices][output_indices+'.index'].values
         indices = unique(indices)
     elif output_indices!='atom':
         raise ValueError('Wrong input argument in "ouput_indices"')
+
     return indices
 
