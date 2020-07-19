@@ -54,19 +54,10 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
         from molsysmt import convert
         from molsysmt.utils.forcefields import digest as digest_forcefield
         from simtk.openmm.app import ForceField
+        from simtk.openmm import Vec3
+        from numpy import sqrt
 
         modeller = convert(item, to_form='openmm.Modeller')
-        max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
-
-        box_size = None
-        box_vectors = None
-
-        if box_geometry=="truncated_octahedral":
-            vectors = mm.Vec3(1,0,0), mm.Vec3(1/3,2*sqrt(2)/3,0), mm.Vec3(-1/3,1/3,sqrt(6)/3)
-            box_vectors = [(max_size+clearance)*v for v in vectors]
-        elif box_geometry=="rhombic_dodecahedron":
-            vectors = mm.Vec3(1,0,0), mm.Vec3(0,1,0), mm.Vec3(0.5,0.5,sqrt(2)/2)
-            box_vectors = [(max_size+clearance)*v for v in vectors]
 
         solvent_model=None
         if water=='SPC':
@@ -86,11 +77,33 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
         forcefield_parameters = digest_forcefield([forcefield, water], 'OpenMM')
         forcefield = ForceField(*forcefield_parameters)
-        modeller.addSolvent(forcefield, model=solvent_model, padding=clearance,
-                            boxVectors = box_vectors,
-                            ionicStrength=ionic_strength, positiveIon=cation,
-                            negativeIon=anion)
+
+        if box_geometry=="truncated_octahedral":
+
+            max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
+            vectors = Vec3(1,0,0), Vec3(1/3,2*sqrt(2)/3,0), Vec3(-1/3,1/3,sqrt(6)/3)
+            box_vectors = [(max_size+clearance)*v for v in vectors]
+
+            modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
+                                positiveIon=cation, negativeIon=anion)
+
+        elif box_geometry=="rhombic_dodecahedron":
+
+            max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
+            vectors = Vec3(1,0,0), Vec3(0,1,0), Vec3(0.5,0.5,sqrt(2)/2)
+            box_vectors = [(max_size+clearance)*v for v in vectors]
+
+            modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
+                                positiveIon=cation, negativeIon=anion)
+
+        else:
+
+           modeller.addSolvent(forcefield, model=solvent_model, padding=clearance,
+                               ionicStrength=ionic_strength, positiveIon=cation,
+                               negativeIon=anion)
+
         tmp_item = convert(modeller, to_form=form_out)
+
         del(modeller)
 
         return tmp_item
