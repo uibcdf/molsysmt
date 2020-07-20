@@ -233,8 +233,10 @@ def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    output = get_atom_index_from_atom (item, indices=indices, frame_indices=frame_indices)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_atoms_from_system (item)
+    else:
+        return indices.shape[0]
 
 def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 

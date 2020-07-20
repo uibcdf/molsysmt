@@ -31,6 +31,8 @@ def group_type_to_type(group_type, n_groups=1):
 
 def get_elements(item):
 
+
+
     from molsysmt import get
     from molsysmt.elements.group import type_to_component_type as group_type_to_component_type
     from networkx import empty_graph, connected_components

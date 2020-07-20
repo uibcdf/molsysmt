@@ -1,6 +1,7 @@
 from molsysmt.utils.exceptions import *
 from os.path import basename as _basename
 from mdtraj.core.topology import Topology as _mdtraj_Topology
+import numpy as _np
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -186,39 +187,75 @@ def get_type_from_atom (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        n_atoms = get_n_atoms_from_system(item)
+        output = _np.arange(n_atoms, dtype=int)
+    else:
+        output = indices
+
+    return output
 
 def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output=[item.atom(ii).serial for ii in tmp_indices]
+    output=_array(output, dtype=int)
+    return output
 
 def get_atom_name_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output=[item.atom(ii).name for ii in tmp_indices]
+    output=_array(output, dtype=object)
+    return output
 
 def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output=[item.atom(ii).element.symbol for ii in tmp_indices]
+    output=_array(output, dtype=object)
+    return output
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output=[item.atom(ii).residue.index for ii in tmp_indices]
+    output=_array(output, dtype=int)
+    return output
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output=[item.atom(ii).residue.resSeq for ii in tmp_indices]
+    output=_array(output, dtype=int)
+    return output
 
 def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output=[item.atom(ii).residue.name for ii in tmp_indices]
+    output=_array(output, dtype=int)
+    return output
 
 def get_group_type_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.group import name_to_type as group_name_to_group_type
+
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    output=[group_name_to_group_type(item.atom(ii).residue.name) for ii in tmp_indices]
+    output=_array(output, dtype=int)
+    return output
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.component import get_elements
+
+    output, _, _, _ = get_elements(item)
+
+    if indices is not 'all':
+        output = output[indices]
+
+    return output
 
 def get_component_id_from_atom (item, indices='all', frame_indices='all'):
 
@@ -286,7 +323,10 @@ def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices=='all':
+        return get_n_atoms_from_system(item)
+    else:
+        return indices.shape[0]
 
 def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
@@ -1078,11 +1118,11 @@ def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.n_atoms
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.n_residues
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
@@ -1090,7 +1130,7 @@ def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.n_chains
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
@@ -1102,7 +1142,7 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.n_bonds
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
 
