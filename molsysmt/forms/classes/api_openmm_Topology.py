@@ -317,47 +317,19 @@ def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_elements
-
-    output, _, _, _ = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
+    return get_component_index_from_atom (item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_elements
-
-    _, output, _, _ = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
+    return get_component_id_from_atom (item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_elements
-
-    _, _, output, _ = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
+    return get_component_name_from_atom (item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_elements
-
-    _, _, _, output = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
+    return get_component_type_from_atom (item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 

@@ -12,7 +12,9 @@ dict_tests={
     'openmm.Topology': convert('data/1tcd.pdb', to_form='openmm.Topology'),
     'openmm.Modeller': convert('data/1tcd.pdb', to_form='openmm.Modeller'),
     'openmm.PDBFile': convert('data/1tcd.pdb', to_form='openmm.PDBFile'),
-    'pdbfixer.PDBFixer': convert('data/1tcd.pdb', to_form='pdbfixer.PDBFixer')
+    'pdbfixer.PDBFixer': convert('data/1tcd.pdb', to_form='pdbfixer.PDBFixer'),
+    'mdtraj.Topology': convert('data/1tcd.pdb', to_form='mdtraj.Topology'),
+    'mdtraj.Trajectory': convert('data/1tcd.pdb', to_form='mdtraj.Trajectory')
 
 }
 
