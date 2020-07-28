@@ -157,6 +157,24 @@ class Trajectory():
 
         return tmp_item
 
+    def add(self, item, atom_indices='all', frame_indices='all'):
+
+        from molsysmt import convert, get
+
+        tmp_item = convert(item, selection=atom_indices, frame_indices=frame_indices,
+                           to_form='molsysmt.Trajectory')
+
+        n_frames = get(tmp_item, target='system', n_frames=True)
+        if self.n_frames != n_frames:
+            raise ValueError('Both items need to have the same n_frames')
+
+        self.coordinates = _np.hstack([self.coordinates, tmp_item.coordinates])*self.coordinates.unit
+        self.n_atoms = self.coordinates.shape[1]
+
+    def append(self, item, atom_indices='all', frame_indices='all'):
+
+        raise NotImplementedError
+
     def copy (self):
 
         from copy import deepcopy

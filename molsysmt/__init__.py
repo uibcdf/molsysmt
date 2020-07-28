@@ -4,7 +4,7 @@ from . import demo_systems
 
 from .native.molsys import MolSys
 from .multitool import select, extract, merge, info, get, set, \
-                       convert, copy, write, view, remove
+                       convert, copy, write, view, remove, get_form
 from .info_multitool import info_forms, info_load, info_convert, info_select, info_viewers
 from .rmsd import rmsd, least_rmsd, least_rmsd_fit
 from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists
@@ -28,7 +28,8 @@ from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, min
         box_vectors_from_box_lengths_and_angles
 from .pockets import alpha_spheres
 from .sasa import sasa
-from .dihedral_angles import dihedral_angles, covalent_chains, ramachandran_angles
+from .covalent import covalent_chains, covalent_blocks
+from .dihedral_angles import get_dihedral_angles, set_dihedral_angles, ramachandran_angles
 from .graphs import bondgraph
 from . import physchem
 from . import nglview

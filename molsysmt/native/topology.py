@@ -96,6 +96,40 @@ class Topology():
 
         return tmp_item
 
+    def add(self, item, atom_indices='all', frame_indices='all'):
+
+        from molsysmt import convert, get
+        from numpy import vectorize
+
+        tmp_item = convert(item, selection=atom_indices, frame_indices=frame_indices, to_form='molsysmt.Topology')
+
+        n_atoms = get(tmp_item, target='system', n_atoms=True)
+        tmp_item.atoms_dataframe['atom_index'] += n_atoms
+
+        n_groups = get(tmp_item, target='system', n_groups=True)
+        tmp_item.atoms_dataframe['group_index'] += n_groups
+
+        n_components = get(tmp_item, target='system', n_components=True)
+        tmp_item.atoms_dataframe['component_index'] += n_components
+
+        n_chains = get(tmp_item, target='system', n_chains=True)
+        tmp_item.atoms_dataframe['chain_index'] += n_chains
+
+        n_molecules = get(tmp_item, target='system', n_molecules=True)
+        tmp_item.atoms_dataframe['molecule_index'] += n_molecules
+
+        self.atoms_dataframe = self.atoms_dataframe.append(tmp_item.atoms_dataframe, ignore_index=True)
+
+        aux_dict=tmp_item.atoms_dataframe['atom_index'].to_dict()
+        vaux_dict = vectorize(aux_dict.__getitem__)
+        tmp_item.bonds_dataframe['atom1_index']=vaux_dict(tmp_item.bonds_dataframe['atom1_index'].to_numpy())
+        tmp_item.bonds_dataframe['atom2_index']=vaux_dict(tmp_item.bonds_dataframe['atom2_index'].to_numpy())
+
+        self.bonds_dataframe = self.bonds_dataframe.append(tmp_item.bonds_dataframe, ignore_index=True)
+
+        self._build_entities()
+
+
     def copy(self):
 
         tmp_item = Topology()

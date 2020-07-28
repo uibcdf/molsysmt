@@ -9,7 +9,7 @@ def mutate (item, residue_indices=None, to_residue_names=None, engine='PDBFixer'
             if not hasattr(to_residue_names, '__iter__'):
                 to_residue_names = [to_residue_names]
 
-            form_in = _get_form(item)
+            form_in = get_form(item)
             tmp_item = _convert(item, to_form="pdbfixer.PDBFixer")
 
             for residue_index, to_residue_name in zip(residue_indices, to_residue_names):

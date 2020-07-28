@@ -2,10 +2,10 @@
 def add_terminal_capping(item, N_terminal='ACE', C_terminal='NME', selection='all',
                             syntaxis='MolSysMT', engine='PDBFixer'):
 
-    from molsysmt.multitool import _get_form
+    from molsysmt.multitool import get_form
     from molsysmt import convert
 
-    form_in = _get_form(item)
+    form_in = get_form(item)
 
     if engine is 'PDBFixer':
 

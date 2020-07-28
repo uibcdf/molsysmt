@@ -120,6 +120,12 @@ def copy(item):
 
     return item.copy()
 
+def merge_two_items(item1, item2):
+
+    tmp_item = copy(item1)
+    tmp_item.add(item2)
+    return tmp_item
+
 ###### Get
 
 ## atom

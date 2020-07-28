@@ -56,11 +56,11 @@ def equilibration_NPT (item, temperature=300*_unit.kelvin, pressure=1.0*_unit.at
 
     if engine=='OpenMM':
 
-        in_form = _get_form(item)
+        in_form = get_form(item)
 
         forcefield = _digest_forcefields(forcefield, engine)
 
-        in_form = _get_form(item)
+        in_form = get_form(item)
 
         topology = _convert(item, 'openmm.Topology')
         positions = get(item, coordinates=True)

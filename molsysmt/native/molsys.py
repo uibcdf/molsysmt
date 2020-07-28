@@ -22,6 +22,14 @@ class MolSys():
 
             return tmp_item
 
+    def add(self, item, atom_indices='all', frame_indices='all'):
+
+        from molsysmt import convert
+
+        tmp_item = convert(item, selection=atom_indices, frame_indices=frame_indices, to_form='molsysmt.MolSys')
+        self.topology.add(tmp_item.topology)
+        self.trajectory.add(tmp_item.trajectory)
+
     def load_frames(self, selection='all', frame_indices='all', syntaxis='MDTraj'):
 
         atom_indices = self.select(selection=selection, syntaxis=syntaxis)

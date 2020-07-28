@@ -1,9 +1,9 @@
 
 def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=False):
 
-    from .multitool import get_form as _get_form, convert as _convert
+    from .multitool import get_form as get_form, convert as _convert
 
-    form_in = _get_form(item)
+    form_in = get_form(item)
 
     if engine=='modeller':
 

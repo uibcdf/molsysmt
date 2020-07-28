@@ -46,7 +46,6 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
                                     trajectory_item=trajectory_item,  atom_indices=atom_indices,
                                     frame_indices=frame_indices)
 
-
 def extract(item, atom_indices='all', frame_indices='all'):
 
     return item.extract(atom_indices=atom_indices)
@@ -54,6 +53,13 @@ def extract(item, atom_indices='all', frame_indices='all'):
 def copy(item):
 
     return item.copy()
+
+
+def merge_two_items(item1, item2):
+
+    tmp_item = copy(item1)
+    tmp_item.add(item2)
+    return tmp_item
 
 def select_with_MDTraj(item, selection):
 
@@ -335,7 +341,7 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
     output = None
 
     if indices is 'all':
-        output = get_bond_index_from_system(item)
+        output = get_atom_index_from_bond(item)
     else:
         aux_list = list(indices)
         output = item.bonds_dataframe.query('atom1_index==@aux_list and atom2_index==@aux_list').index.to_numpy(dtype=int, copy=True)
@@ -344,9 +350,16 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    bond_indices = get_inner_bond_index_from_atom (item, indices=indices)
-    output = item.bonds_dataframe.iloc[bond_indices][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
-    del(bond_indices)
+    if indices is 'all':
+
+        output = get_atom_index_from_bond(item, indices='all')
+
+    else:
+
+        bond_indices = get_inner_bond_index_from_atom (item, indices=indices)
+        output = get_atom_index_from_bond(item, indices=bond_indices)
+        del(bond_indices)
+
     return(output)
 
 def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):

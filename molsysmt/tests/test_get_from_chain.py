@@ -1,5 +1,5 @@
 import pytest
-from molsysmt.multitool import _get_form as get_form
+from molsysmt.multitool import get_form as get_form
 from molsysmt import get
 from molsysmt import convert
 import numpy as np

@@ -4,7 +4,7 @@ from .utils.forms import digest as _digest_forms
 import numpy as _np
 #from copy import deepcopy as _deepcopy
 from .lib import rmsd as _librmsd
-#from .multitool import get_form as _get_form, select as _select, convert as _convert
+#from .multitool import get_form as get_form, select as _select, convert as _convert
 #from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
 
 def rmsd (item=None, selection='backbone', frame_indices='all',

@@ -1,4 +1,4 @@
-from .multitool import _get_form
+from .multitool import get_form
 from .multitool import get as _get
 from .utils.exceptions import *
 
@@ -7,7 +7,7 @@ _chain_IDs=['A','B','C','D','E','F','G','H','I','J','K','L','M',
 
 def fix_chains(item,chains=None):
 
-    in_form = _get_form(item)
+    in_form = get_form(item)
 
     if in_form=='parmed.Structure' or in_form=='parmed.GromacsTopologyFile':
         tmp_molecules, tmp_types=_get(item,molecules=True,molecule_type=True)

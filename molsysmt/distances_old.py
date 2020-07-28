@@ -1,5 +1,5 @@
 import numpy as _np
-from .multitool import get_form as _get_form, select as _select, convert as _convert
+from .multitool import get_form as get_form, select as _select, convert as _convert
 from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
 from .utils.digest_inputs import _coordinates as _digest_coordinates
 from .utils.digest_inputs import _frameslist as _digest_frames
@@ -18,7 +18,7 @@ def distance(item=None, selection=None, selection_groups=None, group_behavior=No
     # selection groups está por si quiero distancias entre centros de masas, necesita
     # hacer un lista de listas frente a otra lista de listas.
 
-    in_form=_get_form(item)
+    in_form=get_form(item)
 
     if engine=='molsysmt':
         x_form='molsysmt.MolSys'

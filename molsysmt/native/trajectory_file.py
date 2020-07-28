@@ -12,11 +12,11 @@ class TrajectoryFile():
 
         if filepath is not None and mode=='read':
 
-            from molsysmt.multitool import _get_form
+            from molsysmt.multitool import get_form
             from molsysmt import get, convert
 
             self.path = filepath
-            self.form = _get_form(filepath)
+            self.form = get_form(filepath)
 
             if self.form == 'xtc':
                 self.mount_point = convert(filepath, to_form='mdtraj.XTCTrajectoryFile')
@@ -40,7 +40,7 @@ class TrajectoryFile():
     def read_frames(self, atom_indices='all', frame_indices='all'):
 
         from molsysmt import get
-        from molsysmt.multitool import _get_form
+        from molsysmt.multitool import get_form
         step, time, coordinates, box = get(self.mount_point, target='atom', indices=atom_indices, frame_indices=frame_indices, frame=True)
         self.atom_indices=atom_indices
         return step, time, coordinates, box

@@ -435,13 +435,13 @@ def merge(item1=None, item2=None, to_form=None):
         tmp_item = convert(item1[0], to_form=form_out)
         for in_item in item1[1:]:
             tmp_item2 = convert(in_item, to_form=form_out)
-            tmp_item = _dict_merger[form](tmp_item, tmp_item2)
+            tmp_item = _dict_merger[form_out](tmp_item, tmp_item2)
         return tmp_item
     else:
         _ , form_out = _digest_forms(item1, to_form)
-        tmp_item1 = convert(item1,to_form=form)
-        tmp_item2 = convert(item2,to_form=form)
-        return _dict_merger[form](tmp_item1, tmp_item1)
+        tmp_item1 = convert(item1,to_form=form_out)
+        tmp_item2 = convert(item2,to_form=form_out)
+        return _dict_merger[form_out](tmp_item1, tmp_item1)
 
 def info(item=None, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):
 
@@ -832,7 +832,7 @@ def _element2string(item, indices=None, target='atom'):
     return string
 
 
-def _get_form(item=None):
+def get_form(item=None):
 
     from simtk.unit import Quantity
 
@@ -1061,7 +1061,7 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
         elif target == 'system':
             indices = 0
 
-    if frame_indices == 'all':
+    if frame_indices is 'all':
         n_frames = get(item, target='system', n_frames=True)
         frame_indices = _arange(n_frames)
     elif type(frame_indices)==int:
@@ -1168,6 +1168,7 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                                                           atom_indices=atom_indices, frame_indices=frame_indices,
                                                           **kwargs)
                 elif same_system:
+                    print('aaaaaaaaquiiiiiii')
                     tmp_item = copy(item, output_filepath=out_file)
 
                 else:
@@ -1300,14 +1301,14 @@ def write(item=None, filename=None, selection='all', frame_indices='all', syntax
 def view(item=None, viewer='nglview', selection='all', frame_indices='all', syntaxis='MolSysMT'):
 
     if type(item) in [list,tuple]:
-        form_in = _get_form(item[0])
+        form_in = get_form(item[0])
         tmp_item = merge(item)
     else:
-        form_in = _get_form(item)
+        form_in = get_form(item)
         tmp_item = item
 
     atom_indices = select(tmp_item, selection=selection, syntaxis=syntaxis)
-    frame_indices = _digest_frame_indices(item, frame_indices)
+    frame_indices = _digest_frame_indices(tmp_item, frame_indices)
 
     return _dict_converter[form_in][viewer](tmp_item, atom_indices=atom_indices,
             frame_indices=frame_indices)

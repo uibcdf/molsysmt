@@ -51,7 +51,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
 
     """
 
-    from .multitool import get_form as _get_form, get as _get
+    from .multitool import get_form as get_form, get as _get
     from .multitool import convert as _convert, reformat as _reformat
 
     engine=_digest_engines(engine)
@@ -64,7 +64,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
 
         forcefield_omm_parameters=_digest_forcefields(forcefield,engine)
 
-        in_form = _get_form(item)
+        in_form = get_form(item)
 
         topology = _convert(item, to_form='openmm.Topology')
         positions = _get(item, coordinates=True)

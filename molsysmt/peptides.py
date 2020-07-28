@@ -1,6 +1,6 @@
 import simtk.unit as unit
 
-def build_peptide (item, forcefield='AMBER96', implicit_solvent=None, water_model='TIP3P', to_form='molsysmt.MolSys',
+def build_peptide (item, forcefield='AMBER96', implicit_solvent='GBSA OBC', water_model=None, to_form='molsysmt.MolSys',
                    box_geometry='cubic', clearance=10*unit.angstroms, engine='LEaP', logfile=True, verbose=True):
 
     # implicit_solvent in ['GBSA OBC']
@@ -25,14 +25,15 @@ def build_peptide (item, forcefield='AMBER96', implicit_solvent=None, water_mode
         if type(forcefield) not in [tuple, list]:
             forcefield = [forcefield]
 
-        if water_model =='SPC':
-            solvent_model='SPCBOX'
-            forcefield.append('SPC')
-        elif water_model == 'TIP3P':
-            solvent_model='TIP3PBOX'
-            forcefield.append('TIP3P')
-        else:
-            raise NotImplementedError
+        if water_model is not None:
+            if water_model =='SPC':
+                solvent_model='SPCBOX'
+                forcefield.append('SPC')
+            elif water_model == 'TIP3P':
+                solvent_model='TIP3PBOX'
+                forcefield.append('TIP3P')
+            else:
+                raise NotImplementedError
 
         current_directory = getcwd()
         working_directory = tmp_directory()

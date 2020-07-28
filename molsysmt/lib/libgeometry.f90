@@ -262,7 +262,98 @@ CONTAINS
         END DO
     END DO
 
-END SUBROUTINE DIHEDRAL_ANGLES
+  END SUBROUTINE DIHEDRAL_ANGLES
 
-END MODULE MODULE_GEOMETRY
- 
+  SUBROUTINE SET_DIHEDRAL_ANGLES (coors, box, ortho, pbc_opt, quartets, angs, blocks, n_angs, n_atoms, n_frames)
+
+    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, pbc_opt, n_frames
+    INTEGER,DIMENSION(n_angs,4),INTENT(IN)::quartets
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
+    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
+    DOUBLE PRECISION,DIMENSION(n_frames,n_angs),INTENT(IN)::angs
+    INTEGER,DIMENSION(n_angs,n_atoms),INTENT(IN)::blocks
+
+    DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
+    DOUBLE PRECISION,DIMENSION(3,3)::tmp_box,tmp_inv
+    INTEGER::ii,jj
+    INTEGER::atom1,atom2,atom3,atom4
+    DOUBLE PRECISION,DIMENSION(3)::vect1,vect2,vect3,vect_aux,u_vect
+    DOUBLE PRECISION::old_ang, shift_ang
+    
+    inv=0.0d0
+    IF (pbc_opt==1) THEN
+        CALL BOX2INVBOX (box, inv, n_frames)
+    END IF
+
+    DO jj=1,n_frames
+        tmp_box=box(jj,:,:)
+        tmp_inv=inv(jj,:,:)
+        DO ii=1,n_angs
+            atom1=quartets(ii,1)+1
+            atom2=quartets(ii,2)+1
+            atom3=quartets(ii,3)+1
+            atom4=quartets(ii,4)+1
+            vect1=coors(jj,atom2,:)-coors(jj,atom1,:)
+            vect2=coors(jj,atom3,:)-coors(jj,atom2,:)
+            vect3=coors(jj,atom4,:)-coors(jj,atom3,:)
+            IF (pbc_opt==1) THEN
+                CALL PBC (vect1,tmp_box,tmp_inv,ortho)
+                CALL PBC (vect2,tmp_box,tmp_inv,ortho)
+                CALL PBC (vect3,tmp_box,tmp_inv,ortho)
+            END IF
+            u_vect = vect2/(sqrt(dot_product(vect2,vect2)))
+            old_ang=ANG3VECTS(vect1,vect2,vect3)
+            shift_ang = angs(jj,ii)-old_ang
+            block_index = blocks(ii,atom4)
+            DO kk=1,n_atoms
+                IF (blocks(ii,kk)==block_index) THEN
+                    vect_aux = coors(jj,kk,:)-coors(jj,atom3,:)
+                    IF (pbc_opt==1) THEN
+                        CALL PBC (vect_aux,tmp_box,tmp_inv,ortho)
+                    END IF
+                    CALL RODRIGUES_ROTATION(vect_aux, u_vect, shift_ang)
+                    IF (pbc_opt==1) THEN
+                        CALL PBC (vect_aux,tmp_box,tmp_inv,ortho)
+                    END IF
+                    coors(jj,kk,:)=coors(jj,atom3,:)+vect_aux
+                END IF
+            END DO 
+        END DO
+    END DO
+
+  END SUBROUTINE SET_DIHEDRAL_ANGLES
+
+  SUBROUTINE RODRIGUES_ROTATION (vect, unit_vector, angle)
+
+    IMPLICIT NONE    
+    DOUBLE PRECISION,DIMENSION(3),INTENT(INOUT)::vect
+    DOUBLE PRECISION,DIMENSION(3),INTENT(IN)::unit_vector
+    DOUBLE PRECISION,INTENT(IN)::angle
+
+    DOUBLE PRECISION,dimension(3)::aux1,aux2,aux3
+    DOUBLE PRECISION::cosa, sina, aux_ang
+    double precision::pi
+  
+    cosa=0.0d0
+    sina=0.0d0
+    pi=3.14159265358979
+    
+    aux1=0.0d0
+    aux2=0.0d0
+    aux3=0.0d0
+  
+    aux_ang = (pi/180.0d0)*angle
+
+    cosa = DCOS(aux_ang)
+    sina = DSIN(aux_ang)
+
+    aux1 = vect*cosa
+    CALL PRODUCT_VECT(unit_vector,vect,aux2)
+    aux2 = aux2*sina
+    aux3 = dot_product(unit_vector, vect)*(1.0d0-cosa)*unit_vector
+    
+    vect = aux1+aux2+aux3
+
+  END SUBROUTINE RODRIGUES_ROTATION
+
+END MODULE MODULE_GEOMETRY 
