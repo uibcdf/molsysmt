@@ -1,21 +1,55 @@
 import numpy as _np
 
+def covalent_dihedral_quartets(item, dihedral_angles=None, with_blocks=False, selection='all',
+                               syntaxis='MolSysMT'):
+
+    if dihedral_angles is not None:
+        if dihedral_angles=='phi':
+            chain=['C', 'N', 'CA', 'C']
+        elif dihedral_angles=='psi':
+            chain=['N', 'CA', 'C', 'N']
+        elif dihedral_angles=='omega':
+            chain=[['CA', 'CH3'], 'C', 'N', ['CA', 'CH3']]
+        elif dihedral_angles=='chi1':
+            chain=['N','CA','CB', ['CG', 'CG1', 'OG', 'OG1', 'SG']] # flexible but PRO
+        elif dihedral_angles=='chi2':
+            chain=['CA','CB', ['CG', 'CG1'], ['CD', 'CD1', 'SD', 'OD1', 'ND1']] # flexible but PRO
+        elif dihedral_angles=='chi3':
+            chain=['CB', 'CG', ['CD', 'SD'], ['NE', 'OE1', 'CE']]
+        elif dihedral_angles=='chi4':
+            chain=['CG', 'CD', ['NE', 'CE'], ['CZ', 'NZ']]
+        elif dihedral_angles=='chi5':
+            chain=['CD', 'NE', 'CZ', 'NH1']
+        else:
+            raise ValueError
+
+    quartets = covalent_chains(item, chain=chain, selection=selection, syntaxis=syntaxis)
+
+    if with_blocks:
+
+        from molsysmt import get
+
+        n_atoms = get(item, target='system', n_atoms=True)
+        n_quartets = quartets.shape[0]
+
+        blocks = _np.zeros([n_quartets, n_atoms], dtype=int)
+
+        for quartet_index in range(n_quartets):
+
+            quartet = quartets[quartet_index]
+            blocks[quartet_index,:] = covalent_blocks(item, remove_bonds=[quartet[1], quartet[2]], output_form='array')
+
+        return quartets, blocks
+
+    else:
+
+        return quartets
+
+
 def covalent_chains(item, chain=None, selection='all', syntaxis='MolSysMT'):
 
     from molsysmt import select, bondgraph
     from numpy import sort, concatenate, unique, array
-
-    if type(chain) is str:
-        if chain=='phi':
-            chain=['C', 'N', 'CA', 'C']
-        elif chain=='psi':
-            chain=['N', 'CA', 'C', 'N']
-        elif chain=='omega':
-            chain=[['CA', 'CH3'], 'C', 'N', ['CA', 'CH3']]
-        elif chain=='chi1':
-            chain=['N','CA','CB','CG']
-        else:
-            raise ValueError
 
     for ii in range(len(chain)):
         if type(chain[ii]) is not list:

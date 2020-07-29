@@ -19,8 +19,10 @@ def bondgraph(item, nodes_name='atom_index', selection='all', syntaxis='MolSysMT
 
         if nodes_name is 'atom_index':
 
-            bonded_atoms = get(item, target='atom', selection=selection, syntaxis=syntaxis, inner_bonded_atoms=True)
+            atom_indices, bonded_atoms = get(item, target='atom', selection=selection,
+                                             syntaxis=syntaxis, atom_index=True, inner_bonded_atoms=True)
 
+            G.add_nodes_from(atom_indices)
             G.add_edges_from(bonded_atoms)
 
         else:

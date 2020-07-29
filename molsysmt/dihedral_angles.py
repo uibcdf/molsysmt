@@ -28,21 +28,28 @@ def get_dihedral_angles(item, quartets=None, frame_indices='all', pbc=False):
     else:
         raise ValueError
 
-    coordinates, box, box_shape = get(item, target='system', frame_indices=frame_indices, coordinates=True, box=True, box_shape=True)
 
-    orthogonal = 0
-    if box_shape is None:
-        orthogonal =1
-        if pbc:
-            raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
-    elif box_shape == 'cubic':
-        orthogonal =1
+    coordinates = get(item, target='system', frame_indices=frame_indices, coordinates=True)
 
     n_angles = quartets.shape[0]
     n_frames = coordinates.shape[0]
     n_atoms = coordinates.shape[1]
 
-    if box is None:
+    if pbc:
+
+        box, box_shape = get(item, target='system', frame_indices=frame_indices, coordinates=True, box=True, box_shape=True)
+        if box_shape is None:
+            raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
+        orthogonal = 0
+
+        if box_shape is None:
+            orthogonal =1
+        elif box_shape == 'cubic':
+            orthogonal =1
+
+    else:
+
+        orthogonal = 1
         box= _np.zeros([n_frames,3,3])*msm_units.length
 
     box = _np.asfortranarray(box._value, dtype='float64')
@@ -69,13 +76,13 @@ def ramachandran_angles(item, selection='all', frame_indices='all', syntaxis='Mo
     return phi_covalent_chain, psi_covalent_chain, angles[:,:n_chains], angles[:,n_chains:]
 
 def set_dihedral_angles(item, quartets=None, angles=None, angles_shifts=None, blocks=None, frame_indices='all', pbc=False,
-                        to_form=None, engine='MolSysMT'):
+                        in_place=True, engine='MolSysMT'):
 
     from molsysmt import get, convert
     from molsysmt import set as _set
     from molsysmt.utils import units as msm_units
 
-    form_in, form_out = _digest_forms(item, to_form)
+    form_in, _ = _digest_forms(item)
     frame_indices = _digest_frame_indices(item, frame_indices)
 
     if type(quartets) in [list,tuple]:
@@ -154,22 +161,27 @@ def set_dihedral_angles(item, quartets=None, angles=None, angles_shifts=None, bl
                 quartet = quartets[quartet_index]
                 blocks[quartet_index,:] = covalent_blocks(item, remove_bonds=[quartet[1], quartet[2]], output_form='array')
 
-        coordinates, box, box_shape = get(item, target='system', frame_indices=frame_indices, coordinates=True, box=True, box_shape=True)
+        coordinates = get(item, target='system', frame_indices=frame_indices, coordinates=True)
 
-        orthogonal = 0
-        if box_shape is None:
-            orthogonal =1
-            if pbc:
+        if pbc:
+
+            box, box_shape = get(item, target='system', frame_indices=frame_indices, coordinates=True, box=True, box_shape=True)
+            if box_shape is None:
                 raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
-        elif box_shape == 'cubic':
-            orthogonal =1
+            orthogonal = 0
 
-        if box is None:
+            if box_shape is None:
+                orthogonal =1
+            elif box_shape == 'cubic':
+                orthogonal =1
+
+        else:
+
+            orthogonal = 1
             box= _np.zeros([n_frames,3,3])*msm_units.length
 
-        box = _np.asfortranarray(box._value, dtype='float64')
-
         length_units = coordinates.unit
+        box = _np.asfortranarray(box._value, dtype='float64')
         coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
 
         _libgeometry.set_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, angles, blocks,
@@ -177,10 +189,13 @@ def set_dihedral_angles(item, quartets=None, angles=None, angles_shifts=None, bl
 
         coordinates=_np.ascontiguousarray(coordinates)*length_units
 
-        tmp_item = convert(item, to_form=form_out)
-        _set(tmp_item, target='system', coordinates=coordinates, frame_indices=frame_indices)
-        del(coordinates, length_units)
-        return tmp_item
+        if in_place:
+            return _set(item, target='system', coordinates=coordinates, frame_indices=frame_indices)
+        else:
+            from molsysmt import copy
+            tmp_item = copy(item)
+            _set(tmp_item, target='system', coordinates=coordinates, frame_indices=frame_indices)
+            return tmp_item
 
     else:
 

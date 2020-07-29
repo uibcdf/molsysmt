@@ -16,11 +16,6 @@ info=["",""]
 with_topology=True
 with_trajectory=False
 
-def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.dataframe.classes import from_openmm_Topology as molsysmt_DataFrame_from_openmm_Topology
-    return molsysmt_DataFrame_from_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-
 def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_openmm_Topology as molsysmt_Topology_from_openmm_Topology
@@ -434,18 +429,29 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    bond_indices = get_inner_bond_index_from_atom (item, indices=indices)
-    output = item.bonds.iloc[bond_indices][['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
-    del(bond_indices)
+    output=[]
+
+    if indices is 'all':
+
+        for bond in item.bonds():
+            output.append([bond.atom1.index, bond.atom2.index])
+
+    else:
+
+        set_indices = set(indices)
+
+        for bond in item.bonds():
+            if bond.atom1.index in set_indices:
+                if bond.atom2.index in set_indices:
+                    output.append([bond.atom1.index, bond.atom2.index])
+
+    output = _array(output, dtype=int)
+
     return(output)
 
 def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    bond_indices = get_inner_bond_index_from_atom(item, indices=indices)
-    output = bond_indices.shape[0]
-    del(bond_indices)
-    return(output)
-
+    raise NotImplementedError
 
 def get_mass_from_atom(item, indices='all', frame_indices='all'):
 
