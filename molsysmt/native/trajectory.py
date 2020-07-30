@@ -27,7 +27,7 @@ class Trajectory():
         if filepath is not None:
             self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    def _set_frames(self, atom_indices=None, step=None, time=None, coordinates=None, box=None):
+    def set_frames(self, atom_indices=None, step=None, time=None, coordinates=None, box=None):
 
         from molsysmt import box_shape_from_box_vectors
 
@@ -48,26 +48,6 @@ class Trajectory():
         if self.coordinates is not None:
             self.n_frames = self.coordinates.shape[0]
             self.n_atoms = self.coordinates.shape[1]
-
-        ii = self.coordinates
-        if ii is not None:
-            if _np.isfortran(ii)==False:
-                ii=_np.asfortranarray(ii)
-
-        ii = self.box
-        if ii is not None:
-            if _np.isfortran(ii)==False:
-                ii=_np.asfortranarray(ii)
-
-        ii = self.time
-        if ii is not None:
-            if _np.isfortran(ii)==False:
-                ii=_np.asfortranarray(ii)
-
-        ii = self.step
-        if ii is not None:
-            if _np.isfortran(ii)==False:
-                ii=_np.asfortranarray(ii)
 
         self.box_shape = box_shape_from_box_vectors(self.box)
 

@@ -40,9 +40,7 @@ def select_with_MDTraj(item, selection):
 
 def to_nglview(item, atom_indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Trajectory import to_nglview as mdtraj_to_nglview
-    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return _mdtraj_to_nglview(tmp_item)
+    raise NotImplementedError
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

@@ -34,7 +34,7 @@ def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
     from molsysmt.native.io.trajectory.classes import from_openexplorer_Explorer as molsysmt_Trajectory_from_openexplorer_Explorer
     return molsysmt_Trajectory_from_openexplorer_Explorer(item, atom_indices=atom_indices)
 
-def to_molsysmt_System(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.classes import from_openexplorer_Explorer as molsysmt_System_from_openexplorer_Explorer
     return molsysmt_System_from_openexplorer_Explorer(item, atom_indices=atom_indices)
@@ -46,7 +46,7 @@ def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
     from simtk.openmm.version import short_version
 
     tmp_io = StringIO()
-    positions = get_coordinates_from_system(item)
+    positions = get_coordinates_from_system(item)[0]
     PDBFile.writeFile(item.topology, positions, tmp_io, keepIds=True)
     filedata = tmp_io.getvalue()
     filedata = filedata.replace('WITH OPENMM '+short_version, 'WITH OPENMM '+short_version+' BY MOLSYSMT')
@@ -63,8 +63,8 @@ def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 def to_nglview(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview as molsysmt_MolSys_to_nglview
-
-    return molsysmt_MolSys_to_nglview(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return molsysmt_MolSys_to_nglview(item)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -314,12 +314,9 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
 def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
-    coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
-    box = get_box_from_system(item, frame_indices=frame_indices)
-    step = get_step_from_system(item, frame_indices=frame_indices)
-    time = get_time_from_system(item, frame_indices=frame_indices)
-
-    return step, time, coordinates, box
+    from molsysmt.forms.classes.api_openmm_Context import get_frame_from_atom as _get
+    tmp_item = to_openmm_Context(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 

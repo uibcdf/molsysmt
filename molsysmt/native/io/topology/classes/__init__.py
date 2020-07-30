@@ -7,4 +7,4 @@ from .openmm_Topology import from_openmm_Topology, to_openmm_Topology
 from .parmed_Structure import from_parmed_Structure
 from .openmm_Modeller import from_openmm_Modeller
 from .pdbfixer_PDBFixer import from_pdbfixer_PDBFixer, to_pdbfixer_PDBFixer
-from .openexplorer_Explorer import from_openexplorer_Explorer, to_openexplorer_Explorer
+from .openexplorer_Explorer import from_openexplorer_Explorer

@@ -12,12 +12,6 @@ info=["",""]
 with_topology=True
 with_trajectory=True
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
-
-    from .api_mdtraj_Trajectory import to_nglview as _mdtraj_to_nglview
-    tmp_item = to_mdtraj(item)
-    return _mdtraj_to_nglview(tmp_item)
-
 def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt import extract as _extract
@@ -120,6 +114,12 @@ def merge_two_items(item1, item2):
     #tmp_item = tmp_item.add(topology2, positions2)
 
     return tmp_item
+
+def to_nglview(item, atom_indices='all', frame_indices='all'):
+
+    from .api_molsysmt_MolSys import to_nglview as _molsysmt_MolSys_to_nglview
+    tmp_item = to_molsysmt_MolSys(item)
+    return _molsysmt_MolSys_to_nglview(tmp_item)
 
 ###### Get
 

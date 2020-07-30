@@ -1,7 +1,3 @@
-def to_openexplorer_Explorer(item, trajectory_item='all', atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def from_openexplorer_Explorer(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes.openmm_Topology import from_openmm_Topology

@@ -38,6 +38,7 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     coordinates = item.getState(getPositions=True).getPositions(asNumpy=True)
     units = coordinates.unit
+    coordinates=coordinates._value
     coordinates = coordinates.reshape([1, coordinates.shape[0], coordinates.shape[1]])
 
     if frame_indices is not 'all':
@@ -50,6 +51,14 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     return coordinates
 
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
+    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
+    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+
+    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 def get_form_from_atom(item, indices='all', frame_indices='all'):
 
@@ -67,6 +76,7 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
     coordinates = item.getState(getPositions=True).getPositions(asNumpy=True)
     units = coordinates.unit
+    coordinates = coordinates._value
     coordinates = coordinates.reshape([1, coordinates.shape[0], coordinates.shape[1]])
 
     if frame_indices is not 'all':
@@ -80,6 +90,7 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 
     box = item.getState().getPeriodicBoxVectors(asNumpy=True)
     units = box.unit
+    box = box._value
     box = box.reshape([1, box.shape[0], box.shape[1]])
 
     if frame_indices is not 'all':
@@ -114,7 +125,7 @@ def get_time_from_system(item, indices='all', frame_indices='all'):
 
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return None
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
