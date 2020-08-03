@@ -5,4 +5,6 @@ from .molsysmt_Topology import to_molsysmt_Topology
 from .openmm_Modeller import from_openmm_Modeller, to_openmm_Modeller
 from .openmm_Topology import to_openmm_Topology
 from .pdbfixer_PDBFixer import from_pdbfixer_PDBFixer, to_pdbfixer_PDBFixer
+from .openexplorer_Explorer import from_openexplorer_Explorer
+from .openexplorer_OpenExplorerReporter import from_openexplorer_OpenExplorerReporter
 
