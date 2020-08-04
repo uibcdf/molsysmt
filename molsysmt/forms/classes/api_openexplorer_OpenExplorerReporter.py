@@ -248,12 +248,6 @@ def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
     tmp_item = to_molsysmt_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_molsysmt_Topology import get_bonded_atoms_from_atom as _get
-    tmp_item = to_molsysmt_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_Topology import get_n_atoms_from_atom as _get
@@ -290,9 +284,33 @@ def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
     tmp_item = to_molsysmt_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
+def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import get_bonded_atoms_from_atom as _get
+    tmp_item = to_molsysmt_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_bonded_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import get_bonded_index_from_atom as _get
+    tmp_item = to_molsysmt_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
 def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_Topology import get_n_bonds_from_atom as _get
+    tmp_item = to_molsysmt_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import get_inner_bonded_atoms_from_atom as _get
+    tmp_item = to_molsysmt_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import get_n_inner_bonds_from_atom as _get
     tmp_item = to_molsysmt_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
@@ -1560,7 +1578,7 @@ def get_charge_from_system(item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
-    return get_coordinates_from_system(item, indices='all', frame_indices=frame_indices)
+    return get_coordinates_from_atom(item, indices='all', frame_indices=frame_indices)
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
@@ -1639,18 +1657,61 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     if frame_indices is 'all':
 
-        return 1
+        output=len(item.coordinates)
 
     else:
 
         output = frame_indices.shape[0]
-        if output>1:
-            raise ValueError('The molecular system has a single frame')
-        return output
+
+    return output
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+## bond
+
+def get_index_from_bond(item, indices='all', frame_indices='all'):
+
+    return get_bond_index_from_bond(item, indices=indices)
+
+def get_order_from_bond(item, indices='all', frame_indices='all'):
+
+    return get_bond_order_from_bond(item, indices=indices)
+
+def get_type_from_bond(item, indices='all', frame_indices='all'):
+
+    return get_bond_type_from_bond(item, indices=indices)
+
+def get_bond_index_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import get_bond_index_from_bond as _get
+    tmp_item = to_molsysmt_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import get_bond_order_from_bond as _get
+    tmp_item = to_molsysmt_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import get_bond_type_from_bond as _get
+    tmp_item = to_molsysmt_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import get_atom_index_from_bond as _get
+    tmp_item = to_molsysmt_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_n_bonds_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import get_n_bonds_from_bond as _get
+    tmp_item = to_molsysmt_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
 ##### Set
 

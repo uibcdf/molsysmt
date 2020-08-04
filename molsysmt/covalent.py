@@ -1,24 +1,24 @@
 import numpy as _np
 
-def covalent_dihedral_quartets(item, dihedral_angles=None, with_blocks=False, selection='all',
+def covalent_dihedral_quartets(item, dihedral_angle=None, with_blocks=False, selection='all',
                                syntaxis='MolSysMT'):
 
-    if dihedral_angles is not None:
-        if dihedral_angles=='phi':
+    if dihedral_angle is not None:
+        if dihedral_angle=='phi':
             chain=['C', 'N', 'CA', 'C']
-        elif dihedral_angles=='psi':
+        elif dihedral_angle=='psi':
             chain=['N', 'CA', 'C', 'N']
-        elif dihedral_angles=='omega':
+        elif dihedral_angle=='omega':
             chain=[['CA', 'CH3'], 'C', 'N', ['CA', 'CH3']]
-        elif dihedral_angles=='chi1':
+        elif dihedral_angle=='chi1':
             chain=['N','CA','CB', ['CG', 'CG1', 'OG', 'OG1', 'SG']] # flexible but PRO
-        elif dihedral_angles=='chi2':
+        elif dihedral_angle=='chi2':
             chain=['CA','CB', ['CG', 'CG1'], ['CD', 'CD1', 'SD', 'OD1', 'ND1']] # flexible but PRO
-        elif dihedral_angles=='chi3':
+        elif dihedral_angle=='chi3':
             chain=['CB', 'CG', ['CD', 'SD'], ['NE', 'OE1', 'CE']]
-        elif dihedral_angles=='chi4':
+        elif dihedral_angle=='chi4':
             chain=['CG', 'CD', ['NE', 'CE'], ['CZ', 'NZ']]
-        elif dihedral_angles=='chi5':
+        elif dihedral_angle=='chi5':
             chain=['CD', 'NE', 'CZ', 'NH1']
         else:
             raise ValueError

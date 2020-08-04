@@ -63,10 +63,10 @@ def get_dihedral_angles(item, quartets=None, frame_indices='all', pbc=False):
 def ramachandran_angles(item, selection='all', frame_indices='all', syntaxis='MolSysMT', pbc=False,
                         plot=False):
 
-    from .covalent import covalent_chains
+    from .covalent import covalent_dihedral_quartets
 
-    phi_covalent_chain = covalent_chains(item, chain='phi', selection=selection, syntaxis=syntaxis)
-    psi_covalent_chain = covalent_chains(item, chain='psi', selection=selection, syntaxis=syntaxis)
+    phi_covalent_chain = covalent_dihedral_quartets(item, dihedral_angle='phi', selection=selection, syntaxis=syntaxis)
+    psi_covalent_chain = covalent_dihedral_quartets(item, dihedral_angle='psi', selection=selection, syntaxis=syntaxis)
 
     n_chains = phi_covalent_chain.shape[0]
 

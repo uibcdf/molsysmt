@@ -1309,7 +1309,7 @@ def view(item=None, viewer='nglview', selection='all', frame_indices='all', synt
 
     atom_indices = select(tmp_item, selection=selection, syntaxis=syntaxis)
     frame_indices = _digest_frame_indices(tmp_item, frame_indices)
-
+    
     return _dict_converter[form_in][viewer](tmp_item, atom_indices=atom_indices,
             frame_indices=frame_indices)
 
