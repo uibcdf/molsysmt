@@ -4,7 +4,11 @@ forcefields = [
 
     'AMBER96',
     'AMBER99SB-ILDN',
+    'AMBER14',
+    'CHARMM36',
     'TIP3P',
+    'TIP3P_AMBER14',
+    'TIP3P_CHARMM36',
     'TIP4P',
     'TIP4P-EW',
     'TIP5P',
@@ -16,7 +20,11 @@ forcefields = [
 _openmm = {
 
     'AMBER99SB-ILDN' : 'amber99sbildn.xml',
-    'TIP3P' : 'tip3p.xml'
+    'AMBER14' : 'amber14-all.xml',
+    'CHARMM36' : 'charmm36.xml',
+    'TIP3P' : 'tip3p.xml',
+    'TIP3P_AMBER14' : 'amber14/tip3p.xml',
+    'TIP3P_CHARMM36' : 'charmm36/water.xml'
 }
 
 _leap = {
@@ -42,10 +50,11 @@ def digest(forcefields, engine):
     engine = _digest_engines(engine)
 
     if type(forcefields) in [list, tuple]:
+        print('si')
         forcefields_out=[]
         for ii in forcefields:
             forcefields_out.append(switcher[engine][ii])
         return forcefields_out
     else:
-        return switcher[engine][forcefields]
+        return [switcher[engine][forcefields]]  # The output must be a list
 

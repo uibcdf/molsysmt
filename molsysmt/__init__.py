@@ -11,7 +11,7 @@ from .distances import distance, minimum_distance, maximum_distance, contact_map
 from .centers import geometric_center, center_of_mass, center, recenter
 from .sequence import sequence_alignment, sequence_identity, structure_alignment
 from .radius_of_gyration import radius_of_gyration
-from .fix import fix_chains, fix_pdb_structure
+from .fix import fix_chains, fix
 from .model_loops import add_loop
 from .remove_atoms import remove_solvent, remove_hydrogens
 from .potential_energy import energy_minimization
@@ -21,8 +21,7 @@ from .protonation import add_missing_hydrogens
 from .terminals_capping import add_terminal_capping
 from .mutations import mutate
 from . import elements as elements
-from .chem_and_phys_properties import get_charge, get_net_charge, get_mass, get_net_mass,\
-                               get_degrees_of_freedom
+from .chem_and_phys_properties import get_mass, get_net_mass, get_degrees_of_freedom
 from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention,\
         box_shape_from_box_angles, box_shape_from_box_vectors, box_lengths_from_box_vectors, box_angles_from_box_vectors,\
         box_vectors_from_box_lengths_and_angles

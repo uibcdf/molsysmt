@@ -44,14 +44,14 @@ def fix_chains(item,chains=None):
                 item.atoms[atom_idx].residue.chain=chain_molecule
         pass
 
-def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,
-                      missing_terminals=True, missing_loops=False, missing_hydrogens=True,
-                      pH=7.4, to_form=None, engine_fix_pdb='PDBFixer', engine_hydrogens='PDBFixer',
-                      engine_loops='Modeller', verbose=False):
+def fix(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,
+        missing_terminals=True, missing_loops=False, missing_hydrogens=True,
+        pH=7.4, to_form=None, engine_fix='PDBFixer', engine_hydrogens='PDBFixer',
+        engine_loops='Modeller', verbose=False):
 
     """fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstandard_residues=True,
                       missing_terminals=True, missing_loops=False, missing_hydrogens=True,
-                      pH=7.4, to_form=None, engine_fix_pdb='PDBFixer', engine_hydrogens='PDBFixer',
+                      pH=7.4, to_form=None, engine_fix='PDBFixer', engine_hydrogens='PDBFixer',
                       engine_loops='Modeller', verbose=False):
 
     Fixing missing atoms, residues, terminals or loops in the molecular model coming from a pdb file.
@@ -101,17 +101,13 @@ def fix_pdb_structure(item, missing_atoms=True, missing_residues=True, nonstanda
     from .multitool import convert
 
     form_in, form_out = digest_forms(item, to_form)
-    engine_fix_pdb = digest_engines(engine_fix_pdb)
+    engine_fix = digest_engines(engine_fix)
     engine_hydrogens = digest_engines(engine_hydrogens)
     engine_loops = digest_engines(engine_loops)
 
     tmp_item = None
 
-    if form_in not in ['pdb','pdb:id','pdbfixer.PDBFixer']:
-
-        raise BadCallError(BadCallMessage)
-
-    if engine_fix_pdb=='PDBFixer':
+    if engine_fix=='PDBFixer':
 
         tmp_item = convert(item, to_form='pdbfixer.PDBFixer')
 

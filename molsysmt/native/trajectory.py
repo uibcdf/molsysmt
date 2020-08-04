@@ -84,7 +84,7 @@ class Trajectory():
 
         step, time, coordinates, box = self.file.read_frames(atom_indices=atom_indices, frame_indices=frame_indices)
 
-        self._set_frames(atom_indices, step, time, coordinates, box)
+        self.set_frames(atom_indices, step, time, coordinates, box)
 
         del(coordinates, time, step, box)
 
