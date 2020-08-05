@@ -408,7 +408,7 @@ def get_atom_index_from_group (item, indices='all', frame_indices='all'):
     for ii in indices:
         mask = (item.atoms_dataframe['group_index']==ii)
         output.append(item.atoms_dataframe['atom_index'][mask].to_numpy())
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_atom_id_from_group (item, indices='all', frame_indices='all'):

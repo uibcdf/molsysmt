@@ -50,7 +50,6 @@ def digest(forcefields, engine):
     engine = _digest_engines(engine)
 
     if type(forcefields) in [list, tuple]:
-        print('si')
         forcefields_out=[]
         for ii in forcefields:
             forcefields_out.append(switcher[engine][ii])

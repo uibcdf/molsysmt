@@ -46,35 +46,39 @@ def show_water_as_licorice(view, atom_indices='all', frame_indices='all'):
 
     pass
 
-def show_colored_surface_by_scalar_residue_values(view, values, selection='all',
-                                                  color_min=[255,255,255], color_center=None,
-                                                  color_max=[255,0,0], value_min=None,
-                                                  value_center=None,
-                                                  value_max=None):
+def show_colored_surface_by_scalar_residue_values(view, values, selection='all', cmap=None, vmin=None, vmax=None):
 
     from nglview.color import _ColorScheme
-    from molsysmt.utils.color import colorscale2hex
     from molsysmt import select
+    from matplotlib.colors import Normalize, to_hex
 
     groups_selection = select(view, target='group', selection=selection, to_syntaxis='NGLview')
 
-    colors = colorscale2hex(values, color_min=color_min, color_max=color_max, value_min=value_min, value_max=value_max)
-    scheme = _ColorScheme([['#'+ii[2:], jj] for ii,jj in zip(colors, groups_selection.split(' '))], label='user')
+    if vmin is None:
+        vmin = min(values)
+    if vmax is None:
+        vmax = max(values)
+
+    norm = Normalize(vmin=vmin,vmax=vmax)
+    scheme = _ColorScheme([[to_hex(cmap(norm(ii))), jj] for ii,jj in zip(values, groups_selection.split(' '))], label='user')
     view.add_surface(selection='protein', color=scheme)
 
     pass
 
-def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all', cmap=None,
-                                                  value_min=None, value_max=None):
+def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all', cmap=None, vmin=None, vmax=None):
 
     from nglview.color import _ColorScheme
-    from molsysmt.utils.color import colorscale2hex
     from molsysmt import select
 
     groups_selection = select(view, target='group', selection=selection, to_syntaxis='NGLview')
 
-    colors = colorscale2hex(values, color_min=color_min, color_max=color_max, value_min=value_min, value_max=value_max)
-    scheme = _ColorScheme([['#'+ii[2:], jj] for ii,jj in zip(colors, groups_selection.split(' '))], label='user')
+    if vmin is None:
+        vmin = min(values)
+    if vmax is None:
+        vmax = max(values)
+
+    norm = Normalize(vmin=vmin,vmax=vmax)
+    scheme = _ColorScheme([[to_hex(cmap(norm(ii))), jj] for ii,jj in zip(values, groups_selection.split(' '))], label='user')
     view.add_cartoon(selection='protein', color=scheme)
 
     # It can also be done as:
