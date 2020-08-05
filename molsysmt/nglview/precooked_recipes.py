@@ -46,8 +46,10 @@ def show_water_as_licorice(view, atom_indices='all', frame_indices='all'):
 
     pass
 
-def show_colored_surface_by_scalar_residue_values(view, values, selection='all', color_min=[255,255,255],
+def show_colored_surface_by_scalar_residue_values(view, values, selection='all',
+                                                  color_min=[255,255,255], color_center=None,
                                                   color_max=[255,0,0], value_min=None,
+                                                  value_center=None,
                                                   value_max=None):
 
     from nglview.color import _ColorScheme
@@ -62,9 +64,8 @@ def show_colored_surface_by_scalar_residue_values(view, values, selection='all',
 
     pass
 
-def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all', color_min=[255,255,255],
-                                                  color_max=[255,0,0], value_min=None,
-                                                  value_max=None):
+def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all', cmap=None,
+                                                  value_min=None, value_max=None):
 
     from nglview.color import _ColorScheme
     from molsysmt.utils.color import colorscale2hex
