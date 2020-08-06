@@ -46,11 +46,6 @@ def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_i
     from molsysmt.native.io.topology.files import from_h5 as _from_h5
     return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molsysmt_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.dataframe.files import from_h5 as _from_h5
-    return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
-
 def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_h5 as _from_h5
@@ -77,6 +72,11 @@ def copy(item, output_filepath=None):
     er=copyfile(item, output_filepath)
     pass
 
+def to_nglview(item, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview as convert
+    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return convert(tmp_item)
 
 #### Get
 
