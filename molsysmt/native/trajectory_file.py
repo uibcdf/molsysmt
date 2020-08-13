@@ -47,6 +47,6 @@ class TrajectoryFile():
 
     def copy(self):
 
-        tmp_item = TrajectoryFile(filepath=self.path, mode='read')
+        tmp_item = TrajectoryFile()
         return tmp_item
 

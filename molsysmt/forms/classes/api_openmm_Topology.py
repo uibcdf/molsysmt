@@ -376,7 +376,7 @@ def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices=='all':
+    if indices is 'all':
         return get_n_atoms_from_system(item)
     else:
         return indices.shape[0]
