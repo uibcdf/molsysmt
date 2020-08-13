@@ -9,7 +9,6 @@
 import os
 import sys
 import sphinx_rtd_theme
-from recommonmark.parser import CommonMarkParser
 
 # -- Path setup --------------------------------------------------------------
 
@@ -30,8 +29,8 @@ print(sys.path)
 # -- Project information -----------------------------------------------------
 
 project = 'MolSysMT'
-copyright = '2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
-author = 'UIBCDF Lab'
+copyright = '2020, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
+author = 'Liliana M. Moreno Vargas & Diego Prada Gracia'
 
 # The short X.Y version
 version = ''
