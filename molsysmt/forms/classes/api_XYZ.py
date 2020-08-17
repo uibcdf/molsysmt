@@ -1,5 +1,6 @@
 from os.path import basename as _basename
 from simtk.unit.quantity import Quantity
+import numpy as np
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -14,6 +15,9 @@ def item_in_good_shape(item):
 
     tmp_item = item
 
+    if type(item._value)==list:
+        tmp_item = np.array(tmp_item._value)*tmp_item.unit
+
     if len(tmp_item.shape)==2:
         from numpy import expand_dims
         tmp_item = expand_dims(tmp_item, axis=0)*item.unit
@@ -26,6 +30,9 @@ def this_Quantity_has_XYZ_shape(item):
     # admitted
 
     has_right_shape = False
+
+    if type(item._value)==list:
+        item = np.array(item._value)*item.unit
 
     shape = item.shape
 

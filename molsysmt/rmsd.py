@@ -182,3 +182,9 @@ def least_rmsd_fit (item=None, selection='backbone', frame_indices='all',
 
         raise NotImplementedError
 
+def angular_rmsd (item=None, selection='backbone', frame_indices='all',
+          reference_item=None, reference_selection=None, reference_frame_index=0,
+          reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
+
+    raise NotImplementedError
+
