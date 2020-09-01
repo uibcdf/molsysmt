@@ -68,6 +68,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/Terminal_capping.ipynb
    contents/Model_loop.ipynb
    contents/Energy_minimization.ipynb
+   contents/Constraints_and_restraints.ipynb
 
 .. toctree::
    :name: structural_observables
@@ -91,6 +92,17 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/Covalent_chains.ipynb
    contents/Alignment.ipynb
    contents/Mutations.ipynb
+
+.. toctree::
+   :name: physchem_admet_observables
+   :caption: PhysChem and ADMET tools
+   :maxdepth: 1
+
+   contents/Mass.ipynb
+   contents/Volume_and_radii.ipynb
+   contents/Charge.ipynb
+   contents/Polarity.ipynb
+   contests/Transmembrane_tendency.ipynb
 
 .. toctree::
    :caption: API Documentation

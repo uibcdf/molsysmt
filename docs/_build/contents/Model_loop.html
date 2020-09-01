@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,19 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -33,11 +39,6 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Energy minimization" href="Energy_minimization.html" />
@@ -55,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> MolSysMT
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> MolSysMT
           
 
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -112,7 +114,30 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Elements.html">Molecular system elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Elements.html#elements">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#atom">Atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#group">Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#component">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#molecule">Molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#chains">Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#entities">Entities</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="MolSys.html">The MolSys form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MolSys.html#topology">Topology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#elements">Elements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#atom">Atom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#component">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#molecule">Molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#chains">Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#entities">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MolSys.html#trajectory">Trajectory</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Basic tools</span></p>
 <ul>
@@ -243,9 +268,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Rg.html">Radius of gyration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Getting dihedral angles</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Dihedral angles</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-any-dihedral-angle">How to get any dihedral angle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-the-Ramachandran-angles">How to get the Ramachandran angles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-change-the-dihedral-angles-of-a-molecular-system">How to change the dihedral angles of a molecular system</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="SASA.html">Solvent Accessible Surface Area</a></li>
@@ -253,9 +279,56 @@
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Bondgraph.html">Bondgraph</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Covalent_chains.html">How to get the covalent chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Covalent_chains.html">Covalent chains and blocks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Covalent_chains.html#How-to-get-covalent-chains">How to get covalent chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Covalent_chains.html#How-to-get-the-atoms-quartets-defining-the-dihedral-angles">How to get the atoms quartets defining the dihedral angles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\phi-(phi)"><span class="math notranslate nohighlight">\(\phi\)</span> (<code class="docutils literal notranslate"><span class="pre">phi</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\psi-(psi)"><span class="math notranslate nohighlight">\(\psi\)</span> (<code class="docutils literal notranslate"><span class="pre">psi</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\omega-(omega)"><span class="math notranslate nohighlight">\(\omega\)</span> (<code class="docutils literal notranslate"><span class="pre">omega</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{1}-(chi1)"><span class="math notranslate nohighlight">\(\chi_{1}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi1</span></code>)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Covalent_chains.html#\chi_{2}-(chi2)"><span class="math notranslate nohighlight">\(\chi_{2}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi2</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{3}-(chi3)"><span class="math notranslate nohighlight">\(\chi_{3}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi3</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{4}-(chi4)"><span class="math notranslate nohighlight">\(\chi_{4}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi4</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{5}-(chi5)"><span class="math notranslate nohighlight">\(\chi_{5}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi5</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Covalent_chains.html#How-to-get-covalent-blocks">How to get covalent blocks</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Alignment.html">Sequence alignment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Mutations.html">Mutations</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PhysChem and ADMET tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Mass.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mass.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mass.html#Mass">Mass</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Volume_and_radii.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Volume_and_radii.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Volume_and_radii.html#Mass">Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Volume_and_radii.html#Radii">Radii</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Charge.html">Charge of a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Charge.html#Charge-of-a-molecular-system-given-by-a-forcefield">Charge of a molecular system given by a forcefield</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Polarity.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Polarity.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Polarity.html#Mass">Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Polarity.html#Radii">Radii</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -269,6 +342,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -307,7 +381,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Modeling loops</li>
     
@@ -616,11 +690,19 @@ div.rendered_html tbody tr:hover {
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+        
+        &copy; Copyright 2020, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -631,7 +713,6 @@ div.rendered_html tbody tr:hover {
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

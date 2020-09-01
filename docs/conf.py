@@ -58,7 +58,10 @@ extensions = [
     'numpydoc',
     'sphinx.ext.githubpages',
     'sphinxcontrib.bibtex',
-    'nbsphinx'
+    'nbsphinx',
+    'recommonmark',
+    'sphinx_markdown_tables'
+
 ]
 
 autosummary_generate = True
@@ -72,10 +75,12 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 
 source_parsers={
-  '.md': CommonMarkParser
 }
 
-source_suffix = ['.rst', '.md']
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown'
+}
 
 # The master toctree document.
 master_doc = 'index'

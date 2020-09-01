@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>List of useful systems to be checked &mdash; MolSysMT 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> MolSysMT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation and Quick Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quick Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Converting-molecular-systems-and-trajectories">Converting molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Working-with-id-codes">Working with id codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Working-with-sequences">Working with sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Writting-molecular-systems-or-trajectories-as-files">Writting molecular systems or trajectories as files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Atoms-selection">Atoms selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Viewing-molecular-systems-and-trajectories">Viewing molecular systems and trajectories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Molecular-systems-as-MolSysMT’s-forms">Molecular systems as MolSysMT’s forms</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Forms and elements</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Forms.html">Molecular systems forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Files">Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Ids">Ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Sequences">Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forms.html#Viewers">Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Elements.html">Molecular system elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Elements.html#elements">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#atom">Atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#group">Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#component">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#molecule">Molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#chains">Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#entities">Entities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MolSys.html">The MolSys form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MolSys.html#topology">Topology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#elements">Elements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#atom">Atom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MolSys.html#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#component">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#molecule">Molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#chains">Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#entities">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MolSys.html#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MolSys.html#trajectory">Trajectory</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Basic tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Convert.html">How to convert a form into other form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-convert-just-a-selection">How to convert just a selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-combine-multiple-forms-into-one">How to combine multiple forms into one</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-convert-a-form-into-multiple-ones-at-once">How to convert a form into multiple ones at once</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-files">Some examples with files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-IDs">Some examples with IDs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-other-elements-attributes">Including other elements attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-external-variables">Including external variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-mask-filters">Including mask filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Selection-of-other-elements">Selection of other elements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Syntaxis-translation">Syntaxis translation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Output-syntaxis-supported">Output syntaxis supported</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Using-your-favourite-selection-syntaxis">Using your favourite selection syntaxis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Get.html">How to get attributes from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples involving atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-systems">Some other examples involving systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-bonds">Some other examples involving bonds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Info.html">Printing out a summary information of a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Info.html#As-a-DataFrame">As a DataFrame</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#Summary-information-on-atoms">Summary information on atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#Summary-information-on-groups">Summary information on groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#Summary-information-on-components">Summary information on components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#Summary-information-on-chains">Summary information on chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#Summary-information-on-molecules">Summary information on molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#Summary-information-on-entities">Summary information on entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#Summary-information-on-a-molecular-system">Summary information on a molecular system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Info.html#As-a-string">As a string</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#id1">Summary information on atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#id2">Summary information on groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#id3">Summary information on components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#id4">Summary information on chains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#id5">Summary information on molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Info.html#id6">Summary information on entities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Copy.html">Copying a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extract.html">Extracting a molecular subsystem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Extract.html#How-to-extract-a-molecular-subsystem">How to extract a molecular subsystem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Remove.html">Removing atoms and frames from a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-frames">Removing frames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-atoms">Removing atoms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-hydrogen-atoms">Removing hydrogen atoms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-the-solvent">Removing the solvent</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Building tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Fix.html">Fixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Solvation.html">Adding solvent</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Solvation.html#Octahedral">Octahedral</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Build_peptide.html">Building a peptide from its sequence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-implicit-solvent">Alanine dipeptide in implicit solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-explicit-solvent">Alanine dipeptide in explicit solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-pentapeptide-in-implicit-solvent">Alanine pentapeptide in implicit solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-pentapeptide-in-explicit-solvent">Alanine pentapeptide in explicit solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Met-enkephalin-in-implicit-solvent">Met-enkephalin in implicit solvent</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Terminal_capping.html">Terminal capping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Structural tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Distances.html">Getting distances, neighbor lists and contact maps.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#The-XYZ-molecular-system-form">The XYZ molecular system form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#Distance-between-atoms-in-space">Distance between atoms in space</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atoms-of-a-system">Distance between atoms of a system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atoms-of-two-systems">Distance between atoms of two systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distances-between-atoms-positions-in-different-frames">Distances between atoms positions in different frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Displacement-distances-of-atoms">Displacement distances of atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atoms-pairs">Distance between atoms pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Minimum-and-Maximum-distance">Minimum and Maximum distance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#Distance-between-atom-groups-in-space">Distance between atom groups in space</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atom-groups-of-a-system">Distance between atom groups of a system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atom-groups-of-two-systems">Distance between atom groups of two systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distances-between-atom-groups-positions-in-different-frames">Distances between atom groups positions in different frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Displacement-distances-of-atom-groups">Displacement distances of atom groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atom-groups-pairs">Distance between atom groups pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Minimum-and-Maximum-distance-of-atom-groups">Minimum and Maximum distance of atom groups</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#Neighbor-lists">Neighbor lists</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#First-closest-neighbor-atoms-or-groups">First closest neighbor atoms or groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Distances.html#Closest-neighbor-atoms-or-groups-below-a-distance-threshold">Closest neighbor atoms or groups below a distance threshold</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Distances.html#Contact-maps">Contact maps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PBC.html">Periodic Boundary Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Centers.html">Getting the center and recentering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RMSD.html">RMSD, Least RMSD and Least RMSD fit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="RMSD.html#RMSD">RMSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMSD.html#Least-RMSD">Least RMSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMSD.html#Least-RMSD-fit">Least RMSD fit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Rg.html">Radius of gyration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Dihedral angles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-any-dihedral-angle">How to get any dihedral angle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-the-Ramachandran-angles">How to get the Ramachandran angles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-change-the-dihedral-angles-of-a-molecular-system">How to change the dihedral angles of a molecular system</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="SASA.html">Solvent Accessible Surface Area</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Topological tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Bondgraph.html">Bondgraph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Covalent_chains.html">Covalent chains and blocks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Covalent_chains.html#How-to-get-covalent-chains">How to get covalent chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Covalent_chains.html#How-to-get-the-atoms-quartets-defining-the-dihedral-angles">How to get the atoms quartets defining the dihedral angles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\phi-(phi)"><span class="math notranslate nohighlight">\(\phi\)</span> (<code class="docutils literal notranslate"><span class="pre">phi</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\psi-(psi)"><span class="math notranslate nohighlight">\(\psi\)</span> (<code class="docutils literal notranslate"><span class="pre">psi</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\omega-(omega)"><span class="math notranslate nohighlight">\(\omega\)</span> (<code class="docutils literal notranslate"><span class="pre">omega</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{1}-(chi1)"><span class="math notranslate nohighlight">\(\chi_{1}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi1</span></code>)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Covalent_chains.html#\chi_{2}-(chi2)"><span class="math notranslate nohighlight">\(\chi_{2}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi2</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{3}-(chi3)"><span class="math notranslate nohighlight">\(\chi_{3}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi3</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{4}-(chi4)"><span class="math notranslate nohighlight">\(\chi_{4}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi4</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{5}-(chi5)"><span class="math notranslate nohighlight">\(\chi_{5}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi5</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Covalent_chains.html#How-to-get-covalent-blocks">How to get covalent blocks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Alignment.html">Sequence alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mutations.html">Mutations</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PhysChem and ADMET tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Mass.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mass.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mass.html#Mass">Mass</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Volume_and_radii.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Volume_and_radii.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Volume_and_radii.html#Mass">Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Volume_and_radii.html#Radii">Radii</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Charge.html">Charge of a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Charge.html#Charge-of-a-molecular-system-given-by-a-forcefield">Charge of a molecular system given by a forcefield</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Polarity.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Polarity.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Polarity.html#Mass">Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Polarity.html#Radii">Radii</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Basic manipulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index_elements.html">Elements</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MolSysMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>List of useful systems to be checked</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/contents/Systems_to_be_checked.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="List-of-useful-systems-to-be-checked">
+<h1>List of useful systems to be checked<a class="headerlink" href="#List-of-useful-systems-to-be-checked" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="1XDA">
+<h2>1XDA<a class="headerlink" href="#1XDA" title="Permalink to this headline">¶</a></h2>
+<p>Insulina, tiene más de un bioassembly y el output de MolSys es muy problemático. NGL view selecciona un solo dimero y MDTraj da cuatro dímeros. Cómo y por qué?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

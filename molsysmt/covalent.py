@@ -20,6 +20,26 @@ def covalent_dihedral_quartets(item, dihedral_angle=None, with_blocks=False, sel
             chain=['CG', 'CD', ['NE', 'CE'], ['CZ', 'NZ']]
         elif dihedral_angle=='chi5':
             chain=['CD', 'NE', 'CZ', 'NH1']
+        elif dihedral_angle=='all':
+            tmp_phi = covalent_dihedral_quartets(item, dihedral_angle='phi', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            tmp_psi = covalent_dihedral_quartets(item, dihedral_angle='psi', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            tmp_omega = covalent_dihedral_quartets(item, dihedral_angle='omega', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            tmp_chi1 = covalent_dihedral_quartets(item, dihedral_angle='chi1', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            tmp_chi2 = covalent_dihedral_quartets(item, dihedral_angle='chi2', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            tmp_chi3 = covalent_dihedral_quartets(item, dihedral_angle='chi3', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            tmp_chi4 = covalent_dihedral_quartets(item, dihedral_angle='chi4', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            tmp_chi5 = covalent_dihedral_quartets(item, dihedral_angle='chi5', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            if not with_blocks:
+                tmp_angs = [ii for ii in [tmp_phi, tmp_psi, tmp_omega, tmp_chi1, tmp_chi2, tmp_chi3, tmp_chi3, tmp_chi4, tmp_chi5] if ii.shape[0]>0]
+                tmp_angs = _np.vstack(tmp_angs)
+                return tmp_angs
+            else:
+                tmp_angs = [ii for ii in [tmp_phi[0], tmp_psi[0], tmp_omega[0], tmp_chi1[0],
+                                          tmp_chi2[0], tmp_chi3[0], tmp_chi3[0], tmp_chi4[0],
+                                          tmp_chi5[0]] if ii.shape[0]>0]
+                tmp_angs = _np.vstack(tmp_angs)
+                tmp_blocks = tmp_phi[1]+tmp_psi[1]+tmp_omega[1]+tmp_chi1[1]+tmp_chi2[1]+tmp_chi3[1]+tmp_chi3[1]+tmp_chi4[1]+tmp_chi5[1]
+                return tmp_angs, tmp_blocks
         else:
             raise ValueError
 
@@ -29,15 +49,21 @@ def covalent_dihedral_quartets(item, dihedral_angle=None, with_blocks=False, sel
 
         from molsysmt import get
 
-        n_atoms = get(item, target='system', n_atoms=True)
         n_quartets = quartets.shape[0]
 
-        blocks = _np.zeros([n_quartets, n_atoms], dtype=int)
+        blocks = []
 
         for quartet_index in range(n_quartets):
 
             quartet = quartets[quartet_index]
-            blocks[quartet_index,:] = covalent_blocks(item, remove_bonds=[quartet[1], quartet[2]], output_form='array')
+            component_index = get(item, target='atom', indices=quartet[1], component_index=True)[0]
+            component_atom_indices = get(item, target='component', indices=component_index, atom_index=True)[0]
+            tmp_blocks = covalent_blocks(item, remove_bonds=[quartet[1], quartet[2]], output_form='sets')
+            blocks_in_component = []
+            for block in tmp_blocks:
+                if block.issubset(component_atom_indices):
+                    blocks_in_component.append(block)
+            blocks.append(blocks_in_component)
 
         return quartets, blocks
 

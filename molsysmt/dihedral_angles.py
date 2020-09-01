@@ -3,12 +3,20 @@ from .utils.forms import digest as _digest_forms
 import numpy as _np
 from .lib import geometry as _libgeometry
 
-def get_dihedral_angles(item, quartets=None, frame_indices='all', pbc=False):
+def get_dihedral_angles(item, dihedral_angle=None, selection='all', quartets=None,
+                        frame_indices='all', syntaxis='MolSysMT', pbc=False):
 
     from molsysmt import get
     from molsysmt.utils import units as msm_units
 
-    if type(quartets) in [list,tuple]:
+    if quartets is None:
+
+        from molsysmt import covalent_dihedral_quartets
+
+        quartets = covalent_dihedral_quartets(item, dihedral_angle=dihedral_angle,
+                                              selection=selection, syntaxis=syntaxis)
+
+    elif type(quartets) in [list,tuple]:
         quartets = _np.array(quartets, dtype=int)
     elif type(quartets) is _np.ndarray:
         pass

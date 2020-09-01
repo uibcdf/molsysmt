@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,19 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -33,11 +39,6 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="How to convert a form into other form" href="Convert.html" />
@@ -55,7 +56,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> MolSysMT
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> MolSysMT
           
 
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -112,7 +114,30 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Elements.html">Molecular system elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Elements.html#elements">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#atom">Atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#group">Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#component">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#molecule">Molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#chains">Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Elements.html#entities">Entities</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">The MolSys form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#topology">Topology</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#elements">Elements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#atom">Atom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#group">Group</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#component">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#molecule">Molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#chains">Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#entities">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bioassemblies">Bioassemblies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#trajectory">Trajectory</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Basic tools</span></p>
 <ul>
@@ -243,9 +268,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Rg.html">Radius of gyration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Getting dihedral angles</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Dihedral_angles.html">Dihedral angles</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-any-dihedral-angle">How to get any dihedral angle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-get-the-Ramachandran-angles">How to get the Ramachandran angles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dihedral_angles.html#How-to-change-the-dihedral-angles-of-a-molecular-system">How to change the dihedral angles of a molecular system</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="SASA.html">Solvent Accessible Surface Area</a></li>
@@ -253,9 +279,56 @@
 <p class="caption"><span class="caption-text">Topological tools</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Bondgraph.html">Bondgraph</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Covalent_chains.html">How to get the covalent chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Covalent_chains.html">Covalent chains and blocks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Covalent_chains.html#How-to-get-covalent-chains">How to get covalent chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Covalent_chains.html#How-to-get-the-atoms-quartets-defining-the-dihedral-angles">How to get the atoms quartets defining the dihedral angles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\phi-(phi)"><span class="math notranslate nohighlight">\(\phi\)</span> (<code class="docutils literal notranslate"><span class="pre">phi</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\psi-(psi)"><span class="math notranslate nohighlight">\(\psi\)</span> (<code class="docutils literal notranslate"><span class="pre">psi</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\omega-(omega)"><span class="math notranslate nohighlight">\(\omega\)</span> (<code class="docutils literal notranslate"><span class="pre">omega</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{1}-(chi1)"><span class="math notranslate nohighlight">\(\chi_{1}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi1</span></code>)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Covalent_chains.html#\chi_{2}-(chi2)"><span class="math notranslate nohighlight">\(\chi_{2}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi2</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{3}-(chi3)"><span class="math notranslate nohighlight">\(\chi_{3}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi3</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{4}-(chi4)"><span class="math notranslate nohighlight">\(\chi_{4}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi4</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Covalent_chains.html#\chi_{5}-(chi5)"><span class="math notranslate nohighlight">\(\chi_{5}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi5</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Covalent_chains.html#How-to-get-covalent-blocks">How to get covalent blocks</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Alignment.html">Sequence alignment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Mutations.html">Mutations</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PhysChem and ADMET tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Mass.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Mass.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Mass.html#Mass">Mass</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Volume_and_radii.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Volume_and_radii.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Volume_and_radii.html#Mass">Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Volume_and_radii.html#Radii">Radii</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Charge.html">Charge of a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Charge.html#Charge-of-a-molecular-system-given-by-a-forcefield">Charge of a molecular system given by a forcefield</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Polarity.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Polarity.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Polarity.html#Mass">Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Polarity.html#Radii">Radii</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -269,6 +342,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -307,7 +381,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>The MolSys form</li>
     
@@ -354,57 +428,73 @@
 </style>
 <div class="section" id="the-molsys-form">
 <h1>The MolSys form<a class="headerlink" href="#the-molsys-form" title="Permalink to this headline">¶</a></h1>
-<p>## Topology</p>
-<p>### Elements</p>
+</div>
+<div class="section" id="topology">
+<h1>Topology<a class="headerlink" href="#topology" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="elements">
+<h2>Elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h2>
 <p>The fundamental elements are atoms, groups, components, molecules, entities and bioassemblies. They act as
 building blocks of superior elements, defining this way hierarchical organization levels of a
 molecular model. A bioassembly is composed by entities with one or more molecules. A molecule is composed by
 components, a component by groups, and finnaly a by atoms.</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a>`
-atom —&gt; group —&gt; component —&gt; molecule —&gt; entities —&gt; bioassembly</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line">^</div>
-<div class="line"><a href="#id3"><span class="problematic" id="id4">|</span></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">atom</span> <span class="o">---&gt;</span> <span class="n">group</span> <span class="o">---&gt;</span> <span class="n">component</span> <span class="o">---&gt;</span> <span class="n">molecule</span> <span class="o">---&gt;</span> <span class="n">entities</span> <span class="o">---&gt;</span> <span class="n">bioassembly</span>
+                         <span class="o">|</span>                           <span class="o">^</span>
+                         <span class="o">|</span>                           <span class="o">|</span>
+                         <span class="o">---------&gt;</span> <span class="n">chain</span> <span class="o">------------</span>
+</pre></div>
 </div>
-<p>———&gt; chain ————</p>
-</div></blockquote>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
-<p>#### Atom</p>
+<div class="section" id="atom">
+<h3>Atom<a class="headerlink" href="#atom" title="Permalink to this headline">¶</a></h3>
 <p>Atoms are the indivisible element of a classical molecular model.</p>
 <p>Refer api</p>
-<p>#### Group</p>
+</div>
+<div class="section" id="group">
+<h3>Group<a class="headerlink" href="#group" title="Permalink to this headline">¶</a></h3>
 <p>Sets of atoms are sometimes defined as building block elements of more complex structures. This is
 the case of aminoacids and nucleotides. This is then the immediately superior hierarchical level
 over “atoms”.</p>
-<p>Refer api <code class="xref py py-class docutils literal notranslate"><span class="pre">molsysmt.native.elements.atom</span></code></p>
-<p>### Component</p>
+<p>Refer api :class:<code class="docutils literal notranslate"><span class="pre">molsysmt.native.elements.atom</span></code></p>
+</div>
+</div>
+<div class="section" id="component">
+<h2>Component<a class="headerlink" href="#component" title="Permalink to this headline">¶</a></h2>
 <p>Components are composed by one or many groups, and thereby by one or many atoms.
 Components are uniquely defined as the set of atoms, and groups, covalently bonded.
 The name “component” is taken from graph or network theory where the “components” of a graph or a
 network are the connected set of nodes (any node of a component is connected by at least a path of edges to any
 other node of the same component).
 Thereby, a polymer made by nucleotides or aminoacids is a component, no matter is a fragment of a protein or one of the strands of a DNA fragment. And in coherence with this definition, an ion, a water molecule or a small molecules are also components.</p>
-<p>### Molecule</p>
+</div>
+<div class="section" id="molecule">
+<h2>Molecule<a class="headerlink" href="#molecule" title="Permalink to this headline">¶</a></h2>
 <p>A molecule is composed by one or many components. A protein quaternary structure is composed by more than a polymer of
 aminoacids, more than a component. In the same way a fragment of DNA is composed by two nucleotides
 strands (components). While a peptide or a single folded protein are made by a single component.
 And in coherence with this definition, an ion or a water molecule are perse a molecules composed by
 single components.</p>
-<p>### Chains</p>
+</div>
+<div class="section" id="chains">
+<h2>Chains<a class="headerlink" href="#chains" title="Permalink to this headline">¶</a></h2>
 <p>Chains are ambiguously defined. Chain, as thy can be found in the protein data bank, are sets of components for sure. But it can not be
 said that chains are composed always by molecules or that molecules are composed always by chains.
 A set of molecules can sometimes define a chain (e.g.: crystal waters), or a molecule can be made up by more than a chain (e.g.: protein complex).</p>
-<p>### Entities</p>
+</div>
+<div class="section" id="entities">
+<h2>Entities<a class="headerlink" href="#entities" title="Permalink to this headline">¶</a></h2>
 <p>Entities are set of molecules defined by the same molecular nature. Water is an entity made by all
 water molecules in the bioassembly, e.g. Or Urea can be another entity present in the molecular
 model, or “Epstein Barr Nuclear Antigen 1” or “Trypanosoma Cruzi Triosephosphate Isomerase”, no
 matter the number of molecules of each nature can be found in the molecular model.</p>
-<p>### Bioassemblies</p>
+</div>
+<div class="section" id="bioassemblies">
+<h2>Bioassemblies<a class="headerlink" href="#bioassemblies" title="Permalink to this headline">¶</a></h2>
 <p>The last hierarchical level are bioassemblies. A bioassembly is the arrangement or the assembly of
 all other elements. Per se a bioassembly can be a molecular model. But to be precise a molecular
 model can be made by differenc bioassembly (see protein data bank).</p>
-<p>## Trajectory</p>
+</div>
+</div>
+<div class="section" id="trajectory">
+<h1>Trajectory<a class="headerlink" href="#trajectory" title="Permalink to this headline">¶</a></h1>
 <p>Bla bla</p>
 </div>
 
@@ -428,11 +518,19 @@ model can be made by differenc bioassembly (see protein data bank).</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+        
+        &copy; Copyright 2020, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -443,7 +541,6 @@ model can be made by differenc bioassembly (see protein data bank).</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
