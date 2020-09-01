@@ -38,7 +38,10 @@ def covalent_dihedral_quartets(item, dihedral_angle=None, with_blocks=False, sel
                                           tmp_chi2[0], tmp_chi3[0], tmp_chi3[0], tmp_chi4[0],
                                           tmp_chi5[0]] if ii.shape[0]>0]
                 tmp_angs = _np.vstack(tmp_angs)
-                tmp_blocks = tmp_phi[1]+tmp_psi[1]+tmp_omega[1]+tmp_chi1[1]+tmp_chi2[1]+tmp_chi3[1]+tmp_chi3[1]+tmp_chi4[1]+tmp_chi5[1]
+                tmp_blocks = [ii for ii in [tmp_phi[1], tmp_psi[1], tmp_omega[1], tmp_chi1[1],
+                                          tmp_chi2[1], tmp_chi3[1], tmp_chi3[1], tmp_chi4[1],
+                                          tmp_chi5[1]] if ii.shape[0]>0]
+                tmp_blocks = _np.vstack(tmp_blocks)
                 return tmp_angs, tmp_blocks
         else:
             raise ValueError
@@ -65,7 +68,7 @@ def covalent_dihedral_quartets(item, dihedral_angle=None, with_blocks=False, sel
                     blocks_in_component.append(block)
             blocks.append(blocks_in_component)
 
-        return quartets, blocks
+        return quartets, _np.array(blocks)
 
     else:
 
@@ -163,5 +166,5 @@ def covalent_blocks(item, remove_bonds=None, output_form='sets'):
 
         raise ValueError('Input argument "output" must be "sets" or "array"')
 
-    return blocks
+    return _np.array(blocks)
 

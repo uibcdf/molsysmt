@@ -264,21 +264,30 @@ CONTAINS
 
   END SUBROUTINE DIHEDRAL_ANGLES
 
-  SUBROUTINE SET_DIHEDRAL_ANGLES (coors, box, ortho, pbc_opt, quartets, angs, blocks, n_angs, n_atoms, n_frames)
+  SUBROUTINE SET_DIHEDRAL_ANGLES (coors, box, ortho, pbc_opt, quartets, angs, blocks, atoms_per_block, n_angs, n_atoms, &
+      n_frames, blocks_size)
 
-    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, pbc_opt, n_frames
+    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, pbc_opt, n_frames, blocks_size
     INTEGER,DIMENSION(n_angs,4),INTENT(IN)::quartets
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
     DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
     DOUBLE PRECISION,DIMENSION(n_frames,n_angs),INTENT(IN)::angs
-    INTEGER,DIMENSION(n_angs,n_atoms),INTENT(IN)::blocks
+    INTEGER,DIMENSION(blocks_size),INTENT(IN)::blocks
+    INTEGER,DIMENSION(n_angs),INTENT(IN)::atoms_per_block
 
     DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
     DOUBLE PRECISION,DIMENSION(3,3)::tmp_box,tmp_inv
-    INTEGER::ii,jj
+    INTEGER::ii,jj,kk,ll
     INTEGER::atom1,atom2,atom3,atom4
     DOUBLE PRECISION,DIMENSION(3)::vect1,vect2,vect3,vect_aux,u_vect
     DOUBLE PRECISION::old_ang, shift_ang
+    INTEGER,DIMENSION(n_angs+1)::aux_block
+
+    aux_block(:)=0
+
+    DO ii=1,n_angs
+        aux_block(ii+1:)=aux_block(ii+1:)+ atoms_per_block(ii)
+    END DO
     
     inv=0.0d0
     IF (pbc_opt==1) THEN
@@ -304,19 +313,17 @@ CONTAINS
             u_vect = vect2/(sqrt(dot_product(vect2,vect2)))
             old_ang=ANG3VECTS(vect1,vect2,vect3)
             shift_ang = angs(jj,ii)-old_ang
-            block_index = blocks(ii,atom4)
-            DO kk=1,n_atoms
-                IF (blocks(ii,kk)==block_index) THEN
-                    vect_aux = coors(jj,kk,:)-coors(jj,atom3,:)
-                    IF (pbc_opt==1) THEN
-                        CALL PBC (vect_aux,tmp_box,tmp_inv,ortho)
-                    END IF
-                    CALL RODRIGUES_ROTATION(vect_aux, u_vect, shift_ang)
-                    IF (pbc_opt==1) THEN
-                        CALL PBC (vect_aux,tmp_box,tmp_inv,ortho)
-                    END IF
-                    coors(jj,kk,:)=coors(jj,atom3,:)+vect_aux
+            DO kk=aux_block(ii)+1,aux_block(ii+1)
+                ll = blocks(kk)
+                vect_aux = coors(jj,ll,:)-coors(jj,atom3,:)
+                IF (pbc_opt==1) THEN
+                    CALL PBC (vect_aux,tmp_box,tmp_inv,ortho)
                 END IF
+                CALL RODRIGUES_ROTATION(vect_aux, u_vect, shift_ang)
+                IF (pbc_opt==1) THEN
+                    CALL PBC (vect_aux,tmp_box,tmp_inv,ortho)
+                END IF
+                coors(jj,ll,:)=coors(jj,atom3,:)+vect_aux
             END DO 
         END DO
     END DO

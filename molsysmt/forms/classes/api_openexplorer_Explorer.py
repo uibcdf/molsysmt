@@ -246,12 +246,6 @@ def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
     tmp_item = to_openmm_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_bonded_atoms_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import get_n_atoms_from_atom as _get
@@ -288,9 +282,39 @@ def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
     tmp_item = to_openmm_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
+def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_bonded_atoms_from_atom as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_bond_index_from_atom as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
 def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import get_n_bonds_from_atom as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_inner_bond_index_from_atom as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_inner_bonded_atoms_from_atom as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_n_inner_bonds_from_atom as _get
     tmp_item = to_openmm_Topology(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
@@ -1615,6 +1639,56 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+## bond
+
+def get_index_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_index_from_bond as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_order_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_order_from_bond as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_type_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_type_from_bond as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_bond_index_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_bond_index_from_bond as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_bond_order_from_bond as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_bond_type_from_bond as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_atom_index_from_bond as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_n_bonds_from_bond(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_n_bonds_from_bond as _get
+    tmp_item = to_openmm_Topology(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
 ##### Set
 

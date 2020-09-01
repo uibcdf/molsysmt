@@ -162,12 +162,13 @@ def set_dihedral_angles(item, quartets=None, angles=None, angles_shifts=None, bl
 
             from .covalent import covalent_blocks
 
-            blocks = _np.zeros([n_quartets, n_atoms], dtype=int)
+            blocks = []
 
-            for quartet_index in range(n_quartets):
+            for quartet in quartets:
 
-                quartet = quartets[quartet_index]
-                blocks[quartet_index,:] = covalent_blocks(item, remove_bonds=[quartet[1], quartet[2]], output_form='array')
+                tmp_blocks = covalent_blocks(item, remove_bonds=[quartet[1], quartet[2]])
+                blocks.append(tmp_blocks)
+
 
         coordinates = get(item, target='system', frame_indices=frame_indices, coordinates=True)
 
@@ -192,8 +193,19 @@ def set_dihedral_angles(item, quartets=None, angles=None, angles_shifts=None, bl
         box = _np.asfortranarray(box._value, dtype='float64')
         coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
 
-        _libgeometry.set_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, angles, blocks,
-                                         n_quartets, n_atoms, n_frames)
+        aux_blocks = []
+        aux_atoms_per_block = []
+
+        for block in blocks:
+
+            aux_atoms_per_block.append(len(block[1]))
+            aux_blocks.append(list(block[1]))
+
+        aux_blocks = _np.ravel(aux_blocks)
+        aux_atoms_per_block = _np.array(aux_atoms_per_block, dtype=int)
+
+        _libgeometry.set_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, angles,
+                                         aux_blocks, aux_atoms_per_block, n_quartets, n_atoms, n_frames, blocks.shape[0])
 
         coordinates=_np.ascontiguousarray(coordinates)*length_units
 
