@@ -75,6 +75,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :caption: Structural tools
    :maxdepth: 1
 
+   contents/Geometrical_transformations.ipynb
    contents/Distances.ipynb
    contents/PBC.ipynb
    contents/Centers.ipynb

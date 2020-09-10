@@ -30,17 +30,15 @@ def covalent_dihedral_quartets(item, dihedral_angle=None, with_blocks=False, sel
             tmp_chi4 = covalent_dihedral_quartets(item, dihedral_angle='chi4', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
             tmp_chi5 = covalent_dihedral_quartets(item, dihedral_angle='chi5', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
             if not with_blocks:
-                tmp_angs = [ii for ii in [tmp_phi, tmp_psi, tmp_omega, tmp_chi1, tmp_chi2, tmp_chi3, tmp_chi3, tmp_chi4, tmp_chi5] if ii.shape[0]>0]
+                tmp_angs = [ii for ii in [tmp_phi, tmp_psi, tmp_omega, tmp_chi1, tmp_chi2, tmp_chi3, tmp_chi4, tmp_chi5] if ii.shape[0]>0]
                 tmp_angs = _np.vstack(tmp_angs)
                 return tmp_angs
             else:
                 tmp_angs = [ii for ii in [tmp_phi[0], tmp_psi[0], tmp_omega[0], tmp_chi1[0],
-                                          tmp_chi2[0], tmp_chi3[0], tmp_chi3[0], tmp_chi4[0],
-                                          tmp_chi5[0]] if ii.shape[0]>0]
+                                          tmp_chi2[0], tmp_chi3[0], tmp_chi4[0], tmp_chi5[0]] if ii.shape[0]>0]
                 tmp_angs = _np.vstack(tmp_angs)
                 tmp_blocks = [ii for ii in [tmp_phi[1], tmp_psi[1], tmp_omega[1], tmp_chi1[1],
-                                          tmp_chi2[1], tmp_chi3[1], tmp_chi3[1], tmp_chi4[1],
-                                          tmp_chi5[1]] if ii.shape[0]>0]
+                                          tmp_chi2[1], tmp_chi3[1], tmp_chi4[1], tmp_chi5[1]] if ii.shape[0]>0]
                 tmp_blocks = _np.vstack(tmp_blocks)
                 return tmp_angs, tmp_blocks
         else:
