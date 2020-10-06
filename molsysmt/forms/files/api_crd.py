@@ -3,16 +3,16 @@ from os.path import basename as _basename
 form_name=_basename(__file__).split('.')[0].split('_')[-1]
 
 is_form = {
-    'inpcrd': form_name
+    'crd': form_name
     }
 
 info=["",""]
 with_topology=False
 with_trajectory=True
 
-info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
+info = ["CHARMM card (CRD) file format with coordinates.","https://www.charmmtutorial.org/index.php/CHARMM:The_Basics#CHARMM_data_structures"]
 
-def to_inpcrd(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_crd(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     if frame_indices=='all':
         from shutil import copyfile
@@ -22,26 +22,20 @@ def to_inpcrd(item, output_filepath=None, trajectory_item=None, atom_indices='al
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.files import from_inpcrd as inpcrd_to_molsysmt_MolSys
-    tmp_item = inpcrd_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.molsys.files import from_crd as crd_to_molsysmt_MolSys
+    tmp_item = crd_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.files import from_inpcrd as inpcrd_to_molsysmt_Topology
-    tmp_item = inpcrd_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item
-
-def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.dataframe.files import from_inpcrd as inpcrd_to_molsysmt_DataFrame
-    tmp_item = inpcrd_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.files import from_crd as crd_to_molsysmt_Topology
+    tmp_item = crd_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_molsysmt_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.files import from_inpcrd as inpcrd_to_molsysmt_Trajectory
-    tmp_item = inpcrd_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.trajectory.files import from_crd as crd_to_molsysmt_Trajectory
+    tmp_item = crd_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
@@ -50,7 +44,25 @@ def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
 
 def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.forms.classes.api_mdanalysis_Universe import extract
+    from MDAnalysis import Universe
+    tmp_item = Universe(item)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_mdanalysis_CRDParser(item, atom_indices='all', frame_indices='all'):
+
+    from MDAnalysis.topology import CRDParser
+
+    tmp_item = CRDParser.CRDParser(item)
+
+    return tmp_item
+
+def to_mdanalysis_Topology(item, atom_indices='all', frame_indices='all'):
+
+    from MDAnalysis.topology import CRDParser
+
+    tmp_item = CRDParser.CRDParser(item)
 
 def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
