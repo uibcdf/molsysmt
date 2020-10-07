@@ -50,19 +50,24 @@ def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdanalysis_CRDParser(item, atom_indices='all', frame_indices='all'):
-
-    from MDAnalysis.topology import CRDParser
-
-    tmp_item = CRDParser.CRDParser(item)
-
-    return tmp_item
-
 def to_mdanalysis_Topology(item, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis.topology import CRDParser
 
     tmp_item = CRDParser.CRDParser(item)
+    tmp_item = tmp_item.parse()
+
+    return tmp_item
+
+def to_mdanalysis_topology_CRDParser(item, atom_indices='all', frame_indices='all'):
+
+    from MDAnalysis.topology import CRDParser
+    return CRDParser(item)
+
+def to_mdanalysis_coordinates_CRDReader(item, atom_indices='all', frame_indices='all'):
+
+    from MDAnalysis.coordinates.CRD import CRDReader
+    return CRDReader(item)
 
 def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
@@ -98,6 +103,10 @@ def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
     raise NotImplementedError
 
 def select_with_MDTraj(item, selection):
+
+    raise NotImplementedError
+
+def select_with_MDAnalysis(item, selection):
 
     raise NotImplementedError
 

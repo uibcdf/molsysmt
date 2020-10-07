@@ -39,6 +39,25 @@ Text Text Text Text Text Text  Text Text Text Text Text Text Text
 Text Text  Text Text Text Text Text Text.
 Text Text Text  Text Text \citep{Bag01}.
 
+\section{Notes}
+\subsection{Arguments}
+\begin{itemize}
+\item Plataforma para implementar facilmente flujos de trabajo que involucran otras librerías de 
+	terceros con python API.
+\item Bajada de barrera para usuarios no expertos, envolviendo flujos de trabajo.
+\item Facilitar la reproducibilidad
+\item In-house libraries con las tareas que más carga computacional tienen
+\item Hacer un diagrama de flujo de trabajo con las forms y las funciones elementales
+\item Hay unas formas nativas: MolSys con topología, trajectoria, etc.
+\item Hay un Pandas dataframe codificando la topología, esto permite que la sintaxis sea más
+	habitual, que en el futuro el motor de búsqueda pueda ser sustituido por alguna pandas
+		optimizado o librería que trabaja con dataframes ya que se está constituyendo en un
+		standard.
+\end{itemize}
+
+\subsection{Content}
+
+
 \section{The computational work with biomolecular models.}
 
 Explain the concept of lab bench.
@@ -49,10 +68,6 @@ Implementing workflows.
 Text Text Text Text Text Text Text Text
 Text Text Text Text Text Text Text Text Text Text Text Text Text.
 
-\section{Future extensions and perspectives.}
-
-Hablar de hacia donde va la implementación y que puede servir de soporte para el facil desarrollo
-de otras librerías.
 
 \subsection{Subsection 1}
 
@@ -64,8 +79,11 @@ Text Text  Text Text Text Text Text Text.
 Text Text Text Text Text Text  Text Text Text Text Text Text Text
 Text Text  Text Text Text Text Text Text.
 
-\subsection{Subsection 2}
+\subsection{Future implementations}
 
+No queremos que la librería tenga un paper cada dos años, la definición de la librería es lo
+suficientemente flexible para que cualquier imeplementación futura tenga cabida en la descripción
+aquí hecha: nuevas formas, funciones, etc.
 Text Text Text Text Text Text  Text Text Text Text Text Text Text
 Text Text  Text Text Text Text Text Text.
 
@@ -74,6 +92,8 @@ Text Text  Text Text Text Text Text Text.
 Text Text Text Text Text Text  Text Text Text
 Text Text Text Text Text Text  Text Text Text Text Text Text.
 
+Hablar de hacia donde va la implementación y que puede servir de soporte para el facil desarrollo
+de otras librerías.
 \section*{Funding}
 
 This work has been partially supported by the Fondos Federales project SSA XXX at Institutos de

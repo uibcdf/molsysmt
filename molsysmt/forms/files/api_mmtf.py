@@ -10,17 +10,6 @@ info=["",""]
 with_topology=True
 with_trajectory=True
 
-def extract(item, atom_indices='all', frame_indices='all'):
-
-    if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
-    else:
-        raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
-
 def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract as extract_mmtf_MMTFDecoder
@@ -43,13 +32,6 @@ def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item = mmtf_MMTFDecoder_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_DataFrame as mmtf_MMTFDecoder_to_molsysmt_DataFrame
-    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_DataFrame(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item
-
 def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
@@ -64,6 +46,19 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
     tmp_item = molsysmt_Topology_to_aminoacids1_seq(tmp_item)
     return tmp_item
 
+def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
+
+    from MDAnalysis import Universe
+    from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_mdanalysis_Universe
+
+    tmp_item = Universe(item)
+    tmp_item = extract_mdanalysis_Universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def select_with_MDAnalysis(item, selection):
+
+    raise NotImplementedError
+
 def select_with_MDTraj(item, selection):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import select_with_MDTraj as select_mmtf_MMTFDecoder_with_MDTraj
@@ -76,6 +71,16 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_mmtf_MMTFDecoder(item)
     return select_mmtf_MMTFDecoder_with_MolSysMT(tmp_item, selection)
 
+def extract(item, atom_indices='all', frame_indices='all'):
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        return item
+    else:
+        raise NotImplementedError
+
+def copy(item):
+
+    raise NotImplementedError
 
 ##### Get
 
