@@ -1,6 +1,6 @@
 from molsysmt.utils.exceptions import *
 
-types=['water', 'ion', 'cosolute', 'small_molecule', 'peptide', 'protein', 'rna', 'dna']
+types=['water', 'ion', 'cosolute', 'small_molecule', 'peptide', 'protein', 'rna', 'dna', 'lipid']
 
 def type_from_sequence(sequence):
 

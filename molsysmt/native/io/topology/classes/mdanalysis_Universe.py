@@ -68,30 +68,35 @@ def from_mdanalysis_Universe(item, trajectory_item='all', atom_indices='all', fr
 
     # bonds
 
-    n_bonds = len([bond for bond in item.bonds if bond.btype=='bond'])
+    try:
+        n_bonds = len([bond for bond in item.bonds if bond.btype=='bond'])
+    except:
+        n_bonds = 0
 
-    bond_atom1_array = empty(n_bonds, dtype=int)
-    bond_atom2_array = empty(n_bonds, dtype=int)
-    bond_type_array = empty(n_bonds, dtype=object)
-    bond_order_array = empty(n_bonds, dtype=object)
+    if n_bonds > 0:
 
-    bond_index = 0
+        bond_atom1_array = empty(n_bonds, dtype=int)
+        bond_atom2_array = empty(n_bonds, dtype=int)
+        bond_type_array = empty(n_bonds, dtype=object)
+        bond_order_array = empty(n_bonds, dtype=object)
 
-    for bond in item.bonds:
+        bond_index = 0
 
-        if bond.btype is 'bond':
+        for bond in item.bonds:
 
-            bond_atom1_array[bond_index] = bond.atoms[0].index
-            bond_atom2_array[bond_index] = bond.atoms[1].index
-            bond_order_array[bond_index] = bond.order
-            bond_type_array[bond_index] = None
+            if bond.btype is 'bond':
 
-            bond_index +=1
+                bond_atom1_array[bond_index] = bond.atoms[0].index
+                bond_atom2_array[bond_index] = bond.atoms[1].index
+                bond_order_array[bond_index] = bond.order
+                bond_type_array[bond_index] = None
 
-    tmp_item.bonds_dataframe["atom1_index"] = bond_atom1_array
-    tmp_item.bonds_dataframe["atom2_index"] = bond_atom2_array
-    tmp_item.bonds_dataframe["order"] = bond_order_array
-    tmp_item.bonds_dataframe["type"] = bond_type_array
+                bond_index +=1
+
+        tmp_item.bonds_dataframe["atom1_index"] = bond_atom1_array
+        tmp_item.bonds_dataframe["atom2_index"] = bond_atom2_array
+        tmp_item.bonds_dataframe["order"] = bond_order_array
+        tmp_item.bonds_dataframe["type"] = bond_type_array
 
     # components
 
