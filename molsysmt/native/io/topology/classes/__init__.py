@@ -9,4 +9,6 @@ from .openmm_Modeller import from_openmm_Modeller
 from .pdbfixer_PDBFixer import from_pdbfixer_PDBFixer, to_pdbfixer_PDBFixer
 from .openexplorer_Explorer import from_openexplorer_Explorer
 from .openexplorer_OpenExplorerReporter import from_openexplorer_OpenExplorerReporter
-
+from .mdanalysis_Universe import from_mdanalysis_Universe
+from .pytraj_Topology import from_pytraj_Topology
+from .pytraj_Trajectory import from_pytraj_Trajectory

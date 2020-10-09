@@ -48,7 +48,10 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
-    return item.extract(atom_indices=atom_indices)
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        return item
+    else:
+        return item.extract(atom_indices=atom_indices)
 
 def copy(item):
 
@@ -246,33 +249,48 @@ def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
-    output = get_group_index_from_atom (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_groups_from_system (item)
+    else:
+        output = get_group_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_components_from_atom (item, indices='all', frame_indices='all'):
 
-    output = get_component_index_from_atom (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_components_from_system (item)
+    else:
+        output = get_component_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
 
-    output = get_molecule_index_from_atom (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_molecules_from_system (item)
+    else:
+        output = get_molecule_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
 
-    output = get_chain_index_from_atom (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_chains_from_system (item)
+    else:
+        output = get_chain_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
 
-    output = get_entity_index_from_atom (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_entities_from_system (item)
+    else:
+        output = get_entity_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
@@ -368,14 +386,6 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
     output = bond_indices.shape[0]
     del(bond_indices)
     return(output)
-
-def get_mass_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_charge_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
 
 def get_form_from_atom (item, indices='all', frame_indices='all'):
 
@@ -606,42 +616,49 @@ def get_n_atoms_from_group (item, indices='all', frame_indices='all'):
 
 def get_n_groups_from_group (item, indices='all', frame_indices='all'):
 
-    output = get_group_index_from_group (item, indices=indices, frame_indices=frame_indices)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_groups_from_system (item)
+    else:
+        output = get_group_index_from_group (item, indices=indices, frame_indices=frame_indices)
+        return output.shape[0]
 
 def get_n_components_from_group (item, indices='all', frame_indices='all'):
 
-    output = get_component_index_from_group (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_components_from_system (item)
+    else:
+        output = get_component_index_from_group (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_molecules_from_group (item, indices='all', frame_indices='all'):
 
-    output = get_molecule_index_from_group (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_molecules_from_system (item)
+    else:
+        output = get_molecule_index_from_group (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_chains_from_group (item, indices='all', frame_indices='all'):
 
-    output = get_chain_index_from_group (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_chains_from_system (item)
+    else:
+        output = get_chain_index_from_group (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_entities_from_group (item, indices='all', frame_indices='all'):
 
-    output = get_entity_index_from_group (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_chains_from_system (item)
+    else:
+        output = get_entity_index_from_group (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_bonds_from_group (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_mass_from_group (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_charge_from_group (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -883,36 +900,40 @@ def get_n_groups_from_component (item, indices='all', frame_indices='all'):
 
 def get_n_components_from_component (item, indices='all', frame_indices='all'):
 
-    output = get_component_index_from_component (item, indices=indices, frame_indices=frame_indices)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_components_from_system (item)
+    else:
+        output = get_component_index_from_component (item, indices=indices, frame_indices=frame_indices)
+        return output.shape[0]
 
 def get_n_molecules_from_component (item, indices='all', frame_indices='all'):
 
-    output = get_molecule_index_from_component (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_molecules_from_system (item)
+    else:
+        output = get_molecule_index_from_component (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_chains_from_component (item, indices='all', frame_indices='all'):
 
-    output = get_chain_index_from_component (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_chains_from_system (item)
+    else:
+        output = get_chain_index_from_component (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_entities_from_component (item, indices='all', frame_indices='all'):
 
-    output = get_entity_index_from_component (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_entities_from_system (item)
+    else:
+        output = get_entity_index_from_component (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_bonds_from_component (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_mass_from_component (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_charge_from_component (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -943,7 +964,7 @@ def get_atom_index_from_molecule (item, indices='all', frame_indices='all'):
     for ii in indices:
         mask = (item.atoms_dataframe['molecule_index']==ii)
         output.append(item.atoms_dataframe['atom_index'][mask].to_numpy())
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_atom_id_from_molecule (item, indices='all', frame_indices='all'):
@@ -1174,8 +1195,11 @@ def get_n_components_from_molecule (item, indices='all', frame_indices='all'):
 
 def get_n_molecules_from_molecule (item, indices='all', frame_indices='all'):
 
-    output = get_molecule_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_molecules_from_system (item)
+    else:
+        output = get_molecule_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
+        return output.shape[0]
 
 def get_n_chains_from_molecule (item, indices='all', frame_indices='all'):
 
@@ -1185,19 +1209,14 @@ def get_n_chains_from_molecule (item, indices='all', frame_indices='all'):
 
 def get_n_entities_from_molecule (item, indices='all', frame_indices='all'):
 
-    output = get_entity_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_entities_from_system (item)
+    else:
+        output = get_entity_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_bonds_from_molecule (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_mass_from_molecule (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_charge_from_molecule (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -1465,25 +1484,23 @@ def get_n_molecules_from_chain (item, indices='all', frame_indices='all'):
 
 def get_n_chains_from_chain (item, indices='all', frame_indices='all'):
 
-    output = get_chain_index_from_chain (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_chains_from_system (item)
+    else:
+        output = get_chain_index_from_chain (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_entities_from_chain (item, indices='all', frame_indices='all'):
 
-    output = get_entity_index_from_chain (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_entities_from_system (item)
+    else:
+        output = get_entity_index_from_chain (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_bonds_from_chain (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_mass_from_chain (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_charge_from_chain (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -1764,19 +1781,14 @@ def get_n_chains_from_entity (item, indices='all', frame_indices='all'):
 
 def get_n_entities_from_entity (item, indices='all', frame_indices='all'):
 
-    output = get_entity_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-    output = _unique(output)
-    return output.shape[0]
+    if indices is 'all':
+        return get_n_entities_from_system (item)
+    else:
+        output = get_entity_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+        output = _unique(output)
+        return output.shape[0]
 
 def get_n_bonds_from_entity (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_mass_from_entity (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_charge_from_entity (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -1875,14 +1887,6 @@ def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
     return serie_indices.unique().shape[0]
 
-def get_mass_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_charge_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     return 0
@@ -1910,7 +1914,6 @@ def get_bond_index_from_bond(item, indices='all', frame_indices='all'):
     tmp_out = None
 
     if indices is 'all':
-
         n_bonds = get_n_bonds_from_system(item)
         tmp_out = _arange(n_bonds, dtype=int)
 
@@ -1955,10 +1958,7 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
 def get_n_bonds_from_bond(item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-
         return get_n_bonds_from_system(item)
-
     else:
-
         return len(indices)
 

@@ -40,7 +40,7 @@ def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
 def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis import Universe as mdanalysis_Universe
-    from molsysmt.forms.classes.api_mdtraj_Universe import extract as extract_universe
+    from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_universe
     tmp_item = mdanalysis_Universe(item)
     tmp_item = extract_universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
@@ -104,9 +104,25 @@ def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all'):
 def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
 
     from pdbfixer.pdbfixer import PDBFixer
-    from molsysmt.forms.classes.api_pdbfixer_PDBFixer import extract as extract_pdbfixer
+    from molsysmt.forms.classes.api_pdbfixer_PDBFixer import extract as extract_pdbfixer_PDBFixer
     tmp_item = PDBFixer(item)
-    tmp_item = extract_pdbfixer(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = extract_pdbfixer_PDBFixer(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_pytraj_Trajectory(item, atom_indices='all', frame_indices='all'):
+
+    from pytraj import load as pytraj_load
+    from molsysmt.forms.classes.api_pytraj_Trajectory import extract as extract_pytraj_Trajectory
+    tmp_item = pytraj_load(item)
+    tmp_item = extract_pytraj_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_pytraj_Topology(item, atom_indices='all', frame_indices='all'):
+
+    from pytraj import load_topology as pytraj_load_topology
+    from molsysmt.forms.classes.api_pytraj_Topology import extract as extract_pytraj_Topology
+    tmp_item = pytraj_load_topology(item)
+    tmp_item = extract_pytraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_nglview(item, atom_indices='all', frame_indices='all'):

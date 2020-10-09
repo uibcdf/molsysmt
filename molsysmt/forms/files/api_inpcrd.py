@@ -3,10 +3,7 @@ from os.path import basename as _basename
 form_name=_basename(__file__).split('.')[0].split('_')[-1]
 
 is_form = {
-    'crd': form_name,
-    'inpcrd': form_name,
-    'rst7': form_name,
-    'restrt': form_name,
+    'inpcrd': form_name
     }
 
 info=["",""]

@@ -4,13 +4,14 @@ from mdtraj.core.residue_names import _AMINO_ACID_CODES as _aminoacid_group_name
 from mdtraj.core.residue_names import _WATER_RESIDUES as _water_group_names_mdtraj
 from mdtraj.core.residue_names import _SOLVENT_TYPES as _solvent_group_names_mdtraj
 
-types=['water', 'ion', 'cosolute', 'small_molecule', 'aminoacid', 'nucleotide']
+types=['water', 'ion', 'cosolute', 'small_molecule', 'aminoacid', 'nucleotide', 'lipid']
 
 aminoacid_names = list(_aminoacid_group_names_mdtraj)
 water_names = list(_water_group_names_mdtraj)
 ion_names = [ii for ii in _solvent_group_names_mdtraj if ii not in water_names]
 rna_names = ['A', 'G', 'C', 'U', 'I']
 dna_names = ['DA', 'DG', 'DC', 'DT', 'DI']
+lipid_names = ['POPC', 'DOPC', 'DSPC', 'DMPC']
 nucleotide_names = dna_names + rna_names
 
 def name_to_type(name):
@@ -29,6 +30,8 @@ def name_to_type(name):
         tmp_type = 'aminoacid'
     elif _name_is_type_nucleotide(name):
         tmp_type ='nucleotide'
+    elif _name_is_type_lipid(name):
+        tmp_type = 'lipid'
 
     return tmp_type
 
@@ -39,11 +42,9 @@ def _name_is_type_ion(name):
     return (name in ion_names)
 
 def _name_is_type_cosolute(name):
-    #NotImplementedError
     return False
 
 def _name_is_type_small_molecule(name):
-    #NotImplementedError
     return False
 
 def _name_is_type_aminoacid(name):
@@ -52,27 +53,6 @@ def _name_is_type_aminoacid(name):
 def _name_is_type_nucleotide(name):
     return (name in nucleotide_names)
 
-def name_to_component_type(name, n_groups=1):
-
-    group_type = name_to_type(name)
-    return type_to_component_type(group_type, n_groups=1)
-
-def type_to_component_type(type, n_groups=1):
-
-    tmp_type=None
-
-    if type in ['water', 'ion', 'cosolute',  'small molecule']:
-        tmp_type = type
-    elif type == 'aminoacid':
-        if n_groups>=50:
-            tmp_type = 'protein'
-        else:
-            tmp_type = 'peptide'
-    elif type == 'nucleotide':
-        if type in rna_names:
-            tmp_type = 'rna'
-        elif type in dna_names:
-            tmp_type = 'dna'
-
-    return tmp_type
+def _name_is_type_lipid(name):
+    return (name in lipid_names)
 

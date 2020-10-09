@@ -3,3 +3,4 @@ from .pdb import from_pdb
 from .gro import from_gro
 from .inpcrd import from_inpcrd
 from .xtc import from_xtc
+from .crd import from_crd
