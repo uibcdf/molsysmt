@@ -107,79 +107,176 @@ def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    group_index_from_atom = get_group_index_from_atom(item, indices=indices)
+    group_indices = np.unique(group_index_from_atom)
+    group_ids = get_group_id_from_group(item, indices=group_indices)
+    aux_dict = dict(zip(group_indices, group_ids))
+    output = np.vectorize(aux_dict.__getitem__)(group_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_group_name_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    group_index_from_atom = get_group_index_from_atom(item, indices=indices)
+    group_indices = np.unique(group_index_from_atom)
+    group_names = get_group_name_from_group(item, indices=group_indices)
+    aux_dict = dict(zip(group_indices, group_names))
+    output = np.vectorize(aux_dict.__getitem__)(group_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_group_type_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
-
-def get_component_name_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    group_index_from_atom = get_group_index_from_atom(item, indices=indices)
+    group_indices = np.unique(group_index_from_atom)
+    group_names = get_group_name_from_group(item, indices=group_indices)
+    aux_dict = dict(zip(group_indices, group_names))
+    output = np.vectorize(aux_dict.__getitem__)(group_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+   from molsysmt.elements.component import get_elements
+
+    output, _, _, _ = get_elements(item)
+
+    if indices is not 'all':
+        output = output[indices]
+
+    return output
 
 def get_component_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    component_index_from_atom = get_component_index_from_atom(item, indices=indices)
+    component_indices = np.unique(component_index_from_atom)
+    component_ids = get_component_id_from_component(item, indices=component_indices)
+    aux_dict = dict(zip(component_indices, component_ids))
+    output = np.vectorize(aux_dict.__getitem__)(component_index_from_atom)
+    del(aux_dict)
+    return output
+
+def get_component_name_from_atom (item, indices='all', frame_indices='all'):
+
+    component_index_from_atom = get_component_index_from_atom(item, indices=indices)
+    component_indices = np.unique(component_index_from_atom)
+    component_names = get_component_name_from_component(item, indices=component_indices)
+    aux_dict = dict(zip(component_indices, component_names))
+    output = np.vectorize(aux_dict.__getitem__)(component_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_component_type_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    component_index_from_atom = get_component_index_from_atom(item, indices=indices)
+    component_indices = np.unique(component_index_from_atom)
+    component_types = get_component_type_from_component(item, indices=component_indices)
+    aux_dict = dict(zip(component_indices, component_types))
+    output = np.vectorize(aux_dict.__getitem__)(component_index_from_atom)
+    del(aux_dict)
+    return output
 
-def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
+def get_chain_index_from_atom (item, indices='all', frame_indices='all'):     # EMPTY
 
     raise NotImplementedError
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    chain_index_from_atom = get_chain_index_from_atom(item, indices=indices)
+    chain_indices = np.unique(chain_index_from_atom)
+    chain_ids = get_chain_id_from_chain(item, indices=chain_indices)
+    aux_dict = dict(zip(chain_indices, chain_ids))
+    output = np.vectorize(aux_dict.__getitem__)(chain_index_from_atom)
+    del(aux_dict)
+    return output
+
+def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
+
+    chain_index_from_atom = get_chain_index_from_atom(item, indices=indices)
+    chain_indices = np.unique(chain_index_from_atom)
+    chain_names = get_chain_name_from_chain(item, indices=chain_indices)
+    aux_dict = dict(zip(chain_indices, chain_names))
+    output = np.vectorize(aux_dict.__getitem__)(chain_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    chain_index_from_atom = get_chain_index_from_atom(item, indices=indices)
+    chain_indices = np.unique(chain_index_from_atom)
+    chain_types = get_chain_type_from_chain(item, indices=chain_indices)
+    aux_dict = dict(zip(chain_indices, chain_types))
+    output = np.vectorize(aux_dict.__getitem__)(chain_index_from_atom)
+    del(aux_dict)
+    return output
 
-def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):     # EMPTY
 
     raise NotImplementedError
 
 def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    molecule_index_from_atom = get_molecule_index_from_atom(item, indices=indices)
+    molecule_indices = np.unique(molecule_index_from_atom)
+    molecule_ids = get_molecule_id_from_molecule(item, indices=molecule_indices)
+    aux_dict = dict(zip(molecule_indices, molecule_ids))
+    output = np.vectorize(aux_dict.__getitem__)(molecule_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    molecule_index_from_atom = get_molecule_index_from_atom(item, indices=indices)
+    molecule_indices = np.unique(molecule_index_from_atom)
+    molecule_names = get_molecule_name_from_molecule(item, indices=molecule_indices)
+    aux_dict = dict(zip(molecule_indices, molecule_names))
+    output = np.vectorize(aux_dict.__getitem__)(molecule_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    molecule_index_from_atom = get_molecule_index_from_atom(item, indices=indices)
+    molecule_indices = np.unique(molecule_index_from_atom)
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+    aux_dict = dict(zip(molecule_indices, molecule_types))
+    output = np.vectorize(aux_dict.__getitem__)(molecule_index_from_atom)
+    del(aux_dict)
+    return output
 
-def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
+def get_entity_index_from_atom (item, indices='all', frame_indices='all'):     # EMPTY
 
     raise NotImplementedError
 
 def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    entity_index_from_atom = get_entity_index_from_atom(item, indices=indices)
+    entity_indices = np.unique(entity_index_from_atom)
+    entity_ids = get_entity_id_from_entity(item, indices=entity_indices)
+    aux_dict = dict(zip(molecule_indices, entity_ids))
+    output = np.vectorize(aux_dict.__getitem__)(entity_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    entity_index_from_atom = get_entity_index_from_atom(item, indices=indices)
+    entity_indices = np.unique(entity_index_from_atom)
+    entity_names = get_entity_name_from_entity(item, indices=entity_indices)
+    aux_dict = dict(zip(entity_indices, entity_names))
+    output = np.vectorize(aux_dict.__getitem__)(entity_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    entity_index_from_atom = get_entity_index_from_atom(item, indices=indices)
+    entity_indices = np.unique(entity_index_from_atom)
+    entity_types = get_entity_type_from_entity(item, indices=entity_indices)
+    aux_dict = dict(zip(entity_indices, entity_types))
+    output = np.vectorize(aux_dict.__getitem__)(entity_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
@@ -193,35 +290,45 @@ def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
     if indices is 'all':
         return get_n_groups_from_system (item)
     else:
-        raise NotImplementedError
+        output = get_group_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = np.unique(output)
+        return output.shape[0]
 
 def get_n_components_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
         return get_n_components_from_system (item)
     else:
-        raise NotImplementedError
+        output = get_component_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = np.unique(output)
+        return output.shape[0]
 
 def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
         return get_n_molecules_from_system (item)
     else:
-        raise NotImplementedError
+        output = get_molecule_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = np.unique(output)
+        return output.shape[0]
 
 def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
         return get_n_chains_from_system (item)
     else:
-        raise NotImplementedError
+        output = get_chain_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = np.unique(output)
+        return output.shape[0]
 
 def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
         return get_n_entities_from_system (item)
     else:
-        raise NotImplementedError
+        output = get_entity_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+        output = np.unique(output)
+        return output.shape[0]
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 

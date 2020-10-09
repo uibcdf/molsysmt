@@ -324,7 +324,11 @@ def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    return get_component_type_from_atom (item, indices=indices, frame_indices=frame_indices)
+    from molsysmt.elements.component import component_type_to_molecule_type
+    output = get_component_type_from_atom (item, indices=indices, frame_indices=frame_indices)
+    output = [component_type_to_molecule_type(ii) for ii in output]
+    output = np.array(output)
+    return output
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 

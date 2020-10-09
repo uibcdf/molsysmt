@@ -42,11 +42,9 @@ def _name_is_type_ion(name):
     return (name in ion_names)
 
 def _name_is_type_cosolute(name):
-    #NotImplementedError
     return False
 
 def _name_is_type_small_molecule(name):
-    #NotImplementedError
     return False
 
 def _name_is_type_aminoacid(name):
@@ -57,28 +55,4 @@ def _name_is_type_nucleotide(name):
 
 def _name_is_type_lipid(name):
     return (name in lipid_names)
-
-def name_to_component_type(name, n_groups=1):
-
-    group_type = name_to_type(name)
-    return type_to_component_type(group_type, n_groups=1)
-
-def type_to_component_type(type, n_groups=1):
-
-    tmp_type=None
-
-    if type in ['water', 'ion', 'cosolute',  'small molecule', 'lipid']:
-        tmp_type = type
-    elif type == 'aminoacid':
-        if n_groups>=50:
-            tmp_type = 'protein'
-        else:
-            tmp_type = 'peptide'
-    elif type == 'nucleotide':
-        if type in rna_names:
-            tmp_type = 'rna'
-        elif type in dna_names:
-            tmp_type = 'dna'
-
-    return tmp_type
 

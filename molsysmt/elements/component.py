@@ -1,31 +1,47 @@
-def group_name_to_type(group_name, n_groups=1):
+types = ['water', 'ion', 'cosolute', 'small molecule', 'lipid', 'peptide', 'protein', 'rna', 'dna']
 
-    from .groups import name_to_component_type
-    return name_to_component_type(group_name, n_groups)
+def type_from_atoms(item, indices):
 
-def group_type_to_type(group_type, n_groups=1):
+    from molsysmt import get
+    group_indices = get(item, target='atom', indices=indices, group_index=True)
+    group_indices = np.unique(group_indices)
+    return type_from_groups(item, group_indices)
 
-    from .groups import type_to_component_type
-    return type_to_component_type(grouptypee, n_groups)
+def type_from_groups(item, indices):
 
-    if type(group_types) is str:
-        if group_types in ['water', 'ion', 'cosolute',  'small molecule', 'lipid']:
-            tmp_type = group_types
-        elif group_types == 'aminoacid':
-            tmp_type = 'peptide'
-        elif group_types == 'nucleotide':
-            from .group import rna_names, dna_names
-            if group_types in rna_names:
-                tmp_type = 'rna'
-            elif group_types in dna_names:
-                tmp_type = 'dna'
-    else:
-        tmp_type = group_types_to_type(group_types[0])
-        if tmp_type == 'aminoacid':
-            if len(group_types)>=50:
-                tmp_type == 'protein'
-            else:
-                tmp_type == 'peptide'
+    from molsysmt import get
+    group_names = get(item, target='group', indices=indices, name=True)
+    return type_from_group_names(group_names)
+
+def type_from_group_name(group_name, n_groups=1):
+
+    from .groups import name_to_type as group_name_to_group_type
+    from .groups import dna_names as dna_group_names
+    from .groups import rna_names as rna_group_names
+
+    tmp_type = None
+
+    group_types = [group_name_to_group_type(ii) for ii in group_names]
+
+    n_groups = len(group_types)
+    first_type = group_types[0]
+    first_name = group_names[0]
+
+    if not (np.array(group_types) == first_type):
+        raise ValueError("Groups have different type")
+
+    if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
+        tmp_type = group_type
+    elif first_type == 'aminoacid':
+        if n_groups>=50:
+            tmp_type='protein'
+        else:
+            tmp_type='peptide'
+    elif first_type == 'nucleotide':
+        if first_name in rna_group_names:
+            tmp_type = 'rna'
+        elif first_name in dna_group_names:
+            tmp_type = 'dna'
 
     return tmp_type
 
