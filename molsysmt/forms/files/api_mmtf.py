@@ -64,6 +64,14 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
     tmp_item = molsysmt_Topology_to_aminoacids1_seq(tmp_item)
     return tmp_item
 
+def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
+
+    from MDAnalysis import Universe as mdanalysis_Universe
+    from molsysmt.forms.classes.api_mdananlysis_Universe import extract as extract_mdanalysis_Universe
+    tmp_item = mdanalysis_Universe(item)
+    tmp_item = extract(tmp_item)
+
+
 def select_with_MDTraj(item, selection):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import select_with_MDTraj as select_mmtf_MMTFDecoder_with_MDTraj
