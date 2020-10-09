@@ -83,7 +83,11 @@ def get_type_from_atom (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        n_atoms = get_n_atoms_from_system(item)
+        return np.arange(n_atoms)
+    else:
+        return indices
 
 def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
 
@@ -182,7 +186,7 @@ def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
     if indices is 'all':
         return get_n_atoms_from_system (item)
     else:
-        raise NotImplementedError
+        return indices.shape[0]
 
 def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
