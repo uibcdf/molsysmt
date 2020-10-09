@@ -48,7 +48,10 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
-    return item.extract(atom_indices=atom_indices)
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        return item
+    else:
+        return item.extract(atom_indices=atom_indices)
 
 def copy(item):
 

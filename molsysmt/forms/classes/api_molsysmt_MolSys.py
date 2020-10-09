@@ -104,7 +104,10 @@ def select_with_MolSysMT(item, selection):
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
-    return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        return item
+    else:
+        return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_nglview(item, atom_indices='all', frame_indices='all'):
 

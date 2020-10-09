@@ -1,18 +1,17 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
-from molsysmt import MolSys as _molsysmt_MolSys
-import simtk.unit as unit
+from pytraj import Topology as _pytraj_Topology
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    _molsysmt_MolSys : form_name,
-    'molsysmt.MolSys': form_name
+    _pytraj_Topology : form_name,
+    'pytraj.Topology': form_name
 }
 
 info=["",""]
 with_topology=True
-with_trajectory=True
+with_trajectory=False
 
 def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
@@ -20,7 +19,11 @@ def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_ind
 
 def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.native.io.topology.classes import from_pytraj_Topology as molsysmt_Topology_from_pytraj_Topology
+    from molsysmt.forms.classes.api_molsysmt_Topology import extract as extract_molsysmt_Topology
+    tmp_item = molsysmt_Topology_from_pytraj_Topology(item)
+    tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
@@ -244,10 +247,7 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        return get_n_inner_bonds_from_system (item)
-    else:
-        raise NotImplementedError
+    raise NotImplementedError
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
@@ -1096,10 +1096,6 @@ def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_n_lipids_from_system (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
@@ -1143,7 +1139,7 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
-    return form_name
+    raise NotImplementedError
 
 ## bond
 
