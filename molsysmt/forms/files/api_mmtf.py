@@ -48,13 +48,6 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
 
 def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
 
-<<<<<<< HEAD
-    from MDAnalysis import Universe as mdanalysis_Universe
-    from molsysmt.forms.classes.api_mdananlysis_Universe import extract as extract_mdanalysis_Universe
-    tmp_item = mdanalysis_Universe(item)
-    tmp_item = extract(tmp_item)
-
-=======
     from MDAnalysis import Universe
     from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_mdanalysis_Universe
 
@@ -65,7 +58,6 @@ def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
 def select_with_MDAnalysis(item, selection):
 
     raise NotImplementedError
->>>>>>> 7a00ce72157dd8b212a2cedad041e6035e1febcb
 
 def select_with_MDTraj(item, selection):
 
