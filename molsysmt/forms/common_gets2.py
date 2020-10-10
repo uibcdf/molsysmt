@@ -129,8 +129,8 @@ def get_group_type_from_atom (item, indices='all', frame_indices='all'):
 
     group_index_from_atom = get_group_index_from_atom(item, indices=indices)
     group_indices = np.unique(group_index_from_atom)
-    group_names = get_group_name_from_group(item, indices=group_indices)
-    aux_dict = dict(zip(group_indices, group_names))
+    group_types = get_group_type_from_group(item, indices=group_indices)
+    aux_dict = dict(zip(group_indices, group_types))
     output = np.vectorize(aux_dict.__getitem__)(group_index_from_atom)
     del(aux_dict)
     return output
