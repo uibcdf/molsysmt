@@ -148,62 +148,65 @@ def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
 
 def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
 
-    return get_component_id_from_atom (item, indices=indices, frame_indices=frame_indices)
+    molecule_index_from_atom = get_molecule_index_from_atom(item, indices=indices)
+    molecule_indices = np.unique(molecule_index_from_atom)
+    molecule_ids = get_molecule_id_from_molecule(item, indices=molecule_indices)
+    aux_dict = dict(zip(molecule_indices, molecule_ids))
+    output = np.vectorize(aux_dict.__getitem__)(molecule_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
 
-    return get_component_name_from_atom (item, indices=indices, frame_indices=frame_indices)
+    molecule_index_from_atom = get_molecule_index_from_atom(item, indices=indices)
+    molecule_indices = np.unique(molecule_index_from_atom)
+    molecule_names = get_molecule_name_from_molecule(item, indices=molecule_indices)
+    aux_dict = dict(zip(molecule_indices, molecule_names))
+    output = np.vectorize(aux_dict.__getitem__)(molecule_index_from_atom)
+    del(aux_dict)
+    return output
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import component_type_to_molecule_type
-    output = get_component_type_from_atom (item, indices=indices, frame_indices=frame_indices)
-    output = [component_type_to_molecule_type(ii) for ii in output]
-    output = np.array(output)
+    molecule_index_from_atom = get_molecule_index_from_atom(item, indices=indices)
+    molecule_indices = np.unique(molecule_index_from_atom)
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+    aux_dict = dict(zip(molecule_indices, molecule_types))
+    output = np.vectorize(aux_dict.__getitem__)(molecule_index_from_atom)
+    del(aux_dict)
     return output
 
-def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
+#def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_elements
-
-    output, _, _, _ = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
 
 def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_elements
-
-    _, output, _, _ = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
+    entity_index_from_atom = get_entity_index_from_atom(item, indices=indices)
+    entity_indices = np.unique(entity_index_from_atom)
+    entity_ids = get_entity_id_from_entity(item, indices=entity_indices)
+    aux_dict = dict(zip(molecule_indices, entity_ids))
+    output = np.vectorize(aux_dict.__getitem__)(entity_index_from_atom)
+    del(aux_dict)
     return output
 
 def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_elements
-
-    _, _, output, _ = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
+    entity_index_from_atom = get_entity_index_from_atom(item, indices=indices)
+    entity_indices = np.unique(entity_index_from_atom)
+    entity_names = get_entity_name_from_entity(item, indices=entity_indices)
+    aux_dict = dict(zip(entity_indices, entity_names))
+    output = np.vectorize(aux_dict.__getitem__)(entity_index_from_atom)
+    del(aux_dict)
     return output
 
 def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_elements
-
-    _, _, _, output = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
+    entity_index_from_atom = get_entity_index_from_atom(item, indices=indices)
+    entity_indices = np.unique(entity_index_from_atom)
+    entity_types = get_entity_type_from_entity(item, indices=entity_indices)
+    aux_dict = dict(zip(entity_indices, entity_types))
+    output = np.vectorize(aux_dict.__getitem__)(entity_index_from_atom)
+    del(aux_dict)
     return output
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
@@ -247,55 +250,55 @@ def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
     output = _unique(output)
     return output.shape[0]
 
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    output=[]
-
-    if indices is 'all':
-
-        for bond in item.bonds():
-            output.append([bond.atom1.index, bond.atom2.index])
-
-    else:
-
-        set_indices = set(indices)
-
-        for bond in item.bonds():
-            if bond.atom1.index in set_indices:
-                if bond.atom2.index in set_indices:
-                    output.append([bond.atom1.index, bond.atom2.index])
-
-    output = _array(output, dtype=int)
-
-    return(output)
-
-def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_mass_from_atom(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_charge_from_atom(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+#def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+#
+#    raise NotImplementedError
+#
+#def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
+#
+#    raise NotImplementedError
+#
+#def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
+#
+#    raise NotImplementedError
+#
+#def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
+#
+#    raise NotImplementedError
+#
+#def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+#
+#    output=[]
+#
+#    if indices is 'all':
+#
+#        for bond in item.bonds():
+#            output.append([bond.atom1.index, bond.atom2.index])
+#
+#    else:
+#
+#        set_indices = set(indices)
+#
+#        for bond in item.bonds():
+#            if bond.atom1.index in set_indices:
+#                if bond.atom2.index in set_indices:
+#                    output.append([bond.atom1.index, bond.atom2.index])
+#
+#    output = _array(output, dtype=int)
+#
+#    return(output)
+#
+#def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
+#
+#    raise NotImplementedError
+#
+#def get_mass_from_atom(item, indices='all', frame_indices='all'):
+#
+#    raise NotImplementedError
+#
+#def get_charge_from_atom(item, indices='all', frame_indices='all'):
+#
+#    raise NotImplementedError
 
 def get_form_from_atom(item, indices='all', frame_indices='all'):
 
@@ -321,58 +324,49 @@ def get_type_from_group (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_group(item, indices='all', frame_indices='all'):
 
-    residue=list(item.residues())
+    group_index_from_atom = get_group_index_from_atom(item, indices='all')
+
+    if indices is 'all':
+        n_groups = get_n_groups_from_system(item)
+        indices = np.arange(n_groups)
 
     output = []
-    if indices is 'all':
-        n_indices = get_n_groups_from_system(item)
-        indices = range(n_indices)
-    for ii in indices:
-        atoms = list(residue[ii].atoms())
-        output.append(_array([atom.index for atom in atoms]))
-    output = _array(output)
+    for group_index in indices:
+        atom_indices = np.where(group_index_from_atom==group_index)
+        output.append(atom_indices)
+
+    output = np.array(output)
+
     return output
 
 def get_atom_id_from_group(item, indices='all', frame_indices='all'):
 
-    residue=list(item.residues())
-
-    output = []
-    if indices is 'all':
-        n_indices = get_n_groups_from_system(item)
-        indices = range(n_indices)
-    for ii in indices:
-        atoms = list(residue[ii].atoms())
-        output.append(_array([atom.id for atom in atoms], dtype=int))
-    output = _array(output)
+    atom_index_from_group = get_atom_index_from_group(item, indices=indices)
+    atom_indices = np.unique(atom_index_from_atom)
+    atom_ids = get_atom_id_from_atom(item, indices=atom_indices)
+    aux_dict = dict(zip(atom_indices, atom_ids))
+    output = np.vectorize(aux_dict.__getitem__)(atom_index_from_group)
+    del(aux_dict)
     return output
 
 def get_atom_name_from_group(item, indices='all', frame_indices='all'):
 
-    residue=list(item.residues())
-
-    output = []
-    if indices is 'all':
-        n_indices = get_n_groups_from_system(item)
-        indices = range(n_indices)
-    for ii in indices:
-        atoms = list(residue[ii].atoms())
-        output.append(_array([atom.name for atom in atoms], dtype=object))
-    output = _array(output)
+    atom_index_from_group = get_atom_index_from_group(item, indices=indices)
+    atom_indices = np.unique(atom_index_from_atom)
+    atom_names = get_atom_names_from_atom(item, indices=atom_indices)
+    aux_dict = dict(zip(atom_indices, atom_names))
+    output = np.vectorize(aux_dict.__getitem__)(atom_index_from_group)
+    del(aux_dict)
     return output
 
 def get_atom_type_from_group(item, indices='all', frame_indices='all'):
 
-    residue=list(item.residues())
-
-    output = []
-    if indices is 'all':
-        n_indices = get_n_groups_from_system(item)
-        indices = range(n_indices)
-    for ii in indices:
-        atoms = list(residue[ii].atoms())
-        output.append(_array([atom.element.symbol for atom in atoms], dtype=object))
-    output = _array(output)
+    atom_index_from_group = get_atom_index_from_group(item, indices=indices)
+    atom_indices = np.unique(atom_index_from_atom)
+    atom_types = get_atom_types_from_atom(item, indices=atom_indices)
+    aux_dict = dict(zip(atom_indices, atom_types))
+    output = np.vectorize(aux_dict.__getitem__)(atom_index_from_group)
+    del(aux_dict)
     return output
 
 def get_group_index_from_group(item, indices='all', frame_indices='all'):
@@ -385,43 +379,14 @@ def get_group_index_from_group(item, indices='all', frame_indices='all'):
 
     return output
 
-def get_group_id_from_group(item, indices='all', frame_indices='all'):
+#def get_group_id_from_group(item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        n_indices = get_n_groups_from_system(item)
-        indices = range(n_indices)
 
-    group=list(item.residues())
-    output = [group[ii].id for ii in indices]
-    del(group)
-    output = _array(output, dtype=int)
-    return output
+#def get_group_name_from_group(item, indices='all', frame_indices='all'):
 
-def get_group_name_from_group(item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        n_indices = get_n_groups_from_system(item)
-        indices = range(n_indices)
+#def get_group_type_from_group(item, indices='all', frame_indices='all'):
 
-    group=list(item.residues())
-    output = [group[ii].name for ii in indices]
-    del(group)
-    output = _array(output, dtype=object)
-    return output
-
-def get_group_type_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.elements.group import name_to_type
-
-    if indices is 'all':
-        n_indices = get_n_groups_from_system(item)
-        indices = range(n_indices)
-
-    group=list(item.residues())
-    output = [name_to_type(group[ii].name) for ii in indices]
-    del(group)
-    output = _array(output, dtype=object)
-    return output
 
 def get_component_index_from_group (item, indices='all', frame_indices='all'):
 
