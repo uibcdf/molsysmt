@@ -2,6 +2,7 @@ from os.path import basename as _basename
 from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
 import numpy as np
 import simtk.unit as unit
+from molsysmt.forms.common_gets import *
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -578,8 +579,3 @@ def get_n_bonds_from_bond(item, indices='all', frame_indices='all'):
 
         return len(indices)
 
-## Insert the rest get methods
-#from pathlib import Path
-#exec(open(Path(__file__).parent/Path('../common_gets.py')).read())
-
-from molsysmt.forms.new_common_gets import *
