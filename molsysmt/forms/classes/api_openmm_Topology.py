@@ -188,16 +188,9 @@ def get_group_index_from_atom (item, indices='all', frame_indices='all'):
     del(atom)
     return output
 
-def get_component_index_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.elements.component import get_elements
-
-    output, _, _, _ = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
+#def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+#
+#  # In common_gets.py
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
@@ -210,7 +203,14 @@ def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    return get_component_index_from_atom (item, indices=indices, frame_indices=frame_indices)
+    from molsysmt.elements.molecule import get_elements
+
+    output, _, _, _ = get_elements(item)
+
+    if indices is not 'all':
+        output = output[indices]
+
+    return output
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
@@ -309,39 +309,27 @@ def get_group_type_from_group(item, indices='all', frame_indices='all'):
 
 def get_component_id_from_component (item, indices='all', frame_indices='all'):
 
-    atom_index_from_component = get_atom_index_from_component (item, indices=indices, frame_indices=frame_indices)
-    component_id_from_atom = get_component_id_from_atom (item, indices='all', frame_indices=frame_indices)
+    if indices is 'all':
+        n_components = get_n_components_from_system(item)
+        output = np.full(n_components, None, dtype=object)
+    else:
+        output = np.full(indices.shape[0], None, dtype=object)
 
-    output = []
-    for atom_indices in atom_index_from_component:
-        output.append(component_id_from_atom[atom_indices[0]])
-
-    output = np.array(output)
     return output
 
 def get_component_name_from_component (item, indices='all', frame_indices='all'):
 
-    atom_index_from_component = get_atom_index_from_component (item, indices=indices, frame_indices=frame_indices)
-    component_name_from_atom = get_component_name_from_atom (item, indices='all', frame_indices=frame_indices)
+    if indices is 'all':
+        n_components = get_n_components_from_system(item)
+        output = np.full(n_components, None, dtype=object)
+    else:
+        output = np.full(indices.shape[0], None, dtype=object)
 
-    output = []
-    for atom_indices in atom_index_from_component:
-        output.append(component_name_from_atom[atom_indices[0]])
-
-    output = np.array(output)
     return output
 
 def get_component_type_from_component (item, indices='all', frame_indices='all'):
 
-    atom_index_from_component = get_atom_index_from_component (item, indices=indices, frame_indices=frame_indices)
-    component_type_from_atom = get_component_type_from_atom (item, indices='all', frame_indices=frame_indices)
-
-    output = []
-    for atom_indices in atom_index_from_component:
-        output.append(component_type_from_atom[atom_indices[0]])
-
-    output = np.array(output)
-    return output
+    raise NotImplementedError
 
 ## molecule
 
@@ -465,7 +453,9 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    return get_n_components_from_atom(item, indices='all')
+    output = get_component_index_from_atom(item, indices='all')
+    output = np.unique(output)
+    return output.shape[0]
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
@@ -473,11 +463,11 @@ def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    return get_n_molecules_from_atom(item, indices='all')
+    raise NotImplementedError
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    return get_n_entities_from_atom(item, indices='all')
+    raise NotImplementedError
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
@@ -562,20 +552,13 @@ def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
 
-    tmp_indices = get_bond_index_from_bond(item, indices=indices, frame_indices=frame_indices)
+    if indices is 'all':
+        n_bonds = get_n_bonds_from_system(item)
+        indices = np.arange(n_bonds)
+
     bond = list(item.bonds())
-    output=[[bond[ii].atom1.index, bond[ii].atom2.index] for ii in tmp_indices]
+    output=[[bond[ii].atom1.index, bond[ii].atom2.index] for ii in indices]
     output=np.array(output)
     del(bond)
     return output
-
-def get_n_bonds_from_bond(item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-
-        return get_n_bonds_from_system(item)
-
-    else:
-
-        return len(indices)
 

@@ -91,5 +91,5 @@ def get_elements(item):
     molecule_name = component_name
     molecule_type = component_type
 
-    return molecule_index, molecule_id, component_name, component_type
+    return molecule_index, molecule_id, molecule_name, molecule_type
 

@@ -51,6 +51,14 @@ ext_rmsd = Extension(
     sources = ['molsysmt/lib/librmsd.f90'],
 )
 
+ext_bonds = Extension(
+    name = 'molsysmt.lib.libbonds',
+    extra_compile_args = [],
+    libraries = [],
+    language = 'f90',
+    sources = ['molsysmt/lib/libbonds.f90'],
+)
+
 # ext_io_dcd = Extension(
 #     name = 'molsysmt.moldyn.Readers.MyIOformats.libdcdfile',
 #     extra_compile_args = [],
@@ -60,7 +68,7 @@ ext_rmsd = Extension(
 # )
 
 extensions_list=[]
-extensions_lib=[ext_com, ext_pbc, ext_box, ext_math, ext_geometry, ext_rmsd]
+extensions_lib=[ext_com, ext_pbc, ext_box, ext_math, ext_geometry, ext_rmsd, ext_bonds]
 extensions_list.extend(extensions_lib)
 
 setup(

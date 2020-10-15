@@ -74,23 +74,41 @@ def _aux_getter_index(item, method_name, indices):
 
     if indices is 'all':
         n_aux = get(item, target='system', **dict_aaa)
-        return np.arange(n_aux)
+        return np.arange(n_aux, dtype=int)
     else:
-        return np.array(indices)
+        return np.array(indices, dtype=int)
 
 def _aux_getter_big_index_from_small(item, method_name, indices):
 
     from molsysmt.multitool import get
+
     method_fields = method_name.split('_')
     from_target = method_fields[-1]
     to_target = method_fields[1]
-    attribute = method_fields[2]
-    dict_bbb = {to_target+'_'+attribute:True}
+    dict_bbb = {to_target+'_index':True}
 
     aaa = get(item, target=from_target, indices=indices, atom_index=True)
     bbb = np.array([ii[0] for ii in aaa])
     output = get(item, target='atom', indices=bbb, **dict_bbb)
     return output
+
+#def _aux_getter_big_index_from_small(item, method_name, indices):
+#
+#    from molsysmt.multitool import get
+#
+#    method_fields = method_name.split('_')
+#    from_target = method_fields[-1]
+#    to_target = method_fields[1]
+#    dict_bbb = {to_target+'_index':True}
+#    aaa = get(item, target=from_target, indices=indices, atom_index=True)
+#    bbb = get(item, target='atom', indices='all', **dict_bbb)
+#
+#    output = []
+#    for atom_indices in aaa:
+#        output.append(bbb[atom_indices[0]])
+#
+#    output = np.array(output)
+#    return output
 
 def _aux_getter_small_index_from_big(item, method_name, indices):
 
@@ -99,9 +117,7 @@ def _aux_getter_small_index_from_big(item, method_name, indices):
     method_fields = method_name.split('_')
     from_target = method_fields[-1]
     to_target = method_fields[1]
-    attribute = method_fields[2]
     dict_aaa = {from_target+'_index':True}
-
     aaa = get(item, target=to_target, indices='all', **dict_aaa)
     indices_aux = get(item, target=from_target, indices=indices, **dict_aaa)
 
@@ -110,9 +126,35 @@ def _aux_getter_small_index_from_big(item, method_name, indices):
         tmp_indices = np.where(aaa==ii)[0]
         output.append(tmp_indices)
 
-    output = np.array(output)
+    output = np.array(output, dtype=object)
 
     return output
+
+#def _aux_getter_small_index_from_big(item, method_name, indices):
+#
+#    from molsysmt.multitool import get
+#
+#    method_fields = method_name.split('_')
+#    from_target = method_fields[-1]
+#    to_target = method_fields[1]
+#    dict_aaa = {from_target+'_index':True}
+#    dict_bbb = {to_target+'_index':True}
+#
+#    indices_aux = get(item, target=from_target, indices=indices, **dict_aaa)
+#
+#    bbb = get(item, target='atom', indices='all', **dict_bbb)
+#    ccc = get(item, target='atom', indices='all', **dict_aaa)
+#
+#    output=[]
+#
+#    for ii in indices_aux:
+#        mask = (ccc==ii)
+#        output.append(np.unique(bbb[mask]))
+#
+#    output = np.array(output, dtype=object)
+#
+#    return output
+
 
 def _aux_n(item, method_name, indices):
 
@@ -217,9 +259,21 @@ def get_group_type_from_atom (item, indices='all', frame_indices='all'):
     method_name = inspect.stack()[0][3]
     return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
-#def get_component_index_from_atom (item, indices='all', frame_indices='all'):
-#
-#    raise NotImplementedError
+def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import get
+    from molsysmt.lib import bonds as _libbonds
+
+    n_atoms, n_bonds = get(item, target='system', n_atoms=True, n_bonds=True)
+    atoms_indices = get(item, target='bond', indices='all', atom_index=True)
+
+    output = _libbonds.component_indices(atoms_indices, n_atoms, n_bonds)
+    output = np.ascontiguousarray(output, dtype=int)
+
+    if indices is not 'all':
+        output = output[indices]
+
+    return output
 
 def get_component_id_from_atom (item, indices='all', frame_indices='all'):
 
@@ -454,22 +508,22 @@ def get_component_type_from_group (item, indices='all', frame_indices='all'):
 def get_chain_index_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_attribute_from_small(item, method_name, indices)
+    return _aux_getter_big_index_from_small(item, method_name, indices)
 
 def get_chain_id_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_chain_name_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_chain_type_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_molecule_index_from_group (item, indices='all', frame_indices='all'):
 
@@ -479,17 +533,17 @@ def get_molecule_index_from_group (item, indices='all', frame_indices='all'):
 def get_molecule_id_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_molecule_name_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_molecule_type_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_entity_index_from_group (item, indices='all', frame_indices='all'):
 
@@ -499,17 +553,17 @@ def get_entity_index_from_group (item, indices='all', frame_indices='all'):
 def get_entity_id_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_entity_name_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_entity_type_from_group (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_n_atoms_from_group (item, indices='all', frame_indices='all'):
 
@@ -1369,6 +1423,26 @@ def get_frame_from_system(item, indices='all', frame_indices='all'):
 #def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 #
 #    raise NotImplementedError
+
+def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import get
+    return get(item, target='atoms', indices='all', bonded_atoms=True)
+
+def get_bond_index_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import get
+    return get(item, target='atoms', indices='all', bond_index=True)
+
+def get_inner_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import get
+    return get(item, target='bond', indices='all', atom_index=True)
+
+def get_inner_bond_index_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import get
+    return get(item, target='bond', indices='all', bond_index=True)
 
 ## bond
 

@@ -82,9 +82,9 @@ def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_component_index_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+#def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+#
+#    In common_gets.py
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 

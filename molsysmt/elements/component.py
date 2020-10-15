@@ -1,19 +1,133 @@
+import numpy as np
+
 types = ['water', 'ion', 'cosolute', 'small molecule', 'lipid', 'peptide', 'protein', 'rna', 'dna']
 
-def type_from_atoms(item, indices):
+def get_component_index_from_atom(item, indices='all'):
+
+    from molsysmt.multitool import get
+    from molsysmt.lib import bonds as _libbonds
+
+    n_atoms, n_bonds = get(item, target='system', n_atoms=True, n_bonds=True)
+
+    if n_bonds==0:
+        output = np.full(n_atoms, None, dtype=object)
+
+    else:
+
+        atoms_indices = get(item, target='bond', indices='all', atom_index=True)
+
+        output = _libbonds.component_indices(atoms_indices, n_atoms, n_bonds)
+        output = np.ascontiguousarray(output, dtype=int)
+
+    if indices is not 'all':
+        output = output[indices]
+
+    return output
+
+def get_component_id_from_atom(item, indices='all'):
+
+    component_index_from_atom = get_component_index_from_atom(item, indices=indices)
+    component_indices = np.unique(component_index_from_atom)
+    component_ids = get_component_id_from_component(item, indices=component_indices)
+    aux_dict = dict(zip(component_indices, component_ids))
+    output = np.vectorize(aux_dict.__getitem__)(component_index_from_atom)
+    del(aux_dict)
+    return output
+
+def get_component_name_from_atom(item, indices='all'):
+
+    component_index_from_atom = get_component_index_from_atom(item, indices=indices)
+    component_indices = np.unique(component_index_from_atom)
+    component_names = get_component_name_from_component(item, indices=component_indices)
+    aux_dict = dict(zip(component_indices, component_names))
+    output = np.vectorize(aux_dict.__getitem__)(component_index_from_atom)
+    del(aux_dict)
+    return output
+
+def get_component_type_from_atom(item, indices='all'):
+
+    component_index_from_atom = get_component_index_from_atom(item, indices=indices)
+    component_indices = np.unique(component_index_from_atom)
+    component_names = get_component_name_from_component(item, indices=component_indices)
+    aux_dict = dict(zip(component_indices, component_names))
+    output = np.vectorize(aux_dict.__getitem__)(component_index_from_atom)
+    del(aux_dict)
+    return output
+
+def get_atom_index_from_component(item, indices='all'):
+
+    component_index_from_atom = get_component_index_from_atom(item, indices='all')
+    indices_aux = get_component_index_from_component(item, indices='all')
+
+    output = []
+    for ii in indices_aux:
+        tmp_indices = np.where(aaa==ii)[0]
+        output.append(tmp_indices)
+
+    output = np.array(output, dtype=object)
+
+    return output
+
+def get_component_index_from_component(item, indices='all'):
+
+    if indices is 'all':
+        component_index_from_atom = get_component_index_from_atom(item, indices='all')
+        component_indices = np.unique(component_index_from_atom)
+        n_components = component_indices.shape[0]
+        output = np.arange(n_components)
+    else:
+        output = np.array(indices)
+
+    return output
+
+def get_component_id_from_component(item, indices='all'):
+
+    if indices is 'all':
+        n_components = get_n_components_from_system(item)
+        output = np.full(n_components, None, dtype=object)
+    else:
+        output = np.full(indices.shape[0], None, dtype=object)
+
+    return output
+
+def get_component_name_from_component(item, indices='all'):
+
+    if indices is 'all':
+        n_components = get_n_components_from_system(item)
+        output = np.full(n_components, None, dtype=object)
+    else:
+        output = np.full(indices.shape[0], None, dtype=object)
+
+    return output
+
+def get_component_type_from_component(item, indices='all'):
+
+    atom_indices_from_component = get_atom_index_from_component(item, indices=indices)
+
+    output = []
+
+    for atom_indices in atom_indices_from_component:
+        component_type = _get_type_from_atoms(item, atom_indices)
+        output.append(component_type)
+
+    output = np.array(output, dtype=object)
+
+    return output
+
+def _get_type_from_atoms(item, indices):
 
     from molsysmt import get
     group_indices = get(item, target='atom', indices=indices, group_index=True)
     group_indices = np.unique(group_indices)
-    return type_from_groups(item, group_indices)
+    return _get_type_from_groups(item, group_indices)
 
-def type_from_groups(item, indices):
+def _get_type_from_groups(item, indices):
 
     from molsysmt import get
     group_names = get(item, target='group', indices=indices, name=True)
-    return type_from_group_names(group_names)
+    return _get_type_from_group_names(group_names)
 
-def type_from_group_name(group_name, n_groups=1):
+def _get_type_from_group_name(group_name, n_groups=1):
 
     from .groups import name_to_type as group_name_to_group_type
     from .groups import dna_names as dna_group_names
@@ -44,46 +158,4 @@ def type_from_group_name(group_name, n_groups=1):
             tmp_type = 'dna'
 
     return tmp_type
-
-def get_elements(item):
-
-    from molsysmt import get
-    from molsysmt.elements.group import type_to_component_type as group_type_to_component_type
-    from networkx import empty_graph, connected_components
-    from numpy import empty, full
-
-    n_atoms = get(item, target='system', n_atoms=True)
-    bonded_atoms = get(item, target='bond', atom_index=True)
-
-    if bonded_atoms is None or len(bonded_atoms)==0:
-
-        index_array = full(n_atoms, None, dtype=object)
-        id_array = full(n_atoms, None, dtype=object)
-        type_array = full(n_atoms, None, dtype=object)
-        name_array = full(n_atoms, None, dtype=object)
-
-    else:
-
-        G = empty_graph(n_atoms)
-        G.add_edges_from(bonded_atoms)
-
-        index_array = empty(n_atoms, dtype=int)
-        id_array = empty(n_atoms, dtype=object)
-        type_array = empty(n_atoms, dtype=object)
-        name_array = empty(n_atoms, dtype=object)
-
-        component_index = 0
-
-        for atom_indices_of_component in connected_components(G):
-            aux_list = list(atom_indices_of_component)
-            group_type = get(item, target='atom', indices=[aux_list[0]], group_type=True)[0]
-            component_type = group_type_to_component_type(group_type)
-            if component_type == 'peptide':
-                n_groups = get(item, target='atom', indices=aux_list, n_groups=True)
-                component_type = group_type_to_component_type(group_type, n_groups)
-            index_array[aux_list] = component_index
-            type_array[aux_list] = component_type
-            component_index += 1
-
-    return index_array, id_array, name_array, type_array
 
