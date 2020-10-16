@@ -1,20 +1,20 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
-from molsysmt import MolSys as _molsysmt_MolSys
 import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
+from MDAnalysis.topology import PDBParser as _mdanalysis_topology_PDBParser
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    _molsysmt_MolSys : form_name,
-    'molsysmt.MolSys': form_name
-}
+    _mdanalysis_topology_PDBParser : form_name,
+    'mdanalysis.topology.PDBParser' : form_name
+        }
 
 info=["",""]
 with_topology=True
-with_trajectory=True
+with_trajectory=False
 
 def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
@@ -27,6 +27,14 @@ def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_i
 def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
+
+def to_mdanalysis_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from .api_mdanalysis_Topology import extract as extract_mdanalysis_Topology
+
+    tmp_item = item.parse()
+    tmp_item = extract_mdanalysis_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def select_with_Amber(item, selection):
 
@@ -94,13 +102,11 @@ def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_index_from_atom as _get
-    return _get(item, indices=indices)
+    raise NotImplementedError
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_index_from_atom as _get
-    return _get(item, indices=indices)
+    raise NotImplementedError
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
@@ -171,18 +177,15 @@ def get_component_type_from_component (item, indices='all', frame_indices='all')
 
 def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_id_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_name_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_type_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 ## chain
 
@@ -202,18 +205,15 @@ def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 
 def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_id_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_name_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_type_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 ## system
 
@@ -227,8 +227,9 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_n_components_from_system as get
-    return get(item, indices)
+    output = get_component_index_from_atom(item, indices='all')
+    output = np.unique(output)
+    return output.shape[0]
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
@@ -236,13 +237,11 @@ def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_n_molecules_from_system as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_n_entities_from_system as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 

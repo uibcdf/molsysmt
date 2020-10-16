@@ -183,7 +183,7 @@ def _aux_n_big_from_small(item, method_name, indices):
     if indices is 'all':
         return get(item, target='system', **dict_aaa)
     else:
-        output = get(item, target=from_group, indices=indices, **dict_bbb)
+        output = get(item, target=from_target, indices=indices, **dict_bbb)
         return np.unique(output).shape[0]
 
 def _aux_n_small_from_big(item, method_name, indices):
@@ -259,21 +259,8 @@ def get_group_type_from_atom (item, indices='all', frame_indices='all'):
     method_name = inspect.stack()[0][3]
     return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
-def get_component_index_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.multitool import get
-    from molsysmt.lib import bonds as _libbonds
-
-    n_atoms, n_bonds = get(item, target='system', n_atoms=True, n_bonds=True)
-    atoms_indices = get(item, target='bond', indices='all', atom_index=True)
-
-    output = _libbonds.component_indices(atoms_indices, n_atoms, n_bonds)
-    output = np.ascontiguousarray(output, dtype=int)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
+#def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+#    raise NotImplementedError
 
 def get_component_id_from_atom (item, indices='all', frame_indices='all'):
 

@@ -45,6 +45,22 @@ def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
+def to_mdanalysis_Topology(item, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_mdanalysis_topology_PDBParser import to_mdanalysis_Topology as mdanalysis_topology_PDBParser_to_mdanalysis_Topology
+
+    tmp_item = to_mdanalysis_topology_PDBParser(item)
+    tmp_item = mdanalysis_topology_PDBParser_to_mdanalysis_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_mdanalysis_topology_PDBParser(item, atom_indices='all', frame_indices='all'):
+
+    from MDAnalysis.topology import PDBParser
+
+    tmp_item = PDBParser.PDBParser(item)
+
+    return tmp_item
+
 def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_topology as mdtraj_load_topology

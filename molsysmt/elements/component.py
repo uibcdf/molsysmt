@@ -71,9 +71,7 @@ def get_atom_index_from_component(item, indices='all'):
 def get_component_index_from_component(item, indices='all'):
 
     if indices is 'all':
-        component_index_from_atom = get_component_index_from_atom(item, indices='all')
-        component_indices = np.unique(component_index_from_atom)
-        n_components = component_indices.shape[0]
+        n_components = get_n_components_from_system(item)
         output = np.arange(n_components)
     else:
         output = np.array(indices)
@@ -113,6 +111,16 @@ def get_component_type_from_component(item, indices='all'):
     output = np.array(output, dtype=object)
 
     return output
+
+def get_n_components_from_system(item, indices='all'):
+
+    output = get_component_index_from_atom(item, indices='all')
+    if output[0] is None:
+        n_components = 0
+    else:
+        output = np.unique(output)
+        n_components = output.shape[0]
+    return n_components
 
 def _get_type_from_atoms(item, indices):
 
@@ -158,4 +166,13 @@ def _get_type_from_group_name(group_name, n_groups=1):
             tmp_type = 'dna'
 
     return tmp_type
+
+def get_elements(item):
+
+    index_array = get_component_index_from_atom(item, indices='all')
+    id_array = get_component_id_from_atom(item, indices='all')
+    name_array = get_component_name_from_atom(item, indices='all')
+    type_array = get_component_type_from_atom(item, indices='all')
+
+    return index_array, id_array, name_array, type_array
 
