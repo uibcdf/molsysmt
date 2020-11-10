@@ -12,7 +12,7 @@ def get_molecule_id_from_atom(item, indices='all'):
 
     molecule_index_from_atom = get_molecule_index_from_atom(item, indices=indices)
     molecule_indices = np.unique(molecule_index_from_atom)
-    molecule_ids = get_molecule_id_from_molecule(item, indices=component_molecule)
+    molecule_ids = get_molecule_id_from_molecule(item, indices=molecule_indices)
     aux_dict = dict(zip(molecule_indices, molecule_ids))
     output = np.vectorize(aux_dict.__getitem__)(molecule_index_from_atom)
     del(aux_dict)
@@ -174,10 +174,10 @@ def _get_type_from_sequence(sequence):
 
 def get_elements(item):
 
-    index_array = get_molecule_index_from_atom(atom, indices='all')
-    id_array = get_molecule_id_from_atom(atom, indices='all')
-    name_array = get_molecule_name_from_atom(atom, indices='all')
-    type_array = get_molecule_type_from_atom(atom, indices='all')
+    index_array = get_molecule_index_from_atom(item, indices='all')
+    id_array = get_molecule_id_from_atom(item, indices='all')
+    name_array = get_molecule_name_from_atom(item, indices='all')
+    type_array = get_molecule_type_from_atom(item, indices='all')
 
     return index_array, id_array, name_array, type_array
 

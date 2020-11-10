@@ -411,7 +411,7 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.components import get_n_components_from_system as _get
+    from molsysmt.elements.component import get_n_components_from_system as _get
     _get(item)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
@@ -420,13 +420,13 @@ def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecules import get_n_components_from_system as _get
-    _get(item)
+    from molsysmt.elements.molecule import get_n_molecules_from_system as _get
+    return _get(item)
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecules import get_n_components_from_system as _get
-    _get(item)
+    from molsysmt.elements.entity import get_n_entities_from_system as _get
+    return _get(item)
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
@@ -488,6 +488,10 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
+
+def get_form_from_system(item, indices='all', frame_indices='all'):
+
+    return form_name
 
 ## bond
 

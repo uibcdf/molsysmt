@@ -1,4 +1,5 @@
 from molsysmt.utils.exceptions import *
+import numpy as np
 
 types = ["water", "ion", "cosolute", "protein", "peptide", "rna", "dna", "lipid"]
 
@@ -180,7 +181,7 @@ def type_from_MMTFDecoder_entity (mmtf_entity):
 
 def _get_type_from_sequence(sequence):
 
-    from .molecule import type_from_sequence as molecule_type_from_sequence
+    from .molecule import _get_type_from_sequence as molecule_type_from_sequence
 
     molecule_type = molecule_type_from_sequence(sequence)
 
