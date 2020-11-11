@@ -32,8 +32,8 @@ def get_molecule_type_from_atom(item, indices='all'):
 
     molecule_index_from_atom = get_molecule_index_from_atom(item, indices=indices)
     molecule_indices = np.unique(molecule_index_from_atom)
-    molecule_names = get_molecule_name_from_molecule(item, indices=molecule_indices)
-    aux_dict = dict(zip(molecule_indices, molecule_names))
+    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices)
+    aux_dict = dict(zip(molecule_indices, molecule_types))
     output = np.vectorize(aux_dict.__getitem__)(molecule_index_from_atom)
     del(aux_dict)
     return output
@@ -45,7 +45,7 @@ def get_atom_index_from_molecule(item, indices='all'):
 
     output = []
     for ii in indices_aux:
-        tmp_indices = np.where(aaa==ii)[0]
+        tmp_indices = np.where(molecule_index_from_atom==ii)[0]
         output.append(tmp_indices)
 
     output = np.array(output, dtype=object)
@@ -111,19 +111,19 @@ def _get_type_from_atoms(item, indices):
     from molsysmt import get
     group_indices = get(item, target='atom', indices=indices, group_index=True)
     group_indices = np.unique(group_indices)
-    return type_from_groups(item, group_indices)
+    return _get_type_from_groups(item, group_indices)
 
 def _get_type_from_groups(item, indices):
 
     from molsysmt import get
     group_names = get(item, target='group', indices=indices, name=True)
-    return type_from_group_names(group_names)
+    return _get_type_from_group_names(group_names)
 
 def _get_type_from_group_names(group_names):
 
-    from .groups import name_to_type as group_name_to_group_type
-    from .groups import dna_names as dna_group_names
-    from .groups import rna_names as rna_group_names
+    from .group import name_to_type as group_name_to_group_type
+    from .group import dna_names as dna_group_names
+    from .group import rna_names as rna_group_names
 
     tmp_type = None
 
@@ -133,11 +133,11 @@ def _get_type_from_group_names(group_names):
     first_type = group_types[0]
     first_name = group_names[0]
 
-    if not (np.array(group_types) == first_type):
+    if not (np.array(group_types) == first_type).all():
         raise ValueError("Groups have different type")
 
     if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
-        tmp_type = group_type
+        tmp_type = first_type
     elif first_type == 'aminoacid':
         if n_groups>=50:
             tmp_type='protein'

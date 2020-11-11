@@ -4,7 +4,7 @@ from mdtraj.core.residue_names import _AMINO_ACID_CODES as _aminoacid_group_name
 from mdtraj.core.residue_names import _WATER_RESIDUES as _water_group_names_mdtraj
 from mdtraj.core.residue_names import _SOLVENT_TYPES as _solvent_group_names_mdtraj
 
-types=['water', 'ion', 'cosolute', 'small_molecule', 'aminoacid', 'nucleotide', 'lipid']
+types=['water', 'ion', 'cosolute', 'small molecule', 'aminoacid', 'nucleotide', 'lipid']
 
 aminoacid_names = list(_aminoacid_group_names_mdtraj)
 water_names = list(_water_group_names_mdtraj)
@@ -32,6 +32,8 @@ def name_to_type(name):
         tmp_type ='nucleotide'
     elif _name_is_type_lipid(name):
         tmp_type = 'lipid'
+    else:
+        tmp_type = 'small molecule'
 
     return tmp_type
 

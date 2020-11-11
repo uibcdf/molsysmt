@@ -1,7 +1,7 @@
 from molsysmt.utils.exceptions import *
 import numpy as np
 
-types = ["water", "ion", "cosolute", "protein", "peptide", "rna", "dna", "lipid"]
+types = ["water", "ion", "cosolute", "protein", "peptide", "rna", "dna", "lipid", "small molecule"]
 
 def _aux(item):
 
@@ -46,7 +46,7 @@ def _aux(item):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'peptide':
-                name = 'Peptide'+str(n_peptides)
+                name = 'Peptide_'+str(n_peptides)
                 type = 'peptide'
                 n_peptides+=1
                 try:
@@ -56,7 +56,7 @@ def _aux(item):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'protein':
-                name = 'Protein'+str(n_proteins)
+                name = 'Protein_'+str(n_proteins)
                 type = 'protein'
                 n_proteins+=1
                 try:
@@ -66,9 +66,28 @@ def _aux(item):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'lipid':
-                group_name = get(item, target='group', indices=m_atoms, name=True)[0]
+                group_name = get(item, target='atom', indices=m_atoms[0], group_name=True)[0]
                 name = group_name
                 type = 'lipid'
+                try:
+                    index = entities[name]
+                except:
+                    entities[name]=n_entities
+                    index=n_entities
+                    n_entities+=1
+            elif m_type == 'small molecule':
+                group_name = get(item, target='atom', indices=m_atoms[0], group_name=True)[0]
+                name = group_name
+                type = 'small molecule'
+                try:
+                    index = entities[name]
+                except:
+                    entities[name]=n_entities
+                    index=n_entities
+                    n_entities+=1
+            else:
+                name = 'unknown'
+                type = 'unknown'
                 try:
                     index = entities[name]
                 except:
@@ -97,7 +116,7 @@ def get_entity_id_from_atom(item, indices='all'):
 
     entity_index_from_atom = get_entity_index_from_atom(item, indices=indices)
     entity_indices = np.unique(entity_index_from_atom)
-    entity_ids = get_entity_id_from_entity(item, indices=component_entity)
+    entity_ids = get_entity_id_from_entity(item, indices=entity_indices)
     aux_dict = dict(zip(entity_indices, entity_ids))
     output = np.vectorize(aux_dict.__getitem__)(entity_index_from_atom)
     del(aux_dict)
@@ -129,22 +148,10 @@ def get_atom_index_from_entity(item, indices='all'):
 
     output = []
     for ii in indices_aux:
-        tmp_indices = np.where(aaa==ii)[0]
+        tmp_indices = np.where(entity_index_from_atom==ii)[0]
         output.append(tmp_indices)
 
     output = np.array(output, dtype=object)
-
-    return output
-
-def get_entity_index_from_entity(item, indices='all'):
-
-    if indices is 'all':
-        entity_index_from_atom = get_entity_index_from_atom(item, indices='all')
-        entity_indices = np.unique(entity_index_from_atom)
-        n_entities = entity_indices.shape[0]
-        output = np.arange(n_entities)
-    else:
-        output = np.array(indices)
 
     return output
 
@@ -155,6 +162,45 @@ def get_entity_index_from_entity(item, indices='all'):
         output = np.arange(n_entities)
     else:
         output = np.array(indices)
+
+    return output
+
+
+def get_entity_id_from_entity(item, indices='all'):
+
+    if indices is 'all':
+        n_entities = get_n_entities_from_system(item)
+        output = np.full(n_entities, None, dtype=object)
+    else:
+        output = np.full(indices.shape[0], None, dtype=object)
+
+    return output
+
+def get_entity_name_from_entity(item, indices='all'):
+
+    atom_indices_from_entity = get_atom_index_from_entity(item, indices=indices)
+
+    output = []
+
+    for atom_indices in atom_indices_from_entity:
+        entity_type = get_entity_name_from_atom(item, atom_indices[0])
+        output.append(entity_type)
+
+    output = np.array(output)
+
+    return output
+
+def get_entity_type_from_entity(item, indices='all'):
+
+    atom_indices_from_entity = get_atom_index_from_entity(item, indices=indices)
+
+    output = []
+
+    for atom_indices in atom_indices_from_entity:
+        entity_type = get_entity_type_from_atom(item, atom_indices[0])
+        output.append(entity_type)
+
+    output = np.array(output, dtype=object)
 
     return output
 

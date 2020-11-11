@@ -92,23 +92,23 @@ def _aux_getter_big_index_from_small(item, method_name, indices):
     output = get(item, target='atom', indices=bbb, **dict_bbb)
     return output
 
-#def _aux_getter_big_index_from_small(item, method_name, indices):
-#
-#    from molsysmt.multitool import get
-#
-#    method_fields = method_name.split('_')
-#    from_target = method_fields[-1]
-#    to_target = method_fields[1]
-#    dict_bbb = {to_target+'_index':True}
-#    aaa = get(item, target=from_target, indices=indices, atom_index=True)
-#    bbb = get(item, target='atom', indices='all', **dict_bbb)
-#
-#    output = []
-#    for atom_indices in aaa:
-#        output.append(bbb[atom_indices[0]])
-#
-#    output = np.array(output)
-#    return output
+def _aux2_getter_big_index_from_small(item, method_name, indices):
+
+    from molsysmt.multitool import get
+
+    method_fields = method_name.split('_')
+    from_target = method_fields[-1]
+    to_target = method_fields[1]
+    dict_bbb = {to_target+'_index':True}
+    aaa = get(item, target=from_target, indices=indices, atom_index=True)
+    bbb = get(item, target='atom', indices='all', **dict_bbb)
+
+    output = []
+    for atom_indices in aaa:
+        output.append(bbb[atom_indices[0]])
+
+    output = np.array(output)
+    return output
 
 def _aux_getter_small_index_from_big(item, method_name, indices):
 
@@ -118,6 +118,7 @@ def _aux_getter_small_index_from_big(item, method_name, indices):
     from_target = method_fields[-1]
     to_target = method_fields[1]
     dict_aaa = {from_target+'_index':True}
+
     aaa = get(item, target=to_target, indices='all', **dict_aaa)
     indices_aux = get(item, target=from_target, indices=indices, **dict_aaa)
 
@@ -130,30 +131,30 @@ def _aux_getter_small_index_from_big(item, method_name, indices):
 
     return output
 
-#def _aux_getter_small_index_from_big(item, method_name, indices):
-#
-#    from molsysmt.multitool import get
-#
-#    method_fields = method_name.split('_')
-#    from_target = method_fields[-1]
-#    to_target = method_fields[1]
-#    dict_aaa = {from_target+'_index':True}
-#    dict_bbb = {to_target+'_index':True}
-#
-#    indices_aux = get(item, target=from_target, indices=indices, **dict_aaa)
-#
-#    bbb = get(item, target='atom', indices='all', **dict_bbb)
-#    ccc = get(item, target='atom', indices='all', **dict_aaa)
-#
-#    output=[]
-#
-#    for ii in indices_aux:
-#        mask = (ccc==ii)
-#        output.append(np.unique(bbb[mask]))
-#
-#    output = np.array(output, dtype=object)
-#
-#    return output
+def _aux2_getter_small_index_from_big(item, method_name, indices):
+
+    from molsysmt.multitool import get
+
+    method_fields = method_name.split('_')
+    from_target = method_fields[-1]
+    to_target = method_fields[1]
+    dict_aaa = {from_target+'_index':True}
+    dict_bbb = {to_target+'_index':True}
+
+    indices_aux = get(item, target=from_target, indices=indices, **dict_aaa)
+
+    bbb = get(item, target='atom', indices='all', **dict_bbb)
+    ccc = get(item, target='atom', indices='all', **dict_aaa)
+
+    output=[]
+
+    for ii in indices_aux:
+        mask = (ccc==ii)
+        output.append(np.unique(bbb[mask]))
+
+    output = np.array(output, dtype=object)
+
+    return output
 
 
 def _aux_n(item, method_name, indices):
@@ -195,7 +196,6 @@ def _aux_n_small_from_big(item, method_name, indices):
     targets = method_fields[2]
     dict_aaa = {'n_'+targets:True}
     dict_bbb = {_singular[targets]+'_index':True}
-
     output = get(item, target=from_target, indices=indices, **dict_bbb)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
@@ -325,7 +325,6 @@ def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
     return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
-
     method_name = inspect.stack()[0][3]
     return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
@@ -685,7 +684,7 @@ def get_chain_type_from_component (item, indices='all', frame_indices='all'):
 def get_molecule_index_from_component (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_attribute_from_small(item, method_name, indices)
+    return _aux_getter_big_index_from_small(item, method_name, indices)
 
 def get_molecule_id_from_component (item, indices='all', frame_indices='all'):
 
@@ -700,7 +699,7 @@ def get_molecule_name_from_component (item, indices='all', frame_indices='all'):
 def get_molecule_type_from_component (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_attribute_from(item, method_name, indices)
+    return _aux_getter_big_attribute_from_small(item, method_name, indices)
 
 def get_entity_index_from_component (item, indices='all', frame_indices='all'):
 
@@ -837,7 +836,7 @@ def get_component_type_from_molecule (item, indices='all', frame_indices='all'):
 def get_chain_index_from_molecule (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_small_index_from_big(item, method_name, indices)
+    return _aux2_getter_small_index_from_big(item, method_name, indices)
 
 def get_chain_id_from_molecule (item, indices='all', frame_indices='all'):
 
@@ -1023,7 +1022,7 @@ def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
 def get_molecule_index_from_chain (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_small_index_from_big(item, method_name, indices)
+    return _aux2_getter_small_index_from_big(item, method_name, indices)
 
 def get_molecule_id_from_chain (item, indices='all', frame_indices='all'):
 
@@ -1043,22 +1042,22 @@ def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
 def get_entity_index_from_chain (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_index_from_small(item, method_name, indices)
+    return _aux2_getter_small_index_from_big(item, method_name, indices)
 
 def get_entity_id_from_chain (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_attribute_from_small(item, method_name, indices)
+    return _aux_getter_small_attribute_from_big(item, method_name, indices)
 
 def get_entity_name_from_chain (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_attribute_from_small(item, method_name, indices)
+    return _aux_getter_small_attribute_from_big(item, method_name, indices)
 
 def get_entity_type_from_chain (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_big_attribute_from_small(item, method_name, indices)
+    return _aux_getter_small_attribute_from_big(item, method_name, indices)
 
 def get_n_atoms_from_chain (item, indices='all', frame_indices='all'):
 
@@ -1175,7 +1174,7 @@ def get_component_type_from_entity (item, indices='all', frame_indices='all'):
 def get_chain_index_from_entity (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_small_attribute_from_big(item, method_name, indices)
+    return _aux2_getter_small_index_from_big(item, method_name, indices)
 
 def get_chain_id_from_entity (item, indices='all', frame_indices='all'):
 
@@ -1215,7 +1214,7 @@ def get_molecule_type_from_entity (item, indices='all', frame_indices='all'):
 def get_entity_index_from_entity (item, indices='all', frame_indices='all'):
 
     method_name = inspect.stack()[0][3]
-    return _aux_getter_small_attribute_from_big(item, method_name, indices)
+    return _aux_getter_index(item, method_name, indices)
 
 #def get_entity_id_from_entity (item, indices='all', frame_indices='all'):     # EMPTY
 #
@@ -1333,7 +1332,7 @@ def get_n_small_molecules_from_system (item, indices='all', frame_indices='all')
     from molsysmt.multitool import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
-    return (molecule_types=='small_molecule').sum()
+    return (molecule_types=='small molecule').sum()
 
 def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
 

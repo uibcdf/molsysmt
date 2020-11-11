@@ -209,7 +209,8 @@ def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.entity import get_entity_index_from_atom as _get
+    return _get(item, indices=indices)
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
@@ -324,7 +325,7 @@ def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
 
 def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_component_type_from_component as get
+    from molsysmt.elements.molecule import get_molecule_type_from_molecule as get
     return get(item, indices)
 
 ## chain
@@ -365,39 +366,49 @@ def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 
 def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
 
-    atom_index_from_entity = get_atom_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-    entity_id_from_atom = get_entity_id_from_atom (item, indices='all', frame_indices=frame_indices)
+    from molsysmt.elements.entity import get_entity_type_from_entity as get
+    return get(item, indices)
 
-    output = []
-    for atom_indices in atom_index_from_entity:
-        output.append(entity_id_from_atom[atom_indices[0]])
+    #atom_index_from_entity = get_atom_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    #entity_id_from_atom = get_entity_id_from_atom (item, indices='all', frame_indices=frame_indices)
 
-    output = np.array(output)
-    return output
+    #output = []
+    #for atom_indices in atom_index_from_entity:
+    #    output.append(entity_id_from_atom[atom_indices[0]])
+
+    #output = np.array(output)
+    #return output
 
 def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
 
-    atom_index_from_entity = get_atom_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-    entity_name_from_atom = get_entity_name_from_atom (item, indices='all', frame_indices=frame_indices)
+    from molsysmt.elements.entity import get_entity_name_from_entity as get
+    return get(item, indices)
 
-    output = []
-    for atom_indices in atom_index_from_entity:
-        output.append(entity_name_from_atom[atom_indices[0]])
+    #atom_index_from_entity = get_atom_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    #entity_name_from_atom = get_entity_name_from_atom (item, indices='all', frame_indices=frame_indices)
 
-    output = _array(output)
-    return output
+    #output = []
+    #for atom_indices in atom_index_from_entity:
+    #    output.append(entity_name_from_atom[atom_indices[0]])
+
+    #output = _array(output)
+    #return output
 
 def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
-    atom_index_from_entity = get_atom_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-    entity_type_from_atom = get_entity_type_from_atom (item, indices='all', frame_indices=frame_indices)
+    from molsysmt.elements.entity import get_entity_type_from_entity as get
+    return get(item, indices)
 
-    output = []
-    for atom_indices in atom_index_from_entity:
-        output.append(entity_type_from_atom[atom_indices[0]])
+    #atom_index_from_entity = get_atom_index_from_entity (item, indices=indices, frame_indices=frame_indices)
+    #entity_type_from_atom = get_entity_type_from_atom (item, indices='all', frame_indices=frame_indices)
 
-    output = np.array(output)
-    return output
+    #output = []
+    #for atom_indices in atom_index_from_entity:
+    #    output.append(entity_type_from_atom[atom_indices[0]])
+
+    #output = np.array(output)
+    #return output
+
 
 ## system
 
@@ -412,7 +423,7 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
     from molsysmt.elements.component import get_n_components_from_system as _get
-    _get(item)
+    return _get(item)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 

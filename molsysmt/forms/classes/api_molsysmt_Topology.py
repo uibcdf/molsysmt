@@ -689,7 +689,7 @@ def get_atom_index_from_component (item, indices='all', frame_indices='all'):
     for ii in indices:
         mask = (item.atoms_dataframe['component_index']==ii)
         output.append(item.atoms_dataframe['atom_index'][mask].to_numpy())
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_atom_id_from_component (item, indices='all', frame_indices='all'):
@@ -698,7 +698,7 @@ def get_atom_id_from_component (item, indices='all', frame_indices='all'):
     tmp_indices = get_atom_index_from_component(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_atom_id_from_atom(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_atom_name_from_component (item, indices='all', frame_indices='all'):
@@ -707,7 +707,7 @@ def get_atom_name_from_component (item, indices='all', frame_indices='all'):
     tmp_indices = get_atom_index_from_component(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_atom_name_from_atom(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_atom_type_from_component (item, indices='all', frame_indices='all'):
@@ -716,7 +716,7 @@ def get_atom_type_from_component (item, indices='all', frame_indices='all'):
     tmp_indices = get_atom_index_from_component(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_atom_type_from_atom(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_index_from_component (item, indices='all', frame_indices='all'):
@@ -728,7 +728,7 @@ def get_group_index_from_component (item, indices='all', frame_indices='all'):
     for ii in indices:
         mask = (item.atoms_dataframe['component_index']==ii)
         output.append(item.atoms_dataframe['group_index'][mask].unique())
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_id_from_component (item, indices='all', frame_indices='all'):
@@ -737,7 +737,7 @@ def get_group_id_from_component (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_component(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_group_id_from_group(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_name_from_component (item, indices='all', frame_indices='all'):
@@ -746,7 +746,7 @@ def get_group_name_from_component (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_component(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_group_name_from_group(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_type_from_component (item, indices='all', frame_indices='all'):
@@ -755,7 +755,7 @@ def get_group_type_from_component (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_component(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_group_type_from_group(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_component_index_from_component (item, indices='all', frame_indices='all'):
@@ -1003,7 +1003,7 @@ def get_group_index_from_molecule (item, indices='all', frame_indices='all'):
     for ii in indices:
         mask = (item.atoms_dataframe['molecule_index']==ii)
         output.append(item.atoms_dataframe['group_index'][mask].unique())
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_id_from_molecule (item, indices='all', frame_indices='all'):
@@ -1012,7 +1012,7 @@ def get_group_id_from_molecule (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_group_id_from_group(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_name_from_molecule (item, indices='all', frame_indices='all'):
@@ -1021,7 +1021,7 @@ def get_group_name_from_molecule (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_group_name_from_group(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_type_from_molecule (item, indices='all', frame_indices='all'):
@@ -1030,7 +1030,7 @@ def get_group_type_from_molecule (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_molecule(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_group_type_from_group(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_component_index_from_molecule (item, indices='all', frame_indices='all'):
@@ -1428,34 +1428,41 @@ def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
 
 def get_entity_index_from_chain (item, indices='all', frame_indices='all'):
 
-    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
-    all_indices = item.atoms_dataframe['chain_index'].to_numpy()
-    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
-    output = item.atoms_dataframe['entity_index'][right_locs].to_numpy()
+    output = []
+    if indices is 'all':
+        n_indices = get_n_chains_from_system(item)
+        indices = range(n_indices)
+    for ii in indices:
+        mask = (item.atoms_dataframe['chain_index']==ii)
+        output.append(item.atoms_dataframe['entity_index'][mask].unique())
+    output = _array(output)
     return output
 
 def get_entity_id_from_chain (item, indices='all', frame_indices='all'):
 
-    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
-    all_indices = item.atoms_dataframe['chain_index'].to_numpy()
-    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
-    output = item.atoms_dataframe['entity_id'][right_locs].to_numpy()
+    output=[]
+    tmp_indices = get_entity_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    for aux_indices in tmp_indices:
+        output.append(get_entity_id_from_entity(item, indices=aux_indices, frame_indices=frame_indices))
+    output = _array(output)
     return output
 
 def get_entity_name_from_chain (item, indices='all', frame_indices='all'):
 
-    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
-    all_indices = item.atoms_dataframe['chain_index'].to_numpy()
-    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
-    output = item.atoms_dataframe['entity_name'][right_locs].to_numpy()
+    output=[]
+    tmp_indices = get_entity_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    for aux_indices in tmp_indices:
+        output.append(get_entity_name_from_entity(item, indices=aux_indices, frame_indices=frame_indices))
+    output = _array(output)
     return output
 
 def get_entity_type_from_chain (item, indices='all', frame_indices='all'):
 
-    tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices)
-    all_indices = item.atoms_dataframe['chain_index'].to_numpy()
-    right_locs = [next((idx for idx, val in _ndenumerate(all_indices) if val==ii))[0] for ii in tmp_indices]
-    output = item.atoms_dataframe['entity_type'][right_locs].to_numpy()
+    output=[]
+    tmp_indices = get_entity_index_from_chain(item, indices=indices, frame_indices=frame_indices)
+    for aux_indices in tmp_indices:
+        output.append(get_entity_type_from_entity(item, indices=aux_indices, frame_indices=frame_indices))
+    output = _array(output)
     return output
 
 def get_n_atoms_from_chain (item, indices='all', frame_indices='all'):
@@ -1531,7 +1538,7 @@ def get_atom_index_from_entity (item, indices='all', frame_indices='all'):
     for ii in indices:
         mask = (item.atoms_dataframe['entity_index']==ii)
         output.append(item.atoms_dataframe['atom_index'][mask].to_numpy())
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_atom_id_from_entity (item, indices='all', frame_indices='all'):
@@ -1540,7 +1547,7 @@ def get_atom_id_from_entity (item, indices='all', frame_indices='all'):
     tmp_indices = get_atom_index_from_entity(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_atom_id_from_atom(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_atom_name_from_entity (item, indices='all', frame_indices='all'):
@@ -1549,7 +1556,7 @@ def get_atom_name_from_entity (item, indices='all', frame_indices='all'):
     tmp_indices = get_atom_index_from_entity(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_atom_name_from_atom(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_atom_type_from_entity (item, indices='all', frame_indices='all'):
@@ -1558,7 +1565,7 @@ def get_atom_type_from_entity (item, indices='all', frame_indices='all'):
     tmp_indices = get_atom_index_from_entity(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_atom_type_from_atom(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_index_from_entity (item, indices='all', frame_indices='all'):
@@ -1570,7 +1577,7 @@ def get_group_index_from_entity (item, indices='all', frame_indices='all'):
     for ii in indices:
         mask = (item.atoms_dataframe['entity_index']==ii)
         output.append(item.atoms_dataframe['group_index'][mask].unique())
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_id_from_entity (item, indices='all', frame_indices='all'):
@@ -1579,7 +1586,7 @@ def get_group_id_from_entity (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_entity(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_group_id_from_group(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_name_from_entity (item, indices='all', frame_indices='all'):
@@ -1588,7 +1595,7 @@ def get_group_name_from_entity (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_entity(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_group_name_from_group(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_type_from_entity (item, indices='all', frame_indices='all'):
@@ -1597,7 +1604,7 @@ def get_group_type_from_entity (item, indices='all', frame_indices='all'):
     tmp_indices = get_group_index_from_entity(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_group_type_from_group(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_component_index_from_entity (item, indices='all', frame_indices='all'):
@@ -1859,7 +1866,7 @@ def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
 
-    mask=(item.atoms_dataframe['molecule_type']=='small_molecule').to_numpy()
+    mask=(item.atoms_dataframe['molecule_type']=='small molecule').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
     return serie_indices.unique().shape[0]
 

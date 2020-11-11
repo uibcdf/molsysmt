@@ -48,8 +48,8 @@ def get_component_type_from_atom(item, indices='all'):
 
     component_index_from_atom = get_component_index_from_atom(item, indices=indices)
     component_indices = np.unique(component_index_from_atom)
-    component_names = get_component_name_from_component(item, indices=component_indices)
-    aux_dict = dict(zip(component_indices, component_names))
+    component_types = get_component_type_from_component(item, indices=component_indices)
+    aux_dict = dict(zip(component_indices, component_types))
     output = np.vectorize(aux_dict.__getitem__)(component_index_from_atom)
     del(aux_dict)
     return output
@@ -153,7 +153,7 @@ def _get_type_from_group_name(group_name, n_groups=1):
         raise ValueError("Groups have different type")
 
     if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
-        tmp_type = group_type
+        tmp_type = first_type
     elif first_type == 'aminoacid':
         if n_groups>=50:
             tmp_type='protein'

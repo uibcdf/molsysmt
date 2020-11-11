@@ -519,17 +519,13 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
         elif target=='group':
 
             group_index, group_id, group_name, group_type,\
-            component_index,\
+            n_atoms, component_index,\
             chain_index,\
             molecule_index, molecule_type,\
             entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
-                                            group_index=True, group_id=True, group_name=True, group_type=True,
-                                            component_index=True,
-                                            chain_index=True,
-                                            molecule_index=True, molecule_type=True,
+                                            group_index=True, group_id=True, group_name=True, group_type=True, n_atoms=True,
+                                            component_index=True, chain_index=True, molecule_index=True, molecule_type=True,
                                             entity_index=True, entity_name=True)
-
-            n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in group_index ]
 
             return df({'index':group_index, 'id':group_id, 'name':group_name, 'type':group_type,
                        'n atoms':n_atoms,
@@ -540,18 +536,14 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         elif target=='component':
 
-            component_index,\
+            component_index, n_atoms, n_groups,\
             chain_index,\
             molecule_index, molecule_type,\
             entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
-                                            component_index=True,
+                                            component_index=True, n_atoms=True, n_groups=True,
                                             chain_index=True,
                                             molecule_index=True, molecule_type=True,
                                             entity_index=True, entity_name=True)
-
-            n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in component_index ]
-            n_groups = [ get(item, target=target, indices=index, n_groups=True) for index in component_index ]
-
 
             return df({'index':component_index,
                        'n atoms':n_atoms, 'n groups':n_groups,
@@ -562,15 +554,13 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
         elif target=='chain':
 
             chain_index, chain_id, chain_name,\
+            n_atoms, n_groups, n_components,\
             molecule_index, molecule_type,\
             entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             chain_index=True, chain_id=True, chain_name=True,
+                                            n_atoms=True, n_groups=True, n_components=True,
                                             molecule_index=True, molecule_type=True,
                                             entity_index=True, entity_name=True)
-
-            n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in chain_index ]
-            n_groups = [ get(item, target=target, indices=index, n_groups=True) for index in chain_index ]
-            n_components = [ get(item, target=target, indices=index, n_components=True) for index in chain_index ]
 
             if len(molecule_index.shape)>1:
                 n_objects = molecule_index.shape[0]
@@ -587,6 +577,21 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
                     molecule_index[ii]=molecule_index[ii][0]
                     molecule_type[ii]=molecule_type[ii][0]
 
+            if len(entity_index.shape)>1:
+                n_objects =entity_index.shape[0]
+                aux_obj1_array = np.empty([n_objects], dtype='object')
+                aux_obj2_array = np.empty([n_objects], dtype='object')
+                for ii in range(n_objects):
+                    aux_obj1_array[ii]=entity_index[ii]
+                    aux_obj2_array[ii]=entity_name[ii]
+                entity_index=aux_obj1_array
+                entity_name=aux_obj2_array
+
+            for ii in range(len(entity_index)):
+                if len(entity_index[ii])==1:
+                    entity_index[ii]=entity_index[ii][0]
+                    entity_name[ii]=entity_name[ii][0]
+
             return df({'index':chain_index, 'id':chain_id, 'name':chain_name,
                        'n atoms':n_atoms, 'n groups':n_groups, 'n components':n_components,
                        'molecule index':molecule_index, 'molecule type':molecule_type,
@@ -595,15 +600,11 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
         elif target=='molecule':
 
             molecule_index, molecule_name, molecule_type,\
-            chain_index,\
+            n_atoms, n_groups, n_components, chain_index,\
             entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             molecule_index=True, molecule_name=True, molecule_type=True,
-                                            chain_index=True,
+                                            n_atoms=True, n_groups=True, n_components=True, chain_index=True,
                                             entity_index=True, entity_name=True)
-
-            n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in molecule_index ]
-            n_groups = [ get(item, target=target, indices=index, n_groups=True) for index in molecule_index ]
-            n_components = [ get(item, target=target, indices=index, n_components=True) for index in molecule_index ]
 
             if len(chain_index.shape)>1:
                 n_objects = chain_index.shape[0]
@@ -623,15 +624,12 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         elif target=='entity':
 
-            entity_index, entity_name, entity_type = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
-                                            entity_index=True, entity_name=True, entity_type=True)
-
-            n_atoms = [ get(item, target=target, indices=index, n_atoms=True) for index in entity_index ]
-            n_groups = [ get(item, target=target, indices=index, n_groups=True) for index in entity_index ]
-            n_components = [ get(item, target=target, indices=index, n_components=True) for index in entity_index ]
-            n_chains = [ get(item, target=target, indices=index, n_chains=True) for index in entity_index ]
-            n_molecules = [ get(item, target=target, indices=index, n_molecules=True) for index in entity_index ]
-
+            entity_index, entity_name, entity_type,\
+            n_atoms, n_groups, n_components, n_chains,\
+            n_molecules = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+                    entity_index=True, entity_name=True, entity_type=True,
+                    n_atoms=True, n_groups=True, n_components=True,
+                    n_chains=True, n_molecules=True)
 
             return df({'index':entity_index, 'name':entity_name, 'type': entity_type,
                        'n atoms':n_atoms, 'n groups':n_groups, 'n components':n_components,
