@@ -38,18 +38,20 @@ def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
 
 def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.files import from_h5 as _from_h5
-    return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.molsys.files import from_h5 as h5_to_molsysmt_MolSys
+    tmp_item = h5_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.files import from_h5 as _from_h5
-    return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.topology.files import from_h5 as h5_to_molsysmt_Topology
+    tmp_item = h5_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
 def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.files import from_h5 as _from_h5
-    return _from_h5(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.native.io.trajectory.files import from_h5 as h5_to_molsysmt_Trajectory
+    return h5_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def to_pdb(item, trajectory_item=None, output_filepath=None, atom_indices='all',
            frame_indices='all'):

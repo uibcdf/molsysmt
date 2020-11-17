@@ -57,7 +57,7 @@ def get_component_type_from_atom(item, indices='all'):
 def get_atom_index_from_component(item, indices='all'):
 
     component_index_from_atom = get_component_index_from_atom(item, indices='all')
-    indices_aux = get_component_index_from_component(item, indices='all')
+    indices_aux = get_component_index_from_component(item, indices=indices)
 
     output = []
     for ii in indices_aux:
@@ -99,7 +99,7 @@ def get_component_name_from_component(item, indices='all'):
     return output
 
 def get_component_type_from_component(item, indices='all'):
-
+    print('type es el problema')
     atom_indices_from_component = get_atom_index_from_component(item, indices=indices)
 
     output = []
@@ -109,7 +109,7 @@ def get_component_type_from_component(item, indices='all'):
         output.append(component_type)
 
     output = np.array(output, dtype=object)
-
+    print('ttttype es el problema')
     return output
 
 def get_n_components_from_system(item, indices='all'):
@@ -170,9 +170,31 @@ def _get_type_from_group_name(group_name, n_groups=1):
 def get_elements(item):
 
     index_array = get_component_index_from_atom(item, indices='all')
-    id_array = get_component_id_from_atom(item, indices='all')
-    name_array = get_component_name_from_atom(item, indices='all')
-    type_array = get_component_type_from_atom(item, indices='all')
+    component_indices = np.unique(index_array)
+    n_components = component_indices.shape[0]
+
+
+    id_array = np.full(index_array.shape[0], None, dtype=object)
+    name_array = np.full(index_array.shape[0], None, dtype=object)
+
+    atom_indices_from_component = []
+    for ii in component_indices:
+        tmp_indices = np.where(index_array==ii)[0]
+        atom_indices_from_component.append(tmp_indices)
+
+    print('entra')
+
+    component_type_from_component = []
+
+    for atom_indices in atom_indices_from_component:
+        component_type = _get_type_from_atoms(item, atom_indices)
+        component_type_from_component.append(component_type)
+
+    print('sale')
+
+    aux_dict = dict(zip(component_indices, component_type_from_component))
+    type_array = np.vectorize(aux_dict.__getitem__)(index_array)
+    del(aux_dict)
 
     return index_array, id_array, name_array, type_array
 

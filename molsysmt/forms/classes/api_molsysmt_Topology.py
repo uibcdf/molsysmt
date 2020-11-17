@@ -25,11 +25,6 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
     from molsysmt.native.io.topology.seqs import to_aminoacids1_seq as molsysmt_Topology_to_aminoacids1_seq
     return molsysmt_Topology_to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.topology.classes import from_molsysmt_Topology as molsysmt_DataFrame_to_molsysmt_Topology
-    return molsysmt_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-
 def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology

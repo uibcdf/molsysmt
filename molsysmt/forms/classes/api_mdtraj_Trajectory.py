@@ -50,12 +50,6 @@ def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_ind
     tmp_item = mdtraj_Trajectory_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_DataFrame(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.molsys.classes import from_mdtraj_Trajectory as mdtraj_Trajectory_to_molsysmtDataFrame
-    tmp_item = mdtraj_Trajectory_to_molsysmt_DataFrame(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item
-
 def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.classes import from_mdtraj_Trajectory as mdtraj_Trajectory_to_molsysmt_Topology

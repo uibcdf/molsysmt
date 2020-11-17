@@ -1278,7 +1278,7 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
 
 def copy(item=None, output_filepath=None):
 
-    form_in, _ = _digest_forms(item)
+    form_in, _ = digest_forms(item)
 
     if output_filepath is None:
         return dict_copier[form_in](item)

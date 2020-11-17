@@ -28,11 +28,6 @@ def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
     from molsysmt.native.io.topology.classes import from_mmtf_MMTFDecoder as molsysmt_Topology_from_mmtf_MMTFDecoder
     return molsysmt_Topology_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.dataframe.classes import from_mmtf_MMTFDecoder as molsysmt_Topology_from_mmtf_MMTFDecoder
-    return molsysmt_Topology_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
-
 def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.classes import from_mmtf_MMTFDecoder as molsysmt_Trajectory_from_mmtf_MMTFDecoder
@@ -55,9 +50,9 @@ def select_with_MDTraj(item, selection):
 
 def select_with_MolSysMT(item, selection):
 
-    from .api_molsysmt_DataFrame import select_with_MolSysMT as select_DataFrame_with_MolSysMT
-    tmp_item = to_molsysmt_DataFrame(item)
-    return select_DataFrame_with_MolSysMT(tmp_item, selection)
+    from .api_molsysmt_Topology import select_with_MolSysMT as select_Topology_with_MolSysMT
+    tmp_item = to_molsysmt_Topology(item)
+    return select_Topology_with_MolSysMT(tmp_item, selection)
 
 ###### Get
 

@@ -67,7 +67,7 @@ def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
 def from_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import Topology
-    from numpy import empty, array, arange, reshape, where, unique, nan, sort
+    import numpy as np
     from molsysmt.elements.group import name_to_type as group_name_to_group_type
 
     tmp_item = Topology()
@@ -77,28 +77,28 @@ def from_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_i
 
     mdtraj_dataframe, mdtraj_bonds = item.to_dataframe()
 
-    tmp_item.atoms_dataframe["atom_index"] = list(mdtraj_dataframe.index)
-    tmp_item.atoms_dataframe["atom_id"] = mdtraj_dataframe["serial"]
-    tmp_item.atoms_dataframe["atom_name"] = mdtraj_dataframe["name"]
-    tmp_item.atoms_dataframe["atom_type"] = mdtraj_dataframe["element"]
+    tmp_item.atoms_dataframe["atom_index"] = mdtraj_dataframe.index.to_numpy()
+    tmp_item.atoms_dataframe["atom_id"] = mdtraj_dataframe["serial"].to_numpy()
+    tmp_item.atoms_dataframe["atom_name"] = mdtraj_dataframe["name"].to_numpy()
+    tmp_item.atoms_dataframe["atom_type"] = mdtraj_dataframe["element"].to_numpy()
 
-    tmp_item.atoms_dataframe["group_id"] = mdtraj_dataframe["resSeq"]
-    tmp_item.atoms_dataframe["group_name"] = mdtraj_dataframe["resName"]
+    tmp_item.atoms_dataframe["group_id"] = mdtraj_dataframe["resSeq"].to_numpy()
+    tmp_item.atoms_dataframe["group_name"] = mdtraj_dataframe["resName"].to_numpy()
 
-    tmp_item.atoms_dataframe["chain_id"] = mdtraj_dataframe["chainID"]
+    tmp_item.atoms_dataframe["chain_id"] = mdtraj_dataframe["chainID"].to_numpy()
 
-    tmp_item.bonds_dataframe["atom1_index"] = array(mdtraj_bonds[:,0], dtype=int)
-    tmp_item.bonds_dataframe["atom2_index"] = array(mdtraj_bonds[:,1], dtype=int)
+    tmp_item.bonds_dataframe["atom1_index"] = np.array(mdtraj_bonds[:,0], dtype=int)
+    tmp_item.bonds_dataframe["atom2_index"] = np.array(mdtraj_bonds[:,1], dtype=int)
 
     del(mdtraj_dataframe)
 
-    group_type_array = empty(n_atoms, dtype=object)
+    group_type_array = np.empty(n_atoms, dtype=object)
 
     tmp_item.atoms_dataframe["group_type"] = list(map(group_name_to_group_type,tmp_item.atoms_dataframe["group_name"]))
 
 
-    group_index_array = empty(n_atoms, dtype=int)
-    chain_index_array = empty(n_atoms, dtype=int)
+    group_index_array = np.empty(n_atoms, dtype=int)
+    chain_index_array = np.empty(n_atoms, dtype=int)
 
     for atom in item.atoms:
         atom_index = atom.index
