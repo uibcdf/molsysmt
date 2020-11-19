@@ -1,4 +1,5 @@
 from molsysmt.utils.exceptions import *
+import numpy as np
 
 from mdtraj.core.residue_names import _AMINO_ACID_CODES as _aminoacid_group_names_mdtraj
 from mdtraj.core.residue_names import _WATER_RESIDUES as _water_group_names_mdtraj
@@ -57,4 +58,11 @@ def _name_is_type_nucleotide(name):
 
 def _name_is_type_lipid(name):
     return (name in lipid_names)
+
+def group_type_from_group(item, indices='all'):
+
+    from molsysmt import get
+    group_names = get(item, target='group', indices=indices, group_name=True)
+    output= np.vectorize(name_to_type)(group_names).astype('object')
+    return output
 

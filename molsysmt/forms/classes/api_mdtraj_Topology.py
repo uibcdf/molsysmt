@@ -171,57 +171,52 @@ def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
     output=[item.atom(ii).serial for ii in tmp_indices]
-    output=_np.array(output, dtype=int)
+    output=np.array(output, dtype=int)
     return output
 
 def get_atom_name_from_atom (item, indices='all', frame_indices='all'):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
     output=[item.atom(ii).name for ii in tmp_indices]
-    output=_np.array(output, dtype=object)
+    output=np.array(output, dtype=object)
     return output
 
 def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
     output=[item.atom(ii).element.symbol for ii in tmp_indices]
-    output=_np.array(output, dtype=object)
+    output=np.array(output, dtype=object)
     return output
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
     output=[item.atom(ii).residue.index for ii in tmp_indices]
-    output=_np.array(output, dtype=int)
+    output=np.array(output, dtype=int)
     return output
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_elements
+    from molsysmt.elements.component import component_index_from_atom
 
-    output, _, _, _ = get_elements(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
+    return component_index_from_atom(item, indices=indices)
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
     output=[item.atom(ii).residue.chain.index for ii in tmp_indices]
-    output=_np.array(output, dtype=int)
+    output=np.array(output, dtype=int)
     return output
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_index_from_atom as _get
-    return _get(item, indices=indices)
+    from molsysmt.elements.molecule import get_molecule_index_from_atom as get
+    return get(item, indices=indices)
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_index_from_atom as _get
-    return _get(item, indices=indices)
+    from molsysmt.elements.entity import get_entity_index_from_atom as get
+    return get(item, indices=indices)
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
@@ -259,25 +254,26 @@ def get_group_id_from_group (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
         n_indices = get_n_groups_from_system(item)
-        indices = _np.arange(n_indices)
+        indices = np.arange(n_indices)
 
     output = [item.residue(ii).resSeq for ii in indices]
-    output = _np.array(output, dtype=int)
+    output = np.array(output, dtype=int)
     return output
 
 def get_group_name_from_group (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
         n_indices = get_n_groups_from_system(item)
-        indices = _np.arange(n_indices)
+        indices = np.arange(n_indices)
 
     output = [item.residue(ii).name for ii in indices]
-    output = _np.array(output, dtype=object)
+    output = np.array(output, dtype=object)
     return output
 
 def get_group_type_from_group (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.group import group_type_from_group
+    return group_type_from_group(item, indices=indices)
 
 ## component
 
@@ -347,7 +343,8 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.component import get_n_components_from_system as get
+    return get(item)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
@@ -355,11 +352,13 @@ def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.molecule import get_n_molecules_from_system as get
+    return get(item)
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.entity import get_n_entities_from_system as get
+    return get(item)
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
@@ -402,7 +401,7 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
     tmp_indices = get_bond_index_from_bond(item, indices=indices, frame_indices=frame_indices)
     bond = list(item.bonds)
     output=[[bond[ii].atom1.index, bond[ii].atom2.index] for ii in tmp_indices]
-    output=_np.array(output)
+    output=np.array(output)
     del(bond)
     return output
 
