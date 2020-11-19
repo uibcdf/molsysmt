@@ -24,7 +24,7 @@ def component_index_from_atom(item, indices='all'):
 
     return output
 
-def get_component_id_from_component(item, indices='all'):
+def component_id_from_component(item, indices='all'):
 
     if indices is 'all':
         from molsysmt.multitool import get
@@ -35,7 +35,7 @@ def get_component_id_from_component(item, indices='all'):
 
     return output
 
-def get_component_name_from_component(item, indices='all'):
+def component_name_from_component(item, indices='all'):
 
     if indices is 'all':
         from molsysmt.multitool import get
@@ -46,7 +46,7 @@ def get_component_name_from_component(item, indices='all'):
 
     return output
 
-def get_component_type_from_component(item, indices='all'):
+def component_type_from_component(item, indices='all'):
 
     from molsysmt.multitool import get
 
@@ -55,7 +55,7 @@ def get_component_type_from_component(item, indices='all'):
     output = []
 
     for group_types in group_types_from_component:
-        component_type = _type_from_group_type(item, atom_indices)
+        component_type = _type_from_group_type(group_types)
         output.append(component_type)
 
     output = np.array(output, dtype=object)
@@ -74,10 +74,10 @@ def n_components_from_system(item, indices='all'):
         n_components = output.shape[0]
     return n_components
 
-def _type_from_group_type(group_type):
+def _type_from_group_type(group_types):
 
-    n_groups = len(group_type)
-    first_type = group_type[0]
+    n_groups = len(group_types)
+    first_type = group_types[0]
 
     if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
         tmp_type = first_type
@@ -95,12 +95,14 @@ def _type_from_group_type(group_type):
     return tmp_type
 
 
-def get_elements(item):
+def get_elements(item, group_types=None):
 
-    index_array = component_index_from_atom(item, indices='all')
-    id_array = np.full(index_array.shape[0], None, dtype=object)
-    name_array = np.full(index_array.shape[0], None, dtype=object)
-    type_array = 
+    if group_types is None:
+        from molsysmt.multitool import get
+        index_array, id_array, name_array, type_array = get(item, target='atom', indices='all',
+                component_index=True, component_id=True, component_name=True, component_type=True)
+    else:
+        raise NotImplementedError
 
     return index_array, id_array, name_array, type_array
 

@@ -42,12 +42,13 @@ def _aux_getter_small_attribute_from_big(item, attribute, from_target, indices):
     from molsysmt.multitool import get
 
     auxtarget = attribute.split('_')[0]
-    dict_auxtarget_index = {to_target+'_index':True}
+    dict_auxtarget_index = {auxtarget+'_index':True}
     dict_attribute = {attribute:True}
 
     auxtarget_index_from_target = get(item, target=from_target, indices=indices, **dict_auxtarget_index)
-    auxtarget_indices = np.unique(np.concatenate(aaa))
-    attribute_from_auxtarget = get(item, target=tauxtarget, indices=auxtarget_indices, **dict_attribute)
+
+    auxtarget_indices = np.unique(np.concatenate(auxtarget_index_from_target))
+    attribute_from_auxtarget = get(item, target=auxtarget, indices=auxtarget_indices, **dict_attribute)
     aux_dict = dict(zip(auxtarget_indices, attribute_from_auxtarget))
     vv = np.vectorize(aux_dict.__getitem__)
     output = np.array([vv(ii) for ii in auxtarget_index_from_target],dtype=object)
@@ -94,22 +95,7 @@ def _aux2_getter_big_index_from_small(item, attribute, from_target, indices):
 
 def _aux_getter_small_index_from_big(item, attribute, from_target, indices):
 
-    from molsysmt.multitool import get
-
-    auxtarget = attribute.split('_')[0]
-    dict_attribute = {attribute:True}
-
-    attribute_from_auxtarget = get(item, target=auxtarget, indices='all', **dict_attribute)
-    indices_aux = get(item, target=from_target, indices=indices, **dict_attribute)
-
-    output = []
-    for ii in indices_aux:
-        tmp_indices = np.where(attribute_from_auxtarget==ii)[0]
-        output.append(tmp_indices)
-
-    output = np.array(output, dtype=object)
-
-    return output
+    return _aux2_getter_small_index_from_big(item, attribute, from_target, indices)
 
 def _aux2_getter_small_index_from_big(item, attribute, from_target, indices):
 

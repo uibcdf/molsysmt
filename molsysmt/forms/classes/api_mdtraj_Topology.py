@@ -210,7 +210,7 @@ def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_index_from_atom as get
+    from molsysmt.elements.molecule import molecule_index_from_atom as get
     return get(item, indices=indices)
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
@@ -279,29 +279,35 @@ def get_group_type_from_group (item, indices='all', frame_indices='all'):
 
 def get_component_id_from_component (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.component import component_id_from_component
+    return component_id_from_component(item, indices=indices)
 
 def get_component_name_from_component (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.component import component_name_from_component
+    return component_name_from_component(item, indices=indices)
 
 def get_component_type_from_component (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.component import component_type_from_component
+    return component_type_from_component(item, indices=indices)
 
 ## molecule
 
 def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.molecule import molecule_id_from_molecule
+    return molecule_id_from_molecule(item, indices=indices)
 
 def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.molecule import molecule_name_from_molecule
+    return molecule_name_from_molecule(item, indices=indices)
 
 def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.molecule import molecule_type_from_molecule
+    return molecule_type_from_molecule(item, indices=indices)
 
 ## chain
 
@@ -343,7 +349,7 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_n_components_from_system as get
+    from molsysmt.elements.component import n_components_from_system as get
     return get(item)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
