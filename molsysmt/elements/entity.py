@@ -132,7 +132,7 @@ def entity_name_from_entity(item, indices='all'):
         indices = np.unique(entity_index_from_atom)
 
     for ii in indices:
-        atom_index = np.where(entity_index_from_atom==ii)
+        atom_index = np.where(entity_index_from_atom==ii)[0][0]
         output.append(entity_name_from_atom[atom_index])
 
     output = np.array(output, dtype=object)

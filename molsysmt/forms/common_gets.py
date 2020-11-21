@@ -74,7 +74,7 @@ def _aux_getter_big_index_from_small(item, attribute, from_target, indices):
     dict_attribute = {attribute:True}
 
     atom_index_from_target = get(item, target=from_target, indices=indices, atom_index=True)
-    first_atom_index_from_target = np.array([ii[0] for ii in aaa])
+    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
     output = get(item, target='atom', indices=first_atom_index_from_target, **dict_attribute)
     return output
 
@@ -918,7 +918,7 @@ def get_type_from_entity (item, indices='all', frame_indices='all'):
 
 def get_atom_index_from_entity(item, indices='all', frame_indices='all'):
 
-    return _aux_getter_small_index_from_big(item, method_name, indices)
+    return _aux_getter_small_index_from_big(item, 'atom_index', 'entity', indices)
 
 def get_atom_id_from_entity(item, indices='all', frame_indices='all'):
 
