@@ -19,7 +19,7 @@ def _aux(item):
     name_array = full(n_atoms, None, dtype=object)
     type_array = full(n_atoms, None, dtype=object)
 
-    molecule_index, molecule_type = get(item, target='molecule', index=True, type=True)
+    molecule_index, molecule_type = get(item, target='molecule', molecule_index=True, molecule_type=True)
     atom_indices_in_molecule = get(item, target='molecule', atom_index=True)
 
     for m_index, m_type, m_atoms in zip(molecule_index, molecule_type, atom_indices_in_molecule):
@@ -103,114 +103,67 @@ def _aux(item):
 
     return index_array, name_array, type_array
 
-def get_entity_index_from_atom(item, indices='all'):
+def entity_index_from_atom(item, indices='all'):
 
-    output, _, _ = _aux(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
-
-def get_entity_id_from_atom(item, indices='all'):
-
-    entity_index_from_atom = get_entity_index_from_atom(item, indices=indices)
-    entity_indices = np.unique(entity_index_from_atom)
-    entity_ids = get_entity_id_from_entity(item, indices=entity_indices)
-    aux_dict = dict(zip(entity_indices, entity_ids))
-    output = np.vectorize(aux_dict.__getitem__)(entity_index_from_atom)
-    del(aux_dict)
-    return output
-
-def get_entity_name_from_atom(item, indices='all'):
-
-    _, output, _ = _aux(item)
+    output, _,  _ = _aux(item)
 
     if indices is not 'all':
         output = output[indices]
 
     return output
 
-
-def get_entity_type_from_atom(item, indices='all'):
-
-    _, _, output = _aux(item)
-
-    if indices is not 'all':
-        output = output[indices]
-
-    return output
-
-def get_atom_index_from_entity(item, indices='all'):
-
-    entity_index_from_atom = get_entity_index_from_atom(item, indices='all')
-    indices_aux = get_entity_index_from_entity(item, indices='all')
-
-    output = []
-    for ii in indices_aux:
-        tmp_indices = np.where(entity_index_from_atom==ii)[0]
-        output.append(tmp_indices)
-
-    output = np.array(output, dtype=object)
-
-    return output
-
-def get_entity_index_from_entity(item, indices='all'):
+def entity_id_from_entity(item, indices='all'):
 
     if indices is 'all':
-        n_entities = get_n_entities_from_system(item)
-        output = np.arange(n_entities)
-    else:
-        output = np.array(indices)
-
-    return output
-
-
-def get_entity_id_from_entity(item, indices='all'):
-
-    if indices is 'all':
-        n_entities = get_n_entities_from_system(item)
+        from molsysmt.multitool import get
+        n_entities = get(item, target='system', n_entities=True)
         output = np.full(n_entities, None, dtype=object)
     else:
         output = np.full(indices.shape[0], None, dtype=object)
 
     return output
 
-def get_entity_name_from_entity(item, indices='all'):
+def entity_name_from_entity(item, indices='all'):
 
-    atom_indices_from_entity = get_atom_index_from_entity(item, indices=indices)
+    entity_index_from_atom, entity_name_from_atom, _ = _aux(item)
 
-    output = []
+    output=[]
+    if indices is 'all':
+        indices = np.unique(entity_index_from_atom)
 
-    for atom_indices in atom_indices_from_entity:
-        entity_type = get_entity_name_from_atom(item, atom_indices[0])
-        output.append(entity_type)
-
-    output = np.array(output)
-
-    return output
-
-def get_entity_type_from_entity(item, indices='all'):
-
-    atom_indices_from_entity = get_atom_index_from_entity(item, indices=indices)
-
-    output = []
-
-    for atom_indices in atom_indices_from_entity:
-        entity_type = get_entity_type_from_atom(item, atom_indices[0])
-        output.append(entity_type)
+    for ii in indices:
+        atom_index = np.where(entity_index_from_atom==ii)
+        output.append(entity_name_from_atom[atom_index])
 
     output = np.array(output, dtype=object)
 
     return output
 
-def get_n_entities_from_system(item, indices='all'):
+def entity_type_from_entity(item, indices='all'):
 
-    output = get_entity_index_from_atom(item, indices='all')
-    if output[0] is None:
+    entity_index_from_atom, _, entity_type_from_atom = _aux(item)
+
+    if indices is 'all':
+        indices = np.unique(entity_index_from_atom)
+
+    output=[]
+    for ii in indices:
+        atom_index = np.where(entity_index_from_atom==ii)[0][0]
+        output.append(entity_type_from_atom[atom_index])
+
+    output = np.array(output, dtype=object)
+
+    return output
+
+def n_entities_from_system(item, indices='all'):
+
+    from molsysmt import get
+
+    entity_index_from_atom = get(item, target='atom', indices='all', entity_index=True)
+    if entity_index_from_atom[0] is None:
         n_entities = 0
     else:
-        output = np.unique(output)
+        output = np.unique(entity_index_from_atom)
         n_entities = output.shape[0]
     return n_entities
 
@@ -242,10 +195,100 @@ def _get_type_from_sequence(sequence):
     else:
         return None
 
-def get_elements(item):
+def _shortpath_to_build_entities(molecule_index_from_atom, molecule_type_from_atom, group_name_from_atom):
 
-    index_array, name_array, type_array = _aux(item)
-    id_array = get_entity_id_from_atom(item, indices='all')
+    n_atoms = molecule_index_from_atom.shape[0]
+    molecule_indices = np.unique(molecule_index_from_atom)
+
+    index_array = np.full(n_atoms, None, dtype=object)
+    id_array = np.full(n_atoms, None, dtype=object)
+    name_array = np.full(n_atoms, None, dtype=object)
+    type_array = np.full(n_atoms, None, dtype=object)
+
+    entities = {}
+    n_entities = 0
+    n_peptides = 0
+    n_proteins = 0
+
+    for molecule_index in molecule_indices:
+
+        mask = (molecule_index_from_atom==molecule_index)
+        molecule_type = molecule_type_from_atom[mask][0]
+
+        if molecule_type == 'water':
+            entity_name = 'water'
+            entity_type = 'water'
+            try:
+                entity_index = entities[entity_name]
+            except:
+                entities[entity_name]=n_entities
+                entity_index=n_entities
+                n_entities+=1
+
+        elif molecule_type == 'ion':
+            entity_name = group_name_from_atom[mask][0]
+            entity_type = 'ion'
+            try:
+                entity_index = entities[entity_name]
+            except:
+                entities[entity_name]=n_entities
+                entity_index=n_entities
+                n_entities+=1
+
+        elif molecule_type == 'peptide':
+            entity_name = 'Peptide_'+str(n_peptides)
+            entity_type = 'peptide'
+            n_peptides+=1
+            try:
+                index = entities[entity_name]
+            except:
+                entities[entity_name]=n_entities
+                entity_index=n_entities
+                n_entities+=1
+
+        elif molecule_type == 'protein':
+            entity_name = 'Protein_'+str(n_proteins)
+            entity_type = 'protein'
+            n_proteins+=1
+            try:
+                entity_index = entities[entity_name]
+            except:
+                entities[entity_name]=n_entities
+                entity_index=n_entities
+                n_entities+=1
+
+        elif molecule_type == 'lipid':
+            entity_name = group_name_from_atom[mask][0]
+            entity_type = 'lipid'
+            try:
+                entity_index = entities[entity_name]
+            except:
+                entity_entities[entity_name]=n_entities
+                entity_index=n_entities
+                n_entities+=1
+
+        elif molecule_type == 'small molecule':
+            entity_name = group_name_from_atom[mask][0]
+            entity_type = 'small molecule'
+            try:
+                entity_index = entities[entity_name]
+            except:
+                entities[entity_name]=n_entities
+                entity_index=n_entities
+                n_entities+=1
+        else:
+            entity_name = 'unknown'
+            entity_type = 'unknown'
+            try:
+                entity_index = entities[entity_name]
+            except:
+                entities[entity_name]=n_entities
+                entity_index=n_entities
+                n_entities+=1
+
+        index_array[mask]=entity_index
+        name_array[mask]=entity_name
+        type_array[mask]=entity_type
 
     return index_array, id_array, name_array, type_array
 

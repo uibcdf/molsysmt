@@ -110,9 +110,7 @@ def from_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_i
 
     del(group_index_array, chain_index_array)
 
-    tmp_item._build_components()
-    tmp_item._build_molecules()
-    tmp_item._build_entities()
+    tmp_item._build_components_molecules_and_entities()
 
     return tmp_item
 

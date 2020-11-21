@@ -154,36 +154,107 @@ class Topology():
 
     def _build_components(self):
 
-        from molsysmt.elements.component import get_elements
+        from molsysmt.elements.component import _shortpath_to_build_components
 
-        index_array, id_array, name_array, type_array = get_elements(self)
+        n_atoms = self.atoms_dataframe.shape[0]
+        n_bonds = self.bonds_dataframe.shape[0]
+        group_index_from_atom = self.atoms_dataframe['group_index'].to_numpy()
+        group_type_from_atom = self.atoms_dataframe['group_type'].to_numpy()
+        atom_index_from_bond = self.bonds_dataframe[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
+
+        index_array, id_array, name_array, type_array = _shortpath_to_build_components(n_atoms,
+                n_bonds, atom_index_from_bond, group_index_from_atom, group_type_from_atom)
 
         self.atoms_dataframe["component_index"] = index_array
         self.atoms_dataframe["component_id"] = id_array
         self.atoms_dataframe["component_name"] = name_array
         self.atoms_dataframe["component_type"] = type_array
 
+        del(group_index_from_atom, group_type_from_atom, atom_index_from_bond, index_array,
+                id_array, name_array, type_array)
+
     def _build_molecules(self):
 
-        from molsysmt.elements.molecule import get_elements
+        from molsysmt.elements.molecule import _shortpath_to_build_molecules
 
-        index_array, id_array, name_array, type_array = get_elements(self)
+        component_index_from_atom = self.atoms_dataframe['component_index'].to_numpy()
+        component_type_from_atom = self.atoms_dataframe['component_type'].to_numpy()
+
+        index_array, id_array, name_array, type_array = _shortpath_to_build_molecules(component_index_from_atom, component_type_from_atom)
 
         self.atoms_dataframe["molecule_index"] = index_array
         self.atoms_dataframe["molecule_id"] = id_array
         self.atoms_dataframe["molecule_name"] = name_array
         self.atoms_dataframe["molecule_type"] = type_array
 
+        del(component_index_from_atom, component_type_from_atom, index_array, id_array, name_array,
+                type_array)
+
     def _build_entities(self):
 
-        from molsysmt.elements.entity import get_elements
+        from molsysmt.elements.entity import _shortpath_to_build_entities
 
-        index_array, id_array, name_array, type_array = get_elements(self)
+        molecule_index_from_atom = self.atoms_dataframe['molecule_index'].to_numpy()
+        molecule_type_from_atom = self.atoms_dataframe['molecule_type'].to_numpy()
+        group_name_from_atom = self.atoms_dataframe['group_name'].to_numpy()
+
+        index_array, id_array, name_array, type_array = _shortpath_to_build_entities(molecule_index_from_atom, molecule_type_from_atom, group_name_from_atom)
 
         self.atoms_dataframe["entity_index"] = index_array
         self.atoms_dataframe["entity_id"] = id_array
         self.atoms_dataframe["entity_name"] = name_array
         self.atoms_dataframe["entity_type"] = type_array
+
+        del(molecule_index_from_atom, molecule_type_from_atom, group_name_from_atom, index_array, id_array, name_array,
+                type_array)
+
+    def _build_components_molecules_and_entities(self):
+
+        from molsysmt.elements.component import _shortpath_to_build_components
+        from molsysmt.elements.molecule import _shortpath_to_build_molecules
+        from molsysmt.elements.entity import _shortpath_to_build_entities
+
+        n_atoms = self.atoms_dataframe.shape[0]
+        n_bonds = self.bonds_dataframe.shape[0]
+        group_index_from_atom = self.atoms_dataframe['group_index'].to_numpy()
+        group_type_from_atom = self.atoms_dataframe['group_type'].to_numpy()
+        group_name_from_atom = self.atoms_dataframe['group_name'].to_numpy()
+        atom_index_from_bond = self.bonds_dataframe[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
+
+        component_index_from_atom, component_id_from_atom, component_name_from_atom,\
+        component_type_from_atom = _shortpath_to_build_components(n_atoms, n_bonds, atom_index_from_bond,
+                group_index_from_atom, group_type_from_atom)
+
+        self.atoms_dataframe["component_index"] = component_index_from_atom
+        self.atoms_dataframe["component_id"] = component_id_from_atom
+        self.atoms_dataframe["component_name"] = component_name_from_atom
+        self.atoms_dataframe["component_type"] = component_type_from_atom
+
+        del(n_atoms, n_bonds, group_index_from_atom, group_type_from_atom, atom_index_from_bond,
+                component_id_from_atom, component_name_from_atom)
+
+        molecule_index_from_atom, molecule_id_from_atom, molecule_name_from_atom,\
+        molecule_type_from_atom = _shortpath_to_build_molecules(component_index_from_atom, component_type_from_atom)
+
+
+        self.atoms_dataframe["molecule_index"] = molecule_index_from_atom
+        self.atoms_dataframe["molecule_id"] = molecule_id_from_atom
+        self.atoms_dataframe["molecule_name"] = molecule_name_from_atom
+        self.atoms_dataframe["molecule_type"] = molecule_type_from_atom
+
+        del(component_index_from_atom, component_type_from_atom, molecule_id_from_atom, molecule_name_from_atom)
+
+        entity_index_from_atom, entity_id_from_atom, entity_name_from_atom,\
+        entity_type_from_atom = _shortpath_to_build_entities(molecule_index_from_atom, molecule_type_from_atom, group_name_from_atom)
+
+        self.atoms_dataframe["entity_index"] = entity_index_from_atom
+        self.atoms_dataframe["entity_id"] = entity_id_from_atom
+        self.atoms_dataframe["entity_name"] = entity_name_from_atom
+        self.atoms_dataframe["entity_type"] = entity_type_from_atom
+
+        del(group_name_from_atom, molecule_index_from_atom, molecule_type_from_atom,
+                entity_index_from_atom, entity_id_from_atom, entity_name_from_atom,
+                entity_type_from_atom)
 
     def _join_molecules(self, indices=None):
 

@@ -215,7 +215,7 @@ def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_index_from_atom as get
+    from molsysmt.elements.entity import entity_index_from_atom as get
     return get(item, indices=indices)
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
@@ -327,15 +327,18 @@ def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 
 def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.entity import entity_id_from_entity
+    return entity_id_from_entity(item, indices=indices)
 
 def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.entity import entity_name_from_entity
+    return entity_name_from_entity(item, indices=indices)
 
 def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.elements.entity import entity_type_from_entity
+    return entity_type_from_entity(item, indices=indices)
 
 ## system
 
@@ -358,17 +361,21 @@ def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_n_molecules_from_system as get
+    from molsysmt.elements.molecule import n_molecules_from_system as get
     return get(item)
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_n_entities_from_system as get
+    from molsysmt.elements.entity import n_entities_from_system as get
     return get(item)
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
     return item.n_bonds
+
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+
+    return 0
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
