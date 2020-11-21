@@ -301,7 +301,15 @@ def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
         indices = get_atom_index_from_atom(item)
 
-    output = _array([_array([n for n in G[ii]]) for ii in indices])
+    output = []
+
+    for ii in indices:
+        if ii in G:
+            output.append(_array([n for n in G[ii]]))
+        else:
+            output.append(_array([]))
+
+    output = _array(output, dtype=object)
 
     del(Graph, G, edges)
 
@@ -323,7 +331,15 @@ def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
 
         indices = get_atom_index_from_atom(item)
 
-    output = _array([_array([n['index'] for n in G[ii].values()]) for ii in indices])
+    output = []
+
+    for ii in indices:
+        if ii in G:
+            output.append(_array([n['index'] for n in G[ii].values()]))
+        else:
+            output.append(_array([]))
+
+    output = _array(output, dtype=object)
 
     del(Graph, G, edges, edge_indices)
 
@@ -343,7 +359,16 @@ def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
 
         indices = get_atom_index_from_atom(item)
 
-    output = _array([len(G[ii]) for ii in indices])
+
+    output = []
+
+    for ii in indices:
+        if ii in G:
+            output.append(len(G[ii]))
+        else:
+            output.append(0)
+
+    output = _array(output)
 
     del(Graph, G, edges)
 
@@ -354,7 +379,7 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
     output = None
 
     if indices is 'all':
-        output = get_atom_index_from_bond(item)
+        output = get_bond_index_from_bond(item)
     else:
         aux_list = list(indices)
         output = item.bonds_dataframe.query('atom1_index==@aux_list and atom2_index==@aux_list').index.to_numpy(dtype=int, copy=True)

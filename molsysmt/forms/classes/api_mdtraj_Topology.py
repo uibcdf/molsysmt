@@ -218,21 +218,6 @@ def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
     from molsysmt.elements.entity import entity_index_from_atom as get
     return get(item, indices=indices)
 
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
-
-    if indices is 'all':
-        return get_n_bonds_from_system (item)
-    else:
-        raise NotImplementedError
-
 def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError

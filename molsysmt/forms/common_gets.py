@@ -296,24 +296,115 @@ def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
 
     return _aux_n_big_from_small(item, 'n_entites', 'atom', indices)
 
-#def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-#
-#    raise NotImplementedError
+def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-#def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
-#
-#    raise NotImplementedError
+    output = None
 
-#def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
-#
-#    if indices is 'all':
-#        return get_n_bonds_from_system (item)
-#    else:
-#        raise NotImplementedError
+    from networkx import Graph
+    from molsysmt.multitool import get
 
-#def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
-#
-#    raise NotImplementedError
+    G = Graph()
+    edges = get(item, target='bond', atom_index=True)
+    G.add_edges_from(edges)
+
+    if indices is 'all':
+
+        indices = get(item, target='atom', atom_index=True)
+
+    output = []
+
+    for ii in indices:
+        if ii in G:
+            output.append(np.array([n for n in G[ii]]))
+        else:
+            output.append(np.array([]))
+
+    output = np.array(output, dtype=object)
+
+
+    del(Graph, G, edges)
+
+    return output
+
+def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
+
+    output = None
+
+    from networkx import Graph
+    from molsysmt.multitool import get
+
+    G = Graph()
+    edges = get(item, target='bond', atom_index=True)
+    n_bonds = edges.shape[0]
+    edge_indices = np.array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
+    G.add_edges_from(np.hstack([edges, edge_indices]))
+
+    if indices is 'all':
+
+        indices = get_atom_index_from_atom(item)
+
+    output = []
+
+    for ii in indices:
+        if ii in G:
+            output.append(np.array([n['index'] for n in G[ii].values()]))
+        else:
+            output.append(np.array([]))
+
+    output = np.array(output, dtype=object)
+
+    del(Graph, G, edges, edge_indices)
+
+    return output
+
+
+def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
+
+    output = None
+
+    from networkx import Graph
+    from molsysmt.multitool import get
+
+    G = Graph()
+    edges = get(item, target='bond', atom_index=True)
+    G.add_edges_from(edges)
+
+    if indices is 'all':
+
+        indices = get_atom_index_from_atom(item)
+
+
+    output = []
+
+    for ii in indices:
+        if ii in G:
+            output.append(len(G[ii]))
+        else:
+            output.append(0)
+
+    output = np.array(output)
+
+    del(Graph, G, edges)
+
+    return output
+
+def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import get
+
+    output = None
+
+    if indices is 'all':
+        output = get(item, target='bond', index=True)
+    else:
+        edges = get(item, target='bond', atom_index=True)
+        aux_list = list(indices)
+        output = item.bonds_dataframe.query('atom1_index==@aux_list and atom2_index==@aux_list').index.to_numpy(dtype=int, copy=True)
+
+    return output
+
+
+    raise NotImplementedError
 
 #def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 #
@@ -343,7 +434,7 @@ def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
 def get_form_from_atom(item, indices='all', frame_indices='all'):
 
-    return get(item, target='system')
+    return get(item, target='system', form=True)
 
 ## group
 
