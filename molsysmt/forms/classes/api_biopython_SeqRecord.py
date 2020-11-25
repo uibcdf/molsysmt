@@ -13,6 +13,7 @@ is_form={
 info=["",""]
 with_topology=True
 with_trajectory=False
+with_parameters=False
 
 def to_fasta(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 

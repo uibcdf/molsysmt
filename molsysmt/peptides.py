@@ -26,6 +26,7 @@ def build_peptide (item, forcefield='AMBER96', implicit_solvent='GBSA OBC', wate
             forcefield = [forcefield]
 
         if water_model is not None:
+            implicit_solvent=None
             if water_model =='SPC':
                 solvent_model='SPCBOX'
                 forcefield.append('SPC')

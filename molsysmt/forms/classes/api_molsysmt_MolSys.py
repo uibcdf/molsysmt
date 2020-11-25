@@ -1432,6 +1432,12 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
         tmp_box_angles = tmp_box_angles[frame_indices,:]
     return tmp_box_angles
 
+def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.pbc import box_volume_from_box_vectors
+    tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+    return box_volume_from_box_vectors(tmp_box)
+
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_Trajectory import get_time_from_system as _get
@@ -1455,6 +1461,42 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    return True
+
+def get_has_trajectory_from_system(item, indices='all', frame_indices='all'):
+
+    return True
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    return False
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+    if tmp_box[0] is not None:
+        return True
+    else:
+        return False
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
+        return True
+    else:
+        return False
+
+def get_is_solvated_from_system(item, indices='all', frame_indices='all'):
+
+    has_waters = (0 < get_n_waters_from_system(item, indices=indices, frame_indices=frame_indices))
+    has_box = get_has_box_from_system(item, indices=indices, frame_indices=frame_indices)
+
+    output = (has_waters  and has_box)
+
+    return output
 
 ## bond
 

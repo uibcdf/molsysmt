@@ -14,6 +14,7 @@ is_form={
 info=["",""]
 with_topology=True
 with_trajectory=True
+with_parameters=False
 
 def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 

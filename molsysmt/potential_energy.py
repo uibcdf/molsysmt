@@ -10,11 +10,11 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
-from .utils.engines import digest as _digest_engines
-from .utils.forcefields import digest as _digest_forcefields
+from .utils.engines import digest as digest_engines
+from .utils.forcefields import digest as digest_forcefields
 
 def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TIP3P'], constraint_HBonds=True,
-                         selection=None, syntaxis='mdtraj', engine='OpenMM', verbose=True, *kwargs):
+                         to_form=None, selection=None, syntaxis='MolSysMT', engine='OpenMM', verbose=True, *kwargs):
     """remove(item, selection=None, syntaxis='mdtraj')
 
     A new structure is returned with the molecular model relaxed to the nearest potential energy local
@@ -51,25 +51,25 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
 
     """
 
-    from .multitool import get_form as get_form, get as _get
-    from .multitool import convert as _convert, reformat as _reformat
+    from .multitool import get_form, get, convert
 
     engine=_digest_engines(engine)
+    in_form = get_form(item)
+    if to_form is None:
+        to_form = in_form
 
     if engine=='OpenMM':
 
-        from simtk.openmm import app as _app, LangevinIntegrator as _LangevinIntegrator
-        from simtk.openmm import Platform as _Platform
-        from simtk import unit as _unit
+        from simtk.openmm import app, LangevinIntegrator
+        from simtk.openmm import Platform
+        from simtk import unit as unit
 
-        forcefield_omm_parameters=_digest_forcefields(forcefield,engine)
+        forcefield_omm_parameters=digest_forcefields(forcefield, engine)
 
-        in_form = get_form(item)
+        topology = convert(item, to_form='openmm.Topology')
+        positions = get(item, coordinates=True)
 
-        topology = _convert(item, to_form='openmm.Topology')
-        positions = _get(item, coordinates=True)
-        positions = _reformat(attribute='coordinates', value=positions, is_format=in_form,
-                              to_format='openmm')
+        print(positions)
 
         forcefield_generator = _app.ForceField(*forcefield_omm_parameters)
 
@@ -108,7 +108,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
             energy_post_min = state_post_min.getPotentialEnergy()
             print("Potential Energy after minimization: {}".format(energy_post_min))
 
-        tmp_item = _convert(simulation, to_form=in_form)
+        tmp_item = _convert(simulation, to_form=out_form)
 
         return tmp_item
 

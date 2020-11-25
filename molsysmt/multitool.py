@@ -23,9 +23,7 @@ from .forms.classes import dict_is_form as dict_classes_is_form, \
     dict_copier as dict_classes_copier, \
     dict_merger as dict_classes_merger, \
     dict_get as dict_classes_get, \
-    dict_set as dict_classes_set, \
-    dict_with_topology as dict_classes_with_topology, \
-    dict_with_trajectory as dict_classes_with_trajectory
+    dict_set as dict_classes_set
 
 # Files
 from .forms.files import dict_is_form as dict_files_is_form, \
@@ -37,9 +35,7 @@ from .forms.files import dict_is_form as dict_files_is_form, \
     dict_copier as dict_files_copier, \
     dict_merger as dict_files_merger, \
     dict_get as dict_files_get, \
-    dict_set as dict_files_set, \
-    dict_with_topology as dict_files_with_topology, \
-    dict_with_trajectory as dict_files_with_trajectory
+    dict_set as dict_files_set
 
 # IDs
 from .forms.ids import dict_is_form as dict_ids_is_form, \
@@ -51,9 +47,7 @@ from .forms.ids import dict_is_form as dict_ids_is_form, \
     dict_copier as dict_ids_copier, \
     dict_merger as dict_ids_merger, \
     dict_get as dict_ids_get, \
-    dict_set as dict_ids_set, \
-    dict_with_topology as dict_ids_with_topology, \
-    dict_with_trajectory as dict_ids_with_trajectory
+    dict_set as dict_ids_set
 
 # Sequences
 from .forms.seqs import dict_is_form as dict_seqs_is_form, \
@@ -65,9 +59,7 @@ from .forms.seqs import dict_is_form as dict_seqs_is_form, \
     dict_copier as dict_seqs_copier, \
     dict_merger as dict_seqs_merger, \
     dict_get as dict_seqs_get, \
-    dict_set as dict_seqs_set, \
-    dict_with_topology as dict_seqs_with_topology, \
-    dict_with_trajectory as dict_seqs_with_trajectory
+    dict_set as dict_seqs_set
 
 # Viewers
 from .forms.viewers import dict_is_form as dict_viewers_is_form, \
@@ -79,9 +71,8 @@ from .forms.viewers import dict_is_form as dict_viewers_is_form, \
     dict_copier as dict_viewers_copier, \
     dict_merger as dict_viewers_merger, \
     dict_get as dict_viewers_get, \
-    dict_set as dict_viewers_set, \
-    dict_with_topology as dict_viewers_with_topology, \
-    dict_with_trajectory as dict_viewers_with_trajectory
+    dict_set as dict_viewers_set
+
 
 dict_is_form = {**dict_classes_is_form, **dict_files_is_form,\
                  **dict_ids_is_form, **dict_seqs_is_form, **dict_viewers_is_form}
@@ -102,10 +93,6 @@ dict_get = {**dict_classes_get, **dict_files_get,\
                    **dict_ids_get, **dict_seqs_get, **dict_viewers_get}
 dict_set = {**dict_classes_set, **dict_files_set,\
                    **dict_ids_set, **dict_seqs_set, **dict_viewers_set}
-dict_with_topology = {**dict_classes_with_topology, **dict_files_with_topology,\
-                   **dict_ids_with_topology, **dict_seqs_with_topology, **dict_viewers_with_topology}
-dict_with_trajectory = {**dict_classes_with_trajectory, **dict_files_with_trajectory,\
-                   **dict_ids_with_trajectory, **dict_seqs_with_trajectory, **dict_viewers_with_trajectory}
 
 dict_type = {}
 for form in list_classes_forms:
@@ -846,6 +833,10 @@ def get_form(item=None):
         else:
             item=item.split('.')[-1]
 
+    if type(item)==list:
+        output = [get_form(ii) for ii in item]
+        return output
+
     try:
         return dict_is_form[type(item)]
     except:
@@ -905,6 +896,13 @@ def get(item, target='atom', indices=None, selection='all', frame_indices='all',
     -----
 
     """
+
+    # In case of list of items
+
+    if type(item) in [list, tuple]:
+        results=[get(ii, target=target, indices=indices, selection=selection,
+            frame_indices=frame_indices, syntaxis=syntaxis, **kwargs) for ii in item]
+        return results
 
     # selection works as a mask if indices or ids are used
 
@@ -1185,17 +1183,16 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
             topology_form = None
             trajectory_item = None
             trajectory_form = None
-            with_topology = _array([dict_with_topology[form_in[0]], dict_with_topology[form_in[1]]])
+            with_topology = get(item, target='system', has_topology=True)
             n_topologies = with_topology.sum()
-            with_trajectory = _array([dict_with_trajectory[form_in[0]],
-                                      dict_with_trajectory[form_in[1]]])
+            with_trajectory = get(item, target='system', has_trajectory=True)
             n_trajectories = with_trajectory.sum()
 
             if n_topologies == 0:
                 raise ValueError('There is no input item with topology')
             elif n_topologies == 1:
-                topology_index = _nonzero(with_topology)[0][0]
-                trajectory_index = _nonzero(~with_topology)[0][0]
+                topology_index = np.nonzero(with_topology)[0][0]
+                trajectory_index = np.nonzero(~with_topology)[0][0]
                 if with_trajectory[trajectory_index] is False:
                     raise ValueError('The item {} has the topology of the molecular system but {} has\
                                      no coordinates'.format(form_in[topology_index], form_in[trajectory_index]))
@@ -1206,8 +1203,8 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                     print('Both items have topology and coordinates. The first one will be taken form\
                           topology and the second one for coordiantes.')
                 else:
-                    trajectory_index = _nonzero(with_trajectory)[0][0]
-                    topology_index = _nonzero(~with_trajectory)[0][0]
+                    trajectory_index = np.nonzero(with_trajectory)[0][0]
+                    topology_index = np.nonzero(~with_trajectory)[0][0]
 
             topology_item = item[topology_index]
             topology_form = form_in[topology_index]
@@ -1222,7 +1219,7 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
             out_file = None
 
             if type(form_out)==str:
-                if form_out.split('.')[-1] in _list_files_forms:
+                if form_out.split('.')[-1] in list_files_forms:
                     out_file=form_out
                     form_out=form_out.split('.')[-1]
 

@@ -13,6 +13,7 @@ is_form={
 info=["",""]
 with_topology = True
 with_trajectory = False
+with_parameters = False
 
 def to_biopython_SeqRecord(item, id=None, name=None, description=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 

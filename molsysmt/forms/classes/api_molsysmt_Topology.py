@@ -456,7 +456,7 @@ def get_atom_name_from_group (item, indices='all', frame_indices='all'):
     tmp_indices = get_atom_index_from_group(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_atom_name_from_atom(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_atom_type_from_group (item, indices='all', frame_indices='all'):
@@ -465,7 +465,7 @@ def get_atom_type_from_group (item, indices='all', frame_indices='all'):
     tmp_indices = get_atom_index_from_group(item, indices=indices, frame_indices=frame_indices)
     for aux_indices in tmp_indices:
         output.append(get_atom_type_from_atom(item, indices=aux_indices, frame_indices=frame_indices))
-    output = _array(output)
+    output = _array(output, dtype=object)
     return output
 
 def get_group_index_from_group (item, indices='all', frame_indices='all'):

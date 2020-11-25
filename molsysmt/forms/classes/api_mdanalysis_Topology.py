@@ -15,18 +15,7 @@ is_form={
 info=["",""]
 with_topology=True
 with_trajectory=False
-
-def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+with_parameters=False
 
 def select_with_Amber(item, selection):
 

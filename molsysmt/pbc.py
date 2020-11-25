@@ -2,7 +2,7 @@ from .utils.engines import digest as _digest_engines
 from .utils.frame_indices import digest as _digest_frame_indices
 from .utils.forms import digest as _digest_forms
 from molsysmt.lib import box as _libbox
-import numpy as _np
+import numpy as np
 
 def box_shape_from_box_angles(angles):
 
@@ -81,7 +81,18 @@ def box_vectors_from_box_lengths_and_angles(lengths, angles):
 
     return box.round(6)*length_units
 
+def box_volume_from_box_vectors(box):
 
+    n_frames = box.shape[0]
+    length_unit = box.unit
+
+    if box[0] is None:
+        return np.full(n_frames, None) * length_unit**3
+    else:
+        output = np.array(n_frames, dtype=float) * length_unit**3
+        for ii in range(n_frames):
+            output[ii]=np.dot(box[ii,0,_], np.cross(box[ii,1,:], box[ii,2,:]) ) * length_unit**3
+        return output
 
 def minimum_image_convention(item, selection='all', reference_selection=None,
                              reference_coordinates=None, center_of_selection='geometrical_center',

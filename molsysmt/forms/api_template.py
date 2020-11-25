@@ -258,6 +258,34 @@ def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
 
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_has_trajectory_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_is_solvated_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
 ## bond
 
 def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
