@@ -11,19 +11,25 @@ is_form={
 
 info=["",""]
 with_topology=True
-with_trajectory=True
+with_coordinates=True
+with_box=True
+with_parameters=False
 
 def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
     return molsysmt_MolSys_to_molsysmt_Topology(item)
 
+def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import to_molsysmt_Trajectory as molsysmt_MolSys_to_molsysmt_Trajectory
+    return molsysmt_MolSys_to_molsysmt_Trajectory(item)
+
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
     from .api_molsysmt_Topology import to_aminoacids3_seq as molsysmt_topology_to_aminoacids3_seq
     tmp_item = molsysmt_topology_to_aminoacids3_seq(item.topology, atom_indices=atom_indices,
                                                       frame_indices=frame_indices)
-
     return tmp_item
 
 def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
@@ -75,6 +81,32 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
     from molsysmt.native.io.molsys.classes import to_openmm_Modeller as molsysmt_MolSys_to_openmm_Modeller
 
     tmp_item = molsysmt_MolSys_to_openmm_Modeller(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+        flexible_constraints=False, **kwargs):
+
+    from molsysmt.utils.forcefields import digest as digest_forcefields
+    from molsysmt.utils.simulation_parameters import digest as digest_simulation_parameters
+    from simtk.openmm.app import ForceField
+
+    openmm_Topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if forcefield is None:
+        raise ValueError('This conversion needs the input argument "forcefield".')
+
+    forcefield_omm_parameters=digest_forcefields(forcefield, 'openmm')
+    system_omm_parameters=digest_simulation_parameters( engine='openmm', non_bonded_method=non_bonded_method,
+            non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
+            remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
+            switch_distance=switch_distance, flexible_constraints=flexible_constraints)
+
+    forcefield_generator = ForceField(*forcefield_omm_parameters)
+
+    tmp_item = forcefield_generator.createSystem(openmm_Topology, **system_omm_parameters)
+
     return tmp_item
 
 def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
@@ -1466,10 +1498,6 @@ def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 
     return True
 
-def get_has_trajectory_from_system(item, indices='all', frame_indices='all'):
-
-    return True
-
 def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
 
     return False
@@ -1482,6 +1510,10 @@ def get_has_box_from_system(item, indices='all', frame_indices='all'):
     else:
         return False
 
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    return True
+
 def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
     if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
@@ -1491,11 +1523,12 @@ def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
 def get_is_solvated_from_system(item, indices='all', frame_indices='all'):
 
-    has_waters = (0 < get_n_waters_from_system(item, indices=indices, frame_indices=frame_indices))
-    has_box = get_has_box_from_system(item, indices=indices, frame_indices=frame_indices)
-
-    output = (has_waters  and has_box)
-
+    n_waters = get_n_waters_from_system(item, indices=indices, frame_indices=frame_indices)
+    volume = get_box_volume_from_system(item, indices=indices, frame_indices=frame_indices)
+    density_number = (n_waters/volume)._value
+    output = False
+    if (density_number)>15:
+        output = True
     return output
 
 ## bond

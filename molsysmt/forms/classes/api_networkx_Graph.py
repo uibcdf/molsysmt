@@ -11,7 +11,9 @@ is_form={
 
 info=["",""]
 with_topology=True
-with_trajectory=False
+with_coordinates=False
+with_box=False
+with_parameters=False
 
 def select_with_MDTraj(item, selection):
 

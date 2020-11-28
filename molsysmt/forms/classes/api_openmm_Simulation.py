@@ -10,7 +10,9 @@ is_form={
 
 info=["",""]
 with_topology=True
-with_trajectory=True
+with_coordinates=False
+with_box=False
+with_parameters=True
 
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 

@@ -274,7 +274,7 @@ def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    return _aux_n(item, 'n_atoms', 'atom', indices)
+    return _aux_n(item, 'atom', indices)
 
 def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 

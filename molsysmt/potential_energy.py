@@ -13,6 +13,13 @@ From energy minimization to potential energy contribution of specific set of ato
 from .utils.engines import digest as digest_engines
 from .utils.forcefields import digest as digest_forcefields
 
+def potential_energy (item, forcefield=None, selection='all', syntaxis='MolSysMT',
+        engine='OpenMM'):
+
+    from .multitool import get_form, get, convert
+
+    return get(item, target='system', has_parameters=True)
+
 def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TIP3P'], constraint_HBonds=True,
                          to_form=None, selection=None, syntaxis='MolSysMT', engine='OpenMM', verbose=True, *kwargs):
     """remove(item, selection=None, syntaxis='mdtraj')

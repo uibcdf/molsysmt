@@ -10,19 +10,9 @@ is_form={
 
 info=["",""]
 with_topology=False
-with_trajectory=True
-
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_nglview(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+with_coordinates=True
+with_box=True
+with_parameters=False
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

@@ -11,7 +11,8 @@ is_form={
 
 info=["",""]
 with_topology=False
-with_trajectory=True
+
+with_parameters=False
 
 # Methods
 
@@ -96,7 +97,6 @@ def get_frame_from_atom(item, indices='all', frame_indices='all'):
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
     return get_n_frames_from_system(item, indices='all', frame_indices='all')
-
 
 ## system
 

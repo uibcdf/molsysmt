@@ -15,7 +15,7 @@ from .radius_of_gyration import radius_of_gyration
 from .fix import fix_chains, fix
 from .model_loops import add_loop
 from .remove_atoms import remove_solvent, remove_hydrogens
-from .potential_energy import energy_minimization
+from .potential_energy import energy_minimization, potential_energy
 from .peptides import build_peptide
 from .solvate_box import solvate
 from .protonation import add_missing_hydrogens
@@ -25,7 +25,7 @@ from . import elements as elements
 from .chem_and_phys_properties import get_mass, get_net_mass, get_degrees_of_freedom
 from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention,\
         box_shape_from_box_angles, box_shape_from_box_vectors, box_lengths_from_box_vectors, box_angles_from_box_vectors,\
-        box_vectors_from_box_lengths_and_angles
+        box_vectors_from_box_lengths_and_angles, box_volume_from_box_vectors
 from .pockets import alpha_spheres
 from .sasa import sasa
 from .covalent import covalent_chains, covalent_blocks, covalent_dihedral_quartets

@@ -10,7 +10,9 @@ is_form={
 
 info=["",""]
 with_topology=True
-with_trajectory=False
+with_coordinates=False
+with_box=False
+with_parameters=True
 
 def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 

@@ -13,8 +13,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_trajectory=True
+with_topology=False       # The form has the possibility to store topological data
+with_coordinates=False    # The form has the possiblity to store coordinates
+with_box=False            # The form has the possibility to store periodic box or unit cell
+with_parameters=False     # The form has the possibility to store forcefield parameters
 
 def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
@@ -259,10 +261,6 @@ def get_form_from_system(item, indices='all', frame_indices='all'):
     return form_name
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def get_has_trajectory_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

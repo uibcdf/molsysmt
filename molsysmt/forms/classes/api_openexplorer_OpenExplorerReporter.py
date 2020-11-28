@@ -10,7 +10,9 @@ is_form={
 
 info=["",""]
 with_topology=True
-with_trajectory=True
+with_coordinates=True
+with_box=True
+with_parameters=True
 
 ## Methods
 

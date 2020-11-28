@@ -9,7 +9,9 @@ is_form={
 
 info=["",""]
 with_topology=False
-with_trajectory=True
+with_coordinates=True
+with_box=False
+with_parameters=False
 
 def item_in_good_shape(item):
 

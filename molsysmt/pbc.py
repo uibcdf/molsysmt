@@ -89,9 +89,11 @@ def box_volume_from_box_vectors(box):
     if box[0] is None:
         return np.full(n_frames, None) * length_unit**3
     else:
-        output = np.array(n_frames, dtype=float) * length_unit**3
+        output = np.empty(n_frames, dtype=float) * length_unit**3
         for ii in range(n_frames):
-            output[ii]=np.dot(box[ii,0,_], np.cross(box[ii,1,:], box[ii,2,:]) ) * length_unit**3
+            aux = np.cross(box[ii,1,:], box[ii,2,:])
+            aux2 = np.dot(box[ii,0,:], aux)
+            output[ii]= aux2 * length_unit**3
         return output
 
 def minimum_image_convention(item, selection='all', reference_selection=None,
