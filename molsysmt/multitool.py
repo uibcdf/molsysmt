@@ -1184,8 +1184,10 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
             trajectory_item = None
             trajectory_form = None
             with_topology = get(item, target='system', has_topology=True)
+            with_topology = np.array(with_topology)
             n_topologies = with_topology.sum()
-            with_trajectory = get(item, target='system', has_trajectory=True)
+            with_trajectory = get(item, target='system', has_coordinates=True)
+            with_trajectory = np.array(with_trajectory)
             n_trajectories = with_trajectory.sum()
 
             if n_topologies == 0:

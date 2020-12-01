@@ -145,3 +145,40 @@ def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
 
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    return True
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    return True
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+    if tmp_box[0] is not None:
+        return True
+    else:
+        return False
+
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    return False
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
+        return True
+    else:
+        return False
+
+def get_is_solvated_from_system(item, indices='all', frame_indices='all'):
+
+    n_waters = get_n_waters_from_system(item, indices=indices, frame_indices=frame_indices)
+    volume = get_box_volume_from_system(item, indices=indices, frame_indices=frame_indices)
+    density_number = (n_waters/volume)._value
+    output = False
+    if (density_number)>15:
+        output = True
+    return output
+
