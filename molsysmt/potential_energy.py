@@ -12,16 +12,45 @@ From energy minimization to potential energy contribution of specific set of ato
 
 from .utils.engines import digest as digest_engines
 from .utils.forcefields import digest as digest_forcefields
+import simtk.unit as unit
 
-def potential_energy (item, forcefield=None, selection='all', syntaxis='MolSysMT',
-        engine='OpenMM'):
+def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
+        non_bonded_cutoff=1.0*unit.nanometers, constraints=None, rigid_water=True,
+        switch_distance=None, flexible_constraints=False, platform='CUDA',
+        selection='all', syntaxis='MolSysMT', engine='OpenMM'):
 
-    from .multitool import get_form, get, convert
+    from .multitool import get_form, convert
 
-    return get(item, target='system', has_parameters=True)
+    engine=digest_engines(engine)
+    in_form = get_form(item)
 
-def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TIP3P'], constraint_HBonds=True,
-                         to_form=None, selection=None, syntaxis='MolSysMT', engine='OpenMM', verbose=True, *kwargs):
+    if engine=='OpenMM':
+
+        tmp_item = convert(item,
+            forcefield=forcefield, non_bonded_method=non_bonded_method,
+            non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
+            rigid_water=rigid_water, switch_distance=switch_distance,
+            flexible_constraints=flexible_constraints,
+            integrator='Langevin', temperature=0*unit.kelvin, friction=1.0/unit.picoseconds,
+            integration_time_step=2.0*unit.femtoseconds, platform=platform,
+            selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
+
+        state = tmp_item.context.getState(getEnergy=True)
+        output = state.getPotentialEnergy()
+
+    else:
+
+        raise NotImplementedError()
+
+    return output.in_units_of(unit.kilocalories_per_mole)
+
+
+
+def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_method='no_cutoff',
+        non_bonded_cutoff=1.0*unit.nanometers, constraints=None, rigid_water=True,
+        switch_distance=None, flexible_constraints=False, platform='CUDA',
+        to_form=None, selection='all', syntaxis='MolSysMT', engine='OpenMM', verbose=True, *kwargs):
+
     """remove(item, selection=None, syntaxis='mdtraj')
 
     A new structure is returned with the molecular model relaxed to the nearest potential energy local
@@ -60,51 +89,25 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
 
     from .multitool import get_form, get, convert
 
-    engine=_digest_engines(engine)
+    engine=digest_engines(engine)
     in_form = get_form(item)
     if to_form is None:
         to_form = in_form
 
     if engine=='OpenMM':
 
-        from simtk.openmm import app, LangevinIntegrator
-        from simtk.openmm import Platform
-        from simtk import unit as unit
-
-        forcefield_omm_parameters=digest_forcefields(forcefield, engine)
-
-        topology = convert(item, to_form='openmm.Topology')
-        positions = get(item, coordinates=True)
-
-        print(positions)
-
-        forcefield_generator = _app.ForceField(*forcefield_omm_parameters)
-
-        constraints=None
-        if constraint_HBonds:
-            constraints = _app.HBonds
-
-        system = forcefield_generator.createSystem(topology, constraints=constraints)
-
-        kB = _unit.BOLTZMANN_CONSTANT_kB * _unit.AVOGADRO_CONSTANT_NA
-        temperature = 0*_unit.kelvin
-        pressure    = None
-
-        friction   = 1.0/_unit.picosecond
-        step_size  = 2.0*_unit.femtoseconds
-        integrator = _LangevinIntegrator(temperature, friction, step_size)
-        integrator.setConstraintTolerance(0.00001)
-
-        platform = _Platform.getPlatformByName('CUDA')
-        properties = {'CudaPrecision': 'mixed'}
-
-        simulation = _app.Simulation(topology, system, integrator, platform, properties)
-        simulation.context.setPositions(positions)
-        simulation.context.setVelocitiesToTemperature(0*_unit.kelvin)
+        simulation = convert(item,
+            forcefield=forcefield, non_bonded_method=non_bonded_method,
+            non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
+            rigid_water=rigid_water, switch_distance=switch_distance,
+            flexible_constraints=flexible_constraints,
+            integrator='Langevin', temperature=0*unit.kelvin, friction=1.0/unit.picoseconds,
+            integration_time_step=2.0*unit.femtoseconds, platform=platform,
+            selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
 
         if verbose:
             state_pre_min = simulation.context.getState(getEnergy=True)
-            energy_pre_min = state_pre_min.getPotentialEnergy()
+            energy_pre_min = state_pre_min.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
             print("Potential Energy before minimization: {}".format(energy_pre_min))
 
         if method=='L-BFGS':
@@ -112,10 +115,10 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
 
         if verbose:
             state_post_min = simulation.context.getState(getEnergy=True)
-            energy_post_min = state_post_min.getPotentialEnergy()
+            energy_post_min = state_post_min.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
             print("Potential Energy after minimization: {}".format(energy_post_min))
 
-        tmp_item = _convert(simulation, to_form=out_form)
+        tmp_item = convert(simulation, to_form=to_form)
 
         return tmp_item
 

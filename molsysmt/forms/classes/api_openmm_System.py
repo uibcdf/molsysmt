@@ -1,5 +1,6 @@
 from os.path import basename as _basename
 from simtk.openmm import System as _openmm_System
+import simtk.unit as unit
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -13,6 +14,36 @@ with_topology=True
 with_coordinates=False
 with_box=True
 with_parameters=True
+
+def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all',
+        integrator='Langevin', temperature=300.0*unit.kelvin, friction=1.0/unit.picoseconds,
+        integration_time_step=2.0*unit.femtoseconds, platform='CUDA',
+        **kwargs):
+
+    from molsysmt import convert, get
+    from simtk.openmm import app, LangevinIntegrator
+    from simtk.openmm import Platform
+
+    topology= convert(topology_item, selection=atom_indices, to_form='openmm.Topology')
+    positions = get(trajectory_item, target='atom', selection=atom_indices,
+            frame_indices=frame_indices, coordinates=True)[0]
+
+    if integrator=='Langevin':
+        integrator_aux = LangevinIntegrator(temperature, friction, integration_time_step)
+        integrator_aux.setConstraintTolerance(0.00001)
+    else:
+        raise NotImplementedError('The integrator was not implemented yet in the conversion method.')
+
+    platform_aux = Platform.getPlatformByName(platform)
+    simulation_properties = {}
+    if platform=='CUDA':
+        simulation_properties['CudaPrecision']='mixed'
+
+    tmp_item = app.Simulation(topology, item, integrator_aux, platform_aux, simulation_properties)
+    tmp_item.context.setPositions(positions)
+    tmp_item.context.setVelocitiesToTemperature(temperature)
+
+    return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

@@ -56,6 +56,11 @@ def digest(engine, **kwargs):
 
     if engine=='openmm':
 
+        if kwargs['non_bonded_method']=='no_cutoff':
+            if kwargs['non_bonded_cutoff'] is None:
+                from simtk.unit import nanometers
+                kwargs['non_bonded_cutoff']=1.0*nanometers
+
         for parameter, value in kwargs.items():
             if parameter in parameters_values_openmm:
                 output[parameters_keywords_openmm[parameter]]=parameters_values_openmm[parameter][value]

@@ -171,7 +171,10 @@ class Trajectory():
         tmp_item.n_frames = deepcopy(self.n_frames)
         tmp_item.n_atoms = deepcopy(self.n_atoms)
 
-        tmp_item.file = self.file.copy()
+        if self.file is not None:
+            tmp_item.file = self.file.copy()
+        else:
+            tmp_item.file = None
 
         return tmp_item
 

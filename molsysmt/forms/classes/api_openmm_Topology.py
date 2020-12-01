@@ -59,6 +59,54 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
     tmp_item = Modeller(item, positions[0])
     return tmp_item
 
+def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+        flexible_constraints=False, **kwargs):
+
+    from molsysmt.utils.forcefields import digest as digest_forcefields
+    from molsysmt.utils.simulation_parameters import digest as digest_simulation_parameters
+    from simtk.openmm.app import ForceField
+
+    if forcefield is None:
+        raise ValueError('This conversion needs the input argument "forcefield".')
+
+    forcefield_omm_parameters=digest_forcefields(forcefield, 'openmm')
+    system_omm_parameters=digest_simulation_parameters( engine='openmm', non_bonded_method=non_bonded_method,
+            non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
+            remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
+            switch_distance=switch_distance, flexible_constraints=flexible_constraints)
+
+    forcefield_generator = ForceField(*forcefield_omm_parameters)
+    tmp_item = forcefield_generator.createSystem(item, **system_omm_parameters)
+
+    return tmp_item
+
+def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all',
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+        flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
+        friction=1.0/unit.picoseconds, integration_time_step=2.0*unit.femtoseconds, platform='CUDA',
+        **kwargs):
+
+    from .api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
+    from molsysmt import convert, get
+
+    topology = item
+    positions = get(trajectory_item, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
+
+    system = to_openmm_System(item, atom_indices=atom_indices, frame_indices=frame_indices,
+        forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
+        rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
+        flexible_constraints=flexible_constraints, **kwargs)
+
+    tmp_item = openmm_System_to_openmm_Simulation(system, topology_item=topology,
+            trajectory_item=positions, atom_indices='all', frame_indices=0,
+            integrator=integrator, temperature=temperature, friction=friction,
+            integration_time_step=integration_time_step, platform=platform)
+
+    return tmp_item
+
 def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
            frame_indices='all'):
 
@@ -121,7 +169,8 @@ def extract(item, atom_indices='all', frame_indices='all'):
 
 def copy(item):
 
-    raise NotImplementedError
+    from copy import deepcopy
+    return deepcopy(item)
 
 def merge_two_items(item1, item2):
 
