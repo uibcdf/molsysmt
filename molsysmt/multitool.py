@@ -172,7 +172,7 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT',
         else:
             selection, syntaxis = digest_selection(selection, syntaxis)
             atom_indices = dict_selector[form_in][syntaxis](item, selection)
-    elif type(selection) in [int, _int64, _int]:
+    elif type(selection) in [int, np.int64, np.int]:
         atom_indices = np.array([selection], dtype='int64')
     elif hasattr(selection, '__iter__'):
         atom_indices = np.array(selection, dtype='int64')
@@ -1052,7 +1052,7 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
 
     if frame_indices is 'all':
         n_frames = get(item, target='system', n_frames=True)
-        frame_indices = _arange(n_frames)
+        frame_indices = np.arange(n_frames)
     elif type(frame_indices)==int:
         frame_indices = [frame_indices]
 
