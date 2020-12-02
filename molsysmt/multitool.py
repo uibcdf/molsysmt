@@ -5,6 +5,7 @@ from .utils.arguments import singular
 from .utils.forms import digest as digest_forms
 from .utils.frame_indices import digest as digest_frame_indices
 from .utils.selection import digest as digest_selection
+from .utils.selection import digest_syntaxis
 from .utils.selection import indices_to_syntaxis
 from .utils.atom_indices import intersection_indices
 import numpy as np
@@ -164,6 +165,12 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT',
     """
 
     form_in, _ = digest_forms(item)
+    syntaxis = digest_syntaxis(syntaxis)
+    if to_syntaxis is not None:
+        to_syntaxis = digest_syntaxis(to_syntaxis)
+
+    if mask=='all':
+        mask=None
 
     if type(selection)==str:
         if selection in ['all', 'All', 'ALL']:
