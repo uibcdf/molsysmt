@@ -153,14 +153,14 @@ def extract(item, atom_indices='all', frame_indices='all'):
     else:
         return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLView(item, atom_indices='all', frame_indices='all'):
+
+    return to_NGLView(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
     from nglview import show_molsysmt
-    from molsysmt.nglview import standardize_view
-
     tmp_view = show_molsysmt(item, selection=atom_indices, frame_indices=frame_indices)
-    standardize_view(tmp_view)
-
     return tmp_view
 
 def copy(item):
@@ -1532,16 +1532,6 @@ def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
         return True
     else:
         return False
-
-def get_is_solvated_from_system(item, indices='all', frame_indices='all'):
-
-    n_waters = get_n_waters_from_system(item, indices=indices, frame_indices=frame_indices)
-    volume = get_box_volume_from_system(item, indices=indices, frame_indices=frame_indices)
-    density_number = (n_waters/volume)._value
-    output = False
-    if (density_number)>15:
-        output = True
-    return output
 
 ## bond
 

@@ -85,9 +85,18 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
                                                   frame_indices=frame_indices)
     return tmp_item
 
-def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return to_NGLView(item, topology_item=topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_NGLView(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
+
+    tmp_item = to_molsysmt_MolSys(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = molsysmt_MolSys_to_NGLView(tmp_item)
+
+    return tmp_item
 
 def to_yank_Topography(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 

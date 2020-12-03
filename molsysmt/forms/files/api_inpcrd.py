@@ -79,7 +79,7 @@ def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

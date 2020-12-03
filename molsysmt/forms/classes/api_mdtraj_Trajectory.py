@@ -127,7 +127,7 @@ def to_xtc(item, output_filepath=None, trajectory_item=None, atom_indices='all',
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return item.save_xtc(output_filepath)
 
-def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_mdtraj as show_mdtraj
     from molsysmt.nglview import standardize_view

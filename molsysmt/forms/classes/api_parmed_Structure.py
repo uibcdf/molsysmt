@@ -47,7 +47,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     del(tmp_topology, coordinates)
     return tmp_item
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
     from nglview import show_parmed as _nglview_show_parmed
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)

@@ -23,6 +23,10 @@ def to_openmm_PDBFile(item, trajectory_item = None, atom_indices='all', frame_in
 
     return tmp_file
 
+def to_molsysmt_Topology(item, trajectory_item = None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.topology.viewers import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Topology
+    return nglview_NGLWidget_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices='all')
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

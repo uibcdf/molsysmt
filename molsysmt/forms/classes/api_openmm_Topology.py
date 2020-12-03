@@ -195,7 +195,7 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_molsysmt_Topology(item)
     return select_molsysmt_Topology_with_MolSysMT(tmp_item, selection)
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

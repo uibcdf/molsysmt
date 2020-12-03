@@ -17,7 +17,7 @@ wih_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_nglview(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_mdtraj as _nglview_show_mdanalysis
 

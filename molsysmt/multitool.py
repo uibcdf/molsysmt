@@ -2,6 +2,7 @@ import os
 import tempfile
 from .utils.exceptions import *
 from .utils.arguments import singular
+from .utils.engines import digest as digest_engine
 from .utils.forms import digest as digest_forms
 from .utils.frame_indices import digest as digest_frame_indices
 from .utils.selection import digest as digest_selection
@@ -429,6 +430,11 @@ def merge(item1=None, item2=None, to_form=None):
         tmp_item1 = convert(item1,to_form=form_out)
         tmp_item2 = convert(item2,to_form=form_out)
         return dict_merger[form_out](tmp_item1, tmp_item1)
+
+def append(item1=None, item2=None, selection='all', checking_identity=True, syntaxis='MolSysMT', to_form=None):
+
+    raise NotImplementedError
+
 
 def info(item=None, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):
 
@@ -1144,7 +1150,7 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
 
         form_in, form_out  = digest_forms(item, to_form)
 
-        if type(form_in) != list:
+        if type(form_in) not in [tuple,list]:
 
             if selection is 'all':
                 atom_indices='all'
@@ -1211,6 +1217,8 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                 elif n_trajectories == 2:
                     print('Both items have topology and coordinates. The first one will be taken form\
                           topology and the second one for coordiantes.')
+                    topology_index = 0
+                    trajectory_index = 1
                 else:
                     trajectory_index = np.nonzero(with_trajectory)[0][0]
                     topology_index = np.nonzero(~with_trajectory)[0][0]
@@ -1228,6 +1236,7 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
             out_file = None
 
             if type(form_out)==str:
+
                 if form_out.split('.')[-1] in list_files_forms:
                     out_file=form_out
                     form_out=form_out.split('.')[-1]
@@ -1248,7 +1257,9 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                                            to_form=out_file)
 
                 else:
+
                     if topology_form!=form_out:
+
                         tmp_item = dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
                                                                       frame_indices=frame_indices, **kwargs)
                     elif same_system:
@@ -1295,18 +1306,40 @@ def write(item=None, filename=None, selection='all', frame_indices='all', syntax
 
     return convert(item, to_form=filename, selection=selection, frame_indices='all', syntaxis=syntaxis)
 
-def view(item=None, viewer='nglview', selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def view(item=None, viewer='NGLView', selection='all', frame_indices='all',
+        appending_coordinates=False, standardized=True, syntaxis='MolSysMT'):
+
+    viewer = digest_engine(viewer)
 
     if type(item) in [list,tuple]:
-        form_in = get_form(item[0])
-        tmp_item = merge(item)
-    else:
-        form_in = get_form(item)
-        tmp_item = item
 
-    atom_indices = select(tmp_item, selection=selection, syntaxis=syntaxis)
-    frame_indices = digest_frame_indices(tmp_item, frame_indices)
-    
-    return dict_converter[form_in][viewer](tmp_item, atom_indices=atom_indices,
-            frame_indices=frame_indices)
+        with_topologies = get(item, target='system', has_topology=True)
+        with_coordinates = get(item, target='system', has_coordinates=True)
+
+        if (len(item)==2) and (sum(with_topologies)==1) and (sum(with_coordinates)>0):
+            tmp_item = convert(item, to_form=viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+
+        else:
+
+            list_views = []
+
+            for ii in item:
+                aux_item = convert(ii, to_form=viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+                list_views.append(aux_item)
+
+            if appending_coordinates:
+                tmp_item = append(list_views)
+            else:
+                tmp_item = merge(list_views)
+
+    else:
+
+        tmp_item = convert(item, to_form=viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+
+    if standardized:
+        if viewer=='NGLView':
+            from .nglview import standardize_view
+            standardize_view(tmp_item)
+
+    return tmp_item
 
