@@ -167,7 +167,18 @@ def copy(item):
 
     return item.copy()
 
-def merge_two_items(item1, item2):
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    from molsysmt.native.molsys import MolSys
+
+    tmp_item = MolSys()
+
+    for item, atom_indices, frame_indices in zip(list_items, list_atom_indices, list_frame_indices):
+        tmp_item.add(item, selection=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def add(item1, item2):
 
     tmp_item = copy(item1)
     tmp_item.add(item2)

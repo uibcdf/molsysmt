@@ -23,7 +23,10 @@ from .forms.classes import dict_is_form as dict_classes_is_form, \
     dict_selector as dict_classes_selector, \
     dict_extractor as dict_classes_extractor, \
     dict_copier as dict_classes_copier, \
-    dict_merger as dict_classes_merger, \
+    dict_merge as dict_classes_merge, \
+    dict_add as dict_classes_add, \
+    dict_concatenate as dict_classes_concatenate, \
+    dict_append as dict_classes_append, \
     dict_get as dict_classes_get, \
     dict_set as dict_classes_set
 
@@ -35,7 +38,10 @@ from .forms.files import dict_is_form as dict_files_is_form, \
     dict_selector as dict_files_selector, \
     dict_extractor as dict_files_extractor, \
     dict_copier as dict_files_copier, \
-    dict_merger as dict_files_merger, \
+    dict_merge as dict_files_merge, \
+    dict_add as dict_files_add, \
+    dict_concatenate as dict_files_concatenate, \
+    dict_append as dict_files_append, \
     dict_get as dict_files_get, \
     dict_set as dict_files_set
 
@@ -47,7 +53,10 @@ from .forms.ids import dict_is_form as dict_ids_is_form, \
     dict_selector as dict_ids_selector, \
     dict_extractor as dict_ids_extractor, \
     dict_copier as dict_ids_copier, \
-    dict_merger as dict_ids_merger, \
+    dict_merge as dict_ids_merge, \
+    dict_add as dict_ids_add, \
+    dict_concatenate as dict_ids_concatenate, \
+    dict_append as dict_ids_append, \
     dict_get as dict_ids_get, \
     dict_set as dict_ids_set
 
@@ -59,7 +68,10 @@ from .forms.seqs import dict_is_form as dict_seqs_is_form, \
     dict_selector as dict_seqs_selector, \
     dict_extractor as dict_seqs_extractor, \
     dict_copier as dict_seqs_copier, \
-    dict_merger as dict_seqs_merger, \
+    dict_merge as dict_seqs_merge, \
+    dict_add as dict_seqs_add, \
+    dict_concatenate as dict_seqs_concatenate, \
+    dict_append as dict_seqs_append, \
     dict_get as dict_seqs_get, \
     dict_set as dict_seqs_set
 
@@ -71,7 +83,10 @@ from .forms.viewers import dict_is_form as dict_viewers_is_form, \
     dict_selector as dict_viewers_selector, \
     dict_extractor as dict_viewers_extractor, \
     dict_copier as dict_viewers_copier, \
-    dict_merger as dict_viewers_merger, \
+    dict_merge as dict_viewers_merge, \
+    dict_add as dict_viewers_add, \
+    dict_concatenate as dict_viewers_concatenate, \
+    dict_append as dict_viewers_append, \
     dict_get as dict_viewers_get, \
     dict_set as dict_viewers_set
 
@@ -89,8 +104,14 @@ dict_extractor = {**dict_classes_extractor, **dict_files_extractor,\
                    **dict_ids_extractor, **dict_seqs_extractor, **dict_viewers_extractor}
 dict_copier = {**dict_classes_copier, **dict_files_copier,\
                    **dict_ids_copier, **dict_seqs_copier, **dict_viewers_copier}
-dict_merger    = {**dict_classes_merger, **dict_files_merger,\
-                   **dict_ids_merger, **dict_seqs_merger, **dict_viewers_merger}
+dict_merge = {**dict_classes_merge, **dict_files_merge,\
+                   **dict_ids_merge, **dict_seqs_merge, **dict_viewers_merge}
+dict_add = {**dict_classes_add, **dict_files_add,\
+                   **dict_ids_add, **dict_seqs_add, **dict_viewers_add}
+dict_append = {**dict_classes_append, **dict_files_append,\
+                   **dict_ids_append, **dict_seqs_append, **dict_viewers_append}
+dict_concatenate = {**dict_classes_concatenate, **dict_files_concatenate,\
+                   **dict_ids_concatenate, **dict_seqs_concatenate, **dict_viewers_concatenate}
 dict_get = {**dict_classes_get, **dict_files_get,\
                    **dict_ids_get, **dict_seqs_get, **dict_viewers_get}
 dict_set = {**dict_classes_set, **dict_files_set,\
@@ -346,7 +367,7 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
     out_file = None
 
     if type(form_out)==str:
-        if form_out.split('.')[-1] in _list_files_forms:
+        if form_out.split('.')[-1] in list_files_forms:
             out_file=form_out
             form_out=form_out.split('.')[-1]
 
@@ -363,9 +384,9 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
 
         return tmp_item
 
-def merge(item1=None, item2=None, to_form=None):
+def merge(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
-    """merge(item1=None, item2=None, to_form=None)
+    """merge(items=None, selection='all', frame_indices='all', syntaxis='MolSysMT' to_form=None)
 
     XXX
 
@@ -377,17 +398,8 @@ def merge(item1=None, item2=None, to_form=None):
     item: molecular model
         Molecular model in any of the supported forms by MolSysMT. (See: XXX)
 
-    target: str, default='system'
-        The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
-        'system'.
-
     to_form: str, default='molsysmt.MolSys'
         Any accepted form by MolSysMt for the output object.
-
-    indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ('atom', 'group' or 'chain') this
-        method is going to work with. The set of indices can be given by a list, tuple or numpy
-        array of integers (0-based).
 
     selection: str, list, tuple or np.ndarray, defaul='all'
        Atoms selection over which this method applies. The selection can be given by a
@@ -416,25 +428,87 @@ def merge(item1=None, item2=None, to_form=None):
 
     """
 
-    #item1 can be a list or tuple
+    if type(items) not in [list, tuple]:
+        raise ValueError('The argument items needs to be a list or tuple of molecular systems')
 
-    if type(item1) in [list,tuple]:
-        _ , form_out = digest_forms(item1[0], to_form)
-        tmp_item = convert(item1[0], to_form=form_out)
-        for in_item in item1[1:]:
-            tmp_item2 = convert(in_item, to_form=form_out)
-            tmp_item = dict_merger[form_out](tmp_item, tmp_item2)
-        return tmp_item
-    else:
-        _ , form_out = digest_forms(item1, to_form)
-        tmp_item1 = convert(item1,to_form=form_out)
-        tmp_item2 = convert(item2,to_form=form_out)
-        return dict_merger[form_out](tmp_item1, tmp_item1)
+    if to_form is None:
+        to_form = get_form(items[0])
 
-def append(item1=None, item2=None, selection='all', checking_identity=True, syntaxis='MolSysMT', to_form=None):
+    n_items = len(items)
+
+    if type(selections) not in [list, tuple]:
+        selections = [selections for ii in range(n_items)]
+    elif len(selections)!=n_items:
+        raise ValueError("The length of the lists items and selections need to be equal.")
+
+    if type(frame_indices) not in [list, tuple]:
+        frame_indices = [frame_indices for ii in range(n_items)]
+    elif len(frame_indices)!=n_items:
+        raise ValueError("The length of the lists items and selections need to be equal.")
+
+    list_items = []
+    list_atom_indices = []
+    list_frame_indices = []
+
+    for aux_item, aux_selection, aux_frame_indices in zip(items, selections, frame_indices):
+        if get_form(aux_item)!=to_form:
+            list_items.append(convert(aux_item, selection=aux_selection, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form))
+            list_atom_indices('all')
+            list_frame_indices('all')
+        else:
+            list_items.append(aux_item)
+            list_atom_indices.append(select(aux_item, selection=aux_selection, syntaxis=syntaxis))
+            list_frame_indices.append(aux_frame_indices)
+
+    tmp_item = dict_merge[to_form](list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+
+    return tmp_item
+
+def add(item, items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'):
+
+    # like merge but in place
 
     raise NotImplementedError
 
+def concatenate(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
+
+    if type(items) not in [list, tuple]:
+        raise ValueError('The argument items needs to be a list or tuple of molecular systems')
+
+    if to_form is None:
+        to_form = get_form(items[0])
+
+    aux_items = []
+    aux_atom_indices = []
+    for ii in items:
+        if get_form(ii)!=to_form:
+            aux_items.append(convert(ii, selection=selection, syntaxis=syntaxis, to_form=to_form))
+            aux_atom_indices.append('all')
+        else:
+            aux_items.append(ii)
+            if selection is not 'all':
+                aux_atom_indices.append(select(ii, selection=selection, syntaxis=syntaxis))
+            else:
+                aux_atom_indices.append('all')
+
+    tmp_item = dict_concatenate[to_form](aux_items, atom_indices=atom_indices)
+
+    if to_form is None:
+        to_form = get_form(items[0])
+
+    tmp_item = convert(items[0], to_form=to_form)
+
+    for in_item in items[1:]:
+        tmp_item2 = convert(in_item, to_form=to_form)
+        tmp_item = dict_merger[to_form](tmp_item, tmp_item2)
+
+    return tmp_item
+
+def append(item, items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'):
+
+    # appending coordinates
+
+    raise NotImplementedError
 
 def info(item=None, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):
 
@@ -1307,7 +1381,7 @@ def write(item=None, filename=None, selection='all', frame_indices='all', syntax
     return convert(item, to_form=filename, selection=selection, frame_indices='all', syntaxis=syntaxis)
 
 def view(item=None, viewer='NGLView', selection='all', frame_indices='all',
-        appending_coordinates=False, standardized=True, syntaxis='MolSysMT'):
+        appending_coordinates=False, standardize=True, syntaxis='MolSysMT'):
 
     viewer = digest_engine(viewer)
 
@@ -1321,22 +1395,27 @@ def view(item=None, viewer='NGLView', selection='all', frame_indices='all',
 
         else:
 
-            list_views = []
+            # There should be the possibility to create a list of nglview.NGLWidget to merge them
+            # In the meantime the auxiliary step of converting all items to molsysmt will be used
+
+            list_aux_items = []
 
             for ii in item:
-                aux_item = convert(ii, to_form=viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
-                list_views.append(aux_item)
+                aux_item = convert(ii, to_form='molsysmt.MolSys', selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+                list_aux_items.append(aux_item)
 
             if appending_coordinates:
-                tmp_item = append(list_views)
+                tmp_item = concatenate(list_aux_items)
             else:
-                tmp_item = merge(list_views)
+                tmp_item = merge(list_aux_items)
+
+            tmp_item = convert(tmp_item, to_form=viewer)
 
     else:
 
         tmp_item = convert(item, to_form=viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
-    if standardized:
+    if standardize:
         if viewer=='NGLView':
             from .nglview import standardize_view
             standardize_view(tmp_item)

@@ -7,10 +7,12 @@ is_form = {
     _nglview_widget.NGLWidget: form_name
     }
 
-info=["",""]
+info=["NGLView visualization native object","http://nglviewer.org/nglview/latest/_modules/nglview/widget.html"]
 
 with_topology=True
-with_trajectory=True
+with_coordinates=True
+with_box=True
+with_parameters=False
 
 def to_openmm_PDBFile(item, trajectory_item = None, atom_indices='all', frame_indices='all'):
 
