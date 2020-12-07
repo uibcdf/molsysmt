@@ -1184,32 +1184,34 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
             trajectory_item = None
             trajectory_form = None
             with_topology = get(item, target='system', has_topology=True)
+            with_coordinates = get(item, target='system', has_coordinates=True)
+            with_topology = np.array(with_topology)
+            with_coordinates = np.array(with_coordinates)
             n_topologies = with_topology.sum()
-            with_trajectory = get(item, target='system', has_trajectory=True)
-            n_trajectories = with_trajectory.sum()
+            n_coordinates = with_coordinates.sum()
 
             if n_topologies == 0:
                 raise ValueError('There is no input item with topology')
             elif n_topologies == 1:
                 topology_index = np.nonzero(with_topology)[0][0]
-                trajectory_index = np.nonzero(~with_topology)[0][0]
-                if with_trajectory[trajectory_index] is False:
+                coordinates_index = np.nonzero(~with_topology)[0][0]
+                if with_coordinates[coordinates_index] is False:
                     raise ValueError('The item {} has the topology of the molecular system but {} has\
-                                     no coordinates'.format(form_in[topology_index], form_in[trajectory_index]))
+                                     no coordinates'.format(form_in[topology_index], form_in[coordinates_index]))
             elif n_topologies == 2:
-                if n_trajectories ==0:
+                if n_coordinates ==0:
                     raise ValueError('Both items have topological information but no coordinates.')
-                elif n_trajectories == 2:
+                elif n_coordinates == 2:
                     print('Both items have topology and coordinates. The first one will be taken form\
                           topology and the second one for coordiantes.')
                 else:
-                    trajectory_index = np.nonzero(with_trajectory)[0][0]
-                    topology_index = np.nonzero(~with_trajectory)[0][0]
+                    coordinates_index = np.nonzero(with_coordinates)[0][0]
+                    topology_index = np.nonzero(~with_coordinates)[0][0]
 
             topology_item = item[topology_index]
             topology_form = form_in[topology_index]
-            trajectory_item = item[trajectory_index]
-            trajectory_form = form_in[trajectory_index]
+            trajectory_item = item[coordinates_index]
+            trajectory_form = form_in[coordinates_index]
 
             if selection is 'all':
                 atom_indices='all'

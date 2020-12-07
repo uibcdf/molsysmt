@@ -9,7 +9,9 @@ is_form = {
 
 info = ["AMBER  parameter/topology file format","https://ambermd.org/FileFormats.php#topology"]
 with_topology=True
-with_trajectory=False
+with_coordinates=False
+with_box=False
+with_parameters=True
 
 def to_prmtop(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
@@ -144,4 +146,28 @@ def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    return with_topology
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    return with_parameters
+
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    return with_coordinates
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    return with_box
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_is_solvated_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 

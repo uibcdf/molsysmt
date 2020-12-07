@@ -1,6 +1,7 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
 from molsysmt import MolSys as _molsysmt_MolSys
+from simtk.unit import nanometer
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -84,7 +85,7 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
     return tmp_item
 
 def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
-        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*nanometer, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
         flexible_constraints=False, **kwargs):
 

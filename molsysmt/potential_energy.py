@@ -13,10 +13,28 @@ From energy minimization to potential energy contribution of specific set of ato
 from .utils.engines import digest as digest_engines
 from .utils.forcefields import digest as digest_forcefields
 
-def potential_energy (item, forcefield=None, selection='all', syntaxis='MolSysMT',
-        engine='OpenMM'):
+def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*nanometer,
+                      constraints=None, rigid_water=True, switch_distance=None,
+        flexible_constraints=False, selection='all', syntaxis='MolSysMT',
+        engine='OpenMM', **kwargs):
 
-    from .multitool import get_form, get, convert
+    from .multitool import convert
+
+    engine=_digest_engines(engine)
+
+    if engine=='openmm':
+
+        forcefield_omm_parameters=digest_forcefields(forcefield, engine)
+
+        system = convert(item, to_form='openmm.System', forcefield=forcefield)
+
+        kB = _unit.BOLTZMANN_CONSTANT_kB * _unit.AVOGADRO_CONSTANT_NA
+        temperature = 0*_unit.kelvin
+        pressure    = None
+
+    else:
+
+        raise NotImplementedError
 
     return get(item, target='system', has_parameters=True)
 
@@ -73,18 +91,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=['AMBER99SB-ILDN','TI
 
         forcefield_omm_parameters=digest_forcefields(forcefield, engine)
 
-        topology = convert(item, to_form='openmm.Topology')
-        positions = get(item, coordinates=True)
-
-        print(positions)
-
-        forcefield_generator = _app.ForceField(*forcefield_omm_parameters)
-
-        constraints=None
-        if constraint_HBonds:
-            constraints = _app.HBonds
-
-        system = forcefield_generator.createSystem(topology, constraints=constraints)
+        system = convert(item, to_form='openmm.System')
 
         kB = _unit.BOLTZMANN_CONSTANT_kB * _unit.AVOGADRO_CONSTANT_NA
         temperature = 0*_unit.kelvin
