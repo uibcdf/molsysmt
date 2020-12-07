@@ -14,19 +14,41 @@ with_coordinates=False
 with_box=False
 with_parameters=True
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.topology.classes import from_openmm_Simulation as openmm_Simulation_to_molsysmt_Topology
+    tmp_item = openmm_Simulation_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.trajectory.classes import from_openmm_Simulation as openmm_Simulation_to_molsysmt_Trajectory
+    tmp_item = openmm_Simulation_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import from_openmm_Simulation as openmm_Simulation_to_molsysmt_MolSys
+    tmp_item = openmm_Simulation_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     tmp_item=item.topology
     tmp_item=extract(atom_indices=atom_indices, frame_indices=frame_indices)
     return item.topology
 
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import Modeller
     topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     tmp_item = Modeller(topology, positions)
     return tmp_item
+
+def to_openmm_Context(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    return item.context
 
 def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
 

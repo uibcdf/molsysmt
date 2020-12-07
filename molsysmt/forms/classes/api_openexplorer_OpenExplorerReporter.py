@@ -64,9 +64,9 @@ def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
             file.write(filedata)
         pass
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview as convert
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as convert
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return convert(tmp_item)
 

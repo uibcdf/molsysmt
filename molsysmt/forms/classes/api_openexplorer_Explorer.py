@@ -62,11 +62,11 @@ def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
             file.write(filedata)
         pass
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview as molsysmt_MolSys_to_nglview
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return molsysmt_MolSys_to_nglview(item)
+    return molsysmt_MolSys_to_NGLView(item)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -74,7 +74,7 @@ def extract(item, atom_indices='all', frame_indices='all'):
 
 def copy(item):
 
-    raise NotImplementedError
+    return item.replicate()
 
 def select_with_MDTraj(item, selection):
 
@@ -85,6 +85,10 @@ def select_with_MolSysMT(item, selection):
     from .api_molsysmt_Topology import select_with_MolSysMT as select_molsysmt_Topology_with_MolSysMT
     tmp_item = to_molsysmt_Topology(item)
     return select_molsysmt_Topology_with_MolSysMT(tmp_item, selection)
+
+def merge_two_items(item1, item2):
+
+    raise NotImplementedError
 
 ##### Get
 
@@ -1641,6 +1645,39 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    return with_topology
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    return with_parameters
+
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    return with_coordinates
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    output = False
+
+    if with_box:
+        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+        if tmp_box[0] is not None:
+            output = True
+
+    return output
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    output = False
+
+    if with_topology:
+        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
+            ooutput = True
+
+    return output
 
 ## bond
 

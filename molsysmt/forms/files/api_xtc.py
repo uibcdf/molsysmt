@@ -1,5 +1,8 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
+import simtk.unit as unit
+from molsysmt.forms.common_gets import *
+import numpy as np
 
 form_name=_basename(__file__).split('.')[0].split('_')[-1]
 
@@ -9,7 +12,9 @@ is_form = {
 
 info=["",""]
 with_topology=False
-with_trajectory=True
+with_coordinates=True
+with_box=True
+with_parameters=False
 
 def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
@@ -88,4 +93,37 @@ def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    return with_topology
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    return with_parameters
+
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    return with_coordinates
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    output = False
+
+    if with_box:
+        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+        if tmp_box[0] is not None:
+            output = True
+
+    return output
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    output = False
+
+    if with_topology:
+        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
+            ooutput = True
+
+    return output
 

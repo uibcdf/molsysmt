@@ -1,4 +1,4 @@
-import numpy as _np
+import numpy as np
 import molsysmt.utils.units as msm_units
 from molsysmt.utils.exceptions import *
 
@@ -137,19 +137,23 @@ class Trajectory():
 
         return tmp_item
 
-    def add(self, item, atom_indices='all', frame_indices='all'):
+    def add(self, item, selection='all', frame_indices='all'):
 
         from molsysmt import convert, get
 
-        tmp_item = convert(item, selection=atom_indices, frame_indices=frame_indices,
-                           to_form='molsysmt.Trajectory')
+        tmp_item = convert(item, selection=selection, frame_indices=frame_indices, to_form='molsysmt.Trajectory')
 
         n_frames = get(tmp_item, target='system', n_frames=True)
-        if self.n_frames != n_frames:
-            raise ValueError('Both items need to have the same n_frames')
 
-        self.coordinates = _np.hstack([self.coordinates, tmp_item.coordinates])*self.coordinates.unit
+        if self.n_frames==0:
+            self.coordinates=tmp_item.coordinates.copy()*tmp_item.coordinates.unit
+        elif self.n_frames != n_frames:
+            raise ValueError('Both items need to have the same n_frames')
+        else:
+            self.coordinates = np.hstack([self.coordinates, tmp_item.coordinates])*self.coordinates.unit
+
         self.n_atoms = self.coordinates.shape[1]
+        self.n_frames = self.coordinates.shape[0]
 
     def append(self, item, atom_indices='all', frame_indices='all'):
 
@@ -171,7 +175,10 @@ class Trajectory():
         tmp_item.n_frames = deepcopy(self.n_frames)
         tmp_item.n_atoms = deepcopy(self.n_atoms)
 
-        tmp_item.file = self.file.copy()
+        if self.file is not None:
+            tmp_item.file = self.file.copy()
+        else:
+            tmp_item.file = None
 
         return tmp_item
 

@@ -58,7 +58,7 @@ def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
     tmp_form.save(output_filepath)
     pass
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
     from nglview import show_file as _nglview_show_file
     return _nglview_show_file(item)
 

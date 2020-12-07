@@ -1,7 +1,7 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
 from molsysmt import MolSys as _molsysmt_MolSys
-from simtk.unit import nanometer
+import simtk.unit as unit
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -25,6 +25,11 @@ def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame
 
     from molsysmt.native.io.molsys.classes import to_molsysmt_Trajectory as molsysmt_MolSys_to_molsysmt_Trajectory
     return molsysmt_MolSys_to_molsysmt_Trajectory(item)
+
+def to_XYZ(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import to_XYZ as molsysmt_MolSys_to_XYZ
+    return molsysmt_MolSys_to_XYZ(item)
 
 def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
 
@@ -72,15 +77,13 @@ def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
 
 def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.classes import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
-    tmp_item = to_molsysmt_Topology(item)
-    tmp_item = molsysmt_Topology_to_openmm_Topology(tmp_item)
+    from molsysmt.native.io.molsys.classes import to_openmm_Topology as molsysmt_MolSys_to_openmm_Topology
+    tmp_item = molsysmt_MolSys_to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_openmm_Modeller as molsysmt_MolSys_to_openmm_Modeller
-
     tmp_item = molsysmt_MolSys_to_openmm_Modeller(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
@@ -89,24 +92,32 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
         flexible_constraints=False, **kwargs):
 
-    from molsysmt.utils.forcefields import digest as digest_forcefields
-    from molsysmt.utils.simulation_parameters import digest as digest_simulation_parameters
-    from simtk.openmm.app import ForceField
+    from molsysmt.native.io.molsys.classes import to_openmm_System as molsysmt_MolSys_to_openmm_System
 
-    openmm_Topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = molsysmt_MolSys_to_openmm_System(item, atom_indices=atom_indices, frame_indices=frame_indices,
+        forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
+        rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
+        flexible_constraints=flexible_constraints, **kwargs)
 
-    if forcefield is None:
-        raise ValueError('This conversion needs the input argument "forcefield".')
+    return tmp_item
 
-    forcefield_omm_parameters=digest_forcefields(forcefield, 'openmm')
-    system_omm_parameters=digest_simulation_parameters( engine='openmm', non_bonded_method=non_bonded_method,
-            non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
-            remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
-            switch_distance=switch_distance, flexible_constraints=flexible_constraints)
+def to_openmm_Simulation(item, trajectory_item=None, atom_indices='all', frame_indices='all',
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+        flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
+        friction=1.0/unit.picoseconds, integration_time_step=2.0*unit.femtoseconds, platform='CUDA',
+        **kwargs):
 
-    forcefield_generator = ForceField(*forcefield_omm_parameters)
+    from molsysmt.native.io.molsys.classes import to_openmm_Simulation as molsysmt_MolSys_to_openmm_Simulation
 
-    tmp_item = forcefield_generator.createSystem(openmm_Topology, **system_omm_parameters)
+    if trajectory_item is None:
+        trajectory_item = item
+
+    tmp_item = molsysmt_MolSys_to_openmm_Simulation(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices,
+            forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
+            rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
+            flexible_constraints=flexible_constraints, integrator=integrator,
+            temperature=temperature, friction=friction, integration_time_step=integration_time_step, platform=platform, **kwargs)
 
     return tmp_item
 
@@ -142,21 +153,32 @@ def extract(item, atom_indices='all', frame_indices='all'):
     else:
         return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLView(item, atom_indices='all', frame_indices='all'):
+
+    return to_NGLView(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
     from nglview import show_molsysmt
-    from molsysmt.nglview import standardize_view
-
     tmp_view = show_molsysmt(item, selection=atom_indices, frame_indices=frame_indices)
-    standardize_view(tmp_view)
-
     return tmp_view
 
 def copy(item):
 
     return item.copy()
 
-def merge_two_items(item1, item2):
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    from molsysmt.native.molsys import MolSys
+
+    tmp_item = MolSys()
+
+    for item, atom_indices, frame_indices in zip(list_items, list_atom_indices, list_frame_indices):
+        tmp_item.add(item, selection=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def add(item1, item2):
 
     tmp_item = copy(item1)
     tmp_item.add(item2)
@@ -1521,16 +1543,6 @@ def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
         return True
     else:
         return False
-
-def get_is_solvated_from_system(item, indices='all', frame_indices='all'):
-
-    n_waters = get_n_waters_from_system(item, indices=indices, frame_indices=frame_indices)
-    volume = get_box_volume_from_system(item, indices=indices, frame_indices=frame_indices)
-    density_number = (n_waters/volume)._value
-    output = False
-    if (density_number)>15:
-        output = True
-    return output
 
 ## bond
 

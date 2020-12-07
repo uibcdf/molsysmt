@@ -17,7 +17,7 @@ from .model_loops import add_loop
 from .remove_atoms import remove_solvent, remove_hydrogens
 from .potential_energy import energy_minimization, potential_energy
 from .peptides import build_peptide
-from .solvate_box import solvate
+from .solvate_box import solvate, is_solvated
 from .protonation import add_missing_hydrogens
 from .terminals_capping import add_terminal_capping
 from .mutations import mutate

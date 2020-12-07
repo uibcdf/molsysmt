@@ -218,3 +218,18 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
     else:
 
         raise NotImplementedError
+
+def is_solvated(item):
+
+    from molsysmt import get
+
+    output = False
+
+    n_waters, volume = get(item, target='system', n_waters=True, box=True)
+    if (n_waters>0) and (volume is not None):
+        density_number = (n_waters/volume)._value
+        if (density_number)>15:
+            output = True
+
+    return output
+

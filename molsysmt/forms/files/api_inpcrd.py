@@ -77,7 +77,7 @@ def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -166,7 +166,10 @@ def get_has_box_from_system(item, indices='all', frame_indices='all'):
 
 def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
+        return True
+    else:
+        return False
 
 def get_is_solvated_from_system(item, indices='all', frame_indices='all'):
 

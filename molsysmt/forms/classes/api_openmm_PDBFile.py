@@ -38,11 +38,11 @@ def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item=extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Trajectory import to_nglview as mdtraj_Trajectory_to_nglview
+    from .api_mdtraj_Trajectory import to_NGLView as mdtraj_Trajectory_to_NGLView
     tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return _mdtraj_Trajectory_to_nglview(tmp_item)
+    return _mdtraj_Trajectory_to_NGLView(tmp_item)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

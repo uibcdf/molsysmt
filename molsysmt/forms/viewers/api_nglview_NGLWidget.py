@@ -7,10 +7,12 @@ is_form = {
     _nglview_widget.NGLWidget: form_name
     }
 
-info=["",""]
+info=["NGLView visualization native object","http://nglviewer.org/nglview/latest/_modules/nglview/widget.html"]
 
 with_topology=True
-with_trajectory=True
+with_coordinates=True
+with_box=True
+with_parameters=False
 
 def to_openmm_PDBFile(item, trajectory_item = None, atom_indices='all', frame_indices='all'):
 
@@ -23,6 +25,10 @@ def to_openmm_PDBFile(item, trajectory_item = None, atom_indices='all', frame_in
 
     return tmp_file
 
+def to_molsysmt_Topology(item, trajectory_item = None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.topology.viewers import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Topology
+    return nglview_NGLWidget_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices='all')
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

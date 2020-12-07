@@ -3,22 +3,33 @@
 
 def standardize_view (view, atom_indices='all', frame_indices='all'):
 
+    from molsysmt import select, get, is_solvated, convert
+
     if atom_indices is not 'all':
         string_atom_indices = '@'+','.join(map(str, atom_indices))
     else:
         string_atom_indices = 'all'
 
-    sel_cartoon = string_atom_indices+' and (protein or nucleic)'
-    sel_balls = string_atom_indices+' and ion'
-    sel_licorice = string_atom_indices+' and (ligand or hetero)'
+    tmp_topology = convert(view, to_form='molsysmt.Topology')
+
+    sel_cartoon = select(tmp_topology, selection='molecule_type in ["protein","dna", "rna"]', mask=atom_indices, to_syntaxis='NGLview')
+    sel_balls = select(tmp_topology, selection='molecule_type in ["ion"]', mask=atom_indices, to_syntaxis='NGLview')
+    sel_licorice = select(tmp_topology, selection='molecule_type in ["peptide", "lipid", "small_molecule"]', mask=atom_indices, to_syntaxis='NGLview')
 
     view.clear()
     view.add_cartoon(selection=sel_cartoon)
     view.add_licorice(selection=sel_licorice)
-    view.add_ball_and_stick(selection=sel_licorice)
-    view.center(selection=string_atom_indices)
+    view.add_ball_and_stick(selection=sel_balls)
 
-    # water is not shown
+    n_waters = get(view, target="system", n_waters=True)
+    n_selected_waters = get(view, target="system", n_waters=True)
+    solvated = is_solvated(view)
+
+    if (not solvated) or (n_selected_waters<n_waters):
+        sel_water = select(tmp_topology, selection='molecule_type in ["water"]', mask=atom_indices, to_syntaxis='NGLview')
+        view.add_licorice(selection=sel_water)
+
+    view.center(selection=string_atom_indices)
 
     pass
 

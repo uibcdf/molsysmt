@@ -16,13 +16,14 @@ dict_converter={}
 dict_selector={}
 dict_extractor={}
 dict_copier={}
-dict_merger={}
+dict_merge={}
+dict_add={}
+dict_append={}
+dict_concatenate={}
 dict_is_form={}
 dict_get={}
 dict_set={}
 dict_info={}
-dict_with_topology={}
-dict_with_trajectory={}
 
 for api_form in list_api_forms:
     module_api_form=_import_module('.'+api_form,base_package)
@@ -37,14 +38,15 @@ for form_name in list_forms:
     dict_selector[form_name]= {}
     dict_extractor[form_name]= {}
     dict_copier[form_name]= {}
-    dict_merger[form_name]= {}
+    dict_merge[form_name]= {}
+    dict_add[form_name]= {}
+    dict_append[form_name]= {}
+    dict_concatenate[form_name]= {}
     dict_get[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{},
                           'entity':{}, 'system':{}, 'bond':{}}
     dict_set[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{},
                           'entity':{}, 'system':{}, 'bond':{}}
     dict_info[form_name]=getattr(dict_api_forms[form_name],'info')
-    dict_with_topology[form_name]=getattr(dict_api_forms[form_name],'with_topology')
-    dict_with_trajectory[form_name]=getattr(dict_api_forms[form_name],'with_trajectory')
 
     for method in dict_api_forms[form_name].__dict__.keys():
         if method.startswith('to_'):
@@ -69,8 +71,14 @@ for form_name in list_forms:
         dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract')
     if 'copy' in dict_api_forms[form_name].__dict__.keys():
         dict_copier[form_name]=getattr(dict_api_forms[form_name],'copy')
-    if 'merge_two_items' in dict_api_forms[form_name].__dict__.keys():
-        dict_merger[form_name]=getattr(dict_api_forms[form_name],'merge_two_items')
+    if 'merge' in dict_api_forms[form_name].__dict__.keys():
+        dict_merge[form_name]=getattr(dict_api_forms[form_name],'merge')
+    if 'add' in dict_api_forms[form_name].__dict__.keys():
+        dict_add[form_name]=getattr(dict_api_forms[form_name],'add')
+    if 'append' in dict_api_forms[form_name].__dict__.keys():
+        dict_append[form_name]=getattr(dict_api_forms[form_name],'append')
+    if 'concatenate' in dict_api_forms[form_name].__dict__.keys():
+        dict_concatenate[form_name]=getattr(dict_api_forms[form_name],'concatenate')
 
 list_forms=sorted(list_forms)
 
