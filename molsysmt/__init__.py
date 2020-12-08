@@ -3,7 +3,7 @@ from . import utils
 from . import demo_systems
 
 from .native.molsys import MolSys
-from .multitool import select, extract, merge, info, get, set, \
+from .multitool import select, extract, merge, concatenate, info, get, set, \
                        convert, copy, write, view, remove, get_form
 from .info_multitool import info_forms, info_convert, info_select, info_viewers
 from .geometrical_transformations import translate

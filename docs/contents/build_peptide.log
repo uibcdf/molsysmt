@@ -1,4 +1,4 @@
-log started: Thu Dec  3 22:11:00 2020
+log started: Tue Dec  8 12:43:08 2020
 
 Log file: ./leap.log
 >> #
@@ -238,7 +238,7 @@ Unit is OK.
 > charge peptide
 Total unperturbed charge:   1.000000
 Total perturbed charge:     1.000000
-> saveAmberParm peptide tmppoh3e741.prmtop tmppoh3e741.inpcrd
+> saveAmberParm peptide tmpry8t6pqd.prmtop tmpry8t6pqd.inpcrd
 Checking Unit.
 
 /home/diego/Myopt/miniconda3/envs/UIBCDF_lab_dev/bin/teLeap: Warning!
