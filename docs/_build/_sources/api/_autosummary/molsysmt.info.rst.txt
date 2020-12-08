@@ -1,6 +1,0 @@
-molsysmt.info
-=============
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: info

@@ -1,6 +1,0 @@
-molsysmt.least\_rmsd\_fit
-=========================
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: least_rmsd_fit

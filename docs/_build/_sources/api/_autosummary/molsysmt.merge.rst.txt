@@ -1,6 +1,0 @@
-molsysmt.merge
-==============
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: merge

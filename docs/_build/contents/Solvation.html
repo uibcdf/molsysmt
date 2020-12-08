@@ -147,6 +147,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-convert-a-form-into-multiple-ones-at-once">How to convert a form into multiple ones at once</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-files">Some examples with files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-IDs">Some examples with IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#Conversions-implemented-in-MolSysMT">Conversions implemented in MolSysMT</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
@@ -207,7 +208,14 @@
 <li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-the-solvent">Removing the solvent</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Merge.html">Merging Molecular Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Add.html">Adding to a molecular systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Concatenate.html">Concatenate Molecular Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Append.html">Append to a molecular systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="View.html#NGLView">NGLView</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Building tools</span></p>
 <ul class="current">
@@ -227,10 +235,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Terminal_capping.html">Terminal capping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Potential energy and energy minimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Energy_minimization.html#Some-examples:">Some examples:</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="Geometrical_transformations.html">Geometrical transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Geometrical_transformations.html#Translation">Translation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Distances.html">Getting distances, neighbor lists and contact maps.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Distances.html#The-XYZ-molecular-system-form">The XYZ molecular system form</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Distances.html#Distance-between-atoms-in-space">Distance between atoms in space</a><ul>
@@ -681,7 +696,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "68c65dc3ef854580badbbfc872e24d6d"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "f829c7dbb028434080677e3f7799af61"}</script></div>
 </div>
 <div class="section" id="Adding-solvent">
 <h1>Adding solvent<a class="headerlink" href="#Adding-solvent" title="Permalink to this headline">¶</a></h1>
@@ -718,17 +733,17 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092row0_col1" class="data row0 col1" >72</td>
-                        <td id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092row0_col2" class="data row0 col2" >5</td>
-                        <td id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092row0_col7" class="data row0 col7" >1</td>
-                        <td id="T_3a7ed928_ebf4_11ea_b0c7_e4b318d1f092row0_col8" class="data row0 col8" >1</td>
+                                <td id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26row0_col1" class="data row0 col1" >72</td>
+                        <td id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26row0_col2" class="data row0 col2" >5</td>
+                        <td id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_c00722fa_39a9_11eb_b394_1c1b0d075c26row0_col8" class="data row0 col8" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -786,18 +801,18 @@ The molecular system has 0 waters and 0 ions.
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_peptides</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_peptides</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col1" class="data row0 col1" >11646</td>
-                        <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col2" class="data row0 col2" >3862</td>
-                        <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col3" class="data row0 col3" >3858</td>
-                        <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col5" class="data row0 col5" >3858</td>
-                        <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col6" class="data row0 col6" >2</td>
-                        <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col7" class="data row0 col7" >3857</td>
-                        <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col8" class="data row0 col8" >1</td>
-                        <td id="T_42436408_ebf4_11ea_b0c7_e4b318d1f092row0_col9" class="data row0 col9" >1</td>
+                                <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col1" class="data row0 col1" >11646</td>
+                        <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col2" class="data row0 col2" >3862</td>
+                        <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col3" class="data row0 col3" >3858</td>
+                        <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col5" class="data row0 col5" >3858</td>
+                        <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col6" class="data row0 col6" >2</td>
+                        <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col7" class="data row0 col7" >3857</td>
+                        <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col8" class="data row0 col8" >1</td>
+                        <td id="T_c0bb834e_39a9_11eb_b394_1c1b0d075c26row0_col9" class="data row0 col9" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -894,18 +909,18 @@ The molecular system has 3857 waters and 0 ions.
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_proteins</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_proteins</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col1" class="data row0 col1" >3983</td>
-                        <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col2" class="data row0 col2" >662</td>
-                        <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col3" class="data row0 col3" >167</td>
-                        <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col4" class="data row0 col4" >4</td>
-                        <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col5" class="data row0 col5" >167</td>
-                        <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col6" class="data row0 col6" >3</td>
-                        <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col7" class="data row0 col7" >165</td>
-                        <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col8" class="data row0 col8" >2</td>
-                        <td id="T_42e51564_ebf4_11ea_b0c7_e4b318d1f092row0_col9" class="data row0 col9" >1</td>
+                                <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col1" class="data row0 col1" >3983</td>
+                        <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col2" class="data row0 col2" >662</td>
+                        <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col3" class="data row0 col3" >167</td>
+                        <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col4" class="data row0 col4" >4</td>
+                        <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col5" class="data row0 col5" >167</td>
+                        <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col6" class="data row0 col6" >3</td>
+                        <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col7" class="data row0 col7" >165</td>
+                        <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col8" class="data row0 col8" >2</td>
+                        <td id="T_c11751c4_39a9_11eb_b394_1c1b0d075c26row0_col9" class="data row0 col9" >1</td>
             </tr>
     </tbody></table></div>
 </div>
@@ -972,23 +987,23 @@ The molecular system has 165 waters and 0 ions.
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_peptides</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_waters</th>        <th class="col_heading level0 col8" >n_peptides</th>        <th class="col_heading level0 col9" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col1" class="data row0 col1" >11646</td>
-                        <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col2" class="data row0 col2" >3862</td>
-                        <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col3" class="data row0 col3" >3858</td>
-                        <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col5" class="data row0 col5" >3858</td>
-                        <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col6" class="data row0 col6" >2</td>
-                        <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col7" class="data row0 col7" >3857</td>
-                        <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col8" class="data row0 col8" >1</td>
-                        <td id="T_42f915e6_ebf4_11ea_b0c7_e4b318d1f092row0_col9" class="data row0 col9" >1</td>
+                                <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col1" class="data row0 col1" >11646</td>
+                        <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col2" class="data row0 col2" >3862</td>
+                        <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col3" class="data row0 col3" >3858</td>
+                        <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col5" class="data row0 col5" >3858</td>
+                        <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col6" class="data row0 col6" >2</td>
+                        <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col7" class="data row0 col7" >3857</td>
+                        <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col8" class="data row0 col8" >1</td>
+                        <td id="T_c128ce2c_39a9_11eb_b394_1c1b0d075c26row0_col9" class="data row0 col9" >1</td>
             </tr>
     </tbody></table></div>
 </div>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"493fa374e3c94c3f889713abd9594bfc": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "68c65dc3ef854580badbbfc872e24d6d": {"model_name": "ColormakerRegistryModel", "model_module": "nglview-js-widgets", "model_module_version": "2.7.7", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "2.7.7", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "2.7.7", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_493fa374e3c94c3f889713abd9594bfc"}}}, "version_major": 2, "version_minor": 0}
+{"state": {"f52c46bc9a4841018bb8d685368c020c": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "f829c7dbb028434080677e3f7799af61": {"model_name": "ColormakerRegistryModel", "model_module": "nglview-js-widgets", "model_module_version": "2.7.7", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "2.7.7", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "2.7.7", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_f52c46bc9a4841018bb8d685368c020c"}}}, "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 

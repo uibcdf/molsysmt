@@ -54,6 +54,10 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/Copy.ipynb
    contents/Extract.ipynb
    contents/Remove.ipynb
+   contents/Merge.ipynb
+   contents/Add.ipynb
+   contents/Concatenate.ipynb
+   contents/Append.ipynb
    contents/View.ipynb
 
 .. toctree::
@@ -68,7 +72,6 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/Terminal_capping.ipynb
    contents/Model_loop.ipynb
    contents/Energy_minimization.ipynb
-   contents/Constraints_and_restraints.ipynb
 
 .. toctree::
    :name: structural_observables
@@ -103,7 +106,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/Volume_and_radii.ipynb
    contents/Charge.ipynb
    contents/Polarity.ipynb
-   contests/Transmembrane_tendency.ipynb
+   contents/Transmembrane_tendency.ipynb
 
 .. toctree::
    :caption: API Documentation

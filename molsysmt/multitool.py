@@ -466,9 +466,38 @@ def merge(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'
 
 def add(item, items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'):
 
-    # like merge but in place
+    form_in = get_form(item)
 
-    raise NotImplementedError
+    if type(items) not in [list, tuple]:
+        items = [items]
+
+    n_items = len(items)
+
+    if type(selections) not in [list, tuple]:
+        selections = [selections for ii in range(n_items)]
+    elif len(selections)!=n_items:
+        raise ValueError("The length of the lists items and selections need to be equal.")
+
+    if type(frame_indices) not in [list, tuple]:
+        frame_indices = [frame_indices for ii in range(n_items)]
+    elif len(frame_indices)!=n_items:
+        raise ValueError("The length of the lists items and frame_indices need to be equal.")
+
+    list_items = []
+    list_atom_indices = []
+    list_frame_indices = []
+
+    for aux_item, aux_selection, aux_frame_indices in zip(items, selections, frame_indices):
+        if get_form(aux_item)!=form_in:
+            list_items.append(convert(aux_item, selection=aux_selection, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form))
+            list_atom_indices('all')
+            list_frame_indices('all')
+        else:
+            list_items.append(aux_item)
+            list_atom_indices.append(select(aux_item, selection=aux_selection, syntaxis=syntaxis))
+            list_frame_indices.append(aux_frame_indices)
+
+    return dict_add[form_in](item, list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
 
 def concatenate(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
@@ -510,9 +539,38 @@ def concatenate(items=None, selections='all', frame_indices='all', syntaxis='Mol
 
 def append(item, items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'):
 
-    # appending coordinates
+    form_in = get_form(item)
 
-    raise NotImplementedError
+    if type(items) not in [list, tuple]:
+        items = [items]
+
+    n_items = len(items)
+
+    if type(selections) not in [list, tuple]:
+        selections = [selections for ii in range(n_items)]
+    elif len(selections)!=n_items:
+        raise ValueError("The length of the lists items and selections need to be equal.")
+
+    if type(frame_indices) not in [list, tuple]:
+        frame_indices = [frame_indices for ii in range(n_items)]
+    elif len(frame_indices)!=n_items:
+        raise ValueError("The length of the lists items and frame_indices need to be equal.")
+
+    list_items = []
+    list_atom_indices = []
+    list_frame_indices = []
+
+    for aux_item, aux_selection, aux_frame_indices in zip(items, selections, frame_indices):
+        if get_form(aux_item)!=form_in:
+            list_items.append(convert(aux_item, selection=aux_selection, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form))
+            list_atom_indices('all')
+            list_frame_indices('all')
+        else:
+            list_items.append(aux_item)
+            list_atom_indices.append(select(aux_item, selection=aux_selection, syntaxis=syntaxis))
+            list_frame_indices.append(aux_frame_indices)
+
+    return dict_append[form_in](item, list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
 
 def info(item=None, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):
 

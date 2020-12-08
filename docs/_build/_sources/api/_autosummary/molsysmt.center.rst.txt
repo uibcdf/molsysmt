@@ -1,6 +1,0 @@
-molsysmt.center
-===============
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: center
