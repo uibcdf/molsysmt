@@ -55,8 +55,8 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/Extract.ipynb
    contents/Remove.ipynb
    contents/Merge.ipynb
-   contents/Add.ipynb
-   contents/Concatenate.ipynb
+   contents/Add_Merge.ipynb
+   contents/Append_Concatenate.ipynb
    contents/Append.ipynb
    contents/View.ipynb
 
@@ -112,8 +112,8 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :caption: API Documentation
    :maxdepth: 1
 
-   api/index
-   api/index_elements
+   api/index.rst
+%   api/index_elements
 
 Glossary, indices and tables
 ============================

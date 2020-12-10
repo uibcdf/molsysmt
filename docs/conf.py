@@ -21,10 +21,8 @@ import sphinx_rtd_theme
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-sys.path.insert(0, os.path.abspath('.'))
+#sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('./../molsysmt'))
-
-print(sys.path)
 
 # -- Project information -----------------------------------------------------
 
@@ -69,7 +67,7 @@ autodoc_default_options = {'members':True, 'inherited-members':True}
 numpydoc_class_members_toctree = False
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+#templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
