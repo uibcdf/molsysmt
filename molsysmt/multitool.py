@@ -191,7 +191,7 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT',
     if to_syntaxis is not None:
         to_syntaxis = digest_syntaxis(to_syntaxis)
 
-    if mask=='all':
+    if mask is 'all':
         mask=None
 
     if type(selection)==str:
@@ -1306,7 +1306,6 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                                                           atom_indices=atom_indices, frame_indices=frame_indices,
                                                           **kwargs)
                 elif same_system:
-                    print('aaaaaaaaquiiiiiii')
                     tmp_item = copy(item, output_filepath=out_file)
 
                 else:

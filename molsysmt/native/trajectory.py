@@ -27,27 +27,36 @@ class Trajectory():
 
     def append_frames(self, step=None, time=None, coordinates=None, box=None):
 
+        if time is not None:
+            time=time.in_units_of(msm_units.time)
+        if coordinates is not None:
+            coordinates=coordinates.in_units_of(msm_units.length)
+        if box is not None:
+            box=box.in_units_of(msm_units.length)
+
         n_frames = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
 
 
         if self.n_frames == 0:
 
-            self.coordinates = coordinates.in_units_of(msm_units.length)
-            self.step  = step
+            self.coordinates = coordinates
 
             if step is not None:
-                self.step  = step
+                if type(step) not in [list, np.ndarray]:
+                    self.step  = np.array([step])
+                else:
+                    self.step = step
             else:
                 self.step = np.full(n_frames,None)
 
             if time is not None:
-                self.time  = time.in_units_of(msm_units.time)
+                if type(time._value) not in [list, np.ndarray]:
+                    self.time  = np.array([time._value])*msm_units.time
             else:
                 self.time = np.full(n_frames,None)*msm_units.time
 
             if box is not None:
-                box=box.in_units_of(msm_units.length)
                 self.box = box.copy()*msm_units.length
             else:
                 self.box = np.full(n_frames,None)*msm_units.length
@@ -67,11 +76,11 @@ class Trajectory():
             if self.time is None:
                 self.time = time.copy()*time.unit
             else:
-                self.time = np.concatenate([self.time, time.in_units_of(msm_units.time)])*msm_units.time
+                self.time = np.concatenate([self.time, time])*msm_units.time
 
-            self.coordinates = np.concatenate([self.coordinates, coordinates.in_units_of(msm_units.length)])*msm_units.length
+            self.coordinates = np.concatenate([self.coordinates, coordinates])*msm_units.length
 
-            self.box = np.concatenate([self.box, box.in_units_of(msm_units.length)])*msm_units.length
+            self.box = np.concatenate([self.box, box])*msm_units.length
 
         self.n_frames += n_frames
 
