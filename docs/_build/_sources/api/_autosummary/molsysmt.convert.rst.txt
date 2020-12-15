@@ -1,6 +1,0 @@
-molsysmt.convert
-================
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: convert

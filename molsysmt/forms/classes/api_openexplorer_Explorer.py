@@ -1,4 +1,8 @@
 from os.path import basename as _basename
+from molsysmt.utils.exceptions import *
+import simtk.unit as unit
+from molsysmt.forms.common_gets import *
+import numpy as np
 from openexplorer import Explorer as _openexplorer_Explorer
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
@@ -38,7 +42,7 @@ def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.classes import from_openexplorer_Explorer as molsysmt_System_from_openexplorer_Explorer
+    from molsysmt.native.io.molsys.classes import from_openexplorer_Explorer as molsysmt_System_from_openexplorer_Explorer
     return molsysmt_System_from_openexplorer_Explorer(item, atom_indices=atom_indices)
 
 def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):

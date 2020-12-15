@@ -20,6 +20,19 @@ def covalent_dihedral_quartets(item, dihedral_angle=None, with_blocks=False, sel
             chain=['CG', 'CD', ['NE', 'CE'], ['CZ', 'NZ']]
         elif dihedral_angle=='chi5':
             chain=['CD', 'NE', 'CZ', 'NH1']
+        elif dihedral_angle=='phi-psi':
+            tmp_phi = covalent_dihedral_quartets(item, dihedral_angle='phi', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            tmp_psi = covalent_dihedral_quartets(item, dihedral_angle='psi', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
+            if not with_blocks:
+                tmp_angs = [ii for ii in [tmp_phi, tmp_psi] if ii.shape[0]>0]
+                tmp_angs = _np.vstack(tmp_angs)
+                return tmp_angs
+            else:
+                tmp_angs = [ii for ii in [tmp_phi[0], tmp_psi[0]] if ii.shape[0]>0]
+                tmp_angs = _np.vstack(tmp_angs)
+                tmp_blocks = [ii for ii in [tmp_phi[1], tmp_psi[1]] if ii.shape[0]>0]
+                tmp_blocks = _np.vstack(tmp_blocks)
+                return tmp_angs, tmp_blocks
         elif dihedral_angle=='all':
             tmp_phi = covalent_dihedral_quartets(item, dihedral_angle='phi', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
             tmp_psi = covalent_dihedral_quartets(item, dihedral_angle='psi', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)

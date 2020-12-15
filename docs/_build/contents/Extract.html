@@ -147,6 +147,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-convert-a-form-into-multiple-ones-at-once">How to convert a form into multiple ones at once</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-files">Some examples with files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-IDs">Some examples with IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#Conversions-implemented-in-MolSysMT">Conversions implemented in MolSysMT</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
@@ -207,7 +208,20 @@
 <li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-the-solvent">Removing the solvent</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Add_Merge.html">Adding and merging molecular systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Add_Merge.html#Adding-to-a-molecular-system">Adding to a molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Add_Merge.html#Merging-molecular-systems">Merging molecular systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Append_Concatenate.html">Appending and concatenating molecular systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Append_Concatenate.html#Appending-molecular-systems">Appending molecular systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Append_Concatenate.html#Concatenating-Molecular-Systems">Concatenating Molecular Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="View.html#NGLView">NGLView</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Building tools</span></p>
 <ul>
@@ -227,10 +241,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Terminal_capping.html">Terminal capping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Model_loop.html">Modeling loops</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Energy_minimization.html">Potential energy and energy minimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Energy_minimization.html#Some-examples:">Some examples:</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="Geometrical_transformations.html">Geometrical transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Geometrical_transformations.html#Translation">Translation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Distances.html">Getting distances, neighbor lists and contact maps.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Distances.html#The-XYZ-molecular-system-form">The XYZ molecular system form</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Distances.html#Distance-between-atoms-in-space">Distance between atoms in space</a><ul>
@@ -329,14 +350,18 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Transmembrane_tendency.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Transmembrane_tendency.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Transmembrane_tendency.html#Mass">Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Transmembrane_tendency.html#Radii">Radii</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Basic manipulations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#topological-observables-and-transformations">Topological observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index_elements.html">Elements</a></li>
 </ul>
 
             
@@ -674,7 +699,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "af519c81bff148e982d209779b735ccc"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "b6568475dabb49ee90edde2e7d99082f"}</script></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -691,20 +716,20 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;pentalanine.h5&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/pentalanine.h5&#39;,
- &#39;pentalanine.inpcrd&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/pentalanine.inpcrd&#39;,
- &#39;pentalanine.prmtop&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/pentalanine.prmtop&#39;,
- &#39;metenkephalin.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/metenkephalin.pdb&#39;,
- &#39;trp-cage.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/trp-cage.pdb&#39;,
- &#39;trp-cage_solvated.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/trp-cage_solvated.pdb&#39;,
- &#39;1brs.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/1brs.pdb&#39;,
- &#39;1brs.mmtf&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/1brs.mmtf&#39;,
- &#39;1sux.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/1sux.pdb&#39;,
- &#39;1sux.mmtf&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/1sux.mmtf&#39;,
- &#39;1tcd.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/1tcd.pdb&#39;,
- &#39;1tcd.mmtf&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/1tcd.mmtf&#39;,
- &#39;caffeine.mol2&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/caffeine.mol2&#39;,
- &#39;HIF1_HS_Mod.pdb&#39;: &#39;/home/diego/Proyectos/MolSysMT/molsysmt/demo_systems/HIF1_HS_Mod.pdb&#39;}
+{&#39;pentalanine.h5&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/pentalanine.h5&#39;,
+ &#39;pentalanine.inpcrd&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/pentalanine.inpcrd&#39;,
+ &#39;pentalanine.prmtop&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/pentalanine.prmtop&#39;,
+ &#39;metenkephalin.pdb&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/metenkephalin.pdb&#39;,
+ &#39;trp-cage.pdb&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/trp-cage.pdb&#39;,
+ &#39;trp-cage_solvated.pdb&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/trp-cage_solvated.pdb&#39;,
+ &#39;1brs.pdb&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/1brs.pdb&#39;,
+ &#39;1brs.mmtf&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/1brs.mmtf&#39;,
+ &#39;1sux.pdb&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/1sux.pdb&#39;,
+ &#39;1sux.mmtf&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/1sux.mmtf&#39;,
+ &#39;1tcd.pdb&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/1tcd.pdb&#39;,
+ &#39;1tcd.mmtf&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/1tcd.mmtf&#39;,
+ &#39;caffeine.mol2&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/caffeine.mol2&#39;,
+ &#39;HIF1_HS_Mod.pdb&#39;: &#39;/home/diego/Projects/MolSysMT/molsysmt/demo_systems/HIF1_HS_Mod.pdb&#39;}
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -717,7 +742,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"18ee1134bc1b4e3b871583313adc83a4": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "af519c81bff148e982d209779b735ccc": {"model_name": "ColormakerRegistryModel", "model_module": "nglview-js-widgets", "model_module_version": "2.7.7", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "2.7.7", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "2.7.7", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_18ee1134bc1b4e3b871583313adc83a4"}}}, "version_major": 2, "version_minor": 0}
+{"state": {"90c6685f524041cf9161e02a3dca7696": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "b6568475dabb49ee90edde2e7d99082f": {"model_name": "ColormakerRegistryModel", "model_module": "nglview-js-widgets", "model_module_version": "2.7.7", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "2.7.7", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "2.7.7", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_90c6685f524041cf9161e02a3dca7696"}}}, "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 

@@ -1,6 +1,0 @@
-molsysmt.neighbors\_lists
-=========================
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: neighbors_lists

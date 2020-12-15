@@ -36,7 +36,7 @@ class MolSys():
         else:
             atom_indices=select(item, selection=selection, syntaxis=syntaxis)
             self.topology.add(item.topology, selection=atom_indices)
-            self.trajectory.add(item.trajectory, selection=atom_indices,frame_indices=frame_indices)
+            self.trajectory.add(item.trajectory, selection=atom_indices, frame_indices=frame_indices)
 
     def load_frames(self, selection='all', frame_indices='all', syntaxis='MoolSysMT'):
 

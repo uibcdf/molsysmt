@@ -41,8 +41,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Elements" href="index_elements.html" />
-    <link rel="prev" title="How to get chemical and physical properties" href="../contents/Polarity.html" /> 
+    <link rel="prev" title="How to get chemical and physical properties" href="../contents/Transmembrane_tendency.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -147,6 +146,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../contents/Convert.html#How-to-convert-a-form-into-multiple-ones-at-once">How to convert a form into multiple ones at once</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contents/Convert.html#Some-examples-with-files">Some examples with files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contents/Convert.html#Some-examples-with-IDs">Some examples with IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contents/Convert.html#Conversions-implemented-in-MolSysMT">Conversions implemented in MolSysMT</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/Selection.html">Elements selection</a><ul>
@@ -207,7 +207,20 @@
 <li class="toctree-l2"><a class="reference internal" href="../contents/Remove.html#Removing-the-solvent">Removing the solvent</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../contents/View.html">Viewing a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/Add_Merge.html">Adding and merging molecular systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contents/Add_Merge.html#Adding-to-a-molecular-system">Adding to a molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contents/Add_Merge.html#Merging-molecular-systems">Merging molecular systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/Append_Concatenate.html">Appending and concatenating molecular systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contents/Append_Concatenate.html#Appending-molecular-systems">Appending molecular systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contents/Append_Concatenate.html#Concatenating-Molecular-Systems">Concatenating Molecular Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/View.html">Viewing a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contents/View.html#NGLView">NGLView</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Building tools</span></p>
 <ul>
@@ -227,10 +240,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/Terminal_capping.html">Terminal capping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/Model_loop.html">Modeling loops</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contents/Energy_minimization.html">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/Energy_minimization.html">Potential energy and energy minimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contents/Energy_minimization.html#Some-examples:">Some examples:</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../contents/Geometrical_transformations.html">Geometrical transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contents/Geometrical_transformations.html#Translation">Translation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/Distances.html">Getting distances, neighbor lists and contact maps.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../contents/Distances.html#The-XYZ-molecular-system-form">The XYZ molecular system form</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contents/Distances.html#Distance-between-atoms-in-space">Distance between atoms in space</a><ul>
@@ -329,14 +349,18 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/Transmembrane_tendency.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contents/Transmembrane_tendency.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contents/Transmembrane_tendency.html#Mass">Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contents/Transmembrane_tendency.html#Radii">Radii</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Basic manipulations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#topological-observables-and-transformations">Topological observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index_elements.html">Elements</a></li>
 </ul>
 
             
@@ -435,47 +459,62 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">select</span></code></p></td>
-<td><p>This module supports asynchronous I/O on multiple file descriptors.</p></td>
-</tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="geometric-observables-and-transformations">
-<h1>Geometric observables and transformations<a class="headerlink" href="#geometric-observables-and-transformations" title="Permalink to this headline">¶</a></h1>
-<p>Methods to extract or to modify structural and geometrical observables of a molecular model.</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-</tbody>
-</table>
-</div>
-<div class="section" id="topological-observables-and-transformations">
-<h1>Topological observables and transformations<a class="headerlink" href="#topological-observables-and-transformations" title="Permalink to this headline">¶</a></h1>
-<p>Methods to extract or modify topological observables of a molecular model.</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-</tbody>
-</table>
-</div>
-<div class="section" id="physical-or-chemical-observables-and-transformations">
-<h1>Physical or chemical observables and transformations<a class="headerlink" href="#physical-or-chemical-observables-and-transformations" title="Permalink to this headline">¶</a></h1>
-<p>Methods to extract or modify topological observables of a molecular model.</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-</tbody>
-</table>
+<p>%   info
+%   select
+%   get
+%   set
+%   extract
+%   duplicate
+%   merge
+%   write
+%   view
+%
+%Geometric observables and transformations
+%——————————————-
+%
+%Methods to extract or to modify structural and geometrical observables of a molecular model.
+%
+%.. autosummary::
+%   :toctree: _autosummary
+%
+%   get
+%   distance
+%   maximum_distance
+%   minimum_distance
+%   neighbors_lists
+%   center
+%   center_of_mass
+%   geometric_center
+%   recenter
+%   radius_of_gyration
+%   rmsd
+%   least_rmsd
+%   least_rmsd_fit
+%   wrap_molecules_to_pbc_cell
+%   unwrap_molecules_from_pbc_cell
+%   minimum_image_convention
+%
+%Topological observables and transformations
+%——————————————-
+%
+%Methods to extract or modify topological observables of a molecular model.
+%
+%.. autosummary::
+%   :toctree: _autosummary
+%
+%   get
+%
+%Physical or chemical observables and transformations
+%—————————————————-
+%
+%Methods to extract or modify topological observables of a molecular model.
+%
+%.. autosummary::
+%   :toctree: _autosummary
+%
+%   get</p>
 </div>
 
 
@@ -486,10 +525,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="index_elements.html" class="btn btn-neutral float-right" title="Elements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="../contents/Polarity.html" class="btn btn-neutral float-left" title="How to get chemical and physical properties" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../contents/Transmembrane_tendency.html" class="btn btn-neutral float-left" title="How to get chemical and physical properties" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

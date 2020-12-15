@@ -57,11 +57,23 @@ def copy(item):
 
     raise NotImplementedError
 
-def merge_two_items(item1, item2):
+def merge(list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

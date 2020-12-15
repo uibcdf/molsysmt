@@ -3,7 +3,7 @@ from . import utils
 from . import demo_systems
 
 from .native.molsys import MolSys
-from .multitool import select, extract, merge, info, get, set, \
+from .multitool import select, extract, merge, concatenate, add, append, info, get, set, \
                        convert, copy, write, view, remove, get_form
 from .info_multitool import info_forms, info_convert, info_select, info_viewers
 from .geometrical_transformations import translate
@@ -38,18 +38,19 @@ from . import nglview
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:
 
-__all__ = [
-    'convert', 'info', 'select', 'get', 'set', 'convert', 'copy', 'write', 'view', 'get_form',
-    'extract', 'remove',
-    'rmsd', 'least_rmsd', 'least_rmsd_fit',
-    'distance', 'maximum_distance', 'minimum_distance', 'contact_map', 'neighbors_lists',
-    'geometric_center', 'center_of_mass', 'center', 'recenter',
-    'radius_of_gyration',
-    'remove_solvent', 'remove_hydrogens',
-    'build_peptide',
-    'wrap_molecules_to_pbc_cell', 'unwrap_molecules_from_pbc_cell',
-    'minimum_image_convention', 'box_shape_from_box_angles', 'box_shape_from_box_vectors',
-    'box_lengths_from_box_vectors', 'box_angles_from_box_vectors', 'box_vectors_from_box_lengths_and_angles'
-          ]
+__all__ = ['convert']
+#__all__ = [
+#    'convert', 'info', 'select', 'get', 'set', 'convert', 'copy', 'write', 'view', 'get_form',
+#    'extract', 'remove',
+#    'rmsd', 'least_rmsd', 'least_rmsd_fit',
+#    'distance', 'maximum_distance', 'minimum_distance', 'contact_map', 'neighbors_lists',
+#    'geometric_center', 'center_of_mass', 'center', 'recenter',
+#    'radius_of_gyration',
+#    'remove_solvent', 'remove_hydrogens',
+#    'build_peptide',
+#    'wrap_molecules_to_pbc_cell', 'unwrap_molecules_from_pbc_cell',
+#    'minimum_image_convention', 'box_shape_from_box_angles', 'box_shape_from_box_vectors',
+#    'box_lengths_from_box_vectors', 'box_angles_from_box_vectors', 'box_vectors_from_box_lengths_and_angles'
+#          ]
 
 

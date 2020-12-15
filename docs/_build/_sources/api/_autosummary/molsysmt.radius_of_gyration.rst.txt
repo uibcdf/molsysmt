@@ -1,6 +1,0 @@
-molsysmt.radius\_of\_gyration
-=============================
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: radius_of_gyration

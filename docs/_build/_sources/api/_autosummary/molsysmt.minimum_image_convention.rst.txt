@@ -1,6 +1,0 @@
-molsysmt.minimum\_image\_convention
-===================================
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: minimum_image_convention

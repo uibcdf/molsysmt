@@ -34,6 +34,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -145,6 +146,7 @@
 <li class="toctree-l2"><a class="reference internal" href="contents/Convert.html#How-to-convert-a-form-into-multiple-ones-at-once">How to convert a form into multiple ones at once</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contents/Convert.html#Some-examples-with-files">Some examples with files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contents/Convert.html#Some-examples-with-IDs">Some examples with IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/Convert.html#Conversions-implemented-in-MolSysMT">Conversions implemented in MolSysMT</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Selection.html">Elements selection</a><ul>
@@ -205,7 +207,20 @@
 <li class="toctree-l2"><a class="reference internal" href="contents/Remove.html#Removing-the-solvent">Removing the solvent</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="contents/View.html">Viewing a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/Add_Merge.html">Adding and merging molecular systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contents/Add_Merge.html#Adding-to-a-molecular-system">Adding to a molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/Add_Merge.html#Merging-molecular-systems">Merging molecular systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contents/Append_Concatenate.html">Appending and concatenating molecular systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contents/Append_Concatenate.html#Appending-molecular-systems">Appending molecular systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/Append_Concatenate.html#Concatenating-Molecular-Systems">Concatenating Molecular Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contents/View.html">Viewing a molecular system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contents/View.html#NGLView">NGLView</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Building tools</span></p>
 <ul>
@@ -225,10 +240,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Terminal_capping.html">Terminal capping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Model_loop.html">Modeling loops</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/Energy_minimization.html">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/Energy_minimization.html">Potential energy and energy minimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contents/Energy_minimization.html#Some-examples:">Some examples:</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Structural tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="contents/Geometrical_transformations.html">Geometrical transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contents/Geometrical_transformations.html#Translation">Translation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Distances.html">Getting distances, neighbor lists and contact maps.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="contents/Distances.html#The-XYZ-molecular-system-form">The XYZ molecular system form</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contents/Distances.html#Distance-between-atoms-in-space">Distance between atoms in space</a><ul>
@@ -327,14 +349,18 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="contents/Transmembrane_tendency.html">How to get chemical and physical properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contents/Transmembrane_tendency.html#Atoms">Atoms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contents/Transmembrane_tendency.html#Mass">Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contents/Transmembrane_tendency.html#Radii">Radii</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">Basic manipulations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#topological-observables-and-transformations">Topological observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index_elements.html">Elements</a></li>
 </ul>
 
             
@@ -466,6 +492,8 @@
 <li class="toctree-l1"><a class="reference internal" href="contents/Copy.html">Copying a molecular system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Extract.html">Extracting a molecular subsystem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Remove.html">Removing atoms and frames from a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/Add_Merge.html">Adding and merging molecular systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/Append_Concatenate.html">Appending and concatenating molecular systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/View.html">Viewing a molecular system</a></li>
 </ul>
 </div>
@@ -478,12 +506,13 @@
 <li class="toctree-l1"><a class="reference internal" href="contents/Build_peptide.html">Building a peptide from its sequence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Terminal_capping.html">Terminal capping</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Model_loop.html">Modeling loops</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/Energy_minimization.html">Energy minimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/Energy_minimization.html">Potential energy and energy minimization</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound" id="structural-observables">
 <p class="caption"><span class="caption-text">Structural tools</span><a class="headerlink" href="#structural-observables" title="Permalink to this toctree">¶</a></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="contents/Geometrical_transformations.html">Geometrical transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Distances.html">Getting distances, neighbor lists and contact maps.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/PBC.html">Periodic Boundary Conditions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Centers.html">Getting the center and recentering</a></li>
@@ -509,18 +538,16 @@
 <li class="toctree-l1"><a class="reference internal" href="contents/Volume_and_radii.html">How to get chemical and physical properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Charge.html">Charge of a molecular system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/Polarity.html">How to get chemical and physical properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/Transmembrane_tendency.html">How to get chemical and physical properties</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">Basic manipulations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#geometric-observables-and-transformations">Geometric observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#topological-observables-and-transformations">Topological observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#physical-or-chemical-observables-and-transformations">Physical or chemical observables and transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index_elements.html">Elements</a></li>
 </ul>
 </div>
+<p>%   api/index_elements</p>
 <div class="section" id="glossary-indices-and-tables">
 <h2>Glossary, indices and tables<a class="headerlink" href="#glossary-indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">

@@ -1,6 +1,0 @@
-molsysmt.get
-============
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: get

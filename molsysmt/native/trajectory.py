@@ -17,8 +17,6 @@ class Trajectory():
                                 # and order=F, with units nanometers
         self.box  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
                           # cell is the matrix with the vectors
-        self.box_shape = None
-        self.atom_indices = None
         self.n_frames = 0
         self.n_atoms = 0
 
@@ -27,29 +25,64 @@ class Trajectory():
         if filepath is not None:
             self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    def set_frames(self, atom_indices=None, step=None, time=None, coordinates=None, box=None):
-
-        from molsysmt import box_shape_from_box_vectors
-
-        self.coordinates = coordinates.in_units_of(msm_units.length)
-        self.step  = step
-        self.atom_indices = atom_indices
+    def append_frames(self, step=None, time=None, coordinates=None, box=None):
 
         if time is not None:
-            self.time  = time.in_units_of(msm_units.time)
-        else:
-            self.time = None
-
+            time=time.in_units_of(msm_units.time)
+        if coordinates is not None:
+            coordinates=coordinates.in_units_of(msm_units.length)
         if box is not None:
-            if box[0] is None:
-                self.box = None
-            self.box  = box.in_units_of(msm_units.length)
+            box=box.in_units_of(msm_units.length)
 
-        if self.coordinates is not None:
-            self.n_frames = self.coordinates.shape[0]
-            self.n_atoms = self.coordinates.shape[1]
+        n_frames = coordinates.shape[0]
+        n_atoms = coordinates.shape[1]
 
-        self.box_shape = box_shape_from_box_vectors(self.box)
+
+        if self.n_frames == 0:
+
+            self.coordinates = coordinates
+
+            if step is not None:
+                if type(step) not in [list, np.ndarray]:
+                    self.step  = np.array([step])
+                else:
+                    self.step = step
+            else:
+                self.step = np.full(n_frames,None)
+
+            if time is not None:
+                if type(time._value) not in [list, np.ndarray]:
+                    self.time  = np.array([time._value])*msm_units.time
+            else:
+                self.time = np.full(n_frames,None)*msm_units.time
+
+            if box is not None:
+                self.box = box.copy()*msm_units.length
+            else:
+                self.box = np.full(n_frames,None)*msm_units.length
+
+            self.n_atoms = n_atoms
+
+        else:
+
+            if n_atoms!=self.n_atoms:
+                raise ValueError("The coordinates to be appended in the system needs to have the same number of atoms")
+
+            if self.step is None:
+                self.step = step.copy()
+            else:
+                self.step = np.concatenate([self.step, step])
+
+            if self.time is None:
+                self.time = time.copy()*time.unit
+            else:
+                self.time = np.concatenate([self.time, time])*msm_units.time
+
+            self.coordinates = np.concatenate([self.coordinates, coordinates])*msm_units.length
+
+            self.box = np.concatenate([self.box, box])*msm_units.length
+
+        self.n_frames += n_frames
 
         pass
 
@@ -84,7 +117,7 @@ class Trajectory():
 
         step, time, coordinates, box = self.file.read_frames(atom_indices=atom_indices, frame_indices=frame_indices)
 
-        self.set_frames(atom_indices, step, time, coordinates, box)
+        self.append_frames(step, time, coordinates, box)
 
         del(coordinates, time, step, box)
 
@@ -128,7 +161,6 @@ class Trajectory():
             if frame_indices is not 'all':
                 tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
 
-            tmp_item.atom_indices = atom_indices
             tmp_item.n_frames = tmp_item.coordinates.shape[0]
             tmp_item.n_atoms = tmp_item.coordinates.shape[1]
 
@@ -139,25 +171,30 @@ class Trajectory():
 
     def add(self, item, selection='all', frame_indices='all'):
 
-        from molsysmt import convert, get
+        from molsysmt import get
 
-        tmp_item = convert(item, selection=selection, frame_indices=frame_indices, to_form='molsysmt.Trajectory')
-
-        n_frames = get(tmp_item, target='system', n_frames=True)
+        step, time, coordinates, box = get(item, target="atom", selection=selection, frame_indices=frame_indices, frame=True)
 
         if self.n_frames==0:
-            self.coordinates=tmp_item.coordinates.copy()*tmp_item.coordinates.unit
-        elif self.n_frames != n_frames:
-            raise ValueError('Both items need to have the same n_frames')
+            self.append_frames(step, time, coordinates, box)
         else:
-            self.coordinates = np.hstack([self.coordinates, tmp_item.coordinates])*self.coordinates.unit
+            if self.n_frames != coordinates.shape[0]:
+                raise ValueError('Both items need to have the same n_frames')
+            else:
+                self.coordinates = np.hstack([self.coordinates, coordinates])*self.coordinates.unit
 
         self.n_atoms = self.coordinates.shape[1]
-        self.n_frames = self.coordinates.shape[0]
 
-    def append(self, item, atom_indices='all', frame_indices='all'):
+        pass
 
-        raise NotImplementedError
+    def append(self, item, selection='all', frame_indices='all'):
+
+        from molsysmt import get
+
+        step, time, coordinate, box = get(item, target="atom", selection=selection, frame_indices=frame_indices, frame=True)
+        self.append_frames(step, time, coordinate, box)
+
+        pass
 
     def copy (self):
 
@@ -169,9 +206,7 @@ class Trajectory():
         tmp_item.time = deepcopy(self.time)
         tmp_item.coordinates = deepcopy(self.coordinates)
         tmp_item.box = deepcopy(self.box)
-        tmp_item.box_shape = deepcopy(self.box_shape)
 
-        tmp_item.atom_indices = deepcopy(self.atom_indices)
         tmp_item.n_frames = deepcopy(self.n_frames)
         tmp_item.n_atoms = deepcopy(self.n_atoms)
 
