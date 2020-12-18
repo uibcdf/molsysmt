@@ -88,7 +88,7 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
     return tmp_item
 
 def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
-        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*nanometer, constraints=None,
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*unit.nanometer, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
         flexible_constraints=False, **kwargs):
 

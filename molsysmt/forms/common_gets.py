@@ -115,7 +115,10 @@ def _aux2_getter_small_index_from_big(item, attribute, from_target, indices):
         mask = (target_index_from_atom==ii)
         output.append(np.unique(attribute_from_atom[mask]))
 
-    output = np.array(output, dtype=object)
+    if len(output)==1:
+        output = np.array(output)
+    else:
+        output = np.array(output, dtype=object)
 
     return output
 
@@ -423,6 +426,8 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
+    from molsysmt.multitool import get
+
     tmp_step, tmp_time, tmp_box = get(item, target='system', frame_indices=frame_indices, step=True, time=True, box=True)
     tmp_coordinates = get(item, target='atom', indices=indices, frame_indices=frame_indices, coordinates=True)
 
@@ -430,9 +435,13 @@ def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
+    from molsysmt.multitool import get
+
     return get(item, target='system', indices='all', frame_indices=frame_indices, n_frames=True)
 
 def get_form_from_atom(item, indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import get
 
     return get(item, target='system', form=True)
 
