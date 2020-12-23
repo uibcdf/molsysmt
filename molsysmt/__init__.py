@@ -29,7 +29,7 @@ from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, min
 from .pockets import alpha_spheres
 from .sasa import sasa
 from .covalent import covalent_chains, covalent_blocks, covalent_dihedral_quartets
-from .dihedral_angles import get_dihedral_angles, set_dihedral_angles, ramachandran_angles
+from .dihedral_angles import get_dihedral_angles, set_dihedral_angles, shift_dihedral_angles, ramachandran_angles
 from .graphs import bondgraph
 from . import physchem
 from . import nglview

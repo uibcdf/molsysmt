@@ -83,6 +83,35 @@ def ramachandran_angles(item, selection='all', frame_indices='all', syntaxis='Mo
 
     return phi_covalent_chain, psi_covalent_chain, angles[:,:n_chains], angles[:,n_chains:]
 
+def shift_dihedral_angles(item, quartets=None, angles_shifts=None, blocks=None,
+                          frame_indices='all', pbc=False, in_place=True, engine='MolSysMT'):
+
+    n_quartets = quartets.shape[0]
+    n_frames = frame_indices.shape[0]
+
+    if type(angles_shifts._value) in [float]:
+        if (n_quartets==1 and n_frames==1):
+            angles_shifts = _np.array([[angles_shifts._value]], dtype=float)*angles_shifts.unit
+        else:
+            raise ValueError("angles_shifts do not match the number of frames and quartets")
+    elif type(angles_shifts._value) in [list,tuple]:
+        angles_shifts = _np.array(angles_shifts._value, dtype=float)*angles_shifts.unit
+    elif type(angles_shifts._value) is _np.ndarray:
+        pass
+    else:
+        raise ValueError
+
+    shape = angles_shifts.shape
+
+    if len(shape)==1:
+        angles_shifts = angles_shifts.reshape([n_frames, n_quartets])
+
+    angles = get_dihedral_angles(item, quartets=quartets, frame_indices=frame_indices, pbc=pbc)
+    angles = angles + angles_shifts
+
+    return set_dihedral_angles(item, quartets=quartets, angles=angles, blocks=None,
+                               frame_indices=frame_indices, pbc=pbc, in_place=inplace, engine=engine)
+
 def set_dihedral_angles(item, quartets=None, angles=None, angles_shifts=None, blocks=None, frame_indices='all', pbc=False,
                         in_place=True, engine='MolSysMT'):
 
@@ -116,28 +145,6 @@ def set_dihedral_angles(item, quartets=None, angles=None, angles_shifts=None, bl
     n_atoms = get(item, target='system', n_atoms=True)
     n_quartets = quartets.shape[0]
     n_frames = frame_indices.shape[0]
-
-    if angles_shifts is not None:
-
-        if type(angles_shifts._value) in [float]:
-            if (n_quartets==1 and n_frames==1):
-                angles_shifts = _np.array([[angles_shifts._value]], dtype=float)*angles_shifts.unit
-            else:
-                raise ValueError("angles_shifts do not match the number of frames and quartets")
-        elif type(angles_shifts._value) in [list,tuple]:
-            angles_shifts = _np.array(angles_shifts._value, dtype=float)*angles_shifts.unit
-        elif type(angles_shifts._value) is _np.ndarray:
-            pass
-        else:
-            raise ValueError
-
-        shape = angles_shifts.shape
-
-        if len(shape)==1:
-            angles_shifts = angles_shifts.reshape([n_frames, n_quartets])
-
-        angles = get_dihedral_angles(item, quartets=quartets, frame_indices=frame_indices, pbc=pbc)
-        angles = angles + angles_shifts
 
     if type(angles._value) in [float]:
         if (n_quartets==1 and n_frames==1):
@@ -205,7 +212,7 @@ def set_dihedral_angles(item, quartets=None, angles=None, angles_shifts=None, bl
         aux_atoms_per_block = _np.array(aux_atoms_per_block, dtype=int)
 
         _libgeometry.set_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, angles,
-                                         aux_blocks, aux_atoms_per_block, n_quartets, n_atoms, n_frames, blocks.shape[0])
+                                         aux_blocks, aux_atoms_per_block, n_quartets, n_atoms, n_frames, aux_blocks.shape[0])
 
         coordinates=_np.ascontiguousarray(coordinates)*length_units
 

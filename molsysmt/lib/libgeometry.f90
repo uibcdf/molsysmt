@@ -286,7 +286,7 @@ CONTAINS
     aux_block(:)=0
 
     DO ii=1,n_angs
-        aux_block(ii+1:)=aux_block(ii+1:)+ atoms_per_block(ii)
+        aux_block(ii+1:)=aux_block(ii+1:)+atoms_per_block(ii)
     END DO
     
     inv=0.0d0
@@ -314,7 +314,7 @@ CONTAINS
             old_ang=ANG3VECTS(vect1,vect2,vect3)
             shift_ang = angs(jj,ii)-old_ang
             DO kk=aux_block(ii)+1,aux_block(ii+1)
-                ll = blocks(kk)
+                ll = blocks(kk)+1 !!!!!!!! aqui
                 vect_aux = coors(jj,ll,:)-coors(jj,atom3,:)
                 IF (pbc_opt==1) THEN
                     CALL PBC (vect_aux,tmp_box,tmp_inv,ortho)
