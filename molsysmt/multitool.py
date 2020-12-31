@@ -1334,9 +1334,9 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
             with_topology = get(item, target='system', has_topology=True)
             with_topology = np.array(with_topology)
             n_topologies = with_topology.sum()
-            with_trajectory = get(item, target='system', has_coordinates=True)
-            with_trajectory = np.array(with_trajectory)
-            n_trajectories = with_trajectory.sum()
+            with_coordinates = get(item, target='system', has_coordinates=True)
+            with_coordinates = np.array(with_coordinates)
+            n_trajectories = with_coordinates.sum()
 
             if n_topologies == 0:
                 raise ValueError('There is no input item with topology')

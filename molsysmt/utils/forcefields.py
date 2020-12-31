@@ -19,6 +19,7 @@ forcefields = [
 
 _openmm = {
 
+    'AMBER96' : 'amber96.xml',
     'AMBER99SB-ILDN' : 'amber99sbildn.xml',
     'AMBER14' : 'amber14-all.xml',
     'CHARMM36' : 'charmm36.xml',

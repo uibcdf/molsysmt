@@ -1,5 +1,6 @@
 from os.path import basename as _basename
 from simtk.openmm.app.modeller import Modeller as _openmm_Modeller
+import simtk.unit as unit
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -34,11 +35,30 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item = _to_mdtraj_Topology(tmp_item, selection=selection, syntaxis=syntaxis)
     return tmp_item
 
-def to_openmm_System(item, atom_indices='all', frame_indices='all'):
-    pass
+def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*unit.nanometer, constraints=None,
+        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+        flexible_constraints=False, **kwargs):
+
+    from .api_openmm_Topology import to_openmm_System as openmm_Topology_to_openmm_System
+
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices)
+    tmp_item = openmm_Topology_to_openmm_System(tmp_item, atom_indices='all', forcefield=forcefield,
+                                                non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff,
+                                                constraints=constraints, rigid_water=rigid_water, remove_cm_motion=remove_cm_motion,
+                                                hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
+                                                flexible_constraints=flexible_constraints, **kwargs)
+
+    return tmp_item
 
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
-    return item.getTopology()
+
+    from .api_openmm_Topology import extract as extract_openmm_Topology
+
+    tmp_item = item.getTopology()
+    tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices)
+
+    return tmp_item
 
 def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
 
