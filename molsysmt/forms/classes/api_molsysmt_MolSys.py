@@ -105,7 +105,7 @@ def to_openmm_Simulation(item, trajectory_item=None, atom_indices='all', frame_i
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
         flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
-        friction=1.0/unit.picoseconds, integration_time_step=2.0*unit.femtoseconds, platform='CUDA',
+        collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
         **kwargs):
 
     from molsysmt.native.io.molsys.classes import to_openmm_Simulation as molsysmt_MolSys_to_openmm_Simulation
@@ -117,7 +117,7 @@ def to_openmm_Simulation(item, trajectory_item=None, atom_indices='all', frame_i
             forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
             rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
             flexible_constraints=flexible_constraints, integrator=integrator,
-            temperature=temperature, friction=friction, integration_time_step=integration_time_step, platform=platform, **kwargs)
+            temperature=temperature, collisions_rate=collisions_rate, integration_timestep=integration_timestep, platform=platform, **kwargs)
 
     return tmp_item
 

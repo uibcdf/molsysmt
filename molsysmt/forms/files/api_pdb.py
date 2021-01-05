@@ -1,4 +1,5 @@
 from os.path import basename as _basename
+import simtk.unit as unit
 
 form_name=_basename(__file__).split('.')[0].split('_')[-1]
 
@@ -107,6 +108,45 @@ def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
     tmp_item = PDBFile(item)
     tmp_item = Modeller(tmp_item.topology, tmp_item.positions)
     tmp_item = extract_modeller(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
+
+def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*unit.nanometer, constraints=None,
+        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+        flexible_constraints=False, **kwargs):
+
+    from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_System as openmm_Modeller_to_openmm_System
+
+    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = openmm_Modeller_to_openmm_System(tmp_item, forcefield=forcefield,
+                                                non_bonded_method=non_bonded_method,
+                                                non_bonded_cutoff=non_bonded_cutoff,
+                                                constraints=constraints, rigid_water=rigid_water,
+                                                remove_cm_motion=remove_cm_motion,
+                                                hydrogen_mass=hydrogen_mass,
+                                                switch_distance=switch_distance,
+                                                flexible_constraints=flexible_constraints, **kwargs)
+
+    return tmp_item
+
+def to_openmm_Simulation(item, trajectory_item=None, atom_indices='all', frame_indices='all',
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+        flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
+        collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
+        **kwargs):
+
+    from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_Simulation as openmm_Modeller_to_openmm_Simulation
+
+    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = openmm_Modeller_to_openmm_Simulation(tmp_item, forcefield=forcefield, non_bonded_method=non_bonded_method,
+                                                    non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
+                                                    remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
+                                                    switch_distance=switch_distance, flexible_constraints=flexible_constraints,
+                                                    integrator=integrator, temperature=temperature,
+                                                    collisions_rate=collisions_rate, integration_timestep=integration_timestep,
+                                                    platform=platform, **kwargs)
+
     return tmp_item
 
 def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all'):

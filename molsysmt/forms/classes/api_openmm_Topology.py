@@ -86,7 +86,7 @@ def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_in
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
         flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
-        friction=1.0/unit.picoseconds, integration_time_step=2.0*unit.femtoseconds, platform='CUDA',
+        collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
         **kwargs):
 
     from .api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
@@ -102,8 +102,8 @@ def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_in
 
     tmp_item = openmm_System_to_openmm_Simulation(system, topology_item=topology,
             trajectory_item=positions, atom_indices='all', frame_indices=0,
-            integrator=integrator, temperature=temperature, friction=friction,
-            integration_time_step=integration_time_step, platform=platform)
+            integrator=integrator, temperature=temperature, collisions_rate=collisions_rate,
+            integration_timestep=integration_timestep, platform=platform)
 
     return tmp_item
 

@@ -35,7 +35,7 @@ def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_ind
 def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     tmp_item=item.topology
-    tmp_item=extract(atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item=extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return item.topology
 
 def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
@@ -63,12 +63,13 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
 
 def to_pdb (item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app import PDBFile as _openmm_app_PDBFILE
-    topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from .api_openmm_Topology import to_pdb as openmm_Topology_to_pdb
+
+    topology = to_openmm_Topology(item, atom_indices=atom_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     box = get_box_from_system(item, frame_indices=frame_indices)
     topology.setPeriodicBoxVectors(box)
-    return _openmm_app_PDBFILE.writeFile(topology, positions, open(output_filepath, 'w'))
+    return openmm_Topology_to_pdb(topology, output_filepath=output_filepath, trajectory_item=coordinates)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -86,8 +87,9 @@ def copy(item):
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     state = item.context.getState(getPositions=True)
-    coordinates = state.getPositions()
-    coordinates = coordinates[indices,:]
+    coordinates = state.getPositions(asNumpy=True)
+    if indices is not 'all':
+        coordinates = coordinates[indices,:]
     return coordinates
 
 ## system
@@ -95,7 +97,7 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
     state = item.context.getState(getPositions=True)
-    coordinates = state.getPositions()
+    coordinates = state.getPositions(asNumpy=True)
     return coordinates
 
 def get_box_from_system(item, indices='all', frame_indices='all'):

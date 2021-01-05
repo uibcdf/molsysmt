@@ -16,8 +16,8 @@ with_box=True
 with_parameters=True
 
 def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all',
-        integrator='Langevin', temperature=300.0*unit.kelvin, friction=1.0/unit.picoseconds,
-        integration_time_step=2.0*unit.femtoseconds, platform='CUDA',
+        integrator='Langevin', temperature=300.0*unit.kelvin, collisions_rate=1.0/unit.picoseconds,
+        integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
         **kwargs):
 
     from molsysmt import convert, get
@@ -29,7 +29,7 @@ def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_in
             frame_indices=frame_indices, coordinates=True)[0]
 
     if integrator=='Langevin':
-        integrator_aux = LangevinIntegrator(temperature, friction, integration_time_step)
+        integrator_aux = LangevinIntegrator(temperature, collisions_rate, integration_timestep)
         integrator_aux.setConstraintTolerance(0.00001)
     else:
         raise NotImplementedError('The integrator was not implemented yet in the conversion method.')

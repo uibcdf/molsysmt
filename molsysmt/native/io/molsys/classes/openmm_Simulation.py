@@ -4,7 +4,7 @@ def to_openmm_Simulation (item, trajectory_item=None, atom_indices='all', frame_
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
         flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
-        friction=1.0/unit.picoseconds, integration_time_step=2.0*unit.femtoseconds,
+        collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds,
         platform='CUDA',
         **kwargs):
 
@@ -16,6 +16,7 @@ def to_openmm_Simulation (item, trajectory_item=None, atom_indices='all', frame_
 
     if trajectory_item is None:
         trajectory_item = item
+
     coordinates = get(trajectory_item, target='atom', selection=atom_indices,
             frame_indices=frame_indices, coordinates=True)
 
@@ -24,8 +25,8 @@ def to_openmm_Simulation (item, trajectory_item=None, atom_indices='all', frame_
         non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
         remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
         switch_distance=switch_distance, flexible_constraints=flexible_constraints,
-        integrator=integrator, temperature=temperature, friction=friction,
-        integration_time_step=integration_time_step, platform=platform, **kwargs)
+        integrator=integrator, temperature=temperature, collisions_rate=collisions_rate,
+        integration_timestep=integration_timestep, platform=platform, **kwargs)
 
     return tmp_item
 

@@ -31,8 +31,8 @@ def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
             rigid_water=rigid_water, switch_distance=switch_distance,
             flexible_constraints=flexible_constraints,
-            integrator='Langevin', temperature=0*unit.kelvin, friction=1.0/unit.picoseconds,
-            integration_time_step=2.0*unit.femtoseconds, platform=platform,
+            integrator='Langevin', temperature=0*unit.kelvin, collisions_rate=1.0/unit.picoseconds,
+            integration_timestep=2.0*unit.femtoseconds, platform=platform,
             selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
 
         state = tmp_item.context.getState(getEnergy=True)
@@ -100,8 +100,8 @@ def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_meth
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
             rigid_water=rigid_water, switch_distance=switch_distance,
             flexible_constraints=flexible_constraints,
-            integrator='Langevin', temperature=0*unit.kelvin, friction=1.0/unit.picoseconds,
-            integration_time_step=2.0*unit.femtoseconds, platform=platform,
+            integrator='Langevin', temperature=0*unit.kelvin, collisions_rate=1.0/unit.picoseconds,
+            integration_timestep=2.0*unit.femtoseconds, platform=platform,
             selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
 
         if verbose:

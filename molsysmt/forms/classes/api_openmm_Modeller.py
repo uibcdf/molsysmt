@@ -51,6 +51,31 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
 
     return tmp_item
 
+def to_openmm_Simulation(item, trajectory_item=None, atom_indices='all', frame_indices='all',
+        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*unit.nanometer, constraints=None,
+        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+        flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
+        collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA', **kwargs):
+
+    from .api_openmm_Topology import to_openmm_Simulation as openmm_Topology_to_openmm_Simulation
+    from molsysmt import get
+
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices)
+
+    if trajectory_item is None:
+        positions = get(item, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+    else:
+        positions = get(trajectory_item, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+
+    tmp_item = openmm_Topology_to_openmm_Simulation(tmp_item, trajectory_item=positions, atom_indices='all', forcefield=forcefield,
+                                                non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff,
+                                                constraints=constraints, rigid_water=rigid_water, remove_cm_motion=remove_cm_motion,
+                                                hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
+                                                flexible_constraints=flexible_constraints, integrator=integrator, temperature=temperature,
+                                                collisions_rate=collisions_rate, platform=platform, **kwargs)
+
+    return tmp_item
+
 def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import extract as extract_openmm_Topology
