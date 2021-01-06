@@ -111,8 +111,10 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
            frame_indices='all'):
 
     from molsysmt import get as _get
+    from molsysmt import __version__ as msm_version
     from simtk.openmm.app import PDBFile
-    from simtk.openmm.version import short_version
+    #from simtk.openmm.version import short_version
+    from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
     from io import StringIO
 
     coordinates = _get(trajectory_item, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
@@ -125,7 +127,9 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
     tmp_io = StringIO()
     PDBFile.writeFile(tmp_item, coordinates[0], tmp_io, keepIds=True)
     filedata = tmp_io.getvalue()
-    filedata = filedata.replace('WITH OPENMM '+short_version, 'WITH OPENMM '+short_version+' BY MOLSYSMT')
+    #openmm_version = short_version
+    openmm_version = Platform.getOpenMMVersion()
+    filedata = filedata.replace('WITH OPENMM '+openmm_version, 'WITH OPENMM '+openmm_version+' BY MOLSYSMT '+msm_version)
     tmp_io.close()
     del(tmp_io)
 
@@ -165,12 +169,25 @@ def extract(item, atom_indices='all', frame_indices='all'):
         for bond in item.bonds():
             if bond[0].index in set_atom_indices and bond[1].index in set_atom_indices:
                 new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
+        del(newAtoms)
         return new_item
 
 def copy(item):
 
-    from copy import deepcopy
-    return deepcopy(item)
+    from simtk.openmm.app import Topology
+    new_item = Topology()
+    newAtoms = {}
+    for chain in item.chains():
+        newChain = new_item.addChain(chain.id)
+        for residue in chain.residues():
+            newResidue = new_item.addResidue(residue.name, newChain, residue.id, residue.insertionCode)
+            for atom in residue.atoms():
+                newAtom = new_item.addAtom(atom.name, atom.element, newResidue, atom.id)
+                newAtoms[atom] = newAtom
+    for bond in item.bonds():
+        new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
+    del(newAtoms)
+    return new_item
 
 def merge_two_items(item1, item2):
 

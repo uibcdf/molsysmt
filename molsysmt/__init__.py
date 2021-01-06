@@ -1,3 +1,5 @@
+__version__ = '0.0.4'
+
 from . import utils
 
 from . import demo_systems

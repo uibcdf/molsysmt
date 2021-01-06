@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
 from numpy.distutils.core import setup
 from numpy.distutils.extension import Extension
+from molsysmt import __version__ as msm_version
 #import distutils.extension
 
 ext_math = Extension(
@@ -73,7 +74,7 @@ extensions_list.extend(extensions_lib)
 
 setup(
     name='molsysmt',
-    version='0.0.4',
+    version=msm_version,
     author='UIBCDF Lab',
     author_email='uibcdf@gmail.com',
     package_dir={'molsysmt': 'molsysmt'},

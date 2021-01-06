@@ -36,7 +36,7 @@ def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
 
     tmp_item=item.topology
     tmp_item=extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.topology
+    return tmp_item
 
 def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
