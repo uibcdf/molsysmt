@@ -17,17 +17,17 @@ with_coordinates=False
 with_box=False
 with_parameters=False
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_openmm_Topology as molsysmt_Topology_from_openmm_Topology
     return molsysmt_Topology_from_openmm_Topology(item, atom_indices=atom_indices)
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import from_openmm_Topology as molsysmt_MolSys_from_openmm_Topology
-    return molsysmt_MolSys_from_openmm_Topology(item, atom_indices=atom_indices)
+    return molsysmt_MolSys_from_openmm_Topology(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from .api_mdtraj_Topology import extract as extract_mdtraj_Topology
     from mdtraj.core.topology import Topology as mdtraj_Topology
@@ -35,7 +35,7 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from parmed.openmm import load_topology as openmm_Topology_to_parmed_Structure
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -62,7 +62,8 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
 def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, **kwargs):
+        flexible_constraints=False, water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
+        solute_dielectric=1.0, solvent_dielectric=78.5, **kwargs):
 
     from molsysmt.utils.forcefields import digest as digest_forcefields
     from molsysmt.utils.simulation_parameters import digest as digest_simulation_parameters
@@ -71,11 +72,16 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
     if forcefield is None:
         raise ValueError('This conversion needs the input argument "forcefield".')
 
-    forcefield_omm_parameters=digest_forcefields(forcefield, 'openmm')
+    forcefield_omm_parameters=digest_forcefields(forcefield, 'openmm',
+                                                 implicit_solvent=implicit_solvent,
+                                                 water_model=water_model)
+
     system_omm_parameters=digest_simulation_parameters( engine='openmm', non_bonded_method=non_bonded_method,
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
             remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
-            switch_distance=switch_distance, flexible_constraints=flexible_constraints)
+            switch_distance=switch_distance, flexible_constraints=flexible_constraints,
+            implicit_solvent=implicit_solvent, implicit_solvent_kappa=implicit_solvent_kappa,
+            solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectrict)
 
     forcefield_generator = ForceField(*forcefield_omm_parameters)
     tmp_item = forcefield_generator.createSystem(item, **system_omm_parameters)
@@ -85,7 +91,8 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
 def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all',
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
+        flexible_constraints=False, water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
+        solute_dielectric=1.0, solvent_dielectric=78.5, integrator='Langevin', temperature=300.0*unit.kelvin,
         collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
         **kwargs):
 
@@ -98,7 +105,9 @@ def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_in
     system = to_openmm_System(item, atom_indices=atom_indices, frame_indices=frame_indices,
         forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
         rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
-        flexible_constraints=flexible_constraints, **kwargs)
+        flexible_constraints=flexible_constraints, water_model=water_model, implicit_solvent=implicit_solvent,
+        implicit_solvent_kappa=implicit_solvent_kappa, solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric,
+        **kwargs)
 
     tmp_item = openmm_System_to_openmm_Simulation(system, topology_item=topology,
             trajectory_item=positions, atom_indices='all', frame_indices=0,
@@ -212,9 +221,19 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_molsysmt_Topology(item)
     return select_molsysmt_Topology_with_MolSysMT(tmp_item, selection)
 
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return to_NGLView(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+
+    if trajectory_item is None:
+        raise ValueError('To convert a openmm.Topology object to NGLView, a trajectory_item is needed.')
+    else:
+        from .api_molsysmt_MolSys import to_nglview_NGLView as molsysmt_MolSys_to_nglview_NGLView
+        tmp_item = to_molsysmt_MolSys(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = molsysmt_MolSys_to_nglview_NGLView(tmp_item)
+        return tmp_item
 
 #### Get
 
@@ -540,6 +559,39 @@ def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    return with_topology
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    return with_parameters
+
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    return with_coordinates
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    output = False
+
+    if with_box:
+        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+        if tmp_box[0] is not None:
+            output = True
+
+    return output
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    output = False
+
+    if with_topology:
+        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
+            output = True
+
+    return output
 
 ## bond
 

@@ -123,7 +123,7 @@ def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
     if with_topology:
         if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            ooutput = True
+            output = True
 
     return output
 

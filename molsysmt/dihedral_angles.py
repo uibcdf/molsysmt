@@ -72,13 +72,16 @@ def ramachandran_angles(item, selection='all', frame_indices='all', syntaxis='Mo
                         plot=False):
 
     from .covalent import covalent_dihedral_quartets
+    from .utils.multiple_items import topology_and_trajectory_from_item
 
-    phi_covalent_chain = covalent_dihedral_quartets(item, dihedral_angle='phi', selection=selection, syntaxis=syntaxis)
-    psi_covalent_chain = covalent_dihedral_quartets(item, dihedral_angle='psi', selection=selection, syntaxis=syntaxis)
+    topology_item, trajectory_item = topology_and_trajectory_from_item(item)
+
+    phi_covalent_chain = covalent_dihedral_quartets(topology_item, dihedral_angle='phi', selection=selection, syntaxis=syntaxis)
+    psi_covalent_chain = covalent_dihedral_quartets(topology_item, dihedral_angle='psi', selection=selection, syntaxis=syntaxis)
 
     n_chains = phi_covalent_chain.shape[0]
 
-    angles = get_dihedral_angles(item, quartets=_np.vstack([phi_covalent_chain, psi_covalent_chain]),
+    angles = get_dihedral_angles(trajectory_item, quartets=_np.vstack([phi_covalent_chain, psi_covalent_chain]),
                                  frame_indices=frame_indices, pbc=pbc)
 
     return phi_covalent_chain, psi_covalent_chain, angles[:,:n_chains], angles[:,n_chains:]

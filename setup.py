@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
 from numpy.distutils.core import setup
 from numpy.distutils.extension import Extension
-from molsysmt import __version__ as msm_version
+#from molsysmt.version import __version__ as msm_version
 #import distutils.extension
+
+msm_version='0.0.4'
 
 ext_math = Extension(
     name = 'molsysmt.lib.libmath',

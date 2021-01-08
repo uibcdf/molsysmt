@@ -11,7 +11,8 @@ parameters_keywords_openmm={
         'residue_templates': 'residueTemplates',
         'ignore_external_bonds': 'ignoreExternalBonds',
         'switch_distance': 'switchDistance',
-        'flexible_constraints': 'flexibleConstraints'
+        'flexible_constraints': 'flexibleConstraints',
+        'implicit_solvent': 'implicitSolvent'
         }
 
 parameters_values_openmm={
@@ -32,7 +33,7 @@ parameters_values_openmm={
             'h_bonds': app.HBonds,
             'all_bonds': app.AllBonds,
             'h_angles': app.HAngles
-            }
+            },
 
         #'rigid_water': boolean
 
@@ -48,6 +49,27 @@ parameters_values_openmm={
 
         #'flexible_constraints': boolean
 
+        'implicit_solvent':{
+            None: None,
+            'HCT': app.HCT,
+            'OBC1': app.OBC1,
+            'OBC2': app.OBC2,
+            'GBn': app.GBn,
+            'GBn2': app.GBn2,
+            },
+
+        #'implicit_solvent_kappa': 0.0/unit.nanometers (default)
+
+        #'solute_dielectric': 1.0 (default)
+
+        #'solvent_dielectric': 78.5 (default)
+
+        'constraints':{
+            None: None,
+            'h_bonds': app.HBonds,
+            'all_bonds': app.AllBonds,
+            'h_angles': app.HAngles,
+            }
         }
 
 def digest(engine, **kwargs):

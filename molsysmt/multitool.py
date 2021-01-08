@@ -1394,7 +1394,6 @@ def convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all
                 else:
 
                     if topology_form!=form_out:
-
                         tmp_item = dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
                                                                       frame_indices=frame_indices, **kwargs)
                     elif same_system:

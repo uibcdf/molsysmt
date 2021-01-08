@@ -1,4 +1,4 @@
-__version__ = '0.0.4'
+from .version import __version__
 
 from . import utils
 

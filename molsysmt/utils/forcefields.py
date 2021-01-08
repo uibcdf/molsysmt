@@ -2,18 +2,32 @@ from .engines import digest as _digest_engines
 
 forcefields = [
 
-    'AMBER96',
-    'AMBER99SB-ILDN',
+    'Amber96',
+    'Amber99',
+    'Amber99SB',
+    'Amber99SBILDN',
+    'Amber99SBNMR',
+    'AMBER99',
     'AMBER14',
     'CHARMM36',
+    'GAFF'
+]
+
+
+water_models = [
+
+    'SPC',
+    'SPC/E'
     'TIP3P',
-    'TIP3P_AMBER14',
-    'TIP3P_CHARMM36',
+    'TIP3P-FB',
+    'TIP3P-PME-B',  # Charmm36
+    'TIP3P-PME-F',  # Charmm36
     'TIP4P',
     'TIP4P-EW',
+    'TIP4P-FB',
+    'TIP4P/2005',
     'TIP5P',
-    'SPC',
-    'GAFF'
+    'TIP5P-EW',
 
 ]
 
@@ -46,9 +60,11 @@ switcher = {
 
 }
 
-def digest(forcefields, engine):
+def digest(forcefields, engine, implicit_solvent=None, water_model=None):
 
     engine = _digest_engines(engine)
+
+    if engine == 'OpenMM':
 
     if type(forcefields) in [list, tuple]:
         forcefields_out=[]
