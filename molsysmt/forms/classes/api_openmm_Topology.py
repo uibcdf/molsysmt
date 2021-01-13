@@ -62,7 +62,8 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
 def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
+        flexible_constraints=False, water_model=None, implicit_solvent=None,
+        implicit_solvent_salt_conc= 0.0*unit.mole/unit.liter, implicit_solvent_kappa=0.0/unit.nanometers,
         solute_dielectric=1.0, solvent_dielectric=78.5, **kwargs):
 
     from molsysmt.utils.forcefields import digest as digest_forcefields
@@ -80,8 +81,9 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
             remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
             switch_distance=switch_distance, flexible_constraints=flexible_constraints,
-            implicit_solvent=implicit_solvent, implicit_solvent_kappa=implicit_solvent_kappa,
-            solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectrict)
+            implicit_solvent=implicit_solvent,
+            implicit_solvent_salt_conc=implicit_solvent_salt_conc, implicit_solvent_kappa=implicit_solvent_kappa,
+            solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric)
 
     forcefield_generator = ForceField(*forcefield_omm_parameters)
     tmp_item = forcefield_generator.createSystem(item, **system_omm_parameters)
@@ -545,6 +547,15 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
     tmp_box = get_box_from_system(item, frame_indices=frame_indices)
     output = box_angles_from_box_vectors(tmp_box)
+
+    return output
+
+def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt import box_volume_from_box_vectors
+
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    output = box_volume_from_box_vectors(tmp_box)
 
     return output
 

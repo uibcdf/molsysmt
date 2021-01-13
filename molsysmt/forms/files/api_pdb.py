@@ -1734,6 +1734,11 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
     tmp_item = to_openmm_PDBFile(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
+def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_PDBFile import get_box_volume_from_system as _get
+    tmp_item = to_openmm_PDBFile(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 

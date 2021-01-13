@@ -1,9 +1,9 @@
 import simtk.unit as unit
 
-def build_peptide (item, forcefield='AMBER14', implicit_solvent='GBSA OBC', water_model=None, to_form='molsysmt.MolSys',
+def build_peptide (item, forcefield='AMBER14', implicit_solvent=None, water_model=None, to_form='molsysmt.MolSys',
                    box_geometry='cubic', clearance=10*unit.angstroms, engine='LEaP', logfile=False, verbose=False):
 
-    # implicit_solvent in ['GBSA OBC']
+    # implicit_solvent in ['OBC1']
     # water_model in ['TIP3P']
     # box_geometry: "cubic" or "truncated_octahedral"
 
@@ -26,13 +26,10 @@ def build_peptide (item, forcefield='AMBER14', implicit_solvent='GBSA OBC', wate
             forcefield = [forcefield]
 
         if water_model is not None:
-            implicit_solvent=None
             if water_model =='SPC':
                 solvent_model='SPCBOX'
-                forcefield.append('SPC')
             elif water_model == 'TIP3P':
                 solvent_model='TIP3PBOX'
-                forcefield.append('TIP3P')
             else:
                 raise NotImplementedError
 
@@ -46,17 +43,18 @@ def build_peptide (item, forcefield='AMBER14', implicit_solvent='GBSA OBC', wate
             print('Working directory:', working_directory)
 
         tleap = TLeap()
-        forcefield = digest_forcefield(forcefield, 'LEap')
+        forcefield = digest_forcefield(forcefield, 'LEap', implicit_solvent=implicit_solvent,
+                                       water_model=water_model)
         tleap.load_parameters(*forcefield)
 
-        if implicit_solvent == 'GBSA OBC':
+        if implicit_solvent == 'OBC1':
             tleap.set_global_parameter(PBRadii='mbondi2')
 
         tleap.make_sequence('peptide', sequence)
         tleap.check_unit('peptide')
         tleap.get_total_charge('peptide')
 
-        if implicit_solvent is None:
+        if water_model is not None:
             tleap.solvate('peptide', solvent_model, clearance, box_geometry)
 
         tleap.save_unit('peptide', tmp_prmtop)

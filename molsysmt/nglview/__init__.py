@@ -2,5 +2,6 @@ from .precooked_recipes import standardize_view, add_gui
 from .precooked_recipes import show_colored_cartoon_by_scalar_residue_values
 from .precooked_recipes import show_colored_surface_by_scalar_residue_values
 from .precooked_recipes import show_water_as_transparent_surface
+from .precooked_recipes import show_system_as_transparent_surface
 from .precooked_recipes import show_water_as_licorice
 from .patching_nglview import adding_molsysmt

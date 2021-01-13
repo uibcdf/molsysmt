@@ -225,7 +225,7 @@ def is_solvated(item):
 
     output = False
 
-    n_waters, volume = get(item, target='system', n_waters=True, box=True)
+    n_waters, volume = get(item, target='system', n_waters=True, box_volume=True)
     if (n_waters>0) and (volume is not None):
         density_number = (n_waters/volume)._value
         if (density_number)>15:

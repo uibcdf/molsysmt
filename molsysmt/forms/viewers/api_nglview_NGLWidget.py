@@ -18,7 +18,11 @@ def to_openmm_PDBFile(item, trajectory_item = None, atom_indices='all', frame_in
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
-    str_as_file = StringIO(item.component_0.get_structure_string())
+    try:
+        structure_string = item.component_0.get_structure_string()
+    except:
+        structure_string = item.get_state()['_ngl_msg_archive'][0]['args'][0]['data']
+    str_as_file = StringIO(structure_string)
     tmp_file = PDBFile(str_as_file)
     str_as_file.close()
     del(str_as_file)
@@ -1546,6 +1550,12 @@ def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_PDBFile import get_box_angles_from_system as _get
+    tmp_item = to_openmm_PDBFile(item)
+    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_PDBFile import get_box_volume_from_system as _get
     tmp_item = to_openmm_PDBFile(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 

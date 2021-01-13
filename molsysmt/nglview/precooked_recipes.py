@@ -45,6 +45,12 @@ def show_water_as_transparent_surface(view, atom_indices='all', frame_indices='a
 
     pass
 
+def show_system_as_transparent_surface(view, atom_indices='all', frame_indices='all'):
+
+    view.add_surface(selection='all', opacity=0.3, color='lightblue')
+
+    pass
+
 def show_water_as_licorice(view, atom_indices='all', frame_indices='all'):
 
     if atom_indices is not 'all':

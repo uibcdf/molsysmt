@@ -263,6 +263,10 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
+def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError

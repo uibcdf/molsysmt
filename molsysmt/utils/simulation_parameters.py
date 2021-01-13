@@ -12,7 +12,11 @@ parameters_keywords_openmm={
         'ignore_external_bonds': 'ignoreExternalBonds',
         'switch_distance': 'switchDistance',
         'flexible_constraints': 'flexibleConstraints',
-        'implicit_solvent': 'implicitSolvent'
+        'implicit_solvent': 'implicitSolvent',
+        'implicit_solvent_salt_conc': 'implicitSolventSaltConc',
+        'implicit_solvent_kappa': 'implicitSolventKappa',
+        'solute_dielectric': 'soluteDielectric',
+        'solvent_dielectric': 'solventDielectric',
         }
 
 parameters_values_openmm={
@@ -58,7 +62,9 @@ parameters_values_openmm={
             'GBn2': app.GBn2,
             },
 
-        #'implicit_solvent_kappa': 0.0/unit.nanometers (default)
+        #'implicit_solvent_salt_conc': 0.0 * unit.mole/unit.liter (default),
+
+        #'implicit_solvent_kappa': None or 0.0/unit.nanometers (default)
 
         #'solute_dielectric': 1.0 (default)
 
@@ -72,11 +78,21 @@ parameters_values_openmm={
             }
         }
 
+
+parameters_keywords_leap={
+        }
+
+parameters_values_leap={
+
+        }
+
+
+
 def digest(engine, **kwargs):
 
     output={}
 
-    if engine=='openmm':
+    if engine=='OpenMM':
 
         if kwargs['non_bonded_method']=='no_cutoff':
             if kwargs['non_bonded_cutoff'] is None:
@@ -88,6 +104,14 @@ def digest(engine, **kwargs):
                 output[parameters_keywords_openmm[parameter]]=parameters_values_openmm[parameter][value]
             else:
                 output[parameters_keywords_openmm[parameter]]=value
+
+    elif engine=='LEaP':
+
+        for parameter, value in kwargs.items():
+            if parameter in parameters_values_leap:
+                output[parameters_keywords_leap[parameter]]=parameters_values_leap[parameter][value]
+            else:
+                output[parameters_keywords_leap[parameter]]=value
 
     else:
 

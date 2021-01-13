@@ -49,13 +49,15 @@ def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
-    from simtk.openmm.version import short_version
+    #from simtk.openmm.version import short_version
+    from molsysmt import __version__ as msm_version
+    from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
 
     tmp_io = StringIO()
     positions = get_coordinates_from_system(item)[0]
     PDBFile.writeFile(item.topology, positions, tmp_io, keepIds=True)
-    filedata = tmp_io.getvalue()
-    filedata = filedata.replace('WITH OPENMM '+short_version, 'WITH OPENMM '+short_version+' BY MOLSYSMT')
+    openmm_version = Platform.getOpenMMVersion()
+    filedata = filedata.replace('WITH OPENMM '+openmm_version, 'WITH OPENMM '+openmm_version+' BY MOLSYSMT '+msm_version)
     tmp_io.close()
     del(tmp_io)
 

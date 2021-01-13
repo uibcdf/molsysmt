@@ -1441,7 +1441,7 @@ def write(item=None, filename=None, selection='all', frame_indices='all', syntax
     return convert(item, to_form=filename, selection=selection, frame_indices='all', syntaxis=syntaxis)
 
 def view(item=None, viewer='NGLView', selection='all', frame_indices='all',
-        appending_coordinates=False, standardize=True, syntaxis='MolSysMT'):
+        appending_coordinates=False, standardize=True, surface=False, syntaxis='MolSysMT'):
 
     viewer = digest_engine(viewer)
 
@@ -1479,6 +1479,11 @@ def view(item=None, viewer='NGLView', selection='all', frame_indices='all',
         if viewer=='NGLView':
             from .nglview import standardize_view
             standardize_view(tmp_item)
+
+    if surface:
+        if viewer=='NGLView':
+            from .nglview import show_system_as_transparent_surface
+            show_system_as_transparent_surface(tmp_item)
 
     return tmp_item
 
