@@ -1452,7 +1452,6 @@ def view(item=None, viewer='NGLView', selection='all', frame_indices='all',
 
         if (len(item)==2) and (sum(with_topologies)==1) and (sum(with_coordinates)>0):
             tmp_item = convert(item, to_form=viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
-
         else:
 
             # There should be the possibility to create a list of nglview.NGLWidget to merge them

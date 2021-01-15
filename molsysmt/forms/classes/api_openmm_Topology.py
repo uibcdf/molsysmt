@@ -3,6 +3,7 @@ from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
 import numpy as np
 import simtk.unit as unit
 from molsysmt.forms.common_gets import *
+from molsysmt.utils.exceptions import *
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -14,7 +15,7 @@ is_form={
 info=["",""]
 with_topology=True
 with_coordinates=False
-with_box=False
+with_box=True
 with_parameters=False
 
 def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
@@ -61,8 +62,9 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
 
 def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, water_model=None, implicit_solvent=None,
+        rigid_water=True, remove_cm_motion=False, hydrogen_mass=None, switch_distance=None,
+        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=None,
+        water_model=None, implicit_solvent=None,
         implicit_solvent_salt_conc= 0.0*unit.mole/unit.liter, implicit_solvent_kappa=0.0/unit.nanometers,
         solute_dielectric=1.0, solvent_dielectric=78.5, **kwargs):
 
@@ -73,14 +75,15 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
     if forcefield is None:
         raise ValueError('This conversion needs the input argument "forcefield".')
 
-    forcefield_omm_parameters=digest_forcefields(forcefield, 'openmm',
+    forcefield_omm_parameters=digest_forcefields(forcefield, 'OpenMM',
                                                  implicit_solvent=implicit_solvent,
                                                  water_model=water_model)
 
-    system_omm_parameters=digest_simulation_parameters( engine='openmm', non_bonded_method=non_bonded_method,
+    system_omm_parameters=digest_simulation_parameters(engine='OpenMM', non_bonded_method=non_bonded_method,
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
             remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
             switch_distance=switch_distance, flexible_constraints=flexible_constraints,
+            use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
             implicit_solvent=implicit_solvent,
             implicit_solvent_salt_conc=implicit_solvent_salt_conc, implicit_solvent_kappa=implicit_solvent_kappa,
             solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric)
@@ -88,15 +91,23 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
     forcefield_generator = ForceField(*forcefield_omm_parameters)
     tmp_item = forcefield_generator.createSystem(item, **system_omm_parameters)
 
+    if use_dispersion_correction or ewald_error_tolerance:
+        forces = {ii.__class__.__name__ : ii for ii in tmp_item.getForces()}
+        if use_dispersion_correction:
+            forces['NonbondedForce'].setUseDispersionCorrection(True)
+        if ewald_error_tolerance:
+            forces['NonbondedForce'].setEwaldErrorTolerance(ewald_error_tolerance)
+
     return tmp_item
 
 def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all',
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
+        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=None,
+        water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
         solute_dielectric=1.0, solvent_dielectric=78.5, integrator='Langevin', temperature=300.0*unit.kelvin,
         collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
-        **kwargs):
+        constraint_tolerance=None, **kwargs):
 
     from .api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
     from molsysmt import convert, get
@@ -107,14 +118,16 @@ def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_in
     system = to_openmm_System(item, atom_indices=atom_indices, frame_indices=frame_indices,
         forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
         rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
-        flexible_constraints=flexible_constraints, water_model=water_model, implicit_solvent=implicit_solvent,
+        flexible_constraints=flexible_constraints,
+        use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
+        water_model=water_model, implicit_solvent=implicit_solvent,
         implicit_solvent_kappa=implicit_solvent_kappa, solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric,
         **kwargs)
 
     tmp_item = openmm_System_to_openmm_Simulation(system, topology_item=topology,
             trajectory_item=positions, atom_indices='all', frame_indices=0,
             integrator=integrator, temperature=temperature, collisions_rate=collisions_rate,
-            integration_timestep=integration_timestep, platform=platform)
+            integration_timestep=integration_timestep, platform=platform, constraint_tolerance=constraint_tolerance)
 
     return tmp_item
 
@@ -181,6 +194,7 @@ def extract(item, atom_indices='all', frame_indices='all'):
             if bond[0].index in set_atom_indices and bond[1].index in set_atom_indices:
                 new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
         del(newAtoms)
+        new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
         return new_item
 
 def copy(item):
@@ -198,6 +212,7 @@ def copy(item):
     for bond in item.bonds():
         new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
     del(newAtoms)
+    new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
     return new_item
 
 def merge_two_items(item1, item2):
@@ -635,4 +650,22 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
     output=np.array(output)
     del(bond)
     return output
+
+###### Set
+
+def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+
+    n_frames = value.shape[0]
+
+    if n_frames == 1:
+
+        item.setPeriodicBoxVectors(value[0])
+
+    else:
+
+        raise ValueError("The box to set in to a openmm.Topology has corresponds to more than a frame")
+
+def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotWithThisFormError(NotWithThisFormMessage)
 

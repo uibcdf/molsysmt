@@ -17,8 +17,10 @@ with_parameters=True
 
 def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all',
         integrator='Langevin', temperature=300.0*unit.kelvin, collisions_rate=1.0/unit.picoseconds,
-        integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
+        integration_timestep=2.0*unit.femtoseconds, platform='CUDA', constraint_tolerance=None,
         **kwargs):
+
+    # constraint_tolerance 0.00001
 
     from molsysmt import convert, get
     from simtk.openmm import app, LangevinIntegrator
@@ -30,7 +32,8 @@ def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_in
 
     if integrator=='Langevin':
         integrator_aux = LangevinIntegrator(temperature, collisions_rate, integration_timestep)
-        integrator_aux.setConstraintTolerance(0.00001)
+        if constraint_tolerance is not None:
+            integrator_aux.setConstraintTolerance(constraint_tolerance)
     else:
         raise NotImplementedError('The integrator was not implemented yet in the conversion method.')
 

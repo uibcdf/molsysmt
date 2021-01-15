@@ -1,6 +1,7 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
 from molsysmt.native.trajectory import Trajectory as _molsysmt_Trajectory
+import numpy as np
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -186,4 +187,25 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+###### Set
+
+def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+
+    n_frames_trajectory = item.coordinates.shape[0]
+    n_frames_box = value.shape[0]
+
+    if n_frames_trajectory == n_frames_box:
+        item.box = value
+    else:
+        if n_frames_box == 1:
+            item.box = np.broadcast_to(value[0]._value, (n_frames_trajectory,3,3)) * value.unit
+        else:
+            raise ValueError("box and coordinates have different shape")
+
+    pass
+
+def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
 

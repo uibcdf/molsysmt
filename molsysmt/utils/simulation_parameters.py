@@ -17,6 +17,8 @@ parameters_keywords_openmm={
         'implicit_solvent_kappa': 'implicitSolventKappa',
         'solute_dielectric': 'soluteDielectric',
         'solvent_dielectric': 'solventDielectric',
+        'use_dispersion_correction': 'useDispersionCorrection',
+        'ewald_error_tolerance': 'ewaldErrorTolerance',
         }
 
 parameters_values_openmm={
@@ -97,13 +99,16 @@ def digest(engine, **kwargs):
         if kwargs['non_bonded_method']=='no_cutoff':
             if kwargs['non_bonded_cutoff'] is None:
                 from simtk.unit import nanometers
-                kwargs['non_bonded_cutoff']=1.0*nanometers
+                kwargs['non_bonded_cutoff']=1.0*nanometers # I have to check this. The value should be None
 
         for parameter, value in kwargs.items():
-            if parameter in parameters_values_openmm:
-                output[parameters_keywords_openmm[parameter]]=parameters_values_openmm[parameter][value]
-            else:
-                output[parameters_keywords_openmm[parameter]]=value
+            try:
+                if parameter in parameters_values_openmm:
+                    output[parameters_keywords_openmm[parameter]]=parameters_values_openmm[parameter][value]
+                else:
+                    output[parameters_keywords_openmm[parameter]]=value
+            except:
+                raise NotImplementedError("{} parameter not implemented in molsysmt.utils.simulation_parameters".format(parameter))
 
     elif engine=='LEaP':
 
