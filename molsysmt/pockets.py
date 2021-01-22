@@ -1,5 +1,5 @@
-from .utils.engines import digest as _digest_engines
-from .utils.frame_indices import digest as _digest_frame_indices
+from .tools.engines import digest as _digest_engines
+from .tools.frame_indices import digest as _digest_frame_indices
 
 def alpha_spheres(item, selection='all', frame_indices='all', syntaxis='MDTraj',
                   engine='OpenPocket'):

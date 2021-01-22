@@ -1,8 +1,8 @@
 def sasa (item, selection='all', frame_indices='all', target='atom', syntaxis='MolSysMT',
           engine='MDTraj', **kwargs):
 
-    from .utils.forms import digest as digest_forms
-    from .utils.engines import digest as digest_engines
+    from .tools.forms import digest as digest_forms
+    from .tools.engines import digest as digest_engines
     from molsysmt import convert, select
 
     form_in, _ = digest_forms(item)

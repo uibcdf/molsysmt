@@ -1,15 +1,16 @@
 import numpy as _np
 #from .multitool import get_form as get_form, select as _select, convert as _convert
-#from .utils.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
-#from .utils.digest_inputs import _coordinates as _digest_coordinates
-#from .utils.digest_inputs import _frameslist as _digest_frames
-#from .utils.digest_inputs import _frameslist as _digest_frames
+#from .tools.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
+#from .tools.digest_inputs import _coordinates as _digest_coordinates
+#from .tools.digest_inputs import _frameslist as _digest_frames
+#from .tools.digest_inputs import _frameslist as _digest_frames
 from .lib import geometry as _libgeometry
-from .utils.exceptions import *
+from .tools.exceptions import *
 from .centers import center_of_mass as _center_of_mass
 from .centers import geometric_center as _geometric_center
-from .utils.engines import digest as _digest_engines
-from .utils.frame_indices import digest as _digest_frame_indices
+from .tools.engines import digest as _digest_engines
+from .tools.frame_indices import digest as _digest_frame_indices
+from .tools.multiple_items import where_topology_coordinates_and_box_in_item
 
 def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
              item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
@@ -62,6 +63,7 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
         same_frames = False
 
         if groups_of_atoms_1 is not None:
+
             selection_1=None
 
         if item_2 is None:
@@ -114,7 +116,7 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
                                                 frame_indices=frame_indices_1)
                 atom_indices_1 = _np.range(coordinates_1.shape[1])
             elif group_behavior_1 == 'geometric_center':
-                coordinates_1 = _geometric_center(item_1,groups_of_atoms=groups_of_atoms_1,
+                coordinates_1 = _geometric_center(item_1, groups_of_atoms=groups_of_atoms_1,
                                                     frame_indices=frame_indices_1)
                 atom_indices_1 = _np.arange(coordinates_1.shape[1])
             else:
@@ -247,7 +249,7 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
                     return tmp_dict
                 else:
                     raise NotImplementedError(NotImplementedMessage)
- 
+
         else:
             raise NotImplementedError(NotImplementedMessage)
 

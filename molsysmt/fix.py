@@ -1,6 +1,6 @@
 from .multitool import get_form
 from .multitool import get as _get
-from .utils.exceptions import *
+from .tools.exceptions import *
 
 _chain_IDs=['A','B','C','D','E','F','G','H','I','J','K','L','M',
             'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
@@ -96,8 +96,8 @@ def fix(item, missing_atoms=True, missing_residues=True, nonstandard_residues=Tr
     and openmm.Modeller.
     """
 
-    from .utils.forms import digest as digest_forms
-    from .utils.engines import digest as digest_engines
+    from .tools.forms import digest as digest_forms
+    from .tools.engines import digest as digest_engines
     from .multitool import convert
 
     form_in, form_out = digest_forms(item, to_form)

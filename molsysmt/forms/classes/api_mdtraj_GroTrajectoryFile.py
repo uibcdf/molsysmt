@@ -30,8 +30,6 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
             coordinates = coordinates[:,atom_indices,:]
 
-        print(step, time, coordinates, box)
-
     else:
 
         from molsysmt.utils.math import serie_to_chunks

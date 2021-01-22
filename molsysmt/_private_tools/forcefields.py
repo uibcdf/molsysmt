@@ -2,12 +2,14 @@ from .engines import digest as _digest_engines
 
 _forcefields = {
 
-    'AMBER96': "",
+    'AMBER14': "",
+    'AMBER10': "",
+    'AMBER03': "",
     'AMBER99': "",
     'AMBER99SB': "",
     'AMBER99SBILDN': "",
     'AMBER99SBNMR': "",
-    'AMBER14': "",
+    'AMBER96': "",
     'CHARMM36': "",
     'GAFF': ""
 
@@ -45,9 +47,64 @@ switcher['OpenMM'] = {
     },
 
     'AMBER10':{
+        'vacuum':["amber10.xml"],
+        'SPC/E':["amber10.xml", "spce.xml"],
+        'TIP3P':["amber10.xml", "tip3p.xml"],
+        'TIP3P-FB':["amber10.xml", "tip3pfb.xml"],
+        'TIP4P-EW':["amber10.xml", "tip4pew.xml"],
+        'TIP4P-FB':["amber10.xml", "tip4pfb.xml"],
         'OBC1':["amber10.xml", "amber10_obc.xml"],
     },
 
+    'AMBER03':{
+        'vacuum':["amber03.xml"],
+        'SPC/E':["amber03.xml", "spce.xml"],
+        'TIP3P':["amber03.xml", "tip3p.xml"],
+        'TIP3P-FB':["amber03.xml", "tip3pfb.xml"],
+        'TIP4P-EW':["amber03.xml", "tip4pew.xml"],
+        'TIP4P-FB':["amber03.xml", "tip4pfb.xml"],
+        'OBC1':["amber03.xml", "amber03_obc.xml"],
+    },
+
+    'AMBER99SB':{
+        'vacuum':["amber99sb.xml"],
+        'SPC/E':["amber99sb.xml", "spce.xml"],
+        'TIP3P':["amber99sb.xml", "tip3p.xml"],
+        'TIP3P-FB':["amber99sb.xml", "tip3pfb.xml"],
+        'TIP4P-EW':["amber99sb.xml", "tip4pew.xml"],
+        'TIP4P-FB':["amber99sb.xml", "tip4pfb.xml"],
+        'OBC1':["amber99sb.xml", "amber99_obc.xml"],
+    },
+
+    'AMBER99SBILDN':{
+        'vacuum':["amber99sbildn.xml"],
+        'SPC/E':["amber99sbildn.xml", "spce.xml"],
+        'TIP3P':["amber99sbildn.xml", "tip3p.xml"],
+        'TIP3P-FB':["amber99sbildn.xml", "tip3pfb.xml"],
+        'TIP4P-EW':["amber99sbildn.xml", "tip4pew.xml"],
+        'TIP4P-FB':["amber99sbildn.xml", "tip4pfb.xml"],
+        'OBC1':["amber99sbildn.xml", "amber99_obc.xml"],
+    },
+
+    'AMBER99SBNMR':{
+        'vacuum':["amber99sbnmr.xml"],
+        'SPC/E':["amber99sbnmr.xml", "spce.xml"],
+        'TIP3P':["amber99sbnmr.xml", "tip3p.xml"],
+        'TIP3P-FB':["amber99sbnmr.xml", "tip3pfb.xml"],
+        'TIP4P-EW':["amber99sbnmr.xml", "tip4pew.xml"],
+        'TIP4P-FB':["amber99sbnmr.xml", "tip4pfb.xml"],
+        'OBC1':["amber99sbnmr.xml", "amber99_obc.xml"],
+    },
+
+    'AMBER96':{
+        'vacuum':["amber96.xml"],
+        'SPC/E':["amber96.xml", "spce.xml"],
+        'TIP3P':["amber96.xml", "tip3p.xml"],
+        'TIP3P-FB':["amber96.xml", "tip3pfb.xml"],
+        'TIP4P-EW':["amber96.xml", "tip4pew.xml"],
+        'TIP4P-FB':["amber96.xml", "tip4pfb.xml"],
+        'OBC1':["amber96.xml", "amber96_obc.xml"],
+    },
 
     'CHARMM36':{
         'vacuum':["charmm36.xml"],

@@ -4,13 +4,14 @@ import simtk.unit as unit
 form_name=_basename(__file__).split('.')[0].split('_')[-1]
 
 is_form = {
-    'pdb': form_name,
-    'PDB': form_name
+    'pdb': form_name
     }
 
 info = ["Protein Data Bank file format","https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
 with_topology=True
-with_trajectory=True
+with_coordinates=True
+with_box=True
+with_parameters=False
 
 def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
 

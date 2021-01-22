@@ -13,7 +13,7 @@ Methods to remove atoms from a molecular model.
 def remove_solvent (item, water=True, ions=True, cosolutes=True, include_selection=None, exclude_selection=None,
                    syntaxis='MolSysMT'):
 
-    from .utils.selection import digest_syntaxis
+    from .tools.selection import digest_syntaxis
     from .multitool import select, remove
 
     syntaxis = digest_syntaxis(syntaxis)
@@ -88,9 +88,9 @@ def remove_solvent (item, water=True, ions=True, cosolutes=True, include_selecti
 
 def remove_hydrogens (item, selection="all", to_form=None, inplace=True, syntaxis="MolSysMT"):
 
-    from .utils.selection import digest_syntaxis
+    from .tools.selection import digest_syntaxis
     from .multitool import select, remove
-    from .utils.atom_indices import intersection_indices
+    from .tools.atom_indices import intersection_indices
 
     syntaxis = digest_syntaxis(syntaxis)
 

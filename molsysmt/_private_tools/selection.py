@@ -1,41 +1,50 @@
-from .exceptions import *
+from .exceptions import BadCallError
 
-_parser={
-    'molsysmt' : 'MolSysMT',
-    'amber' : 'Amber',
-    'mdanalysis' : 'MDAnalysis',
-    'mdtraj' : 'MDTraj',
-    'parmed' : 'ParmEd',
-    'nglview' : 'NGLview'
-}
+list_syntaxis = [
+    'MolSysMT',
+    'Amber',
+    'MDAnalysis',
+    'MDTraj',
+    'ParmEd',
+    'NGLView',
+]
+
+_aux={ ii.lower():ii for ii in list_syntaxis }
 
 def digest_syntaxis(syntaxis):
 
     try:
-        syntaxis = _parser[syntaxis.lower()]
+        syntaxis = _aux[syntaxis.lower()]
         return syntaxis
     except:
         raise BadCallError('Wrong way of invoking this method. Either the engine is not implemented, either is mispelled.\n\
                            Check the online documentation  for more information: http://www.uibcdf.org/MolSysMT')
 
 
-def digest(selection, syntaxis="MolSysMT"):
+def digest_to_syntaxis(to_syntaxis):
+
+    if to_syntaxis is None:
+        return None
+    else:
+        return digest_syntaxis(to_syntaxis)
+
+def digest_selection(selection, syntaxis="MolSysMT"):
 
     syntaxis = digest_syntaxis(syntaxis)
 
     if syntaxis=='MolSysMT':
 
-        selection=selection.replace('backbone','(atom_name==["CA", "N", "C", "O"])')
-
-    #elif syntaxis=="MDTraj":
+        selection=selection.replace('backbone', '(atom_name==["CA", "N", "C", "O"])')
 
     return selection, syntaxis
 
-def indices_to_syntaxis(item, indices, target='atom', to_syntaxis=None):
+def indices_to_selection(item, indices, target='atom', syntaxis=None):
+
+    syntaxis = digest_syntaxis(syntaxis)
 
     output_string = ''
 
-    if to_syntaxis=='NGLview':
+    if syntaxis=='NGLview':
 
         if target=='atom':
             output_string = '@'+','.join([str(ii) for ii in indices])

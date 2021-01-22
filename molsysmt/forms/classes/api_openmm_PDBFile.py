@@ -292,11 +292,9 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
 
     if frame_indices is not 'all':
-        print(frame_indices)
         coordinates = coordinates[frame_indices,:,:]
 
     if indices is not 'all':
-        print(indices)
         coordinates = coordinates[:,indices,:]
 
     coordinates = coordinates * item.positions.unit

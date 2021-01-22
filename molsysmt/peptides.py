@@ -7,7 +7,7 @@ def build_peptide (item, forcefield='AMBER14', implicit_solvent=None, water_mode
     # water_model in ['TIP3P']
     # box_geometry: "cubic" or "truncated_octahedral"
 
-    from molsysmt.utils.forcefields import digest as digest_forcefield
+    from molsysmt.tools.forcefields import digest as digest_forcefield
     from molsysmt import convert
     from os import getcwd, chdir
 
@@ -15,8 +15,8 @@ def build_peptide (item, forcefield='AMBER14', implicit_solvent=None, water_mode
 
     if engine=="LEaP":
 
-        from molsysmt.utils import TLeap
-        from molsysmt.utils.files_and_directories import tmp_directory, tmp_filename
+        from molsysmt.tools import TLeap
+        from molsysmt.tools.files_and_directories import tmp_directory, tmp_filename
         from shutil import rmtree, copyfile
 
         sequence = tmp_item[12:].upper()

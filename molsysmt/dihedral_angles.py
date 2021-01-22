@@ -1,5 +1,5 @@
-from .utils.frame_indices import digest as _digest_frame_indices
-from .utils.forms import digest as _digest_forms
+from .tools.frame_indices import digest as _digest_frame_indices
+from .tools.forms import digest as _digest_forms
 import numpy as _np
 from .lib import geometry as _libgeometry
 
@@ -7,7 +7,7 @@ def get_dihedral_angles(item, dihedral_angle=None, selection='all', quartets=Non
                         frame_indices='all', syntaxis='MolSysMT', pbc=False):
 
     from molsysmt import get
-    from molsysmt.utils import units as msm_units
+    from molsysmt.tools import units as msm_units
 
     if quartets is None:
 
@@ -72,7 +72,7 @@ def ramachandran_angles(item, selection='all', frame_indices='all', syntaxis='Mo
                         plot=False):
 
     from .covalent import covalent_dihedral_quartets
-    from .utils.multiple_items import topology_and_trajectory_from_item
+    from .tools.multiple_items import topology_and_trajectory_from_item
 
     topology_item, trajectory_item = topology_and_trajectory_from_item(item)
 
@@ -120,7 +120,7 @@ def set_dihedral_angles(item, quartets=None, angles=None, angles_shifts=None, bl
 
     from molsysmt import get, convert
     from molsysmt import set as _set
-    from molsysmt.utils import units as msm_units
+    from molsysmt.tools import units as msm_units
 
     form_in, _ = _digest_forms(item)
     frame_indices = _digest_frame_indices(item, frame_indices)

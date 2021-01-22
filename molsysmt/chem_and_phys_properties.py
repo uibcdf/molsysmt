@@ -1,6 +1,6 @@
-from .utils.exceptions import *
-from .utils.forcefields import digest as _digest_forcefields
-from .utils.engines import digest as _digest_engines
+from .tools.exceptions import *
+from .tools.forcefields import digest as _digest_forcefields
+from .tools.engines import digest as _digest_engines
 from simtk import unit as _unit
 
 def get_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):

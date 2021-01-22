@@ -1,4 +1,4 @@
-from .utils.exceptions import *
+from .tools.exceptions import *
 from .multitool import list_classes_forms, list_files_forms, list_ids_forms, list_seqs_forms, list_viewers_forms, list_types
 from .multitool import dict_infotxt, dict_type, dict_converter
 

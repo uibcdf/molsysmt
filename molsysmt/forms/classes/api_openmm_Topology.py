@@ -63,7 +63,7 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
 def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
         rigid_water=True, remove_cm_motion=False, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=None,
+        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
         water_model=None, implicit_solvent=None,
         implicit_solvent_salt_conc= 0.0*unit.mole/unit.liter, implicit_solvent_kappa=0.0/unit.nanometers,
         solute_dielectric=1.0, solvent_dielectric=78.5, **kwargs):
@@ -88,6 +88,7 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
             implicit_solvent_salt_conc=implicit_solvent_salt_conc, implicit_solvent_kappa=implicit_solvent_kappa,
             solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric)
 
+
     forcefield_generator = ForceField(*forcefield_omm_parameters)
     tmp_item = forcefield_generator.createSystem(item, **system_omm_parameters)
 
@@ -103,7 +104,7 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
 def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all',
         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=None,
+        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
         water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
         solute_dielectric=1.0, solvent_dielectric=78.5, integrator='Langevin', temperature=300.0*unit.kelvin,
         collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',

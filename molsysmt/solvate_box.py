@@ -45,14 +45,14 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
     -----
     """
 
-    from .utils.forms import digest as digest_forms
+    from .tools.forms import digest as digest_forms
 
     form_in, form_out = digest_forms(item)
 
     if engine=="OpenMM":
 
         from molsysmt import convert
-        from molsysmt.utils.forcefields import digest as digest_forcefield
+        from molsysmt.tools.forcefields import digest as digest_forcefield
         from simtk.openmm.app import ForceField
         from simtk.openmm import Vec3
         from numpy import sqrt
@@ -152,11 +152,11 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
     elif engine=="LEaP":
 
-        from molsysmt.utils import TLeap
-        from molsysmt.utils.files_and_directories import tmp_directory, tmp_filename
+        from molsysmt.tools import TLeap
+        from molsysmt.tools.files_and_directories import tmp_directory, tmp_filename
         from shutil import rmtree, copyfile
         from os import getcwd, chdir
-        from molsysmt.utils.forcefields import digest as digest_forcefield
+        from molsysmt.tools.forcefields import digest as digest_forcefield
         from molsysmt import convert
 
         current_directory = getcwd()

@@ -1,14 +1,19 @@
-import os
-import tempfile
-from .utils.exceptions import *
-from .utils.arguments import singular
-from .utils.engines import digest as digest_engine
-from .utils.forms import digest as digest_forms
-from .utils.frame_indices import digest as digest_frame_indices
-from .utils.selection import digest as digest_selection
-from .utils.selection import digest_syntaxis
-from .utils.selection import indices_to_syntaxis
-from .utils.atom_indices import intersection_indices
+from ._private_tools.lists_and_tuples import is_list_or_tuple
+from ._private_tools.exceptions import *
+from ._private_tools.atom_indices import digest_atom_indices, complementary_atom_indices
+from ._private_tools.frame_indices import digest_frame_indices, complementary_frame_indices
+from ._private_tools.indices import digest_indices
+from ._private_tools.engines import digest_engine
+from ._private_tools.selection import digest_syntaxis, digest_to_syntaxis, digest_selection, indices_to_selection
+from ._private_tools.forms import digest_form, digest_to_form, list_classes_forms, list_files_forms, list_ids_forms, list_seqs_forms, list_viewers_forms, list_forms
+from ._private_tools.elements import digest_element, elements2string
+from ._private_tools.targets import digest_target
+from ._private_tools.get_arguments import digest_get_argument, list_topology_get_arguments, list_trajectory_get_arguments, list_coordinates_get_arguments,\
+                                          list_box_get_arguments, list_universal_get_arguments
+from ._private_tools.items import digest_items
+from ._private_tools.output import digest_output
+from .tools.items import where_topology_in_molecular_system, where_trajectory_in_molecular_system, where_coordinates_in_molecular_system, where_box_in_molecular_system,\
+                         where_any_in_molecular_system, is_a_single_molecular_system, compatibles_for_a_molecular_system
 import numpy as np
 
 ####
@@ -17,7 +22,6 @@ import numpy as np
 
 # Classes
 from .forms.classes import dict_is_form as dict_classes_is_form, \
-    list_forms as list_classes_forms, \
     dict_info as dict_classes_infotxt, \
     dict_converter as dict_classes_converter, \
     dict_selector as dict_classes_selector, \
@@ -32,7 +36,6 @@ from .forms.classes import dict_is_form as dict_classes_is_form, \
 
 # Files
 from .forms.files import dict_is_form as dict_files_is_form, \
-    list_forms as list_files_forms, \
     dict_info as dict_files_infotxt, \
     dict_converter as dict_files_converter, \
     dict_selector as dict_files_selector, \
@@ -47,7 +50,6 @@ from .forms.files import dict_is_form as dict_files_is_form, \
 
 # IDs
 from .forms.ids import dict_is_form as dict_ids_is_form, \
-    list_forms as list_ids_forms, \
     dict_info as dict_ids_infotxt, \
     dict_converter as dict_ids_converter, \
     dict_selector as dict_ids_selector, \
@@ -62,7 +64,6 @@ from .forms.ids import dict_is_form as dict_ids_is_form, \
 
 # Sequences
 from .forms.seqs import dict_is_form as dict_seqs_is_form, \
-    list_forms as list_seqs_forms, \
     dict_info as dict_seqs_infotxt, \
     dict_converter as dict_seqs_converter, \
     dict_selector as dict_seqs_selector, \
@@ -77,7 +78,6 @@ from .forms.seqs import dict_is_form as dict_seqs_is_form, \
 
 # Viewers
 from .forms.viewers import dict_is_form as dict_viewers_is_form, \
-    list_forms as list_viewers_forms, \
     dict_info as dict_viewers_infotxt, \
     dict_converter as dict_viewers_converter, \
     dict_selector as dict_viewers_selector, \
@@ -135,7 +135,43 @@ list_types = ['class', 'file', 'id', 'seq', 'viewer']
 #### Methods
 ####
 
-def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
+def get_form(items=None):
+
+    from simtk.unit import Quantity
+
+    if type(items) == Quantity:
+
+        from .forms.classes.api_XYZ import this_Quantity_is_XYZ
+        if this_Quantity_is_XYZ(items):
+            return 'XYZ'
+        else:
+            raise NotImplementedError()
+
+    if type(items)==str:
+
+        if ':' in items:
+            prefix=item.split(':')[0]
+            if prefix+':id' in dict_ids_is_form.keys():
+                item=dict_ids_is_form[prefix+':id']
+            elif prefix+':seq' in dict_seqs_is_form.keys():
+                item=dict_seqs_is_form[prefix+':seq']
+        else:
+            item=item.split('.')[-1]
+
+    if is_list_or_tuple(items):
+        output = [get_form(item) for ii in items]
+        return output
+
+    try:
+        return dict_is_form[type(items)]
+    except:
+        try:
+            return dict_is_form[items]
+        except:
+            raise NotImplementedError()
+
+
+def select(items, selection='all', target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
 
     # to_syntaxis: 'NGLView', 'MDTraj', ...
 
@@ -186,21 +222,27 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT',
 
     """
 
-    form_in, _ = digest_forms(item)
+    if not is_a_single_molecular_systems(items):
+        raise NeedsSingleMolecularSystemError()
+
+    target = digest_target(target)
     syntaxis = digest_syntaxis(syntaxis)
-    if to_syntaxis is not None:
-        to_syntaxis = digest_syntaxis(to_syntaxis)
+    selection = digest_selection(selection, syntaxis)
+    to_syntaxis = digest_to_syntaxis(to_syntaxis)
+
+    top_item = where_topology_in_molecular_system(items)
+    top_form = get_form(top_item)
 
     if mask is 'all':
         mask=None
 
     if type(selection)==str:
         if selection in ['all', 'All', 'ALL']:
-            n_atoms = dict_get[form_in]['system']['n_atoms'](item)
+            n_atoms = dict_get[top_form]['system']['n_atoms'](top_item)
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
             selection, syntaxis = digest_selection(selection, syntaxis)
-            atom_indices = dict_selector[form_in][syntaxis](item, selection)
+            atom_indices = dict_selector[top_form][syntaxis](top_item, selection)
     elif type(selection) in [int, np.int64, np.int]:
         atom_indices = np.array([selection], dtype='int64')
     elif hasattr(selection, '__iter__'):
@@ -213,35 +255,129 @@ def select(item, selection='all', target='atom', mask=None, syntaxis='MolSysMT',
     if target=='atom':
         output_indices = atom_indices
     elif target=='group':
-        output_indices = get(item, target='atom', indices=atom_indices, group_index=True)
+        output_indices = get(top_item, target='atom', indices=atom_indices, group_index=True)
         output_indices = np.unique(output_indices)
     elif target=='component':
-        output_indices = get(item, target='atom', indices=atom_indices, component_index=True)
+        output_indices = get(top_item, target='atom', indices=atom_indices, component_index=True)
         output_indices = np.unique(output_indices)
     elif target=='chain':
-        output_indices = get(item, target='atom', indices=atom_indices, chain_index=True)
+        output_indices = get(top_item, target='atom', indices=atom_indices, chain_index=True)
         output_indices = np.unique(output_indices)
     elif target=='molecule':
-        output_indices = get(item, target='atom', indices=atom_indices, molecule_index=True)
+        output_indices = get(top_item, target='atom', indices=atom_indices, molecule_index=True)
         output_indices = np.unique(output_indices)
     elif target=='entity':
-        output_indices = get(item, target='atom', indices=atom_indices, entity_index=True)
+        output_indices = get(top_item, target='atom', indices=atom_indices, entity_index=True)
         output_indices = np.unique(output_indices)
     elif target=='bond':
-        output_indices = get(item, target='atom', indices=atom_indices, inner_bond_index=True)
+        output_indices = get(top_item, target='atom', indices=atom_indices, inner_bond_index=True)
 
     else:
-        raise NotImplementedError
+        raise NotImplementedError()
 
     if mask is not None:
-        output_indices = intersection_indices(output_indices,mask)
+        output_indices = np.intersect1d(output_indices, mask, assume_unique=True)
 
     if to_syntaxis is None:
         return output_indices
     else:
-        return indices_to_syntaxis(item, output_indices, target=target, to_syntaxis=to_syntaxis)
+        return indices_to_selection(top_item, output_indices, target=target, syntaxis=to_syntaxis)
 
-def remove(item, selection=None, frame_indices=None, to_form=None, syntaxis='MolSysMT'):
+
+def get(items, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+
+
+    """get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT')
+
+    Get specific attributes and observables.
+
+    Paragraph with detailed explanation.
+
+    Parameters
+    ----------
+
+    item: molecular model
+        Molecular model in any of the supported forms by MolSysMT. (See: XXX)
+
+    target: str, default='system'
+        The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
+        'system'.
+
+    indices: int, list, tuple or np.ndarray, default=None
+        List of indices referring the set of targetted entities ('atom', 'group' or 'chain') this
+        method is going to work with. The set of indices can be given by a list, tuple or numpy
+        array of integers (0-based).
+
+
+    selection: str, list, tuple or np.ndarray, default='all'
+       Atoms selection over which this method applies. The selection can be given by a
+       list, tuple or numpy array of integers (0-based), or by means of a string following any of
+       the selection syntaxis parsable by MolSysMT.
+
+    syntaxis: str, default='MolSysMT'
+       Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
+       current options supported by MolSysMt in section 'Selection'.
+
+    Returns
+    -------
+    None
+        The method prints out a pandas dataframe with relevant information depending on the target
+        chosen.
+
+    Examples
+    --------
+
+    See Also
+    --------
+
+    :func:`molsysmt.get`, :func:`molsysmt.select`
+
+    Notes
+    -----
+
+    """
+
+    if not is_a_single_molecular_systems(items):
+        raise NeedsSingleMolecularSystem()
+
+    # selection works as a mask if indices or ids are used
+
+    target = digest_target(target)
+    attributes = [ digest_get_argument(key) for key in kwargs.keys() if kwargs[key] ]
+    indices = digest_indices(indices)
+    frame_indices = digest_frame_indices(indices)
+
+    # doing the work here
+
+    if indices is None:
+        if selection is not 'all':
+            indices = select(item, target=target, selection=selection, syntaxis=syntaxis)
+        else:
+            indices = 'all'
+
+
+    top_item, traj_item, coor_item, box_item = where_any_in_molecular_system(items)
+    top_form, traj_form, coor_form, box_form = get_form([top_item, traj_item, coor_item, box_item])
+
+    output = []
+    for attribute in attributes:
+        for item, form, list_arguments in [[top_item, top_form, list_topology_get_arguments],
+                                           [traj_item, traj_form, list_trajectory_get_arguments],
+                                           [coor_item, coor_form, list_coordinates_get_arguments],
+                                           [box_item, box_form, list_box_get_arguments],]:
+            if attribute in list_arguments:
+                if item is None:
+                    result = None
+                else:
+                    result = dict_get[form][target][attribute](item, indices=indices, frame_indices=frame_indices)
+                break
+
+        output.append(result)
+
+    digest_output(output)
+    return output
+
+def remove(items, selection=None, frame_indices=None, to_form=None, syntaxis='MolSysMT'):
 
     """remove(item, selection=None, frame_indices=None, syntaxis='MolSysMT')
 
@@ -298,24 +434,25 @@ def remove(item, selection=None, frame_indices=None, to_form=None, syntaxis='Mol
 
     """
 
+    if not is_a_single_molecular_systems(item):
+        raise NeedsSingleMolecularSystemError()
+
+    frame_indices = digest_frame_indices(frame_indices)
+
     atom_indices_to_be_kept = 'all'
     frame_indices_to_be_kept = 'all'
 
     if selection is not None:
-        from .utils.atom_indices import complementary_atom_indices
-        atom_indices_to_be_removed = select(item, selection, syntaxis=syntaxis)
-        atom_indices_to_be_kept = complementary_atom_indices(item, atom_indices_to_be_removed)
+        atom_indices_to_be_removed = select(items, selection, syntaxis=syntaxis)
+        atom_indices_to_be_kept = complementary_atom_indices(items, atom_indices_to_be_removed)
 
     if frame_indices is not None:
-        from .utils.frame_indices import digest as digest_frame_indices
-        from .utils.frame_indices import complementary_frame_indices
-        frame_indices_to_be_removed = digest_frame_indices(item, frame_indices)
-        frame_indices_to_be_kept = complementary_frame_indices(item, frame_indices_to_be_removed)
+        frame_indices_to_be_kept = complementary_frame_indices(items, frame_indices_to_be_removed)
 
-    return extract(item, selection=atom_indices_to_be_kept, frame_indices=frame_indices_to_be_kept,
-                   to_form=to_form, syntaxis=syntaxis)
+    return extract(items, selection=atom_indices_to_be_kept, frame_indices=frame_indices_to_be_kept, to_form=to_form)
 
-def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='MolSysMT'):
+
+def extract(items, selection='all', frame_indices='all', to_form=None, syntaxis='MolSysMT'):
 
     """extract(item, selection='all', frame_indices='all', syntaxis='MolSysMT')
 
@@ -357,32 +494,31 @@ def extract(item, selection='all', frame_indices='all', to_form=None, syntaxis='
 
     """
 
-    form_in, form_out = digest_forms(item, to_form)
+    if is_a_list_of_molecular_systems(item):
+        raise MultipleMolecularSystemsError(MultipleMolecularSystemsMessage)
+
+    frame_indices = digest_frame_indices(frame_indices)
+    to_form = digest_to_form(to_form)
+    items = digest_items(items)
 
     if selection is 'all':
         atom_indices='all'
     else:
-        atom_indices = select(item=item, selection=selection, syntaxis=syntaxis)
+        atom_indices = select(items=items, selection=selection, syntaxis=syntaxis)
 
-    out_file = None
+    tmp_items = []
 
-    if type(form_out)==str:
-        if form_out.split('.')[-1] in list_files_forms:
-            out_file=form_out
-            form_out=form_out.split('.')[-1]
+    for item in items:
+        form_in = get_form(item)
+        tmp_item = dict_extractor[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices) # si es file debe ir a un temporal para ser renombrado luego
+        tmp_items.append(tmp_item)
 
-    if (out_file is not None) and (form_in==form_out) :
-
-        return dict_extractor[form_in](item, output_filepath=out_file, atom_indices=atom_indices, frame_indices=frame_indices)
-
+    if to_form is None:
+        return tmp_items
     else:
+        tmp_items = convert(tmp_items, to_form=to_form)
 
-        tmp_item = dict_extractor[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices)
-
-        if form_in!=form_out:
-            tmp_item = convert(tmp_item, to_form=form_out)
-
-        return tmp_item
+    return tmp_items
 
 def merge(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
@@ -428,8 +564,10 @@ def merge(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'
 
     """
 
-    if type(items) not in [list, tuple]:
-        raise ValueError('The argument items needs to be a list or tuple of molecular systems')
+    if is_a_single_molecular_system(items):
+        raise NeedsMultipleMolecularSystemsError()
+
+    to_form = digest_to_form(items)
 
     if to_form is None:
         to_form = get_form(items[0])
@@ -446,6 +584,9 @@ def merge(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'
     elif len(frame_indices)!=n_items:
         raise ValueError("The length of the lists items and frame_indices need to be equal.")
 
+    for ii in range(n_items):
+        frame_indices[ii]=digest_frame_indices([ii])
+
     list_items = []
     list_atom_indices = []
     list_frame_indices = []
@@ -460,28 +601,37 @@ def merge(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'
             list_atom_indices.append(select(aux_item, selection=aux_selection, syntaxis=syntaxis))
             list_frame_indices.append(aux_frame_indices)
 
-    tmp_item = dict_merge[to_form](list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+    if is_list_or_tuple(to_form):
+        tmp_item = []
+        for ii in range(len(to_form)):
+            aux_tmp_item = dict_merge[to_form[ii]](list_items[:][ii], list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+            tmp_item.append(aux_tmp_item)
+    else:
+        tmp_item = dict_merge[to_form](list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
 
     return tmp_item
 
-def add(item, items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'):
+def add(to_items, from_items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'):
 
-    form_in = get_form(item)
+    if not is_single_molecular_system(to_items):
+        raise NeedsSingleMolecularSystem("The argument 'to_items' needs to contain a single molecular system.")
 
-    if type(items) not in [list, tuple]:
-        items = [items]
+    if is_single_molecular_system(from_items):
+        from_items = [from_items]
 
-    n_items = len(items)
+    n_from_items = len(from_items)
 
-    if type(selections) not in [list, tuple]:
+    if not is_list_or_tuple(selections):
         selections = [selections for ii in range(n_items)]
     elif len(selections)!=n_items:
         raise ValueError("The length of the lists items and selections need to be equal.")
 
     if type(frame_indices) not in [list, tuple]:
-        frame_indices = [frame_indices for ii in range(n_items)]
+        frame_indices = [digest_frame_indices(frame_indices) for ii in range(n_items)]
     elif len(frame_indices)!=n_items:
         raise ValueError("The length of the lists items and frame_indices need to be equal.")
+
+    to_form = get_form(to_items)
 
     list_items = []
     list_atom_indices = []
@@ -497,12 +647,24 @@ def add(item, items=None, selections='all', frame_indices='all', syntaxis='MolSy
             list_atom_indices.append(select(aux_item, selection=aux_selection, syntaxis=syntaxis))
             list_frame_indices.append(aux_frame_indices)
 
-    return dict_add[form_in](item, list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+
+    if is_list_or_tuple(to_form):
+        tmp_item = []
+        for ii in range(len(to_form)):
+            aux_tmp_item = dict_add[to_form[ii]](to_items[ii], list_items[:][ii], list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+            tmp_item.append(aux_tmp_item)
+    else:
+        tmp_item = dict_add[to_form](to_items, list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+
+    return tmp_item
+
 
 def concatenate(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
-    if type(items) not in [list, tuple]:
-        raise ValueError('The argument items needs to be a list or tuple of molecular systems')
+    if is_a_single_molecular_system(items):
+        raise NeedsMultipleMolecularSystemsError()
+
+    to_form = digest_to_form(items)
 
     if to_form is None:
         to_form = get_form(items[0])
@@ -517,7 +679,10 @@ def concatenate(items=None, selections='all', frame_indices='all', syntaxis='Mol
     if type(frame_indices) not in [list, tuple]:
         frame_indices = [frame_indices for ii in range(n_items)]
     elif len(frame_indices)!=n_items:
-        raise ValueError("The length of the lists items and selections need to be equal.")
+        raise ValueError("The length of the lists items and frame_indices need to be equal.")
+
+    for ii in range(n_items):
+        frame_indices[ii]=digest_frame_indices([ii])
 
     list_items = []
     list_atom_indices = []
@@ -533,28 +698,37 @@ def concatenate(items=None, selections='all', frame_indices='all', syntaxis='Mol
             list_atom_indices.append(select(aux_item, selection=aux_selection, syntaxis=syntaxis))
             list_frame_indices.append(aux_frame_indices)
 
-    tmp_item = dict_concatenate[to_form](list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+    if is_list_or_tuple(to_form):
+        tmp_item = []
+        for ii in range(len(to_form)):
+            aux_tmp_item = dict_concatenate[to_form[ii]](list_items[:][ii], list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+            tmp_item.append(aux_tmp_item)
+    else:
+        tmp_item = dict_concatenta[to_form](list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
 
     return tmp_item
 
-def append(item, items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'):
+def append(to_item, from_items=None, selections='all', frame_indices='all', syntaxis='MolSysMT'):
 
-    form_in = get_form(item)
+    if not is_single_molecular_system(to_items):
+        raise NeedsSingleMolecularSystem("The argument 'to_items' needs to contain a single molecular system.")
 
-    if type(items) not in [list, tuple]:
-        items = [items]
+    if is_single_molecular_system(from_items):
+        from_items = [from_items]
 
-    n_items = len(items)
+    n_from_items = len(from_items)
 
-    if type(selections) not in [list, tuple]:
+    if not is_list_or_tuple(selections):
         selections = [selections for ii in range(n_items)]
     elif len(selections)!=n_items:
         raise ValueError("The length of the lists items and selections need to be equal.")
 
     if type(frame_indices) not in [list, tuple]:
-        frame_indices = [frame_indices for ii in range(n_items)]
+        frame_indices = [digest_frame_indices(frame_indices) for ii in range(n_items)]
     elif len(frame_indices)!=n_items:
         raise ValueError("The length of the lists items and frame_indices need to be equal.")
+
+    to_form = get_form(to_items)
 
     list_items = []
     list_atom_indices = []
@@ -570,9 +744,17 @@ def append(item, items=None, selections='all', frame_indices='all', syntaxis='Mo
             list_atom_indices.append(select(aux_item, selection=aux_selection, syntaxis=syntaxis))
             list_frame_indices.append(aux_frame_indices)
 
-    return dict_append[form_in](item, list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+    if is_list_or_tuple(to_form):
+        tmp_item = []
+        for ii in range(len(to_form)):
+            aux_tmp_item = dict_append[to_form[ii]](to_items[ii], list_items[:][ii], list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
+            tmp_item.append(aux_tmp_item)
+    else:
+        tmp_item = dict_append[to_form](to_items, list_items, list_atom_indices=list_atom_indices, list_frame_indices=list_frame_indices)
 
-def info(item=None, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):
+    return tmp_item
+
+def info(items=None, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):
 
     """info(item, target='system', indices=None, selection='all', syntaxis='MolSysMT')
 
@@ -624,11 +806,14 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
     """
 
+    if not is_a_single_molecular_system(items):
+        raise NeedsSingleMolecularSystemError()
+
+    target = digest_target(target)
+
     if output=='dataframe':
 
         from pandas import DataFrame as df
-        form_in, _ = digest_forms(item)
-        target = singular(target)
 
         if target=='atom':
 
@@ -637,7 +822,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
             component_index,\
             chain_index,\
             molecule_index, molecule_type,\
-            entity_index, entity_name= get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name= get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                            atom_index=True, atom_id=True, atom_name=True, atom_type=True,
                                            group_index=True, group_id=True, group_name=True, group_type=True,
                                            component_index=True,
@@ -658,7 +843,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
             n_atoms, component_index,\
             chain_index,\
             molecule_index, molecule_type,\
-            entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             group_index=True, group_id=True, group_name=True, group_type=True, n_atoms=True,
                                             component_index=True, chain_index=True, molecule_index=True, molecule_type=True,
                                             entity_index=True, entity_name=True)
@@ -675,7 +860,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
             component_index, n_atoms, n_groups,\
             chain_index,\
             molecule_index, molecule_type,\
-            entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             component_index=True, n_atoms=True, n_groups=True,
                                             chain_index=True,
                                             molecule_index=True, molecule_type=True,
@@ -692,7 +877,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
             chain_index, chain_id, chain_name,\
             n_atoms, n_groups, n_components,\
             molecule_index, molecule_type,\
-            entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             chain_index=True, chain_id=True, chain_name=True,
                                             n_atoms=True, n_groups=True, n_components=True,
                                             molecule_index=True, molecule_type=True,
@@ -737,7 +922,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
             molecule_index, molecule_name, molecule_type,\
             n_atoms, n_groups, n_components, chain_index,\
-            entity_index, entity_name = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             molecule_index=True, molecule_name=True, molecule_type=True,
                                             n_atoms=True, n_groups=True, n_components=True, chain_index=True,
                                             entity_index=True, entity_name=True)
@@ -762,7 +947,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
             entity_index, entity_name, entity_type,\
             n_atoms, n_groups, n_components, n_chains,\
-            n_molecules = get(item, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            n_molecules = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                     entity_index=True, entity_name=True, entity_type=True,
                     n_atoms=True, n_groups=True, n_components=True,
                     n_chains=True, n_molecules=True)
@@ -774,14 +959,14 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         elif target=='system':
 
-            form, n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities = get(item, target=target,
-                    form=True, n_atoms=True, n_groups=True, n_components=True, n_chains=True, n_molecules=True, n_entities=True)
+            form = get_form(items)
 
-            n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas, n_rnas = get(item, target=target,
+            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_frames,
+            n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas,
+            n_rnas = get(items, target=target,
+                    n_atoms=True, n_groups=True, n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_frames=True,
                     n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
                     n_dnas=True, n_rnas=True)
-
-            n_frames = get(item, target=target, n_frames=True)
 
             tmp_df = df({'form':form, 'n_atoms':n_atoms, 'n_groups':n_groups, 'n_components':n_components,
                 'n_chains':n_chains, 'n_molecules':n_molecules, 'n_entities':n_entities,
@@ -805,16 +990,15 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
             raise ValueError('"target" needs one of the following strings: "atom", "group",\
                              "component", "chain", "molecule", "entity" or "system"')
 
-
     elif output=='short_string':
 
         string = None
 
         if indices is None and selection is not None:
 
-            indices = select(item, selection=selection, target=target)
+            indices = select(items, selection=selection, target=target)
 
-        string = _element2string(item, indices=indices, target=target)
+        string = elements2string(items, indices=indices, target=target)
 
         if len(string)==1:
             return string[0]
@@ -825,13 +1009,13 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         if target=='atom':
 
-            group_indices, chain_indices, molecule_indices = get(item, target=target, indices=indices, group_index=True,
+            group_indices, chain_indices, molecule_indices = get(items, target=target, indices=indices, group_index=True,
                                 chain_index=True, molecule_index=True)
 
-            atom_string = _element2string(item, indices=indices, target=target)
-            group_string = _element2string(item, indices=group_indices, target='group')
-            chain_string = _element2string(item, indices=chain_indices, target='chain')
-            molecule_string = _element2string(item, indices=molecule_indices, target='molecule')
+            atom_string = elements2string(items, indices=indices, target=target)
+            group_string = elements2string(items, indices=group_indices, target='group')
+            chain_string = elements2string(items, indices=chain_indices, target='chain')
+            molecule_string = elements2string(items, indices=molecule_indices, target='molecule')
 
             string=[]
 
@@ -845,12 +1029,12 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         elif target=='group':
 
-            chain_indices, molecule_indices = get(item, target=target, indices=indices,
+            chain_indices, molecule_indices = get(items, target=target, indices=indices,
                                 chain_index=True, molecule_index=True)
 
-            group_string = _element2string(item, indices=indices, target=target)
-            chain_string = _element2string(item, indices=chain_indices, target='chain')
-            molecule_string = _element2string(item, indices=molecule_indices, target='molecule')
+            group_string = elements2string(items, indices=indices, target=target)
+            chain_string = elements2string(items, indices=chain_indices, target='chain')
+            molecule_string = elements2string(items, indices=molecule_indices, target='molecule')
 
             string=[]
 
@@ -864,12 +1048,12 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         elif target=='component':
 
-            chain_indices, molecule_indices = get(item, target=target, indices=indices,
+            chain_indices, molecule_indices = get(items, target=target, indices=indices,
                                 chain_index=True, molecule_index=True)
 
-            component_string = _element2string(item, indices=indices, target=target)
-            chain_string = _element2string(item, indices=chain_indices, target='chain')
-            molecule_string = _element2string(item, indices=molecule_indices, target='molecule')
+            component_string = elements2string(items, indices=indices, target=target)
+            chain_string = elements2string(items, indices=chain_indices, target='chain')
+            molecule_string = elements2string(items, indices=molecule_indices, target='molecule')
 
             string=[]
 
@@ -883,7 +1067,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
         elif target=='chain':
 
 
-            chain_string = _element2string(item, indices=indices, target=target)
+            chain_string = elements2string(items, indices=indices, target=target)
             string=chain_string
 
             if len(string)==1:
@@ -892,7 +1076,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
         elif target=='molecule':
 
 
-            molecule_string = _element2string(item, indices=indices, target=target)
+            molecule_string = elements2string(items, indices=indices, target=target)
             string=molecule_string
 
             if len(string)==1:
@@ -900,7 +1084,7 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         elif target=='entity':
 
-            entity_string = _element2string(item, indices=indices, target=target)
+            entity_string = element2string(items, indices=indices, target=target)
             string=entity_string
 
             if len(string)==1:
@@ -916,201 +1100,8 @@ def info(item=None, target='system', indices=None, selection='all', syntaxis='Mo
 
         raise ValueError()
 
-def _element2string(item, indices=None, target='atom'):
 
-    string=[]
-
-    if target=='atom':
-
-        atom_indices, atom_ids, atom_names = get(item, target=target, indices=indices, index=True, id=True, name=True)
-        for atom_index, atom_id, atom_name in zip(atom_indices, atom_ids, atom_names):
-            string.append(atom_name+'-'+str(atom_id)+'@'+str(atom_index))
-
-    elif target=='group':
-
-        group_indices, group_ids, group_names = get(item, target=target, indices=indices, index=True, id=True, name=True)
-        for group_index, group_id, group_name in zip(group_indices, group_ids, group_names):
-            string.append(group_name+'-'+str(group_id)+'@'+str(group_index))
-
-    elif target=='component':
-
-        component_indices = get(item, target=target, indices=indices, index=True)
-        for component_index in component_indices:
-            string.append(str(component_index))
-
-    elif target=='chain':
-
-        chain_indices, chain_ids, chain_names = get(item, target=target, indices=indices, index=True, id=True, name=True)
-        for chain_index, chain_id, chain_name in zip(chain_indices, chain_ids, chain_names):
-            string.append(chain_name+'-'+str(chain_id)+'@'+str(chain_index))
-
-    elif target=='molecule':
-
-        molecule_indices, molecule_names = get(item, target=target, indices=indices, index=True, name=True)
-        for molecule_index, molecule_name in zip(molecule_indices, molecule_names):
-            string.append(molecule_name+'@'+str(molecule_index))
-
-    elif target=='entity':
-
-        entity_indices, entity_names = get(item, target=target, indices=indices, index=True, name=True)
-        for entity_index, entity_name in zip(entity_indices, entity_names):
-            string.append(entity_name+'@'+str(entity_index))
-
-    return string
-
-
-def get_form(item=None):
-
-    from simtk.unit import Quantity
-
-    if type(item) == Quantity:
-
-        from .forms.classes.api_XYZ import this_Quantity_is_XYZ
-        if this_Quantity_is_XYZ(item):
-            return 'XYZ'
-        else:
-            raise NotImplementedError("This item's form has not been implemented yet")
-
-    if type(item)==str:
-
-        if ':' in item:
-            prefix=item.split(':')[0]
-            if prefix+':id' in dict_ids_is_form.keys():
-                item=dict_ids_is_form[prefix+':id']
-            elif prefix+':seq' in dict_seqs_is_form.keys():
-                item=dict_seqs_is_form[prefix+':seq']
-        else:
-            item=item.split('.')[-1]
-
-    if type(item)==list:
-        output = [get_form(ii) for ii in item]
-        return output
-
-    try:
-        return dict_is_form[type(item)]
-    except:
-        try:
-            return dict_is_form[item]
-        except:
-            raise NotImplementedError("This item's form has not been implemented yet")
-
-def get(item, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
-
-    """get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT')
-
-    Get specific attributes and observables.
-
-    Paragraph with detailed explanation.
-
-    Parameters
-    ----------
-
-    item: molecular model
-        Molecular model in any of the supported forms by MolSysMT. (See: XXX)
-
-    target: str, default='system'
-        The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
-        'system'.
-
-    indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ('atom', 'group' or 'chain') this
-        method is going to work with. The set of indices can be given by a list, tuple or numpy
-        array of integers (0-based).
-
-
-    selection: str, list, tuple or np.ndarray, default='all'
-       Atoms selection over which this method applies. The selection can be given by a
-       list, tuple or numpy array of integers (0-based), or by means of a string following any of
-       the selection syntaxis parsable by MolSysMT.
-
-    syntaxis: str, default='MolSysMT'
-       Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
-       current options supported by MolSysMt in section 'Selection'.
-
-    Returns
-    -------
-    None
-        The method prints out a pandas dataframe with relevant information depending on the target
-        chosen.
-
-    Examples
-    --------
-
-    See Also
-    --------
-
-    :func:`molsysmt.get`, :func:`molsysmt.select`
-
-    Notes
-    -----
-
-    """
-
-    # In case of list of items
-
-    if type(item) in [list, tuple]:
-        results=[get(ii, target=target, indices=indices, selection=selection,
-            frame_indices=frame_indices, syntaxis=syntaxis, **kwargs) for ii in item]
-        return results
-
-    # selection works as a mask if indices or ids are used
-
-    form_in, _ = digest_forms(item)
-    target = singular(target)
-    attributes = [ key for key in kwargs.keys() if kwargs[key] ]
-
-    # Patch to keep "residue":
-    if target=='residue':
-        target='group'
-
-    tmp_attributes=[]
-    for attribute in attributes:
-        if 'residue' in attribute:
-            tmp_attributes.append(attribute.replace('residue','group'))
-        else:
-            tmp_attributes.append(attribute)
-    attributes=tmp_attributes
-
-    # doing the work here
-
-    if type(indices)==str:
-        if indices in ['all', 'All', 'ALL']:
-            indices = 'all'
-        else:
-            raise ValueError()
-    elif type(indices) in [int, np.int64, np.int]:
-        indices = np.array([indices], dtype='int64')
-    elif hasattr(indices, '__iter__'):
-        indices = np.array(indices, dtype='int64')
-
-    if indices is None:
-        if selection is not 'all':
-            indices = select(item, target=target, selection=selection, syntaxis=syntaxis)
-        else:
-            indices = 'all'
-
-    if type(frame_indices)==str:
-        if frame_indices in ['all', 'All', 'ALL']:
-            frame_indices = 'all'
-        else:
-            raise ValueError()
-    elif type(frame_indices) in [int, np.int64, np.int]:
-        frame_indices = np.array([frame_indices], dtype='int64')
-    elif hasattr(frame_indices, '__iter__'):
-        frame_indices = np.array(frame_indices, dtype='int64')
-
-
-    results = []
-    for attribute in attributes:
-        result = dict_get[form_in][target][attribute](item, indices=indices, frame_indices=frame_indices)
-        results.append(result)
-
-    if len(results)==1:
-        return results[0]
-    else:
-        return results
-
-def set(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+def set(items, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
     """into(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT')
 
@@ -1165,49 +1156,39 @@ def set(item, target='system', indices=None, selection='all', frame_indices='all
 
     """
 
+    if not is_a_single_molecular_systems(items):
+        raise NeedsSingleMolecularSystem()
 
-    form_in, _ = digest_forms(item)
-    target = singular(target)
-    attributes = [ key for key in kwargs.keys() ]
+    # selection works as a mask if indices or ids are used
 
-    # Patch to keep "residue":
-    if target=='residue':
-        target='group'
-
-    tmp_attributes=[]
-    for attribute in attributes:
-        if 'residue' in attribute:
-            tmp_attribute = attribute.replace('residue','group')
-            tmp_attributes.append(tmp_attribute)
-            kwargs [tmp_attribute]= kwargs[attribute]
-            del(kwargs[attribute])
-        else:
-            tmp_attributes.append(attribute)
-    attributes=tmp_attributes
+    target = digest_target(target)
+    value_of_attribute = { digest_set_argument(key): kwargs[key] for key in kwargs.keys()}
+    attributes = value_or_attribute.keys()
+    indices = digest_indices(indices)
+    frame_indices = digest_frame_indices(indices)
 
     # doing the work here
 
     if indices is None:
-        if target == 'atom':
-            indices = select(item, selection=selection, syntaxis=syntaxis)
-        elif target == 'group':
-            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, group_index=True)
-            indices = list(_unique(indices))
-        elif target == 'chain':
-            indices = get(item, target='atom', selection=selection, syntaxis=syntaxis, chain_index=True)
-            indices = list(_unique(indices))
-        elif target == 'system':
-            indices = 0
+        if selection is not 'all':
+            indices = select(item, target=target, selection=selection, syntaxis=syntaxis)
+        else:
+            indices = 'all'
 
-    if frame_indices is 'all':
-        n_frames = get(item, target='system', n_frames=True)
-        frame_indices = np.arange(n_frames)
-    elif type(frame_indices)==int:
-        frame_indices = [frame_indices]
+
+    top_item, traj_item, coor_item, box_item = where_any_in_molecular_system(items)
+    top_form, traj_form, coor_form, box_form = get_form([top_item, traj_item, coor_item, box_item])
 
     for attribute in attributes:
-        value = kwargs[attribute]
-        dict_set[form_in][target][attribute](item, indices=indices, frame_indices=frame_indices, value=value)
+        for item, form, list_arguments in [[top_item, top_form, list_topology_set_arguments],
+                                           [traj_item, traj_form, list_trajectory_set_arguments],
+                                           [coor_item, coor_form, list_coordinates_set_arguments],
+                                           [box_item, box_form, list_box_set_arguments],]:
+            if attribute in list_arguments:
+                if item is not None:
+                    value = value_of_attribute[attribute]
+                    dict_set[form][target][attribute](item, indices=indices, frame_indices=frame_indices, value=value)
+                break
 
     pass
 

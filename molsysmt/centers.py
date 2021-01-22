@@ -1,15 +1,15 @@
-from .utils.engines import digest as _digest_engines
-from .utils.forms import digest as _digest_forms
+from .tools.engines import digest as _digest_engines
+from .tools.forms import digest as _digest_forms
 from .lib import com as _libcom
 from .lib import geometry as _libgeometry
 import numpy as _np
-from .utils.exceptions import *
+from .tools.exceptions import *
 
 def center(item=None, selection=None, groups_of_atoms=None, weights=None, frame_indices='all',
            syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
     from molsysmt import convert, select, get, extract
-    from molsysmt.utils.math import serialized_lists
+    from molsysmt.tools.math import serialized_lists
 
     engine = _digest_engines(engine)
     form_in, _ = _digest_forms(item, engine)

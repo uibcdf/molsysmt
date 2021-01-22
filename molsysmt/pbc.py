@@ -1,6 +1,6 @@
-from .utils.engines import digest as _digest_engines
-from .utils.frame_indices import digest as _digest_frame_indices
-from .utils.forms import digest as _digest_forms
+from .tools.engines import digest as _digest_engines
+from .tools.frame_indices import digest as _digest_frame_indices
+from .tools.forms import digest as _digest_forms
 from molsysmt.lib import box as _libbox
 import numpy as np
 
@@ -103,7 +103,7 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
 
     from molsysmt import convert, select, get, duplicate
     from molsysmt import set as _set
-    from molsysmt.utils.math import serialized_lists
+    from molsysmt.tools.math import serialized_lists
     from molsysmt.centers import geometrical_center
 
     n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
@@ -170,7 +170,7 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', frame_indices='all', s
 
     from molsysmt import convert, select, get, duplicate
     from molsysmt import set as _set
-    from molsysmt.utils.math import serialized_lists
+    from molsysmt.tools.math import serialized_lists
 
     n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
     atom_indices = select(item, selection=selection, syntaxis=syntaxis)
