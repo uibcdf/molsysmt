@@ -13,25 +13,29 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.molsys.files import from_pdb as pdb_to_molsysmt_MolSys
     tmp_item = pdb_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.files import from_pdb as pdb_to_molsysmt_Topology
     tmp_item = pdb_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.files import from_pdb as pdb_to_molsysmt_Trajectory
     tmp_item = pdb_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, atom_indices='all', frame_indices='all',
+                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from parmed import load_file as parmed_file_loader
     from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
@@ -39,7 +43,8 @@ def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from MDAnalysis import Universe as mdanalysis_Universe
     from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_universe
@@ -47,7 +52,8 @@ def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdanalysis_Topology(item, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Topology(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.classes.api_mdanalysis_topology_PDBParser import to_mdanalysis_Topology as mdanalysis_topology_PDBParser_to_mdanalysis_Topology
 
@@ -55,7 +61,8 @@ def to_mdanalysis_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item = mdanalysis_topology_PDBParser_to_mdanalysis_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdanalysis_topology_PDBParser(item, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_topology_PDBParser(item, atom_indices='all', frame_indices='all',
+                                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from MDAnalysis.topology import PDBParser
 
@@ -63,7 +70,8 @@ def to_mdanalysis_topology_PDBParser(item, atom_indices='all', frame_indices='al
 
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from mdtraj import load_topology as mdtraj_load_topology
     from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_topology
@@ -71,7 +79,8 @@ def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_mdtraj_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from mdtraj import load_pdb as mdtraj_pdb_loader
     from molsysmt.forms.classes.api_mdtraj_Trajectory import extract as extract_mdtraj_trajectory
@@ -79,21 +88,25 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_mdtraj_trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdtraj_PDBTrajectoryFile(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_PDBTrajectoryFile(item, atom_indices='all', frame_indices='all',
+                                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from mdtraj.formats.pdb import PDBTrajectoryFile
 
     return PDBTrajectoryFile(item)
 
-def to_mol2(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_mol2(item, atom_indices='all', frame_indices='all',
+            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+            output_filename=None):
 
     from parmed import load_file as parmed_file_loader
     from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
     tmp_item = parmed_file_loader(item)
     tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item.save(output_filepath)
+    return tmp_item.save(output_filename)
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from molsysmt.forms.classes.api_openmm_PDBFile import to_openmm_Topology as openmm_PDBFile_to_openmm_Topology
@@ -101,7 +114,8 @@ def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item = openmm_PDBFile_to_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from simtk.openmm.app.modeller import Modeller
@@ -111,10 +125,11 @@ def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_modeller(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
-        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*unit.nanometer, constraints=None,
-        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, **kwargs):
+def to_openmm_System(item, atom_indices='all', frame_indices='all',
+                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+                     forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*unit.nanometer, constraints=None,
+                     rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+                     flexible_constraints=False):
 
     from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_System as openmm_Modeller_to_openmm_System
 
@@ -130,12 +145,12 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_openmm_Simulation(item, trajectory_item=None, atom_indices='all', frame_indices='all',
-        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
-        collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
-        **kwargs):
+def to_openmm_Simulation(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+                         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+                         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+                         flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
+                         collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA'):
 
     from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_Simulation as openmm_Modeller_to_openmm_Simulation
 
@@ -150,7 +165,8 @@ def to_openmm_Simulation(item, trajectory_item=None, atom_indices='all', frame_i
 
     return tmp_item
 
-def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all'):
+def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all',
+                      topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from molsysmt.forms.classes.api_openmm_PDBFile import extract as extract_pdbfile
@@ -158,7 +174,8 @@ def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_pdbfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from pdbfixer.pdbfixer import PDBFixer
     from molsysmt.forms.classes.api_pdbfixer_PDBFixer import extract as extract_pdbfixer_PDBFixer
@@ -166,7 +183,8 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_pdbfixer_PDBFixer(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_pytraj_Trajectory(item, atom_indices='all', frame_indices='all'):
+def to_pytraj_Trajectory(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from pytraj import load as pytraj_load
     from molsysmt.forms.classes.api_pytraj_Trajectory import extract as extract_pytraj_Trajectory
@@ -174,7 +192,8 @@ def to_pytraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_pytraj_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_pytraj_Topology(item, atom_indices='all', frame_indices='all'):
+def to_pytraj_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from pytraj import load_topology as pytraj_load_topology
     from molsysmt.forms.classes.api_pytraj_Topology import extract as extract_pytraj_Topology
@@ -182,7 +201,8 @@ def to_pytraj_Topology(item, atom_indices='all', frame_indices='all'):
     tmp_item = extract_pytraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all',
+               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from nglview import show_file as _nglview_show_file
     from os import remove
@@ -191,7 +211,8 @@ def to_NGLView(item, atom_indices='all', frame_indices='all'):
     remove(tmp_file)
     return tmp_item
 
-def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
+def to_yank_Topography(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_yank_Topography as openmm_to_yank_Topography
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -212,26 +233,26 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_openmm_PDBFile(item)
     return select_openmm_PDBFile_with_MolSysMT(tmp_item, selection)
 
-def copy(item, output_filepath=None):
+def copy(item, output_filename=None):
 
     from shutil import copy as copy_file
-    from molsysmt.utils.files_and_directories import tmp_filename
-    if output_filepath is None:
-        output_filepath = tmp_filename(extension='pdb')
-    copy_file(item, output_filepath)
-    return output_filepath
+    from molsysmt._private_tools.files_and_directories import tmp_filename
+    if output_filename is None:
+        output_filename = tmp_filename(extension='pdb')
+    copy_file(item, output_filename)
+    return output_filename
 
-def extract(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def extract(item, output_filename=None, atom_indices='all', frame_indices='all'):
 
     if atom_indices is 'all' and frame_indices is 'all':
 
-        return copy(item, output_filepath=output_filepath)
+        return copy(item, output_filename=output_filename)
 
     else:
 
         from molsysmt.forms.classes.api_molsysmt_MolSys import to_pdb as molsysmt_MolSys_to_pdb
         tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        return molsysmt_MolSys_to_pdb(tmp_item, output_filepath=output_filepath)
+        return molsysmt_MolSys_to_pdb(tmp_item, output_filename=output_filename)
 
 ###### Get
 

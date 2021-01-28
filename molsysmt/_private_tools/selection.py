@@ -36,7 +36,7 @@ def digest_selection(selection, syntaxis="MolSysMT"):
 
         selection=selection.replace('backbone', '(atom_name==["CA", "N", "C", "O"])')
 
-    return selection, syntaxis
+    return selection
 
 def indices_to_selection(item, indices, target='atom', syntaxis=None):
 
@@ -75,4 +75,13 @@ def indices_to_selection(item, indices, target='atom', syntaxis=None):
         raise NotImplementedError
 
     return output_string
+
+def selection_is_all(selection):
+
+    output = False
+    if type(selection) is str:
+        if selection.lower()=='all':
+            output = True
+
+    return output
 

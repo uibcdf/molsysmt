@@ -1,6 +1,6 @@
-from .tools.engines import digest as _digest_engines
-from .tools.frame_indices import digest as _digest_frame_indices
-from .tools.forms import digest as _digest_forms
+from ._private_tools.engines import digest_engine
+from ._private_tools.frame_indices import digest_frame_indices
+from ._private_tools.forms import digest_form
 from molsysmt.lib import box as _libbox
 import numpy as np
 

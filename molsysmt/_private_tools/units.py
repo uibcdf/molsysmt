@@ -1,8 +1,8 @@
-from simtk import unit as _unit
+from simtk import unit
 
-length_int_unit = _unit.nanometers
-time_int_unit = _unit.picoseconds
-angle_int_unit = _unit.degrees
-temperature_int_unit = _unit.kelvin
-energy_int_unit = _unit.kilojoules_per_mole
+length_unit = unit.nanometers
+time_unit = unit.picoseconds
+angle_unit = unit.degrees
+temperature_unit = unit.kelvin
+energy_unit = unit.kilojoules_per_mole
 

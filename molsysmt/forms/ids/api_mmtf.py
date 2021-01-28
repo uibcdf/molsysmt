@@ -13,21 +13,21 @@ info=["",""]
 with_topology=True
 with_trajectory=True
 
-def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_pdb(item, output_filename=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_fasta(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_fasta(item, output_filename=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_mmtf(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_mmtf(item, output_filename=None, atom_indices='all', frame_indices='all'):
 
     from mmtf import fetch
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_mmtf as MMTFDecoder_to_mmtf
 
     tmp_item = to_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return MMTFDecoder_to_mmtf(tmp_item, output_filepath=output_filepath)
+    return MMTFDecoder_to_mmtf(tmp_item, output_filename=output_filename)
 
 def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
 

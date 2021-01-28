@@ -16,7 +16,8 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def load_frame (item, atom_indices='all', frame_indices='all'):
+def load_frame (item, atom_indices='all', frame_indices='all',
+                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     # It doesn't really work. seek doesn't work. Once the file is read can not be rewinded.
 
@@ -32,7 +33,7 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     else:
 
-        from molsysmt.utils.math import serie_to_chunks
+        from molsysmt._private_tools.math import serie_to_chunks
 
         starts_serie_frames, size_serie_frames = serie_to_chunks(frame_indices)
 

@@ -1,11 +1,8 @@
-from .tools.engines import digest as _digest_engines
-from .tools.frame_indices import digest as _digest_frame_indices
-from .tools.forms import digest as _digest_forms
+from ._private_tools.engines import digest_engine
+from ._private_tools.frame_indices import digest_frame_indices
+from ._private_tools.forms import digest_form
 import numpy as _np
-#from copy import deepcopy as _deepcopy
 from .lib import rmsd as _librmsd
-#from .multitool import get_form as get_form, select as _select, convert as _convert
-#from .tools.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
 
 def rmsd (item=None, selection='backbone', frame_indices='all',
           reference_item=None, reference_selection=None, reference_frame_index=0,

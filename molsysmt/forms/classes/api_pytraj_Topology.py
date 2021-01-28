@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 from pytraj import Topology as _pytraj_Topology
 import numpy as np
 import simtk.unit as unit
@@ -18,21 +18,14 @@ with_coordinates=False
 with_box=False
 with_parameters=False
 
-def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.classes import from_pytraj_Topology as molsysmt_Topology_from_pytraj_Topology
     from molsysmt.forms.classes.api_molsysmt_Topology import extract as extract_molsysmt_Topology
     tmp_item = molsysmt_Topology_from_pytraj_Topology(item)
     tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
-
-def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
 
 def select_with_Amber(item, selection):
 

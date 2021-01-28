@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
@@ -17,18 +17,6 @@ with_topology=True
 with_coordinates=True
 with_box=False
 with_parameters=False
-
-def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
 
 def select_with_Amber(item, selection):
 

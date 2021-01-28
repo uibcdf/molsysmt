@@ -14,12 +14,13 @@ with_coordinates=True
 with_box=True
 with_parameters=True
 
-def load_frame (item, atom_indices='all', frame_indices='all'):
+def load_frame (item, atom_indices='all', frame_indices='all',
+                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     #All of the data shall be n units of “nanometers”, “picoseconds”, “kelvin”, “degrees” and “kilojoules_per_mole”
 
     from numpy import array, concatenate, arange
-    from molsysmt.utils.math import serie_to_chunks
+    from molsysmt._private_tools.math import serie_to_chunks
     from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
     from simtk.unit import nanometers, picoseconds, degrees
 
@@ -100,7 +101,7 @@ def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
 def get_box_shape_from_system (item, indices='all', frame_indices='all'):
 
-    from molsysmt.utils.pbc import get_shape_from_angles
+    from molsysmt._private_tools.pbc import get_shape_from_angles
     position = item.tell()
     frame_hdf5 = item.read(n_frames=1)
     cell_angles = frame_hdf5.cell_angles

@@ -13,40 +13,47 @@ with_trajectory=False
 
 ### Corresponde al formato IUPAC extended protein que aparece en Biopython
 
-def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
+def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     if atom_indices is 'all':
         return item
     else:
         raise NotImplementedError
 
-def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from Bio.SeqUtils import seq1
     tmp_item = seq1(item.replace('aminoacids3:',''))
     return 'aminoacids1:'+tmp_item
 
-def to_biopython_Seq(item, atom_indices='all', frame_indices='all'):
+def to_biopython_Seq(item, atom_indices='all', frame_indices='all',
+                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = _aminoacis1_to_biopython_Seq(tmp_item)
     return tmp_item
 
-def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all'):
+def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacis1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
 
-def to_fasta(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_fasta(item, atom_indices='all', frame_indices='all',
+             topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+             output_filename=None):
 
     from .api_aminoacids1 import to_fasta as aminoacids1_to_fasta
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return aminoacis1_to_fasta(tmp_item, output_filepath=output_filepath)
+    return aminoacis1_to_fasta(tmp_item, output_filename=output_filename)
 
-def to_molsysmt_MolSys(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt import build_peptide
     from molsysmt.forms.classes.api_molsysmt_MolSys import extract as extract_molsysmt_MolSys
@@ -56,12 +63,14 @@ def to_molsysmt_MolSys(item, topology_item=None, trajectory_item=None, atom_indi
 
     return tmp_item
 
-def to_nglview_NGLWidget(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     return to_NGLView(item, topology_item=topology_item, trajectory_item=trajectory_item,
             atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_NGLView(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all',
+               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
 

@@ -57,7 +57,7 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
     tmp_item = Modeller(item, positions[0])
     return tmp_item
 
-def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
+def to_pdb(item, output_filename=None, trajectory_item=None, atom_indices='all',
            frame_indices='all'):
 
     from molsysmt import get as _get
@@ -79,10 +79,10 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
     tmp_io.close()
     del(tmp_io)
 
-    if output_filepath=='.pdb':
+    if output_filename=='.pdb':
         return filedata
     else:
-        with open(output_filepath, 'w') as file:
+        with open(output_filename, 'w') as file:
             file.write(filedata)
         pass
 

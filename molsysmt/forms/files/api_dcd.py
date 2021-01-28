@@ -10,20 +10,8 @@ is_form = {
 info=["",""]
 with_topology=False
 with_trajectory=True
-
-def to_mdtraj_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
-
-    if not topology:
-        raise ValueError('"topology" argument is required to convert a dcd file to mdtraj_Trajectory')
-
-    raise NotImplementedError
-
-def to_mdanalysis_Universe(item, topology=None, atom_indices='all', frame_indices='all'):
-
-    if not topology:
-        raise ValueError('"topology" argument is required for dcd.to_mdtraj')
-
-    raise NotImplementedError
+with_coordinates=True
+with_box=True
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

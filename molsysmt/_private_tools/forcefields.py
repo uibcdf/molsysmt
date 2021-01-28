@@ -1,4 +1,4 @@
-from .engines import digest as _digest_engines
+from .engines import digest_engine
 
 _forcefields = {
 
@@ -150,14 +150,14 @@ switcher['LEaP'] = {
 }
 
 
-def digest(forcefields, engine, implicit_solvent=None, water_model=None):
+def digest_forcefields(forcefields, engine, implicit_solvent=None, water_model=None):
 
     forcefields_out=[]
 
     if type(forcefields) not in [list, tuple]:
         forcefields=[forcefields]
 
-    engine = _digest_engines(engine)
+    engine = digest_engine(engine)
 
     for ff in forcefields:
         try:

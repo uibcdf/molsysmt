@@ -7,7 +7,7 @@ def build_peptide (item, forcefield='AMBER14', implicit_solvent=None, water_mode
     # water_model in ['TIP3P']
     # box_geometry: "cubic" or "truncated_octahedral"
 
-    from molsysmt.tools.forcefields import digest as digest_forcefield
+    from molsysmt._private_tools.forcefields import digest as digest_forcefield
     from molsysmt import convert
     from os import getcwd, chdir
 

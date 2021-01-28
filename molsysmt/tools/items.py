@@ -1,8 +1,9 @@
 import numpy as np
-from molsysmt import get_form
-from molsysmt.multitool import dict_get
 
 def compatibles_for_a_molecular_system(items):
+
+    from molsysmt.multitool import get_form
+    from molsysmt.multitool import dict_get
 
     compatible = True
 
@@ -42,6 +43,9 @@ def compatibles_for_a_molecular_system(items):
 
 def has_topology(items):
 
+    from molsysmt.multitool import get_form
+    from molsysmt.multitool import dict_get
+
     if type(items) in [list, tuple]:
         output = []
         for item in items:
@@ -55,6 +59,9 @@ def has_topology(items):
     return output
 
 def has_trajectory(items):
+
+    from molsysmt.multitool import get_form
+    from molsysmt.multitool import dict_get
 
     if type(items) in [list, tuple]:
         output = []
@@ -70,6 +77,9 @@ def has_trajectory(items):
 
 def has_coordinates(items):
 
+    from molsysmt.multitool import get_form
+    from molsysmt.multitool import dict_get
+
     if type(items) in [list, tuple]:
         output = []
         for item in items:
@@ -84,6 +94,9 @@ def has_coordinates(items):
 
 def has_box(items):
 
+    from molsysmt.multitool import get_form
+    from molsysmt.multitool import dict_get
+
     if type(items) in [list, tuple]:
         output = []
         for item in items:
@@ -95,5 +108,4 @@ def has_box(items):
         output = dict_get[form_in]["system"]["has_box"](item)
 
     return output
-
 

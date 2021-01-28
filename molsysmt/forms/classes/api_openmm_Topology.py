@@ -3,7 +3,7 @@ from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
 import numpy as np
 import simtk.unit as unit
 from molsysmt.forms.common_gets import *
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -18,17 +18,20 @@ with_coordinates=False
 with_box=True
 with_parameters=False
 
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.classes import from_openmm_Topology as molsysmt_Topology_from_openmm_Topology
     return molsysmt_Topology_from_openmm_Topology(item, atom_indices=atom_indices)
 
-def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.molsys.classes import from_openmm_Topology as molsysmt_MolSys_from_openmm_Topology
     return molsysmt_MolSys_from_openmm_Topology(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_mdtraj_Topology import extract as extract_mdtraj_Topology
     from mdtraj.core.topology import Topology as mdtraj_Topology
@@ -36,21 +39,24 @@ def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
     tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_parmed_Structure(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, atom_indices='all', frame_indices='all',
+                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from parmed.openmm import load_topology as openmm_Topology_to_parmed_Structure
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
     return tmp_item
 
-def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
+def to_yank_Topography(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from yank import Topography as yank_Topography
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = yank_Topography(tmp_item)
     return tmp_item
 
-def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt import get
     from simtk.openmm.app import Modeller
@@ -60,16 +66,17 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
     tmp_item = Modeller(item, positions[0])
     return tmp_item
 
-def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indices='all',
-        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-        rigid_water=True, remove_cm_motion=False, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-        water_model=None, implicit_solvent=None,
-        implicit_solvent_salt_conc= 0.0*unit.mole/unit.liter, implicit_solvent_kappa=0.0/unit.nanometers,
-        solute_dielectric=1.0, solvent_dielectric=78.5, **kwargs):
+def to_openmm_System(item, atom_indices='all', frame_indices='all',
+                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+                     forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+                     rigid_water=True, remove_cm_motion=False, hydrogen_mass=None, switch_distance=None,
+                     flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
+                     water_model=None, implicit_solvent=None,
+                     implicit_solvent_salt_conc= 0.0*unit.mole/unit.liter, implicit_solvent_kappa=0.0/unit.nanometers,
+                     solute_dielectric=1.0, solvent_dielectric=78.5):
 
-    from molsysmt.utils.forcefields import digest as digest_forcefields
-    from molsysmt.utils.simulation_parameters import digest as digest_simulation_parameters
+    from molsysmt._private_tools.forcefields import digest as digest_forcefields
+    from molsysmt._private_tools.simulation_parameters import digest as digest_simulation_parameters
     from simtk.openmm.app import ForceField
 
     if forcefield is None:
@@ -101,14 +108,15 @@ def to_openmm_System(item, trajectory_item=None, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all',
-        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-        water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
-        solute_dielectric=1.0, solvent_dielectric=78.5, integrator='Langevin', temperature=300.0*unit.kelvin,
-        collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
-        constraint_tolerance=None, **kwargs):
+def to_openmm_Simulation(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+                         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
+                         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
+                         flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
+                         water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
+                         solute_dielectric=1.0, solvent_dielectric=78.5, integrator='Langevin', temperature=300.0*unit.kelvin,
+                         collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
+                         constraint_tolerance=None):
 
     from .api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
     from molsysmt import convert, get
@@ -132,8 +140,9 @@ def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_in
 
     return tmp_item
 
-def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
-           frame_indices='all'):
+def to_pdb(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+           output_filename=None):
 
     from molsysmt import get as _get
     from molsysmt import __version__ as msm_version
@@ -158,10 +167,10 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
     tmp_io.close()
     del(tmp_io)
 
-    if output_filepath=='.pdb':
+    if output_filename=='.pdb':
         return filedata
     else:
-        with open(output_filepath, 'w') as file:
+        with open(output_filename, 'w') as file:
             file.write(filedata)
         pass
 

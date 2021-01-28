@@ -1,4 +1,4 @@
-from .tools.exceptions import *
+from ._private_tools.exceptions import *
 
 def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False):
 
@@ -53,7 +53,7 @@ def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='Ope
 
     from .multitool import convert
     from .tools.forms import digest as digest_forms
-    from .tools.engines import digest as digest_engines
+    from ._private_tools.engines import digest_engine
 
     form_in, form_out = digest_forms(item)
     engine = digest_engines(engine)

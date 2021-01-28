@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
@@ -18,7 +18,8 @@ with_coordinates=False
 with_box=False
 with_parameters=False
 
-def to_mdanalysis_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Topology(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_mdanalysis_Topology import extract as extract_mdanalysis_Topology
 

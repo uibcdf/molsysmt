@@ -1,9 +1,9 @@
-from .tools.engines import digest as _digest_engines
-from .tools.forms import digest as _digest_forms
+from ._private_tools.engines import digest_engine
+from ._private_tools.forms import digest_form
 from .lib import com as _libcom
 from .lib import geometry as _libgeometry
 import numpy as _np
-from .tools.exceptions import *
+from ._private_tools.exceptions import *
 
 def center(item=None, selection=None, groups_of_atoms=None, weights=None, frame_indices='all',
            syntaxis='MolSysMT', engine='MolSysMT', parallel=False):

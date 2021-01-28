@@ -2,7 +2,7 @@ def sasa (item, selection='all', frame_indices='all', target='atom', syntaxis='M
           engine='MDTraj', **kwargs):
 
     from .tools.forms import digest as digest_forms
-    from .tools.engines import digest as digest_engines
+    from ._private_tools.engines import digest_engine
     from molsysmt import convert, select
 
     form_in, _ = digest_forms(item)

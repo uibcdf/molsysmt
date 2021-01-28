@@ -1,10 +1,10 @@
 import numpy as _np
 from .multitool import get_form as get_form, select as _select, convert as _convert
-from .tools.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
-from .tools.digest_inputs import _coordinates as _digest_coordinates
-from .tools.digest_inputs import _frameslist as _digest_frames
+from ._private_tools.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
+from ._private_tools.digest_inputs import _coordinates as _digest_coordinates
+from ._private_tools.digest_inputs import _frameslist as _digest_frames
 from .lib import geometry as _libgeometry
-from .tools.exceptions import *
+from ._private_tools.exceptions import *
 from .centers import center_of_mass as _center_of_mass
 from .centers import geometrical_center as _geometrical_center
 

@@ -13,29 +13,35 @@ with_coordinates=False
 with_box=False
 with_parameters=False
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from mdtraj.core.topology import Topology as mdtraj_topology
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_topology.from_openmm(tmp_item)
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_openmm_Topology import extract as extract_openmm_topology
     tmp_item = item.topology
     tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mol2(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_mol2(item, atom_indices='all', frame_indices='all',
+            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+            output_filename=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save(output_filepath)
+    return item.save(output_filename)
 
-def to_top(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_top(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+           output_filename=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save(output_filepath)
+    return item.save(output_filename)
 
 def select_with_MDTraj(item, selection):
 
@@ -58,8 +64,8 @@ def extract(item, atom_indices='all', frame_indices='all'):
     else:
 
         from copy import deepcopy
-        from molsysmt.utils.atom_indices import atom_indices_to_AmberMask
-        from molsysmt.utils.atom_indices import complementary_atom_indices
+        from molsysmt._private_tools.atom_indices import atom_indices_to_AmberMask
+        from molsysmt._private_tools.atom_indices import complementary_atom_indices
         tmp_atom_indices = complementary_atom_indices(item, atom_indices)
         mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
         tmp_item = copy(item)
@@ -121,7 +127,7 @@ def get_molecules_from_atom (item, indices='all', frame_indices='all'):
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.utils.types import group2molecule_types
+    from molsysmt._private_tools.types import group2molecule_types
     tmp_molecules = getting(item,molecules=True)
     tmp_types = []
     for molecule in tmp_molecules:

@@ -15,10 +15,10 @@ with_coordinates=False
 with_box=True
 with_parameters=True
 
-def to_openmm_Simulation(item, topology_item=None, trajectory_item=None, atom_indices='all', frame_indices='all',
-        integrator='Langevin', temperature=300.0*unit.kelvin, collisions_rate=1.0/unit.picoseconds,
-        integration_timestep=2.0*unit.femtoseconds, platform='CUDA', constraint_tolerance=None,
-        **kwargs):
+def to_openmm_Simulation(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+                         integrator='Langevin', temperature=300.0*unit.kelvin, collisions_rate=1.0/unit.picoseconds,
+                         integration_timestep=2.0*unit.femtoseconds, platform='CUDA', constraint_tolerance=None):
 
     # constraint_tolerance 0.00001
 

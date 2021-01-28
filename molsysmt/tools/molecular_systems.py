@@ -1,8 +1,9 @@
 import numpy as np
-from molsysmt import get_form
-from molsysmt.multitool import dict_get
 
 def is_a_single_molecular_system(items):
+
+    from molsysmt import get_form
+    from molsysmt.multitool import dict_get
 
     if type(items) in [list, tuple]:
 
@@ -58,7 +59,10 @@ def is_a_single_molecular_system(items):
 
 def where_topology_in_molecular_system(items):
 
-    if not is_a_molecular_system(items):
+    from molsysmt import get_form
+    from molsysmt.multitool import dict_get
+
+    if not is_a_single_molecular_system(items):
         raise ValueError ("This method needs a single molecular system as input")
 
     topology_item = None
@@ -83,7 +87,10 @@ def where_topology_in_molecular_system(items):
 
 def where_coordinates_in_molecular_system(items):
 
-    if not is_a_molecular_system(items):
+    from molsysmt import get_form
+    from molsysmt.multitool import dict_get
+
+    if not is_a_single_molecular_system(items):
         raise ValueError ("This method needs a single molecular system as input")
 
     coordinates_item = None
@@ -108,7 +115,10 @@ def where_coordinates_in_molecular_system(items):
 
 def where_trajectory_in_molecular_system(items):
 
-    if not is_a_molecular_system(items):
+    from molsysmt import get_form
+    from molsysmt.multitool import dict_get
+
+    if not is_a_single_molecular_system(items):
         raise ValueError ("This method needs a single molecular system as input")
 
     trajectory_item = None
@@ -133,7 +143,10 @@ def where_trajectory_in_molecular_system(items):
 
 def where_box_in_molecular_system(items):
 
-    if not is_a_molecular_system(items):
+    from molsysmt import get_form
+    from molsysmt.multitool import dict_get
+
+    if not is_a_single_molecular_system(items):
         raise ValueError ("This method needs a single molecular system as input")
 
     box_item = None

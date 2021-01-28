@@ -14,23 +14,27 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_mmtf(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_mmtf(item, atom_indices='all', frame_indices='all', output_filename=None,
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from mmtf.api.default_api import write_mmtf, MMTFDecoder
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return write_mmtf(output_filepath, tmp_item, MMTFDecoder.pass_data_on)
+    return write_mmtf(output_filename, tmp_item, MMTFDecoder.pass_data_on)
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.molsys.classes import from_mmtf_MMTFDecoder as molsysmt_MolSys_from_mmtf_MMTFDecoder
     return molsysmt_MolSys_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.classes import from_mmtf_MMTFDecoder as molsysmt_Topology_from_mmtf_MMTFDecoder
     return molsysmt_Topology_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.classes import from_mmtf_MMTFDecoder as molsysmt_Trajectory_from_mmtf_MMTFDecoder
     return molsysmt_Trajectory_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -64,7 +68,7 @@ def get_frame_from_atom (item, indices='all', frame_indices='all'):
 
     from numpy import arange, empty, zeros, column_stack
     from molsysmt import box_vectors_from_box_lengths_and_angles
-    from molsysmt.utils import units as molsysmt_units
+    from molsysmt._private_tools import units as molsysmt_units
     from simtk.unit import angstroms, degrees, picoseconds
 
     n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')

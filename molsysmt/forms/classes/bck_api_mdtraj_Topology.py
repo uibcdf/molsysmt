@@ -1,4 +1,4 @@
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 from os.path import basename as _basename
 from mdtraj.core.topology import Topology as _mdtraj_Topology
 import numpy as _np
@@ -61,11 +61,11 @@ def to_parmed_GromacsTopologyFile(item, trajectory_item=None, atom_indices='all'
     tmp_item = to_parmed_Structure(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return GromacsTopologyFile.from_structure(tmp_item)
 
-def to_top(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_top(item, output_filename=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from .api_parmed_GromacsTopologyFile import to_top as parmed_GromacsTopologyFile_to_top
     tmp_item = to_parmed_GromacsTopologyFile(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return parmed_GromacsTopologyFile_to_top(tmp_item, output_filepath=output_filepath)
+    return parmed_GromacsTopologyFile_to_top(tmp_item, output_filename=output_filename)
 
 
 # Select

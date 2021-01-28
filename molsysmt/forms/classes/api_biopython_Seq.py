@@ -16,7 +16,8 @@ with_coordinates = False
 with_box = False
 with_parameters = False
 
-def to_biopython_SeqRecord(item, id=None, name=None, description=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all', id=None, name=None, description=None,
+                          topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from Bio.SeqRecord import SeqRecord as Bio_SeqRecord
     from .api_biopython_SeqRecord import extract as extract_biopython_SeqRecord
@@ -33,14 +34,15 @@ def to_biopython_SeqRecord(item, id=None, name=None, description=None, trajector
 
     return tmp_item
 
-def to_fasta(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_fasta(item, atom_indices='all', frame_indices='all',
+             topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt import extract as _extract
     from .api_biopython_SeqRecord import _to_fasta as _Bio_SeqRecord_to_fasta
 
     tmp_item=to_biopython_SeqRecord(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return _Bio_SeqRecord_to_fasta(tmp_item, output_filepath=output_filepath)
+    return _Bio_SeqRecord_to_fasta(tmp_item, output_filename=output_filename)
 
 def copy(item):
 

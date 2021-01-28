@@ -14,14 +14,16 @@ with_coordinates=False
 with_box=False
 with_parameters=True
 
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
     tmp_item = to_openmm_Topology(item)
     tmp_item = openmm_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices)
     return tmp_item
 
-def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     return item.topology
 

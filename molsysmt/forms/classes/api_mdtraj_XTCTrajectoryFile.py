@@ -16,14 +16,15 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def load_frame (item, atom_indices='all', frame_indices='all'):
+def load_frame (item, atom_indices='all', frame_indices='all',
+    topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     if frame_indices is 'all':
 
         n_frames= get_n_frames_from_system(item)
         frame_indices = _np.arange(n_frames)
 
-    from molsysmt.utils.math import serie_to_chunks
+    from molsysmt._private_tools.math import serie_to_chunks
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(frame_indices)
 
@@ -94,7 +95,7 @@ def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
 def get_box_shape_from_system (item, indices='all', frame_indices='all'):
 
-    from molsysmt.utils.pbc import get_shape_from_box
+    from molsysmt._private_tools.pbc import get_shape_from_box
     position = item.tell()
     xyz, time, step, box = item.read(n_frames=1)
     item.seek(position)

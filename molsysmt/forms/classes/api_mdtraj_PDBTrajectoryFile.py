@@ -14,7 +14,8 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_mdtraj_topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_topology(item, atom_indices='all', frame_indices='all',
+                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from api_mdtraj_Topology import extract as extract_mdtraj_Topology
 
@@ -22,14 +23,15 @@ def to_mdtraj_topology(item, trajectory_item=None, atom_indices='all', frame_ind
     tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def load_frame (item, atom_indices='all', frame_indices='all'):
+def load_frame (item, atom_indices='all', frame_indices='all',
+                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from numpy import array, concatenate, zeros, empty, full
     from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
-    from molsysmt.utils import units as molsysmt_units
+    from molsysmt._private_tools import units as molsysmt_units
     from simtk.unit import angstroms, nanometers, degrees, picoseconds
-    from molsysmt.utils.atom_indices import digest as _digest_atom_indices
-    from molsysmt.utils.frame_indices import digest as _digest_frame_indices
+    from molsysmt._private_tools.atom_indices import digest as _digest_atom_indices
+    from molsysmt._private_tools.frame_indices import digest as _digest_frame_indices
 
     atom_indices = _digest_atom_indices(item, atom_indices)
     frame_indices = _digest_frame_indices(item, frame_indices)
@@ -109,7 +111,7 @@ def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
 def get_box_shape_from_system (item, indices='all', frame_indices='all'):
 
-    from molsysmt.utils.pbc import get_shape_from_angles
+    from molsysmt._private_tools.pbc import get_shape_from_angles
     from simtk.unit import degrees
     from numpy import empty
 

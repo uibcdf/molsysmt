@@ -1,9 +1,9 @@
 import numpy as _np
 from .multitool import convert as _convert, extract as _extract, get as _get
-from .tools.digest_inputs import _one_system as _digest_one_system
-from .tools.digest_inputs import _coordinates as _digest_coordinates
+from ._private_tools.digest_inputs import _one_system as _digest_one_system
+from ._private_tools.digest_inputs import _coordinates as _digest_coordinates
 from .lib import geometry as _libgeometry
-from .tools.exceptions import *
+from ._private_tools.exceptions import *
 
 def radius_of_gyration(item=None, selection=None, frame=None, engine='molsysmt'):
 

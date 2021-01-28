@@ -1,5 +1,5 @@
-from .tools.frame_indices import digest as _digest_frame_indices
-from .tools.forms import digest as _digest_forms
+from ._private_tools.frame_indices import digest_frame_indices
+from ._private_tools.forms import digest_form
 import numpy as _np
 from .lib import geometry as _libgeometry
 

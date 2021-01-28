@@ -14,13 +14,14 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def load_frame (item, atom_indices='all', frame_indices='all'):
+def load_frame (item, atom_indices='all', frame_indices='all',
+                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
-    from molsysmt.utils import units as molsysmt_units
+    from molsysmt._private_tools import units as molsysmt_units
     from simtk.unit import angstroms, nanometers, degrees, picoseconds
-    from molsysmt.utils.atom_indices import digest as _digest_atom_indices
-    from molsysmt.utils.frame_indices import digest as _digest_frame_indices
+    from molsysmt._private_tools.atom_indices import digest as _digest_atom_indices
+    from molsysmt._private_tools.frame_indices import digest as _digest_frame_indices
 
     atom_indices = _digest_atom_indices(item, atom_indices)
     frame_indices = _digest_frame_indices(item, frame_indices)

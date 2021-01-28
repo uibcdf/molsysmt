@@ -16,7 +16,8 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def load_frame (item, atom_indices='all', frame_indices='all'):
+def load_frame (item, atom_indices='all', frame_indices='all',
+                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     # It doesn't really work. seek doesn't work. Once the file is read can not be rewinded.
 
@@ -56,14 +57,16 @@ def load_frame (item, atom_indices='all', frame_indices='all'):
 
     return step, time, coordinates, box
 
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
     tmp_item = to_openmm_Topology(item)
     tmp_item = openmm_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices)
     return tmp_item
 
-def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     return item.topology
 

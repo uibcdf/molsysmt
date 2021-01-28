@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np

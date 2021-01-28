@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
@@ -16,12 +16,14 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.files import from_xtc
     return from_xtc(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', frame_indices='all',
+                                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from mdtraj.formats import XTCTrajectoryFile
     return XTCTrajectoryFile(item)

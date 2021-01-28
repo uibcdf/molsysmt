@@ -57,7 +57,7 @@ list_box_get_arguments = [
 ]
 
 list_get_arguments = list_topology_get_arguments + list_trajectory_get_arguments + list_coordinates_get_arguments +\
-        list_box_get_arguments + list_universal_get_arguments
+        list_box_get_arguments
 
 def digest_get_argument(argument):
 

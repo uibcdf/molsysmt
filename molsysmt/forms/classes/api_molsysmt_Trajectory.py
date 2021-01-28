@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 from molsysmt.native.trajectory import Trajectory as _molsysmt_Trajectory
 import numpy as np
 
@@ -17,24 +17,34 @@ with_parameters=False
 
 # Methods
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+
     from molsysmt.native.io.trajectory.classes import to_mdtraj_Trajectory as molsysmt_Trajectory_to_mdtraj_Trajectory
     return molsysmt_Trajectory_to_mtraj_Trajectory(item, selection=atom_indices, frame_indices=frame_indices, syntaxis=syntaxis)
 
-def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all'):
+def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+
     from .api_mdtraj_Topology import to_parmed_GromacsTopologyFile as mdtraj_Topology_to_parmed_GromacsTopologyFile
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return mdtraj_Topology_to_GromacsTopologyFile(tmp_item)
 
-def to_xtc(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_xtc(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+           output_filename=None):
+
     from .api_mdtraj_Trajectory import to_xtc as mdtraj_Trajectory_to_xtc
     tmp_item=to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return mdtraj_Trajectory_to_xtc(tmp_item, output_filepath=output_filepath)
+    return mdtraj_Trajectory_to_xtc(tmp_item, output_filename=output_filename)
 
-def to_top(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_top(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+           output_filename=None):
+
     from .api_mdtraj_Topology import to_top as mdtraj_Topology_to_top
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return mdtraj_Topology_to_top(tmp_item, output_filepath=output_filepath)
+    return mdtraj_Topology_to_top(tmp_item, output_filename=output_filename)
 
 def select_with_MDTraj(item, selection):
     from .api_mdtraj_Topology import select_with_MDTraj as _select_with_MDTraj

@@ -1,4 +1,4 @@
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 import numpy as np
 
 from mdtraj.core.residue_names import _AMINO_ACID_CODES as _aminoacid_group_names_mdtraj

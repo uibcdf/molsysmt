@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 from molsysmt.native.trajectory_file import TrajectoryFile as _molsysmt_TrajectoryFile
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')

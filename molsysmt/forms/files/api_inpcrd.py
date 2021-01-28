@@ -12,76 +12,58 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_inpcrd(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_inpcrd(item, atom_indices='all', frame_indices='all',
+              topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+              output_filename=None):
 
     if frame_indices=='all':
         from shutil import copyfile
-        copyfile(item, output_filepath)
+        copyfile(item, output_filename)
     else:
         raise NotImplementedError("Not implemented yet")
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.molsys.files import from_inpcrd as inpcrd_to_molsysmt_MolSys
     tmp_item = inpcrd_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.files import from_inpcrd as inpcrd_to_molsysmt_Topology
     tmp_item = inpcrd_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all',
+                          topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.dataframe.files import from_inpcrd as inpcrd_to_molsysmt_DataFrame
     tmp_item = inpcrd_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.files import from_inpcrd as inpcrd_to_molsysmt_Trajectory
     tmp_item = inpcrd_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_AmberRestartFile(item, atom_indices='all', frame_indices='all',
+                               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
-    raise NotImplementedError
-
-def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_mdtraj_AmberRestartFile(item, atom_indices='all', frame_indices='all'):
     from mdtraj.formats import AmberRestartFile
     return AmberRestartFile(item)
 
-def to_openmm_AmberInpcrdFile(item, atom_indices='all', frame_indices='all'):
+def to_openmm_AmberInpcrdFile(item, atom_indices='all', frame_indices='all',
+                              topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from simtk.openmm.app import AmberInpcrdFile
     return AmberInpcrdFile(item)
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all',
+               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     raise NotImplementedError
 
@@ -93,14 +75,14 @@ def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
-def copy(item, output_filepath=None):
+def copy(item, output_filename=None):
 
     from shutil import copy as copy_file
-    from molsysmt.utils.files_and_directories import tmp_filename
-    if output_filepath is None:
-        output_filepath = tmp_filename(extension='inpcrd')
-    copy_file(item, output_filepath)
-    return output_filepath
+    from molsysmt._private_tools.files_and_directories import tmp_filename
+    if output_filename is None:
+        output_filename = tmp_filename(extension='inpcrd')
+    copy_file(item, output_filename)
+    return output_filename
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

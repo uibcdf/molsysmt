@@ -14,7 +14,8 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_aminoacids3_seq(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_mdtraj_Topology import to_aminoacids3_seq as mdtraj_Topology_to_aminoacids3
 
@@ -23,7 +24,8 @@ def to_aminoacids3_seq(item, trajectory_item=None, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_aminoacids1_seq(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_mdtraj_Topology import to_aminoacids1_seq as mdtraj_Topology_to_aminoacids1
 
@@ -32,53 +34,61 @@ def to_aminoacids1_seq(item, trajectory_item=None, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_biopython_Seq(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_biopython_Seq(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids1_to_biopython_Seq(tmp_item)
     return tmp_item
 
-def to_biopython_SeqRecord(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
 
-def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.molsys.classes import from_mdtraj_Trajectory as mdtraj_Trajectory_to_molsysmt_MolSys
     tmp_item = mdtraj_Trajectory_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.classes import from_mdtraj_Trajectory as mdtraj_Trajectory_to_molsysmt_Topology
     tmp_item = mdtraj_Trajectory_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.classes import from_mdtraj_Trajectory as mdtraj_Trajectory_to_molsysmt_Topology
     tmp_item = mdtraj_Trajectory_to_molsysmt_Topology(item, atom_indices=atom_indices)
     return tmp_item
 
-def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_mdtraj_Topology import extract as extract_mdtraj_Topology
     tmp_item=item.topology
     tmp_item=extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_mdtraj_Topology import to_openmm_Topology as mdtraj_Topology_to_openmm_Topology
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_Topology_to_openmm_Topology(tmp_item)
     return tmp_item
 
-def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from simtk.openmm.app import Modeller
     from simtk.unit import nanometers
@@ -89,7 +99,8 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
     del(topology, positions)
     return tmp_item
 
-def to_yank_Topography(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_yank_Topography(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_openmm_Topology import to_yank_Topography as openmm_Topology_to_yank_Topography
 
@@ -97,7 +108,8 @@ def to_yank_Topography(item, trajectory_item=None, atom_indices='all', frame_ind
     tmp_item = openmm_Topology_to_yank_Topography(tmp_item)
     return tmp_item
 
-def to_parmed_Structure(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
 
@@ -105,29 +117,33 @@ def to_parmed_Structure(item, trajectory_item=None, atom_indices='all', frame_in
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
     return tmp_item
 
-def to_pdbfixer_PDBFixer(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
-    from molsysmt.utils.pdb import tmp_pdb_filename
+    from molsysmt._private_tools.pdb import tmp_pdb_filename
     from os import remove as remove
 
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_filepath=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    to_pdb(item, output_filename=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_item)
     remove(tmp_file)
     return tmp_item
 
-def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_pdb(item, atom_indices='all', frame_indices='all', output_filename=None,
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item.save_pdb(output_filepath)
+    return tmp_item.save_pdb(output_filename)
 
-def to_xtc(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_xtc(item, atom_indices='all', frame_indices='all', output_filename=None,
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save_xtc(output_filepath)
+    return item.save_xtc(output_filename)
 
-def to_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from nglview import show_mdtraj as show_mdtraj
     from molsysmt.nglview import standardize_view

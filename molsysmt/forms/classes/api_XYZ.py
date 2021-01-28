@@ -1,6 +1,6 @@
 from os.path import basename as _basename
 import numpy as np
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 
@@ -66,7 +66,8 @@ def this_Quantity_is_XYZ(item):
 
     return (has_right_shape and is_length)
 
-def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.classes import from_XYZ as XYZ_to_molsysmt_Trajectory
 
@@ -74,7 +75,9 @@ def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame
 
     return tmp_item
 
-def to_xyznpy(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_xyznpy(item, atom_indices='all', frame_indices='all',
+              topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+              output_filename=None):
 
     comment = None
     atom_names = None
@@ -84,7 +87,7 @@ def to_xyznpy(item, output_filepath=None, trajectory_item=None, atom_indices='al
     xyz = item._value
     unit_name = item.unit.get_name()
 
-    with open(output_filepath, 'wb') as fff:
+    with open(output_filename, 'wb') as fff:
         np.save(fff, comment)
         np.save(fff, atom_names)
         np.save(fff, unit_name)

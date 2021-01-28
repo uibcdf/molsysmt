@@ -1,4 +1,4 @@
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 import numpy as np
 
 types = ["water", "ion", "cosolute", "protein", "peptide", "rna", "dna", "lipid", "small molecule"]

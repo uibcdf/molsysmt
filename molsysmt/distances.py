@@ -1,16 +1,15 @@
 import numpy as _np
 #from .multitool import get_form as get_form, select as _select, convert as _convert
-#from .tools.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
-#from .tools.digest_inputs import _coordinates as _digest_coordinates
-#from .tools.digest_inputs import _frameslist as _digest_frames
-#from .tools.digest_inputs import _frameslist as _digest_frames
+#from ._private_tools.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
+#from ._private_tools.digest_inputs import _coordinates as _digest_coordinates
+#from ._private_tools.digest_inputs import _frameslist as _digest_frames
+#from ._private_tools.digest_inputs import _frameslist as _digest_frames
 from .lib import geometry as _libgeometry
-from .tools.exceptions import *
+from ._private_tools.exceptions import *
 from .centers import center_of_mass as _center_of_mass
 from .centers import geometric_center as _geometric_center
-from .tools.engines import digest as _digest_engines
-from .tools.frame_indices import digest as _digest_frame_indices
-from .tools.multiple_items import where_topology_coordinates_and_box_in_item
+from ._private_tools.engines import digest_engine
+from ._private_tools.frame_indices import digest_frame_indices
 
 def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
              item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,

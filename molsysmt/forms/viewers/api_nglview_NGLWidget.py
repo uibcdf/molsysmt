@@ -14,7 +14,8 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_openmm_PDBFile(item, trajectory_item = None, atom_indices='all', frame_indices='all'):
+def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all',
+                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
@@ -29,7 +30,8 @@ def to_openmm_PDBFile(item, trajectory_item = None, atom_indices='all', frame_in
 
     return tmp_file
 
-def to_molsysmt_Topology(item, trajectory_item = None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.viewers import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Topology
     return nglview_NGLWidget_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices='all')

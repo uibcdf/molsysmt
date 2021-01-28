@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 from pytraj import Trajectory as _pytraj_Trajectory
 import simtk.unit as unit
 
@@ -16,14 +16,16 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_pytraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_pytraj_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_pytraj_Topology import extract as extract_pytraj_Topology
     tmp_item = item.topology
     tmp_item = extract_pytraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.molsys.classes import from_pytraj_Trajectory as molsysmt_MolSys_from_pytraj_Topology
     from molsysmt.forms.classes.api_molsysmt_MolSys import extract as extract_molsysmt_MolSys
@@ -31,7 +33,8 @@ def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_ind
     tmp_item = extract_molsysmt_MolSys(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.classes import from_pytraj_Trajectory as molsysmt_Topology_from_pytraj_Topology
     from molsysmt.forms.classes.api_molsysmt_Topology import extract as extract_molsysmt_Topology
@@ -39,7 +42,8 @@ def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_i
     tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices)
     return tmp_item
 
-def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.classes import from_pytraj_Trajectory as molsysmt_Trajectory_from_pytraj_Trajectory
     from molsysmt.forms.classes.api_molsysmt_Trajectory import extract as extract_molsysmt_Trajectory

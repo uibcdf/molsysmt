@@ -14,31 +14,36 @@ with_coordinates=False
 with_box=False
 with_parameters=True
 
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.classes import from_openmm_Simulation as openmm_Simulation_to_molsysmt_Topology
     tmp_item = openmm_Simulation_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.classes import from_openmm_Simulation as openmm_Simulation_to_molsysmt_Trajectory
     tmp_item = openmm_Simulation_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.molsys.classes import from_openmm_Simulation as openmm_Simulation_to_molsysmt_MolSys
     tmp_item = openmm_Simulation_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     tmp_item=item.topology
     tmp_item=extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from simtk.openmm.app import Modeller
     topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -46,22 +51,26 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_ind
     tmp_item = Modeller(topology, positions)
     return tmp_item
 
-def to_openmm_Context(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Context(item, atom_indices='all', frame_indices='all',
+                      topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     return item.context
 
-def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
-    from molsysmt.utils.pdb import tmp_pdb_filename
+    from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
     from os import remove
     tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_filepath=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
+    to_pdb(item, output_filename=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_file)
     remove(tmp_pdbfile)
     return tmp_item
 
-def to_pdb (item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_pdb (item, atom_indices='all', frame_indices='all',
+            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+            output_filename=None):
 
     from .api_openmm_Topology import to_pdb as openmm_Topology_to_pdb
 
@@ -69,7 +78,7 @@ def to_pdb (item, output_filepath=None, atom_indices='all', frame_indices='all')
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     box = get_box_from_system(item, frame_indices=frame_indices)
     topology.setPeriodicBoxVectors(box)
-    return openmm_Topology_to_pdb(topology, output_filepath=output_filepath, trajectory_item=coordinates)
+    return openmm_Topology_to_pdb(topology, output_filename=output_filename, trajectory_item=coordinates)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

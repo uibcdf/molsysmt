@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
@@ -19,33 +19,40 @@ with_parameters=True
 
 ## Methods
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_openmm_Topology import extract as extract_openmm_Topology
     tmp_item = item.topology
     tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return item.topology
 
-def to_openmm_Context(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Context(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     return item.context
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.classes import from_openexplorer_Explorer as molsysmt_Topology_from_openexplorer_Explorer
     return molsysmt_Topology_from_openexplorer_Explorer(item, atom_indices=atom_indices)
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.classes import from_openexplorer_Explorer as molsysmt_Trajectory_from_openexplorer_Explorer
     return molsysmt_Trajectory_from_openexplorer_Explorer(item, atom_indices=atom_indices)
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.molsys.classes import from_openexplorer_Explorer as molsysmt_System_from_openexplorer_Explorer
     return molsysmt_System_from_openexplorer_Explorer(item, atom_indices=atom_indices)
 
-def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
+def to_pdb(item, atom_indices='all', frame_indices='all',
+           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+           output_filename=None):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
@@ -61,14 +68,15 @@ def to_pdb(item, output_filepath=None, atom_indices='all', frame_indices='all'):
     tmp_io.close()
     del(tmp_io)
 
-    if output_filepath=='.pdb':
+    if output_filename=='.pdb':
         return filedata
     else:
-        with open(output_filepath, 'w') as file:
+        with open(output_filename, 'w') as file:
             file.write(filedata)
         pass
 
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all',
+               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)

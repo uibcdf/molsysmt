@@ -9,66 +9,41 @@ is_form = {
 info=["",""]
 with_topology=False
 with_trajectory=True
+with_coordinates=True
+with_box=True
 
 info = ["AMBER mdcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.molsys.files import from_mdcrd as mdcrd_to_molsysmt_MolSys
     tmp_item = mdcrd_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.files import from_mdcrd as mdcrd_to_molsysmt_Topology
     tmp_item = mdcrd_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all',
+                          topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.dataframe.files import from_mdcrd as mdcrd_to_molsysmt_DataFrame
     tmp_item = mdcrd_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_molsysmt_Trajectory(item, topology=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory.files import from_mdcrd as mdcrd_to_molsysmt_Trajectory
     tmp_item = mdcrd_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
-
-    return NotImplementedError
-
-def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
-
-    return NotImplementedError
-
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
-
-    return NotImplementedError
-
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
-
-    return NotImplementedError
-
-def to_mdtraj_MDCRDTrajectoryFile(item, atom_indices='all', frame_indices='all'):
-
-    return NotImplementedError
-
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
-
-    return NotImplementedError
-
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
-
-    return NotImplementedError
-
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
-
-    return NotImplementedError
-
-def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all',
+               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     return NotImplementedError
 

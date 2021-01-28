@@ -14,7 +14,8 @@ with_coordinates=True
 with_box=True
 with_parameters=False
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt import extract as _extract
     import simtk.unit as _unit
@@ -24,21 +25,24 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_openmm_Topology import to_mdtraj_Topology as openmm_Topology_to_mdtraj_Topology
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_mdtraj_Topology(tmp_item)
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_openmm_Topology import extract as extract_openmm_Topology
     tmp_item=item.getTopology()
     tmp_item=extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, atom_indices='all', frame_indices='all',
+               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from .api_mdtraj_Trajectory import to_NGLView as mdtraj_Trajectory_to_NGLView
     tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)

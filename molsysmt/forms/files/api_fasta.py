@@ -11,7 +11,8 @@ info=["",""]
 with_topology=True
 with_trajectory=False
 
-def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all'):
+def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from Bio.SeqIO import read as Bio_SeqRecord_reader
     from molsysmt.forms.classes.api_Bio_SeqRecord import extract as extract_Bio_SeqRecord

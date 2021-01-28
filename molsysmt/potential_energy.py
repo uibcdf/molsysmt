@@ -10,8 +10,8 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
-from .tools.engines import digest as digest_engines
-from .tools.forcefields import digest as digest_forcefields
+from ._private_tools.engines import digest_engine
+from ._private_tools.forcefields import digest_forcefields
 import simtk.unit as unit
 
 def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
