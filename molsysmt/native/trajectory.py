@@ -1,5 +1,7 @@
 import numpy as np
-import molsysmt._private_tools.units as msm_units
+import pyunitwizard as puw
+from molsysmt._private_tools.units import length_unit_name, time_unit_name
+from molsysmt import __quantities_form__
 from molsysmt._private_tools.exceptions import *
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
@@ -28,11 +30,11 @@ class Trajectory():
     def append_frames(self, step=None, time=None, coordinates=None, box=None):
 
         if time is not None:
-            time=time.in_units_of(msm_units.time)
+            time=puw.convert(time, time_unit_name, __quantities_form__)
         if coordinates is not None:
-            coordinates=coordinates.in_units_of(msm_units.length)
+            coordinates=puw.convert(coordinates, length_unit_name, __quantities_form__)
         if box is not None:
-            box=box.in_units_of(msm_units.length)
+            box=puw.convert(box, length_unit_name, __quantities_form__)
 
         n_frames = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
@@ -51,15 +53,15 @@ class Trajectory():
                 self.step = np.full(n_frames,None)
 
             if time is not None:
-                if type(time._value) not in [list, np.ndarray]:
-                    self.time  = np.array([time._value])*msm_units.time
+                if type(puw.get_value(time)) not in [list, np.ndarray]:
+                    self.time  = puw.quantity(np.array([puw.get_value(time)]), time_unit_name, __quantities_form__)
             else:
-                self.time = np.full(n_frames,None)*msm_units.time
+                self.time = np.quantity(np.full(n_frames,None), time_unit_name, __quantities_form__)
 
             if box is not None:
-                self.box = box.copy()*msm_units.length
+                self.box = puw.quantity(puw.get_value(box.copy()), length_unit_name, __quantities_form__)
             else:
-                self.box = np.full(n_frames,None)*msm_units.length
+                self.box = puw.quantity(np.full(n_frames,None), length_unit_name, __quantities_form__)
 
             self.n_atoms = n_atoms
 
@@ -74,13 +76,13 @@ class Trajectory():
                 self.step = np.concatenate([self.step, step])
 
             if self.time is None:
-                self.time = time.copy()*time.unit
+                self.time = puw.quantity(puw.get_value(time).copy(), time_unit_name, __quantities_form__)
             else:
-                self.time = np.concatenate([self.time, time])*msm_units.time
+                self.time = puw.quantity(np.concatenate([self.time, time]), time_unit_name, __quantities_form__)
 
-            self.coordinates = np.concatenate([self.coordinates, coordinates])*msm_units.length
+            self.coordinates = puw.quantity(np.concatenate([self.coordinates, coordinates]), length_unit_name, __quantities_form__)
 
-            self.box = np.concatenate([self.box, box])*msm_units.length
+            self.box = puw.quantity(np.concatenate([self.box, box]), length_unit_name, __quantities_form__)
 
         self.n_frames += n_frames
 

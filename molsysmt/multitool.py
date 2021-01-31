@@ -12,7 +12,7 @@ from ._private_tools.targets import digest_target
 from ._private_tools.get_arguments import digest_get_argument, list_topology_get_arguments, list_trajectory_get_arguments, list_coordinates_get_arguments,\
         list_box_get_arguments
 from ._private_tools.items import digest_items
-from ._private_tools.output import digest_output
+from ._private_tools.output import digest_output_get
 from .tools.items import compatibles_for_a_molecular_system
 from .tools.molecular_systems import where_topology_in_molecular_system, where_trajectory_in_molecular_system, where_coordinates_in_molecular_system,\
         where_box_in_molecular_system, where_any_in_molecular_system, is_a_single_molecular_system
@@ -243,7 +243,7 @@ def select(items, selection='all', target='atom', mask=None, syntaxis='MolSysMT'
             n_atoms = dict_get[top_form]['system']['n_atoms'](top_item)
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
-            selection, syntaxis = digest_selection(selection, syntaxis)
+            selection = digest_selection(selection, syntaxis)
             atom_indices = dict_selector[top_form][syntaxis](top_item, selection)
     elif type(selection) in [int, np.int64, np.int]:
         atom_indices = np.array([selection], dtype='int64')
@@ -347,16 +347,15 @@ def get(items, target='atom', indices=None, selection='all', frame_indices='all'
     target = digest_target(target)
     attributes = [ digest_get_argument(key) for key in kwargs.keys() if kwargs[key] ]
     indices = digest_indices(indices)
-    frame_indices = digest_frame_indices(indices)
+    frame_indices = digest_frame_indices(frame_indices)
 
     # doing the work here
 
     if indices is None:
         if selection is not 'all':
-            indices = select(item, target=target, selection=selection, syntaxis=syntaxis)
+            indices = select(items, target=target, selection=selection, syntaxis=syntaxis)
         else:
             indices = 'all'
-
 
     top_item, traj_item, coor_item, box_item = where_any_in_molecular_system(items)
     top_form, traj_form, coor_form, box_form = get_form([top_item, traj_item, coor_item, box_item])
@@ -376,7 +375,7 @@ def get(items, target='atom', indices=None, selection='all', frame_indices='all'
 
         output.append(result)
 
-    digest_output(output)
+    output=digest_output_get(output)
     return output
 
 def remove(items, selection=None, frame_indices=None, to_form=None, syntaxis='MolSysMT'):
@@ -963,8 +962,8 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
             form = get_form(items)
 
-            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_frames,
-            n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas,
+            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_frames,\
+            n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas,\
             n_rnas = get(items, target=target,
                     n_atoms=True, n_groups=True, n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_frames=True,
                     n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
@@ -1086,7 +1085,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
         elif target=='entity':
 
-            entity_string = element2string(items, indices=indices, target=target)
+            entity_string = elements2string(items, indices=indices, target=target)
             string=entity_string
 
             if len(string)==1:

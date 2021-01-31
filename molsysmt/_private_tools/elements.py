@@ -8,6 +8,7 @@ list_elements = [
     'molecule',
     'entity',
     'system',
+    'bond',
 ]
 
 _aux={
@@ -20,6 +21,7 @@ _aux={
     'molecules' : 'molecule',
     'entities' : 'entity',
     'systems' : 'system',
+    'bonds' : 'bond',
 }
 
 def digest_element(element):
@@ -29,17 +31,15 @@ def digest_element(element):
         if tmp_element in _aux:
             tmp_element = _aux[tmp_element]
         elif tmp_element not in list_elements:
-            raise BadCallError('Wrong way of invoking this method. The target is mispelled.\n\
-                           Check the online documentation  for more information: http://www.uibcdf.org/MolSysMT')
+            raise BadCallError()
         return tmp_element
     except:
-        raise BadCallError('Wrong way of invoking this method. The target is mispelled.\n\
-                           Check the online documentation  for more information: http://www.uibcdf.org/MolSysMT')
+        raise BadCallError()
 
 def elements2string(items, indices=None, target='atom'):
 
     from molsysmt import get
-    from .target import digest_target
+    from .targets import digest_target
 
     target = digest_target(target)
 

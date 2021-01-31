@@ -66,19 +66,21 @@ def select_with_MolSysMT(item, selection):
 
 def get_frame_from_atom (item, indices='all', frame_indices='all'):
 
+    import pyunitwizard as puw
+    from molsysmt import __quantities_form__
     from numpy import arange, empty, zeros, column_stack
     from molsysmt import box_vectors_from_box_lengths_and_angles
-    from molsysmt._private_tools import units as molsysmt_units
+    from molsysmt._private_tools.units import length_unit_name, angle_unit_name, time_unit_name
     from simtk.unit import angstroms, degrees, picoseconds
 
     n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
     n_atoms = get_n_atoms_from_system(item, indices='all', frame_indices='all')
 
     step = arange(n_frames, dtype=int)
-    time = zeros(n_frames, dtype=float)*picoseconds
+    time = puw.quantity(zeros(n_frames, dtype=float), 'picoseconds', __quantities_form__)
     xyz = column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
     xyz = xyz.reshape([-1, item.num_atoms, 3])
-    xyz = xyz*angstroms
+    xyz = puw.quantity(xyz,'angstroms', __quantities_form__)
 
     if item.unit_cell is not None:
 
@@ -88,18 +90,18 @@ def get_frame_from_atom (item, indices='all', frame_indices='all'):
             cell_lengths[:,ii] = item.unit_cell[ii]
             cell_angles[:,ii] = item.unit_cell[ii+3]
 
-        cell_lengths = cell_lengths*angstroms
-        cell_angles = cell_angles*degrees
+        cell_lengths = puw.quantity(cell_lengths, 'angstroms', __quantities_form__)
+        cell_angles = puw.quantity(cell_angles, 'degrees', __quantities_form__)
 
         box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
-        box = box.in_units_of(molsysmt_units.length)
+        box = puw.convert(box, length_unit_name)
 
     else:
 
         box = None
 
-    xyz = xyz.in_units_of(molsysmt_units.length)
-    time = time.in_units_of(molsysmt_units.time)
+    xyz = puw.convert(xyz, length_unit_name)
+    time = puw.convert(time, time_unit_name)
 
     if frame_indices is not 'all':
         xyz = xyz[frame_indices,:,:]

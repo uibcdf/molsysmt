@@ -3,6 +3,8 @@ from ._private_tools.frame_indices import digest_frame_indices
 from ._private_tools.forms import digest_form
 from molsysmt.lib import box as _libbox
 import numpy as np
+import pyunitwizard as puw
+from molsysmt import __quantities_form__
 
 def box_shape_from_box_angles(angles):
 
@@ -40,60 +42,58 @@ def box_shape_from_box_vectors(box):
 
 def box_lengths_from_box_vectors(box):
 
-    from numpy import asfortranarray, ascontiguousarray
-
-    length_units = box.unit
+    tmp_length_unit_name = puw.get_unit_name(box)
     n_frames = box.shape[0]
-    tmp_box =  asfortranarray(box._value, dtype='float64')
+    tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')
     lengths = _libbox.length_edges_box(tmp_box, n_frames)
-    lengths = ascontiguousarray(lengths, dtype='float64')
+    lengths = np.ascontiguousarray(lengths, dtype='float64')
     del(tmp_box)
 
-    return lengths.round(6)*length_units
+    return puw.quantity(lengths.round(6), tmp_length_unit_name, __quantities_form__)
 
 def box_angles_from_box_vectors(box):
 
-    from numpy import asfortranarray, ascontiguousarray
-    from simtk.unit import degrees
+    from molsysmt._private_tools.units import angle_unit_name
 
     n_frames = box.shape[0]
-    tmp_box =  asfortranarray(box._value, dtype='float64')
+    tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')
     angles = _libbox.angles_box(tmp_box, n_frames)
-    angles = ascontiguousarray(angles, dtype='float64')
+    angles = np.ascontiguousarray(angles, dtype='float64')
     del(tmp_box)
 
-    return angles.round(6)*degrees
+    return puw.quantity(angles.round(6), angle_unit_name, __quantities_form__)
 
 def box_vectors_from_box_lengths_and_angles(lengths, angles):
 
-    from numpy import asfortranarray, ascontiguousarray
 
-    length_units = lengths.unit
-    angle_units = angles.unit
-    tmp_lengths =  asfortranarray(lengths._value, dtype='float64')
-    tmp_angles =  asfortranarray(angles._value, dtype='float64')
+    tmp_length_unit_name = puw.get_unit_name(lengths)
+    lengths_value = puw.get_value(lengths)
+    angles_unit_name = puw.get_unit_name(angles)
+    angles_value = puw.get_value(angles)
+    tmp_lengths =  np.asfortranarray(lengths_value, dtype='float64')
+    tmp_angles =  np.asfortranarray(angles_value, dtype='float64')
     n_frames = lengths.shape[0]
 
     box = _libbox.lengths_and_angles_to_box(tmp_lengths, tmp_angles, n_frames)
-    box = ascontiguousarray(box, dtype='float64')
+    box = np.ascontiguousarray(box, dtype='float64')
 
     del(tmp_lengths, tmp_angles)
 
-    return box.round(6)*length_units
+    return puw.quantity(box.round(6), tmp_length_unit_name, __quantities_form__)
 
 def box_volume_from_box_vectors(box):
 
     n_frames = box.shape[0]
-    length_unit = box.unit
+    tmp_length_unit_name = puw.get_unit_name(box)
 
     if box[0] is None:
-        return np.full(n_frames, None) * length_unit**3
+        return np.full(n_frames, None)*puw.unit(tmp_length_unit_name, __quantities_form__)**3
     else:
-        output = np.empty(n_frames, dtype=float) * length_unit**3
+        output = np.empty(n_frames, dtype=float)*puw.unit(tmp_length_unit, __quantities_form__)**3
         for ii in range(n_frames):
             aux = np.cross(box[ii,1,:], box[ii,2,:])
             aux2 = np.dot(box[ii,0,:], aux)
-            output[ii]= aux2 * length_unit**3
+            output[ii]= aux2*puw.unit(tmp_length_unit, __quantities_form__)**3
         return output
 
 def minimum_image_convention(item, selection='all', reference_selection=None,

@@ -1,7 +1,8 @@
 
-def digest_output(output):
+def digest_output_get(output):
 
-    if type(output) not in [list, tuple]:
+
+    if len(output)==1:
         output = output[0]
 
     return output

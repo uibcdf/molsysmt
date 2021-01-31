@@ -8,7 +8,7 @@ list_topology_get_arguments = [
     'chain_index', 'chain_name', 'chain_id', 'chain_type',
     'molecule_index', 'molecule_name', 'molecule_id', 'molecule_type',
     'entity_index', 'entity_name', 'entity_id', 'entity_type',
-    'bond_index', 'bond_id', 'bond_type',
+    'bond_index', 'bond_id', 'bond_type', 'order', 'bonde_order',
     'bonded_atoms', 'inner_bonded_atoms', 'inner_bond_index',
     'n_atoms', 'n_groups', 'n_components', 'n_chains', 'n_molecules', 'n_entities', 'n_bonds', 'n_inner_bonds',
     'n_aminoacids', 'n_nucleotides', 'n_ions', 'n_waters', 'n_cosolutes', 'n_small_molecules',
@@ -67,6 +67,5 @@ def digest_get_argument(argument):
     if tmp_argument in list_get_arguments:
         return tmp_argument
     else:
-        raise BadCallError('Wrong way of invoking this method. Either the engine is not implemented, either is mispelled.\n\
-                           Check the online documentation  for more information: http://www.uibcdf.org/MolSysMT')
+        raise BadCallError()
 

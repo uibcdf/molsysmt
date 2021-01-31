@@ -48,7 +48,7 @@ def info_forms(form_type=None ):
     elif form_type in dict_forms_of_type:
         tmp_output=dict_forms_of_type[form_type]
     else:
-        raise BadCallError(BadCallMessage)
+        raise BadCallError()
 
 
     from pandas import DataFrame
@@ -66,13 +66,13 @@ def info_convert(from_form=None, to_form=None, from_form_type=None, to_form_type
         if from_form_type in dict_forms_of_type:
             from_form = dict_forms_of_type[from_form_type]
         else:
-            raise BadCallError(BadCallMessage)
+            raise BadCallError()
 
     if to_form_type is not None:
         if to_form_type in dict_forms_of_type:
             to_form = dict_forms_of_type[to_form_type]
         else:
-            raise BadCallError(BadCallMessage)
+            raise BadCallError()
 
     if type(from_form) is str:
         from_form = [from_form]
@@ -105,7 +105,7 @@ def info_convert(from_form=None, to_form=None, from_form_type=None, to_form_type
     elif as_rows=='to':
         tmp_output = DataFrame.from_dict(dict_df)
     else:
-        raise BadCallError(BadCallMessage)
+        raise BadCallError()
 
 
     def color(val):
@@ -124,7 +124,7 @@ def info_select():
 def info_viewers(from_form=None, from_form_type=None, to_viewer=None):
 
     if to_viewer is None:
-        return info_convert(from_form=from_form, from_form_type=from_form_type, to_form_type='view')
+        return info_convert(from_form=from_form, from_form_type=from_form_type, to_form_type='viewer')
     else:
         raise NotImplementedError
 

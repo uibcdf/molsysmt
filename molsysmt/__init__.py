@@ -1,4 +1,5 @@
 from .version import __version__
+from .quantities import __quantities_form__
 
 from . import tools
 
@@ -35,7 +36,6 @@ from .dihedral_angles import get_dihedral_angles, set_dihedral_angles, shift_dih
 from .graphs import bondgraph
 from . import physchem
 from . import nglview
-import molecular_systems as test_systems
 
 
 # With the following list sphinx can document de methods in the api section without adding the
