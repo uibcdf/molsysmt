@@ -129,15 +129,15 @@ def to_openmm_GromacsGroFile(item, atom_indices='all', frame_indices='all',
 def to_nglview_NGLView(item, atom_indices='all', frame_indices='all',
                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
-    return to_NGLView(item, topology_item=topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return view_with_NGLView(item, topology_item=topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_NGLView(item, atom_indices='all', frame_indices='all',
+def view_with_NGLView(item, atom_indices='all', frame_indices='all',
                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
 
     tmp_item = to_molsysmt_MolSys(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = molsysmt_MolSys_to_NGLView(tmp_item)
+    tmp_item = molsysmt_MolSys_view_with_NGLView(tmp_item)
 
     return tmp_item
 

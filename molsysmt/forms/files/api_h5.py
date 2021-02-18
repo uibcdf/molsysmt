@@ -82,7 +82,7 @@ def copy(item, output_filename=None):
     er=copyfile(item, output_filename)
     pass
 
-def to_NGLView(item, atom_indices='all', frame_indices='all',
+def view_with_NGLView(item, atom_indices='all', frame_indices='all',
                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as convert

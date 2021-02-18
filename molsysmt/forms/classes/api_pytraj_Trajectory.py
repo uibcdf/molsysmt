@@ -82,7 +82,7 @@ def merge_two_items(item1, item2):
 
     raise NotImplementedError
 
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

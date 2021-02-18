@@ -51,7 +51,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all',
     del(tmp_topology, coordinates)
     return tmp_item
 
-def to_NGLView(item, atom_indices='all', frame_indices='all',
+def view_with_NGLView(item, atom_indices='all', frame_indices='all',
                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from nglview import show_parmed as _nglview_show_parmed

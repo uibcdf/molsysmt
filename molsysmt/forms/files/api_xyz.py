@@ -61,7 +61,7 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

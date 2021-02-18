@@ -178,7 +178,7 @@ def to_pytraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     remove(tmp_file)
     return tmp_item
 
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from nglview import show_file as nglview_show_file

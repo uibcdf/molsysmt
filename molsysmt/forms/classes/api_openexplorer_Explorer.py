@@ -75,12 +75,12 @@ def to_pdb(item, atom_indices='all', frame_indices='all',
             file.write(filedata)
         pass
 
-def to_NGLView(item, atom_indices='all', frame_indices='all',
+def view_with_NGLView(item, atom_indices='all', frame_indices='all',
                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return molsysmt_MolSys_to_NGLView(item)
+    return molsysmt_MolSys_view_with_NGLView(item)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

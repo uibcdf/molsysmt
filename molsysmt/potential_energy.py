@@ -10,16 +10,14 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
-from ._private_tools.engines import digest_engine
-from ._private_tools.forcefields import digest_forcefields
-import simtk.unit as unit
+from molsysmt._private_tools.engines import digest_engine
+from molsysmt._private_tools.forcefields import digest_forcefields
+from molsysmt import get_form, convert, _puw, _u
 
 def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
-        non_bonded_cutoff=1.0*unit.nanometers, constraints=None, rigid_water=True,
+        non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True,
         switch_distance=None, flexible_constraints=False, platform='CUDA',
         selection='all', syntaxis='MolSysMT', engine='OpenMM'):
-
-    from .multitool import get_form, convert
 
     engine=digest_engines(engine)
     in_form = get_form(item)
@@ -31,8 +29,8 @@ def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
             rigid_water=rigid_water, switch_distance=switch_distance,
             flexible_constraints=flexible_constraints,
-            integrator='Langevin', temperature=0*unit.kelvin, collisions_rate=1.0/unit.picoseconds,
-            integration_timestep=2.0*unit.femtoseconds, platform=platform,
+            integrator='Langevin', temperature='0 K', collisions_rate='1.0 1/ps',
+            integration_timestep='2.0 fs', platform=platform,
             selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
 
         state = tmp_item.context.getState(getEnergy=True)
@@ -42,14 +40,16 @@ def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
 
         raise NotImplementedError()
 
-    return output.in_units_of(unit.kilocalories_per_mole)
+    output = _puw.standardize(output)
+
+    return output
 
 
 def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_method='no_cutoff',
-        non_bonded_cutoff=1.0*unit.nanometers, constraints=None, rigid_water=True, hydrogen_mass=None,
+        non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True, hydrogen_mass=None,
         switch_distance=None, flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-        water_model=None, implicit_solvent=None, implicit_solvent_salt_conc= 0.0*unit.mole/unit.liter,
-        implicit_solvent_kappa=0.0/unit.nanometers, solute_dielectric=1.0, solvent_dielectric=78.5,
+        water_model=None, implicit_solvent=None, implicit_solvent_salt_conc= '0.0 mol/L',
+        implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5,
         platform='CUDA', to_form=None, selection='all', syntaxis='MolSysMT', engine='OpenMM', verbose=True, *kwargs):
 
     """remove(item, selection=None, syntaxis='mdtraj')
@@ -105,13 +105,14 @@ def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_meth
             use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
             water_model=water_model, implicit_solvent=implicit_solvent, implicit_solvent_salt_conc=implicit_solvent_salt_conc,
             implicit_solvent_kappa=implicit_solvent_kappa, solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric,
-            integrator='Langevin', temperature=0*unit.kelvin, collisions_rate=1.0/unit.picoseconds,
-            integration_timestep=2.0*unit.femtoseconds, platform=platform,
+            integrator='Langevin', temperature='0 K', collisions_rate='1.0 1/ps',
+            integration_timestep='2.0 fs', platform=platform,
             selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
 
         if verbose:
             state_pre_min = simulation.context.getState(getEnergy=True)
-            energy_pre_min = state_pre_min.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
+            energy_pre_min = state_pre_min.getPotentialEnergy()
+            energy_pre_min = _puw.convert(_puw.translate(energy_pre_min), 'kcal/mol')
             print("Potential Energy before minimization: {}".format(energy_pre_min))
 
         if method=='L-BFGS':

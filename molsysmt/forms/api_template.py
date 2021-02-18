@@ -1,7 +1,6 @@
 from os.path import basename as _basename
 from molsysmt.utils.exceptions import *
 from molsysmt import MolSys as _molsysmt_MolSys
-import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
 
@@ -18,15 +17,23 @@ with_coordinates=False    # The form has the possiblity to store coordinates
 with_box=False            # The form has the possibility to store periodic box or unit cell
 with_parameters=False     # The form has the possibility to store forcefield parameters
 
-def to_molsysmt_MolSys(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     raise NotImplementedError
 
-def to_molsysmt_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
+                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     raise NotImplementedError
 
-def to_molsysmt_Trajectory(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+
+    raise NotImplementedError
+
+def to_nglview_NGLView(item, atom_indices='all', frame_indices='all',
+                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     raise NotImplementedError
 
@@ -70,10 +77,6 @@ def add(item, list_items, list_atom_indices, list_frame_indices):
     raise NotImplementedError
 
 def append(item, list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

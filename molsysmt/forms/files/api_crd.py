@@ -86,7 +86,7 @@ def to_openmm_AmberInpcrdFile(item, atom_indices='all', frame_indices='all',
     from simtk.openmm.app import AmberInpcrdFile
     return AmberInpcrdFile(item)
 
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

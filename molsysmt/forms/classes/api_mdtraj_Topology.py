@@ -79,9 +79,6 @@ def to_top(item, atom_indices='all', frame_indices='all',
     tmp_item = to_parmed_GromacsTopologyFile(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return parmed_GromacsTopologyFile_to_top(tmp_item, output_filename=output_filename)
 
-
-# Select
-
 def select_with_MDTraj(item, selection):
     return item.select(selection)
 
@@ -93,7 +90,13 @@ def select_with_MolSysMT(item, selection):
     del(tmp_item)
     return atom_indices
 
-# Extract
+def select_with_Amber(item, selection):
+
+    raise NotImplementedError
+
+def select_with_MDAnalysis(item, selection):
+
+    raise NotImplementedError
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -154,22 +157,33 @@ def extract(item, atom_indices='all', frame_indices='all'):
 
         return newTopology
 
-# Merge
-
-def merge_two_items(item1, item2, in_place=False):
-
-    if in_place:
-        item1.join(item2)
-        pass
-    else:
-        tmp_item=item1.copy()
-        return tmp_item.join(item2)
-
-# Duplicate
 
 def copy(item):
 
     return item.copy()
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+#    if in_place:
+#        item1.join(item2)
+#        pass
+#    else:
+#        tmp_item=item1.copy()
+#        return tmp_item.join(item2)
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
 
 ########################
 ### Get
@@ -242,6 +256,10 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
         return get_n_inner_bonds_from_system (item)
     else:
         raise NotImplementedError
+
+def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
 
 ## group
 
@@ -368,6 +386,38 @@ def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
     return item.n_bonds
 
+def get_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_shape_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_angles_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_time_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_step_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     return 0
@@ -380,7 +430,40 @@ def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
 
-# bond
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    return with_topology
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    return with_parameters
+
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    return with_coordinates
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    output = False
+
+    if with_box:
+        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+        if tmp_box[0] is not None:
+            output = True
+
+    return output
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    output = False
+
+    if with_topology:
+        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
+            output = True
+
+    return output
+
+## bond
 
 def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
 
@@ -412,4 +495,14 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
     output=np.array(output)
     del(bond)
     return output
+
+###### Set
+
+def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
+
+def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
 

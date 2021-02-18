@@ -176,11 +176,11 @@ def merge_two_items(item1, item2):
 
     return tmp_item
 
-def to_NGLView(item, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
 
     from .api_molsysmt_MolSys import to_NGLView as _molsysmt_MolSys_to_NGLView
     tmp_item = to_molsysmt_MolSys(item)
-    return _molsysmt_MolSys_to_NGLView(tmp_item)
+    return _molsysmt_MolSys_view_with_NGLView(tmp_item)
 
 ###### Get
 

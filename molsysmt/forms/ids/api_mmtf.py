@@ -13,14 +13,6 @@ info=["",""]
 with_topology=True
 with_trajectory=True
 
-def to_pdb(item, output_filename=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_fasta(item, output_filename=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def to_mmtf(item, output_filename=None, atom_indices='all', frame_indices='all'):
 
     from mmtf import fetch
@@ -69,27 +61,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
     tmp_item = mmtf_MMTFDecoder_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_pytraj_Trajectory(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-def to_nglview(item, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

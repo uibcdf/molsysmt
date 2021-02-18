@@ -17,6 +17,7 @@ from .tools.items import compatibles_for_a_molecular_system
 from .tools.molecular_systems import where_topology_in_molecular_system, where_trajectory_in_molecular_system, where_coordinates_in_molecular_system,\
         where_box_in_molecular_system, where_any_in_molecular_system, is_a_single_molecular_system
 import numpy as np
+from molsysmt import _puw
 
 ####
 #### Molecular Models forms
@@ -139,9 +140,7 @@ list_types = ['class', 'file', 'id', 'seq', 'viewer']
 
 def get_form(items=None):
 
-    from simtk.unit import Quantity
-
-    if type(items) == Quantity:
+    if _puw.is_quantity(items):
 
         from .forms.classes.api_XYZ import this_Quantity_is_XYZ
         if this_Quantity_is_XYZ(items):

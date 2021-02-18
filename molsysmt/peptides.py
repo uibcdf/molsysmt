@@ -1,7 +1,5 @@
-import simtk.unit as unit
-
 def build_peptide (item, forcefield='AMBER14', implicit_solvent=None, water_model=None, to_form='molsysmt.MolSys',
-                   box_geometry='cubic', clearance=10*unit.angstroms, engine='LEaP', logfile=False, verbose=False):
+                   box_geometry='cubic', clearance='10.0 Å', engine='LEaP', logfile=False, verbose=False):
 
     # implicit_solvent in ['OBC1']
     # water_model in ['TIP3P']

@@ -250,9 +250,9 @@ def select_with_MolSysMT(item, selection):
 
 def to_nglview_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
-    return to_NGLView(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return view_with_NGLView(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     if trajectory_item is None:
         raise ValueError('To convert a openmm.Topology object to NGLView, a trajectory_item is needed.')
