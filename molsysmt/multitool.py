@@ -18,6 +18,7 @@ from .tools.molecular_systems import where_topology_in_molecular_system, where_t
         where_box_in_molecular_system, where_any_in_molecular_system, is_a_single_molecular_system
 import numpy as np
 from molsysmt import puw
+from molsysmt.molecular_system import MolecularSystem, digest_molecular_system
 
 ####
 #### Molecular Models forms
@@ -285,7 +286,7 @@ def select(items, selection='all', target='atom', mask=None, syntaxis='MolSysMT'
         return indices_to_selection(top_item, output_indices, target=target, syntaxis=to_syntaxis)
 
 
-def get(items, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+def get(molecular_system, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
 
     """get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT')
@@ -338,8 +339,7 @@ def get(items, target='atom', indices=None, selection='all', frame_indices='all'
 
     """
 
-    if not is_a_single_molecular_system(items):
-        raise NeedsSingleMolecularSystem()
+    molecular_system = digest_molecular_system(molecular_system)
 
     # selection works as a mask if indices or ids are used
 
@@ -352,25 +352,35 @@ def get(items, target='atom', indices=None, selection='all', frame_indices='all'
 
     if indices is None:
         if selection is not 'all':
-            indices = select(items, target=target, selection=selection, syntaxis=syntaxis)
+            indices = select(molecular_system, target=target, selection=selection, syntaxis=syntaxis)
         else:
             indices = 'all'
 
-    top_item, traj_item, coor_item, box_item = where_any_in_molecular_system(items)
-    top_form, traj_form, coor_form, box_form = get_form([top_item, traj_item, coor_item, box_item])
-
     output = []
     for attribute in attributes:
-        for item, form, list_arguments in [[top_item, top_form, list_topology_get_arguments],
-                                           [traj_item, traj_form, list_trajectory_get_arguments],
-                                           [coor_item, coor_form, list_coordinates_get_arguments],
-                                           [box_item, box_form, list_box_get_arguments],]:
-            if attribute in list_arguments:
-                if item is None:
-                    result = None
-                else:
-                    result = dict_get[form][target][attribute](item, indices=indices, frame_indices=frame_indices)
-                break
+        if attribute in list_topology_get_arguments:
+            item=molecular_system.topology_item
+            form=molecular_system.topology_form
+        elif attribute in list_bonds_get_arguments:
+            item=molecular_system.bonds_item
+            form=molecular_system.bonds_form
+        elif attribute in list_parameters_get_arguments:
+            item=molecular_system.parameters_item
+            form=molecular_system.parameters_form
+        elif attribute in list_trajectory_get_arguments:
+            item=molecular_system.trajectory_item
+            form=molecular_system.trajectory_form
+        elif attribute in list_coordinates_get_arguments:
+            item=molecular_system.coordinates_item
+            form=molecular_system.coordinates_form
+        elif attribute in list_box_get_arguments:
+            item=molecular_system.box_item
+            form=molecular_system.box_form
+
+        if item is None:
+            result = None
+        else:
+            result = dict_get[form][target][attribute](item, indices=indices, frame_indices=frame_indices)
 
         output.append(result)
 
@@ -1192,8 +1202,7 @@ def set(items, target='system', indices=None, selection='all', frame_indices='al
 
     pass
 
-
-def convert(items, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
     """convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs)
 
@@ -1241,8 +1250,7 @@ def convert(items, to_form='molsysmt.MolSys', selection='all', frame_indices='al
 
     """
 
-    if not is_a_single_molecular_system(items):
-        raise NeedsSingleMolecularSystem()
+    molecular_system = digest_molecular_system(molecular_system)
 
     to_form = digest_to_form(to_form)
 
@@ -1250,14 +1258,14 @@ def convert(items, to_form='molsysmt.MolSys', selection='all', frame_indices='al
 
         tmp_item=[]
         for item_out in to_form:
-            tmp_item.append(convert(items, to_form=item_out, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis))
+            tmp_item.append(convert(molecular_system, to_form=item_out, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis))
 
         return tmp_item
 
     frame_indices = digest_frame_indices(frame_indices)
 
     if not selection_is_all(selection):
-        atom_indices = select(items, selection=selection, syntaxis=syntaxis)
+        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
     else:
         atom_indices = 'all'
 
@@ -1271,20 +1279,18 @@ def convert(items, to_form='molsysmt.MolSys', selection='all', frame_indices='al
     else:
         form_out = to_form
 
-    top_item, traj_item, coor_item, box_item = where_any_in_molecular_system(items)
-    top_form, traj_form, coor_form, box_form = get_form([top_item, traj_item, coor_item, box_item])
+    if molecular_system.topology_item is not None:
+        item_form = molecular_system.topology_form
+    elif molecular_system.trajectory_item is not None:
+        item_form = molecular_system.trajectory_form
+    elif molecular_system.coordinates_item is not None:
+        item_form = molecular_system.coordinates_form
+    elif molecular_system.box_item is not None:
+        item_form = molecular_system.box_form
 
-    conversion_arguments['topology_item']=top_item
-    conversion_arguments['trajectory_item']=traj_item
-    conversion_arguments['coordinates_item']=coor_item
-    conversion_arguments['box_item']=box_item
 
-    for item, item_form in [[top_item, top_form], [traj_item, traj_form], [coor_item, coor_form], [box_item, box_form]]:
-        if item is not None:
-
-            tmp_item = dict_converter[item_form][form_out](item, atom_indices=atom_indices, frame_indices=frame_indices,
-                                                           **kwargs, **conversion_arguments)
-            break
+    tmp_item = dict_converter[item_form][form_out](molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
+                                                   **conversion_arguments, **kwargs)
 
     return tmp_item
 
