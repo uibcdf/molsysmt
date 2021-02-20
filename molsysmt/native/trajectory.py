@@ -1,13 +1,10 @@
 import numpy as np
-import pyunitwizard as puw
-from molsysmt._private_tools.units import length_unit_name, time_unit_name
-from molsysmt import __quantities_form__
+from molsysmt import puw
 from molsysmt._private_tools.exceptions import *
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
 
 # Un frame tiene: step, time, coordinates, cell
-# Units: length -> nanometers, time -> picoseconds, angle -> degrees
 
 class Trajectory():
 
@@ -29,62 +26,57 @@ class Trajectory():
 
     def append_frames(self, step=None, time=None, coordinates=None, box=None):
 
+        if step is not None:
+            if type(step) not in [list, np.ndarray]:
+                step  = np.array([step])
+            else:
+                step = step
+
         if time is not None:
-            time=puw.convert(time, time_unit_name, __quantities_form__)
+            time=puw.standardize(time)
         if coordinates is not None:
-            coordinates=puw.convert(coordinates, length_unit_name, __quantities_form__)
+            coordinates=puw.standardize(coordinates)
         if box is not None:
-            box=puw.convert(box, length_unit_name, __quantities_form__)
+            box=puw.standardize(box)
 
         n_frames = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
 
-
         if self.n_frames == 0:
 
             self.coordinates = coordinates
-
-            if step is not None:
-                if type(step) not in [list, np.ndarray]:
-                    self.step  = np.array([step])
-                else:
-                    self.step = step
-            else:
-                self.step = np.full(n_frames,None)
-
-            if time is not None:
-                if type(puw.get_value(time)) not in [list, np.ndarray]:
-                    self.time  = puw.quantity(np.array([puw.get_value(time)]), time_unit_name, __quantities_form__)
-            else:
-                self.time = np.quantity(np.full(n_frames,None), time_unit_name, __quantities_form__)
-
-            if box is not None:
-                self.box = puw.quantity(puw.get_value(box.copy()), length_unit_name, __quantities_form__)
-            else:
-                self.box = puw.quantity(np.full(n_frames,None), length_unit_name, __quantities_form__)
-
+            self.step = step
+            self.time = time
+            self.box = box
+            self.n_frames = n_frames
             self.n_atoms = n_atoms
 
         else:
 
             if n_atoms!=self.n_atoms:
-                raise ValueError("The coordinates to be appended in the system needs to have the same number of atoms")
+                raise ValueError("The coordinates to be appended in the system needs to have the same number of atoms.")
 
-            if self.step is None:
-                self.step = step.copy()
-            else:
-                self.step = np.concatenate([self.step, step])
+            if step is not None:
+                if self.step is None:
+                    raise ValueError("The trajectory has no steps to append the new frame.")
+                else:
+                    self.step = np.concatenate([self.step, step])
 
-            if self.time is None:
-                self.time = puw.quantity(puw.get_value(time).copy(), time_unit_name, __quantities_form__)
-            else:
-                self.time = puw.quantity(np.concatenate([self.time, time]), time_unit_name, __quantities_form__)
+            if time is not None:
+                if self.time is None:
+                    raise ValueError("The trajectory has no time array to append the new frame.")
+                else:
+                    self.time = np.concatenate([self.time, time])
 
-            self.coordinates = puw.quantity(np.concatenate([self.coordinates, coordinates]), length_unit_name, __quantities_form__)
+            if box is not None:
+                if self.box is None:
+                    raise ValueError("The trajectory has no box array to append the new frame.")
+                else:
+                    self.box = np.concatenate([self.box, box])
 
-            self.box = puw.quantity(np.concatenate([self.box, box]), length_unit_name, __quantities_form__)
+            self.coordinates = np.concatenate([self.coordinates, coordinates])
 
-        self.n_frames += n_frames
+            self.n_frames += n_frames
 
         pass
 

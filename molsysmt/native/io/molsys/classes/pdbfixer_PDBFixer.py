@@ -1,4 +1,5 @@
-def from_pdbfixer_PDBFixer (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_pdbfixer_PDBFixer (item, atom_indices='all', frame_indices='all', topology_item=None,
+                            trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology.classes import from_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_molsysmt_Topology

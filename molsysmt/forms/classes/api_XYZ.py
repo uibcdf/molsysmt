@@ -1,8 +1,8 @@
 from os.path import basename as _basename
 import numpy as np
 from molsysmt._private_tools.exceptions import *
-import simtk.unit as unit
 from molsysmt.forms.common_gets import *
+import pyunitwizard as puw
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
@@ -17,16 +17,16 @@ with_parameters=False
 
 def item_in_good_shape(item):
 
-    tmp_item = item
+    unit = puw.get_unit(item)
+    value = puw.get_value(item)
 
-    if type(item._value)==list:
-        tmp_item = np.array(tmp_item._value)*tmp_item.unit
+    if type(value)==list:
+        value = np.array(value)
 
-    if len(tmp_item.shape)==2:
-        from numpy import expand_dims
-        tmp_item = expand_dims(tmp_item, axis=0)*item.unit
+    if len(value.shape)==2:
+        value = np.expand_dims(value, axis=0)
 
-    return tmp_item
+    return value*unit
 
 def this_Quantity_has_XYZ_shape(item):
 
@@ -35,10 +35,7 @@ def this_Quantity_has_XYZ_shape(item):
 
     has_right_shape = False
 
-    if type(item._value)==list:
-        item = np.array(item._value)*item.unit
-
-    shape = item.shape
+    shape = np.shape(item)
 
     if len(shape)==3 and shape[-1]==3:
         has_right_shape = True
@@ -52,16 +49,7 @@ def this_Quantity_is_XYZ(item):
     # Only np.arrays of shape [n_frames, n_particles, coordinates] or [n_particles, coordinates] are
     # admitted
 
-    from numpy import ndarray
-
-    is_length = False
-
-    list_base_dimensions = list(item.unit.iter_base_dimensions())
-
-    if len(list_base_dimensions)==1:
-        if list_base_dimensions[0][0].name == 'length':
-            is_length = True
-
+    is_length = puw.compatibility(item, puw.unit('nm'))
     has_right_shape = this_Quantity_has_XYZ_shape(item)
 
     return (has_right_shape and is_length)

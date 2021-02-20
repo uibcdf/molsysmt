@@ -4,7 +4,6 @@ from ._private_tools.forms import digest_form
 from molsysmt.lib import box as _libbox
 import numpy as np
 import pyunitwizard as puw
-from molsysmt import __quantities_form__
 
 def box_shape_from_box_angles(angles):
 
@@ -49,7 +48,7 @@ def box_lengths_from_box_vectors(box):
     lengths = np.ascontiguousarray(lengths, dtype='float64')
     del(tmp_box)
 
-    return puw.quantity(lengths.round(6), tmp_length_unit_name, __quantities_form__)
+    return puw.quantity(lengths.round(6), tmp_length_unit_name)
 
 def box_angles_from_box_vectors(box):
 
@@ -61,40 +60,32 @@ def box_angles_from_box_vectors(box):
     angles = np.ascontiguousarray(angles, dtype='float64')
     del(tmp_box)
 
-    return puw.quantity(angles.round(6), angle_unit_name, __quantities_form__)
+    return puw.quantity(angles.round(6), 'degrees')
 
 def box_vectors_from_box_lengths_and_angles(lengths, angles):
 
 
-    tmp_length_unit_name = puw.get_unit_name(lengths)
+    units = puw.get_unit(lengths)
     lengths_value = puw.get_value(lengths)
-    angles_unit_name = puw.get_unit_name(angles)
-    angles_value = puw.get_value(angles)
+    angles_value = puw.get_value(puw.convert(angles, 'degrees'))
     tmp_lengths =  np.asfortranarray(lengths_value, dtype='float64')
     tmp_angles =  np.asfortranarray(angles_value, dtype='float64')
     n_frames = lengths.shape[0]
 
     box = _libbox.lengths_and_angles_to_box(tmp_lengths, tmp_angles, n_frames)
-    box = np.ascontiguousarray(box, dtype='float64')
+    box = np.ascontiguousarray(box, dtype='float64').round(6)*units
 
     del(tmp_lengths, tmp_angles)
 
-    return puw.quantity(box.round(6), tmp_length_unit_name, __quantities_form__)
+    return box
 
 def box_volume_from_box_vectors(box):
 
-    n_frames = box.shape[0]
-    tmp_length_unit_name = puw.get_unit_name(box)
+    units = puw.get_unit(box)
+    value = puw.get_value(box)
+    volume = np.linalg.det(value)*units**3
 
-    if box[0] is None:
-        return np.full(n_frames, None)*puw.unit(tmp_length_unit_name, __quantities_form__)**3
-    else:
-        output = np.empty(n_frames, dtype=float)*puw.unit(tmp_length_unit, __quantities_form__)**3
-        for ii in range(n_frames):
-            aux = np.cross(box[ii,1,:], box[ii,2,:])
-            aux2 = np.dot(box[ii,0,:], aux)
-            output[ii]= aux2*puw.unit(tmp_length_unit, __quantities_form__)**3
-        return output
+    return volume
 
 def minimum_image_convention(item, selection='all', reference_selection=None,
                              reference_coordinates=None, center_of_selection='geometrical_center',
@@ -140,10 +131,10 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
 
         coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, frame_indices='all')
 
-        length_units = coordinates.unit
-        coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
-        reference_coordinates = _np.asfortranarray(reference_coordinates._value, dtype='float64')
-        box = _np.asfortranarray(box._value, dtype='float64')
+        units = puw.get_unit(coordinates)
+        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
+        reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates), dtype='float64')
+        box = np.asfortranarray(puw.get_value(box), dtype='float64')
         orthogonal = 0
         if box_shape=='cubic': orthogonal = 1
 
@@ -153,7 +144,7 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
                 n_frames, n_atoms, molecules_serialized.n_indices, molecules_serialized.n_values,
                 n_frame_indices)
 
-        coordinates=_np.ascontiguousarray(coordinates)*length_units
+        coordinates=np.ascontiguousarray(coordinates)*units
 
         _set(tmp_item, coordinates=coordinates)
 
@@ -200,9 +191,9 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', frame_indices='all', s
 
         coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, frame_indices='all')
 
-        length_units = coordinates.unit
-        coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
-        box = _np.asfortranarray(box._value, dtype='float64')
+        units = puw.get_unit(coordinates)
+        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
+        box = np.asfortranarray(puw.get_value(box), dtype='float64')
         orthogonal = 0
         if box_shape=='cubic': orthogonal = 1
 
@@ -213,7 +204,7 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', frame_indices='all', s
                        bonded_atoms_serialized.n_indices, bonded_atoms_serialized.n_values,
                        n_frame_indices)
 
-        coordinates=_np.ascontiguousarray(coordinates)*length_units
+        coordinates=_np.ascontiguousarray(coordinates)*units
 
         _set(tmp_item, coordinates=coordinates)
 

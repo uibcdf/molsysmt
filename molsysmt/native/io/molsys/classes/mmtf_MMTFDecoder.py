@@ -1,5 +1,6 @@
 
-def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all'):
+def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', topology_item=None,
+                          trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology.classes import from_mmtf_MMTFDecoder as molsysmt_topology_from_mmtf_MMTFDecoder

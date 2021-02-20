@@ -1,4 +1,5 @@
-def from_mdanalysis_Universe (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_mdanalysis_Universe (item, atom_indices='all', frame_indices='all', topology_item=None,
+                              trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology.classes import from_mdanalysis_Universe as mdanalysis_Universe_to_molsysmt_Topology
@@ -10,6 +11,6 @@ def from_mdanalysis_Universe (item, trajectory_item=None, atom_indices='all', fr
 
     return tmp_item
 
-def to_mdanalysis_Universe (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe (item, atom_indices='all', frame_indices='all', topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     raise NotImplementedError

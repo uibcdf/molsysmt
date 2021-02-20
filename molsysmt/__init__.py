@@ -1,6 +1,5 @@
 from .version import __version__
-from ._pyunitwizard import puw as _puw
-from ._private_tools import units as _u
+from ._pyunitwizard import puw as puw
 
 from . import tools
 

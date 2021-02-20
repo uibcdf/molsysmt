@@ -1,4 +1,5 @@
-def from_openmm_PDBFile (item, atom_indices='all', frame_indices='all'):
+def from_openmm_PDBFile (item, atom_indices='all', frame_indices='all', topology_item=None,
+                         trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology.classes import from_openmm_PDBFile as molsysmt_topology_from_openmm_PDBFile

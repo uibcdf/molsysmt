@@ -12,7 +12,7 @@ From energy minimization to potential energy contribution of specific set of ato
 
 from molsysmt._private_tools.engines import digest_engine
 from molsysmt._private_tools.forcefields import digest_forcefields
-from molsysmt import get_form, convert, _puw, _u
+from molsysmt import get_form, convert, puw
 
 def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
         non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True,
@@ -40,7 +40,7 @@ def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
 
         raise NotImplementedError()
 
-    output = _puw.standardize(output)
+    output = puw.standardize(output)
 
     return output
 
@@ -112,7 +112,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_meth
         if verbose:
             state_pre_min = simulation.context.getState(getEnergy=True)
             energy_pre_min = state_pre_min.getPotentialEnergy()
-            energy_pre_min = _puw.convert(_puw.translate(energy_pre_min), 'kcal/mol')
+            energy_pre_min = puw.standardize(energy_pre_min)
             print("Potential Energy before minimization: {}".format(energy_pre_min))
 
         if method=='L-BFGS':
@@ -120,7 +120,8 @@ def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_meth
 
         if verbose:
             state_post_min = simulation.context.getState(getEnergy=True)
-            energy_post_min = state_post_min.getPotentialEnergy().in_units_of(unit.kilocalories_per_mole)
+            energy_post_min = state_post_min.getPotentialEnergy()
+            energy_post_min = puw.standardize(energy_post_min)
             print("Potential Energy after minimization: {}".format(energy_post_min))
 
         tmp_item = convert(simulation, to_form=to_form)

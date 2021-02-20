@@ -1,4 +1,5 @@
-def to_openmm_Topology (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology (item, atom_indices='all', frame_indices='all', topology_item=None,
+                        trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.topology.classes import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
     from molsysmt import get, set
@@ -14,7 +15,8 @@ def to_openmm_Topology (item, trajectory_item=None, atom_indices='all', frame_in
 
     return tmp_item
 
-def from_openmm_Topology (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_openmm_Topology (item, atom_indices='all', frame_indices='all', topology_item=None,
+                          trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.trajectory import Trajectory
