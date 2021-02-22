@@ -10,12 +10,12 @@ def _not_implemented_conversion(item):
 
 list_api_forms=[filename.split('.')[0] for filename in _listdir(_dirname(__file__)) if filename.startswith('api')]
 
+forms=[]
 dict_api_forms={}
-list_forms=[]
-dict_converter={}
-dict_selector={}
-dict_extractor={}
-dict_copier={}
+dict_convert={}
+dict_select={}
+dict_extract={}
+dict_copy={}
 dict_merge={}
 dict_add={}
 dict_append={}
@@ -28,16 +28,16 @@ dict_info={}
 for api_form in list_api_forms:
     module_api_form=_import_module('.'+api_form,base_package)
     form_name=module_api_form.form_name
-    list_forms.append(form_name)
+    forms.append(form_name)
     dict_api_forms[form_name]=module_api_form
     dict_is_form.update(module_api_form.is_form)
 
-for form_name in list_forms:
+for form_name in forms:
 
-    dict_converter[form_name]= {}
-    dict_selector[form_name]= {}
-    dict_extractor[form_name]= {}
-    dict_copier[form_name]= {}
+    dict_convert[form_name]= {}
+    dict_select[form_name]= {}
+    dict_extract[form_name]= {}
+    dict_copy[form_name]= {}
     dict_merge[form_name]= {}
     dict_add[form_name]= {}
     dict_append[form_name]= {}
@@ -56,10 +56,10 @@ for form_name in list_forms:
                 out_form_name=method[:-3].replace('to_','').replace('_','.')+':id'
             else:
                 out_form_name=method.replace('to_','').replace('_','.')
-            dict_converter[form_name][out_form_name]= getattr(dict_api_forms[form_name],method)
+            dict_convert[form_name][out_form_name]= getattr(dict_api_forms[form_name],method)
         if method.startswith('select_with_'):
             syntaxis_name=method.replace('select_with_','')
-            dict_selector[form_name][syntaxis_name]= getattr(dict_api_forms[form_name],method)
+            dict_select[form_name][syntaxis_name]= getattr(dict_api_forms[form_name],method)
         if method.startswith('get_'):
             option, target = method[4:].split('_from_')
             dict_get[form_name][target][option]=getattr(dict_api_forms[form_name], method)
@@ -68,9 +68,9 @@ for form_name in list_forms:
             dict_set[form_name][target][option]=getattr(dict_api_forms[form_name], method)
 
     if 'extract' in dict_api_forms[form_name].__dict__.keys():
-        dict_extractor[form_name]=getattr(dict_api_forms[form_name],'extract')
+        dict_extract[form_name]=getattr(dict_api_forms[form_name],'extract')
     if 'copy' in dict_api_forms[form_name].__dict__.keys():
-        dict_copier[form_name]=getattr(dict_api_forms[form_name],'copy')
+        dict_copy[form_name]=getattr(dict_api_forms[form_name],'copy')
     if 'merge' in dict_api_forms[form_name].__dict__.keys():
         dict_merge[form_name]=getattr(dict_api_forms[form_name],'merge')
     if 'add' in dict_api_forms[form_name].__dict__.keys():
@@ -80,7 +80,7 @@ for form_name in list_forms:
     if 'concatenate' in dict_api_forms[form_name].__dict__.keys():
         dict_concatenate[form_name]=getattr(dict_api_forms[form_name],'concatenate')
 
-list_forms=sorted(list_forms)
+forms=sorted(forms)
 
 if 'out_form_name' in globals():
     del(out_form_name)

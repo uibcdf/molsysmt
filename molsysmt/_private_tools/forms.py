@@ -1,13 +1,7 @@
-from molsysmt.forms.classes import list_forms as list_classes_forms
-from molsysmt.forms.files import list_forms as list_files_forms
-from molsysmt.forms.ids import list_forms as list_ids_forms
-from molsysmt.forms.seqs import list_forms as list_seqs_forms
-from molsysmt.forms.viewers import list_forms as list_viewers_forms
+from molsysmt.forms import forms
 from .lists_and_tuples import is_list_or_tuple
 
-list_forms = list_classes_forms + list_files_forms + list_ids_forms + list_seqs_forms + list_viewers_forms
-
-_aux = { ii.lower():ii for ii in list_forms}
+_aux = { ii.lower():ii for ii in forms}
 
 def digest_form(form):
 
@@ -29,7 +23,7 @@ def to_form_is_file(to_form):
     output = False
 
     if type(to_form) is str:
-        if to_form.split('.')[-1] in list_files_forms:
+        if to_form.split('.')[-1] in forms:
             output = True
 
     return output
@@ -39,7 +33,7 @@ def form_is_file(form):
     output = False
 
     if type(form) is str:
-        if form.split('.')[-1] in list_files_forms:
+        if form.split('.')[-1] in forms:
             output = True
 
     return output
@@ -49,7 +43,7 @@ def formname_of_file(to_form):
     output = None
 
     if type(to_form)==str:
-        if to_form.split('.')[-1] in list_files_forms:
+        if to_form.split('.')[-1] in forms:
             output = to_form.split('.')[-1]
 
     return output

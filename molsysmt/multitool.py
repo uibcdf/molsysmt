@@ -1,24 +1,6 @@
-from ._private_tools.lists_and_tuples import is_list_or_tuple
-from ._private_tools.exceptions import *
-from ._private_tools.atom_indices import digest_atom_indices, complementary_atom_indices
-from ._private_tools.frame_indices import digest_frame_indices, complementary_frame_indices
-from ._private_tools.indices import digest_indices
-from ._private_tools.engines import digest_engine
-from ._private_tools.selection import digest_syntaxis, digest_to_syntaxis, digest_selection, indices_to_selection, selection_is_all
-from ._private_tools.forms import digest_form, digest_to_form, list_classes_forms, list_files_forms, list_ids_forms, list_seqs_forms, list_viewers_forms,\
-        list_forms, to_form_is_file, form_is_file, formname_of_file
-from ._private_tools.elements import digest_element, elements2string
-from ._private_tools.targets import digest_target
-from ._private_tools.get_arguments import digest_get_argument, list_topology_get_arguments, list_trajectory_get_arguments, list_coordinates_get_arguments,\
-        list_box_get_arguments
-from ._private_tools.items import digest_items
-from ._private_tools.output import digest_output_get
-from .tools.items import compatibles_for_a_molecular_system
-from .tools.molecular_systems import where_topology_in_molecular_system, where_trajectory_in_molecular_system, where_coordinates_in_molecular_system,\
-        where_box_in_molecular_system, where_any_in_molecular_system, is_a_single_molecular_system
+from ._private_tools import *
 import numpy as np
 from molsysmt import puw
-from molsysmt.molecular_system import MolecularSystem, digest_molecular_system
 
 ####
 #### Molecular Models forms
@@ -139,41 +121,41 @@ list_types = ['class', 'file', 'id', 'seq', 'viewer']
 #### Methods
 ####
 
-def get_form(items=None):
+def get_form(molecular_system):
 
-    if puw.is_quantity(items):
+    if puw.is_quantity(molecular_system):
 
         from .forms.classes.api_XYZ import this_Quantity_is_XYZ
-        if this_Quantity_is_XYZ(items):
+        if this_Quantity_is_XYZ(molecular_system):
             return 'XYZ'
         else:
             raise NotImplementedError()
 
-    if type(items)==str:
+    if type(molecular_system)==str:
 
-        if ':' in items:
-            prefix=items.split(':')[0]
+        if ':' in molecular_system:
+            prefix=molecular_system.split(':')[0]
             if prefix+':id' in dict_ids_is_form.keys():
-                items=dict_ids_is_form[prefix+':id']
+                molecular_system=dict_ids_is_form[prefix+':id']
             elif prefix+':seq' in dict_seqs_is_form.keys():
-                items=dict_seqs_is_form[prefix+':seq']
+                molecular_system=dict_seqs_is_form[prefix+':seq']
         else:
-            items=items.split('.')[-1]
+            molecular_system=molecular_system.split('.')[-1]
 
-    if is_list_or_tuple(items):
-        output = [get_form(ii) for ii in items]
+    if is_list_or_tuple(molecular_system):
+        output = [get_form(ii) for ii in molecular_system]
         return output
 
     try:
-        return dict_is_form[type(items)]
+        return dict_is_form[type(molecular_system)]
     except:
         try:
-            return dict_is_form[items]
+            return dict_is_form[molecular_system]
         except:
             raise NotImplementedError()
 
 
-def select(items, selection='all', target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
+def select(molecular_system, selection='all', target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
 
     # to_syntaxis: 'NGLView', 'MDTraj', ...
 
@@ -224,27 +206,23 @@ def select(items, selection='all', target='atom', mask=None, syntaxis='MolSysMT'
 
     """
 
-    if not is_a_single_molecular_system(items):
-        raise NeedsSingleMolecularSystemError()
+    molecular_system = digest_molecular_system(molecular_system)
 
     target = digest_target(target)
     syntaxis = digest_syntaxis(syntaxis)
     selection = digest_selection(selection, syntaxis)
     to_syntaxis = digest_to_syntaxis(to_syntaxis)
 
-    top_item = where_topology_in_molecular_system(items)
-    top_form = get_form(top_item)
-
     if mask is 'all':
         mask=None
 
     if type(selection)==str:
         if selection in ['all', 'All', 'ALL']:
-            n_atoms = dict_get[top_form]['system']['n_atoms'](top_item)
+            n_atoms = get(molecular_system, target='system', n_atoms=True)
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
             selection = digest_selection(selection, syntaxis)
-            atom_indices = dict_selector[top_form][syntaxis](top_item, selection)
+            atom_indices = dict_selector[molecular_system.topology_form][syntaxis](molecular_system.topology_item, selection)
     elif type(selection) in [int, np.int64, np.int]:
         atom_indices = np.array([selection], dtype='int64')
     elif hasattr(selection, '__iter__'):
@@ -257,22 +235,22 @@ def select(items, selection='all', target='atom', mask=None, syntaxis='MolSysMT'
     if target=='atom':
         output_indices = atom_indices
     elif target=='group':
-        output_indices = get(top_item, target='atom', indices=atom_indices, group_index=True)
+        output_indices = get(molecular_system, target='atom', indices=atom_indices, group_index=True)
         output_indices = np.unique(output_indices)
     elif target=='component':
-        output_indices = get(top_item, target='atom', indices=atom_indices, component_index=True)
+        output_indices = get(molecular_system, target='atom', indices=atom_indices, component_index=True)
         output_indices = np.unique(output_indices)
     elif target=='chain':
-        output_indices = get(top_item, target='atom', indices=atom_indices, chain_index=True)
+        output_indices = get(molecular_system, target='atom', indices=atom_indices, chain_index=True)
         output_indices = np.unique(output_indices)
     elif target=='molecule':
-        output_indices = get(top_item, target='atom', indices=atom_indices, molecule_index=True)
+        output_indices = get(molecular_system, target='atom', indices=atom_indices, molecule_index=True)
         output_indices = np.unique(output_indices)
     elif target=='entity':
-        output_indices = get(top_item, target='atom', indices=atom_indices, entity_index=True)
+        output_indices = get(molecular_system, target='atom', indices=atom_indices, entity_index=True)
         output_indices = np.unique(output_indices)
     elif target=='bond':
-        output_indices = get(top_item, target='atom', indices=atom_indices, inner_bond_index=True)
+        output_indices = get(molecular_system, target='atom', indices=atom_indices, inner_bond_index=True)
 
     else:
         raise NotImplementedError()
