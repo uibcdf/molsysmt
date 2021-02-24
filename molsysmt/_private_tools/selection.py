@@ -1,6 +1,6 @@
 from .exceptions import BadCallError
 
-list_syntaxis = [
+syntaxis = [
     'MolSysMT',
     'Amber',
     'MDAnalysis',
@@ -9,17 +9,15 @@ list_syntaxis = [
     'NGLView',
 ]
 
-_aux={ ii.lower():ii for ii in list_syntaxis }
+syntaxis_from_lower = { ii.lower():ii for ii in syntaxis }
 
 def digest_syntaxis(syntaxis):
 
     try:
-        syntaxis = _aux[syntaxis.lower()]
+        syntaxis = syntaxis_from_lower[syntaxis.lower()]
         return syntaxis
     except:
-        raise BadCallError('Wrong way of invoking this method. Either the engine is not implemented, either is mispelled.\n\
-                           Check the online documentation  for more information: http://www.uibcdf.org/MolSysMT')
-
+        raise BadCallError()
 
 def digest_to_syntaxis(to_syntaxis):
 
@@ -40,7 +38,10 @@ def digest_selection(selection, syntaxis="MolSysMT"):
 
 def indices_to_selection(item, indices, target='atom', syntaxis=None):
 
+    from molsysmt._private_tools.targets import digest_target
+
     syntaxis = digest_syntaxis(syntaxis)
+    target = digest_target(target)
 
     output_string = ''
 

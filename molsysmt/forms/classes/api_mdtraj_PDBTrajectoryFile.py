@@ -1,45 +1,81 @@
-from molsysmt._private_utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
+from mdtraj.formats.pdb import PDBTrajectoryFile as _mdtraj_PDBTrajectoryFile
 
-try:
-    from molsysmt import MolSys as _molsysmt_MolSys
-except:
-    raise LibraryNotFound('molsysmt')
-
-form_name='molsysmt.MolSys'
+form_name='mdtraj.PDBTrajectoryFile'
 
 is_form={
-    _molsysmt_MolSys : form_name,
-    'molsysmt.MolSys': form_name
-}
+    _mdtraj_PDBTrajectoryFile: form_name,
+    }
 
 info=["",""]
-with_topology=False       # The form has the possibility to store topological data
-with_coordinates=False    # The form has the possiblity to store coordinates
-with_box=False            # The form has the possibility to store periodic box or unit cell
-with_bonds=False          # The form has the possibility to store bonds
-with_parameters=False     # The form has the possibility to store forcefield parameters
+with_topology=True
+with_coordinates=True
+with_box=True
+with_bonds=True
+with_parameters=False
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from api_mdtraj_Topology import extract as extract_mdtraj_Topology
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = item.topology
+    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item
 
-    raise NotImplementedError
+def load_frame (item, atom_indices='all', frame_indices='all'):
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
+    from molsysmt._private_tools import units as molsysmt_units
+    from simtk.unit import angstroms, nanometers, degrees, picoseconds
+    from molsysmt._private_tools.atom_indices import digest as _digest_atom_indices
+    from molsysmt._private_tools.frame_indices import digest as _digest_frame_indices
 
-    raise NotImplementedError
+    atom_indices = _digest_atom_indices(item, atom_indices)
+    frame_indices = _digest_frame_indices(item, frame_indices)
 
-def to_nglview_NGLView(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    xyz_list = []
+    time_list = []
+    step_list = []
+    box_list = []
 
-    raise NotImplementedError
+    n_frames = len(frame_indices)
+
+    xyz = item.positions[frame_indices,:,:]
+    xyz = xyz.astype('float64')
+    xyz = xyz[:,atom_indices,:]
+    xyz = xyz*angstroms
+    xyz = xyz.in_units_of(nanometers)
+
+    #time = zeros([len(frame_indices)],dtype='float64')*picoseconds
+    #step = array(frame_indices, dtype='int64')
+
+    time = np.array([None for ii in range(n_frames)])*picoseconds
+    step = np.array([None for ii in range(n_frames)])
+
+    if item.unitcell_lengths is not None:
+
+        cell_lengths = np.empty([n_frames,3], dtype='float64')
+        cell_angles = np.empty([n_frames,3], dtype='float64')
+        for ii in range(3):
+            cell_lengths[:,ii] = item.unitcell_lengths[ii]
+            cell_angles[:,ii] = item.unitcell_angles[ii]
+
+        cell_lengths = cell_lengths*angstroms
+        cell_angles = cell_angles*degrees
+
+        box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
+        box = box.in_units_of(molsysmt_units.length)
+
+    else:
+
+        box = None
+
+    xyz = xyz.in_units_of(molsysmt_units.length)
+    time = time.in_units_of(molsysmt_units.time)
+
+    return step, time, xyz, box
 
 def select_with_Amber(item, selection):
 
@@ -84,7 +120,7 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-###### Get
+#### Get
 
 ## atom
 
@@ -219,9 +255,9 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
 ## system
 
-def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.topology.n_atoms
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
@@ -258,9 +294,18 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_box_shape_from_system(item, indices='all', frame_indices='all'):
+def get_box_shape_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt._private_tools.pbc import get_shape_from_angles
+    from simtk.unit import degrees
+    from numpy import empty
+
+    cell_angles = empty([1,3], dtype='float64')
+    for ii in range(3):
+        cell_angles[0,ii] = item.unitcell_angles[ii]
+    cell_angles = cell_angles*degrees
+    shape = get_shape_from_angles(cell_angles)
+    return shape
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
@@ -282,9 +327,9 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.positions.shape[0]
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 

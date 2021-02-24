@@ -1,6 +1,6 @@
-from .engines import digest_engine
+from molsysmt._private_tools.engines import digest_engine
 
-_forcefields = {
+forcefields = {
 
     'AMBER14': "",
     'AMBER10': "",
@@ -15,7 +15,7 @@ _forcefields = {
 
 }
 
-_water_models = {
+water_models = {
 
     'SPC': "",
     'SPC/E': "",
@@ -150,16 +150,16 @@ switcher['LEaP'] = {
 }
 
 
-def digest_forcefields(forcefields, engine, implicit_solvent=None, water_model=None):
+def digest_forcefields(forcefield, engine, implicit_solvent=None, water_model=None):
 
     forcefields_out=[]
 
-    if type(forcefields) not in [list, tuple]:
-        forcefields=[forcefields]
+    if type(forcefield) not in [list, tuple]:
+        forcefield=[forcefield]
 
     engine = digest_engine(engine)
 
-    for ff in forcefields:
+    for ff in forcefield:
         try:
             if implicit_solvent is not None:
                 aux = switcher[engine][ff][implicit_solvent]

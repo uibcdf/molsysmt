@@ -23,4 +23,8 @@ class NotImplementedError(NotImplementedError):
         message = 'It has not been implemeted yet.\n Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
         super().__init__(message)
 
+class LibraryNotFound(NotImplementedError):
+    def __init__(self, library):
+        message = 'The python library {} was not found.'.format(library)
+        super().__init__(message)
 

@@ -1,14 +1,14 @@
 from molsysmt.forms import forms
-from .lists_and_tuples import is_list_or_tuple
+from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 
-_aux = { ii.lower():ii for ii in forms}
+form_from_lowercase = {ii.lower():ii for ii in forms}
 
 def digest_form(form):
 
     if is_list_or_tuple(form):
         output = [digest_form(ii) for ii in form]
     else:
-        output = _aux[form.lower()]
+        output = form_from_lowercase[form.lower()]
     return output
 
 def digest_to_form(to_form):
@@ -38,7 +38,7 @@ def form_is_file(form):
 
     return output
 
-def formname_of_file(to_form):
+def form_of_file(to_form):
 
     output = None
 

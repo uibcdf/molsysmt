@@ -17,9 +17,9 @@ dict_concatenate = {}
 dict_get = {}
 dict_set = {}
 
-for type in types:
+for module, type in [['classes', 'class'], ['files', 'file'], ['ids', 'id'], ['seqs', 'seq'], ['viewers', 'viewer']]:
 
-    mod = import_module('forms.'+type, 'molsysmt')
+    mod = import_module('molsysmt.forms.'+module)
 
     forms+=mod.forms
     for form in mod.forms:

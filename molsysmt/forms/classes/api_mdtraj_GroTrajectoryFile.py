@@ -1,45 +1,70 @@
-from molsysmt._private_utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
+from mdtraj.formats import GroTrajectoryFile as _mdtraj_GroTrajectoryFile
 
-try:
-    from molsysmt import MolSys as _molsysmt_MolSys
-except:
-    raise LibraryNotFound('molsysmt')
-
-form_name='molsysmt.MolSys'
+form_name='mdtraj.GroTrajectoryFile'
 
 is_form={
-    _molsysmt_MolSys : form_name,
-    'molsysmt.MolSys': form_name
-}
+    _mdtraj_GroTrajectoryFile: form_name,
+    }
 
 info=["",""]
-with_topology=False       # The form has the possibility to store topological data
-with_coordinates=False    # The form has the possiblity to store coordinates
-with_box=False            # The form has the possibility to store periodic box or unit cell
-with_bonds=False          # The form has the possibility to store bonds
-with_parameters=False     # The form has the possibility to store forcefield parameters
+with_topology=False
+with_coordinates=True
+with_box=True
+with_bonds=False
+with_parameters=False
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def load_frame (item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    # It doesn't really work. seek doesn't work. Once the file is read can not be rewinded.
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    step = None
 
-    raise NotImplementedError
+    if frame_indices is 'all':
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+        coordinates, time, box = item.read()
 
-    raise NotImplementedError
+        if atom_indices is not 'all':
 
-def to_nglview_NGLView(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+            coordinates = coordinates[:,atom_indices,:]
 
-    raise NotImplementedError
+    else:
+
+        from molsysmt._private_tools.math import serie_to_chunks
+
+        starts_serie_frames, size_serie_frames = serie_to_chunks(frame_indices)
+
+        coordinates_list = []
+        time_list = []
+        step_list = []
+        box_list = []
+
+        for start, size in zip(starts_serie_frames, size_serie_frames):
+            item.seek(start)
+            coordinates, time, box = item.read(n_frames=size, atom_indices=atom_indices)
+            coordinates_list.append(coordinates)
+            time_list.append(time)
+            step_list.append(step)
+            box_list.append(box)
+
+        coordinates = np.concatenate(coordinates_list)
+        time = np.concatenate(time_list)
+        box = np.concatenate(box_list)
+        del(coordinates_list, time_list, box_list)
+
+    if len(box)==0:
+        box = None
+    else:
+        box = box*unit.nanometer
+    if len(time)==0:
+        time = None
+    else:
+        time = time*unit.picoseconds
+    coordinates = coordinates*unit.nanometer
+
+    return step, time, coordinates, box
 
 def select_with_Amber(item, selection):
 
@@ -84,9 +109,9 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-###### Get
+#### Get
 
-## atom
+# atom
 
 def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
 
@@ -219,9 +244,9 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
 ## system
 
-def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.n_atoms
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
@@ -282,9 +307,12 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    _, _, box = item.read()
+    n_frames = box.shape[0]
+    del(box)
+    return n_frames
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 

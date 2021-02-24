@@ -1,6 +1,6 @@
-from .exceptions import BadCallError
+from molsysmt._private_tools.exceptions import BadCallError
 
-list_engines = [
+engines = [
     'Amber',
     'PDBFixer',
     'OpenMM',
@@ -12,13 +12,12 @@ list_engines = [
     'NGLView',
 ]
 
-_aux={ ii.lower : ii for ii in list_engines }
+engines_from_lowercase={ ii.lower : ii for ii in engines }
 
 def digest_engine(engine):
 
     try:
-        return _aux[engine.lower()]
+        return engines_from_lowercase[engine.lower()]
     except:
-        raise BadCallError('Wrong way of invoking this method. Either the engine is not implemented, either is mispelled.\n\
-                           Check the online documentation  for more information: http://www.uibcdf.org/MolSysMT')
+        raise BadCallError()
 

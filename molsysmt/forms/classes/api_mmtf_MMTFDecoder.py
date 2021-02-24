@@ -1,45 +1,103 @@
-from molsysmt._private_utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
+from mmtf import MMTFDecoder as _mmtf_MMTFDecoder
 
-try:
-    from molsysmt import MolSys as _molsysmt_MolSys
-except:
-    raise LibraryNotFound('molsysmt')
-
-form_name='molsysmt.MolSys'
+form_name='mmtf.MMTFDecoder'
 
 is_form={
-    _molsysmt_MolSys : form_name,
-    'molsysmt.MolSys': form_name
+    _mmtf_MMTFDecoder : form_name,
 }
 
 info=["",""]
-with_topology=False       # The form has the possibility to store topological data
-with_coordinates=False    # The form has the possiblity to store coordinates
-with_box=False            # The form has the possibility to store periodic box or unit cell
-with_bonds=False          # The form has the possibility to store bonds
-with_parameters=False     # The form has the possibility to store forcefield parameters
+with_topology=True
+with_coordinates=True
+with_box=True
+with_bonds=True
+with_parameters=False
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def load_frame(item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from numpy import arange, empty, zeros, column_stack
+    from molsysmt import box_vectors_from_box_lengths_and_angles
+    from molsysmt._private_tools.units import length_unit_name, angle_unit_name, time_unit_name
+    from simtk.unit import angstroms, degrees, picoseconds
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
+    n_atoms = get_n_atoms_from_system(item, indices='all', frame_indices='all')
 
-    raise NotImplementedError
+    step = arange(n_frames, dtype=int)
+    time = puw.quantity(zeros(n_frames, dtype=float), 'picoseconds', __quantities_form__)
+    xyz = column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
+    xyz = xyz.reshape([-1, item.num_atoms, 3])
+    xyz = puw.quantity(xyz,'angstroms', __quantities_form__)
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    if item.unit_cell is not None:
 
-    raise NotImplementedError
+        cell_lengths = empty([n_frames,3], dtype='float64')
+        cell_angles = empty([n_frames,3], dtype='float64')
+        for ii in range(3):
+            cell_lengths[:,ii] = item.unit_cell[ii]
+            cell_angles[:,ii] = item.unit_cell[ii+3]
 
-def to_nglview_NGLView(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+        cell_lengths = puw.quantity(cell_lengths, 'angstroms', __quantities_form__)
+        cell_angles = puw.quantity(cell_angles, 'degrees', __quantities_form__)
 
-    raise NotImplementedError
+        box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
+        box = puw.convert(box, length_unit_name)
+
+    else:
+
+        box = None
+
+    xyz = puw.convert(xyz, length_unit_name)
+    time = puw.convert(time, time_unit_name)
+
+    if frame_indices is not 'all':
+        xyz = xyz[frame_indices,:,:]
+        time = time[frame_indices]
+        step = step[frame_indices]
+        if box is not None:
+            box = box[frame_indices,:,:]
+
+    if indices is not 'all':
+        xyz = xyz[:,indices,:]
+
+    return step, time, xyz, box
+
+
+def to_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+
+    from mmtf.api.default_api import write_mmtf, MMTFDecoder
+
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    write_mmtf(output_filename, tmp_item, MMTFDecoder.pass_data_on)
+
+    return output_filename
+
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import from_mmtf_MMTFDecoder as molsysmt_MolSys_from_mmtf_MMTFDecoder
+
+    tmp_item = molsysmt_MolSys_from_mmtf_MMTFDecoder(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.topology.classes import from_mmtf_MMTFDecoder as molsysmt_Topology_from_mmtf_MMTFDecoder
+
+    tmp_item = molsysmt_Topology_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.trajectory.classes import from_mmtf_MMTFDecoder as molsysmt_Trajectory_from_mmtf_MMTFDecoder
+
+    tmp_item = molsysmt_Trajectory_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
 
 def select_with_Amber(item, selection):
 
@@ -55,7 +113,9 @@ def select_with_MDTraj(item, selection):
 
 def select_with_MolSysMT(item, selection):
 
-    raise NotImplementedError
+    from .api_molsysmt_Topology import select_with_MolSysMT as select_Topology_with_MolSysMT
+    tmp_item = to_molsysmt_Topology(item)
+    return select_Topology_with_MolSysMT(tmp_item, selection)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -221,7 +281,7 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.num_atoms
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
@@ -284,7 +344,7 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return item.num_models
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 

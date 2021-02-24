@@ -1,6 +1,5 @@
 from simtk.openmm import app
 
-
 parameters_keywords_openmm={
         'non_bonded_method': 'nonbondedMethod',
         'non_bonded_cutoff': 'nonbondedCutoff',
@@ -85,12 +84,11 @@ parameters_keywords_leap={
         }
 
 parameters_values_leap={
-
         }
 
 
 
-def digest(engine, **kwargs):
+def digest_simulation_parameters(engine, **kwargs):
 
     output={}
 
@@ -123,3 +121,4 @@ def digest(engine, **kwargs):
         raise NotImplementedError
 
     return output
+
