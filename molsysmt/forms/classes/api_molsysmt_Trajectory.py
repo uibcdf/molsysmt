@@ -10,6 +10,7 @@ is_form={
 
 info=["",""]
 with_topology=False
+with_trajectory=True
 with_box=True
 with_coordinates=True
 with_bonds=False
@@ -71,11 +72,23 @@ def copy(item):
 
     return item.copy()
 
-def merge_two_items(item1, item2):
+def merge(list_items, list_atom_indices, list_frame_indices):
 
-    tmp_item = copy(item1)
-    tmp_item.add(item2)
-    return tmp_item
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+
 
 ###### Get
 

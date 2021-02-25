@@ -10,6 +10,7 @@ is_form={
 
 info=["",""]
 with_topology=False
+with_trajectory=True
 with_coordinates=True
 with_box=True
 with_bonds=False
@@ -25,6 +26,22 @@ def extract(item, atom_indices='all', frame_indices='all'):
 def copy(item):
 
     return item.copy()
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
 
 ###### Get
 

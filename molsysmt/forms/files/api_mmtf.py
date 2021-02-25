@@ -1,10 +1,8 @@
-from os.path import basename as _basename
 import numpy as np
-import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
 
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='mmtf'
 
 is_form = {
     'mmtf': form_name
@@ -15,56 +13,63 @@ with_topology=True
 with_trajectory=True
 with_coordinates=True
 with_box=True
+with_bonds=True
+with_parameters=False
 
-def to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all',
-                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract as extract_mmtf_MMTFDecoder
     from mmtf import parse
+
     tmp_item = parse(item)
     tmp_item = extract_mmtf_MMTFDecoder(tmp_item, atom_indices='all', frame_indices='all')
+
     return tmp_item
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys
-    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
+
+    tmp_item = to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all')
     tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Topology as mmtf_MMTFDecoder_to_molsysmt_Topology
-    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
+
+    tmp_item = to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all')
     tmp_item = mmtf_MMTFDecoder_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
-    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')
+
+    tmp_item = to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all')
     tmp_item = mmtf_MMTFDecoder_to_molsysmt_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_Topology import to_aminoacids1_seq as molsysmt_Topology_to_aminoacids1_seq
-    tmp_item = to_molsysmt_Topology(item, atom_indices=atom_indices)
+
+    tmp_item = to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = molsysmt_Topology_to_aminoacids1_seq(tmp_item)
+
     return tmp_item
 
-def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis import Universe
     from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_mdanalysis_Universe
 
     tmp_item = Universe(item)
     tmp_item = extract_mdanalysis_Universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
 def select_with_MDAnalysis(item, selection):

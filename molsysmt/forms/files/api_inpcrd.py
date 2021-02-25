@@ -1,6 +1,8 @@
-from os.path import basename as _basename
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='inpcrd'
 
 is_form = {
     'inpcrd': form_name
@@ -8,13 +10,13 @@ is_form = {
 
 info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
 with_topology=False
+with_trajectory=False
 with_coordinates=True
 with_box=True
+with_bonds=False
 with_parameters=False
 
-def to_inpcrd(item, atom_indices='all', frame_indices='all',
-              topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-              output_filename=None):
+def to_inpcrd(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     if frame_indices=='all':
         from shutil import copyfile
@@ -22,48 +24,55 @@ def to_inpcrd(item, atom_indices='all', frame_indices='all',
     else:
         raise NotImplementedError("Not implemented yet")
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_inpcrd as inpcrd_to_molsysmt_MolSys
-    tmp_item = inpcrd_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = inpcrd_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.files import from_inpcrd as inpcrd_to_molsysmt_Topology
-    tmp_item = inpcrd_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = inpcrd_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all',
-                          topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_DataFrame(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.dataframe.files import from_inpcrd as inpcrd_to_molsysmt_DataFrame
-    tmp_item = inpcrd_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = inpcrd_to_molsysmt_DataFrame(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_inpcrd as inpcrd_to_molsysmt_Trajectory
-    tmp_item = inpcrd_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = inpcrd_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_mdtraj_AmberRestartFile(item, atom_indices='all', frame_indices='all',
-                               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_AmberRestartFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import AmberRestartFile
-    return AmberRestartFile(item)
 
-def to_openmm_AmberInpcrdFile(item, atom_indices='all', frame_indices='all',
-                              topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = AmberRestartFile(item)
+
+    return tmp_item
+
+def to_openmm_AmberInpcrdFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import AmberInpcrdFile
-    return AmberInpcrdFile(item)
 
-def view_with_NGLView(item, atom_indices='all', frame_indices='all',
-               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = AmberInpcrdFile(item)
+
+    return tmp_item
+
+def view_with_NGLView(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -79,12 +88,30 @@ def copy(item, output_filename=None):
 
     from shutil import copy as copy_file
     from molsysmt._private_tools.files_and_directories import tmp_filename
+
     if output_filename is None:
         output_filename = tmp_filename(extension='inpcrd')
     copy_file(item, output_filename)
+
     return output_filename
 
 def extract(item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 

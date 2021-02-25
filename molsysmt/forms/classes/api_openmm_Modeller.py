@@ -11,6 +11,7 @@ is_form={
 
 info=["",""]
 with_topology=True
+with_trajectory=False
 with_coordinates=True
 with_box=True
 with_bonds=True
@@ -38,7 +39,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
     return tmp_item
 
 def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all',
-                     forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*unit.nanometer, constraints=None,
+                     forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                      rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False):
 
@@ -54,10 +55,10 @@ def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='
     return tmp_item
 
 def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all',
-                         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*unit.nanometer, constraints=None,
+                         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                          rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-                         flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
-                         collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA'):
+                         flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
+                         collisions_rate='1.0 1/ps', integration_timestep='2.0 fs', platform='CUDA'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Simulation as openmm_Topology_to_openmm_Simulation
     from molsysmt.multitool import get
@@ -152,27 +153,27 @@ def extract(item, atom_indices='all', frame_indices='all'):
 
         return tmp_item
 
-def merge_two_items(item1, item2):
-
-    from .api_mdtraj_Trajectory import to_openmm_Modeller as _from_mdtraj_Trajectory
-    tmp_item1 = to_mdtraj(item1)
-    tmp_item2 = to_mdtraj(item2)
-    tmp_item = tmp_item1.stack(tmp_item2)
-    tmp_item = _from_mdtraj_Trajectory(tmp_item)
-
-    #from molsysmt import copy as _copy, get as _get
-    #tmp_item = copy(item1)
-    #topology2 = to_openmm_Topology(item2)
-    #positions2 = _get(item2, coordinates=True)
-    #tmp_item = tmp_item.add(topology2, positions2)
-
-    return tmp_item
-
 def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
 
     from .api_molsysmt_MolSys import to_NGLView as _molsysmt_MolSys_to_NGLView
     tmp_item = to_molsysmt_MolSys(item)
     return _molsysmt_MolSys_view_with_NGLView(tmp_item)
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
 
 ###### Get
 

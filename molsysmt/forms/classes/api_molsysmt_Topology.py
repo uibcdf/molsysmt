@@ -10,6 +10,7 @@ is_form={
 
 info=["",""]
 with_topology=True
+with_trajectory=False
 with_coordinates=False
 with_box=False
 with_bonds=True
@@ -58,17 +59,6 @@ def extract(item, atom_indices='all', frame_indices='all'):
     else:
         return item.extract(atom_indices=atom_indices)
 
-def copy(item):
-
-    return item.copy()
-
-
-def merge_two_items(item1, item2):
-
-    tmp_item = copy(item1)
-    tmp_item.add(item2)
-    return tmp_item
-
 def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
@@ -78,6 +68,26 @@ def select_with_MolSysMT(item, selection):
     from molsysmt.native.selector import elements_select
     atom_indices = elements_select(item.atoms_dataframe, selection)
     return atom_indices
+
+def copy(item):
+
+    return item.copy()
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
 
 ###### Get
 

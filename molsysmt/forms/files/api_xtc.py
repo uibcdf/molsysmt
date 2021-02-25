@@ -1,10 +1,8 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
-import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
 
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='xtc'
 
 is_form = {
     'xtc': form_name
@@ -12,21 +10,27 @@ is_form = {
 
 info=["",""]
 with_topology=False
+with_trajectory=True
 with_coordinates=True
 with_box=True
+with_bonds=False
 with_parameters=False
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_xtc
-    return from_xtc(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', frame_indices='all',
-                                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = from_xtc(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def to_mdtraj_XTCTrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import XTCTrajectoryFile
-    return XTCTrajectoryFile(item)
+
+    tmp_item = XTCTrajectoryFile(item)
+
+    return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -36,6 +40,22 @@ def extract(item, atom_indices='all', frame_indices='all'):
         raise NotImplementedError
 
 def copy(item):
+
+    raise NotImplementedError
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 

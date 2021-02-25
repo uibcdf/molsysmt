@@ -1,6 +1,8 @@
-from os.path import basename as _basename
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='smi'
 
 
 is_form = {

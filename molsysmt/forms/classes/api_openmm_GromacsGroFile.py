@@ -11,6 +11,7 @@ is_form={
 
 info=["",""]
 with_topology=True
+with_trajectory=False
 with_coordinates=True
 with_box=True
 with_bonds=False
@@ -89,6 +90,22 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_molsysmt_Topology(item)
     atom_indices = _select(tmp_item, selection)
     return atom_indices
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
 
 ##### Set
 

@@ -1,11 +1,8 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
-import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
 
-
-form_name=_basename(__file__).split('.')[0][4:]
+form_name='xyznpy'
 
 is_form = {
     'xyznpy': form_name
@@ -14,8 +11,10 @@ is_form = {
 info = ["XYZ file format like saved with Numpy",""]
 
 with_topology=True
+with_trajectory=True
 with_coordinates=True
 with_box=False
+with_bonds=False
 with_parameters=False
 
 def select_with_Amber(item, selection):
@@ -66,7 +65,6 @@ def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
     raise NotImplementedError
 
 ###### Get
-
 
 ## atom
 

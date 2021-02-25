@@ -11,6 +11,7 @@ is_form={
 
 info=["",""]
 with_topology=True
+with_trajectory=False
 with_coordinates=True
 with_box=True
 with_bonds=True
@@ -24,6 +25,22 @@ def extract(item, atom_indices='all', frame_indices='all'):
         raise NotImplementedError
 
 def copy(item):
+
+    raise NotImplementedError
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 

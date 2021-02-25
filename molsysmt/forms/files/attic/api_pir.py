@@ -25,11 +25,11 @@ Other source information:
 
 
 """
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 
-
-from os.path import basename as _basename
-
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='pir'
 
 is_form = {
     'pir': form_name,
@@ -39,6 +39,10 @@ is_form = {
 info=["",""]
 with_topology=True
 with_trajectory=False
+with_coordinates=False
+with_box=False
+with_bonds=False
+with_parameters=False
 
 def rewrite_to_style(filename, style=None):
 

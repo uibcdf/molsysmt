@@ -1,11 +1,8 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
-import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
 
-
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='xyz'
 
 is_form = {
     'xyz': form_name
@@ -14,7 +11,9 @@ is_form = {
 info = ["XYZ file format",["https://en.wikipedia.org/wiki/XYZ_file_format",
                            "https://open-babel.readthedocs.io/en/latest/FileFormats/XYZ_cartesian_coordinates_format.html"]]
 with_topology=True
+with_trajectory=False
 with_coordinates=True
+with_bonds=False
 with_box=False
 with_parameters=False
 

@@ -1,7 +1,9 @@
-from os.path import basename as _basename
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 from nglview import widget as _nglview_widget
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='nglview.NGLWidget'
 
 is_form = {
     _nglview_widget.NGLWidget: form_name
@@ -10,15 +12,17 @@ is_form = {
 info=["NGLView visualization native object","http://nglviewer.org/nglview/latest/_modules/nglview/widget.html"]
 
 with_topology=True
+with_trajectory=False
 with_coordinates=True
 with_box=True
+with_bonds=False
 with_parameters=False
 
-def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all',
-                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
+
     try:
         structure_string = item.component_0.get_structure_string()
     except:
@@ -30,11 +34,13 @@ def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all',
 
     return tmp_file
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.viewers import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Topology
-    return nglview_NGLWidget_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices='all')
+
+    tmp_item = nglview_NGLWidget_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices='all')
+
+    return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -52,6 +58,22 @@ def select_with_MolSysMT(item, selection):
     from molsysmt.forms.classes.api_openmm_PDBFile import select_with_MolSysMT as select_openmm_PDBFile_with_MolSysMT
     tmp_item = to_openmm_PDBFile(item)
     return select_openmm_PDBFile_with_MolSysMT(tmp_item, selection)
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
 
 ###### Get
 

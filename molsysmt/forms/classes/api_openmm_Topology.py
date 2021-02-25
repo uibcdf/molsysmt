@@ -11,6 +11,7 @@ is_form={
 
 info=["",""]
 with_topology=True
+with_trajectory=False
 with_coordinates=False
 with_box=True
 with_bonds=True
@@ -75,9 +76,8 @@ def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='
                      forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
                      rigid_water=True, remove_cm_motion=False, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-                     water_model=None, implicit_solvent=None,
-                     implicit_solvent_salt_conc= 0.0*unit.mole/unit.liter, implicit_solvent_kappa=0.0/unit.nanometers,
-                     solute_dielectric=1.0, solvent_dielectric=78.5):
+                     water_model=None, implicit_solvent=None, implicit_solvent_salt_conc='0.0 mol/L',
+                     implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5):
 
     from molsysmt._private_tools.forcefields import digest as digest_forcefields
     from molsysmt._private_tools.simulation_parameters import digest as digest_simulation_parameters
@@ -116,9 +116,9 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indic
                          forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
                          rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                          flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-                         water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
-                         solute_dielectric=1.0, solvent_dielectric=78.5, integrator='Langevin', temperature=300.0*unit.kelvin,
-                         collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
+                         water_model=None, implicit_solvent=None, implicit_solvent_kappa='0.0 1/nm',
+                         solute_dielectric=1.0, solvent_dielectric=78.5, integrator='Langevin',
+                         temperature='300.0 K', collisions_rate='1.0 1/ps', integration_timestep='2.0 fs', platform='CUDA',
                          constraint_tolerance=None):
 
     from .api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
@@ -225,10 +225,6 @@ def copy(item):
     new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
     return new_item
 
-def merge_two_items(item1, item2):
-
-    raise NotImplementedError
-
 def select_with_Amber(item, selection):
 
     raise NotImplementedError
@@ -261,6 +257,22 @@ def view_with_NGLView(item, trajectory_item=None, atom_indices='all', frame_indi
         tmp_item = to_molsysmt_MolSys(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
         tmp_item = molsysmt_MolSys_to_nglview_NGLView(tmp_item)
         return tmp_item
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
 
 #### Get
 

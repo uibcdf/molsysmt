@@ -1,7 +1,8 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='top'
 
 is_form = {
     'top': form_name
@@ -10,63 +11,72 @@ is_form = {
 info=["",""]
 with_topology=True
 with_trajectory=False
+with_coordinates=False
+with_box=False
+with_parameters=False
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all',
-                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    return to_parmed_GromacsTopologyFile(item, atom_indices=atom_indices,
-                                         frame_indices=frame_indices)
+    tmp_item = to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all',
-                                  topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    return tmp_item
+
+def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from parmed.gromacs import GromacsTopologyFile as _parmed_from_gromacs
+
     tmp_item=_parmed_from_gromacs(item)
     tmp_item = extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_molsysmt_Structure(item, atom_indices='all', frame_indices='all',
-                          topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Structure(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.structure.classes import from_gromacs_Topology
-    return from_gromacs_Topology(item, selection=atom_indices)
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = from_gromacs_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    from mdtraj.core.topology import Topology
-    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = Topology.from_openmm(tmp_item)
     return tmp_item
 
-def to_openmm_GromacsTopFile(item, atom_indices='all', frame_indices='all',
-                             topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from mdtraj.core.topology import Topology
+
+    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = Topology.from_openmm(tmp_item)
+
+    return tmp_item
+
+def to_openmm_GromacsTopFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import GromacsTopFile
     from molsysmt.forms.classes.api_openmm_GromacsTopFile import extract as extract_gromacstopfile
+
     tmp_item = GromacsTopFile(item)
     tmp_item = extract_extract_gromacstopfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.formats.classes.api_openmm_Topology import extract as extract_openmm_topology
-    tmp_item = to_openmm_GromacsTopFile(item)
+
+    tmp_item = to_openmm_GromacsTopFile(item, molecular_system)
     tmp_item = tmp_item.topology
     tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_top(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None):
+def to_top(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.classes.api_openmm_GromacsTopFile import extract as extract_gromacstopfile
-    tmp_item = to_parmed_GromacsTopologyFile(item)
+
+    tmp_item = to_parmed_GromacsTopologyFile(item, molecular_system)
     tmp_item = extract_gromacstopfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item.save(output_filename)
     del(tmp_item)
-    pass
+
+    return output_filename
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -76,6 +86,22 @@ def extract(item, atom_indices='all', frame_indices='all'):
         raise NotImplementedError
 
 def copy(item):
+
+    raise NotImplementedError
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
