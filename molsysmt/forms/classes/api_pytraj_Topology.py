@@ -1,30 +1,30 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
-from pytraj import Topology as _pytraj_Topology
 import numpy as np
-import simtk.unit as unit
 from molsysmt.forms.common_gets import *
+from pytraj import Topology as _pytraj_Topology
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='pytraj.Topology'
 
 is_form={
     _pytraj_Topology : form_name,
-    'pytraj.Topology': form_name
 }
 
 info=["",""]
 with_topology=True
+with_trajectory=False
 with_coordinates=False
 with_box=False
+with_bonds=True
 with_parameters=False
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_pytraj_Topology as molsysmt_Topology_from_pytraj_Topology
     from molsysmt.forms.classes.api_molsysmt_Topology import extract as extract_molsysmt_Topology
-    tmp_item = molsysmt_Topology_from_pytraj_Topology(item)
+
+    tmp_item = molsysmt_Topology_from_pytraj_Topology(item, molecular_system)
     tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
 def select_with_Amber(item, selection):
@@ -54,11 +54,23 @@ def copy(item):
 
     raise NotImplementedError
 
-def merge_two_items(item1, item2):
+def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 

@@ -1,6 +1,11 @@
 from importlib import import_module
 import os
 
+
+modules_required={
+
+}
+
 types = ['class', 'file', 'id', 'seq', 'viewer']
 forms = []
 

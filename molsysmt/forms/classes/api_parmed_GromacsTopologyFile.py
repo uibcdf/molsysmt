@@ -1,82 +1,58 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
-from parmed.structure import Structure as _parmed_Structure
+from molsysmt.forms.common_gets import *
+import numpy as np
+from parmed.gromacs.gromacstop import GromacsTopologyFile as _parmed_GromacsTopologyFile
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='parmed.GromacsTopologyFile'
 
 is_form={
-    _parmed_Structure : form_name
+    _parmed_GromacsTopologyFile : form_name
 }
 
 info=["",""]
 with_topology=True
-with_coordinates=True
-with_box=True
-with_parameters=True
+with_coordinates=False
+with_trajectory=False
+with_box=False
+with_bonds=True
+with_parameters=False
 
-## Methods
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    from mdtraj.core.topology import Topology as mdtraj_topology
 
-    return item.topology
+    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_topology.from_openmm(tmp_item)
 
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
-
-    from simtk.openmm.app.modeller import Modeller
-    from .api_openmm_Modeller import extract as extract_openmm_Modeller
-    tmp_item = Modeller(item.topology, item.positions)
-    tmp_item = extract_openmm_Modeller(tmp_item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from mdtraj.core.topology import Topology as mdtraj_Topology
-    from .api_mdtraj_Topology import extract as extract_mdtraj_Topology
-    tmp_item = mdtraj_Topology.from_openmm(item.topology)
-    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from .api_openmm_Topology import extract as extract_openmm_topology
+
+    tmp_item = item.topology
+    tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
-
-    from mdtraj.core.trajectory import Trajectory as mdtraj_trajectory
-    from simtk.unit import nanometers
-    tmp_topology = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
-    coordinates = coordinates.in_units_of(nanometers)._value
-    tmp_item = mdtraj_trajectory(coordinates, tmp_topology)
-    del(tmp_topology, coordinates)
-    return tmp_item
-
-def view_with_NGLView(item, atom_indices='all', frame_indices='all',
-               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
-
-    from nglview import show_parmed as _nglview_show_parmed
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = _nglview_show_parmed(tmp_item)
-    return tmp_item
-
-def to_pdb(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None):
+def to_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save(output_filename)
+    item.save(output_filename)
 
-def to_mol2(item, atom_indices='all', frame_indices='all',
-            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-            output_filename=None):
+    return output_filename
+
+def to_top(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save(output_filename)
+    item.save(output_filename)
+
+    return output_filename
 
 def select_with_MDTraj(item, selection):
 
-    tmp_form=to_mdtraj(item)
-    tmp_sel=tmp_form.topology.select(selection)
+    tmp_form=to_mdtraj_Topology(item)
+    tmp_sel=tmp_form.select(selection)
     del(tmp_form)
     return tmp_sel
 
@@ -92,19 +68,36 @@ def extract(item, atom_indices='all', frame_indices='all'):
     if (atom_indices is 'all') and (frame_indices is 'all'):
         return item
     else:
+
+        from copy import deepcopy
         from molsysmt._private_tools.atom_indices import atom_indices_to_AmberMask
         from molsysmt._private_tools.atom_indices import complementary_atom_indices
         tmp_atom_indices = complementary_atom_indices(item, atom_indices)
         mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
         tmp_item = copy(item)
-        tmp_item.strip(atom_indices2AmberMask(atom_indices,len(item.atoms),inverse=True))
+        tmp_item.strip(atom_indices_to_AmberMask(tmp_item,atom_indices))
         return tmp_item
 
 def copy(item):
 
     from copy import deepcopy
-    tmp_item = deepcopy(item)
-    return tmp_item
+    return deepcopy(item)
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
 
 ##### Set
 
@@ -165,12 +158,15 @@ def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
         tmp_types=tmp_types[0]
     return tmp_types
 
-
-## system
+## System
 
 def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return len(item.atoms)
+
+def get_n_frames_from_system (item, indices='all', frame_indices='all'):
+
+    return 0
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 

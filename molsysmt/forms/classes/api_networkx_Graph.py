@@ -1,18 +1,20 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 from networkx import Graph as _networkx_Graph
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='networkx.Graph'
 
 is_form={
-    'networkx.Graph': form_name,
     _networkx_Graph : form_name
 }
 
 info=["",""]
 with_topology=True
+with_trajectory=False
 with_coordinates=False
 with_box=False
+with_bonds=True
 with_parameters=False
 
 def select_with_MDTraj(item, selection):
@@ -29,6 +31,22 @@ def extract(item, atom_indices='all', frame_indices='all'):
 def copy(item):
 
     return item.copy()
+
+def merge(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def concatenate(list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def add(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_frame_indices):
+
+    raise NotImplementedError
 
 ###### Get
 
