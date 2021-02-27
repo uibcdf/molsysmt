@@ -18,7 +18,7 @@ with_box=True
 with_bonds=False
 with_parameters=False
 
-def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
@@ -34,7 +34,7 @@ def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices=
 
     return tmp_file
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.viewers import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Topology
 

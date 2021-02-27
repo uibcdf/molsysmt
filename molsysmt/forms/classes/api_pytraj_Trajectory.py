@@ -17,7 +17,7 @@ with_box=True
 with_bonds=True
 with_parameters=False
 
-def to_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.api_pytraj_Topology import extract as extract_pytraj_Topology
 
@@ -26,7 +26,7 @@ def to_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import from_pytraj_Trajectory as molsysmt_MolSys_from_pytraj_Topology
     from molsysmt.forms.classes.api_molsysmt_MolSys import extract as extract_molsysmt_MolSys
@@ -36,7 +36,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_pytraj_Trajectory as molsysmt_Topology_from_pytraj_Topology
     from molsysmt.forms.classes.api_molsysmt_Topology import extract as extract_molsysmt_Topology
@@ -46,7 +46,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.classes import from_pytraj_Trajectory as molsysmt_Trajectory_from_pytraj_Trajectory
     from molsysmt.forms.classes.api_molsysmt_Trajectory import extract as extract_molsysmt_Trajectory

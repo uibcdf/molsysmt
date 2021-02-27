@@ -1,5 +1,5 @@
-def to_openmm_System (item, atom_indices='all', frame_indices='all', topology_item=None,
-                      trajectory_item=None, coordinates_item=None, box_item=None, forcefield=None,
+def to_openmm_System (item, molecular_system=None, atom_indices='all', frame_indices='all',
+                      forcefield=None,
                       non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
                       rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                       flexible_constraints=False, **kwargs):

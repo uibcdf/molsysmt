@@ -16,7 +16,7 @@ with_box=True
 with_bonds=False
 with_parameters=False
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_xtc
 
@@ -24,7 +24,7 @@ def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_mdtraj_XTCTrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_XTCTrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import XTCTrajectoryFile
 

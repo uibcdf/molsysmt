@@ -1,5 +1,4 @@
-def from_openmm_Modeller (item, atom_indices='all', frame_indices='all', topology_item=None,
-                          trajectory_item=None, coordinates_item=None, box_item=None):
+def from_openmm_Modeller (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology.classes import from_openmm_Modeller as openmm_Modeller_to_molsysmt_Topology
@@ -11,8 +10,7 @@ def from_openmm_Modeller (item, atom_indices='all', frame_indices='all', topolog
 
     return tmp_item
 
-def to_openmm_Modeller (item, atom_indices='all', frame_indices='all', topology_item=None,
-                        trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Modeller (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import Modeller
     from .openmm_Topology import to_openmm_Topology as molsysmt_MolSys_to_openmm_Topology

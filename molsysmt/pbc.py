@@ -3,7 +3,7 @@ from ._private_tools.frame_indices import digest_frame_indices
 from ._private_tools.forms import digest_form
 from molsysmt.lib import box as _libbox
 import numpy as np
-import pyunitwizard as puw
+from molsysmt import puw
 
 def box_shape_from_box_angles(angles):
 

@@ -1,6 +1,8 @@
 import numpy as np
+from mmtf import parse
 from molsysmt.forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
+from molsysmt import puw
 
 form_name='mmtf'
 
@@ -16,17 +18,16 @@ with_box=True
 with_bonds=True
 with_parameters=False
 
-def to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract as extract_mmtf_MMTFDecoder
-    from mmtf import parse
 
     tmp_item = parse(item)
     tmp_item = extract_mmtf_MMTFDecoder(tmp_item, atom_indices='all', frame_indices='all')
 
     return tmp_item
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys
 
@@ -35,7 +36,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Topology as mmtf_MMTFDecoder_to_molsysmt_Topology
 
@@ -44,7 +45,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
 
@@ -53,7 +54,7 @@ def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_Topology import to_aminoacids1_seq as molsysmt_Topology_to_aminoacids1_seq
 
@@ -62,7 +63,7 @@ def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis import Universe
     from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_mdanalysis_Universe
@@ -255,7 +256,6 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    from mmtf import parse
     tmp_item=parse(filename)
     n_atoms = tmp_item.num_atoms
     del(tmp_item)
@@ -286,7 +286,10 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    tmp_item=parse(item)
+    n_bonds = tmp_item.num_bonds
+    del(tmp_item)
+    return n_bonds
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
@@ -294,7 +297,17 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
+
+    tmp_item = parse(item)
+    tmp_unit_cell = tmp_item.unit_cell
+    tmp_lengths = [tmp_unit_cell[0:3]]*puw.unit('angstroms')
+    tmp_angles = [tmp_unit_cell[3:6]]*puw.unit('degrees')
+
+    tmp_box = box_vectors_from_box_lengths_and_angles(tmp_lengths, tmp_angles)
+    tmp_box = puw.standardize(tmp_box)
+
+    return tmp_box
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
@@ -322,7 +335,6 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    from mmtf import parse
     tmp_item=parse(filename)
     n_frames = tmp_item.num_models
     del(tmp_item)
@@ -363,7 +375,7 @@ def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
     output = False
 
-    if with_topology:
+    if with_bonds:
         if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
             output = True
 

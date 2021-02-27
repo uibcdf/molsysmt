@@ -17,7 +17,7 @@ with_box=False
 with_bonds=True
 with_parameters=False
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology as mdtraj_topology
 
@@ -26,7 +26,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import extract as extract_openmm_topology
 
@@ -35,14 +35,14 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     item.save(output_filename)
 
     return output_filename
 
-def to_top(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     item.save(output_filename)

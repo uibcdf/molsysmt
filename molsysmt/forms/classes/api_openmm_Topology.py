@@ -17,7 +17,7 @@ with_box=True
 with_bonds=True
 with_parameters=False
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_openmm_Topology as molsysmt_Topology_from_openmm_Topology
 
@@ -25,7 +25,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import from_openmm_Topology as molsysmt_MolSys_from_openmm_Topology
 
@@ -33,7 +33,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_Topology
     from mdtraj.core.topology import Topology as mdtraj_Topology
@@ -43,7 +43,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed.openmm import load_topology as openmm_Topology_to_parmed_Structure
 
@@ -52,7 +52,7 @@ def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indice
 
     return tmp_item
 
-def to_yank_Topography(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from yank import Topography as yank_Topography
 
@@ -61,7 +61,7 @@ def to_yank_Topography(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.multitool import get
     from simtk.openmm.app import Modeller
@@ -72,7 +72,7 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all',
+def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all',
                      forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
                      rigid_water=True, remove_cm_motion=False, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
@@ -112,7 +112,7 @@ def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='
 
     return tmp_item
 
-def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all',
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all',
                          forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
                          rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                          flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
@@ -143,7 +143,7 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.multitool import get as _get
     from molsysmt.multitool import __version__ as msm_version

@@ -17,7 +17,7 @@ with_box=False
 with_bonds=True
 with_parameters=True
 
-def to_prmtop(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_prmtop(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     if atom_indices=='all':
         from shutil import copyfile
@@ -25,7 +25,7 @@ def to_prmtop(item, molecular_system, atom_indices='all', frame_indices='all', o
     else:
         raise NotImplementedError("Not implemented yet")
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.classes.api_openmm_Modeller import to_pdb as openmm_Modeller_to_pdb
 
@@ -34,7 +34,7 @@ def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
     return tmp_item
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_prmtop as prmtop_to_molsysmt_MolSys
 
@@ -42,7 +42,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.files import from_prmtop as prmtop_to_molsysmt_Topology
 
@@ -50,7 +50,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_molsysmt_DataFrame(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_DataFrame(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.dataframe.files import from_prmtop as prmtop_to_molsysmt_DataFrame
 
@@ -58,7 +58,7 @@ def to_molsysmt_DataFrame(item, molecular_system, atom_indices='all', frame_indi
 
     return tmp_item
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_prmtop as prmtop_to_molsysmt_Trajectory
 
@@ -66,7 +66,7 @@ def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_prmtop as prmtop_to_mdtraj_Topology
 
@@ -74,7 +74,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_AmberPrmtopFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_AmberPrmtopFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import AmberPrmtopFile
 
@@ -82,7 +82,7 @@ def to_openmm_AmberPrmtopFile(item, molecular_system, atom_indices='all', frame_
 
     return tmp_item
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_AmberPrmtopFile import to_openmm_Topology as openmm_AmberPrmtopFile_to_openmm_Topology
 
@@ -91,7 +91,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Modeller as openmm_Topology_to_openmm_Modeller
 
@@ -100,14 +100,13 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = view_with_NGLView(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
-def view_with_NGLView(item, atom_indices='all', frame_indices='all',
-               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
 

@@ -1,122 +1,93 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from mmtf import MMTFDecoder as _mmtf_MMTFDecoder
+import urllib
+import json
 
-form_name='mmtf.MMTFDecoder'
+form_name='mmtf:id'
 
-is_form={
-    _mmtf_MMTFDecoder : form_name,
-}
+is_form = {
+    'mmtf:id': form_name,
+    'MMTF:id': form_name
+    }
 
 info=["",""]
 with_topology=True
-with_trajectory=False
+with_trajectory=True
 with_coordinates=True
 with_box=True
 with_bonds=True
 with_parameters=False
 
-def load_frame(item, atom_indices='all', frame_indices='all'):
-
-    from numpy import arange, empty, zeros, column_stack
-    from molsysmt import box_vectors_from_box_lengths_and_angles
-    from molsysmt._private_tools.units import length_unit_name, angle_unit_name, time_unit_name
-    from simtk.unit import angstroms, degrees, picoseconds
-
-    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
-    n_atoms = get_n_atoms_from_system(item, indices='all', frame_indices='all')
-
-    step = arange(n_frames, dtype=int)
-    time = puw.quantity(zeros(n_frames, dtype=float), 'picoseconds', __quantities_form__)
-    xyz = column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
-    xyz = xyz.reshape([-1, item.num_atoms, 3])
-    xyz = puw.quantity(xyz,'angstroms', __quantities_form__)
-
-    if item.unit_cell is not None:
-
-        cell_lengths = empty([n_frames,3], dtype='float64')
-        cell_angles = empty([n_frames,3], dtype='float64')
-        for ii in range(3):
-            cell_lengths[:,ii] = item.unit_cell[ii]
-            cell_angles[:,ii] = item.unit_cell[ii+3]
-
-        cell_lengths = puw.quantity(cell_lengths, 'angstroms', __quantities_form__)
-        cell_angles = puw.quantity(cell_angles, 'degrees', __quantities_form__)
-
-        box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
-        box = puw.convert(box, length_unit_name)
-
-    else:
-
-        box = None
-
-    xyz = puw.convert(xyz, length_unit_name)
-    time = puw.convert(time, time_unit_name)
-
-    if frame_indices is not 'all':
-        xyz = xyz[frame_indices,:,:]
-        time = time[frame_indices]
-        step = step[frame_indices]
-        if box is not None:
-            box = box[frame_indices,:,:]
-
-    if indices is not 'all':
-        xyz = xyz[:,indices,:]
-
-    return step, time, xyz, box
-
-
 def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from mmtf.api.default_api import write_mmtf, MMTFDecoder
+    from mmtf import fetch
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_mmtf as MMTFDecoder_to_mmtf
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    write_mmtf(output_filename, tmp_item, MMTFDecoder.pass_data_on)
+    tmp_item = to_mmtf_MMTFDecoder(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = MMTFDecoder_to_mmtf(tmp_item, output_filename=output_filename)
 
-    return output_filename
+    return tmp_item
+
+def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from mmtf import fetch
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract as extract_MMTFDecoder
+
+    tmp_item = item.split(':')[-1]
+    tmp_item = fetch(tmp_item)
+    tmp_item = extract_MMTFDecoder(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.classes import from_mmtf_MMTFDecoder as molsysmt_MolSys_from_mmtf_MMTFDecoder
+    from molsysmt.native.io.molsys.ids import from_mmtf as mmtf_to_molsysmt_MolSys
 
-    tmp_item = molsysmt_MolSys_from_mmtf_MMTFDecoder(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mmtf_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.classes import from_mmtf_MMTFDecoder as molsysmt_Topology_from_mmtf_MMTFDecoder
+    from molsysmt.native.io.topology.ids import from_mmtf as mmtf_to_molsysmt_Topology
 
-    tmp_item = molsysmt_Topology_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mmtf_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def to_molsysmt_DataFrame(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.dataframe.ids import from_mmtf as mmtf_to_molsysmt_DataFrame
+
+    tmp_item = mmtf_to_molsysmt_DataFrame(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.classes import from_mmtf_MMTFDecoder as molsysmt_Trajectory_from_mmtf_MMTFDecoder
+    from molsysmt.native.io.trajectory.ids import from_mmtf as mmtf_to_molsysmt_Trajectory
 
-    tmp_item = molsysmt_Trajectory_from_mmtf_MMTFDecoder(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mmtf_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
-def select_with_Amber(item, selection):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
 
-def select_with_MDAnalysis(item, selection):
+    tmp_item = to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all')
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
 def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
-
-def select_with_MolSysMT(item, selection):
-
-    from .api_molsysmt_Topology import select_with_MolSysMT as select_Topology_with_MolSysMT
-    tmp_item = to_molsysmt_Topology(item)
-    return select_Topology_with_MolSysMT(tmp_item, selection)
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -231,7 +202,6 @@ def get_component_type_from_component (item, indices='all', frame_indices='all')
     return get(item, indices)
 
 ## molecule
-
 def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
 
     from molsysmt.elements.molecule import get_molecule_id_from_molecule as get
@@ -282,7 +252,7 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return item.num_atoms
+    raise NotImplementedError
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
@@ -345,7 +315,7 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    return item.num_models
+    raise NotImplementedError
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
@@ -369,24 +339,11 @@ def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_has_box_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
+    return with_box
 
 def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
+    return with_bonds
 
 ## bond
 
@@ -411,4 +368,21 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
 
     raise NotImplementedError
+
+
+## system
+
+def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    return tmp_item.num_atoms
+
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+
+    tmp_item = to_mmtf_MMTFDecoder(item)
+    return tmp_item.num_models
+
+def get_form_from_system(item, indices='all', frame_indices='all'):
+
+    return form_name
 

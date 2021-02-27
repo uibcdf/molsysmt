@@ -1,2 +1,2 @@
-from .aminoacids1 import to_aminoacids1_seq
-from .aminoacids3 import to_aminoacids3_seq
+from .aminoacids1_seq import to_aminoacids1_seq
+from .aminoacids3_seq import to_aminoacids3_seq

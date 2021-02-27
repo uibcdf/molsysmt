@@ -17,7 +17,7 @@ with_box=True
 with_bonds=True
 with_parameters=False
 
-def to_mdtraj_topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from api_mdtraj_Topology import extract as extract_mdtraj_Topology
 

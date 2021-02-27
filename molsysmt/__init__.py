@@ -3,11 +3,12 @@ from ._pyunitwizard import puw as puw
 
 #from . import tools
 
-#from . import demo_systems
+from . import demo_systems
 
 from .native.molsys import MolSys
 from .multitool import select, extract, merge, concatenate, add, append, info, get, set, \
                        convert, copy, write, view, remove, get_form
+
 #from .info_multitool import info_forms, info_convert, info_select, info_viewers
 #from .geometrical_transformations import translate
 #from .rmsd import rmsd, least_rmsd, least_rmsd_fit, angular_rmsd

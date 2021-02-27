@@ -18,7 +18,7 @@ with_parameters=False
 
 # Methods
 
-def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.classes import to_mdtraj_Trajectory as molsysmt_Trajectory_to_mdtraj_Trajectory
 
@@ -26,7 +26,7 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_parmed_GromacsTopologyFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classses.api_mdtraj_Topology import to_parmed_GromacsTopologyFile as mdtraj_Topology_to_parmed_GromacsTopologyFile
 
@@ -35,7 +35,7 @@ def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', fr
 
     return tmp_item
 
-def to_xtc(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.classes.api_mdtraj_Trajectory import to_xtc as mdtraj_Trajectory_to_xtc
 
@@ -44,7 +44,7 @@ def to_xtc(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
     return tmp_item
 
-def to_top(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.classes.api_mdtraj_Topology import to_top as mdtraj_Topology_to_top
 

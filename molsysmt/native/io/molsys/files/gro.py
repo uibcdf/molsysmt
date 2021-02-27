@@ -1,4 +1,4 @@
-def from_gro(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_gro(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import MolSys
     from molsysmt.native.io.topology.files import from_gro as gro_to_molsysmt_Topology

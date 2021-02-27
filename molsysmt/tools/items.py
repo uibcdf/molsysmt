@@ -54,7 +54,7 @@ def has_topology(items):
             output.append(w_topology)
     else:
         form_in = get_form(items)
-        output = dict_get[form_in]["system"]["has_topology"](item)
+        output = dict_get[form_in]["system"]["has_topology"](items)
 
     return output
 
@@ -71,7 +71,7 @@ def has_trajectory(items):
             output.append(w_trajectory)
     else:
         form_in = get_form(items)
-        output = dict_get[form_in]["system"]["has_trajectory"](item)
+        output = dict_get[form_in]["system"]["has_trajectory"](items)
 
     return output
 
@@ -88,7 +88,7 @@ def has_coordinates(items):
             output.append(w_coordinates)
     else:
         form_in = get_form(items)
-        output = dict_get[form_in]["system"]["has_coordinates"](item)
+        output = dict_get[form_in]["system"]["has_coordinates"](items)
 
     return output
 
@@ -105,7 +105,7 @@ def has_box(items):
             output.append(w_box)
     else:
         form_in = get_form(items)
-        output = dict_get[form_in]["system"]["has_box"](item)
+        output = dict_get[form_in]["system"]["has_box"](items)
 
     return output
 

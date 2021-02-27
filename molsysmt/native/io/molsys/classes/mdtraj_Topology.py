@@ -1,10 +1,8 @@
-def from_mdtraj_Topology(item, atom_indices='all', frame_indices='all', topology_item=None,
-                         trajectory_item=None, coordinates_item=None, box_item=None):
+def from_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all', topology_item=None,
-                       trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
 

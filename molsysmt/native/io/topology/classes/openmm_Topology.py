@@ -1,4 +1,4 @@
-def to_openmm_Topology(item, trajectory_item='all', atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     import simtk.openmm as mm
     import simtk.openmm.app as app
@@ -67,7 +67,7 @@ def to_openmm_Topology(item, trajectory_item='all', atom_indices='all', frame_in
 
     return tmp_item
 
-def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def from_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros

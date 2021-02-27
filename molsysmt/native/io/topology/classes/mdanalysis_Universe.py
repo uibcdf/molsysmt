@@ -1,8 +1,8 @@
-def to_mdanalysis_Universe(item, trajectory_item='all', atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def from_mdanalysis_Universe(item, trajectory_item='all', atom_indices='all', frame_indices='all'):
+def from_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros

@@ -31,7 +31,7 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all',
 def to_biopython_Seq(item, atom_indices='all', frame_indices='all',
                      topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
-    from .api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
+    from .api_aminoacids1_seq import to_biopython_Seq as aminoacids1_to_biopython_Seq
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = _aminoacis1_to_biopython_Seq(tmp_item)
     return tmp_item
@@ -39,7 +39,7 @@ def to_biopython_Seq(item, atom_indices='all', frame_indices='all',
 def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all',
                            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
-    from .api_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
+    from .api_aminoacids1_seq import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacis1_to_biopython_SeqRecord(tmp_item)
     return tmp_item
@@ -48,7 +48,7 @@ def to_fasta(item, atom_indices='all', frame_indices='all',
              topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
              output_filename=None):
 
-    from .api_aminoacids1 import to_fasta as aminoacids1_to_fasta
+    from .api_aminoacids1_seq import to_fasta as aminoacids1_to_fasta
     tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return aminoacis1_to_fasta(tmp_item, output_filename=output_filename)
 

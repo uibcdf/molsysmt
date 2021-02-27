@@ -1,7 +1,7 @@
 import simtk.unit as unit
 
-def to_openmm_Simulation (item, atom_indices='all', frame_indices='all', topology_item=None,
-                          trajectory_item=None, coordinates_item=None, box_item=None, forcefield=None,
+def to_openmm_Simulation (item, molecular_system=None, atom_indices='all', frame_indices='all',
+                          forcefield=None,
                           non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
                           rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                           flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
@@ -30,8 +30,7 @@ def to_openmm_Simulation (item, atom_indices='all', frame_indices='all', topolog
 
     return tmp_item
 
-def from_openmm_Simulation(item, atom_indices='all', frame_indices='all', topology_item=None,
-                           trajectory_item=None, coordinates_item=None, box_item=None):
+def from_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology.classes import from_openmm_Simulation as molsysmt_Topology_from_openmm_Simulation

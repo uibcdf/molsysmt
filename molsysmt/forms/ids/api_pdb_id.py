@@ -19,7 +19,7 @@ with_box=True
 with_bonds=False
 with_parameters=False
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt._private_tools.miscellanea import download_pdb as download_pdb
     from molsysmt.forms.files.api_pdb import extract as extract_pdb
@@ -32,7 +32,7 @@ def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
     return output_filename
 
-def to_fasta(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from shutil import move
     from molsysmt.forms.files.api_fasta import extract as extract_fasta
@@ -52,7 +52,7 @@ def to_fasta(item, molecular_system, atom_indices='all', frame_indices='all', ou
 
     return tmp_item
 
-def to_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from .api_mmtf import to_mmtf as mmtf_to_mmtf_file
 
@@ -61,7 +61,7 @@ def to_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', out
 
     return tmp_item
 
-def to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_mmtf import to_mmtf_MMTFDecoder as mmtf_to_mmtf_MMTFDecoder
 
@@ -70,7 +70,7 @@ def to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indice
 
     return tmp_item
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.native.io.molsys.files import from_pdb as pdb_to_molsysmt
@@ -83,7 +83,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
@@ -96,7 +96,7 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_mdtraj_Topology as pdb_to_mdtraj_Topology
@@ -109,7 +109,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_parmed_Structure as pdb_to_parmed_Structure
@@ -122,7 +122,7 @@ def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indice
 
     return tmp_item
 
-def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
@@ -135,7 +135,7 @@ def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_openmm_Modeller as pdb_to_openmm_Modeller
@@ -148,7 +148,7 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_openmm_Topology as pdb_to_openmm_Topology
@@ -161,7 +161,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_openmm_PDBFile as pdb_to_openmm_PDBFile
@@ -174,7 +174,7 @@ def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices=
 
     return tmp_item
 
-def to_yank_Topography(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_yank_Topography as pdb_to_yank_Topography
@@ -187,7 +187,7 @@ def to_yank_Topography(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_mdanalysis_Universe as pdb_mdanalysis_Universe
@@ -200,7 +200,7 @@ def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_pytraj_Trajectory as pdb_pytraj_Trajectory
@@ -213,7 +213,7 @@ def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def view_with_NGLView(item, molecular_system, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from nglview import show_file as nglview_show_file

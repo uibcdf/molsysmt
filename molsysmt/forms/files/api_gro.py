@@ -16,7 +16,7 @@ with_box=True
 with_bonds=False
 with_parameters=False
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_gro as gro_to_molsysmt_MolSys
 
@@ -24,7 +24,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.files import from_gro as gro_to_molsysmt_Topology
 
@@ -32,7 +32,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_molsysmt_DataFrame(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_DataFrame(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.dataframe.files import from_gro as gro_to_molsysmt_DataFrame
 
@@ -40,7 +40,7 @@ def to_molsysmt_DataFrame(item, molecular_system, atom_indices='all', frame_indi
 
     return tmp_item
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_gro as gro_to_molsysmt_Trajectory
 
@@ -48,7 +48,7 @@ def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed import load_file as parmed_file_loader
     from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
@@ -58,7 +58,7 @@ def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indice
 
     return tmp_item
 
-def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis import Universe as mdanalysis_Universe
     from molsysmt.forms.classes.api_mdtraj_Universe import extract as extract_universe
@@ -68,7 +68,7 @@ def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_topology as mdtraj_load_topology
     from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_topology
@@ -78,7 +78,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_gro as mdtraj_gro_loader
     from molsysmt.forms.classes.api_mdtraj_Trajectory import extract as extract_mdtraj_trajectory
@@ -88,7 +88,7 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_mdtraj_GroTrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_GroTrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import GroTrajectoryFile
 
@@ -96,7 +96,7 @@ def to_mdtraj_GroTrajectoryFile(item, molecular_system, atom_indices='all', fram
 
     return tmp_item
 
-def to_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from parmed import load_file as parmed_file_loader
     from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
@@ -106,7 +106,7 @@ def to_mol2(item, molecular_system, atom_indices='all', frame_indices='all', out
 
     return tmp_item.save(output_filename)
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_parmed_Structure import to_openmm_Topology as parmed_Structure_to_openmm_Topology
 
@@ -115,7 +115,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.modeller import Modeller
     from molsysmt.forms.classes.api_openmm_Modeller import extract as extract_modeller
@@ -126,7 +126,7 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_GromacsGroFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_GromacsGroFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import GromacsGroFile
     from molsysmt.forms.classes.api_openmm_GromacsGroFile import extract as extract_openmm_GromacsGroFile
@@ -136,13 +136,13 @@ def to_openmm_GromacsGroFile(item, molecular_system, atom_indices='all', frame_i
 
     return tmp_item
 
-def to_nglview_NGLView(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = view_with_NGLView(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
-def view_with_NGLView(item, molecular_system, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
 

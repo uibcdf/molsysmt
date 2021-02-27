@@ -1,12 +1,12 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from simtk.openmm.app import AmberPrmtopFile as _openmm_AmberPrmtopFile
+from simtk.openmm.app import GromacsTopFile as _openmm_GromacsTopFile
 
-form_name='openmm.AmberPrmtopFile'
+form_name='openmm.GromacsTopFile'
 
 is_form={
-    _openmm_AmberPrmtopFile : form_name,
+    _openmm_GromacsTopFile : form_name,
 }
 
 info=["",""]
@@ -16,15 +16,6 @@ with_coordinates=False
 with_box=False
 with_bonds=True
 with_parameters=True
-
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
-
-    tmp_item = to_openmm_Topology(item, molecular_system)
-    tmp_item = openmm_Topology_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices)
-
-    return tmp_item
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -71,9 +62,9 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
 
 ## Atom
 
-def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
+def get_form_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return get_form_from_system(item)
 
 ## System
 

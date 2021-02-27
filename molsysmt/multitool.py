@@ -1,7 +1,10 @@
-from ._private_tools import *
 import numpy as np
 from molsysmt import puw
 from molsysmt.forms import *
+from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
+from molsysmt._private_tools._digestion import *
+from molsysmt._private_tools.selection import selection_is_all
+from molsysmt._private_tools.forms import to_form_is_file
 
 ####
 #### Methods
@@ -21,10 +24,10 @@ def get_form(molecular_system):
 
         if ':' in molecular_system:
             prefix=molecular_system.split(':')[0]
-            if prefix+':id' in dict_ids_is_form.keys():
-                molecular_system=dict_ids_is_form[prefix+':id']
-            elif prefix+':seq' in dict_seqs_is_form.keys():
-                molecular_system=dict_seqs_is_form[prefix+':seq']
+            if prefix+':id' in dict_is_form.keys():
+                molecular_system=dict_is_form[prefix+':id']
+            elif prefix+':seq' in dict_is_form.keys():
+                molecular_system=dict_is_form[prefix+':seq']
         else:
             molecular_system=molecular_system.split('.')[-1]
 
@@ -108,7 +111,7 @@ def select(molecular_system, selection='all', target='atom', mask=None, syntaxis
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
             selection = digest_selection(selection, syntaxis)
-            atom_indices = dict_selector[molecular_system.topology_form][syntaxis](molecular_system.topology_item, selection)
+            atom_indices = dict_select[molecular_system.topology_form][syntaxis](molecular_system.topology_item, selection)
     elif type(selection) in [int, np.int64, np.int]:
         atom_indices = np.array([selection], dtype='int64')
     elif hasattr(selection, '__iter__'):
@@ -1144,16 +1147,20 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
         form_out = to_form
 
     if molecular_system.topology_item is not None:
+        item = molecular_system.topology_item
         item_form = molecular_system.topology_form
     elif molecular_system.trajectory_item is not None:
+        item = molecular_system.trajectory_item
         item_form = molecular_system.trajectory_form
     elif molecular_system.coordinates_item is not None:
+        item = molecular_system.coordinates_item
         item_form = molecular_system.coordinates_form
     elif molecular_system.box_item is not None:
+        item = molecular_system.box_item
         item_form = molecular_system.box_form
 
 
-    tmp_item = dict_converter[item_form][form_out](molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
+    tmp_item = dict_convert[item_form][form_out](item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
                                                    **conversion_arguments, **kwargs)
 
     return tmp_item
@@ -1249,7 +1256,7 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 #
 #            if out_file is not None:
 #                if form_in!=form_out:
-#                    tmp_item = dict_converter[form_in][form_out](item, output_filepath=out_file,
+#                    tmp_item = dict_convert[form_in][form_out](item, output_filepath=out_file,
 #                                                          atom_indices=atom_indices, frame_indices=frame_indices,
 #                                                          **kwargs)
 #                elif same_system:
@@ -1261,7 +1268,7 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 #
 #            else:
 #                if form_in!=form_out:
-#                    tmp_item = dict_converter[form_in][form_out](item, atom_indices=atom_indices,
+#                    tmp_item = dict_convert[form_in][form_out](item, atom_indices=atom_indices,
 #                                                                  frame_indices=frame_indices, **kwargs)
 #                elif same_system:
 #                    tmp_item = copy(item)
@@ -1328,7 +1335,7 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 #                if out_file is not None:
 #
 #                    if topology_form!=form_out:
-#                        tmp_item = dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_filepath=out_file,
+#                        tmp_item = dict_convert[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_filepath=out_file,
 #                                                              atom_indices=atom_indices, frame_indices=frame_indices,
 #                                                              **kwargs)
 #                    elif same_system:
@@ -1341,7 +1348,7 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 #                else:
 #
 #                    if topology_form!=form_out:
-#                        tmp_item = dict_converter[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
+#                        tmp_item = dict_convert[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
 #                                                                      frame_indices=frame_indices, **kwargs)
 #                    elif same_system:
 #                        tmp_item = copy(topology_item)
@@ -1354,7 +1361,7 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 #                if out_file is not None:
 #
 #                    if trajectory_form!=form_out:
-#                        tmp_item = dict_converter[trajectory_form][form_out](trajectory_item, output_filepath=out_file,
+#                        tmp_item = dict_convert[trajectory_form][form_out](trajectory_item, output_filepath=out_file,
 #                                                              atom_indices=atom_indices, frame_indices=frame_indices,
 #                                                              **kwargs)
 #                    elif same_system:
@@ -1365,7 +1372,7 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 #
 #                else:
 #                    if trajectory_form!=form_out:
-#                        tmp_item = dict_converter[trajectory_form][form_out](trajectory_item, atom_indices=atom_indices,
+#                        tmp_item = dict_convert[trajectory_form][form_out](trajectory_item, atom_indices=atom_indices,
 #                                                                      frame_indices=frame_indices, **kwargs)
 #                    elif same_system:
 #                        tmp_item = copy(trajectory_item)

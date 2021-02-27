@@ -1,5 +1,4 @@
-def from_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all', topology_item=None,
-                           trajectory_item=None, coordinates_item=None, box_item=None):
+def from_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     #from molsysmt.native.io.card import from_mmtf_mdtraj_Trajectory as to_card
@@ -13,8 +12,7 @@ def from_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all', topolo
     tmp_item.topography = None
     return tmp_item
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all', topology_item=None,
-                         trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt import puw
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory

@@ -1,8 +1,8 @@
-def to_pytraj_Trajectory(item, trajectory_item='all', atom_indices='all', frame_indices='all'):
+def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def from_pytraj_Trajectory(item, trajectory_item='all', atom_indices='all', frame_indices='all'):
+def from_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .pytraj_Topology import from_pytraj_Topology as molsysmt_Topology_from_pytraj_Topology
     tmp_item = item.topology

@@ -321,7 +321,7 @@ def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
     output = False
 
-    if with_topology:
+    if with_bonds:
         if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
             output = True
 

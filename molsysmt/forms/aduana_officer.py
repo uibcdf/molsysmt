@@ -4,14 +4,15 @@
 import os
 from importlib.util import find_spec
 
+modules_already = {'molsysmt', 'numpy', 'pyunitwizard', 'urllib', 'json', 'os'}
+
 api_form_name = {}
 api_module = {}
 api_type = {}
 api_dependencies = {}
-api_convert_dependencies = {}
-api_select_dependencies = {}
+api_convert = {}
+api_select = {}
 
-modules_already = {'molsysmt', 'numpy', 'pyunitwizard', 'urllib', 'json', 'os'}
 modules_required = set()
 modules_detected = {}
 api_to_be_loaded = {}
@@ -21,8 +22,8 @@ selects_to_be_loaded = {}
 def parser_api(filepath):
 
     dependencies = set()
-    convert = {}
-    select = {}
+    convert = []
+    select = []
 
     inside_def = None
 
@@ -37,18 +38,14 @@ def parser_api(filepath):
             if line.startswith('def'):
                 inside_def = line.split(' ')[1].split('(')[0]
                 if inside_def.startswith('to_'):
-                    convert[inside_def]=set()
+                    convert.append(inside_def)
                 elif inside_def.startswith('select_with_'):
-                    select[inside_def]=set()
+                    select.append(inside_def)
 
             if line.startswith('from ') or line.startswith('import '):
                 module_required = line.split(' ')[1]
                 if inside_def is None:
                     dependencies.add(module_required)
-                elif inside_def.startswith('to_'):
-                    convert[inside_def].add(module_required)
-                elif inside_def.startswith('select_with_'):
-                    select[inside_def].add(module_required)
 
     tmp_dependencies = set()
     for module in dependencies:
@@ -77,13 +74,13 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
         api_module[api] = 'molsysmt.forms.'+dirname+'.'+api
         api_dependencies[api] = dependencies - modules_already
         modules_required.update(api_dependencies[api])
-        api_convert_dependencies[api] = convert
-        api_select_dependencies[api] = select
+        api_convert[api] = convert
+        api_select[api] = select
 
 # modules detected:
 modules_detected = {ii: find_spec(ii) is not None for ii in modules_required}
 
-# apis to be loaded:
+### apis to be loaded:
 for api in api_form_name:
     goes = True
     for dependency in api_dependencies[api]:
@@ -92,21 +89,36 @@ for api in api_form_name:
             break
     api_to_be_loaded[api] = goes
 
-print(api_to_be_loaded)
+#print(api_to_be_loaded)
 
-# converts to be loaded:
+### converts to be loaded:
 for api in api_to_be_loaded:
     if api_to_be_loaded[api]:
         converts_to_be_loaded[api] = {}
-        for method in api_convert_dependencies[api]:
+        for method in api_convert[api]:
+            to_api = 'api_'+method[3:]
+            if to_api in api_to_be_loaded:
+                goes = api_to_be_loaded[to_api]
+            else:
+                goes = False
+            converts_to_be_loaded[api][method]=goes
 
+#print(converts_to_be_loaded)
+
+### selects to be loaded:
+for api in api_to_be_loaded:
+    if api_to_be_loaded[api]:
+        selects_to_be_loaded[api] = {}
+        for method in api_select[api]:
+            engine = method[12:].lower()
             goes = True
-            if 
+            if engine!='molsysmt':
+                if engine in modules_detected:
+                    goes = modules_detected[engine]
+                else:
+                    goes = False
+            selects_to_be_loaded[api][method]=goes
 
-#print('### Convert')
-#print(api_convert_dependencies)
-#print(' ')
-#print('### Select')
-#print(api_select_dependencies)
-#print(' ')
+#print(selects_to_be_loaded)
+
 

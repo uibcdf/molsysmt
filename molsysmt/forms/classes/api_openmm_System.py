@@ -17,7 +17,7 @@ with_box=True
 with_bonds=True
 with_parameters=True
 
-def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all',
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all',
                          integrator='Langevin', temperature='300.0 K', collisions_rate='1.0 1/ps',
                          integration_timestep='2.0 fs', platform='CUDA', constraint_tolerance=None):
 

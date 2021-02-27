@@ -17,7 +17,7 @@ with_box=False
 with_bonds=True
 with_parameters=False
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_pytraj_Topology as molsysmt_Topology_from_pytraj_Topology
     from molsysmt.forms.classes.api_molsysmt_Topology import extract as extract_molsysmt_Topology

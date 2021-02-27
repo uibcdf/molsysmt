@@ -18,7 +18,7 @@ with_parameters=False
 
 info = ["CHARMM card (CRD) file format with coordinates.","https://www.charmmtutorial.org/index.php/CHARMM:The_Basics#CHARMM_data_structures"]
 
-def to_crd(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_crd(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     if frame_indices=='all':
         from shutil import copyfile
@@ -26,7 +26,7 @@ def to_crd(item, molecular_system, atom_indices='all', frame_indices='all', outp
     else:
         raise NotImplementedError("Not implemented yet")
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_crd as crd_to_molsysmt_MolSys
 
@@ -34,7 +34,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.files import from_crd as crd_to_molsysmt_Topology
 
@@ -42,7 +42,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_crd as crd_to_molsysmt_Trajectory
 
@@ -50,7 +50,7 @@ def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_mdanalysis_Universe
     from MDAnalysis import Universe
@@ -60,7 +60,7 @@ def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_mdanalysis_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis.topology import CRDParser
 
@@ -69,7 +69,7 @@ def to_mdanalysis_Topology(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_mdanalysis_topology_CRDParser(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_topology_CRDParser(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis.topology import CRDParser
 
@@ -77,7 +77,7 @@ def to_mdanalysis_topology_CRDParser(item, molecular_system, atom_indices='all',
 
     return tmp_item
 
-def to_mdanalysis_coordinates_CRDReader(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_coordinates_CRDReader(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis.coordinates.CRD import CRDReader
 
@@ -85,7 +85,7 @@ def to_mdanalysis_coordinates_CRDReader(item, molecular_system, atom_indices='al
 
     return tmp_item
 
-def to_mdtraj_AmberRestartFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_AmberRestartFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import AmberRestartFile
 
@@ -93,7 +93,7 @@ def to_mdtraj_AmberRestartFile(item, molecular_system, atom_indices='all', frame
 
     return tmp_item
 
-def to_openmm_AmberInpcrdFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_AmberInpcrdFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import AmberInpcrdFile
 
@@ -101,7 +101,7 @@ def to_openmm_AmberInpcrdFile(item, molecular_system, atom_indices='all', frame_
 
     return tmp_item
 
-def view_with_NGLView(item, molecular_system, atom_indices='all', frame_indices='all'):
+def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

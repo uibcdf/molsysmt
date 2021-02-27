@@ -55,7 +55,7 @@ def this_Quantity_is_XYZ(item):
 
     return (has_right_shape and is_length)
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.classes import from_XYZ as XYZ_to_molsysmt_Trajectory
 
@@ -63,7 +63,7 @@ def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_xyznpy(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_xyznpy(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     comment = None
     atom_names = None

@@ -1,5 +1,4 @@
-def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
-           frame_indices='all'):
+def to_pdb(item, molecular_system=None, output_filepath=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
     from molsysmt.forms.classes.api_openmm_Topology import to_pdb as openmm_Topology_to_pdb
@@ -10,7 +9,7 @@ def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all',
                                   trajectory_item=trajectory_item,
                                   atom_indices=atom_indices, frame_indices=frame_indices)
 
-def from_pdb(item, atom_indices='all', frame_indices='all'):
+def from_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.files.api_pdb import to_openmm_PDBFile as pdb_to_openmm_PDBFile
     from molsysmt.native.io.topology.classes import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_Topology

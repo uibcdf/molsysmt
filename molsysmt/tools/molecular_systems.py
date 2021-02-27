@@ -151,7 +151,7 @@ def where_trajectory_in_molecular_system(items):
             trajectory_item = items
             trajectory_form = form_in
 
-    return trajectory_item
+    return trajectory_item, trajectory_form
 
 def where_box_in_molecular_system(items):
 
@@ -172,6 +172,7 @@ def where_box_in_molecular_system(items):
             has_box = dict_get[form_in]["system"]["has_box"](item)
             if has_box and not (has_topology or has_coordinates):
                 box_item = item
+                box_form = form_in
                 break
             else:
                 if has_box:
@@ -189,4 +190,72 @@ def where_box_in_molecular_system(items):
             box_form = form_in
 
     return box_item, box_form
+
+def where_bonds_in_molecular_system(items):
+
+    from molsysmt import get_form
+    from molsysmt.multitool import dict_get
+
+    if not is_a_single_molecular_system(items):
+        raise ValueError ("This method needs a single molecular system as input")
+
+    bonds_item = None
+    bonds_form = None
+
+    if type(items) in [list, tuple]:
+        for item in items:
+            form_in = get_form(item)
+            has_topology = dict_get[form_in]["system"]["has_topology"](item)
+            has_bonds = dict_get[form_in]["system"]["has_bonds"](item)
+            if has_bonds and not has_topology:
+                bonds_item = item
+                bonds_form = form_in
+                break
+            else:
+                if has_bonds:
+                    if bonds_item is None:
+                        bonds_item = item
+                        bonds_form = form_in
+    else:
+        form_in = get_form(items)
+        has_bonds = dict_get[form_in]["system"]["has_bonds"](items)
+        if has_bonds:
+            bonds_item = items
+            bonds_form = form_in
+
+    return bonds_item, bonds_form
+
+def where_parameters_in_molecular_system(items):
+
+    from molsysmt import get_form
+    from molsysmt.multitool import dict_get
+
+    if not is_a_single_molecular_system(items):
+        raise ValueError ("This method needs a single molecular system as input")
+
+    parameters_item = None
+    parameters_form = None
+
+    if type(items) in [list, tuple]:
+        for item in items:
+            form_in = get_form(item)
+            has_topology = dict_get[form_in]["system"]["has_topology"](item)
+            has_parameters = dict_get[form_in]["system"]["has_parameters"](item)
+            if has_parameters and not has_topology:
+                parameterse_item = item
+                parameters_form = form_in
+                break
+            else:
+                if has_parameters:
+                    if parameters_item is None:
+                        parameters_item = item
+                        parameters_form = form_in
+    else:
+        form_in = get_form(items)
+        has_parameters = dict_get[form_in]["system"]["has_parameters"](items)
+        if has_parameters:
+            parameters_item = items
+            parameters_form = form_in
+
+    return parameters_item, parameters_form
 

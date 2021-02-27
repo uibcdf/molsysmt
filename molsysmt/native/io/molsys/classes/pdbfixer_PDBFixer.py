@@ -1,5 +1,4 @@
-def from_pdbfixer_PDBFixer (item, atom_indices='all', frame_indices='all', topology_item=None,
-                            trajectory_item=None, coordinates_item=None, box_item=None):
+def from_pdbfixer_PDBFixer (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology.classes import from_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_molsysmt_Topology
@@ -11,7 +10,7 @@ def from_pdbfixer_PDBFixer (item, atom_indices='all', frame_indices='all', topol
 
     return tmp_item
 
-def to_pdbfixer_PDBFixer (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import to_pdb as molsysmt_MolSys_to_pdb
     from pdbfixer.pdbfixer import PDBFixer

@@ -1,4 +1,4 @@
-def from_xtc(item, topology=None, atom_indices='all', frame_indices='all'):
+def from_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt import convert
     from .io_trajectory import from_xtc as xtc_to_Trajectory

@@ -1,4 +1,4 @@
-def from_pdb(item, atom_indices='all', frame_indices='all'):
+def from_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.ids.api_pdb import to_openmm_PDBFile as pdb_to_openmm_PDBFile
     from molsysmt.native.io.topology.classes import from_openmm_DataFile as openmm_PDBFile_to_molsysmt_Topology

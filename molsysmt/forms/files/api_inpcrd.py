@@ -16,7 +16,7 @@ with_box=True
 with_bonds=False
 with_parameters=False
 
-def to_inpcrd(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_inpcrd(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     if frame_indices=='all':
         from shutil import copyfile
@@ -24,7 +24,7 @@ def to_inpcrd(item, molecular_system, atom_indices='all', frame_indices='all', o
     else:
         raise NotImplementedError("Not implemented yet")
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_inpcrd as inpcrd_to_molsysmt_MolSys
 
@@ -32,7 +32,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.files import from_inpcrd as inpcrd_to_molsysmt_Topology
 
@@ -40,7 +40,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def to_molsysmt_DataFrame(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_DataFrame(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.dataframe.files import from_inpcrd as inpcrd_to_molsysmt_DataFrame
 
@@ -48,7 +48,7 @@ def to_molsysmt_DataFrame(item, molecular_system, atom_indices='all', frame_indi
 
     return tmp_item
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_inpcrd as inpcrd_to_molsysmt_Trajectory
 
@@ -56,7 +56,7 @@ def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def to_mdtraj_AmberRestartFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_AmberRestartFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import AmberRestartFile
 
@@ -64,7 +64,7 @@ def to_mdtraj_AmberRestartFile(item, molecular_system, atom_indices='all', frame
 
     return tmp_item
 
-def to_openmm_AmberInpcrdFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_AmberInpcrdFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import AmberInpcrdFile
 

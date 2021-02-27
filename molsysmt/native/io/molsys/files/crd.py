@@ -1,4 +1,4 @@
-def from_crd(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_crd(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.files.api_crd import to_mdanalysis_Universe as crd_to_mdanalysis_Universe
     from molsysmt.forms.classes.api_mdanalysis_Universe import to_molsysmt_MolSys as mdanalysis_Universe_to_molsysmt_MolSys
@@ -8,6 +8,6 @@ def from_crd(item, trajectory_item=None, atom_indices='all', frame_indices='all'
 
     return tmp_item
 
-def to_crd(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_crd(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError

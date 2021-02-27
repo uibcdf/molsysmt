@@ -1,5 +1,5 @@
 
-def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioassembly_index=0, bioassembly_name=None):
+def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all', bioassembly_index=0, bioassembly_name=None):
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan
