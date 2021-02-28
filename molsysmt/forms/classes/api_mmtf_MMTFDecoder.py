@@ -1,5 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
+from molsysmt import puw
 import numpy as np
 from mmtf import MMTFDecoder as _mmtf_MMTFDecoder
 
@@ -16,56 +17,6 @@ with_coordinates=True
 with_box=True
 with_bonds=True
 with_parameters=False
-
-def load_frame(item, atom_indices='all', frame_indices='all'):
-
-    from numpy import arange, empty, zeros, column_stack
-    from molsysmt import box_vectors_from_box_lengths_and_angles
-    from molsysmt._private_tools.units import length_unit_name, angle_unit_name, time_unit_name
-    from simtk.unit import angstroms, degrees, picoseconds
-
-    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
-    n_atoms = get_n_atoms_from_system(item, indices='all', frame_indices='all')
-
-    step = arange(n_frames, dtype=int)
-    time = puw.quantity(zeros(n_frames, dtype=float), 'picoseconds', __quantities_form__)
-    xyz = column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
-    xyz = xyz.reshape([-1, item.num_atoms, 3])
-    xyz = puw.quantity(xyz,'angstroms', __quantities_form__)
-
-    if item.unit_cell is not None:
-
-        cell_lengths = empty([n_frames,3], dtype='float64')
-        cell_angles = empty([n_frames,3], dtype='float64')
-        for ii in range(3):
-            cell_lengths[:,ii] = item.unit_cell[ii]
-            cell_angles[:,ii] = item.unit_cell[ii+3]
-
-        cell_lengths = puw.quantity(cell_lengths, 'angstroms', __quantities_form__)
-        cell_angles = puw.quantity(cell_angles, 'degrees', __quantities_form__)
-
-        box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
-        box = puw.convert(box, length_unit_name)
-
-    else:
-
-        box = None
-
-    xyz = puw.convert(xyz, length_unit_name)
-    time = puw.convert(time, time_unit_name)
-
-    if frame_indices is not 'all':
-        xyz = xyz[frame_indices,:,:]
-        time = time[frame_indices]
-        step = step[frame_indices]
-        if box is not None:
-            box = box[frame_indices,:,:]
-
-    if indices is not 'all':
-        xyz = xyz[:,indices,:]
-
-    return step, time, xyz, box
-
 
 def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
@@ -197,7 +148,21 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
+    n_atoms = get_n_atoms_from_system(item, indices='all', frame_indices='all')
+
+    xyz = np.column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
+    xyz = xyz.reshape([-1, item.num_atoms, 3])
+    xyz = puw.quantity(xyz, 'angstroms')
+    xyz = puw.standardize(xyz)
+
+    if frame_indices is not 'all':
+        xyz = xyz[frame_indices,:,:]
+
+    if indices is not 'all':
+        xyz = xyz[:,indices,:]
+
+    return xyz
 
 ## group
 
@@ -309,15 +274,37 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
-
-def get_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return item.num_bonds
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
+
+    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
+
+    if item.unit_cell is not None:
+
+        cell_lengths = np.empty([n_frames,3], dtype='float64')
+        cell_angles = np.empty([n_frames,3], dtype='float64')
+        for ii in range(3):
+            cell_lengths[:,ii] = item.unit_cell[ii]
+            cell_angles[:,ii] = item.unit_cell[ii+3]
+
+        cell_lengths = puw.quantity(cell_lengths, 'angstroms')
+        cell_angles = puw.quantity(cell_angles, 'degrees')
+
+        box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
+        box = puw.standardize(box)
+
+    else:
+
+        box = None
+
+    if frame_indices is not 'all':
+        if box is not None:
+            box = box[frame_indices,:,:]
+
+    return box
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
@@ -337,11 +324,26 @@ def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
+
+    time = puw.quantity(np.zeros(n_frames, dtype=float), 'picoseconds')
+    time = puw.standardize(time)
+
+    if frame_indices is not 'all':
+        time = time[frame_indices]
+
+    return time
 
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
+
+    step = np.arange(n_frames, dtype=int)
+
+    if frame_indices is not 'all':
+        step = step[frame_indices]
+
+    return step
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 

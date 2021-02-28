@@ -4,13 +4,20 @@ from molsysmt.forms import *
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.selection import selection_is_all
-from molsysmt._private_tools.forms import to_form_is_file
+from molsysmt._private_tools.forms import to_form_is_file, form_of_file
+from molsysmt._private_tools.get_arguments import where_get_argument
+from molsysmt._private_tools.elements import elements2string
+from molsysmt.molecular_system import MolecularSystem, items_from_molecular_system
 
 ####
 #### Methods
 ####
 
 def get_form(molecular_system):
+
+    if type(molecular_system)==MolecularSystem:
+        _, output = items_from_molecular_system(molecular_system)
+        return output
 
     if puw.is_quantity(molecular_system):
 
@@ -155,7 +162,6 @@ def select(molecular_system, selection='all', target='atom', mask=None, syntaxis
 
 def get(molecular_system, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
-
     """get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT')
 
     Get specific attributes and observables.
@@ -211,7 +217,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', frame_in
     # selection works as a mask if indices or ids are used
 
     target = digest_target(target)
-    attributes = [ digest_get_argument(key) for key in kwargs.keys() if kwargs[key] ]
+    attributes = [ digest_get_argument(key, target) for key in kwargs.keys() if kwargs[key] ]
     indices = digest_indices(indices)
     frame_indices = digest_frame_indices(frame_indices)
 
@@ -225,29 +231,17 @@ def get(molecular_system, target='atom', indices=None, selection='all', frame_in
 
     output = []
     for attribute in attributes:
-        if attribute in list_topology_get_arguments:
-            item=molecular_system.topology_item
-            form=molecular_system.topology_form
-        elif attribute in list_bonds_get_arguments:
-            item=molecular_system.bonds_item
-            form=molecular_system.bonds_form
-        elif attribute in list_parameters_get_arguments:
-            item=molecular_system.parameters_item
-            form=molecular_system.parameters_form
-        elif attribute in list_trajectory_get_arguments:
-            item=molecular_system.trajectory_item
-            form=molecular_system.trajectory_form
-        elif attribute in list_coordinates_get_arguments:
-            item=molecular_system.coordinates_item
-            form=molecular_system.coordinates_form
-        elif attribute in list_box_get_arguments:
-            item=molecular_system.box_item
-            form=molecular_system.box_form
 
-        if item is None:
-            result = None
-        else:
-            result = dict_get[form][target][attribute](item, indices=indices, frame_indices=frame_indices)
+        result = None
+
+        for where_attribute in where_get_argument[attribute]:
+            item = getattr(molecular_system, where_attribute+'_item')
+            form = getattr(molecular_system, where_attribute+'_form')
+
+            if item is not None:
+                result = dict_get[form][target][attribute](item, indices=indices, frame_indices=frame_indices)
+            if result is not None:
+                break
 
         output.append(result)
 
@@ -631,7 +625,7 @@ def append(to_item, from_items=None, selections='all', frame_indices='all', synt
 
     return tmp_item
 
-def info(items=None, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):
+def info(molecular_system, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):
 
     """info(item, target='system', indices=None, selection='all', syntaxis='MolSysMT')
 
@@ -683,8 +677,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
     """
 
-    if not is_a_single_molecular_system(items):
-        raise NeedsSingleMolecularSystemError()
+    molecular_system = digest_molecular_system(molecular_system)
 
     target = digest_target(target)
 
@@ -699,7 +692,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
             component_index,\
             chain_index,\
             molecule_index, molecule_type,\
-            entity_index, entity_name= get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name= get(molecular_system, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                            atom_index=True, atom_id=True, atom_name=True, atom_type=True,
                                            group_index=True, group_id=True, group_name=True, group_type=True,
                                            component_index=True,
@@ -720,7 +713,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
             n_atoms, component_index,\
             chain_index,\
             molecule_index, molecule_type,\
-            entity_index, entity_name = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name = get(molecular_system, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             group_index=True, group_id=True, group_name=True, group_type=True, n_atoms=True,
                                             component_index=True, chain_index=True, molecule_index=True, molecule_type=True,
                                             entity_index=True, entity_name=True)
@@ -737,7 +730,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
             component_index, n_atoms, n_groups,\
             chain_index,\
             molecule_index, molecule_type,\
-            entity_index, entity_name = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name = get(molecular_system, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             component_index=True, n_atoms=True, n_groups=True,
                                             chain_index=True,
                                             molecule_index=True, molecule_type=True,
@@ -754,7 +747,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
             chain_index, chain_id, chain_name,\
             n_atoms, n_groups, n_components,\
             molecule_index, molecule_type,\
-            entity_index, entity_name = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name = get(molecular_system, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             chain_index=True, chain_id=True, chain_name=True,
                                             n_atoms=True, n_groups=True, n_components=True,
                                             molecule_index=True, molecule_type=True,
@@ -799,7 +792,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
             molecule_index, molecule_name, molecule_type,\
             n_atoms, n_groups, n_components, chain_index,\
-            entity_index, entity_name = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            entity_index, entity_name = get(molecular_system, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                                             molecule_index=True, molecule_name=True, molecule_type=True,
                                             n_atoms=True, n_groups=True, n_components=True, chain_index=True,
                                             entity_index=True, entity_name=True)
@@ -824,7 +817,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
             entity_index, entity_name, entity_type,\
             n_atoms, n_groups, n_components, n_chains,\
-            n_molecules = get(items, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
+            n_molecules = get(molecular_system, target=target, indices=indices, selection=selection, syntaxis=syntaxis,
                     entity_index=True, entity_name=True, entity_type=True,
                     n_atoms=True, n_groups=True, n_components=True,
                     n_chains=True, n_molecules=True)
@@ -836,11 +829,11 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
         elif target=='system':
 
-            form = get_form(items)
+            form = get_form(molecular_system)
 
             n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_frames,\
             n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas,\
-            n_rnas = get(items, target=target,
+            n_rnas = get(molecular_system, target=target,
                     n_atoms=True, n_groups=True, n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_frames=True,
                     n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
                     n_dnas=True, n_rnas=True)
@@ -873,9 +866,9 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
         if indices is None and selection is not None:
 
-            indices = select(items, selection=selection, target=target)
+            indices = select(molecular_system, selection=selection, target=target)
 
-        string = elements2string(items, indices=indices, target=target)
+        string = elements2string(molecular_system, indices=indices, target=target)
 
         if len(string)==1:
             return string[0]
@@ -886,13 +879,13 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
         if target=='atom':
 
-            group_indices, chain_indices, molecule_indices = get(items, target=target, indices=indices, group_index=True,
+            group_indices, chain_indices, molecule_indices = get(molecular_system, target=target, indices=indices, group_index=True,
                                 chain_index=True, molecule_index=True)
 
-            atom_string = elements2string(items, indices=indices, target=target)
-            group_string = elements2string(items, indices=group_indices, target='group')
-            chain_string = elements2string(items, indices=chain_indices, target='chain')
-            molecule_string = elements2string(items, indices=molecule_indices, target='molecule')
+            atom_string = elements2string(molecular_system, indices=indices, target=target)
+            group_string = elements2string(molecular_system, indices=group_indices, target='group')
+            chain_string = elements2string(molecular_system, indices=chain_indices, target='chain')
+            molecule_string = elements2string(molecular_system, indices=molecule_indices, target='molecule')
 
             string=[]
 
@@ -906,12 +899,12 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
         elif target=='group':
 
-            chain_indices, molecule_indices = get(items, target=target, indices=indices,
+            chain_indices, molecule_indices = get(molecular_system, target=target, indices=indices,
                                 chain_index=True, molecule_index=True)
 
-            group_string = elements2string(items, indices=indices, target=target)
-            chain_string = elements2string(items, indices=chain_indices, target='chain')
-            molecule_string = elements2string(items, indices=molecule_indices, target='molecule')
+            group_string = elements2string(molecular_system, indices=indices, target=target)
+            chain_string = elements2string(molecular_system, indices=chain_indices, target='chain')
+            molecule_string = elements2string(molecular_system, indices=molecule_indices, target='molecule')
 
             string=[]
 
@@ -925,12 +918,12 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
         elif target=='component':
 
-            chain_indices, molecule_indices = get(items, target=target, indices=indices,
+            chain_indices, molecule_indices = get(molecular_system, target=target, indices=indices,
                                 chain_index=True, molecule_index=True)
 
-            component_string = elements2string(items, indices=indices, target=target)
-            chain_string = elements2string(items, indices=chain_indices, target='chain')
-            molecule_string = elements2string(items, indices=molecule_indices, target='molecule')
+            component_string = elements2string(molecular_system, indices=indices, target=target)
+            chain_string = elements2string(molecular_system, indices=chain_indices, target='chain')
+            molecule_string = elements2string(molecular_system, indices=molecule_indices, target='molecule')
 
             string=[]
 
@@ -944,7 +937,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
         elif target=='chain':
 
 
-            chain_string = elements2string(items, indices=indices, target=target)
+            chain_string = elements2string(molecular_system, indices=indices, target=target)
             string=chain_string
 
             if len(string)==1:
@@ -953,7 +946,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
         elif target=='molecule':
 
 
-            molecule_string = elements2string(items, indices=indices, target=target)
+            molecule_string = elements2string(molecular_system, indices=indices, target=target)
             string=molecule_string
 
             if len(string)==1:
@@ -961,7 +954,7 @@ def info(items=None, target='system', indices=None, selection='all', syntaxis='M
 
         elif target=='entity':
 
-            entity_string = elements2string(items, indices=indices, target=target)
+            entity_string = elements2string(molecular_system, indices=indices, target=target)
             string=entity_string
 
             if len(string)==1:
@@ -1142,7 +1135,7 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 
     if to_form_is_file(to_form):
         conversion_arguments['output_filename'] = to_form
-        form_out = formname_of_file(to_form)
+        form_out = form_of_file(to_form)
     else:
         form_out = to_form
 

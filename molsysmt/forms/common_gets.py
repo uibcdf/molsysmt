@@ -1140,9 +1140,12 @@ def get_n_lipids_from_system (item, indices='all', frame_indices='all'):
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
     return (molecule_types=='lipid').sum()
 
-#def get_coordinates_from_system(item, indices='all', frame_indices='all'):
-#
-#    raise NotImplementedError
+def get_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import get
+
+    coordinates = get(item, indices='all', frame_indices=frame_indices)
+    return coordinates
 
 #def get_box_from_system(item, indices='all', frame_indices='all'):
 #

@@ -4,7 +4,7 @@
 import os
 from importlib.util import find_spec
 
-modules_already = {'molsysmt', 'numpy', 'pyunitwizard', 'urllib', 'json', 'os'}
+modules_already = {'molsysmt', 'numpy', 'pyunitwizard', 'urllib', 'json', 'os', 'sys', 'importlib', 'shutil'}
 
 api_form_name = {}
 api_module = {}

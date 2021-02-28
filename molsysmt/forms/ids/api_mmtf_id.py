@@ -42,33 +42,33 @@ def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_i
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.ids import from_mmtf as mmtf_to_molsysmt_MolSys
+    from molsysmt.native.io.molsys.ids import from_mmtf_id as mmtf_id_to_molsysmt_MolSys
 
-    tmp_item = mmtf_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mmtf_id_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.ids import from_mmtf as mmtf_to_molsysmt_Topology
+    from molsysmt.native.io.topology.ids import from_mmtf_id as mmtf_id_to_molsysmt_Topology
 
-    tmp_item = mmtf_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mmtf_id_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_molsysmt_DataFrame(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.dataframe.ids import from_mmtf as mmtf_to_molsysmt_DataFrame
+    from molsysmt.native.io.dataframe.ids import from_mmtf_id as mmtf_id_to_molsysmt_DataFrame
 
-    tmp_item = mmtf_to_molsysmt_DataFrame(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mmtf_id_to_molsysmt_DataFrame(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.ids import from_mmtf as mmtf_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory.ids import from_mmtf_id as mmtf_id_to_molsysmt_Trajectory
 
-    tmp_item = mmtf_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mmtf_id_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 

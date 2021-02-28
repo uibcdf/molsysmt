@@ -1,4 +1,4 @@
-def to_aminoacids3_seq (item, atom_indices='all', frame_indices='all'):
+def to_aminoacids3_seq (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt import get
     from numpy import unique

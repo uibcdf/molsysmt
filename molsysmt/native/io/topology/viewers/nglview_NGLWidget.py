@@ -1,4 +1,4 @@
-def from_nglview_NGLWidget(item, atom_indices='all', frame_indices='all'):
+def from_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_Topology
     from molsysmt.forms.viewers.api_nglview_NGLWidget import to_openmm_PDBFile as nglview_NGLWidget_to_openmm_PDBFile

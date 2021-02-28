@@ -5,7 +5,9 @@ form_from_lowercase = {ii.lower():ii for ii in forms}
 
 def digest_form(form):
 
-    if is_list_or_tuple(form):
+    if form_is_file(form):
+        output = form
+    elif is_list_or_tuple(form):
         output = [digest_form(ii) for ii in form]
     else:
         output = form_from_lowercase[form.lower()]
