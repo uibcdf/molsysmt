@@ -2,6 +2,8 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from simtk.openmm.app import PDBFile as _openmm_PDBFile
+import sys
+import importlib
 
 form_name='openmm.PDBFile'
 
@@ -11,7 +13,6 @@ is_form={
 
 info=["",""]
 with_topology=True
-with_trajectory=False
 with_coordinates=True
 with_box=True
 with_bonds=False

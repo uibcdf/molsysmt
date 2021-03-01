@@ -11,7 +11,6 @@ is_form = {
 info = ["XYZ file format like saved with Numpy",""]
 
 with_topology=True
-with_trajectory=True
 with_coordinates=True
 with_box=False
 with_bonds=False

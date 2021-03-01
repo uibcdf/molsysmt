@@ -10,7 +10,6 @@ is_form = {
 info = ["Gromacs gro file format","http://manual.gromacs.org/documentation/2018/user-guide/file-formats.html#gro"]
 
 with_topology=True
-with_trajectory=True
 with_coordinates=True
 with_box=True
 with_bonds=False

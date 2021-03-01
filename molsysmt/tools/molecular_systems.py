@@ -121,38 +121,6 @@ def where_coordinates_in_molecular_system(items):
 
     return coordinates_item, coordinates_form
 
-def where_trajectory_in_molecular_system(items):
-
-    from molsysmt import get_form
-    from molsysmt.multitool import dict_get
-
-    if not is_a_single_molecular_system(items):
-        raise ValueError ("This method needs a single molecular system as input")
-
-    trajectory_item = None
-    trajectory_form = None
-
-    if type(items) in [list, tuple]:
-        for item in items:
-            form_in = get_form(item)
-            has_topology = dict_get[form_in]["system"]["has_topology"](item)
-            has_trajectory = dict_get[form_in]["system"]["has_trajectory"](item)
-            if has_trajectory:
-                if trajectory_item is None:
-                    trajectory_item = item
-                    trajectory_form = form_in
-                elif not has_topology:
-                    trajectory_item = item
-                    trajectory_form = form_in
-    else:
-        form_in = get_form(items)
-        has_trajectory = dict_get[form_in]["system"]["has_coordinates"](items)
-        if has_trajectory:
-            trajectory_item = items
-            trajectory_form = form_in
-
-    return trajectory_item, trajectory_form
-
 def where_box_in_molecular_system(items):
 
     from molsysmt import get_form

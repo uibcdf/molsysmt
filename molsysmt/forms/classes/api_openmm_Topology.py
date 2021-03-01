@@ -11,7 +11,6 @@ is_form={
 
 info=["",""]
 with_topology=True
-with_trajectory=False
 with_coordinates=False
 with_box=True
 with_bonds=True

@@ -10,7 +10,6 @@ is_form = {
 
 info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
 with_topology=False
-with_trajectory=False
 with_coordinates=True
 with_box=True
 with_bonds=False

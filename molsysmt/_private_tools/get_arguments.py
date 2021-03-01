@@ -27,7 +27,7 @@ where_get_argument = {
     'entity_id' : ['topology'],
     'entity_type' : ['topology'],
 
-    'n_atoms' : ['topology', 'trajectory', 'coordinates'],
+    'n_atoms' : ['topology', 'coordinates'],
     'n_groups' : ['topology'],
     'n_components' : ['topology'],
     'n_chains' : ['topology'],
@@ -55,17 +55,17 @@ where_get_argument = {
     'n_dnas' : ['topology'],
     'n_rnas' : ['topology'],
 
-    'step' : ['trajectory'],
-    'time' : ['trajectory'],
-    'frame' : ['trajectory'],
-    'n_frames' : ['trajectory', 'coordinates', 'box'],
-    'coordinates' : ['trajectory', 'coordinates'],
+    'step' : ['coordinates'],
+    'time' : ['coordinates'],
+    'frame' : ['coordinates'],
+    'n_frames' : ['coordinates', 'box'],
+    'coordinates' : ['coordinates'],
 
-    'box' : ['trajectory', 'box'],
-    'box_shape' : ['trajectory', 'box'],
-    'box_angles' : ['trajectory', 'box'],
-    'box_lengths' : ['trajectory', 'box'],
-    'box_volume' : ['trajectory', 'box'],
+    'box' : ['box'],
+    'box_shape' : ['box'],
+    'box_angles' : ['box'],
+    'box_lengths' : ['box'],
+    'box_volume' : ['box'],
 
 }
 

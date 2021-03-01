@@ -10,7 +10,6 @@ is_form={
 
 info=["",""]
 with_topology=False
-with_trajectory=False
 with_coordinates=True
 with_box=True
 with_bonds=False

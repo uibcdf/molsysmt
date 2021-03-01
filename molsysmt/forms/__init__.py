@@ -1,10 +1,7 @@
 from importlib import import_module
 import os
-from molsysmt.forms.aduana_officer import api_to_be_loaded, converts_to_be_loaded, selects_to_be_loaded
+from molsysmt.forms.aduana_officer import api_to_be_loaded, converts_to_be_loaded, selects_to_be_loaded, modules_detected
 
-modules_required={
-
-}
 
 types = ['class', 'file', 'id', 'seq', 'viewer']
 forms = []

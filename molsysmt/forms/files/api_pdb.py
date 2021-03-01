@@ -13,7 +13,6 @@ is_form = {
 
 info = ["Protein Data Bank file format","https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
 with_topology=True
-with_trajectory=False
 with_coordinates=True
 with_box=True
 with_bonds=True

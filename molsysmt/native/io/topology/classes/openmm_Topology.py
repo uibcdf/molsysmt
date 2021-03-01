@@ -72,7 +72,6 @@ def from_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
     from molsysmt.elements.group import name_to_type as group_name_to_group_type
-    from networkx import empty_graph, connected_components
 
     tmp_item = Topology()
 

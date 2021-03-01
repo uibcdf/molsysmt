@@ -1,6 +1,6 @@
 from os.path import basename as _basename
 
-form_name=_basename(__file__).split('.')[0].replace('api_','')+':seq'
+form_name='aminoacids1:seq'
 
 is_form={
     'aminoacids1:seq' : form_name,
@@ -9,7 +9,6 @@ is_form={
 
 info=["",""]
 with_topology=True
-with_trajectory=False
 
 ### Corresponde al formato IUPAC extended protein que aparece en Biopython
 

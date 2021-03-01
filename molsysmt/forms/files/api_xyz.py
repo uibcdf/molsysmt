@@ -11,7 +11,6 @@ is_form = {
 info = ["XYZ file format",["https://en.wikipedia.org/wiki/XYZ_file_format",
                            "https://open-babel.readthedocs.io/en/latest/FileFormats/XYZ_cartesian_coordinates_format.html"]]
 with_topology=True
-with_trajectory=False
 with_coordinates=True
 with_bonds=False
 with_box=False

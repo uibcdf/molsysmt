@@ -22,21 +22,16 @@ def digest_to_form(to_form):
 
 def to_form_is_file(to_form):
 
-    output = False
-
-    if type(to_form) is str:
-        if to_form.split('.')[-1] in forms:
-            output = True
-
-    return output
+    return form_is_file(to_form)
 
 def form_is_file(form):
 
     output = False
 
     if type(form) is str:
-        if form.split('.')[-1] in forms:
-            output = True
+        if ':' not in form:
+            if form.split('.')[-1] in forms:
+                output = True
 
     return output
 
