@@ -158,16 +158,15 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
 
 ###### Get
 
-
 def aux_get(item, indices='all', frame_indices='all'):
 
     from molsysmt.forms import forms
 
-    if 'openmm.Topology' in forms:
+    if 'openmm.AmberPrmtopFile' in forms:
 
-        tmp_item = to_openmm_Topology(item)
+        tmp_item = to_openmm_AmberPrmtopFile(item)
         method_name = sys._getframe(1).f_code.co_name
-        module = importlib.import_module('molsysmt.forms.classes.api_openmm_Topology')
+        module = importlib.import_module('molsysmt.forms.classes.api_openmm_AmberPrmtopFile')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
@@ -178,6 +177,10 @@ def aux_get(item, indices='all', frame_indices='all'):
         module = importlib.import_module('molsysmt.forms.classes.api_mdtraj_Topology')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+    else:
+
+        raise NotImplementedError
 
     return output
 
@@ -228,6 +231,10 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
     return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
+
+    raise NotWithThisFormError()
+
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
     raise NotWithThisFormError()
 
@@ -390,24 +397,11 @@ def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_has_box_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box is not None:
-            output = True
-
-    return output
+    return with_box
 
 def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
+    return with_box
 
 ## bond
 

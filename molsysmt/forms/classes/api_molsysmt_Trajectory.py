@@ -88,7 +88,6 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
     raise NotImplementedError
 
 
-
 ###### Get
 
 ## atom
@@ -196,12 +195,7 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
 def get_frame_from_system(item, indices='all', frame_indices='all'):
 
-    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
-    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
-    tmp_coordinates = get_coordinates_from_system(item, frame_indices=frame_indices)
-    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
-
-    return tmp_step, tmp_time, tmp_coordinates, tmp_box
+    return get_frame_from_atom(item, frame_indices=frame_indices)
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
@@ -215,6 +209,27 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
     return form_name
+
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    return with_topology
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    return with_parameters
+
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    return with_coordinates
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    return with_box
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    return with_bonds
+
 
 ###### Set
 

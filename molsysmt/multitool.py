@@ -7,6 +7,7 @@ from molsysmt._private_tools.selection import selection_is_all
 from molsysmt._private_tools.forms import to_form_is_file, form_of_file
 from molsysmt._private_tools.get_arguments import where_get_argument
 from molsysmt._private_tools.elements import elements2string
+from molsysmt._private_tools.exceptions import *
 from molsysmt.molecular_system import MolecularSystem, items_from_molecular_system
 
 ####
@@ -1142,9 +1143,6 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     if molecular_system.topology_item is not None:
         item = molecular_system.topology_item
         item_form = molecular_system.topology_form
-    elif molecular_system.trajectory_item is not None:
-        item = molecular_system.trajectory_item
-        item_form = molecular_system.trajectory_form
     elif molecular_system.coordinates_item is not None:
         item = molecular_system.coordinates_item
         item_form = molecular_system.coordinates_form

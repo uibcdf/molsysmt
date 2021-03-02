@@ -15,7 +15,7 @@ with_box=False
 with_bonds=True
 with_parameters=False
 
-def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_aminoacids3_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.seqs import to_aminoacids3_seq as molsysmt_Topology_to_aminoacids3_seq
 
@@ -23,7 +23,7 @@ def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.seqs import to_aminoacids1_seq as molsysmt_Topology_to_aminoacids1_seq
 
@@ -31,13 +31,13 @@ def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
 
     tmp_item = molsysmt_Topology_to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
 
@@ -45,11 +45,13 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.native.io.topology.files import to_pdb as molsysmt_Topology_to_pdb
 
-    tmp_item = molsysmt_Topology_to_pdb(item, molecular_system, output_filename=output_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = molsysmt_Topology_to_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+
+    return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -1955,24 +1957,11 @@ def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_has_box_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
+    return with_box
 
 def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
+    return with_bonds
 
 ## bond
 

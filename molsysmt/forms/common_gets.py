@@ -398,14 +398,14 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
 #
 #    raise NotImplementedError
 
-def get_frame_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.multitool import get
-
-    tmp_step, tmp_time, tmp_box = get(item, target='system', frame_indices=frame_indices, step=True, time=True, box=True)
-    tmp_coordinates = get(item, target='atom', indices=indices, frame_indices=frame_indices, coordinates=True)
-
-    return tmp_step, tmp_time, tmp_coordinates, tmp_box
+#def get_frame_from_atom(item, indices='all', frame_indices='all'):
+#
+#    from molsysmt.multitool import get
+#
+#    tmp_step, tmp_time, tmp_box = get(item, target='system', frame_indices=frame_indices, step=True, time=True, box=True)
+#    tmp_coordinates = get(item, target='atom', indices=indices, frame_indices=frame_indices, coordinates=True)
+#
+#    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
@@ -1143,9 +1143,7 @@ def get_n_lipids_from_system (item, indices='all', frame_indices='all'):
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
     from molsysmt.multitool import get
-
-    coordinates = get(item, indices='all', frame_indices=frame_indices)
-    return coordinates
+    return get(item, target='atom', frame_indices=frame_indices)
 
 #def get_box_from_system(item, indices='all', frame_indices='all'):
 #
@@ -1174,11 +1172,7 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 def get_frame_from_system(item, indices='all', frame_indices='all'):
 
     from molsysmt.multitool import get
-
-    tmp_step, tmp_time, tmp_box, tmp_coordinates = get(item, target='system', frame_indices=frame_indices,
-                                      step=True, time=True, box=True, coordinates=True)
-
-    return tmp_step, tmp_time, tmp_coordinates, tmp_box
+    return get(item, target='atom', frame_indices=frame_indices, frame=True)
 
 #def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 #

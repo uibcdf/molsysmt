@@ -1557,30 +1557,24 @@ def get_form_from_system(item, indices='all', frame_indices='all'):
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 
-    return True
+    return with_topology
 
 def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
 
-    return False
+    return with_parameters
 
 def get_has_box_from_system(item, indices='all', frame_indices='all'):
 
-    tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-    if tmp_box[0] is not None:
-        return True
-    else:
-        return False
+    return with_box
 
 def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
 
-    return True
+    return with_coordinates
 
 def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-        return True
-    else:
-        return False
+    return with_bonds
+
 
 ## bond
 

@@ -264,12 +264,35 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
 
 def aux_get(item, indices='all', frame_indices='all'):
 
-    tmp_item = to_openmm_Topology(item)
-    method_name = sys._getframe(1).f_code.co_name
-    module = importlib.import_module('molsysmt.forms.classes.api_openmm_Topology')
-    _get = getattr(module, method_name)
+    from molsysmt.forms import forms
 
-    output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    if 'openmm.PDBFile' in forms:
+
+        tmp_item = to_openmm_PDBFile(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_openmm_PDBFile')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+    elif 'pdbfixer.PDBFixer' in forms:
+
+        tmp_item = to_pdbfixer_PDBFixer(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_pdbfixer_PDBFixer')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+    elif 'mdtraj.PDBTrajectoryFile' in forms:
+
+        tmp_item = to_mdtraj_PDBTrajectoryFile(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_mdtraj_PDBTrajectoryFile')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+    else:
+
+        raise NotImplementedError
 
     return output
 
@@ -320,6 +343,10 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
     return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
     return aux_get(item, indices=indices, frame_indices=frame_indices)
 

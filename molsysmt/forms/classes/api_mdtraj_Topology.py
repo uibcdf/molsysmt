@@ -435,24 +435,11 @@ def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_has_box_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
+    return with_box
 
 def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
+    return with_bonds
 
 ## bond
 

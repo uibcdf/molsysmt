@@ -2,6 +2,7 @@ import numpy as np
 from molsysmt.forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
 from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
+from molsysmt import puw
 
 form_name='openmm.Topology'
 
@@ -145,13 +146,13 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.multitool import get as _get
-    from molsysmt.multitool import __version__ as msm_version
+    from molsysmt.version import __version__ as msm_version
     from simtk.openmm.app import PDBFile
     #from simtk.openmm.version import short_version
     from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
     from io import StringIO
 
-    coordinates = _get(trajectory_item, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+    coordinates = _get(molecular_system.coordinates_item, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
 
     if atom_indices is 'all':
         tmp_item = item
@@ -159,7 +160,7 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
         tmp_item = extract(item, atom_indices=atom_indices)
 
     tmp_io = StringIO()
-    PDBFile.writeFile(tmp_item, coordinates[0], tmp_io, keepIds=True)
+    PDBFile.writeFile(tmp_item, puw.convert(coordinates[0], 'nm', to_form='simtk.unit'), tmp_io, keepIds=True)
     filedata = tmp_io.getvalue()
     #openmm_version = short_version
     openmm_version = Platform.getOpenMMVersion()
@@ -621,24 +622,11 @@ def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_has_box_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
+    return with_box
 
 def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
+    return with_bonds
 
 ## bond
 

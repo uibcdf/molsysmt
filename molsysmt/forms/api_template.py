@@ -1,11 +1,7 @@
-from molsysmt._private_utils.exceptions import *
+from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-
-try:
-    from molsysmt import MolSys as _molsysmt_MolSys
-except:
-    raise LibraryNotFound('molsysmt')
+from molsysmt import MolSys as _molsysmt_MolSys
 
 form_name='molsysmt.MolSys'
 
@@ -21,23 +17,19 @@ with_box=False            # The form has the possibility to store periodic box o
 with_bonds=False          # The form has the possibility to store bonds
 with_parameters=False     # The form has the possibility to store forcefield parameters
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_nglview_NGLView(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_nglview_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -137,6 +129,15 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
+
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
+    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+
+    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 ## group
 
@@ -308,24 +309,11 @@ def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_has_box_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
+    return with_box
 
 def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    output = False
-
-    if with_bonds:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
+    return with_bonds
 
 ## bond
 

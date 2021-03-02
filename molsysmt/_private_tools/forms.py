@@ -1,5 +1,6 @@
 from molsysmt.forms import forms
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
+from molsysmt._private_tools.exceptions import *
 
 form_from_lowercase = {ii.lower():ii for ii in forms}
 
@@ -10,7 +11,11 @@ def digest_form(form):
     elif is_list_or_tuple(form):
         output = [digest_form(ii) for ii in form]
     else:
-        output = form_from_lowercase[form.lower()]
+        try:
+            output = form_from_lowercase[form.lower()]
+        except:
+            raise NotImplementedFormError()
+
     return output
 
 def digest_to_form(to_form):

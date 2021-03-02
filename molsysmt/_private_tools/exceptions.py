@@ -23,6 +23,17 @@ class NotImplementedError(NotImplementedError):
         message = 'It has not been implemeted yet.\n Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
         super().__init__(message)
 
+class NotImplementedConversionError(NotImplementedError):
+    def __init__(self):
+        message = 'This conversion has not been implemeted yet.\n Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
+        super().__init__(message)
+
+class NotImplementedFormError(NotImplementedError):
+    def __init__(self):
+        message = 'Either the python library this form belongs to was not found, either this form has not been implemeted yet.\n \
+        In this last case, Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
+        super().__init__(message)
+
 class LibraryNotFound(NotImplementedError):
     def __init__(self, library):
         message = 'The python library {} was not found.'.format(library)

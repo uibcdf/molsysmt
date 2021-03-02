@@ -1,97 +1,88 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from mdtraj.formats.pdb import PDBTrajectoryFile as _mdtraj_PDBTrajectoryFile
 
-form_name='mdtraj.PDBTrajectoryFile'
+form_name='mol2'
 
-is_form={
-    _mdtraj_PDBTrajectoryFile: form_name,
+is_form = {
+    'mol2': form_name,
+    'MOL2': form_name
     }
 
 info=["",""]
 with_topology=True
 with_coordinates=True
-with_box=True
+with_box=False
 with_bonds=True
-with_parameters=False
+with_parameters=True
 
-def to_mdtraj_topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from api_mdtraj_Topology import extract as extract_mdtraj_Topology
+    from parmed import load_file as _parmed_file_loader
 
-    tmp_item = item.topology
-    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = _parmed_file_loader(item)
+    tmp_item = tmp_item.to_structure()
+
     return tmp_item
 
-def load_frame (item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
-    from molsysmt._private_tools import units as molsysmt_units
-    from simtk.unit import angstroms, nanometers, degrees, picoseconds
-    from molsysmt._private_tools.atom_indices import digest as _digest_atom_indices
-    from molsysmt._private_tools.frame_indices import digest as _digest_frame_indices
+    from mdtraj import load_mol2 as _mdtraj_load_mol2
 
-    atom_indices = _digest_atom_indices(item, atom_indices)
-    frame_indices = _digest_frame_indices(item, frame_indices)
+    tmp_item = _mdtraj_load_mol2(item)
+    del(_mdtraj_load_mol2)
 
-    xyz_list = []
-    time_list = []
-    step_list = []
-    box_list = []
+    return tmp_item
 
-    n_frames = len(frame_indices)
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    xyz = item.positions[frame_indices,:,:]
-    xyz = xyz.astype('float64')
-    xyz = xyz[:,atom_indices,:]
-    xyz = xyz*angstroms
-    xyz = xyz.in_units_of(nanometers)
+    from mdtraj import load_mol2 as _mdtraj_load_mol2
 
-    #time = zeros([len(frame_indices)],dtype='float64')*picoseconds
-    #step = array(frame_indices, dtype='int64')
+    tmp_item = _mdtraj_load_mol2(item).topology
+    del(_mdtraj_load_mol2)
 
-    time = np.array([None for ii in range(n_frames)])*picoseconds
-    step = np.array([None for ii in range(n_frames)])
+    return tmp_item
 
-    if item.unitcell_lengths is not None:
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-        cell_lengths = np.empty([n_frames,3], dtype='float64')
-        cell_angles = np.empty([n_frames,3], dtype='float64')
-        for ii in range(3):
-            cell_lengths[:,ii] = item.unitcell_lengths[ii]
-            cell_angles[:,ii] = item.unitcell_angles[ii]
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_openmm_Topology as mdtraj_Topology_to_openmm_Topology
 
-        cell_lengths = cell_lengths*angstroms
-        cell_angles = cell_angles*degrees
+    tmp_item = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=atom_indices)
+    tmp_item = mdtraj_Topology_to_openmm_Topology(tmp_item)
 
-        box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
-        box = box.in_units_of(molsysmt_units.length)
+    return tmp_item
 
-    else:
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-        box = None
+    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_openmm_Modeller as mdtraj_Trajectory_to_openmm_Modeller
 
-    xyz = xyz.in_units_of(molsysmt_units.length)
-    time = time.in_units_of(molsysmt_units.time)
+    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=atom_indices)
+    tmp_item = mdtraj_Trajectory_to_openmm_Modeller(tmp_item)
 
-    return step, time, xyz, box
+    return tmp_item
 
-def select_with_Amber(item, selection):
+    #from molsysmt.forms.engines.api_parmed import to_modeller as _parmed_to_modeller
+    #tmp_form = to_parmed(item)
+    #tmp_form = _parmed_to_modeller(tmp_form)
+    #del(_parmed_to_modeller)
+    #return tmp_form
 
-    raise NotImplementedError
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-def select_with_MDAnalysis(item, selection):
+    from parmed import load_file as _parmed_file_loader
 
-    raise NotImplementedError
+    tmp_item = _parmed_file_loader(item)
+    tmp_item.save(output_filename)
 
-def select_with_MDTraj(item, selection):
+    return output_filename
 
-    raise NotImplementedError
+def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-def select_with_MolSysMT(item, selection):
+    from nglview import show_file as nglview_show_file
 
-    raise NotImplementedError
+    tmp_item = nglview_show_file(item)
+
+    return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -120,7 +111,8 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-#### Get
+
+###### Get
 
 ## atom
 
@@ -171,6 +163,10 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
         raise NotImplementedError
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -255,9 +251,9 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
 ## system
 
-def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return item.topology.n_atoms
+    raise NotImplementedError
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
@@ -294,18 +290,9 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_box_shape_from_system (item, indices='all', frame_indices='all'):
+def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt._private_tools.pbc import get_shape_from_angles
-    from simtk.unit import degrees
-    from numpy import empty
-
-    cell_angles = empty([1,3], dtype='float64')
-    for ii in range(3):
-        cell_angles[0,ii] = item.unitcell_angles[ii]
-    cell_angles = cell_angles*degrees
-    shape = get_shape_from_angles(cell_angles)
-    return shape
+    raise NotImplementedError
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
@@ -327,9 +314,9 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_n_frames_from_system (item, indices='all', frame_indices='all'):
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    return item.positions.shape[0]
+    raise NotImplementedError
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
@@ -382,4 +369,5 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
 
     raise NotImplementedError
+
 
