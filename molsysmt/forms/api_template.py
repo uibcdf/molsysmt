@@ -251,10 +251,6 @@ def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
@@ -290,10 +286,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 

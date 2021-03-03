@@ -318,10 +318,6 @@ def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 
     return with_topology

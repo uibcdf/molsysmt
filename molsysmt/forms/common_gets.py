@@ -413,12 +413,6 @@ def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
     return get(item, target='system', indices='all', frame_indices=frame_indices, n_frames=True)
 
-def get_form_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.multitool import get
-
-    return get(item, target='system', form=True)
-
 ## group
 
 def get_atom_index_from_group(item, indices='all', frame_indices='all'):

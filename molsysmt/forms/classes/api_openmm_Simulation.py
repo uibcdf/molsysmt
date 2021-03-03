@@ -139,7 +139,3 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
     box = state.getPeriodicBoxVectors()
     return box
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-

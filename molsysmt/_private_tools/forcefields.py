@@ -32,6 +32,12 @@ water_models = {
 
 }
 
+implicit_solvent_models = {
+
+    'OBC1': "",
+
+}
+
 switcher={}
 
 switcher['OpenMM'] = {
@@ -150,7 +156,7 @@ switcher['LEaP'] = {
 }
 
 
-def digest_forcefields(forcefield, engine, implicit_solvent=None, water_model=None):
+def digest_forcefield(forcefield, engine, implicit_solvent=None, water_model=None):
 
     forcefields_out=[]
 
@@ -162,12 +168,20 @@ def digest_forcefields(forcefield, engine, implicit_solvent=None, water_model=No
     for ff in forcefield:
         try:
             if implicit_solvent is not None:
-                aux = switcher[engine][ff][implicit_solvent]
+                if implicit_solvent in implicit_solvent_models:
+                    aux = switcher[engine][ff][implicit_solvent]
+                    forcefields_out.extend(aux)
+                else:
+                    raise ValueError('The implicit solvent {} is unknown for MolSysMT. Either it is mispelled or either it needs to be implemented in MolSysMT'.format(implicit_solvent))
             elif water_model is not None:
-                aux = switcher[engine][ff][water_model]
+                if water_model in water_models:
+                    aux = switcher[engine][ff][water_model]
+                    forcefields_out.extend(aux)
+                else:
+                    raise ValueError('The water model {} is unknown for MolSysMT. Either it is mispelled or it needs to be implemented in MolSysMT'.format(water_model))
             else:
                 aux = switcher[engine][ff]['vacuum']
-            forcefields_out.extend(aux)
+                forcefields_out.extend(aux)
         except:
             raise NotImplementedError('{} with implicit solvent {} or water model {} and {} needs to be implemented in MolSysMT'.format(ff, implicit_solvent, water_model, engine))
 

@@ -335,10 +335,6 @@ def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     return aux_get(item, indices=indices, frame_indices=frame_indices)
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 
     return with_topology

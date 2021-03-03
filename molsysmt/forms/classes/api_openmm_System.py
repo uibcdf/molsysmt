@@ -264,7 +264,3 @@ def get_n_degrees_of_freedom_from_system (item, indices='all', frame_indices='al
     from molsysmt import get_degrees_of_freedom as _get
     return _get(item, indices=indices)
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-

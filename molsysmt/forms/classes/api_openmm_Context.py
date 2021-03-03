@@ -80,10 +80,6 @@ def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
     return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
-def get_form_from_atom(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 ## system
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
@@ -146,10 +142,6 @@ def get_time_from_system(item, indices='all', frame_indices='all'):
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
     return None
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 ###### Set
 

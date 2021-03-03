@@ -38,6 +38,7 @@ where_get_argument = {
     'bond_name' : ['bonds'],
     'bond_id' : ['bonds'],
     'bond_type' : ['bonds'],
+    'bond_order' : ['bonds'],
     'bonded_atoms' : ['bonds'],
     'inner_bonded_atoms' : ['bonds'],
     'inner_bond_index' : ['bonds'],
@@ -99,6 +100,7 @@ get_argument_synonym = {
     'bond_ids': 'bond_id',
     'bond_types': 'bond_type',
     'bonded_atom': 'bonded_atoms',
+    'bonds_order': 'bond_order',
     'inner_bonded_atom': 'inner_bonded_atoms',
     'inner_bond_indices': 'inner_bond_index',
     'n_atom': 'n_atoms',
@@ -141,7 +143,7 @@ get_arguments = list(where_get_argument.keys())
 def digest_get_argument(get_argument, target):
 
     tmp_get_argument = get_argument.lower()
-    if tmp_get_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types']:
+    if tmp_get_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
         tmp_get_argument = ('_').join([target, get_argument])
     if tmp_get_argument in get_argument_synonym:
         tmp_get_argument = get_argument_synonymn[tmp_get_argument]

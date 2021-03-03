@@ -41,18 +41,16 @@ def box_shape_from_box_vectors(box):
 
 def box_lengths_from_box_vectors(box):
 
-    tmp_length_unit_name = puw.get_unit_name(box)
+    unit = puw.get_unit(box)
     n_frames = box.shape[0]
     tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')
     lengths = _libbox.length_edges_box(tmp_box, n_frames)
     lengths = np.ascontiguousarray(lengths, dtype='float64')
     del(tmp_box)
 
-    return puw.quantity(lengths.round(6), tmp_length_unit_name)
+    return lengths.round(6)*unit
 
 def box_angles_from_box_vectors(box):
-
-    from molsysmt._private_tools.units import angle_unit_name
 
     n_frames = box.shape[0]
     tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')
@@ -63,7 +61,6 @@ def box_angles_from_box_vectors(box):
     return puw.quantity(angles.round(6), 'degrees')
 
 def box_vectors_from_box_lengths_and_angles(lengths, angles):
-
 
     units = puw.get_unit(lengths)
     lengths_value = puw.get_value(lengths)

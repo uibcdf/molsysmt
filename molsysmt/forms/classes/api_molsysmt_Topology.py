@@ -428,10 +428,6 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
     del(bond_indices)
     return(output)
 
-def get_form_from_atom (item, indices='all', frame_indices='all'):
-
-    return form_name
-
 ## group
 
 def get_index_from_group (item, indices='all', frame_indices='all'):
@@ -1938,10 +1934,6 @@ def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     return 0
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 

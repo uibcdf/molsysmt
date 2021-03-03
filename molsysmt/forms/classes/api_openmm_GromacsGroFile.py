@@ -131,10 +131,6 @@ def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
     return get_n_frames_from_system(item, frame_indices=frame_indices)
 
-def get_form_from_atom(item, indices='all', frame_indices='all'):
-
-    return get_form_from_system(item)
-
 ## System
 
 def get_frame_from_system(item, indices='all', frame_indices='all'):
@@ -153,7 +149,4 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
     else:
         return len(frame_indices)
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 

@@ -8,8 +8,10 @@ from . import demo_systems
 from .native.molsys import MolSys
 from .multitool import select, extract, merge, concatenate, add, append, info, get, set, \
                        convert, copy, write, view, remove, get_form
+from .info_multitool import info_forms, info_convert, info_select, info_viewers
 
-#from .info_multitool import info_forms, info_convert, info_select, info_viewers
+from .peptides import build_peptide
+
 #from .geometrical_transformations import translate
 #from .rmsd import rmsd, least_rmsd, least_rmsd_fit, angular_rmsd
 #from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists
@@ -20,7 +22,6 @@ from .multitool import select, extract, merge, concatenate, add, append, info, g
 #from .model_loops import add_loop
 #from .remove_atoms import remove_solvent, remove_hydrogens
 #from .potential_energy import energy_minimization, potential_energy
-#from .peptides import build_peptide
 #from .solvate_box import solvate, is_solvated
 #from .protonation import add_missing_hydrogens
 #from .terminals_capping import add_terminal_capping

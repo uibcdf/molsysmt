@@ -201,10 +201,6 @@ def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
     tmp_item = to_openmm_GromacsGroFile(item)
     return _get(tmp_item)
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 
     return with_topology

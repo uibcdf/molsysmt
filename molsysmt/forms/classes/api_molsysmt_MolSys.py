@@ -447,10 +447,6 @@ def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
     from .api_molsysmt_Trajectory import get_n_frames_from_atom as _get
     return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
 
-def get_form_from_atom(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 ## group
 
 def get_index_from_group (item, indices='all', frame_indices='all'):
@@ -1550,10 +1546,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     from .api_molsysmt_Trajectory import get_n_frames_from_system as _get
     return _get(item.trajectory, indices=indices, frame_indices=frame_indices)
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 

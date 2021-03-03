@@ -12,7 +12,7 @@ engines = [
     'NGLView',
 ]
 
-engines_from_lowercase={ ii.lower : ii for ii in engines }
+engines_from_lowercase={ ii.lower() : ii for ii in engines }
 
 def digest_engine(engine):
 

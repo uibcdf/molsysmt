@@ -100,7 +100,8 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
     if indices is not 'all':
         xyz = xyz[:, indices, :]
 
-    xyz = puw.standardize(xyx*unit)
+
+    xyz = puw.standardize(xyz*unit)
 
     return xyz
 
@@ -255,10 +256,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotWithThisFormError()
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 

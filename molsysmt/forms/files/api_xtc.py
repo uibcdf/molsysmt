@@ -111,10 +111,6 @@ def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
     del(tmp_item, get)
     return n_atoms
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 
     return with_topology

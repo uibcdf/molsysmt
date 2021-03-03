@@ -161,10 +161,6 @@ def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
     tmp_item = to_mdtraj_AmberRestartFile(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
-def get_form_from_atom(item, indices='all', frame_indices='all'):
-
-    return get_form_from_system(item)
-
 # System
 
 def get_coordinates_from_system (item, indices='all', frame_indices='all'):
@@ -182,8 +178,4 @@ def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return get_n_atoms_from_atom(item)
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 

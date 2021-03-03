@@ -165,9 +165,5 @@ def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
-    return 0
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
+    return None
 

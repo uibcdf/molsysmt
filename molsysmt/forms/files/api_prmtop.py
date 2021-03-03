@@ -97,7 +97,8 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Modeller as openmm_Topology_to_openmm_Modeller
 
     tmp_item = to_openmm_Topology(item, molecular_system)
-    tmp_item = openmm_Topology_to_openmm_Modeller(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = openmm_Topology_to_openmm_Modeller(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -378,10 +379,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     return aux_get(item, indices=indices, frame_indices=frame_indices)
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 

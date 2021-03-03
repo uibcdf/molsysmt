@@ -195,7 +195,3 @@ def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return len(item.atoms)
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-

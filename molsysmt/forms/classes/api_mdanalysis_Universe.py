@@ -1,20 +1,71 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
+from MDAnalysis import Universe as _mdanalysis_Universe
 import numpy as np
 
-form_name='xyznpy'
+form_name='mdanalysis.Universe'
 
-is_form = {
-    'xyznpy': form_name
-    }
+is_form={
+    _mdanalysis_Universe : form_name,
+    'mdanalysis.Universe' : form_name
+}
 
-info = ["XYZ file format like saved with Numpy",""]
-
+info=["",""]
 with_topology=True
-with_coordinates=True
-with_box=False
-with_bonds=False
+wih_coordinates=True
+with_box=True
+with_box=True
 with_parameters=False
+
+def to_nglview_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from nglview import show_mdtraj
+
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = show_mdtraj(tmp_item)
+
+    return tmp_item
+
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, multiframe=False):
+
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.atoms.write(output_filename, multiframe=multiframe)
+
+    return output_filename
+
+def to_mdtraj_Trajectory (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt._private_tools.pdb import tmp_pdb_filename
+    from molsysmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
+    from os import remove
+
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_file = tmp_pdb_filename()
+    to_pdb(tmp_item=item, output_filename=tmp_file)
+    tmp_item=pdb_to_mdtraj_Trajectory(tmp_file)
+    remove(tmp_file)
+
+    return tmp_item
+
+def to_molsysmt_MolSys (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import from_mdanalysis_Universe as molsysmt_MolSys_from_mdanalysis_Universe
+    return molsysmt_MolSys_from_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_molsysmt_MolSys (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import from_mdanalysis_Universe as molsysmt_MolSys_from_mdanalysis_Universe
+    return molsysmt_MolSys_from_mdanalysis_Universe(item, molecular_system=None, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_molsysmt_Topology (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.topology.classes import from_mdanalysis_Universe as molsysmt_Topology_from_mdanalysis_Universe
+    return molsysmt_Topology_from_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_molsysmt_Trajectory (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.trajectory.classes import from_mdanalysis_Universe as molsysmt_Trajectory_from_mdanalysis_Universe
+    return molsysmt_Trajectory_from_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def select_with_Amber(item, selection):
 
@@ -22,11 +73,17 @@ def select_with_Amber(item, selection):
 
 def select_with_MDAnalysis(item, selection):
 
-    raise NotImplementedError
+    tmp_atomgroup=item.select_atoms(selection)
+    tmp_sel = tmp_atomgroup.atoms.ids
+    del(tmp_atomgroup)
+
+    return tmp_sel
 
 def select_with_MDTraj(item, selection):
 
-    raise NotImplementedError
+    tmp_form=to_mdtraj(item,multiframe=True)
+
+    return tmp_form.topology.select(selection)
 
 def select_with_MolSysMT(item, selection):
 
@@ -59,7 +116,7 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
+def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
@@ -115,21 +172,23 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    with open(item, 'rb') as fff:
-        comment = np.load(fff, allow_pickle=True)
-        atom_names = np.load(fff, allow_pickle=True)
-        unit_name = np.load(fff, allow_pickle=True)
-        coordinates = np.load(fff, allow_pickle=True)
-
-    coordinates = coordinates * getattr(unit, str(unit_name))
-
-    if indices is not 'all':
-        coordinates = coordinates[:, indices, :]
+    tmp_item=np.array(item.trajectory)*0.1*unit.nanometers
 
     if frame_indices is not 'all':
-        coordinates = coordinates[frame_indices, :, :]
+        tmp_item=item_item[frame_indices,:,:]
+    if indices is not 'all':
+        tmp_item=tmp_item[:,indices,:]
 
-    return coordinates
+    return tmp_item
+
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
+    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+
+    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 ## group
 
@@ -243,13 +302,14 @@ def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return get_coordinates_from_atom(item, indices='all', frame_indices=frame_indices)
-
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    tmp_item = np.array([frame.triclinic_dimensions for frame in item.trajectory])*0.1*unit.nanometers
+
+    if frame_indices is not 'all':
+        tmp_item=item_item[frame_indices,:,:]
+
+    return tmp_item
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
@@ -269,15 +329,29 @@ def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    tmp_item = np.array([frame.time for frame in item.trajectory])*unit.picoseconds
+
+    if frame_indices is not 'all':
+        tmp_item=item_item[frame_indices]
+
+    return tmp_item
 
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if frame_indices is 'all':
+        output = np.arange(get_n_frames_from_system(item))
+    else:
+        output = frame_indices
+    return output
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if frame_indices is 'all':
+        output=item.trajectory.n_frames
+    else:
+        output=frame_indices.shape[0]
+
+    return output
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 

@@ -320,10 +320,6 @@ def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 ## bond
 
 def get_bond_order_from_bond(item, indices='all', frame_indices='all'):

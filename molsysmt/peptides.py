@@ -1,20 +1,20 @@
-def build_peptide (item, forcefield='AMBER14', implicit_solvent=None, water_model=None, to_form='molsysmt.MolSys',
+def build_peptide (molecular_system, forcefield='AMBER14', implicit_solvent=None, water_model=None, to_form='molsysmt.MolSys',
                    box_geometry='cubic', clearance='10.0 Å', engine='LEaP', logfile=False, verbose=False):
 
     # implicit_solvent in ['OBC1']
     # water_model in ['TIP3P']
     # box_geometry: "cubic" or "truncated_octahedral"
 
-    from molsysmt._private_tools.forcefields import digest as digest_forcefield
-    from molsysmt import convert
+    from molsysmt._private_tools.forcefields import digest_forcefield
+    from molsysmt.multitool import convert
     from os import getcwd, chdir
 
-    tmp_item = convert(item, to_form='aminoacids3:seq')
+    tmp_item = convert(molecular_system, to_form='aminoacids3:seq')
 
     if engine=="LEaP":
 
-        from molsysmt.tools import TLeap
-        from molsysmt.tools.files_and_directories import tmp_directory, tmp_filename
+        from molsysmt.tools.tleap import TLeap
+        from molsysmt._private_tools.files_and_directories import tmp_directory, tmp_filename
         from shutil import rmtree, copyfile
 
         sequence = tmp_item[12:].upper()

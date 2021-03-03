@@ -46,7 +46,4 @@ def append(item, list_items, list_atom_indices, list_frame_indices):
 
 ## system
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 

@@ -29,7 +29,7 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
 
     from molsysmt.native.io.molsys.classes import from_openmm_Topology as molsysmt_MolSys_from_openmm_Topology
 
-    tmp_item = molsysmt_MolSys_from_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = molsysmt_MolSys_from_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -38,7 +38,7 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
     from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_Topology
     from mdtraj.core.topology import Topology as mdtraj_Topology
 
-    tmp_item = mdtraj_Topology.from_openmm(item, molecular_system)
+    tmp_item = mdtraj_Topology.from_openmm(item, molecular_system=molecular_system)
     tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
@@ -66,9 +66,9 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
     from molsysmt.multitool import get
     from simtk.openmm.app import Modeller
 
-    positions = get(trajectory_item, target='atom', indices=atom_indices,
-                    frame_indices=frame_indices, coordinates=True)
-    tmp_item = Modeller(item, positions[0])
+    positions = get(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+    positions = puw.convert(positions[0], 'nm', to_form='simtk.unit')
+    tmp_item = Modeller(item, positions)
 
     return tmp_item
 
@@ -122,10 +122,10 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
                          constraint_tolerance=None):
 
     from .api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
-    from molsysmt import convert, get
+    from molsysmt.multitool import convert, get
 
     topology = item
-    positions = get(trajectory_item, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
+    positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
 
     system = to_openmm_System(item, atom_indices=atom_indices, frame_indices=frame_indices,
         forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
@@ -145,14 +145,14 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 
 def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.multitool import get as _get
+    from molsysmt.multitool import get
     from molsysmt.version import __version__ as msm_version
     from simtk.openmm.app import PDBFile
     #from simtk.openmm.version import short_version
     from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
     from io import StringIO
 
-    coordinates = _get(molecular_system.coordinates_item, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+    coordinates = get(molecular_system, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
 
     if atom_indices is 'all':
         tmp_item = item
@@ -598,15 +598,11 @@ def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    return 0
+    return None
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 

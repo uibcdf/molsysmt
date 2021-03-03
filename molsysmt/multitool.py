@@ -8,7 +8,8 @@ from molsysmt._private_tools.forms import to_form_is_file, form_of_file
 from molsysmt._private_tools.get_arguments import where_get_argument
 from molsysmt._private_tools.elements import elements2string
 from molsysmt._private_tools.exceptions import *
-from molsysmt.molecular_system import MolecularSystem, items_from_molecular_system
+from molsysmt._private_tools.selection import indices_to_selection
+from molsysmt.molecular_system import MolecularSystem
 
 ####
 #### Methods
@@ -17,7 +18,7 @@ from molsysmt.molecular_system import MolecularSystem, items_from_molecular_syst
 def get_form(molecular_system):
 
     if type(molecular_system)==MolecularSystem:
-        _, output = items_from_molecular_system(molecular_system)
+        _, output = molecular_system.get_items()
         return output
 
     if puw.is_quantity(molecular_system):
@@ -158,7 +159,7 @@ def select(molecular_system, selection='all', target='atom', mask=None, syntaxis
     if to_syntaxis is None:
         return output_indices
     else:
-        return indices_to_selection(top_item, output_indices, target=target, syntaxis=to_syntaxis)
+        return indices_to_selection(molecular_system, output_indices, target=target, syntaxis=to_syntaxis)
 
 
 def get(molecular_system, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
@@ -839,20 +840,20 @@ def info(molecular_system, target='system', indices=None, selection='all', synta
                     n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
                     n_dnas=True, n_rnas=True)
 
-            tmp_df = df({'form':form, 'n_atoms':n_atoms, 'n_groups':n_groups, 'n_components':n_components,
+            tmp_df = df([{'form':form, 'n_atoms':n_atoms, 'n_groups':n_groups, 'n_components':n_components,
                 'n_chains':n_chains, 'n_molecules':n_molecules, 'n_entities':n_entities,
                 'n_waters':n_waters, 'n_ions':n_ions, 'n_cosolutes':n_cosolutes, 'n_small_molecules':n_small_molecules,
                 'n_peptides':n_peptides, 'n_proteins':n_proteins, 'n_dnas':n_dnas, 'n_rnas':n_rnas,
-                'n_frames':n_frames}, index=[0])
+                'n_frames':n_frames}], index=[0])
 
-            if n_ions==0: tmp_df.drop(columns=['n_ions'], inplace=True)
-            if n_waters==0: tmp_df.drop(columns=['n_waters'], inplace=True)
-            if n_cosolutes==0: tmp_df.drop(columns=['n_cosolutes'], inplace=True)
-            if n_small_molecules==0: tmp_df.drop(columns=['n_small_molecules'], inplace=True)
-            if n_peptides==0: tmp_df.drop(columns=['n_peptides'], inplace=True)
-            if n_proteins==0: tmp_df.drop(columns=['n_proteins'], inplace=True)
-            if n_dnas==0: tmp_df.drop(columns=['n_dnas'], inplace=True)
-            if n_rnas==0: tmp_df.drop(columns=['n_rnas'], inplace=True)
+            if n_ions==0 or n_ions is None: tmp_df.drop(columns=['n_ions'], inplace=True)
+            if n_waters==0 or n_waters is None: tmp_df.drop(columns=['n_waters'], inplace=True)
+            if n_cosolutes==0 or n_cosolutes is None: tmp_df.drop(columns=['n_cosolutes'], inplace=True)
+            if n_small_molecules==0 or n_small_molecules is None: tmp_df.drop(columns=['n_small_molecules'], inplace=True)
+            if n_peptides==0 or n_peptides is None: tmp_df.drop(columns=['n_peptides'], inplace=True)
+            if n_proteins==0 or n_proteins is None: tmp_df.drop(columns=['n_proteins'], inplace=True)
+            if n_dnas==0 or n_dnas is None: tmp_df.drop(columns=['n_dnas'], inplace=True)
+            if n_rnas==0 or n_rnas is None: tmp_df.drop(columns=['n_rnas'], inplace=True)
 
             return tmp_df.style.hide_index()
 

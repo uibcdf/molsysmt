@@ -122,13 +122,11 @@ def aux_get(item, indices='all', frame_indices='all'):
 
     from molsysmt.forms import forms
 
-    print(forms)
-
     if 'openmm.AmberInpcrdFile' in forms:
 
         tmp_item = to_openmm_AmberInpcrdFile(item)
         method_name = sys._getframe(1).f_code.co_name
-        module = importlib.import_module('molsysmt.forms.classes.api_mdtraj_AmberInpcrdFile')
+        module = importlib.import_module('molsysmt.forms.classes.api_openmm_AmberInpcrdFile')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
@@ -341,10 +339,6 @@ def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     return aux_get(item, indices=indices, frame_indices=frame_indices)
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 
     return with_topology
@@ -420,10 +414,6 @@ def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return get_n_atoms_from_atom(item)
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 

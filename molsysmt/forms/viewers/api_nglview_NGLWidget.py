@@ -311,10 +311,6 @@ def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
     tmp_item = to_openmm_PDBFile(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
-def get_form_from_atom(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 ## group
 
 def get_index_from_group (item, indices='all', frame_indices='all'):
@@ -1595,6 +1591,3 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
     tmp_item = to_openmm_PDBFile(item)
     return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name

@@ -162,9 +162,9 @@ def get_frame_from_atom(item, indices='all', frame_indices='all'):
         xyz_list.append(xyz)
         time = frame_hdf5.time
         time_list.append(time)
-        cell_lengths = frame_hdf5.cell_lengths
-        cell_angles = frame_hdf5.cell_angles
-        box = box_vectors_from_box_lengths_and_angles(cell_lengths*puw.unit('nm'), cell_angles*puw.unit('degrees'))
+        cell_lengths = frame_hdf5.cell_lengths*puw.unit('nm')
+        cell_angles = frame_hdf5.cell_angles*puw.unit('degrees')
+        box = box_vectors_from_box_lengths_and_angles(cell_lengths, cell_angles)
         box_list.append(puw.get_value(box))
 
     xyz = np.concatenate(xyz_list)
@@ -439,10 +439,6 @@ def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 def get_has_topology_from_system(item, indices='all', frame_indices='all'):
 
