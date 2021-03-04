@@ -20,11 +20,16 @@ with_parameters=True
 
 def to_prmtop(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
+    tmp_item = None
+
     if atom_indices=='all':
         from shutil import copyfile
         copyfile(item, output_filename)
+        tmp_item = output_filename
     else:
         raise NotImplementedError("Not implemented yet")
+
+    return tmp_item
 
 def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 

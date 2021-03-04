@@ -110,13 +110,12 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom (item, indices='all', frame_indices='all'):
 
-    xyz, time, cell_lengths, cell_angles = item.read()
     xyz, _, _, _ = item.read()
 
     if frame_indices is not 'all':
-        xyz = xyz[frame_indices,:,:]
+        xyz = xyz[frame_indices, :, :]
     if indices is not 'all':
-        xyz = xyz[:,atom_indices,:]
+        xyz = xyz[:, indices, :]
 
     xyz = xyz*puw.unit(item.distance_unit)
     xyz = puw.standardize(xyz)

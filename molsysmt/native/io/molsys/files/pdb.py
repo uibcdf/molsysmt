@@ -11,11 +11,12 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
 def from_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import MolSys
-    from molsysmt import convert
+    from molsysmt.native.io.topology.files import from_pdb as pdb_to_molsysmt_Topology
+    from molsysmt.native.io.trajectory.files import from_pdb as pdb_to_molsysmt_Trajectory
 
     tmp_item = MolSys()
-    tmp_item.topology = convert(item, to_form='molsysmt.Topology', selection=atom_indices, frame_indices=frame_indices)
-    tmp_item.trajectory = convert(item, to_form='molsysmt.Trajectory', selection=atom_indices, frame_indices=frame_indices)
+    tmp_item.topology = pdb_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.trajectory = pdb_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 

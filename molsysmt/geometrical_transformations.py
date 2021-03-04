@@ -1,28 +1,33 @@
-from .multitool import get as _get
-from .multitool import set as _set
-from .multitool import select, copy
 import numpy as np
+from molsysmt import puw
 
-def translate(item, translation=None, selection='all', frame_indices='all', syntaxis='MolSysMT',
-              in_place=True):
+def translate(molecular_system, translation=None, selection='all', frame_indices='all', syntaxis='MolSysMT', in_place=True):
 
-    coordinates, n_frames = _get(item, target='atom', coordinates=True, n_frames=True)
+    from molsysmt.multitool import get, set, select, copy
 
-    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+    coordinates, n_frames = get(molecular_system, target='atom', coordinates=True, n_frames=True)
+
+    atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
     n_atoms = atom_indices.shape[0]
 
-    if type(translation._value) in [list, tuple]:
-        translation._value = np.array(translation._value)
+    translation = puw.standardize(translation)
+    unit = puw.get_unit(translation)
+    translation_value = puw.get_value(translation)
 
-    if type(translation._value)==np.ndarray:
-        if len(translation._value.shape)==1:
-            if translation._value.shape[0]==3:
-                translation._value = np.tile(translation._value,(n_atoms,1))
+    if type(translation_value) in [list, tuple]:
+        translation_value = np.array(translation_value)
+
+    if type(translation_value)==np.ndarray:
+        if len(translation_value.shape)==1:
+            if translation_value.shape[0]==3:
+                translation_value = np.tile(translation_value,(n_atoms,1))
             else:
                 raise ValueError('Wrong shape of translation vector')
-        elif len(translation._value.shape)==2:
-            if translation._value.shape[1]!=3:
+        elif len(translation_value.shape)==2:
+            if translation_value.shape[1]!=3:
                 raise ValueError('Wrong shape of translation vector')
+
+    translation = puw.quantity(translation_value, unit)
 
     if frame_indices is 'all':
         for ii in range(n_frames):
@@ -32,9 +37,9 @@ def translate(item, translation=None, selection='all', frame_indices='all', synt
             coordinates[ii,atom_indices,:]+=translation
 
     if in_place:
-        return _set(item, coordinates=coordinates)
+        return set(molecular_system, coordinates=coordinates)
     else:
-        tmp_item = copy(item)
-        _set(tmp_item, coordinates=coordinates)
-        return tmp_item
+        tmp_molecular_system = copy(molecular_system)
+        set(tmp_molecular_system, coordinates=coordinates)
+        return tmp_molecular_system
 

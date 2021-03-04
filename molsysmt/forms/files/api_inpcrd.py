@@ -19,11 +19,16 @@ with_parameters=False
 
 def to_inpcrd(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
+    tmp_item = None
+
     if frame_indices=='all':
         from shutil import copyfile
         copyfile(item, output_filename)
+        tmp_item = output_filename
     else:
         raise NotImplementedError("Not implemented yet")
+
+    return tmp_item
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

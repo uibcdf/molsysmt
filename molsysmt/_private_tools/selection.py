@@ -28,11 +28,13 @@ def digest_to_syntaxis(to_syntaxis):
 
 def digest_selection(selection, syntaxis="MolSysMT"):
 
-    syntaxis = digest_syntaxis(syntaxis)
+    if type(selection) is str:
 
-    if syntaxis=='MolSysMT':
+        syntaxis = digest_syntaxis(syntaxis)
 
-        selection=selection.replace('backbone', '(atom_name==["CA", "N", "C", "O"])')
+        if syntaxis=='MolSysMT':
+
+            selection=selection.replace('backbone', '(atom_name==["CA", "N", "C", "O"])')
 
     return selection
 

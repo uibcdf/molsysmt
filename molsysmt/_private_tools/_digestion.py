@@ -6,5 +6,6 @@ from .elements import digest_element
 from .atom_indices import digest_atom_indices
 from .frame_indices import digest_frame_indices
 from .get_arguments import digest_get_argument
+from .set_arguments import digest_set_argument
 from .indices import digest_indices
-from .output import digest_output_get
+from .output import digest_output

@@ -7,9 +7,9 @@
 - [X] Molecular Systems, Items and Forms
 - [X] Get
 - [X] Selection
-- [ ] Copy
-- [ ] Build_peptide
-
+- [X] Copy
+- [X] Build_peptide
+- [X] Geometrical Transformations
 - [ ] Append_Concatenate
 - [ ] Add_Merge
 
@@ -17,3 +17,4 @@
 - [ ] Quickstart
 - [ ] Remove
 - [ ] View
+- [ ] Set

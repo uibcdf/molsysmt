@@ -6,6 +6,7 @@ from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.selection import selection_is_all
 from molsysmt._private_tools.forms import to_form_is_file, form_of_file
 from molsysmt._private_tools.get_arguments import where_get_argument
+from molsysmt._private_tools.set_arguments import where_set_argument
 from molsysmt._private_tools.elements import elements2string
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.selection import indices_to_selection
@@ -247,7 +248,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', frame_in
 
         output.append(result)
 
-    output=digest_output_get(output)
+    output=digest_output(output)
     return output
 
 def remove(items, selection=None, frame_indices=None, to_form=None, syntaxis='MolSysMT'):
@@ -973,7 +974,7 @@ def info(molecular_system, target='system', indices=None, selection='all', synta
         raise ValueError()
 
 
-def set(items, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+def set(molecular_system, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
     """into(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT')
 
@@ -1028,14 +1029,13 @@ def set(items, target='system', indices=None, selection='all', frame_indices='al
 
     """
 
-    if not is_a_single_molecular_system(items):
-        raise NeedsSingleMolecularSystem()
+    molecular_system = digest_molecular_system(molecular_system)
 
     # selection works as a mask if indices or ids are used
 
     target = digest_target(target)
-    value_of_attribute = { digest_set_argument(key): kwargs[key] for key in kwargs.keys()}
-    attributes = value_or_attribute.keys()
+    value_of_attribute = { digest_set_argument(key, target): kwargs[key] for key in kwargs.keys()}
+    attributes = value_of_attribute.keys()
     indices = digest_indices(indices)
     frame_indices = digest_frame_indices(indices)
 
@@ -1043,24 +1043,19 @@ def set(items, target='system', indices=None, selection='all', frame_indices='al
 
     if indices is None:
         if selection is not 'all':
-            indices = select(item, target=target, selection=selection, syntaxis=syntaxis)
+            indices = select(molecular_system, target=target, selection=selection, syntaxis=syntaxis)
         else:
             indices = 'all'
 
-
-    top_item, traj_item, coor_item, box_item = where_any_in_molecular_system(items)
-    top_form, traj_form, coor_form, box_form = get_form([top_item, traj_item, coor_item, box_item])
-
     for attribute in attributes:
-        for item, form, list_arguments in [[top_item, top_form, list_topology_set_arguments],
-                                           [traj_item, traj_form, list_trajectory_set_arguments],
-                                           [coor_item, coor_form, list_coordinates_set_arguments],
-                                           [box_item, box_form, list_box_set_arguments],]:
-            if attribute in list_arguments:
-                if item is not None:
-                    value = value_of_attribute[attribute]
-                    dict_set[form][target][attribute](item, indices=indices, frame_indices=frame_indices, value=value)
-                break
+
+        for where_attribute in where_set_argument[attribute]:
+            item = getattr(molecular_system, where_attribute+'_item')
+            form = getattr(molecular_system, where_attribute+'_form')
+
+            if item is not None:
+                value = value_of_attribute[attribute]
+                dict_set[form][target][attribute](item, indices=indices, frame_indices=frame_indices, value=value)
 
     pass
 
@@ -1141,250 +1136,56 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     else:
         form_out = to_form
 
-    if molecular_system.topology_item is not None:
-        item = molecular_system.topology_item
-        item_form = molecular_system.topology_form
-    elif molecular_system.coordinates_item is not None:
-        item = molecular_system.coordinates_item
-        item_form = molecular_system.coordinates_form
-    elif molecular_system.box_item is not None:
-        item = molecular_system.box_item
-        item_form = molecular_system.box_form
+    item = None
+    item_form = None
 
+    if molecular_system.topology_item is not None:
+        if form_out in dict_convert[molecular_system.topology_form]:
+            item = molecular_system.topology_item
+            item_form = molecular_system.topology_form
+
+    if item is None:
+        if molecular_system.coordinates_item is not None:
+            if form_out in dict_convert[molecular_system.coordinates_form]:
+                item = molecular_system.coordinates_item
+                item_form = molecular_system.coordinates_form
+
+    if item is None:
+        if molecular_system.box_item is not None:
+            if form_out in dict_convert[molecular_system.box_form]:
+                item = molecular_system.box_item
+                item_form = molecular_system.box_form
 
     tmp_item = dict_convert[item_form][form_out](item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
                                                    **conversion_arguments, **kwargs)
-
     return tmp_item
 
-#def convert_antes(items, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
-#
-#    """convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs)
-#
-#    Convert a molecular model into other form.
-#
-#    A molecular model in a given accepted form can be converted into any other supported form
-#    by MolSysMt. The list of supported forms can be found in the section 'XXX'.
-#
-#    Parameters
-#    ----------
-#
-#    item: molecular model
-#        Molecular model in any supported form by MolSysMT (see: XXX).
-#
-#    selection: str, list, tuple or np.ndarray, defaul='all'
-#       Atoms selection over which this method applies. The selection can be given by a
-#       list, tuple or numpy array of integers (0-based), or by means of a string following any of
-#       the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
-#
-#    to_form: str, default='molsysmt.MolSys'
-#        The output object will take the form specified here. This form supported form by MolSysMt
-#        for the output object.
-#
-#    syntaxis: str, default='MolSysMT'
-#       Syntaxis used in the argument `selection` (in case it is a string). The
-#       current options supported by MolSysMt can be found in section XXX (see: :func:`molsysmt.select`).
-#
-#    Returns
-#    -------
-#
-#       item: molecular model
-#
-#       A new object is returned with the form specified by the argument `to_form`.
-#
-#    Examples
-#    --------
-#
-#    See Also
-#    --------
-#
-#    :func:`molsysmt.load`, :func:`molsysmt.select`
-#
-#    Notes
-#    -----
-#
-#    """
-#
-#    # atom_indices and frame_indices is solved here
-#    # either is 'all' or numpy.array
-#    # to avoid select or getting numframes inside api methods.
-#
-#    same_system = False
-#
-#    if selection is 'all' and frame_indices is 'all':
-#        same_system = True
-#
-#    if type(to_form) in [list, tuple]:
-#
-#        tmp_item=[]
-#        for item_out in to_form:
-#            tmp_item.append(convert(item, to_form=item_out, selection=selection,
-#                            frame_indices=frame_indices, syntaxis=syntaxis))
-#
-#        any_not_None = False
-#        for ii in tmp_item:
-#           any_not_None+=(ii is not None)
-#
-#        if not any_not_None:
-#            tmp_item=None
-#
-#    else:
-#
-#        form_in, form_out  = digest_forms(item, to_form)
-#
-#        if type(form_in) not in [tuple,list]:
-#
-#            if selection is 'all':
-#                atom_indices='all'
-#            else:
-#                atom_indices = select(item, selection=selection, syntaxis=syntaxis)
-#
-#            out_file = None
-#
-#            if type(form_out)==str:
-#                if form_out.split('.')[-1] in list_files_forms:
-#                    out_file=form_out
-#                    form_out=form_out.split('.')[-1]
-#
-#            if out_file is not None:
-#                if form_in!=form_out:
-#                    tmp_item = dict_convert[form_in][form_out](item, output_filepath=out_file,
-#                                                          atom_indices=atom_indices, frame_indices=frame_indices,
-#                                                          **kwargs)
-#                elif same_system:
-#                    tmp_item = copy(item, output_filepath=out_file)
-#
-#                else:
-#                    tmp_item = extract(item, selection=atom_indices, frame_indices=frame_indices,
-#                                       to_form=out_file)
-#
-#            else:
-#                if form_in!=form_out:
-#                    tmp_item = dict_convert[form_in][form_out](item, atom_indices=atom_indices,
-#                                                                  frame_indices=frame_indices, **kwargs)
-#                elif same_system:
-#                    tmp_item = copy(item)
-#
-#                else:
-#                    tmp_item = extract(item, selection=atom_indices, frame_indices=frame_indices)
-#
-#        else:
-#
-#            if len(form_in)!=2:
-#                raise ValueError('The length of input items list is not 2.')
-#
-#            topology_item = None
-#            topology_form = None
-#            trajectory_item = None
-#            trajectory_form = None
-#            with_topology = get(item, target='system', has_topology=True)
-#            with_topology = np.array(with_topology)
-#            n_topologies = with_topology.sum()
-#            with_coordinates = get(item, target='system', has_coordinates=True)
-#            with_coordinates = np.array(with_coordinates)
-#            n_trajectories = with_coordinates.sum()
-#
-#            if n_topologies == 0:
-#                raise ValueError('There is no input item with topology')
-#            elif n_topologies == 1:
-#                topology_index = np.nonzero(with_topology)[0][0]
-#                coordinates_index = np.nonzero(~with_topology)[0][0]
-#                if with_coordinates[coordinates_index] is False:
-#                    raise ValueError('The item {} has the topology of the molecular system but {} has\
-#                                     no coordinates'.format(form_in[topology_index], form_in[coordinates_index]))
-#            elif n_topologies == 2:
-#                if n_coordinates ==0:
-#                    raise ValueError('Both items have topological information but no coordinates.')
-#                elif n_coordinates == 2:
-#                    print('Both items have topology and coordinates. The first one will be taken form\
-#                          topology and the second one for coordiantes.')
-#                    topology_index = 0
-#                    trajectory_index = 1
-#                else:
-#                    coordinates_index = np.nonzero(with_coordinates)[0][0]
-#                    topology_index = np.nonzero(~with_coordinates)[0][0]
-#
-#            topology_item = item[topology_index]
-#            topology_form = form_in[topology_index]
-#            trajectory_item = item[coordinates_index]
-#            trajectory_form = form_in[coordinates_index]
-#
-#            if selection is 'all':
-#                atom_indices='all'
-#            else:
-#                atom_indices = select(topology_item, selection=selection, syntaxis=syntaxis)
-#
-#            out_file = None
-#
-#            if type(form_out)==str:
-#
-#                if form_out.split('.')[-1] in list_files_forms:
-#                    out_file=form_out
-#                    form_out=form_out.split('.')[-1]
-#
-#            try:
-#
-#                if out_file is not None:
-#
-#                    if topology_form!=form_out:
-#                        tmp_item = dict_convert[topology_form][form_out](topology_item, trajectory_item=trajectory_item, output_filepath=out_file,
-#                                                              atom_indices=atom_indices, frame_indices=frame_indices,
-#                                                              **kwargs)
-#                    elif same_system:
-#                        tmp_item = copy(topology_item, output_filepath=out_file)
-#
-#                    else:
-#                        tmp_item = extract(topology_item, selection=atom_indices, frame_indices=frame_indices,
-#                                           to_form=out_file)
-#
-#                else:
-#
-#                    if topology_form!=form_out:
-#                        tmp_item = dict_convert[topology_form][form_out](topology_item, trajectory_item=trajectory_item, atom_indices=atom_indices,
-#                                                                      frame_indices=frame_indices, **kwargs)
-#                    elif same_system:
-#                        tmp_item = copy(topology_item)
-#
-#                    else:
-#                        tmp_item = extract(topology_item, selection=atom_indices, frame_indices=frame_indices)
-#
-#            except:
-#
-#                if out_file is not None:
-#
-#                    if trajectory_form!=form_out:
-#                        tmp_item = dict_convert[trajectory_form][form_out](trajectory_item, output_filepath=out_file,
-#                                                              atom_indices=atom_indices, frame_indices=frame_indices,
-#                                                              **kwargs)
-#                    elif same_system:
-#                        tmp_item = copy(trajectory_item, output_filepath=out_file)
-#                    else:
-#                        tmp_item = extract(trajectory_item, selection=atom_indices, frame_indices=frame_indices,
-#                                           to_form=out_file)
-#
-#                else:
-#                    if trajectory_form!=form_out:
-#                        tmp_item = dict_convert[trajectory_form][form_out](trajectory_item, atom_indices=atom_indices,
-#                                                                      frame_indices=frame_indices, **kwargs)
-#                    elif same_system:
-#                        tmp_item = copy(trajectory_item)
-#                    else:
-#                        tmp_item = extract(trajectory_form, selection=atom_indices, frame_indices=frame_indices)
-#
-#    return tmp_item
+def copy(molecular_system, output_filename=None):
 
-def copy(item=None, output_filepath=None):
+    output = []
 
-    form_in, _ = digest_forms(item)
+    if not is_list_or_tuple(molecular_system):
+        molecular_system = [molecular_system]
 
-    if output_filepath is None:
-        return dict_copier[form_in](item)
+    if output_filename is None:
+
+        for item in molecular_system:
+            form_in = get_form(item)
+            tmp_item = dict_copy[form_in](item)
+            output.append(tmp_item)
+
     else:
-        return dict_copier[form_in](item, output_filepath=output_filepath)
 
-def write(item=None, filename=None, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+        if not is_list_or_tuple(output_filename):
+            output_filename = [output_filename]
+        for item, aux_filename in zip(molecular_system, output_filename):
+            form_in = get_form(item)
+            tmp_item = dict_copy[form_in](item, output_filename=aux_filename)
+            output.append(tmp_item)
 
-    return convert(item, to_form=filename, selection=selection, frame_indices='all', syntaxis=syntaxis)
+    output = digest_output(output)
+
+    return output
 
 def view(item=None, viewer='NGLView', selection='all', frame_indices='all',
         appending_coordinates=False, standardize=True, surface=False, syntaxis='MolSysMT'):

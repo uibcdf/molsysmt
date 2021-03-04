@@ -1,5 +1,5 @@
 
-def digest_output_get(output):
+def digest_output(output):
 
     if len(output)==1:
         output = output[0]
