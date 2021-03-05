@@ -2,6 +2,9 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from simtk.openmm.app import GromacsGroFile as _openmm_GromacsGroFile
+import importlib
+import sys
+from molsysmt import puw
 
 form_name='openmm.GromacsGroFile'
 
@@ -16,46 +19,6 @@ with_box=True
 with_bonds=False
 with_parameters=False
 
-def load_frame (item, atom_indices='all', frame_indices='all'):
-
-    # It doesn't really work. seek doesn't work. Once the file is read can not be rewinded.
-
-    step = None
-    time = None
-
-    if frame_indices is 'all':
-
-        n_frames = get_n_frames_from_system(item)
-        frame_indices = np.arange(n_frames)
-
-    coordinates_list = []
-    box_list = []
-
-    for ii in frame_indices:
-
-        coordinates_list.append(item.getPositions(asNumpy=True, frame=ii)._value)
-        box=item.getPeriodicBoxVectors(frame=ii)
-        box=np.array(box._value)
-        box_list.append(box)
-
-
-    coordinates = np.concatenate(coordinates_list)
-    box = np.concatenate(box_list)
-    del(coordinates_list, box_list)
-
-    if len(box)==0:
-        box = None
-    else:
-        if len(box.shape)==2:
-            box = box.reshape(1, box.shape[0], box.shape[1])
-        box = box*unit.nanometer
-
-    if len(coordinates.shape)==2:
-        coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
-    coordinates = coordinates*unit.nanometer
-
-    return step, time, coordinates, box
-
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
@@ -67,9 +30,7 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item = item.topology
-
-    return tmp_item
+    raise NotImplementedError
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -94,7 +55,7 @@ def merge(list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-def concatenate(list_items, list_atom_indices, list_frame_indices):
+def concatenate_frames(list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
@@ -102,45 +63,221 @@ def add(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-def append(item, list_items, list_atom_indices, list_frame_indices):
+def append_frames(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
 ##### Set
 
+def aux_get(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
 ## Atom
 
+def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_group_index_from_atom (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
+
+    xyz = item.getPositions(asNumpy=True)
+
+    unit = puw.get_unit(xyz)
+
+    xyz = np.expand_dims(xyz, axis=0)
+
+    if frame_indices is not 'all':
+        xyz = xyz[frame_indices, :, :]
+    if indices is not 'all':
+        xyz = xyz[:, indices, :]
+
+
+    xyz = puw.standardize(xyz*unit)
+
+    return xyz
+
 def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
-    step, time, coordinates, box = load_frame(item, atom_indices=indices, frame_indices=frame_indices)
-    return step, time, coordinates, box
+    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
+    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
 
-def get_frame_from_atom(item, indices='all', frame_indices='all'):
+    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
-    step, time, coordinates, box = load_frame(item, frame_indices=frame_indices)
-    return step, time, coordinates, box
+## group
 
-def get_n_atoms_from_atom(item, indices='all', frame_indices='all'):
+def get_group_id_from_group(item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        return get_n_atoms_from_system(item)
-    else:
-        return len(indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
-def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
+def get_group_name_from_group(item, indices='all', frame_indices='all'):
 
-    return get_n_frames_from_system(item, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
-## System
+def get_group_type_from_group(item, indices='all', frame_indices='all'):
 
-def get_frame_from_system(item, indices='all', frame_indices='all'):
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
-    step, time, coordinates, box = load_frame(item, frame_indices=frame_indices)
-    return step, time, coordinates, box
+## component
+
+def get_component_id_from_component (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_component_name_from_component (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_component_type_from_component (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+## molecule
+
+def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+## chain
+
+def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+## entity
+
+def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+## system
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
     return len(item.atomNames)
+
+def get_n_groups_from_system(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_n_components_from_system(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_n_chains_from_system(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_n_entities_from_system(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_box_from_system(item, indices='all', frame_indices='all'):
+
+    box = item.getPeriodicBoxVectors()
+    unit = puw.get_unit(box)
+    box = np.expand_dims(puw.get_value(box), axis=0)
+    box = puw.standardize(box*unit)
+
+    return box
+
+def get_box_shape_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_angles_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_time_from_system(item, indices='all', frame_indices='all'):
+
+    return None
+
+def get_step_from_system(item, indices='all', frame_indices='all'):
+
+    return None
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
@@ -149,4 +286,51 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
     else:
         return len(frame_indices)
 
+def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_has_topology_from_system(item, indices='all', frame_indices='all'):
+
+    return with_topology
+
+def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
+
+    return with_parameters
+
+def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    return with_coordinates
+
+def get_has_box_from_system(item, indices='all', frame_indices='all'):
+
+    return with_box
+
+def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    return with_bonds
+
+## bond
+
+def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+###### Set
+
+def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
+
+def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
 

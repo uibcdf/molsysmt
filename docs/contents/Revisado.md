@@ -10,11 +10,13 @@
 - [X] Copy
 - [X] Build_peptide
 - [X] Geometrical Transformations
+- [X] View
+
 - [ ] Append_Concatenate
 - [ ] Add_Merge
 
 - [ ] Extract
 - [ ] Quickstart
 - [ ] Remove
-- [ ] View
+
 - [ ] Set

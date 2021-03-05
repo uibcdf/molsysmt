@@ -6,7 +6,7 @@ from ._pyunitwizard import puw as puw
 from . import demo_systems
 
 from .native.molsys import MolSys
-from .multitool import select, extract, merge, concatenate, add, append, info, get, set, \
+from .multitool import select, extract, merge, add, concatenate_frames, append_frames, info, get, set, \
                        convert, copy, view, remove, get_form
 from .info_multitool import info_forms, info_convert, info_select, info_viewers
 
