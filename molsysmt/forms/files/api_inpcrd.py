@@ -78,10 +78,6 @@ def to_openmm_AmberInpcrdFile(item, molecular_system=None, atom_indices='all', f
 
     return tmp_item
 
-def view_with_NGLView(item, molecular_system, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def select_with_MDTraj(item, selection):
 
     raise NotImplementedError

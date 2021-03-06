@@ -140,6 +140,8 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
 
     tmp_item = molsysmt_MolSys_to_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
 
+    return tmp_item
+
 def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_pdbfixer_PDBFixer as molsysmt_MolSys_to_pdbfixer_PDBFixer
@@ -165,15 +167,11 @@ def extract(item, atom_indices='all', frame_indices='all'):
     else:
         return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_nglview_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_molsysmt
     tmp_view = show_molsysmt(item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_view
-
-def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    return view_with_NGLView(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
 def copy(item):
 

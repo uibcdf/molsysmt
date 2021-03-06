@@ -2,7 +2,6 @@
 # Creando cajas solvatadas
 # =======================
 
-from simtk import unit
 from os import remove
 
 """
@@ -13,9 +12,9 @@ Methods and wrappers to create and solvate boxes
 
 """
 
-def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angstroms, water='TIP3P',
+def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='14.0 angstroms', water='TIP3P',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
-             ionic_strength= 0.0*unit.molar, forcefield='AMBER99SB-ILDN', engine="LEaP",
+             ionic_strength='0.0 molar', forcefield='AMBER99SB-ILDN', engine="LEaP",
              to_form= None, logfile=False, verbose=False):
     """solvate(item, geometry=None, water=None, engine=None)
 
@@ -57,7 +56,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
         from simtk.openmm import Vec3
         from numpy import sqrt
 
-        modeller = convert(item, to_form='openmm.Modeller')
+        modeller = convert(molecular_system, to_form='openmm.Modeller')
 
         solvent_model=None
         if water=='SPC':
@@ -112,7 +111,7 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
         from molsysmt import convert
 
-        pdbfixer = convert(item, to_form='openmm.Modeller')
+        pdbfixer = convert(molecular_system, to_form='openmm.Modeller')
         max_size = max(max((pos[i] for pos in pdbfixer.positions))-min((pos[i] for pos in pdbfixer.positions)) for i in range(3))
 
         box_size = None
@@ -219,13 +218,13 @@ def solvate (item, box_geometry="truncated_octahedral", clearance=14.0*unit.angs
 
         raise NotImplementedError
 
-def is_solvated(item):
+def is_solvated(molecular_system):
 
-    from molsysmt import get
+    from molsysmt.multitool import get
 
     output = False
 
-    n_waters, volume = get(item, target='system', n_waters=True, box_volume=True)
+    n_waters, volume = get(molecular_system, target='system', n_waters=True, box_volume=True)
     if (n_waters>0) and (volume is not None):
         density_number = (n_waters/volume)._value
         if (density_number)>15:

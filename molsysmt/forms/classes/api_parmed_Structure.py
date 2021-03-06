@@ -57,7 +57,7 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item
 
-def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_parmed as _nglview_show_parmed
 

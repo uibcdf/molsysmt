@@ -173,7 +173,17 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
     else:
         with open(output_filename, 'w') as file:
             file.write(filedata)
-        pass
+        return output_filename
+
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    if molecular_system.trajectory_item is None:
+        raise ValueError('To convert a openmm.Topology object to NGLView, a trajectory_item is needed.')
+    else:
+        from .api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+        tmp_item = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+        return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -243,20 +253,6 @@ def select_with_MolSysMT(item, selection):
     from .api_molsysmt_Topology import select_with_MolSysMT as select_molsysmt_Topology_with_MolSysMT
     tmp_item = to_molsysmt_Topology(item)
     return select_molsysmt_Topology_with_MolSysMT(tmp_item, selection)
-
-def to_nglview_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    return view_with_NGLView(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
-
-def view_with_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
-
-    if trajectory_item is None:
-        raise ValueError('To convert a openmm.Topology object to NGLView, a trajectory_item is needed.')
-    else:
-        from .api_molsysmt_MolSys import to_nglview_NGLView as molsysmt_MolSys_to_nglview_NGLView
-        tmp_item = to_molsysmt_MolSys(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_item = molsysmt_MolSys_to_nglview_NGLView(tmp_item)
-        return tmp_item
 
 def merge(list_items, list_atom_indices, list_frame_indices):
 
@@ -562,7 +558,7 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import box_shape_from_box_vectors
+    from molsysmt.pbc import box_shape_from_box_vectors
 
     tmp_box = get_box_from_system(item, frame_indices=frame_indices)
     output = box_shape_from_box_vectors(tmp_box)
@@ -571,7 +567,7 @@ def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import box_lengths_from_box_vectors
+    from molsysmt.pbc import box_lengths_from_box_vectors
 
     tmp_box = get_box_from_system(item, frame_indices=frame_indices)
     output = box_lengths_from_box_vectors(tmp_box)
@@ -580,7 +576,7 @@ def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import box_angles_from_box_vectors
+    from molsysmt.pbc import box_angles_from_box_vectors
 
     tmp_box = get_box_from_system(item, frame_indices=frame_indices)
     output = box_angles_from_box_vectors(tmp_box)
@@ -589,10 +585,13 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import box_volume_from_box_vectors
+    from molsysmt.pbc import box_volume_from_box_vectors
 
     tmp_box = get_box_from_system(item, frame_indices=frame_indices)
-    output = box_volume_from_box_vectors(tmp_box)
+    if tmp_box is None:
+        output=None
+    else:
+        output = box_volume_from_box_vectors(tmp_box)
 
     return output
 
@@ -660,6 +659,8 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
 
 def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 
+    value = puw.convert(value, 'nanometers', to_form='simtk.unit')
+
     n_frames = value.shape[0]
 
     if n_frames == 1:
@@ -672,5 +673,5 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 
 def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
 
-    raise NotWithThisFormError(NotWithThisFormMessage)
+    raise NotWithThisFormError()
 

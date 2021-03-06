@@ -10,7 +10,8 @@ def to_openmm_Topology (item, molecular_system=None, atom_indices='all', frame_i
     else:
         box = get(item, target='system', frame_indices=frame_indices, box=True)
 
-    set(tmp_item, target='system', box=box)
+    if box is not None:
+        set(tmp_item, target='system', box=box)
 
     return tmp_item
 
@@ -31,7 +32,8 @@ def from_openmm_Topology (item, molecular_system=None, atom_indices='all', frame
         if not get(trajectory_item, target='system', has_box=True):
             if get(item, target='system', has_box=True):
                 box = get(item, target='system', box=True)
-                set(tmp_item.trajectory, target='system', box=box)
+                if box is not None:
+                    set(tmp_item.trajectory, target='system', box=box)
 
     return tmp_item
 

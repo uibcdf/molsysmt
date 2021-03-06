@@ -1182,48 +1182,29 @@ def copy(molecular_system, output_filename=None):
 
     return output
 
-def view(item=None, viewer='NGLView', selection='all', frame_indices='all',
-        appending_coordinates=False, standardize=True, surface=False, syntaxis='MolSysMT'):
+def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices='all',
+         concatenate_coordinates=False, standardize=True, surface=False, syntaxis='MolSysMT'):
 
-    viewer = digest_engine(viewer)
+    viewer, form_viewer = digest_viewer(viewer)
 
-    if type(item) in [list,tuple]:
-
-        with_topologies = get(item, target='system', has_topology=True)
-        with_coordinates = get(item, target='system', has_coordinates=True)
-
-        if (len(item)==2) and (sum(with_topologies)==1) and (sum(with_coordinates)>0):
-            tmp_item = convert(item, to_form=viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
-        else:
-
-            # There should be the possibility to create a list of nglview.NGLWidget to merge them
-            # In the meantime the auxiliary step of converting all items to molsysmt will be used
-
-            list_aux_items = []
-
-            for ii in item:
-                aux_item = convert(ii, to_form='molsysmt.MolSys', selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
-                list_aux_items.append(aux_item)
-
-            if appending_coordinates:
-                tmp_item = concatenate(list_aux_items)
-            else:
-                tmp_item = merge(list_aux_items)
-
-            tmp_item = convert(tmp_item, to_form=viewer)
-
+    if is_a_single_molecular_system(molecular_system):
+        molecular_system = MolecularSystem(molecular_system)
+        tmp_item = convert(molecular_system, to_form=form_viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
     else:
-
-        tmp_item = convert(item, to_form=viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+        if concatenate_coordinates:
+            molecular_system = concatenate(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+        else:
+            molecular_system = merge(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+        tmp_item = convert(molecular_system, to_form=form_viewer)
 
     if standardize:
         if viewer=='NGLView':
-            from .nglview import standardize_view
+            from molsysmt.tools.nglview import standardize_view
             standardize_view(tmp_item)
 
     if surface:
         if viewer=='NGLView':
-            from .nglview import show_system_as_transparent_surface
+            from molsysmt.tools.nglview import show_system_as_transparent_surface
             show_system_as_transparent_surface(tmp_item)
 
     return tmp_item

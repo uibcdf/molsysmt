@@ -117,11 +117,6 @@ def append_frames(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
-
 ##### Get
 
 def aux_get(item, indices='all', frame_indices='all'):

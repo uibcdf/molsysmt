@@ -17,7 +17,7 @@ with_box=True
 with_box=True
 with_parameters=False
 
-def to_nglview_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_mdtraj
 

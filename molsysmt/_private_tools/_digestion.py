@@ -9,3 +9,5 @@ from .get_arguments import digest_get_argument
 from .set_arguments import digest_set_argument
 from .indices import digest_indices
 from .output import digest_output
+from .engines import digest_engine
+from .viewers import digest_viewer

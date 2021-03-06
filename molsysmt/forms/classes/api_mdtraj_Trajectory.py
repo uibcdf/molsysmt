@@ -152,7 +152,7 @@ def to_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all',
 
     return item.save_xtc(output_filename)
 
-def to_nglview_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_mdtraj as show_mdtraj
     from molsysmt.nglview import standardize_view

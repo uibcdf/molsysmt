@@ -120,5 +120,3 @@ for api in api_to_be_loaded:
             selects_to_be_loaded[api][method]=goes
 
 #print(selects_to_be_loaded)
-
-

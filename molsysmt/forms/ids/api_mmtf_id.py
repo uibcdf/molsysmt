@@ -80,10 +80,6 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item
 
-def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def select_with_MDTraj(item, selection):
 
     raise NotImplementedError

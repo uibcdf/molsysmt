@@ -76,7 +76,7 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
 
     return output_filename
 
-def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_file as nglview_show_file
 

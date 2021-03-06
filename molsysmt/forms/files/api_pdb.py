@@ -216,7 +216,7 @@ def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item
 
-def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_file as _nglview_show_file
     from os import remove

@@ -53,10 +53,6 @@ def copy(item):
 
     raise NotImplementedError
 
-def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def merge(list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError

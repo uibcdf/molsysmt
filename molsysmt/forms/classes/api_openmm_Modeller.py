@@ -129,6 +129,13 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
             file.write(filedata)
         pass
 
+def to_nglview_NGLWidget(item, atom_indices='all', frame_indices='all'):
+
+    from .api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+    tmp_item = to_molsysmt_MolSys(item)
+    tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+    return tmp_item
+
 def select_with_MDTraj(item, selection):
 
     tmp_item = to_mdtraj_Topology(item)
@@ -154,12 +161,6 @@ def extract(item, atom_indices='all', frame_indices='all'):
         tmp_item.positions = get_coordinates_from_atom(item, atom_indices)
 
         return tmp_item
-
-def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
-
-    from .api_molsysmt_MolSys import to_NGLView as _molsysmt_MolSys_to_NGLView
-    tmp_item = to_molsysmt_MolSys(item)
-    return _molsysmt_MolSys_view_with_NGLView(tmp_item)
 
 def merge(list_items, list_atom_indices, list_frame_indices):
 

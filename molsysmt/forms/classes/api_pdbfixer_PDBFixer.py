@@ -152,12 +152,12 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
             file.write(filedata)
         pass
 
-def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Trajectory import to_NGLView as mdtraj_to_NGLView
+    from .api_mdtraj_Trajectory import to_nglview_NGLWidget as mdtraj_trajectory_to_nglview_NGLWidget
 
-    tmp_item = to_mdtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = mdtraj_view_with_NGLView(tmp_item)
+    tmp_item = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_Trajectory_nglview_NGLWidget(tmp_item)
 
     return tmp_item
 

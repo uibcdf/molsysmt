@@ -55,16 +55,18 @@ class MolSysMTTrajectory(Trajectory, Structure):\n\
 \n\
         try:\n\
             import molsysmt as msm\n\
+            from molsysmt import puw\n\
         except ImportError:\n\
             raise ImportError(\n\
                 \"'MolSysMTTrajectory' requires the molsysmt package\")\n\
 \n\
         self.pdb = msm.convert(molsys, to_form='.pdb', selection=selection, frame_indices=0)\n\
-        self.coordinates = 10.0*msm.get(molsys, target='system', frame_indices=frame_indices,\n\
-                                        coordinates=True)._value\n\
+        _coordinates = msm.get(molsys, target='system', frame_indices=frame_indices, coordinates=True)\n\
+        self.coordinates = puw.get_value(_coordinates,'angstroms')\n\
         self.ext = \"pdb\"\n\
         self.params = {}\n\
         self.id = str(uuid.uuid4())\n\
+        del(msm, puw, _coordinates)\n\
 \n\
     def get_coordinates(self, index):\n\
             return self.coordinates[index]\n\

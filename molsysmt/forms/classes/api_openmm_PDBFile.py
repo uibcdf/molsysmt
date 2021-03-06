@@ -48,12 +48,12 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item
 
-def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_NGLView as mdtraj_Trajectory_to_NGLView
+    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_nglview_NGLWidget as mdtraj_Trajectory_to_nglview_NGLWidget
 
     tmp_item = to_mdtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = _mdtraj_Trajectory_view_with_NGLView(tmp_item)
+    tmp_item = mdtraj_Trajectory_to_nglview_NGLWidget(tmp_item)
 
     return tmp_item
 

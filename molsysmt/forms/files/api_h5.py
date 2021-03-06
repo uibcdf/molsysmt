@@ -83,6 +83,15 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
 
     return tmp_item
 
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+
+    tmp_item = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+
+    return tmp_item
+
 def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
@@ -97,15 +106,6 @@ def copy(item, output_filename=None):
     er=copyfile(item, output_filename)
 
     return output_filename
-
-def view_with_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
-
-    tmp_item = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = molsysmt_MolSys_to_NGLView(tmp_item)
-
-    return tmp_item
 
 def merge(list_items, list_atom_indices, list_frame_indices):
 
