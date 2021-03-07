@@ -2,8 +2,8 @@ import numpy as np
 
 def is_a_single_molecular_system(items):
 
-    from molsysmt import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.multitool import dict_get, get_form
+    from molsysmt.molecular_system import MolecularSystem
 
     if type(items) in [list, tuple]:
 
@@ -13,7 +13,7 @@ def is_a_single_molecular_system(items):
 
         for item in items:
 
-            if type(item) in [list, tuple]:
+            if type(item) in [list, tuple, MolecularSystem]:
                 return False
             else:
                 form_in = get_form(item)

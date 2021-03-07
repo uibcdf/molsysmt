@@ -146,7 +146,7 @@ def digest_get_argument(get_argument, target):
     if tmp_get_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
         tmp_get_argument = ('_').join([target, get_argument])
     if tmp_get_argument in get_argument_synonym:
-        tmp_get_argument = get_argument_synonymn[tmp_get_argument]
+        tmp_get_argument = get_argument_synonym[tmp_get_argument]
     if tmp_get_argument in get_arguments:
         return tmp_get_argument
     else:

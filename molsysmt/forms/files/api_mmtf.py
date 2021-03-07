@@ -32,8 +32,9 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
 
     from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys
 
-    tmp_item = to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all')
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = to_mmtf_MMTFDecoder(item, molecular_system=molecular_system, atom_indices='all', frame_indices='all')
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 

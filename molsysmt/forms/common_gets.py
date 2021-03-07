@@ -1097,7 +1097,7 @@ def get_n_small_molecules_from_system (item, indices='all', frame_indices='all')
     from molsysmt.multitool import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
-    return (molecule_types=='small molecule').sum()
+    return (molecule_types=='small_molecule').sum()
 
 def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
 

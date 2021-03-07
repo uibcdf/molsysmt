@@ -1,7 +1,9 @@
 from molsysmt._private_tools.exceptions import *
 import numpy as np
+from molsysmt.elements import entities
 
 types = ["water", "ion", "cosolute", "protein", "peptide", "rna", "dna", "lipid", "small molecule"]
+
 
 def _aux(item):
 
@@ -169,14 +171,20 @@ def n_entities_from_system(item, indices='all'):
 
 def type_from_MMTFDecoder_entity (mmtf_entity):
 
+    output = None
+
     if mmtf_entity['type']=='water':
         return 'water'
     elif mmtf_entity['type']=='polymer':
         return _get_type_from_sequence(mmtf_entity['sequence'])
-    else:
-        return None
+    elif mmtf_entity['type']=='non-polymer':
+        try:
+            entity_name = entities.mmtf_translator[mmtf_entity['description']]
+            output = entities.catalog[entity_name]
+        except:
+            raise NotImplementedError("The mmtf entity type is not implemented.")
 
-    pass
+    return output
 
 def _get_type_from_sequence(sequence):
 

@@ -1692,7 +1692,7 @@ def get_chain_index_from_entity (item, indices='all', frame_indices='all'):
     for ii in indices:
         mask = (item.atoms_dataframe['entity_index']==ii)
         output.append(item.atoms_dataframe['chain_index'][mask].unique())
-    output = np.array(output)
+    output = np.array(output, dtype=object)
     return output
 
 def get_chain_id_from_entity (item, indices='all', frame_indices='all'):
@@ -1903,7 +1903,7 @@ def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
 
-    mask=(item.atoms_dataframe['molecule_type']=='small molecule').to_numpy()
+    mask=(item.atoms_dataframe['molecule_type']=='small_molecule').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
     return serie_indices.unique().shape[0]
 

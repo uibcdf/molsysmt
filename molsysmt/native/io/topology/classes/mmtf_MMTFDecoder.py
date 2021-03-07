@@ -2,7 +2,7 @@
 def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all', bioassembly_index=0, bioassembly_name=None):
 
     from molsysmt.native import Topology
-    from numpy import empty, array, arange, reshape, where, unique, nan
+    import numpy as np
     from molsysmt.elements.group import name_to_type as group_name_to_group_type
     from molsysmt.elements.entity import type_from_MMTFDecoder_entity as entity_type_from_MMTFDecoder_entity
 
@@ -32,23 +32,23 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
     n_atoms = item.num_atoms
     n_bonds = item.num_bonds
 
-    tmp_item.atoms_dataframe["atom_index"] = arange(n_atoms, dtype=int)
+    tmp_item.atoms_dataframe["atom_index"] = np.arange(n_atoms, dtype=int)
 
-    atom_name_array = empty(n_atoms, dtype=object)
-    atom_id_array = empty(n_atoms, dtype=int)
-    atom_type_array = empty(n_atoms, dtype=object)
-    atom_bonded_atom_indices_array = empty(n_atoms, dtype=object)
-    atom_formal_charge_array = empty(n_atoms, dtype=float)
+    atom_name_array = np.empty(n_atoms, dtype=object)
+    atom_id_array = np.empty(n_atoms, dtype=int)
+    atom_type_array = np.empty(n_atoms, dtype=object)
+    atom_bonded_atom_indices_array = np.empty(n_atoms, dtype=object)
+    atom_formal_charge_array = np.empty(n_atoms, dtype=float)
 
-    group_index_array = empty(n_atoms, dtype=int)
-    group_name_array = empty(n_atoms, dtype=object)
-    group_id_array = empty(n_atoms, dtype=int)
-    group_type_array = empty(n_atoms, dtype=object)
+    group_index_array = np.empty(n_atoms, dtype=int)
+    group_name_array = np.empty(n_atoms, dtype=object)
+    group_id_array = np.empty(n_atoms, dtype=int)
+    group_type_array = np.empty(n_atoms, dtype=object)
 
-    bond_atom1_index_array = empty(n_bonds, dtype=int)
-    bond_atom2_index_array = empty(n_bonds, dtype=int)
-    #bond_type_array = empty(n_bonds, dtype=object)
-    bond_order_array = empty(n_bonds, dtype=int)
+    bond_atom1_index_array = np.empty(n_bonds, dtype=int)
+    bond_atom2_index_array = np.empty(n_bonds, dtype=int)
+    #bond_type_array = np.empty(n_bonds, dtype=object)
+    bond_order_array = np.empty(n_bonds, dtype=int)
 
     atom_index = 0
     bond_index = 0
@@ -61,7 +61,7 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
 
         # bonds intra-groups
 
-        for bond_pair, bond_order in zip(reshape(mmtf_group['bondAtomList'],(-1,2)), mmtf_group['bondOrderList']):
+        for bond_pair, bond_order in zip(np.reshape(mmtf_group['bondAtomList'],(-1,2)), mmtf_group['bondOrderList']):
 
             bond_atom1_index_array[bond_index]=bond_pair[0]+atom_index
             bond_atom2_index_array[bond_index]=bond_pair[1]+atom_index
@@ -96,7 +96,7 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
 
     # bonds inter-groups in graph
 
-    for bond_pair, bond_order in zip(reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
+    for bond_pair, bond_order in zip(np.reshape(item.bond_atom_list,(-1,2)), item.bond_order_list):
         bond_atom1_index_array[bond_index]=bond_pair[0]
         bond_atom2_index_array[bond_index]=bond_pair[1]
         bond_order_array[bond_index]=bond_order
@@ -116,10 +116,10 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
 
     #### chains
 
-    chain_index_array = empty(n_atoms, dtype=int)
-    chain_name_array = empty(n_atoms, dtype=object)
-    chain_id_array = empty(n_atoms, dtype=object)
-    #chain_type_array = empty(n_atoms, dtype=object)
+    chain_index_array = np.empty(n_atoms, dtype=int)
+    chain_name_array = np.empty(n_atoms, dtype=object)
+    chain_id_array = np.empty(n_atoms, dtype=object)
+    #chain_type_array = np.empty(n_atoms, dtype=object)
 
     count_groups = 0
 
@@ -128,7 +128,7 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
         n_groups_chain = item.groups_per_chain[chain_index]
 
         for group_index in range(count_groups, count_groups+n_groups_chain):
-            for atom_index in where(group_index_array==group_index)[0]:
+            for atom_index in np.where(group_index_array==group_index)[0]:
 
                 chain_index_array[atom_index] = chain_index
                 chain_name_array[atom_index] = chain_name
@@ -144,18 +144,18 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
 
     # entities and molecules
 
-    entity_index_array = empty(n_atoms, dtype=int)
-    entity_name_array = empty(n_atoms, dtype=object)
-    entity_id_array = empty(n_atoms, dtype=object)
-    entity_type_array = empty(n_atoms, dtype=object)
+    entity_index_array = np.empty(n_atoms, dtype=int)
+    entity_name_array = np.empty(n_atoms, dtype=object)
+    entity_id_array = np.empty(n_atoms, dtype=object)
+    entity_type_array = np.empty(n_atoms, dtype=object)
 
-    molecule_index_array = empty(n_atoms, dtype=int)
-    molecule_name_array = empty(n_atoms, dtype=object)
-    molecule_id_array = empty(n_atoms, dtype=object)
-    molecule_type_array = empty(n_atoms, dtype=object)
+    molecule_index_array = np.empty(n_atoms, dtype=int)
+    molecule_name_array = np.empty(n_atoms, dtype=object)
+    molecule_id_array = np.empty(n_atoms, dtype=object)
+    molecule_type_array = np.empty(n_atoms, dtype=object)
 
-    molecule_name_array.fill(nan)
-    molecule_type_array.fill(nan)
+    molecule_name_array.fill(np.nan)
+    molecule_type_array.fill(np.nan)
 
     entity_index = 0
     molecule_index = 0
@@ -167,7 +167,7 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
 
         for chain_index in mmtf_entity['chainIndexList']:
 
-            for atom_index in where(chain_index_array==chain_index)[0]:
+            for atom_index in np.where(chain_index_array==chain_index)[0]:
 
                 entity_index_array[atom_index] = entity_index
                 entity_name_array[atom_index] = entity_name
@@ -180,7 +180,7 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
             molecule_name = entity_name
 
             for chain_index in mmtf_entity['chainIndexList']:
-                for atom_index in where(chain_index_array==chain_index)[0]:
+                for atom_index in np.where(chain_index_array==chain_index)[0]:
 
                     molecule_index_array[atom_index] = molecule_index
                     molecule_name_array[atom_index] = molecule_name
@@ -195,10 +195,10 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
             molecule_name = "water"
 
             for chain_index in mmtf_entity['chainIndexList']:
-                atom_indices_in_chain = where(chain_index_array==chain_index)[0]
-                component_indices_in_chain = unique(component_index_array[atom_indices_in_chain])
+                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
+                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
                 for component_index in component_indices_in_chain:
-                    for atom_index in where(component_index_array==component_index)[0]:
+                    for atom_index in np.where(component_index_array==component_index)[0]:
 
                         molecule_index_array[atom_index] = molecule_index
                         molecule_name_array[atom_index] = molecule_name
@@ -213,10 +213,10 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
             molecule_name = entity_name
 
             for chain_index in mmtf_entity['chainIndexList']:
-                atom_indices_in_chain = where(chain_index_array==chain_index)[0]
-                component_indices_in_chain = unique(component_index_array[atom_indices_in_chain])
+                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
+                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
                 for component_index in component_indices_in_chain:
-                    for atom_index in where(component_index_array==component_index)[0]:
+                    for atom_index in np.where(component_index_array==component_index)[0]:
 
                         molecule_index_array[atom_index] = molecule_index
                         molecule_name_array[atom_index] = molecule_name
@@ -225,8 +225,43 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
 
                     molecule_index += 1
 
+        elif entity_type == "cosolute":
+
+            molecule_type = "cosolute"
+            molecule_name = entity_name
+
+            for chain_index in mmtf_entity['chainIndexList']:
+                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
+                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
+                for component_index in component_indices_in_chain:
+                    for atom_index in np.where(component_index_array==component_index)[0]:
+
+                        molecule_index_array[atom_index] = molecule_index
+                        molecule_name_array[atom_index] = molecule_name
+                        molecule_type_array[atom_index] = molecule_type
+                        molecule_id_array[atom_index] = molecule_index
+
+                    molecule_index += 1
+
+        elif entity_type == "small_molecule":
+
+            molecule_type = "small_molecule"
+            molecule_name = entity_name
+
+            for chain_index in mmtf_entity['chainIndexList']:
+                atom_indices_in_chain = np.where(chain_index_array==chain_index)[0]
+                component_indices_in_chain = np.unique(component_index_array[atom_indices_in_chain])
+                for component_index in component_indices_in_chain:
+                    for atom_index in np.where(component_index_array==component_index)[0]:
+
+                        molecule_index_array[atom_index] = molecule_index
+                        molecule_name_array[atom_index] = molecule_name
+                        molecule_type_array[atom_index] = molecule_type
+                        molecule_id_array[atom_index] = molecule_index
+
+                    molecule_index += 1
         else:
-            print(entity_type)
+            print(entity_name, entity_type, mmtf_entity)
             raise ValueError("Entity type not recognized")
 
         entity_index += 1

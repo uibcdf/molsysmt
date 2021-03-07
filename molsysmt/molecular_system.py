@@ -5,17 +5,27 @@ class MolecularSystem():
 
     def __init__(self, items):
 
-        if not is_list_or_tuple(items):
-            items = [items]
+        if type(items)==MolecularSystem:
 
-        if not is_a_single_molecular_system(items):
-            raise NeedsSingleMolecularSystem()
+            self.topology_item, self.topology_form = items.topology_item, items.topology_form
+            self.bonds_item, self.bonds_form = items.bonds_item, items.bonds_form
+            self.parameters_item, self.parameters_form = items.parameters_item, items.parameters_form
+            self.coordinates_item, self.coordinates_form = items.coordinates_item, items.coordinates_form
+            self.box_item, self.box_form = items.box_item, items.box_form
 
-        self.topology_item, self.topology_form = where_topology_in_molecular_system(items)
-        self.bonds_item, self.bonds_form = where_bonds_in_molecular_system(items)
-        self.parameters_item, self.parameters_form = where_parameters_in_molecular_system(items)
-        self.coordinates_item, self.coordinates_form = where_coordinates_in_molecular_system(items)
-        self.box_item, self.box_form = where_box_in_molecular_system(items)
+        else:
+
+            if not is_list_or_tuple(items):
+                items = [items]
+
+            if not is_a_single_molecular_system(items):
+                raise NeedsSingleMolecularSystem()
+
+            self.topology_item, self.topology_form = where_topology_in_molecular_system(items)
+            self.bonds_item, self.bonds_form = where_bonds_in_molecular_system(items)
+            self.parameters_item, self.parameters_form = where_parameters_in_molecular_system(items)
+            self.coordinates_item, self.coordinates_form = where_coordinates_in_molecular_system(items)
+            self.box_item, self.box_form = where_box_in_molecular_system(items)
 
     def get_items(self):
 
@@ -45,10 +55,6 @@ class MolecularSystem():
             if self.box_item not in items:
                 items.append(self.box_item)
                 forms.append(self.box_form)
-
-        if len(items)==1:
-            items = items[0]
-            forms = forms[0]
 
         return items, forms
 
