@@ -1,51 +1,45 @@
-from ._private_tools.engines import digest_engine
-from ._private_tools.forms import digest_form
-from .lib import com as _libcom
-from .lib import geometry as _libgeometry
-import numpy as _np
-from ._private_tools.exceptions import *
+from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools._digestion import *
+from molsysmt.lib import com as libcom
+from molsysmt.lib import geometry as libgeometry
+from molsysmt import puw
+import numpy as np
 
-def center(item=None, selection=None, groups_of_atoms=None, weights=None, frame_indices='all',
-           syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
+def center(molecular_system, selection='all', groups_of_atoms=None, weights=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
-    from molsysmt import convert, select, get, extract
-    from molsysmt.tools.math import serialized_lists
+    from molsysmt.multitool import convert, select, get, extract
+    from molsysmt._private_tools.math import serialized_lists
 
-    engine = _digest_engines(engine)
-    form_in, _ = _digest_forms(item, engine)
-
-    if frame_indices is 'all':
-        n_frames = get(item, n_frames=True)
-        frame_indices = _np.arange(n_frames)
-    elif type(frame_indices)==int:
-        frame_indices = [frame_indices]
+    molecular_system = digest_molecular_system(molecular_system)
+    engine = digest_engine(engine)
 
     if engine=='MolSysMT':
 
         if groups_of_atoms is None:
-            atom_indices = select(item, selection=selection, syntaxis=syntaxis)
+            atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
             groups_of_atoms = [atom_indices]
 
         groups_serialized = serialized_lists(groups_of_atoms, dtype='int64')
 
         if weights is None:
-            weights_array = _np.ones((groups_serialized.n_values))
+            weights_array = np.ones((groups_serialized.n_values))
         elif weights=='masses':
-            weights_array = get(item, selection=groups_serialized.values, masses=True)
+            raise NotImplementedError
+            #weights_array = get(item, selection=groups_serialized.values, masses=True)
 
-        coordinates = get(item, coordinates=True, frame_indices='all')
+        coordinates = get(molecular_system, target='system', frame_indices=frame_indices, coordinates=True)
 
-        length_units = coordinates.unit
-        coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
+        length_units = puw.get_unit(coordinates)
+        coordinates = _np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         n_atoms = coordinates.shape[1]
         n_frames = coordinates.shape[0]
         n_frame_indices = len(frame_indices)
 
-        com = _libcom.center_of_mass(coordinates,
-                                     groups_serialized.indices, groups_serialized.values, groups_serialized.starts,
-                                     weights_array, frame_indices, n_frames, n_atoms,
-                                     groups_serialized.n_indices, groups_serialized.n_values,
-                                     n_frame_indices)
+        com = libcom.center_of_mass(coordinates,
+                                    groups_serialized.indices, groups_serialized.values, groups_serialized.starts,
+                                    weights_array, frame_indices, n_frames, n_atoms,
+                                    groups_serialized.n_indices, groups_serialized.n_values,
+                                    n_frame_indices)
 
         del(coordinates, groups_serialized, weights_array)
 
@@ -56,64 +50,54 @@ def center(item=None, selection=None, groups_of_atoms=None, weights=None, frame_
         raise NotImplementedError(NotImplementedMessage)
 
 
-def geometric_center(item=None, selection=None, groups_of_atoms=None, frame_indices='all',
-                   syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
+def geometric_center(molecular_system, selection='all', groups_of_atoms=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
-    return center(item=item, selection=selection, groups_of_atoms=groups_of_atoms,
-                  weights=None, frame_indices=frame_indices, syntaxis=syntaxis,
+    return center(molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, weights=None, frame_indices=frame_indices, syntaxis=syntaxis,
                   engine=engine, parallel=parallel)
 
-def center_of_mass(item=None, selection=None, groups_of_atoms=None, frame_indices='all',
-                   syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
+def center_of_mass(molecular_system, selection='all', groups_of_atoms=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
-    return center(item=item, selection=selection, groups_of_atoms=groups_of_atoms,
-                  weights='masses', frame_indices=frame_indices, syntaxis=syntaxis,
+    return center(molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, weights='masses', frame_indices=frame_indices, syntaxis=syntaxis,
                   engine=engine, parallel=parallel)
 
+def recenter(molecular_system, selection='all', selection_center='all', coordinates_center=None, center_of_selection='geometric_center', frame_indices='all',
+             syntaxis='MolSysMT', engine='MolSysMT'):
 
-def recenter(item, selection='all', selection_center='all', coordinates_center=None,
-        center_of_selection='geometric_center', frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT'):
+    from molsysmt.multitool import select, get, set, copy
 
-    from molsysmt import select, get, duplicate
-    from molsysmt import set as _set
+    molecular_system = digest_molecular_system(molecular_system)
+    frame_indices = digest_frame_indices(frame_indices)
+    engine = digest_engine(engine)
 
-    engine = _digest_engines(engine)
-    form_in, _ = _digest_forms(item, engine)
-    tmp_item = duplicate(item)
-
-    if frame_indices == 'all':
-        n_frames = get(item, n_frames=True)
-        frame_indices = _np.arange(n_frames)
-    elif type(frame_indices)==int:
-        frame_indices = [frame_indices]
+    tmp_molecular_system = copy(molecular_system)
+    tmp_molecular_system = digest_molecular_system(molecular_system)
 
     if engine=='MolSysMT':
 
-        n_atoms = get(item, n_atoms=True)
-        n_frame_indices = len(frame_indices)
-        coordinates = get(tmp_item, coordinates=True, frame_indices='all')
+        n_atoms = get(molecular_system, n_atoms=True)
+        coordinates = get(tmp_item, target='system', coordinates=True, frame_indices=frame_indices)
         n_frames = coordinates.shape[0]
-        length_units = coordinates.unit
+        length_units = puw.get_unit(coordinates)
 
         if coordinates_center is None:
-            coordinates_center = _np.zeros([n_frame_indices,3],dtype='float64')*length_units
+            coordinates_center = np.zeros([n_frames,3], dtype='float64')*length_units
 
         if center_of_selection == 'geometric_center':
-            coordinates_selection_center = geometric_center(item=tmp_item, selection=selection_center, groups_of_atoms=None,
+            coordinates_selection_center = geometric_center(tmp_molecular_system, selection=selection_center, groups_of_atoms=None,
                                            frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
 
         translation = coordinates_center - coordinates_selection_center[:,0,:]
         del(coordinates_center, coordinates_selection_center)
 
-        coordinates = _np.asfortranarray(coordinates._value, dtype='float64')
-        translation = _np.asfortranarray(translation._value, dtype='float64')
+        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
+        translation = np.asfortranarray(puw.get_value(translation), dtype='float64')
 
-        _libgeometry.translate(coordinates, translation, frame_indices, n_atoms, n_frames,
-                n_frame_indices)
+        libgeometry.translate(coordinates, translation, frame_indices, n_atoms, n_frames, n_frames)
+        #### Tengo que sustituir esto con el método translate de geometrical transformations
 
-        coordinates=_np.ascontiguousarray(coordinates)*length_units
+        coordinates=np.ascontiguousarray(coordinates)*length_units
 
-        _set(tmp_item, coordinates=coordinates)
+        set(tmp_item, coordinates=coordinates, frame_indices=frame_indices)
 
         del(coordinates, translation, length_units)
 

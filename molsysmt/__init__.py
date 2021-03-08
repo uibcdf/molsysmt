@@ -13,10 +13,10 @@ from .info_multitool import info_forms, info_convert, info_select, info_viewers
 from .additional_remove import remove_solvent, remove_hydrogens
 from .peptides import build_peptide
 from .geometrical_transformations import translate
+from .centers import geometric_center, center_of_mass, center, recenter
+from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists
 
 #from .rmsd import rmsd, least_rmsd, least_rmsd_fit, angular_rmsd
-#from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists
-#from .centers import geometric_center, center_of_mass, center, recenter
 #from .sequence import sequence_alignment, sequence_identity, structure_alignment
 #from .radius_of_gyration import radius_of_gyration
 #from .fix import fix_chains, fix
