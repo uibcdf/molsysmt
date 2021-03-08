@@ -177,44 +177,14 @@ def copy(item):
 
     return item.copy()
 
-def merge(list_items, list_atom_indices, list_frame_indices):
+def add(item, from_item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.molsys import MolSys
-
-    tmp_item = MolSys()
-
-    for item, atom_indices, frame_indices in zip(list_items, list_atom_indices, list_frame_indices):
-        tmp_item.add(item, selection=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item
-
-def concatenate_frames(list_items, list_atom_indices, list_frame_indices):
-
-    from molsysmt.native.molsys import MolSys
-
-    tmp_item = MolSys()
-
-    tmp_item.add(list_items[0], selection=list_atom_indices[0], frame_indices=list_frame_indices[0])
-
-    for item, atom_indices, frame_indices in zip(list_items[1:], list_atom_indices[1:], list_frame_indices[1:]):
-
-        step, time, coordinates, box = get_frame_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
-        tmp_item.trajectory.append_frames(step, time, coordinates, box)
-
-    return tmp_item
-
-def add(item, list_items, list_atom_indices, list_frame_indices):
-
-    for aux_item, aux_atom_indices, aux_frame_indices in zip(list_items, list_atom_indices, list_frame_indices):
-
-        item.add(aux_item, selection=aux_atom_indices, frame_indices=aux_frame_indices)
-
+    item.add(from_item, selection=atom_indices, frame_indices=frame_indices)
     pass
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     item.trajectory.append_frames(step=step, time=time, coordinates=coordinates, box=box)
-
     pass
 
 ###### Get

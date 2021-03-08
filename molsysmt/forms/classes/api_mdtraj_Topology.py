@@ -153,26 +153,11 @@ def copy(item):
 
     return item.copy()
 
-def merge(list_items, list_atom_indices, list_frame_indices):
-
-#    if in_place:
-#        item1.join(item2)
-#        pass
-#    else:
-#        tmp_item=item1.copy()
-#        return tmp_item.join(item2)
+def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def concatenate_frames(list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def add(item, list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def append_frames(item, list_items, list_atom_indices, list_frame_indices):
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 

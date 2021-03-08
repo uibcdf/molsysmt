@@ -4,7 +4,7 @@ from molsysmt.forms import *
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.selection import selection_is_all
-from molsysmt._private_tools.forms import to_form_is_file, form_of_file
+from molsysmt._private_tools.forms import to_form_is_file, form_of_file, are_equal_sets_of_forms
 from molsysmt._private_tools.get_arguments import where_get_argument
 from molsysmt._private_tools.set_arguments import where_set_argument
 from molsysmt._private_tools.elements import elements2string
@@ -370,7 +370,7 @@ def extract(molecular_system, selection='all', frame_indices='all', to_form=None
 
     """
 
-    if selection=='all' and frame_indices=='all' and to_form is None:
+    if (selection is 'all') and (frame_indices is 'all') and (to_form is None):
         return copy(molecular_system)
 
     molecular_system = digest_molecular_system(molecular_system)
@@ -476,7 +476,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', frame_ind
 
     pass
 
-def merge(items=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
+def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
     """merge(items=None, selection='all', frame_indices='all', syntaxis='MolSysMT' to_form=None)
 
@@ -579,7 +579,7 @@ def append_frames(to_molecular_system, from_molecular_systems, selections='all',
 
     for aux_molecular_system, aux_selection, aux_frame_indices in zip(from_molecular_systems, selections, frame_indices):
 
-        step, time, coordinates, box = get(aux, target='atom', selection=aux_selection, frame_indices=aux_frame_indices, frame=True)
+        step, time, coordinates, box = get(aux_molecular_system, target='atom', selection=aux_selection, frame_indices=aux_frame_indices, frame=True)
 
         if box_in_diff_item:
             dict_append_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)
@@ -1102,8 +1102,8 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     molecular_system = digest_molecular_system(molecular_system)
     _, forms_in = molecular_system.get_items()
 
-    if set(forms_in)==set(to_form):
-        if selection=='all' and frame_indices=='all':
+    if are_equal_sets_of_forms(forms_in,to_form):
+        if (selection is 'all') and (frame_indices is 'all'):
             return copy(molecular_system)
         else:
             return extract(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)

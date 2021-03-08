@@ -10,10 +10,8 @@ dict_is_form = {}
 dict_info = {}
 dict_extract = {}
 dict_copy = {}
-dict_merge = {}
 dict_add = {}
 dict_append_frames = {}
-dict_concatenate_frames = {}
 dict_convert = {}
 dict_select = {}
 dict_get = {}
@@ -40,10 +38,8 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
             dict_info[form_name]=mod.info
             dict_extract[form_name]=mod.extract
             dict_copy[form_name]=mod.copy
-            dict_merge[form_name]=mod.merge
             dict_add[form_name]=mod.add
             dict_append_frames[form_name]=mod.append_frames
-            dict_concatenate_frames[form_name]=mod.concatenate_frames
 
             dict_convert[form_name]= {}
             dict_select[form_name]= {}

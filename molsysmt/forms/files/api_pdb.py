@@ -271,19 +271,11 @@ def extract(item, output_filename=None, atom_indices='all', frame_indices='all')
         tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
         return molsysmt_MolSys_to_pdb(tmp_item, output_filename=output_filename)
 
-def merge(list_items, list_atom_indices, list_frame_indices):
+def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def concatenate_frames(list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def add(item, list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def append_frames(item, list_items, list_atom_indices, list_frame_indices):
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 

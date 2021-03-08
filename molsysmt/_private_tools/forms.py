@@ -50,3 +50,16 @@ def form_of_file(to_form):
 
     return output
 
+def are_equal_sets_of_forms(forms1, forms2):
+
+    if not is_list_or_tuple(forms1):
+        forms1=[forms1]
+    if not is_list_or_tuple(forms2):
+        forms2=[forms2]
+
+    output = False
+    if set(forms1)==set(forms2):
+        output = True
+
+    return output
+
