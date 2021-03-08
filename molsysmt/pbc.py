@@ -1,6 +1,7 @@
 from ._private_tools.engines import digest_engine
 from ._private_tools.frame_indices import digest_frame_indices
 from ._private_tools.forms import digest_form
+from ._private_tools.box import digest_box_angles, digest_box_lengths
 from molsysmt.lib import box as _libbox
 import numpy as np
 from molsysmt import puw
@@ -29,12 +30,12 @@ def box_shape_from_box_angles(angles):
 def box_shape_from_box_vectors(box):
 
     from molsysmt.lib import box as _libbox
-    
+
     if box == None:
         return None
 
     else:
-        
+
         n_frames = box.shape[0]
         angles = _libbox.angles_box(box._value, n_frames)
         return box_shape_from_box_angles(angles)
@@ -62,17 +63,20 @@ def box_angles_from_box_vectors(box):
 
 def box_vectors_from_box_lengths_and_angles(lengths, angles):
 
+    lengths=digest_box_lengths(lengths)
+    angles=digest_box_angles(angles)
+
     units = puw.get_unit(lengths)
     lengths_value = puw.get_value(lengths)
-    angles_value = puw.get_value(puw.convert(angles, 'degrees'))
-    tmp_lengths =  np.asfortranarray(lengths_value, dtype='float64')
-    tmp_angles =  np.asfortranarray(angles_value, dtype='float64')
+    angles_value = puw.get_value(angles, in_units='degrees')
+    lengths_value =  np.asfortranarray(lengths_value, dtype='float64')
+    angles_value =  np.asfortranarray(angles_value, dtype='float64')
     n_frames = lengths.shape[0]
 
-    box = _libbox.lengths_and_angles_to_box(tmp_lengths, tmp_angles, n_frames)
+    box = _libbox.lengths_and_angles_to_box(lengths_value, angles_value, n_frames)
     box = np.ascontiguousarray(box, dtype='float64').round(6)*units
 
-    del(tmp_lengths, tmp_angles)
+    del(lengths_value, angles_value)
 
     return box
 

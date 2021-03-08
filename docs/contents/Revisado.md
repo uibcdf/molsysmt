@@ -9,15 +9,15 @@
 - [X] Selection
 - [X] Copy
 - [X] Extract
-- [ ] Remove
-- [ ] Set
+- [X] Remove
+- [X] Set
 
 - [X] Build_peptide
 - [X] Geometrical Transformations
 
 - [X] View
 - [X] Append_Concatenate
-- [ ] Add_Merge
+- [X] Add_Merge
 
 
 

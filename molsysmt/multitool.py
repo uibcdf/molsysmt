@@ -10,6 +10,8 @@ from molsysmt._private_tools.set_arguments import where_set_argument
 from molsysmt._private_tools.elements import elements2string
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.selection import indices_to_selection
+from molsysmt._private_tools.frame_indices import complementary_frame_indices
+from molsysmt._private_tools.atom_indices import complementary_atom_indices
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
 from molsysmt.molecular_system import MolecularSystem
 
@@ -253,7 +255,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', frame_in
     output=digest_output(output)
     return output
 
-def remove(items, selection=None, frame_indices=None, to_form=None, syntaxis='MolSysMT'):
+def remove(molecular_system, selection=None, frame_indices=None, to_form=None, syntaxis='MolSysMT'):
 
     """remove(item, selection=None, frame_indices=None, syntaxis='MolSysMT')
 
@@ -310,22 +312,20 @@ def remove(items, selection=None, frame_indices=None, to_form=None, syntaxis='Mo
 
     """
 
-    if not is_a_single_molecular_system(item):
-        raise NeedsSingleMolecularSystemError()
-
+    molecular_system = digest_molecular_system(molecular_system)
     frame_indices = digest_frame_indices(frame_indices)
 
     atom_indices_to_be_kept = 'all'
     frame_indices_to_be_kept = 'all'
 
     if selection is not None:
-        atom_indices_to_be_removed = select(items, selection, syntaxis=syntaxis)
-        atom_indices_to_be_kept = complementary_atom_indices(items, atom_indices_to_be_removed)
+        atom_indices_to_be_removed = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        atom_indices_to_be_kept = complementary_atom_indices(molecular_system, atom_indices_to_be_removed)
 
     if frame_indices is not None:
-        frame_indices_to_be_kept = complementary_frame_indices(items, frame_indices_to_be_removed)
+        frame_indices_to_be_kept = complementary_frame_indices(molecular_system, frame_indices)
 
-    return extract(items, selection=atom_indices_to_be_kept, frame_indices=frame_indices_to_be_kept, to_form=to_form)
+    return extract(molecular_system, selection=atom_indices_to_be_kept, frame_indices=frame_indices_to_be_kept, to_form=to_form)
 
 
 def extract(molecular_system, selection='all', frame_indices='all', to_form=None, syntaxis='MolSysMT'):

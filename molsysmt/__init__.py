@@ -10,6 +10,7 @@ from .multitool import select, extract, merge, add, concatenate_frames, append_f
                        convert, copy, view, remove, get_form
 from .info_multitool import info_forms, info_convert, info_select, info_viewers
 
+from .additional_remove import remove_solvent, remove_hydrogens
 from .peptides import build_peptide
 from .geometrical_transformations import translate
 
@@ -20,7 +21,6 @@ from .geometrical_transformations import translate
 #from .radius_of_gyration import radius_of_gyration
 #from .fix import fix_chains, fix
 #from .model_loops import add_loop
-#from .remove_atoms import remove_solvent, remove_hydrogens
 #from .potential_energy import energy_minimization, potential_energy
 #from .solvate_box import solvate, is_solvated
 #from .protonation import add_missing_hydrogens
