@@ -1,1 +1,1 @@
-modules_required = {'numpy', 'pyunitwizard', 'urllib', 'json', 'os'}
+modules_required = {'numpy', 'pyunitwizard', 'urllib', 'json', 'os', 'networkx'}

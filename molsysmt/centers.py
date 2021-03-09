@@ -30,16 +30,14 @@ def center(molecular_system, selection='all', groups_of_atoms=None, weights=None
         coordinates = get(molecular_system, target='system', frame_indices=frame_indices, coordinates=True)
 
         length_units = puw.get_unit(coordinates)
-        coordinates = _np.asfortranarray(puw.get_value(coordinates), dtype='float64')
+        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         n_atoms = coordinates.shape[1]
         n_frames = coordinates.shape[0]
-        n_frame_indices = len(frame_indices)
 
         com = libcom.center_of_mass(coordinates,
                                     groups_serialized.indices, groups_serialized.values, groups_serialized.starts,
-                                    weights_array, frame_indices, n_frames, n_atoms,
-                                    groups_serialized.n_indices, groups_serialized.n_values,
-                                    n_frame_indices)
+                                    weights_array, n_frames, n_atoms,
+                                    groups_serialized.n_indices, groups_serialized.n_values)
 
         del(coordinates, groups_serialized, weights_array)
 
@@ -60,50 +58,31 @@ def center_of_mass(molecular_system, selection='all', groups_of_atoms=None, fram
     return center(molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, weights='masses', frame_indices=frame_indices, syntaxis=syntaxis,
                   engine=engine, parallel=parallel)
 
-def recenter(molecular_system, selection='all', selection_center='all', coordinates_center=None, center_of_selection='geometric_center', frame_indices='all',
-             syntaxis='MolSysMT', engine='MolSysMT'):
+def recenter(molecular_system, selection='all', center_of_selection='all', weights=None, new_coordinates_center=None, frame_indices='all',
+             syntaxis='MolSysMT', engine='MolSysMT', in_place=True):
 
     from molsysmt.multitool import select, get, set, copy
+    from molsysmt.geometrical_transformations import translate
 
     molecular_system = digest_molecular_system(molecular_system)
     frame_indices = digest_frame_indices(frame_indices)
     engine = digest_engine(engine)
 
-    tmp_molecular_system = copy(molecular_system)
-    tmp_molecular_system = digest_molecular_system(molecular_system)
-
     if engine=='MolSysMT':
 
-        n_atoms = get(molecular_system, n_atoms=True)
-        coordinates = get(tmp_item, target='system', coordinates=True, frame_indices=frame_indices)
-        n_frames = coordinates.shape[0]
-        length_units = puw.get_unit(coordinates)
+        coordinates_selection_center = center(molecular_system, selection=center_of_selection, groups_of_atoms=None, weights=weights,
+                                              frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
 
-        if coordinates_center is None:
-            coordinates_center = np.zeros([n_frames,3], dtype='float64')*length_units
+        if new_coordinates_center is None:
+            translation = -coordinates_selection_center
+        else:
+            translation = new_coordinates_center-coordinates_selection_center
 
-        if center_of_selection == 'geometric_center':
-            coordinates_selection_center = geometric_center(tmp_molecular_system, selection=selection_center, groups_of_atoms=None,
-                                           frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
+        del(coordinates_selection_center)
 
-        translation = coordinates_center - coordinates_selection_center[:,0,:]
-        del(coordinates_center, coordinates_selection_center)
-
-        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-        translation = np.asfortranarray(puw.get_value(translation), dtype='float64')
-
-        libgeometry.translate(coordinates, translation, frame_indices, n_atoms, n_frames, n_frames)
-        #### Tengo que sustituir esto con el método translate de geometrical transformations
-
-        coordinates=np.ascontiguousarray(coordinates)*length_units
-
-        set(tmp_item, coordinates=coordinates, frame_indices=frame_indices)
-
-        del(coordinates, translation, length_units)
-
-        return tmp_item
+        return translate(molecular_system, translation=translation, selection=selection, frame_indices=frame_indices, syntaxis='MolSysMT', in_place=True)
 
     else:
 
-        raise NotImplementedError(NotImplementedMessage)
+        raise NotImplementedError()
 

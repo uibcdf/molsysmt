@@ -1029,7 +1029,7 @@ def set(molecular_system, target='system', indices=None, selection='all', frame_
     value_of_attribute = { digest_set_argument(key, target): kwargs[key] for key in kwargs.keys()}
     attributes = value_of_attribute.keys()
     indices = digest_indices(indices)
-    frame_indices = digest_frame_indices(indices)
+    frame_indices = digest_frame_indices(frame_indices)
 
     # doing the work here
 
@@ -1191,7 +1191,7 @@ def copy(molecular_system, output_filename=None):
     return output
 
 def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices='all',
-         concatenate_coordinates=False, standardize=True, surface=False, syntaxis='MolSysMT'):
+         concatenate_frames=False, standardize=True, surface=False, syntaxis='MolSysMT'):
 
     viewer, form_viewer = digest_viewer(viewer)
 
@@ -1199,10 +1199,10 @@ def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices
         molecular_system = digest_molecular_system(molecular_system)
         tmp_item = convert(molecular_system, to_form=form_viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
     else:
-        if concatenate_coordinates:
-            molecular_system = concatenate(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+        if concatenate_frames:
+            molecular_system = concatenate_frames(molecular_system, selections=selection, frame_indices=frame_indices, syntaxis=syntaxis)
         else:
-            molecular_system = merge(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+            molecular_system = merge(molecular_system, selections=selection, frame_indices=frame_indices, syntaxis=syntaxis)
         tmp_item = convert(molecular_system, to_form=form_viewer)
 
     if standardize:

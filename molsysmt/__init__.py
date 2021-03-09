@@ -15,6 +15,9 @@ from .peptides import build_peptide
 from .geometrical_transformations import translate
 from .centers import geometric_center, center_of_mass, center, recenter
 from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists
+from .graphs import bondgraph
+from .covalent import covalent_chains, covalent_blocks, covalent_dihedral_quartets
+from .dihedral_angles import get_dihedral_angles, set_dihedral_angles, shift_dihedral_angles, ramachandran_angles
 
 #from .rmsd import rmsd, least_rmsd, least_rmsd_fit, angular_rmsd
 #from .sequence import sequence_alignment, sequence_identity, structure_alignment
@@ -33,9 +36,6 @@ from .distances import distance, minimum_distance, maximum_distance, contact_map
 #        box_vectors_from_box_lengths_and_angles, box_volume_from_box_vectors
 #from .pockets import alpha_spheres
 #from .sasa import sasa
-#from .covalent import covalent_chains, covalent_blocks, covalent_dihedral_quartets
-#from .dihedral_angles import get_dihedral_angles, set_dihedral_angles, shift_dihedral_angles, ramachandran_angles
-#from .graphs import bondgraph
 #from . import physchem
 #from . import nglview
 

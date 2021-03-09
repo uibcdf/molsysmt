@@ -144,7 +144,12 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    return item.box_shape
+    from molsysmt.pbc import box_shape_from_box_vectors
+    output = None
+    box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+    if box is not None:
+        output = box_shape_from_box_vectors(box)
+    return output
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 

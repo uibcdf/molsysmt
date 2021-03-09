@@ -37,7 +37,7 @@ def distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, grou
             #num_groups_2=len(groups_of_atoms_2)
             #frame_indices = _digest_frame_indices(item, frame_indices_1)
             #num_frames=len(frame_indices)
-            #dists = _np.zeros((num_frames, num_groups_1, num_groups_2),dtype=float)
+            #dists = np.zeros((num_frames, num_groups_1, num_groups_2),dtype=float)
             #for ii in range(num_groups_1):
             #    group1 = groups_of_atoms_2[ii]
             #    for jj in range(num_groups_2):
@@ -98,7 +98,7 @@ def distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, grou
                 coordinates_1 = center_of_mass(molecular_system_1, selection=selection_1, frame_indices=frame_indices_1)
                 atom_indices_1 = [0]
             elif group_behavior_1 == 'geometric_center':
-                coordinates_1 = geometric_center(molecular_systsem_1, selection=selection_1, frame_indices=frame_indices_1)
+                coordinates_1 = geometric_center(molecular_system_1, selection=selection_1, frame_indices=frame_indices_1)
                 atom_indices_1 = [0]
             else:
                 atom_indices_1 = select(molecular_system_1, selection=selection_1, syntaxis=syntaxis)
@@ -149,11 +149,6 @@ def distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, grou
         nelements1 = coordinates_1.shape[1]
         nelements2 = coordinates_2.shape[1]
 
-        if (nframes_1!=len(frame_indices_1)):
-            raise NotImplementedError("Coordinates extraction from molecular_system_1 not implemented for frame_indices_1")
-        if (nframes_2!=len(frame_indices_2)):
-            raise NotImplementedError("Coordinates extraction from molecular_system_2 not implemented for frame_indices_2")
-
         box, box_shape = get(molecular_system_1, target='system', box=True, box_shape=True, frame_indices=frame_indices_1)
 
         orthogonal = 0
@@ -192,6 +187,10 @@ def distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, grou
         if output_form=='tensor':
              return dists
         elif output_form=='dict':
+            if frame_indices_1 is 'all':
+                frame_indices_1 = np.arange(nframes_1)
+            if frame_indices_2 is 'all':
+                frame_indices_2 = np.arange(nframes_2)
             if pairs is False:
                 if crossed_frames is False:
                     tmp_dict={}
@@ -237,8 +236,8 @@ def distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, grou
         #if (group_behavior is None) and (group_behavior2 is None):
         #    if item2 is None:
         #        from mdtraj import compute_distances as _mdtraj_compute_distances
-        #        tensor1_to_grid, tensor2_to_grid = _np.meshgrid(atom_indices1,atom_indices2)
-        #        pairs_list =_np.vstack([tensor1_to_grid.ravel(), tensor2_to_grid.ravel()]).T
+        #        tensor1_to_grid, tensor2_to_grid = np.meshgrid(atom_indices1,atom_indices2)
+        #        pairs_list =np.vstack([tensor1_to_grid.ravel(), tensor2_to_grid.ravel()]).T
         #        dists = _mdtraj_compute_distances(tmp_item1,pairs_list,pbc)
         #        if output_form=='matrix':
         #            nframes=dists.shape[0]
@@ -436,8 +435,8 @@ def maximum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=No
 
         if (as_entity_1 is True) and (as_entity_2 is True):
 
-            pairs=_np.empty((nframes),dtype=int)
-            dists=_np.empty((nframes),dtype=float)
+            pairs=np.empty((nframes),dtype=int)
+            dists=np.empty((nframes),dtype=float)
             for indice_frame in range(nframes):
                 ii = all_dists[indice_frame,:].argmax()
                 pairs[indice_frame] = ii
@@ -475,7 +474,7 @@ def contact_map(molecular_system_1, selection_1="all", groups_of_atoms_1=None, g
     for indice_frame in range(num_frames):
         contact_map[indice_frame,:,:]=(all_dists[indice_frame,:,:]<=threshold)
 
-    del(all_dists, num_frames, indice_frame, unit_length)
+    del(all_dists, num_frames, indice_frame, length_units)
 
     return contact_map
 
@@ -542,7 +541,7 @@ def neighbors_lists(molecular_system_1, selection_1="all", groups_of_atoms_1=Non
                 neighs[indice_frame,ii,:]=neighs_aux[offset:]
                 dists[indice_frame,ii,:]=dists_aux[offset:]
                 if same_set:
-                    if dists_aux[0]._value > 0.01:
+                    if dists_aux[0] > 0.01:
                         raise ValueError("Error in algorithm, sets are different.")
 
         del(all_dists)
@@ -572,7 +571,7 @@ def neighbors_lists(molecular_system_1, selection_1="all", groups_of_atoms_1=Non
                 neighs[indice_frame,ii]=np.array(neighs_aux,dtype=int)[offset:]
                 dists[indice_frame,ii]=np.array(dists_aux,dtype=float)[offset:]
                 if same_set:
-                    if dists_aux[0]._value > 0.01:
+                    if dists_aux[0] > 0.01:
                         raise ValueError("Error in algorithm, sets are different.")
 
         del(all_dists)

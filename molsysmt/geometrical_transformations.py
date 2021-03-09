@@ -5,41 +5,40 @@ def translate(molecular_system, translation=None, selection='all', frame_indices
 
     from molsysmt.multitool import get, set, select, copy
 
-    coordinates, n_frames = get(molecular_system, target='atom', coordinates=True, n_frames=True)
-
     atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
-    n_atoms = atom_indices.shape[0]
+    coordinates = get(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)
 
-    translation = puw.standardize(translation)
-    unit = puw.get_unit(translation)
-    translation_value = puw.get_value(translation)
+    length_units = puw.get_unit(coordinates)
+    coordinates = puw.get_value(coordinates)
+    translation = puw.get_value(translation, in_units=length_units)
+    n_atoms = coordinates.shape[1]
 
-    if type(translation_value) in [list, tuple]:
-        translation_value = np.array(translation_value)
+    if type(translation) in [list, tuple]:
+        translation = np.array(translation)
 
-    if type(translation_value)==np.ndarray:
-        if len(translation_value.shape)==1:
-            if translation_value.shape[0]==3:
-                translation_value = np.tile(translation_value,(n_atoms,1))
+    if type(translation)==np.ndarray:
+        if len(translation.shape)==1:
+            if translation.shape[0]==3:
+                translation = np.tile(translation,(n_atoms,1))
             else:
                 raise ValueError('Wrong shape of translation vector')
-        elif len(translation_value.shape)==2:
-            if translation_value.shape[1]!=3:
+        elif len(translation.shape)==2:
+            if translation.shape[1]!=3:
                 raise ValueError('Wrong shape of translation vector')
+        elif len(translation.shape)==3:
+            if translation.shape[2]!=3:
+                raise ValueError('Wrong shape of translation vector')
+            if translation.shape[1]==1:
+                translation = np.tile(translation,(n_atoms,1))
 
-    translation = puw.quantity(translation_value, unit)
-
-    if frame_indices is 'all':
-        for ii in range(n_frames):
-            coordinates[ii,atom_indices,:]+=translation
-    else:
-        for ii in frame_indices:
-            coordinates[ii,atom_indices,:]+=translation
+    coordinates+=translation
+    coordinates=coordinates*length_units
 
     if in_place:
-        return set(molecular_system, coordinates=coordinates)
+        return set(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=coordinates)
     else:
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, coordinates=coordinates)
+        tmp_molecular_system = digest_molecular_system(tmp_molecular_system)
+        set(tmp_molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=coordinates)
         return tmp_molecular_system
 

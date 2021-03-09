@@ -2,42 +2,39 @@ from ._private_tools.engines import digest_engine
 from ._private_tools.frame_indices import digest_frame_indices
 from ._private_tools.forms import digest_form
 from ._private_tools.box import digest_box_angles, digest_box_lengths
-from molsysmt.lib import box as _libbox
+from molsysmt.lib import box as libbox
 import numpy as np
 from molsysmt import puw
 
 def box_shape_from_box_angles(angles):
 
-    import numpy as np
-
     shape = None
 
-    alpha = angles[:,0].mean()
-    beta = angles[:,1].mean()
-    gamma = angles[:,2].mean()
+    if angles is not None:
 
-    alpha = np.round(alpha, 2)
-    beta = np.round(beta, 2)
-    gamma = np.round(gamma, 2)
+        alpha = angles[:,0].mean()
+        beta = angles[:,1].mean()
+        gamma = angles[:,2].mean()
 
-    if alpha==90.00 and beta==90.00 and gamma==90.00:
-        shape = 'cubic'
-    else:
-        shape = 'triclinic'
+        alpha = np.round(alpha, 2)
+        beta = np.round(beta, 2)
+        gamma = np.round(gamma, 2)
+
+        if alpha==90.00 and beta==90.00 and gamma==90.00:
+            shape = 'cubic'
+        else:
+            shape = 'triclinic'
 
     return shape
 
 def box_shape_from_box_vectors(box):
 
-    from molsysmt.lib import box as _libbox
-
-    if box == None:
+    if box is None:
         return None
-
     else:
-
-        n_frames = box.shape[0]
-        angles = _libbox.angles_box(box._value, n_frames)
+        tmp_box = np.asfortranarray(puw.get_value(box), dtype='float64')
+        n_frames = tmp_box.shape[0]
+        angles = libbox.angles_box(tmp_box, n_frames)
         return box_shape_from_box_angles(angles)
 
 def box_lengths_from_box_vectors(box):
@@ -45,7 +42,7 @@ def box_lengths_from_box_vectors(box):
     unit = puw.get_unit(box)
     n_frames = box.shape[0]
     tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')
-    lengths = _libbox.length_edges_box(tmp_box, n_frames)
+    lengths = libbox.length_edges_box(tmp_box, n_frames)
     lengths = np.ascontiguousarray(lengths, dtype='float64')
     del(tmp_box)
 
@@ -55,7 +52,7 @@ def box_angles_from_box_vectors(box):
 
     n_frames = box.shape[0]
     tmp_box =  np.asfortranarray(puw.get_value(box), dtype='float64')
-    angles = _libbox.angles_box(tmp_box, n_frames)
+    angles = libbox.angles_box(tmp_box, n_frames)
     angles = np.ascontiguousarray(angles, dtype='float64')
     del(tmp_box)
 
@@ -73,7 +70,7 @@ def box_vectors_from_box_lengths_and_angles(lengths, angles):
     angles_value =  np.asfortranarray(angles_value, dtype='float64')
     n_frames = lengths.shape[0]
 
-    box = _libbox.lengths_and_angles_to_box(lengths_value, angles_value, n_frames)
+    box = libbox.lengths_and_angles_to_box(lengths_value, angles_value, n_frames)
     box = np.ascontiguousarray(box, dtype='float64').round(6)*units
 
     del(lengths_value, angles_value)
@@ -139,7 +136,7 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
         orthogonal = 0
         if box_shape=='cubic': orthogonal = 1
 
-        _libbox.minimum_image_convention(coordinates, reference_coordinates, centers_molecules,
+        libbox.minimum_image_convention(coordinates, reference_coordinates, centers_molecules,
                 molecules_serialized.indices, molecules_serialized.values,
                 molecules_serialized.starts, frame_indices, box, orthogonal,
                 n_frames, n_atoms, molecules_serialized.n_indices, molecules_serialized.n_values,
@@ -198,7 +195,7 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', frame_indices='all', s
         orthogonal = 0
         if box_shape=='cubic': orthogonal = 1
 
-        _libbox.unwrap(coordinates, molecules_serialized.indices, molecules_serialized.values, molecules_serialized.starts,
+        libbox.unwrap(coordinates, molecules_serialized.indices, molecules_serialized.values, molecules_serialized.starts,
                        bonded_atoms_serialized.indices, bonded_atoms_serialized.values, bonded_atoms_serialized.starts,
                        frame_indices, box, orthogonal, n_frames, n_atoms,
                        molecules_serialized.n_indices, molecules_serialized.n_values,

@@ -19,9 +19,11 @@
 - [X] Append_Concatenate
 - [X] Add_Merge
 
-- [ ] Centers
-- [ ] Distances
+- [X] Centers
+- [X] Distances
 
-
+- [X] Bondgraph
+- [X] Covalent_chains
+- [X] Dihedral_angles
 
 - [ ] Quickstart

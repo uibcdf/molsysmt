@@ -1,5 +1,7 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt import MolSys as _molsysmt_MolSys
+from molsysmt.native.molsys import MolSys as _molsysmt_MolSys
+from molsysmt import puw
+import numpy as np
 
 form_name='molsysmt.MolSys'
 
@@ -1574,6 +1576,33 @@ def get_n_bonds_from_bond(item, indices='all', frame_indices='all'):
 
 ###### Set
 
+## Atom
+
+def set_coordinates_to_atom(item, indices='all', frame_indices='all', value=None):
+
+    value = puw.standardize(value)
+
+    if indices is 'all':
+        if item.trajectory.coordinates.shape[1]!=value.shape[1]:
+            raise ValueError('New coordinates array has different number of atoms')
+
+    if frame_indices is 'all':
+        if item.trajectory.coordinates.shape[0]!=value.shape[0]:
+            raise ValueError('New coordinates array has different number of frames')
+
+    if indices is 'all':
+        if frame_indices is 'all':
+            item.trajectory.coordinates[:,:,:] = value[:,:,:]
+        else:
+            item.trajectory.coordinates[frame_indices,:,:] = value[:,:,:]
+    else:
+        if frame_indices is 'all':
+            item.trajectory.coordinates[:,indices,:] = value[:,:,:]
+        else:
+            item.trajectory.coordinates[np.ix_(frame_indices, indices)]=value[:,:,:]
+
+## System
+
 def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 
     item.trajectory.box = value
@@ -1581,6 +1610,5 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 
 def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
 
-    item.trajectory.coordinates = value
-    pass
+    return set_coordinates_to_atom(item, indices='all', frame_indices=frame_indices, value=value)
 
