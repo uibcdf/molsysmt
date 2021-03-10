@@ -26,4 +26,28 @@
 - [X] Covalent_chains
 - [X] Dihedral_angles
 
+- [X] Protonation
+- [ ] Physico chemical properties
+- [ ] Terminal Capping
+- [ ] Energy Minimization
+- [ ] Solvation
+
+- [ ] Alignment
+
+- [ ] ForceFields
+- [ ] Model loop
+- [ ] Molecular Systems
+- [ ] Mutations
+- [ ] PBC
+
+- [ ] Rg
+- [ ] RMSD
+- [ ] SASA
+
+- [ ] Working with OpenMM
+
 - [ ] Quickstart
+
+-------
+## Attic
+- [ ] Fix

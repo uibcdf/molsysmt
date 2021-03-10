@@ -1,4 +1,6 @@
-phys_ph7= {
+units = 'e'
+
+physical_pH7= {
     'ALA': 0.000,
     'ARG': 1.000,
     'ASP': -1.000,

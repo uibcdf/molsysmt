@@ -1,4 +1,6 @@
-weight = {
+units = 'amu'
+
+physical = {
 	"H" : 1.008,
 	"He" : 4.002602,
 	"Li" : 6.94,

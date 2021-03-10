@@ -64,7 +64,7 @@ def fix(item, missing_atoms=True, missing_residues=True, nonstandard_residues=Tr
     ----------
 
     item: molecular model
-        Molecular model in any supported form by MolSysMT. 
+        Molecular model in any supported form by MolSysMT.
 
     arg2: type, default='value'
         Paragraph with explanation.

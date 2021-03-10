@@ -1,6 +1,6 @@
-from ._private_tools.exceptions import *
+from molsysmt._private_tools.exceptions import *
 
-def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False):
+def add_missing_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False):
 
     """add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False)
 
@@ -51,16 +51,15 @@ def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='Ope
     """
 
 
-    from .multitool import convert
-    from .tools.forms import digest as digest_forms
-    from ._private_tools.engines import digest_engine
+    from molsysmt.multitool import convert, get_form
+    from molsysmt._private_tools._digestion import digest_engine
 
-    form_in, form_out = digest_forms(item)
-    engine = digest_engines(engine)
+    form = get_form(molecular_system)
+    engine = digest_engine(engine)
 
     if engine=="OpenMM":
 
-        tmp_item = convert(item, to_form="openmm.Modeller")
+        tmp_item = convert(molecular_system, to_form="openmm.Modeller")
         log_residues_changed = tmp_item.addHydrogens(pH=pH)
 
         if verbose:
@@ -74,7 +73,7 @@ def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='Ope
 
     elif engine=='PDBFixer':
 
-        tmp_item = convert(item, to_form="pdbfixer.PDBFixer")
+        tmp_item = convert(molecular_system, to_form="pdbfixer.PDBFixer")
         tmp_item.addMissingHydrogens(pH=pH)
 
         if verbose:
@@ -84,12 +83,7 @@ def add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='Ope
 
         raise NotImplementedError
 
-    tmp_item = convert(tmp_item, to_form=form_out)
+    tmp_item = convert(tmp_item, to_form=form)
 
     return tmp_item
-
-def redefine_protonation_states(item, pH=7.4, verbose=False):
-
-    raise NotImplementedError
-    pass
 
