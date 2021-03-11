@@ -79,16 +79,16 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indi
                      water_model=None, implicit_solvent=None, implicit_solvent_salt_conc='0.0 mol/L',
                      implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5):
 
-    from molsysmt._private_tools.forcefields import digest as digest_forcefields
-    from molsysmt._private_tools.simulation_parameters import digest as digest_simulation_parameters
+    from molsysmt._private_tools.forcefields import digest_forcefield
+    from molsysmt._private_tools.simulation_parameters import digest_simulation_parameters
     from simtk.openmm.app import ForceField
 
     if forcefield is None:
         raise ValueError('This conversion needs the input argument "forcefield".')
 
-    forcefield_omm_parameters=digest_forcefields(forcefield, 'OpenMM',
-                                                 implicit_solvent=implicit_solvent,
-                                                 water_model=water_model)
+    forcefield_omm_parameters=digest_forcefield(forcefield, 'OpenMM',
+                                                implicit_solvent=implicit_solvent,
+                                                water_model=water_model)
 
     system_omm_parameters=digest_simulation_parameters(engine='OpenMM', non_bonded_method=non_bonded_method,
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,

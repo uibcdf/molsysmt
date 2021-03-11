@@ -79,9 +79,12 @@ def box_vectors_from_box_lengths_and_angles(lengths, angles):
 
 def box_volume_from_box_vectors(box):
 
-    units = puw.get_unit(box)
-    value = puw.get_value(box)
-    volume = np.linalg.det(value)*units**3
+    if box is not None:
+        units = puw.get_unit(box)
+        value = puw.get_value(box)
+        volume = np.linalg.det(value)*units**3
+    else:
+        volume = None
 
     return volume
 

@@ -1,14 +1,12 @@
 import numpy as np
 from molsysmt._private_tools.exceptions import *
 
-def transmembrane_tendency(molecular_system, selection='all', type='zhao'):
+def surface_area(molecular_system, selection='all', type='collantes'):
 
     from molsysmt.multitool import get
 
-    if type == 'zhao':
-        from .groups.transmembrane_tendency import zhao as values
-    elif type == 'senes':
-        from .groups.transmembrane_tendency import senes as values
+    if type == 'collantes':
+        from .groups.surface_area import collantes as values
     else:
         raise NotImplementedError()
 

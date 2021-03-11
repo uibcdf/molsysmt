@@ -4,7 +4,7 @@ from molsysmt import puw
 def mass(molecular_system, target ='atom', selection = 'all'):
 
     from molsysmt.multitool import get
-    from molsysmt.physico_chemical_properties.atoms.masses import physical, units
+    from molsysmt.physico_chemical_properties.atoms.mass import physical, units
     from molsysmt._private_tools._digestion import digest_target
 
     target = digest_target(target)

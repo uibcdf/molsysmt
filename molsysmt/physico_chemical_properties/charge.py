@@ -1,5 +1,6 @@
 import numpy as np
 from molsysmt import puw
+from molsysmt._private_tools.exceptions import *
 
 def charge(molecular_system, target='group', selection = 'all', type='physical_pH7', forcefield=None, engine='OpenMM'):
 
@@ -12,11 +13,13 @@ def charge(molecular_system, target='group', selection = 'all', type='physical_p
 
         from molsysmt.multitool import get
 
-        from .residues.charge import units
+        from molsysmt.physico_chemical_properties.groups.charge import units
         if type=='physical_pH7':
-            from .residues.charge import physical_pH7 as values, units
+            from molsysmt.physico_chemical_properties.groups.charge import physical_pH7 as values, units
         elif type=='collantes':
-            from .residues.charge import collantes as values, units
+            from molsysmt.physico_chemical_properties.groups.charge import collantes as values, units
+        else:
+            raise NotImplementedError()
 
         output = []
 
@@ -45,11 +48,13 @@ def charge(molecular_system, target='group', selection = 'all', type='physical_p
         else:
             output = puw.quantity(np.array(output), units)
 
-    elif type=='ForceField':
+    elif forcefield is not None:
 
         from molsysmt.multitool import get, convert, get_form
 
         if engine == 'OpenMM':
+
+            from simtk.openmm import NonbondedForce
 
             if forcefield is not None:
 
@@ -64,24 +69,26 @@ def charge(molecular_system, target='group', selection = 'all', type='physical_p
                 else:
                     openmm_system = molecular_system
 
+            output = []
+
             if target=='atom':
 
                 atom_indices = get(molecular_system, target = target, selection = selection, atom_index = True)
 
-                for force_index in range(system.getNumForces()):
-                    force = system.getForce(force_index)
+                for force_index in range(openmm_system.getNumForces()):
+                    force = openmm_system.getForce(force_index)
                     if isinstance(force, NonbondedForce):
                         for index in atom_indices:
                             output.append(force.getParticleParameters(int(index))[0]._value)
 
-                output = np.array(output, dtype=float)*puw.unit('e')
+                output = np.array(output, dtype=float).round(4)*puw.unit('e')
 
             elif target in ['group', 'component', 'chain', 'molecule', 'entity']:
 
                 atom_indices = get(molecular_system, target = target, selection = selection, atom_index = True)
 
-                for force_index in range(system.getNumForces()):
-                    force = system.getForce(force_index)
+                for force_index in range(openmm_system.getNumForces()):
+                    force = openmm_system.getForce(force_index)
                     if isinstance(force, NonbondedForce):
                         for atom_list in atom_indices:
                             var_aux = 0.0
@@ -89,21 +96,20 @@ def charge(molecular_system, target='group', selection = 'all', type='physical_p
                                 var_aux+=force.getParticleParameters(int(index))[0]._value
                             output.append(var_aux)
 
-                output = np.array(output, dtype=float)*puw.unit('e')
+                output = np.array(output, dtype=float).round(4)*puw.unit('e')
 
             elif target=='system':
 
                 atom_indices = get(molecular_system, target = 'atom', selection = 'all', index = True)
 
                 var_aux = 0.0
-                for force_index in range(system.getNumForces()):
-                    force = system.getForce(force_index)
+                for force_index in range(openmm_system.getNumForces()):
+                    force = openmm_system.getForce(force_index)
                     if isinstance(force, NonbondedForce):
                         for index in atom_indices:
                             var_aux+=force.getParticleParameters(int(index))[0]._value
 
-                #output = int(round(var_aux))*unit.elementary_charge
-                output = var_aux*puw.charge('e')
+                output = np.round(var_aux,4)*puw.unit('e')
 
     else:
         raise NotImplementedError

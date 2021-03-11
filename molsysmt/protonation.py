@@ -1,5 +1,13 @@
 from molsysmt._private_tools.exceptions import *
 
+def has_hydrogens(molecular_system):
+
+    from molsysmt.multitool import get
+
+    n_hydrogens = get(molecular_system, target='atom', selection='atom_type=="H"', n_atoms=True)
+
+    return n_hydrogens
+
 def add_missing_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False):
 
     """add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False)

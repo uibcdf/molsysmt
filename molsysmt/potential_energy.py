@@ -14,17 +14,17 @@ from molsysmt._private_tools.engines import digest_engine
 from molsysmt._private_tools.forcefields import digest_forcefields
 from molsysmt import get_form, convert, puw
 
-def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
+def potential_energy (molecular_system, forcefield=None, non_bonded_method='no_cutoff',
         non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True,
         switch_distance=None, flexible_constraints=False, platform='CUDA',
         selection='all', syntaxis='MolSysMT', engine='OpenMM'):
 
     engine=digest_engines(engine)
-    in_form = get_form(item)
+    in_form = get_form(molecular_system)
 
     if engine=='OpenMM':
 
-        tmp_item = convert(item,
+        tmp_molecular_system = convert(molecular_system,
             forcefield=forcefield, non_bonded_method=non_bonded_method,
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
             rigid_water=rigid_water, switch_distance=switch_distance,
@@ -33,7 +33,7 @@ def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
             integration_timestep='2.0 fs', platform=platform,
             selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
 
-        state = tmp_item.context.getState(getEnergy=True)
+        state = tmp_molecular_system.context.getState(getEnergy=True)
         output = state.getPotentialEnergy()
 
     else:
@@ -45,21 +45,21 @@ def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
     return output
 
 
-def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_method='no_cutoff',
+def energy_minimization (molecular_system, method='L-BFGS', forcefield=None, non_bonded_method='no_cutoff',
         non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True, hydrogen_mass=None,
         switch_distance=None, flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
         water_model=None, implicit_solvent=None, implicit_solvent_salt_conc= '0.0 mol/L',
         implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5,
         platform='CUDA', to_form=None, selection='all', syntaxis='MolSysMT', engine='OpenMM', verbose=True, *kwargs):
 
-    """remove(item, selection=None, syntaxis='mdtraj')
+    """remove(molecular_system, selection=None, syntaxis='mdtraj')
 
     A new structure is returned with the molecular model relaxed to the nearest potential energy local
     minimum.
 
     Parameters
     ----------
-    item : molecular model
+    molecular_system : molecular model
         Molecular model in any form to be operated by the method.
     method : str (default "L-BFGS")
         Energy minimization method.
@@ -74,7 +74,7 @@ def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_meth
 
     Returns
     -------
-    item : molecular model
+    molecular_system : molecular model
         The result is a new molecular model with coordinates or positions relaxed to the nearest local minimum of
         the potential energy.
 
@@ -91,13 +91,13 @@ def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_meth
     from .multitool import get_form, get, convert
 
     engine=digest_engines(engine)
-    in_form = get_form(item)
+    in_form = get_form(molecular_system)
     if to_form is None:
         to_form = in_form
 
     if engine=='OpenMM':
 
-        simulation = convert(item,
+        simulation = convert(molecular_system,
             forcefield=forcefield, non_bonded_method=non_bonded_method,
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
             rigid_water=rigid_water, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
@@ -124,9 +124,9 @@ def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_meth
             energy_post_min = puw.standardize(energy_post_min)
             print("Potential Energy after minimization: {}".format(energy_post_min))
 
-        tmp_item = convert(simulation, to_form=to_form)
+        tmp_molecular_system = convert(simulation, to_form=to_form)
 
-        return tmp_item
+        return tmp_molecular_system
 
     else:
 

@@ -18,18 +18,17 @@ from .distances import distance, minimum_distance, maximum_distance, contact_map
 from .graphs import bondgraph
 from .covalent import covalent_chains, covalent_blocks, covalent_dihedral_quartets
 from .dihedral_angles import get_dihedral_angles, set_dihedral_angles, shift_dihedral_angles, ramachandran_angles
-from .protonation import add_missing_hydrogens
+from .protonation import add_missing_hydrogens, has_hydrogens
 from .terminals_capping import add_terminal_capping
 from . import physico_chemical_properties as physchem
-
+from .solvate_box import solvate, is_solvated
+from .potential_energy import energy_minimization, potential_energy
 
 #from .rmsd import rmsd, least_rmsd, least_rmsd_fit, angular_rmsd
 #from .sequence import sequence_alignment, sequence_identity, structure_alignment
 #from .radius_of_gyration import radius_of_gyration
 #from .fix import fix_chains, fix
 #from .model_loops import add_loop
-#from .potential_energy import energy_minimization, potential_energy
-#from .solvate_box import solvate, is_solvated
 #from .mutations import mutate
 #from . import elements as elements
 #from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention,\

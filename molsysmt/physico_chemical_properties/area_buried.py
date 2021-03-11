@@ -1,14 +1,12 @@
 import numpy as np
 from molsysmt._private_tools.exceptions import *
 
-def transmembrane_tendency(molecular_system, selection='all', type='zhao'):
+def area_buried(molecular_system, selection='all', type='rose'):
 
     from molsysmt.multitool import get
 
-    if type == 'zhao':
-        from .groups.transmembrane_tendency import zhao as values
-    elif type == 'senes':
-        from .groups.transmembrane_tendency import senes as values
+    if type == 'rose':
+        from .groups.area_buried import rose as values
     else:
         raise NotImplementedError()
 

@@ -27,10 +27,11 @@
 - [X] Dihedral_angles
 
 - [X] Protonation
-- [ ] Physico chemical properties
-- [ ] Terminal Capping
+- [X] Physico chemical properties
+- [X] Terminal Capping
+- [X] Solvation
 - [ ] Energy Minimization
-- [ ] Solvation
+
 
 - [ ] Alignment
 

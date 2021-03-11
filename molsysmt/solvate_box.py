@@ -1,8 +1,9 @@
 # =======================
 # Creando cajas solvatadas
 # =======================
-
-from os import remove
+import numpy as np
+from molsysmt import puw
+from molsysmt._private_tools.exceptions import *
 
 """
 Solvate Box
@@ -14,7 +15,7 @@ Methods and wrappers to create and solvate boxes
 
 def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='14.0 angstroms', water='TIP3P',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
-             ionic_strength='0.0 molar', forcefield='AMBER99SB-ILDN', engine="LEaP",
+             ionic_strength='0.0 molar', forcefield='AMBER99SBILDN', engine="LEaP",
              to_form= None, logfile=False, verbose=False):
     """solvate(item, geometry=None, water=None, engine=None)
 
@@ -44,43 +45,39 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
     -----
     """
 
-    from .tools.forms import digest as digest_forms
+    from molsysmt._private_tools._digestion import digest_to_form, digest_engine
+    from molsysmt.multitool import get_form, convert
 
-    form_in, form_out = digest_forms(item)
+    engine = digest_engine(engine)
+    to_form = digest_to_form(to_form)
+    if to_form is None:
+        to_form = get_form(molecular_system)
 
     if engine=="OpenMM":
 
-        from molsysmt import convert
-        from molsysmt._private_tools.forcefields import digest as digest_forcefield
+        from molsysmt._private_tools.forcefields import digest_forcefield
         from simtk.openmm.app import ForceField
         from simtk.openmm import Vec3
-        from numpy import sqrt
+
+        clearance = puw.translate(clearance, to_form='simtk.unit')
+        ionic_strength = puw.translate(ionic_strength, to_form='simtk.unit')
 
         modeller = convert(molecular_system, to_form='openmm.Modeller')
+        forcefield_parameters = digest_forcefield(forcefield, 'OpenMM', water_model=water)
+        forcefield = ForceField(*forcefield_parameters)
 
         solvent_model=None
         if water=='SPC':
             solvent_model='tip3p'
-        elif water=='TIP3P':
-            solvent_model='tip3p'
-        elif water=='TIP3PFB':
-            solvent_model='tip3pfb'
-        elif water=='SPCE':
-            solvent_model='spce'
-        elif water =='TIP4PEW':
-            solvent_model='tip4pew'
-        elif water =='TIP4PFB':
-            solvent_model='tip4pfb'
-        elif water =='TIP5P':
-            solvent_model='tip5p'
-
-        forcefield_parameters = digest_forcefield([forcefield, water], 'OpenMM')
-        forcefield = ForceField(*forcefield_parameters)
+        elif water in ['TIP3P','TIP3PFB','SPCE', 'TIP4PEW','TIP4PFB','TIP5P']:
+            solvent_model=water.lower()
+        else:
+            raise NotImplementedError()
 
         if box_geometry=="truncated_octahedral":
 
             max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
-            vectors = Vec3(1,0,0), Vec3(1/3,2*sqrt(2)/3,0), Vec3(-1/3,1/3,sqrt(6)/3)
+            vectors = Vec3(1,0,0), Vec3(1/3,2*np.sqrt(2)/3,0), Vec3(-1/3,1/3,np.sqrt(6)/3)
             box_vectors = [(max_size+clearance)*v for v in vectors]
 
             modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
@@ -89,7 +86,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         elif box_geometry=="rhombic_dodecahedron":
 
             max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
-            vectors = Vec3(1,0,0), Vec3(0,1,0), Vec3(0.5,0.5,sqrt(2)/2)
+            vectors = Vec3(1,0,0), Vec3(0,1,0), Vec3(0.5,0.5,np.sqrt(2)/2)
             box_vectors = [(max_size+clearance)*v for v in vectors]
 
             modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
@@ -101,7 +98,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
                                ionicStrength=ionic_strength, positiveIon=cation,
                                negativeIon=anion)
 
-        tmp_item = convert(modeller, to_form=form_out)
+        tmp_item = convert(modeller, to_form=to_form)
 
         del(modeller)
 
@@ -109,67 +106,51 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
 
     elif engine=="PDBFixer":
 
-        from molsysmt import convert
+        clearance = puw.translate(clearance, to_form='simtk.unit')
+        ionic_strength = puw.translate(ionic_strength, to_form='simtk.unit')
 
-        pdbfixer = convert(molecular_system, to_form='openmm.Modeller')
+        pdbfixer = convert(molecular_system, to_form='pdbfixer.PDBFixer')
         max_size = max(max((pos[i] for pos in pdbfixer.positions))-min((pos[i] for pos in pdbfixer.positions)) for i in range(3))
 
         box_size = None
         box_vectors = None
 
         if box_geometry=="truncated_octahedral":
-            vectors = mm.Vec3(1,0,0), mm.Vec3(1/3,2*sqrt(2)/3,0), mm.Vec3(-1/3,1/3,sqrt(6)/3)
+            vectors = mm.Vec3(1,0,0), mm.Vec3(1/3,2*np.sqrt(2)/3,0), mm.Vec3(-1/3,1/3,np.sqrt(6)/3)
             box_vectors = [(max_size+clearance)*v for v in vectors]
         elif box_geometry=="rhombic_dodecahedron":
             vectors = mm.Vec3(1,0,0), mm.Vec3(0,1,0), mm.Vec3(0.5,0.5,sqrt(2)/2)
             box_vectors = [(max_size+clearance)*v for v in vectors]
 
-        solvent_model=None
-        if water=='SPC':
-            solvent_model='tip3p'
-        elif water=='TIP3P':
-            solvent_model='tip3p'
-        elif water=='TIP3PFB':
-            solvent_model='tip3pfb'
-        elif water=='SPCE':
-            solvent_model='spce'
-        elif water =='TIP4PEW':
-            solvent_model='tip4pew'
-        elif water =='TIP4PFB':
-            solvent_model='tip4pfb'
-        elif water =='TIP5P':
-            solvent_model='tip5p'
-
-        pdbfixer.addSolvent(model=solvent_model, padding=clearance,
+        pdbfixer.addSolvent(padding=clearance,
                             boxVectors = box_vectors,
                             ionicStrength=ionic_strength, positiveIon=cation,
                             negativeIon=anion)
-        tmp_item = convert(modeller, to_form=form_out)
+
+        tmp_item = convert(pdbfixer, to_form=to_form)
+
         del(pdbfixer)
 
         return tmp_item
 
     elif engine=="LEaP":
 
-        from molsysmt.tools import TLeap
-        from molsysmt.tools.files_and_directories import tmp_directory, tmp_filename
+        from molsysmt.tools.tleap import TLeap
+        from molsysmt._private_tools.files_and_directories import tmp_directory, tmp_filename
         from shutil import rmtree, copyfile
         from os import getcwd, chdir
-        from molsysmt._private_tools.forcefields import digest as digest_forcefield
-        from molsysmt import convert
+        from molsysmt._private_tools.forcefields import digest_forcefield
 
         current_directory = getcwd()
         working_directory = tmp_directory()
         pdbfile_in = tmp_filename(dir=working_directory, extension='pdb')
-        convert(item, to_form=pdbfile_in)
+        _ = convert(molecular_system, to_form=pdbfile_in)
 
         tmp_prmtop = tmp_filename(dir=working_directory, extension='prmtop')
         tmp_inpcrd = tmp_prmtop.replace('prmtop','inpcrd')
         tmp_logfile = tmp_prmtop.replace('prmtop','leap.log')
-        #pdbfile_out = tmp_filename(dir=working_directory, extension='pdb')
-        #tmp_logfile = pdbfile_out.replace('pdb','leap.log')
 
-        forcefield_parameters = digest_forcefield([forcefield, water], 'LEap')
+        forcefield_parameters = digest_forcefield(forcefield, 'LEaP', water_model=water)
 
         solvent_model=None
         if water=='SPC':
@@ -207,8 +188,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         if logfile:
             copyfile(tmp_logfile, current_directory+'/build_peptide.log')
 
-        #tmp_item = convert(pdbfile_out, to_form=to_form)
-        tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=form_out)
+        tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)
 
         rmtree(working_directory)
 
@@ -226,7 +206,7 @@ def is_solvated(molecular_system):
 
     n_waters, volume = get(molecular_system, target='system', n_waters=True, box_volume=True)
     if (n_waters>0) and (volume is not None):
-        density_number = (n_waters/volume)._value
+        density_number = puw.get_value((n_waters/volume), in_units='1/nm**3')
         if (density_number)>15:
             output = True
 
