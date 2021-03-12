@@ -58,33 +58,6 @@ class Simulation():
 
         return output
 
-    def to_openmm_System(self, molecular_system=None, selection='all', frame_indices='all'):
-
-        from molsysmt.multitool import convert
-
-        if molecular_system is None:
-            molecular_system = self._molecular_system
-        else:
-            molecular_system = digest_molecular_system(molecular_system)
-
-        if molecular_system is None:
-            raise NoMolecularSystemError()
-
-        topology = convert(molecular_system, selection=selection)
-
-        forcefield = self.to_openmm_ForceField()
-        system_parameters = self.to_openmm_System_parameters()
-        system = forcefield.createSystem(topology, **system_parameters)
-
-        if self.use_dispersion_correction or self.ewald_error_tolerance:
-            forces = {ii.__class__.__name__ : ii for ii in tmp_item.getForces()}
-            if self.use_dispersion_correction:
-                forces['NonbondedForce'].setUseDispersionCorrection(True)
-            if self.ewald_error_tolerance:
-                forces['NonbondedForce'].setEwaldErrorTolerance(self.ewald_error_tolerance)
-
-        return output
-
     def get_openmm_Simulation_parameters(self):
 
         output = {}
