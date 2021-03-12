@@ -22,8 +22,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
     # constraint_tolerance 0.00001
 
     from molsysmt.multitool import convert, get
-    from simtk.openmm import app, LangevinIntegrator
-    from simtk.openmm import Platform
+    from simtk.openmm import app, LangevinIntegrator, Platform
 
     topology= convert(molecular_system, selection=atom_indices, to_form='openmm.Topology')
     positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
