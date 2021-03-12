@@ -2,6 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from simtk.openmm import System as _openmm_System
+from molsysmt import puw
 
 form_name='openmm.System'
 
@@ -16,9 +17,7 @@ with_box=True
 with_bonds=True
 with_parameters=True
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all',
-                         integrator='Langevin', temperature='300.0 K', collisions_rate='1.0 1/ps',
-                         integration_timestep='2.0 fs', platform='CUDA', constraint_tolerance=None):
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all', simulation=None):
 
     # constraint_tolerance 0.00001
 
@@ -26,9 +25,9 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
     from simtk.openmm import app, LangevinIntegrator
     from simtk.openmm import Platform
 
-    topology= convert(topology_item, selection=atom_indices, to_form='openmm.Topology')
-    positions = get(trajectory_item, target='atom', selection=atom_indices,
-            frame_indices=frame_indices, coordinates=True)[0]
+    topology= convert(molecular_system, selection=atom_indices, to_form='openmm.Topology')
+    positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
+    positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
 
     if integrator=='Langevin':
         integrator_aux = LangevinIntegrator(temperature, collisions_rate, integration_timestep)

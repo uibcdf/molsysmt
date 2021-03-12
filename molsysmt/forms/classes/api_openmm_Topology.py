@@ -72,74 +72,28 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item
 
-def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all',
-                     forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-                     rigid_water=True, remove_cm_motion=False, hydrogen_mass=None, switch_distance=None,
-                     flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-                     water_model=None, implicit_solvent=None, implicit_solvent_salt_conc='0.0 mol/L',
-                     implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5):
+def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all', simulation=simulation):
 
-    from molsysmt._private_tools.forcefields import digest_forcefield
-    from molsysmt._private_tools.simulation_parameters import digest_simulation_parameters
-    from simtk.openmm.app import ForceField
+    forcefield = simulation.to_openmm_ForceField()
+    system_parameters = simulation.get_openmm_System_parameters()
+    tmp_item = forcefield.createSystem(topology, **system_parameters)
 
-    if forcefield is None:
-        raise ValueError('This conversion needs the input argument "forcefield".')
-
-    forcefield_omm_parameters=digest_forcefield(forcefield, 'OpenMM',
-                                                implicit_solvent=implicit_solvent,
-                                                water_model=water_model)
-
-    system_omm_parameters=digest_simulation_parameters(engine='OpenMM', non_bonded_method=non_bonded_method,
-            non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
-            remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
-            switch_distance=switch_distance, flexible_constraints=flexible_constraints,
-            use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
-            implicit_solvent=implicit_solvent,
-            implicit_solvent_salt_conc=implicit_solvent_salt_conc, implicit_solvent_kappa=implicit_solvent_kappa,
-            solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric)
-
-
-    forcefield_generator = ForceField(*forcefield_omm_parameters)
-    tmp_item = forcefield_generator.createSystem(item, **system_omm_parameters)
-
-    if use_dispersion_correction or ewald_error_tolerance:
+    if simulation.use_dispersion_correction or simulation.ewald_error_tolerance:
         forces = {ii.__class__.__name__ : ii for ii in tmp_item.getForces()}
-        if use_dispersion_correction:
-            forces['NonbondedForce'].setUseDispersionCorrection(True)
-        if ewald_error_tolerance:
-            forces['NonbondedForce'].setEwaldErrorTolerance(ewald_error_tolerance)
+    if simulation.use_dispersion_correction:
+        forces['NonbondedForce'].setUseDispersionCorrection(True)
+    if simulation.ewald_error_tolerance:
+        forces['NonbondedForce'].setEwaldErrorTolerance(simulation.ewald_error_tolerance)
 
     return tmp_item
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all',
-                         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-                         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-                         flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-                         water_model=None, implicit_solvent=None, implicit_solvent_kappa='0.0 1/nm',
-                         solute_dielectric=1.0, solvent_dielectric=78.5, integrator='Langevin',
-                         temperature='300.0 K', collisions_rate='1.0 1/ps', integration_timestep='2.0 fs', platform='CUDA',
-                         constraint_tolerance=None):
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all', simulation=simulation):
 
-    from .api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
-    from molsysmt.multitool import convert, get
+    from molsysmt.forms.classes.api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
 
-    topology = item
-    positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
-
-    system = to_openmm_System(item, atom_indices=atom_indices, frame_indices=frame_indices,
-        forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
-        rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
-        flexible_constraints=flexible_constraints,
-        use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
-        water_model=water_model, implicit_solvent=implicit_solvent,
-        implicit_solvent_kappa=implicit_solvent_kappa, solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric,
-        **kwargs)
-
-    tmp_item = openmm_System_to_openmm_Simulation(system, topology_item=topology,
-            trajectory_item=positions, atom_indices='all', frame_indices=0,
-            integrator=integrator, temperature=temperature, collisions_rate=collisions_rate,
-            integration_timestep=integration_timestep, platform=platform, constraint_tolerance=constraint_tolerance)
+    tmp_item = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, simulation=simulation)
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = openmm_System_to_openmm_Simulation(tmp_item, molecular_system=molecular_system, simulation=simulation)
 
     return tmp_item
 

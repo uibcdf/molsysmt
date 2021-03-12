@@ -22,6 +22,12 @@ class NeedsSingleMolecularSystemError(ValueError):
             message = 'This method works only over a single molecular system. But multiple molecular systems are provided.'
         super().__init__(message)
 
+class NoMolecularSystemError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = 'A molecular system is needed.'
+        super().__init__(message)
+
 class NotImplementedError(NotImplementedError):
     def __init__(self, message=None):
         if message is None:

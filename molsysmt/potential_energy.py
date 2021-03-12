@@ -10,17 +10,20 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
-from molsysmt._private_tools.engines import digest_engine
-from molsysmt._private_tools.forcefields import digest_forcefields
-from molsysmt import get_form, convert, puw
+from molsysmt._private_tools.exceptions import *
+from molsysmt import puw
 
 def potential_energy (molecular_system, forcefield=None, non_bonded_method='no_cutoff',
-        non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True,
-        switch_distance=None, flexible_constraints=False, platform='CUDA',
-        selection='all', syntaxis='MolSysMT', engine='OpenMM'):
+    non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True,
+    switch_distance=None, flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
+    water_model=None, implicit_solvent=None, implicit_solvent_salt_conc='0.0 mol/L',
+    implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5,
+    platform='CUDA', selection='all', frame_indices='all', syntaxis='MolSysMT', engine='OpenMM'):
 
-    engine=digest_engines(engine)
-    in_form = get_form(molecular_system)
+    from molsysmt._private_tools._digestion import digest_engine
+    from molsysmt.multitool import convert
+
+    engine=digest_engine(engine)
 
     if engine=='OpenMM':
 
@@ -28,10 +31,13 @@ def potential_energy (molecular_system, forcefield=None, non_bonded_method='no_c
             forcefield=forcefield, non_bonded_method=non_bonded_method,
             non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
             rigid_water=rigid_water, switch_distance=switch_distance,
-            flexible_constraints=flexible_constraints,
+            flexible_constraints=flexible_constraints, use_dispersion_correction=use_dispersion_correction,
+            ewald_error_tolerance=ewald_error_tolerance, water_model=water_model, implicit_solvent=implicit_solvent,
+            implicit_solvent_salt_conc=implicit_solvent_salt_conc, implicit_solvent_kappa=implicit_solvent_kappa,
+            solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric,
             integrator='Langevin', temperature='0 K', collisions_rate='1.0 1/ps',
             integration_timestep='2.0 fs', platform=platform,
-            selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
+            selection=selection, frame_indices=frame_indices, syntaxis=syntaxis, to_form='openmm.Simulation')
 
         state = tmp_molecular_system.context.getState(getEnergy=True)
         output = state.getPotentialEnergy()
@@ -44,13 +50,12 @@ def potential_energy (molecular_system, forcefield=None, non_bonded_method='no_c
 
     return output
 
-
 def energy_minimization (molecular_system, method='L-BFGS', forcefield=None, non_bonded_method='no_cutoff',
         non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True, hydrogen_mass=None,
         switch_distance=None, flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
         water_model=None, implicit_solvent=None, implicit_solvent_salt_conc= '0.0 mol/L',
         implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5,
-        platform='CUDA', to_form=None, selection='all', syntaxis='MolSysMT', engine='OpenMM', verbose=True, *kwargs):
+        platform='CUDA', to_form=None, selection='all', frame_indices='all', syntaxis='MolSysMT', engine='OpenMM', verbose=True):
 
     """remove(molecular_system, selection=None, syntaxis='mdtraj')
 
@@ -87,13 +92,13 @@ def energy_minimization (molecular_system, method='L-BFGS', forcefield=None, non
     >>> minimized_system = m3t.minimze(system)
 
     """
+    from molsysmt._private_tools._digestion import digest_engine
+    from molsysmt.multitool import convert, get_form
 
-    from .multitool import get_form, get, convert
+    engine=digest_engine(engine)
 
-    engine=digest_engines(engine)
-    in_form = get_form(molecular_system)
     if to_form is None:
-        to_form = in_form
+        to_form = get_form(molecular_system)
 
     if engine=='OpenMM':
 
@@ -107,18 +112,21 @@ def energy_minimization (molecular_system, method='L-BFGS', forcefield=None, non
             implicit_solvent_kappa=implicit_solvent_kappa, solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric,
             integrator='Langevin', temperature='0 K', collisions_rate='1.0 1/ps',
             integration_timestep='2.0 fs', platform=platform,
-            selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
+            selection=selection, frame_indices=frame_indices, syntaxis=syntaxis, to_form='openmm.Simulation')
 
         if verbose:
+
             state_pre_min = simulation.context.getState(getEnergy=True)
             energy_pre_min = state_pre_min.getPotentialEnergy()
             energy_pre_min = puw.standardize(energy_pre_min)
             print("Potential Energy before minimization: {}".format(energy_pre_min))
 
         if method=='L-BFGS':
+
             simulation.minimizeEnergy()
 
         if verbose:
+
             state_post_min = simulation.context.getState(getEnergy=True)
             energy_post_min = state_post_min.getPotentialEnergy()
             energy_post_min = puw.standardize(energy_post_min)

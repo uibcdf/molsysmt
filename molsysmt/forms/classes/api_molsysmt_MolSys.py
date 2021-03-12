@@ -106,43 +106,21 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item
 
-def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all',
-        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-        rigid_water=True, remove_cm_motion=False, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-        water_model=None, implicit_solvent=None, implicit_solvent_salt_conc='0.0 mol/L',
-        implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5):
+def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all', simulation_parameters=None):
 
     from molsysmt.native.io.molsys.classes import to_openmm_System as molsysmt_MolSys_to_openmm_System
 
-    tmp_item = molsysmt_MolSys_to_openmm_System(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
-        forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
-        rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
-        flexible_constraints=flexible_constraints, use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
-        water_model=water_model, implicit_solvent=implicit_solvent, implicit_solvent_salt_conc=implicit_solvent_salt_conc,
-        implicit_solvent_kappa=implicit_solvent_kappa, solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric)
+    tmp_item = molsysmt_MolSys_to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices,
+                                                frame_indices=frame_indices, simulation_parameters=simulation_parameters)
 
     return tmp_item
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all',
-        forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-        rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-        flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-        water_model=None, implicit_solvent=None, implicit_solvent_salt_conc='0.0 mol/L',
-        implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5,
-        integrator='Langevin', temperature='300.0K', collisions_rate='1.0 1/ps', integration_timestep='2.0 fs',
-        platform='CUDA'):
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all', simulation_parameters=None):
 
     from molsysmt.native.io.molsys.classes import to_openmm_Simulation as molsysmt_MolSys_to_openmm_Simulation
 
     tmp_item = molsysmt_MolSys_to_openmm_Simulation(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
-        forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
-        rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
-        flexible_constraints=flexible_constraints, use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
-        water_model=water_model, implicit_solvent=implicit_solvent, implicit_solvent_salt_conc=implicit_solvent_salt_conc,
-        implicit_solvent_kappa=implicit_solvent_kappa, solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric,
-        integrator=integrator, temperature=temperature, collisions_rate=collisions_rate, integration_timestep=integration_timestep,
-        platform=platform)
+                                                    simulation_parameters=simulation_parameters)
 
     return tmp_item
 
