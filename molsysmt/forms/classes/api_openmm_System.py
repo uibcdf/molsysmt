@@ -19,30 +19,23 @@ with_parameters=True
 
 def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all', simulation=None):
 
-    # constraint_tolerance 0.00001
-
     from molsysmt.multitool import convert, get
-    from simtk.openmm import app, LangevinIntegrator, Platform
+    from simtk.openmm.app import Simulation
 
     topology= convert(molecular_system, selection=atom_indices, to_form='openmm.Topology')
     positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
     positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
 
-    if integrator=='Langevin':
-        integrator_aux = LangevinIntegrator(temperature, collisions_rate, integration_timestep)
-        if constraint_tolerance is not None:
-            integrator_aux.setConstraintTolerance(constraint_tolerance)
-    else:
-        raise NotImplementedError('The integrator was not implemented yet in the conversion method.')
+    integrator = simulation.to_openmm_Integrator()
+    platform = simulation.to_openmm_Platform()
 
-    platform_aux = Platform.getPlatformByName(platform)
-    simulation_properties = {}
-    if platform=='CUDA':
-        simulation_properties['CudaPrecision']='mixed'
+    simulation_parameters = simulation.get_openmm_Simulation_parameters()
 
-    tmp_item = app.Simulation(topology, item, integrator_aux, platform_aux, simulation_properties)
+    tmp_item = Simulation(topology, item, integrator, platform, **simulation_properties)
     tmp_item.context.setPositions(positions)
-    tmp_item.context.setVelocitiesToTemperature(temperature)
+    if simulation.initial_velocities_to_temperature:
+        temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
+        tmp_item.context.setVelocitiesToTemperature(temperature)
 
     return tmp_item
 
