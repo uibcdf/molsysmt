@@ -10,9 +10,11 @@ is_form = {
 
 info=["",""]
 with_topology=True
+with_bonds=False
 with_coordinates=False
 with_box=False
 with_parameters=False
+with_simulation=False
 
 def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

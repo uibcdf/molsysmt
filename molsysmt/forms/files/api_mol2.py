@@ -15,6 +15,7 @@ with_coordinates=True
 with_box=False
 with_bonds=True
 with_parameters=True
+with_simulation=False
 
 def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -312,26 +313,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    return with_box
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    return with_bonds
 
 ## bond
 

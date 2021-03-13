@@ -15,6 +15,7 @@ with_coordinates=True
 with_box=True
 with_bonds=False
 with_parameters=True
+with_simulation=False
 
 ## Methods
 

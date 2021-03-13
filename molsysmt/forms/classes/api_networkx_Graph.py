@@ -15,6 +15,7 @@ with_coordinates=False
 with_box=False
 with_bonds=True
 with_parameters=False
+with_simulation=False
 
 def select_with_MDTraj(item, selection):
 
@@ -42,4 +43,5 @@ def append_frames(item, step=None, time=None, coordinates=None, box=None):
 ###### Get
 
 ## system
+
 

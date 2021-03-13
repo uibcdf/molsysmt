@@ -14,6 +14,7 @@ with_coordinates=True
 with_box=True
 with_bonds=False
 with_parameters=False
+with_simulation=False
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -37,5 +38,4 @@ def append_frames(item, step=None, time=None, coordinates=None, box=None):
 ###### Get
 
 ## system
-
 

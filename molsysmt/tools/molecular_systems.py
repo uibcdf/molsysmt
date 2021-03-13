@@ -2,7 +2,8 @@ import numpy as np
 
 def is_a_single_molecular_system(items):
 
-    from molsysmt.multitool import dict_get, get_form
+    from molsysmt.multitool import get_form
+    from molsysmt.forms import dict_has
     from molsysmt.molecular_system import MolecularSystem
 
     if type(items) in [list, tuple]:
@@ -17,9 +18,9 @@ def is_a_single_molecular_system(items):
                 return False
             else:
                 form_in = get_form(item)
-                has_topology = dict_get[form_in]["system"]["has_topology"](item)
-                has_coordinates = dict_get[form_in]["system"]["has_coordinates"](item)
-                has_box = dict_get[form_in]["system"]["has_box"](item)
+                has_topology = dict_has[form_in]["topology"]
+                has_coordinates = dict_has[form_in]["coordinates"]
+                has_box = dict_has[form_in]["box"]
                 if has_topology:
                     n_topologies+=1
                 if has_coordinates:
@@ -59,8 +60,8 @@ def is_a_single_molecular_system(items):
 
 def where_topology_in_molecular_system(items):
 
-    from molsysmt import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.multitool import get_form
+    from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
         raise ValueError ("This method needs a single molecular system as input")
@@ -71,8 +72,8 @@ def where_topology_in_molecular_system(items):
     if type(items) in [list, tuple]:
         for item in items:
             form_in = get_form(item)
-            has_topology = dict_get[form_in]["system"]["has_topology"](item)
-            has_coordinates = dict_get[form_in]["system"]["has_coordinates"](item)
+            has_topology = dict_has[form_in]["topology"]
+            has_coordinates = dict_has[form_in]["coordinates"]
             if has_topology:
                 if topology_item is None:
                     topology_item = item
@@ -82,7 +83,7 @@ def where_topology_in_molecular_system(items):
                     topology_form = form_in
     else:
         form_in = get_form(items)
-        has_topology = dict_get[form_in]["system"]["has_topology"](items)
+        has_topology = dict_has[form_in]["topology"]
         if has_topology:
             topology_item = items
             topology_form = form_in
@@ -91,8 +92,8 @@ def where_topology_in_molecular_system(items):
 
 def where_coordinates_in_molecular_system(items):
 
-    from molsysmt import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.multitool import get_form
+    from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
         raise ValueError ("This method needs a single molecular system as input")
@@ -103,8 +104,8 @@ def where_coordinates_in_molecular_system(items):
     if type(items) in [list, tuple]:
         for item in items:
             form_in = get_form(item)
-            has_topology = dict_get[form_in]["system"]["has_topology"](item)
-            has_coordinates = dict_get[form_in]["system"]["has_coordinates"](item)
+            has_topology = dict_has[form_in]["topology"]
+            has_coordinates = dict_has[form_in]["coordinates"]
             if has_coordinates:
                 if coordinates_item is None:
                     coordinates_item = item
@@ -114,7 +115,7 @@ def where_coordinates_in_molecular_system(items):
                     coordinates_form = form_in
     else:
         form_in = get_form(items)
-        has_coordinates = dict_get[form_in]["system"]["has_coordinates"](items)
+        has_coordinates = dict_has[form_in]["coordinates"]
         if has_coordinates:
             coordinates_item = items
             coordinates_form = form_in
@@ -123,8 +124,8 @@ def where_coordinates_in_molecular_system(items):
 
 def where_box_in_molecular_system(items):
 
-    from molsysmt import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.multitool import get_form
+    from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
         raise ValueError ("This method needs a single molecular system as input")
@@ -135,9 +136,9 @@ def where_box_in_molecular_system(items):
     if type(items) in [list, tuple]:
         for item in items:
             form_in = get_form(item)
-            has_topology = dict_get[form_in]["system"]["has_topology"](item)
-            has_coordinates = dict_get[form_in]["system"]["has_coordinates"](item)
-            has_box = dict_get[form_in]["system"]["has_box"](item)
+            has_topology = dict_has[form_in]["topology"]
+            has_coordinates = dict_has[form_in]["coordinates"]
+            has_box = dict_has[form_in]["box"]
             if has_box and not (has_topology or has_coordinates):
                 box_item = item
                 box_form = form_in
@@ -152,7 +153,7 @@ def where_box_in_molecular_system(items):
                         box_form = form_in
     else:
         form_in = get_form(items)
-        has_box = dict_get[form_in]["system"]["has_box"](items)
+        has_box = dict_has[form_in]["box"]
         if has_box:
             box_item = items
             box_form = form_in
@@ -161,8 +162,8 @@ def where_box_in_molecular_system(items):
 
 def where_bonds_in_molecular_system(items):
 
-    from molsysmt import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.multitool import get_form
+    from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
         raise ValueError ("This method needs a single molecular system as input")
@@ -173,8 +174,8 @@ def where_bonds_in_molecular_system(items):
     if type(items) in [list, tuple]:
         for item in items:
             form_in = get_form(item)
-            has_topology = dict_get[form_in]["system"]["has_topology"](item)
-            has_bonds = dict_get[form_in]["system"]["has_bonds"](item)
+            has_topology = dict_has[form_in]["topology"]
+            has_bonds = dict_has[form_in]["bonds"]
             if has_bonds and not has_topology:
                 bonds_item = item
                 bonds_form = form_in
@@ -186,7 +187,7 @@ def where_bonds_in_molecular_system(items):
                         bonds_form = form_in
     else:
         form_in = get_form(items)
-        has_bonds = dict_get[form_in]["system"]["has_bonds"](items)
+        has_bonds = dict_has[form_in]["bonds"]
         if has_bonds:
             bonds_item = items
             bonds_form = form_in
@@ -195,8 +196,8 @@ def where_bonds_in_molecular_system(items):
 
 def where_parameters_in_molecular_system(items):
 
-    from molsysmt import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.multitool import get_form
+    from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
         raise ValueError ("This method needs a single molecular system as input")
@@ -207,8 +208,8 @@ def where_parameters_in_molecular_system(items):
     if type(items) in [list, tuple]:
         for item in items:
             form_in = get_form(item)
-            has_topology = dict_get[form_in]["system"]["has_topology"](item)
-            has_parameters = dict_get[form_in]["system"]["has_parameters"](item)
+            has_topology = dict_has[form_in]["topology"]
+            has_parameters = dict_has[form_in]["parameters"]
             if has_parameters and not has_topology:
                 parameterse_item = item
                 parameters_form = form_in
@@ -220,10 +221,50 @@ def where_parameters_in_molecular_system(items):
                         parameters_form = form_in
     else:
         form_in = get_form(items)
-        has_parameters = dict_get[form_in]["system"]["has_parameters"](items)
+        has_parameters = dict_has[form_in]["parameters"]
         if has_parameters:
             parameters_item = items
             parameters_form = form_in
 
     return parameters_item, parameters_form
+
+def where_simulation_in_molecular_system(items):
+
+    from molsysmt.multitool import get_form
+    from molsysmt.forms import dict_has
+
+    if not is_a_single_molecular_system(items):
+        raise ValueError ("This method needs a single molecular system as input")
+
+    simulation_item = None
+    simulation_form = None
+
+    if type(items) in [list, tuple]:
+        for item in items:
+            form_in = get_form(item)
+            has_topology = dict_has[form_in]["topology"]
+            has_parameters = dict_has[form_in]["parameters"]
+            has_simulation = dict_has[form_in]["simulation"]
+            if has_simulation and not (has_topology or has_parameters):
+                simulation_item = item
+                simulation_form = form_in
+                break
+            else:
+                if has_simulation and has_parameters:
+                    simulation_item = item
+                    simulation_form = form_in
+                    break
+                else:
+                    if simulation_item is None:
+                        simulation_item = item
+                        simulation_form = form_in
+
+    else:
+        form_in = get_form(items)
+        has_simulation = dict_has[form_in]["simulation"]
+        if has_simulation:
+            simulation_item = items
+            simulation_form = form_in
+
+    return simulation_item, simulation_form
 

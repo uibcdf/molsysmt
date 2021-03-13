@@ -16,6 +16,7 @@ dict_convert = {}
 dict_select = {}
 dict_get = {}
 dict_set = {}
+dict_has = {}
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -40,6 +41,14 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
             dict_copy[form_name]=mod.copy
             dict_add[form_name]=mod.add
             dict_append_frames[form_name]=mod.append_frames
+
+            dict_has[form_name]= {'topology' : mod.with_topology,
+                                  'parameters' : mod.with_parameters,
+                                  'bonds' : mod.with_bonds,
+                                  'coordinates' : mod.with_coordinates,
+                                  'box' : mod.with_box,
+                                  'simulation' : mod.with_simulation
+                                 }
 
             dict_convert[form_name]= {}
             dict_select[form_name]= {}

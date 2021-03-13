@@ -12,6 +12,7 @@ class MolecularSystem():
             self.parameters_item, self.parameters_form = items.parameters_item, items.parameters_form
             self.coordinates_item, self.coordinates_form = items.coordinates_item, items.coordinates_form
             self.box_item, self.box_form = items.box_item, items.box_form
+            self.simulation_item, self.simulation_form = items.simulation_item, items.simulation_form
 
         else:
 
@@ -26,6 +27,7 @@ class MolecularSystem():
             self.parameters_item, self.parameters_form = where_parameters_in_molecular_system(items)
             self.coordinates_item, self.coordinates_form = where_coordinates_in_molecular_system(items)
             self.box_item, self.box_form = where_box_in_molecular_system(items)
+            self.simulation_item, self.simulation_form = where_simulation_in_molecular_system(items)
 
     def get_items(self):
 
@@ -56,8 +58,12 @@ class MolecularSystem():
                 items.append(self.box_item)
                 forms.append(self.box_form)
 
-        return items, forms
+        if self.simulation_item is not None:
+            if self.simulation_item not in items:
+                items.append(self.simulation_item)
+                forms.append(self.simulation_form)
 
+        return items, forms
 
     def combine_with_items(self, items):
 
@@ -95,6 +101,12 @@ class MolecularSystem():
             if is_a_single_molecular_system(tmp_items):
                 tmp_molecular_system.box_item = self.box_item
                 tmp_molecular_system.box_form = self.box_form
+
+        if tmp_molecular_system.simulation_item is None and self.simulation_item is not None:
+            tmp_items = items+[self.simulation_item]
+            if is_a_single_molecular_system(tmp_items):
+                tmp_molecular_system.simulation_item = self.simulation_item
+                tmp_molecular_system.simulation_form = self.simulation_form
 
         return tmp_molecular_system
 

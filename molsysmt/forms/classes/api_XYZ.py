@@ -14,6 +14,7 @@ with_coordinates=True
 with_box=False
 with_bonds=False
 with_parameters=False
+with_simulation=False
 
 def item_in_good_shape(item):
 
@@ -299,26 +300,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotWithThisFormError
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    return with_box
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    return with_bonds
 
 ## bond
 

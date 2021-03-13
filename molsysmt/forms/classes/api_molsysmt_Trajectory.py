@@ -14,6 +14,7 @@ with_box=True
 with_coordinates=True
 with_bonds=False
 with_parameters=False
+with_simulation=False
 
 # Methods
 
@@ -197,27 +198,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
         output=frame_indices.shape[0]
 
     return output
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    return with_box
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    return with_bonds
-
 
 ###### Set
 

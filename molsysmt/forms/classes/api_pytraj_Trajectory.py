@@ -15,6 +15,7 @@ with_coordinates=True
 with_box=True
 with_bonds=True
 with_parameters=False
+with_simulation=False
 
 def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

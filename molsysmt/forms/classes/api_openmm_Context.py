@@ -15,6 +15,7 @@ with_coordinates=True
 with_box=True
 with_bonds=True
 with_parameters=True
+with_simulation=False
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

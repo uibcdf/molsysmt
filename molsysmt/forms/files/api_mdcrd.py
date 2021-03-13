@@ -14,6 +14,7 @@ with_coordinates=True
 with_box=True
 with_bonds=False
 with_parameters=False
+with_simulation=False
 
 info = ["AMBER mdcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
 

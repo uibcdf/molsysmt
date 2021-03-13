@@ -16,6 +16,7 @@ with_coordinates=False
 with_box=True
 with_bonds=True
 with_parameters=False
+with_simulation=False
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -72,7 +73,11 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item
 
-def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all', simulation=simulation):
+def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import convert
+
+    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 
     forcefield = simulation.to_openmm_ForceField()
     system_parameters = simulation.get_openmm_System_parameters()
@@ -87,13 +92,13 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indi
 
     return tmp_item
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all', simulation=simulation):
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
 
-    tmp_item = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, simulation=simulation)
+    tmp_item = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     molecular_system = molecular_system.combine_with_items(tmp_item)
-    tmp_item = openmm_System_to_openmm_Simulation(tmp_item, molecular_system=molecular_system, simulation=simulation)
+    tmp_item = openmm_System_to_openmm_Simulation(tmp_item, molecular_system=molecular_system)
 
     return tmp_item
 
@@ -548,26 +553,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    return with_box
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    return with_bonds
 
 ## bond
 

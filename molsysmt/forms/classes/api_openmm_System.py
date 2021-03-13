@@ -16,8 +16,9 @@ with_coordinates=False
 with_box=True
 with_bonds=True
 with_parameters=True
+with_simulation=False
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all', simulation=None):
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.multitool import convert, get
     from simtk.openmm.app import Simulation
@@ -25,6 +26,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
     topology= convert(molecular_system, selection=atom_indices, to_form='openmm.Topology')
     positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
     positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
+    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 
     integrator = simulation.to_openmm_Integrator()
     platform = simulation.to_openmm_Platform()

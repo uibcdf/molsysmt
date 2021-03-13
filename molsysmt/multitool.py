@@ -1155,6 +1155,12 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
                 item = molecular_system.box_item
                 item_form = molecular_system.box_form
 
+    if item is None:
+        if molecular_system.simulation is not None:
+            if form_out in dict_convert[molecular_system.simulation_form]:
+                item = molecular_system.simulation_item
+                item_form = molecular_system.simulation_form
+
     if item_form!=form_out:
 
         tmp_item = dict_convert[item_form][form_out](item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,

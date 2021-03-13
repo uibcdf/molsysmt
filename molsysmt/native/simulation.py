@@ -1,4 +1,5 @@
 from molsysmt._private_tools.exceptions import *
+from molsysmt import puw
 
 class Simulation():
 
@@ -10,9 +11,9 @@ class Simulation():
                  residue_templates={}, ignore_external_bonds=False,
                  implicit_solvent_salt_conc='0.0 mol/L', implicit_solvent_kappa='0.0 1/nm',
                  solute_dielectric=1.0, solvent_dielectric=78.5,
-                 integrator='Langevin', temperature='300.0K', collisions_rate='1.0 1/ps', integration_timestep='2.0 fs',
+                 integrator=None, temperature=None, collisions_rate=None, integration_timestep=None,
                  initial_velocities_to_temperature = True,
-                 platform='CUDA'):
+                 platform='CUDA', cuda_precision='mixed'):
 
         self._molecular_system = molecular_system
 
@@ -50,10 +51,69 @@ class Simulation():
         self.initial_velocities_to_temperature = initial_velocities_to_temperature
 
         self.platform = platform
+        self.cuda_precision = cuda_precision
+
+    def copy(self):
+
+        tmp_simulation = Simulation()
+
+        tmp_simulation._molecular_system = self._molecular_system
+
+        tmp_simulation.forcefield = self.forcefield
+
+        tmp_simulation.non_bonded_method = self.non_bonded_method
+        tmp_simulation.non_bonded_cutoff = self.non_bonded_cutoff
+        tmp_simulation.switch_distance = self.switch_distance
+        tmp_simulation.use_dispersion_correction = self.use_dispersion_correction
+        tmp_simulation.ewald_error_tolerance = self.ewald_error_tolerance
+
+        tmp_simulation.hydrogen_mass = self.hydrogen_mass
+        tmp_simulation.remove_cm_motion = self.remove_cm_motion
+
+        tmp_simulation.constraints = self.constraints
+        tmp_simulation.flexible_constraints = self.flexible_constraints
+        tmp_simulation.constraint_tolerance = self.constraint_tolerance
+
+        tmp_simulation.water_model = self.water_model
+        tmp_simulation.rigid_water = self.rigid_water
+        tmp_simulation.residue_templates = self.residue_templates
+        tmp_simulation.ignore_external_bonds = self.ignore_external_bonds
+
+        tmp_simulation.implicit_solvent = self.implicit_solvent
+        tmp_simulation.solute_dielectric = self.solute_dielectric
+        tmp_simulation.solvent_dielectric = self.solvent_dielectric
+        tmp_simulation.implicit_solvent_salt_conc = self.implicit_solvent_salt_conc
+        tmp_simulation.implicit_solvent_kappa = self.implicit_solvent_kappa
+
+        tmp_simulation.integrator = self.integrator
+        tmp_simulation.temperature = self.temperature
+        tmp_simulation.collisions_rate = self.collisions_rate
+        tmp_simulation.integration_timestep = self.integration_timestep
+
+        tmp_simulation.initial_velocities_to_temperature = self.initial_velocities_to_temperature
+
+        tmp_simulation.platform = self.platform
+        tmp_simulation.cuda_precision = self.cuda_precision
+
+        return tmp_simulation
+
+    def set_parameters(self, return_non_processed=False, **kwargs):
+
+        for argument, value in kwargs.items():
+            if argument.lower() in self.__dict__.keys():
+                self.__dict__[argument]=puw.standardize(value)
+                del(kwargs[argment.lower()])
+
+        if return_non_processed:
+            return kwargs
+        else:
+            pass
 
     def get_openmm_forcefield_names(self):
 
-        pass
+        from molsysmt.native.forcefields import get_forcefield_names
+
+        return  get_forcefield_names(self.forcefield, 'OpenMM', water_model=self.water_model, implicit_solvent=self.implicit.solvent)
 
     def to_openmm_ForceField(self):
 
@@ -69,9 +129,6 @@ class Simulation():
         from simtk.openmm import app
 
         parameters = {}
-
-        if self.platform == 'CUDA':
-            parameters['CudaPrecision']='mixed'
 
         if self.non_bonded_method=='no_cutoff':
             parameters['nonbondedMethod']=app.NoCutoff
@@ -134,9 +191,8 @@ class Simulation():
         else:
             parameters['implicitSolvent']=None
 
-        parameters['useDispersionCorrection']=self.use_dispersion_correction
-        parameters['ewaldErrorTolerance']=self.ewald_error_tolerance
-
+        #parameters['useDispersionCorrection']=self.use_dispersion_correction
+        #parameters['ewaldErrorTolerance']=self.ewald_error_tolerance
 
         return parameters
 
@@ -181,6 +237,13 @@ class Simulation():
             raise NotImplementedError()
 
     def get_openmm_Simulation_parameters(self):
+
+        parameters = {}
+
+        if platform=='CUDA':
+            simulation_properties['CudaPrecision']='mixed'
+
+        return parameters
 
     def to_openmm_Simulation(self, molecular_system=None, selection='all', frame_indices='all'):
 

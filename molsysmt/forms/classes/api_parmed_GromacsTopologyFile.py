@@ -15,6 +15,7 @@ with_coordinates=False
 with_box=False
 with_bonds=True
 with_parameters=False
+with_simulation=False
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -158,4 +159,5 @@ def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
     return None
+
 
