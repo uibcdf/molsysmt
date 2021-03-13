@@ -4,11 +4,9 @@ class MolSys():
 
         from .topology import Topology
         from .trajectory import Trajectory
-        from .simulation import Simulation
 
         self.topology = Topology()
         self.trajectory = Trajectory()
-        self.simulation = Simulation(molecular_system=self)
 
     def extract(self, atom_indices='all', frame_indices='all'):
 
@@ -21,8 +19,6 @@ class MolSys():
             tmp_item = MolSys()
             tmp_item.topology = self.topology.extract(atom_indices=atom_indices, frame_indices=frame_indices)
             tmp_item.trajectory = self.trajectory.extract(atom_indices=atom_indices, frame_indices=frame_indices)
-            tmp_item.simulation = self.trajectory.copy()
-            tmp_item.simulation.molecular_system=tmp_item
 
             return tmp_item
 
@@ -50,6 +46,5 @@ class MolSys():
         tmp_item = MolSys()
         tmp_item.trajectory = self.trajectory.copy()
         tmp_item.topology = self.topology.copy()
-        tmp_item.simulation = self.simulation.copy()
         return tmp_item
 
