@@ -3,6 +3,7 @@ from molsysmt.forms.common_gets import *
 import numpy as np
 import sys
 import importlib
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='prmtop'
 
@@ -12,12 +13,10 @@ is_form = {
     }
 
 info = ["AMBER  parameter/topology file format","https://ambermd.org/FileFormats.php#topology"]
-with_topology=True
-with_coordinates=False
-with_box=True
-with_bonds=True
-with_parameters=True
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds', 'box', 'bonds', 'ff_parameters']:
+    has[ii]=True
 
 def to_prmtop(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 

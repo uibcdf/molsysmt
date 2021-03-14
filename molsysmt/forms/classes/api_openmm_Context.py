@@ -2,6 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from simtk.openmm import Context as _openmm_Context
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='openmm.Context'
 
@@ -10,12 +11,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=True
-with_parameters=True
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['topology', 'coordinates', 'box', 'bonds', 'ff_parameters', 'mm_paremeters']:
+    has[ii]=True
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

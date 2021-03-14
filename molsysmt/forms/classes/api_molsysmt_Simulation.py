@@ -1,5 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.native.simulation import Simulation as _molsysmt_Simulation
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='molsysmt.Simulation'
 
@@ -8,12 +9,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=False
-with_coordinates=False
-with_box=False
-with_bonds=False
-with_parameters=False
-with_simulation=True
+
+has = molecular_system_components.copy()
+for ii in ['thermo_state', 'simulation']:
+    has[ii]=True
 
 def extract(item, atom_indices='all', frame_indices='all'):
 

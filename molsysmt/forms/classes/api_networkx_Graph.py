@@ -2,6 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from networkx import Graph as _networkx_Graph
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='networkx.Graph'
 
@@ -10,12 +11,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=False
-with_bonds=True
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds']:
+    has[ii]=True
 
 def select_with_MDTraj(item, selection):
 

@@ -4,6 +4,7 @@ import numpy as np
 from simtk.openmm.app import PDBFile as _openmm_PDBFile
 import sys
 import importlib
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='openmm.PDBFile'
 
@@ -12,12 +13,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates', 'box']:
+    has[ii]=True
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

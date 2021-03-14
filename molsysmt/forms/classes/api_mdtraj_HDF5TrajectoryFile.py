@@ -3,6 +3,7 @@ from molsysmt.forms.common_gets import *
 import numpy as np
 from mdtraj.formats.hdf5 import HDF5TrajectoryFile as _mdtraj_HDF5TrajectoryFile
 from molsysmt import puw
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='mdtraj.HDF5TrajectoryFile'
 
@@ -11,12 +12,10 @@ is_form={
     }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=True
-with_parameters=True
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds', 'coordinates', 'box']:
+    has[ii]=True
 
 def select_with_Amber(item, selection):
 

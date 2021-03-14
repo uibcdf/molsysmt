@@ -5,6 +5,7 @@ from simtk.openmm.app import GromacsGroFile as _openmm_GromacsGroFile
 import importlib
 import sys
 from molsysmt import puw
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='openmm.GromacsGroFile'
 
@@ -13,12 +14,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates', 'box']:
+    has[ii]=True
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

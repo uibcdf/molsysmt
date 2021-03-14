@@ -4,6 +4,7 @@ import numpy as np
 from nglview import widget as _nglview_widget
 import importlib
 import sys
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='nglview.NGLWidget'
 
@@ -13,12 +14,9 @@ is_form = {
 
 info=["NGLView visualization native object","http://nglviewer.org/nglview/latest/_modules/nglview/widget.html"]
 
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=False
-with_parameters=False
-with_simulation=False
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates', 'box']:
+    has[ii]=True
 
 def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

@@ -5,6 +5,7 @@ from pdbfixer.pdbfixer import PDBFixer as _pdbfixer_PDBFixer
 from molsysmt import puw
 import sys
 import importlib
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='pdbfixer.PDBFixer'
 
@@ -13,12 +14,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=True
-with_parameters=True
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates', 'box', 'bonds']:
+    has[ii]=True
 
 ## Methods
 

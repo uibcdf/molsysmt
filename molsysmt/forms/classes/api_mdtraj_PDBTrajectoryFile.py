@@ -5,6 +5,7 @@ from mdtraj.formats.pdb import PDBTrajectoryFile as _mdtraj_PDBTrajectoryFile
 import importlib
 import sys
 from molsysmt import puw
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='mdtraj.PDBTrajectoryFile'
 
@@ -13,12 +14,10 @@ is_form={
     }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=True
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds', 'coordinates', 'box']:
+    has[ii]=True
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

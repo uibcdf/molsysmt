@@ -3,6 +3,7 @@ from molsysmt.forms.common_gets import *
 import numpy as np
 import sys
 import importlib
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='h5'
 
@@ -12,12 +13,10 @@ is_form = {
     }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=True
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates', 'box', 'bonds']:
+    has[ii]=True
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

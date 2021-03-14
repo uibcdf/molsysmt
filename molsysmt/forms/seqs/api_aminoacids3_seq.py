@@ -1,6 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='aminoacids3:seq'
 
@@ -10,12 +11,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=False
-with_bonds=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements']:
+    has[ii]=True
 
 ### Corresponde al formato IUPAC extended protein que aparece en Biopython
 

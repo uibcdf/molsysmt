@@ -1,6 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 import numpy as np
 from molsysmt.native.trajectory import Trajectory as _molsysmt_Trajectory
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='molsysmt.Trajectory'
 
@@ -9,12 +10,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=False
-with_box=True
-with_coordinates=True
-with_bonds=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['coordinates', 'box']:
+    has[ii]=True
 
 # Methods
 

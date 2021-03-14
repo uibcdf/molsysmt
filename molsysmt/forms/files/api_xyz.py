@@ -1,6 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='xyz'
 
@@ -10,12 +11,10 @@ is_form = {
 
 info = ["XYZ file format",["https://en.wikipedia.org/wiki/XYZ_file_format",
                            "https://open-babel.readthedocs.io/en/latest/FileFormats/XYZ_cartesian_coordinates_format.html"]]
-with_topology=True
-with_coordinates=True
-with_bonds=False
-with_box=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates']:
+    has[ii]=True
 
 def select_with_Amber(item, selection):
 

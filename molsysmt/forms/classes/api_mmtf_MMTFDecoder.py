@@ -3,6 +3,7 @@ from molsysmt.forms.common_gets import *
 from molsysmt import puw
 import numpy as np
 from mmtf import MMTFDecoder as _mmtf_MMTFDecoder
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='mmtf.MMTFDecoder'
 
@@ -11,12 +12,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=True
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds', 'coordinates', 'box']:
+    has[ii]=True
 
 def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 

@@ -125,7 +125,7 @@ def select(molecular_system, selection='all', target='atom', mask=None, syntaxis
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
             selection = digest_selection(selection, syntaxis)
-            atom_indices = dict_select[molecular_system.topology_form][syntaxis](molecular_system.topology_item, selection)
+            atom_indices = dict_select[molecular_system.elements_form][syntaxis](molecular_system.elements_item, selection)
     elif type(selection) in [int, np.int64, np.int]:
         atom_indices = np.array([selection], dtype='int64')
     elif hasattr(selection, '__iter__'):
@@ -431,8 +431,8 @@ def add(to_molecular_system, from_molecular_systems, selections='all', frame_ind
 
         # topology
 
-        to_form = to_molecular_system.topology_form
-        to_item = to_molecular_system.topology_item
+        to_form = to_molecular_system.elements_form
+        to_item = to_molecular_system.elements_item
 
         if to_form is not None:
             from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
@@ -1138,10 +1138,10 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     item = None
     item_form = None
 
-    if molecular_system.topology_item is not None:
-        if form_out in dict_convert[molecular_system.topology_form]:
-            item = molecular_system.topology_item
-            item_form = molecular_system.topology_form
+    if molecular_system.elements_item is not None:
+        if form_out in dict_convert[molecular_system.elements_form]:
+            item = molecular_system.elements_item
+            item_form = molecular_system.elements_form
 
     if item is None:
         if molecular_system.coordinates_item is not None:
@@ -1154,6 +1154,30 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
             if form_out in dict_convert[molecular_system.box_form]:
                 item = molecular_system.box_item
                 item_form = molecular_system.box_form
+
+    if item is None:
+        if molecular_system.velocities_item is not None:
+            if form_out in dict_convert[molecular_system.velocities_form]:
+                item = molecular_system.velocities_item
+                item_form = molecular_system.velocities_form
+
+    if item is None:
+        if molecular_system.bonds_item is not None:
+            if form_out in dict_convert[molecular_system.bonds_form]:
+                item = molecular_system.bonds_item
+                item_form = molecular_system.bonds_form
+
+    if item is None:
+        if molecular_system.ff_parameters_item is not None:
+            if form_out in dict_convert[molecular_system.ff_parameters_form]:
+                item = molecular_system.ff_parameters_item
+                item_form = molecular_system.ff_parameters_form
+
+    if item is None:
+        if molecular_system.mm_parameters_item is not None:
+            if form_out in dict_convert[molecular_system.mm_parameters_form]:
+                item = molecular_system.mm_parameters_item
+                item_form = molecular_system.mm_parameters_form
 
     if item is None:
         if molecular_system.simulation is not None:

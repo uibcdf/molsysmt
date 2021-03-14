@@ -5,6 +5,7 @@ import sys
 from shutil import move
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='pdb:id'
 
@@ -14,12 +15,10 @@ is_form = {
     }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates', 'box']:
+    has[ii]=True
 
 def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 

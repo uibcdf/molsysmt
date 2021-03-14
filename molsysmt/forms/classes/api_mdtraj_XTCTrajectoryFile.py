@@ -3,6 +3,7 @@ from molsysmt.forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
 from mdtraj.formats.xtc import XTCTrajectoryFile as _mdtraj_XTCTrajectoryFile
 from molsysmt import puw
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='mdtraj.XTCTrajectoryFile'
 
@@ -11,12 +12,10 @@ is_form={
     }
 
 info=["",""]
-with_topology=False
-with_coordinates=True
-with_box=True
-with_bonds=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['coordinates', 'box']:
+    has[ii]=True
 
 def select_with_Amber(item, selection):
 

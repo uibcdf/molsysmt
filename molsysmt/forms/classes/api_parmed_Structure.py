@@ -2,6 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from parmed.structure import Structure as _parmed_Structure
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='parmed.Structure'
 
@@ -10,12 +11,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=False
-with_parameters=True
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates', 'box', 'ff_parameters']:
+    has[ii]=True
 
 ## Methods
 

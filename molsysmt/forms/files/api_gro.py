@@ -1,6 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='gro'
 
@@ -10,12 +11,9 @@ is_form = {
 
 info = ["Gromacs gro file format","http://manual.gromacs.org/documentation/2018/user-guide/file-formats.html#gro"]
 
-with_topology=True
-with_coordinates=True
-with_box=True
-with_bonds=False
-with_parameters=False
-with_simulation=False
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates', 'box']:
+    has[ii]=True
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

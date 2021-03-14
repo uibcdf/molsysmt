@@ -3,6 +3,7 @@ from molsysmt.forms.common_gets import *
 import numpy as np
 import sys
 import importlib
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='inpcrd'
 
@@ -11,12 +12,10 @@ is_form = {
     }
 
 info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
-with_topology=False
-with_coordinates=True
-with_box=True
-with_bonds=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['coordinates', 'box']:
+    has[ii]=True
 
 def to_inpcrd(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 

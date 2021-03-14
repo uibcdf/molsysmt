@@ -1,6 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='top'
 
@@ -9,12 +10,10 @@ is_form = {
     }
 
 info=["",""]
-with_topology=True
-with_bonds=False
-with_coordinates=False
-with_box=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds']:
+    has[ii]=True
 
 def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

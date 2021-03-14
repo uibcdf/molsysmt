@@ -1,35 +1,35 @@
 # List to check if everything works
 
-- [x] Get_form
-- [x] Info
-- [x] Convert
+- [X] Get_form
+- [X] Info
+- [ ] Convert
 - [X] Info forms
-- [X] Molecular Systems, Items and Forms
-- [X] Get
-- [X] Selection
-- [X] Copy
-- [X] Extract
-- [X] Remove
-- [X] Set
+- [ ] Molecular Systems, Items and Forms
+- [ ] Get
+- [ ] Selection
+- [ ] Copy
+- [ ] Extract
+- [ ] Remove
+- [ ] Set
 
-- [X] Build_peptide
-- [X] Geometrical Transformations
+- [ ] Build_peptide
+- [ ] Geometrical Transformations
 
-- [X] View
-- [X] Append_Concatenate
-- [X] Add_Merge
+- [ ] View
+- [ ] Append_Concatenate
+- [ ] Add_Merge
 
-- [X] Centers
-- [X] Distances
+- [ ] Centers
+- [ ] Distances
 
-- [X] Bondgraph
-- [X] Covalent_chains
-- [X] Dihedral_angles
+- [ ] Bondgraph
+- [ ] Covalent_chains
+- [ ] Dihedral_angles
 
-- [X] Protonation
-- [X] Physico chemical properties
-- [X] Terminal Capping
-- [X] Solvation
+- [ ] Protonation
+- [ ] Physico chemical properties
+- [ ] Terminal Capping
+- [ ] Solvation
 - [ ] Energy Minimization
 
 

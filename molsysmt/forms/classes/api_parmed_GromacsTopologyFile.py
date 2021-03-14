@@ -2,6 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from parmed.gromacs.gromacstop import GromacsTopologyFile as _parmed_GromacsTopologyFile
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='parmed.GromacsTopologyFile'
 
@@ -10,12 +11,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=False
-with_bonds=True
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds']:
+    has[ii]=True
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

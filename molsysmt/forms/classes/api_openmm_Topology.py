@@ -3,6 +3,7 @@ from molsysmt.forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
 from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
 from molsysmt import puw
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='openmm.Topology'
 
@@ -11,12 +12,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=True
-with_bonds=True
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds', 'box']:
+    has[ii]=True
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 

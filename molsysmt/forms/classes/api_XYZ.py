@@ -2,6 +2,7 @@ import numpy as np
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import pyunitwizard as puw
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='XYZ'
 
@@ -9,12 +10,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=False
-with_coordinates=True
-with_box=False
-with_bonds=False
-with_parameters=False
-with_simulation=False
+
+has = molecular_system_components.copy()
+for ii in ['coordinates']:
+    has[ii]=True
 
 def item_in_good_shape(item):
 
