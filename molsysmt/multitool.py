@@ -4,7 +4,7 @@ from molsysmt.forms import *
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.selection import selection_is_all
-from molsysmt._private_tools.forms import to_form_is_file, form_of_file, are_equal_sets_of_forms
+from molsysmt._private_tools.forms import to_form_is_file, form_is_file, form_of_file, are_equal_sets_of_forms
 from molsysmt._private_tools.get_arguments import where_get_argument
 from molsysmt._private_tools.set_arguments import where_set_argument
 from molsysmt._private_tools.elements import elements2string
@@ -244,7 +244,6 @@ def get(molecular_system, target='atom', indices=None, selection='all', frame_in
         for where_attribute in where_get_argument[attribute]:
             item = getattr(molecular_system, where_attribute+'_item')
             form = getattr(molecular_system, where_attribute+'_form')
-
             if item is not None:
                 result = dict_get[form][target][attribute](item, indices=indices, frame_indices=frame_indices)
             if result is not None:
@@ -327,7 +326,6 @@ def remove(molecular_system, selection=None, frame_indices=None, to_form=None, s
 
     return extract(molecular_system, selection=atom_indices_to_be_kept, frame_indices=frame_indices_to_be_kept, to_form=to_form)
 
-
 def extract(molecular_system, selection='all', frame_indices='all', to_form=None, syntaxis='MolSysMT'):
 
     """extract(item, selection='all', frame_indices='all', syntaxis='MolSysMT')
@@ -376,6 +374,7 @@ def extract(molecular_system, selection='all', frame_indices='all', to_form=None
     molecular_system = digest_molecular_system(molecular_system)
     items, forms = molecular_system.get_items()
 
+
     frame_indices = digest_frame_indices(frame_indices)
     to_form = digest_to_form(to_form)
 
@@ -388,13 +387,32 @@ def extract(molecular_system, selection='all', frame_indices='all', to_form=None
 
     for item, form_in in zip(items, forms):
         form_in = get_form(item)
-        tmp_item = dict_extract[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices) # si es file debe ir a un temporal para ser renombrado luego
+        if atom_indices is not 'all' or frame_indices is not 'all':
+            tmp_item = dict_extract[form_in](item, atom_indices=atom_indices, frame_indices=frame_indices) # si es file debe ir a un temporal para ser renombrado luego
+        else:
+            tmp_item = copy(item)
         tmp_items.append(tmp_item)
 
     if to_form is None:
         return tmp_items
-    else:
-        tmp_items = convert(tmp_items, to_form=to_form)
+
+    if to_form in forms:
+        for aux_item in tmp_items:
+            if get_form(aux_item)==to_form:
+                return aux_item
+
+    if to_form_is_file(to_form):
+        if form_of_file(to_form) in forms:
+            for aux_item in tmp_items:
+                if get_form(aux_item)==form_of_file(to_form):
+                    from os import remove
+                    tmp_item = copy(aux_item, output_filename=to_form)
+                    for reaux_item in tmp_items:
+                        if form_is_file(get_form(reaux_item)):
+                            remove(reaux_item)
+                    return tmp_item
+
+    tmp_items = convert(tmp_items, to_form=to_form)
 
     return tmp_items
 
@@ -439,10 +457,10 @@ def add(to_molecular_system, from_molecular_systems, selections='all', frame_ind
             dict_add[to_form](to_item, from_item)
             to_already_added.append(to_item)
 
-        # parameters
+        # ff_parameters
 
-        to_form = to_molecular_system.parameters_form
-        to_item = to_molecular_system.parameters_item
+        to_form = to_molecular_system.ff_parameters_form
+        to_item = to_molecular_system.ff_parameters_item
 
         if to_form is not None:
             if to_item not in to_already_added:
@@ -1100,22 +1118,20 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     """
 
     molecular_system = digest_molecular_system(molecular_system)
-    _, forms_in = molecular_system.get_items()
-
-    if are_equal_sets_of_forms(forms_in,to_form):
-        if (selection is 'all') and (frame_indices is 'all'):
-            return copy(molecular_system)
-        else:
-            return extract(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
-
+    #_, forms_in = molecular_system.get_items()
     to_form = digest_to_form(to_form)
 
-    if is_list_or_tuple(to_form):
+    #if are_equal_sets_of_forms(forms_in,to_form):
+    #    if (selection is 'all') and (frame_indices is 'all'):
+    #        return copy(molecular_system)
+    #    else:
+    #        return extract(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
 
+
+    if is_list_or_tuple(to_form):
         tmp_item=[]
         for item_out in to_form:
             tmp_item.append(convert(molecular_system, to_form=item_out, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis))
-
         return tmp_item
 
     frame_indices = digest_frame_indices(frame_indices)
@@ -1125,73 +1141,43 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     else:
         atom_indices = 'all'
 
-    tmp_item = None
-    form_out = None
     conversion_arguments={}
 
     if to_form_is_file(to_form):
         conversion_arguments['output_filename'] = to_form
-        form_out = form_of_file(to_form)
-    else:
-        form_out = to_form
+        to_form = form_of_file(to_form)
+
+    tmp_item = None
 
     item = None
     item_form = None
 
-    if molecular_system.elements_item is not None:
-        if form_out in dict_convert[molecular_system.elements_form]:
-            item = molecular_system.elements_item
-            item_form = molecular_system.elements_form
+    for aux_item, aux_form in [[molecular_system.elements_item, molecular_system.elements_form],
+                               [molecular_system.coordinates_item, molecular_system.coordinates_form],
+                               [molecular_system.box_item, molecular_system.box_form],
+                               [molecular_system.box_item, molecular_system.box_form],
+                               [molecular_system.velocities_item, molecular_system.velocities_form],
+                               [molecular_system.bonds_item, molecular_system.bonds_form],
+                               [molecular_system.ff_parameters_item, molecular_system.ff_parameters_form],
+                               [molecular_system.mm_parameters_item, molecular_system.mm_parameters_form],
+                               [molecular_system.simulation_item, molecular_system.simulation_form],
+                              ]:
 
-    if item is None:
-        if molecular_system.coordinates_item is not None:
-            if form_out in dict_convert[molecular_system.coordinates_form]:
-                item = molecular_system.coordinates_item
-                item_form = molecular_system.coordinates_form
+        if aux_item is not None:
+            if (to_form in dict_convert[aux_form]) or (to_form == aux_form):
+                item = aux_item
+                item_form = aux_form
+                break
 
-    if item is None:
-        if molecular_system.box_item is not None:
-            if form_out in dict_convert[molecular_system.box_form]:
-                item = molecular_system.box_item
-                item_form = molecular_system.box_form
 
-    if item is None:
-        if molecular_system.velocities_item is not None:
-            if form_out in dict_convert[molecular_system.velocities_form]:
-                item = molecular_system.velocities_item
-                item_form = molecular_system.velocities_form
+    if item_form!=to_form:
 
-    if item is None:
-        if molecular_system.bonds_item is not None:
-            if form_out in dict_convert[molecular_system.bonds_form]:
-                item = molecular_system.bonds_item
-                item_form = molecular_system.bonds_form
-
-    if item is None:
-        if molecular_system.ff_parameters_item is not None:
-            if form_out in dict_convert[molecular_system.ff_parameters_form]:
-                item = molecular_system.ff_parameters_item
-                item_form = molecular_system.ff_parameters_form
-
-    if item is None:
-        if molecular_system.mm_parameters_item is not None:
-            if form_out in dict_convert[molecular_system.mm_parameters_form]:
-                item = molecular_system.mm_parameters_item
-                item_form = molecular_system.mm_parameters_form
-
-    if item is None:
-        if molecular_system.simulation is not None:
-            if form_out in dict_convert[molecular_system.simulation_form]:
-                item = molecular_system.simulation_item
-                item_form = molecular_system.simulation_form
-
-    if item_form!=form_out:
-
-        tmp_item = dict_convert[item_form][form_out](item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
+        tmp_item = dict_convert[item_form][to_form](item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
                                                      **conversion_arguments, **kwargs)
     else:
-
-        tmp_item = extract(molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis)
+        if 'output_filename' in conversion_arguments:
+            to_form = conversion_arguments['output_filename']
+        tmp_item = extract(molecular_system, selection=atom_indices, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis)
 
     return tmp_item
 
@@ -1203,13 +1189,10 @@ def copy(molecular_system, output_filename=None):
     items, forms = molecular_system.get_items()
 
     if output_filename is None:
-
         for item, form_in in zip(items, forms):
             tmp_item = dict_copy[form_in](item)
             output.append(tmp_item)
-
     else:
-
         if not is_list_or_tuple(output_filename):
             output_filename = [output_filename]
         for item, form_in, aux_filename in zip(items, forms, output_filename):
@@ -1230,6 +1213,7 @@ def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices
         tmp_item = convert(molecular_system, to_form=form_viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
     else:
         if concatenate_frames:
+            from molsysmt.multitool import concatenate_frames
             molecular_system = concatenate_frames(molecular_system, selections=selection, frame_indices=frame_indices, syntaxis=syntaxis)
         else:
             molecular_system = merge(molecular_system, selections=selection, frame_indices=frame_indices, syntaxis=syntaxis)

@@ -4,6 +4,7 @@ from molsysmt import puw
 def translate(molecular_system, translation=None, selection='all', frame_indices='all', syntaxis='MolSysMT', in_place=True):
 
     from molsysmt.multitool import get, set, select, copy
+    from molsysmt._private_tools.molecular_system import digest_molecular_system
 
     atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
     coordinates = get(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)

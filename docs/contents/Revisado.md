@@ -2,31 +2,31 @@
 
 - [X] Get_form
 - [X] Info
-- [ ] Convert
+- [X] Convert
 - [X] Info forms
-- [ ] Molecular Systems, Items and Forms
-- [ ] Get
-- [ ] Selection
-- [ ] Copy
-- [ ] Extract
-- [ ] Remove
-- [ ] Set
+- [X] Molecular Systems, Items and Forms
+- [X] Get
+- [X] Selection
+- [X] Copy
+- [X] Extract
+- [X] Remove
+- [X] Set
 
-- [ ] Build_peptide
-- [ ] Geometrical Transformations
+- [X] Build_peptide
+- [X] Geometrical Transformations
 
-- [ ] View
-- [ ] Append_Concatenate
-- [ ] Add_Merge
+- [X] View
+- [X] Append_Concatenate
+- [X] Add_Merge
 
-- [ ] Centers
-- [ ] Distances
+- [X] Centers
+- [X] Distances
 
-- [ ] Bondgraph
-- [ ] Covalent_chains
-- [ ] Dihedral_angles
+- [X] Bondgraph
+- [X] Covalent_chains
+- [X] Dihedral_angles
 
-- [ ] Protonation
+- [X] Protonation
 - [ ] Physico chemical properties
 - [ ] Terminal Capping
 - [ ] Solvation

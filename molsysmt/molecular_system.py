@@ -39,6 +39,7 @@ class MolecularSystem():
             if not is_a_single_molecular_system(items):
                 raise NeedsSingleMolecularSystem()
 
+
             self.elements_item, self.elements_form = where_elements_in_molecular_system(items)
             self.bonds_item, self.bonds_form = where_bonds_in_molecular_system(items)
             self.coordinates_item, self.coordinates_form = where_coordinates_in_molecular_system(items)
@@ -123,7 +124,7 @@ class MolecularSystem():
             tmp_items = items+[self.coordinates_item]
             if is_a_single_molecular_system(tmp_items):
                 tmp_molecular_system.coordinates_item = self.coordinates_item
-                tmp_molecular_system.coordinatess_form = self.coordinates_form
+                tmp_molecular_system.coordinates_form = self.coordinates_form
 
         if tmp_molecular_system.velocities_item is None and self.velocities_item is not None:
             tmp_items = items+[self.velocities_item]

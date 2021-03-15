@@ -18,13 +18,6 @@ for ii in ['elements']:
 
 ### Corresponde al formato IUPAC extended protein que aparece en Biopython
 
-def to_aminoacids3_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    if atom_indices is 'all':
-        return item
-    else:
-        raise NotImplementedError
-
 def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from Bio.SeqUtils import seq1
