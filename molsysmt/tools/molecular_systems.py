@@ -1,4 +1,5 @@
 import numpy as np
+from molsysmt._private_tools.exceptions import *
 
 def is_a_single_molecular_system(items):
 
@@ -11,10 +12,8 @@ def is_a_single_molecular_system(items):
         n_topologies=0
         n_coordinates=0
         n_elements_w_coordinates=0
-
         for item in items:
-
-            if type(item) in [list, tuple, MolecularSystem]:
+            if type(item) in [list, tuple]:
                 return False
             else:
                 form_in = get_form(item)
@@ -243,7 +242,7 @@ def where_ff_parameters_in_molecular_system(items):
             has_elements = dict_has[form_in]["elements"]
             has_ff_parameters = dict_has[form_in]["ff_parameters"]
             if has_ff_parameters and not has_elements:
-                ff_parameterse_item = item
+                ff_parameters_item = item
                 ff_parameters_form = form_in
                 break
             else:
@@ -277,16 +276,16 @@ def where_mm_parameters_in_molecular_system(items):
             has_elements = dict_has[form_in]["elements"]
             has_ff_parameters = dict_has[form_in]["ff_parameters"]
             has_mm_parameters = dict_has[form_in]["mm_parameters"]
-            if has_mm_parameters and not (has_elements or has_parameters):
+            if has_mm_parameters and not (has_elements or has_ff_parameters):
                 mm_parameters_item = item
                 mm_parameters_form = form_in
                 break
             else:
-                if has_mm_parameters and has_parameters:
+                if has_mm_parameters and has_ff_parameters:
                     mm_parameters_item = item
                     mm_parameters_form = form_in
                     break
-                else:
+                elif has_mm_parameters:
                     if mm_parameters_item is None:
                         mm_parameters_item = item
                         mm_parameters_form = form_in
@@ -360,7 +359,7 @@ def where_thermo_state_in_molecular_system(items):
                     thermo_state_item = item
                     thermo_state_form = form_in
                     break
-                else:
+                elif has_thermo_state:
                     if thermo_state_item is None:
                         thermo_state_item = item
                         thermo_state_form = form_in

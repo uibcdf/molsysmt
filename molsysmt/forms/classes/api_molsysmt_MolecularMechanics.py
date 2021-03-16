@@ -1,20 +1,20 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt.native.simulation import Simulation as _molsysmt_Simulation
+from molsysmt.native.molecular_mechanics import MolecularMechanics as _molsysmt_MolecularMechanics
 from molsysmt.molecular_system import molecular_system_components
 
-form_name='molsysmt.Simulation'
+form_name='molsysmt.MolecularMechanics'
 
 is_form={
-    _molsysmt_Simulation : form_name,
+    _molsysmt_MolecularMechanics : form_name,
 }
 
 info=["",""]
 
 has = molecular_system_components.copy()
-for ii in ['thermo_state', 'simulation']:
+for ii in ['ff_parameters', 'mm_parameters']:
     has[ii]=True
 
-def to_SimulationDict(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_MolecularMechanicsDict(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     tmp_item = item.to_dict()
 

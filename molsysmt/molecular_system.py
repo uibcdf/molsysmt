@@ -1,5 +1,6 @@
 from molsysmt.tools.molecular_systems import *
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
+from molsysmt._private_tools.exceptions import *
 
 molecular_system_components = {
 
@@ -37,8 +38,7 @@ class MolecularSystem():
                 items = [items]
 
             if not is_a_single_molecular_system(items):
-                raise NeedsSingleMolecularSystem()
-
+                raise NeedsSingleMolecularSystemError()
 
             self.elements_item, self.elements_form = where_elements_in_molecular_system(items)
             self.bonds_item, self.bonds_form = where_bonds_in_molecular_system(items)
@@ -105,6 +105,8 @@ class MolecularSystem():
 
         if not is_list_or_tuple(items):
             items = [items]
+
+        while None in items: items.remove(None)
 
         tmp_molecular_system = MolecularSystem(items)
 

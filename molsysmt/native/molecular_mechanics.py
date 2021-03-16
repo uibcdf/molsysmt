@@ -39,49 +39,63 @@ class MolecularMechanics():
         self.implicit_solvent_salt_conc = implicit_solvent_salt_conc
         self.implicit_solvent_kappa = implicit_solvent_kappa
 
+    def to_dict(self):
+
+        tmp_dict = {
+            'forcefield' : self.forcefield,
+            'non_bonded_method' : self.non_bonded_method,
+            'non_bonded_cutoff' : self.non_bonded_cutoff,
+            'switch_distance' : self.switch_distance,
+            'use_dispersion_correction' : self.use_dispersion_correction,
+            'ewald_error_tolerance' : self.ewald_error_tolerance,
+            'hydrogen_mass' : self.hydrogen_mass,
+            'constraints' : self.constraints,
+            'flexible_constraints' : self.flexible_constraints,
+            'constraint_tolerance' : self.constraint_tolerance,
+            'water_model' : self.water_model,
+            'rigid_water' : self.rigid_water,
+            'residue_templates' : self.residue_templates,
+            'ignore_external_bonds' : self.ignore_external_bonds,
+            'implicit_solvent' : self.implicit_solvent,
+            'solute_dielectric' : self.solute_dielectric,
+            'solvent_dielectric' : self.solvent_dielectric,
+            'implicit_solvent_salt_conc' : self.implicit_solvent_salt_conc,
+            'implicit_solvent_kappa' : self.implicit_solvent_kappa,
+       }
+
     def copy(self):
 
-        tmp_simulation = MolecularMechanics()
+        tmp_molecular_mechanics = MolecularMechanics()
 
-        tmp_simulation._molecular_system = self._molecular_system
+        tmp_molecular_mechanics._molecular_system = self._molecular_system
 
-        tmp_simulation.forcefield = self.forcefield
+        tmp_molecular_mechanics.forcefield = self.forcefield
 
-        tmp_simulation.non_bonded_method = self.non_bonded_method
-        tmp_simulation.non_bonded_cutoff = self.non_bonded_cutoff
-        tmp_simulation.switch_distance = self.switch_distance
-        tmp_simulation.use_dispersion_correction = self.use_dispersion_correction
-        tmp_simulation.ewald_error_tolerance = self.ewald_error_tolerance
+        tmp_molecular_mechanics.non_bonded_method = self.non_bonded_method
+        tmp_molecular_mechanics.non_bonded_cutoff = self.non_bonded_cutoff
+        tmp_molecular_mechanics.switch_distance = self.switch_distance
+        tmp_molecular_mechanics.use_dispersion_correction = self.use_dispersion_correction
+        tmp_molecular_mechanics.ewald_error_tolerance = self.ewald_error_tolerance
 
-        tmp_simulation.hydrogen_mass = self.hydrogen_mass
-        tmp_simulation.remove_cm_motion = self.remove_cm_motion
+        tmp_molecular_mechanics.hydrogen_mass = self.hydrogen_mass
+        tmp_molecular_mechanics.remove_cm_motion = self.remove_cm_motion
 
-        tmp_simulation.constraints = self.constraints
-        tmp_simulation.flexible_constraints = self.flexible_constraints
-        tmp_simulation.constraint_tolerance = self.constraint_tolerance
+        tmp_molecular_mechanics.constraints = self.constraints
+        tmp_molecular_mechanics.flexible_constraints = self.flexible_constraints
+        tmp_molecular_mechanics.constraint_tolerance = self.constraint_tolerance
 
-        tmp_simulation.water_model = self.water_model
-        tmp_simulation.rigid_water = self.rigid_water
-        tmp_simulation.residue_templates = self.residue_templates
-        tmp_simulation.ignore_external_bonds = self.ignore_external_bonds
+        tmp_molecular_mechanics.water_model = self.water_model
+        tmp_molecular_mechanics.rigid_water = self.rigid_water
+        tmp_molecular_mechanics.residue_templates = self.residue_templates
+        tmp_molecular_mechanics.ignore_external_bonds = self.ignore_external_bonds
 
-        tmp_simulation.implicit_solvent = self.implicit_solvent
-        tmp_simulation.solute_dielectric = self.solute_dielectric
-        tmp_simulation.solvent_dielectric = self.solvent_dielectric
-        tmp_simulation.implicit_solvent_salt_conc = self.implicit_solvent_salt_conc
-        tmp_simulation.implicit_solvent_kappa = self.implicit_solvent_kappa
+        tmp_molecular_mechanics.implicit_solvent = self.implicit_solvent
+        tmp_molecular_mechanics.solute_dielectric = self.solute_dielectric
+        tmp_molecular_mechanics.solvent_dielectric = self.solvent_dielectric
+        tmp_molecular_mechanics.implicit_solvent_salt_conc = self.implicit_solvent_salt_conc
+        tmp_molecular_mechanics.implicit_solvent_kappa = self.implicit_solvent_kappa
 
-        tmp_simulation.integrator = self.integrator
-        tmp_simulation.temperature = self.temperature
-        tmp_simulation.collisions_rate = self.collisions_rate
-        tmp_simulation.integration_timestep = self.integration_timestep
-
-        tmp_simulation.initial_velocities_to_temperature = self.initial_velocities_to_temperature
-
-        tmp_simulation.platform = self.platform
-        tmp_simulation.cuda_precision = self.cuda_precision
-
-        return tmp_simulation
+        return tmp_molecular_mechanics
 
     def set_parameters(self, return_non_processed=False, **kwargs):
 
@@ -197,53 +211,4 @@ class MolecularMechanics():
         system = convert(molecular_system, selection=selection, simulation=self, to_form='openmm.System')
 
         return system
-
-    def to_openmm_Integrator(self):
-
-        from simtk.openmm.app import LangevinInegrator
-
-        temperature = puw.translate(self.temperature, in_units='K', to_form='simtk.unit')
-        collisions_rate = puw.translate(self.temperature, in_units='1/ps', to_form='simtk.unit')
-        integration_timestep = puw.translate(self.temperature, in_units='fs', to_form='simtk.unit')
-
-        if self.integrator=='Langevin':
-            integrator = LangevinIntegrator(temperature, collisions_rate, integration_timestep)
-            if self.constraint_tolerance is not None:
-                integrator.setConstraintTolerance(self.constraint_tolerance)
-        else:
-            raise NotImplementedError()
-
-    def to_openmm_Platform(self):
-
-        from simtk.openmm.app import Platform
-
-        if self.platform in ['CUDA', 'CPU']:
-            platform = Platform.getPlaformByName(platform)
-        else:
-            raise NotImplementedError()
-
-    def get_openmm_Simulation_parameters(self):
-
-        parameters = {}
-
-        if platform=='CUDA':
-            simulation_properties['CudaPrecision']='mixed'
-
-        return parameters
-
-    def to_openmm_Simulation(self, molecular_system=None, selection='all', frame_indices='all'):
-
-        from molsysmt.multitool import convert
-
-        if molecular_system is None:
-            molecular_system = self._molecular_system
-        else:
-            molecular_system = digest_molecular_system(molecular_system)
-
-        if molecular_system is None:
-            raise NoMolecularSystemError()
-
-        simulation = convert(molecular_system, selection=selection, simulation=self, to_form='openmm.Simulation')
-
-        return simulation
 

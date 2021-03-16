@@ -15,11 +15,15 @@ from molsysmt import puw
 def potential_energy (molecular_system, molecular_mechanics_parameters=None, selection='all', syntaxis='MolSysMT', engine='OpenMM'):
 
     from molsysmt._private_tools.engines import digest_engine
+    from molsysmt._private_tools._digestion import digest_molecular_system
     engine=digest_engines(engine)
 
     if engine=='OpenMM':
 
-        tmp_item = convert(molecular_system, mm_parameters=simulation_parameters, selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
+        molecular_system = digest_molecular_system(molecular_system)
+        molecular_system = molecular_system.combine_with_items(molecular_mechanics_parameters)
+        tmp_item = convert(molecular_system, selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation') # es openmm.Simulation y openmm.System o context?
+
         state = tmp_item.context.getState(getEnergy=True)
         output = state.getPotentialEnergy()
 

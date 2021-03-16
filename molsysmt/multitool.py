@@ -28,9 +28,25 @@ def get_form(molecular_system):
 
     if puw.is_quantity(molecular_system):
 
-        from .forms.classes.api_XYZ import this_Quantity_is_XYZ
+        from molsysmt.forms.classes.api_XYZ import this_Quantity_is_XYZ
+        from molsysmt.forms.classes.api_XYZ import form_name as form_XYZ
+
         if this_Quantity_is_XYZ(molecular_system):
-            return 'XYZ'
+            return form_XYZ
+        else:
+            raise NotImplementedError()
+
+    if type(molecular_system)==dict:
+
+        from molsysmt.forms.classes.api_dict_molecular_mechanics import this_dict_is_MolecularMechanicsDict
+        from molsysmt.forms.classes.api_dict_molecular_mechanics import form_name as form_MolecularMechanicsDict
+        from molsysmt.forms.classes.api_dict_simulation import this_dict_is_SimulationDict
+        from molsysmt.forms.classes.api_dict_simulation import form_name as form_SimulationDict
+
+        if this_dict_is_MolecularMechanicsDict(molecular_system):
+            return form_MolecularMechanicsDict
+        elif this_dict_is_SimulationDict(molecular_system):
+            return form_SimulationDict
         else:
             raise NotImplementedError()
 
@@ -324,7 +340,10 @@ def remove(molecular_system, selection=None, frame_indices=None, to_form=None, s
     if frame_indices is not None:
         frame_indices_to_be_kept = complementary_frame_indices(molecular_system, frame_indices)
 
-    return extract(molecular_system, selection=atom_indices_to_be_kept, frame_indices=frame_indices_to_be_kept, to_form=to_form)
+    tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept, frame_indices=frame_indices_to_be_kept, to_form=to_form)
+    tmp_item = digest_output(tmp_item)
+
+    return tmp_item
 
 def extract(molecular_system, selection='all', frame_indices='all', to_form=None, syntaxis='MolSysMT'):
 
@@ -413,6 +432,8 @@ def extract(molecular_system, selection='all', frame_indices='all', to_form=None
                     return tmp_item
 
     tmp_items = convert(tmp_items, to_form=to_form)
+
+    tmp_items = digest_output(tmp_items)
 
     return tmp_items
 
@@ -1178,6 +1199,8 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
         if 'output_filename' in conversion_arguments:
             to_form = conversion_arguments['output_filename']
         tmp_item = extract(molecular_system, selection=atom_indices, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis)
+
+    tmp_item = digest_output(tmp_item)
 
     return tmp_item
 

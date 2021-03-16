@@ -2,14 +2,15 @@ import numpy as np
 from molsysmt import puw
 from molsysmt._private_tools.exceptions import *
 
-def charge(molecular_system, target='group', selection = 'all', type='physical_pH7', forcefield=None, engine='OpenMM'):
+def charge(molecular_system, target='group', selection='all', type='physical_pH7',
+           molecular_mechanics_parameters=None, engine='OpenMM'):
 
     from molsysmt._private_tools._digestion import digest_engine, digest_target
 
     engine=digest_engine(engine)
     target=digest_target(target)
 
-    if forcefield is None and type in ['physical_pH7', 'collantes']:
+    if type in ['physical_pH7', 'collantes']:
 
         from molsysmt.multitool import get
 
@@ -48,26 +49,19 @@ def charge(molecular_system, target='group', selection = 'all', type='physical_p
         else:
             output = puw.quantity(np.array(output), units)
 
-    elif forcefield is not None:
+    else:
 
+        from molsysmt._private_tools._digestion import digest_molecular_system
         from molsysmt.multitool import get, convert, get_form
+
+        molecular_system = digest_molecular_system(molecular_system)
+        molecular_system = molecular_system.combine_with_items(molecular_mechanics_parameters)
 
         if engine == 'OpenMM':
 
             from simtk.openmm import NonbondedForce
 
-            if forcefield is not None:
-
-                openmm_system = convert(molecular_system, to_form='openmm.System', forcefield=forcefield)
-
-            else:
-
-                from molsysmt import get_form
-                if get_form(molecular_system)!='openmm.System':
-                    raise ValueError('The molecular_system is not an openmm.System object. A value for the \
-                                      input argument forcefield is needed if engine=="OpenMM"')
-                else:
-                    openmm_system = molecular_system
+            openmm_system = convert(molecular_system, to_form='openmm.System', forcefield=forcefield)
 
             output = []
 
@@ -111,8 +105,9 @@ def charge(molecular_system, target='group', selection = 'all', type='physical_p
 
                 output = np.round(var_aux,4)*puw.unit('e')
 
-    else:
-        raise NotImplementedError
+        else:
+
+            raise NotImplementedError
 
     return output
 
