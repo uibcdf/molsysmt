@@ -14,8 +14,30 @@ is_form={
 info=["",""]
 
 has = molecular_system_components.copy()
-for ii in ['elements', 'bonds', 'box', 'coordinates', 'ff_parameters', 'mm_parameters']:
+for ii in ['box', 'ff_parameters', 'mm_parameters']:
     has[ii]=True
+
+def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import convert, get
+    from simtk.openmm import Context
+
+    positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
+    positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
+    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
+
+    integrator = simulation.to_openmm_Integrator()
+    platform = simulation.to_openmm_Platform()
+
+    properties = simulation.get_openmm_Context_parameters()
+
+    tmp_item = Context(item, integrator, platform, properties)
+    tmp_item.setPositions(positions)
+    if simulation.initial_velocities_to_temperature:
+        temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
+        tmp_item.setVelocitiesToTemperature(temperature)
+
+    return tmp_item
 
 def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -30,9 +52,9 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
     integrator = simulation.to_openmm_Integrator()
     platform = simulation.to_openmm_Platform()
 
-    simulation_parameters = simulation.get_openmm_Simulation_parameters()
+    properties = simulation.get_openmm_Simulation_parameters()
 
-    tmp_item = Simulation(topology, item, integrator, platform, **simulation_properties)
+    tmp_item = Simulation(topology, item, integrator, platform, properties)
     tmp_item.context.setPositions(positions)
     if simulation.initial_velocities_to_temperature:
         temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
@@ -49,7 +71,7 @@ def extract(item, atom_indices='all', frame_indices='all'):
 
 def copy(item):
 
-    raise NotImplementedError
+    return item.__copy__()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

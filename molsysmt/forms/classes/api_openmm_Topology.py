@@ -76,18 +76,28 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indi
 
     from molsysmt.multitool import convert
 
-    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
+    molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
 
-    forcefield = simulation.to_openmm_ForceField()
-    system_parameters = simulation.get_openmm_System_parameters()
-    tmp_item = forcefield.createSystem(topology, **system_parameters)
+    forcefield = molecular_mechanics.to_openmm_ForceField()
+    system_parameters = molecular_mechanics.get_openmm_System_parameters()
+    tmp_item = forcefield.createSystem(item, **system_parameters)
 
-    if simulation.use_dispersion_correction or simulation.ewald_error_tolerance:
+    if molecular_mechanics.use_dispersion_correction or molecular_mechanics.ewald_error_tolerance:
         forces = {ii.__class__.__name__ : ii for ii in tmp_item.getForces()}
-    if simulation.use_dispersion_correction:
+    if molecular_mechanics.use_dispersion_correction:
         forces['NonbondedForce'].setUseDispersionCorrection(True)
-    if simulation.ewald_error_tolerance:
-        forces['NonbondedForce'].setEwaldErrorTolerance(simulation.ewald_error_tolerance)
+    if molecular_mechanics.ewald_error_tolerance:
+        forces['NonbondedForce'].setEwaldErrorTolerance(molecular_mechanics.ewald_error_tolerance)
+
+    return tmp_item
+
+def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_openmm_System import to_openmm_Context as openmm_System_to_openmm_Context
+
+    tmp_item = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = openmm_System_to_openmm_Context(tmp_item, molecular_system=molecular_system)
 
     return tmp_item
 

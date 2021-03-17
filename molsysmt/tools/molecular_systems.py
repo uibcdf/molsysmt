@@ -316,7 +316,7 @@ def where_simulation_in_molecular_system(items):
             has_elements = dict_has[form_in]["elements"]
             has_simulation = dict_has[form_in]["simulation"]
             if has_simulation and not has_elements:
-                simulatione_item = item
+                simulation_item = item
                 simulation_form = form_in
                 break
             else:

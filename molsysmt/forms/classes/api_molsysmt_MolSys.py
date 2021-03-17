@@ -114,6 +114,14 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indi
 
     return tmp_item
 
+def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import to_openmm_Context as molsysmt_MolSys_to_openmm_Context
+
+    tmp_item = molsysmt_MolSys_to_openmm_Context(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
 def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_openmm_Simulation as molsysmt_MolSys_to_openmm_Simulation

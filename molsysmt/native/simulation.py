@@ -5,7 +5,7 @@ class Simulation():
 
     def __init__(self, molecular_system=None, remove_cm_motion=True,
                  integrator=None, temperature=None, collisions_rate=None, integration_timestep=None,
-                 initial_velocities_to_temperature = True,
+                 initial_velocities_to_temperature = True, constraint_tolerance=0.00001,
                  platform='CUDA', cuda_precision='mixed'):
 
         self._molecular_system = molecular_system
@@ -19,6 +19,8 @@ class Simulation():
 
         self.initial_velocities_to_temperature = initial_velocities_to_temperature
 
+        self.constraint_tolerance = constraint_tolerance
+
         self.platform = platform
         self.cuda_precision = cuda_precision
 
@@ -31,6 +33,7 @@ class Simulation():
             'collisions_rate' : self.collisions_rate,
             'integration_timestep' : self.integration_timestep,
             'initial_velocities_to_temperature' : self.initial_velocities_to_temperature,
+            'constraint_tolerance' : self.constraint_tolerance,
             'platform' : self.platform,
             'cuda_precision' : self.cuda_precision,
         }
@@ -52,6 +55,8 @@ class Simulation():
 
         tmp_simulation.initial_velocities_to_temperature = self.initial_velocities_to_temperature
 
+        tmp_constraint_tolerance = self.constraint_tolerance
+
         tmp_simulation.platform = self.platform
         tmp_simulation.cuda_precision = self.cuda_precision
 
@@ -71,11 +76,11 @@ class Simulation():
 
     def to_openmm_Integrator(self):
 
-        from simtk.openmm.app import LangevinInegrator
+        from simtk.openmm import LangevinIntegrator
 
         temperature = puw.translate(self.temperature, in_units='K', to_form='simtk.unit')
-        collisions_rate = puw.translate(self.temperature, in_units='1/ps', to_form='simtk.unit')
-        integration_timestep = puw.translate(self.temperature, in_units='fs', to_form='simtk.unit')
+        collisions_rate = puw.translate(self.collisions_rate, in_units='1/ps', to_form='simtk.unit')
+        integration_timestep = puw.translate(self.integration_timestep, in_units='fs', to_form='simtk.unit')
 
         if self.integrator=='Langevin':
             integrator = LangevinIntegrator(temperature, collisions_rate, integration_timestep)
@@ -84,21 +89,50 @@ class Simulation():
         else:
             raise NotImplementedError()
 
+        return integrator
+
     def to_openmm_Platform(self):
 
-        from simtk.openmm.app import Platform
+        from simtk.openmm import Platform
 
         if self.platform in ['CUDA', 'CPU']:
-            platform = Platform.getPlaformByName(platform)
+            platform = Platform.getPlatformByName(self.platform)
         else:
             raise NotImplementedError()
+
+        return platform
+
+    def get_openmm_Context_parameters(self):
+
+        parameters = {}
+
+        if self.platform=='CUDA':
+            parameters['CudaPrecision']=self.cuda_precision
+
+        return parameters
+
+    def to_openmm_Context(self, molecular_system=None, selection='all', frame_indices='all'):
+
+        from molsysmt.multitool import convert
+
+        if molecular_system is None:
+            molecular_system = self._molecular_system
+        else:
+            molecular_system = digest_molecular_system(molecular_system)
+
+        if molecular_system is None:
+            raise NoMolecularSystemError()
+
+        context = convert(molecular_system, selection=selection, simulation=self, to_form='openmm.Context')
+
+        return context
 
     def get_openmm_Simulation_parameters(self):
 
         parameters = {}
 
-        if platform=='CUDA':
-            simulation_properties['CudaPrecision']='mixed'
+        if self.platform=='CUDA':
+            parameters['CudaPrecision']=self.cuda_precision
 
         return parameters
 
@@ -117,4 +151,10 @@ class Simulation():
         simulation = convert(molecular_system, selection=selection, simulation=self, to_form='openmm.Simulation')
 
         return simulation
+
+simulation_to_potential_energy_minimization = Simulation(integrator='Langevin', temperature='0 K',
+                                                         collisions_rate='1.0 1/ps', integration_timestep='2fs',
+                                                         initial_velocities_to_temperature = False,
+                                                         platform='CUDA', cuda_precision='mixed')
+
 

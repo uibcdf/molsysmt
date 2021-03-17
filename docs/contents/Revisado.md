@@ -27,7 +27,7 @@
 - [X] Dihedral_angles
 
 - [X] Protonation
-- [ ] Physico chemical properties
+- [X] Physico chemical properties
 - [ ] Terminal Capping
 - [ ] Solvation
 - [ ] Energy Minimization
@@ -38,6 +38,8 @@
 - [ ] ForceFields
 - [ ] Model loop
 - [ ] Molecular Systems
+- [ ] Molecular_Mechanics
+- [ ] Simulation
 - [ ] Mutations
 - [ ] PBC
 

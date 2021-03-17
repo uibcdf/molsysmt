@@ -6,7 +6,7 @@ class MolecularMechanics():
     def __init__(self, molecular_system=None, forcefield=None, water_model=None, implicit_solvent=None,
                  non_bonded_method='no_cutoff', non_bonded_cutoff=None, switch_distance=None,
                  use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-                 constraints=None, flexible_constraints=False, constraint_tolerance=0.00001,
+                 constraints=None, flexible_constraints=False,
                  rigid_water=True, hydrogen_mass=None,
                  residue_templates={}, ignore_external_bonds=False,
                  implicit_solvent_salt_conc='0.0 mol/L', implicit_solvent_kappa='0.0 1/nm',
@@ -26,7 +26,6 @@ class MolecularMechanics():
 
         self.constraints = constraints
         self.flexible_constraints = flexible_constraints
-        self.constraint_tolerance = constraint_tolerance
 
         self.water_model = water_model
         self.rigid_water = rigid_water
@@ -51,7 +50,6 @@ class MolecularMechanics():
             'hydrogen_mass' : self.hydrogen_mass,
             'constraints' : self.constraints,
             'flexible_constraints' : self.flexible_constraints,
-            'constraint_tolerance' : self.constraint_tolerance,
             'water_model' : self.water_model,
             'rigid_water' : self.rigid_water,
             'residue_templates' : self.residue_templates,
@@ -78,11 +76,9 @@ class MolecularMechanics():
         tmp_molecular_mechanics.ewald_error_tolerance = self.ewald_error_tolerance
 
         tmp_molecular_mechanics.hydrogen_mass = self.hydrogen_mass
-        tmp_molecular_mechanics.remove_cm_motion = self.remove_cm_motion
 
         tmp_molecular_mechanics.constraints = self.constraints
         tmp_molecular_mechanics.flexible_constraints = self.flexible_constraints
-        tmp_molecular_mechanics.constraint_tolerance = self.constraint_tolerance
 
         tmp_molecular_mechanics.water_model = self.water_model
         tmp_molecular_mechanics.rigid_water = self.rigid_water
@@ -113,13 +109,13 @@ class MolecularMechanics():
 
         from molsysmt.native.forcefields import get_forcefield_names
 
-        return  get_forcefield_names(self.forcefield, 'OpenMM', water_model=self.water_model, implicit_solvent=self.implicit.solvent)
+        return  get_forcefield_names(self.forcefield, 'OpenMM', water_model=self.water_model, implicit_solvent=self.implicit_solvent)
 
     def to_openmm_ForceField(self):
 
         from simtk.openmm.app import ForceField
 
-        forcefield_names = self.to_openmm_forcefield_names()
+        forcefield_names = self.get_openmm_forcefield_names()
         forcefield = ForceField(*forcefield_names)
 
         return forcefield
@@ -145,8 +141,11 @@ class MolecularMechanics():
         else:
             raise NotImplementedError()
 
-        parameters['nonbondedCutoff']=puw.translate(self.non_bonded_cutoff, in_units='nm', to_form='simtk.unit')
-        parameters['switchDistance']=puw.translate(self.switch_distance, in_units='nm', to_form='simtk.unit')
+        if self.non_bonded_cutoff is not None:
+            parameters['nonbondedCutoff']=puw.translate(self.non_bonded_cutoff, to_form='simtk.unit', in_units='nm')
+
+        if self.switch_distance is not None:
+            parameters['switchDistance']=puw.translate(self.switch_distance, to_form='simtk.unit', in_units='nm')
 
         if self.constraints is not None:
             if self.constraints == 'h_bonds':
@@ -162,11 +161,10 @@ class MolecularMechanics():
 
         parameters['hydrogenMass']=self.hydrogen_mass
         parameters['rigidWater']=self.rigid_water
-        parameters['removeCMMotion']=self.remove_cm_motion
+        #parameters['removeCMMotion']=self.remove_cm_motion
         parameters['residueTemplates']=self.residue_templates
         parameters['ignoreExternalBonds']=self.ignore_external_bonds
         parameters['flexibleConstraints']=self.flexible_constraints
-        parameters['constraintTolerante']=self.constraint_tolerance
 
         if self.implicit_solvent is not None:
 
@@ -208,7 +206,7 @@ class MolecularMechanics():
         if molecular_system is None:
             raise NoMolecularSystemError()
 
-        system = convert(molecular_system, selection=selection, simulation=self, to_form='openmm.System')
+        system = convert([molecular_system, self], selection=selection, to_form='openmm.System')
 
         return system
 
