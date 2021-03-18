@@ -23,8 +23,10 @@ from .terminals_capping import add_terminal_capping
 from . import physico_chemical_properties as physchem
 from .solvate_box import solvate, is_solvated
 from .potential_energy import energy_minimization, potential_energy
+from .sasa import sasa
+from .rmsd import rmsd, least_rmsd, least_rmsd_fit
 
-#from .rmsd import rmsd, least_rmsd, least_rmsd_fit, angular_rmsd
+
 #from .sequence import sequence_alignment, sequence_identity, structure_alignment
 #from .radius_of_gyration import radius_of_gyration
 #from .fix import fix_chains, fix
@@ -35,7 +37,6 @@ from .potential_energy import energy_minimization, potential_energy
 #        box_shape_from_box_angles, box_shape_from_box_vectors, box_lengths_from_box_vectors, box_angles_from_box_vectors,\
 #        box_vectors_from_box_lengths_and_angles, box_volume_from_box_vectors
 #from .pockets import alpha_spheres
-#from .sasa import sasa
 #from . import physchem
 #from . import nglview
 

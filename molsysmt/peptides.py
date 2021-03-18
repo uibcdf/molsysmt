@@ -1,27 +1,29 @@
-def build_peptide (molecular_system, forcefield='AMBER14', implicit_solvent=None, water_model=None, to_form='molsysmt.MolSys',
-                   box_geometry='cubic', clearance='10.0 Å', engine='LEaP', logfile=False, verbose=False):
+def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
+                   to_form='molsysmt.MolSys', engine='LEaP', logfile=False, verbose=False):
 
-    # implicit_solvent in ['OBC1']
-    # water_model in ['TIP3P']
     # box_geometry: "cubic" or "truncated_octahedral"
 
-    from molsysmt._private_tools.forcefields import digest_forcefield
-    from molsysmt.multitool import convert
-    from os import getcwd, chdir
+    from molsysmt._private_tools._digestion import digest_engine
 
-    tmp_item = convert(molecular_system, to_form='aminoacids3:seq')
+    engine = digest_engine(engine)
 
     if engine=="LEaP":
 
+        from molsysmt.multitool import convert
+        from os import getcwd, chdir
         from molsysmt.tools.tleap import TLeap
         from molsysmt._private_tools.files_and_directories import tmp_directory, tmp_filename
         from shutil import rmtree, copyfile
 
-        sequence = tmp_item[12:].upper()
+        sequence = convert(molecular_system, to_form='aminoacids3:seq')
+        sequence = sequence[12:].upper()
         sequence = ' '.join([sequence[ii:ii+3] for ii in range(0, len(sequence), 3)])
 
-        if type(forcefield) not in [tuple, list]:
-            forcefield = [forcefield]
+        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
+        mm_parameters = molecular_mechanics.get_leap_parameters()
+        forcefield = mm_parameters['forcefield']
+        water_model = mm_parameters['water_model']
+        implicit_solvent = mm_parameters['implicit_solvent']
 
         if water_model is not None:
             if water_model =='SPC':
@@ -41,8 +43,7 @@ def build_peptide (molecular_system, forcefield='AMBER14', implicit_solvent=None
             print('Working directory:', working_directory)
 
         tleap = TLeap()
-        forcefield = digest_forcefield(forcefield, 'LEap', implicit_solvent=implicit_solvent,
-                                       water_model=water_model)
+
         tleap.load_parameters(*forcefield)
 
         if implicit_solvent == 'OBC1':
@@ -67,6 +68,10 @@ def build_peptide (molecular_system, forcefield='AMBER14', implicit_solvent=None
         tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)
 
         rmtree(working_directory)
+
+    else:
+
+        raise NotImplementedError
 
     return tmp_item
 

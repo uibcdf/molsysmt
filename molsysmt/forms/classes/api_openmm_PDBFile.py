@@ -5,6 +5,7 @@ from simtk.openmm.app import PDBFile as _openmm_PDBFile
 import sys
 import importlib
 from molsysmt.molecular_system import molecular_system_components
+from molsysmt import puw
 
 form_name='openmm.PDBFile'
 
@@ -144,9 +145,7 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    from numpy import array as _array
-
-    coordinates = _array(item.positions._value)
+    coordinates = np.array(item.positions._value)
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
 
     if frame_indices is not 'all':
@@ -156,6 +155,7 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
         coordinates = coordinates[:,indices,:]
 
     coordinates = coordinates * item.positions.unit
+    coordinates = puw.standardize(coordinates)
 
     return coordinates
 

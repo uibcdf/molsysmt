@@ -59,7 +59,7 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    tmp_iem = item.context
+    tmp_item = item.context
 
     return tmp_item
 

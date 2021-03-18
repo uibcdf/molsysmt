@@ -1190,9 +1190,9 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
                 item_form = aux_form
                 break
 
-
-    if item_form!=to_form:
-
+    if item_form is None:
+        tmp_item = None
+    elif item_form!=to_form:
         tmp_item = dict_convert[item_form][to_form](item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
                                                      **conversion_arguments, **kwargs)
     else:

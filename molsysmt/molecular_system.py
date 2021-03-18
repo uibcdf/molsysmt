@@ -37,6 +37,8 @@ class MolecularSystem():
             if not is_list_or_tuple(items):
                 items = [items]
 
+            while None in items: items.remove(None)
+
             if not is_a_single_molecular_system(items):
                 raise NeedsSingleMolecularSystemError()
 
@@ -109,6 +111,7 @@ class MolecularSystem():
         while None in items: items.remove(None)
 
         tmp_molecular_system = MolecularSystem(items)
+
 
         if tmp_molecular_system.elements_item is None and self.elements_item is not None:
             tmp_items = items+[self.elements_item]

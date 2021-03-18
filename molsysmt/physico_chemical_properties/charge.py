@@ -2,8 +2,7 @@ import numpy as np
 from molsysmt import puw
 from molsysmt._private_tools.exceptions import *
 
-def charge(molecular_system, target='group', selection='all', type='physical_pH7',
-           molecular_mechanics_parameters=None, engine='OpenMM'):
+def charge(molecular_system, target='group', selection='all', type=None, engine='OpenMM'):
 
     from molsysmt._private_tools._digestion import digest_engine, digest_target
 
@@ -55,13 +54,12 @@ def charge(molecular_system, target='group', selection='all', type='physical_pH7
         from molsysmt.multitool import get, convert, get_form
 
         molecular_system = digest_molecular_system(molecular_system)
-        molecular_system = molecular_system.combine_with_items(molecular_mechanics_parameters)
 
         if engine == 'OpenMM':
 
             from simtk.openmm import NonbondedForce
 
-            openmm_system = convert(molecular_system, to_form='openmm.System', forcefield=forcefield)
+            openmm_system = convert(molecular_system, to_form='openmm.System')
 
             output = []
 

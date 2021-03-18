@@ -105,6 +105,18 @@ class MolecularMechanics():
         else:
             pass
 
+    def get_leap_parameters(self):
+
+        from molsysmt.native.forcefields import get_forcefield_names
+
+        parameters = {}
+
+        parameters['forcefield'] = get_forcefield_names(self.forcefield, 'LEaP', water_model=self.water_model, implicit_solvent=self.implicit_solvent)
+        parameters['water_model'] = self.water_model
+        parameters['implicit_solvent'] = self.implicit_solvent
+
+        return parameters
+
     def get_openmm_forcefield_names(self):
 
         from molsysmt.native.forcefields import get_forcefield_names

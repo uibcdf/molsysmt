@@ -26,26 +26,26 @@
 - [X] Covalent_chains
 - [X] Dihedral_angles
 
+- [X] ForceFields
+- [X] Molecular Systems
+- [X] Molecular_Mechanics
+- [X] Simulation
+
 - [X] Protonation
 - [X] Physico chemical properties
-- [ ] Terminal Capping
-- [ ] Solvation
-- [ ] Energy Minimization
+- [X] Terminal Capping
+- [X] Solvation
+- [X] Potential Energy and Energy Minimization
 
+- [X] SASA
+- [X] RMSD
+
+- [ ] PBC
+- [ ] Rg
 
 - [ ] Alignment
-
-- [ ] ForceFields
 - [ ] Model loop
-- [ ] Molecular Systems
-- [ ] Molecular_Mechanics
-- [ ] Simulation
 - [ ] Mutations
-- [ ] PBC
-
-- [ ] Rg
-- [ ] RMSD
-- [ ] SASA
 
 - [ ] Working with OpenMM
 

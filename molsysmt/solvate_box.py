@@ -13,9 +13,9 @@ Methods and wrappers to create and solvate boxes
 
 """
 
-def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='14.0 angstroms', water='TIP3P',
+def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='14.0 angstroms',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
-             ionic_strength='0.0 molar', forcefield='AMBER99SBILDN', engine="LEaP",
+             ionic_strength='0.0 molar', engine="LEaP",
              to_form= None, logfile=False, verbose=False):
     """solvate(item, geometry=None, water=None, engine=None)
 
@@ -55,22 +55,21 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
 
     if engine=="OpenMM":
 
-        from molsysmt._private_tools.forcefields import digest_forcefield
-        from simtk.openmm.app import ForceField
         from simtk.openmm import Vec3
 
         clearance = puw.translate(clearance, to_form='simtk.unit')
         ionic_strength = puw.translate(ionic_strength, to_form='simtk.unit')
 
         modeller = convert(molecular_system, to_form='openmm.Modeller')
-        forcefield_parameters = digest_forcefield(forcefield, 'OpenMM', water_model=water)
-        forcefield = ForceField(*forcefield_parameters)
+        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
+        parameters = molecular_mechanics.get_openmm_System_parameters()
+        forcefield = molecular_mechanics.to_openmm_ForceField()
 
         solvent_model=None
-        if water=='SPC':
+        if molecular_mechanics.water_model=='SPC':
             solvent_model='tip3p'
-        elif water in ['TIP3P','TIP3PFB','SPCE', 'TIP4PEW','TIP4PFB','TIP5P']:
-            solvent_model=water.lower()
+        elif molecular_mechanics.water_model in ['TIP3P','TIP3PFB','SPCE', 'TIP4PEW','TIP4PFB','TIP5P']:
+            solvent_model=molecular_mechanics.water_model.lower()
         else:
             raise NotImplementedError()
 
@@ -139,7 +138,6 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         from molsysmt._private_tools.files_and_directories import tmp_directory, tmp_filename
         from shutil import rmtree, copyfile
         from os import getcwd, chdir
-        from molsysmt._private_tools.forcefields import digest_forcefield
 
         current_directory = getcwd()
         working_directory = tmp_directory()
@@ -150,7 +148,10 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         tmp_inpcrd = tmp_prmtop.replace('prmtop','inpcrd')
         tmp_logfile = tmp_prmtop.replace('prmtop','leap.log')
 
-        forcefield_parameters = digest_forcefield(forcefield, 'LEaP', water_model=water)
+        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
+        parameters = molecular_mechanics.get_leap_parameters()
+        forcefield = parameters['forcefield']
+        water = parameters['water_model']
 
         solvent_model=None
         if water=='SPC':
@@ -164,7 +165,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
             print('Working directory:', working_directory)
 
         tleap = TLeap()
-        tleap.load_parameters(*forcefield_parameters)
+        tleap.load_parameters(*forcefield)
         tleap.load_unit('MolecularSystem', pdbfile_in)
         tleap.check_unit('MolecularSystem')
         tleap.get_total_charge('MolecularSystem')
