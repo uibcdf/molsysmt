@@ -1,17 +1,18 @@
-from os.path import basename as _basename
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='dcd'
 
 is_form = {
-    'dcd': form_name,
-    'DCD': form_name
     }
 
 info=["",""]
-with_topology=False
-with_trajectory=True
-with_coordinates=True
-with_box=True
+
+has = molecular_system_components.copy()
+for ii in ['coordinates', 'box']:
+    has[ii]=True
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -24,11 +25,16 @@ def copy(item):
 
     raise NotImplementedError
 
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
+
 ###### Get
 
 ## system
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 

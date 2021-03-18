@@ -1,19 +1,20 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 from networkx import Graph as _networkx_Graph
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='networkx.Graph'
 
 is_form={
-    'networkx.Graph': form_name,
     _networkx_Graph : form_name
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=False
-with_parameters=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds']:
+    has[ii]=True
 
 def select_with_MDTraj(item, selection):
 
@@ -30,11 +31,16 @@ def copy(item):
 
     return item.copy()
 
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
+
 ###### Get
 
 ## system
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 

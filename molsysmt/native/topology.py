@@ -1,4 +1,5 @@
 from pandas import DataFrame as Pandas_DataFrame
+import numpy as np
 
 class Atoms_DataFrame(Pandas_DataFrame):
 
@@ -56,15 +57,13 @@ class Topology():
 
         else:
 
-            from numpy import arange, empty, vectorize, in1d
-
             tmp_item = Topology()
             tmp_item.atoms_dataframe = self.atoms_dataframe.iloc[atom_indices].copy()
 
             bond_atom1 = self.bonds_dataframe['atom1_index'].to_numpy()
             bond_atom2 = self.bonds_dataframe['atom2_index'].to_numpy()
-            mask_atom1 = in1d(bond_atom1, atom_indices)
-            mask_atom2 = in1d(bond_atom2, atom_indices)
+            mask_atom1 = np.in1d(bond_atom1, atom_indices)
+            mask_atom2 = np.in1d(bond_atom2, atom_indices)
             mask = mask_atom1*mask_atom2
             tmp_item.bonds_dataframe = self.bonds_dataframe[mask].copy()
             del(bond_atom1, bond_atom2, mask_atom1, mask_atom2)
@@ -72,10 +71,10 @@ class Topology():
             n_atoms=tmp_item.atoms_dataframe.shape[0]
             n_bonds=tmp_item.bonds_dataframe.shape[0]
 
-            tmp_item.atoms_dataframe['atom_index']=arange(n_atoms)
+            tmp_item.atoms_dataframe['atom_index']=np.arange(n_atoms)
             aux_dict=tmp_item.atoms_dataframe['atom_index'].to_dict()
-            tmp_item.atoms_dataframe.index=arange(n_atoms)
-            vaux_dict = vectorize(aux_dict.__getitem__)
+            tmp_item.atoms_dataframe.index=np.arange(n_atoms)
+            vaux_dict = np.vectorize(aux_dict.__getitem__)
 
             tmp_item.bonds_dataframe['atom1_index']=vaux_dict(tmp_item.bonds_dataframe['atom1_index'].to_numpy())
             tmp_item.bonds_dataframe['atom2_index']=vaux_dict(tmp_item.bonds_dataframe['atom2_index'].to_numpy())
@@ -99,7 +98,6 @@ class Topology():
     def add(self, item, selection='all', frame_indices='all'):
 
         from molsysmt import convert, get
-        from numpy import vectorize
 
         tmp_item = convert(item, selection=selection, frame_indices=frame_indices, to_form='molsysmt.Topology')
 

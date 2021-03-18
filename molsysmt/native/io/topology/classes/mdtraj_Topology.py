@@ -1,4 +1,4 @@
-def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import Topology
     from mdtraj.core import element
@@ -64,7 +64,7 @@ def to_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
 
     return tmp_item
 
-def from_mdtraj_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import Topology
     import numpy as np

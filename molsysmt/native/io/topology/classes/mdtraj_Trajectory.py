@@ -1,4 +1,4 @@
-def from_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all'):
+def from_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .mdtraj_Topology import from_mdtraj_Topology
 

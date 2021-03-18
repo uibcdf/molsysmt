@@ -2,8 +2,8 @@
 ### This code was developed by Andrea Rizzi  and John Chodera for the Yank project at
 ### John Chodera's lab. See: Yank/utils.py at https://github.com/choderalab/yank
 ###
-### This file is at the moment an attempt to include some other functionalities
-### and slight modifications just refactoring the original algorithms
+### This file is an adaptation to molsysmt, including some other functionalities
+### and slight modifications to the original algorithms
 ###
 ### All credit should be given to Andrea Rizzi, John Chodera and the developers
 ### of Yank (https://github.com/choderalab/yank)
@@ -15,8 +15,7 @@ import tempfile
 import shutil
 import subprocess
 import re
-from simtk import unit
-
+from molsysmt import puw
 
 def _sanitize_tleap_unit_name(func):
     """Decorator version of TLeap._sanitize_unit_name.
@@ -281,8 +280,9 @@ class TLeap:
             raise ValueError('The argument box_geometry must take one of the following values: \
                              "cubic" or "truncated_octahedral".')
 
-        self.add_commands('{} {} {} {} iso'.format(solvate_command, unit_name,
-                                                   solvent_model, str(clearance.value_in_unit(unit.angstroms))))
+        clearance = puw.get_value(clearance, in_units='angstroms')
+
+        self.add_commands('{} {} {} {} iso'.format(solvate_command, unit_name, solvent_model, clearance))
 
     @_sanitize_tleap_unit_name
     def save_unit(self, unit_name, output_path):

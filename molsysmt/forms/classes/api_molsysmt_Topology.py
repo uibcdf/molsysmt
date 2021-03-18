@@ -1,53 +1,57 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
-from molsysmt.native.topology import Topology
 import numpy as np
+from molsysmt.native.topology import Topology
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='molsysmt.Topology'
 
 is_form={
      Topology : form_name,
-    'molsysmt.Topology': form_name
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=False
-with_parameters=False
 
-def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds']:
+    has[ii]=True
+
+def to_aminoacids3_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.seqs import to_aminoacids3_seq as molsysmt_Topology_to_aminoacids3_seq
-    return molsysmt_Topology_to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = molsysmt_Topology_to_aminoacids3_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.seqs import to_aminoacids1_seq as molsysmt_Topology_to_aminoacids1_seq
-    return molsysmt_Topology_to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = molsysmt_Topology_to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
-    return molsysmt_Topology_to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = molsysmt_Topology_to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
-    return molsysmt_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_pdb(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None):
+    tmp_item = molsysmt_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.native.io.topology.files import to_pdb as molsysmt_Topology_to_pdb
-    return molsysmt_Topology_to_pdb(item, output_filename=output_filename,
-                                    trajectory_item=trajectory_item,  atom_indices=atom_indices,
-                                    frame_indices=frame_indices)
+
+    tmp_item = molsysmt_Topology_to_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+
+    return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -55,17 +59,6 @@ def extract(item, atom_indices='all', frame_indices='all'):
         return item
     else:
         return item.extract(atom_indices=atom_indices)
-
-def copy(item):
-
-    return item.copy()
-
-
-def merge_two_items(item1, item2):
-
-    tmp_item = copy(item1)
-    tmp_item.add(item2)
-    return tmp_item
 
 def select_with_MDTraj(item, selection):
 
@@ -76,6 +69,18 @@ def select_with_MolSysMT(item, selection):
     from molsysmt.native.selector import elements_select
     atom_indices = elements_select(item.atoms_dataframe, selection)
     return atom_indices
+
+def copy(item):
+
+    return item.copy()
+
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
 
 ###### Get
 
@@ -414,10 +419,6 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
     output = bond_indices.shape[0]
     del(bond_indices)
     return(output)
-
-def get_form_from_atom (item, indices='all', frame_indices='all'):
-
-    return form_name
 
 ## group
 
@@ -1683,7 +1684,7 @@ def get_chain_index_from_entity (item, indices='all', frame_indices='all'):
     for ii in indices:
         mask = (item.atoms_dataframe['entity_index']==ii)
         output.append(item.atoms_dataframe['chain_index'][mask].unique())
-    output = np.array(output)
+    output = np.array(output, dtype=object)
     return output
 
 def get_chain_id_from_entity (item, indices='all', frame_indices='all'):
@@ -1894,7 +1895,7 @@ def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
 
-    mask=(item.atoms_dataframe['molecule_type']=='small molecule').to_numpy()
+    mask=(item.atoms_dataframe['molecule_type']=='small_molecule').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
     return serie_indices.unique().shape[0]
 
@@ -1925,43 +1926,6 @@ def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     return 0
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
 
 ## bond
 

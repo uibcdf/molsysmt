@@ -12,14 +12,14 @@ _plural = {
 
 _singular = {value:key for key,value in _plural.items()}
 
-def _aux_getter_attribute(item, attribute, from_target, indices):
-
-    from molsysmt.multitool import get
-
-    dict_attribute = {from_target+'_'+attribute:True}
-
-    output = get(item, target=from_target, indices=indices, **dict_attribute)
-    return output
+#def _aux_getter_attribute(item, attribute, from_target, indices):
+#
+#    from molsysmt.multitool import get
+#
+#    dict_attribute = {from_target+'_'+attribute:True}
+#
+#    output = get(item, target=from_target, indices=indices, **dict_attribute)
+#    return output
 
 def _aux_getter_big_attribute_from_small(item, attribute, from_target, indices):
 
@@ -122,7 +122,6 @@ def _aux2_getter_small_index_from_big(item, attribute, from_target, indices):
 
     return output
 
-
 def _aux_n(item, from_target, indices):
 
     from molsysmt.multitool import get
@@ -162,41 +161,21 @@ def _aux_n_small_from_big(item, attribute, from_target, indices):
 
 ## atom
 
-def get_index_from_atom (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'index', 'atom', indices)
-
-def get_id_from_atom (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'id', 'atom', indices)
-
-def get_name_from_atom (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'name', 'atom', indices)
-
-def get_type_from_atom (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'type', 'atom', indices)
-
 def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
 
     return _aux_getter_index(item, 'atom', indices)
 
-#def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
+#def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
-#def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
+#    return _aux_getter_attribute(item, 'id', 'atom', indices)
 #
-#    raise NotImplementedError
-
-#def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
+#def get_atom_name_from_atom (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
-#def get_group_index_from_atom (item, indices='all', frame_indices='all'):
+#    return _aux_getter_attribute(item, 'name', 'atom', indices)
 #
-#    raise NotImplementedError
+#def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
+#
+#    return _aux_getter_attribute(item, 'type', 'atom', indices)
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all'):
 
@@ -324,7 +303,6 @@ def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     output = np.array(output, dtype=object)
 
-
     del(Graph, G, edges)
 
     return output
@@ -359,7 +337,6 @@ def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
     del(Graph, G, edges, edge_indices)
 
     return output
-
 
 def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
 
@@ -406,9 +383,6 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
 
     return output
 
-
-    raise NotImplementedError
-
 #def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 #
 #    raise NotImplementedError
@@ -424,14 +398,14 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
 #
 #    raise NotImplementedError
 
-def get_frame_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.multitool import get
-
-    tmp_step, tmp_time, tmp_box = get(item, target='system', frame_indices=frame_indices, step=True, time=True, box=True)
-    tmp_coordinates = get(item, target='atom', indices=indices, frame_indices=frame_indices, coordinates=True)
-
-    return tmp_step, tmp_time, tmp_coordinates, tmp_box
+#def get_frame_from_atom(item, indices='all', frame_indices='all'):
+#
+#    from molsysmt.multitool import get
+#
+#    tmp_step, tmp_time, tmp_box = get(item, target='system', frame_indices=frame_indices, step=True, time=True, box=True)
+#    tmp_coordinates = get(item, target='atom', indices=indices, frame_indices=frame_indices, coordinates=True)
+#
+#    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
@@ -439,29 +413,7 @@ def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
 
     return get(item, target='system', indices='all', frame_indices=frame_indices, n_frames=True)
 
-def get_form_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.multitool import get
-
-    return get(item, target='system', form=True)
-
 ## group
-
-def get_index_from_group (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'index', 'group', indices)
-
-def get_id_from_group (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'id', 'group', indices)
-
-def get_name_from_group (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'name', 'group', indices)
-
-def get_type_from_group (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'type', 'group', indices)
 
 def get_atom_index_from_group(item, indices='all', frame_indices='all'):
 
@@ -483,17 +435,17 @@ def get_group_index_from_group(item, indices='all', frame_indices='all'):
 
     return _aux_getter_index(item, 'group', indices)
 
-#def get_group_id_from_group(item, indices='all', frame_indices='all'):
+#def get_group_id_from_group (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
-#def get_group_name_from_group(item, indices='all', frame_indices='all'):
+#    return _aux_getter_attribute(item, 'id', 'group', indices)
 #
-#    raise NotImplementedError
-
-#def get_group_type_from_group(item, indices='all', frame_indices='all'):
+#def get_group_name_from_group (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
+#    return _aux_getter_attribute(item, 'name', 'group', indices)
+#
+#def get_group_type_from_group (item, indices='all', frame_indices='all'):
+#
+#    return _aux_getter_attribute(item, 'type', 'group', indices)
 
 def get_component_index_from_group (item, indices='all', frame_indices='all'):
 
@@ -585,22 +537,6 @@ def get_n_entities_from_group (item, indices='all', frame_indices='all'):
 
 ## component
 
-def get_index_from_component (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'index', 'component', indices)
-
-def get_id_from_component (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'id', 'component', indices)
-
-def get_name_from_component (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'name', 'component', indices)
-
-def get_type_from_component (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'type', 'component', indices)
-
 def get_atom_index_from_component(item, indices='all', frame_indices='all'):
 
     return _aux_getter_small_index_from_big(item, 'atom_index', 'component', indices)
@@ -639,16 +575,15 @@ def get_component_index_from_component (item, indices='all', frame_indices='all'
 
 #def get_component_id_from_component (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
+#    return _aux_getter_attribute(item, 'id', 'component', indices)
+#
 #def get_component_name_from_component (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
-
+#    return _aux_getter_attribute(item, 'name', 'component', indices)
+#
 #def get_component_type_from_component (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
+#    return _aux_getter_attribute(item, 'type', 'component', indices)
 
 def get_chain_index_from_component (item, indices='all', frame_indices='all'):
 
@@ -724,22 +659,6 @@ def get_n_entities_from_component (item, indices='all', frame_indices='all'):
 
 ## molecule
 
-def get_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'index', 'molecule', indices)
-
-def get_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'id', 'molecule', indices)
-
-def get_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'name', 'molecule', indices)
-
-def get_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'type', 'molecule', indices)
-
 def get_atom_index_from_molecule(item, indices='all', frame_indices='all'):
 
     return _aux_getter_small_index_from_big(item, 'atom_index', 'molecule', indices)
@@ -810,15 +729,15 @@ def get_molecule_index_from_molecule (item, indices='all', frame_indices='all'):
 
 #def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
+#    return _aux_getter_attribute(item, 'id', 'molecule', indices)
+#
 #def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
+#    return _aux_getter_attribute(item, 'name', 'molecule', indices)
+#
 #def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
+#    return _aux_getter_attribute(item, 'type', 'molecule', indices)
 
 def get_entity_index_from_molecule (item, indices='all', frame_indices='all'):
 
@@ -861,22 +780,6 @@ def get_n_entities_from_molecule (item, indices='all', frame_indices='all'):
     return _aux_n_big_from_small(item, 'n_entities', 'molecule', indices)
 
 ## chain
-
-def get_index_from_chain (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'index', 'chain', indices)
-
-def get_id_from_chain (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'id', 'chain', indices)
-
-def get_name_from_chain (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'name', 'chain', indices)
-
-def get_type_from_chain (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'type', 'chain', indices)
 
 def get_atom_index_from_chain(item, indices='all', frame_indices='all'):
 
@@ -932,15 +835,15 @@ def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
 
 #def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
+#    return _aux_getter_attribute(item, 'id', 'chain', indices)
+#
 #def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
+#    return _aux_getter_attribute(item, 'name', 'chain', indices)
+#
 #def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
+#    return _aux_getter_attribute(item, 'type', 'chain', indices)
 
 def get_molecule_index_from_chain (item, indices='all', frame_indices='all'):
 
@@ -999,22 +902,6 @@ def get_n_entities_from_chain (item, indices='all', frame_indices='all'):
     return _aux_n_big_from_small(item, 'n_entities', 'chain', indices)
 
 ## entity
-
-def get_index_from_entity (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'index', 'entity', indices)
-
-def get_id_from_entity (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'id', 'entity', indices)
-
-def get_name_from_entity (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'name', 'entity', indices)
-
-def get_type_from_entity (item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'type', 'entity', indices)
 
 def get_atom_index_from_entity(item, indices='all', frame_indices='all'):
 
@@ -1100,17 +987,17 @@ def get_entity_index_from_entity (item, indices='all', frame_indices='all'):
 
     return _aux_getter_index(item, 'entity', indices)
 
-#def get_entity_id_from_entity (item, indices='all', frame_indices='all'):     # EMPTY
+#def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
-
-#def get_entity_name_from_entity (item, indices='all', frame_indices='all'):     # EMPTY
+#    return _aux_getter_attribute(item, 'id', 'entity', indices)
 #
-#    raise NotImplementedError
-
-#def get_entity_type_from_entity (item, indices='all', frame_indices='all'):     # EMPTY
+#def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
 #
-#    raise NotImplementedError
+#    return _aux_getter_attribute(item, 'name', 'entity', indices)
+#
+#def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
+#
+#    return _aux_getter_attribute(item, 'type', 'entity', indices)
 
 def get_n_atoms_from_entity (item, indices='all', frame_indices='all'):
 
@@ -1210,7 +1097,7 @@ def get_n_small_molecules_from_system (item, indices='all', frame_indices='all')
     from molsysmt.multitool import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
-    return (molecule_types=='small molecule').sum()
+    return (molecule_types=='small_molecule').sum()
 
 def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
 
@@ -1247,9 +1134,10 @@ def get_n_lipids_from_system (item, indices='all', frame_indices='all'):
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
     return (molecule_types=='lipid').sum()
 
-#def get_coordinates_from_system(item, indices='all', frame_indices='all'):
-#
-#    raise NotImplementedError
+def get_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import get
+    return get(item, target='atom', frame_indices=frame_indices)
 
 #def get_box_from_system(item, indices='all', frame_indices='all'):
 #
@@ -1278,11 +1166,7 @@ def get_n_lipids_from_system (item, indices='all', frame_indices='all'):
 def get_frame_from_system(item, indices='all', frame_indices='all'):
 
     from molsysmt.multitool import get
-
-    tmp_step, tmp_time, tmp_box, tmp_coordinates = get(item, target='system', frame_indices=frame_indices,
-                                      step=True, time=True, box=True, coordinates=True)
-
-    return tmp_step, tmp_time, tmp_coordinates, tmp_box
+    return get(item, target='atom', frame_indices=frame_indices, frame=True)
 
 #def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 #
@@ -1310,21 +1194,17 @@ def get_inner_bond_index_from_system(item, indices='all', frame_indices='all'):
 
 ## bond
 
-def get_index_from_bond(item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'index', 'bond', indices)
-
-def get_order_from_bond(item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'order', 'bond', indices)
-
-def get_type_from_bond(item, indices='all', frame_indices='all'):
-
-    return _aux_getter_attribute(item, 'type', 'bond', indices)
-
 def get_bond_index_from_bond(item, indices='all', frame_indices='all'):
 
     return _aux_getter_index(item, 'bond', indices)
+
+#def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+#
+#    return _aux_getter_attribute(item, 'order', 'bond', indices)
+#
+#def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+#
+#    return _aux_getter_attribute(item, 'type', 'bond', indices)
 
 #def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
 #

@@ -1,20 +1,12 @@
-import numpy as _np
-#from .multitool import get_form as get_form, select as _select, convert as _convert
-#from ._private_tools.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
-#from ._private_tools.digest_inputs import _coordinates as _digest_coordinates
-#from ._private_tools.digest_inputs import _frameslist as _digest_frames
-#from ._private_tools.digest_inputs import _frameslist as _digest_frames
-from .lib import geometry as _libgeometry
-from ._private_tools.exceptions import *
-from .centers import center_of_mass as _center_of_mass
-from .centers import geometric_center as _geometric_center
-from ._private_tools.engines import digest_engine
-from ._private_tools.frame_indices import digest_frame_indices
+from molsysmt._private_tools._digestion import *
+from molsysmt._private_tools.exceptions import *
+from molsysmt.lib import geometry as libgeometry
+from molsysmt import puw
+import numpy as np
 
-def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
-             item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
-             pairs=False, crossed_frames=False, pbc=False, parallel=False, output_form='tensor', engine='MolSysMT',
-             syntaxis='MolSysMT'):
+def distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
+             molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
+             pairs=False, crossed_frames=False, pbc=False, parallel=False, output_form='tensor', engine='MolSysMT', syntaxis='MolSysMT'):
 
     # group_behavior in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
@@ -27,9 +19,16 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
     # selection groups está por si quiero distancias entre centros de masas, necesita
     # hacer un lista de listas frente a otra lista de listas.
 
-    from molsysmt import convert, select, get, extract
+    from molsysmt.multitool import convert, select, get, extract
+    from molsysmt.centers import center_of_mass, geometric_center
 
-    engine = _digest_engines(engine)
+    molecular_system_1 = digest_molecular_system(molecular_system_1)
+    if molecular_system_2 is not None:
+        molecular_system_2 = digest_molecular_system(molecular_system_2)
+
+    engine = digest_engine(engine)
+    frame_indices_1 = digest_frame_indices(frame_indices_1)
+    frame_indices_2 = digest_frame_indices(frame_indices_2)
 
     if group_behavior_1=='minimum_distance' or group_behavior_2=='minimum_distance':
         if group_behavior_1=='minimum_distance' and group_behavior_2=='minimum_distance':
@@ -38,14 +37,14 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
             #num_groups_2=len(groups_of_atoms_2)
             #frame_indices = _digest_frame_indices(item, frame_indices_1)
             #num_frames=len(frame_indices)
-            #dists = _np.zeros((num_frames, num_groups_1, num_groups_2),dtype=float)
+            #dists = np.zeros((num_frames, num_groups_1, num_groups_2),dtype=float)
             #for ii in range(num_groups_1):
             #    group1 = groups_of_atoms_2[ii]
             #    for jj in range(num_groups_2):
             #        group2 = groups_of_atoms_2[jj]
-            #        _, min_dist = min_distances(item_1=item_1, selection_1=group1,
+            #        _, min_dist = min_distances(molecular_system_1=molecular_system_1, selection_1=group1,
             #                                    frame_indices_1=frame_indices_1,
-            #                                    item_2=item_2, selection_2=group2,
+            #                                    molecular_system_2=molecular_system_2, selection_2=group2,
             #                                    pbc=pbc, parallel=parallel, engine=engine)
             #        dists[:,ii,jj]=min_dist
             #del(num_groups1,num_groups2,frame_indices,num_frames,group1,group2)
@@ -65,9 +64,9 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
 
             selection_1=None
 
-        if item_2 is None:
+        if molecular_system_2 is None:
 
-            item_2 = item_1
+            molecular_system_2 = molecular_system_1
             same_item = True
 
             if (selection_1 is not None) and (selection_2 is None):
@@ -93,80 +92,64 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
         else:
             diff_set = True
 
-        frame_indices_1 = _digest_frame_indices(item_1, frame_indices_1)
-        frame_indices_2 = _digest_frame_indices(item_2, frame_indices_2)
-
         if selection_1 is not None:
 
             if group_behavior_1 == 'center_of_mass':
-                coordinates_1 = _center_of_mass(item_1, selection=selection_1, frame_indices=frame_indices_1)
+                coordinates_1 = center_of_mass(molecular_system_1, selection=selection_1, frame_indices=frame_indices_1)
                 atom_indices_1 = [0]
             elif group_behavior_1 == 'geometric_center':
-                coordinates_1 = _geometric_center(item_1, selection=selection_1, frame_indices=frame_indices_1)
+                coordinates_1 = geometric_center(molecular_system_1, selection=selection_1, frame_indices=frame_indices_1)
                 atom_indices_1 = [0]
             else:
-                atom_indices_1 = select(item_1, selection=selection_1, syntaxis=syntaxis)
-                coordinates_1 = get(item_1, target='atom', indices=atom_indices_1,
-                                    frame_indices=frame_indices_1, coordinates=True)
+                atom_indices_1 = select(molecular_system_1, selection=selection_1, syntaxis=syntaxis)
+                coordinates_1 = get(molecular_system_1, target='atom', indices=atom_indices_1, frame_indices=frame_indices_1, coordinates=True)
         else:
 
             if group_behavior_1 == 'center_of_mass':
-                coordinates_1 = _center_of_mass(item_1, groups_of_atoms=groups_of_atoms_1,
-                                                frame_indices=frame_indices_1)
-                atom_indices_1 = _np.range(coordinates_1.shape[1])
+                coordinates_1 = center_of_mass(molecular_system_1, groups_of_atoms=groups_of_atoms_1, frame_indices=frame_indices_1)
+                atom_indices_1 = np.range(coordinates_1.shape[1])
             elif group_behavior_1 == 'geometric_center':
-                coordinates_1 = _geometric_center(item_1, groups_of_atoms=groups_of_atoms_1,
-                                                    frame_indices=frame_indices_1)
-                atom_indices_1 = _np.arange(coordinates_1.shape[1])
+                coordinates_1 = geometric_center(molecular_system_1, groups_of_atoms=groups_of_atoms_1, frame_indices=frame_indices_1)
+                atom_indices_1 = np.arange(coordinates_1.shape[1])
             else:
                 raise ValueError("Value of argument group_behavior_1 not recognized.")
 
         if selection_2 is not None:
 
             if group_behavior_2 == 'center_of_mass':
-                coordinates_2 = _center_of_mass(item_2, selection=selection_2, frame_indices=frame_indices_2)
+                coordinates_2 = center_of_mass(molecular_system_2, selection=selection_2, frame_indices=frame_indices_2)
                 atom_indices_2 = [0]
             elif group_behavior_2 == 'geometric_center':
-                coordinates_2 = _geometric_center(item_2, selection=selection_2,
-                                                  frame_indices=frame_indices_2)
+                coordinates_2 = geometric_center(molecular_system_2, selection=selection_2, frame_indices=frame_indices_2)
                 atom_indices_2 = [0]
             else:
-                atom_indices_2 = select(item_2, selection=selection_2, syntaxis=syntaxis)
-                coordinates_2 = get(item_2, target='atom', indices=atom_indices_2,
-                                    frame_indices=frame_indices_2, coordinates=True)
+                atom_indices_2 = select(molecular_system_2, selection=selection_2, syntaxis=syntaxis)
+                coordinates_2 = get(molecular_system_2, target='atom', indices=atom_indices_2, frame_indices=frame_indices_2, coordinates=True)
 
         else:
 
             if same_groups and same_frames:
-                atom_indices_2 = _np.copy(atom_indices_1)
-                coordinates_2 = _np.copy(coordinates_1)*coordinates_1.unit
+                atom_indices_2 = atom_indices_1
+                coordinates_2 = coordinates_1
             else:
                 if group_behavior_2 == 'center_of_mass':
-                    coordinates_2 = _center_of_mass(item_2, groups_of_atoms=groups_of_atoms_2,
-                                                frame_indices=frame_indices_2)
-                    atom_indices_2 = _np.arange(coordinates_2.shape[1])
+                    coordinates_2 = center_of_mass(molecular_system_2, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
+                    atom_indices_2 = np.arange(coordinates_2.shape[1])
                 elif group_behavior_2 == 'geometric_center':
-                    coordinates_2 = _geometric_center(item_2,groups_of_atoms=groups_of_atoms_2,
-                                                frame_indices=frame_indices_2)
-                    atom_indices_2 = _np.arange(coordinates_2.shape[1])
+                    coordinates_2 = geometric_center(molecular_system_2, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
+                    atom_indices_2 = np.arange(coordinates_2.shape[1])
                 else:
                     raise ValueError("Value of argument group_behavior_2 not recognized.")
 
-
-        length_units = coordinates_1.unit
-        coordinates_1 = _np.asfortranarray(coordinates_1._value, dtype='float64')
-        coordinates_2 = _np.asfortranarray(coordinates_2._value, dtype='float64')
+        length_units = puw.get_unit(coordinates_1)
+        coordinates_1 = np.asfortranarray(puw.get_value(coordinates_1), dtype='float64')
+        coordinates_2 = np.asfortranarray(puw.get_value(coordinates_2), dtype='float64')
         nframes_1 = coordinates_1.shape[0]
         nframes_2 = coordinates_2.shape[0]
         nelements1 = coordinates_1.shape[1]
         nelements2 = coordinates_2.shape[1]
 
-        if (nframes_1!=len(frame_indices_1)):
-            raise NotImplementedError("Coordinates extraction from item_1 not implemented for frame_indices_1")
-        if (nframes_2!=len(frame_indices_2)):
-            raise NotImplementedError("Coordinates extraction from item_2 not implemented for frame_indices_2")
-
-        box, box_shape = get(item_1, target='system', box=True, box_shape=True, frame_indices=frame_indices_1)
+        box, box_shape = get(molecular_system_1, target='system', box=True, box_shape=True, frame_indices=frame_indices_1)
 
         orthogonal = 0
         if box_shape is None:
@@ -177,36 +160,23 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
             orthogonal =1
 
         if box is None:
-            box= _np.zeros([nframes_1,3,3])*length_units
+            box= np.zeros([nframes_1, 3, 3])*length_units
 
-        box = _np.asfortranarray(box._value, dtype='float64')
+        box = np.asfortranarray(puw.get_value(box), dtype='float64')
 
         if crossed_frames is False:
             if nframes_1 != nframes_2:
                 raise ValueError("Both frame_indices_1 and frame_indices_2 need the same number of frames.")
             else:
                 if pairs is False:
-                    dists = _libgeometry.distance(int(diff_set),
-                                                  coordinates_1,
-                                                  coordinates_2,
-                                                  box,
-                                                  orthogonal,
-                                                  int(pbc),
-                                                  nelements1,
-                                                  nelements2,
-                                                  nframes_1)
+                    dists = libgeometry.distance(int(diff_set), coordinates_1, coordinates_2, box, orthogonal, int(pbc),
+                                                 nelements1, nelements2, nframes_1)
                 else:
                     if nframes_1 != nframes_2:
                         raise ValueError("Both selection_1 and selection_2 need the same number of atoms.")
                     else:
-                        dists = _libgeometry.distance_pairs(coordinates_1,
-                                                            coordinates_2,
-                                                            box,
-                                                            orthogonal,
-                                                            int(pbc),
-                                                            nelements1,
-                                                            nelements2,
-                                                            nframes_1)
+                        dists = libgeometry.distance_pairs(coordinates_1, coordinates_2, box, orthogonal, int(pbc),
+                                                           nelements1, nelements2, nframes_1)
         else:
             raise NotImplementedError(NotImplementedMessage)
 
@@ -217,6 +187,10 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
         if output_form=='tensor':
              return dists
         elif output_form=='dict':
+            if frame_indices_1 is 'all':
+                frame_indices_1 = np.arange(nframes_1)
+            if frame_indices_2 is 'all':
+                frame_indices_2 = np.arange(nframes_2)
             if pairs is False:
                 if crossed_frames is False:
                     tmp_dict={}
@@ -262,8 +236,8 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
         #if (group_behavior is None) and (group_behavior2 is None):
         #    if item2 is None:
         #        from mdtraj import compute_distances as _mdtraj_compute_distances
-        #        tensor1_to_grid, tensor2_to_grid = _np.meshgrid(atom_indices1,atom_indices2)
-        #        pairs_list =_np.vstack([tensor1_to_grid.ravel(), tensor2_to_grid.ravel()]).T
+        #        tensor1_to_grid, tensor2_to_grid = np.meshgrid(atom_indices1,atom_indices2)
+        #        pairs_list =np.vstack([tensor1_to_grid.ravel(), tensor2_to_grid.ravel()]).T
         #        dists = _mdtraj_compute_distances(tmp_item1,pairs_list,pbc)
         #        if output_form=='matrix':
         #            nframes=dists.shape[0]
@@ -292,35 +266,31 @@ def distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behav
     else:
         raise NotImplementedError(NotImplementedMessage)
 
-def minimum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None,
-                     as_entity_1=True, frame_indices_1="all",
-                     item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None,
-                     as_entity_2=True, frame_indices_2=None,
-                     pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
+def minimum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, as_entity_1=True, frame_indices_1="all",
+                     molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, frame_indices_2=None,
+                     pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
-    all_dists = distance(item_1=item_1, selection_1=selection_1,
-                         groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
-                         frame_indices_1=frame_indices_1,
-                         item_2=item_2, selection_2=selection_2,
-                         groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
-                         frame_indices_2=frame_indices_2,
-                         pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
-                         syntaxis=syntaxis)
+    all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
+                         group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
+                         molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                         group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                         pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 
     if pairs is False:
 
         nframes, nelements_1, nelements_2 = all_dists.shape
-        length_units = all_dists.unit
+        length_units = puw.get_unit(all_dists)
+        all_dists = puw.get_value(all_dists)
 
         if (as_entity_1 is True) and (as_entity_2 is True):
 
-            pairs=_np.empty((nframes,2),dtype=int)
-            dists=_np.empty((nframes),dtype=float)
+            pairs=np.empty((nframes,2),dtype=int)
+            dists=np.empty((nframes),dtype=float)
             for indice_frame in range(nframes):
-                ii,jj = _np.unravel_index(all_dists[indice_frame,:,:].argmin(), all_dists[indice_frame,:,:].shape)
+                ii,jj = np.unravel_index(all_dists[indice_frame,:,:].argmin(), all_dists[indice_frame,:,:].shape)
                 pairs[indice_frame,0] = ii
                 pairs[indice_frame,1] = jj
-                dists[indice_frame] = all_dists[indice_frame,ii,jj]._value
+                dists[indice_frame] = all_dists[indice_frame,ii,jj]
 
             del(all_dists)
 
@@ -330,13 +300,13 @@ def minimum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, gro
 
         elif (as_entity_1 is False) and (as_entity_2 is True):
 
-            pairs=_np.empty((nframes, nelements_1), dtype=int)
-            dists=_np.empty((nframes, nelements_1), dtype=float)
+            pairs=np.empty((nframes, nelements_1), dtype=int)
+            dists=np.empty((nframes, nelements_1), dtype=float)
             for indice_frame in range(nframes):
                 for ii in range(nelements_1):
                     jj = all_dists[indice_frame,ii,:].argmin()
                     pairs[indice_frame,ii]=jj
-                    dists[indice_frame,ii]=all_dists[indice_frame,ii,jj]._value
+                    dists[indice_frame,ii]=all_dists[indice_frame,ii,jj]
 
             del(all_dists)
 
@@ -346,13 +316,13 @@ def minimum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, gro
 
         elif (as_entity_1 is True) and (as_entity_2 is False):
 
-            pairs=_np.empty((nframes, nelements_2), dtype=int)
-            dists=_np.empty((nframes, nelements_2), dtype=float)
+            pairs=np.empty((nframes, nelements_2), dtype=int)
+            dists=np.empty((nframes, nelements_2), dtype=float)
             for indice_frame in range(nframes):
                 for ii in range(nelements_2):
                     jj = all_dists[indice_frame,:,ii].argmin()
                     pairs[indice_frame,ii]=jj
-                    dists[indice_frame,ii]=all_dists[indice_frame,jj,ii]._value
+                    dists[indice_frame,ii]=all_dists[indice_frame,jj,ii]
 
             del(all_dists)
 
@@ -366,16 +336,17 @@ def minimum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, gro
     else:
 
         nframes, nelements = all_dists.shape
-        length_units = all_dists.unit
+        length_units = puw.get_unit(all_dists)
+        all_dists = puw.get_value(all_dists)
 
         if (as_entity_1 is True) and (as_entity_2 is True):
 
-            pairs=_np.empty((nframes),dtype=int)
-            dists=_np.empty((nframes),dtype=float)
+            pairs=np.empty((nframes),dtype=int)
+            dists=np.empty((nframes),dtype=float)
             for indice_frame in range(nframes):
                 ii = all_dists[indice_frame,:].argmin()
                 pairs[indice_frame] = ii
-                dists[indice_frame] = all_dists[indice_frame,ii]._value
+                dists[indice_frame] = all_dists[indice_frame,ii]
 
             del(all_dists)
 
@@ -386,35 +357,33 @@ def minimum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, gro
         else:
             raise ValueError("If 'pairs=True' both input arguments 'as_entity_1' and 'as_entity_2' need to be True")
 
-def maximum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None,
+def maximum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None,
                      as_entity_1=True, frame_indices_1="all",
-                     item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None,
+                     molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None,
                      as_entity_2=True, frame_indices_2=None,
                      pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
 
-    all_dists = distance(item_1=item_1, selection_1=selection_1,
-                         groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
-                         frame_indices_1=frame_indices_1,
-                         item_2=item_2, selection_2=selection_2,
-                         groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
-                         frame_indices_2=frame_indices_2,
-                         pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
-                         syntaxis=syntaxis)
+    all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
+                         group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
+                         molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                         group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                         pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 
     if pairs is False:
 
         nframes, nelements_1, nelements_2 = all_dists.shape
-        length_units = all_dists.unit
+        length_units = puw.get_unit(all_dists)
+        all_dists = puw.get_value(all_dists)
 
         if (as_entity_1 is True) and (as_entity_2 is True):
 
-            pairs=_np.empty((nframes,2),dtype=int)
-            dists=_np.empty((nframes),dtype=float)
+            pairs=np.empty((nframes,2),dtype=int)
+            dists=np.empty((nframes),dtype=float)
             for indice_frame in range(nframes):
-                ii,jj = _np.unravel_index(all_dists[indice_frame,:,:].argmax(), all_dists[indice_frame,:,:].shape)
+                ii,jj = np.unravel_index(all_dists[indice_frame,:,:].argmax(), all_dists[indice_frame,:,:].shape)
                 pairs[indice_frame,0] = ii
                 pairs[indice_frame,1] = jj
-                dists[indice_frame] = all_dists[indice_frame,ii,jj]._value
+                dists[indice_frame] = all_dists[indice_frame,ii,jj]
 
             del(all_dists)
 
@@ -424,13 +393,13 @@ def maximum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, gro
 
         elif (as_entity_1 is False) and (as_entity_2 is True):
 
-            pairs=_np.empty((nframes, nelements_1), dtype=int)
-            dists=_np.empty((nframes, nelements_1), dtype=float)
+            pairs=np.empty((nframes, nelements_1), dtype=int)
+            dists=np.empty((nframes, nelements_1), dtype=float)
             for indice_frame in range(nframes):
                 for ii in range(nelements_1):
                     jj = all_dists[indice_frame,ii,:].argmax()
                     pairs[indice_frame,ii]=jj
-                    dists[indice_frame,ii]=all_dists[indice_frame,ii,jj]._value
+                    dists[indice_frame,ii]=all_dists[indice_frame,ii,jj]
 
             del(all_dists)
 
@@ -440,13 +409,13 @@ def maximum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, gro
 
         elif (as_entity_1 is True) and (as_entity_2 is False):
 
-            pairs=_np.empty((nframes, nelements_2), dtype=int)
-            dists=_np.empty((nframes, nelements_2), dtype=float)
+            pairs=np.empty((nframes, nelements_2), dtype=int)
+            dists=np.empty((nframes, nelements_2), dtype=float)
             for indice_frame in range(nframes):
                 for ii in range(nelements_2):
                     jj = all_dists[indice_frame,:,ii].argmax()
                     pairs[indice_frame,ii]=jj
-                    dists[indice_frame,ii]=all_dists[indice_frame,jj,ii]._value
+                    dists[indice_frame,ii]=all_dists[indice_frame,jj,ii]
 
             del(all_dists)
 
@@ -461,16 +430,17 @@ def maximum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, gro
     else:
 
         nframes, nelements = all_dists.shape
-        length_units = all_dists.unit
+        length_units = puw.get_unit(all_dists)
+        all_dists = puw.get_value(all_dists)
 
         if (as_entity_1 is True) and (as_entity_2 is True):
 
-            pairs=_np.empty((nframes),dtype=int)
-            dists=_np.empty((nframes),dtype=float)
+            pairs=np.empty((nframes),dtype=int)
+            dists=np.empty((nframes),dtype=float)
             for indice_frame in range(nframes):
                 ii = all_dists[indice_frame,:].argmax()
                 pairs[indice_frame] = ii
-                dists[indice_frame] = all_dists[indice_frame,ii]._value
+                dists[indice_frame] = all_dists[indice_frame,ii]
 
             del(all_dists)
 
@@ -482,35 +452,35 @@ def maximum_distance(item_1=None, selection_1="all", groups_of_atoms_1=None, gro
             raise ValueError("If 'pairs=True' both input arguments 'as_entity_1' and 'as_entity_2' need to be True")
 
 
-def contact_map(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
-                item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
+def contact_map(molecular_system_1, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
+                molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
                 threshold=None, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
-    all_dists = distance(item_1=item_1, selection_1=selection_1,
-                         groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
-                         frame_indices_1=frame_indices_1,
-                         item_2=item_2, selection_2=selection_2,
-                         groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
-                         frame_indices_2=frame_indices_2,
-                         pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
-                         syntaxis=syntaxis)
+    all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
+                         group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
+                         molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                         group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                         pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 
     if threshold is None:
         raise BadCallError(BadCallMessage)
 
+    length_units = puw.get_unit(all_dists)
+    threshold = puw.get_value(threshold, in_units=length_units)
+    all_dists = puw.get_value(all_dists)
+
     num_frames=all_dists.shape[0]
-    contact_map=_np.empty(all_dists.shape,dtype=bool)
+    contact_map=np.empty(all_dists.shape, dtype=bool)
     for indice_frame in range(num_frames):
         contact_map[indice_frame,:,:]=(all_dists[indice_frame,:,:]<=threshold)
 
-    del(all_dists, num_frames, indice_frame)
+    del(all_dists, num_frames, indice_frame, length_units)
 
     return contact_map
 
-def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
-                    item_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
-                    threshold=None, num_neighbors=None,
-                    pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
+def neighbors_lists(molecular_system_1, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
+                    molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
+                    threshold=None, num_neighbors=None, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
     if (threshold is None) and (num_neighbors is None):
         raise BadCallError(BadCallMessage)
@@ -525,7 +495,7 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
     if groups_of_atoms_1 is not None:
         selection_1=None
 
-    if item_2 is None:
+    if molecular_system_2 is None:
         same_items = True
         if (selection_1 is not None) and (selection_2 is None) and (groups_of_atoms_2 is None):
             same_selections = True
@@ -542,22 +512,20 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
 
     same_set= same_items and (same_selections or same_groups) and same_frames
 
-    all_dists = distance(item_1=item_1, selection_1=selection_1,
-                         groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
-                         frame_indices_1=frame_indices_1,
-                         item_2=item_2, selection_2=selection_2,
-                         groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2,
-                         frame_indices_2=frame_indices_2,
-                         pbc=pbc, parallel=parallel, output_form='tensor', engine=engine,
-                         syntaxis=syntaxis)
+    all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
+                         group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
+                         molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                         group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                         pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 
     nframes, nelements_1, nelements_2 = all_dists.shape
-    length_units = all_dists.unit
+    length_units = puw.get_unit(all_dists)
+    all_dists = puw.get_value(all_dists)
 
     if num_neighbors is not None and threshold is None:
 
-        neighs=_np.empty((nframes, nelements_1, num_neighbors), dtype=int)
-        dists=_np.empty((nframes, nelements_1, num_neighbors), dtype=float)
+        neighs=np.empty((nframes, nelements_1, num_neighbors), dtype=int)
+        dists=np.empty((nframes, nelements_1, num_neighbors), dtype=float)
 
         offset = 0
         if same_set:
@@ -565,15 +533,15 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
 
         for indice_frame in range(nframes):
             for ii in range(nelements_1):
-                neighs_aux = _np.argpartition(all_dists[indice_frame,ii,:], num_neighbors-1+offset)[:num_neighbors+offset]
+                neighs_aux = np.argpartition(all_dists[indice_frame,ii,:], num_neighbors-1+offset)[:num_neighbors+offset]
                 dists_aux = all_dists[indice_frame,ii,neighs_aux]
-                good_order = _np.argsort(dists_aux)
+                good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
                 neighs[indice_frame,ii,:]=neighs_aux[offset:]
                 dists[indice_frame,ii,:]=dists_aux[offset:]
                 if same_set:
-                    if dists_aux[0]._value > 0.01:
+                    if dists_aux[0] > 0.01:
                         raise ValueError("Error in algorithm, sets are different.")
 
         del(all_dists)
@@ -584,8 +552,10 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
 
     elif threshold is not None and num_neighbors is None:
 
-        neighs=_np.empty((nframes, nelements_1), dtype=object)
-        dists=_np.empty((nframes, nelements_1), dtype=object)
+        threshold = puw.get_value(threshold, in_units=length_units)
+
+        neighs=np.empty((nframes, nelements_1), dtype=object)
+        dists=np.empty((nframes, nelements_1), dtype=object)
 
         offset = 0
         if same_set:
@@ -593,17 +563,16 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
 
         for indice_frame in range(nframes):
             for ii in range(nelements_1):
-                neighs_aux = _np.argwhere(all_dists[indice_frame,ii,:]<=threshold)[:,0]
+                neighs_aux = np.argwhere(all_dists[indice_frame,ii,:]<=threshold)[:,0]
                 dists_aux = all_dists[indice_frame,ii,neighs_aux]
-                good_order = _np.argsort(dists_aux)
+                good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
-                neighs[indice_frame,ii]=_np.array(neighs_aux,dtype=int)[offset:]
-                dists[indice_frame,ii]=_np.array(dists_aux,dtype=float)[offset:]
+                neighs[indice_frame,ii]=np.array(neighs_aux,dtype=int)[offset:]
+                dists[indice_frame,ii]=np.array(dists_aux,dtype=float)[offset:]
                 if same_set:
-                    if dists_aux[0]._value > 0.01:
+                    if dists_aux[0] > 0.01:
                         raise ValueError("Error in algorithm, sets are different.")
-
 
         del(all_dists)
 
@@ -611,8 +580,7 @@ def neighbors_lists(item_1=None, selection_1="all", groups_of_atoms_1=None, grou
 
         return neighs, dists
 
-
     else:
-        raise ValueError("Use either threshold or num_neighbors, but not both at the same time")
 
+        raise ValueError("Use either threshold or num_neighbors, but not both at the same time")
 

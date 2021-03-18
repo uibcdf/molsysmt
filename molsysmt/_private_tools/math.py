@@ -1,4 +1,4 @@
-import numpy as _np
+import numpy as np
 
 class serialized_lists():
 
@@ -10,8 +10,7 @@ class serialized_lists():
         self.n_values = None
         self.n_indices = None
 
-
-        if type(item) is list or type(item) is _np.ndarray:
+        if type(item) is list or type(item) is np.ndarray:
 
             """
             item = [[3,4,5],[1,10],[3,4,6,7],[8],[2,9,1]]
@@ -24,9 +23,9 @@ class serialized_lists():
             serialized_item.n_indices = 5
             """
 
-            self.values =  [_np.sort(ll) for ll in item]
-            self.values = _np.concatenate(self.values)
-            self.indices = _np.arange(len(item))
+            self.values =  [np.sort(ll) for ll in item]
+            self.values = np.concatenate(self.values)
+            self.indices = np.arange(len(item))
             self.starts= []
             jj = 0
             for ii in item:
@@ -34,7 +33,7 @@ class serialized_lists():
                 jj+=len(ii)
             self.starts.append(jj)
 
-            self.starts = _np.array(self.starts, dtype=int)
+            self.starts = np.array(self.starts, dtype=int)
 
             self.n_values = self.values.shape[0]
             self.n_indices = self.indices.shape[0]
@@ -53,27 +52,27 @@ class serialized_lists():
             serialized_item.n_indices = 5
             """
 
-            self.indices = _np.sort(list(item.keys()))
+            self.indices = np.sort(list(item.keys()))
 
             self.values = []
             self.starts= []
             jj = 0
             for ii in self.indices:
-                self.values.append(_np.sort(item[ii]))
+                self.values.append(np.sort(item[ii]))
                 self.starts.append(jj)
                 jj+=len(item[ii])
             self.starts.append(jj)
 
-            self.values = _np.concatenate(self.values)
-            self.starts = _np.array(self.starts, dtype=int)
+            self.values = np.concatenate(self.values)
+            self.starts = np.array(self.starts, dtype=int)
 
             self.n_values = self.values.shape[0]
             self.n_indices = self.indices.shape[0]
 
 def serie_to_chunks (serie):
 
-    np_serie = _np.array(serie)
-    gaps = _np.where((np_serie[1:]-np_serie[:-1])>1)
+    np_serie = np.array(serie)
+    gaps = np.where((np_serie[1:]-np_serie[:-1])>1)
     offset = 0
     starts = []
     chunk_size = []

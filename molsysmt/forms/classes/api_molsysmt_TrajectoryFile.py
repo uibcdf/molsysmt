@@ -1,19 +1,19 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
+import numpy as np
 from molsysmt.native.trajectory_file import TrajectoryFile as _molsysmt_TrajectoryFile
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='molsysmt.TrajectoryFile'
 
 is_form={
     _molsysmt_TrajectoryFile : form_name,
-    'molsysmt.TrajectoryFile': form_name
 }
 
 info=["",""]
-with_topology=False
-with_coordinates=True
-with_box=True
-with_parameters=False
+
+has = molecular_system_components.copy()
+for ii in ['coordinates', 'box']:
+    has[ii]=True
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -26,11 +26,15 @@ def copy(item):
 
     return item.copy()
 
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
+
 ###### Get
 
 ## system
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 

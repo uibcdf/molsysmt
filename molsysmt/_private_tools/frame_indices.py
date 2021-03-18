@@ -1,13 +1,13 @@
 import numpy as np
 
-def complementary_frame_indices(item, frame_indices):
+def complementary_frame_indices(molecular_system, frame_indices):
 
-    from molsysmt import get
+    from molsysmt.multitool import get
 
-    n_frames = get(item, target='system', n_frames=True)
+    n_frames = get(molecular_system, target='system', n_frames=True)
 
-    mask = np.ones(n_frames,dtype=bool)
-    mask[frame_indices]=False
+    mask = np.ones(n_frames, dtype=bool)
+    mask[frame_indices] = False
     return list(np.where(mask)[0])
 
 def digest_frame_indices(frame_indices):

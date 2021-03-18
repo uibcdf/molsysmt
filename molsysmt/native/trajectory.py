@@ -82,7 +82,7 @@ class Trajectory():
 
     def get_box_lengths(self):
 
-        from molsysmt import box_lengths_from_box_vectors
+        from molsysmt.pbc import box_lengths_from_box_vectors
 
         if self.box is not None:
             lengths = box_lengths_from_box_vectors(self.box)
@@ -93,7 +93,7 @@ class Trajectory():
 
     def get_box_angles(self):
 
-        from molsysmt import box_angles_from_box_vectors
+        from molsysmt.pbc import box_angles_from_box_vectors
 
         if self.box is not None:
             angles = box_angles_from_box_vectors(self.box)
@@ -165,7 +165,7 @@ class Trajectory():
 
     def add(self, item, selection='all', frame_indices='all'):
 
-        from molsysmt import get
+        from molsysmt.multitool import get
 
         step, time, coordinates, box = get(item, target="atom", selection=selection, frame_indices=frame_indices, frame=True)
 
@@ -175,7 +175,11 @@ class Trajectory():
             if self.n_frames != coordinates.shape[0]:
                 raise ValueError('Both items need to have the same n_frames')
             else:
-                self.coordinates = np.hstack([self.coordinates, coordinates])*self.coordinates.unit
+                unit = puw.get_unit(self.coordinates)
+                value_coordinates = puw.get_value(coordinates, in_units=unit)
+                value_self_coordinates = puw.get_value(self.coordinates)
+                self.coordinates = np.hstack([value_self_coordinates, value_coordinates])*unit
+                del(value_coordinates, value_self_coordinates)
 
         self.n_atoms = self.coordinates.shape[1]
 
@@ -183,7 +187,7 @@ class Trajectory():
 
     def append(self, item, selection='all', frame_indices='all'):
 
-        from molsysmt import get
+        from molsysmt.multitool import get
 
         step, time, coordinate, box = get(item, target="atom", selection=selection, frame_indices=frame_indices, frame=True)
         self.append_frames(step, time, coordinate, box)

@@ -1,157 +1,126 @@
-from os.path import basename as _basename
-from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
 import numpy as np
-import simtk.unit as unit
 from molsysmt.forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
+from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
+from molsysmt import puw
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='openmm.Topology'
 
 is_form={
-    'openmm.Topology':form_name,
-    _simtk_openmm_app_Topology:form_name
+    _simtk_openmm_app_Topology:form_name,
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=True
-with_parameters=False
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds', 'box']:
+    has[ii]=True
+
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_openmm_Topology as molsysmt_Topology_from_openmm_Topology
-    return molsysmt_Topology_from_openmm_Topology(item, atom_indices=atom_indices)
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = molsysmt_Topology_from_openmm_Topology(item, molecular_system, atom_indices=atom_indices)
+
+    return tmp_item
+
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import from_openmm_Topology as molsysmt_MolSys_from_openmm_Topology
-    return molsysmt_MolSys_from_openmm_Topology(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = molsysmt_MolSys_from_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    from .api_mdtraj_Topology import extract as extract_mdtraj_Topology
-    from mdtraj.core.topology import Topology as mdtraj_Topology
-    tmp_item = mdtraj_Topology.from_openmm(item)
-    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all',
-                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_Topology
+    from mdtraj.core.topology import Topology as mdtraj_Topology
+
+    tmp_item = mdtraj_Topology.from_openmm(item, molecular_system=molecular_system)
+    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed.openmm import load_topology as openmm_Topology_to_parmed_Structure
+
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
+
     return tmp_item
 
-def to_yank_Topography(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from yank import Topography as yank_Topography
+
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = yank_Topography(tmp_item)
+
     return tmp_item
 
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt import get
+    from molsysmt.multitool import get
     from simtk.openmm.app import Modeller
 
-    positions = get(trajectory_item, target='atom', indices=atom_indices,
-                    frame_indices=frame_indices, coordinates=True)
-    tmp_item = Modeller(item, positions[0])
+    positions = get(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+    positions = puw.convert(positions[0], 'nm', to_form='simtk.unit')
+    tmp_item = Modeller(item, positions)
+
     return tmp_item
 
-def to_openmm_System(item, atom_indices='all', frame_indices='all',
-                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-                     forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-                     rigid_water=True, remove_cm_motion=False, hydrogen_mass=None, switch_distance=None,
-                     flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-                     water_model=None, implicit_solvent=None,
-                     implicit_solvent_salt_conc= 0.0*unit.mole/unit.liter, implicit_solvent_kappa=0.0/unit.nanometers,
-                     solute_dielectric=1.0, solvent_dielectric=78.5):
+def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt._private_tools.forcefields import digest as digest_forcefields
-    from molsysmt._private_tools.simulation_parameters import digest as digest_simulation_parameters
-    from simtk.openmm.app import ForceField
+    from molsysmt.multitool import convert
 
-    if forcefield is None:
-        raise ValueError('This conversion needs the input argument "forcefield".')
+    molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
 
-    forcefield_omm_parameters=digest_forcefields(forcefield, 'OpenMM',
-                                                 implicit_solvent=implicit_solvent,
-                                                 water_model=water_model)
+    forcefield = molecular_mechanics.to_openmm_ForceField()
+    system_parameters = molecular_mechanics.get_openmm_System_parameters()
+    tmp_item = forcefield.createSystem(item, **system_parameters)
 
-    system_omm_parameters=digest_simulation_parameters(engine='OpenMM', non_bonded_method=non_bonded_method,
-            non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
-            remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
-            switch_distance=switch_distance, flexible_constraints=flexible_constraints,
-            use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
-            implicit_solvent=implicit_solvent,
-            implicit_solvent_salt_conc=implicit_solvent_salt_conc, implicit_solvent_kappa=implicit_solvent_kappa,
-            solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric)
-
-
-    forcefield_generator = ForceField(*forcefield_omm_parameters)
-    tmp_item = forcefield_generator.createSystem(item, **system_omm_parameters)
-
-    if use_dispersion_correction or ewald_error_tolerance:
+    if molecular_mechanics.use_dispersion_correction or molecular_mechanics.ewald_error_tolerance:
         forces = {ii.__class__.__name__ : ii for ii in tmp_item.getForces()}
-        if use_dispersion_correction:
-            forces['NonbondedForce'].setUseDispersionCorrection(True)
-        if ewald_error_tolerance:
-            forces['NonbondedForce'].setEwaldErrorTolerance(ewald_error_tolerance)
+    if molecular_mechanics.use_dispersion_correction:
+        forces['NonbondedForce'].setUseDispersionCorrection(True)
+    if molecular_mechanics.ewald_error_tolerance:
+        forces['NonbondedForce'].setEwaldErrorTolerance(molecular_mechanics.ewald_error_tolerance)
 
     return tmp_item
 
-def to_openmm_Simulation(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-                         forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
-                         rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-                         flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-                         water_model=None, implicit_solvent=None, implicit_solvent_kappa=0.0/unit.nanometers,
-                         solute_dielectric=1.0, solvent_dielectric=78.5, integrator='Langevin', temperature=300.0*unit.kelvin,
-                         collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA',
-                         constraint_tolerance=None):
+def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from .api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
-    from molsysmt import convert, get
+    from molsysmt.forms.classes.api_openmm_System import to_openmm_Context as openmm_System_to_openmm_Context
 
-    topology = item
-    positions = get(trajectory_item, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
-
-    system = to_openmm_System(item, atom_indices=atom_indices, frame_indices=frame_indices,
-        forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
-        rigid_water=rigid_water, remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
-        flexible_constraints=flexible_constraints,
-        use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
-        water_model=water_model, implicit_solvent=implicit_solvent,
-        implicit_solvent_kappa=implicit_solvent_kappa, solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric,
-        **kwargs)
-
-    tmp_item = openmm_System_to_openmm_Simulation(system, topology_item=topology,
-            trajectory_item=positions, atom_indices='all', frame_indices=0,
-            integrator=integrator, temperature=temperature, collisions_rate=collisions_rate,
-            integration_timestep=integration_timestep, platform=platform, constraint_tolerance=constraint_tolerance)
+    tmp_item = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = openmm_System_to_openmm_Context(tmp_item, molecular_system=molecular_system)
 
     return tmp_item
 
-def to_pdb(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None):
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt import get as _get
-    from molsysmt import __version__ as msm_version
+    from molsysmt.forms.classes.api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
+
+    tmp_item = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = openmm_System_to_openmm_Simulation(tmp_item, molecular_system=molecular_system)
+
+    return tmp_item
+
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+
+    from molsysmt.multitool import get
+    from molsysmt.version import __version__ as msm_version
     from simtk.openmm.app import PDBFile
     #from simtk.openmm.version import short_version
     from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
     from io import StringIO
 
-    coordinates = _get(trajectory_item, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+    coordinates = get(molecular_system, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
 
     if atom_indices is 'all':
         tmp_item = item
@@ -159,7 +128,7 @@ def to_pdb(item, atom_indices='all', frame_indices='all',
         tmp_item = extract(item, atom_indices=atom_indices)
 
     tmp_io = StringIO()
-    PDBFile.writeFile(tmp_item, coordinates[0], tmp_io, keepIds=True)
+    PDBFile.writeFile(tmp_item, puw.convert(coordinates[0], 'nm', to_form='simtk.unit'), tmp_io, keepIds=True)
     filedata = tmp_io.getvalue()
     #openmm_version = short_version
     openmm_version = Platform.getOpenMMVersion()
@@ -172,8 +141,17 @@ def to_pdb(item, atom_indices='all', frame_indices='all',
     else:
         with open(output_filename, 'w') as file:
             file.write(filedata)
-        pass
+        return output_filename
 
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    if molecular_system.trajectory_item is None:
+        raise ValueError('To convert a openmm.Topology object to NGLView, a trajectory_item is needed.')
+    else:
+        from .api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+        tmp_item = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+        return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -225,10 +203,6 @@ def copy(item):
     new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
     return new_item
 
-def merge_two_items(item1, item2):
-
-    raise NotImplementedError
-
 def select_with_Amber(item, selection):
 
     raise NotImplementedError
@@ -248,19 +222,13 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_molsysmt_Topology(item)
     return select_molsysmt_Topology_with_MolSysMT(tmp_item, selection)
 
-def to_nglview_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def add(item, from_item, atom_indices='all', frame_indices='all'):
 
-    return view_with_NGLView(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    raise NotImplementedError
 
-def view_with_NGLView(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
-    if trajectory_item is None:
-        raise ValueError('To convert a openmm.Topology object to NGLView, a trajectory_item is needed.')
-    else:
-        from .api_molsysmt_MolSys import to_nglview_NGLView as molsysmt_MolSys_to_nglview_NGLView
-        tmp_item = to_molsysmt_MolSys(item, trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_item = molsysmt_MolSys_to_nglview_NGLView(tmp_item)
-        return tmp_item
+    raise NotImplementedError
 
 #### Get
 
@@ -550,7 +518,7 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import box_shape_from_box_vectors
+    from molsysmt.pbc import box_shape_from_box_vectors
 
     tmp_box = get_box_from_system(item, frame_indices=frame_indices)
     output = box_shape_from_box_vectors(tmp_box)
@@ -559,7 +527,7 @@ def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import box_lengths_from_box_vectors
+    from molsysmt.pbc import box_lengths_from_box_vectors
 
     tmp_box = get_box_from_system(item, frame_indices=frame_indices)
     output = box_lengths_from_box_vectors(tmp_box)
@@ -568,7 +536,7 @@ def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import box_angles_from_box_vectors
+    from molsysmt.pbc import box_angles_from_box_vectors
 
     tmp_box = get_box_from_system(item, frame_indices=frame_indices)
     output = box_angles_from_box_vectors(tmp_box)
@@ -577,57 +545,23 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt import box_volume_from_box_vectors
+    from molsysmt.pbc import box_volume_from_box_vectors
 
     tmp_box = get_box_from_system(item, frame_indices=frame_indices)
-    output = box_volume_from_box_vectors(tmp_box)
+    if tmp_box is None:
+        output=None
+    else:
+        output = box_volume_from_box_vectors(tmp_box)
 
     return output
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    return 0
+    return None
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
 
 ## bond
 
@@ -665,6 +599,8 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
 
 def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 
+    value = puw.convert(value, 'nanometers', to_form='simtk.unit')
+
     n_frames = value.shape[0]
 
     if n_frames == 1:
@@ -677,5 +613,5 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 
 def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
 
-    raise NotWithThisFormError(NotWithThisFormMessage)
+    raise NotWithThisFormError()
 

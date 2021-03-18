@@ -1,4 +1,4 @@
-def from_h5 (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_h5 (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import MolSys
     from molsysmt.native.io.topology.files import from_h5 as h5_to_molsysmt_Topology

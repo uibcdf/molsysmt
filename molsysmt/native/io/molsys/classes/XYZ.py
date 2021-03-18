@@ -1,4 +1,4 @@
-def to_XYZ (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_XYZ (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt import get
 

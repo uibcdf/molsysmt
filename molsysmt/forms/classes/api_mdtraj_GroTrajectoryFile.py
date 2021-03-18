@@ -1,24 +1,22 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
-from mdtraj.formats import GroTrajectoryFile as _mdtraj_GroTrajectoryFile
 import numpy as np
+from mdtraj.formats import GroTrajectoryFile as _mdtraj_GroTrajectoryFile
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='mdtraj.GroTrajectoryFile'
 
 is_form={
     _mdtraj_GroTrajectoryFile: form_name,
-    'mdtraj.GroTrajectoryFile': form_name
     }
 
 info=["",""]
-with_topology=False
-with_coordinates=True
-with_box=True
-with_parameters=False
 
-def load_frame (item, atom_indices='all', frame_indices='all',
-                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+has = molecular_system_components.copy()
+for ii in ['coordinates', 'box']:
+    has[ii]=True
+
+def load_frame (item, atom_indices='all', frame_indices='all'):
 
     # It doesn't really work. seek doesn't work. Once the file is read can not be rewinded.
 
@@ -95,19 +93,11 @@ def copy(item):
 
     raise NotImplementedError
 
-def merge(list_items, list_atom_indices, list_frame_indices):
+def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def concatenate(list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def add(item, list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def append(item, list_items, list_atom_indices, list_frame_indices):
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -319,43 +309,6 @@ def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
 
 ## bond
 

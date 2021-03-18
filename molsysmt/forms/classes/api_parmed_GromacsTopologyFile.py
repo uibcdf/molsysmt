@@ -1,47 +1,52 @@
-from os.path import basename as _basename
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 from parmed.gromacs.gromacstop import GromacsTopologyFile as _parmed_GromacsTopologyFile
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='parmed.GromacsTopologyFile'
 
 is_form={
     _parmed_GromacsTopologyFile : form_name
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=False
-with_parameters=False
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds']:
+    has[ii]=True
+
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology as mdtraj_topology
-    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_topology.from_openmm(tmp_item)
+
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import extract as extract_openmm_topology
+
     tmp_item = item.topology
     tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_mol2(item, atom_indices='all', frame_indices='all',
-            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-            output_filename=None):
+def to_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save(output_filename)
+    item.save(output_filename)
 
-def to_top(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None):
+    return output_filename
+
+def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return item.save(output_filename)
+    item.save(output_filename)
+
+    return output_filename
 
 def select_with_MDTraj(item, selection):
 
@@ -76,6 +81,14 @@ def copy(item):
 
     from copy import deepcopy
     return deepcopy(item)
+
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
 
 ##### Set
 
@@ -144,9 +157,6 @@ def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
-    return 0
+    return None
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 

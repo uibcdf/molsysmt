@@ -1,58 +1,60 @@
-from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
-from molsysmt.native.trajectory import Trajectory as _molsysmt_Trajectory
 import numpy as np
+from molsysmt.native.trajectory import Trajectory as _molsysmt_Trajectory
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='molsysmt.Trajectory'
 
 is_form={
     _molsysmt_Trajectory : form_name,
-    'molsysmt.Trajectory' : form_name
 }
 
 info=["",""]
-with_topology=False
 
-with_parameters=False
+has = molecular_system_components.copy()
+for ii in ['coordinates', 'box']:
+    has[ii]=True
 
 # Methods
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.classes import to_mdtraj_Trajectory as molsysmt_Trajectory_to_mdtraj_Trajectory
-    return molsysmt_Trajectory_to_mtraj_Trajectory(item, selection=atom_indices, frame_indices=frame_indices, syntaxis=syntaxis)
 
-def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = molsysmt_Trajectory_to_mtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    from .api_mdtraj_Topology import to_parmed_GromacsTopologyFile as mdtraj_Topology_to_parmed_GromacsTopologyFile
-    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return mdtraj_Topology_to_GromacsTopologyFile(tmp_item)
+    return tmp_item
 
-def to_xtc(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None):
+def to_parmed_GromacsTopologyFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Trajectory import to_xtc as mdtraj_Trajectory_to_xtc
-    tmp_item=to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return mdtraj_Trajectory_to_xtc(tmp_item, output_filename=output_filename)
+    from molsysmt.forms.classses.api_mdtraj_Topology import to_parmed_GromacsTopologyFile as mdtraj_Topology_to_parmed_GromacsTopologyFile
 
-def to_top(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None):
+    tmp_item = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_Topology_to_GromacsTopologyFile(tmp_item, molecular_system)
 
-    from .api_mdtraj_Topology import to_top as mdtraj_Topology_to_top
-    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return mdtraj_Topology_to_top(tmp_item, output_filename=output_filename)
+    return tmp_item
+
+def to_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+
+    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_xtc as mdtraj_Trajectory_to_xtc
+
+    tmp_item = to_mdtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_Trajectory_to_xtc(tmp_item, molecular_system, output_filename=output_filename)
+
+    return tmp_item
+
+def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_top as mdtraj_Topology_to_top
+
+    tmp_item = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_Topology_to_top(tmp_item, molecular_system, output_filename=output_filename)
+
+    return tmp_item
 
 def select_with_MDTraj(item, selection):
     from .api_mdtraj_Topology import select_with_MDTraj as _select_with_MDTraj
     return _select_with_MDTraj(item.topology_mdtraj,selection)
-
-def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -65,11 +67,13 @@ def copy(item):
 
     return item.copy()
 
-def merge_two_items(item1, item2):
+def add(item, from_item, atom_indices='all', frame_indices='all'):
 
-    tmp_item = copy(item1)
-    tmp_item.add(item2)
-    return tmp_item
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
 
 ###### Get
 
@@ -140,7 +144,12 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    return item.box_shape
+    from molsysmt.pbc import box_shape_from_box_vectors
+    output = None
+    box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+    if box is not None:
+        output = box_shape_from_box_vectors(box)
+    return output
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
@@ -178,12 +187,7 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
 def get_frame_from_system(item, indices='all', frame_indices='all'):
 
-    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
-    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
-    tmp_coordinates = get_coordinates_from_system(item, frame_indices=frame_indices)
-    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
-
-    return tmp_step, tmp_time, tmp_coordinates, tmp_box
+    return get_frame_from_atom(item, frame_indices=frame_indices)
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
@@ -193,10 +197,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
         output=frame_indices.shape[0]
 
     return output
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 
 ###### Set
 

@@ -1,5 +1,4 @@
-def to_openmm_Topology (item, atom_indices='all', frame_indices='all', topology_item=None,
-                        trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Topology (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
     from molsysmt import get, set
@@ -11,12 +10,12 @@ def to_openmm_Topology (item, atom_indices='all', frame_indices='all', topology_
     else:
         box = get(item, target='system', frame_indices=frame_indices, box=True)
 
-    set(tmp_item, target='system', box=box)
+    if box is not None:
+        set(tmp_item, target='system', box=box)
 
     return tmp_item
 
-def from_openmm_Topology (item, atom_indices='all', frame_indices='all', topology_item=None,
-                          trajectory_item=None, coordinates_item=None, box_item=None):
+def from_openmm_Topology (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.trajectory import Trajectory
@@ -33,7 +32,8 @@ def from_openmm_Topology (item, atom_indices='all', frame_indices='all', topolog
         if not get(trajectory_item, target='system', has_box=True):
             if get(item, target='system', has_box=True):
                 box = get(item, target='system', box=True)
-                set(tmp_item.trajectory, target='system', box=box)
+                if box is not None:
+                    set(tmp_item.trajectory, target='system', box=box)
 
     return tmp_item
 

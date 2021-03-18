@@ -1,79 +1,70 @@
 from molsysmt._private_tools.exceptions import *
-from os.path import basename as _basename
 from mdtraj.core.topology import Topology as _mdtraj_Topology
-from molsysmt.forms.common_gets import *
 import numpy as np
+from molsysmt.forms.common_gets import *
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='mdtraj.Topology'
 
 is_form={
     _mdtraj_Topology : form_name,
-    'mdtraj.Topology': form_name
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=False
-with_parameters=False
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds']:
+    has[ii]=True
 
 ## To other form
 
-def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_aminoacids3_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = 'aminoacids3:'+''.join([ r.name.title() for r in item.residues ])
     return tmp_item
 
-def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_to_aminoacids1
+    from molsysmt.forms.seqs.api_aminoacids3_seq import to_aminoacids1_seq as aminoacids3_to_aminoacids1
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = to_aminoacids3_seq(tmp_item)
     tmp_item = aminoacids3_to_aminoacids1(tmp_item)
     return tmp_item
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_mdtraj_Topology as molsysmt_Topology_from_mdtraj_Topology
     tmp_item = molsysmt_Topology_from_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item.to_openmm()
 
-def to_yank_Topography(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_yank_Topography as opennn_Topology_to_yank_Topography
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = opennn_Topology_to_yank_Topography(tmp_item)
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all',
-                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_form)
     return tmp_item
 
-def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all',
-                                  topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_parmed_GromacsTopologyFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed.gromacs import GromacsTopologyFile as GromacsTopologyFile
     tmp_item = to_parmed_Structure(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return GromacsTopologyFile.from_structure(tmp_item)
 
-def to_top(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_parmed_GromacsTopologyFile import to_top as parmed_GromacsTopologyFile_to_top
     tmp_item = to_parmed_GromacsTopologyFile(item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -162,26 +153,11 @@ def copy(item):
 
     return item.copy()
 
-def merge(list_items, list_atom_indices, list_frame_indices):
-
-#    if in_place:
-#        item1.join(item2)
-#        pass
-#    else:
-#        tmp_item=item1.copy()
-#        return tmp_item.join(item2)
+def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def concatenate(list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def add(item, list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def append(item, list_items, list_atom_indices, list_frame_indices):
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -425,43 +401,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
 
 ## bond
 

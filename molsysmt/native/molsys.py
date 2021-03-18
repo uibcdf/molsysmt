@@ -10,15 +10,12 @@ class MolSys():
 
     def extract(self, atom_indices='all', frame_indices='all'):
 
-        from molsysmt.utils.frame_indices import digest as digest_frame_indices
-
         if (atom_indices is 'all') and (frame_indices is 'all'):
 
             return self.copy()
 
         else:
 
-            frame_indices = digest_frame_indices(self, frame_indices)
             tmp_item = MolSys()
             tmp_item.topology = self.topology.extract(atom_indices=atom_indices, frame_indices=frame_indices)
             tmp_item.trajectory = self.trajectory.extract(atom_indices=atom_indices, frame_indices=frame_indices)
@@ -30,7 +27,8 @@ class MolSys():
         from molsysmt import convert, get_form, select
 
         if get_form(item)!='molsysmt.MolSys':
-            tmp_item = convert(item, selection=atom_indices, frame_indices=frame_indices, to_form='molsysmt.MolSys')
+            tmp_item = convert(item, selection=selection, frame_indices=frame_indices,
+                               to_form='molsysmt.MolSys', syntaxis=syntaxis)
             self.topology.add(tmp_item.topology)
             self.trajectory.add(tmp_item.trajectory)
         else:
@@ -48,6 +46,5 @@ class MolSys():
         tmp_item = MolSys()
         tmp_item.trajectory = self.trajectory.copy()
         tmp_item.topology = self.topology.copy()
-
         return tmp_item
 

@@ -1,10 +1,9 @@
-from os.path import basename as _basename
-from molsysmt.utils.exceptions import *
-from molsysmt import MolSys as _molsysmt_MolSys
+from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
+from molsysmt import MolSys as _molsysmt_MolSys
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='molsysmt.MolSys'
 
 is_form={
     _molsysmt_MolSys : form_name,
@@ -15,25 +14,22 @@ info=["",""]
 with_topology=False       # The form has the possibility to store topological data
 with_coordinates=False    # The form has the possiblity to store coordinates
 with_box=False            # The form has the possibility to store periodic box or unit cell
+with_bonds=False          # The form has the possibility to store bonds
 with_parameters=False     # The form has the possibility to store forcefield parameters
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def to_nglview_NGLView(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_nglview_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
@@ -133,6 +129,15 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
+
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
+    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+
+    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 ## group
 
@@ -246,10 +251,6 @@ def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
@@ -285,43 +286,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_box:
-        tmp_box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
-        if tmp_box[0] is not None:
-            output = True
-
-    return output
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    output = False
-
-    if with_topology:
-        if get_n_bonds_from_system(item, indices=indices, frame_indices=frame_indices):
-            output = True
-
-    return output
 
 ## bond
 

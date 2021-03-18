@@ -1,4 +1,4 @@
-def from_openexplorer_Explorer(item, atom_indices='all', frame_indices='all'):
+def from_openexplorer_Explorer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes.openmm_Topology import from_openmm_Topology
     from molsysmt.forms.classes.api_openexplorer_Explorer import to_openmm_Topology as openexplorer_Explorer_to_openmm_Topology

@@ -1,50 +1,64 @@
-from os.path import basename as _basename
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 from simtk.openmm import System as _openmm_System
-import simtk.unit as unit
+from molsysmt import puw
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='openmm.System'
 
 is_form={
     _openmm_System : form_name,
-    'openmm.System' : form_name,
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=False
-with_box=True
-with_parameters=True
 
-def to_openmm_Simulation(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-                         integrator='Langevin', temperature=300.0*unit.kelvin, collisions_rate=1.0/unit.picoseconds,
-                         integration_timestep=2.0*unit.femtoseconds, platform='CUDA', constraint_tolerance=None):
+has = molecular_system_components.copy()
+for ii in ['box', 'ff_parameters', 'mm_parameters']:
+    has[ii]=True
 
-    # constraint_tolerance 0.00001
+def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt import convert, get
-    from simtk.openmm import app, LangevinIntegrator
-    from simtk.openmm import Platform
+    from molsysmt.multitool import convert, get
+    from simtk.openmm import Context
 
-    topology= convert(topology_item, selection=atom_indices, to_form='openmm.Topology')
-    positions = get(trajectory_item, target='atom', selection=atom_indices,
-            frame_indices=frame_indices, coordinates=True)[0]
+    positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
+    positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
+    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 
-    if integrator=='Langevin':
-        integrator_aux = LangevinIntegrator(temperature, collisions_rate, integration_timestep)
-        if constraint_tolerance is not None:
-            integrator_aux.setConstraintTolerance(constraint_tolerance)
-    else:
-        raise NotImplementedError('The integrator was not implemented yet in the conversion method.')
+    integrator = simulation.to_openmm_Integrator()
+    platform = simulation.to_openmm_Platform()
 
-    platform_aux = Platform.getPlatformByName(platform)
-    simulation_properties = {}
-    if platform=='CUDA':
-        simulation_properties['CudaPrecision']='mixed'
+    properties = simulation.get_openmm_Context_parameters()
 
-    tmp_item = app.Simulation(topology, item, integrator_aux, platform_aux, simulation_properties)
+    tmp_item = Context(item, integrator, platform, properties)
+    tmp_item.setPositions(positions)
+    if simulation.initial_velocities_to_temperature:
+        temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
+        tmp_item.setVelocitiesToTemperature(temperature)
+
+    return tmp_item
+
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.multitool import convert, get
+    from simtk.openmm.app import Simulation
+
+    topology= convert(molecular_system, selection=atom_indices, to_form='openmm.Topology')
+    positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
+    positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
+    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
+
+    integrator = simulation.to_openmm_Integrator()
+    platform = simulation.to_openmm_Platform()
+
+    properties = simulation.get_openmm_Simulation_parameters()
+
+    tmp_item = Simulation(topology, item, integrator, platform, properties)
     tmp_item.context.setPositions(positions)
-    tmp_item.context.setVelocitiesToTemperature(temperature)
+    if simulation.initial_velocities_to_temperature:
+        temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
+        tmp_item.context.setVelocitiesToTemperature(temperature)
 
     return tmp_item
 
@@ -56,6 +70,14 @@ def extract(item, atom_indices='all', frame_indices='all'):
         raise NotImplementedError
 
 def copy(item):
+
+    return item.__copy__()
+
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -247,8 +269,4 @@ def get_n_degrees_of_freedom_from_system (item, indices='all', frame_indices='al
 
     from molsysmt import get_degrees_of_freedom as _get
     return _get(item, indices=indices)
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
 

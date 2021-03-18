@@ -1,5 +1,5 @@
 
-def from_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.trajectory import Trajectory
     from molsysmt.forms.classes.api_openmm_Modeller import get_frame_from_atom

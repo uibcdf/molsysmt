@@ -1,122 +1,135 @@
-from os.path import basename as _basename
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
 from pdbfixer.pdbfixer import PDBFixer as _pdbfixer_PDBFixer
+from molsysmt import puw
+import sys
+import importlib
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='pdbfixer.PDBFixer'
 
 is_form={
     _pdbfixer_PDBFixer : form_name
 }
 
 info=["",""]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_parameters=True
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'coordinates', 'box', 'bonds']:
+    has[ii]=True
 
 ## Methods
 
-def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_aminoacids3_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item = to_openm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = to_openm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = ''.join([ r.name for r in tmp_item.groups() ])
 
-    return ''.join([ r.name for r in tmp_item.groups() ])
+    return tmp_item
 
-def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids3 import to_aminoacids1_seq as aminoacids3_to_aminoacids1
+    from molsysmt.forms.seqs.api_aminoacids3_seq import to_aminoacids1_seq as aminoacids3_to_aminoacids1
+
     tmp_item = to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids3_to_aminoacids1(tmp_item)
+
     return tmp_item
 
-def to_biopython_Seq(item, atom_indices='all', frame_indices='all',
-                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_biopython_Seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
-    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_Seq as aminoacids1_to_biopython_Seq
+
+    tmp_item = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids1_to_biopython_Seq(tmp_item)
+
     return tmp_item
 
-def to_biopython_SeqRecord(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
-    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
+
+    tmp_item = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids1_to_biopython_SeqRecord(tmp_item)
+
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology as mdtraj_Topology
-    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_Topology.from_openmm(tmp_item)
+
     return tmp_item
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.unit import nanometers
     from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
+
     tmp_topology = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     coordinates = coordinates.in_units_of(nanometers)._value
     tmp_item = _mdtraj_Trajectory(coordinates, tmp_topology)
+
     return tmp_item
 
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import Modeller as openmm_Modeller
+
     tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Modeller(tmp_topology, coordinates)
+
     return tmp_item
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import extract as extract_openmm_Topology
+    from molsysmt.forms.classes.api_openmm_Topology import extract as extract_openmm_Topology
+
     tmp_item = item.topology
     tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_molsysmt_Topology
-    tmp_item = pdbfixer_PDBFixer_to_molsysmt_Topology(item, atom_indices=atom_indices)
+
+    tmp_item = pdbfixer_PDBFixer_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices)
+
     return tmp_item
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import from_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_molsysmt_MolSys
-    tmp_item = pdbfixer_PDBFixer_to_molsysmt_MolSys(item, trajectory_item=trajectory_item,
-                                                    atom_indices=atom_indices,
-                                                    frame_indices=frame_indices)
+
+    tmp_item = pdbfixer_PDBFixer_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_yank_Topography(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from yank import Topography as yank_Topography
-    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = yank_Topography(tmp_item)
+
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all',
-                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
-    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.forms.classes.api_openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
+
+    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
+
     return tmp_item
 
-def to_pdb(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None):
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
@@ -139,12 +152,13 @@ def to_pdb(item, atom_indices='all', frame_indices='all',
             file.write(filedata)
         pass
 
-def view_with_NGLView(item, atom_indices='all', frame_indices='all',
-               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from .api_mdtraj_Trajectory import to_NGLView as mdtraj_to_NGLView
-    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = mdtraj_view_with_NGLView(tmp_item)
+    from .api_mdtraj_Trajectory import to_nglview_NGLWidget as mdtraj_trajectory_to_nglview_NGLWidget
+
+    tmp_item = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_Trajectory_nglview_NGLWidget(tmp_item)
+
     return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
@@ -184,233 +198,80 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_molsysmt_Topology(item)
     return select_molsysmt_Topology_with_MolSysMT(tmp_item, selection)
 
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
+
 ##### Get
 
-def get_index_from_atom (item, indices='all', frame_indices='all'):
+def aux_get(item, indices='all', frame_indices='all'):
 
-    return get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    from molsysmt.forms import forms
 
-def get_id_from_atom (item, indices='all', frame_indices='all'):
+    if 'openmm.Topology' in forms:
 
-    return get_atom_id_from_atom(item, indices=indices, frame_indices=frame_indices)
+        tmp_item = to_openmm_Topology(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_openmm_Topology')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
-def get_name_from_atom (item, indices='all', frame_indices='all'):
+    else:
 
-    return get_atom_name_from_atom(item, indices=indices, frame_indices=frame_indices)
+        raise NotImplementedError
 
-def get_type_from_atom (item, indices='all', frame_indices='all'):
+    return output
 
-    return get_atom_type_from_atom(item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_index_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+## Atom
 
 def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_id_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_name_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_type_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_index_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_id_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_name_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_type_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_name_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_index_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_id_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_type_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_name_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_index_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_id_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_type_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_index_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_id_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_name_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_type_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_index_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
-def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
+def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_id_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
-def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
+def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_name_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_type_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_bonded_atoms_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_atoms_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_groups_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_components_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_molecules_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_chains_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_entities_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_bonds_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_mass_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_charge_from_atom as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    from numpy import array as _array
-
-    coordinates = _array(item.positions._value)
+    unit = puw.get_unit(item.positions)
+    coordinates = np.array(puw.get_value(item.positions))
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
 
     if frame_indices is not 'all':
@@ -419,7 +280,8 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
     if indices is not 'all':
         coordinates = coordinates[:,indices,:]
 
-    coordinates = coordinates * item.positions.unit
+    coordinates = coordinates * unit
+    coordinates = puw.standardize(coordinates)
 
     return coordinates
 
@@ -432,1300 +294,137 @@ def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
     return step, time, coordinates, box
 
-def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
-
-    return get_n_frames_from_system(item, frame_indices=frame_indices)
-
-def get_form_from_atom(item, indices='all', frame_indices='all'):
-
-    return form_name
-
 ## group
-
-def get_index_from_group (item, indices='all', frame_indices='all'):
-
-    return get_group_index_from_group (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_group (item, indices='all', frame_indices='all'):
-
-    return get_group_id_from_group (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_group (item, indices='all', frame_indices='all'):
-
-    return get_group_name_from_group (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_group (item, indices='all', frame_indices='all'):
-
-    return get_group_type_from_group (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_index_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_id_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_name_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_type_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_index_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
 def get_group_id_from_group(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_id_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_group(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_name_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_group(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_type_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_name_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_index_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_id_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_type_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_name_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_index_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_id_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_type_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_index_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_id_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_name_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_type_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_index_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_id_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_id_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_name_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_name_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_type_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_atoms_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_groups_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_components_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_molecules_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_chains_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_entities_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_bonds_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_mass_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_charge_from_group as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_group(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## component
 
-def get_index_from_component (item, indices='all', frame_indices='all'):
+def get_component_id_from_component (item, indices='all', frame_indices='all'):
 
-    return get_component_index_from_component (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_component (item, indices='all', frame_indices='all'):
-
-    return get_component_id_from_component (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_component (item, indices='all', frame_indices='all'):
-
-    return get_component_name_from_component (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_component (item, indices='all', frame_indices='all'):
-
-    return get_component_type_from_component (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_index_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_id_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_name_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_type_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_index_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_id_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_name_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_type_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_component (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_name_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_index_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_id_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_component (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_type_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_name_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_index_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_id_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_type_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_index_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_id_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_name_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_type_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_index_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_id_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_id_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_name_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_name_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_type_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_atoms_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_groups_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_components_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_molecules_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_chains_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_entities_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_bonds_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_mass_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_charge_from_component as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_component(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## molecule
 
-def get_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    return get_molecule_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    return get_molecule_id_from_molecule (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    return get_molecule_name_from_molecule (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    return get_molecule_type_from_molecule (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_index_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_id_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_name_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_type_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_index_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_id_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_name_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_type_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_name_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_index_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_id_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_type_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_name_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_index_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_id_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_type_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_index_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
 def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_id_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_name_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_type_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_index_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_id_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_name_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_type_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_atoms_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_groups_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_components_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_molecules_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_chains_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_entities_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_bonds_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_mass_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_charge_from_molecule as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_molecule(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## chain
 
-def get_index_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
 
-    return get_chain_index_from_chain (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_chain (item, indices='all', frame_indices='all'):
-
-    return get_chain_id_from_chain (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_chain (item, indices='all', frame_indices='all'):
-
-    return get_chain_name_from_chain (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_chain (item, indices='all', frame_indices='all'):
-
-    return get_chain_type_from_chain (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_index_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_id_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_name_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_type_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_index_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_id_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_name_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_type_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_name_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_index_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_id_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_type_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_name_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_index_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_id_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_type_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_index_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_id_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_name_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_type_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_index_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_id_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_id_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_name_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_name_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_type_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_atoms_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_groups_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_components_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_molecules_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_chains_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_entities_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_bonds_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_mass_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_charge_from_chain as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_chain(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## entity
 
-def get_index_from_entity (item, indices='all', frame_indices='all'):
-
-    return get_entity_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_entity (item, indices='all', frame_indices='all'):
-
-    return get_entity_id_from_entity (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_entity (item, indices='all', frame_indices='all'):
-
-    return get_entity_name_from_entity (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_entity (item, indices='all', frame_indices='all'):
-
-    return get_entity_type_from_entity (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_index_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_id_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_name_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_atom_type_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_index_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_id_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_name_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_group_type_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_name_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_index_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_id_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_component_type_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_name_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_index_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_id_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_chain_type_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_index_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_id_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_name_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_molecule_type_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_index_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
 def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_id_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_name_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_entity_type_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_atoms_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_groups_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_components_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_molecules_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_chains_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_entities_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_bonds_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_mass_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_charge_from_entity as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_entity(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## system
 
-def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_bonded_atoms_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_atoms_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_groups_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_components_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_chains_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_molecules_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_entities_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_bonds_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_aminoacids_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_nucleotides_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_ions_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_ions_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_waters_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_waters_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_cosolutes_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_small_molecules_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_peptides_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_proteins_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_proteins_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_dnas_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_n_rnas_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_system(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_mass_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_system(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_Topology import get_charge_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    from numpy import array as _array
-
-    coordinates = _array(item.positions._value)
-    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
-    if frame_indices is not 'all':
-        coordinates = coordinates[frame_indices,:,:]
-    coordinates = coordinates * item.positions.unit
-
-    return coordinates
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_box_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_box_shape_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_box_lengths_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import get_box_angles_from_system as _get
-    tmp_item = to_openmm_Topology(item)
-    return _get(tmp_item, frame_indices=frame_indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    from numpy import array as _array
-    from simtk.unit import picoseconds
-
-    n_frames = get_n_frames_from_system(item)
-    output = [None for ii in range(n_frames)]
-    output = _array(output)*picoseconds
-    return output
+    return None
 
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
-    from numpy import array as _array
-    n_frames = get_n_frames_from_system(item)
-    output = [None for ii in range(n_frames)]
-    output = _array(output)
-    return output
-
-def get_frame_from_system(item, indices='all', frame_indices='all'):
-
-    coordinates = get_coordinates_from_system(item, frame_indices=frame_indices)
-    box = get_box_from_system(item, frame_indices=frame_indices)
-    step = get_step_from_system(item, frame_indices=frame_indices)
-    time = get_time_from_system(item, frame_indices=frame_indices)
-
-    return step, time, coordinates, box
+    return None
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+
+    output = None
 
     if frame_indices is 'all':
 
@@ -1738,11 +437,33 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
             raise ValueError('The molecular system has a single frame')
         return output
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
+def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return form_name
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
-##### Set
+## bond
+
+def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
+
+###### Set
+
+def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
+
+def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
 
 def set_name_to_group(item, indices='all', frame_indices='all', value=None):
     for group in tmp_item.topology.groups():

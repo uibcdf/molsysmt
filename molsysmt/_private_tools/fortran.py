@@ -1,11 +1,11 @@
-import numpy as _np
+import numpy as np
 
-def listoflists2fortran( nestedlists,dtype=None):
+def list_of_lists_to_fortran( nestedlists, dtype=None):
 
     if dtype is None:
-        vect_all = _np.asfortranarray(_np.concatenate(nestedlists))
+        vect_all = np.asfortranarray(np.concatenate(nestedlists))
     else:
-        vect_all = _np.asfortranarray(_np.concatenate(nestedlists),dtype=dtype)
+        vect_all = np.asfortranarray(np.concatenate(nestedlists),dtype=dtype)
     vect_starts = []
     jj = 0
     for ii in nestedlists:
@@ -13,8 +13,8 @@ def listoflists2fortran( nestedlists,dtype=None):
         jj+=len(ii)
     vect_starts.append(jj)
     if dtype is None:
-        vect_starts = _np.asfortranarray(vect_starts)
+        vect_starts = np.asfortranarray(vect_starts)
     else:
-        vect_starts = _np.asfortranarray(vect_starts,dtype=dtype)
+        vect_starts = np.asfortranarray(vect_starts, dtype=dtype)
     return vect_all, vect_starts
 

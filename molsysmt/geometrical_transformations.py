@@ -1,40 +1,45 @@
-from .multitool import get as _get
-from .multitool import set as _set
-from .multitool import select, copy
 import numpy as np
+from molsysmt import puw
 
-def translate(item, translation=None, selection='all', frame_indices='all', syntaxis='MolSysMT',
-              in_place=True):
+def translate(molecular_system, translation=None, selection='all', frame_indices='all', syntaxis='MolSysMT', in_place=True):
 
-    coordinates, n_frames = _get(item, target='atom', coordinates=True, n_frames=True)
+    from molsysmt.multitool import get, set, select, copy
+    from molsysmt._private_tools.molecular_system import digest_molecular_system
 
-    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
-    n_atoms = atom_indices.shape[0]
+    atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+    coordinates = get(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)
 
-    if type(translation._value) in [list, tuple]:
-        translation._value = np.array(translation._value)
+    length_units = puw.get_unit(coordinates)
+    coordinates = puw.get_value(coordinates)
+    translation = puw.get_value(translation, in_units=length_units)
+    n_atoms = coordinates.shape[1]
 
-    if type(translation._value)==np.ndarray:
-        if len(translation._value.shape)==1:
-            if translation._value.shape[0]==3:
-                translation._value = np.tile(translation._value,(n_atoms,1))
+    if type(translation) in [list, tuple]:
+        translation = np.array(translation)
+
+    if type(translation)==np.ndarray:
+        if len(translation.shape)==1:
+            if translation.shape[0]==3:
+                translation = np.tile(translation,(n_atoms,1))
             else:
                 raise ValueError('Wrong shape of translation vector')
-        elif len(translation._value.shape)==2:
-            if translation._value.shape[1]!=3:
+        elif len(translation.shape)==2:
+            if translation.shape[1]!=3:
                 raise ValueError('Wrong shape of translation vector')
+        elif len(translation.shape)==3:
+            if translation.shape[2]!=3:
+                raise ValueError('Wrong shape of translation vector')
+            if translation.shape[1]==1:
+                translation = np.tile(translation,(n_atoms,1))
 
-    if frame_indices is 'all':
-        for ii in range(n_frames):
-            coordinates[ii,atom_indices,:]+=translation
-    else:
-        for ii in frame_indices:
-            coordinates[ii,atom_indices,:]+=translation
+    coordinates+=translation
+    coordinates=coordinates*length_units
 
     if in_place:
-        return _set(item, coordinates=coordinates)
+        return set(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=coordinates)
     else:
-        tmp_item = copy(item)
-        _set(tmp_item, coordinates=coordinates)
-        return tmp_item
+        tmp_molecular_system = copy(molecular_system)
+        tmp_molecular_system = digest_molecular_system(tmp_molecular_system)
+        set(tmp_molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=coordinates)
+        return tmp_molecular_system
 

@@ -1,19 +1,19 @@
-from os.path import basename as _basename
 import numpy as np
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import pyunitwizard as puw
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
+form_name='XYZ'
 
 is_form={
 }
 
 info=["",""]
-with_topology=False
-with_coordinates=True
-with_box=False
-with_parameters=False
+
+has = molecular_system_components.copy()
+for ii in ['coordinates']:
+    has[ii]=True
 
 def item_in_good_shape(item):
 
@@ -54,18 +54,15 @@ def this_Quantity_is_XYZ(item):
 
     return (has_right_shape and is_length)
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.classes import from_XYZ as XYZ_to_molsysmt_Trajectory
 
-    tmp_item = XYZ_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = XYZ_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
-def to_xyznpy(item, atom_indices='all', frame_indices='all',
-              topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-              output_filename=None):
+def to_xyznpy(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     comment = None
     atom_names = None
@@ -96,26 +93,13 @@ def copy(item):
 
     raise NotImplementedError
 
-def merge(list_items, list_atom_indices, list_frame_indices):
+def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def concatenate(list_items, list_atom_indices, list_frame_indices):
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
-
-def add(item, list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def append(item, list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def view_with_NGLView(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 
 ###### Get
 
@@ -315,30 +299,6 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
     raise NotWithThisFormError
-
-def get_form_from_system(item, indices='all', frame_indices='all'):
-
-    return form_name
-
-def get_has_topology_from_system(item, indices='all', frame_indices='all'):
-
-    return with_topology
-
-def get_has_parameters_from_system(item, indices='all', frame_indices='all'):
-
-    return with_parameters
-
-def get_has_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return with_coordinates
-
-def get_has_box_from_system(item, indices='all', frame_indices='all'):
-
-    return False
-
-def get_has_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    return False
 
 ## bond
 

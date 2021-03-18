@@ -1,5 +1,5 @@
 
-def from_pdbfixer_PDBFixer(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.trajectory import Trajectory
     from molsysmt.forms.classes.api_pdbfixer_PDBFixer import get_frame_from_atom

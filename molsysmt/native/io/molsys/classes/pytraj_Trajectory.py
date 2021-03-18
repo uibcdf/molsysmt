@@ -1,4 +1,4 @@
-def from_pytraj_Trajectory (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_pytraj_Trajectory (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology.classes import from_pytraj_Trajectory as pytraj_Trajectory_to_molsysmt_Topology
@@ -10,6 +10,6 @@ def from_pytraj_Trajectory (item, trajectory_item=None, atom_indices='all', fram
 
     return tmp_item
 
-def to_pytraj_Trajectory (item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_pytraj_Trajectory (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError

@@ -1,6 +1,6 @@
 from .exceptions import BadCallError
 
-list_syntaxis = [
+syntaxis = [
     'MolSysMT',
     'Amber',
     'MDAnalysis',
@@ -9,17 +9,15 @@ list_syntaxis = [
     'NGLView',
 ]
 
-_aux={ ii.lower():ii for ii in list_syntaxis }
+syntaxis_from_lower = { ii.lower():ii for ii in syntaxis }
 
 def digest_syntaxis(syntaxis):
 
     try:
-        syntaxis = _aux[syntaxis.lower()]
+        syntaxis = syntaxis_from_lower[syntaxis.lower()]
         return syntaxis
     except:
-        raise BadCallError('Wrong way of invoking this method. Either the engine is not implemented, either is mispelled.\n\
-                           Check the online documentation  for more information: http://www.uibcdf.org/MolSysMT')
-
+        raise BadCallError()
 
 def digest_to_syntaxis(to_syntaxis):
 
@@ -30,36 +28,43 @@ def digest_to_syntaxis(to_syntaxis):
 
 def digest_selection(selection, syntaxis="MolSysMT"):
 
-    syntaxis = digest_syntaxis(syntaxis)
+    if type(selection) is str:
 
-    if syntaxis=='MolSysMT':
+        syntaxis = digest_syntaxis(syntaxis)
 
-        selection=selection.replace('backbone', '(atom_name==["CA", "N", "C", "O"])')
+        if syntaxis=='MolSysMT':
+
+            selection=selection.replace('backbone', '(atom_name==["CA", "N", "C", "O"])')
 
     return selection
 
-def indices_to_selection(item, indices, target='atom', syntaxis=None):
+def indices_to_selection(molecular_system, indices, target='atom', syntaxis=None):
+
+    from molsysmt._private_tools.targets import digest_target
+    from molsysmt._private_tools.molecular_system import digest_molecular_system
 
     syntaxis = digest_syntaxis(syntaxis)
+    target = digest_target(target)
+    molecular_system = digest_molecular_system(molecular_system)
 
     output_string = ''
 
-    if syntaxis=='NGLview':
+    if syntaxis=='NGLView':
 
         if target=='atom':
             output_string = '@'+','.join([str(ii) for ii in indices])
         elif target=='group':
             from molsysmt import get
-            group_ids, chain_ids = get(item, target='group', indices=indices, group_id=True, chain_id=True)
+            group_ids, chain_ids = get(molecular_system, target='group', indices=indices, group_id=True, chain_id=True)
             output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
         elif target=='chain':
             from molsysmt import get
-            chain_ids = get(item, target='chain', indices=indices, chain_id=True)
+            chain_ids = get(molecular_system, target='chain', indices=indices, chain_id=True)
             output_string = ' '.join([':'+ii for ii in chain_ids])
         else:
             raise NotImplementedError
 
-    elif to_syntaxis=='MDTraj':
+    elif syntaxis=='MDTraj':
 
         if target=='atom':
             output_string = 'index '+' '.join([str(ii) for ii in indices])

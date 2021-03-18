@@ -63,7 +63,7 @@ def _type_from_group_type(group_types):
     n_groups = len(group_types)
     first_type = group_types[0]
 
-    if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
+    if first_type in ['water', 'ion', 'cosolute', 'small_molecule', 'lipid']:
         tmp_type = first_type
     elif first_type == 'aminoacid':
         if n_groups>=50:

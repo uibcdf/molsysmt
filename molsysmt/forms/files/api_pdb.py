@@ -1,68 +1,75 @@
-from os.path import basename as _basename
-import simtk.unit as unit
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
+import importlib
+import sys
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='pdb'
 
 is_form = {
     'pdb': form_name
     }
 
 info = ["Protein Data Bank file format","https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
-with_topology=True
-with_coordinates=True
-with_box=True
-with_parameters=False
 
-def to_molsysmt_MolSys(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds', 'coordinates', 'box']:
+    has[ii]=True
+
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_pdb as pdb_to_molsysmt_MolSys
-    tmp_item = pdb_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = pdb_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.files import from_pdb as pdb_to_molsysmt_Topology
-    tmp_item = pdb_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = pdb_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_pdb as pdb_to_molsysmt_Trajectory
-    tmp_item = pdb_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item = pdb_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all',
-                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed import load_file as parmed_file_loader
     from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
+
     tmp_item = parmed_file_loader(item)
     tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_mdanalysis_Universe(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis import Universe as mdanalysis_Universe
     from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_universe
+
     tmp_item = mdanalysis_Universe(item)
     tmp_item = extract_universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_mdanalysis_Topology(item, atom_indices='all', frame_indices='all',
-                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdanalysis_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mdanalysis_topology_PDBParser import to_mdanalysis_Topology as mdanalysis_topology_PDBParser_to_mdanalysis_Topology
 
-    tmp_item = to_mdanalysis_topology_PDBParser(item)
+    tmp_item = to_mdanalysis_topology_PDBParser(item, molecular_system)
     tmp_item = mdanalysis_topology_PDBParser_to_mdanalysis_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
-def to_mdanalysis_topology_PDBParser(item, atom_indices='all', frame_indices='all',
-                                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdanalysis_topology_PDBParser(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis.topology import PDBParser
 
@@ -70,70 +77,74 @@ def to_mdanalysis_topology_PDBParser(item, atom_indices='all', frame_indices='al
 
     return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_topology as mdtraj_load_topology
     from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_topology
+
     tmp_item = mdtraj_load_topology(item)
     tmp_item = extract_mdtraj_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_pdb as mdtraj_pdb_loader
     from molsysmt.forms.classes.api_mdtraj_Trajectory import extract as extract_mdtraj_trajectory
+
     tmp_item = mdtraj_pdb_loader(item)
     tmp_item = extract_mdtraj_trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_mdtraj_PDBTrajectoryFile(item, atom_indices='all', frame_indices='all',
-                                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_PDBTrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats.pdb import PDBTrajectoryFile
 
-    return PDBTrajectoryFile(item)
+    tmp_item = PDBTrajectoryFile(item)
 
-def to_mol2(item, atom_indices='all', frame_indices='all',
-            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-            output_filename=None):
+    return tmp_item
+
+def to_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from parmed import load_file as parmed_file_loader
     from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
+
     tmp_item = parmed_file_loader(item)
     tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item.save(output_filename)
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from molsysmt.forms.classes.api_openmm_PDBFile import to_openmm_Topology as openmm_PDBFile_to_openmm_Topology
+
     tmp_item = to_openmm_PDBFile(item)
     tmp_item = openmm_PDBFile_to_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from simtk.openmm.app.modeller import Modeller
     from molsysmt.forms.classes.api_openmm_Modeller import extract as extract_modeller
+
     tmp_item = PDBFile(item)
     tmp_item = Modeller(tmp_item.topology, tmp_item.positions)
     tmp_item = extract_modeller(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_openmm_System(item, atom_indices='all', frame_indices='all',
-                     topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-                     forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=1.0*unit.nanometer, constraints=None,
+def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all',
+                     forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                      rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False):
 
     from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_System as openmm_Modeller_to_openmm_System
 
-    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = to_openmm_Modeller(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Modeller_to_openmm_System(tmp_item, forcefield=forcefield,
                                                 non_bonded_method=non_bonded_method,
                                                 non_bonded_cutoff=non_bonded_cutoff,
@@ -145,16 +156,15 @@ def to_openmm_System(item, atom_indices='all', frame_indices='all',
 
     return tmp_item
 
-def to_openmm_Simulation(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all',
                          forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
                          rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
-                         flexible_constraints=False, integrator='Langevin', temperature=300.0*unit.kelvin,
-                         collisions_rate=1.0/unit.picoseconds, integration_timestep=2.0*unit.femtoseconds, platform='CUDA'):
+                         flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
+                         collisions_rate='1.0 1/ps', integration_timestep='2.0 fs', platform='CUDA'):
 
     from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_Simulation as openmm_Modeller_to_openmm_Simulation
 
-    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = to_openmm_Modeller(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Modeller_to_openmm_Simulation(tmp_item, forcefield=forcefield, non_bonded_method=non_bonded_method,
                                                     non_bonded_cutoff=non_bonded_cutoff, constraints=constraints, rigid_water=rigid_water,
                                                     remove_cm_motion=remove_cm_motion, hydrogen_mass=hydrogen_mass,
@@ -165,58 +175,64 @@ def to_openmm_Simulation(item, atom_indices='all', frame_indices='all',
 
     return tmp_item
 
-def to_openmm_PDBFile(item, atom_indices='all', frame_indices='all',
-                      topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.pdbfile import PDBFile
     from molsysmt.forms.classes.api_openmm_PDBFile import extract as extract_pdbfile
+
     tmp_item = PDBFile(item)
     tmp_item = extract_pdbfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from pdbfixer.pdbfixer import PDBFixer
     from molsysmt.forms.classes.api_pdbfixer_PDBFixer import extract as extract_pdbfixer_PDBFixer
+
     tmp_item = PDBFixer(item)
     tmp_item = extract_pdbfixer_PDBFixer(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_pytraj_Trajectory(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from pytraj import load as pytraj_load
     from molsysmt.forms.classes.api_pytraj_Trajectory import extract as extract_pytraj_Trajectory
+
     tmp_item = pytraj_load(item)
     tmp_item = extract_pytraj_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def to_pytraj_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from pytraj import load_topology as pytraj_load_topology
     from molsysmt.forms.classes.api_pytraj_Topology import extract as extract_pytraj_Topology
+
     tmp_item = pytraj_load_topology(item)
     tmp_item = extract_pytraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
-def view_with_NGLView(item, atom_indices='all', frame_indices='all',
-               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_file as _nglview_show_file
     from os import remove
+
     tmp_file = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = _nglview_show_file(tmp_file)
     remove(tmp_file)
+
     return tmp_item
 
-def to_yank_Topography(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_yank_Topography as openmm_to_yank_Topography
+
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_to_yank_Topography(tmp_item)
+
     return tmp_item
 
 def select_with_MDTraj(item, selection):
@@ -254,1544 +270,300 @@ def extract(item, output_filename=None, atom_indices='all', frame_indices='all')
         tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
         return molsysmt_MolSys_to_pdb(tmp_item, output_filename=output_filename)
 
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
+
 ###### Get
 
-def get_index_from_atom (item, indices='all', frame_indices='all'):
+def aux_get_top(item, indices='all', frame_indices='all'):
 
-    return get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    from molsysmt.forms import forms
 
-def get_id_from_atom (item, indices='all', frame_indices='all'):
+    if 'openmm.PDBFile' in forms:
 
-    return get_atom_id_from_atom(item, indices=indices, frame_indices=frame_indices)
+        tmp_item = to_openmm_PDBFile(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_openmm_PDBFile')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
-def get_name_from_atom (item, indices='all', frame_indices='all'):
+    elif 'pdbfixer.PDBFixer' in forms:
 
-    return get_atom_name_from_atom(item, indices=indices, frame_indices=frame_indices)
+        tmp_item = to_pdbfixer_PDBFixer(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_pdbfixer_PDBFixer')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
-def get_type_from_atom (item, indices='all', frame_indices='all'):
+    elif 'mdtraj.Topology' in forms:
 
-    return get_atom_type_from_atom(item, indices=indices, frame_indices=frame_indices)
+        tmp_item = to_mdtraj_Topology(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_mdtraj_PDBTopology')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+    else:
+
+        raise NotImplementedError
+
+    return output
+
+def aux_get_coors(item, indices='all', frame_indices='all'):
+
+    from molsysmt.forms import forms
+
+    if 'openmm.PDBFile' in forms:
+
+        tmp_item = to_openmm_PDBFile(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_openmm_PDBFile')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+    elif 'pdbfixer.PDBFixer' in forms:
+
+        tmp_item = to_pdbfixer_PDBFixer(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_pdbfixer_PDBFixer')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+    elif 'mdtraj.PDBTrajectoryFile' in forms:
+
+        tmp_item = to_mdtraj_PDBTrajectoryFile(item)
+        method_name = sys._getframe(1).f_code.co_name
+        module = importlib.import_module('molsysmt.forms.classes.api_mdtraj_PDBTrajectoryFile')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+    else:
+
+        raise NotImplementedError
+
+    return output
+
+
+## atom
 
 def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_index_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_id_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_name_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_type_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_index_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_id_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_name_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_type_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_name_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_index_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_id_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_type_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_name_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_index_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_id_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_type_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_index_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_id_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_name_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_type_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_index_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
-def get_entity_id_from_atom (item, indices='all', frame_indices='all'):
+def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_id_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
-def get_entity_name_from_atom (item, indices='all', frame_indices='all'):
+def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_name_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_type_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_bonded_atoms_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_atoms_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_groups_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_components_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_molecules_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_chains_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_entities_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_bonds_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_mass_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_charge_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_coordinates_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
-    coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
-    box = get_box_from_system(item, frame_indices=frame_indices)
-    step = get_step_from_system(item, frame_indices=frame_indices)
-    time = get_time_from_system(item, frame_indices=frame_indices)
-
-    return step, time, coordinates, box
-
-def get_n_frames_from_atom(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_frames_from_atom as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_form_from_atom(item, indices='all', frame_indices='all'):
-
-    return form_name
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 ## group
 
-def get_index_from_group (item, indices='all', frame_indices='all'):
-
-    return get_group_index_from_group (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_group (item, indices='all', frame_indices='all'):
-
-    return get_group_id_from_group (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_group (item, indices='all', frame_indices='all'):
-
-    return get_group_name_from_group (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_group (item, indices='all', frame_indices='all'):
-
-    return get_group_type_from_group (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_index_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_id_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_name_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_type_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_index_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
 def get_group_id_from_group(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_id_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_group(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_name_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_group(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_type_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_name_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_index_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_id_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_type_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_name_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_index_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_id_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_type_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_index_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_id_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_name_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_type_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_index_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_id_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_id_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_name_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_name_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_type_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_atoms_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_groups_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_components_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_molecules_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_chains_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_entities_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_group (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_bonds_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_mass_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_group(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_charge_from_group as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_group(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 ## component
 
-def get_index_from_component (item, indices='all', frame_indices='all'):
+def get_component_id_from_component (item, indices='all', frame_indices='all'):
 
-    return get_component_index_from_component (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_component (item, indices='all', frame_indices='all'):
-
-    return get_component_id_from_component (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_component (item, indices='all', frame_indices='all'):
-
-    return get_component_name_from_component (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_component (item, indices='all', frame_indices='all'):
-
-    return get_component_type_from_component (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_index_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_id_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_name_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_type_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_index_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_id_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_name_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_type_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_component (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_name_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_index_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_id_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_component (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_type_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_name_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_index_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_id_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_type_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_index_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_id_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_name_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_type_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_index_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_id_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_id_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_name_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_name_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_type_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_atoms_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_groups_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_components_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_molecules_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_chains_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_entities_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_component (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_bonds_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_mass_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_component(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_charge_from_component as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_component(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 ## molecule
 
-def get_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    return get_molecule_index_from_molecule (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    return get_molecule_id_from_molecule (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    return get_molecule_name_from_molecule (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    return get_molecule_type_from_molecule (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_index_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_id_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_name_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_type_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_index_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_id_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_name_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_type_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_name_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_index_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_id_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_type_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_name_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_index_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_id_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_type_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_index_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
 def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_id_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_name_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_type_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_index_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_id_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_name_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_type_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_atoms_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_groups_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_components_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_molecules_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_chains_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_entities_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_molecule (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_bonds_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_mass_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_molecule(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_charge_from_molecule as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_molecule(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 ## chain
 
-def get_index_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
 
-    return get_chain_index_from_chain (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_chain (item, indices='all', frame_indices='all'):
-
-    return get_chain_id_from_chain (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_chain (item, indices='all', frame_indices='all'):
-
-    return get_chain_name_from_chain (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_chain (item, indices='all', frame_indices='all'):
-
-    return get_chain_type_from_chain (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_index_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_id_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_name_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_type_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_index_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_id_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_name_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_type_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_name_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_index_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_id_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_type_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_name_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_index_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_id_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_type_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_index_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_id_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_name_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_type_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_index_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_id_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_id_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_name_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_name_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_type_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_atoms_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_groups_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_components_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_molecules_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_chains_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_entities_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_chain (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_bonds_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_mass_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_chain(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_charge_from_chain as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_chain(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 ## entity
 
-def get_index_from_entity (item, indices='all', frame_indices='all'):
-
-    return get_entity_index_from_entity (item, indices=indices, frame_indices=frame_indices)
-
-def get_id_from_entity (item, indices='all', frame_indices='all'):
-
-    return get_entity_id_from_entity (item, indices=indices, frame_indices=frame_indices)
-
-def get_name_from_entity (item, indices='all', frame_indices='all'):
-
-    return get_entity_name_from_entity (item, indices=indices, frame_indices=frame_indices)
-
-def get_type_from_entity (item, indices='all', frame_indices='all'):
-
-    return get_entity_type_from_entity (item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_index_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_id_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_name_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_atom_type_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_index_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_id_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_id_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_name_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_group_type_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_name_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_index_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_id_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_id_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_component_type_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_name_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_index_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_id_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_id_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_chain_type_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_index_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_id_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_id_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_name_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_molecule_type_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_index_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
 def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_id_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_name_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_entity_type_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_atoms_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_atoms_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_groups_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_components_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_molecules_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_chains_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_entities_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_entity (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_bonds_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_mass_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_entity(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_charge_from_entity as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_entity(item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 ## system
 
-def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_bonded_atoms_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_atoms_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_groups_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_components_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_chains_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_molecules_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_entities_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_bonds_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_aminoacids_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_aminoacids_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_nucleotides_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_nucleotides_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_ions_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_ions_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_waters_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_waters_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_cosolutes_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_small_molecules_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_peptides_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_proteins_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_proteins_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_dnas_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_rnas_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_mass_from_system(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_mass_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_charge_from_system(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_charge_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_coordinates_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_box_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_box_shape_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_box_lengths_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_box_angles_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_box_volume_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_time_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_step_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-def get_frame_from_system(item, indices='all', frame_indices='all'):
-
-    coordinates = get_coordinates_from_system(item, frame_indices=frame_indices)
-    box = get_box_from_system(item, frame_indices=frame_indices)
-    step = get_step_from_system(item, frame_indices=frame_indices)
-    time = get_time_from_system(item, frame_indices=frame_indices)
-
-    return step, time, coordinates, box
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_PDBFile import get_n_frames_from_system as _get
-    tmp_item = to_openmm_PDBFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
+def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return form_name
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
 
+## bond
+
+def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+
+def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+
+def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+
+    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+
+###### Set
+
+def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
+
+def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
 

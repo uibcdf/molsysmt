@@ -10,30 +10,24 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
-from molsysmt._private_tools.engines import digest_engine
-from molsysmt._private_tools.forcefields import digest_forcefields
-from molsysmt import get_form, convert, puw
+from molsysmt import puw
 
-def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
-        non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True,
-        switch_distance=None, flexible_constraints=False, platform='CUDA',
-        selection='all', syntaxis='MolSysMT', engine='OpenMM'):
+def potential_energy (molecular_system, selection='all', syntaxis='MolSysMT', engine='OpenMM'):
 
-    engine=digest_engines(engine)
-    in_form = get_form(item)
+    from molsysmt._private_tools.engines import digest_engine
+    from molsysmt._private_tools._digestion import digest_molecular_system
+    from molsysmt.multitool import convert
+
+    engine=digest_engine(engine)
 
     if engine=='OpenMM':
 
-        tmp_item = convert(item,
-            forcefield=forcefield, non_bonded_method=non_bonded_method,
-            non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
-            rigid_water=rigid_water, switch_distance=switch_distance,
-            flexible_constraints=flexible_constraints,
-            integrator='Langevin', temperature='0 K', collisions_rate='1.0 1/ps',
-            integration_timestep='2.0 fs', platform=platform,
-            selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
-
-        state = tmp_item.context.getState(getEnergy=True)
+        molecular_system = digest_molecular_system(molecular_system)
+        if molecular_system.simulation_item is None:
+            from molsysmt.native.simulation import simulation_to_potential_energy_minimization
+            molecular_system = molecular_system.combine_with_items(simulation_to_potential_energy_minimization)
+        context = convert(molecular_system, selection=selection, syntaxis=syntaxis, to_form='openmm.Context')
+        state = context.getState(getEnergy=True)
         output = state.getPotentialEnergy()
 
     else:
@@ -45,12 +39,7 @@ def potential_energy (item, forcefield=None, non_bonded_method='no_cutoff',
     return output
 
 
-def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_method='no_cutoff',
-        non_bonded_cutoff='1.0 nm', constraints=None, rigid_water=True, hydrogen_mass=None,
-        switch_distance=None, flexible_constraints=False, use_dispersion_correction=False, ewald_error_tolerance=0.0001,
-        water_model=None, implicit_solvent=None, implicit_solvent_salt_conc= '0.0 mol/L',
-        implicit_solvent_kappa='0.0 1/nm', solute_dielectric=1.0, solvent_dielectric=78.5,
-        platform='CUDA', to_form=None, selection='all', syntaxis='MolSysMT', engine='OpenMM', verbose=True, *kwargs):
+def energy_minimization (molecular_system, method='L-BFGS', selection='all', syntaxis='MolSysMT', engine='OpenMM', to_form=None, verbose=True):
 
     """remove(item, selection=None, syntaxis='mdtraj')
 
@@ -88,26 +77,23 @@ def energy_minimization (item, method='L-BFGS', forcefield=None, non_bonded_meth
 
     """
 
-    from .multitool import get_form, get, convert
+    from molsysmt._private_tools.engines import digest_engine
+    from molsysmt._private_tools._digestion import digest_molecular_system
+    from molsysmt.multitool import convert, get_form
 
-    engine=digest_engines(engine)
-    in_form = get_form(item)
+    engine=digest_engine(engine)
+    in_form = get_form(molecular_system)
     if to_form is None:
         to_form = in_form
 
     if engine=='OpenMM':
 
-        simulation = convert(item,
-            forcefield=forcefield, non_bonded_method=non_bonded_method,
-            non_bonded_cutoff=non_bonded_cutoff, constraints=constraints,
-            rigid_water=rigid_water, hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
-            flexible_constraints=flexible_constraints,
-            use_dispersion_correction=use_dispersion_correction, ewald_error_tolerance=ewald_error_tolerance,
-            water_model=water_model, implicit_solvent=implicit_solvent, implicit_solvent_salt_conc=implicit_solvent_salt_conc,
-            implicit_solvent_kappa=implicit_solvent_kappa, solute_dielectric=solute_dielectric, solvent_dielectric=solvent_dielectric,
-            integrator='Langevin', temperature='0 K', collisions_rate='1.0 1/ps',
-            integration_timestep='2.0 fs', platform=platform,
-            selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
+        molecular_system = digest_molecular_system(molecular_system)
+        if molecular_system.simulation_item is None:
+            from molsysmt.native.simulation import simulation_to_potential_energy_minimization
+            molecular_system = molecular_system.combine_with_items(simulation_to_potential_energy_minimization)
+
+        simulation = convert(molecular_system, selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
 
         if verbose:
             state_pre_min = simulation.context.getState(getEnergy=True)

@@ -1,4 +1,4 @@
-def from_pdbfixer_PDBFixer(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .openmm_Topology import from_openmm_Topology as openmm_Topology_to_molsysmt_Topology
     from molsysmt.forms.classes.api_pdbfixer_PDBFixer import to_openmm_Topology as pdbfixer_PDBFixer_to_molsysmt_Topology
@@ -8,7 +8,7 @@ def from_pdbfixer_PDBFixer(item, trajectory_item=None, atom_indices='all', frame
 
     return tmp_item
 
-def to_pdbfixer_PDBFixer(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .openmm_Topology import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
     from molsysmt.forms.classes.api_openmm_Topology import to_pdbfixer_PDBFixer as openmm_Topology_to_pdbfixer_PDBFixer

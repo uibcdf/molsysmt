@@ -1,20 +1,21 @@
-from molsysmt.forms.classes import list_forms as list_classes_forms
-from molsysmt.forms.files import list_forms as list_files_forms
-from molsysmt.forms.ids import list_forms as list_ids_forms
-from molsysmt.forms.seqs import list_forms as list_seqs_forms
-from molsysmt.forms.viewers import list_forms as list_viewers_forms
-from .lists_and_tuples import is_list_or_tuple
+from molsysmt.forms import forms
+from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
+from molsysmt._private_tools.exceptions import *
 
-list_forms = list_classes_forms + list_files_forms + list_ids_forms + list_seqs_forms + list_viewers_forms
-
-_aux = { ii.lower():ii for ii in list_forms}
+form_from_lowercase = {ii.lower():ii for ii in forms}
 
 def digest_form(form):
 
-    if is_list_or_tuple(form):
+    if form_is_file(form):
+        output = form
+    elif is_list_or_tuple(form):
         output = [digest_form(ii) for ii in form]
     else:
-        output = _aux[form.lower()]
+        try:
+            output = form_from_lowercase[form.lower()]
+        except:
+            raise NotImplementedFormError()
+
     return output
 
 def digest_to_form(to_form):
@@ -26,31 +27,39 @@ def digest_to_form(to_form):
 
 def to_form_is_file(to_form):
 
-    output = False
-
-    if type(to_form) is str:
-        if to_form.split('.')[-1] in list_files_forms:
-            output = True
-
-    return output
+    return form_is_file(to_form)
 
 def form_is_file(form):
 
     output = False
 
     if type(form) is str:
-        if form.split('.')[-1] in list_files_forms:
-            output = True
+        if ':' not in form:
+            if form.split('.')[-1] in forms:
+                output = True
 
     return output
 
-def formname_of_file(to_form):
+def form_of_file(to_form):
 
     output = None
 
     if type(to_form)==str:
-        if to_form.split('.')[-1] in list_files_forms:
+        if to_form.split('.')[-1] in forms:
             output = to_form.split('.')[-1]
+
+    return output
+
+def are_equal_sets_of_forms(forms1, forms2):
+
+    if not is_list_or_tuple(forms1):
+        forms1=[forms1]
+    if not is_list_or_tuple(forms2):
+        forms2=[forms2]
+
+    output = False
+    if set(forms1)==set(forms2):
+        output = True
 
     return output
 

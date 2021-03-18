@@ -1,6 +1,9 @@
-from os.path import basename as _basename
+from molsysmt._private_tools.exceptions import *
+from molsysmt.forms.common_gets import *
+import numpy as np
+from molsysmt.molecular_system import molecular_system_components
 
-form_name=_basename(__file__).split('.')[0].split('_')[-1]
+form_name='mol2'
 
 is_form = {
     'mol2': form_name,
@@ -8,49 +11,55 @@ is_form = {
     }
 
 info=["",""]
-with_topology=True
-with_trajectory=True
-with_coordinates=True
-with_box=False
 
-def to_parmed_Structure(item, atom_indices='all', frame_indices='all',
-                        topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds', 'coordinates', 'ff_parameters']:
+    has[ii]=True
+
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed import load_file as _parmed_file_loader
-    tmp_form = _parmed_file_loader(item)
-    return tmp_form.to_structure()
 
-def to_mdtraj_Trajectory(item, atom_indices='all', frame_indices='all',
-                         topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = _parmed_file_loader(item)
+    tmp_item = tmp_item.to_structure()
 
-    from mdtraj import load_mol2 as _mdtraj_load_mol2
-    tmp_form = _mdtraj_load_mol2(item)
-    del(_mdtraj_load_mol2)
-    return tmp_form
+    return tmp_item
 
-def to_mdtraj_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_mol2 as _mdtraj_load_mol2
-    tmp_form = _mdtraj_load_mol2(item).topology
-    del(_mdtraj_load_mol2)
-    return tmp_form
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = _mdtraj_load_mol2(item)
+    del(_mdtraj_load_mol2)
+
+    return tmp_item
+
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from mdtraj import load_mol2 as _mdtraj_load_mol2
+
+    tmp_item = _mdtraj_load_mol2(item).topology
+    del(_mdtraj_load_mol2)
+
+    return tmp_item
+
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mdtraj_Topology import to_openmm_Topology as mdtraj_Topology_to_openmm_Topology
-    tmp_form = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=atom_indices)
-    tmp_form = mdtraj_Topology_to_openmm_Topology(tmp_form)
-    return tmp_form
 
-def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=atom_indices)
+    tmp_item = mdtraj_Topology_to_openmm_Topology(tmp_item)
+
+    return tmp_item
+
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mdtraj_Trajectory import to_openmm_Modeller as mdtraj_Trajectory_to_openmm_Modeller
-    tmp_form = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=atom_indices)
-    tmp_form = mdtraj_Trajectory_to_openmm_Modeller(tmp_form)
-    return tmp_form
+
+    tmp_item = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=atom_indices)
+    tmp_item = mdtraj_Trajectory_to_openmm_Modeller(tmp_item)
+
+    return tmp_item
 
     #from molsysmt.forms.engines.api_parmed import to_modeller as _parmed_to_modeller
     #tmp_form = to_parmed(item)
@@ -58,20 +67,22 @@ def to_openmm_Modeller(item, atom_indices='all', frame_indices='all',
     #del(_parmed_to_modeller)
     #return tmp_form
 
-def to_pdb(item, atom_indices='all', frame_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None):
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from parmed import load_file as _parmed_file_loader
-    tmp_form = _parmed_file_loader(item)
-    tmp_form.save(output_filename)
-    pass
 
-def view_with_NGLView(item, atom_indices='all', frame_indices='all',
-               topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+    tmp_item = _parmed_file_loader(item)
+    tmp_item.save(output_filename)
 
-    from nglview import show_file as _nglview_show_file
-    return _nglview_show_file(item)
+    return output_filename
+
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from nglview import show_file as nglview_show_file
+
+    tmp_item = nglview_show_file(item)
+
+    return tmp_item
 
 def extract(item, atom_indices='all', frame_indices='all'):
 
@@ -84,11 +95,246 @@ def copy(item):
 
     raise NotImplementedError
 
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
+
 ###### Get
+
+## atom
+
+def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_index_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.component import get_component_index_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.molecule import get_molecule_index_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.entity import get_entity_index_from_atom as _get
+    return _get(item, indices=indices)
+
+def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
+
+    if indices is 'all':
+        return get_n_inner_bonds_from_system (item)
+    else:
+        raise NotImplementedError
+
+def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## group
+
+def get_group_id_from_group(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_name_from_group(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_group_type_from_group(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## component
+
+def get_component_id_from_component (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.component import get_component_id_from_component as get
+    return get(item, indices)
+
+def get_component_name_from_component (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.component import get_component_name_from_component as get
+    return get(item, indices)
+
+def get_component_type_from_component (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.component import get_component_type_from_component as get
+    return get(item, indices)
+
+## molecule
+
+def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.molecule import get_molecule_id_from_molecule as get
+    return get(item, indices)
+
+def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.molecule import get_molecule_name_from_molecule as get
+    return get(item, indices)
+
+def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.molecule import get_molecule_type_from_molecule as get
+    return get(item, indices)
+
+## chain
+
+def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## entity
+
+def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.entity import get_entity_id_from_molecule as get
+    return get(item, indices)
+
+def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.entity import get_entity_name_from_molecule as get
+    return get(item, indices)
+
+def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.entity import get_entity_type_from_molecule as get
+    return get(item, indices)
 
 ## system
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    return form_name
+    raise NotImplementedError
+
+def get_n_groups_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_components_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.component import get_n_components_from_system as get
+    return get(item, indices)
+
+def get_n_chains_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.molecule import get_n_molecules_from_system as get
+    return get(item, indices)
+
+def get_n_entities_from_system(item, indices='all', frame_indices='all'):
+
+    from molsysmt.elements.entity import get_n_entities_from_system as get
+    return get(item, indices)
+
+def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_coordinates_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_shape_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_angles_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_time_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_step_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+## bond
+
+def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
+###### Set
+
+def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
+
+def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+
+    raise NotImplementedError
+
 
