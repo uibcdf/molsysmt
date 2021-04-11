@@ -23,16 +23,12 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indi
 
     return tmp_item
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError
     else:
         raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

@@ -18,11 +18,18 @@ info = ["CHARMM card (CRD) file format with coordinates.","https://www.charmmtut
 
 def to_crd(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    if frame_indices=='all':
-        from shutil import copyfile
-        copyfile(item, output_filename)
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+
+        from shutil import copy as copy_file
+        from molsysmt._private_tools.files_and_directories import tmp_filename
+        if output_filename is None:
+            output_filename = tmp_filename(extension='inpcrd')
+        copy_file(item, output_filename)
+        return output_filename
+
     else:
-        raise NotImplementedError("Not implemented yet")
+
+        raise NotImplementedError()
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -50,11 +57,13 @@ def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', fram
 
 def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_mdanalysis_Universe
+    from molsysmt.forms.classes.api_mdanalysis_Universe import to_mdanalysis_Universe as mdanalysis_Universe_to_mdanalysis_Universe
     from MDAnalysis import Universe
 
     tmp_item = Universe(item)
-    tmp_item = extract_mdanalysis_Universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mdanalysis_Universe_to_mdanalysis_Universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -108,19 +117,6 @@ def select_with_MDAnalysis(item, selection):
     raise NotImplementedError
 
 def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError
-
-def copy(item, output_filename=None):
-
-    from shutil import copy as copy_file
-    from molsysmt._private_tools.files_and_directories import tmp_filename
-    if output_filename is None:
-        output_filename = tmp_filename(extension='inpcrd')
-    copy_file(item, output_filename)
-    return output_filename
-
-def extract(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

@@ -27,23 +27,33 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import extract as extract_openmm_topology
+    from .api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     tmp_item = item.topology
-    tmp_item = extract_openmm_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = opennmm_Topology_to_openmm_Topology(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_parmed_GromacsTopologyFile(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     item.save(output_filename)
 
     return output_filename
 
 def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_parmed_GromacsTopologyFile(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     item.save(output_filename)
 
     return output_filename
@@ -62,10 +72,13 @@ def select_with_ParmEd(item, selection):
     del(_AmberMask)
     return tmp_sel
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+
+        from copy import deepcopy
+        return deepcopy(item)
+
     else:
 
         from copy import deepcopy
@@ -76,11 +89,6 @@ def extract(item, atom_indices='all', frame_indices='all'):
         tmp_item = copy(item)
         tmp_item.strip(atom_indices_to_AmberMask(tmp_item,atom_indices))
         return tmp_item
-
-def copy(item):
-
-    from copy import deepcopy
-    return deepcopy(item)
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

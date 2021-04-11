@@ -21,14 +21,19 @@ def to_inpcrd(item, molecular_system=None, atom_indices='all', frame_indices='al
 
     tmp_item = None
 
-    if frame_indices=='all':
-        from shutil import copyfile
-        copyfile(item, output_filename)
-        tmp_item = output_filename
-    else:
-        raise NotImplementedError("Not implemented yet")
+    if (atom_indices is 'all') and (frame_indices is 'all'):
 
-    return tmp_item
+        from shutil import copy as copy_file
+        from molsysmt._private_tools.files_and_directories import tmp_filename
+
+        if output_filename is None:
+            output_filename = tmp_filename(extension='inpcrd')
+        copy_file(item, output_filename)
+
+        return output_filename
+
+    else:
+        raise NotImplementedError()
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -83,21 +88,6 @@ def select_with_MDTraj(item, selection):
     raise NotImplementedError
 
 def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError
-
-def copy(item, output_filename=None):
-
-    from shutil import copy as copy_file
-    from molsysmt._private_tools.files_and_directories import tmp_filename
-
-    if output_filename is None:
-        output_filename = tmp_filename(extension='inpcrd')
-    copy_file(item, output_filename)
-
-    return output_filename
-
-def extract(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 

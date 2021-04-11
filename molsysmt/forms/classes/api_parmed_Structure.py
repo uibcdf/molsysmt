@@ -27,20 +27,24 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.modeller import Modeller
-    from molsysmt.forms.classes.api_openmm_Modeller import extract as extract_openmm_Modeller
+    from molsysmt.forms.classes.api_openmm_Modeller import opemm_Modeller_to_openmm_Modeller as openmm_Modeller_to_openmm_Modeller
 
     tmp_item = Modeller(item.topology, item.positions)
-    tmp_item = extract_openmm_Modeller(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = openmm_Modeller_to_openmm_Modeller(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology as mdtraj_Topology
-    from .api_mdtraj_Topology import extract as extract_mdtraj_Topology
+    from .api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item = mdtraj_Topology.from_openmm(item.topology)
-    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mdtraj_Topology_to_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -61,21 +65,33 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 
     from nglview import show_parmed as _nglview_show_parmed
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_parmed_Structure(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     tmp_item = _nglview_show_parmed(tmp_item)
 
     return tmp_item
 
 def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_parmed_Structure(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     tmp_item.save(output_filename)
 
     return output_filename
 
 def to_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_parmed_Structure(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     tmp_item.save(output_filename)
 
     return output_filename
@@ -94,10 +110,12 @@ def select_with_ParmEd(item, selection):
     del(_AmberMask)
     return tmp_sel
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        from copy import deepcopy
+        tmp_item = deepcopy(item)
+        return tmp_item
     else:
         from molsysmt._private_tools.atom_indices import atom_indices_to_AmberMask
         from molsysmt._private_tools.atom_indices import complementary_atom_indices
@@ -106,12 +124,6 @@ def extract(item, atom_indices='all', frame_indices='all'):
         tmp_item = copy(item)
         tmp_item.strip(atom_indices2AmberMask(atom_indices,len(item.atoms),inverse=True))
         return tmp_item
-
-def copy(item):
-
-    from copy import deepcopy
-    tmp_item = deepcopy(item)
-    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

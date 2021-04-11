@@ -33,16 +33,12 @@ def to_mdtraj_XTCTrajectoryFile(item, molecular_system=None, atom_indices='all',
 
     return tmp_item
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

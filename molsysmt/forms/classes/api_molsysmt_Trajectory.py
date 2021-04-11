@@ -53,19 +53,16 @@ def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all',
     return tmp_item
 
 def select_with_MDTraj(item, selection):
+
     from .api_mdtraj_Topology import select_with_MDTraj as _select_with_MDTraj
     return _select_with_MDTraj(item.topology_mdtraj,selection)
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        return item.copy()
     else:
         return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
-
-def copy(item):
-
-    return item.copy()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

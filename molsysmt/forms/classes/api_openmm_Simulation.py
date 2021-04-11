@@ -42,8 +42,10 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
+    from molsysmt.forms.classes.api_openmm_Topology import openmm_Topology_to_openmm_Topology
     tmp_item=item.topology
-    tmp_item=extract(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all'):
+        tmp_item=openmm_Topology_to_openmm_Topology(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices)
 
     return tmp_item
 
@@ -88,16 +90,12 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
 
     return tmp_item
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

@@ -20,15 +20,24 @@ for ii in ['elements', 'bonds']:
 
 def to_aminoacids3_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     tmp_item = 'aminoacids3:'+''.join([ r.name.title() for r in item.residues ])
+
     return tmp_item
 
 def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids3_seq import to_aminoacids1_seq as aminoacids3_to_aminoacids1
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     tmp_item = to_aminoacids3_seq(tmp_item)
     tmp_item = aminoacids3_to_aminoacids1(tmp_item)
     return tmp_item
@@ -41,7 +50,11 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     return tmp_item.to_openmm()
 
 def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
@@ -89,10 +102,10 @@ def select_with_MDAnalysis(item, selection):
 
     raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        return item.copy()
     else:
 
         from mdtraj.core.topology import Topology
@@ -147,11 +160,6 @@ def extract(item, atom_indices='all', frame_indices='all'):
         newTopology._numResidues = ilen(newTopology.groups)
 
         return newTopology
-
-
-def copy(item):
-
-    return item.copy()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

@@ -44,20 +44,24 @@ def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', fram
 def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed import load_file as parmed_file_loader
-    from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
+    from molsysmt.forms.classes.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
 
     tmp_item = parmed_file_loader(item)
-    tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = parmed_Structure_to_parmed_Structure(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis import Universe as mdanalysis_Universe
-    from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_universe
+    from molsysmt.forms.classes.api_mdanalysis_Universe import to_mdanalysis_Universe as mdanalysis_Universe_to_mdanalysis_Universe
 
     tmp_item = mdanalysis_Universe(item)
-    tmp_item = extract_universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mdanalysis_Universe_to_mdanalysis_Universe(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -80,20 +84,23 @@ def to_mdanalysis_topology_PDBParser(item, molecular_system=None, atom_indices='
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_topology as mdtraj_load_topology
-    from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_topology
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item = mdtraj_load_topology(item)
-    tmp_item = extract_mdtraj_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all'):
+        tmp_item = mdtraj_Topology_to_mdtraj_Topology(tmp_item, atom_indices=atom_indices)
 
     return tmp_item
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_pdb as mdtraj_pdb_loader
-    from molsysmt.forms.classes.api_mdtraj_Trajectory import extract as extract_mdtraj_trajectory
+    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
 
     tmp_item = mdtraj_pdb_loader(item)
-    tmp_item = extract_mdtraj_trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -108,10 +115,12 @@ def to_mdtraj_PDBTrajectoryFile(item, molecular_system=None, atom_indices='all',
 def to_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from parmed import load_file as parmed_file_loader
-    from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
+    from molsysmt.forms.classes.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
 
     tmp_item = parmed_file_loader(item)
-    tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = parmed_Structure_to_parmed_Structure(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item.save(output_filename)
 
@@ -129,11 +138,13 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
     from simtk.openmm.app.pdbfile import PDBFile
     from simtk.openmm.app.modeller import Modeller
-    from molsysmt.forms.classes.api_openmm_Modeller import extract as extract_modeller
+    from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_Modeller as openmm_Modeller_to_openmm_Modeller
 
     tmp_item = PDBFile(item)
     tmp_item = Modeller(tmp_item.topology, tmp_item.positions)
-    tmp_item = extract_modeller(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = openmm_Modeller_to_openmm_Modeller(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -178,51 +189,59 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.pdbfile import PDBFile
-    from molsysmt.forms.classes.api_openmm_PDBFile import extract as extract_pdbfile
+    from molsysmt.forms.classes.api_openmm_PDBFile import to_openmm_PDBFile as openmm_PDBFile_to_openmm_PDBFile
 
     tmp_item = PDBFile(item)
-    tmp_item = extract_pdbfile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = openmm_PDBFile_to_openmm_PDBFile(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from pdbfixer.pdbfixer import PDBFixer
-    from molsysmt.forms.classes.api_pdbfixer_PDBFixer import extract as extract_pdbfixer_PDBFixer
+    from molsysmt.forms.classes.api_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_pdbfixer_PDBFixer
 
     tmp_item = PDBFixer(item)
-    tmp_item = extract_pdbfixer_PDBFixer(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = pdbfixer_PDBFixer_to_pdbfixer_PDBFixer(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from pytraj import load as pytraj_load
-    from molsysmt.forms.classes.api_pytraj_Trajectory import extract as extract_pytraj_Trajectory
+    from molsysmt.forms.classes.api_pytraj_Trajectory import to_pytraj_Trajectory as pytraj_Trajectory_to_pytraj_Trajectory
 
     tmp_item = pytraj_load(item)
-    tmp_item = extract_pytraj_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = pytraj_Trajectory_to_pytraj_Trajectory(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from pytraj import load_topology as pytraj_load_topology
-    from molsysmt.forms.classes.api_pytraj_Topology import extract as extract_pytraj_Topology
+    from molsysmt.forms.classes.api_pytraj_Topology import to_pytraj_Topology as pytraj_Topology_to_pytraj_Topology
 
     tmp_item = pytraj_load_topology(item)
-    tmp_item = extract_pytraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = pytraj_Topology_to_pytraj_Topology(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from nglview import show_file as _nglview_show_file
+    from nglview import show_file
     from os import remove
 
-    tmp_file = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = _nglview_show_file(tmp_file)
-    remove(tmp_file)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_file = to_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = show_file(tmp_file)
+        remove(tmp_file)
+    else:
+        tmp_item = show_file(item)
 
     return tmp_item
 
@@ -249,20 +268,16 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_openmm_PDBFile(item)
     return select_openmm_PDBFile_with_MolSysMT(tmp_item, selection)
 
-def copy(item, output_filename=None):
-
-    from shutil import copy as copy_file
-    from molsysmt._private_tools.files_and_directories import tmp_filename
-    if output_filename is None:
-        output_filename = tmp_filename(extension='pdb')
-    copy_file(item, output_filename)
-    return output_filename
-
-def extract(item, output_filename=None, atom_indices='all', frame_indices='all'):
+def to_pdb(item, molecular_system=None, output_filename=None, atom_indices='all', frame_indices='all'):
 
     if atom_indices is 'all' and frame_indices is 'all':
 
-        return copy(item, output_filename=output_filename)
+        from shutil import copy as copy_file
+        from molsysmt._private_tools.files_and_directories import tmp_filename
+        if output_filename is None:
+            output_filename = tmp_filename(extension='pdb')
+        copy_file(item, output_filename)
+        return output_filename
 
     else:
 

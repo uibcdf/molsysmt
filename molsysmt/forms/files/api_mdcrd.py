@@ -61,13 +61,12 @@ def select_with_MolSysMT(item, selection):
 
     return NotImplementedError
 
-def copy(item):
+def to_mdcrd(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    return NotImplementedError
-
-def extract(item, atom_indices='all', frame_indices='all'):
-
-    return NotImplementedError
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        return NotImplementedError()
+    else:
+        return NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

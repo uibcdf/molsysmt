@@ -35,11 +35,13 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_Topology
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
     from mdtraj.core.topology import Topology as mdtraj_Topology
 
     tmp_item = mdtraj_Topology.from_openmm(item, molecular_system=molecular_system)
-    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all'):
+        tmp_item = mdtraj_Topology_to_mdtraj_Topology(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices)
 
     return tmp_item
 
@@ -47,7 +49,11 @@ def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_i
 
     from parmed.openmm import load_topology as openmm_Topology_to_parmed_Structure
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item
+
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
 
     return tmp_item
@@ -56,7 +62,11 @@ def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_in
 
     from yank import Topography as yank_Topography
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item
+
     tmp_item = yank_Topography(tmp_item)
 
     return tmp_item
@@ -122,10 +132,10 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
 
     coordinates = get(molecular_system, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
 
-    if atom_indices is 'all':
-        tmp_item = item
+    if (atom_indices is not 'all'):
+        tmp_item = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices)
     else:
-        tmp_item = extract(item, atom_indices=atom_indices)
+        tmp_item
 
     tmp_io = StringIO()
     PDBFile.writeFile(tmp_item, puw.convert(coordinates[0], 'nm', to_form='simtk.unit'), tmp_io, keepIds=True)
@@ -153,10 +163,26 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
         tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
         return tmp_item
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+
+        from simtk.openmm.app import Topology
+        new_item = Topology()
+        newAtoms = {}
+        for chain in item.chains():
+            newChain = new_item.addChain(chain.id)
+            for residue in chain.residues():
+                newResidue = new_item.addResidue(residue.name, newChain, residue.id, residue.insertionCode)
+                for atom in residue.atoms():
+                    newAtom = new_item.addAtom(atom.name, atom.element, newResidue, atom.id)
+                    newAtoms[atom] = newAtom
+        for bond in item.bonds():
+            new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
+        del(newAtoms)
+        new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
+        return new_item
+
     else:
 
         from simtk.openmm.app import Topology
@@ -184,24 +210,6 @@ def extract(item, atom_indices='all', frame_indices='all'):
         del(newAtoms)
         new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
         return new_item
-
-def copy(item):
-
-    from simtk.openmm.app import Topology
-    new_item = Topology()
-    newAtoms = {}
-    for chain in item.chains():
-        newChain = new_item.addChain(chain.id)
-        for residue in chain.residues():
-            newResidue = new_item.addResidue(residue.name, newChain, residue.id, residue.insertionCode)
-            for atom in residue.atoms():
-                newAtom = new_item.addAtom(atom.name, atom.element, newResidue, atom.id)
-                newAtoms[atom] = newAtom
-    for bond in item.bonds():
-        new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
-    del(newAtoms)
-    new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
-    return new_item
 
 def select_with_Amber(item, selection):
 

@@ -14,19 +14,18 @@ has = molecular_system_components.copy()
 for ii in ['ff_parameters', 'mm_parameters']:
     has[ii]=True
 
-def to_MolecularMechanicsDict(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_MolecularMechanicsDict(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = item.to_dict()
 
     return tmp_item
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolecularMechanics(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    raise NotWithThisFormError()
-
-def copy(item):
-
-    return item.copy()
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        return item.copy()
+    else:
+        raise NotWithThisFormError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

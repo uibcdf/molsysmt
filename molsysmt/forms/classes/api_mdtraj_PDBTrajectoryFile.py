@@ -21,10 +21,13 @@ for ii in ['elements', 'bonds', 'coordinates', 'box']:
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_Topology
+    from molsysmt.forms.classes.api_mdtraj_Topology import mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item = item.topology
-    tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all'):
+        tmp_item = mdtraj_Topology_to_Topology(tmp_item, atom_indices=atom_indices)
+
     return tmp_item
 
 def select_with_Amber(item, selection):
@@ -43,16 +46,12 @@ def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_PDBTrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

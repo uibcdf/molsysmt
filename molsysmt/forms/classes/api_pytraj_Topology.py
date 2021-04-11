@@ -18,11 +18,13 @@ for ii in ['elements', 'bonds']:
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.classes import from_pytraj_Topology as molsysmt_Topology_from_pytraj_Topology
-    from molsysmt.forms.classes.api_molsysmt_Topology import extract as extract_molsysmt_Topology
+    from molsysmt.native.io.topology.classes import from_pytraj_Topology as pytraj_Topology_to_molsysmt_Topology
+    from molsysmt.forms.classes.api_molsysmt_Topology import to_molsysmt_Topology as molsysmt_Topology_to_molsysmt_Topology
 
-    tmp_item = molsysmt_Topology_from_pytraj_Topology(item, molecular_system)
-    tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = pytraj_Topology_to_molsysmt_Topology(item, molecular_system)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = molsysmt_Topology_to_molsysmt_Topology (tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -42,16 +44,12 @@ def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError
     else:
         raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
