@@ -3,6 +3,7 @@ from pandas import DataFrame as df
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.elements import elements2string
 from molsysmt._private_tools.exceptions import *
+from molsysmt.multitool.get_form import get_form
 from molsysmt.multitool.get import get
 
 def info(molecular_system, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):

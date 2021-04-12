@@ -6,7 +6,7 @@
 - [X] Info forms
 - [X] Molecular Systems, Items and Forms
 - [X] Get
-- [X] Selection
+- [] Selection
 - [X] Copy
 - [X] Extract
 - [X] Remove

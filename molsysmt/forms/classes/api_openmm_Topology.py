@@ -135,7 +135,7 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
     if (atom_indices is not 'all'):
         tmp_item = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices)
     else:
-        tmp_item
+        tmp_item = item
 
     tmp_io = StringIO()
     PDBFile.writeFile(tmp_item, puw.convert(coordinates[0], 'nm', to_form='simtk.unit'), tmp_io, keepIds=True)
@@ -163,7 +163,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
         tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
         return tmp_item
 
-def to_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 

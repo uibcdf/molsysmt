@@ -21,7 +21,7 @@ for ii in ['elements', 'bonds', 'coordinates', 'box']:
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mdtraj_Topology import mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item = item.topology
 

@@ -60,7 +60,7 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
                 if method.startswith('select_with_'):
                     if selects_to_be_loaded[api_name][method]:
                         syntaxis_name=method.replace('select_with_','')
-                    dict_select[form_name][syntaxis_name]= getattr(mod, method)
+                        dict_select[form_name][syntaxis_name]= getattr(mod, method)
                 if method.startswith('get_'):
                     option, target = method[4:].split('_from_')
                     dict_get[form_name][target][option]=getattr(mod, method)

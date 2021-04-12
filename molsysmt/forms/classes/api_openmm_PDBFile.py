@@ -43,7 +43,7 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import openmm_Topology as openmm_Topology_to_openmm_Topology
+    from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     tmp_item=item.getTopology()
 

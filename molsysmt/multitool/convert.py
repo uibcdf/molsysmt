@@ -2,6 +2,8 @@ from molsysmt.forms import dict_convert
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.selection import selection_is_all
+from molsysmt._private_tools.forms import to_form_is_file, form_of_file
 from molsysmt.multitool.select import select
 from molsysmt.multitool.get_form import get_form
 
