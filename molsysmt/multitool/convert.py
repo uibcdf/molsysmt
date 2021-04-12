@@ -3,6 +3,7 @@ from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.multitool.select import select
+from molsysmt.multitool.get_form import get_form
 
 def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
@@ -52,15 +53,11 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 
     """
 
-    molecular_system = digest_molecular_system(molecular_system)
-    #_, forms_in = molecular_system.get_items()
-    to_form = digest_to_form(to_form)
+    if to_form is None:
+        to_form = get_form(molecular_system)
 
-    #if are_equal_sets_of_forms(forms_in,to_form):
-    #    if (selection is 'all') and (frame_indices is 'all'):
-    #        return copy(molecular_system)
-    #    else:
-    #        return extract(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+    molecular_system = digest_molecular_system(molecular_system)
+    to_form = digest_to_form(to_form)
 
     if is_list_or_tuple(to_form):
         tmp_item=[]
@@ -105,14 +102,9 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 
     if item_form is None:
         tmp_item = None
-    elif item_form!=to_form:
-        tmp_item = dict_convert[item_form][to_form](item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
-                                                     **conversion_arguments, **kwargs)
     else:
-        if 'output_filename' in conversion_arguments:
-            to_form = conversion_arguments['output_filename']
-        from molsysmt.multitool.extract import extract
-        tmp_item = extract(molecular_system, selection=atom_indices, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis)
+        tmp_item = dict_convert[item_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
+                                                     **conversion_arguments, **kwargs)
 
     tmp_item = digest_output(tmp_item)
 

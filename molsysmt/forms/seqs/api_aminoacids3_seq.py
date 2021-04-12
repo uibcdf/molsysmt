@@ -47,10 +47,11 @@ def to_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt import build_peptide
-    from molsysmt.forms.classes.api_molsysmt_MolSys import extract as extract_molsysmt_MolSys
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_molsysmt_MolSys as molsysmt_MolSys_to_molsysmt_MolSys
 
     tmp_item = build_peptide(item, to_form='molsysmt.MolSys')
-    tmp_item = extract_molsysmt_MolSys(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = molsysmt_MolSys_to_molsysmt_MolSys(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -70,25 +71,23 @@ def to_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='a
     return tmp_item
 
 def select_with_MDTraj(item, selection):
-    raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+    raise NotImplementedError()
+
+def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
+
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    return item
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 ###### Get
 

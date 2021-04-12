@@ -1,6 +1,6 @@
 from importlib import import_module
 import os
-from molsysmt.forms.aduana_officer import api_to_be_loaded, converts_to_be_loaded, selects_to_be_loaded, modules_detected
+from molsysmt.forms.loader import api_to_be_loaded, converts_to_be_loaded, selects_to_be_loaded, modules_detected
 
 types = ['class', 'file', 'id', 'seq', 'viewer']
 forms = []
@@ -8,8 +8,6 @@ forms = []
 dict_type = {}
 dict_is_form = {}
 dict_info = {}
-dict_extract = {}
-dict_copy = {}
 dict_add = {}
 dict_append_frames = {}
 dict_convert = {}
@@ -37,8 +35,6 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
             dict_type[form_name]=typename
             dict_is_form.update(mod.is_form)
             dict_info[form_name]=mod.info
-            dict_extract[form_name]=mod.extract
-            dict_copy[form_name]=mod.copy
             dict_add[form_name]=mod.add
             dict_append_frames[form_name]=mod.append_frames
 

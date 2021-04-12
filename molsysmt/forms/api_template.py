@@ -49,30 +49,18 @@ def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_template_form(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError
     else:
         raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
-
-def merge(list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
-
-def concatenate(list_items, list_atom_indices, list_frame_indices):
-
-    raise NotImplementedError
 
 def add(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 
-def append(item, list_items, list_atom_indices, list_frame_indices):
+def append_frames(item, list_items, list_atom_indices, list_frame_indices):
 
     raise NotImplementedError
 

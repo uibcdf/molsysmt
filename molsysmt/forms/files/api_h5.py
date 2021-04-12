@@ -101,6 +101,10 @@ def to_h5(item, molecular_system=None, atom_indices='all', frame_indices='all', 
     else:
         raise NotImplementedError
 
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError
+
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
