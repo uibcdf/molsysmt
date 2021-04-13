@@ -6,7 +6,8 @@ import numpy as np
 
 def distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
              molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
-             pairs=False, crossed_frames=False, pbc=False, parallel=False, output_form='tensor', engine='MolSysMT', syntaxis='MolSysMT'):
+             pairs=False, crossed_frames=False, pbc=False, parallel=False, output_form='tensor',
+             output_atom_indices=False, output_frame_indices=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
     # group_behavior in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
@@ -185,7 +186,23 @@ def distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, grou
         dists = dists*length_units
 
         if output_form=='tensor':
-             return dists
+            if output_frame_indices:
+
+                if frame_indices_1 is 'all':
+                    frame_indices_1 = np.arange(nframes_1)
+                if frame_indices_2 is 'all':
+                    frame_indices_2 = np.arange(nframes_2)
+
+                if output_atom_indices:
+                    return atom_indices_1, frame_indices_1, atom_indices_2, frame_indices_2, dists
+                else:
+                    return frame_indices_1, frame_indices_2, dists
+
+            elif output_atom_indices:
+                return atom_indices_1, atom_indices_2, dists
+            else:
+                return dists
+
         elif output_form=='dict':
             if frame_indices_1 is 'all':
                 frame_indices_1 = np.arange(nframes_1)
@@ -268,13 +285,21 @@ def distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, grou
 
 def minimum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, as_entity_1=True, frame_indices_1="all",
                      molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, frame_indices_2=None,
-                     pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
+                     atom_indices=False, output_frame_indices=False, pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
-    all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
-                         group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
-                         molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                         group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
-                         pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
+    if atom_indices:
+
+        atom_indices_1, atom_indices_2, all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1,
+                groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1, molecular_system_2=molecular_system_2,
+                selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2, pairs=pairs, pbc=pbc,
+                parallel=parallel, output_form='tensor', output_atom_indices=True, engine=engine, syntaxis=syntaxis)
+
+    else:
+
+        all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
+                frame_indices_1=frame_indices_1, molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2, pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor',
+                engine=engine, syntaxis=syntaxis)
 
     if pairs is False:
 
@@ -288,8 +313,12 @@ def minimum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=No
             dists=np.empty((nframes),dtype=float)
             for indice_frame in range(nframes):
                 ii,jj = np.unravel_index(all_dists[indice_frame,:,:].argmin(), all_dists[indice_frame,:,:].shape)
-                pairs[indice_frame,0] = ii
-                pairs[indice_frame,1] = jj
+                if atom_indices:
+                    pairs[indice_frame,0] = atom_indices_1[ii]
+                    pairs[indice_frame,1] = atom_indices_2[jj]
+                else:
+                    pairs[indice_frame,0] = ii
+                    pairs[indice_frame,1] = jj
                 dists[indice_frame] = all_dists[indice_frame,ii,jj]
 
             del(all_dists)
@@ -305,7 +334,10 @@ def minimum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=No
             for indice_frame in range(nframes):
                 for ii in range(nelements_1):
                     jj = all_dists[indice_frame,ii,:].argmin()
-                    pairs[indice_frame,ii]=jj
+                    if atom_indices:
+                        pairs[indice_frame,ii]=atom_indices_2[jj]
+                    else:
+                        pairs[indice_frame,ii]=jj
                     dists[indice_frame,ii]=all_dists[indice_frame,ii,jj]
 
             del(all_dists)
@@ -321,7 +353,8 @@ def minimum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=No
             for indice_frame in range(nframes):
                 for ii in range(nelements_2):
                     jj = all_dists[indice_frame,:,ii].argmin()
-                    pairs[indice_frame,ii]=jj
+                    if atom_indices:
+                        pairs[indice_frame,ii]=atom_indices_1[jj]
                     dists[indice_frame,ii]=all_dists[indice_frame,jj,ii]
 
             del(all_dists)
@@ -361,13 +394,21 @@ def maximum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=No
                      as_entity_1=True, frame_indices_1="all",
                      molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None,
                      as_entity_2=True, frame_indices_2=None,
-                     pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
+                     atom_indices=False, pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
 
-    all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
-                         group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
-                         molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                         group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
-                         pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
+    if atom_indices:
+
+        atom_indices_1, atom_indices_2, all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1,
+                groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1, molecular_system_2=molecular_system_2,
+                selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2, pairs=pairs, pbc=pbc,
+                parallel=parallel, output_form='tensor', output_atom_indices=True, engine=engine, syntaxis=syntaxis)
+
+    else:
+
+        all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1, group_behavior_1=group_behavior_1,
+                frame_indices_1=frame_indices_1, molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2, pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor',
+                engine=engine, syntaxis=syntaxis)
 
     if pairs is False:
 
@@ -381,8 +422,12 @@ def maximum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=No
             dists=np.empty((nframes),dtype=float)
             for indice_frame in range(nframes):
                 ii,jj = np.unravel_index(all_dists[indice_frame,:,:].argmax(), all_dists[indice_frame,:,:].shape)
-                pairs[indice_frame,0] = ii
-                pairs[indice_frame,1] = jj
+                if atom_indices:
+                    pairs[indice_frame,0] = atom_indices_1[ii]
+                    pairs[indice_frame,1] = atom_indices_2[jj]
+                else:
+                    pairs[indice_frame,0] = ii
+                    pairs[indice_frame,1] = jj
                 dists[indice_frame] = all_dists[indice_frame,ii,jj]
 
             del(all_dists)
@@ -398,7 +443,10 @@ def maximum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=No
             for indice_frame in range(nframes):
                 for ii in range(nelements_1):
                     jj = all_dists[indice_frame,ii,:].argmax()
-                    pairs[indice_frame,ii]=jj
+                    if atom_indices:
+                        pairs[indice_frame,ii]=atom_indices_2[jj]
+                    else:
+                        pairs[indice_frame,ii]=jj
                     dists[indice_frame,ii]=all_dists[indice_frame,ii,jj]
 
             del(all_dists)
@@ -414,7 +462,10 @@ def maximum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=No
             for indice_frame in range(nframes):
                 for ii in range(nelements_2):
                     jj = all_dists[indice_frame,:,ii].argmax()
-                    pairs[indice_frame,ii]=jj
+                    if atom_indices:
+                        pairs[indice_frame,ii]=atom_indices_1[jj]
+                    else:
+                        pairs[indice_frame,ii]=jj
                     dists[indice_frame,ii]=all_dists[indice_frame,jj,ii]
 
             del(all_dists)
@@ -454,13 +505,15 @@ def maximum_distance(molecular_system_1, selection_1="all", groups_of_atoms_1=No
 
 def contact_map(molecular_system_1, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
                 molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
-                threshold=None, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
+                output_atom_indices=False, threshold=None, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
-    all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
-                         group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
-                         molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                         group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
-                         pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
+
+    atom_indices_1, atom_indices_2, all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
+                                                group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
+                                                molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                                                group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                                                output_atom_indices=True,
+                                                pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 
     if threshold is None:
         raise BadCallError(BadCallMessage)
@@ -476,11 +529,14 @@ def contact_map(molecular_system_1, selection_1="all", groups_of_atoms_1=None, g
 
     del(all_dists, num_frames, indice_frame, length_units)
 
-    return contact_map
+    if output_atom_indices:
+        return atom_indices_1, atom_indices_2, contact_map
+    else:
+        return contact_map
 
 def neighbors_lists(molecular_system_1, selection_1="all", groups_of_atoms_1=None, group_behavior_1=None, frame_indices_1="all",
                     molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
-                    threshold=None, num_neighbors=None, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
+                    threshold=None, num_neighbors=None, atom_indices=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
     if (threshold is None) and (num_neighbors is None):
         raise BadCallError(BadCallMessage)
@@ -512,11 +568,21 @@ def neighbors_lists(molecular_system_1, selection_1="all", groups_of_atoms_1=Non
 
     same_set= same_items and (same_selections or same_groups) and same_frames
 
-    all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
-                         group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
-                         molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                         group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
-                         pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
+    if atom_indices:
+
+        atom_indices_1, atom_indices_2, all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
+                                                    group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
+                                                    molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                                                    group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                                                    pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
+
+    else:
+
+        all_dists = distance(molecular_system_1=molecular_system_1, selection_1=selection_1, groups_of_atoms_1=groups_of_atoms_1,
+                            group_behavior_1=group_behavior_1, frame_indices_1=frame_indices_1,
+                            molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                            group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                            pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 
     nframes, nelements_1, nelements_2 = all_dists.shape
     length_units = puw.get_unit(all_dists)
@@ -538,7 +604,10 @@ def neighbors_lists(molecular_system_1, selection_1="all", groups_of_atoms_1=Non
                 good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
-                neighs[indice_frame,ii,:]=neighs_aux[offset:]
+                if atom_indices:
+                    neighs[indice_frame,ii,:]=atom_indices_2[neighs_aux[offset:]]
+                else:
+                    neighs[indice_frame,ii,:]=neighs_aux[offset:]
                 dists[indice_frame,ii,:]=dists_aux[offset:]
                 if same_set:
                     if dists_aux[0] > 0.01:
@@ -568,7 +637,10 @@ def neighbors_lists(molecular_system_1, selection_1="all", groups_of_atoms_1=Non
                 good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
-                neighs[indice_frame,ii]=np.array(neighs_aux,dtype=int)[offset:]
+                if atom_indices:
+                    neighs[indice_frame,ii]=atom_indices_2[np.array(neighs_aux,dtype=int)[offset:]]
+                else:
+                    neighs[indice_frame,ii]=np.array(neighs_aux,dtype=int)[offset:]
                 dists[indice_frame,ii]=np.array(dists_aux,dtype=float)[offset:]
                 if same_set:
                     if dists_aux[0] > 0.01:

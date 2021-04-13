@@ -5,12 +5,20 @@ from molsysmt._private_tools.selection import selection_is_all
 from molsysmt._private_tools.strings import pattern_in_between_patterns
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.selection import indices_to_selection # basic_selection, within_selection, bonded_to_selection, parenthesis_substitution_in_selection
+from molsysmt._private_tools.get_arguments import where_get_argument
 
 def select_standard(molecular_system, selection, syntaxis):
 
     if type(selection)==str:
         if selection in ['all', 'All', 'ALL']:
-            n_atoms = dict_get[molecular_system.elements_form]['system']['n_atoms'](molecular_system.elements_item)
+            n_atoms = None
+            for where_attribute in where_get_argument['n_atoms']:
+                aux_item = getattr(molecular_system, where_attribute+'_item')
+                aux_form = getattr(molecular_system, where_attribute+'_form')
+                if aux_item is not None:
+                    n_atoms = dict_get[aux_form]['system']['n_atoms'](aux_item)
+                if n_atoms is not None:
+                    break
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
             selection = digest_selection(selection, syntaxis)
@@ -24,23 +32,27 @@ def select_standard(molecular_system, selection, syntaxis):
 
     return atom_indices
 
-def select_within(molecular_system, selection, syntaxis):
+def select_within(molecular_system, selection, frame_index, syntaxis):
 
-    from molsysmt.distances import neighbors_lists
+    from molsysmt.distances import contact_map
 
     selection_1, selection_2, threshold, pbc = parse_within_selection(selection)
 
-    print(selection_1, selection_2, threshold, pbc)
+    atom_indices_1 = (selection_1, selection_2, threshold, pbc)
 
-    output = neighbors_lists(molecular_system, selection_1=selection_1, selection_2=selection_2,
-                             threshold=threshold, pbc=pbc, engine='MolSysMT', syntaxis=syntaxis)
+    atom_indices_1, atom_indices_2, cmap = contact_map(molecular_system, selection_1=selection_1, selection_2=selection_2,
+                                           frame_indices_1=frame_index, threshold=threshold, pbc=pbc, engine='MolSysMT',
+                                           syntaxis=syntaxis, output_atom_indices=True)
+
+    output = atom_indices_1[np.where(cmap.any(axis=2)[0]==True)[0]]
+
     return output
 
 def select_bonded_to(molecular_system, selection, syntaxis):
 
     raise NotImplementedError()
 
-def select(molecular_system, selection='all', target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
+def select(molecular_system, selection='all', frame_index=0, target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
 
     # to_syntaxis: 'NGLView', 'MDTraj', ...
 
@@ -100,17 +112,22 @@ def select(molecular_system, selection='all', target='atom', mask=None, syntaxis
     if mask is 'all':
         mask=None
 
-    while selection_with_special_subsentences(selection):
-        sub_selection = selection_with_special_subsentences(selection)
-        sub_atom_indices = select(molecular_system, sub_selection, syntaxis=syntaxis)
-        selection = selection.split(sub_selection, 'atom_index==['+list_to_csv_string(sub_atom_indices)+']')
-        print(selection)
+    if type(selection)==str:
 
-    if 'within' in selection:
-        atom_indices = select_within(molecular_system, selection, syntaxis)
-    elif 'bonded to' in selection:
-        atom_indices = select_bonded_to(molecular_system, selection, syntaxis)
+        while selection_with_special_subsentences(selection):
+            sub_selection = selection_with_special_subsentences(selection)
+            sub_atom_indices = select(molecular_system, sub_selection, syntaxis=syntaxis)
+            selection = selection.split(sub_selection, 'atom_index==['+list_to_csv_string(sub_atom_indices)+']')
+
+        if 'within' in selection:
+            atom_indices = select_within(molecular_system, selection, frame_index, syntaxis)
+        elif 'bonded to' in selection:
+            atom_indices = select_bonded_to(molecular_system, selection, syntaxis)
+        else:
+            atom_indices = select_standard(molecular_system, selection, syntaxis)
+
     else:
+
         atom_indices = select_standard(molecular_system, selection, syntaxis)
 
     if target=='atom':
