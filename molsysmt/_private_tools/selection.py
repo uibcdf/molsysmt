@@ -90,19 +90,4 @@ def selection_is_all(selection):
 
     return output
 
-def parse_within_selection(selection):
-
-    selection_1, tmp_selection = selection.split("within ")
-
-    pbc = False
-
-    if "with pbc " in tmp_selection:
-        pbc = True
-        tmp_selection = tmp_selection.replace("with pbc ","")
-    elif "without pbc " in tmp_selection:
-        tmp_selection = tmp_selection.replace("without pbc ","")
-
-    threshold, selection_2 = tmp_selection.split("of ")
-
-    return selection_1, selection_2, threshold, pbc
 
