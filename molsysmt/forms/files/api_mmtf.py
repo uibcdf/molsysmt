@@ -21,10 +21,11 @@ for ii in ['elements', 'bonds', 'coordinates', 'box']:
 def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mmtf import parse
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract as extract_mmtf_MMTFDecoder
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_mmtf_MMTFDecoder
 
     tmp_item = parse(item)
-    tmp_item = extract_mmtf_MMTFDecoder(tmp_item, atom_indices='all', frame_indices='all')
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mmtf_MMTFDecoder_to_mmtf_MMTFDecoder(tmp_item, molecular_system=molecular_system, atom_indices='all', frame_indices='all')
 
     return tmp_item
 
@@ -68,10 +69,11 @@ def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_in
 def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis import Universe
-    from molsysmt.forms.classes.api_mdanalysis_Universe import extract as extract_mdanalysis_Universe
+    from molsysmt.forms.classes.api_mdanalysis_Universe import to_mdanalysis_Universe as mdanalysis_Universe_to_mdanalysis_Universe
 
     tmp_item = Universe(item)
-    tmp_item = extract_mdanalysis_Universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mdanalysis_Universe_to_mdanalysis_Universe(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -91,16 +93,12 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_mmtf_MMTFDecoder(item)
     return select_mmtf_MMTFDecoder_with_MolSysMT(tmp_item, selection)
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

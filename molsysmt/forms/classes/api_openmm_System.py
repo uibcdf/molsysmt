@@ -62,16 +62,12 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        return item.__copy__()
     else:
         raise NotImplementedError
-
-def copy(item):
-
-    return item.__copy__()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

@@ -156,10 +156,10 @@ def select_with_MolSysMT(item, selection):
     from .api_molsysmt_Topology import select_with_MolSysMT as select_Topology_with_MolSysMT
     return select_Topology_with_MolSysMT(item.topology, selection)
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        return item.copy()
     else:
         return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
@@ -168,10 +168,6 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
     from nglview import show_molsysmt
     tmp_view = show_molsysmt(item, selection=atom_indices, frame_indices=frame_indices)
     return tmp_view
-
-def copy(item):
-
-    return item.copy()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

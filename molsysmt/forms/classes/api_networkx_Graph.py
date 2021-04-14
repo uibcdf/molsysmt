@@ -20,16 +20,12 @@ def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_networkx_Graph(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        return item.copy()
     else:
         return item.subgraph(atom_indices).copy()
-
-def copy(item):
-
-    return item.copy()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

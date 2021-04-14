@@ -88,10 +88,12 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import extract as extract_openmm_Topology
+    from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     tmp_item = item.topology
-    tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = openmm_Topology_to_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -161,31 +163,30 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+
+        from os import remove
+        from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
+        from molsysmt._private_tools.pdb import tmp_pdb_filename
+        tmp_file = tmp_pdb_filename()
+        to_pdb(item, output_filename=tmp_file)
+        tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_file)
+        remove(tmp_file)
+        return tmp_item
+
     else:
         from simtk.openmm.app import Modeller as openmm_Modeller
-        from .api_openmm_Topology import extract as extract_openmm_Topology
+        from .api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
         from .api_openmm_Modeller import to_pdbfixer_PDBFixer as openmm_Modeller_to_pdbfixer_PDBFixer
         tmp_topology = item.topology
-        tmp_topology = extract_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if atom_indices is not 'all':
+            tmp_topology = openmm_Topology_to_openmm_Topology(tmp_topology, molecular_system=molecular_system, atom_indices=atom_indices)
         coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
         tmp_item = openmm_Modeller(tmp_topology, coordinates)
         tmp_item = openmm_Modeller_to_pdbfixer_PDBFixer(tmp_item)
         return tmp_item
-
-def copy(item):
-
-    from os import remove
-    from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
-    from molsysmt._private_tools.pdb import tmp_pdb_filename
-    tmp_file = tmp_pdb_filename()
-    to_pdb(item, output_filename=tmp_file)
-    tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_file)
-    remove(tmp_file)
-    return tmp_item
 
 def select_with_MDTraj(item, selection):
 

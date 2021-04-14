@@ -22,14 +22,18 @@ def to_prmtop(item, molecular_system=None, atom_indices='all', frame_indices='al
 
     tmp_item = None
 
-    if atom_indices=='all':
-        from shutil import copyfile
-        copyfile(item, output_filename)
-        tmp_item = output_filename
-    else:
-        raise NotImplementedError("Not implemented yet")
+    if (atom_indices is 'all') and (frame_indices is 'all'):
 
-    return tmp_item
+        from shutil import copy as copy_file
+        from molsysmt._private_tools.files_and_directories import tmp_filename
+        if output_filename is None:
+            output_filename = tmp_filename(extension='prmtop')
+        copy_file(item, output_filename)
+        return output_filename
+
+    else:
+
+        raise NotImplementedError()
 
 def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
@@ -126,19 +130,6 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_molsysmt_DataFrame(item)
     atom_indices=select_molsysmt_DataFrame_with_MolSysMT(tmp_item, selection)
     return atom_indices
-
-def copy(item, output_filename=None):
-
-    from shutil import copy as copy_file
-    from molsysmt._private_tools.files_and_directories import tmp_filename
-    if output_filename is None:
-        output_filename = tmp_filename(extension='prmtop')
-    copy_file(item, output_filename)
-    return output_filename
-
-def extract(item, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

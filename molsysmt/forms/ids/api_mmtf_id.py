@@ -31,11 +31,12 @@ def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all'
 def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mmtf import fetch
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import extract as extract_MMTFDecoder
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder as mmtf_MMTFDecoder_to_mmtf_MMTFDecoder
 
     tmp_item = item.split(':')[-1]
     tmp_item = fetch(tmp_item)
-    tmp_item = extract_MMTFDecoder(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mmtf_MMTFDecoder_to_mmtf_MMTFDecoder(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -84,16 +85,12 @@ def select_with_MDTraj(item, selection):
 
     raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_mmtf_id(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

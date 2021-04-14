@@ -21,7 +21,11 @@ def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all'
 
     from mmtf.api.default_api import write_mmtf, MMTFDecoder
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mmtf_MMTFDecoder(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     write_mmtf(output_filename, tmp_item, MMTFDecoder.pass_data_on)
 
     return output_filename
@@ -68,16 +72,12 @@ def select_with_MolSysMT(item, selection):
     tmp_item = to_molsysmt_Topology(item)
     return select_Topology_with_MolSysMT(tmp_item, selection)
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError
     else:
         raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

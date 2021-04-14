@@ -92,20 +92,14 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_h5(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        from shutil import copyfile
+        er=copyfile(item, output_filename)
+        return output_filename
     else:
         raise NotImplementedError
-
-def copy(item, output_filename=None):
-
-    from shutil import copyfile
-
-    er=copyfile(item, output_filename)
-
-    return output_filename
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

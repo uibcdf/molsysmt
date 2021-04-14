@@ -50,40 +50,46 @@ def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', fram
 def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed import load_file as parmed_file_loader
-    from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
+    from molsysmt.forms.classes.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
 
     tmp_item = parmed_file_loader(item)
-    tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = parmed_Structure_to_parmed_Structure(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis import Universe as mdanalysis_Universe
-    from molsysmt.forms.classes.api_mdtraj_Universe import extract as extract_universe
+    from molsysmt.forms.classes.api_mdanalysis_Universe import to_mdanalysis_Universe as mdanalysis_Universe_to_mdanalysis_Universe
 
     tmp_item = mdanalysis_Universe(item)
-    tmp_item = extract_universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mdanalysis_Universe_to_mdanalysis_Universe(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_topology as mdtraj_load_topology
-    from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_topology
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item = mdtraj_load_topology(item)
-    tmp_item = extract_mdtraj_topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all'):
+        tmp_item = mdtraj_Topology_to_mdtraj_Topology(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices)
 
     return tmp_item
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_gro as mdtraj_gro_loader
-    from molsysmt.forms.classes.api_mdtraj_Trajectory import extract as extract_mdtraj_trajectory
+    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
 
     tmp_item = mdtraj_gro_loader(item)
-    tmp_item = extract_mdtraj_trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -98,10 +104,12 @@ def to_mdtraj_GroTrajectoryFile(item, molecular_system=None, atom_indices='all',
 def to_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from parmed import load_file as parmed_file_loader
-    from molsysmt.forms.classes.api_parmed_Structure import extract as extract_parmed
+    from molsysmt.forms.classes.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
 
     tmp_item = parmed_file_loader(item)
-    tmp_item = extract_parmed(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = parmed_Structure_to_parmed_Structure(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item.save(output_filename)
 
@@ -117,21 +125,23 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.modeller import Modeller
-    from molsysmt.forms.classes.api_openmm_Modeller import extract as extract_modeller
+    from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_Modeller as openmm_Modeller_to_openmm_Modeller
 
     tmp_item = to_parmed_Structure(item)
     tmp_item = Modeller(tmp_item.topology, tmp_item.positions)
-    tmp_item = extract_modeller(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = openmm_Modeller_to_openmm_Modeller(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_openmm_GromacsGroFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import GromacsGroFile
-    from molsysmt.forms.classes.api_openmm_GromacsGroFile import extract as extract_openmm_GromacsGroFile
+    from molsysmt.forms.classes.api_openmm_GromacsGroFile import to_openmm_GromacsGroFile as openmm_GromacsGroFile_to_openmm_GromacsGroFile
 
     tmp_item = GromacsGroFile(item)
-    tmp_item = extract_openmm_GromacsGroFile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = openmm_GromacsGroFile_to_openmm_GromacsGroFile(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -152,16 +162,12 @@ def select_with_MDTraj(item, selection):
     del(tmp_item)
     return tmp_sel
 
-def copy(item):
-
-    raise NotImplementedError
-
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_gro(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

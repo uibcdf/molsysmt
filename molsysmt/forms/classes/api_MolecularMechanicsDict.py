@@ -20,7 +20,7 @@ def this_dict_is_MolecularMechanicsDict(item):
 
     return is_molecular_mechanics_dict(item)
 
-def to_molsysmt_MolecularMechanics(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolecularMechanics(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molecular_mechanics import MolecularMechanics as molsysmt_MolecularMechanics
 
@@ -30,23 +30,20 @@ def to_molsysmt_MolecularMechanics(item, molecular_system, atom_indices='all', f
 
 def select_with_MolSysMT(item, selection):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_MolecularMechanicsDict(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        return item.copy()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    return item.copy()
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
-    raise NotImplementedError
+    raise NotImplementedError()
+

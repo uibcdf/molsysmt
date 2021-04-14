@@ -53,10 +53,10 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
 
     return tmp_item
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        return item.copy()
     else:
         return item.extract(atom_indices=atom_indices)
 
@@ -69,10 +69,6 @@ def select_with_MolSysMT(item, selection):
     from molsysmt.native.selector import elements_select
     atom_indices = elements_select(item.atoms_dataframe, selection)
     return atom_indices
-
-def copy(item):
-
-    return item.copy()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

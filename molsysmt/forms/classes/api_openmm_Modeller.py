@@ -21,13 +21,15 @@ for ii in ['elements', 'bonds', 'coordinates', 'box']:
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt import extract as _extract
     import simtk.unit as _unit
-    from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
+    from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
+    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
 
     tmp_topology = to_mdtraj_Topology(item)
-    tmp_item = _mdtraj_Trajectory(item.positions/_unit.nanometers, tmp_topology)
-    tmp_item = _extract(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+    tmp_item = mdtraj_Trajectory(item.positions/_unit.nanometers, tmp_topology)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, selection=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -83,10 +85,12 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from .api_openmm_Topology import extract as extract_openmm_Topology
+    from .api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     tmp_item = item.getTopology()
-    tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices)
+
+    if (atom_indices is not 'all'):
+        tmp_item = openmm_Topology_to_openmm_Topology(tmp_item, atom_indices=atom_indices)
 
     return tmp_item
 
@@ -141,26 +145,23 @@ def select_with_MDTraj(item, selection):
     tmp_item = to_mdtraj_Topology(item)
     return tmp_item.select(selection)
 
-def copy(item):
-
-    from simtk.openmm.app import Modeller as _Modeller
-
-    tmp_item = _Modeller(item.topology, item.positions)
-    return tmp_item
-
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+
+        from simtk.openmm.app import Modeller
+        tmp_item = Modeller(item.topology, item.positions)
+
     else:
 
-        from api_openmm_Topology import extract_atom_indices as _extract_topology
+        from simtk.openmm.app import Modeller
+        from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
-        tmp_item = copy(item)
-        tmp_item.topology = _extract_topology(item.topology, atom_indices)
-        tmp_item.positions = get_coordinates_from_atom(item, atom_indices)
+        tmp_topology = openmm_Topology_to_openmm_Topology(item.topology, atom_indices=atom_indices)
+        tmp_positions = get_coordinates_from_atom(item, indices=atom_indices)
+        tmp_item = Modeller(tmp_topology, tmp_positions)
 
-        return tmp_item
+    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

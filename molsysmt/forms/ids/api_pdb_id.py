@@ -23,18 +23,18 @@ for ii in ['elements', 'coordinates', 'box']:
 def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt._private_tools.pdb import download_pdb
-    from molsysmt.forms.files.api_pdb import extract as extract_pdb
+    from molsysmt.forms.files.api_pdb import to_pdb as pdb_to_pdb
 
     tmp_item = item.split(':')[-1]
     download_pdb(tmp_item, output_filename)
-    if atom_indices is not 'all' or frame_indices is not 'all':
-        _ = extract_pdb(output_filename, output_filename=output_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        _ = pdb_to_pdb(output_filename, molecular_system=molecular_system, output_filename=output_filename, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return output_filename
 
 def to_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.forms.files.api_fasta import extract as extract_fasta
+    from molsysmt.forms.files.api_fasta import to_fasta as fasta_to_fasta
 
     tmp_item = item.split(':')[-1]
     url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+tmp_item+'&compressionType=uncompressed'
@@ -44,10 +44,10 @@ def to_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all
     with open(output_filename,'w') as f:
         f.write(fasta_txt)
     f.close()
-    tmp_item = extract_fasta(output_filename, atom_indices=atom_indices,
-            frame_indices=frame_indices)
-    if tmp_item!=output_filename:
-        move(tmp_item, output_filename)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        output_filename = fasta_to_fasta(output_filename, atom_indices=atom_indices,
+                                         frame_indices=frame_indices,
+                                         output_filename=output_filename)
 
     return tmp_item
 
@@ -232,16 +232,12 @@ def select_with_MDTraj(item, selection):
     del(tmp_form)
     return tmp_sel
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_pdb_id(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

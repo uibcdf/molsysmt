@@ -54,26 +54,22 @@ def to_pir(item, molecular_system=None, atom_indices='all', frame_indices='all',
 
 def select_with_MDTraj(item, selection):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    return item
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 ###### Get
 

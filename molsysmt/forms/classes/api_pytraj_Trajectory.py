@@ -18,40 +18,48 @@ for ii in ['elements', 'bonds', 'coordinates', 'box']:
 
 def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.api_pytraj_Topology import extract as extract_pytraj_Topology
+    from molsysmt.forms.api_pytraj_Topology import to_pytraj_Topology as pytraj_Topology_to_pytraj_Topology
 
     tmp_item = item.topology
-    tmp_item = extract_pytraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = pytraj_Topology_to_pytraj_Topology(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.classes import from_pytraj_Trajectory as molsysmt_MolSys_from_pytraj_Topology
-    from molsysmt.forms.classes.api_molsysmt_MolSys import extract as extract_molsysmt_MolSys
+    from molsysmt.native.io.molsys.classes import from_pytraj_Trajectory as pytraj_Topology_to_molsysmt_MolSys
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_molsysmt_MolSys as molsysmt_MolSys_to_molsysmt_MolSys
 
-    tmp_item = molsysmt_MolSys_from_pytraj_Topology(item, molecular_system)
-    tmp_item = extract_molsysmt_MolSys(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = pytraj_Topology_to_molsysmt_MolSys(item, molecular_system)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = molsysmt_MolSys_to_molsysmt_MolSys(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.classes import from_pytraj_Trajectory as molsysmt_Topology_from_pytraj_Topology
-    from molsysmt.forms.classes.api_molsysmt_Topology import extract as extract_molsysmt_Topology
+    from molsysmt.native.io.topology.classes import from_pytraj_Trajectory as pytraj_Trajectory_to_molsysmt_Topology
+    from molsysmt.forms.classes.api_molsysmt_Topology import to_molsysmt_Topology as molsysmt_Topology_to_molsysmt_Topology
 
-    tmp_item = molsysmt_Topology_from_pytraj_Topology(item)
-    tmp_item = extract_molsysmt_Topology(tmp_item, atom_indices=atom_indices)
+    tmp_item = pytraj_Trajectory_to_molsysmt_Topology(item)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = molsysmt_Topology_to_molsysmt_Topology(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
 def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.classes import from_pytraj_Trajectory as molsysmt_Trajectory_from_pytraj_Trajectory
-    from molsysmt.forms.classes.api_molsysmt_Trajectory import extract as extract_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory.classes import from_pytraj_Trajectory as pytraj_Trajectory_to_molsysmt_Trajectory
+    from molsysmt.forms.classes.api_molsysmt_Trajectory import to_molsysmt_Trajectory as molsysmt_Trajectory_to_molsysmt_Trajectory
 
-    tmp_item = molsysmt_Trajectory_from_pytraj_Trajectory(item, molecular_system)
-    tmp_item = extract_molsysmt_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = pytraj_Trajectory_to_molsysmt_Trajectory(item, molecular_system)
+
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = molsysmt_Trajectory_to_molsysmt_Trajectory(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -71,16 +79,12 @@ def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError
     else:
         raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

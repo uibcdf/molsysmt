@@ -19,16 +19,24 @@ for ii in ['elements', 'bonds', 'coordinates', 'box']:
 
 def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from nglview import show_mdtraj
+    from nglview import show_mdanalisys_universe
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = show_mdtraj(tmp_item)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
+    tmp_item = show_mdanalysis_universe(tmp_item)
 
     return tmp_item
 
 def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, multiframe=False):
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     tmp_item.atoms.write(output_filename, multiframe=multiframe)
 
     return output_filename
@@ -39,7 +47,11 @@ def to_mdtraj_Trajectory (item, molecular_system=None, atom_indices='all', frame
     from molsysmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
     from os import remove
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     tmp_file = tmp_pdb_filename()
     to_pdb(tmp_item=item, output_filename=tmp_file)
     tmp_item=pdb_to_mdtraj_Trajectory(tmp_file)
@@ -89,26 +101,18 @@ def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
-
-def copy(item):
-
-    raise NotImplementedError
+        raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
-
-def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 

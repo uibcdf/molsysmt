@@ -90,3 +90,4 @@ def selection_is_all(selection):
 
     return output
 
+

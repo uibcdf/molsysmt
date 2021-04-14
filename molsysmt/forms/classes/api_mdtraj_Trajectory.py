@@ -81,10 +81,12 @@ def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', fram
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mdtraj_Topology import extract as extract_mdtraj_Topology
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item=item.topology
-    tmp_item=extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if (atom_indices is not 'all'):
+        tmp_item = mdtraj_Topology_to_mdtraj_Topology(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices)
 
     return tmp_item
 
@@ -142,13 +144,19 @@ def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_
 
 def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
 
     return tmp_item.save_pdb(output_filename)
 
 def to_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
 
     return item.save_xtc(output_filename)
 
@@ -157,7 +165,11 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
     from nglview import show_mdtraj as show_mdtraj
     from molsysmt.nglview import standardize_view
 
-    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is not 'all') or (frame_indices is not 'all'):
+        tmp_item = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_item = item
+
     tmp_view = show_mdtraj(tmp_item)
     standardize_view(tmp_view)
 
@@ -181,20 +193,15 @@ def select_with_MolSysMT(item, selection):
 
     return topology_select_with_Pandas(item.topology, selection)
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item
+        from copy import deepcopy
+        return deepcopy(item)
     else:
         tmp_item = item.atom_slice(atom_indices)
         tmp_item = tmp_item.slice(frame_indices)
         return tmp_item
-
-def copy(item):
-
-    from copy import deepcopy
-
-    return deepcopy(item)
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

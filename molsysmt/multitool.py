@@ -9,7 +9,7 @@ from molsysmt._private_tools.get_arguments import where_get_argument
 from molsysmt._private_tools.set_arguments import where_set_argument
 from molsysmt._private_tools.elements import elements2string
 from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.selection import indices_to_selection
+from molsysmt._private_tools.selection import indices_to_selection, basic_selection, within_selection, bonded_to_selection, parenthesis_substitution_in_selection
 from molsysmt._private_tools.frame_indices import complementary_frame_indices
 from molsysmt._private_tools.atom_indices import complementary_atom_indices
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
@@ -74,6 +74,18 @@ def get_form(molecular_system):
             raise NotImplementedError()
 
 
+def _select_within(molecular_system, selection_1, selection_2, threshold, pbc, syntaxis):
+
+    from molsysmt.distances import neighbors_lists
+
+    output = neighbors_lists(molecular_system, selection_1=selection_1, selection_2=selection_2,
+                             threshold=threshold, pbc=pbc, engine='MolSysMT', syntaxis=syntaxis)
+    return output
+
+def _select_bonded_to(molecular_system, selection_1, selection_2, syntaxis):
+
+    pass
+
 def select(molecular_system, selection='all', target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
 
     # to_syntaxis: 'NGLView', 'MDTraj', ...
@@ -131,6 +143,19 @@ def select(molecular_system, selection='all', target='atom', mask=None, syntaxis
     syntaxis = digest_syntaxis(syntaxis)
     selection = digest_selection(selection, syntaxis)
     to_syntaxis = digest_to_syntaxis(to_syntaxis)
+
+    if 'within' in selection or 'bonded to' in selection:
+
+        from molsysmt._private_tools.selection import parenthesis_substitution_in_selection
+
+
+
+        pass
+
+    if 'within' in selection:
+
+        selection_1, selection_2, threshold, pbc = parse_within_selection(selection)
+
 
     if mask is 'all':
         mask=None
