@@ -25,7 +25,7 @@ from .solvate_box import solvate, is_solvated
 from .potential_energy import energy_minimization, potential_energy
 from .sasa import sasa
 from .rmsd import rmsd, least_rmsd, least_rmsd_fit
-
+from . import hbonds
 
 #from .sequence import sequence_alignment, sequence_identity, structure_alignment
 #from .radius_of_gyration import radius_of_gyration
