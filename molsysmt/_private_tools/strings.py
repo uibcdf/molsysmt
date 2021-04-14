@@ -1,17 +1,20 @@
 
-def pattern_in_between_patterns(string, in_between, pattern_left, pattern_right):
+def get_parenthesis(string):
 
-    output = False
+    output = []
+    initial_positions = []
 
-    if (pattern_left in string) and (pattern_right in string) and (in_between in string):
-        segments_left = string.split(pattern_left)
-        for segment in segments_left[1:]:
-            candidate = segment.split(pattern_right)[0]
-            if in_between in candidate:
-                output = candidate
-                break
+    for ii in range(len(string)):
+        if string[ii]=='(':
+            initial_positions.append(ii)
+        elif string[ii]==')':
+            in_parenthesis = string[(initial_positions[-1]+1):ii]
+            output.append(in_parenthesis)
+            initial_positions = initial_positions[:-1]
+
+    if len(initial_positions)>0:
+        raise ValueError('There must be an opened parenthesis in the string')
 
     return output
-
 
 

@@ -2,7 +2,8 @@ import numpy as np
 from molsysmt.forms import dict_get, dict_select
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.selection import selection_is_all
-from molsysmt._private_tools.strings import pattern_in_between_patterns
+from molsysmt._private_tools.lists_and_tuples import list_to_csv_string
+from molsysmt._private_tools.strings import get_parenthesis
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.selection import indices_to_selection # basic_selection, within_selection, bonded_to_selection, parenthesis_substitution_in_selection
 from molsysmt._private_tools.get_arguments import where_get_argument
@@ -36,9 +37,17 @@ def select_within(molecular_system, selection, frame_index, syntaxis):
 
     from molsysmt.distances import contact_map
 
-    selection_1, selection_2, threshold, pbc = parse_within_selection(selection)
+    selection_1, tmp_selection = selection.split("within ")
 
-    atom_indices_1 = (selection_1, selection_2, threshold, pbc)
+    pbc = False
+
+    if "with pbc " in tmp_selection:
+        pbc = True
+        tmp_selection = tmp_selection.replace("with pbc ","")
+    elif "without pbc " in tmp_selection:
+        tmp_selection = tmp_selection.replace("without pbc ","")
+
+    threshold, selection_2 = tmp_selection.split("of ")
 
     atom_indices_1, atom_indices_2, cmap = contact_map(molecular_system, selection_1=selection_1, selection_2=selection_2,
                                            frame_indices_1=frame_index, threshold=threshold, pbc=pbc, engine='MolSysMT',
@@ -50,7 +59,16 @@ def select_within(molecular_system, selection, frame_index, syntaxis):
 
 def select_bonded_to(molecular_system, selection, syntaxis):
 
-    raise NotImplementedError()
+    from molsysmt.multitool.get import get
+
+    selection_1, selection_2 = selection.split("bonded to")
+
+    atom_indices_1 = select(molecular_system, selection=selection_1, syntaxis=syntaxis)
+    atom_indices_2 = get(molecular_system, 'atom', selection=selection_2, bonded_atoms=True, syntaxis=syntaxis)
+
+    output = np.intersect1d(atom_indices_1, atom_indices_2)
+
+    return output
 
 def select(molecular_system, selection='all', frame_index=0, target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
 
@@ -115,9 +133,11 @@ def select(molecular_system, selection='all', frame_index=0, target='atom', mask
     if type(selection)==str:
 
         while selection_with_special_subsentences(selection):
+
             sub_selection = selection_with_special_subsentences(selection)
             sub_atom_indices = select(molecular_system, sub_selection, syntaxis=syntaxis)
-            selection = selection.split(sub_selection, 'atom_index==['+list_to_csv_string(sub_atom_indices)+']')
+            #selection = selection.replace(sub_selection, 'atom_index==('+list_to_csv_string(sub_atom_indices)+')')
+            selection = selection.replace(sub_selection, 'atom_index==@sub_atom_indices')
 
         if 'within' in selection:
             atom_indices = select_within(molecular_system, selection, frame_index, syntaxis)
@@ -148,34 +168,15 @@ def select(molecular_system, selection='all', frame_index=0, target='atom', mask
     else:
         return indices_to_selection(molecular_system, output_indices, target=target, syntaxis=to_syntaxis)
 
-def parse_within_selection(selection):
-
-    selection_1, tmp_selection = selection.split("within ")
-
-    pbc = False
-
-    if "with pbc " in tmp_selection:
-        pbc = True
-        tmp_selection = tmp_selection.replace("with pbc ","")
-    elif "without pbc " in tmp_selection:
-        tmp_selection = tmp_selection.replace("without pbc ","")
-
-    threshold, selection_2 = tmp_selection.split("of ")
-
-    return selection_1, selection_2, threshold, pbc
-
-def parse_bonded_to_selection(selection):
-
-    selection_1, selection_2 = selection.split("bonded to")
-
-    return selection_1, selection_2
 
 def selection_with_special_subsentences(selection):
 
     output = None
-    output = pattern_in_between_patterns(selection, 'within ', '(', ')')
-    if output is not None:
-        output = pattern_in_between_patterns(selection, 'bonded to', '(', ')')
+    parenthesis = get_parenthesis(selection)
+    for subselection in parenthesis:
+        if ('within ' in subselection) or ('bonded to ' in subselection):
+            output = subselection
+            break
 
     return output
 
