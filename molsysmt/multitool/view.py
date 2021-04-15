@@ -2,6 +2,9 @@ from molsysmt.forms import *
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
+from molsysmt.multitool.convert import convert
+from molsysmt.multitool.concatenate_frames import concatenate_frames
+from molsysmt.multitool.merge import merge
 
 def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices='all',
          concatenate_frames=False, standardize=True, surface=False, syntaxis='MolSysMT'):

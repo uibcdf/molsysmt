@@ -26,6 +26,8 @@ def select_standard(molecular_system, selection, syntaxis):
             atom_indices = dict_select[molecular_system.elements_form][syntaxis](molecular_system.elements_item, selection)
     elif type(selection) in [int, np.int64, np.int]:
         atom_indices = np.array([selection], dtype='int64')
+    elif type(selection)==set:
+        atom_indices = np.array(list(selection), dtype='int64')
     elif hasattr(selection, '__iter__'):
         atom_indices = np.array(selection, dtype='int64')
     else :

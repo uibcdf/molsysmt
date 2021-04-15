@@ -14,7 +14,7 @@ from .additional_remove import remove_solvent, remove_hydrogens
 from .peptides import build_peptide
 from .geometrical_transformations import translate
 from .centers import geometric_center, center_of_mass, center, recenter
-from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors_lists
+from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors
 from .graphs import bondgraph
 from .covalent import covalent_chains, covalent_blocks, covalent_dihedral_quartets
 from .dihedral_angles import get_dihedral_angles, set_dihedral_angles, shift_dihedral_angles, ramachandran_angles

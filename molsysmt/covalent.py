@@ -10,21 +10,21 @@ def covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_block
 
     if dihedral_angle is not None:
         if dihedral_angle=='phi':
-            chain=['C', 'N', 'CA', 'C']
+            chain=['atom_name=="C"', 'atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"']
         elif dihedral_angle=='psi':
-            chain=['N', 'CA', 'C', 'N']
+            chain=['atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"', 'atom_name=="N"']
         elif dihedral_angle=='omega':
-            chain=[['CA', 'CH3'], 'C', 'N', ['CA', 'CH3']]
+            chain=['atom_name==["CA","CH3"]', 'atom_name=="C"', 'atom_name=="N"', 'atom_name==["CA","CH3"]']
         elif dihedral_angle=='chi1':
-            chain=['N','CA','CB', ['CG', 'CG1', 'OG', 'OG1', 'SG']] # flexible but PRO
+            chain=['atom_name=="N"','atom_name=="CA"','atom_name=="CB"', 'atom_name==["CG","CG1","OG","OG1","SG"]'] # flexible but PRO
         elif dihedral_angle=='chi2':
-            chain=['CA','CB', ['CG', 'CG1'], ['CD', 'CD1', 'SD', 'OD1', 'ND1']] # flexible but PRO
+            chain=['atom_name=="CA"','atom_name=="CB"', 'atom_name==["CG","CG1"]', 'atom_name==["CD","CD1","SD","OD1","ND1"]'] # flexible but PRO
         elif dihedral_angle=='chi3':
-            chain=['CB', 'CG', ['CD', 'SD'], ['NE', 'OE1', 'CE']]
+            chain=['atom_name=="CB"', 'atom_name=="CG"', 'atom_name==["CD","SD"]','atom_name==["NE","OE1","CE"]']
         elif dihedral_angle=='chi4':
-            chain=['CG', 'CD', ['NE', 'CE'], ['CZ', 'NZ']]
+            chain=['atom_name=="CG"', 'atom_name=="CD"', 'atom_name==["NE","CE"]', 'atom_name==["CZ","NZ"]']
         elif dihedral_angle=='chi5':
-            chain=['CD', 'NE', 'CZ', 'NH1']
+            chain=['atom_name=="CD"', 'atom_name=="NE"', 'atom_name=="CZ"', 'atom_name=="NH1"']
         elif dihedral_angle=='phi-psi':
             tmp_phi = covalent_dihedral_quartets(molecular_system, dihedral_angle='phi', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
             tmp_psi = covalent_dihedral_quartets(molecular_system, dihedral_angle='psi', with_blocks=with_blocks, selection=selection, syntaxis=syntaxis)
@@ -112,10 +112,6 @@ def covalent_chains(molecular_system, chain=None, selection='all', syntaxis='Mol
 
     molecular_system = digest_molecular_system(molecular_system)
 
-    for ii in range(len(chain)):
-        if type(chain[ii]) is not list:
-            chain[ii]=[chain[ii]]
-
     if selection is 'all':
         mask = None
     else:
@@ -123,8 +119,8 @@ def covalent_chains(molecular_system, chain=None, selection='all', syntaxis='Mol
 
     chain_atom_indices = []
 
-    for atom_names in chain:
-        atom_indices = select(molecular_system, selection="atom_name==@atom_names", mask=mask)
+    for sel_in_chain in chain:
+        atom_indices = select(molecular_system, selection=sel_in_chain, mask=mask)
         chain_atom_indices.append(atom_indices)
 
     atom_indices = np.sort(np.unique(np.concatenate(chain_atom_indices)))
