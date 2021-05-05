@@ -2,7 +2,7 @@ from molsysmt._private_tools.exceptions import *
 import numpy as np
 from .group import rna_names as rna_group_names, dna_names as dna_group_names
 
-types=['water', 'ion', 'cosolute', 'small_molecule', 'peptide', 'protein', 'rna', 'dna', 'lipid']
+types=['water', 'ion', 'cosolute', 'small molecule', 'peptide', 'protein', 'rna', 'dna', 'lipid']
 
 def molecule_index_from_atom(item, indices='all'):
 
@@ -63,7 +63,7 @@ def _type_from_group_type(group_types):
     n_groups = len(group_types)
     first_type = group_types[0]
 
-    if first_type in ['water', 'ion', 'cosolute', 'small_molecule', 'lipid']:
+    if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
         tmp_type = first_type
     elif first_type == 'aminoacid':
         if n_groups>=50:
