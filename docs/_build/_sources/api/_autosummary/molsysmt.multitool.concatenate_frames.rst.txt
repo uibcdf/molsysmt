@@ -1,0 +1,6 @@
+molsysmt.multitool.concatenate\_frames
+======================================
+
+.. currentmodule:: molsysmt.multitool
+
+.. autofunction:: concatenate_frames

@@ -1,0 +1,37 @@
+molsysmt.native.io.molsys.files
+===============================
+
+.. automodule:: molsysmt.native.io.molsys.files
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   molsysmt.native.io.molsys.files.crd
+   molsysmt.native.io.molsys.files.gro
+   molsysmt.native.io.molsys.files.h5
+   molsysmt.native.io.molsys.files.mmtf
+   molsysmt.native.io.molsys.files.pdb
+   molsysmt.native.io.molsys.files.prmtop
+   molsysmt.native.io.molsys.files.xtc
+

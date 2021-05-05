@@ -1,0 +1,29 @@
+molsysmt.geometrical\_transformations
+=====================================
+
+.. automodule:: molsysmt.geometrical_transformations
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      translate
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

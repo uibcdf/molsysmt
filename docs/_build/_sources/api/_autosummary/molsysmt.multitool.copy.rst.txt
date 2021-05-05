@@ -1,0 +1,6 @@
+molsysmt.multitool.copy
+=======================
+
+.. currentmodule:: molsysmt.multitool
+
+.. autofunction:: copy

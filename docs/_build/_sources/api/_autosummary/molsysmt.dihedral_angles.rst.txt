@@ -1,0 +1,32 @@
+molsysmt.dihedral\_angles
+=========================
+
+.. automodule:: molsysmt.dihedral_angles
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      get_dihedral_angles
+      ramachandran_angles
+      set_dihedral_angles
+      shift_dihedral_angles
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

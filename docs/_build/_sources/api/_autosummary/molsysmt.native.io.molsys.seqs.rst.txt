@@ -1,0 +1,23 @@
+molsysmt.native.io.molsys.seqs
+==============================
+
+.. automodule:: molsysmt.native.io.molsys.seqs
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

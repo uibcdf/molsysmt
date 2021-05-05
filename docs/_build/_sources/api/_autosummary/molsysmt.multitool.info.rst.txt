@@ -1,0 +1,6 @@
+molsysmt.multitool.info
+=======================
+
+.. currentmodule:: molsysmt.multitool
+
+.. autofunction:: info

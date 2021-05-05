@@ -1,0 +1,31 @@
+molsysmt.attributes.coordinates.api\_pdbfixer\_PDBFixer
+=======================================================
+
+.. automodule:: molsysmt.attributes.coordinates.api_pdbfixer_PDBFixer
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_mdtraj
+      to_mdtraj_Trajectory
+      to_openmm
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

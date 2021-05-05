@@ -1,0 +1,29 @@
+molsysmt.native.io.molsys.files.mmtf
+====================================
+
+.. automodule:: molsysmt.native.io.molsys.files.mmtf
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_mmtf
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

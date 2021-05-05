@@ -1,0 +1,23 @@
+molsysmt.elements.entities.lipid
+================================
+
+.. automodule:: molsysmt.elements.entities.lipid
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

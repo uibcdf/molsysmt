@@ -1,0 +1,6 @@
+molsysmt.multitool.set
+======================
+
+.. currentmodule:: molsysmt.multitool
+
+.. autofunction:: set

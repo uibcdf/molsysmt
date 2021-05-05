@@ -1,0 +1,29 @@
+molsysmt.native.io.molsys.files.prmtop
+======================================
+
+.. automodule:: molsysmt.native.io.molsys.files.prmtop
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_prmtop
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

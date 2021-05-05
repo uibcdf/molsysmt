@@ -1,0 +1,6 @@
+molsysmt.physico\_chemical\_properties.charge
+=============================================
+
+.. currentmodule:: molsysmt.physico_chemical_properties
+
+.. autofunction:: charge

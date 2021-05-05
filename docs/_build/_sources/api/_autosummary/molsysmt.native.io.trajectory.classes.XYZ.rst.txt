@@ -1,0 +1,30 @@
+molsysmt.native.io.trajectory.classes.XYZ
+=========================================
+
+.. automodule:: molsysmt.native.io.trajectory.classes.XYZ
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_XYZ
+      to_XYZ
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

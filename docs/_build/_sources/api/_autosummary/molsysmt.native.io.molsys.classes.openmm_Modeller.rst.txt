@@ -1,0 +1,30 @@
+molsysmt.native.io.molsys.classes.openmm\_Modeller
+==================================================
+
+.. automodule:: molsysmt.native.io.molsys.classes.openmm_Modeller
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_openmm_Modeller
+      to_openmm_Modeller
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

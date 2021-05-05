@@ -1,0 +1,31 @@
+molsysmt.demo\_systems.classes
+==============================
+
+.. automodule:: molsysmt.demo_systems.classes
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      metenkephalin
+      pentalanine
+      pentalanine_traj
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

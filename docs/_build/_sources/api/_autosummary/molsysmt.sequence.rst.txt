@@ -1,0 +1,31 @@
+molsysmt.sequence
+=================
+
+.. automodule:: molsysmt.sequence
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      sequence_alignment
+      sequence_identity
+      structure_alignment
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

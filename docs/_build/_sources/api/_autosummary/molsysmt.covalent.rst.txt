@@ -1,0 +1,31 @@
+molsysmt.covalent
+=================
+
+.. automodule:: molsysmt.covalent
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      covalent_blocks
+      covalent_chains
+      covalent_dihedral_quartets
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

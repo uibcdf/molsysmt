@@ -1,0 +1,6 @@
+molsysmt.multitool.extract
+==========================
+
+.. currentmodule:: molsysmt.multitool
+
+.. autofunction:: extract

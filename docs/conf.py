@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.abspath('./../molsysmt'))
 # -- Project information -----------------------------------------------------
 
 project = 'MolSysMT'
-copyright = '2020, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
+copyright = '2021, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
 author = 'Liliana M. Moreno Vargas & Diego Prada Gracia'
 
 # The short X.Y version
@@ -65,6 +65,11 @@ extensions = [
 autosummary_generate = True
 autodoc_default_options = {'members':True, 'inherited-members':True}
 numpydoc_class_members_toctree = False
+
+# sphinxcontrib-bibtex
+bibtex_bibfiles = ['bibliography.bib'] # list of *.bib files
+bibtex_default_style = 'alpha'
+bibtex_encoding = 'utf-8-sig'
 
 # Add any paths that contain templates here, relative to this directory.
 #templates_path = ['_templates']

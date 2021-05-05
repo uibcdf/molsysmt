@@ -1,0 +1,30 @@
+molsysmt.additional\_remove
+===========================
+
+.. automodule:: molsysmt.additional_remove
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      remove_hydrogens
+      remove_solvent
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

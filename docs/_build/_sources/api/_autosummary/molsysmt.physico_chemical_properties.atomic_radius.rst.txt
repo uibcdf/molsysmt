@@ -1,0 +1,6 @@
+molsysmt.physico\_chemical\_properties.atomic\_radius
+=====================================================
+
+.. currentmodule:: molsysmt.physico_chemical_properties
+
+.. autofunction:: atomic_radius

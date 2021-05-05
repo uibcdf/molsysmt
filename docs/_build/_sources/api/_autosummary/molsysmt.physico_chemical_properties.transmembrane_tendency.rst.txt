@@ -1,0 +1,6 @@
+molsysmt.physico\_chemical\_properties.transmembrane\_tendency
+==============================================================
+
+.. currentmodule:: molsysmt.physico_chemical_properties
+
+.. autofunction:: transmembrane_tendency

@@ -38,8 +38,11 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :caption: Forms and elements
    :maxdepth: 1
 
-   contents/Forms.ipynb
+   contents/Molecular_System.ipynb
    contents/Elements.md
+   contents/Item.ipynb
+   contents/Forms.ipynb
+   contents/Info_forms.ipynb
    contents/MolSys.md
 
 .. toctree::
@@ -47,10 +50,11 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :caption: Basic tools
    :maxdepth: 1
 
+   contents/Get_form.ipynb
+   contents/Info.ipynb
    contents/Convert.ipynb
    contents/Selection.ipynb
    contents/Get.ipynb
-   contents/Info.ipynb
    contents/Copy.ipynb
    contents/Extract.ipynb
    contents/Remove.ipynb

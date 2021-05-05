@@ -1,0 +1,30 @@
+molsysmt.solvate\_box
+=====================
+
+.. automodule:: molsysmt.solvate_box
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      is_solvated
+      solvate
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

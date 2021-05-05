@@ -1,0 +1,29 @@
+molsysmt.native.io.topology.classes.openmm\_GromacsGroFile
+==========================================================
+
+.. automodule:: molsysmt.native.io.topology.classes.openmm_GromacsGroFile
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_openmm_GromacsGroFile
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

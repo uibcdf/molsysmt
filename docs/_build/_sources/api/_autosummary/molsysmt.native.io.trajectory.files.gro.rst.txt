@@ -1,0 +1,29 @@
+molsysmt.native.io.trajectory.files.gro
+=======================================
+
+.. automodule:: molsysmt.native.io.trajectory.files.gro
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_gro
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

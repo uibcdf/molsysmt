@@ -1,0 +1,30 @@
+molsysmt.native.io.trajectory.files.crd
+=======================================
+
+.. automodule:: molsysmt.native.io.trajectory.files.crd
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_crd
+      to_crd
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

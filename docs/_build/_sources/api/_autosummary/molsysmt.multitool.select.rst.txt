@@ -1,0 +1,6 @@
+molsysmt.multitool.select
+=========================
+
+.. currentmodule:: molsysmt.multitool
+
+.. autofunction:: select

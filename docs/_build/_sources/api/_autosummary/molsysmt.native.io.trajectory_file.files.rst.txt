@@ -1,0 +1,23 @@
+molsysmt.native.io.trajectory\_file.files
+=========================================
+
+.. automodule:: molsysmt.native.io.trajectory_file.files
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

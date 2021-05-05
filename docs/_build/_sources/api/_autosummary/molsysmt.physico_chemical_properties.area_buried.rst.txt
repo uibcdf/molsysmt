@@ -1,0 +1,6 @@
+molsysmt.physico\_chemical\_properties.area\_buried
+===================================================
+
+.. currentmodule:: molsysmt.physico_chemical_properties
+
+.. autofunction:: area_buried

@@ -1,0 +1,29 @@
+molsysmt.native.io.trajectory.files.inpcrd
+==========================================
+
+.. automodule:: molsysmt.native.io.trajectory.files.inpcrd
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_inpcrd
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

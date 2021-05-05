@@ -1,0 +1,29 @@
+molsysmt.native.io.topology.classes.mmtf\_MMTFDecoder
+=====================================================
+
+.. automodule:: molsysmt.native.io.topology.classes.mmtf_MMTFDecoder
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_mmtf_MMTFDecoder
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

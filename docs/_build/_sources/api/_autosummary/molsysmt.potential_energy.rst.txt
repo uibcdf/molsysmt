@@ -1,0 +1,6 @@
+molsysmt.potential\_energy
+==========================
+
+.. currentmodule:: molsysmt
+
+.. autofunction:: potential_energy

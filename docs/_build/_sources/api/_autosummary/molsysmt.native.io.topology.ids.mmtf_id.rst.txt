@@ -1,0 +1,29 @@
+molsysmt.native.io.topology.ids.mmtf\_id
+========================================
+
+.. automodule:: molsysmt.native.io.topology.ids.mmtf_id
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_mmtf_id
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

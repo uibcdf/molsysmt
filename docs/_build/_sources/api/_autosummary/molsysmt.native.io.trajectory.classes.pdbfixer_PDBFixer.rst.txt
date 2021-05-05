@@ -1,0 +1,29 @@
+molsysmt.native.io.trajectory.classes.pdbfixer\_PDBFixer
+========================================================
+
+.. automodule:: molsysmt.native.io.trajectory.classes.pdbfixer_PDBFixer
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      from_pdbfixer_PDBFixer
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

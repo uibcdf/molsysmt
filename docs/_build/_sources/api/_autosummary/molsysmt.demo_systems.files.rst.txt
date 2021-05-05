@@ -1,0 +1,6 @@
+molsysmt.demo\_systems.files
+============================
+
+.. currentmodule:: molsysmt.demo_systems
+
+.. autodata:: files

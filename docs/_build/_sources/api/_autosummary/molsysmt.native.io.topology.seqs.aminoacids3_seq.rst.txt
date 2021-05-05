@@ -1,0 +1,29 @@
+molsysmt.native.io.topology.seqs.aminoacids3\_seq
+=================================================
+
+.. automodule:: molsysmt.native.io.topology.seqs.aminoacids3_seq
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_aminoacids3_seq
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

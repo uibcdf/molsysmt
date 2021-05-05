@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Dihedral angles &mdash; MolSysMT 0.1 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -30,11 +33,10 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -56,7 +58,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> MolSysMT
+            <a href="../index.html" class="icon icon-home"> MolSysMT
           
 
           
@@ -105,14 +107,6 @@
 </ul>
 <p class="caption"><span class="caption-text">Forms and elements</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Forms.html">Molecular systems forms</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Forms.html#Files">Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Forms.html#Classes">Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Forms.html#Ids">Ids</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Forms.html#Sequences">Sequences</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Forms.html#Viewers">Viewers</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="Elements.html">Molecular system elements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Elements.html#elements">Elements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Elements.html#atom">Atom</a></li>
@@ -141,40 +135,8 @@
 </ul>
 <p class="caption"><span class="caption-text">Basic tools</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Convert.html">How to convert a form into other form</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-convert-just-a-selection">How to convert just a selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-combine-multiple-forms-into-one">How to combine multiple forms into one</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-convert-a-form-into-multiple-ones-at-once">How to convert a form into multiple ones at once</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-files">Some examples with files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-IDs">Some examples with IDs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Convert.html#Conversions-implemented-in-MolSysMT">Conversions implemented in MolSysMT</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="Selection.html">Elements selection</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-other-elements-attributes">Including other elements attributes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-external-variables">Including external variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Selection.html#Including-mask-filters">Including mask filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Selection.html#Selection-of-other-elements">Selection of other elements</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="Selection.html#Syntaxis-translation">Syntaxis translation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Selection.html#Output-syntaxis-supported">Output syntaxis supported</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="Selection.html#Using-your-favourite-selection-syntaxis">Using your favourite selection syntaxis</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="Get.html">How to get attributes from a molecular system</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples involving atoms, groups, components, chains, molecules or entities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-systems">Some other examples involving systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-bonds">Some other examples involving bonds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="Info.html">Printing out a summary information of a molecular system</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Get_form.html">Get form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Info.html">Info</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Info.html#As-a-DataFrame">As a DataFrame</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Info.html#Summary-information-on-atoms">Summary information on atoms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Info.html#Summary-information-on-groups">Summary information on groups</a></li>
@@ -196,6 +158,39 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Convert.html">How to convert a form into other form</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-convert-just-a-selection">How to convert just a selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-combine-multiple-forms-into-one">How to combine multiple forms into one</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#How-to-convert-a-form-into-multiple-ones-at-once">How to convert a form into multiple ones at once</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-files">Some examples with files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#Some-examples-with-IDs">Some examples with IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Convert.html#Conversions-implemented-in-MolSysMT">Conversions implemented in MolSysMT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Selection.html">Select</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#MolSysMT-selection-syntaxis">MolSysMT selection syntaxis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Target-selections-with-atom-indices">Target selections with atom indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Simple-atoms-selection-by-their-attributes-or-properties">Simple atoms selection by their attributes or properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Including-other-elements-attributes">Including other elements attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Including-external-variables">Including external variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Including-mask-filters">Including mask filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Selection-of-other-elements">Selection of other elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Special-selection-tools">Special selection tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Syntaxis-translation">Syntaxis translation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Selection.html#Output-syntaxis-supported">Output syntaxis supported</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Selection.html#Using-your-favourite-selection-syntaxis">Using your favourite selection syntaxis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Get.html">Get</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Table-with-attributes-you-can-get">Table with attributes you can get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-atoms,-groups,-components,-chains,-molecules-or-entities">Some other examples involving atoms, groups, components, chains, molecules or entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-systems">Some other examples involving systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Some-other-examples-involving-bonds">Some other examples involving bonds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Get.html#Getting-trajectory-times,-coordinates-and-pbc-box-attributes">Getting trajectory times, coordinates and pbc box attributes</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Copy.html">Copying a molecular system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Extract.html">Extracting a molecular subsystem</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Extract.html#How-to-extract-a-molecular-subsystem">How to extract a molecular subsystem</a></li>
@@ -208,17 +203,17 @@
 <li class="toctree-l2"><a class="reference internal" href="Remove.html#Removing-the-solvent">Removing the solvent</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Add_Merge.html">Adding and merging molecular systems</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Add_Merge.html">Add and Merge</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Add_Merge.html#Adding-to-a-molecular-system">Adding to a molecular system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Add_Merge.html#Merging-molecular-systems">Merging molecular systems</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Append_Concatenate.html">Appending and concatenating molecular systems</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Append_Concatenate.html#Appending-molecular-systems">Appending molecular systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Append_Concatenate.html#Concatenating-Molecular-Systems">Concatenating Molecular Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Append_Concatenate.html">Append and Concatenate frames</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Append_Concatenate.html#Appending-frames-to-a-molecular-system">Appending frames to a molecular system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Append_Concatenate.html#Concatenating-frames-from-molecular-systems">Concatenating frames from molecular systems</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="View.html">Viewing a molecular system</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="View.html">View</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="View.html#NGLView">NGLView</a></li>
 </ul>
 </li>
@@ -226,10 +221,7 @@
 <p class="caption"><span class="caption-text">Building tools</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Fix.html">Fixing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Solvation.html">Adding solvent</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Solvation.html#Octahedral">Octahedral</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="Solvation.html">Adding solvent</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Protonation.html">Protonation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Build_peptide.html">Building a peptide from its sequence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Build_peptide.html#Alanine-dipeptide-in-implicit-solvent">Alanine dipeptide in implicit solvent</a></li>
@@ -249,14 +241,14 @@
 <p class="caption"><span class="caption-text">Structural tools</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Geometrical_transformations.html">Geometrical transformations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Geometrical_transformations.html#Translation">Translation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Geometrical_transformations.html#Translations-and-shifts-of-cartesian-coordinates">Translations and shifts of cartesian coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Geometrical_transformations.html#Shifts-of-dihedral-angles">Shifts of dihedral angles</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Distances.html">Getting distances, neighbor lists and contact maps.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Distances.html#The-XYZ-molecular-system-form">The XYZ molecular system form</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Distances.html#Distance-between-atoms-in-space">Distance between atoms in space</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atoms-of-a-system">Distance between atoms of a system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atoms-of-two-systems">Distance between atoms of two systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Distances.html#Distances-between-atoms-positions-in-different-frames">Distances between atoms positions in different frames</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Distances.html#Displacement-distances-of-atoms">Displacement distances of atoms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atoms-pairs">Distance between atoms pairs</a></li>
@@ -265,7 +257,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Distances.html#Distance-between-atom-groups-in-space">Distance between atom groups in space</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atom-groups-of-a-system">Distance between atom groups of a system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atom-groups-of-two-systems">Distance between atom groups of two systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Distances.html#Distances-between-atom-groups-positions-in-different-frames">Distances between atom groups positions in different frames</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Distances.html#Displacement-distances-of-atom-groups">Displacement distances of atom groups</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Distances.html#Distance-between-atom-groups-pairs">Distance between atom groups pairs</a></li>
@@ -323,25 +314,6 @@
 </ul>
 <p class="caption"><span class="caption-text">PhysChem and ADMET tools</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Mass.html">How to get chemical and physical properties</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Mass.html#Atoms">Atoms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Mass.html#Mass">Mass</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="Volume_and_radii.html">How to get chemical and physical properties</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Volume_and_radii.html#Atoms">Atoms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Volume_and_radii.html#Mass">Mass</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Volume_and_radii.html#Radii">Radii</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="Charge.html">Charge of a molecular system</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Charge.html#Charge-of-a-molecular-system-given-by-a-forcefield">Charge of a molecular system given by a forcefield</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="Polarity.html">How to get chemical and physical properties</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Polarity.html#Atoms">Atoms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Polarity.html#Mass">Mass</a></li>
@@ -361,7 +333,135 @@
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Basic manipulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Basic manipulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/_autosummary/molsysmt.html">molsysmt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.additional_remove.html">molsysmt.additional_remove</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.additional_remove.html#remove-atoms">Remove Atoms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.attributes.html">molsysmt.attributes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.attributes.coordinates.html">molsysmt.attributes.coordinates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.centers.html">molsysmt.centers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.covalent.html">molsysmt.covalent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.demo_systems.html">molsysmt.demo_systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.demo_systems.classes.html">molsysmt.demo_systems.classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.demo_systems.files.html">molsysmt.demo_systems.files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.dependencies.html">molsysmt.dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.dihedral_angles.html">molsysmt.dihedral_angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.distances.html">molsysmt.distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.html">molsysmt.elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.atom.html">molsysmt.elements.atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.bond.html">molsysmt.elements.bond</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.chain.html">molsysmt.elements.chain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.component.html">molsysmt.elements.component</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.entities.html">molsysmt.elements.entities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.entity.html">molsysmt.elements.entity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.group.html">molsysmt.elements.group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.groups.html">molsysmt.elements.groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.elements.molecule.html">molsysmt.elements.molecule</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.forms.html">molsysmt.forms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.forms.api_template.html">molsysmt.forms.api_template</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.forms.common_gets.html">molsysmt.forms.common_gets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.forms.loader.html">molsysmt.forms.loader</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.geometrical_transformations.html">molsysmt.geometrical_transformations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.graphs.html">molsysmt.graphs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.hbonds.html">molsysmt.hbonds</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.hbonds.buch.html">molsysmt.hbonds.buch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.hbonds.donors_and_acceptors.html">molsysmt.hbonds.donors_and_acceptors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.info_multitool.html">molsysmt.info_multitool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.lib.html">molsysmt.lib</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.lib.libbonds.html">molsysmt.lib.libbonds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.lib.libbox.html">molsysmt.lib.libbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.lib.libcom.html">molsysmt.lib.libcom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.lib.libgeometry.html">molsysmt.lib.libgeometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.lib.libmath.html">molsysmt.lib.libmath</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.lib.libpbc.html">molsysmt.lib.libpbc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.lib.librmsd.html">molsysmt.lib.librmsd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.model_loops.html">molsysmt.model_loops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.molecular_system.html">molsysmt.molecular_system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.html">molsysmt.multitool</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.add.html">molsysmt.multitool.add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.append_frames.html">molsysmt.multitool.append_frames</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.concatenate_frames.html">molsysmt.multitool.concatenate_frames</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.convert.html">molsysmt.multitool.convert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.copy.html">molsysmt.multitool.copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.extract.html">molsysmt.multitool.extract</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.get.html">molsysmt.multitool.get</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.get_form.html">molsysmt.multitool.get_form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.info.html">molsysmt.multitool.info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.merge.html">molsysmt.multitool.merge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.remove.html">molsysmt.multitool.remove</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.select.html">molsysmt.multitool.select</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.set.html">molsysmt.multitool.set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.multitool.view.html">molsysmt.multitool.view</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.mutations.html">molsysmt.mutations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.native.html">molsysmt.native</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.card.html">molsysmt.native.card</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.forcefields.html">molsysmt.native.forcefields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.io.html">molsysmt.native.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.molecular_mechanics.html">molsysmt.native.molecular_mechanics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.molsys.html">molsysmt.native.molsys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.reporter.html">molsysmt.native.reporter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.selector.html">molsysmt.native.selector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.simulation.html">molsysmt.native.simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.structure.html">molsysmt.native.structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.topography.html">molsysmt.native.topography</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.topology.html">molsysmt.native.topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.trajectory.html">molsysmt.native.trajectory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.native.trajectory_file.html">molsysmt.native.trajectory_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.pbc.html">molsysmt.pbc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.peptides.html">molsysmt.peptides</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.html">molsysmt.physico_chemical_properties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.area_buried.html">molsysmt.physico_chemical_properties.area_buried</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.atomic_radius.html">molsysmt.physico_chemical_properties.atomic_radius</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.buried_fraction.html">molsysmt.physico_chemical_properties.buried_fraction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.charge.html">molsysmt.physico_chemical_properties.charge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.hydrophobicity.html">molsysmt.physico_chemical_properties.hydrophobicity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.mass.html">molsysmt.physico_chemical_properties.mass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.polarity.html">molsysmt.physico_chemical_properties.polarity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.surface_area.html">molsysmt.physico_chemical_properties.surface_area</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.transmembrane_tendency.html">molsysmt.physico_chemical_properties.transmembrane_tendency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.physico_chemical_properties.volume.html">molsysmt.physico_chemical_properties.volume</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.potential_energy.html">molsysmt.potential_energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.protonation.html">molsysmt.protonation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.rmsd.html">molsysmt.rmsd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.sasa.html">molsysmt.sasa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.sequence.html">molsysmt.sequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.solvate_box.html">molsysmt.solvate_box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.terminals_capping.html">molsysmt.terminals_capping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.tools.html">molsysmt.tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.tools.items.html">molsysmt.tools.items</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.tools.memory.html">molsysmt.tools.memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.tools.molecular_systems.html">molsysmt.tools.molecular_systems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.tools.nglview.html">molsysmt.tools.nglview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.tools.openmm.html">molsysmt.tools.openmm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.tools.pdb.html">molsysmt.tools.pdb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/molsysmt.tools.tleap.html">molsysmt.tools.tleap</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/molsysmt.version.html">molsysmt.version</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -402,6 +502,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -413,7 +515,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/contents/Dihedral_angles.ipynb.txt" rel="nofollow"> View page source</a>
           
         
@@ -432,21 +534,35 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput.container,
-div.nbinput.container div.prompt,
-div.nbinput.container div.input_area,
-div.nbinput.container div[class*=highlight],
-div.nbinput.container div[class*=highlight] pre,
-div.nboutput.container,
-div.nboutput.container div.prompt,
-div.nboutput.container div.output_area,
-div.nboutput.container div[class*=highlight],
-div.nboutput.container div[class*=highlight] pre {
-    background: none;
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
     border: none;
-    padding: 0 0;
+    padding: 0;
     margin: 0;
     box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
 }
 
 /* avoid gaps between output lines */
@@ -547,7 +663,7 @@ div.nboutput.container div.output_area {
 div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
 
 /* override MathJax center alignment in output cells */
@@ -613,6 +729,7 @@ div.nboutput.container div.output_area.rendered_html,
 div.nboutput.container div.output_area > div.output_javascript,
 div.nboutput.container div.output_area:not(.rendered_html) > img{
     padding: 5px;
+    margin: 0;
 }
 
 /* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
@@ -698,7 +815,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">msm</span>
-<span class="kn">from</span> <span class="nn">simtk</span> <span class="kn">import</span> <span class="n">unit</span>
+<span class="kn">from</span> <span class="nn">molsysmt</span> <span class="kn">import</span> <span class="n">puw</span>
 </pre></div>
 </div>
 </div>
@@ -706,18 +823,19 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b4a430de5ba84c659815900ce7881c6f", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c28a1ea095b5484cb20bce286dab028c", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Dihedral-angles">
 <h1>Dihedral angles<a class="headerlink" href="#Dihedral-angles" title="Permalink to this headline">¶</a></h1>
-<p>Lets load a molecular system to illustrate how MolSysMT works with the dihedral angles:</p>
+<div class="section" id="How-to-get-any-dihedral-angle">
+<h2>How to get any dihedral angle<a class="headerlink" href="#How-to-get-any-dihedral-angle" title="Permalink to this headline">¶</a></h2>
+<p>Lets load a molecular systems to illustrate how MolSysMT works with the dihedral angles:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
-<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">metenkephalin</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -736,65 +854,99 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_d1755_" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092row0_col1" class="data row0 col1" >62</td>
-                        <td id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092row0_col2" class="data row0 col2" >7</td>
-                        <td id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092row0_col7" class="data row0 col7" >1</td>
-                        <td id="T_1fe5bba2_ebec_11ea_8b6f_e4b318d1f092row0_col8" class="data row0 col8" >5000</td>
+                                <td id="T_d1755_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_d1755_row0_col1" class="data row0 col1" >72</td>
+                        <td id="T_d1755_row0_col2" class="data row0 col2" >5</td>
+                        <td id="T_d1755_row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_d1755_row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_d1755_row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_d1755_row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_d1755_row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_d1755_row0_col8" class="data row0 col8" >1</td>
             </tr>
     </tbody></table></div>
 </div>
-<div class="section" id="How-to-get-any-dihedral-angle">
-<h2>How to get any dihedral angle<a class="headerlink" href="#How-to-get-any-dihedral-angle" title="Permalink to this headline">¶</a></h2>
-<p>A dihedral angles is defined by three vectors <span class="math notranslate nohighlight">\(\vec{O_1E_1}\)</span>, <span class="math notranslate nohighlight">\(\vec{O_2E_2}\)</span> y <span class="math notranslate nohighlight">\(\vec{O_3E_3}\)</span>, where <span class="math notranslate nohighlight">\(O_i\)</span> and <span class="math notranslate nohighlight">\(E_i\)</span> are the origin and end points of vector <span class="math notranslate nohighlight">\(i\)</span>. In molecular physics, a dihedral angle is a degree of freedom defined by three consecutive covalent bonds <span class="math notranslate nohighlight">\(\vec{O_1O_2}\)</span>, <span class="math notranslate nohighlight">\(\vec{O_2O_3}\)</span>, <span class="math notranslate nohighlight">\(\vec{O_3E_3}\)</span> where in this context <span class="math notranslate nohighlight">\(O_1\)</span>, <span class="math notranslate nohighlight">\(O_2\)</span>, <span class="math notranslate nohighlight">\(O_3\)</span> and <span class="math notranslate nohighlight">\(E_3\)</span> are the position of the atoms defining the covalent
-chain. Thus, before showing how the dihedral angles are computed with <code class="docutils literal notranslate"><span class="pre">molsysmt.dihedral_angles</span></code>, lets have a look to the section ‘How to get the covalent chains’ where the method <code class="docutils literal notranslate"><span class="pre">molsysmt.covalent_chains</span></code> is introduce.</p>
-<p>Lets first get all 4 atoms sequences in our molecular system covalently bound with the following names and order: C-N-CA-CB.</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">covalent_chains</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">covalent_chains</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">chain</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;CA&quot;</span><span class="p">,</span> <span class="s2">&quot;CB&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<p>Lets take the first C-N-CA-CB atoms chain found in our molecular system:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">covalent_chains</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fc1b3707c9d24355930cad8f113b3366", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>A dihedral angles is defined by three vectors <span class="math notranslate nohighlight">\(\vec{O_1E_1}\)</span>, <span class="math notranslate nohighlight">\(\vec{O_2E_2}\)</span> y <span class="math notranslate nohighlight">\(\vec{O_3E_3}\)</span>, where <span class="math notranslate nohighlight">\(O_i\)</span> and <span class="math notranslate nohighlight">\(E_i\)</span> are the origin and end points of vector <span class="math notranslate nohighlight">\(i\)</span>. In molecular physics, a dihedral angle is a degree of freedom defined by three consecutive covalent bonds <span class="math notranslate nohighlight">\(\vec{O_1O_2}\)</span>, <span class="math notranslate nohighlight">\(\vec{O_2O_3}\)</span>, <span class="math notranslate nohighlight">\(\vec{O_3E_3}\)</span> where in this context <span class="math notranslate nohighlight">\(O_1\)</span>, <span class="math notranslate nohighlight">\(O_2\)</span>, <span class="math notranslate nohighlight">\(O_3\)</span> and <span class="math notranslate nohighlight">\(E_3\)</span> are the position of the atoms defining the covalent
+chain. Thus, before showing how the dihedral angles are computed with <code class="docutils literal notranslate"><span class="pre">molsysmt.dihedral_angles</span></code>, lets have a look to the section ‘How to get the covalent chains’ where the methods <code class="docutils literal notranslate"><span class="pre">molsysmt.covalent_chains</span></code> and <code class="docutils literal notranslate"><span class="pre">molsysmt.covalent_dihedral_quartets</span></code> are introduced.</p>
+<p>Lets first get all 4 atoms sequences in our molecular system covalently bound with the following names and order: C-N-CA-CB.</p>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-array([ 4,  6,  8, 10])
-</pre></div></div>
-</div>
-<p>The dihedral angle defined by the three consecutive vectors made by these atoms can be calculated as:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">dihedral_angles</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">quartets</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span></span><span class="n">covalent_chains</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">covalent_chains</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">chain</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;CA&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">covalent_chains</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[19, 21, 23, 26],
+       [26, 28, 30, 33],
+       [33, 35, 37, 53],
+       [53, 55, 57, 70]])
+</pre></div></div>
+</div>
+<p>Lets have a look to the third C-N-CA-C atoms chain found in our molecular system:</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">view</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">selection_quartet</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">covalent_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_ball_and_stick</span><span class="p">(</span><span class="n">selection_quartet</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">view</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b6695e58216c4cdeb8ab12df85061765", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>The dihedral angle defined by the three consecutive vectors made by these atoms can be calculated as:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dihedral_angles</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">quartets</span><span class="o">=</span><span class="n">covalent_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -803,64 +955,19 @@ array([ 4,  6,  8, 10])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Quantity(value=array([[ 98.34491385],
-       [ 94.94353751],
-       [ 64.97497876],
-       ...,
-       [102.98810933],
-       [ 83.29423113],
-       [ 83.7205237 ]]), unit=degree)
-</pre></div></div>
-</div>
-<p>The output object is a numpy array with shape: (n_frames, n_angles). As it can be checked in XXX, angles in MolSysMT are expressed in degrees.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">dihedral_angles</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(5000, 1)
-</pre></div></div>
-</div>
-<p>The input argument <code class="docutils literal notranslate"><span class="pre">quartets</span></code> accepts more than a 4-atoms covalent chain. Lets add the second sequence C-N-CA-CB found in our system:</p>
-<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">covalent_chains</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
+<div class="output_area rendered_html docutils container">
+<table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[-179.99999499104382]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-array([14, 16, 18, 20])
-</pre></div></div>
-</div>
+<p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.covalent_chains</span></code> needs as input argument the atom names defining the dihedral angle, but you probably don’t remember how <span class="math notranslate nohighlight">\(\phi\)</span> or <span class="math notranslate nohighlight">\(\psi\)</span> are defined. To keep it simple, MolSysMT includes a specific method named <code class="docutils literal notranslate"><span class="pre">molsysmt.covalent_dihedral_quartets</span></code> that accepts dihedral angles names as input argument:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">dihedral_angles</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">quartets</span><span class="o">=</span><span class="p">[[</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="mi">14</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">]])</span>
+<span></span><span class="n">covalent_chains</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">covalent_dihedral_quartets</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">dihedral_angle</span><span class="o">=</span><span class="s1">&#39;phi&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -869,12 +976,157 @@ array([14, 16, 18, 20])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">dihedral_angles</span><span class="o">.</span><span class="n">shape</span>
+<span></span><span class="n">covalent_chains</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[19, 21, 23, 26],
+       [26, 28, 30, 33],
+       [33, 35, 37, 53],
+       [53, 55, 57, 70]])
+</pre></div></div>
+</div>
+<p>The input argument ‘quartets’ accepts a list of atoms quartets to compute the corresponding dihedral angles:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dihedral_angles</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span>
+                                          <span class="n">quartets</span><span class="o">=</span><span class="n">covalent_chains</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dihedral_angles</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[-179.99999499104382 -179.99999499104382 -179.99999499104382<br>  -179.99999499104382]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div>
+</div>
+<p>The output object is a numpy array with shape: (n_frames, n_angles). As it can be checked in XXX, angles in MolSysMT are expressed in degrees.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dihedral_angles</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(1, 4)
+</pre></div></div>
+</div>
+<p>Lets add another molecular system to see the result when multiple frames are present:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">traj_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">traj_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/diego/MyMachine/locals/miniconda/envs/UIBCDF_lab/lib/python3.7/site-packages/tables/leaf.py:544: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify &#39;dtype=object&#39; when creating the ndarray
+  key = numpy.array(key)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_319c4_" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_319c4_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_319c4_row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_319c4_row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_319c4_row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_319c4_row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_319c4_row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_319c4_row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_319c4_row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_319c4_row0_col8" class="data row0 col8" >5000</td>
+            </tr>
+    </tbody></table></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">covalent_chains</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">covalent_dihedral_quartets</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">dihedral_angle</span><span class="o">=</span><span class="s2">&quot;phi-psi&quot;</span><span class="p">,</span>
+                                                 <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_index==[3,4]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">covalent_chains</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(2, 4)
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dihedral_angles</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">quartets</span><span class="o">=</span><span class="n">covalent_chains</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dihedral_angles</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -882,9 +1134,9 @@ array([14, 16, 18, 20])
 (5000, 2)
 </pre></div></div>
 </div>
-<p>Or we can as for every dihedral angle defined by a numpy array as the one stored in the variable <code class="docutils literal notranslate"><span class="pre">covalent_chains</span></code> in specific frame indices:</p>
+<p>We can also compute the dihedral angles for a specific set of frames:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -894,7 +1146,7 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -903,17 +1155,17 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(1000, 5)
+(1000, 2)
 </pre></div></div>
 </div>
-<p>Having the atoms quartets defining the angles we want to extract is very convenient if the method is going to be repeated multiple times. The method <code class="docutils literal notranslate"><span class="pre">molsysmt.get_dihedral_angles</span></code> does not need to compute this quartets each time. If, however, the method is going to be applied just once, the name of the dihedral angles can be introduced as the value of the input argument <code class="docutils literal notranslate"><span class="pre">dihedral_angle</span></code>:</p>
+<p>Having the atoms quartets is very convenient if the method is going to be repeated multiple times. If, however, the method is going to be applied just once, the name of the dihedral angles can be introduced as the value of the input argument <code class="docutils literal notranslate"><span class="pre">dihedral_angle</span></code>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -922,7 +1174,7 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -931,7 +1183,7 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -941,16 +1193,17 @@ array([14, 16, 18, 20])
 </div>
 <p>As well as the method <code class="docutils literal notranslate"><span class="pre">molsysmt.covalent_dihedral_quartets</span></code>, <code class="docutils literal notranslate"><span class="pre">molsysmt.get_dihedral_angles</span></code> accepts the value ‘all’ in its input argument <code class="docutils literal notranslate"><span class="pre">dihedral_angle</span></code>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">all_angles</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">dihedral_angle</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span></span><span class="n">all_angles</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">dihedral_angle</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+                                    <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_index==[1,2,3]&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -959,20 +1212,51 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(5000, 15)
+(5000, 6)
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="How-to-get-the-Ramachandran-angles">
 <h2>How to get the Ramachandran angles<a class="headerlink" href="#How-to-get-the-Ramachandran-angles" title="Permalink to this headline">¶</a></h2>
-<p>Getting the <span class="math notranslate nohighlight">\(\phi\)</span> and <span class="math notranslate nohighlight">\(\psi\)</span> dihedral angles of a protein it is almost straightfoward with the above method. But to solve this task even more easily, MolSysMT includes a method called <code class="docutils literal notranslate"><span class="pre">molsysmt.ramachandran_angles</span></code>. Lets see how it works:</p>
+<p>Getting the <span class="math notranslate nohighlight">\(\phi\)</span> and <span class="math notranslate nohighlight">\(\psi\)</span> dihedral angles of a protein it is almost straightfoward with the above method. But to solve this task even more easily, MolSysMT includes a method called <code class="docutils literal notranslate"><span class="pre">molsysmt.ramachandran_angles</span></code>. Lets see how it works. But first lets load molecular system with more than a frame:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">traj_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">demo_systems</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">traj_file</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<style  type="text/css" >
+</style><table id="T_2136c_" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_2136c_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_2136c_row0_col1" class="data row0 col1" >62</td>
+                        <td id="T_2136c_row0_col2" class="data row0 col2" >7</td>
+                        <td id="T_2136c_row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_2136c_row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_2136c_row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_2136c_row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_2136c_row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_2136c_row0_col8" class="data row0 col8" >5000</td>
+            </tr>
+    </tbody></table></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -982,7 +1266,7 @@ array([14, 16, 18, 20])
 </div>
 <p>The method returns four objects, the covalent chains defining the <span class="math notranslate nohighlight">\(\phi\)</span> and <span class="math notranslate nohighlight">\(\psi\)</span> dihedral angles and two additional objects with the corresponding values for each angle per frame:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -991,7 +1275,7 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1000,7 +1284,7 @@ array([14, 16, 18, 20])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1009,7 +1293,7 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1019,7 +1303,7 @@ array([14, 16, 18, 20])
 </div>
 <p>The method also includes the posibility to limit the calculation of the ramachandran angles to an atoms selection over the molecular system:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1030,13 +1314,13 @@ array([14, 16, 18, 20])
 </div>
 <p>Now the ramachandran map can be plot using the algorithm you like best:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">phi_angles</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">psi_angles</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">phi_angles</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">psi_angles</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">180.0</span><span class="p">,</span><span class="mf">180.0</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">180.0</span><span class="p">,</span><span class="mf">180.0</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="o">-</span><span class="mf">180.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mf">180.0</span><span class="p">])</span>
@@ -1047,11 +1331,22 @@ array([14, 16, 18, 20])
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/diego/MyMachine/locals/miniconda/envs/UIBCDF_lab/lib/python3.7/site-packages/pandas/core/dtypes/cast.py:1302: UnitStrippedWarning: The unit of the quantity is stripped when downcasting to ndarray.
+  v = np.array(v, copy=False)
+/home/diego/MyMachine/locals/miniconda/envs/UIBCDF_lab/lib/python3.7/site-packages/pandas/core/dtypes/cast.py:1672: UnitStrippedWarning: The unit of the quantity is stripped when downcasting to ndarray.
+  subarr = np.array(values, dtype=dtype, copy=copy)
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/contents_Dihedral_angles_36_0.png" src="../_images/contents_Dihedral_angles_36_0.png" />
+<img alt="../_images/contents_Dihedral_angles_48_1.png" src="../_images/contents_Dihedral_angles_48_1.png" />
 </div>
 </div>
 </div>
@@ -1059,7 +1354,7 @@ array([14, 16, 18, 20])
 <h2>How to change the dihedral angles of a molecular system<a class="headerlink" href="#How-to-change-the-dihedral-angles-of-a-molecular-system" title="Permalink to this headline">¶</a></h2>
 <p>The geometry of a peptide or protein can be changed setting new values to a given dihedral angle (or a set of them). Lets see in the following lines how this can be done with the help of the method <code class="docutils literal notranslate"><span class="pre">molsysmt.set_dihedral_angles</span></code>. First of all a demo molecular system is loaded to play with it:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1068,7 +1363,7 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1077,28 +1372,28 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
 <style  type="text/css" >
-</style><table id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
+</style><table id="T_9194a_" ><thead>    <tr>        <th class="col_heading level0 col0" >form</th>        <th class="col_heading level0 col1" >n_atoms</th>        <th class="col_heading level0 col2" >n_groups</th>        <th class="col_heading level0 col3" >n_components</th>        <th class="col_heading level0 col4" >n_chains</th>        <th class="col_heading level0 col5" >n_molecules</th>        <th class="col_heading level0 col6" >n_entities</th>        <th class="col_heading level0 col7" >n_peptides</th>        <th class="col_heading level0 col8" >n_frames</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
-                        <td id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092row0_col1" class="data row0 col1" >72</td>
-                        <td id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092row0_col2" class="data row0 col2" >5</td>
-                        <td id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092row0_col4" class="data row0 col4" >1</td>
-                        <td id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092row0_col5" class="data row0 col5" >1</td>
-                        <td id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092row0_col6" class="data row0 col6" >1</td>
-                        <td id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092row0_col7" class="data row0 col7" >1</td>
-                        <td id="T_c420dfa0_ebef_11ea_8b6f_e4b318d1f092row0_col8" class="data row0 col8" >1</td>
+                                <td id="T_9194a_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+                        <td id="T_9194a_row0_col1" class="data row0 col1" >72</td>
+                        <td id="T_9194a_row0_col2" class="data row0 col2" >5</td>
+                        <td id="T_9194a_row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_9194a_row0_col4" class="data row0 col4" >1</td>
+                        <td id="T_9194a_row0_col5" class="data row0 col5" >1</td>
+                        <td id="T_9194a_row0_col6" class="data row0 col6" >1</td>
+                        <td id="T_9194a_row0_col7" class="data row0 col7" >1</td>
+                        <td id="T_9194a_row0_col8" class="data row0 col8" >1</td>
             </tr>
     </tbody></table></div>
 </div>
 <p>Lets get, before changing its value, the second <span class="math notranslate nohighlight">\(\phi\)</span> angle in the current conformation of the system:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1106,8 +1401,17 @@ array([14, 16, 18, 20])
 </pre></div>
 </div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">all_chains</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">covalent_dihedral_quartets</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">dihedral_angle</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1124,7 +1428,7 @@ array([14, 16, 18, 20])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1133,26 +1437,60 @@ array([14, 16, 18, 20])
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Quantity(value=array([[-179.99999499]]), unit=degree)
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[-179.99999499104382]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div>
 </div>
-<p>Now we can rotate this angle in order to have the desired value:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msm</span><span class="o">.</span><span class="n">set_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">quartets</span><span class="o">=</span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="mf">0.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+<span></span><span class="n">view</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">selection_quartet</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_ball_and_stick</span><span class="p">(</span><span class="n">selection_quartet</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">view</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3c1a2fe874fa4e1b952071ba58f63220", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>Now we can rotate this angle in order to have the desired value:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">set_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">quartets</span><span class="o">=</span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">angles</span><span class="o">=</span><span class="mf">0.0</span><span class="o">*</span><span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;degrees&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">view</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">selection_quartet</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">to_syntaxis</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_ball_and_stick</span><span class="p">(</span><span class="n">selection_quartet</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">view</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e0223b57ee0940ba98565826d26f038d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1161,27 +1499,25 @@ Quantity(value=array([[-179.99999499]]), unit=degree)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Quantity(value=array([[0.]]), unit=degree)
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[0.0]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div>
 </div>
 <p>We can also produce a new molecular system with the angle changed making use of the input argument <code class="docutils literal notranslate"><span class="pre">in_place</span></code>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">new_molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">set_dihedral_angles</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">quartets</span><span class="o">=</span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                                               <span class="n">angles_shifts</span><span class="o">=-</span><span class="mf">90.0</span><span class="o">*</span><span class="n">unit</span><span class="o">.</span><span class="n">degrees</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                                               <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;-90.0 degrees&#39;</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1190,16 +1526,14 @@ Quantity(value=array([[0.]]), unit=degree)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Quantity(value=array([[0.]]), unit=degree)
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[0.0]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1208,17 +1542,40 @@ Quantity(value=array([[0.]]), unit=degree)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Quantity(value=array([[-90.]]), unit=degree)
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[-89.99999999999999]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">shift_dihedral_angles</span><span class="p">(</span><span class="n">new_molecular_system</span><span class="p">,</span> <span class="n">quartets</span><span class="o">=</span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">angles_shifts</span><span class="o">=</span><span class="s1">&#39;45.0 degrees&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">msm</span><span class="o">.</span><span class="n">get_dihedral_angles</span><span class="p">(</span><span class="n">new_molecular_system</span><span class="p">,</span> <span class="n">quartets</span><span class="o">=</span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[-45.000000000000014]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>degree</td></tr></tbody></table></div>
 </div>
 <p>We can then view both structures to see the effect of the change:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1233,10 +1590,10 @@ Quantity(value=array([[-90.]]), unit=degree)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f4f39cb813424e99abf320afe4e36d31", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "274d89e010e54d85bf191f993f51eb64", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1248,10 +1605,10 @@ Quantity(value=array([[-90.]]), unit=degree)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b50eba29f97c4fff97c3e6870d011b5b", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3ea47d6be9ad44ddb2d116d2225e1165", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1260,11 +1617,20 @@ Quantity(value=array([[-90.]]), unit=degree)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/contents_Dihedral_angles_54_0.png" src="../_images/contents_Dihedral_angles_54_0.png" />
+<img alt="../_images/contents_Dihedral_angles_71_0.png" src="../_images/contents_Dihedral_angles_71_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -1275,37 +1641,29 @@ Quantity(value=array([[-90.]]), unit=degree)
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="SASA.html" class="btn btn-neutral float-right" title="Solvent Accessible Surface Area" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="Rg.html" class="btn btn-neutral float-left" title="Radius of gyration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="SASA.html" class="btn btn-neutral float-right" title="Solvent Accessible Surface Area" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Rg.html" class="btn btn-neutral float-left" title="Radius of gyration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors
+        &#169; Copyright 2021, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

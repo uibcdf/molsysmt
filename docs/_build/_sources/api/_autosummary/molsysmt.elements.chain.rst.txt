@@ -1,0 +1,23 @@
+molsysmt.elements.chain
+=======================
+
+.. automodule:: molsysmt.elements.chain
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

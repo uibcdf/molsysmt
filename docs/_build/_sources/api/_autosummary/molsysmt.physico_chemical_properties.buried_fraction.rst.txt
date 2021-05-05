@@ -1,0 +1,6 @@
+molsysmt.physico\_chemical\_properties.buried\_fraction
+=======================================================
+
+.. currentmodule:: molsysmt.physico_chemical_properties
+
+.. autofunction:: buried_fraction
