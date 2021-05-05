@@ -26,7 +26,7 @@ def name_to_type(name):
     elif _name_is_type_cosolute(name):
         tmp_type = 'cosolute'
     elif _name_is_type_small_molecule(name):
-        tmp_type = 'small_molecule'
+        tmp_type = 'small molecule'
     elif _name_is_type_aminoacid(name):
         tmp_type = 'aminoacid'
     elif _name_is_type_nucleotide(name):

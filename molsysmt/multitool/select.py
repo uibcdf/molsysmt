@@ -11,7 +11,7 @@ from molsysmt._private_tools.get_arguments import where_get_argument
 def select_standard(molecular_system, selection, syntaxis):
 
     if type(selection)==str:
-        if selection in ['all', 'All', 'ALL']:
+        if selection_is_all(selection):
             n_atoms = None
             for where_attribute in where_get_argument['n_atoms']:
                 aux_item = getattr(molecular_system, where_attribute+'_item')
@@ -26,6 +26,8 @@ def select_standard(molecular_system, selection, syntaxis):
             atom_indices = dict_select[molecular_system.elements_form][syntaxis](molecular_system.elements_item, selection)
     elif type(selection) in [int, np.int64, np.int]:
         atom_indices = np.array([selection], dtype='int64')
+    elif type(selection)==set:
+        atom_indices = np.array(list(selection), dtype='int64')
     elif hasattr(selection, '__iter__'):
         atom_indices = np.array(selection, dtype='int64')
     else :
@@ -37,7 +39,13 @@ def select_within(molecular_system, selection, frame_index, syntaxis):
 
     from molsysmt.distances import contact_map
 
-    selection_1, tmp_selection = selection.split("within ")
+    not_within = False
+
+    if "not within " in selection:
+        selection_1, tmp_selection = selection.split(" not within ")
+        not_within = True
+    else:
+        selection_1, tmp_selection = selection.split(" within ")
 
     pbc = False
 
@@ -47,13 +55,16 @@ def select_within(molecular_system, selection, frame_index, syntaxis):
     elif "without pbc " in tmp_selection:
         tmp_selection = tmp_selection.replace("without pbc ","")
 
-    threshold, selection_2 = tmp_selection.split("of ")
+    threshold, selection_2 = tmp_selection.split(" of ")
 
     atom_indices_1, atom_indices_2, cmap = contact_map(molecular_system, selection_1=selection_1, selection_2=selection_2,
                                            frame_indices_1=frame_index, threshold=threshold, pbc=pbc, engine='MolSysMT',
                                            syntaxis=syntaxis, output_atom_indices=True)
 
-    output = atom_indices_1[np.where(cmap.any(axis=2)[0]==True)[0]]
+    if not_within:
+        output = atom_indices_1[np.where(cmap.all(axis=2)[0]==False)[0]]
+    else:
+        output = atom_indices_1[np.where(cmap.any(axis=2)[0]==True)[0]]
 
     return output
 
@@ -61,12 +72,22 @@ def select_bonded_to(molecular_system, selection, syntaxis):
 
     from molsysmt.multitool.get import get
 
-    selection_1, selection_2 = selection.split("bonded to")
+    not_bonded=False
+
+    if "not bonded to" in selection:
+        selection_1, selection_2 = selection.split(" not bonded to")
+        not_bonded=True
+    else:
+        selection_1, selection_2 = selection.split(" bonded to")
 
     atom_indices_1 = select(molecular_system, selection=selection_1, syntaxis=syntaxis)
     atom_indices_2 = get(molecular_system, 'atom', selection=selection_2, bonded_atoms=True, syntaxis=syntaxis)
+    atom_indices_2 = np.unique(np.concatenate(atom_indices_2).ravel())
 
-    output = np.intersect1d(atom_indices_1, atom_indices_2)
+    if not_bonded:
+        output = np.setdiff1d(atom_indices_1, atom_indices_2, assume_unique=True)
+    else:
+        output = np.intersect1d(atom_indices_1, atom_indices_2, assume_unique=True)
 
     return output
 
