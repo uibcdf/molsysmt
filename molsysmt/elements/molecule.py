@@ -1,6 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 import numpy as np
-from .group import rna_names as rna_group_names, dna_names as dna_group_names
+from .molecules.rna import group_name as rna_group_names
+from .molecules.dna import group_name as dna_group_names
 
 types=['water', 'ion', 'cosolute', 'small molecule', 'peptide', 'protein', 'rna', 'dna', 'lipid']
 

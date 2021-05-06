@@ -1,19 +1,13 @@
 from molsysmt._private_tools.exceptions import *
 import numpy as np
-
-from mdtraj.core.residue_names import _AMINO_ACID_CODES as _aminoacid_group_names_mdtraj
-from mdtraj.core.residue_names import _WATER_RESIDUES as _water_group_names_mdtraj
-from mdtraj.core.residue_names import _SOLVENT_TYPES as _solvent_group_names_mdtraj
+from .groups.aminoacid import name as aminoacid_names
+from .groups.water import name as water_names
+from .groups.ion import name as ion_names
+from .groups.nucleotide import name as nucleotide_names
+from .groups.lipid import name as lipid_names
+from .groups.cosolute import name as cosolute_names
 
 types=['water', 'ion', 'cosolute', 'small molecule', 'aminoacid', 'nucleotide', 'lipid']
-
-aminoacid_names = list(_aminoacid_group_names_mdtraj)
-water_names = list(_water_group_names_mdtraj)
-ion_names = [ii for ii in _solvent_group_names_mdtraj if ii not in water_names]
-rna_names = ['A', 'G', 'C', 'U', 'I']
-dna_names = ['DA', 'DG', 'DC', 'DT', 'DI']
-lipid_names = ['POPC', 'DOPC', 'DSPC', 'DMPC']
-nucleotide_names = dna_names + rna_names
 
 def name_to_type(name):
 
@@ -45,7 +39,7 @@ def _name_is_type_ion(name):
     return (name in ion_names)
 
 def _name_is_type_cosolute(name):
-    return False
+    return (name in cosolute_names)
 
 def _name_is_type_small_molecule(name):
     return False

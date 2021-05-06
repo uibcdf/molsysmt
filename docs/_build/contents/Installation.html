@@ -34,7 +34,6 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -89,7 +88,19 @@
             
               <p class="caption"><span class="caption-text">Installation and Quick Guide</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#last-stable-version">Last stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#last-testing-version">Last testing version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developing-version-from-the-source-code">Developing version from the source code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-source-code">The source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-conda-environment">A conda environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation-from-the-source-code">Installation from the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uninstallation">Uninstallation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quick Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Fetching-molecular-systems-from-web-databases">Fetching molecular systems from web databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Quickstart.html#Loading-molecular-systems-and-trajectories">Loading molecular systems and trajectories</a></li>
@@ -553,27 +564,98 @@
 </style>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>The latest “stable” version of MolSysMT can be installed from the UIBCDF Anaconda channel:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda -c uibcdf molsysmt
-</pre></div>
+<p>MolSysMT is distributed in its stable and testing version through a the ‘uibcdf’ conda channel.
+If there is no reason to install the library from the source code, we highly recommend working with
+conda.</p>
+<div class="section" id="last-stable-version">
+<h2>Last stable version<a class="headerlink" href="#last-stable-version" title="Permalink to this headline">¶</a></h2>
+<p>There is no stable version yet</p>
 </div>
-<p>If you want to work with the not so tested last beta version, the installation command is the following:</p>
+<div class="section" id="last-testing-version">
+<h2>Last testing version<a class="headerlink" href="#last-testing-version" title="Permalink to this headline">¶</a></h2>
+<p>If you want to work with the last testing version:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c uibcdf/label/dev molsysmt
 </pre></div>
 </div>
-<p>The former beta version is nothing but a quenched version from the main github repository of this project which it is done from time to time with few scruples. The raw code fully alive can be installed from this github repo as follows:</p>
+<p>To uninstall this library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda remove pyunitwizard
+</pre></div>
+</div>
+</div>
+<div class="section" id="developing-version-from-the-source-code">
+<h2>Developing version from the source code<a class="headerlink" href="#developing-version-from-the-source-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-source-code">
+<h3>The source code<a class="headerlink" href="#the-source-code" title="Permalink to this headline">¶</a></h3>
+<p>The raw code fully alive can be cloned from the <a class="reference external" href="https://github.com/uibcdf/MolSysMT">github repository</a> as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/uibcdf/MolSysMT.git
-<span class="nb">cd</span> MolSysMT
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-conda-environment">
+<h3>A conda environment<a class="headerlink" href="#a-conda-environment" title="Permalink to this headline">¶</a></h3>
+<p>This step is not required, but it is recomended. You can use a python packages and virtual
+environments manager, as conda. If this is the case, use MolSysMT in a python 3.7 environment. You
+can create a new one this way (where <code class="docutils literal notranslate"><span class="pre">ENV_NAME</span></code> is the name you want to give to the new
+environment):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create --name ENV_NAME <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7
+</pre></div>
+</div>
+<p>Load the virtual environment where MolSysMT is going to be installed. If you just create a new
+environment with conda:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate ENV_NAME
+</pre></div>
+</div>
+</div>
+<div class="section" id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
+<p>Unlike the installation process with the testing and stable versions, in this case the dependencies have to be solved manually
+before going to the next step. This is the list of packages you have to have in your OS or your
+python environment:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://gcc.gnu.org/">gfortran</a> (or any other fortran compiler)</p></li>
+<li><p><a class="reference external" href="https://www.python.org/">python = 3.7</a></p></li>
+<li><p><a class="reference external" href="https://mmtf.rcsb.org/index.html">mmtf-python</a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/">Pandas</a></p></li>
+<li><p><a class="reference external" href="https://networkx.org/">NetworkX</a></p></li>
+<li><p><a class="reference external" href="http://openmm.org/">OpenMM</a></p></li>
+<li><p><a class="reference external" href="https://github.com/openmm/pdbfixer">PDBFixer</a></p></li>
+<li><p><a class="reference external" href="http://nglviewer.org/nglview/latest/">NGLView</a></p></li>
+<li><p><a class="reference external" href="https://www.uibcdf.org/PyUnitWizard">PyUnitWizard = 0.1 (dev)</a></p></li>
+<li><p><a class="reference external" href="https://www.uibcdf.org/OpenMolecularSystem">OpenMolecularSystems (dev)</a></p></li>
+</ul>
+<p>If you are working in a conda environment, find here the installation commands to solve this
+dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install mmtf-python pandas networkx openmm pdbfixer nglview
+conda install -c uibcdf/lab/dev pyunitwizard openmolecularsystems
+</pre></div>
+</div>
+<p>There is also a set of optional libraries you may want to install depending on how you are going to use
+MolSysMT:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://parmed.github.io/ParmEd/">ParmEd</a></p></li>
+<li><p><a class="reference external" href="http://mdtraj.org/">MDTraj</a></p></li>
+<li><p><a class="reference external" href="https://www.mdanalysis.org/">MDAnalysis</a></p></li>
+<li><p><a class="reference external" href="https://amber-md.github.io/pytraj/latest/index.html">pytraj</a></p></li>
+<li><p><a class="reference external" href="https://salilab.org/modeller/">Modeller</a></p></li>
+<li><p><a class="reference external" href="https://biopython.org/">Biopython</a></p></li>
+<li><p><a class="reference external" href="https://www.uibcdf.org/OpenExplorer">OpenExplorer (dev)</a></p></li>
+</ul>
+</div>
+<div class="section" id="installation-from-the-source-code">
+<h3>Installation from the source code<a class="headerlink" href="#installation-from-the-source-code" title="Permalink to this headline">¶</a></h3>
+<p>Having the dependencies solved, the command to install MolSysMT from its source code is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> MolSysMT
 python setup.py develop
 </pre></div>
 </div>
-<p>In the first two cases, MolSysMT can be uninstalled with conda:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda remove molsysmt
-</pre></div>
 </div>
-<p>But if you installed MolSysMT straight from its github central repository, do the following to uninstall it:</p>
+<div class="section" id="uninstallation">
+<h3>Uninstallation<a class="headerlink" href="#uninstallation" title="Permalink to this headline">¶</a></h3>
+<p>If you want to uninstall the developing version of MolSysMT, do the following:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip uninstall molsysmt
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 

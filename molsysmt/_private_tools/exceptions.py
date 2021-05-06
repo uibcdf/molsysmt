@@ -31,20 +31,21 @@ class NoMolecularSystemError(ValueError):
 class NotImplementedError(NotImplementedError):
     def __init__(self, message=None):
         if message is None:
-            message = 'It has not been implemeted yet.\n Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
+            message = 'It has not been implemeted yet. Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
         super().__init__(message)
 
 class NotImplementedConversionError(NotImplementedError):
-    def __init__(self, message=None):
+    def __init__(self, from_form, to_form, message=None):
         if message is None:
-            message = 'This conversion has not been implemeted yet.\n Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
+            message = 'The conversion from {} to {} has not been implemeted yet. Write a new issue in https://github.com/uibcdf/MolSysMT/issues \
+asking for it.'.format(from_form, to_form)
         super().__init__(message)
 
 class NotImplementedFormError(NotImplementedError):
     def __init__(self, message=None):
         if message is None:
-            message = 'Either the python library this form belongs to was not found, either this form has not been implemeted yet.\n \
-        In this last case, Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
+            message = 'Either the python library this form belongs to was not found, either this form has not been implemeted yet. \
+In this last case, Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
         super().__init__(message)
 
 class LibraryNotFound(NotImplementedError):

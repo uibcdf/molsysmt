@@ -1,5 +1,7 @@
 import numpy as np
-from .group import rna_names as rna_group_names, dna_names as dna_group_names
+from .components.rna import group_name as rna_group_names
+from .components.dna import group_name as dna_group_names
+
 types = ['water', 'ion', 'cosolute', 'small molecule', 'lipid', 'peptide', 'protein', 'rna', 'dna']
 
 def component_index_from_atom(item, indices='all'):

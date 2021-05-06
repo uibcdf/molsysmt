@@ -182,7 +182,7 @@ def type_from_MMTFDecoder_entity (mmtf_entity):
             entity_name = entities.mmtf_translator[mmtf_entity['description']]
             output = entities.catalog[entity_name]
         except:
-            raise NotImplementedError("The mmtf entity type is not implemented.")
+            raise NotImplementedError("The mmtf entity type {} is not implemented.".format(mmtf_entity))
 
     return output
 
