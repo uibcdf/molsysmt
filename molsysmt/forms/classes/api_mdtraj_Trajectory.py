@@ -179,19 +179,17 @@ def to_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all',
 def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_mdtraj as show_mdtraj
-    from molsysmt.nglview import standardize_view
 
     if (atom_indices is not 'all') or (frame_indices is not 'all'):
         tmp_item, tmp_molecular_system = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     else:
         tmp_item = item
         tmp_molecular_system = molecular_system
-        patata
 
-    tmp_view = show_mdtraj(tmp_item)
-    standardize_view(tmp_view)
+    tmp_item = show_mdtraj(tmp_item)
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(molecular_system)
 
-    return tmp_view
+    return tmp_view, tmp_molecular_system
 
 def select_with_Amber(item, selection):
 
@@ -214,12 +212,14 @@ def select_with_MolSysMT(item, selection):
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        from copy import deepcopy
-        return deepcopy(item)
+        tmp_item = item.copy()
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         tmp_item = item.atom_slice(atom_indices)
         tmp_item = tmp_item.slice(frame_indices)
-        return tmp_item
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

@@ -18,9 +18,14 @@ for ii in ['coordinates', 'box']:
 def to_molsysmt_TrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item.copy()
+        tmp_item = item.copy()
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+
     else:
+
         raise NotImplementedError
+
+    return tmp_item, tmp_molecular_system
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

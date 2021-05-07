@@ -17,15 +17,19 @@ for ii in ['thermo_state', 'simulation']:
 def to_SimulationDict(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     tmp_item = item.to_dict()
+    tmp_molecular_system = molecular_system
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def to_molsysmt_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item.copy()
+        tmp_item = item.copy()
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         raise NotWithThisFormError()
+
+    return tmp_item, tmp_molecular_system
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

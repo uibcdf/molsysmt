@@ -25,8 +25,9 @@ def to_molsysmt_MolecularMechanics(item, molecular_system=None, atom_indices='al
     from molsysmt.native.molecular_mechanics import MolecularMechanics as molsysmt_MolecularMechanics
 
     tmp_item = molsysmt_MolecularMechanics(**item)
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def select_with_MolSysMT(item, selection):
 
@@ -35,7 +36,8 @@ def select_with_MolSysMT(item, selection):
 def to_MolecularMechanicsDict(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item.copy()
+        tmp_item = item.copy()
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         raise NotImplementedError()
 

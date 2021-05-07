@@ -25,22 +25,23 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
     from molsysmt.forms.classes.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
 
-    tmp_topology = to_mdtraj_Topology(item)
+    tmp_topology, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system)
     tmp_item = mdtraj_Trajectory(item.positions/_unit.nanometers, tmp_topology)
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, selection=atom_indices, frame_indices=frame_indices)
+        tmp_item = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_openmm_Topology import to_mdtraj_Topology as _to_mdtraj_Topology
+    from molsysmt.forms.classes.api_openmm_Topology import to_mdtraj_Topology as openmm_Topology_to_mdtraj_Topology
 
-    tmp_item = to_openmm_Topology(item)
-    tmp_item = _to_mdtraj_Topology(tmp_item, selection=selection, syntaxis=syntaxis)
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_mdtraj_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all',
                      forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
@@ -49,21 +50,21 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indi
 
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_System as openmm_Topology_to_openmm_System
 
-    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices)
-    tmp_item = openmm_Topology_to_openmm_System(tmp_item, molecular_system, atom_indices='all', forcefield=forcefield,
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_System(tmp_item, molecular_system=tmp_molecular_system, atom_indices='all', forcefield=forcefield,
                                                 non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff,
                                                 constraints=constraints, rigid_water=rigid_water, remove_cm_motion=remove_cm_motion,
                                                 hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
                                                 flexible_constraints=flexible_constraints, **kwargs)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all',
                          forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                          rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                          flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
                          collisions_rate='1.0 1/ps', integration_timestep='2.0 fs', platform='CUDA'):
-
+    patata
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Simulation as openmm_Topology_to_openmm_Simulation
     from molsysmt.multitool import get
 

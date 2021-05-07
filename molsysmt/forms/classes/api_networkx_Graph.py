@@ -23,9 +23,13 @@ def select_with_MDTraj(item, selection):
 def to_networkx_Graph(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item.copy()
+        tmp_item = item.copy()
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
-        return item.subgraph(atom_indices).copy()
+        tmp_item = item.subgraph(atom_indices).copy()
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

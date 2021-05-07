@@ -21,7 +21,7 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
 
     from molsysmt.native.io.trajectory.classes import to_mdtraj_Trajectory as molsysmt_Trajectory_to_mdtraj_Trajectory
 
-    tmp_item = molsysmt_Trajectory_to_mtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_Trajectory_to_mtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
@@ -29,28 +29,28 @@ def to_parmed_GromacsTopologyFile(item, molecular_system=None, atom_indices='all
 
     from molsysmt.forms.classses.api_mdtraj_Topology import to_parmed_GromacsTopologyFile as mdtraj_Topology_to_parmed_GromacsTopologyFile
 
-    tmp_item = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = mdtraj_Topology_to_GromacsTopologyFile(tmp_item, molecular_system)
+    tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = mdtraj_Topology_to_GromacsTopologyFile(tmp_item, molecular_system=tmp_molecular_system)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def to_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.classes.api_mdtraj_Trajectory import to_xtc as mdtraj_Trajectory_to_xtc
 
-    tmp_item = to_mdtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = mdtraj_Trajectory_to_xtc(tmp_item, molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_xtc(tmp_item, molecular_system=tmp_molecular_system, output_filename=output_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.classes.api_mdtraj_Topology import to_top as mdtraj_Topology_to_top
 
-    tmp_item = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = mdtraj_Topology_to_top(tmp_item, molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = mdtraj_Topology_to_top(tmp_item, molecular_system=tmp_molecular_system, output_filename=output_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def select_with_MDTraj(item, selection):
 
@@ -60,9 +60,13 @@ def select_with_MDTraj(item, selection):
 def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item.copy()
+        tmp_item = item.copy()
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
-        return item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
