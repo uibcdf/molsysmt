@@ -1,6 +1,6 @@
 def from_mmtf_id(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.ids.api_pdb import to_mmtf_MMTFDecoder as mmtf_to_mmtf_MMTFDecoder
+    from molsysmt.forms.ids.api_mmtf_id import to_mmtf_MMTFDecoder as mmtf_to_mmtf_MMTFDecoder
     from molsysmt.native.io.topology.classes import from_mmtf_MMTFDecoder as mmtf_Decoder_to_molsysmt_Topology
 
     tmp_item = mmtf_to_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all')

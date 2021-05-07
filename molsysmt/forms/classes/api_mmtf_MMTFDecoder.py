@@ -17,6 +17,13 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'coordinates', 'box']:
     has[ii]=True
 
+def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        raise NotImplementedError
+    else:
+        raise NotImplementedError
+
 def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from mmtf.api.default_api import write_mmtf, MMTFDecoder
@@ -29,6 +36,16 @@ def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all'
     write_mmtf(output_filename, tmp_item, MMTFDecoder.pass_data_on)
 
     return output_filename
+
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_pdb as molsysmt_MolSys_to_pdb
+
+    tmp_item = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = molsysmt_MolSys_to_pdb(tmp_item, molecular_system=molecular_system, output_filename=output_filename)
+
+    return tmp_item
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -54,6 +71,16 @@ def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', fram
 
     return tmp_item
 
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_mdtraj_Trajectory as molsysmt_MolSys_to_mdtraj_Trajectory
+
+    tmp_item = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices='all', frame_indices='all')
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = molsysmt_MolSys_to_mdtraj_Trajectory(tmp_item, molecular_system=molecular_system)
+
+    return tmp_item
+
 def select_with_Amber(item, selection):
 
     raise NotImplementedError
@@ -71,13 +98,6 @@ def select_with_MolSysMT(item, selection):
     from .api_molsysmt_Topology import select_with_MolSysMT as select_Topology_with_MolSysMT
     tmp_item = to_molsysmt_Topology(item)
     return select_Topology_with_MolSysMT(tmp_item, selection)
-
-def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError
-    else:
-        raise NotImplementedError
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

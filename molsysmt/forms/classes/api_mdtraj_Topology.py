@@ -21,67 +21,83 @@ for ii in ['elements', 'bonds']:
 def to_aminoacids3_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     else:
         tmp_item = item
+        tmp_molecular_system = molecular_system
 
     tmp_item = 'aminoacids3:'+''.join([ r.name.title() for r in item.residues ])
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids3_seq import to_aminoacids1_seq as aminoacids3_to_aminoacids1
 
     if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     else:
         tmp_item = item
+        tmp_molecular_system = molecular_system
 
     tmp_item = to_aminoacids3_seq(tmp_item)
     tmp_item = aminoacids3_to_aminoacids1(tmp_item)
-    return tmp_item
+
+    return tmp_item, tmp_molecular_system
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_mdtraj_Topology as molsysmt_Topology_from_mdtraj_Topology
-    tmp_item = molsysmt_Topology_from_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return tmp_item
+    tmp_item, tmp_molecular_system = molsysmt_Topology_from_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item, tmp_molecular_system
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     else:
         tmp_item = item
+        tmp_molecular_system = molecular_system
 
-    return tmp_item.to_openmm()
+    tmp_item = tmp_item.to_openmm()
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+
+    return tmp_item, tmp_molecular_system
 
 def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_yank_Topography as opennn_Topology_to_yank_Topography
-    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = opennn_Topology_to_yank_Topography(tmp_item)
-    return tmp_item
+
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = opennn_Topology_to_yank_Topography(tmp_item, molecular_system=tmp_molecular_system)
+
+    return tmp_item, tmp_molecular_system
 
 def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
-    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = openmm_Topology_to_parmed_Structure(tmp_form)
-    return tmp_item
+
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_parmed_Structure(tmp_form, molecular_system=tmp_molecular_system)
+
+    return tmp_item, tmp_molecular_system
 
 def to_parmed_GromacsTopologyFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed.gromacs import GromacsTopologyFile as GromacsTopologyFile
-    tmp_item = to_parmed_Structure(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return GromacsTopologyFile.from_structure(tmp_item)
+
+    tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = GromacsTopologyFile.from_structure(tmp_item)
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+
+    return tmp_item, tmp_molecular_system
 
 def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_parmed_GromacsTopologyFile import to_top as parmed_GromacsTopologyFile_to_top
-    tmp_item = to_parmed_GromacsTopologyFile(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return parmed_GromacsTopologyFile_to_top(tmp_item, output_filename=output_filename)
+
+    tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = parmed_GromacsTopologyFile_to_top(tmp_item, molecular_system=tmp_molecular_system, output_filename=output_filename)
 
 def select_with_MDTraj(item, selection):
     return item.select(selection)
@@ -104,8 +120,13 @@ def select_with_MDAnalysis(item, selection):
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
+
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item.copy()
+
+        tmp_item = item.copy()
+        tmp_molecular_system = item.copy()
+        tmp_molecular_system = tmp_molecular_system.combine_with_item(tmp_item)
+
     else:
 
         from mdtraj.core.topology import Topology
@@ -159,7 +180,10 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
         newTopology._numAtoms = ilen(newTopology.atoms)
         newTopology._numResidues = ilen(newTopology.groups)
 
-        return newTopology
+        tmp_item = newTopology
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

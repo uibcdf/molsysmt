@@ -74,10 +74,20 @@ def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', fram
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_mdtraj_Trajectory as mmtf_MMTFDecoder_to_mdtraj_Trajectory
 
     tmp_item = to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all')
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = mmtf_MMTFDecoder_to_mdtraj_Trajectory(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item
+
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_mdtraj_Trajectory as mmtf_MMTFDecoder_to_mdtraj_Trajectory
+
+    tmp_item = to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all')
+    tmp_item = mmtf_MMTFDecoder_to_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 

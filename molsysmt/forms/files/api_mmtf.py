@@ -77,6 +77,16 @@ def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', fram
 
     return tmp_item
 
+def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_pdb as mmtf_MMTFDecoder_to_pdb
+
+    tmp_item = to_mmtf_MMTFDecoder(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item = mmtf_MMTFDecoder_to_pdb(tmp_item, molecular_system=molecular_system, output_filename=output_filename)
+
+    return tmp_item
+
 def select_with_MDAnalysis(item, selection):
 
     raise NotImplementedError

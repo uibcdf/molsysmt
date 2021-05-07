@@ -146,6 +146,15 @@ def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item
 
+def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_Topology import to_pytraj_Topology as molsysmt_Topology_to_pytraj_Topology
+
+    tmp_item, tmp_molecular_system = to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_Topology_to_pytraj_Topology(tmp_item, molecular_system=tmp_molecular_system)
+
+    return tmp_item, tmp_molecular_system
+
 def select_with_MDTraj(item, selection):
 
     from .api_molsysmt_Topology import select_with_MDTraj as select_Topology_with_MDTraj

@@ -24,11 +24,12 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
     from molsysmt.forms.classes.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item = item.topology
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
 
     if (atom_indices is not 'all'):
-        tmp_item = mdtraj_Topology_to_Topology(tmp_item, atom_indices=atom_indices)
+        tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def select_with_Amber(item, selection):
 
