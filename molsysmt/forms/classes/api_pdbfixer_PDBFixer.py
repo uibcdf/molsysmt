@@ -21,117 +21,117 @@ for ii in ['elements', 'coordinates', 'box', 'bonds']:
 
 ## Methods
 
-def to_aminoacids3_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    tmp_item = to_openm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_openm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = ''.join([ r.name for r in tmp_item.groups() ])
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids3_seq import to_aminoacids1_seq as aminoacids3_to_aminoacids1
 
-    tmp_item = to_aminoacids3_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_aminoacids3_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids3_to_aminoacids1(tmp_item)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_biopython_Seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_biopython_Seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_Seq as aminoacids1_to_biopython_Seq
 
-    tmp_item = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, _ = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids1_to_biopython_Seq(tmp_item)
 
-    return tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    return tmp_item, tmp_molecular_system
+
+def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
 
-    tmp_item = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, _ = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = aminoacids1_to_biopython_SeqRecord(tmp_item)
 
-    return tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    return tmp_item, tmp_molecular_system
+
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology as mdtraj_Topology
 
-    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, _ = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_Topology.from_openmm(tmp_item)
 
-    return tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    return tmp_item, tmp_molecular_system
+
+def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from simtk.unit import nanometers
-    from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
+    from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
 
-    tmp_topology = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_topology, _ = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     coordinates = coordinates.in_units_of(nanometers)._value
-    tmp_item = _mdtraj_Trajectory(coordinates, tmp_topology)
+    tmp_item = mdtraj_Trajectory(coordinates, tmp_topology)
 
-    return tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    return tmp_item, tmp_molecular_system
+
+def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import Modeller as openmm_Modeller
 
-    tmp_topology = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_topology, _ = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     tmp_item = openmm_Modeller(tmp_topology, coordinates)
 
-    return tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    return tmp_item, tmp_molecular_system
+
+def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     tmp_item = item.topology
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy=False)
 
-    if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item = openmm_Topology_to_openmm_Topology(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    return tmp_item, tmp_molecular_system
 
-    return tmp_item
-
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_molsysmt_Topology
 
-    tmp_item = pdbfixer_PDBFixer_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices)
+    tmp_item, tmp_molecular_system = pdbfixer_PDBFixer_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import from_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_molsysmt_MolSys
 
-    tmp_item = pdbfixer_PDBFixer_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = pdbfixer_PDBFixer_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from yank import Topography as yank_Topography
-
-    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = yank_Topography(tmp_item)
-
-    return tmp_item
-
-def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
 
-    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = openmm_Topology_to_parmed_Structure(tmp_item)
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_parmed_Structure(tmp_item, tmp_molecular_system)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
@@ -148,25 +148,31 @@ def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all',
     del(tmp_io)
 
     if output_filename=='.pdb':
-        return filedata
+        tmp_item = filedata
     else:
         with open(output_filename, 'w') as file:
             file.write(filedata)
-        pass
+        tmp_item = output_filename
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from .api_mdtraj_Trajectory import to_nglview_NGLWidget as mdtraj_trajectory_to_nglview_NGLWidget
 
-    tmp_item = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = mdtraj_Trajectory_nglview_NGLWidget(tmp_item)
+    tmp_item, tmp_molecular_system = to_mdtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = mdtraj_Trajectory_nglview_NGLWidget(tmp_item, tmp_molecular_system)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indices='all', copy=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 
+        if copy:
+        patata
         from os import remove
         from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
         from molsysmt._private_tools.pdb import tmp_pdb_filename
@@ -174,7 +180,6 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', frame_indices='all'):
         to_pdb(item, output_filename=tmp_file)
         tmp_item = pdb_to_pdbfixer_PDBFixer(tmp_file)
         remove(tmp_file)
-        return tmp_item
 
     else:
         from simtk.openmm.app import Modeller as openmm_Modeller

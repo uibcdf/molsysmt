@@ -20,43 +20,53 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
     from mdtraj.core.topology import Topology as mdtraj_topology
 
-    tmp_item = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_topology.from_openmm(tmp_item)
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     tmp_item = item.topology
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
 
     if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item = opennmm_Topology_to_openmm_Topology(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item, tmp_molecular_system = opennmm_Topology_to_openmm_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def to_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item = to_parmed_GromacsTopologyFile(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     else:
         tmp_item = item
+        tmp_molecular_system = molecular_system
 
     item.save(output_filename)
+    tmp_item = output_filename
 
-    return output_filename
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 
 def to_top(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item = to_parmed_GromacsTopologyFile(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     else:
         tmp_item = item
+        tmp_molecular_system = molecular_system
 
     item.save(output_filename)
 
-    return output_filename
+    tmp_item = output_filename
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+
+    return tmp_item, tmp_molecular_system
 
 def select_with_MDTraj(item, selection):
 
@@ -72,12 +82,13 @@ def select_with_ParmEd(item, selection):
     del(_AmberMask)
     return tmp_sel
 
-def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all'):
+def to_parmed_GromacsTopologyFile(item, molecular_system=molecular_system, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 
         from copy import deepcopy
-        return deepcopy(item)
+        tmp_item = deepcopy(item)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
 
     else:
 
@@ -88,7 +99,9 @@ def to_parmed_GromacsTopologyFile(item, atom_indices='all', frame_indices='all')
         mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
         tmp_item = copy(item)
         tmp_item.strip(atom_indices_to_AmberMask(tmp_item,atom_indices))
-        return tmp_item
+        tmp_molecular_system = molecular_system.combine_with_items(item)
+
+    return tmp_item, tmp_molecular_system
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

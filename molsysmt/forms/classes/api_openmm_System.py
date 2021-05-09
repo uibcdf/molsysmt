@@ -37,17 +37,19 @@ def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_ind
         temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
         tmp_item.setVelocitiesToTemperature(temperature)
 
-    return tmp_item
+    tmp_molecular_simulation=molecular_system.combine_with_items(tmp_item)
+
+    return tmp_item, tmp_molecular_simulation
 
 def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.multitool import convert, get
     from simtk.openmm.app import Simulation
 
-    topology= convert(molecular_system, selection=atom_indices, to_form='openmm.Topology')
+    topology, _ = openmm_System_to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices)
     positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
     positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
-    simulation = convert(molecular_system, to_form='molsysmt.Simulation')
+    simulation = openmm_System_to_molsysmt_Simulation(item, molecular_system=molecular_system)
 
     integrator = simulation.to_openmm_Integrator()
     platform = simulation.to_openmm_Platform()
@@ -60,14 +62,19 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
         temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
         tmp_item.context.setVelocitiesToTemperature(temperature)
 
-    return tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 
 def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item.__copy__()
+        tmp_item = item.__copy__()
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         raise NotImplementedError
+
+    return tmp_item, tmp_molecular_system
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
