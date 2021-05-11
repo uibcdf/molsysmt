@@ -1,25 +1,29 @@
-def from_openmm_Modeller (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_openmm_Modeller (item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology.classes import from_openmm_Modeller as openmm_Modeller_to_molsysmt_Topology
     from molsysmt.native.io.trajectory.classes import from_openmm_Modeller as openmm_Modeller_to_molsysmt_Trajectory
 
     tmp_item = MolSys()
-    tmp_item.topology = openmm_Modeller_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item.trajectory = openmm_Modeller_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.topology, _ = openmm_Modeller_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.trajectory, _ = openmm_Modeller_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_openmm_Modeller (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller (item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import Modeller
     from molsysmt import puw
     from molsysmt.native.io.molsys.classes.openmm_Topology import to_openmm_Topology as molsysmt_MolSys_to_openmm_Topology
     from molsysmt.forms.classes.api_molsysmt_MolSys import get_coordinates_from_atom
 
-    tmp_topology = molsysmt_MolSys_to_openmm_Topology(item, molecular_system, atom_indices=atom_indices)
+    tmp_topology, _ = molsysmt_MolSys_to_openmm_Topology(item, molecular_system, atom_indices=atom_indices)
     tmp_positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     tmp_positions = puw.translate(tmp_positions, to_form='simtk.unit')
 
-    return Modeller(tmp_topology, tmp_positions[0])
+    tmp_item = Modeller(tmp_topology, tmp_positions[0])
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 

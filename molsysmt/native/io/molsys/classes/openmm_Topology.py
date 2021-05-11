@@ -1,9 +1,12 @@
-def to_openmm_Topology (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology (item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
     from molsysmt import get, set
 
-    tmp_item = molsysmt_Topology_to_openmm_Topology(item.topology, atom_indices=atom_indices)
+    tmp_item = item.topology
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+
+    tmp_item, tmp_molecular_system = molsysmt_Topology_to_openmm_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices)
 
     if frame_indices is 'all':
         box = get(item, target='system', frame_indices=0, box=True)
@@ -13,9 +16,9 @@ def to_openmm_Topology (item, molecular_system=None, atom_indices='all', frame_i
     if box is not None:
         set(tmp_item, target='system', box=box)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def from_openmm_Topology (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_openmm_Topology (item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.trajectory import Trajectory
@@ -23,7 +26,7 @@ def from_openmm_Topology (item, molecular_system=None, atom_indices='all', frame
     from molsysmt import convert, get, set
 
     tmp_item = MolSys()
-    tmp_item.topology = openmm_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.topology, _ = openmm_Topology_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     if trajectory_item is None:
         tmp_item.trajectory = Trajectory()
@@ -35,5 +38,7 @@ def from_openmm_Topology (item, molecular_system=None, atom_indices='all', frame
                 if box is not None:
                     set(tmp_item.trajectory, target='system', box=box)
 
-    return tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 

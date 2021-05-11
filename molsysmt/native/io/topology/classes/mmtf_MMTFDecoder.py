@@ -1,5 +1,5 @@
 
-def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all', bioassembly_index=0, bioassembly_name=None):
+def from_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all', bioassembly_index=0, bioassembly_name=None):
 
     from molsysmt.native import Topology
     import numpy as np
@@ -285,5 +285,7 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
     if atom_indices is not 'all':
         tmp_item = tmp_item.extract(atom_indices)
 
-    return tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 

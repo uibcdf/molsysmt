@@ -1,6 +1,8 @@
-def from_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+from molsysmt._private_tools.exceptions import *
 
-    raise NotImplementedError
+def from_xtc(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError()
 
     #from molsysmt import convert
     #from .io_trajectory import from_xtc as xtc_to_Trajectory
