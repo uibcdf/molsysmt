@@ -20,19 +20,20 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'coordinates', 'box']:
     has[ii]=True
 
-def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt._private_tools.pdb import download_pdb
     from molsysmt.forms.files.api_pdb import to_pdb as pdb_to_pdb
 
     tmp_item = item.split(':')[-1]
     download_pdb(tmp_item, output_filename)
-    if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        _ = pdb_to_pdb(output_filename, molecular_system=molecular_system, output_filename=output_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = output_filename
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item, tmp_molecular_system = pdb_to_pdb(tmp_item, tmp_molecular_system, output_filename=output_filename, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
-    return output_filename
+    return tmp_item, tmp_molecular_system
 
-def to_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_fasta(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.files.api_fasta import to_fasta as fasta_to_fasta
 
@@ -44,186 +45,175 @@ def to_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all
     with open(output_filename,'w') as f:
         f.write(fasta_txt)
     f.close()
-    if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        output_filename = fasta_to_fasta(output_filename, atom_indices=atom_indices,
-                                         frame_indices=frame_indices,
-                                         output_filename=output_filename)
+    tmp_item = output_filename
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item, tmp_molecular_system= fasta_to_fasta(tmp_item, tmp_molecular_items, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename, copy_if_all=False)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_mmtf(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from .api_mmtf import to_mmtf as mmtf_to_mmtf_file
-
-    tmp_item = 'mmtf:'+item.split(':')[-1]
-    tmp_item = mmtf_to_mmtf_file(tmp_item, output_filename=output_filename, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item
-
-def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from .api_mmtf import to_mmtf_MMTFDecoder as mmtf_to_mmtf_MMTFDecoder
+    from .api_mmtf import to_mmtf as mmtf_id_to_mmtf_file
 
     tmp_item = 'mmtf:'+item.split(':')[-1]
-    tmp_item = mmtf_to_mmtf_MMTFDecoder(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item, tmp_molecular_system = mmtf_id_to_mmtf_file(tmp_item, tmp_molecular_system, output_filename=output_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from .api_mmtf import to_mmtf_MMTFDecoder as mmtf_id_to_mmtf_MMTFDecoder
+
+    tmp_item = 'mmtf:'+item.split(':')[-1]
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item, tmp_molecular_system = mmtf_id_to_mmtf_MMTFDecoder(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.native.io.molsys.files import from_pdb as pdb_to_molsysmt
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_molsysmt(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_molsysmt(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_mdtraj_Trajectory(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_mdtraj_Trajectory(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_mdtraj_Topology as pdb_to_mdtraj_Topology
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_mdtraj_Topology(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_parmed_Structure as pdb_to_parmed_Structure
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_parmed_Structure(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_parmed_Structure(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_pdbfixer_PDBFixer(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_pdbfixer_PDBFixer(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_openmm_Modeller as pdb_to_openmm_Modeller
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_openmm_Modeller(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_openmm_Modeller(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_openmm_Topology as pdb_to_openmm_Topology
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_openmm_Topology(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_openmm_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_openmm_PDBFile as pdb_to_openmm_PDBFile
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_openmm_PDBFile(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_openmm_PDBFile(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_file)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_yank_Topography(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt._private_tools.files_and_directories import tmp_filename
-    from molsysmt.forms.files.api_pdb import to_yank_Topography as pdb_to_yank_Topography
-    from os import remove
-
-    tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_yank_Topography(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
-    remove(tmp_filename)
-
-    return tmp_item
-
-def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_mdanalysis_Universe as pdb_mdanalysis_Universe
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_mdanalysis_Universe(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_mdanalysis_Universe(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_pytraj_Trajectory as pdb_pytraj_Trajectory
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename)
-    tmp_item=pdb_to_pytraj_Trajectory(tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename)
+    tmp_item, tmp_molecular_system = pdb_to_pytraj_Trajectory(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     remove(tmp_filename)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from nglview import show_file as nglview_show_file
     from os import remove
 
     tmp_filename = tmp_filename(extension='pdb')
-    _ = to_pdb(item, output_filename=tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = nglview_show_file(tmp_filename)
     remove(tmp_filename)
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def select_with_MDTraj(item, selection):
 
@@ -235,9 +225,26 @@ def select_with_MDTraj(item, selection):
 def to_pdb_id(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
+        if copy_if_all:
+            tmp_item = extract_item(item)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        else:
+            tmp_item = item
+            tmp_molecular_system = molecular_system
+    else:
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def extract_item(item, atom_indices='all', frame_indices='all'):
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
         raise NotImplementedError()
     else:
         raise NotImplementedError()
+
+    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

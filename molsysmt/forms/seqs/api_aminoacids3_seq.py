@@ -21,65 +21,91 @@ for ii in ['elements']:
 def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from Bio.SeqUtils import seq1
-    tmp_item = seq1(item.replace('aminoacids3:',''))
-    return 'aminoacids1:'+tmp_item
 
-def to_biopython_Seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    tmp_item = seq1(item.replace('aminoacids3:',''))
+    tmp_item = 'aminoacids1:'+tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+
+    return tmp_item, tmp_molecular_system
+
+def to_biopython_Seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from .api_aminoacids1_seq import to_biopython_Seq as aminoacids1_to_biopython_Seq
-    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = _aminoacis1_to_biopython_Seq(tmp_item)
-    return tmp_item
 
-def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = _aminoacis1_to_biopython_Seq(tmp_item, tmp_molecular_system)
+
+    return tmp_item, tmp_molecular_system
+
+def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from .api_aminoacids1_seq import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
-    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = aminoacis1_to_biopython_SeqRecord(tmp_item)
-    return tmp_item
 
-def to_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = aminoacis1_to_biopython_SeqRecord(tmp_item, tmp_molecular_system)
+
+    return tmp_item, tmp_molecular_system
+
+def to_fasta(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from .api_aminoacids1_seq import to_fasta as aminoacids1_to_fasta
-    tmp_item = to_aminoacids1_seq(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    return aminoacis1_to_fasta(tmp_item, output_filename=output_filename)
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = aminoacis1_to_fasta(tmp_item, tmp_molecular_system, output_filename=output_filename)
+
+    return tmp_item, tmp_molecular_system
+
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt import build_peptide
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_molsysmt_MolSys as molsysmt_MolSys_to_molsysmt_MolSys
 
     tmp_item = build_peptide(item, to_form='molsysmt.MolSys')
-    if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item = molsysmt_MolSys_to_molsysmt_MolSys(tmp_item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_molsysmt_MolSys(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    return to_NGLView(item, topology_item=topology_item, trajectory_item=trajectory_item,
-            atom_indices=atom_indices, frame_indices=frame_indices)
+    return to_NGLView(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-def to_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_NGLView(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
 
-    tmp_item = to_molsysmt_MolSys(item, topology_item=topology_item,
-            trajectory_item=trajectory_item, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = molsysmt_MolSys_to_NGLView(tmp_item)
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_NGLView(tmp_item, tmp_molecular_system)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def select_with_MDTraj(item, selection):
 
     raise NotImplementedError()
 
-def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
+def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        if copy_if_all:
+            tmp_item = extract_item(item)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        else:
+            tmp_item = item
+            tmp_molecular_system = molecular_system
+    else:
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         raise NotImplementedError()
     else:
         raise NotImplementedError()
+
+    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

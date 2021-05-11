@@ -17,7 +17,7 @@ has = molecular_system_components.copy()
 for ii in ['box', 'ff_parameters', 'mm_parameters']:
     has[ii]=True
 
-def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Context(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.multitool import convert, get
     from simtk.openmm import Context
@@ -46,10 +46,10 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
     from molsysmt.multitool import convert, get
     from simtk.openmm.app import Simulation
 
-    topology, _ = openmm_System_to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices)
+    topology, _ = openmm_System_to_openmm_Topology(item, molecular_system, atom_indices=atom_indices)
     positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
     positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
-    simulation = openmm_System_to_molsysmt_Simulation(item, molecular_system=molecular_system)
+    simulation, _ = openmm_System_to_molsysmt_Simulation(item, molecular_system)
 
     integrator = simulation.to_openmm_Integrator()
     platform = simulation.to_openmm_Platform()
@@ -66,15 +66,29 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        if copy_if_all:
+            tmp_item = extract_item(item)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        else:
+            tmp_item = item
+            tmp_molecular_system = molecular_system
+    else:
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         tmp_item = item.__copy__()
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         raise NotImplementedError
 
-    return tmp_item, tmp_molecular_system
+    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

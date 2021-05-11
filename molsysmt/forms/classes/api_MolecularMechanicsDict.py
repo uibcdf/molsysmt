@@ -20,7 +20,7 @@ def this_dict_is_MolecularMechanicsDict(item):
 
     return is_molecular_mechanics_dict(item)
 
-def to_molsysmt_MolecularMechanics(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolecularMechanics(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molecular_mechanics import MolecularMechanics as molsysmt_MolecularMechanics
 
@@ -33,13 +33,29 @@ def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError()
 
-def to_MolecularMechanicsDict(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_MolecularMechanicsDict(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        if copy_if_all:
+            tmp_item = extract_item(item)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        else:
+            tmp_item = item
+            tmp_molecular_system = molecular_system
+    else:
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         tmp_item = item.copy()
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         raise NotImplementedError()
+
+    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

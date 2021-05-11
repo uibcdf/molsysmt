@@ -16,73 +16,73 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'coordinates', 'box']:
     has[ii]=True
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_molsysmt_Trajectory as molsysmt_MolSys_to_molsysmt_Trajectory
 
-    tmp_item, tmp_molecular_system =  molsysmt_MolSys_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system =  molsysmt_MolSys_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_XYZ(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_XYZ(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_XYZ as molsysmt_MolSys_to_XYZ
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_XYZ(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_XYZ(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_aminoacids3_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_Topology import to_aminoacids3_seq as molsysmt_topology_to_aminoacids3_seq
 
-    tmp_item, tmp_molecular_system = molsysmt_topology_to_aminoacids3_seq(item.topology, molecular_system=molecular_system, atom_indices=atom_indices)
+    tmp_item, tmp_molecular_system = molsysmt_topology_to_aminoacids3_seq(item.topology, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_Topology import to_aminoacids1_seq as molsysmt_topology_to_aminoacids1_seq
 
-    tmp_item, tmp_molecular_system = molsysmt_topology_to_aminoacids1_seq(item.topology, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_topology_to_aminoacids1_seq(item.topology, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_biopython_Seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_biopython_Seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_Seq as aminoacids1_to_biopython_Seq
 
-    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = aminoacids1_to_biopython_Seq(tmp_item, molecular_system=tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = aminoacids1_to_biopython_Seq(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
 
-    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = aminoacids1_to_biopython_SeqRecord(tmp_item, molecular_system=tmp_molecular_system)
-
-    return tmp_item
-
-def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.molsys.classes import to_mdtraj_Trajectory as molsysmt_MolSys_to_mdtraj_Trajectory
-
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = aminoacids1_to_biopython_SeqRecord(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import to_mdtraj_Trajectory as molsysmt_MolSys_to_mdtraj_Trajectory
+
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_mdtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
 
@@ -90,70 +90,79 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_openmm_Topology as molsysmt_MolSys_to_openmm_Topology
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_openmm_Modeller as molsysmt_MolSys_to_openmm_Modeller
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_Modeller(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_Modeller(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_openmm_System as molsysmt_MolSys_to_openmm_System
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_System(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Context(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_openmm_Context as molsysmt_MolSys_to_openmm_Context
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_Context(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_Context(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_openmm_Simulation as molsysmt_MolSys_to_openmm_Simulation
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_Simulation(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_openmm_Simulation(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.native.io.molsys.files import to_pdb as molsysmt_MolSys_to_pdb
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 
-def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import to_pdbfixer_PDBFixer as molsysmt_MolSys_to_pdbfixer_PDBFixer
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_pdbfixer_PDBFixer(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_pdbfixer_PDBFixer(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_Topology import to_pytraj_Topology as molsysmt_Topology_to_pytraj_Topology
 
-    tmp_item, tmp_molecular_system = to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = molsysmt_Topology_to_pytraj_Topology(tmp_item, molecular_system=tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_Topology_to_pytraj_Topology(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
+
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from nglview import show_molsysmt
+
+    tmp_item = show_molsysmt(item, selection=atom_indices, frame_indices=frame_indices)
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+
+    return tmp_view, tmp_molecular_system
 
 def select_with_MDTraj(item, selection):
 
@@ -167,29 +176,29 @@ def select_with_MolSysMT(item, selection):
 
     return select_Topology_with_MolSysMT(item.topology, selection)
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        tmp_item = item.copy()
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        if copy_if_all:
+            tmp_item = extract_item(item)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        else:
+            tmp_item = item
+            tmp_molecular_system = molecular_system
     else:
-        tmp_item = item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def extract_item(item, atom_indices='all', frame_indices='all'):
 
-    from nglview import show_molsysmt
-
-    tmp_item = show_molsysmt(item, selection=atom_indices, frame_indices=frame_indices)
-
-    if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        tmp_item = item.copy()
     else:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        tmp_item = item.extract(atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return tmp_view, tmp_molecular_system
+    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

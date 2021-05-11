@@ -25,19 +25,37 @@ def to_molsysmt_Simulation(item, molecular_system, atom_indices='all', frame_ind
     from molsysmt.native.simulation import Simulation as molsysmt_Simulation
 
     tmp_item = molsysmt_Simulation(**item)
+    tmp_molecular_system = molecular_system.combine_with_items(item)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 
 def select_with_MolSysMT(item, selection):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
-def to_SimulationDict(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_SimulationDict(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        return item.copy()
+        if copy_if_all:
+            tmp_item = extract_item(item)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        else:
+            tmp_item = item
+            tmp_molecular_system = molecular_system
     else:
-        raise NotImplementedError
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def extract_item(item, atom_indices='all', frame_indices='all'):
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        tmp_item = item.copy()
+    else:
+        raise NotImplementedError()
+
+    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
@@ -45,4 +63,4 @@ def add(item, from_item, atom_indices='all', frame_indices='all'):
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
-    raise NotImplementedError
+    raise NotImplementedError()

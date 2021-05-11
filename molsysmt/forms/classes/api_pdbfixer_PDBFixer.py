@@ -167,12 +167,31 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indices='all', copy=True):
+def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 
-        if copy:
-        patata
+        if copy_if_all:
+
+            tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+
+        else:
+
+            tmp_item = item
+            tmp_molecular_system = molecular_system
+
+    else:
+
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def extract_item(item, atom_indices='all', frame_indices='all'):
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+
         from os import remove
         from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
         from molsysmt._private_tools.pdb import tmp_pdb_filename
@@ -182,6 +201,7 @@ def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indic
         remove(tmp_file)
 
     else:
+
         from simtk.openmm.app import Modeller as openmm_Modeller
         from .api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
         from .api_openmm_Modeller import to_pdbfixer_PDBFixer as openmm_Modeller_to_pdbfixer_PDBFixer
@@ -191,7 +211,8 @@ def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indic
         coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
         tmp_item = openmm_Modeller(tmp_topology, coordinates)
         tmp_item = openmm_Modeller_to_pdbfixer_PDBFixer(tmp_item)
-        return tmp_item
+
+    return tmp_item
 
 def select_with_MDTraj(item, selection):
 

@@ -17,80 +17,62 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'coordinates', 'box']:
     has[ii]=True
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from nglview import show_mdanalisys_universe
 
-    if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    else:
-        tmp_item = item
-        tmp_molecular_system = molecular_system
-
+    tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item = show_mdanalysis_universe(tmp_item)
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, multiframe=False):
+def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, multiframe=False):
 
-    if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    else:
-        tmp_item = item
-        tmp_molecular_system = molecular_system
-
+    tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item.atoms.write(output_filename, multiframe=multiframe)
+    tmp_item = output_filename
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
-    return output_filename, tmp_molecular_system
+    return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Trajectory (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory (item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.pdb import tmp_pdb_filename
     from molsysmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
     from os import remove
 
-    if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    else:
-        tmp_item = item
-        tmp_molecular_system = molecular_system
+    tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     tmp_file = tmp_pdb_filename()
     to_pdb(tmp_item=item, output_filename=tmp_file)
     tmp_item=pdb_to_mdtraj_Trajectory(tmp_file)
     remove(tmp_file)
+    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_MolSys (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys (item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import from_mdanalysis_Universe as molsysmt_MolSys_from_mdanalysis_Universe
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_from_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_from_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_MolSys (item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.molsys.classes import from_mdanalysis_Universe as molsysmt_MolSys_from_mdanalysis_Universe
-
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_from_mdanalysis_Universe(item, molecular_system=None, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_molsysmt_Topology (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology (item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_mdanalysis_Universe as molsysmt_Topology_from_mdanalysis_Universe
 
-    tmp_item, tmp_molecular_system = molsysmt_Topology_from_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_Topology_from_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Trajectory (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory (item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.classes import from_mdanalysis_Universe as molsysmt_Trajectory_from_mdanalysis_Universe
 
-    tmp_item, tmp_molecular_system = molsysmt_Trajectory_from_mdanalysis_Universe(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_Trajectory_from_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -116,12 +98,29 @@ def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
-def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError()
+        if copy_if_all:
+            tmp_item = extract_item(item)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        else:
+            tmp_item = item
+            tmp_molecular_system = molecular_system
     else:
-        raise NotImplementedError()
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def extract_item(item, atom_indices='all', frame_indices='all'):
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        raise NotImplementedError
+    else:
+        raise NotImplementedError
+
+    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
