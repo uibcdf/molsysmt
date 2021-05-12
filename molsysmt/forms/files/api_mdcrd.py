@@ -49,19 +49,7 @@ def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item
 
-def select_with_MDTraj(item, selection):
-
-    return NotImplementedError
-
-def select_with_MDTraj(item, selection):
-
-    return NotImplementedError
-
-def select_with_MolSysMT(item, selection):
-
-    return NotImplementedError
-
-def to_mdcrd(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
+def to_mdcrd(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:

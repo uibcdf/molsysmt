@@ -29,10 +29,6 @@ def to_molsysmt_MolecularMechanics(item, molecular_system, atom_indices='all', f
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError()
-
 def to_MolecularMechanicsDict(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

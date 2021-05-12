@@ -38,13 +38,13 @@ def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
 def to_mdtraj_Trajectory (item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt._private_tools.pdb import tmp_pdb_filename
+    from molsysmt._private_tools.files_and_directories import tmp_filename
     from molsysmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
     from os import remove
 
     tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
-    tmp_file = tmp_pdb_filename()
+    tmp_file = tmp_filename(extension='pdb')
     to_pdb(tmp_item=item, output_filename=tmp_file)
     tmp_item=pdb_to_mdtraj_Trajectory(tmp_file)
     remove(tmp_file)
@@ -75,28 +75,6 @@ def to_molsysmt_Trajectory (item, molecular_system, atom_indices='all', frame_in
     tmp_item, tmp_molecular_system = molsysmt_Trajectory_from_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
-
-def select_with_Amber(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDAnalysis(item, selection):
-
-    tmp_atomgroup=item.select_atoms(selection)
-    tmp_sel = tmp_atomgroup.atoms.ids
-    del(tmp_atomgroup)
-
-    return tmp_sel
-
-def select_with_MDTraj(item, selection):
-
-    tmp_form=to_mdtraj(item,multiframe=True)
-
-    return tmp_form.topology.select(selection)
-
-def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError
 
 def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 

@@ -57,40 +57,24 @@ def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_ind
 
     return tmp_item, tmp_molecular_system
 
-def select_with_Amber(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDAnalysis(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError
-
-def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
+        raise NotImplementedError()
 
 def extract_item(item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 ###### Get
 

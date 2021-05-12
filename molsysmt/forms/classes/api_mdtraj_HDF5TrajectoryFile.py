@@ -17,22 +17,6 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'coordinates', 'box']:
     has[ii]=True
 
-def select_with_Amber(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDAnalysis(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError
-
 def to_mdtraj_HDF5TrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

@@ -29,22 +29,6 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def select_with_Amber(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDAnalysis(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError
-
 def to_mdtraj_PDBTrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
@@ -69,9 +53,13 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError()
+
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 #### Get
 

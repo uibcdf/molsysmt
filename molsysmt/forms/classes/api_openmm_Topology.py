@@ -138,6 +138,20 @@ def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
     return tmp_item, tmp_molecular_system
 
+def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.files.api_pdb import to_openmm_PDBFile as pdb_to_openmm_PDBFile
+    from molsysmt._private_tools.files_and_directories import tmp_filename
+    from os import remove
+
+    tmp_file = tmp_filename(extension='pdb')
+    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=tmp_file)
+    tmp_item, tmp_molecular_system = pdb_to_openmm_PDBFile(tmp_item, tmp_molecular_system)
+
+    remove(tmp_file)
+
+    return tmp_item, tmp_molecular_system
+
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     if molecular_system.trajectory_item is None:
@@ -213,25 +227,6 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
         tmp_item = new_item
 
     return tmp_item
-
-def select_with_Amber(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDAnalysis(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDTraj(item, selection):
-
-    tmp_item = to_mdtraj_Topology(item, selection='all', syntaxis='MDTraj')
-    return tmp_item.select(selection)
-
-def select_with_MolSysMT(item, selection):
-
-    from .api_molsysmt_Topology import select_with_MolSysMT as select_molsysmt_Topology_with_MolSysMT
-    tmp_item = to_molsysmt_Topology(item)
-    return select_molsysmt_Topology_with_MolSysMT(tmp_item, selection)
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

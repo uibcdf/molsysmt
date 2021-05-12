@@ -82,10 +82,6 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError
-
 def to_mmtf_id(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

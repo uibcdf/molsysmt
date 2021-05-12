@@ -34,7 +34,7 @@ def to_mdtraj_XTCTrajectoryFile(item, molecular_system, atom_indices='all', fram
 
     return tmp_item, tmp_molecular_system
 
-def to_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
+def to_xtc(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:

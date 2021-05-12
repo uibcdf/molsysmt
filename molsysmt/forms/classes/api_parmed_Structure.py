@@ -89,20 +89,6 @@ def to_mol2(item, molecular_system, atom_indices='all', frame_indices='all', out
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MDTraj(item, selection):
-
-    tmp_form=to_mdtraj(item)
-    tmp_sel=tmp_form.topology.select(selection)
-    del(tmp_form)
-    return tmp_sel
-
-def select_with_ParmEd(item, selection):
-
-    from parmed.amber import AmberMask as _AmberMask
-    tmp_sel = list(_AmberMask(item,selection).Selected())
-    del(_AmberMask)
-    return tmp_sel
-
 def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

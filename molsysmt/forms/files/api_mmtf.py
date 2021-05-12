@@ -85,22 +85,6 @@ def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MDAnalysis(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDTraj(item, selection):
-
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import select_with_MDTraj as select_mmtf_MMTFDecoder_with_MDTraj
-    tmp_item = to_mmtf_MMTFDecoder(item)
-    return select_mmtf_MMTFDecoder_with_MDTraj(tmp_item, selection)
-
-def select_with_MolSysMT(item, selection):
-
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import select_with_MolSysMT as select_mmtf_MMTFDecoder_with_MolSysMT
-    tmp_item = to_mmtf_MMTFDecoder(item)
-    return select_mmtf_MMTFDecoder_with_MolSysMT(tmp_item, selection)
-
 def to_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=False):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

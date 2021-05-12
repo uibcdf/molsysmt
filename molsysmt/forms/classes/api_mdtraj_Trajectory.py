@@ -84,7 +84,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
     from molsysmt.forms.classes.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item=item.topology
-    tmp_molecular_system = molecular_system.combined_with_items(tmp_item)
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
@@ -125,10 +125,10 @@ def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indice
 def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.files.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
-    from molsysmt._private_tools.pdb import tmp_pdb_filename
+    from molsysmt._private_tools.files_and_directories import tmp_filename
     from os import remove as remove
 
-    tmp_file = tmp_pdb_filename()
+    tmp_file = tmp_filename(extension='pdb')
     tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item, tmp_molecular_system = pdb_to_pdbfixer_PDBFixer(tmp_item, tmp_molecular_system)
     remove(tmp_file)
@@ -162,24 +162,6 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indic
     tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_view, tmp_molecular_system
-
-def select_with_Amber(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDAnalysis(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDTraj(item, selection):
-
-    return item.topology.select(selection)
-
-def select_with_MolSysMT(item, selection):
-
-    from .api_mdtraj_Topology import select_with_Pandas as topology_select_with_Pandas
-
-    return topology_select_with_Pandas(item.topology, selection)
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 

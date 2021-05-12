@@ -1,6 +1,6 @@
 from importlib import import_module
 import os
-from molsysmt.forms.loader import api_to_be_loaded, converts_to_be_loaded, selects_to_be_loaded, modules_detected
+from molsysmt.forms.loader import api_to_be_loaded, converts_to_be_loaded, modules_detected
 
 types = ['class', 'file', 'id', 'seq', 'viewer']
 forms = []
@@ -11,10 +11,10 @@ dict_info = {}
 dict_add = {}
 dict_append_frames = {}
 dict_convert = {}
-dict_select = {}
 dict_get = {}
 dict_set = {}
 dict_has = {}
+dict_extract_item = {}
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -37,11 +37,11 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
             dict_info[form_name]=mod.info
             dict_add[form_name]=mod.add
             dict_append_frames[form_name]=mod.append_frames
+            dict_extract_item[form_name]=mod.extract_item
 
             dict_has[form_name]= mod.has
 
             dict_convert[form_name]= {}
-            dict_select[form_name]= {}
             dict_get[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{},
                                   'entity':{}, 'system':{}, 'bond':{}}
             dict_set[form_name]= {'atom':{}, 'group':{}, 'component':{}, 'molecule':{}, 'chain':{},
@@ -57,10 +57,6 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
                         else:
                             out_form_name=method.replace('to_','').replace('_','.')
                         dict_convert[form_name][out_form_name]= getattr(mod, method)
-                if method.startswith('select_with_'):
-                    if selects_to_be_loaded[api_name][method]:
-                        syntaxis_name=method.replace('select_with_','')
-                        dict_select[form_name][syntaxis_name]= getattr(mod, method)
                 if method.startswith('get_'):
                     option, target = method[4:].split('_from_')
                     dict_get[form_name][target][option]=getattr(mod, method)

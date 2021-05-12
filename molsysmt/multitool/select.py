@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt.forms import dict_get, dict_select
+from molsysmt.forms import dict_get
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.selection import selection_is_all
 from molsysmt._private_tools.lists_and_tuples import list_to_csv_string
@@ -23,7 +23,19 @@ def select_standard(molecular_system, selection, syntaxis):
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
             selection = digest_selection(selection, syntaxis)
-            atom_indices = dict_select[molecular_system.elements_form][syntaxis](molecular_system.elements_item, selection)
+            if syntaxis=='MolSysMT':
+                atom_indices = select_with_MolSysMT(molecular_system.elements_item, selection)
+            elif syntaxis=='MDTraj':
+                atom_indices = select_with_MDTraj(molecular_system.elements_item, selection)
+            elif syntaxis=='Amber':
+                atom_indices = select_with_Amber(molecular_system.elements_item, selection)
+            elif syntaxis=='ParmEd':
+                atom_indices = select_with_ParmEd(molecular_system.elements_item, selection)
+            elif syntaxis=='MDAnalysis':
+                atom_indices = select_with_MDAnalysis(molecular_system.elements_item, selection)
+            else:
+                raise NotImplementedSyntaxisError()
+
     elif type(selection) in [int, np.int64, np.int]:
         atom_indices = np.array([selection], dtype='int64')
     elif type(selection)==set:
@@ -200,4 +212,80 @@ def selection_with_special_subsentences(selection):
             break
 
     return output
+
+def select_with_MDTraj(item, selection):
+
+    from molsysmt import convert, get_form
+
+    form_in = get_form(item)
+
+    if form_in == 'mdtraj.Topology':
+        tmp_item = item
+    else:
+        tmp_item = convert(item, to_form='mdtraj.Topology')
+
+    atom_indices = tmp_item.select(selection)
+
+    return atom_indices
+
+def select_with_MDAnalysis(item, selection):
+
+    from molsysmt import convert, get_form
+
+    form_in = get_form(item)
+
+    if form_in == 'mdanalysis.Topology':
+        tmp_item = item
+    else:
+        tmp_item = convert(item, to_form='mdanalysis.Topology')
+
+    tmp_atomgroup = tmp_item.select_atoms(selection)
+    atom_indices = tmp_atomgroup.atoms.ids
+    del(tmp_atomgroup)
+
+    return atom_indices
+
+def select_with_MolSysMT(item, selection):
+
+    from molsysmt import convert, get_form
+    from molsysmt.native.selector import elements_select
+
+    form_in = get_form(item)
+
+    if form_in == 'molsysmt.Topology':
+        tmp_item = item
+    else:
+        tmp_item = convert(item, to_form='molsysmt.Topology')
+
+    atom_indices = elements_select(tmp_item.atoms_dataframe, selection)
+
+    return atom_indices
+
+def select_with_ParmEd(item, selection):
+
+    from molsysmt import convert, get_form
+    from parmed.amber import AmberMask as _AmberMask
+
+    form_in = get_form(item)
+
+    if form_in == 'parmed.Structure':
+        tmp_item = item
+    else:
+        tmp_item = convert(item, to_form='parmed.Structure')
+
+    atom_indices = list(_AmberMask(item,selection).Selected())
+    del(_AmberMask)
+
+    return tmp_atom_indices
+
+def select_with_Amber(item, selection):
+
+    from molsysmt import convert, get_form
+
+    if form_in == 'pytraj.Topology':
+        tmp_item = item
+    else:
+        tmp_item = convert(item, to_form='pytraj.Topology')
+
+    raise NotImplementedError()
 

@@ -2,55 +2,55 @@
 
 - [X] Get_form
 - [X] Info
-- [X] Convert
-- [X] Info forms
-- [X] Molecular Systems, Items and Forms
-- [X] Get
+- [] Convert
+- [] Info forms
+- [] Molecular Systems, Items and Forms
+- [] Get
 - [] Selection
-- [X] Copy
-- [X] Extract
-- [X] Remove
-- [X] Set
+- [] Copy
+- [] Extract
+- [] Remove
+- [] Set
 
-- [X] Build_peptide
-- [X] Geometrical Transformations
+- [] Build_peptide
+- [] Geometrical Transformations
 
-- [X] View
-- [X] Append_Concatenate
-- [X] Add_Merge
+- [] View
+- [] Append_Concatenate
+- [] Add_Merge
 
-- [X] Centers
-- [X] Distances
+- [] Centers
+- [] Distances
 
-- [X] Bondgraph
-- [X] Covalent_chains
-- [X] Dihedral_angles
+- [] Bondgraph
+- [] Covalent_chains
+- [] Dihedral_angles
 
-- [X] ForceFields
-- [X] Molecular Systems
-- [X] Molecular_Mechanics
-- [X] Simulation
+- [] ForceFields
+- [] Molecular Systems
+- [] Molecular_Mechanics
+- [] Simulation
 
-- [X] Protonation
-- [X] Physico chemical properties
-- [X] Terminal Capping
-- [X] Solvation
-- [X] Potential Energy and Energy Minimization
+- [] Protonation
+- [] Physico chemical properties
+- [] Terminal Capping
+- [] Solvation
+- [] Potential Energy and Energy Minimization
 
-- [X] SASA
-- [X] RMSD
+- [] SASA
+- [] RMSD
 
-- [ ] PBC
-- [ ] Rg
+- [] PBC
+- [] Rg
 
-- [ ] Alignment
-- [ ] Model loop
-- [ ] Mutations
+- [] Alignment
+- [] Model loop
+- [] Mutations
 
-- [ ] Working with OpenMM
+- [] Working with OpenMM
 
-- [ ] Quickstart
+- [] Quickstart
 
 -------
 ## Attic
-- [ ] Fix
+- [] Fix

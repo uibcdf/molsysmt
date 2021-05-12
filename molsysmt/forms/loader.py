@@ -11,19 +11,17 @@ api_module = {}
 api_type = {}
 api_dependencies = {}
 api_convert = {}
-api_select = {}
+api_extract_item = {}
 
 modules_required = set()
 modules_detected = {}
 api_to_be_loaded = {}
 converts_to_be_loaded = {}
-selects_to_be_loaded = {}
 
 def parser_api(filepath):
 
     dependencies = set()
     convert = []
-    select = []
 
     inside_def = None
 
@@ -39,8 +37,6 @@ def parser_api(filepath):
                 inside_def = line.split(' ')[1].split('(')[0]
                 if inside_def.startswith('to_'):
                     convert.append(inside_def)
-                elif inside_def.startswith('select_with_'):
-                    select.append(inside_def)
 
             if line.startswith('from ') or line.startswith('import '):
                 module_required = line.split(' ')[1]
@@ -56,7 +52,7 @@ def parser_api(filepath):
 
     dependencies = tmp_dependencies
 
-    return form_name, dependencies, convert, select
+    return form_name, dependencies, convert
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -67,7 +63,7 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
 
     for api in list_apis:
 
-        form_name, dependencies, convert, select = parser_api(os.path.join(type_dir, api+'.py'))
+        form_name, dependencies, convert = parser_api(os.path.join(type_dir, api+'.py'))
 
         api_form_name[api] = form_name
         api_type[api] = typename
@@ -75,7 +71,6 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
         api_dependencies[api] = dependencies - modules_already
         modules_required.update(api_dependencies[api])
         api_convert[api] = convert
-        api_select[api] = select
 
 # modules detected:
 modules_detected = {ii: find_spec(ii) is not None for ii in modules_required}
@@ -91,6 +86,7 @@ for api in api_form_name:
 
 #print(api_to_be_loaded)
 
+
 ### converts to be loaded:
 for api in api_to_be_loaded:
     if api_to_be_loaded[api]:
@@ -105,18 +101,3 @@ for api in api_to_be_loaded:
 
 #print(converts_to_be_loaded)
 
-### selects to be loaded:
-for api in api_to_be_loaded:
-    if api_to_be_loaded[api]:
-        selects_to_be_loaded[api] = {}
-        for method in api_select[api]:
-            engine = method[12:].lower()
-            goes = True
-            if engine!='molsysmt':
-                if engine in modules_detected:
-                    goes = modules_detected[engine]
-                else:
-                    goes = False
-            selects_to_be_loaded[api][method]=goes
-
-#print(selects_to_be_loaded)

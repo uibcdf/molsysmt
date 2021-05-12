@@ -214,17 +214,6 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def select_with_MDTraj(item, selection):
-
-    tmp_item = to_mdtraj_Topology(item, selection='all', syntaxis='MDTraj')
-    return tmp_item.select(selection)
-
-def select_with_MolSysMT(item, selection):
-
-    from .api_molsysmt_Topology import select_with_MolSysMT as select_molsysmt_Topology_with_MolSysMT
-    tmp_item = to_molsysmt_Topology(item)
-    return select_molsysmt_Topology_with_MolSysMT(tmp_item, selection)
-
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError

@@ -215,14 +215,7 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MDTraj(item, selection):
-
-    tmp_form=to_mdtraj(item)
-    tmp_sel=tmp_form.topology.select(selection)
-    del(tmp_form)
-    return tmp_sel
-
-def to_pdb_id(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pdb_id(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:

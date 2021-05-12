@@ -94,14 +94,6 @@ def to_openmm_AmberInpcrdFile(item, molecular_system, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError()
-
-def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError()
-
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError()

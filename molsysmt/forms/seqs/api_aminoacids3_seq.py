@@ -18,7 +18,7 @@ for ii in ['elements']:
 
 ### Corresponde al formato IUPAC extended protein que aparece en Biopython
 
-def to_aminoacids1_seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from Bio.SeqUtils import seq1
 
@@ -78,10 +78,6 @@ def to_NGLView(item, molecular_system, atom_indices='all', frame_indices='all'):
     tmp_item, tmp_molecular_system = molsysmt_MolSys_to_NGLView(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
-
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError()
 
 def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 

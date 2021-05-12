@@ -30,7 +30,7 @@ def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices
 
     from molsysmt.forms.seqs.api_aminoacids3_seq import to_aminoacids1_seq as aminoacids3_to_aminoacids1
 
-    tmp_item, tmp_molecular_system = to_aminoacids3_seq(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_aminoacids3_seq(item, molecular_system)
     tmp_item, tmp_molecular_system = aminoacids3_to_aminoacids1(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
@@ -77,27 +77,7 @@ def to_top(item, molecular_system, atom_indices='all', frame_indices='all'):
     tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item, tmp_molecular_system = parmed_GromacsTopologyFile_to_top(tmp_item, tmp_molecular_system, output_filename=output_filename)
 
-def select_with_MDTraj(item, selection):
-
-    return item.select(selection)
-
-def select_with_MolSysMT(item, selection):
-
-    from molsysmt.native.selector import dataframe_select
-    tmp_item = to_pandas_DataFrame(item)
-    atom_indices = dataframe_select(tmp_item, selection)
-    del(tmp_item)
-    return atom_indices
-
-def select_with_Amber(item, selection):
-
-    raise NotImplementedError()
-
-def select_with_MDAnalysis(item, selection):
-
-    raise NotImplementedError()
-
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:

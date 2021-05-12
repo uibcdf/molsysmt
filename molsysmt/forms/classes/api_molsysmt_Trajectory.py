@@ -52,11 +52,6 @@ def to_top(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MDTraj(item, selection):
-
-    from .api_mdtraj_Topology import select_with_MDTraj as _select_with_MDTraj
-    return _select_with_MDTraj(item.topology_mdtraj,selection)
-
 def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

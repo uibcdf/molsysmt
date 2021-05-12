@@ -54,20 +54,6 @@ def to_top(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MDTraj(item, selection):
-
-    tmp_form=to_mdtraj_Topology(item)
-    tmp_sel=tmp_form.select(selection)
-    del(tmp_form)
-    return tmp_sel
-
-def select_with_ParmEd(item, selection):
-
-    from parmed.amber import AmberMask as _AmberMask
-    tmp_sel = list(_AmberMask(item,selection).Selected())
-    del(_AmberMask)
-    return tmp_sel
-
 def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

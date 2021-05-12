@@ -155,7 +155,7 @@ def to_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from nglview import show_molsysmt
 
@@ -164,19 +164,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_view, tmp_molecular_system
 
-def select_with_MDTraj(item, selection):
-
-    from .api_molsysmt_Topology import select_with_MDTraj as select_Topology_with_MDTraj
-
-    return select_Topology_with_MDTraj(item.topology, selection)
-
-def select_with_MolSysMT(item, selection):
-
-    from .api_molsysmt_Topology import select_with_MolSysMT as select_Topology_with_MolSysMT
-
-    return select_Topology_with_MolSysMT(item.topology, selection)
-
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:

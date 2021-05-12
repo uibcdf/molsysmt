@@ -35,7 +35,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     tmp_item = item.createSystem()
     tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
@@ -66,14 +66,6 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
         raise NotImplementedError()
 
     return tmp_item
-
-def select_with_MolSysMT(item, selection):
-
-    from molsysmt.native.selector import _select
-
-    tmp_item = to_molsysmt_Topology(item)
-    atom_indices = _select(tmp_item, selection)
-    return atom_indices
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

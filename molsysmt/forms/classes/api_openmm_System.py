@@ -41,7 +41,7 @@ def to_openmm_Context(item, molecular_system, atom_indices='all', frame_indices=
 
     return tmp_item, tmp_molecular_simulation
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.multitool import convert, get
     from simtk.openmm.app import Simulation

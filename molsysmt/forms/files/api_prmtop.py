@@ -120,7 +120,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Modeller as openmm_Topology_to_openmm_Modeller
 
@@ -129,7 +129,7 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
@@ -137,17 +137,6 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
     tmp_item, tmp_molecular_system = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
-
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MolSysMT(item, selection):
-
-    from molsysmt.forms.classes.api_molsysmt_DataFrame import select_with_MolSysMT as select_molsysmt_DataFrame_with_MolSysMT
-    tmp_item = to_molsysmt_DataFrame(item)
-    atom_indices=select_molsysmt_DataFrame_with_MolSysMT(tmp_item, selection)
-    return atom_indices
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

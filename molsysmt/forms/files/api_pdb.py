@@ -231,7 +231,7 @@ def to_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from nglview import show_file
     from os import remove
@@ -247,21 +247,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MDTraj(item, selection):
-
-    from mdtraj import load_topology as _dtraj_load_topology
-    tmp_item = mdtraj_load_topology(item)
-    tmp_sel = tmp_item.select(selection)
-    del(tmp_item)
-    return tmp_sel
-
-def select_with_MolSysMT(item, selection):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import select_with_MolSysMT as select_openmm_PDBFile_with_MolSysMT
-    tmp_item = to_openmm_PDBFile(item)
-    return select_openmm_PDBFile_with_MolSysMT(tmp_item, selection)
-
-def to_pdb(item, molecular_system=None, output_filename=None, atom_indices='all', frame_indices='all'):
+def to_pdb(item, molecular_system, output_filename=None, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:

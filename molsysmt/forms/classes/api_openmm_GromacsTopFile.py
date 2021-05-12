@@ -50,14 +50,6 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def select_with_MolSysMT(item, selection):
-
-    from molsysmt.native.selector import _select
-
-    tmp_item = to_molsysmt_Topology(item)
-    atom_indices = _select(tmp_item, selection)
-    return atom_indices
-
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError

@@ -10,5 +10,5 @@ def from_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indi
     tmp_item.trajectory, _ = molsysmt_Trajectory_from_mmtf_MMTFDecoder(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 

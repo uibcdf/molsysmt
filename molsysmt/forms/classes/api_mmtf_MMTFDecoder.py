@@ -70,24 +70,6 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item
 
-def select_with_Amber(item, selection):
-
-    raise NotImplementedError()
-
-def select_with_MDAnalysis(item, selection):
-
-    raise NotImplementedError()
-
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError()
-
-def select_with_MolSysMT(item, selection):
-
-    from .api_molsysmt_Topology import select_with_MolSysMT as select_Topology_with_MolSysMT
-    tmp_item = to_molsysmt_Topology(item)
-    return select_Topology_with_MolSysMT(tmp_item, selection)
-
 def to_mmtf_MMTFDecoder(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

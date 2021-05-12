@@ -77,16 +77,6 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MolSysMT(item, selection):
-
-    from molsysmt.native.selector import elements_select
-    atom_indices = elements_select(item.atoms_dataframe, selection)
-    return atom_indices
-
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError

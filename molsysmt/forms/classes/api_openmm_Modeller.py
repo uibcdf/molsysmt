@@ -151,11 +151,6 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MDTraj(item, selection):
-
-    tmp_item = to_mdtraj_Topology(item)
-    return tmp_item.select(selection)
-
 def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

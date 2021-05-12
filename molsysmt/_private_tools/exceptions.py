@@ -48,6 +48,13 @@ class NotImplementedFormError(NotImplementedError):
 In this last case, Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
         super().__init__(message)
 
+class NotImplementedSyntaxisError(NotImplementedError):
+    def __init__(self, message=None):
+        if message is None:
+            message = 'Either this selection syntaxis is misspelled or it has not been implemented yet. \
+In this last case, Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
+        super().__init__(message)
+
 class LibraryNotFound(NotImplementedError):
     def __init__(self, library):
         message = 'The python library {} was not found.'.format(library)

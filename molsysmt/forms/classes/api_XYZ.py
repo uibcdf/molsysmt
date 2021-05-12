@@ -83,10 +83,6 @@ def to_xyznpy(item, molecular_system, atom_indices='all', frame_indices='all', o
 
     return tmp_item, tmp_molecular_system
 
-def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError()
-
 def to_XYZ(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
@@ -105,9 +101,10 @@ def to_XYZ(item, molecular_system, atom_indices='all', frame_indices='all', copy
 def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError()
+        from copy import copy
+        tmp_item = copy(item)
     else:
-        raise NotImplementedError()
+        tmp_item = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 

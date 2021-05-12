@@ -1,11 +1,9 @@
 
-def from_openexplorer_Explorer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_openexplorer_Explorer(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from .openmm_Context import from_openmm_Context as molsysmt_Trajectory_from_openmm_Context
-    from molsysmt.forms.classes.api_openexplorer_Explorer import to_openmm_Context as openexplorer_Explorer_to_openmm_Context
+    from molsysmt.forms.classes.api_openexplorer_Explorer import to_molsyst_Trajectory as openexplorer_Explorer_to_molsysmt_Trajectory
 
-    tmp_item = openexplorer_Explorer_to_openmm_Context(item)
-    tmp_item = molsysmt_Trajectory_from_openmm_Context(tmp_item)
+    tmp_item, tmp_molecular_system = openexplorer_Explorer_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
-    return tmp_item
+    return tmp_item, tmp_molecular_system
 

@@ -133,7 +133,7 @@ def to_openmm_GromacsGroFile(item, molecular_system, atom_indices='all', frame_i
     from molsysmt.forms.classes.api_openmm_GromacsGroFile import to_openmm_GromacsGroFile as openmm_GromacsGroFile_to_openmm_GromacsGroFile
 
     tmp_item = GromacsGroFile(item)
-    tmp_molecular_system = molecular_system.combine_with_items=tmp_item)
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     tmp_item, tmp_molecular_system = openmm_GromacsGroFile_to_openmm_GromacsGroFile(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
@@ -146,14 +146,6 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indic
     tmp_item, tmp_molecular_system = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
-
-def select_with_MDTraj(item, selection):
-
-    from mdtraj import load_topology as _dtraj_load_topology
-    tmp_item = mdtraj_load_topology(item)
-    tmp_sel = tmp_item.select(selection)
-    del(tmp_item)
-    return tmp_sel
 
 def to_gro(item, atom_indices='all', frame_indices='all'):
 

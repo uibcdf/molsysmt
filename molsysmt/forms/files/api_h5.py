@@ -98,7 +98,7 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_h5(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
+def to_h5(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:

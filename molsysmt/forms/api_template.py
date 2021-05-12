@@ -19,50 +19,38 @@ with_parameters=False     # The form has the possibility to store forcefield par
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def to_nglview_NGLView(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
-
-def select_with_Amber(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDAnalysis(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MDTraj(item, selection):
-
-    raise NotImplementedError
-
-def select_with_MolSysMT(item, selection):
-
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def to_template_form(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError
+        raise NotImplementedError()
     else:
-        raise NotImplementedError
+        raise NotImplementedError()
 
-def add(item, list_items, list_atom_indices, list_frame_indices):
+def extract_item(item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
+
+def add(item, from_item, atom_indices='all', frame_indices='all'):
+
+    raise NotImplementedError()
 
 def append_frames(item, list_items, list_atom_indices, list_frame_indices):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 ###### Get
 
@@ -70,19 +58,19 @@ def append_frames(item, list_items, list_atom_indices, list_frame_indices):
 
 def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
@@ -91,7 +79,7 @@ def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
@@ -105,18 +93,18 @@ def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
 def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
         return get_n_inner_bonds_from_system (item)
     else:
-        raise NotImplementedError
+        raise NotImplementedError()
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
@@ -131,15 +119,15 @@ def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
 def get_group_id_from_group(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_group_name_from_group(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_group_type_from_group(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 ## component
 
@@ -179,15 +167,15 @@ def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
 
 def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 ## entity
 
@@ -210,11 +198,11 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
@@ -223,7 +211,7 @@ def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
@@ -237,65 +225,65 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 ## bond
 
 def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 ###### Set
 
 def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 
 def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
 
-    raise NotImplementedError
+    raise NotImplementedError()
 

@@ -19,6 +19,30 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'coordinates', 'box']:
     has[ii]=True
 
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.topology.classes import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_Topology
+
+    tmp_item, tmp_molecular_system = openmm_PDBFile_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.trajectory.classes import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_Trajectory
+
+    tmp_item, tmp_molecular_system = openmm_PDBFile_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_MolSys
+
+    tmp_item, tmp_molecular_system = openmm_PDBFile_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     import simtk.unit as _unit
@@ -51,7 +75,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mdtraj_Trajectory import to_nglview_NGLWidget as mdtraj_Trajectory_to_nglview_NGLWidget
 
@@ -78,18 +102,16 @@ def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices=
 def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError()
+        from copy import copy
+        tmp_item = copy(item)
     else:
-        raise NotImplementedError()
+        from molsysmt.forms.classes.api_openmm_Topology import extract_item as extract_openmm_Topology
+        from molsysmt import convert
+        topology = item.topology
+        coordinates = get_coordinates_from_atom(item)
+        tmp_item = convert([topology, coordinates], selection=atom_indices, frame_indices=frame_indices, to_form='openmm.PDBFile')
 
     return tmp_item
-
-def select_with_MolSysMT(item, selection):
-
-    from .api_openmm_Topology import select_with_MolSysMT as select_openmm_Topology_with_MolSysMT
-
-    tmp_item = to_openmm_Topology(item)
-    return select_openmm_Topology_with_MolSysMT(tmp_item, selection)
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 

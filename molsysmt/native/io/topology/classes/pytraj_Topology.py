@@ -1,4 +1,4 @@
-def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from pytraj import Topology
     from pytraj import Atom as pytraj_atom, Residue as pytraj_residue
@@ -67,10 +67,12 @@ def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
     bonds = np.column_stack(bonds_atom1, bonds_atom2)
     tmp_item.add_bonds(bonds)
 
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
     return tmp_item
 
 
-def from_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import Topology
     import numpy as np
@@ -171,5 +173,7 @@ def from_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_
 
     tmp_item._nan_to_None()
 
-    return tmp_item
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 

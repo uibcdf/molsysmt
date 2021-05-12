@@ -68,12 +68,6 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def select_with_MolSysMT(item, selection):
-
-    from molsysmt.forms.classes.api_openmm_PDBFile import select_with_MolSysMT as select_openmm_PDBFile_with_MolSysMT
-    tmp_item = to_openmm_PDBFile(item)
-    return select_openmm_PDBFile_with_MolSysMT(tmp_item, selection)
-
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError

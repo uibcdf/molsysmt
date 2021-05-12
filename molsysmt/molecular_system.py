@@ -1,6 +1,7 @@
 from molsysmt.tools.molecular_systems import *
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools.exceptions import *
+from molsysmt.forms import dict_extract_item
 
 molecular_system_components = {
 
@@ -107,7 +108,7 @@ class MolecularSystem():
 
         return items, forms
 
-    def combine_with_items(self, items):
+    def combine_with_items(self, items, atom_indices='all', frame_indices='all'):
 
         if not is_list_or_tuple(items):
             items = [items]
@@ -118,58 +119,94 @@ class MolecularSystem():
 
 
         if tmp_molecular_system.elements_item is None and self.elements_item is not None:
-            tmp_items = items+[self.elements_item]
+            aux_item = self.elements_item
+            aux_form = self.elements_form
+            if (atom_indices is not 'all') or (frame_indices is not 'all'):
+                aux_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_items = items+[aux_item]
             if is_a_single_molecular_system(tmp_items):
-                tmp_molecular_system.elements_item = self.elements_item
-                tmp_molecular_system.elements_form = self.elements_form
+                tmp_molecular_system.elements_item = aux_item
+                tmp_molecular_system.elements_form = aux_form
 
         if tmp_molecular_system.bonds_item is None and self.bonds_item is not None:
-            tmp_items = items+[self.bonds_item]
+            aux_item = self.bonds_item
+            aux_form = self.bonds_form
+            if (atom_indices is not 'all') or (frame_indices is not 'all'):
+                aux_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_items = items+[aux_item]
             if is_a_single_molecular_system(tmp_items):
-                tmp_molecular_system.bonds_item = self.bonds_item
-                tmp_molecular_system.bonds_form = self.bonds_form
+                tmp_molecular_system.bonds_item = aux_item
+                tmp_molecular_system.bonds_form = aux_form
 
         if tmp_molecular_system.coordinates_item is None and self.coordinates_item is not None:
-            tmp_items = items+[self.coordinates_item]
+            aux_item = self.coordinates_item
+            aux_form = self.coordinates_form
+            if (atom_indices is not 'all') or (frame_indices is not 'all'):
+                aux_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_items = items+[aux_item]
             if is_a_single_molecular_system(tmp_items):
-                tmp_molecular_system.coordinates_item = self.coordinates_item
-                tmp_molecular_system.coordinates_form = self.coordinates_form
+                tmp_molecular_system.coordinates_item = aux_item
+                tmp_molecular_system.coordinates_form = aux_form
 
         if tmp_molecular_system.velocities_item is None and self.velocities_item is not None:
-            tmp_items = items+[self.velocities_item]
+            aux_item = self.velocities_item
+            aux_form = self.velocities_form
+            if (atom_indices is not 'all') or (frame_indices is not 'all'):
+                aux_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_items = items+[aux_item]
             if is_a_single_molecular_system(tmp_items):
-                tmp_molecular_system.velocities_item = self.velocities_item
-                tmp_molecular_system.velocities_form = self.velocities_form
+                tmp_molecular_system.velocities_item = aux_item
+                tmp_molecular_system.velocities_form = aux_form
 
         if tmp_molecular_system.box_item is None and self.box_item is not None:
-            tmp_items = items+[self.box_item]
+            aux_item = self.box_item
+            aux_form = self.box_form
+            if (atom_indices is not 'all') or (frame_indices is not 'all'):
+                aux_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_items = items+[aux_item]
             if is_a_single_molecular_system(tmp_items):
-                tmp_molecular_system.box_item = self.box_item
-                tmp_molecular_system.box_form = self.box_form
+                tmp_molecular_system.box_item = aux_item
+                tmp_molecular_system.box_form = aux_form
 
         if tmp_molecular_system.ff_parameters_item is None and self.ff_parameters_item is not None:
-            tmp_items = items+[self.ff_parameters_item]
+            aux_item = self.ff_parameters_item
+            aux_form = self.ff_parameters_form
+            if (atom_indices is not 'all') or (frame_indices is not 'all'):
+                aux_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_items = items+[aux_item]
             if is_a_single_molecular_system(tmp_items):
-                tmp_molecular_system.ff_parameters_item = self.ff_parameters_item
-                tmp_molecular_system.ff_parameters_form = self.ff_parameters_form
+                tmp_molecular_system.ff_parameters_item = aux_item
+                tmp_molecular_system.ff_parameters_form = aux_form
 
         if tmp_molecular_system.mm_parameters_item is None and self.mm_parameters_item is not None:
-            tmp_items = items+[self.mm_parameters_item]
+            aux_item = self.mm_parameters_item
+            aux_form = self.mm_parameters_form
+            if (atom_indices is not 'all') or (frame_indices is not 'all'):
+                aux_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_items = items+[aux_item]
             if is_a_single_molecular_system(tmp_items):
-                tmp_molecular_system.mm_parameters_item = self.mm_parameters_item
-                tmp_molecular_system.mm_parameters_form = self.mm_parameters_form
+                tmp_molecular_system.mm_parameters_item = aux_item
+                tmp_molecular_system.mm_parameters_form = aux_form
 
         if tmp_molecular_system.thermo_state_item is None and self.thermo_state_item is not None:
-            tmp_items = items+[self.thermo_state_item]
+            aux_item = self.thermo_state_item
+            aux_form = self.thermo_state_form
+            if (atom_indices is not 'all') or (frame_indices is not 'all'):
+                aux_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_items = items+[aux_item]
             if is_a_single_molecular_system(tmp_items):
-                tmp_molecular_system.thermo_state_item = self.thermo_state_item
-                tmp_molecular_system.thermo_state_form = self.thermo_state_form
+                tmp_molecular_system.thermo_state_item = aux_item
+                tmp_molecular_system.thermo_state_form = aux_form
 
         if tmp_molecular_system.simulation_item is None and self.simulation_item is not None:
-            tmp_items = items+[self.simulation_item]
+            aux_item = self.simulation_item
+            aux_form = self.simulation_form
+            if (atom_indices is not 'all') or (frame_indices is not 'all'):
+                aux_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_items = items+[aux_item]
             if is_a_single_molecular_system(tmp_items):
-                tmp_molecular_system.simulation_item = self.simulation_item
-                tmp_molecular_system.simulation_form = self.simulation_form
+                tmp_molecular_system.simulation_item = aux_item
+                tmp_molecular_system.simulation_form = aux_form
 
         return tmp_molecular_system
 
