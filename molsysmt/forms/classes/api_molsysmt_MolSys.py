@@ -8,6 +8,7 @@ form_name='molsysmt.MolSys'
 
 is_form={
     _molsysmt_MolSys : form_name,
+    'molsysmt.MolSys': form_name
 }
 
 info=["",""]
@@ -40,11 +41,11 @@ def to_XYZ(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     return tmp_item, tmp_molecular_system
 
-def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_molsysmt_Topology import to_aminoacids3_seq as molsysmt_topology_to_aminoacids3_seq
+    from molsysmt.forms.classes.api_molsysmt_Topology import to_string_aminoacids3 as molsysmt_topology_to_string_aminoacids3
 
-    tmp_item, tmp_molecular_system = molsysmt_topology_to_aminoacids3_seq(item.topology, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_topology_to_string_aminoacids3(item.topology, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 

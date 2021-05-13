@@ -17,7 +17,7 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'coordinates', 'box']:
     has[ii]=True
 
-def to_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from mmtf.api.default_api import write_mmtf, MMTFDecoder
 
@@ -28,12 +28,12 @@ def to_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', out
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.forms.classes.api_molsysmt_MolSys import to_pdb as molsysmt_MolSys_to_pdb
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_file_pdb as molsysmt_MolSys_to_file_pdb
 
     tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_pdb(tmp_item, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_file_pdb(tmp_item, tmp_molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 

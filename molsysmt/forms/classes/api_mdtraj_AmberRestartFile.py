@@ -9,6 +9,7 @@ form_name='mdtraj.AmberRestartFile'
 
 is_form={
     _mdtraj_AmberRestartFile: form_name,
+    'mdtraj.AmberRestartFile': form_name
     }
 
 info=["",""]

@@ -11,6 +11,7 @@ form_name='mdtraj.Trajectory'
 
 is_form={
     _mdtraj_Trajectory:form_name,
+    'mdtraj.Trajectory':form_name
     }
 
 info=["",""]
@@ -19,39 +20,39 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'coordinates', 'box']:
     has[ii]=True
 
-def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mdtraj_Topology import to_aminoacids3_seq as mdtraj_Topology_to_aminoacids3
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_string_aminoacids3 as mdtraj_Topology_to_string_aminoacids3
 
     tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = mdtraj_Topology_to_aminoacids3(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = mdtraj_Topology_to_string_aminoacids3(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_mdtraj_Topology import to_aminoacids1_seq as mdtraj_Topology_to_aminoacids1
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_string_aminoacids1 as mdtraj_Topology_to_string_aminoacids1
 
     tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = mdtraj_Topology_to_aminoacids1(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = mdtraj_Topology_to_string_aminoacids1(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
 def to_biopython_Seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_Seq as aminoacids1_to_biopython_Seq
+    from molsysmt.forms.seqs.api_string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq
 
-    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = aminoacids1_to_biopython_Seq(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_string_aminoacids1(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = string_aminoacids1_to_biopython_Seq(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
 def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
+    from molsysmt.forms.seqs.api_string_aminoacids1 import to_biopython_SeqRecord as string_aminoacids1_to_biopython_SeqRecord
 
-    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = aminoacids1_to_biopython_SeqRecord(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_string_aminoacids1(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = string_aminoacids1_to_biopython_SeqRecord(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
@@ -135,7 +136,7 @@ def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item, tmp_molecular_system = to_mdtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item.save_pdb(output_filename)
@@ -144,7 +145,7 @@ def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
     return tmp_item, tmp_molecular_system
 
-def to_xtc(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_xtc(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item, tmp_molecular_system = to_mdtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     item.save_xtc(output_filename)

@@ -8,6 +8,7 @@ form_name='mdtraj.Topology'
 
 is_form={
     _mdtraj_Topology : form_name,
+    'mdtraj.Topology': form_name
 }
 
 info=["",""]
@@ -18,19 +19,19 @@ for ii in ['elements', 'bonds']:
 
 ## To other form
 
-def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
-    tmp_item = 'aminoacids3:'+''.join([ r.name.title() for r in item.residues ])
+    tmp_item = ''.join([ r.name.title() for r in item.residues ])
     tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids3_seq import to_aminoacids1_seq as aminoacids3_to_aminoacids1
+    from molsysmt.forms.seqs.api_string_aminoacids3 import to_string_aminoacids1 as aminoacids3_to_aminoacids1
 
-    tmp_item, tmp_molecular_system = to_aminoacids3_seq(item, molecular_system)
+    tmp_item, tmp_molecular_system = to_string_aminoacids3(item, molecular_system)
     tmp_item, tmp_molecular_system = aminoacids3_to_aminoacids1(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
@@ -70,12 +71,12 @@ def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', fr
 
     return tmp_item, tmp_molecular_system
 
-def to_top(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_file_top(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from .api_parmed_GromacsTopologyFile import to_top as parmed_GromacsTopologyFile_to_top
+    from .api_parmed_GromacsTopologyFile import to_file_top as parmed_GromacsTopologyFile_to_file_top
 
     tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = parmed_GromacsTopologyFile_to_top(tmp_item, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = parmed_GromacsTopologyFile_to_file_top(tmp_item, tmp_molecular_system, output_filename=output_filename)
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 

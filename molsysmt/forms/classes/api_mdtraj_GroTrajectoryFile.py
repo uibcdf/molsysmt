@@ -8,6 +8,7 @@ form_name='mdtraj.GroTrajectoryFile'
 
 is_form={
     _mdtraj_GroTrajectoryFile: form_name,
+    'mdtraj.GroTrajectoryFile': form_name
     }
 
 info=["",""]

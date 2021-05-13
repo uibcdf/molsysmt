@@ -1,1 +1,1 @@
-from .pdb import from_pdb_id
+from .id_pdb import from_id_pdb

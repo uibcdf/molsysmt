@@ -56,7 +56,7 @@ def parser_api(filepath):
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id'], ['seqs', 'seq'], ['viewers', 'viewer']]:
+for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id'], ['strings', 'string'], ['viewers', 'viewer']]:
 
     type_dir = os.path.join(current_dir, dirname)
     list_apis = [filename.split('.')[0] for filename in os.listdir(type_dir) if filename.startswith('api')]

@@ -9,6 +9,7 @@ form_name='mdtraj.HDF5TrajectoryFile'
 
 is_form={
     _mdtraj_HDF5TrajectoryFile: form_name,
+    'mdtraj.HDF5TrajectoryFile': form_name
     }
 
 info=["",""]

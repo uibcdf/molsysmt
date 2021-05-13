@@ -2,7 +2,7 @@ from importlib import import_module
 import os
 from molsysmt.forms.loader import api_to_be_loaded, converts_to_be_loaded, modules_detected
 
-types = ['class', 'file', 'id', 'seq', 'viewer']
+types = ['class', 'file', 'id', 'string', 'viewer']
 forms = []
 
 dict_type = {}
@@ -18,7 +18,7 @@ dict_extract_item = {}
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id'], ['seqs', 'seq'], ['viewers', 'viewer']]:
+for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id'], ['strings', 'string'], ['viewers', 'viewer']]:
 
     type_dir = os.path.join(current_dir, dirname)
     list_apis = [filename.split('.')[0] for filename in os.listdir(type_dir) if filename.startswith('api')]

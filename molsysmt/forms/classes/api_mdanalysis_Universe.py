@@ -27,7 +27,7 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, multiframe=False):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, multiframe=False):
 
     tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item.atoms.write(output_filename, multiframe=multiframe)
@@ -39,14 +39,14 @@ def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', outp
 def to_mdtraj_Trajectory (item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt._private_tools.files_and_directories import tmp_filename
-    from molsysmt.forms.files.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
+    from molsysmt.forms.files.api_file_pdb import to_mdtraj_Trajectory as file_pdb_to_mdtraj_Trajectory
     from os import remove
 
     tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     tmp_file = tmp_filename(extension='pdb')
     to_pdb(tmp_item=item, output_filename=tmp_file)
-    tmp_item=pdb_to_mdtraj_Trajectory(tmp_file)
+    tmp_item=file_pdb_to_mdtraj_Trajectory(tmp_file)
     remove(tmp_file)
     tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 

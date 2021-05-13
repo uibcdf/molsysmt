@@ -9,6 +9,7 @@ form_name='mdtraj.XTCTrajectoryFile'
 
 is_form={
     _mdtraj_XTCTrajectoryFile: form_name,
+    'mdtraj.XTCTrajectoryFile': form_name
     }
 
 info=["",""]

@@ -1,3 +1,2 @@
-from .pdb_id import from_pdb_id
-from .mmtf_id import from_mmtf_id
+from .id_PDB import from_id_PDB
 

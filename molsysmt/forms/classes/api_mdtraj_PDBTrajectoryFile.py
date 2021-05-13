@@ -11,6 +11,7 @@ form_name='mdtraj.PDBTrajectoryFile'
 
 is_form={
     _mdtraj_PDBTrajectoryFile: form_name,
+    'mdtraj.PDBTrajectoryFile': form_name
     }
 
 info=["",""]

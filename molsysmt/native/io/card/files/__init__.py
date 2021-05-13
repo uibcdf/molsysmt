@@ -1,1 +1,1 @@
-from .mmtf import from_mmtf
+from .file_mmtf import from_file_mmtf

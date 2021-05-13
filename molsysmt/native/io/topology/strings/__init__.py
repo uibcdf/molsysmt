@@ -1,0 +1,2 @@
+from .string_aminoacids1 import to_string_aminoacids1
+from .string_aminoacids3 import to_string_aminoacids3
