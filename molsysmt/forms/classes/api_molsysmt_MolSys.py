@@ -50,7 +50,7 @@ def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indi
     return tmp_item, tmp_molecular_system
 
 def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
-
+    patata
     from molsysmt.forms.classes.api_molsysmt_Topology import to_aminoacids1_seq as molsysmt_topology_to_aminoacids1_seq
 
     tmp_item, tmp_molecular_system = molsysmt_topology_to_aminoacids1_seq(item.topology, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
