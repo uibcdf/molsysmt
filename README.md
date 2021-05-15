@@ -1,9 +1,12 @@
-# MolSysMT
+MolSysMT
+==============================
 
 [![Anaconda Cloud Badge](https://anaconda.org/uibcdf/molsysmt/badges/version.svg)](https://anaconda.org/uibcdf/molsysmt)
 [![Anaconda Cloud Downloads](https://anaconda.org/uibcdf/molsysmt/badges/downloads.svg)](https://anaconda.org/uibcdf/molsysmt)
 [![Anaconda-Server Badge](https://anaconda.org/uibcdf/molsysmt/badges/license.svg)](https://anaconda.org/uibcdf/molsysmt)
 [![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
+[![GitHub Actions Build Status](https://github.com/uibcdf/molsysmt/workflows/CI/badge.svg)](https://github.com/uibcdf/molsysmt/actions?query=workflow%3ACI)
+[![codecov](https://codecov.io/gh/uibcdf/molsysmt/branch/master/graph/badge.svg)](https://codecov.io/gh/uibcdf/molsysmt/branch/master)
 
 
 **[Installation](#installation)** |
@@ -94,7 +97,7 @@ All credit should be given to the developers and mantainers of the following too
 Diego Prada Gracia    
 Liliana M. Moreno Vargas
 
-#### Contributors
+### Contributors
 
 ...
 
@@ -112,4 +115,15 @@ You can cite all versions by using the following DOI.
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530945.svg)](https://doi.org/10.5281/zenodo.2530945)    
     
 
+## Acknowledgments and Copyright
+
+### Copyright
+
+Copyright (c) 2021, UIBCDF
+
+
+#### Acknowledgements
+ 
+Project based on the 
+[Computational Molecular Science Python Cookiecutter](https://github.com/molssi/cookiecutter-cms) version 1.5.
 

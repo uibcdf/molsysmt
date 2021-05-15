@@ -27,7 +27,8 @@ sys.path.insert(0, os.path.abspath('./../molsysmt'))
 # -- Project information -----------------------------------------------------
 
 project = 'MolSysMT'
-copyright = '2021, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors'
+copyright = ("2021, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors."
+             "Computational Molecular Science Python Cookiecutter version 1.5"
 author = 'Liliana M. Moreno Vargas & Diego Prada Gracia'
 
 # The short X.Y version
