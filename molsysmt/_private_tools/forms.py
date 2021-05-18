@@ -1,4 +1,5 @@
 from molsysmt.forms import forms
+from molsysmt.tools.items import item_is_file
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools.exceptions import *
 
@@ -35,7 +36,7 @@ def form_is_file(form):
 
     if type(form) is str:
         if ':' not in form:
-            if form.split('.')[-1] in forms:
+            if item_is_file(form):
                 output = True
 
     return output
@@ -44,9 +45,8 @@ def form_of_file(to_form):
 
     output = None
 
-    if type(to_form)==str:
-        if to_form.split('.')[-1] in forms:
-            output = to_form.split('.')[-1]
+    if form_is_file(to_form):
+        output = 'file:'+item_is_file(to_form)
 
     return output
 

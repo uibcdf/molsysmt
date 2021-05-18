@@ -6,6 +6,7 @@ from molsysmt.molecular_system import molecular_system_components
 form_name='file:fasta'
 
 is_form = {
+        'file:fasta':form_name
     }
 
 info=["",""]

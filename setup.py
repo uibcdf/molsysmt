@@ -105,8 +105,8 @@ setup(
     #            'Mac OS-X',
     #            'Unix',
     #            'Windows',
-    ]
-    python_requires=">=3.7",
+    ],
+    python_requires=">=3.5",
     url='http://uibcdf.org',
     download_url ='https://github.com/uibcdf/MolSysMT',
     license='MIT',

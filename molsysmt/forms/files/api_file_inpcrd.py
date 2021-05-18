@@ -8,6 +8,7 @@ from molsysmt.molecular_system import molecular_system_components
 form_name='file:inpcrd'
 
 is_form = {
+        'file:inpcrd':form_name
     }
 
 info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]

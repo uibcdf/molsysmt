@@ -9,6 +9,7 @@ form_name='file:h5'
 
 is_form = {
         'file:hdf5': form_name,
+        'file:h5': form_name
     }
 
 info=["",""]

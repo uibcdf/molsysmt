@@ -9,6 +9,7 @@ from molsysmt.molecular_system import molecular_system_components
 form_name='file:mmtf'
 
 is_form = {
+        'file:mmtf':form_name
     }
 
 info=["",""]

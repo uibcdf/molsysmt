@@ -36,7 +36,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def to_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     item.save(output_filename)
@@ -45,7 +45,7 @@ def to_mol2(item, molecular_system, atom_indices='all', frame_indices='all', out
 
     return tmp_item, tmp_molecular_system
 
-def to_top(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_top(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     item.save(output_filename)

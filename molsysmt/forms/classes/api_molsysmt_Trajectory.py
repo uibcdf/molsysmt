@@ -34,21 +34,21 @@ def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', fr
 
     return tmp_item, tmp_molecular_system
 
-def to_xtc(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_xtc(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_xtc as mdtraj_Trajectory_to_xtc
+    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_file_xtc as mdtraj_Trajectory_to_file_xtc
 
     tmp_item, tmp_molecular_system = to_mdtraj_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_xtc(tmp_item, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_file_xtc(tmp_item, tmp_molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 
-def to_top(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_top(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.forms.classes.api_mdtraj_Topology import to_top as mdtraj_Topology_to_top
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_file_top as mdtraj_Topology_to_file_top
 
     tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = mdtraj_Topology_to_top(tmp_item, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = mdtraj_Topology_to_file_top(tmp_item, tmp_molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 

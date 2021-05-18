@@ -8,7 +8,6 @@ form_name='file:smi'
 
 is_form = {
         'file:smi': form_name,
-        'file:SMI': form_name
     }
 
 info=["",""]

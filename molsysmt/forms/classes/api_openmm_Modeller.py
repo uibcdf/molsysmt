@@ -113,7 +113,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile

@@ -2,7 +2,7 @@ from molsysmt import puw
 from molsysmt.forms import dict_is_form
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import digest_output
-from molsysmt._private_tools.forms import to_form_is_file, form_is_file, form_of_file, are_equal_sets_of_forms
+from molsysmt.tools.items import item_is_file, item_is_id, item_is_string
 from molsysmt.molecular_system import MolecularSystem
 from molsysmt._private_tools.exceptions import *
 
@@ -39,14 +39,15 @@ def get_form(molecular_system):
 
     if type(molecular_system)==str:
 
-        if ':' in molecular_system:
-            prefix=molecular_system.split(':')[0]
-            if prefix+':id' in dict_is_form.keys():
-                molecular_system=dict_is_form[prefix+':id']
-            elif prefix+':seq' in dict_is_form.keys():
-                molecular_system=dict_is_form[prefix+':seq']
-        else:
-            molecular_system=molecular_system.split('.')[-1]
+        file_type = item_is_file(molecular_system)
+        if file_type:
+            return dict_is_form['file:'+file_type]
+        id_type = item_is_id(molecular_system)
+        if id_type:
+            return dict_is_form['id:'+id_type]
+        string_type = item_is_string(molecular_system)
+        if string_type:
+            return dict_is_form['string:'+string_type]
 
     if is_list_or_tuple(molecular_system):
         output = [get_form(ii) for ii in molecular_system]

@@ -8,6 +8,7 @@ from molsysmt.molecular_system import molecular_system_components
 form_name='file:xtc'
 
 is_form = {
+        'file:xtc':form_name
     }
 
 info=["",""]

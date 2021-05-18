@@ -1,4 +1,4 @@
-def from_mmtf(item, molecular_system, atom_indices='all', frame_indices='all'):
+def from_file_mmtf(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.files.api_file_mmtf import to_mmtf_MMTFDecoder as file_mmtf_to_mmtf_MMTFDecoder
     from molsysmt.native.io.molsys.classes import from_mmtf_MMTFDecoder as mmtf_Decoder_to_molsysmt_MolSys

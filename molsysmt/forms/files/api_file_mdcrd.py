@@ -6,6 +6,7 @@ from molsysmt.molecular_system import molecular_system_components
 form_name='file:mdcrd'
 
 is_form = {
+        'file:mdcrd':form_name
     }
 
 info=["",""]

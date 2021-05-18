@@ -106,7 +106,7 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.multitool import get
     from molsysmt.version import __version__ as msm_version
@@ -140,13 +140,13 @@ def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
 def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.files.api_pdb import to_openmm_PDBFile as pdb_to_openmm_PDBFile
+    from molsysmt.forms.files.api_file_pdb import to_openmm_PDBFile as file_pdb_to_openmm_PDBFile
     from molsysmt._private_tools.files_and_directories import tmp_filename
     from os import remove
 
     tmp_file = tmp_filename(extension='pdb')
-    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=tmp_file)
-    tmp_item, tmp_molecular_system = pdb_to_openmm_PDBFile(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_file_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=tmp_file)
+    tmp_item, tmp_molecular_system = file_pdb_to_openmm_PDBFile(tmp_item, tmp_molecular_system)
 
     remove(tmp_file)
 

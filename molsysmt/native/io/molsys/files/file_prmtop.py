@@ -1,4 +1,4 @@
-def from_prmtop(item, molecular_system, atom_indices='all', frame_indices='all'):
+def from_file_prmtop(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt import convert
     from molsysmt.native import MolSys

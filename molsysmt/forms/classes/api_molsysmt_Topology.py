@@ -15,19 +15,19 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds']:
     has[ii]=True
 
-def to_aminoacids3_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.seqs import to_aminoacids3_seq as molsysmt_Topology_to_aminoacids3_seq
+    from molsysmt.native.io.topology.seqs import to_string_aminoacids3 as molsysmt_Topology_to_string_aminoacids3
 
-    tmp_item, tmp_molecular_system = molsysmt_Topology_to_aminoacids3_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_Topology_to_string_aminoacids3(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
 def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.seqs import to_aminoacids1_seq as molsysmt_Topology_to_aminoacids1_seq
+    from molsysmt.native.io.topology.seqs import to_string_aminoacids1 as molsysmt_Topology_to_string_aminoacids1
 
-    tmp_item, tmp_molecular_system = molsysmt_Topology_to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_Topology_to_string_aminoacids1(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -45,11 +45,11 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.native.io.topology.files import to_pdb as molsysmt_Topology_to_pdb
+    from molsysmt.native.io.topology.files import to_file_pdb as molsysmt_Topology_to_file_pdb
 
-    tmp_item, tmp_molecular_system = molsysmt_Topology_to_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = molsysmt_Topology_to_file_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 

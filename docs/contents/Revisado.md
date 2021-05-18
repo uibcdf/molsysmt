@@ -1,7 +1,7 @@
 # List to check if everything works
 
 - [X] Get_form
-- [X] Info
+- [X]] Info
 - [] Convert
 - [] Info forms
 - [] Molecular Systems, Items and Forms

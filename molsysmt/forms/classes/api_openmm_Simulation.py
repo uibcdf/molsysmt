@@ -81,16 +81,16 @@ def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.forms.classes.api_openmm_Topology import to_pdb as openmm_Topology_to_pdb
+    from molsysmt.forms.classes.api_openmm_Topology import to_file_pdb as openmm_Topology_to_file_pdb
 
     topology, _ = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     box = get_box_from_system(item, frame_indices=frame_indices)
     topology.setPeriodicBoxVectors(box)
     tmp_molecular_system = molecular_system.combine_with_items([topology, coordinates])
-    tmp_item, tmp_molecular_system = openmm_Topology_to_pdb(topology, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_file_pdb(topology, tmp_molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 

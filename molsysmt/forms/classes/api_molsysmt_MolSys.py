@@ -49,29 +49,29 @@ def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indi
 
     return tmp_item, tmp_molecular_system
 
-def to_aminoacids1_seq(item, molecular_system, atom_indices='all', frame_indices='all'):
-    patata
-    from molsysmt.forms.classes.api_molsysmt_Topology import to_aminoacids1_seq as molsysmt_topology_to_aminoacids1_seq
+def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    tmp_item, tmp_molecular_system = molsysmt_topology_to_aminoacids1_seq(item.topology, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.forms.classes.api_molsysmt_Topology import to_string_aminoacids1 as molsysmt_topology_to_string_aminoacids1
+
+    tmp_item, tmp_molecular_system = molsysmt_topology_to_string_aminoacids1(item.topology, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
 def to_biopython_Seq(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_Seq as aminoacids1_to_biopython_Seq
+    from molsysmt.forms.seqs.api_string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq
 
     tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = aminoacids1_to_biopython_Seq(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = string_aminoacids1_to_biopython_Seq(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
 def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_aminoacids1_seq import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
+    from molsysmt.forms.seqs.api_string_aminoacids1 import to_biopython_SeqRecord as string_aminoacids1_to_biopython_SeqRecord
 
-    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = aminoacids1_to_biopython_SeqRecord(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_string_aminoacids1(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = string_aminoacids1_to_biopython_SeqRecord(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
@@ -131,11 +131,11 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.native.io.molsys.files import to_pdb as molsysmt_MolSys_to_pdb
+    from molsysmt.native.io.molsys.files import to_file_pdb as molsysmt_MolSys_to_file_pdb
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_file_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 

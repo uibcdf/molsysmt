@@ -20,32 +20,32 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'coordinates', 'box', 'bonds']:
     has[ii]=True
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt._private_tools.pdb import download_pdb
-    from molsysmt.forms.files.api_pdb import to_pdb as pdb_to_pdb
+    from molsysmt.forms.files.api_file_pdb import to_file_pdb as file_pdb_to_file_pdb
 
     tmp_item = item.split(':')[-1]
     download_pdb(tmp_item, output_filename)
     tmp_item = output_filename
     tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    tmp_item, tmp_molecular_system = pdb_to_pdb(tmp_item, tmp_molecular_system, output_filename=output_filename, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = file_pdb_to_file_pdb(tmp_item, tmp_molecular_system, output_filename=output_filename, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from mmtf import fetch
-    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_mmtf as MMTFDecoder_to_mmtf
+    from molsysmt.forms.classes.api_mmtf_MMTFDecoder import to_file_mmtf as MMTFDecoder_to_file_mmtf
 
     tmp_item, tmp_molecular_system = to_mmtf_MMTFDecoder(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = MMTFDecoder_to_mmtf(tmp_item, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = MMTFDecoder_to_file_mmtf(tmp_item, tmp_molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 
-def to_fasta(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_fasta(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.forms.files.api_fasta import to_fasta as fasta_to_fasta
+    from molsysmt.forms.files.api_file_fasta import to_file_fasta as file_fasta_to_file_fasta
 
     tmp_item = item.split(':')[-1]
     url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+tmp_item+'&compressionType=uncompressed'
@@ -57,7 +57,7 @@ def to_fasta(item, molecular_system, atom_indices='all', frame_indices='all', ou
     f.close()
     tmp_item = output_filename
     tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    tmp_item, tmp_molecular_system= fasta_to_fasta(tmp_item, tmp_molecular_items, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename, copy_if_all=False)
+    tmp_item, tmp_molecular_system= file_fasta_to_file_fasta(tmp_item, tmp_molecular_items, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 

@@ -1,4 +1,5 @@
 import numpy as np
+import re as re
 
 def compatibles_for_a_molecular_system(items):
 
@@ -106,6 +107,69 @@ def has_box(items):
     else:
         form_in = get_form(items)
         output = dict_get[form_in]["system"]["has_box"](items)
+
+    return output
+
+def item_is_file(item):
+
+    from molsysmt.forms import file_extensions_recognized
+
+    output = False
+
+    if type(item) is str:
+        filename_decomposition = item.split('.')
+        if len(filename_decomposition)==2:
+            file_extension = filename_decomposition[1].lower()
+            if file_extension in file_extensions_recognized:
+                output = file_extension
+
+    return output
+
+def item_is_id(item):
+
+    output = False
+
+    if type(item) is not str:
+        return output
+
+    if len(item)==4 and item.isalnum():
+        return 'PDB'
+
+    return output
+
+def item_is_string(item):
+
+    output = False
+
+    if type(item) is not str:
+        return output
+
+    if (' ' not in item) and ('\t' not in item) and ('\n' not in item):
+
+        from molsysmt.elements.groups.aminoacid import name as aminoacid_name
+        from molsysmt.elements.groups.water import name as water_name
+        from molsysmt.elements.groups.aminoacid import aa1s
+
+        if item.isalnum():
+
+            # aminoacids3
+            if len(item)%3==0:
+                n_aa3 = 0
+                aa3_list = re.findall('...', item)
+                for aa3 in aa3_list:
+                    if (aa3.upper() in aminoacid_name) or (aa3.upper() in water_name):
+                        n_aa3+=1
+                if (n_aa3*1.0)/(len(aa3_list)*1.0) > 0.8:
+                    return 'aminoacids3'
+
+            # aminoacids1
+            n_aa1 = 0
+            for aa1 in item:
+                if (aa1.upper() in aa1s):
+                        n_aa1+=1
+
+            if (n_aa1*1.0)/(len(item)*1.0) > 0.8:
+                return 'aminoacids1'
 
     return output
 

@@ -8,7 +8,7 @@ from molsysmt.molecular_system import molecular_system_components
 form_name='file:pdb'
 
 is_form = {
-        'file:PDB': form_name
+        'file:pdb': form_name
     }
 
 info = ["Protein Data Bank file format","https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]

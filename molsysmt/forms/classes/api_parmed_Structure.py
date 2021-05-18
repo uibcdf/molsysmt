@@ -72,7 +72,7 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item.save(output_filename)
@@ -81,7 +81,7 @@ def to_pdb(item, molecular_system, atom_indices='all', frame_indices='all', outp
 
     return tmp_item, tmp_molecular_system
 
-def to_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item.save(output_filename)

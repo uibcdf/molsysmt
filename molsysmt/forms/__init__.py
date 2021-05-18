@@ -16,6 +16,8 @@ dict_set = {}
 dict_has = {}
 dict_extract_item = {}
 
+file_extensions_recognized = []
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id'], ['strings', 'string'], ['viewers', 'viewer']]:
@@ -50,10 +52,12 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
             for method in mod.__dict__.keys():
                 if method.startswith('to_'):
                     if converts_to_be_loaded[api_name][method]:
-                        if method.endswith('_seq'):
-                            out_form_name=method[:-4].replace('to_','').replace('_','.')+':seq'
-                        elif method.endswith('_id'):
-                            out_form_name=method[:-3].replace('to_','').replace('_','.')+':id'
+                        if method.startswith('to_string_'):
+                            out_form_name=method.replace('to_','').replace('_',':')
+                        elif method.startswith('to_id_'):
+                            out_form_name=method.replace('to_','').replace('_',':')
+                        elif method.startswith('to_file_'):
+                            out_form_name=method.replace('to_','').replace('_',':')
                         else:
                             out_form_name=method.replace('to_','').replace('_','.')
                         dict_convert[form_name][out_form_name]= getattr(mod, method)
@@ -67,6 +71,11 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
             del(mod, form_name)
 
     del(list_apis, type_dir, )
+
+for aux_form_name in list(dict_is_form.keys()):
+    if type(aux_form_name) is str:
+        if aux_form_name.startswith('file:'):
+            file_extensions_recognized.append(aux_form_name.split(':')[-1].lower())
 
 del(import_module, dirname, typename)
 

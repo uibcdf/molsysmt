@@ -6,6 +6,7 @@ from molsysmt.molecular_system import molecular_system_components
 form_name='file:gro'
 
 is_form = {
+        'file:gro':form_name
 }
 
 info = ["Gromacs gro file format","http://manual.gromacs.org/documentation/2018/user-guide/file-formats.html#gro"]

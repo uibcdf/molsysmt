@@ -3,10 +3,10 @@ from molsysmt.forms.common_gets import *
 import numpy as np
 from molsysmt.molecular_system import molecular_system_components
 
-form_name='xyznpy'
+form_name='file:xyznpy'
 
 is_form = {
-    'xyznpy': form_name
+        'file:xyznpy': form_name
     }
 
 info = ["XYZ file format like saved with Numpy",""]

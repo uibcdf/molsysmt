@@ -29,10 +29,10 @@ def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indi
 
 def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.seqs.api_string_aminoacids3 import to_string_aminoacids1 as aminoacids3_to_aminoacids1
+    from molsysmt.forms.strings.api_string_aminoacids3 import to_string_aminoacids1 as string_aminoacids3_to_string_aminoacids1
 
     tmp_item, tmp_molecular_system = to_string_aminoacids3(item, molecular_system)
-    tmp_item, tmp_molecular_system = aminoacids3_to_aminoacids1(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = string_aminoacids3_to_string_aminoacids1(tmp_item, tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 

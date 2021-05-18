@@ -33,7 +33,7 @@ from molsysmt.molecular_system import molecular_system_components
 form_name='file:pir'
 
 is_form = {
-        'file:PIR': form_name
+        'file:pir': form_name
     }
 
 info=["",""]
