@@ -54,25 +54,25 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.files import from_inpcrd as inpcrd_to_molsysmt_MolSys
+    from molsysmt.native.io.molsys.files import from_file_inpcrd as file_inpcrd_to_molsysmt_MolSys
 
-    tmp_item, tmp_molecular_system = inpcrd_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_inpcrd_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.files import from_inpcrd as inpcrd_to_molsysmt_Topology
+    from molsysmt.native.io.topology.files import from_file_inpcrd as file_inpcrd_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = inpcrd_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_inpcrd_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
 def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.files import from_inpcrd as inpcrd_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory.files import from_file_inpcrd as file_inpcrd_to_molsysmt_Trajectory
 
-    tmp_item, tmp_molecular_system = inpcrd_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_inpcrd_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 

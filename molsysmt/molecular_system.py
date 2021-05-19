@@ -113,7 +113,7 @@ class MolecularSystem():
         if not is_list_or_tuple(items):
             items = [items]
 
-        while None in items: items.remove(None)
+        items = list(filter(None.__ne__, items))
 
         tmp_molecular_system = MolecularSystem(items)
 

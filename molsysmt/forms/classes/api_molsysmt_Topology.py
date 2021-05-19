@@ -53,6 +53,14 @@ def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all',
 
     return tmp_item, tmp_molecular_system
 
+def to_string_pdb(item, molecular_system, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.topology.strings import to_string_pdb as molsysmt_Topology_to_string_pdb
+
+    tmp_item, tmp_molecular_system = molsysmt_Topology_to_string_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):

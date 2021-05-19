@@ -58,34 +58,34 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.files import from_h5 as h5_to_molsysmt_MolSys
+    from molsysmt.native.io.molsys.files import from_file_h5 as file_h5_to_molsysmt_MolSys
 
-    tmp_item, tmp_molecular_system = h5_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_h5_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.files import from_h5 as h5_to_molsysmt_Topology
+    from molsysmt.native.io.topology.files import from_file_h5 as file_h5_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = h5_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_h5_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
 def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.files import from_h5 as h5_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory.files import from_file_h5 as file_h5_to_molsysmt_Trajectory
 
-    tmp_item, tmp_molecular_system = h5_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_h5_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
 def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from molsysmt.forms.classes.api_molsysmt_MolSys import to_pdb as molsysmt_MolSys_to_pdb
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_file_pdb as molsysmt_MolSys_to_file_pdb
 
     tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_pdb(tmp_item, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_file_pdb(tmp_item, tmp_molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 

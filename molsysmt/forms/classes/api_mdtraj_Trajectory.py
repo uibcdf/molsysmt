@@ -106,7 +106,7 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices
 
     topology, _ = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
-    positions = puw.translate(positions, to_form='simtk')
+    positions = puw.translate(positions, to_form='simtk.unit')
     tmp_item = Modeller(topology, positions)
     tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
@@ -264,7 +264,7 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
     if indices is not 'all':
         tmp_item=tmp_item[:,indices,:]
 
-    return tmp_item
+    return tmp_item*puw.unit('nanometer')
 
 ## group
 

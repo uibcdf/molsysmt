@@ -18,17 +18,17 @@ class TrajectoryFile():
             self.path = filepath
             self.form = get_form(filepath)
 
-            if self.form == 'xtc':
+            if self.form == 'file:xtc':
                 self.mount_point = convert(filepath, to_form='mdtraj.XTCTrajectoryFile')
-            elif self.form == 'h5':
+            elif self.form == 'file:h5':
                 self.mount_point = convert(filepath, to_form='mdtraj.HDF5TrajectoryFile')
-            elif self.form == 'pdb':
+            elif self.form == 'file:pdb':
                 self.mount_point = convert(filepath, to_form='mdtraj.PDBTrajectoryFile')
-            elif self.form == 'inpcrd':
+            elif self.form == 'file:inpcrd':
                 self.mount_point = convert(filepath, to_form='mdtraj.AmberRestartFile')
-            elif self.form == 'mmtf':
+            elif self.form == 'file:mmtf':
                 self.mount_point = convert(filepath, to_form='mmtf.MMTFDecoder')
-            elif self.form == 'gro':
+            elif self.form == 'file:gro':
                 self.mount_point = convert(filepath, to_form='openmm.GromacsGroFile')
             else:
                 raise NotImplementedError

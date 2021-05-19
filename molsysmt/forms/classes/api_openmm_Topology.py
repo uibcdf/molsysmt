@@ -108,6 +108,21 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indic
 
 def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
+    tmp_item, tmp_molecular_system = to_string_pdb(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    with open(output_filename, 'w') as fff:
+        fff.write(tmp_item)
+
+    fff.close()
+
+    tmp_item = output_filename
+
+    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+
+    return tmp_item, tmp_molecular_system
+
+def to_string_pdb(item, molecular_system, atom_indices='all', frame_indices='all'):
+
     from molsysmt.multitool import get
     from molsysmt.version import __version__ as msm_version
     from simtk.openmm.app import PDBFile
@@ -127,12 +142,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all',
     tmp_io.close()
     del(tmp_io)
 
-    if output_filename=='.pdb':
-        tmp_item = filedata
-    else:
-        with open(output_filename, 'w') as file:
-            file.write(filedata)
-        tmp_item = output_filename
+    tmp_item = filedata
 
     tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
 

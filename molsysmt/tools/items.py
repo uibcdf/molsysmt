@@ -1,5 +1,6 @@
 import numpy as np
 import re as re
+from .strings import *
 
 def compatibles_for_a_molecular_system(items):
 
@@ -170,6 +171,11 @@ def item_is_string(item):
 
             if (n_aa1*1.0)/(len(item)*1.0) > 0.8:
                 return 'aminoacids1'
+
+    else:
+
+        if string_is_pdb(item):
+            return 'pdb'
 
     return output
 
