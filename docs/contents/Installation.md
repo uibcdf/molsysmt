@@ -66,6 +66,7 @@ python environment:
 - [MDTraj](http://mdtraj.org/)
 - [NGLView](http://nglviewer.org/nglview/latest/)
 - [PyUnitWizard = 0.1 (dev)](https://www.uibcdf.org/PyUnitWizard)
+- [AmberTools](http://ambermd.org/AmberTools.php)
 
 If you are working in a conda environment, find here the installation commands to solve this
 dependencies:

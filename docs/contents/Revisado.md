@@ -1,19 +1,19 @@
 # List to check if everything works
 
 - [X] Get_form
-- [X]] Info
-- [] Convert
-- [] Info forms
-- [] Molecular Systems, Items and Forms
-- [] Get
-- [] Selection
-- [] Copy
-- [] Extract
-- [] Remove
-- [] Set
+- [X] Info
+- [X] Convert
+- [X] Info forms
+- [X] Molecular Systems, Items and Forms
+- [X] Get
+- [X] Selection
+- [X] Copy
+- [X] Extract
+- [X] Remove
+- [X] Set
 
-- [] Build_peptide
-- [] Geometrical Transformations
+- [X] Build_peptide
+- [X] Geometrical Transformations
 
 - [] View
 - [] Append_Concatenate

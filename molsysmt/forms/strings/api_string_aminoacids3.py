@@ -17,39 +17,42 @@ for ii in ['elements']:
 
 ### Corresponde al formato IUPAC extended protein que aparece en Biopython
 
-def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids1(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from Bio.SeqUtils import seq1
 
     tmp_item = seq1(item)
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_biopython_Seq(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_biopython_Seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from .api_seq_aminoacids1 import to_biopython_Seq as aminoacids1_to_biopython_Seq
+    from .api_string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq
 
-    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = _aminoacis1_to_biopython_Seq(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_string_aminoacids1(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = string_aminoacis1_to_biopython_Seq(tmp_item, molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_seq_aminoacids1 import to_biopython_SeqRecord as aminoacids1_to_biopython_SeqRecord
 
-    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = aminoacis1_to_biopython_SeqRecord(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = aminoacis1_to_biopython_SeqRecord(tmp_item, molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_fasta(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from .api_seq_aminoacids1 import to_fasta as aminoacids1_to_fasta
 
-    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = aminoacis1_to_fasta(tmp_item, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = aminoacis1_to_fasta(tmp_item, molecular_system=tmp_molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 
@@ -59,43 +62,48 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_molsysmt_MolSys as molsysmt_MolSys_to_molsysmt_MolSys
 
     tmp_item = build_peptide(item, to_form='molsysmt.MolSys')
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_molsysmt_MolSys(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_molsysmt_MolSys(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
-
-    return to_NGLView(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-
-def to_NGLView(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_NGLView as molsysmt_MolSys_to_NGLView
 
-    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_NGLView(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_NGLView(tmp_item, molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_string_aminoacids3(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
         tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
 def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError()
+        from copy import copy
+        return copy(item)
     else:
         raise NotImplementedError()
 
@@ -247,11 +255,12 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return None
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    output = len(item)/3
+    return output
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 

@@ -18,89 +18,107 @@ for ii in ['elements', 'coordinates', 'box', 'ff_parameters']:
 
 ## Methods
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item = tmp_item.topology
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app.modeller import Modeller
     from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_Modeller as openmm_Modeller_to_openmm_Modeller
 
     tmp_item = Modeller(item.topology, item.positions)
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
     tmp_item, tmp_molecular_system = openmm_Modeller_to_openmm_Modeller(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology as mdtraj_Topology
     from .api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item = mdtraj_Topology.from_openmm(item.topology)
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
     tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_trajectory
 
-    tmp_topology, _ = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_topology, _ = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
     coordinates = puw.get_value(coordinates, in_units_of="nanometers")
     tmp_item = mdtraj_trajectory(coordinates, tmp_topology)
     del(tmp_topology, coordinates)
 
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from nglview import show_parmed
 
-    tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item = show_parmed(tmp_item)
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item.save(output_filename)
     tmp_item = output_filename
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item.save(output_filename)
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
         tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -137,7 +155,7 @@ def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
 
-    return len(item.groups)
+    return len(item.residues)
 
 def get_mass_from_atom (item, indices='all', frame_indices='all'):
 
@@ -192,4 +210,8 @@ def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     return len(item.atoms)
+
+def get_n_groups_from_system (item, indices='all', frame_indices='all'):
+
+    return len(item.residues)
 

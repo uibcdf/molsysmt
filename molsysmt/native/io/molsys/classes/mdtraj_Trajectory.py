@@ -1,15 +1,19 @@
-def from_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def from_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology import from_mdtraj_Topology as to_topology
     from molsysmt.native.io.trajectory import from_mdtraj_Trajectory as to_trajectory
 
     tmp_item = MolSys()
-    tmp_item.topology, _ = to_topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item.trajectory, _ = to_trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.topology, _ = to_topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.trajectory, _ = to_trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt import puw
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
@@ -20,7 +24,7 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indic
 
     from .mdtraj_Topology import to_mdtraj_Topology as molsysmt_MolSys_to_mdtraj_Topology
 
-    tmp_item_topology, _ = molsysmt_MolSys_to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices)
+    tmp_item_topology, _ = molsysmt_MolSys_to_mdtraj_Topology(item, atom_indices=atom_indices)
     tmp_box_lengths = get_box_lengths_from_system(item, frame_indices=frame_indices)
     if tmp_box_lengths is not None:
         tmp_box_lengths = puw.get_value(tmp_box_lengths, in_units='nm')
@@ -34,7 +38,10 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indic
         tmp_time = puw.get_value(tmp_time, in_units='ps')
     tmp_item = mdtraj_Trajectory(tmp_coordinates,tmp_item_topology, tmp_time,
                                  unitcell_lengths=tmp_box_lengths, unitcell_angles=tmp_box_angles)
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 

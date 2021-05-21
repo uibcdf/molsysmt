@@ -19,37 +19,39 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'coordinates', 'box']:
     has[ii]=True
 
-def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
     from molsysmt.forms.classes.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
 
-    tmp_topology, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system)
+    tmp_topology, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system)
     positions = puw.get_value(item.positions, in_units='nanometers')
     tmp_item = mdtraj_Trajectory(positions, tmp_topology)
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
-    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item,
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_mdtraj_Topology as openmm_Topology_to_mdtraj_Topology
 
-    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system)
-    tmp_item, tmp_molecular_system = openmm_Topology_to_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_mdtraj_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all',
+def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all',
                      forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                      rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_System as openmm_Topology_to_openmm_System
 
-    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_System(tmp_item, tmp_molecular_system, forcefield=forcefield,
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_System(tmp_item, molecular_system=tmp_molecular_system, forcefield=forcefield,
                                                 non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff,
                                                 constraints=constraints, rigid_water=rigid_water, remove_cm_motion=remove_cm_motion,
                                                 hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
@@ -57,7 +59,7 @@ def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all',
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all',
                          forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                          rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                          flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
@@ -66,16 +68,15 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indic
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Simulation as openmm_Topology_to_openmm_Simulation
     from molsysmt.multitool import get
 
-    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     if trajectory_item is None:
         positions = get(item, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)
     else:
         positions = get(trajectory_item, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)
 
-    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Simulation(tmp_item, tmp_molecular_system,
-                                                atom_indices='all', forcefield=forcefield,
-                                                non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff,
+    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Simulation(tmp_item,
+            molecular_system=tmp_molecular_system, atom_indices='all', forcefield=forcefield, non_bonded_method=non_bonded_method, non_bonded_cutoff=non_bonded_cutoff,
                                                 constraints=constraints, rigid_water=rigid_water, remove_cm_motion=remove_cm_motion,
                                                 hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
                                                 flexible_constraints=flexible_constraints, integrator=integrator, temperature=temperature,
@@ -83,37 +84,42 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     tmp_item = item.getTopology()
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
+    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from io import StringIO
     from pdbfixer.pdbfixer import PDBFixer
 
-    tmp_item, tmp_molecular_system = to_pdb(item, molecular_system, output_filename='.pdb', atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_string_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = StringIO(tmp_item)
     tmp_item = PDBFixer(pdbfile=tmp_item)
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.classes import from_openmm_Modeller as molsysmt_MolSys_from_openmm_Modeller
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_from_openmm_Modeller(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_from_openmm_Modeller(item,
+            molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
@@ -121,7 +127,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all',
     from molsysmt import __version__ as msm_version
     from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
 
-    tmp_item, tmp_molecular_system = to_openmm_Modeller(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = to_openmm_Modeller(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     tmp_io = StringIO()
     PDBFile.writeFile(tmp_item.topology, tmp_item.positions, tmp_io, keepIds=True)
@@ -131,38 +137,40 @@ def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all',
     tmp_io.close()
     del(tmp_io)
 
-    if output_filename=='.pdb':
-        tmp_item = filedata
-        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
-    else:
-        with open(output_filename, 'w') as file:
-            file.write(filedata)
-        tmp_item = output_filename
+    with open(output_filename, 'w') as file:
+        file.write(filedata)
+    tmp_item = output_filename
+    if tmp_molecular_system is not None:
         tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
-
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'): 
     from .api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
-    tmp_item, tmp_molecular_system  = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system  = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system  = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system  = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item,
+            molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
         tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -199,10 +207,11 @@ def aux_get(item, indices='all', frame_indices='all'):
 
     from molsysmt.forms import forms
 
+    method_name = sys._getframe(1).f_code.co_name
+
     if 'openmm.Topology' in forms:
 
-        tmp_item = to_openmm_Topology(item)
-        method_name = sys._getframe(1).f_code.co_name
+        tmp_item, _ = to_openmm_Topology(item)
         module = importlib.import_module('molsysmt.forms.classes.api_openmm_Topology')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)

@@ -18,18 +18,23 @@ has = molecular_system_components.copy()
 for ii in ['coordinates', 'box']:
     has[ii]=True
 
-def to_mdtraj_AmberRestartFile(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_mdtraj_AmberRestartFile(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
         tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -196,7 +201,7 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
 
     xyz, _, _, _ = item.read()
-    output = xyz.shape[0]
+    output = xyz.shape[1]
 
     return output
 
@@ -306,7 +311,10 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system (item, indices='all', frame_indices='all'):
 
-    return item.n_frames
+    xyz, _, _, _ = item.read()
+    output = xyz.shape[0]
+
+    return output
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 

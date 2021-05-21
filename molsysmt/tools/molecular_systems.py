@@ -1,61 +1,14 @@
 import numpy as np
 from molsysmt._private_tools.exceptions import *
+from molsysmt.tools.items import compatibles_for_a_single_molecular_system as items_compatibles_for_a_single_molecular_system
 
 def is_a_single_molecular_system(items):
 
-    from molsysmt.multitool import get_form
-    from molsysmt.forms import dict_has
-    from molsysmt.molecular_system import MolecularSystem
+    output = False
 
-    if type(items) in [list, tuple]:
+    output = items_compatibles_for_a_single_molecular_system(items)
 
-        n_topologies=0
-        n_coordinates=0
-        n_elements_w_coordinates=0
-        for item in items:
-            if type(item) in [list, tuple]:
-                return False
-            else:
-                form_in = get_form(item)
-                has_elements = dict_has[form_in]["elements"]
-                has_coordinates = dict_has[form_in]["coordinates"]
-                has_box = dict_has[form_in]["box"]
-                if has_elements:
-                    n_topologies+=1
-                if has_coordinates:
-                    n_coordinates+=1
-                    if has_elements:
-                        n_elements_w_coordinates+=1
-
-        if n_topologies>2 or n_coordinates>2:
-            return False
-        elif n_topologies==0:
-            if n_coordinates<=1:
-                return True
-            else:
-                return False
-        elif n_topologies==1:
-            if n_coordinates<=1:
-                return True
-            elif n_coordinates==2:
-                if n_elements_w_coordinates==1:
-                    return True
-                else:
-                    return False
-            else:
-                return False
-        elif n_topologies==2:
-            if n_coordinates==0:
-                return False
-            elif n_coordinates==1:
-                if n_elements_w_coordinates==1:
-                    return True
-                else:
-                    return False
-            else:
-                return False
-    else:
-        return True
+    return output
 
 def where_elements_in_molecular_system(items):
 

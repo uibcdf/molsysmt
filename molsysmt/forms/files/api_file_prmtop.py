@@ -4,6 +4,7 @@ import numpy as np
 import sys
 import importlib
 from molsysmt.molecular_system import molecular_system_components
+from molsysmt._private_tools.files_and_directories import tmp_filename
 
 form_name='file:prmtop'
 
@@ -18,31 +19,36 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'box', 'bonds', 'ff_parameters']:
     has[ii]=True
 
-def to_file_prmtop(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
+def to_file_prmtop(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
-            tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            tmp_item = extract_item(item, output_filename=output_filename)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract_item(item, atom_indices='all', frame_indices='all', output_filename=None):
+
+    if output_filename is None:
+        output_filename = tmp_filename(extension='prmtop')
 
     tmp_item = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 
         from shutil import copy as copy_file
-        from molsysmt._private_tools.files_and_directories import tmp_filename
-        if output_filename is None:
-            output_filename = tmp_filename(extension='prmtop')
         copy_file(item, output_filename)
         tmp_item = output_filename
 
@@ -52,89 +58,81 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.classes.api_openmm_Modeller import to_file_pdb as openmm_Modeller_to_file_pdb
 
-    tmp_item, tmp_molecular_system = to_openmm_Modeller(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = openmm_Modeller_to_file_pdb(tmp_item, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = to_openmm_Modeller(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = openmm_Modeller_to_file_pdb(tmp_item, molecular_system=tmp_molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_file_prmtop as file_prmtop_to_molsysmt_MolSys
 
-    tmp_item, tmp_molecular_system = file_prmtop_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_prmtop_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.files import from_file_prmtop as file_prmtop_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = file_prmtop_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_prmtop_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_DataFrame(item, molecular_system, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.dataframe.files import from_file_prmtop as file_prmtop_to_molsysmt_DataFrame
-
-    tmp_item, tmp_molecular_system = file_prmtop_to_molsysmt_DataFrame(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.trajectory.files import from_prmtop as prmtop_to_molsysmt_Trajectory
-
-    tmp_item, tmp_molecular_system = prmtop_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_prmtop as prmtop_to_mdtraj_Topology
 
     tmp_item = prmtop_to_mdtraj_Topology(item)
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_AmberPrmtopFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_AmberPrmtopFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from simtk.openmm.app import AmberPrmtopFile
 
     tmp_item = AmberPrmtopFile(item)
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_AmberPrmtopFile import to_openmm_Topology as openmm_AmberPrmtopFile_to_openmm_Topology
 
-    tmp_item, tmp_molecular_system = to_openmm_AmberPrmtopFile(item, molecular_system)
-    tmp_item, tmp_molecular_system = openmm_AmberPrmtopFile_to_openmm_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_openmm_AmberPrmtopFile(item, molecular_system=molecular_system)
+    tmp_item, tmp_molecular_system = openmm_AmberPrmtopFile_to_openmm_Topology(tmp_item,
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Modeller as openmm_Topology_to_openmm_Modeller
 
-    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system)
-    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Modeller(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Modeller(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
-    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item,
+            molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
@@ -152,18 +150,18 @@ def aux_get(item, indices='all', frame_indices='all'):
 
     from molsysmt.forms import forms
 
+    method_name = sys._getframe(1).f_code.co_name
+
     if 'openmm.AmberPrmtopFile' in forms:
 
-        tmp_item = to_openmm_AmberPrmtopFile(item)
-        method_name = sys._getframe(1).f_code.co_name
+        tmp_item, _ = to_openmm_AmberPrmtopFile(item)
         module = importlib.import_module('molsysmt.forms.classes.api_openmm_AmberPrmtopFile')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
     elif 'mdtraj.Topology' in forms:
 
-        tmp_item = to_mdtraj_Topology(item)
-        method_name = sys._getframe(1).f_code.co_name
+        tmp_item, _ = to_mdtraj_Topology(item)
         module = importlib.import_module('molsysmt.forms.classes.api_mdtraj_Topology')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)

@@ -20,28 +20,36 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'coordinates', 'box']:
     has[ii]=True
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
+    tmp_molecular_system = None
+
     tmp_item = item.topology
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_PDBTrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_PDBTrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
         tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -68,10 +76,11 @@ def aux_get(item, indices='all', frame_indices='all'):
 
     from molsysmt.forms import forms
 
+    method_name = sys._getframe(1).f_code.co_name
+
     if 'mdtraj.Topology' in forms:
 
-        tmp_item = to_mdtraj_Topology(item)
-        method_name = sys._getframe(1).f_code.co_name
+        tmp_item, _ = to_mdtraj_Topology(item)
         module = importlib.import_module('molsysmt.forms.classes.api_mdtraj_Topology')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)

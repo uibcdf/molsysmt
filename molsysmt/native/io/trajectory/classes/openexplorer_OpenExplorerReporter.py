@@ -1,5 +1,5 @@
 
-def from_openexplorer_OpenExplorerReporter(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def from_openexplorer_OpenExplorerReporter(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt import box_shape_from_box_vectors
     from molsysmt.native.trajectory import Trajectory
@@ -29,6 +29,11 @@ def from_openexplorer_OpenExplorerReporter(item, trajectory_item=None, atom_indi
     tmp_item.n_frames = tmp_item.coordinates.shape[0]
     tmp_item.n_atoms = tmp_item.coordinates.shape[1]
 
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item,
+                atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item
 

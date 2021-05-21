@@ -17,7 +17,7 @@ has = molecular_system_components.copy()
 for ii in ['box', 'ff_parameters', 'mm_parameters']:
     has[ii]=True
 
-def to_openmm_Context(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.multitool import convert, get
     from simtk.openmm import Context
@@ -37,16 +37,19 @@ def to_openmm_Context(item, molecular_system, atom_indices='all', frame_indices=
         temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
         tmp_item.setVelocitiesToTemperature(temperature)
 
-    tmp_molecular_simulation=molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_simulation=molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_simulation=None
 
     return tmp_item, tmp_molecular_simulation
 
-def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.multitool import convert, get
     from simtk.openmm.app import Simulation
 
-    topology, _ = openmm_System_to_openmm_Topology(item, molecular_system, atom_indices=atom_indices)
+    topology, _ = openmm_System_to_openmm_Topology(item, atom_indices=atom_indices)
     positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
     positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
     simulation, _ = openmm_System_to_molsysmt_Simulation(item, molecular_system)
@@ -62,22 +65,30 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indic
         temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
         tmp_item.context.setVelocitiesToTemperature(temperature)
 
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
         tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 

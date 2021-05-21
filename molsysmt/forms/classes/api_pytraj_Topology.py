@@ -16,17 +16,18 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds']:
     has[ii]=True
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_pytraj_Topology as pytraj_Topology_to_molsysmt_Topology
     from molsysmt.forms.classes.api_molsysmt_Topology import to_molsysmt_Topology as molsysmt_Topology_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = pytraj_Topology_to_molsysmt_Topology(item, molecular_system)
-    tmp_item, tmp_molecular_system = molsysmt_Topology_to_molsysmt_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = pytraj_Topology_to_molsysmt_Topology(item, molecular_system=molecular_system)
+    tmp_item, tmp_molecular_system = molsysmt_Topology_to_molsysmt_Topology(tmp_item,
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         raise NotImplementedError()

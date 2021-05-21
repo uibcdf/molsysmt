@@ -19,15 +19,16 @@ for ii in ['elements', 'bonds']:
 
 ## To other form
 
-def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids3(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item = ''.join([ r.name.title() for r in item.residues ])
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids1(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.strings.api_string_aminoacids3 import to_string_aminoacids1 as string_aminoacids3_to_string_aminoacids1
 
@@ -36,7 +37,7 @@ def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indi
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.classes import from_mdtraj_Topology as molsysmt_Topology_from_mdtraj_Topology
 
@@ -44,15 +45,16 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     tmp_item = tmp_item.to_openmm()
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_parmed_Structure as _openmm_Topology_to_parmed_Structure
 
@@ -61,35 +63,43 @@ def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indice
 
     return tmp_item, tmp_molecular_system
 
-def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_parmed_GromacsTopologyFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from parmed.gromacs import GromacsTopologyFile as GromacsTopologyFile
 
     tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = GromacsTopologyFile.from_structure(tmp_item)
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_top(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_file_top(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_parmed_GromacsTopologyFile import to_file_top as parmed_GromacsTopologyFile_to_file_top
 
     tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item, tmp_molecular_system = parmed_GromacsTopologyFile_to_file_top(tmp_item, tmp_molecular_system, output_filename=output_filename)
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+    return tmp_item, tmp_molecular_system
+
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
         tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 

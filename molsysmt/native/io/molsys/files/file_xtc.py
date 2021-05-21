@@ -1,6 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 
-def from_file_xtc(item, molecular_system, atom_indices='all', frame_indices='all'):
+def from_file_xtc(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError()
 

@@ -1,4 +1,4 @@
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj import Topology
     from mdtraj.core import element
@@ -62,11 +62,14 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
         tmp_item.add_bond(list_new_atoms[atom_1], list_new_atoms[atom_2]) # falta bond type and bond order
 
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def from_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def from_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native import Topology
     import numpy as np
@@ -114,7 +117,10 @@ def from_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     tmp_item._build_components_molecules_and_entities()
 
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 

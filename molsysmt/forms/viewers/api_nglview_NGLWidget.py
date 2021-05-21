@@ -18,7 +18,7 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'coordinates', 'box']:
     has[ii]=True
 
-def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from io import StringIO
     from simtk.openmm.app import PDBFile
@@ -32,30 +32,38 @@ def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices=
     str_as_file.close()
     del(str_as_file)
 
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.viewers import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = nglview_NGLWidget_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices='all')
+    tmp_item, tmp_molecular_system = nglview_NGLWidget_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices='all')
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            if tmp_molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if tmp_molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
         tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if tmp_molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -82,10 +90,11 @@ def aux_get(item, indices='all', frame_indices='all'):
 
     from molsysmt.forms import forms
 
+    method_name = sys._getframe(1).f_code.co_name
+
     if 'openmm.PDBFile' in forms:
 
-        tmp_item = to_openmm_PDBFile(item)
-        method_name = sys._getframe(1).f_code.co_name
+        tmp_item, _ = to_openmm_PDBFile(item)
         module = importlib.import_module('molsysmt.forms.classes.api_openmm_PDBFile')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)

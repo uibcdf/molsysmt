@@ -16,56 +16,70 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds']:
     has[ii]=True
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology as mdtraj_topology
 
-    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = mdtraj_topology.from_openmm(tmp_item)
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from .api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     tmp_item = item.topology
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
     tmp_item, tmp_molecular_system = opennmm_Topology_to_openmm_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item,
+            molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     item.save(output_filename)
     tmp_item = output_filename
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_top(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_top(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = to_parmed_GromacsTopologyFile(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     item.save(output_filename)
     tmp_item = output_filename
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_parmed_GromacsTopologyFile(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
         tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -86,7 +100,6 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
         mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
         tmp_item = copy(item)
         tmp_item.strip(atom_indices_to_AmberMask(tmp_item,atom_indices))
-        tmp_molecular_system = molecular_system.combine_with_items(item)
 
     return tmp_item
 

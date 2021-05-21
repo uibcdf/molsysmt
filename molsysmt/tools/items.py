@@ -1,47 +1,44 @@
 import numpy as np
 import re as re
 from .strings import *
+from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 
-def compatibles_for_a_molecular_system(items):
+def compatibles_for_a_single_molecular_system(items):
 
-    from molsysmt.multitool import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.multitool import get_form, get
+    from molsysmt.forms import dict_has
 
-    compatible = True
+    output = True
 
-    n_atoms = None
-    atom_names = None
+    if not is_list_or_tuple(items):
+        items=[items]
 
-    if not is_a_molecular_system(items):
-        raise ValueError ("This method needs a single molecular system as input")
+    if len(items)>1:
 
-    if type(items) in [list, tuple]:
+        list_n_atoms = []
+        list_n_groups = []
+        list_forms = []
+
         for item in items:
-            form_in = get_form(item)
-            w_topology = dict_get[form_in]["system"]["has_topology"](item)
-            w_coordinates = dict_get[form_in]["system"]["has_coordinates"](item)
-            if w_topology:
-                aux_n_atoms = dict_get[form_in]["system"]["n_atoms"](item)
-                aux_atom_names = dict_get[form_in]["atom"]["atom_name"](item)
-                if n_atoms is None:
-                    n_atoms = aux_n_atoms
-                elif n_atoms != aux_n_atoms:
-                    compatible=False
-                    break
-                if atom_names is None:
-                    atom_names = aux_atom_names
-                elif atom_names != aux_atom_names:
-                    compatible=False
-                    break
-            if w_coordinates:
-                aux_n_atoms = dict_get[form_in]["system"]["n_atoms"](item)
-                if n_atoms is None:
-                    n_atoms = aux_n_atoms
-                elif n_atoms != aux_n_atoms:
-                    compatible=False
-                    break
+            tmp_form = get_form(item)
+            tmp_n_atoms, tmp_n_groups = get(item, target='atom', n_atoms=True, n_groups=True)
+            list_forms.append(tmp_form)
+            list_n_atoms.append(tmp_n_atoms)
+            list_n_groups.append(tmp_n_groups)
 
-    return compatible
+        Not_none_values = filter(None.__ne__, list_n_atoms)
+        set_n_atoms = set(Not_none_values)
+        if len(set_n_atoms)>1:
+            output = False
+
+        if output:
+
+            Not_none_values = filter(None.__ne__, list_n_groups)
+            set_n_groups = set(Not_none_values)
+            if len(set_n_groups)>1:
+                output = False
+
+    return output
 
 def has_topology(items):
 
@@ -118,11 +115,9 @@ def item_is_file(item):
     output = False
 
     if type(item) is str:
-        filename_decomposition = item.split('.')
-        if len(filename_decomposition)==2:
-            file_extension = filename_decomposition[1].lower()
-            if file_extension in file_extensions_recognized:
-                output = file_extension
+        file_extension = item.split('.')[-1].lower()
+        if file_extension in file_extensions_recognized:
+            output = file_extension
 
     return output
 

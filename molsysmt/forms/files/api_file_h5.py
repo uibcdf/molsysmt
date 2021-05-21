@@ -4,6 +4,7 @@ import numpy as np
 import sys
 import importlib
 from molsysmt.molecular_system import molecular_system_components
+from molsysmt._private_tools.files_and_directories import tmp_filename
 
 form_name='file:h5'
 
@@ -18,102 +19,119 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'coordinates', 'box', 'bonds']:
     has[ii]=True
 
-def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mtraj_Trajectory_to_mdtraj_Trajectory
     from mdtraj import load_hdf5 as mdtraj_load_hdf5
 
     tmp_item = mdtraj_load_hdf5(item)
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
+    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item,
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item_aux, tmp_molecular_system = to_mdtraj_HDF5TrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all')
-    tmp_item = tmp_item_aux.topology
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
-    tmp_item_aux.close()
-    del(tmp_item_aux)
+    from molsysmt.forms.classes.api_mdtraj_HDF5TrajectoryFile import to_mdtraj_Topology as mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology
+
+    tmp_item, tmp_molecular_system = to_mdtraj_HDF5TrajectoryFile(item, molecular_system=molecular_system, atom_indices='all', frame_indices='all')
+    tmp_item, tmp_molecular_system = mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_HDF5TrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_HDF5TrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import HDF5TrajectoryFile
 
     tmp_item = HDF5TrajectoryFile(item)
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = tmp_item.to_openmm()
-    tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if tmp_molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.files import from_file_h5 as file_h5_to_molsysmt_MolSys
 
-    tmp_item, tmp_molecular_system = file_h5_to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_h5_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.topology.files import from_file_h5 as file_h5_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = file_h5_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_h5_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_file_h5 as file_h5_to_molsysmt_Trajectory
 
-    tmp_item, tmp_molecular_system = file_h5_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_h5_to_molsysmt_Trajectory(item,
+            molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_file_pdb as molsysmt_MolSys_to_file_pdb
 
-    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_file_pdb(tmp_item, tmp_molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_file_pdb(tmp_item, molecular_system=tmp_molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
-    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item, tmp_molecular_system)
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item,
+            molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_h5(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
+def to_file_h5(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
-            tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            tmp_item = extract_item(item, output_filename=output_filename)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract_item(item, atom_indices='all', frame_indices='all', output_filename=None):
+
+    if output_filename is None:
+        output_filename = tmp_filename(extension='h5')
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         from shutil import copyfile
@@ -138,10 +156,11 @@ def aux_get(item, indices='all', frame_indices='all'):
 
     from molsysmt.forms import forms
 
-    if 'openmm.HDF5TrajectoryFile' in forms:
+    method_name = sys._getframe(1).f_code.co_name
 
-        tmp_item = to_mdtraj_HDF5TrajectoryFile(item)
-        method_name = sys._getframe(1).f_code.co_name
+    if 'mdtraj.HDF5TrajectoryFile' in forms:
+
+        tmp_item, _ = to_mdtraj_HDF5TrajectoryFile(item)
         module = importlib.import_module('molsysmt.forms.classes.api_mdtraj_HDF5TrajectoryFile')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)

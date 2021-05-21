@@ -4,6 +4,7 @@ import numpy as np
 import importlib
 import sys
 from molsysmt.molecular_system import molecular_system_components
+from molsysmt._private_tools.files_and_directories import tmp_filename
 
 form_name='file:xtc'
 
@@ -17,39 +18,50 @@ has = molecular_system_components.copy()
 for ii in ['coordinates', 'box']:
     has[ii]=True
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory.files import from_xtc as xtc_to_molsysmt_Trajectory
 
-    tmp_item, tmp_molecular_system = xtc_to_molsysmt_Trajectory(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = xtc_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_XTCTrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_XTCTrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats import XTCTrajectoryFile
 
     tmp_item = XTCTrajectoryFile(item)
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
 def to_file_xtc(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
 
+    tmp_molecular_system = None
+
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
-            tmp_item = extract_item(item)
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+            tmp_item = extract_item(item, output_filename=output_filename)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
             tmp_item = item
-            tmp_molecular_system = molecular_system
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract_item(item, atom_indices='all', frame_indices='all', output_filename=None):
+
+    if output_filename is None:
+        output_filename = tmp_filename(extension='xtc')
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         raise NotImplementedError()
@@ -72,10 +84,11 @@ def aux_get(item, indices='all', frame_indices='all'):
 
     from molsysmt.forms import forms
 
+    method_name = sys._getframe(1).f_code.co_name
+
     if 'mdtraj.XTCTrajectoryFile' in forms:
 
-        tmp_item = to_mdtraj_XTCTrajectoryFile(item)
-        method_name = sys._getframe(1).f_code.co_name
+        tmp_item, _ = to_mdtraj_XTCTrajectoryFile(item)
         module = importlib.import_module('molsysmt.forms.classes.api_mdtraj_XTCTrajectoryFile')
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)

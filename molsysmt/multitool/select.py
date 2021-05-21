@@ -69,8 +69,8 @@ def select_within(molecular_system, selection, frame_index, syntaxis):
 
     threshold, selection_2 = tmp_selection.split(" of ")
 
-    atom_indices_1, atom_indices_2, cmap = contact_map(molecular_system, selection_1=selection_1, selection_2=selection_2,
-                                           frame_indices_1=frame_index, threshold=threshold, pbc=pbc, engine='MolSysMT',
+    atom_indices_1, atom_indices_2, cmap = contact_map(molecular_system, selection=selection_1, selection_2=selection_2,
+                                           frame_indices=frame_index, threshold=threshold, pbc=pbc, engine='MolSysMT',
                                            syntaxis=syntaxis, output_atom_indices=True)
 
     if not_within:

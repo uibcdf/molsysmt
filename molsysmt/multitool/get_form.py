@@ -25,10 +25,10 @@ def get_form(molecular_system):
 
     if type(molecular_system)==dict:
 
-        from molsysmt.forms.classes.api_dict_molecular_mechanics import this_dict_is_MolecularMechanicsDict
-        from molsysmt.forms.classes.api_dict_molecular_mechanics import form_name as form_MolecularMechanicsDict
-        from molsysmt.forms.classes.api_dict_simulation import this_dict_is_SimulationDict
-        from molsysmt.forms.classes.api_dict_simulation import form_name as form_SimulationDict
+        from molsysmt.forms.classes.api_MolecularMechanicsDict import this_dict_is_MolecularMechanicsDict
+        from molsysmt.forms.classes.api_MolecularMechanicsDict import form_name as form_MolecularMechanicsDict
+        from molsysmt.forms.classes.api_SimulationDict import this_dict_is_SimulationDict
+        from molsysmt.forms.classes.api_SimulationDict import form_name as form_SimulationDict
 
         if this_dict_is_MolecularMechanicsDict(molecular_system):
             return form_MolecularMechanicsDict

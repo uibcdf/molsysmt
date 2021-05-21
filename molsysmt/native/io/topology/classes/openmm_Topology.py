@@ -1,4 +1,4 @@
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     import simtk.openmm as mm
     import simtk.openmm.app as app
@@ -65,7 +65,10 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
         tmp_item.addBond(list_new_atoms[atom_1], list_new_atoms[atom_2]) # falta bond type and bond order
 
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
@@ -173,7 +176,10 @@ def from_openmm_Topology(item, molecular_system, atom_indices='all', frame_indic
 
     tmp_item._nan_to_None()
 
-    tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
