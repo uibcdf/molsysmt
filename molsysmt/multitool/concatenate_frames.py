@@ -13,7 +13,7 @@ def concatenate_frames(molecular_systems, selections='all', frame_indices='all',
 
     tmp_molecular_systems = []
     for aux in molecular_systems:
-        tmp_molecular_systems.append(digest_molecular_system(aux))
+        tmp_molecular_systems.append([digest_molecular_system(aux)])
     molecular_systems = tmp_molecular_systems
 
     n_molecular_systems = len(molecular_systems)

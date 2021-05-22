@@ -17,7 +17,7 @@ def append_frames(to_molecular_system, from_molecular_systems, selections='all',
             tmp_from_molecular_systems.append(digest_molecular_system(aux))
         from_molecular_systems = tmp_from_molecular_systems
 
-    n_from_molecular_systems = len(tmp_from_molecular_systems)
+    n_from_molecular_systems = len(from_molecular_systems)
 
     if not is_list_or_tuple(selections):
         selections = [selections for ii in range(n_from_molecular_systems)]

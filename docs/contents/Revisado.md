@@ -15,19 +15,19 @@
 - [X] Build_peptide
 - [X] Geometrical Transformations
 
-- [] View
-- [] Append_Concatenate
-- [] Add_Merge
+- [X] View
+- [X] Append_Concatenate
+- [X] Add_Merge
 
-- [] Centers
-- [] Distances
+- [X] Centers
+- [X] Distances
 
-- [] Bondgraph
-- [] Covalent_chains
-- [] Dihedral_angles
+- [X] Bondgraph
+- [X] Covalent_chains
+- [X] Dihedral_angles
 
-- [] ForceFields
-- [] Molecular Systems
+- [X] ForceFields
+- [X] Molecular Systems
 - [] Molecular_Mechanics
 - [] Simulation
 

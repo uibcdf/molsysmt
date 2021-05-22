@@ -1,4 +1,4 @@
-from molsysmt.forms import dict_convert
+from molsysmt.forms import dict_convert, dict_has
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
@@ -85,22 +85,12 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     item = None
     item_form = None
 
-    for aux_item, aux_form in [[molecular_system.elements_item, molecular_system.elements_form],
-                               [molecular_system.coordinates_item, molecular_system.coordinates_form],
-                               [molecular_system.box_item, molecular_system.box_form],
-                               [molecular_system.box_item, molecular_system.box_form],
-                               [molecular_system.velocities_item, molecular_system.velocities_form],
-                               [molecular_system.bonds_item, molecular_system.bonds_form],
-                               [molecular_system.ff_parameters_item, molecular_system.ff_parameters_form],
-                               [molecular_system.mm_parameters_item, molecular_system.mm_parameters_form],
-                               [molecular_system.simulation_item, molecular_system.simulation_form],
-                              ]:
+    for component_name, required in dict_has[to_form].items():
+        if required:
+            item = getattr(molecular_system, component_name+'_item')
+            item_form = getattr(molecular_system, component_name+'_form')
+            break
 
-        if aux_item is not None:
-            if (to_form in dict_convert[aux_form]) or (to_form == aux_form):
-                item = aux_item
-                item_form = aux_form
-                break
 
     if item_form is None:
         raise NotImplementedConversionError(get_form(molecular_system), to_form)

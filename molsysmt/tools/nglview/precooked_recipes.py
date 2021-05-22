@@ -14,13 +14,27 @@ def standardize_view (view, atom_indices='all', frame_indices='all'):
 
     tmp_topology = convert(view, to_form='molsysmt.Topology')
 
-    sel_cartoon = select(tmp_topology, selection='molecule_type in ["protein", "peptide", "dna", "rna"]', mask=atom_indices, to_syntaxis='NGLview')
+    sel_cartoon = select(tmp_topology, selection='molecule_type in ["protein", "dna", "rna"]', mask=atom_indices, to_syntaxis='NGLview')
     sel_balls = select(tmp_topology, selection='molecule_type in ["ion"]', mask=atom_indices, to_syntaxis='NGLview')
     sel_licorice = select(tmp_topology, selection='molecule_type in ["lipid", "small molecule"]', mask=atom_indices, to_syntaxis='NGLview')
 
+    peptide_indices = select(tmp_topology, selection='molecule_type=="peptide"', target='molecule')
+    peptides_to_cartoon = []
+    peptides_to_licorice = []
+    for peptide_index in peptide_indices:
+        n_aminoacids = get(tmp_topology, target='molecule', indices=peptide_index, n_groups=True)[0]
+        if n_aminoacids > 4:
+            peptides_to_cartoon.append(peptide_index)
+        else:
+            peptides_to_licorice.append(peptide_index)
+    sel_peptides_cartoon = select(tmp_topology, selection='molecule_index in @peptides_to_cartoon', mask=atom_indices, to_syntaxis='NGLview')
+    sel_peptides_licorice = select(tmp_topology, selection='molecule_index in @peptides_to_licorice', mask=atom_indices, to_syntaxis='NGLview')
+
     view.clear()
     view.add_cartoon(selection=sel_cartoon)
+    view.add_cartoon(selection=sel_peptides_cartoon)
     view.add_licorice(selection=sel_licorice, radius=0.4)
+    view.add_licorice(selection=sel_peptides_licorice, radius=0.4)
     view.add_ball_and_stick(selection=sel_balls)
 
     n_waters = get(view, target="system", n_waters=True)

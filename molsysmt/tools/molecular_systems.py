@@ -1,10 +1,14 @@
 import numpy as np
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.items import compatibles_for_a_single_molecular_system as items_compatibles_for_a_single_molecular_system
+from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 
 def is_a_single_molecular_system(items):
 
-    output = False
+    if is_list_or_tuple(items):
+        for item in items:
+            if is_list_or_tuple(item):
+                return False
 
     output = items_compatibles_for_a_single_molecular_system(items)
 

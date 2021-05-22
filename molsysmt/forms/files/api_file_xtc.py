@@ -20,9 +20,9 @@ for ii in ['coordinates', 'box']:
 
 def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.files import from_xtc as xtc_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory.files import from_file_xtc as file_xtc_to_molsysmt_Trajectory
 
-    tmp_item, tmp_molecular_system = xtc_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_xtc_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 

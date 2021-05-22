@@ -4,6 +4,7 @@ from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
 from molsysmt.multitool.convert import convert
+from molsysmt.multitool.select import select
 
 def add(to_molecular_system, from_molecular_systems, selections='all', frame_indices='all', syntaxis='MolSysMT'):
 
@@ -17,7 +18,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', frame_ind
             tmp_from_molecular_systems.append(digest_molecular_system(aux))
         from_molecular_systems = tmp_from_molecular_systems
 
-    n_from_molecular_systems = len(tmp_from_molecular_systems)
+    n_from_molecular_systems = len(from_molecular_systems)
 
     if not is_list_or_tuple(selections):
         selections = [selections for ii in range(n_from_molecular_systems)]
