@@ -65,7 +65,7 @@ def box_vectors_from_box_lengths_and_angles(lengths, angles):
 
     units = puw.get_unit(lengths)
     lengths_value = puw.get_value(lengths)
-    angles_value = puw.get_value(angles, in_units='degrees')
+    angles_value = puw.get_value(angles, to_unit='degrees')
     lengths_value =  np.asfortranarray(lengths_value, dtype='float64')
     angles_value =  np.asfortranarray(angles_value, dtype='float64')
     n_frames = lengths.shape[0]

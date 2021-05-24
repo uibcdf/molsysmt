@@ -57,8 +57,8 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
 
         from simtk.openmm import Vec3
 
-        clearance = puw.translate(clearance, to_form='simtk.unit')
-        ionic_strength = puw.translate(ionic_strength, to_form='simtk.unit')
+        clearance = puw.convert(clearance, to_form='simtk.unit')
+        ionic_strength = puw.convert(ionic_strength, to_form='simtk.unit')
 
         modeller = convert(molecular_system, to_form='openmm.Modeller')
         molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
@@ -105,8 +105,8 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
 
     elif engine=="PDBFixer":
 
-        clearance = puw.translate(clearance, to_form='simtk.unit')
-        ionic_strength = puw.translate(ionic_strength, to_form='simtk.unit')
+        clearance = puw.convert(clearance, to_form='simtk.unit')
+        ionic_strength = puw.convert(ionic_strength, to_form='simtk.unit')
 
         pdbfixer = convert(molecular_system, to_form='pdbfixer.PDBFixer')
         max_size = max(max((pos[i] for pos in pdbfixer.positions))-min((pos[i] for pos in pdbfixer.positions)) for i in range(3))
@@ -207,7 +207,7 @@ def is_solvated(molecular_system):
 
     n_waters, volume = get(molecular_system, target='system', n_waters=True, box_volume=True)
     if (n_waters>0) and (volume is not None):
-        density_number = puw.get_value((n_waters/volume), in_units='1/nm**3')
+        density_number = puw.get_value((n_waters/volume), to_unit='1/nm**3')
         if (density_number)>15:
             output = True
 

@@ -109,7 +109,7 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
     topology, _ = to_openmm_Topology(item, molecular_system=None, atom_indices=atom_indices, frame_indices=frame_indices)
     positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
-    positions = puw.translate(positions, to_form='simtk.unit')
+    positions = puw.convert(positions, to_form='simtk.unit')
     tmp_item = Modeller(topology, positions)
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -470,5 +470,6 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
 
     raise NotImplementedError
+
 
 

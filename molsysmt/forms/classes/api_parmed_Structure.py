@@ -61,7 +61,7 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
 
     tmp_topology, _ = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
-    coordinates = puw.get_value(coordinates, in_units_of="nanometers")
+    coordinates = puw.get_value(coordinates, to_unit="nanometers")
     tmp_item = mdtraj_trajectory(coordinates, tmp_topology)
     del(tmp_topology, coordinates)
 

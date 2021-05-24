@@ -53,7 +53,7 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
     from molsysmt.forms.classes.api_mdtraj_Trajectory import mdtraj_Trajectory_to_mdtraj_Trajectory
 
     topology, _ = to_mdtraj_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
-    positions = puw.get_value(item.positions, in_units='nanometers')
+    positions = puw.get_value(item.positions, to_unit='nanometers')
     tmp_item = mdtraj_Trajectory(positions, topology)
     tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 

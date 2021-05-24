@@ -23,7 +23,7 @@ def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_ind
     from simtk.openmm import Context
 
     positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
-    positions = puw.translate(positions[0], in_units='nm', to_form='simtk.unit')
+    positions = puw.convert(positions[0], to_unit='nm', to_form='simtk.unit')
     simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 
     integrator = simulation.to_openmm_Integrator()
@@ -34,7 +34,7 @@ def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_ind
     tmp_item = Context(item, integrator, platform, properties)
     tmp_item.setPositions(positions)
     if simulation.initial_velocities_to_temperature:
-        temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
+        temperature = puw.convert(simulation.temperature, to_unit='K', to_form='simtk.unit')
         tmp_item.setVelocitiesToTemperature(temperature)
 
     if molecular_system is not None:
@@ -62,7 +62,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
     tmp_item = Simulation(topology, item, integrator, platform, properties)
     tmp_item.context.setPositions(positions)
     if simulation.initial_velocities_to_temperature:
-        temperature = puw.translate(simulation.temperature, in_units='K', to_form='simtk.unit')
+        temperature = puw.convert(simulation.temperature, to_unit='K', to_form='simtk.unit')
         tmp_item.context.setVelocitiesToTemperature(temperature)
 
     if molecular_system is not None:

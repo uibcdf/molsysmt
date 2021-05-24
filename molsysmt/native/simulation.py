@@ -78,9 +78,9 @@ class Simulation():
 
         from simtk.openmm import LangevinIntegrator
 
-        temperature = puw.translate(self.temperature, in_units='K', to_form='simtk.unit')
-        collisions_rate = puw.translate(self.collisions_rate, in_units='1/ps', to_form='simtk.unit')
-        integration_timestep = puw.translate(self.integration_timestep, in_units='fs', to_form='simtk.unit')
+        temperature = puw.convert(self.temperature, to_unit='K', to_form='simtk.unit')
+        collisions_rate = puw.convert(self.collisions_rate, to_unit='1/ps', to_form='simtk.unit')
+        integration_timestep = puw.convert(self.integration_timestep, to_unit='fs', to_form='simtk.unit')
 
         if self.integrator=='Langevin':
             integrator = LangevinIntegrator(temperature, collisions_rate, integration_timestep)

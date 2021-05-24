@@ -62,8 +62,8 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
         orthogonal = 1
         box = np.zeros([n_frames,3,3])*puw.unit('nm')
 
-    box = np.asfortranarray(puw.get_value(box, in_units='nm'), dtype='float64')
-    coordinates = np.asfortranarray(puw.get_value(coordinates, in_units='nm'), dtype='float64')
+    box = np.asfortranarray(puw.get_value(box, to_unit='nm'), dtype='float64')
+    coordinates = np.asfortranarray(puw.get_value(coordinates, to_unit='nm'), dtype='float64')
 
     angles = libgeometry.dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_frames)
     angles = np.ascontiguousarray(angles)*puw.unit('degrees')
@@ -233,7 +233,7 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
             box= np.zeros([n_frames,3,3])*puw.unit('nm')
 
         length_units = puw.unit(coordinates)
-        box = np.asfortranarray(puw.get_value(box, in_units=length_units), dtype='float64')
+        box = np.asfortranarray(puw.get_value(box, to_unit=length_units), dtype='float64')
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         angles = np.asfortranarray(puw.get_value(angles), dtype='float64')
 

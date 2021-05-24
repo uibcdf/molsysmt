@@ -23,7 +23,7 @@ def to_openmm_Modeller (item, molecular_system=None, atom_indices='all', frame_i
 
     tmp_topology, _ = molsysmt_MolSys_to_openmm_Topology(item, atom_indices=atom_indices)
     tmp_positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
-    tmp_positions = puw.translate(tmp_positions, to_form='simtk.unit')
+    tmp_positions = puw.convert(tmp_positions, to_form='simtk.unit')
 
     tmp_item = Modeller(tmp_topology, tmp_positions[0])
     if molecular_system is not None:

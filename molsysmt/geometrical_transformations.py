@@ -11,7 +11,7 @@ def translate(molecular_system, translation=None, selection='all', frame_indices
 
     length_units = puw.get_unit(coordinates)
     coordinates = puw.get_value(coordinates)
-    translation = puw.get_value(translation, in_units=length_units)
+    translation = puw.get_value(translation, to_unit=length_units)
     n_atoms = coordinates.shape[1]
 
     if type(translation) in [list, tuple]:

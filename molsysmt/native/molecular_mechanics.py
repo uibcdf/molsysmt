@@ -154,10 +154,12 @@ class MolecularMechanics():
             raise NotImplementedError()
 
         if self.non_bonded_cutoff is not None:
-            parameters['nonbondedCutoff']=puw.translate(self.non_bonded_cutoff, to_form='simtk.unit', in_units='nm')
+            parameters['nonbondedCutoff']=puw.convert(self.non_bonded_cutoff, to_form='simtk.unit',
+                                                      to_unit='nm')
 
         if self.switch_distance is not None:
-            parameters['switchDistance']=puw.translate(self.switch_distance, to_form='simtk.unit', in_units='nm')
+            parameters['switchDistance']=puw.convert(self.switch_distance, to_form='simtk.unit',
+                                                       to_unit='nm')
 
         if self.constraints is not None:
             if self.constraints == 'h_bonds':
@@ -193,8 +195,10 @@ class MolecularMechanics():
             else:
                 raise NotImplementedError
 
-            parameters['implicitSolventSaltConc']=puw.translate(self.implicit_solvent_salt_cont, in_units='mole/liter', in_form='simtk.unit')
-            parameters['implicitSolventKappa']=puw.translate(self.implicit_solvent_salt_kappa, in_units='1/nm', in_form='simtk.unit')
+            parameters['implicitSolventSaltConc']=puw.convert(self.implicit_solvent_salt_cont,
+                                                              to_unit='mole/liter', to_form='simtk.unit')
+            parameters['implicitSolventKappa']=puw.convert(self.implicit_solvent_salt_kappa,
+                                                           to_unit='1/nm', to_form='simtk.unit')
             parameters['soluteDielectric']=self.solute_dielectric
             parameters['solventDielectric']=self.solvent_dielectric
 

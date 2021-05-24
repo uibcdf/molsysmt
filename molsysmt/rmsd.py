@@ -38,7 +38,7 @@ def rmsd (molecular_system, selection='backbone', frame_indices='all',
         coordinates = get(molecular_system, coordinates=True, frame_indices='all')
         units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-        reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, in_units=units), dtype='float64')
+        reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
 
         if reference_coordinates.shape[1]!=n_atom_indices:
             raise ValueError("reference selection and selection needs to have the same number of atoms")
@@ -107,7 +107,7 @@ def least_rmsd (molecular_system=None, selection='backbone', frame_indices='all'
         coordinates = get(molecular_system, coordinates=True, frame_indices='all')
         units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-        reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, in_units=units), dtype='float64')
+        reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
 
         if reference_coordinates.shape[1]!=n_atom_indices:
             raise ValueError("reference selection and selection needs to have the same number of atoms")
@@ -161,7 +161,7 @@ def least_rmsd_fit (molecular_system=None, selection='backbone', frame_indices='
         coordinates = get(molecular_system, coordinates=True, frame_indices='all')
         units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
-        reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, in_units=units), dtype='float64')
+        reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
 
         if reference_coordinates.shape[1]!=n_atom_indices:
             raise ValueError("reference selection and selection needs to have the same number of atoms")

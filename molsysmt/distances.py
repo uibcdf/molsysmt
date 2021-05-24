@@ -504,7 +504,7 @@ def contact_map(molecular_system, selection="all", groups_of_atoms=None, group_b
         raise BadCallError(BadCallMessage)
 
     length_units = puw.get_unit(all_dists)
-    threshold = puw.get_value(threshold, in_units=length_units)
+    threshold = puw.get_value(threshold, to_unit=length_units)
     all_dists = puw.get_value(all_dists)
 
     num_frames=all_dists.shape[0]
@@ -598,7 +598,7 @@ def neighbors(molecular_system, selection="all", groups_of_atoms=None, group_beh
 
     elif threshold is not None and num_neighbors is None:
 
-        threshold = puw.get_value(threshold, in_units=length_units)
+        threshold = puw.get_value(threshold, to_unit=length_units)
 
         neighs=np.empty((nframes, nelements_1), dtype=object)
         dists=np.empty((nframes, nelements_1), dtype=object)

@@ -176,7 +176,7 @@ class Trajectory():
                 raise ValueError('Both items need to have the same n_frames')
             else:
                 unit = puw.get_unit(self.coordinates)
-                value_coordinates = puw.get_value(coordinates, in_units=unit)
+                value_coordinates = puw.get_value(coordinates, to_unit=unit)
                 value_self_coordinates = puw.get_value(self.coordinates)
                 self.coordinates = np.hstack([value_self_coordinates, value_coordinates])*unit
                 del(value_coordinates, value_self_coordinates)

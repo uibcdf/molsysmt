@@ -280,7 +280,7 @@ class TLeap:
             raise ValueError('The argument box_geometry must take one of the following values: \
                              "cubic" or "truncated_octahedral".')
 
-        clearance = puw.get_value(clearance, in_units='angstroms')
+        clearance = puw.get_value(clearance, to_unit='angstroms')
 
         self.add_commands('{} {} {} {} iso'.format(solvate_command, unit_name, solvent_model, clearance))
 
