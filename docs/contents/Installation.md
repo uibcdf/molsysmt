@@ -65,15 +65,15 @@ python environment:
 - [PDBFixer](https://github.com/openmm/pdbfixer)
 - [MDTraj](http://mdtraj.org/)
 - [NGLView](http://nglviewer.org/nglview/latest/)
-- [PyUnitWizard = 0.1 (dev)](https://www.uibcdf.org/PyUnitWizard)
+- [PyUnitWizard >= 0.2.0 (dev)](https://www.uibcdf.org/PyUnitWizard)
 - [AmberTools](http://ambermd.org/AmberTools.php)
 
 If you are working in a conda environment, find here the installation commands to solve this
 dependencies:
 
 ```bash
-conda install mmtf-python pandas networkx openmm pdbfixer nglview
-conda install -c uibcdf/lab/dev pyunitwizard
+conda install mmtf-python pandas networkx openmm pdbfixer nglview ambertools mdtraj
+conda install -c uibcdf/label/dev pyunitwizard
 ```
 
 There is also a set of optional libraries you may want to install depending on how you are going to use
@@ -87,6 +87,23 @@ MolSysMT:
 - [OpenExplorer (dev)](https://www.uibcdf.org/OpenExplorer)
 - [OpenMolecularSystems (dev)](https://www.uibcdf.org/OpenMolecularSystem)
 
+If you want to install this optional libraries in your conda environment, go with the following
+command:
+
+```bash
+conda install parmed mdanalysis pytraj biopython
+```
+
+### Additional dependencies for developers
+
+If you are going to contribute to develope or document MolSysMT, you will need these other
+packages:
+
+```bash
+conda install jupyterlab
+conda install sphinx 
+```
+
 ### Installation from the source code
 
 Having the dependencies solved, the command to install MolSysMT from its source code is:
@@ -94,6 +111,18 @@ Having the dependencies solved, the command to install MolSysMT from its source 
 ```bash
 cd MolSysMT
 python setup.py develop
+```
+
+#### Patching NGLView
+
+The methods to load `molsysm.MolSys` objects with NGLview has not being implemented yet this
+visualization library. However, the patch is included in MolSysMT. To apply it, you only need to
+execute once in you environment the following lines (with python, ipython or jupyter):
+
+```python
+In [1]: from molsysmt.tools.nglview import adding_molsysmt
+
+In [2]: adding_molsysmt()
 ```
 
 ### Uninstallation
