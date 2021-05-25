@@ -51,7 +51,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 
     topology = convert(molecular_system, to_form='openmm.Topology', selection=atom_indices)
     positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
-    positions = puw.convert(positions[0], to_units='nm', to_form='simtk.unit')
+    positions = puw.convert(positions[0], to_unit='nm', to_form='simtk.unit')
     simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 
     integrator = simulation.to_openmm_Integrator()
