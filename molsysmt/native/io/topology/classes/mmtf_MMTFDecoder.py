@@ -1,3 +1,4 @@
+import warnings
 
 def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_indices='all', bioassembly_index=0, bioassembly_name=None):
 
@@ -10,22 +11,36 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
 
     # sanity checks
 
-    if len(item.bio_assembly)>0:
+    for n_chain_per_model in item.chains_per_model:
+        if n_chain_per_model != item.num_chains:
+            raise NotImplementedError("The bioassembly has models with different number of chains")
+
+    if len(item.group_type_list)!=item.num_groups:
+        raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
+
+
+    if len(item.bio_assembly)<1:
 
         mmtf_bioassembly = item.bio_assembly[bioassembly_index]
 
         if len(mmtf_bioassembly['transformList'])>1:
-            raise NotImplementedError("The bioassembly has more than a transformation.")
+            warning_message = ("The structure in the PDB has biological assemblies. "
+            "There are geometrical transformations proposed in the structure. "
+            "See the following issue in the source code repository: https://github.com/uibcdf/MolSysMT/issues/33")
 
-        for n_chain_per_model in item.chains_per_model:
-            if n_chain_per_model != item.num_chains:
-                raise NotImplementedError("The bioassembly has models with different number of chains")
+            print(warning_message)
+            warnings.warn(warning_message)
 
         if len(mmtf_bioassembly['transformList'][0]['chainIndexList']) != item.num_chains:
             raise NotImplementedError("The bioassembly has a different number of chains than the total amount of chains")
 
-        if len(item.group_type_list)!=item.num_groups:
-            raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
+    if len(item.bio_assembly)>0:
+
+        warning_message = ("The structure in the PDB has biological assemblies. "
+        "There are geometrical transformations proposed in the structure. "
+        "See the following issue in the source code repository: https://github.com/uibcdf/MolSysMT/issues/33")
+
+        warnings.warn(warning_message)
 
     # atoms, groups and bonds intra group
 
