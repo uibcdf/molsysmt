@@ -25,6 +25,7 @@ from .potential_energy import energy_minimization, potential_energy
 from .sasa import sasa
 from .rmsd import rmsd, least_rmsd, least_rmsd_fit
 from . import hbonds
+from .pbc import wrap_to_pbc, unwrap_from_pbc
 
 #from .sequence import sequence_alignment, sequence_identity, structure_alignment
 #from .radius_of_gyration import radius_of_gyration
@@ -32,7 +33,7 @@ from . import hbonds
 #from .model_loops import add_loop
 #from .mutations import mutate
 #from . import elements as elements
-#from .pbc import wrap_molecules_to_pbc_cell, unwrap_molecules_from_pbc_cell, minimum_image_convention,\
+#from .pbc import minimum_image_convention,\
 #        box_shape_from_box_angles, box_shape_from_box_vectors, box_lengths_from_box_vectors, box_angles_from_box_vectors,\
 #        box_vectors_from_box_lengths_and_angles, box_volume_from_box_vectors
 #from .pockets import alpha_spheres

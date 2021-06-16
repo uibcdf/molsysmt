@@ -222,57 +222,53 @@ CONTAINS
     double precision,DIMENSION(nframes,3,3),INTENT(IN)::box
     double precision,dimension(nframes,natoms,3),intent(INOUT)::coors
   
-    DOUBLE PRECISION::Lx,Ly,Lz,x,y,z
-  
-    INTEGER::ii,jj,nn
-  
-    DO jj=1,nframes
-  
-      Lx=box(jj,1,1)
-      Ly=box(jj,2,2)
-      Lz=box(jj,3,3)
-  
-      IF (ortho==1) THEN
-  
-         DO ii=1,natoms
-            x=coors(jj,ii,1)
-            y=coors(jj,ii,2)
-            z=coors(jj,ii,3)
-            IF (x<0.0d0) THEN
-               nn=CEILING(abs(x)/Lx)
-               x=x+nn*Lx
-            ELSE IF (x>=Lx) THEN
-               nn=INT(x/Lx)
-               x=x-nn*Lx
-            END IF
-            IF (y<0.0d0) THEN
-               nn=CEILING(abs(y)/Ly)
-               y=y+nn*Ly
-            ELSE IF (y>=Ly) THEN
-               nn=INT(y/Ly)
-               y=y-nn*Ly
-            END IF
-            IF (z<0.0d0) THEN
-               nn=CEILING(abs(z)/Lz)
-               z=z+nn*Lz
-            ELSE IF (z>=Lz) THEN
-               nn=INT(z/Lz)
-               z=z-nn*Lz
-            END IF
-            coors(jj,ii,:)=(/x,y,z/)
-         END DO
-         
-      ELSE
-  
-         print*,'WRAP function not implemented for not orthorhombic unit cells.'
-  
-      END IF
- 
+    DOUBLE PRECISION,DIMENSION(nframes,3,3)::inv
+    DOUBLE PRECISION,DIMENSION(3,3)::tmp_box,tmp_inv
+
+    INTEGER::ii,jj
+
+    inv=0.0d0
+    CALL BOX2INVBOX (box, inv, nframes)
+
+    DO ii=1,nframes
+      tmp_box=box(ii,:,:)
+      tmp_inv=inv(ii,:,:)
+      DO jj=1,natoms
+        CALL PBC(coors(ii,jj,:),tmp_box,tmp_inv,ortho)
+      END DO
     END DO
 
   END SUBROUTINE WRAP
+  
+  SUBROUTINE UNWRAP (coors,box,ortho,natoms,nframes)
+  
+    INTEGER,INTENT(IN)::ortho,natoms,nframes
+    double precision,DIMENSION(nframes,3,3),INTENT(IN)::box
+    double precision,dimension(nframes,natoms,3),intent(INOUT)::coors
+  
+    DOUBLE PRECISION,DIMENSION(nframes,3,3)::inv
+    DOUBLE PRECISION,DIMENSION(3,3)::tmp_box,tmp_inv
+    DOUBLE PRECISION,DIMENSION(3)::delta
 
-  SUBROUTINE UNWRAP (coors, molecules_indices, molecules_values, molecules_starts, &
+    INTEGER::ii,jj
+
+    inv=0.0d0
+    CALL BOX2INVBOX (box, inv, nframes)
+
+    DO ii=1,nframes-1
+      tmp_box=box(ii,:,:)
+      tmp_inv=inv(ii,:,:)
+      DO jj=1,natoms
+        delta(:) = coors(ii+1,jj,:)-coors(ii,jj,:)
+        CALL PBC(delta,tmp_box,tmp_inv,ortho)
+        coors(ii+1,jj,:)=coors(ii,jj,:)+delta(:)
+      END DO
+    END DO
+
+  END SUBROUTINE UNWRAP
+
+
+  SUBROUTINE COMPACT_MOLECULES (coors, molecules_indices, molecules_values, molecules_starts, &
           & bonded_atoms_indices, bonded_atoms_values, bonded_atoms_starts, &
           & frame_indices, box, ortho, n_frames, n_atoms, n_molecules_indices, &
           & n_molecules_values, n_bonded_atoms_indices, n_bonded_atoms_values, &
@@ -358,7 +354,7 @@ CONTAINS
 
     END DO
 
-  END SUBROUTINE UNWRAP
+  END SUBROUTINE COMPACT_MOLECULES
 
   SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors, reference_coors, center_groups, groups_indices, groups_atoms_indices, groups_starts, &
           frame_indices, box, ortho, n_frames, n_atoms, n_groups, n_groups_atoms, n_frame_indices)

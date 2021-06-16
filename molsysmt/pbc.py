@@ -158,7 +158,7 @@ def minimum_image_convention(item, selection='all', reference_selection=None,
 
         raise NotImplementedError
 
-def unwrap_molecules_from_pbc_cell(item, selection='all', frame_indices='all', syntaxis='MDTraj', engine='MolSysMT'):
+def keep_compact_molecules_in_pbc(item, selection='all', frame_indices='all', syntaxis='MDTraj', engine='MolSysMT'):
 
     from molsysmt import convert, select, get, duplicate
     from molsysmt import set as _set
@@ -218,9 +218,101 @@ def unwrap_molecules_from_pbc_cell(item, selection='all', frame_indices='all', s
 
         raise NotImplementedError
 
-def wrap_molecules_to_pbc_cell(self):
-    #self.coors=asfortran_np.array(self.coors)
-    #libbox.wrap_all_inplace(self.coors,self.box,self.invbox,self.orthogonal,self.coors.shape[0])
-    #self.coors=ascontiguous_np.array(self.coors)
-    raise NotImplementedError
+def unwrap_from_pbc(molecular_system, selection='all', frame_indices='all',
+        syntaxis='MolSysMT', engine='MolSysMT', in_place=False):
+
+    engine = digest_engine(engine)
+    frame_indices = digest_frame_indices(frame_indices)
+
+    if engine=='MolSysMT':
+
+        from molsysmt.multitool import select, get, set, extract
+
+        coordinates= get(molecular_system, target='atom', selection=selection, coordinates=True)
+        n_frames = coordinates.shape[0]
+        n_atoms = coordinates.shape[1]
+        box, box_shape = get(molecular_system, target='system', frame_indices=frame_indices, box=True, box_shape=True)
+
+        orthogonal = 0
+        if box_shape is None:
+            raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
+        elif box_shape == 'cubic':
+            orthogonal =1
+
+        length_units = puw.get_unit(coordinates)
+        box = puw.convert(box, to_unit=length_units)
+
+        box = np.asfortranarray(puw.get_value(box), dtype='float64')
+        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
+
+        libbox.unwrap(coordinates, box, orthogonal, n_atoms, n_frames)
+
+        coordinates=np.ascontiguousarray(coordinates)*length_units
+
+    else:
+
+        raise NotImpementedEngineError()
+
+    if in_place:
+
+        set(molecular_system, target='atom', selection=selection, frame_indices=frame_indices,
+                syntaxis=syntaxis, coordinates=coordinates)
+
+        pass
+
+    else:
+
+        tmp_molecular_system = extract(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+        set(tmp_molecular_system, target='atom', selection='all', frame_indices='all', syntaxis='MolSysMT', coordinates=coordinates)
+
+        return tmp_molecular_system
+
+def wrap_to_pbc(molecular_system, selection='all', frame_indices='all',
+        syntaxis='MolSysMT', engine='MolSysMT', in_place=False):
+
+    engine = digest_engine(engine)
+    frame_indices = digest_frame_indices(frame_indices)
+
+    if engine=='MolSysMT':
+
+        from molsysmt.multitool import select, get, set, extract
+
+        coordinates= get(molecular_system, target='atom', selection=selection, coordinates=True)
+        n_frames = coordinates.shape[0]
+        n_atoms = coordinates.shape[1]
+        box, box_shape = get(molecular_system, target='system', frame_indices=frame_indices, box=True, box_shape=True)
+
+        orthogonal = 0
+        if box_shape is None:
+            raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
+        elif box_shape == 'cubic':
+            orthogonal =1
+
+        length_units = puw.get_unit(coordinates)
+        box = puw.convert(box, to_unit=length_units)
+
+        box = np.asfortranarray(puw.get_value(box), dtype='float64')
+        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
+
+        libbox.wrap(coordinates, box, orthogonal, n_atoms, n_frames)
+
+        coordinates=np.ascontiguousarray(coordinates)*length_units
+
+    else:
+
+        raise NotImpementedEngineError()
+
+    if in_place:
+
+        set(molecular_system, target='atom', selection=selection, frame_indices=frame_indices,
+                syntaxis=syntaxis, coordinates=coordinates)
+
+        pass
+
+    else:
+
+        tmp_molecular_system = extract(molecular_system, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+        set(tmp_molecular_system, target='atom', selection='all', frame_indices='all', syntaxis='MolSysMT', coordinates=coordinates)
+
+        return tmp_molecular_system
 

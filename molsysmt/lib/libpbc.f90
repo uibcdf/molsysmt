@@ -10,23 +10,14 @@ SUBROUTINE PBC(vector,box,inv,ortho)
   DOUBLE PRECISION,DIMENSION(3,3),INTENT(IN)::box,inv
   DOUBLE PRECISION,DIMENSION(3)::vaux,vaux2
   INTEGER,INTENT(IN)::ortho
-  INTEGER::i,j,k
+  INTEGER::ii,jj,kk
   DOUBLE PRECISION::x,L,Lhalf
- 
+
   IF (ortho==1) THEN
-     DO i=1,3
-        L=box(i,i)
-        Lhalf=0.50d0*L
-        x=vector(i)
-        IF (abs(x)>Lhalf) THEN
-           IF (x>Lhalf) THEN
-              x=x-L
-           ELSE
-              x=x+L
-           END IF
-           vector(i)=x
-        END IF
+     DO ii=1,3
+        vector(ii)=vector(ii)-box(ii,ii)*ANINT(vector(ii)/box(ii,ii))
      END DO
+
   ELSE
      IF (.TRUE.) THEN
         !vaux(1)=inv(1,1)*vector(1)
@@ -44,10 +35,10 @@ SUBROUTINE PBC(vector,box,inv,ortho)
      ELSE
         L=1000000.0d0
         vaux2=0.0d0
-        DO i=-1,1,1
-           DO j=-1,1,1
-              DO k=-1,1,1
-                 vaux(:)=vector(:)+i*box(1,:)+j*box(2,:)+k*box(3,:)
+        DO ii=-1,1,1
+           DO jj=-1,1,1
+              DO kk=-1,1,1
+                 vaux(:)=vector(:)+ii*box(1,:)+jj*box(2,:)+kk*box(3,:)
                  x=(vaux(1)*vaux(1)+vaux(2)*vaux(2)+vaux(3)*vaux(3))
                  IF (L>x) THEN
                     vaux2=vaux
@@ -58,6 +49,7 @@ SUBROUTINE PBC(vector,box,inv,ortho)
         END DO
         vector(:)=vaux2(:)
      END IF
+
   END IF
   
 END SUBROUTINE PBC
