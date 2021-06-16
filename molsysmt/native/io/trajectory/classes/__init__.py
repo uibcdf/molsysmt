@@ -7,5 +7,6 @@ from .openexplorer_Explorer import from_openexplorer_Explorer
 from .openexplorer_OpenExplorerReporter import from_openexplorer_OpenExplorerReporter
 from .mdanalysis_Universe import from_mdanalysis_Universe
 from .pytraj_Trajectory import from_pytraj_Trajectory
+from .TrajectoryDict import from_TrajectoryDict, to_TrajectoryDict
 from .XYZ import from_XYZ, to_XYZ
 

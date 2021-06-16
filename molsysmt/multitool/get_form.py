@@ -29,11 +29,15 @@ def get_form(molecular_system):
         from molsysmt.forms.classes.api_MolecularMechanicsDict import form_name as form_MolecularMechanicsDict
         from molsysmt.forms.classes.api_SimulationDict import this_dict_is_SimulationDict
         from molsysmt.forms.classes.api_SimulationDict import form_name as form_SimulationDict
+        from molsysmt.forms.classes.api_TrajectoryDict import this_dict_is_TrajectoryDict
+        from molsysmt.forms.classes.api_TrajectoryDict import form_name as form_TrajectoryDict
 
         if this_dict_is_MolecularMechanicsDict(molecular_system):
             return form_MolecularMechanicsDict
         elif this_dict_is_SimulationDict(molecular_system):
             return form_SimulationDict
+        elif this_dict_is_TrajectoryDict(molecular_system):
+            return form_TrajectoryDict
         else:
             raise NotImplementedError()
 

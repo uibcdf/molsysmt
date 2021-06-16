@@ -55,6 +55,13 @@ class NotImplementedSyntaxisError(NotImplementedError):
 In this last case, Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
         super().__init__(message)
 
+class NotImplementedEngineError(NotImplementedError):
+    def __init__(self, message=None):
+        if message is None:
+            message = 'This engine has not been implemented yet in this method. \
+Write a new issue in https://github.com/uibcdf/MolSysMT/issues asking for it.'
+        super().__init__(message)
+
 class LibraryNotFound(NotImplementedError):
     def __init__(self, library):
         message = 'The python library {} was not found.'.format(library)
