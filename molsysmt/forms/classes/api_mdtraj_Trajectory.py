@@ -228,10 +228,6 @@ def aux_get(item, indices='all', frame_indices='all'):
 
 ## atom
 
-def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
-
-    return aux_get(item, indices=indices, frame_indices=frame_indices)
-
 def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
 
     return aux_get(item, indices=indices, frame_indices=frame_indices)

@@ -596,7 +596,7 @@ def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    return 0
+    return None
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
