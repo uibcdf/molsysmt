@@ -1,4 +1,5 @@
 channels:
+- uibcdf/label/dev
 - uibcdf
 - conda-forge
 - ambermd
