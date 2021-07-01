@@ -6,11 +6,9 @@ on:
   # Both are tracked here to keep legacy and new codes working
   push:
     branches:
-      - "master"
       - "main"
   pull_request:
     branches:
-      - "master"
       - "main"
   schedule:
     # Nightly tests run on master by default:
@@ -66,7 +64,7 @@ jobs:
       shell: bash -l {0}
 
       run: |
-        pytest -v --cov=projectname --cov-report=xml --color=yes projectname/tests/
+        pytest -v --cov=molsysmt --cov-report=xml --color=yes molsysmt/tests/
 
     - name: CodeCov
       uses: codecov/codecov-action@v1

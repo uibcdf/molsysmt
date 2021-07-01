@@ -1,20 +1,23 @@
-name: test
 channels:
-
-  - conda-forge
-
-  - defaults
+- uibcdf
+- conda-forge
+- default
 dependencies:
-    # Base depends
-  - python
-  - pip
-
-    # Testing
-  - pytest
-  - pytest-cov
-  - codecov
-
-    # Pip-only installs
-  #- pip:
-  #  - codecov
-
+- python
+- numpy
+- pandas
+- mdtraj
+- mdanalysis
+- openmm
+- pdbfixer
+- openmmtools
+- biopython
+- nglview
+- parmed
+- pytraj
+- jupyterlab
+- matplotlib
+- pytest
+- pip
+- pytest-cov
+- codecov
