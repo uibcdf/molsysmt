@@ -1,5 +1,6 @@
 production:
   channels:
+    - uibcdf/label/dev
     - uibcdf
     - conda-forge
     - ambermd
@@ -22,6 +23,7 @@ production:
 
 development:
   channels:
+    - uibcdf/label/dev
     - uibcdf
     - conda-forge
     - ambermd
@@ -45,6 +47,7 @@ development:
 
 test:
   channels:
+    - uibcdf/label/dev
     - uibcdf
     - conda-forge
     - ambermd
@@ -72,6 +75,7 @@ test:
 
 docs:
   channels:
+    - uibcdf/label/dev
     - uibcdf
     - conda-forge
     - ambermd
@@ -112,6 +116,7 @@ setup:
 
 conda-build:
   channels:
+    - uibcdf/label/dev
     - uibcdf
     - conda-forge
     - ambermd
