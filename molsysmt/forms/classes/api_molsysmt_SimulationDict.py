@@ -3,7 +3,7 @@ from molsysmt._private_tools.exceptions import *
 import pyunitwizard as puw
 from molsysmt.molecular_system import molecular_system_components
 
-form_name='MolecularMechanicsDict'
+form_name='molsysmt.SimulationDict'
 
 is_form={
 }
@@ -11,28 +11,28 @@ is_form={
 info=["",""]
 
 has = molecular_system_components.copy()
-for ii in ['ff_parameters', 'mm_parameters']:
+for ii in ['thermo_state','simulation']:
     has[ii]=True
 
-def this_dict_is_MolecularMechanicsDict(item):
+def this_dict_is_SimulationDict(item):
 
-    from molsysmt._private_tools.molecular_mechanics import is_molecular_mechanics_dict
+    from molsysmt._private_tools.simulation import is_simulation_dict
 
-    return is_molecular_mechanics_dict(item)
+    return is_simulation_dict(item)
 
-def to_molsysmt_MolecularMechanics(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.molecular_mechanics import MolecularMechanics as molsysmt_MolecularMechanics
+    from molsysmt.native.simulation import Simulation as molsysmt_Simulation
 
-    tmp_item = molsysmt_MolecularMechanics(**item)
+    tmp_item = molsysmt_Simulation(**item)
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        tmp_molecular_system = molecular_system.combine_with_items(item)
     else:
         tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_MolecularMechanicsDict(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_SimulationDict(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     tmp_molecular_system = None
 
@@ -63,9 +63,8 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    raise NotImplementedError
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
-

@@ -4,7 +4,7 @@ import numpy as np
 import pyunitwizard as puw
 from molsysmt.molecular_system import molecular_system_components
 
-form_name='TrajectoryDict'
+form_name='molsysmt.TrajectoryDict'
 
 is_form={
 }

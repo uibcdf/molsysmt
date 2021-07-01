@@ -113,7 +113,7 @@ record.txt
 *.mod
 *.swp
 
-# In MolSysMT
+# In This Library
 devtools/playground/*
 !devtools/playground/README.md
 

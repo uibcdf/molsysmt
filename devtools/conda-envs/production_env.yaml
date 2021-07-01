@@ -15,9 +15,3 @@ dependencies:
 - nglview
 - parmed
 - pytraj
-- jupyterlab
-- matplotlib
-- pytest
-- pip
-- pytest-cov
-- codecov

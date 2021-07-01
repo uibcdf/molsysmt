@@ -2,6 +2,8 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from molsysmt import MolSys as _molsysmt_MolSys
+from molsysmt import puw
+from molsysmt.molecular_system import molecular_system_components
 
 form_name='molsysmt.MolSys'
 
@@ -11,11 +13,10 @@ is_form={
 }
 
 info=["",""]
-with_topology=False       # The form has the possibility to store topological data
-with_coordinates=False    # The form has the possiblity to store coordinates
-with_box=False            # The form has the possibility to store periodic box or unit cell
-with_bonds=False          # The form has the possibility to store bonds
-with_parameters=False     # The form has the possibility to store forcefield parameters
+
+has = molecular_system_components.copy()
+for ii in ['elements', 'bonds', 'coordinates', 'box']:
+    has[ii]=True
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -33,22 +34,40 @@ def to_nglview_NGLView(item, molecular_system=None, atom_indices='all', frame_in
 
     raise NotImplementedError()
 
-def to_template_form(item, atom_indices='all', frame_indices='all'):
+def to_template_form(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+
+    tmp_molecular_system = None
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError()
+        if copy_if_all:
+            tmp_item = extract_item(item)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        else:
+            tmp_item = item
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
     else:
-        raise NotImplementedError()
+        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
 
 def extract_item(item, atom_indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        tmp_item = item.copy()
+    else:
+        raise NotImplementedError()
+
+    return tmp_item
 
 def add(item, from_item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError()
 
-def append_frames(item, list_items, list_atom_indices, list_frame_indices):
+def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
 
@@ -105,15 +124,6 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     raise NotImplementedError()
-
-def get_frame_from_atom(item, indices='all', frame_indices='all'):
-
-    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
-    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
-    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
-    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
-
-    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 ## group
 

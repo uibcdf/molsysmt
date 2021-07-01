@@ -17,7 +17,3 @@ dependencies:
 - pytraj
 - jupyterlab
 - matplotlib
-- pytest
-- pip
-- pytest-cov
-- codecov

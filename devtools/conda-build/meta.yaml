@@ -1,6 +1,6 @@
 package:
   name: molsysmt
-  version: 0.0.5
+  version: "{{ environ['GIT_DESCRIBE_TAG'] }}"
 
 source:
   path: ../../
@@ -10,13 +10,16 @@ build:
 
 requirements:
   build:
-    - python  {{ python }}
+    - python
     - setuptools
-    - numpy 
+    - numpy
+    - versioneer
 
   run:
-    - python  {{ python }}
+    - python
     - numpy
+    - pyunitwizard
+    - pandas
     - mdtraj
     - mdanalysis
     - openmm
@@ -25,8 +28,6 @@ requirements:
     - nglview
     - pdbfixer
     - parmed
-    - yank
-    - jupyterlab
     - pytraj
 
 about:
@@ -34,6 +35,7 @@ about:
   license: MIT License
   summary: ""
   description: |
-    This toolkit library provides some useful classes, functions, pipes and wrappers daily used in the uibcdf lab when molecular systems and molecular dynamics are manipulated.
+    This toolkit library provides some useful classes, functions, pipes and wrappers daily used in the uibcdf lab to work with molecular systems.
   dev_url: https://github.com/uibcdf/MolSysMT
   doc_url: https://uibcdf.org/MolSysMT
+
