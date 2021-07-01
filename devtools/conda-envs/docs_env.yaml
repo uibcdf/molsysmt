@@ -1,0 +1,27 @@
+channels:
+- uibcdf
+- conda-forge
+- default
+dependencies:
+- python
+- numpy
+- pandas
+- mdtraj
+- mdanalysis
+- openmm
+- pdbfixer
+- openmmtools
+- biopython
+- nglview
+- parmed
+- pytraj
+- jupyterlab
+- matplotlib
+- sphinx
+- sphinx_rtd_theme
+- sphinxcontrib-bibtex
+- nbsphinx
+- recommonmark
+- sphinx-markdown-tables
+- jupyterlab
+- matplotlib

@@ -1,0 +1,117 @@
+production:
+  channels:
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - python
+    - numpy
+    - pyunitwizard
+    - pandas
+    - mdtraj
+    - mdanalysis
+    - openmm
+    - pdbfixer
+    - openmmtools
+    - biopython
+    - nglview
+    - parmed
+    - pytraj
+
+
+development:
+  channels:
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - python
+    - numpy
+    - pyunitwizard
+    - pandas
+    - mdtraj
+    - mdanalysis
+    - openmm
+    - pdbfixer
+    - openmmtools
+    - biopython
+    - nglview
+    - parmed
+    - pytraj
+    - jupyterlab
+    - matplotlib
+
+test:
+  channels:
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - python
+    - numpy
+    - pyunitwizard
+    - pandas
+    - mdtraj
+    - mdanalysis
+    - openmm
+    - pdbfixer
+    - openmmtools
+    - biopython
+    - nglview
+    - parmed
+    - pytraj
+    - jupyterlab
+    - matplotlib
+    - pytest
+    - pip
+    - pytest-cov
+    - codecov
+
+docs:
+  channels:
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - python
+    - numpy
+    - pyunitwizard
+    - pandas
+    - mdtraj
+    - mdanalysis
+    - openmm
+    - pdbfixer
+    - openmmtools
+    - biopython
+    - nglview
+    - parmed
+    - pytraj
+    - jupyterlab
+    - matplotlib
+    - sphinx
+    - sphinx_rtd_theme
+    - sphinxcontrib-bibtex
+    - nbsphinx
+    - recommonmark
+    - sphinx-markdown-tables
+    - jupyterlab
+    - matplotlib
+
+setup:
+  channels:
+    - default
+  dependencies:
+    - python
+    - setuptools
+    - numpy
+    - versioneer
+
+conda-build:
+  channels:
+    - uibcdf
+    - conda-forge
+    - default
+  dependencies:
+    - anaconda-client
+    - conda-build
+

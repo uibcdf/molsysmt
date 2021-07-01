@@ -1,0 +1,19 @@
+channels:
+- uibcdf
+- conda-forge
+- default
+dependencies:
+- python
+- numpy
+- pandas
+- mdtraj
+- mdanalysis
+- openmm
+- pdbfixer
+- openmmtools
+- biopython
+- nglview
+- parmed
+- pytraj
+- jupyterlab
+- matplotlib
