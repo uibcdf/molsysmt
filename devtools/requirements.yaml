@@ -2,6 +2,7 @@ production:
   channels:
     - uibcdf
     - conda-forge
+    - ambermd
     - default
   dependencies:
     - python
@@ -23,6 +24,7 @@ development:
   channels:
     - uibcdf
     - conda-forge
+    - ambermd
     - default
   dependencies:
     - python
@@ -45,6 +47,7 @@ test:
   channels:
     - uibcdf
     - conda-forge
+    - ambermd
     - default
   dependencies:
     - python
@@ -71,6 +74,7 @@ docs:
   channels:
     - uibcdf
     - conda-forge
+    - ambermd
     - default
   dependencies:
     - python
@@ -110,6 +114,7 @@ conda-build:
   channels:
     - uibcdf
     - conda-forge
+    - ambermd
     - default
   dependencies:
     - anaconda-client

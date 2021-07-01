@@ -1,6 +1,7 @@
 channels:
 - uibcdf
 - conda-forge
+- ambermd
 - default
 dependencies:
 - anaconda-client

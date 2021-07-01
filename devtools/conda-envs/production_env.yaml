@@ -1,10 +1,12 @@
 channels:
 - uibcdf
 - conda-forge
+- ambermd
 - default
 dependencies:
 - python
 - numpy
+- pyunitwizard
 - pandas
 - mdtraj
 - mdanalysis
