@@ -19,7 +19,8 @@ production:
     - nglview
     - parmed
     - pytraj
-
+    - openopenmmreporters
+    - openmolecularsystems
 
 development:
   channels:
@@ -44,6 +45,8 @@ development:
     - pytraj
     - jupyterlab
     - matplotlib
+    - openopenmmreporters
+    - openmolecularsystems
 
 test:
   channels:
@@ -68,6 +71,8 @@ test:
     - pytraj
     - jupyterlab
     - matplotlib
+    - openopenmmreporters
+    - openmolecularsystems
     - pytest
     - pip
     - pytest-cov
@@ -96,14 +101,14 @@ docs:
     - pytraj
     - jupyterlab
     - matplotlib
+    - openopenmmreporters
+    - openmolecularsystems
     - sphinx
     - sphinx_rtd_theme
     - sphinxcontrib-bibtex
     - nbsphinx
     - recommonmark
     - sphinx-markdown-tables
-    - jupyterlab
-    - matplotlib
 
 setup:
   channels:

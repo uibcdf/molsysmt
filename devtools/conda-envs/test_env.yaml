@@ -20,6 +20,8 @@ dependencies:
 - pytraj
 - jupyterlab
 - matplotlib
+- openopenmmreporters
+- openmolecularsystems
 - pytest
 - pip
 - pytest-cov
