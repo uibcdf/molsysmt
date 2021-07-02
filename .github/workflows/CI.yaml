@@ -27,7 +27,6 @@ jobs:
         #python-version: [3.7, 3.8] # [3.7, 3.8, 3.9]
         os: macOS-latest
         python-version: 3.7
-        compiler: gcc
 
     steps:
     - uses: actions/checkout@v1
