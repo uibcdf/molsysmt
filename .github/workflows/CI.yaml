@@ -23,10 +23,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        #os: [macOS-latest, ubuntu-latest] # [macOS-latest, ubuntu-latest, windows-latest]
-        #python-version: [3.7, 3.8] # [3.7, 3.8, 3.9]
-        os: macOS-latest
-        python-version: 3.7
+        os: [macOS-latest, ubuntu-latest] # [macOS-latest, ubuntu-latest, windows-latest]
+        python-version: [3.7, 3.8] # [3.7, 3.8, 3.9]
+
 
     steps:
     - uses: actions/checkout@v1
@@ -38,6 +37,13 @@ jobs:
         df -h
         ulimit -a
 
+    - name: Symlink gfortran (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        sudo ln -s /usr/local/bin/gfortran-10 /usr/local/bin/gfortran
+        sudo mkdir /usr/local/gfortran
+        sudo ln -s /usr/local/Cellar/gcc@10/*/lib/gcc/10 /usr/local/gfortran/lib
+        gfortran --version
 
     # More info on options: https://github.com/conda-incubator/setup-miniconda
     - uses: conda-incubator/setup-miniconda@v2
