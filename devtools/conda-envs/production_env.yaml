@@ -18,3 +18,5 @@ dependencies:
 - nglview
 - parmed
 - pytraj
+- openopenmmreporters
+- openmolecularsystems

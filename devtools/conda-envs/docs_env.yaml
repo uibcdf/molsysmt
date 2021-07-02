@@ -20,11 +20,11 @@ dependencies:
 - pytraj
 - jupyterlab
 - matplotlib
+- openopenmmreporters
+- openmolecularsystems
 - sphinx
 - sphinx_rtd_theme
 - sphinxcontrib-bibtex
 - nbsphinx
 - recommonmark
 - sphinx-markdown-tables
-- jupyterlab
-- matplotlib

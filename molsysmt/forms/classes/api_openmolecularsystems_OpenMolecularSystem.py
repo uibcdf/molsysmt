@@ -105,7 +105,7 @@ def aux_get(item, indices='all', frame_indices='all'):
 
 ## Atom
 
-def get_atom_id_from_atom (item, indices='all', frame_indices='all')
+def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
 
     return aux_get(item, indices=indices, frame_indices=frame_indices)
 

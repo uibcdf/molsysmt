@@ -20,3 +20,5 @@ dependencies:
 - pytraj
 - jupyterlab
 - matplotlib
+- openopenmmreporters
+- openmolecularsystems

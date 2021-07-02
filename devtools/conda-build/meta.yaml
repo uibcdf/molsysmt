@@ -29,6 +29,8 @@ requirements:
     - pdbfixer
     - parmed
     - pytraj
+    - openmopenmmreporters
+    - openmolecularsystems
 
 about:
   home: https://uibcdf.org
