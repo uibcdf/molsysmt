@@ -22,7 +22,6 @@ production:
     - openopenmmreporters
     - openmolecularsystems
 
-
 development:
   channels:
     - uibcdf/label/dev

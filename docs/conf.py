@@ -34,7 +34,7 @@ author = 'Liliana M. Moreno Vargas & Diego Prada Gracia'
 # The short X.Y version
 version = molsysmt.__version__.split('+')[0]
 # The full version, including alpha/beta/rc tags
-release = test_uibcdf_library.__version__
+release = molsysmt.__version__
 
 
 # -- General configuration ---------------------------------------------------
