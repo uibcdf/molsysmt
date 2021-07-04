@@ -1,6 +1,6 @@
 # J. M. Zimmerman, N. Eliezer, R. Simha, J. Theor. Biol. 1968, 21, 170–201.
 
-'bulkiness': {
+'bulkiness'= {
     'ALA': None,
     'ARG': None,
     'ASP': None,
