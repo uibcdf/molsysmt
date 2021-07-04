@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Sphinx docs to gh-pages
     steps:
+
       - uses: actions/checkout@v2
+
       - name: Make conda environment
         uses: conda-incubator/setup-miniconda@v2    # https://github.com/conda-incubator/setup-miniconda
         with:
@@ -21,10 +23,22 @@ jobs:
           auto-update-conda: false
           auto-activate-base: false
           show-channel-urls: true
+
+      - name: Checking gfortran version
+        run: |
+          gfortran --version
+
+      - name: Install package
+        # conda setup requires this special shell
+        shell: bash -l {0}
+        run: |
+          python -m pip install . --no-deps
+
       - name: Installing the library
         shell: bash -l {0}
         run: |
           python setup.py install
+
       - name: Running the Sphinx to gh-pages Action
         uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.0-beta.1
 
