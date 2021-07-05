@@ -53,5 +53,5 @@ jobs:
         python-version: ${{ matrix.python-version }} # Values previously defined in `matrix`
         user: uibcdf
         label: auto
-        token: ${{ secrets.ANACONDA_TOKEN }} # Replace with the right name of your secret
+        token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }} # Replace with the right name of your secret
 
