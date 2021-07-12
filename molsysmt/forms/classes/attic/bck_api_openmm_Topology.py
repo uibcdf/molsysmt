@@ -2349,7 +2349,7 @@ def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
 def get_n_small_molecules_from_system (item, indices='all', frame_indices='all'):
 
     molecule_types = get_molecule_type_from_molecule(item, indices='all')
-    return (molecule_types=='small_molecule').sum()
+    return (molecule_types=='small molecule').sum()
 
 def get_n_peptides_from_system (item, indices='all', frame_indices='all'):
 

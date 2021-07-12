@@ -123,7 +123,12 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    tmp_step = get_step_from_system(item, frame_indices=frame_indices)
+    tmp_time = get_time_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+
+    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 ## group
 
