@@ -42,7 +42,6 @@ def get_form(molecular_system):
             raise NotImplementedError()
 
     if type(molecular_system)==str:
-
         file_type = item_is_file(molecular_system)
         if file_type:
             return dict_is_form['file:'+file_type]

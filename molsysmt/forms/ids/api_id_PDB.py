@@ -314,6 +314,14 @@ def aux_get(item, indices='all', frame_indices='all'):
         _get = getattr(module, method_name)
         output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
 
+    elif 'molsysmt.Topology' in forms:
+
+        tmp_item, _ = to_molsysmt_Topology(item)
+        module = importlib.import_module('molsysmt.forms.classes.api_molsysmt_Topology')
+        _get = getattr(module, method_name)
+        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+
     else:
 
         raise NotImplementedError()

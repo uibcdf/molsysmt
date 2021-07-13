@@ -258,9 +258,9 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
 
                     molecule_index += 1
 
-        elif entity_type == "small_molecule":
+        elif entity_type == "small molecule":
 
-            molecule_type = "small_molecule"
+            molecule_type = "small molecule"
             molecule_name = entity_name
 
             for chain_index in mmtf_entity['chainIndexList']:
