@@ -4,7 +4,7 @@ production:
     - uibcdf
     - conda-forge
     - ambermd
-    - default
+    - defaults
   dependencies:
     - python
     - numpy
@@ -28,7 +28,7 @@ development:
     - uibcdf
     - conda-forge
     - ambermd
-    - default
+    - defaults
   dependencies:
     - python
     - numpy
@@ -54,7 +54,7 @@ test:
     - uibcdf
     - conda-forge
     - ambermd
-    - default
+    - defaults
   dependencies:
     - python
     - numpy
@@ -84,7 +84,7 @@ docs:
     - uibcdf
     - conda-forge
     - ambermd
-    - default
+    - defaults
   dependencies:
     - python
     - numpy
@@ -112,7 +112,7 @@ docs:
 
 setup:
   channels:
-    - default
+    - defaults
   dependencies:
     - python
     - setuptools
@@ -125,7 +125,7 @@ conda-build:
     - uibcdf
     - conda-forge
     - ambermd
-    - default
+    - defaults
   dependencies:
     - anaconda-client
     - conda-build
