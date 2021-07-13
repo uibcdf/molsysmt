@@ -4,6 +4,8 @@ from molsysmt import puw
 import numpy as np
 from mmtf import MMTFDecoder as _mmtf_MMTFDecoder
 from molsysmt.molecular_system import molecular_system_components
+import importlib
+import sys
 
 form_name='mmtf.MMTFDecoder'
 
@@ -110,53 +112,57 @@ def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
 ###### Get
 
+def aux_get(item, indices='all', frame_indices='all'):
+
+    tmp_item, _ = to_molsysmt_Topology(item)
+    method_name = sys._getframe(1).f_code.co_name
+    module = importlib.import_module('molsysmt.forms.classes.api_molsysmt_Topology')
+    _get = getattr(module, method_name)
+    output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+
+    return output
+
 ## atom
 
 def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_component_index_from_atom as _get
-    return _get(item, indices=indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_index_from_atom as _get
-    return _get(item, indices=indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_index_from_atom as _get
-    return _get(item, indices=indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    if indices is 'all':
-        return get_n_inner_bonds_from_system (item)
-    else:
-        raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
@@ -189,80 +195,71 @@ def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
 def get_group_id_from_group(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_group_name_from_group(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_group_type_from_group(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## component
 
 def get_component_id_from_component (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_component_id_from_component as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_component_name_from_component (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_component_name_from_component as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_component_type_from_component (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_component_type_from_component as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## molecule
 
 def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_id_from_molecule as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_name_from_molecule as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_type_from_molecule as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## chain
 
 def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## entity
 
 def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_id_from_molecule as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_name_from_molecule as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_type_from_molecule as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ## system
 
@@ -276,22 +273,19 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_n_components_from_system as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_n_molecules_from_system as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_n_entities_from_system as get
-    return get(item, indices)
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
@@ -372,7 +366,7 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_form_from_system(item, indices='all', frame_indices='all'):
 
@@ -382,15 +376,15 @@ def get_form_from_system(item, indices='all', frame_indices='all'):
 
 def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError()
+    return aux_get(item, indices=indices, frame_indices=frame_indices)
 
 ###### Set
 

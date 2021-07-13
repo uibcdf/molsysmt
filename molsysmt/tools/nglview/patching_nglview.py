@@ -60,7 +60,7 @@ class MolSysMTTrajectory(Trajectory, Structure):\n\
             raise ImportError(\n\
                 \"'MolSysMTTrajectory' requires the molsysmt package\")\n\
 \n\
-self.pdb = msm.convert(molsys, to_form='string:pdb', selection=selection, frame_indices=0)\n\
+        self.pdb = msm.convert(molsys, to_form='string:pdb', selection=selection, frame_indices=0)\n\
         _coordinates = msm.get(molsys, target='system', frame_indices=frame_indices, coordinates=True)\n\
         self.coordinates = puw.get_value(_coordinates,'angstroms')\n\
         self.ext = \"pdb\"\n\

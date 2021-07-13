@@ -9,6 +9,7 @@ production:
     - python
     - numpy
     - pyunitwizard
+    - mmtf-python
     - pandas
     - mdtraj
     - mdanalysis
@@ -33,6 +34,7 @@ development:
     - python
     - numpy
     - pyunitwizard
+    - mmtf-python
     - pandas
     - mdtraj
     - mdanalysis
@@ -59,6 +61,7 @@ test:
     - python
     - numpy
     - pyunitwizard
+    - mmtf-python
     - pandas
     - mdtraj
     - mdanalysis
@@ -89,6 +92,7 @@ docs:
     - python
     - numpy
     - pyunitwizard
+    - mmtf-python
     - pandas
     - mdtraj
     - mdanalysis
