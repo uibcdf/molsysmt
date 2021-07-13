@@ -48,5 +48,7 @@ jobs:
     - name: Import module
       shell: bash -l {0}
       run: |
+        cd
+        pwd
         echo 'import molsysmt; print("Version of the package: {}".format(molsysmt.__version__))' | python
 
