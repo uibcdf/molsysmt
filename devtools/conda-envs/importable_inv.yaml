@@ -1,0 +1,7 @@
+channels:
+- uibcdf/label/dev
+- uibcdf
+- conda-forge
+- defaults
+dependencies:
+- molsysmt
