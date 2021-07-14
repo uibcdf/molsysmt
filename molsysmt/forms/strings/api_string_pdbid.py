@@ -7,11 +7,10 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 from molsysmt.molecular_system import molecular_system_components
 
-form_name='id:PDB'
+form_name='string:pdbid'
 
 is_form = {
-    'id:pdb': form_name,
-    'id:PDB': form_name
+    'string:pdbid': form_name,
     }
 
 info=["",""]
@@ -241,7 +240,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def to_id_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_string_pdbid(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     tmp_molecular_system = None
 

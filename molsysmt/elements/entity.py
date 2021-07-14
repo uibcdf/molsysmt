@@ -24,6 +24,7 @@ def _aux(item):
     molecule_index, molecule_type = get(item, target='molecule', molecule_index=True, molecule_type=True)
     atom_indices_in_molecule = get(item, target='molecule', atom_index=True)
 
+
     for m_index, m_type, m_atoms in zip(molecule_index, molecule_type, atom_indices_in_molecule):
 
         if m_index is not None:
@@ -206,7 +207,8 @@ def _get_type_from_sequence(sequence):
 def _shortpath_to_build_entities(molecule_index_from_atom, molecule_type_from_atom, group_name_from_atom):
 
     n_atoms = molecule_index_from_atom.shape[0]
-    molecule_indices = np.unique(molecule_index_from_atom)
+    not_None = np.where(molecule_index_from_atom!=None)
+    molecule_indices = np.unique(molecule_index_from_atom[not_None])
 
     index_array = np.full(n_atoms, None, dtype=object)
     id_array = np.full(n_atoms, None, dtype=object)

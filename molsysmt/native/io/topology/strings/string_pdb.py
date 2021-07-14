@@ -13,8 +13,7 @@ def from_string_pdb(item, molecular_system=None, atom_indices='all', frame_indic
     from molsysmt.forms.strings.api_string_pdb import to_openmm_PDBFile as string_pdb_to_openmm_PDBFile
     from molsysmt.native.io.topology.classes import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = string_pdb_to_openmm_PDBFile(item,
-            molecular_system=molecular_system)
+    tmp_item, tmp_molecular_system = string_pdb_to_openmm_PDBFile(item, molecular_system=molecular_system)
     tmp_item, tmp_molecular_system = openmm_PDBFile_to_molsysmt_Topology(tmp_item,
             molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 

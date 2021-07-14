@@ -8,7 +8,10 @@ types=['water', 'ion', 'cosolute', 'small molecule', 'peptide', 'protein', 'rna'
 def molecule_index_from_atom(item, indices='all'):
 
     from molsysmt.multitool import get
-    return get(item, target='atom', indices=indices, component_index=True)
+
+    output = get(item, target='atom', indices=indices, component_index=True)
+
+    return output
 
 def molecule_id_from_molecule(item, indices='all'):
 

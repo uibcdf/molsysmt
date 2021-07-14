@@ -5,7 +5,7 @@ import importlib
 import sys
 from molsysmt.molecular_system import molecular_system_components
 from molsysmt._private_tools.files_and_directories import tmp_filename
-import io
+#import io
 
 form_name='string:pdb'
 
@@ -217,10 +217,12 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 
 def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
+    from io import StringIO
     from simtk.openmm.app.pdbfile import PDBFile
     from molsysmt.forms.classes.api_openmm_PDBFile import to_openmm_PDBFile as openmm_PDBFile_to_openmm_PDBFile
 
-    tmp_item = PDBFile(item)
+    tmp_item = StringIO(item)
+    tmp_item = PDBFile(tmp_item)
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
@@ -231,10 +233,12 @@ def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_ind
 
 def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
+    from io import StringIO
     from pdbfixer.pdbfixer import PDBFixer
     from molsysmt.forms.classes.api_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_pdbfixer_PDBFixer
 
-    tmp_item = PDBFixer(item)
+    tmp_item = StringIO(item)
+    tmp_item = PDBFixer(pdbfile=tmp_item)
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
@@ -272,13 +276,13 @@ def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from nglview import show_file
+    from nglview import show_text
     from os import remove
 
-    tmp_item, tmp_molecular_system = to_file_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = show_file(tmp_file)
+    tmp_item, tmp_molecular_system = to_string_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item = show_text(tmp_item)
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
 
@@ -291,7 +295,7 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='
 
     tmp_item, tmp_molecular_system = to_string_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
-    with open(output_filename, w) as fff:
+    with open(output_filename, 'w') as fff:
         fff.write(tmp_item)
 
     tmp_item = output_filename

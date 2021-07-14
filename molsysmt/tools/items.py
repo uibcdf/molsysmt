@@ -1,6 +1,5 @@
 import numpy as np
 import re as re
-from .strings import *
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 
 def compatibles_for_a_single_molecular_system(items):
@@ -117,60 +116,29 @@ def item_is_file(item):
     if type(item) is str:
         file_extension = item.split('.')[-1].lower()
         if file_extension in file_extensions_recognized:
-            output = file_extension
-
-    return output
-
-def item_is_id(item):
-
-    output = False
-
-    if type(item) is not str:
-        return output
-
-    if len(item)==4 and item.isalnum():
-        return 'PDB'
+            output = 'file:'+file_extension
 
     return output
 
 def item_is_string(item):
 
+    from molsysmt.forms import string_names_recognized
+    from .strings import guess_form_from_string
+
     output = False
 
-    if type(item) is not str:
-        return output
+    if type(item) is str:
+        if ':' in item:
+            string_name = item.split(':')[0]
+            if string_name in string_names_recognized:
+                output = 'string:'+string_name
+        if output==False:
+            output = guess_form_from_string(item)
+            if output is None:
+                output = False
 
-    if (' ' not in item) and ('\t' not in item) and ('\n' not in item):
+    return output
 
-        from molsysmt.elements.groups.aminoacid import name as aminoacid_name
-        from molsysmt.elements.groups.water import name as water_name
-        from molsysmt.elements.groups.aminoacid import aa1s
-
-        if item.isalnum():
-
-            # aminoacids3
-            if len(item)%3==0:
-                n_aa3 = 0
-                aa3_list = re.findall('...', item)
-                for aa3 in aa3_list:
-                    if (aa3.upper() in aminoacid_name) or (aa3.upper() in water_name):
-                        n_aa3+=1
-                if (n_aa3*1.0)/(len(aa3_list)*1.0) > 0.8:
-                    return 'aminoacids3'
-
-            # aminoacids1
-            n_aa1 = 0
-            for aa1 in item:
-                if (aa1.upper() in aa1s):
-                        n_aa1+=1
-
-            if (n_aa1*1.0)/(len(item)*1.0) > 0.8:
-                return 'aminoacids1'
-
-    else:
-
-        if string_is_pdb(item):
-            return 'pdb'
 
     return output
 
