@@ -212,6 +212,15 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     return coordinates
 
+def get_frame_from_atom(item, indices='all', frame_indices='all'):
+
+    coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+    box = get_box_from_system(item, frame_indices=frame_indices)
+    step = get_step_from_system(item, frame_indices=frame_indices)
+    time = get_time_from_system(item, frame_indices=frame_indices)
+
+    return step, time, coordinates, box
+
 ## group
 
 def get_group_id_from_group(item, indices='all', frame_indices='all'):

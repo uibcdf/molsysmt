@@ -2,7 +2,7 @@ from importlib import import_module
 import os
 from molsysmt.forms.loader import api_to_be_loaded, converts_to_be_loaded, modules_detected
 
-types = ['class', 'file', 'id', 'string', 'viewer']
+types = ['class', 'file', 'string', 'viewer']
 forms = []
 
 dict_type = {}
@@ -17,10 +17,11 @@ dict_has = {}
 dict_extract_item = {}
 
 file_extensions_recognized = []
+string_names_recognized = []
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id'], ['strings', 'string'], ['viewers', 'viewer']]:
+for dirname, typename in [['classes', 'class'], ['files', 'file'], ['strings', 'string'], ['viewers', 'viewer']]:
 
     type_dir = os.path.join(current_dir, dirname)
     list_apis = [filename.split('.')[0] for filename in os.listdir(type_dir) if filename.startswith('api')]
@@ -54,8 +55,6 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['ids', 'id']
                     if converts_to_be_loaded[api_name][method]:
                         if method.startswith('to_string_'):
                             out_form_name=method.replace('to_','').replace('_',':')
-                        elif method.startswith('to_id_'):
-                            out_form_name=method.replace('to_','').replace('_',':')
                         elif method.startswith('to_file_'):
                             out_form_name=method.replace('to_','').replace('_',':')
                         else:
@@ -76,6 +75,8 @@ for aux_form_name in list(dict_is_form.keys()):
     if type(aux_form_name) is str:
         if aux_form_name.startswith('file:'):
             file_extensions_recognized.append(aux_form_name.split(':')[-1].lower())
+        elif aux_form_name.startswith('string:'):
+            string_names_recognized.append(aux_form_name.split(':')[-1])
 
 del(import_module, dirname, typename)
 

@@ -146,6 +146,7 @@ class Topology():
 
         n_atoms = self.atoms_dataframe.shape[0]
         n_bonds = self.bonds_dataframe.shape[0]
+
         group_index_from_atom = self.atoms_dataframe['group_index'].to_numpy()
         group_type_from_atom = self.atoms_dataframe['group_type'].to_numpy()
         atom_index_from_bond = self.bonds_dataframe[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)

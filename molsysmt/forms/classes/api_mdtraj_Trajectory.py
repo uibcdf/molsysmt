@@ -171,7 +171,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
     if tmp_molecular_system is not None:
         tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
 
-    return tmp_view, tmp_molecular_system
+    return tmp_item, tmp_molecular_system
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
 
