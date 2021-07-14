@@ -47,12 +47,16 @@ def _aux_getter_small_attribute_from_big(item, attribute, from_target, indices):
 
     auxtarget_index_from_target = get(item, target=from_target, indices=indices, **dict_auxtarget_index)
 
-    auxtarget_indices = np.unique(np.concatenate(auxtarget_index_from_target))
-    attribute_from_auxtarget = get(item, target=auxtarget, indices=auxtarget_indices, **dict_attribute)
-    aux_dict = dict(zip(auxtarget_indices, attribute_from_auxtarget))
-    vv = np.vectorize(aux_dict.__getitem__)
-    output = np.array([vv(ii) for ii in auxtarget_index_from_target],dtype=object)
-    del(aux_dict)
+    if len(auxtarget_index_from_target)>0:
+        auxtarget_indices = np.unique(np.concatenate(auxtarget_index_from_target))
+        attribute_from_auxtarget = get(item, target=auxtarget, indices=auxtarget_indices, **dict_attribute)
+        aux_dict = dict(zip(auxtarget_indices, attribute_from_auxtarget))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in auxtarget_index_from_target],dtype=object)
+        del(aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
     return output
 
 def _aux_getter_index(item, from_target, indices):

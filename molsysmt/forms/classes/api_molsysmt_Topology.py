@@ -1860,21 +1860,29 @@ def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
     output = item.atoms_dataframe['component_index'].unique()
+    indices_not_None = np.where(output!=None)
+    output = output[indices_not_None]
     return output.shape[0]
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
     output = item.atoms_dataframe['chain_index'].unique()
+    indices_not_None = np.where(output!=None)
+    output = output[indices_not_None]
     return output.shape[0]
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
     output = item.atoms_dataframe['molecule_index'].unique()
+    indices_not_None = np.where(output!=None)
+    output = output[indices_not_None]
     return output.shape[0]
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
     output = item.atoms_dataframe['entity_index'].unique()
+    indices_not_None = np.where(output!=None)
+    output = output[indices_not_None]
     return output.shape[0]
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):

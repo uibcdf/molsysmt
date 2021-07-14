@@ -276,13 +276,13 @@ def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from nglview import show_file
+    from nglview import show_text
     from os import remove
 
-    tmp_item, tmp_molecular_system = to_file_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item = show_file(tmp_file)
+    tmp_item, tmp_molecular_system = to_string_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item = show_text(tmp_item)
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
 

@@ -24,6 +24,7 @@ def _aux(item):
     molecule_index, molecule_type = get(item, target='molecule', molecule_index=True, molecule_type=True)
     atom_indices_in_molecule = get(item, target='molecule', atom_index=True)
 
+
     for m_index, m_type, m_atoms in zip(molecule_index, molecule_type, atom_indices_in_molecule):
 
         if m_index is not None:
