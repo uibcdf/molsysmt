@@ -1,8 +1,9 @@
 from molsysmt import convert as _convert
 from molsysmt import select as _select
+import numpy as np
 
-def sequence_alignment(ref_item=None, item=None, engine='biopython', prettyprint=False,
-                       prettyprint_alignment_index = 0, **kwards):
+def sequence_alignment(molecular_system, selection='all', reference_molecular_system=None, reference_selection=None,
+                       engine='biopython', syntaxis='MolSysMT', prettyprint=False, prettyprint_alignment_index = 0):
 
     alignment = None
 
@@ -11,15 +12,13 @@ def sequence_alignment(ref_item=None, item=None, engine='biopython', prettyprint
         # from ensembler.modeling.align_target_template
         # (https://github.com/choderalab/ensembler/blob/master/ensembler/modeling.py)
 
-        from Bio.pairwise2 import align as _biopython_align
-        from Bio.SubsMat import MatrixInfo as _biopython_MatrixInfo
-        tmp_ref_seq=_convert(ref_item, to_form='biopython.Seq')
-        tmp_seq=_convert(item, to_form='biopython.Seq')
-        matrix = getattr(_biopython_MatrixInfo,'gonnet')
-        gap_open=-10
-        gap_extend=-0.5
-        alignment = _biopython_align.globalds(tmp_ref_seq, tmp_seq, matrix, gap_open, gap_extend)
-        del(_biopython_MatrixInfo,_biopython_align,matrix,gap_open,gap_extend,tmp_ref_seq,tmp_seq)
+        from Bio import Align
+        tmp_ref_seq=_convert(reference_molecular_system, selection=reference_selection,
+                syntaxis=syntaxis, to_form='biopython.Seq')
+        tmp_seq=_convert(molecular_system, selection=selection, syntaxis=syntaxis, to_form='biopython.Seq')
+        aligner = Align.PairwiseAligner()
+        alignment = aligner.align(tmp_ref_seq, tmp_seq)
+        del(aligner, Align, tmp_ref_seq,tmp_seq)
 
     elif engine=='modeller':
 
@@ -36,14 +35,16 @@ def sequence_alignment(ref_item=None, item=None, engine='biopython', prettyprint
         endcolor = '\033[m' # reset color
         # Color guide in: http://ozzmaker.com/add-colour-to-text-in-python/
 
-        aln = alignment
-        align = prettyprint_alignment_index
         seq1 =""
         seq2 =""
 
-        for r in range(len(aln[align][0])):
-            res1 = aln[align][0][r]
-            res2 = aln[align][1][r]
+        txt_aln = alignment[prettyprint_alignment_index].format().split('\n')
+        txt_0 = txt_aln[0]
+        txt_1 = txt_aln[2]
+
+        for r in range(len(txt_0)):
+            res1 = txt_0[r]
+            res2 = txt_1[r]
             if res1 == res2:
                 seq1+=res1
                 seq2+=res2
@@ -68,90 +69,42 @@ def sequence_alignment(ref_item=None, item=None, engine='biopython', prettyprint
         return alignment
 
 
-def structure_alignment(ref_item=None, item=None,
-                        ref_selection_alignment='all', selection_alignment='all',
-                        ref_selection_rmsd=None, selection_rmsd='backbone',
-                        ref_frame_index=0, frame_indices='all',
-                        parallel=True,
-                        engine_sequence_alignment = 'biopython',
-                        engine_least_rmsd_fit = 'mdtraj',
-                        syntaxis='MolSysMT'):
+def structure_alignment(molecular_system, selection_alignment='all', selection_rmsd='backbone',
+        frame_indices='all', reference_molecular_system=None, reference_selection_alignment='all',
+        reference_selection_rmsd=None, reference_frame_index=0, syntaxis='MolSysMT', parallel=True,
+        engine_sequence_alignment = 'biopython', engine_least_rmsd_fit = 'MolSysMT'):
 
     from .rmsd import least_rmsd_fit as _least_rmsd_fit
     from .multitool import extract as _extract
     from .multitool import select as _select
 
-    if ref_selection_rmsd is None:
-        ref_selection_rmsd = selection_rmsd
+    if reference_selection_rmsd is None:
+        reference_selection_rmsd = selection_rmsd
 
     if engine_sequence_alignment == 'biopython':
 
-        is_all_ref_item = False
-        if type(ref_selection_alignment)==int:
-            if ref_selection_alignment=='all':
-                is_all_ref_item =True
+        idty, mask_reference_molecular_system, mask_molecular_system = sequence_identity(molecular_system,
+                selection=selection_alignment,
+                reference_molecular_system=reference_molecular_system,
+                reference_selection=reference_selection_alignment,
+                target_intersection_set="atom", engine='biopython')
 
-        if is_all_ref_item:
-            tmp_ref_item = ref_item
-        else:
-            atomslist_ref_alignment = _select(ref_item, ref_selection_alignment)
-            tmp_ref_item = _extract(ref_item, atomslist_ref_alignment)
+        molecular_system_selection = _select(molecular_system, selection=selection_rmsd, mask=mask_molecular_system)
+        reference_molecular_system_selection = _select(reference_molecular_system, selection=reference_selection_rmsd, mask=mask_reference_molecular_system)
 
-        is_all_item = False
-        if type(selection_alignment)==int:
-            if selection_alignment=='all':
-                is_all_item =True
-
-        if is_all_item:
-            tmp_item = item
-        else:
-            atomslist_alignment = _select(item, selection_alignment)
-            tmp_item = _extract(item, atomslist_alignment)
-
-        idty, intersection_atoms = sequence_identity(tmp_ref_item,tmp_item,
-                                                     intersection_set="atoms", engine='biopython')
-
-        if not is_all_ref_item:
-            intersection_atoms[0]=atomslist_ref_alignment[intersection_atoms[0]]
-
-        if not is_all_item:
-            intersection_atoms[1]=atomslist_alignment[intersection_atoms[1]]
-
-        is_all_ref_item = False
-        if type(ref_selection_rmsd)==int:
-            if ref_selection_rmsd=='all':
-                is_all_ref_item =True
-
-        is_all_item = False
-        if type(selection_rmsd)==int:
-            if selection_rmsd=='all':
-                is_all_item =True
-
-        if is_all_ref_item:
-            ref_item_selection = 'index '+" ".join(map(str,intersection_atoms[0]))
-        else:
-            ref_item_selection = ref_selection_rmsd+' and index '+\
-                    " ".join(map(str,intersection_atoms[0]))
-
-        if is_all_item:
-            item_selection = 'index '+" ".join(map(str,intersection_atoms[1]))
-        else:
-            item_selection = selection_rmsd+' and index '+" ".join(map(str,intersection_atoms[1]))
-
-        if engine_least_rmsd_fit == 'mdtraj':
-            return _least_rmsd_fit(ref_item=ref_item, item=item,
-                                   ref_selection=ref_item_selection, selection=item_selection,
-                                   ref_frame_index=ref_frame_index, frame_indices=frame_indices,
-                                   engine=engine_least_rmsd_fit,
-                                   parallel=parallel, syntaxis=syntaxis)
-        else:
-            raise NotImplementedError
+        return _least_rmsd_fit(molecular_system=molecular_system, selection=molecular_system_selection, frame_indices=frame_indices,
+                               reference_molecular_system=reference_molecular_system,
+                               reference_selection=reference_molecular_system_selection,
+                               reference_frame_index=reference_frame_index,
+                               engine=engine_least_rmsd_fit, parallel=parallel, syntaxis=syntaxis)
 
     else:
+
         raise NotImplementedError
 
-def sequence_identity(ref_item=None, item=None, target_intersection_set=None,
-                      target_non_intersection_set=None, engine='biopython', **kwards):
+def sequence_identity(molecular_system, selection='all', reference_molecular_system=None, reference_selection=None,
+                      syntaxis='MolSysMT', target_intersection_set=None,
+                      target_non_intersection_set=None, engine='biopython'):
 
     if engine=='biopython':
 
@@ -160,16 +113,23 @@ def sequence_identity(ref_item=None, item=None, target_intersection_set=None,
         # ensembler: ensembler is only available for python 2.7
         # (https://github.com/choderalab/ensembler/blob/master/ensembler/modeling.py)
 
-        aln = sequence_alignment(ref_item, item, engine)
-        len_shorter_seq = min([len(aln[0][0].replace('-', '')), len(aln[0][1].replace('-', ''))])
+        aln = sequence_alignment(molecular_system, selection=selection,
+                reference_molecular_system=reference_molecular_system,
+                reference_selection=reference_selection, syntaxis=syntaxis, engine=engine)
+
+        txt_aln = aln[0].format().split('\n')
+        txt_0 = txt_aln[0]
+        txt_1 = txt_aln[2]
+
+        len_shorter_seq = min([len(txt_0.replace('-', '')), len(txt_1.replace('-', ''))])
         seq_id = 0
         intersect_1=[]
         intersect_2=[]
         ii_1 = 0
         ii_2 = 0
-        for r in range(len(aln[0][0])):
-            res1 = aln[0][0][r]
-            res2 = aln[0][1][r]
+        for r in range(len(txt_0)):
+            res1 = txt_0[r]
+            res2 = txt_1[r]
             if res1 == res2:
                 seq_id += 1
                 intersect_1.append(ii_1)
@@ -182,18 +142,11 @@ def sequence_identity(ref_item=None, item=None, target_intersection_set=None,
         if target_intersection_set=='group':
             return seq_id, intersect_1, intersect_2
         elif target_intersection_set=='atom':
-            from .multitool import convert as _convert
-            set_1 = []
-            tmp_item = _convert(ref_item).topology
-            for tmp_residue in [tmp_item.residue(ii) for ii in intersect_1]:
-                for tmp_atom in tmp_residue.atoms:
-                    set_1.append(tmp_atom.index)
-            tmp_item = _convert(item).topology
-            set_2 = []
-            for tmp_residue in [tmp_item.residue(ii) for ii in intersect_2]:
-                for tmp_atom in tmp_residue.atoms:
-                    set_2.append(tmp_atom.index)
-            del(_convert,tmp_item,tmp_residue,tmp_atom)
+            from .multitool import get as _get
+            set_1 = _get(reference_molecular_system, target='group', indices=intersect_1, atom_indices=True)
+            set_1 = np.concatenate(set_1)
+            set_2 = _get(molecular_system, target='group', indices=intersect_2, atom_indices=True)
+            set_2 = np.concatenate(set_2)
             return seq_id, set_1, set_2
         else:
             return seq_id

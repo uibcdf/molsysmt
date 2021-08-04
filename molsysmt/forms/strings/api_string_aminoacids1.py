@@ -30,17 +30,20 @@ def to_string_aminoacids3(item, molecular_system=None, atom_indices='all', frame
 
 def to_biopython_Seq(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.classes.api_biopython_Seq import extract as extract_biopython_Seq
+    from molsysmt.forms.classes.api_biopython_Seq import to_biopython_Seq as biopython_Seq_to_biopython_Seq
     from Bio.Seq import Seq as bio_Seq
-    from Bio.Alphabet.IUPAC import ExtendedIUPACProtein
+    #from Bio.Alphabet.IUPAC import ExtendedIUPACProtein
 
-    tmp_item = bio_Seq(item, ExtendedIUPACProtein())
-    tmp_item = extract_biopython_Seq(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    #tmp_item = bio_Seq(item, ExtendedIUPACProtein())
+    tmp_item = bio_Seq(item)
+
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
 
+    tmp_item, tmp_molecular_system = biopython_Seq_to_biopython_Seq(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices,
+                                                                    frame_indices=frame_indices, copy_if_all=False)
     return tmp_item, tmp_molecular_system
 
 def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', frame_indices='all', id=None, name=None, description=None):

@@ -84,9 +84,9 @@ def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_i
 
 def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.ids import from_id_PDB as id_PDB_to_molsysmt_MolSys
+    from molsysmt.native.io.molsys.strings import from_string_pdbid as string_pdbid_to_molsysmt_MolSys
 
-    tmp_item, tmp_molecular_system = id_PDB_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = string_pdbid_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 

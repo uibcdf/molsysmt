@@ -16,11 +16,11 @@ def from_pdbfixer_PDBFixer (item, molecular_system=None, atom_indices='all', fra
 
 def to_pdbfixer_PDBFixer (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.files import to_pdb as molsysmt_MolSys_to_pdb
+    from molsysmt.native.io.molsys.files import to_file_pdb as molsysmt_MolSys_to_file_pdb
     from pdbfixer.pdbfixer import PDBFixer
     from io import StringIO
 
-    tmp_item, _ = molsysmt_MolSys_to_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename='.pdb')
+    tmp_item, _ = molsysmt_MolSys_to_file_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename='.pdb')
     tmp_item = StringIO(tmp_item)
     tmp_item = PDBFixer(pdbfile=tmp_item)
     if molecular_system is not None:

@@ -137,6 +137,7 @@ def least_rmsd_fit (molecular_system=None, selection='backbone', frame_indices='
     if engine=='MolSysMT':
 
         from molsysmt.multitool import select, get, set, convert
+        from molsysmt.multitool import copy as _copy
         from molsysmt._private_tools._digestion import digest_frame_indices
 
         n_atoms, n_frames = get(molecular_system, n_atoms=True, n_frames=True)
@@ -173,17 +174,13 @@ def least_rmsd_fit (molecular_system=None, selection='backbone', frame_indices='
         coordinates=puw.standardize(coordinates)
 
         if to_form is None:
-
-            set(molecular_system, target='system', coordinates=coordinates)
-            del(coordinates, units)
-            pass
-
+            tmp_molecular_system = _copy(molecular_system)
         else:
+            tmp_molecular_system = convert(molecular_system, to_form=to_form)
 
-            tmp_item = convert(molecular_system, to_form=to_form)
-            set(tmp_item, target='system', coordinates=coordinates)
-            del(coordinates, units)
-            return tmp_item
+        set(tmp_molecular_system, target='system', coordinates=coordinates)
+        del(coordinates, units)
+        return tmp_molecular_system
 
     elif engine=='MDTraj':
 

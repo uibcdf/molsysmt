@@ -61,7 +61,7 @@ def to_biopython_Seq(item, molecular_system=None, atom_indices='all', frame_indi
 
     from molsysmt.forms.strings.api_string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq
 
-    tmp_item, tmp_molecular_system = to_aminoacids1_seq(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_string_aminoacids1(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item, tmp_molecular_system = string_aminoacids1_to_biopython_Seq(tmp_item, molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system

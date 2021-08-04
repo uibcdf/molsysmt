@@ -43,7 +43,7 @@ from .rmsd import rmsd, least_rmsd, least_rmsd_fit
 from . import hbonds
 from .pbc import wrap_to_pbc, unwrap_from_pbc
 
-#from .sequence import sequence_alignment, sequence_identity, structure_alignment
+from .sequence import sequence_alignment, sequence_identity, structure_alignment
 #from .radius_of_gyration import radius_of_gyration
 #from .fix import fix_chains, fix
 #from .model_loops import add_loop
