@@ -148,7 +148,7 @@ def to_string_pdb(item, molecular_system=None, atom_indices='all', frame_indices
     from io import StringIO
 
     coordinates = get(molecular_system, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
-    topology, _ = to_openmm_Topology(item, atom_indices=atom_indices)
+    topology, _ = to_openmm_Topology(item, atom_indices=atom_indices, copy_if_all=False)
 
     tmp_io = StringIO()
     PDBFile.writeFile(topology, puw.convert(coordinates[0], 'nm', to_form='simtk.unit'), tmp_io, keepIds=True)

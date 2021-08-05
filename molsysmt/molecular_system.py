@@ -32,6 +32,7 @@ class MolecularSystem():
         self.thermo_state_item, self.thermo_state_form = None, None
         self.simulation_item, self.simulation_form = None, None
 
+
         if items is not None:
 
             if type(items)==MolecularSystem:

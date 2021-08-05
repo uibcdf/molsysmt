@@ -96,7 +96,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
            modeller.addSolvent(forcefield, model=solvent_model, padding=clearance,
                                ionicStrength=ionic_strength, positiveIon=cation,
                                negativeIon=anion)
-        print(to_form)
+
         tmp_item = convert(modeller, to_form=to_form)
 
         del(modeller)
@@ -104,6 +104,8 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         return tmp_item
 
     elif engine=="PDBFixer":
+
+        from simtk.openmm import Vec3
 
         clearance = puw.convert(clearance, to_form='simtk.unit')
         ionic_strength = puw.convert(ionic_strength, to_form='simtk.unit')
@@ -115,14 +117,13 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         box_vectors = None
 
         if box_geometry=="truncated_octahedral":
-            vectors = mm.Vec3(1,0,0), mm.Vec3(1/3,2*np.sqrt(2)/3,0), mm.Vec3(-1/3,1/3,np.sqrt(6)/3)
+            vectors = Vec3(1,0,0), Vec3(1/3,2*np.sqrt(2)/3,0), Vec3(-1/3,1/3,np.sqrt(6)/3)
             box_vectors = [(max_size+clearance)*v for v in vectors]
         elif box_geometry=="rhombic_dodecahedron":
-            vectors = mm.Vec3(1,0,0), mm.Vec3(0,1,0), mm.Vec3(0.5,0.5,sqrt(2)/2)
+            vectors = Vec3(1,0,0), Vec3(0,1,0), Vec3(0.5,0.5,sqrt(2)/2)
             box_vectors = [(max_size+clearance)*v for v in vectors]
 
-        pdbfixer.addSolvent(padding=clearance,
-                            boxVectors = box_vectors,
+        pdbfixer.addSolvent(boxVectors = box_vectors,
                             ionicStrength=ionic_strength, positiveIon=cation,
                             negativeIon=anion)
 
@@ -136,13 +137,28 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
 
         from molsysmt.tools.tleap import TLeap
         from molsysmt._private_tools.files_and_directories import tmp_directory, tmp_filename
+        from molsysmt.tools.pdb import replace_HETATM_from_capping_atoms
         from shutil import rmtree, copyfile
         from os import getcwd, chdir
+        from molsysmt import set as _set, select, has_hydrogens, remove_hydrogens
+
+
+        #if has_hydrogens(molecular_system):
+        #    molecular_system = remove_hydrogens(molecular_system)
+        #    if verbose:
+        #        print("All Hydrogen atoms were removed to be added by LEaP\n\n")
+
+        indices_NME_C = select(molecular_system, target='atom', selection='group_name=="NME" and atom_name=="C"')
+        with_NME_C = (len(indices_NME_C)>0)
+
+        if with_NME_C:
+            _set(molecular_system, target='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3')
 
         current_directory = getcwd()
         working_directory = tmp_directory()
         pdbfile_in = tmp_filename(dir=working_directory, extension='pdb')
         _ = convert(molecular_system, to_form=pdbfile_in)
+        #replace_HETATM_from_capping_atoms(pdbfile_in)
 
         tmp_prmtop = tmp_filename(dir=working_directory, extension='prmtop')
         tmp_inpcrd = tmp_prmtop.replace('prmtop','inpcrd')
@@ -190,6 +206,9 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
             copyfile(tmp_logfile, current_directory+'/build_peptide.log')
 
         tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)
+
+        if with_NME_C:
+            _set(tmp_item, target='atom', selection='group_name=="NME" and atom_name=="CH3"', atom_name='C')
 
         rmtree(working_directory)
 

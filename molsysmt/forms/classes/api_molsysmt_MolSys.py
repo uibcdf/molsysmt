@@ -1585,6 +1585,12 @@ def get_n_bonds_from_bond(item, indices='all', frame_indices='all'):
 
 ## Atom
 
+def set_atom_name_to_atom(item, indices='all', frame_indices='all', value=None):
+
+    from .api_molsysmt_Topology import set_atom_name_to_atom as _set
+
+    return _set(item.topology, indices=indices, frame_indices=frame_indices, value=value)
+
 def set_coordinates_to_atom(item, indices='all', frame_indices='all', value=None):
 
     value = puw.standardize(value)

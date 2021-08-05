@@ -13,16 +13,6 @@ def get_form(molecular_system):
         output = digest_output(output)
         return output
 
-    if puw.is_quantity(molecular_system):
-
-        from molsysmt.forms.classes.api_XYZ import this_Quantity_is_XYZ
-        from molsysmt.forms.classes.api_XYZ import form_name as form_XYZ
-
-        if this_Quantity_is_XYZ(molecular_system):
-            return form_XYZ
-        else:
-            raise NotImplementedError()
-
     if type(molecular_system)==dict:
 
         from molsysmt.forms.classes.api_molsysmt_MolecularMechanicsDict import this_dict_is_MolecularMechanicsDict
@@ -52,6 +42,16 @@ def get_form(molecular_system):
     if is_list_or_tuple(molecular_system):
         output = [get_form(ii) for ii in molecular_system]
         return output
+
+    if puw.is_quantity(molecular_system):
+
+        from molsysmt.forms.classes.api_XYZ import this_Quantity_is_XYZ
+        from molsysmt.forms.classes.api_XYZ import form_name as form_XYZ
+
+        if this_Quantity_is_XYZ(molecular_system):
+            return form_XYZ
+        else:
+            raise NotImplementedError()
 
     try:
         return dict_is_form[type(molecular_system)]

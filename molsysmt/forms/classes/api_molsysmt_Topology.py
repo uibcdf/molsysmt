@@ -2020,3 +2020,14 @@ def get_n_bonds_from_bond(item, indices='all', frame_indices='all'):
     else:
         return len(indices)
 
+
+##### Set
+
+def set_atom_name_to_atom(item, indices='all', frame_indices='all', value=None):
+
+    from .api_molsysmt_Topology import set_atom_name_to_atom as _set
+
+    item.atoms_dataframe.loc[indices, 'atom_name']=value
+
+    pass
+
