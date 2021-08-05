@@ -46,7 +46,7 @@ def form_of_file(to_form):
     output = None
 
     if form_is_file(to_form):
-        output = 'file:'+item_is_file(to_form)
+        output = item_is_file(to_form)
 
     return output
 

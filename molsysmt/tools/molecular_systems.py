@@ -10,28 +10,28 @@ def is_a_single_molecular_system(items):
             if is_list_or_tuple(item):
                 return False
 
-    compatibles = items_compatibles_for_a_single_molecular_system(items)
+    output = items_compatibles_for_a_single_molecular_system(items)
 
-    if compatibles:
 
-        from molsysmt.multitool import get_form
-        from molsysmt.forms import dict_has
+    if output:
 
-        with_elements_and_coordinates=0
-        for item in items:
-            form_in = get_form(item)
-            has_elements = dict_has[form_in]["elements"]
-            has_coordinates = dict_has[form_in]["coordinates"]
-            if has_elements and has_coordinates:
-                with_elements_and_coordinates+=1
+        if is_list_or_tuple(items):
 
-        if with_elements_and_coordinates>1:
-            output = False
-        else:
-            output = True
+            if len(items)>1:
 
-    else:
-        output = False
+                from molsysmt.multitool import get_form
+                from molsysmt.forms import dict_has
+
+                with_elements_and_coordinates=0
+                for item in items:
+                    form_in = get_form(item)
+                    has_elements = dict_has[form_in]["elements"]
+                    has_coordinates = dict_has[form_in]["coordinates"]
+                    if has_elements and has_coordinates:
+                        with_elements_and_coordinates+=1
+
+                if with_elements_and_coordinates>1:
+                    output = False
 
     return output
 

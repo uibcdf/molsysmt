@@ -96,7 +96,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
            modeller.addSolvent(forcefield, model=solvent_model, padding=clearance,
                                ionicStrength=ionic_strength, positiveIon=cation,
                                negativeIon=anion)
-
+        print(to_form)
         tmp_item = convert(modeller, to_form=to_form)
 
         del(modeller)

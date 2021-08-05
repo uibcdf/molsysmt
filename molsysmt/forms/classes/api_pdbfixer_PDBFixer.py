@@ -129,7 +129,11 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy=False)
+    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Topology(tmp_item,
+                                                                        tmp_molecular_system,
+                                                                        atom_indices=atom_indices,
+                                                                        frame_indices=frame_indices,
+                                                                        copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
