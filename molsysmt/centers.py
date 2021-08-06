@@ -5,7 +5,7 @@ from molsysmt.lib import geometry as libgeometry
 from molsysmt import puw
 import numpy as np
 
-def center(molecular_system, selection='all', groups_of_atoms=None, weights=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
+def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
     from molsysmt.multitool import convert, select, get, extract
     from molsysmt._private_tools.math import serialized_lists
@@ -48,18 +48,18 @@ def center(molecular_system, selection='all', groups_of_atoms=None, weights=None
         raise NotImplementedError(NotImplementedMessage)
 
 
-def geometric_center(molecular_system, selection='all', groups_of_atoms=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
+def get_geometric_center(molecular_system, selection='all', groups_of_atoms=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
-    return center(molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, weights=None, frame_indices=frame_indices, syntaxis=syntaxis,
-                  engine=engine, parallel=parallel)
+    return get_center(molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, weights=None, frame_indices=frame_indices, syntaxis=syntaxis,
+                      engine=engine, parallel=parallel)
 
-def center_of_mass(molecular_system, selection='all', groups_of_atoms=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
+def get_center_of_mass(molecular_system, selection='all', groups_of_atoms=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
-    return center(molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, weights='masses', frame_indices=frame_indices, syntaxis=syntaxis,
-                  engine=engine, parallel=parallel)
+    return get_center(molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, weights='masses', frame_indices=frame_indices, syntaxis=syntaxis,
+                      engine=engine, parallel=parallel)
 
-def recenter(molecular_system, selection='all', center_of_selection='all', weights=None, new_coordinates_center=None, frame_indices='all',
-             syntaxis='MolSysMT', engine='MolSysMT', in_place=True):
+def center(molecular_system, selection='all', center_of_selection='all', weights=None, new_coordinates_center=None, frame_indices='all',
+           syntaxis='MolSysMT', engine='MolSysMT', in_place=False):
 
     from molsysmt.multitool import select, get, set, copy
     from molsysmt.geometrical_transformations import translate
@@ -70,8 +70,8 @@ def recenter(molecular_system, selection='all', center_of_selection='all', weigh
 
     if engine=='MolSysMT':
 
-        coordinates_selection_center = center(molecular_system, selection=center_of_selection, groups_of_atoms=None, weights=weights,
-                                              frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
+        coordinates_selection_center = get_center(molecular_system, selection=center_of_selection, groups_of_atoms=None, weights=weights,
+                                                  frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
 
         if new_coordinates_center is None:
             translation = -coordinates_selection_center
@@ -80,7 +80,8 @@ def recenter(molecular_system, selection='all', center_of_selection='all', weigh
 
         del(coordinates_selection_center)
 
-        return translate(molecular_system, translation=translation, selection=selection, frame_indices=frame_indices, syntaxis='MolSysMT', in_place=True)
+        return translate(molecular_system, translation=translation, selection=selection,
+                         frame_indices=frame_indices, syntaxis='MolSysMT', in_place=in_place)
 
     else:
 

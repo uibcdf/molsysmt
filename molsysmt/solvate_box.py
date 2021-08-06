@@ -17,6 +17,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
              ionic_strength='0.0 molar', engine="LEaP",
              to_form= None, logfile=False, verbose=False):
+
     """solvate(item, geometry=None, water=None, engine=None)
 
     Methods and wrappers to create and solvate boxes
@@ -76,16 +77,16 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         if box_geometry=="truncated_octahedral":
 
             max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
-            vectors = Vec3(1,0,0), Vec3(1/3,2*np.sqrt(2)/3,0), Vec3(-1/3,1/3,np.sqrt(6)/3)
+            vectors = Vec3(1.0, 0, 0), Vec3(1.0/3.0, 2.0*np.sqrt(2.0)/3.0,0.0), Vec3(-1.0/3.0, np.sqrt(2.0)/3.0, np.sqrt(6.0)/3.0)
             box_vectors = [(max_size+clearance)*v for v in vectors]
 
             modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
                                 positiveIon=cation, negativeIon=anion)
 
-        elif box_geometry=="rhombic_dodecahedron":
+        elif box_geometry=="rhombic_dodecahedral":
 
             max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
-            vectors = Vec3(1,0,0), Vec3(0,1,0), Vec3(0.5,0.5,np.sqrt(2)/2)
+            vectors = Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.5, 0.5, np.sqrt(2)/2)
             box_vectors = [(max_size+clearance)*v for v in vectors]
 
             modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
@@ -117,10 +118,14 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         box_vectors = None
 
         if box_geometry=="truncated_octahedral":
-            vectors = Vec3(1,0,0), Vec3(1/3,2*np.sqrt(2)/3,0), Vec3(-1/3,1/3,np.sqrt(6)/3)
+
+            vectors = Vec3(1.0, 0, 0), Vec3(1.0/3.0, 2.0*np.sqrt(2.0)/3.0,0.0), Vec3(-1.0/3.0,
+                    np.sqrt(2.0)/3.0, np.sqrt(6.0)/3.0)
             box_vectors = [(max_size+clearance)*v for v in vectors]
-        elif box_geometry=="rhombic_dodecahedron":
-            vectors = Vec3(1,0,0), Vec3(0,1,0), Vec3(0.5,0.5,sqrt(2)/2)
+
+        elif box_geometry=="rhombic_dodecahedral":
+
+            vectors = Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.5, 0.5, np.sqrt(2)/2)
             box_vectors = [(max_size+clearance)*v for v in vectors]
 
         pdbfixer.addSolvent(boxVectors = box_vectors,

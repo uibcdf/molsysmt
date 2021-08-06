@@ -7,7 +7,7 @@ from molsysmt.multitool.concatenate_frames import concatenate_frames
 from molsysmt.multitool.merge import merge
 
 def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices='all',
-         concatenate_frames=False, standardize=True, surface=False, syntaxis='MolSysMT'):
+         concatenate_frames=False, standardize=False, water_as_surface=False, syntaxis='MolSysMT'):
 
     viewer, form_viewer = digest_viewer(viewer)
 
@@ -27,7 +27,7 @@ def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices
             from molsysmt.tools.nglview import standardize_view
             standardize_view(tmp_item)
 
-    if surface:
+    if water_as_surface:
         if viewer=='NGLView':
             from molsysmt.tools.nglview import show_system_as_transparent_surface
             show_system_as_transparent_surface(tmp_item)
