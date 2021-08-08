@@ -25,6 +25,9 @@ def item_in_good_shape(item):
 
     if len(value.shape)==2:
         value = np.expand_dims(value, axis=0)
+    elif len(value.shape)==1:
+        value = np.expand_dims(value, axis=0)
+        value = np.expand_dims(value, axis=0)
 
     return value*unit
 
@@ -40,6 +43,8 @@ def this_Quantity_has_XYZ_shape(item):
     if len(shape)==3 and shape[-1]==3:
         has_right_shape = True
     elif len(shape)==2 and shape[-1]==3:
+        has_right_shape = True
+    elif len(shape)==1 and shape[-1]==3:
         has_right_shape = True
 
     return has_right_shape

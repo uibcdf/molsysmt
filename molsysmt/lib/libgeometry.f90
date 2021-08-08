@@ -2,23 +2,22 @@ MODULE MODULE_GEOMETRY
 
 USE MODULE_MATH
 USE MODULE_PBC
-!USE MODULE_COM
 USE MODULE_BOX
 
 CONTAINS
 
-  FUNCTION DIST2POINTS(point1,point2,box,inv,ortho,pbc_opt) RESULT (valdist)
+  FUNCTION DIST2POINTS(point1,point2,box,inv,ortho,mic_opt) RESULT (valdist)
       
     IMPLICIT NONE    
-    INTEGER, INTENT(IN)::ortho,pbc_opt
+    INTEGER, INTENT(IN)::ortho,mic_opt
     DOUBLE PRECISION,DIMENSION(3),INTENT(IN)::point1,point2
     DOUBLE PRECISION,DIMENSION(3,3),INTENT(IN)::box,inv
     DOUBLE PRECISION::valdist
     DOUBLE PRECISION,DIMENSION(3)::vect_aux
     
     vect_aux(:)=point1(:)-point2(:)
-    IF (pbc_opt==1) THEN
-        CALL PBC (vect_aux,box,inv,ortho)
+    IF (mic_opt==1) THEN
+        CALL MIC(vect_aux,box,inv,ortho)
     END IF
     valdist=sqrt(dot_product(vect_aux(:),vect_aux(:)))
 
@@ -77,10 +76,10 @@ CONTAINS
   END FUNCTION ANG3VECTS
 
 
-  SUBROUTINE DISTANCE(diff_set, coors1, coors2, box, ortho, pbc_opt, n1, n2, n_frames, matrix)
+  SUBROUTINE DISTANCE(diff_set, coors1, coors2, box, ortho, mic_opt, n1, n2, n_frames, matrix)
   
   IMPLICIT NONE
-  INTEGER,INTENT(IN):: diff_set, ortho, pbc_opt, n1, n2, n_frames
+  INTEGER,INTENT(IN):: diff_set, ortho, mic_opt, n1, n2, n_frames
   DOUBLE PRECISION,DIMENSION(n_frames,n1,3),INTENT(IN)::coors1
   DOUBLE PRECISION,DIMENSION(n_frames,n2,3),INTENT(IN)::coors2
   DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
@@ -97,7 +96,7 @@ CONTAINS
   ALLOCATE(tmp_box(3,3),tmp_inv(3,3))
 
   inv=0.0d0
-  IF (pbc_opt==1) THEN
+  IF (mic_opt==1) THEN
     CALL BOX2INVBOX (box, inv, n_frames)
   END IF
 
@@ -109,7 +108,7 @@ CONTAINS
         vect_aux=coors1(kk,ii,:)
           DO jj=1,n2
             vect_aux2=coors2(kk,jj,:)
-            matrix(kk,ii,jj)=DIST2POINTS(vect_aux,vect_aux2,tmp_box,tmp_inv,ortho,pbc_opt)
+            matrix(kk,ii,jj)=DIST2POINTS(vect_aux,vect_aux2,tmp_box,tmp_inv,ortho,mic_opt)
          END DO
       END DO
     END DO
@@ -122,7 +121,7 @@ CONTAINS
          vect_aux=coors1(kk,ii,:)
          DO jj=ii+1,n1
             vect_aux2=coors1(kk,jj,:)
-            val_aux=DIST2POINTS(vect_aux,vect_aux2,tmp_box,tmp_inv,ortho,pbc_opt)
+            val_aux=DIST2POINTS(vect_aux,vect_aux2,tmp_box,tmp_inv,ortho,mic_opt)
             matrix(kk,ii,jj)=val_aux
             matrix(kk,jj,ii)=val_aux
          END DO
@@ -135,10 +134,10 @@ CONTAINS
  
   END SUBROUTINE DISTANCE
   
-  SUBROUTINE DISTANCE_PAIRS(coors1, coors2, box, ortho, pbc_opt, n1, n2, n_frames, matrix)
+  SUBROUTINE DISTANCE_PAIRS(coors1, coors2, box, ortho, mic_opt, n1, n2, n_frames, matrix)
   
   IMPLICIT NONE
-  INTEGER,INTENT(IN):: ortho, pbc_opt, n1, n2, n_frames
+  INTEGER,INTENT(IN):: ortho, mic_opt, n1, n2, n_frames
   DOUBLE PRECISION,DIMENSION(n_frames,n1,3),INTENT(IN)::coors1
   DOUBLE PRECISION,DIMENSION(n_frames,n2,3),INTENT(IN)::coors2
   DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
@@ -154,7 +153,7 @@ CONTAINS
   ALLOCATE(tmp_box(3,3),tmp_inv(3,3))
 
   inv=0.0d0
-  IF (pbc_opt==1) THEN
+  IF (mic_opt==1) THEN
     CALL BOX2INVBOX (box, inv, n_frames)
   END IF
 
@@ -164,7 +163,7 @@ CONTAINS
     DO ii=1,n1
       vect_aux=coors1(kk,ii,:)
       vect_aux2=coors2(kk,ii,:)
-      matrix(kk,ii)=DIST2POINTS(vect_aux,vect_aux2,tmp_box,tmp_inv,ortho,pbc_opt)
+      matrix(kk,ii)=DIST2POINTS(vect_aux,vect_aux2,tmp_box,tmp_inv,ortho,mic_opt)
     END DO
   END DO
   
@@ -223,9 +222,9 @@ CONTAINS
 
   END SUBROUTINE
 
-  SUBROUTINE DIHEDRAL_ANGLES (angs, coors, box, ortho, pbc_opt, quartets, n_angs, n_atoms, n_frames)
+  SUBROUTINE DIHEDRAL_ANGLES (angs, coors, box, ortho, mic_opt, quartets, n_angs, n_atoms, n_frames)
 
-    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, pbc_opt, n_frames
+    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, mic_opt, n_frames
     INTEGER,DIMENSION(n_angs,4),INTENT(IN)::quartets
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
     DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
@@ -238,7 +237,7 @@ CONTAINS
     DOUBLE PRECISION,DIMENSION(3)::vect1,vect2,vect3
     
     inv=0.0d0
-    IF (pbc_opt==1) THEN
+    IF (mic_opt==1) THEN
         CALL BOX2INVBOX (box, inv, n_frames)
     END IF
 
@@ -253,10 +252,10 @@ CONTAINS
             vect1=coors(jj,atom2,:)-coors(jj,atom1,:)
             vect2=coors(jj,atom3,:)-coors(jj,atom2,:)
             vect3=coors(jj,atom4,:)-coors(jj,atom3,:)
-            IF (pbc_opt==1) THEN
-                CALL PBC (vect1,tmp_box,tmp_inv,ortho)
-                CALL PBC (vect2,tmp_box,tmp_inv,ortho)
-                CALL PBC (vect3,tmp_box,tmp_inv,ortho)
+            IF (mic_opt==1) THEN
+                CALL MIC (vect1,tmp_box,tmp_inv,ortho)
+                CALL MIC (vect2,tmp_box,tmp_inv,ortho)
+                CALL MIC (vect3,tmp_box,tmp_inv,ortho)
             END IF
             angs(jj,ii)=ANG3VECTS(vect1,vect2,vect3)
         END DO
@@ -264,10 +263,10 @@ CONTAINS
 
   END SUBROUTINE DIHEDRAL_ANGLES
 
-  SUBROUTINE SET_DIHEDRAL_ANGLES (coors, box, ortho, pbc_opt, quartets, angs, blocks, atoms_per_block, n_angs, n_atoms, &
+  SUBROUTINE SET_DIHEDRAL_ANGLES (coors, box, ortho, mic_opt, quartets, angs, blocks, atoms_per_block, n_angs, n_atoms, &
       n_frames, blocks_size)
 
-    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, pbc_opt, n_frames, blocks_size
+    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, mic_opt, n_frames, blocks_size
     INTEGER,DIMENSION(n_angs,4),INTENT(IN)::quartets
     DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
     DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
@@ -290,7 +289,7 @@ CONTAINS
     END DO
     
     inv=0.0d0
-    IF (pbc_opt==1) THEN
+    IF (mic_opt==1) THEN
         CALL BOX2INVBOX (box, inv, n_frames)
     END IF
 
@@ -305,10 +304,10 @@ CONTAINS
             vect1=coors(jj,atom2,:)-coors(jj,atom1,:)
             vect2=coors(jj,atom3,:)-coors(jj,atom2,:)
             vect3=coors(jj,atom4,:)-coors(jj,atom3,:)
-            IF (pbc_opt==1) THEN
-                CALL PBC (vect1,tmp_box,tmp_inv,ortho)
-                CALL PBC (vect2,tmp_box,tmp_inv,ortho)
-                CALL PBC (vect3,tmp_box,tmp_inv,ortho)
+            IF (mic_opt==1) THEN
+                CALL MIC (vect1,tmp_box,tmp_inv,ortho)
+                CALL MIC (vect2,tmp_box,tmp_inv,ortho)
+                CALL MIC (vect3,tmp_box,tmp_inv,ortho)
             END IF
             u_vect = vect2/(sqrt(dot_product(vect2,vect2)))
             old_ang=ANG3VECTS(vect1,vect2,vect3)
@@ -316,12 +315,12 @@ CONTAINS
             DO kk=aux_block(ii)+1,aux_block(ii+1)
                 ll = blocks(kk)+1 !!!!!!!! aqui
                 vect_aux = coors(jj,ll,:)-coors(jj,atom3,:)
-                IF (pbc_opt==1) THEN
-                    CALL PBC (vect_aux,tmp_box,tmp_inv,ortho)
+                IF (mic_opt==1) THEN
+                    CALL MIC (vect_aux,tmp_box,tmp_inv,ortho)
                 END IF
                 CALL RODRIGUES_ROTATION(vect_aux, u_vect, shift_ang)
-                IF (pbc_opt==1) THEN
-                    CALL PBC (vect_aux,tmp_box,tmp_inv,ortho)
+                IF (mic_opt==1) THEN
+                    CALL MIC (vect_aux,tmp_box,tmp_inv,ortho)
                 END IF
                 coors(jj,ll,:)=coors(jj,atom3,:)+vect_aux
             END DO 
