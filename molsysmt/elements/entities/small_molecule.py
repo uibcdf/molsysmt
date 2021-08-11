@@ -4,7 +4,9 @@ name = [
     'dexamethasone',
     '3-{3,5-dimethyl-4-[3-(3-methyl-isoxazol-5-yl)-propoxy]-phenyl}-5-trifluoromethyl-[1,2,4]oxadiazole',
     'myristic acid',
-    'estradiol'
+    'estradiol',
+    'benzene',
+    '2-hydroxyethyl disulfide',
 ]
 
 
@@ -16,6 +18,8 @@ mmtf_translator = {
     'octyl beta-D-glucopyranoside' : 'octyl beta-d-glucopyranoside',
     'MYRISTIC ACID': 'myristic acid',
     'DEXAMETHASONE' : 'dexamethasone',
-    'ESTRADIOL' : 'estradiol'
+    'ESTRADIOL' : 'estradiol',
+    '2-HYDROXYETHYL DISULFIDE' : '2-hydroxyethyl disulfide',
+    'BENZENE' : 'benzene',
 }
 

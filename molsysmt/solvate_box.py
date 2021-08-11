@@ -148,10 +148,12 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         from molsysmt import set as _set, select, has_hydrogens, remove_hydrogens
 
 
-        #if has_hydrogens(molecular_system):
-        #    molecular_system = remove_hydrogens(molecular_system)
-        #    if verbose:
-        #        print("All Hydrogen atoms were removed to be added by LEaP\n\n")
+        if has_hydrogens(molecular_system):
+            raise ValueError("A molecular system without hydrogen atoms is needed.")
+            #molecular_system = remove_hydrogens(molecular_system)
+            #if verbose:
+            #    print("All Hydrogen atoms were removed to be added by LEaP\n\n")
+
 
         indices_NME_C = select(molecular_system, target='atom', selection='group_name=="NME" and atom_name=="C"')
         with_NME_C = (len(indices_NME_C)>0)
