@@ -92,17 +92,17 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.ids import from_id_PDB as id_PDB_to_molsysmt_Topology
+    from molsysmt.native.io.topology.strings import from_string_pdbid as string_pdbid_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = id_PDB_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = string_pdbid_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
 def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.trajectory.ids import from_id_PDB as id_PDB_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory.strings import from_string_pdbid as string_pdbid_to_molsysmt_Trajectory
 
-    tmp_item, tmp_molecular_system = id_PDB_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = string_pdbid_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 

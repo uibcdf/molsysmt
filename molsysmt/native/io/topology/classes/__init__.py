@@ -13,3 +13,7 @@ from .openexplorer_OpenExplorerReporter import from_openexplorer_OpenExplorerRep
 from .mdanalysis_Universe import from_mdanalysis_Universe
 from .pytraj_Topology import from_pytraj_Topology
 from .pytraj_Trajectory import from_pytraj_Trajectory
+from .rdkit_Mol import from_rdkit_Mol
+from .openff_Molecule import from_openff_Molecule
+from .openff_Topology import from_openff_Topology
+
