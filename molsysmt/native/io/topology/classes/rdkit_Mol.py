@@ -5,7 +5,7 @@ def from_rdkit_Mol(item, molecular_system=None, atom_indices='all', frame_indice
 
     tmp_item = Topology()
 
-    n_atoms = item.GetAtoms()
+    n_atoms = item.GetNumAtoms()
 
     atom_index_array = np.empty(n_atoms, dtype=int)
     atom_name_array = np.empty(n_atoms, dtype=object)
@@ -46,7 +46,7 @@ def from_rdkit_Mol(item, molecular_system=None, atom_indices='all', frame_indice
             except AttributeError:
                 atom_name = ""
 
-        rdkit_index_to_molsys_index[rd_idx] = atom_index
+        rdkit_index_to_molsys_index[atom_id] = atom_index
         atom_mapid[atom_index] = map_id
 
         atom_index_array[atom_index] = atom_index
@@ -64,14 +64,14 @@ def from_rdkit_Mol(item, molecular_system=None, atom_indices='all', frame_indice
 
     n_bonds = item.GetNumBonds()
 
-    bond_atom1_array = empty(n_bonds, dtype=int)
-    bond_atom2_array = empty(n_bonds, dtype=int)
-    bond_type_array = empty(n_bonds, dtype=object)
-    bond_order_array = empty(n_bonds, dtype=object)
+    bond_atom1_array = np.empty(n_bonds, dtype=int)
+    bond_atom2_array = np.empty(n_bonds, dtype=int)
+    bond_type_array = np.empty(n_bonds, dtype=object)
+    bond_order_array = np.empty(n_bonds, dtype=object)
 
     bond_index = 0
 
-    for bond in item.getBonds():
+    for bond in item.GetBonds():
 
         atom1_rdkit_index = bond.GetBeginAtomIdx()
         atom2_rdkit_index = bond.GetEndAtomIdx()
@@ -119,3 +119,8 @@ def from_rdkit_Mol(item, molecular_system=None, atom_indices='all', frame_indice
 
     return tmp_item, tmp_molecular_system
 
+def to_rdkit_Mol(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from rdkit import Chem, Geometry
+
+    pass

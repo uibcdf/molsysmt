@@ -242,15 +242,15 @@ def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    raise 1
+    return 1
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    raise 1
+    return 1
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    raise 1
+    return 1
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
