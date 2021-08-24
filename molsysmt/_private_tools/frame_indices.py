@@ -2,7 +2,7 @@ import numpy as np
 
 def complementary_frame_indices(molecular_system, frame_indices):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     n_frames = get(molecular_system, target='system', n_frames=True)
 

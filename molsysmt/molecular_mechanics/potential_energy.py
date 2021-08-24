@@ -16,7 +16,7 @@ def potential_energy (molecular_system, selection='all', syntaxis='MolSysMT', en
 
     from molsysmt._private_tools.engines import digest_engine
     from molsysmt._private_tools._digestion import digest_molecular_system
-    from molsysmt.multitool import convert
+    from molsysmt.basic import convert
 
     engine=digest_engine(engine)
 
@@ -79,7 +79,7 @@ def energy_minimization (molecular_system, method='L-BFGS', selection='all', syn
 
     from molsysmt._private_tools.engines import digest_engine
     from molsysmt._private_tools._digestion import digest_molecular_system
-    from molsysmt.multitool import convert, get_form
+    from molsysmt.basic import convert, get_form
 
     engine=digest_engine(engine)
     in_form = get_form(molecular_system)

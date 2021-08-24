@@ -75,8 +75,8 @@ def structure_alignment(molecular_system, selection_alignment='all', selection_r
         engine_sequence_alignment = 'biopython', engine_least_rmsd_fit = 'MolSysMT'):
 
     from .rmsd import least_rmsd_fit as _least_rmsd_fit
-    from .multitool import extract as _extract
-    from .multitool import select as _select
+    from molsysmt.basic import extract as _extract
+    from molsysmt.basic import select as _select
 
     if reference_selection_rmsd is None:
         reference_selection_rmsd = selection_rmsd
@@ -142,7 +142,7 @@ def sequence_identity(molecular_system, selection='all', reference_molecular_sys
         if target_intersection_set=='group':
             return seq_id, intersect_1, intersect_2
         elif target_intersection_set=='atom':
-            from .multitool import get as _get
+            from molsysmt.basic import get as _get
             set_1 = _get(reference_molecular_system, target='group', indices=intersect_1, atom_indices=True)
             set_1 = np.concatenate(set_1)
             set_2 = _get(molecular_system, target='group', indices=intersect_2, atom_indices=True)

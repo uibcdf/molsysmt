@@ -1,6 +1,6 @@
 from molsysmt._private_tools._digestion import digest_molecular_system, digest_engine
 import numpy as np
-from .lib import rmsd as librmsd
+from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
 
 def rmsd (molecular_system, selection='backbone', frame_indices='all',
@@ -12,7 +12,7 @@ def rmsd (molecular_system, selection='backbone', frame_indices='all',
 
     if engine=='MolSysMT':
 
-        from molsysmt.multitool import select, get
+        from molsysmt.basic import select, get
         from molsysmt._private_tools._digestion import digest_frame_indices
 
         n_atoms, n_frames = get(molecular_system, n_atoms=True, n_frames=True)
@@ -54,7 +54,7 @@ def rmsd (molecular_system, selection='backbone', frame_indices='all',
     elif engine=='MDTraj':
 
         #from mdtraj import rmsd as mdtraj_rmsd
-        #from molsysmt.multitool import convert
+        #from molsysmt.basic import convert
 
         #tmp_molecular_system = convert(molecular_system, to_form='mdtraj.Trajectory')
 
@@ -81,7 +81,7 @@ def least_rmsd (molecular_system=None, selection='backbone', frame_indices='all'
 
     if engine=='MolSysMT':
 
-        from molsysmt.multitool import select, get
+        from molsysmt.basic import select, get
         from molsysmt._private_tools._digestion import digest_frame_indices
 
         n_atoms, n_frames = get(molecular_system, n_atoms=True, n_frames=True)
@@ -136,8 +136,8 @@ def least_rmsd_fit (molecular_system=None, selection='backbone', frame_indices='
 
     if engine=='MolSysMT':
 
-        from molsysmt.multitool import select, get, set, convert
-        from molsysmt.multitool import copy as _copy
+        from molsysmt.basic import select, get, set, convert
+        from molsysmt.basic import copy as _copy
         from molsysmt._private_tools._digestion import digest_frame_indices
 
         n_atoms, n_frames = get(molecular_system, n_atoms=True, n_frames=True)

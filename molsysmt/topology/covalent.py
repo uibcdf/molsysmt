@@ -80,7 +80,7 @@ def covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_block
 
     if with_blocks:
 
-        from molsysmt.multitool import get
+        from molsysmt.basic import get
 
         n_quartets = quartets.shape[0]
 
@@ -106,7 +106,7 @@ def covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_block
 
 def covalent_chains(molecular_system, chain=None, selection='all', syntaxis='MolSysMT'):
 
-    from molsysmt.multitool import select
+    from molsysmt.basic import select
     from molsysmt.graphs import bondgraph
     from molsysmt._private_tools.molecular_system import digest_molecular_system
 
@@ -149,7 +149,7 @@ def covalent_chains(molecular_system, chain=None, selection='all', syntaxis='Mol
 
 def covalent_blocks(molecular_system, remove_bonds=None, output_form='sets'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
     from molsysmt.graphs import bondgraph
     from networkx import connected_components
 

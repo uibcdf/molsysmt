@@ -11,7 +11,7 @@ def charge(molecular_system, target='group', selection='all', type=None, engine=
 
     if type in ['physical_pH7', 'collantes']:
 
-        from molsysmt.multitool import get
+        from molsysmt.basic import get
 
         from molsysmt.physico_chemical_properties.groups.charge import units
         if type=='physical_pH7':
@@ -51,7 +51,7 @@ def charge(molecular_system, target='group', selection='all', type=None, engine=
     else:
 
         from molsysmt._private_tools._digestion import digest_molecular_system
-        from molsysmt.multitool import get, convert, get_form
+        from molsysmt.basic import get, convert, get_form
 
         molecular_system = digest_molecular_system(molecular_system)
 

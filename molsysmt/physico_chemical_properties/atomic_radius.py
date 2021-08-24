@@ -3,7 +3,7 @@ from molsysmt import puw
 
 def atomic_radius(molecular_system, selection='all', type='vdw'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
     from molsysmt.physico_chemical_properties.atoms.radius import units
     from molsysmt._private_tools._digestion import digest_target
 

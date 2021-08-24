@@ -1,5 +1,5 @@
 import numpy as _np
-from .multitool import get_form as get_form, select as _select, convert as _convert
+from .basic import get_form as get_form, select as _select, convert as _convert
 from ._private_tools.digest_inputs import _comparison_two_systems as _digest_comparison_two_systems
 from ._private_tools.digest_inputs import _coordinates as _digest_coordinates
 from ._private_tools.digest_inputs import _frameslist as _digest_frames

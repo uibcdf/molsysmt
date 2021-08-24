@@ -10,7 +10,7 @@ def sasa (molecular_system, target='atom', selection='all', frame_indices='all',
 
     if engine == 'MDTraj':
 
-        from molsysmt.multitool import convert, select
+        from molsysmt.basic import convert, select
         from mdtraj import shrake_rupley
 
         tmp_item = convert(molecular_system, frame_indices=frame_indices, to_form='mdtraj.Trajectory')

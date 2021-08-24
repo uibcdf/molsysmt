@@ -3,7 +3,7 @@ from molsysmt._private_tools.exceptions import *
 
 def buried_fraction(molecular_system, selection='all', type='janin'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     if type == 'janin':
         from .groups.buried_fraction import janin as values

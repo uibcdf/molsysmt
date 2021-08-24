@@ -4,7 +4,8 @@ from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 
 def compatibles_for_a_single_molecular_system(items):
 
-    from molsysmt.multitool import get_form, get
+    from molsysmt.basic.get_form import get_form
+    from molsysmt.basic.get import get
     from molsysmt.forms import dict_has
 
     output = True
@@ -41,8 +42,8 @@ def compatibles_for_a_single_molecular_system(items):
 
 def has_topology(items):
 
-    from molsysmt.multitool import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.basic import get_form
+    from molsysmt.basic import dict_get
 
     if type(items) in [list, tuple]:
         output = []
@@ -58,8 +59,8 @@ def has_topology(items):
 
 def has_trajectory(items):
 
-    from molsysmt.multitool import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.basic import get_form
+    from molsysmt.basic import dict_get
 
     if type(items) in [list, tuple]:
         output = []
@@ -75,8 +76,8 @@ def has_trajectory(items):
 
 def has_coordinates(items):
 
-    from molsysmt.multitool import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.basic import get_form
+    from molsysmt.basic import dict_get
 
     if type(items) in [list, tuple]:
         output = []
@@ -92,8 +93,8 @@ def has_coordinates(items):
 
 def has_box(items):
 
-    from molsysmt.multitool import get_form
-    from molsysmt.multitool import dict_get
+    from molsysmt.basic import get_form
+    from molsysmt.basic import dict_get
 
     if type(items) in [list, tuple]:
         output = []

@@ -1,5 +1,5 @@
 import numpy as _np
-from .multitool import convert as _convert, extract as _extract, get as _get
+from .basic import convert as _convert, extract as _extract, get as _get
 from ._private_tools.digest_inputs import _one_system as _digest_one_system
 from ._private_tools.digest_inputs import _coordinates as _digest_coordinates
 from .lib import geometry as _libgeometry

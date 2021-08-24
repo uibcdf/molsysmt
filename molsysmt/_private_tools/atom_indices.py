@@ -2,7 +2,7 @@ import numpy as np
 
 def complementary_atom_indices(molecular_system, atom_indices):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     n_atoms = get(molecular_system, target='system', n_atoms=True)
 
@@ -12,7 +12,7 @@ def complementary_atom_indices(molecular_system, atom_indices):
 
 def atom_indices_to_AmberMask(molecular_system, atom_indices):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     n_atoms = get(molecular_system, element='system', n_atoms=True)
     mask = np.zeros(n_atoms,dtype=int)

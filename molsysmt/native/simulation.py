@@ -113,7 +113,7 @@ class Simulation():
 
     def to_openmm_Context(self, molecular_system=None, selection='all', frame_indices='all'):
 
-        from molsysmt.multitool import convert
+        from molsysmt.basic import convert
 
         if molecular_system is None:
             molecular_system = self._molecular_system
@@ -138,7 +138,7 @@ class Simulation():
 
     def to_openmm_Simulation(self, molecular_system=None, selection='all', frame_indices='all'):
 
-        from molsysmt.multitool import convert
+        from molsysmt.basic import convert
 
         if molecular_system is None:
             molecular_system = self._molecular_system

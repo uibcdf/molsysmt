@@ -1,7 +1,7 @@
 
 def is_string_aminoacids1(string):
 
-    from molsysmt.elements.groups.aminoacid import aa1s
+    from molsysmt.elements.group.aminoacid import aa1s
 
     output = False
 

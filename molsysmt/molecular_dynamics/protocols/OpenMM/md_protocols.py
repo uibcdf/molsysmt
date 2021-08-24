@@ -50,7 +50,7 @@ def equilibration_NPT (item, temperature=300*_unit.kelvin, pressure=1.0*_unit.at
     >>> minimized_equilibrated = m3t.equilibration_NPT(system)
     """
 
-    from .multitool import get_form, get, convert, reformat
+    from molsysmt.basic import get_form, get, convert, reformat
 
     engine = _digest_engines(engine)
 

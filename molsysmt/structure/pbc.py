@@ -1,7 +1,7 @@
-from ._private_tools.engines import digest_engine
-from ._private_tools.frame_indices import digest_frame_indices
-from ._private_tools.forms import digest_form
-from ._private_tools.box import digest_box_angles, digest_box_lengths
+from molsysmt._private_tools.engines import digest_engine
+from molsysmt._private_tools.frame_indices import digest_frame_indices
+from molsysmt._private_tools.forms import digest_form
+from molsysmt._private_tools.box import digest_box_angles, digest_box_lengths
 from molsysmt.lib import box as libbox
 import numpy as np
 from molsysmt import puw
@@ -226,7 +226,7 @@ def unwrap(molecular_system, selection='all', frame_indices='all',
 
     if engine=='MolSysMT':
 
-        from molsysmt.multitool import select, get, set, extract
+        from molsysmt.basic import select, get, set, extract
 
         coordinates= get(molecular_system, target='atom', selection=selection, coordinates=True)
         n_frames = coordinates.shape[0]
@@ -277,7 +277,7 @@ def wrap_to_pbc(molecular_system, selection='all', frame_indices='all',
 
     if engine=='MolSysMT':
 
-        from molsysmt.multitool import select, get, set, extract, copy
+        from molsysmt.basic import select, get, set, extract, copy
 
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
 
@@ -363,7 +363,7 @@ def wrap_to_mic(molecular_system, selection='all', frame_indices='all',
 
     if engine=='MolSysMT':
 
-        from molsysmt.multitool import select, get, set, extract, copy
+        from molsysmt.basic import select, get, set, extract, copy
 
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
 

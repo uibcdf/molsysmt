@@ -20,7 +20,7 @@ def distance(molecular_system, selection="all", groups_of_atoms=None, group_beha
     # selection groups está por si quiero distancias entre centros de masas, necesita
     # hacer un lista de listas frente a otra lista de listas.
 
-    from molsysmt.multitool import convert, select, get, extract
+    from molsysmt.basic import convert, select, get, extract
     from molsysmt.centers import center_of_mass, geometric_center
 
     molecular_system = digest_molecular_system(molecular_system)

@@ -6,8 +6,8 @@ def is_string_aminoacids3(string):
     if string.isalnum():
 
         import re
-        from molsysmt.elements.groups.aminoacid import name as aminoacid_name
-        from molsysmt.elements.groups.water import name as water_name
+        from molsysmt.elements.group.aminoacid import name as aminoacid_name
+        from molsysmt.elements.group.water import name as water_name
 
         if len(string)%3==0:
             n_aa3 = 0

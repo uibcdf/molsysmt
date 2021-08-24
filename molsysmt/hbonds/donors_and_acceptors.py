@@ -1,7 +1,7 @@
-from molsysmt.multitool import select
+from molsysmt.basic.select import select
 from molsysmt._private_tools._digestion import digest_engine
 from molsysmt._private_tools.exceptions import *
-from molsysmt.covalent import covalent_chains
+from molsysmt.topology.covalent import covalent_chains
 import numpy as np
 
 acceptor_inclusion_rules = [

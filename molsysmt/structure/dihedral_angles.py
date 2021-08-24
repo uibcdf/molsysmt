@@ -2,12 +2,12 @@ import numpy as np
 from molsysmt import puw
 from molsysmt._private_tools.molecular_system import digest_molecular_system
 from molsysmt._private_tools.frame_indices import digest_frame_indices
-from .lib import geometry as libgeometry
+from molsysmt.lib import geometry as libgeometry
 
 def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', quartets=None,
                         frame_indices='all', syntaxis='MolSysMT', pbc=False):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     molecular_system = digest_molecular_system(molecular_system)
     frame_indices = digest_frame_indices(frame_indices)
@@ -89,7 +89,7 @@ def ramachandran_angles(molecular_system, selection='all', frame_indices='all', 
 def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,
                           frame_indices='all', pbc=False, in_place=True, engine='MolSysMT'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     molecular_system = digest_molecular_system(molecular_system)
     frame_indices = digest_frame_indices(frame_indices)
@@ -148,7 +148,7 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
 def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=None, frame_indices='all', pbc=False,
                         in_place=True, engine='MolSysMT'):
 
-    from molsysmt.multitool import get, convert, set, copy
+    from molsysmt.basic import get, convert, set, copy
 
     molecular_system = digest_molecular_system(molecular_system)
     frame_indices = digest_frame_indices(frame_indices)

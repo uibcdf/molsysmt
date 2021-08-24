@@ -3,8 +3,8 @@
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.hbonds.donors_and_acceptors import get_acceptor_atoms, get_donor_atoms
-from molsysmt.multitool.select import select
-from molsysmt.distances import neighbors
+from molsysmt.basic.select import select
+from molsysmt.structure.distances import neighbors
 from molsysmt import puw
 import numpy as np
 

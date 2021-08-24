@@ -3,7 +3,7 @@ from molsysmt._private_tools.exceptions import *
 
 def area_buried(molecular_system, selection='all', type='rose'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     if type == 'rose':
         from .groups.area_buried import rose as values

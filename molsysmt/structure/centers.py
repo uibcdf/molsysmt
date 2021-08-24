@@ -7,7 +7,7 @@ import numpy as np
 
 def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None, frame_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
-    from molsysmt.multitool import convert, select, get, extract
+    from molsysmt.basic import convert, select, get, extract
     from molsysmt._private_tools.math import serialized_lists
 
     molecular_system = digest_molecular_system(molecular_system)
@@ -61,7 +61,7 @@ def get_center_of_mass(molecular_system, selection='all', groups_of_atoms=None, 
 def center(molecular_system, selection='all', center_of_selection='all', weights=None, new_coordinates_center=None, frame_indices='all',
            syntaxis='MolSysMT', engine='MolSysMT', in_place=False):
 
-    from molsysmt.multitool import select, get, set, copy
+    from molsysmt.basic import select, get, set, copy
     from molsysmt.geometrical_transformations import translate
 
     molecular_system = digest_molecular_system(molecular_system)

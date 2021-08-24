@@ -12,7 +12,7 @@ class TrajectoryFile():
 
         if filepath is not None and mode=='read':
 
-            from molsysmt.multitool import get_form
+            from molsysmt.basic import get_form
             from molsysmt import get, convert
 
             self.path = filepath
@@ -40,7 +40,7 @@ class TrajectoryFile():
     def read_frames(self, atom_indices='all', frame_indices='all'):
 
         from molsysmt import get
-        from molsysmt.multitool import get_form
+        from molsysmt.basic import get_form
         step, time, coordinates, box = get(self.mount_point, target='atom', indices=atom_indices, frame_indices=frame_indices, frame=True)
         self.atom_indices=atom_indices
         return step, time, coordinates, box

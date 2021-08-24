@@ -19,7 +19,7 @@ def is_a_single_molecular_system(items):
 
             if len(items)>1:
 
-                from molsysmt.multitool import get_form
+                from molsysmt.basic import get_form
                 from molsysmt.forms import dict_has
 
                 with_elements_and_coordinates=0
@@ -37,7 +37,7 @@ def is_a_single_molecular_system(items):
 
 def where_elements_in_molecular_system(items):
 
-    from molsysmt.multitool import get_form
+    from molsysmt.basic.get_form import get_form
     from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
@@ -69,7 +69,7 @@ def where_elements_in_molecular_system(items):
 
 def where_bonds_in_molecular_system(items):
 
-    from molsysmt.multitool import get_form
+    from molsysmt.basic.get_form import get_form
     from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
@@ -103,7 +103,7 @@ def where_bonds_in_molecular_system(items):
 
 def where_coordinates_in_molecular_system(items):
 
-    from molsysmt.multitool import get_form
+    from molsysmt.basic.get_form import get_form
     from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
@@ -135,7 +135,7 @@ def where_coordinates_in_molecular_system(items):
 
 def where_velocities_in_molecular_system(items):
 
-    from molsysmt.multitool import get_form
+    from molsysmt.basic import get_form
     from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
@@ -167,7 +167,7 @@ def where_velocities_in_molecular_system(items):
 
 def where_box_in_molecular_system(items):
 
-    from molsysmt.multitool import get_form
+    from molsysmt.basic import get_form
     from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
@@ -205,7 +205,7 @@ def where_box_in_molecular_system(items):
 
 def where_ff_parameters_in_molecular_system(items):
 
-    from molsysmt.multitool import get_form
+    from molsysmt.basic import get_form
     from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
@@ -239,7 +239,7 @@ def where_ff_parameters_in_molecular_system(items):
 
 def where_mm_parameters_in_molecular_system(items):
 
-    from molsysmt.multitool import get_form
+    from molsysmt.basic import get_form
     from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
@@ -279,7 +279,7 @@ def where_mm_parameters_in_molecular_system(items):
 
 def where_simulation_in_molecular_system(items):
 
-    from molsysmt.multitool import get_form
+    from molsysmt.basic import get_form
     from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):
@@ -313,7 +313,7 @@ def where_simulation_in_molecular_system(items):
 
 def where_thermo_state_in_molecular_system(items):
 
-    from molsysmt.multitool import get_form
+    from molsysmt.basic import get_form
     from molsysmt.forms import dict_has
 
     if not is_a_single_molecular_system(items):

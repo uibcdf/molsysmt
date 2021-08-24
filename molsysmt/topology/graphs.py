@@ -19,7 +19,7 @@ def bondgraph(molecular_system, nodes_name='atom_index', selection='all', syntax
     if to_form == 'networkx.Graph':
 
         from networkx import Graph
-        from molsysmt.multitool import get
+        from molsysmt.basic import get
 
         G = Graph()
 

@@ -3,7 +3,7 @@ from molsysmt._private_tools.exceptions import *
 
 def polarity(molecular_system, selection = 'all', type='grantham'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     if type == 'grantham':
         from molsysmt.physico_chemical_properties.groups.polarity import grantham as values
