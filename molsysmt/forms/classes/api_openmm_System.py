@@ -3,7 +3,7 @@ from molsysmt.forms.common_gets import *
 import numpy as np
 from simtk.openmm import System as _openmm_System
 from molsysmt import puw
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openmm.System'
 
@@ -19,7 +19,7 @@ for ii in ['box', 'ff_parameters', 'mm_parameters']:
 
 def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.multitool import convert, get
+    from molsysmt.basic import convert, get
     from simtk.openmm import Context
 
     positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
@@ -46,7 +46,7 @@ def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_ind
 
 def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.multitool import convert, get
+    from molsysmt.basic import convert, get
     from simtk.openmm.app import Simulation
 
     topology = convert(molecular_system, to_form='openmm.Topology', selection=atom_indices)

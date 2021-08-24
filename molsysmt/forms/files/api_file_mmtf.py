@@ -4,7 +4,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt import puw
 import sys
 import importlib
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 from molsysmt._private_tools.files_and_directories import tmp_filename
 
 form_name='file:mmtf'

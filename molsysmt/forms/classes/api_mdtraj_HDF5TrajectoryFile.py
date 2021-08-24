@@ -3,7 +3,7 @@ from molsysmt.forms.common_gets import *
 import numpy as np
 from mdtraj.formats.hdf5 import HDF5TrajectoryFile as _mdtraj_HDF5TrajectoryFile
 from molsysmt import puw
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='mdtraj.HDF5TrajectoryFile'
 

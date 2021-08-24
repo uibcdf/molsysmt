@@ -5,7 +5,7 @@ from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
 import importlib
 import sys
 from molsysmt import puw
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='mdtraj.Trajectory'
 

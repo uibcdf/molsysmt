@@ -1,8 +1,8 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-import pyunitwizard as puw
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt import puw
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='molsysmt.TrajectoryDict'
 

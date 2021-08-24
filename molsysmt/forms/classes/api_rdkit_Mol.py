@@ -2,7 +2,7 @@ from molsysmt._private_tools.exceptions import *
 import numpy as np
 from molsysmt.forms.common_gets import *
 from rdkit.Chem.rdchem import Mol as rdkit_Mol
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='rdkit.Mol'
 

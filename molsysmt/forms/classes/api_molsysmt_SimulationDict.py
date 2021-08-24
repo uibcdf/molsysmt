@@ -1,7 +1,7 @@
 import numpy as np
 from molsysmt._private_tools.exceptions import *
-import pyunitwizard as puw
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt import puw
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='molsysmt.SimulationDict'
 

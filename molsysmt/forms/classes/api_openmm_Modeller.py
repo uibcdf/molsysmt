@@ -5,7 +5,7 @@ from simtk.openmm.app.modeller import Modeller as _openmm_Modeller
 from molsysmt import puw
 import sys
 import importlib
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openmm.Modeller'
 
@@ -66,7 +66,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
                          collisions_rate='1.0 1/ps', integration_timestep='2.0 fs', platform='CUDA'):
 
     from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Simulation as openmm_Topology_to_openmm_Simulation
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 

@@ -2,7 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 from MDAnalysis import Universe as _mdanalysis_Universe
 import numpy as np
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='mdanalysis.Universe'
 

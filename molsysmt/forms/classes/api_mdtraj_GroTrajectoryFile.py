@@ -2,7 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from mdtraj.formats import GroTrajectoryFile as _mdtraj_GroTrajectoryFile
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='mdtraj.GroTrajectoryFile'
 

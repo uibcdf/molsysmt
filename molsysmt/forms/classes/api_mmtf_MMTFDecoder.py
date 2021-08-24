@@ -3,7 +3,7 @@ from molsysmt.forms.common_gets import *
 from molsysmt import puw
 import numpy as np
 from mmtf import MMTFDecoder as _mmtf_MMTFDecoder
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 import importlib
 import sys
 

@@ -5,7 +5,7 @@ from simtk.openmm.app import GromacsGroFile as _openmm_GromacsGroFile
 import importlib
 import sys
 from molsysmt import puw
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openmm.GromacsGroFile'
 

@@ -3,7 +3,7 @@ from molsysmt.forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
 from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
 from molsysmt import puw
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openmm.Topology'
 
@@ -64,7 +64,7 @@ def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_i
 
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
     from simtk.openmm.app import Modeller
 
     tmp_item, _ = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
@@ -80,7 +80,7 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.multitool import convert
+    from molsysmt.basic import convert
 
     molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
 
@@ -140,7 +140,7 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='
 
 def to_string_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
     from molsysmt.version import __version__ as msm_version
     from simtk.openmm.app import PDBFile
     #from simtk.openmm.version import short_version

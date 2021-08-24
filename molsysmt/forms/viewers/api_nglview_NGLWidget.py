@@ -4,7 +4,7 @@ import numpy as np
 from nglview import widget as _nglview_widget
 import importlib
 import sys
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='nglview.NGLWidget'
 

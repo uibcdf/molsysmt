@@ -4,7 +4,7 @@ from openmolecularsystems import systems
 from openmolecularsystems.systems.openmolecularsystem import OpenMolecularSystem
 import numpy as np
 from molsysmt.forms.common_gets import *
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openmolecularsystems.OpenMolecularSystems'
 

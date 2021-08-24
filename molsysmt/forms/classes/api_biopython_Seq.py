@@ -2,7 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from Bio.Seq import Seq as _Bio_Seq
 from molsysmt.forms.common_gets import *
 from molsysmt import puw
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 import numpy as np
 
 form_name='biopython.Seq'

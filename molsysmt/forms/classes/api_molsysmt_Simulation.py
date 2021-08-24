@@ -1,6 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.native.simulation import Simulation as _molsysmt_Simulation
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='molsysmt.Simulation'
 

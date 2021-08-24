@@ -2,7 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.native.molsys import MolSys as _molsysmt_MolSys
 from molsysmt import puw
 import numpy as np
-from molsysmt.molecular_system import molecular_system_components
+from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='molsysmt.MolSys'
 
@@ -163,6 +163,22 @@ def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
     tmp_item, tmp_molecular_system = to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item, tmp_molecular_system = molsysmt_Topology_to_pytraj_Topology(tmp_item, molecular_system=tmp_molecular_system)
+
+    return tmp_item, tmp_molecular_system
+
+def to_rdkit_Mol(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import to_rdkit_Mol as molsysmt_MolSys_to_rdkit_Mol
+
+    is_a_ligand = msm.is_composed_of(item, molecular_system=molecular_system, selection=atom_indices, small_molecule=1)
+
+    if is_a_ligand:
+
+        tmp_item, tmp_molecular_system = molsysmt_MolSys_to_rdkit_Mol(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    else:
+
+        raise SystemError("The system needs to be composed of a single small molecule")
 
     return tmp_item, tmp_molecular_system
 

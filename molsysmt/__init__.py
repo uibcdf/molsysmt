@@ -21,9 +21,9 @@ from ._pyunitwizard import puw as puw
 from . import demo_systems
 
 from .native.molsys import MolSys
-from .multitool import select, extract, merge, add, concatenate_frames, append_frames, info, get, set, \
-                       convert, copy, view, remove, get_form
-from .info_multitool import info_forms, info_convert, info_select, info_viewers
+from .basic import select, extract, merge, add, concatenate_frames, append_frames, info, get, set, \
+                       convert, copy, view, remove, get_form, contains, is_composed_of
+from .info_basics import info_forms, info_convert, info_select, info_viewers
 
 from .additional_remove import remove_solvent, remove_hydrogens
 from .peptides import build_peptide
