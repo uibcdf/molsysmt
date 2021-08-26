@@ -1,10 +1,11 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools._digestion import *
-from molsysmt.basic.get import get
 
 def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT',
         n_ions=0, n_waters=0, n_cosolutes=0, n_small_molecules=0, n_peptides=0, n_proteins=0,
         n_dnas=0, n_rnas=0, n_lipids=0):
+
+    from molsysmt.basic import get
 
     n_ions_in, n_waters_in, n_cosolutes_in, n_small_molecules_in, n_peptides_in, n_proteins_in,\
     n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, target="system", selection=selection,

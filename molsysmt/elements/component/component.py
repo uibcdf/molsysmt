@@ -1,12 +1,12 @@
 import numpy as np
-from .components.rna import group_name as rna_group_names
-from .components.dna import group_name as dna_group_names
+from .rna import group_name as rna_group_names
+from .dna import group_name as dna_group_names
 
 types = ['water', 'ion', 'cosolute', 'small molecule', 'lipid', 'peptide', 'protein', 'rna', 'dna']
 
 def component_index_from_atom(item, indices='all'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
     from molsysmt.lib import bonds as _libbonds
 
     n_atoms, n_bonds = get(item, target='system', n_atoms=True, n_bonds=True)
@@ -29,7 +29,7 @@ def component_index_from_atom(item, indices='all'):
 def component_id_from_component(item, indices='all'):
 
     if indices is 'all':
-        from molsysmt.multitool import get
+        from molsysmt.basic import get
         n_components = get(item, target='system', n_components=True)
         output = np.full(n_components, None, dtype=object)
     else:
@@ -40,7 +40,7 @@ def component_id_from_component(item, indices='all'):
 def component_name_from_component(item, indices='all'):
 
     if indices is 'all':
-        from molsysmt.multitool import get
+        from molsysmt.basic import get
         n_components = get(item, target='system', n_components=True)
         output = np.full(n_components, None, dtype=object)
     else:
@@ -50,7 +50,7 @@ def component_name_from_component(item, indices='all'):
 
 def component_type_from_component(item, indices='all'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     group_types_from_component = get(item, target='component', indices=indices, group_type=True)
 

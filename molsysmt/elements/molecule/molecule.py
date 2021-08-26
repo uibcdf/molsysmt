@@ -1,13 +1,13 @@
 from molsysmt._private_tools.exceptions import *
 import numpy as np
-from .molecules.rna import group_name as rna_group_names
-from .molecules.dna import group_name as dna_group_names
+from .rna import group_name as rna_group_names
+from .dna import group_name as dna_group_names
 
 types=['water', 'ion', 'cosolute', 'small molecule', 'peptide', 'protein', 'rna', 'dna', 'lipid']
 
 def molecule_index_from_atom(item, indices='all'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     output = get(item, target='atom', indices=indices, component_index=True)
 
@@ -35,7 +35,7 @@ def molecule_name_from_molecule(item, indices='all'):
 
 def molecule_type_from_molecule(item, indices='all'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     group_types_from_molecule = get(item, target='molecule', indices=indices, group_type=True)
 

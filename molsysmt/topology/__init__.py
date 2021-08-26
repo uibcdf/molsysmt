@@ -1,3 +1,6 @@
-from .covalent import covalent_chains, covalent_blocks, covalent_dihedral_quartets
-from .graphs import bondgraph
-from .sequence import sequence_alignment, sequence_identity, structure_alignment
+from .get_covalent_chains import get_covalent_chains
+from .get_covalent_blocks import get_covalent_blocks
+from .get_covalent_dihedral_quartets import get_covalent_dihedral_quartets
+from .get_bondgraph import get_bondgraph
+from .get_sequence_alignment import get_sequence_alignment
+from .get_sequence_identity import get_sequence_identity

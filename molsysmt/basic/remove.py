@@ -2,8 +2,6 @@ from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.frame_indices import complementary_frame_indices
 from molsysmt._private_tools.atom_indices import complementary_atom_indices
-from molsysmt.basic.select import select
-from molsysmt.basic.extract import extract
 
 def remove(molecular_system, selection=None, frame_indices=None, to_form=None, syntaxis='MolSysMT'):
 
@@ -61,6 +59,8 @@ def remove(molecular_system, selection=None, frame_indices=None, to_form=None, s
     remove hydrogens: molsysmt.remove_hydrogens.
 
     """
+
+    from molsysmt.basic import select, extract
 
     molecular_system = digest_molecular_system(molecular_system)
     frame_indices = digest_frame_indices(frame_indices)

@@ -1,7 +1,6 @@
 from molsysmt.basic.select import select
 from molsysmt._private_tools._digestion import digest_engine
 from molsysmt._private_tools.exceptions import *
-from molsysmt.topology.covalent import covalent_chains
 import numpy as np
 
 acceptor_inclusion_rules = [
@@ -65,6 +64,8 @@ def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=[], excl
                     default_inclusion_rules=True, default_exclusion_rules=True,
                     syntaxis='MolSysMT', engine='MolSysMT', with_Hs=False):
 
+    from molsysmt.topology import get_covalent_chains
+
     engine = digest_engine(engine)
 
     if engine=='MolSysMT':
@@ -87,7 +88,7 @@ def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=[], excl
             tmp_not_donors = select(molecular_system, selection=rule, mask=mask, syntaxis=syntaxis)
             output.difference_update(tmp_not_donors)
 
-        output = covalent_chains(molecular_system, [output, 'atom_type=="H"'])
+        output = get_covalent_chains(molecular_system, [output, 'atom_type=="H"'])
         output = np.sort(output, axis=0)
 
     else:

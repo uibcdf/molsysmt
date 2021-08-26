@@ -2,9 +2,6 @@ from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
-from molsysmt.basic.convert import convert
-from molsysmt.basic.extract import extract
-from molsysmt.basic.add import add
 
 def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
@@ -49,6 +46,8 @@ def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxi
     -----
 
     """
+
+    from molsysmt.basic import convert, extract, add
 
     if is_a_single_molecular_system(molecular_systems):
         raise NeedsMultipleMolecularSystemsError()

@@ -2,7 +2,7 @@ def from_file_gro(item, molecular_system=None, atom_indices='all', frame_indices
 
     from molsysmt.native import MolSys
     from molsysmt.native.io.topology.files import from_file_gro as file_gro_to_molsysmt_Topology
-    from molsysmt.multitool import convert
+    from molsysmt.basic import convert
 
     tmp_item = MolSys()
     tmp_item.topology, _ = file_gro_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)

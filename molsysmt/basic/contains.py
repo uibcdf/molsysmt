@@ -1,10 +1,11 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools._digestion import *
-from molsysmt.basic.get import get
 
 def contains(molecular_system, selection='all', syntaxis='MolSysMT',
         ions=None, waters=None, cosolutes=None, small_molecules=None, peptides=None, proteins=None,
         dnas=None, rnas=None, lipids=None):
+
+    from molsysmt.basic import get
 
     n_ions_in, n_waters_in, n_cosolutes_in, n_small_molecules_in, n_peptides_in, n_proteins_in,\
     n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, target="system", selection=selection,

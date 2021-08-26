@@ -49,7 +49,7 @@ def select_standard(molecular_system, selection, syntaxis):
 
 def select_within(molecular_system, selection, frame_index, syntaxis):
 
-    from molsysmt.distances import contact_map
+    from molsysmt.structure.get_contact_map import get_contact_map
 
     not_within = False
 
@@ -82,7 +82,7 @@ def select_within(molecular_system, selection, frame_index, syntaxis):
 
 def select_bonded_to(molecular_system, selection, syntaxis):
 
-    from molsysmt.basic.get import get
+    from molsysmt.basic import get
 
     not_bonded=False
 
@@ -215,7 +215,7 @@ def selection_with_special_subsentences(selection):
 
 def select_with_MDTraj(item, selection):
 
-    from molsysmt import convert, get_form
+    from molsysmt.basic import convert, get_form
 
     form_in = get_form(item)
 
@@ -230,7 +230,7 @@ def select_with_MDTraj(item, selection):
 
 def select_with_MDAnalysis(item, selection):
 
-    from molsysmt import convert, get_form
+    from molsysmt.basic import convert, get_form
 
     form_in = get_form(item)
 
@@ -247,7 +247,7 @@ def select_with_MDAnalysis(item, selection):
 
 def select_with_MolSysMT(item, selection):
 
-    from molsysmt import convert, get_form
+    from molsysmt.basic import convert, get_form
     from molsysmt.native.selector import elements_select
 
     form_in = get_form(item)
@@ -263,7 +263,7 @@ def select_with_MolSysMT(item, selection):
 
 def select_with_ParmEd(item, selection):
 
-    from molsysmt import convert, get_form
+    from molsysmt.basic import convert, get_form
     from parmed.amber import AmberMask as _AmberMask
 
     form_in = get_form(item)
@@ -280,7 +280,7 @@ def select_with_ParmEd(item, selection):
 
 def select_with_Amber(item, selection):
 
-    from molsysmt import convert, get_form
+    from molsysmt.basic import convert, get_form
 
     if form_in == 'pytraj.Topology':
         tmp_item = item

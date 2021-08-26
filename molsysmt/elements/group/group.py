@@ -1,11 +1,11 @@
 from molsysmt._private_tools.exceptions import *
 import numpy as np
-from .groups.aminoacid import name as aminoacid_names
-from .groups.water import name as water_names
-from .groups.ion import name as ion_names
-from .groups.nucleotide import name as nucleotide_names
-from .groups.lipid import name as lipid_names
-from .groups.cosolute import name as cosolute_names
+from .aminoacid import name as aminoacid_names
+from .water import name as water_names
+from .ion import name as ion_names
+from .nucleotide import name as nucleotide_names
+from .lipid import name as lipid_names
+from .cosolute import name as cosolute_names
 
 types=['water', 'ion', 'cosolute', 'small molecule', 'aminoacid', 'nucleotide', 'lipid']
 

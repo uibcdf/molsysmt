@@ -3,8 +3,6 @@ from pandas import DataFrame as df
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.elements import elements2string
 from molsysmt._private_tools.exceptions import *
-from molsysmt.basic.get_form import get_form
-from molsysmt.basic.get import get
 
 def info(molecular_system, target='system', indices=None, selection='all', syntaxis='MolSysMT', output='dataframe'):
 
@@ -57,6 +55,8 @@ def info(molecular_system, target='system', indices=None, selection='all', synta
     -----
 
     """
+
+    from molsysmt.basic import get_form, get
 
     molecular_system = digest_molecular_system(molecular_system)
 

@@ -1,4 +1,3 @@
-from molsysmt.basic.convert import convert
 
 def extract(molecular_system, selection='all', frame_indices='all', to_form=None, syntaxis='MolSysMT'):
 
@@ -41,6 +40,8 @@ def extract(molecular_system, selection='all', frame_indices='all', to_form=None
     -----
 
     """
+
+    from molsysmt.basic import convert
 
     return convert(molecular_system, selection=selection, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis)
 

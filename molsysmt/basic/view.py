@@ -1,13 +1,14 @@
 from molsysmt.forms import *
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
-from molsysmt.tools.molecular_systems import is_a_single_molecular_system
-from molsysmt.basic.convert import convert
-from molsysmt.basic.concatenate_frames import concatenate_frames
-from molsysmt.basic.merge import merge
 
 def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices='all',
          concatenate_frames=False, standardize=False, water_as_surface=False, syntaxis='MolSysMT'):
+
+    from molsysmt.basic import convert, concatenate_frames, merge
+    from molsysmt.tools.molecular_systems import is_a_single_molecular_system
+    from molsysmt.tools.nglview import standardize_view
+    from molsysmt.tools.nglview import show_system_as_transparent_surface
 
     viewer, form_viewer = digest_viewer(viewer)
 
@@ -16,7 +17,6 @@ def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices
         tmp_item = convert(molecular_system, to_form=form_viewer, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
     else:
         if concatenate_frames:
-            from molsysmt.basic import concatenate_frames
             molecular_system = concatenate_frames(molecular_system, selections=selection, frame_indices=frame_indices, syntaxis=syntaxis)
         else:
             molecular_system = merge(molecular_system, selections=selection, frame_indices=frame_indices, syntaxis=syntaxis)
@@ -24,12 +24,10 @@ def view(molecular_system=None, viewer='NGLView', selection='all', frame_indices
 
     if standardize:
         if viewer=='NGLView':
-            from molsysmt.tools.nglview import standardize_view
             standardize_view(tmp_item)
 
     if water_as_surface:
         if viewer=='NGLView':
-            from molsysmt.tools.nglview import show_system_as_transparent_surface
             show_system_as_transparent_surface(tmp_item)
 
     return tmp_item

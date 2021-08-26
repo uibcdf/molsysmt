@@ -3,8 +3,8 @@
 
 def standardize_view (view, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.multitool import select, get, convert
-    from molsysmt.solvate_box import is_solvated
+    from molsysmt.basic import select, get, convert
+    from molsysmt.pbc import is_solvated
 
 
     if atom_indices is not 'all':

@@ -1,8 +1,76 @@
 from molsysmt._private_tools.exceptions import *
 import numpy as np
-from molsysmt.elements import entities
+
+from . import cosolute
+from . import ion
+from . import lipid
+from . import peptide
+from . import protein
+from . import dna
+from . import rna
+from . import small_molecule
+from . import water
 
 types = ["water", "ion", "cosolute", "protein", "peptide", "rna", "dna", "lipid", "small molecule"]
+
+catalog={}
+mmtf_translator={}
+
+# cosolute.py
+
+for name in cosolute.name:
+    catalog[name]='cosolute'
+
+mmtf_translator.update(cosolute.mmtf_translator)
+
+# ion.py
+
+for name in ion.name:
+    catalog[name]='ion'
+
+mmtf_translator.update(ion.mmtf_translator)
+
+#lipid.py
+
+for name in lipid.name:
+    catalog[name]='lipid'
+
+mmtf_translator.update(lipid.mmtf_translator)
+
+#peptide.py
+
+for name in peptide.name:
+    catalog[name]='peptide'
+
+mmtf_translator.update(peptide.mmtf_translator)
+
+#protein.py
+
+for name in protein.name:
+    catalog[name]='protein'
+
+mmtf_translator.update(protein.mmtf_translator)
+
+# rna.py
+
+for name in rna.name:
+    catalog[name]='rna'
+
+mmtf_translator.update(rna.mmtf_translator)
+
+# small_molecule.py
+
+for name in small_molecule.name:
+    catalog[name]='small molecule'
+
+mmtf_translator.update(small_molecule.mmtf_translator)
+
+# water.py
+
+for name in water.name:
+    catalog[name]='water'
+
+mmtf_translator.update(water.mmtf_translator)
 
 
 def _aux(item):
@@ -180,8 +248,8 @@ def type_from_MMTFDecoder_entity (mmtf_entity):
         return _get_type_from_sequence(mmtf_entity['sequence'])
     elif mmtf_entity['type']=='non-polymer':
         try:
-            entity_name = entities.mmtf_translator[mmtf_entity['description']]
-            output = entities.catalog[entity_name]
+            entity_name = mmtf_translator[mmtf_entity['description']]
+            output = catalog[entity_name]
         except:
             raise NotImplementedError("The mmtf entity type {} is not implemented.".format(mmtf_entity))
 
@@ -189,7 +257,7 @@ def type_from_MMTFDecoder_entity (mmtf_entity):
 
 def _get_type_from_sequence(sequence):
 
-    from .molecule import _get_type_from_sequence as molecule_type_from_sequence
+    from molsysmt.elements.molecule.molecule import _get_type_from_sequence as molecule_type_from_sequence
 
     molecule_type = molecule_type_from_sequence(sequence)
 

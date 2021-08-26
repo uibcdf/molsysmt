@@ -2,7 +2,6 @@ from molsysmt.forms import dict_set
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.set_arguments import where_set_argument
 from molsysmt._private_tools.exceptions import *
-from molsysmt.basic.select import select
 
 def set(molecular_system, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
@@ -58,6 +57,8 @@ def set(molecular_system, target='system', indices=None, selection='all', frame_
     -----
 
     """
+
+    from molsysmt.basic import select
 
     molecular_system = digest_molecular_system(molecular_system)
 
