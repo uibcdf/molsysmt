@@ -1,6 +1,6 @@
 from molsysmt._private_tools.exceptions import BadCallError
 
-where_get_argument = {
+where_argument = {
 
     'atom_index' : ['elements'],
     'atom_name' : ['elements'],
@@ -72,7 +72,7 @@ where_get_argument = {
 }
 
 
-get_argument_synonym = {
+argument_synonyms = {
     'atom_indices': 'atom_index',
     'atom_names': 'atom_name',
     'atom_ids': 'atom_id',
@@ -140,17 +140,17 @@ get_argument_synonym = {
 }
 
 
-get_arguments = list(where_get_argument.keys())
+arguments = list(where_argument.keys())
 
-def digest_get_argument(get_argument, target):
+def digest_argument(argument, target):
 
-    tmp_get_argument = get_argument.lower()
-    if tmp_get_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
-        tmp_get_argument = ('_').join([target, get_argument])
-    if tmp_get_argument in get_argument_synonym:
-        tmp_get_argument = get_argument_synonym[tmp_get_argument]
-    if tmp_get_argument in get_arguments:
-        return tmp_get_argument
+    output_argument = output_argument.lower()
+    if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
+        output_argument = ('_').join([target, output_argument])
+    if output_argument in argument_synonyms:
+        output_argument = argument_synonyms[output_argument]
+    if output_argument in arguments:
+        return output_argument
     else:
         raise BadCallError()
 

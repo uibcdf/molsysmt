@@ -17,10 +17,13 @@ filenames = [
     '1sux.mmtf',
     '1tcd.pdb',
     '1tcd.mmtf',
+    '181l.pdb',
+    '181l.mmtf',
     'caffeine.mol2',
     'proline_dipeptide_vacuum.msmpk',
     'valine_dipeptide_vacuum.msmpk',
     'lysine_dipeptide_vacuum.msmpk',
+    'T4_lysozyme_L99A_in_pdbid_181l.msmpk',
     ]
 
 files_dict = {filename : get_path(filename) for filename in filenames}
