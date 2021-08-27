@@ -17,7 +17,7 @@ def digest_frame_indices(frame_indices):
             frame_indices = 'all'
         else:
             raise ValueError()
-    elif type(frame_indices) in [int, np.int64, np.int]:
+    elif type(frame_indices) in [int, np.int64, np.int32]:
         frame_indices = np.array([frame_indices], dtype='int64')
     elif hasattr(frame_indices, '__iter__'):
         frame_indices = np.array(frame_indices, dtype='int64')

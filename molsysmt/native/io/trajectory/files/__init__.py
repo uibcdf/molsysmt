@@ -5,3 +5,5 @@ from .file_gro import from_file_gro
 from .file_inpcrd import from_file_inpcrd
 from .file_xtc import from_file_xtc
 from .file_crd import from_file_crd
+from .file_msmpk import from_file_msmpk
+

@@ -2,6 +2,7 @@ from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
+from molsysmt.forms import dict_add
 
 def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
@@ -47,7 +48,7 @@ def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxi
 
     """
 
-    from molsysmt.basic import convert, extract, add
+    from molsysmt.basic import convert, extract, select
 
     if is_a_single_molecular_system(molecular_systems):
         raise NeedsMultipleMolecularSystemsError()
@@ -70,10 +71,68 @@ def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxi
         raise ValueError("The length of the lists items and frame_indices need to be equal.")
 
     if to_form is None:
-        tmp_molecular_system = extract(molecular_systems[0], selection=selections[0], frame_indices=frame_indices[0])
+        to_molecular_system = extract(molecular_systems[0], selection=selections[0], frame_indices=frame_indices[0])
     else:
-        tmp_molecular_system = convert(molecular_systems[0], selection=selections[0], frame_indices=frame_indices[0], to_form=to_form)
+        to_molecular_system = convert(molecular_systems[0], selection=selections[0], frame_indices=frame_indices[0], to_form=to_form)
 
-    add(tmp_molecular_system, molecular_systems[1:], selections=selections[1:], frame_indices=frame_indices[1:])
+    to_molecular_system = digest_molecular_system(to_molecular_system)
 
-    return tmp_molecular_system
+    to_already_added=[]
+
+    for aux_molecular_system, aux_selection, aux_frame_indices in zip(molecular_systems[1:], selections[1:], frame_indices[1:]):
+
+        atom_indices = select(aux_molecular_system, selection=aux_selection, syntaxis=syntaxis)
+
+        # topology
+
+        to_form = to_molecular_system.elements_form
+        to_item = to_molecular_system.elements_item
+
+        if to_form is not None:
+            from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
+            dict_add[to_form](to_item, from_item)
+            to_already_added.append(to_item)
+
+        # ff_parameters
+
+        to_form = to_molecular_system.ff_parameters_form
+        to_item = to_molecular_system.ff_parameters_item
+
+        if to_form is not None:
+            if to_item not in to_already_added:
+                from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
+                dict_add[to_form](to_item, from_item)
+                to_already_added.append(to_item)
+
+        # bonds
+
+        to_form = to_molecular_system.bonds_form
+        to_item = to_molecular_system.bonds_item
+
+        if to_form is not None:
+            if to_item not in to_already_added:
+                from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
+                dict_add[to_form](to_item, from_item)
+                to_already_added.append(to_item)
+
+        # coordinates
+
+        to_form = to_molecular_system.coordinates_form
+        to_item = to_molecular_system.coordinates_item
+
+        if to_form is not None:
+            if to_item not in to_already_added:
+                from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
+                dict_add[to_form](to_item, from_item)
+                to_already_added.append(to_item)
+
+        # The box info is taken from the first molecular_system
+
+    output_items, output_forms = to_molecular_system.get_items()
+    if len(output_items)==1:
+        output = output_items[0]
+    else:
+        output = output_items
+
+    return output
+

@@ -22,12 +22,17 @@ def contains(molecular_system, selection='all', syntaxis='MolSysMT',
     for condition, in_system in comparison:
 
         if condition is not None:
-            if condition==True and in_system==0:
-                output = False
-                break
-            elif condition==False and in_system>0:
-                output = False
-                break
+            if type(condition)==bool:
+                if condition==True and in_system==0:
+                    output = False
+                    break
+                elif condition==False and in_system>0:
+                    output = False
+                    break
+            elif type(condition)==int:
+                if condition>in_system:
+                    output = False
+                    break
 
     return output
 

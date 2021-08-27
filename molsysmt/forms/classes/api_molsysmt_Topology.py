@@ -1949,6 +1949,12 @@ def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
     return serie_indices.unique().shape[0]
 
+def get_n_lipids_from_system (item, indices='all', frame_indices='all'):
+
+    mask=(item.atoms_dataframe['molecule_type']=='lipid').to_numpy()
+    serie_indices=item.atoms_dataframe['molecule_index'][mask]
+    return serie_indices.unique().shape[0]
+
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     return 0

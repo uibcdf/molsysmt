@@ -55,6 +55,7 @@ where_get_argument = {
     'n_proteins' : ['elements'],
     'n_dnas' : ['elements'],
     'n_rnas' : ['elements'],
+    'n_lipids' : ['elements'],
 
     'step' : ['coordinates'],
     'time' : ['coordinates'],
@@ -121,6 +122,7 @@ get_argument_synonym = {
     'n_protein': 'n_proteins',
     'n_dna': 'n_dnas',
     'n_rna': 'n_rnas',
+    'n_lipid': 'n_lipids',
     'residue_indices': 'group_index',
     'residue_index': 'group_index',
     'residue_names': 'group_name',

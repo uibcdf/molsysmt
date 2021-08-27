@@ -50,19 +50,19 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :caption: Basic tools
    :maxdepth: 1
 
-   contents/Get_form.ipynb
-   contents/Info.ipynb
-   contents/Convert.ipynb
-   contents/Selection.ipynb
-   contents/Get.ipynb
-   contents/Copy.ipynb
-   contents/Extract.ipynb
-   contents/Remove.ipynb
-   contents/Merge.ipynb
-   contents/Add_Merge.ipynb
-   contents/Append_Concatenate.ipynb
-   contents/Append.ipynb
-   contents/View.ipynb
+   contents/basic/get_form.ipynb
+   contents/basic/convert.ipynb
+   contents/basic/info.ipynb
+   contents/basic/selection.ipynb
+   contents/basic/get.ipynb
+   contents/basic/extract.ipynb
+   contents/basic/copy.ipynb
+   contents/basic/remove.ipynb
+   contents/basic/merge.ipynb
+   contents/basic/concatenate_frames.ipynb
+   contents/basic/contains.ipynb
+   contents/basic/is_composed_of.ipynb
+   contents/basic/view.ipynb
 
 .. toctree::
    :name: building_system

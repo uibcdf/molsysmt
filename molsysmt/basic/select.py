@@ -36,7 +36,7 @@ def select_standard(molecular_system, selection, syntaxis):
             else:
                 raise NotImplementedSyntaxisError()
 
-    elif type(selection) in [int, np.int64, np.int]:
+    elif type(selection) in [int, np.int64, np.int32]:
         atom_indices = np.array([selection], dtype='int64')
     elif type(selection)==set:
         atom_indices = np.array(list(selection), dtype='int64')

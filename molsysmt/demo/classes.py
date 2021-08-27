@@ -1,20 +1,43 @@
-from . import file
 
 def pentalanine(to_form='molsysmt.MolSys'):
 
+    from molsysmt.demo import files
     from molsysmt.multitool import convert
-    tmp_item = convert([file['pentalanine.prmtop'], file['pentalanine.inpcrd']], to_form=to_form)
-    return tmp_item
+    molsys = convert([files['pentalanine.prmtop'], files['pentalanine.inpcrd']], to_form=to_form)
+    return molsys
 
 def pentalanine_traj(to_form='molsysmt.MolSys'):
 
+    from molsysmt.demo import files
     from molsysmt import convert
-    tmp_item = convert(file['pentalanine.h5'], to_form=to_form)
-    return tmp_item
+    molsys = convert(files['pentalanine.h5'], to_form=to_form)
+    return molsys
 
 def metenkephalin(to_form='molsysmt.MolSys'):
 
+    from molsysmt.demo import files
     from molsysmt import convert
-    tmp_item = convert(file['metenkephalin.pdb'], to_form=to_form)
-    return tmp_item
+    molsys = convert(files['metenkephalin.pdb'], to_form=to_form)
+    return molsys
+
+def proline_dipeptide_vacuum(to_form='molsysmt.MolSys'):
+
+    from molsysmt.demo import files
+    from molsysmt import convert
+    molsys = convert(files['proline_dipeptide_vacuum.msmpk'], to_form=to_form)
+    return molsys
+
+def valine_dipeptide_vacuum(to_form='molsysmt.MolSys'):
+
+    from molsysmt.demo import files
+    from molsysmt import convert
+    molsys = convert(files['proline_dipeptide_vacuum.msmpk'], to_form=to_form)
+    return molsys
+
+def lysine_dipeptide_vacuum(to_form='molsysmt.MolSys'):
+
+    from molsysmt.demo import files
+    from molsysmt import convert
+    molsys = convert(files['lysine_dipeptide_vacuum.msmpk'], to_form=to_form)
+    return molsys
 

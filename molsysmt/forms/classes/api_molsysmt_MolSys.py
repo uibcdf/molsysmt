@@ -140,6 +140,15 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='
 
     return tmp_item, tmp_molecular_system
 
+def to_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+
+    from molsysmt.native.io.molsys.files import to_file_msmpk as molsysmt_MolSys_to_file_msmpk
+
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_file_msmpk(item,
+            molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+
+    return tmp_item, tmp_molecular_system
+
 def to_string_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.molsys.strings import to_string_pdb as molsysmt_MolSys_to_string_pdb
@@ -1490,7 +1499,12 @@ def get_n_dnas_from_system (item, indices='all', frame_indices='all'):
 
 def get_n_rnas_from_system (item, indices='all', frame_indices='all'):
 
-    from .api_molsysmt_Topology import get_n_dnas_from_system as _get
+    from .api_molsysmt_Topology import get_n_rnas_from_system as _get
+    return _get(item.topology, indices=indices, frame_indices=frame_indices)
+
+def get_n_lipids_from_system (item, indices='all', frame_indices='all'):
+
+    from .api_molsysmt_Topology import get_n_lipids_from_system as _get
     return _get(item.topology, indices=indices, frame_indices=frame_indices)
 
 def get_mass_from_system(item, indices='all', frame_indices='all'):

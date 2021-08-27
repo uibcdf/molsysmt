@@ -7,7 +7,7 @@ def digest_indices(indices):
             indices = 'all'
         else:
             raise ValueError()
-    elif type(indices) in [int, np.int64, np.int]:
+    elif type(indices) in [int, np.int64, np.int32]:
         indices = np.array([indices], dtype='int64')
     elif hasattr(indices, '__iter__'):
         indices = np.array(indices, dtype='int64')
