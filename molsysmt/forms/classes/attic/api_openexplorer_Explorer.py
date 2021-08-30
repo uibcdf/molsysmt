@@ -1,6 +1,6 @@
 from os.path import basename as _basename
 from molsysmt._private_tools.exceptions import *
-import simtk.unit as unit
+import openmm.unit as unit
 from molsysmt.forms.common_gets import *
 import numpy as np
 from openexplorer import Explorer as _openexplorer_Explorer
@@ -55,10 +55,10 @@ def to_pdb(item, atom_indices='all', frame_indices='all',
            output_filename=None):
 
     from io import StringIO
-    from simtk.openmm.app import PDBFile
-    #from simtk.openmm.version import short_version
+    from openmm.app import PDBFile
+    #from openmm.version import short_version
     from molsysmt import __version__ as msm_version
-    from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
+    from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
 
     tmp_io = StringIO()
     positions = get_coordinates_from_system(item)[0]

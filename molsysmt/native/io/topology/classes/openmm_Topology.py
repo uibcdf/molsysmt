@@ -1,8 +1,8 @@
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    import simtk.openmm as mm
-    import simtk.openmm.app as app
-    import simtk.unit as unit
+    import openmm as mm
+    import openmm.app as app
+    import openmm.unit as unit
     from numpy import unique
 
     n_atoms = item.atoms_dataframe.shape[0]

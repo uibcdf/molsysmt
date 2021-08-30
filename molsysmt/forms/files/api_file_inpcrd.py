@@ -98,7 +98,7 @@ def to_mdtraj_AmberRestartFile(item, molecular_system=None, atom_indices='all', 
 
 def to_openmm_AmberInpcrdFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app import AmberInpcrdFile
+    from openmm.app import AmberInpcrdFile
 
     tmp_item = AmberInpcrdFile(item)
     if molecular_system is not None:

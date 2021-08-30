@@ -104,12 +104,12 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app import Modeller
-    from simtk.unit import nanometers
+    from openmm.app import Modeller
+    from openmm.unit import nanometers
 
     topology, _ = to_openmm_Topology(item, molecular_system=None, atom_indices=atom_indices, frame_indices=frame_indices)
     positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
-    positions = puw.convert(positions, to_form='simtk.unit')
+    positions = puw.convert(positions, to_form='openmm.unit')
     tmp_item = Modeller(topology, positions)
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)

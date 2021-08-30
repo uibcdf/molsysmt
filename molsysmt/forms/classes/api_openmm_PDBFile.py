@@ -1,7 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from simtk.openmm.app import PDBFile as _openmm_PDBFile
+from openmm.app import PDBFile as _openmm_PDBFile
 import sys
 import importlib
 from molsysmt.native.molecular_system import molecular_system_components
@@ -48,7 +48,7 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    import simtk.unit as _unit
+    import openmm.unit as _unit
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
     from molsysmt.forms.classes.api_mdtraj_Trajectory import mdtraj_Trajectory_to_mdtraj_Trajectory
 
@@ -356,7 +356,7 @@ def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
     from numpy import array as _array
-    from simtk.unit import picoseconds
+    from openmm.unit import picoseconds
 
     n_frames = get_n_frames_from_system(item)
     output = [None for ii in range(n_frames)]

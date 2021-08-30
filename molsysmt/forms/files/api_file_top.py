@@ -57,7 +57,7 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_GromacsTopFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app import GromacsTopFile
+    from openmm.app import GromacsTopFile
     from molsysmt.forms.classes.api_openmm_GromacsTopFile import to_openmm_GromacsTopFile as openmm_GromacsTopFile_to_openmm_GromacsTopFile
 
     tmp_item = GromacsTopFile(item)

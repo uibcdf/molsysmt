@@ -97,7 +97,7 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_AmberPrmtopFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app import AmberPrmtopFile
+    from openmm.app import AmberPrmtopFile
 
     tmp_item = AmberPrmtopFile(item)
     if molecular_system is not None:

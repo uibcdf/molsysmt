@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
+from openmm.app import Topology as _openmm_app_Topology
 from numpy import array as _array, unique as _unique, ndenumerate as _ndenumerate, concatenate as _concatenate
 from numpy import arange as _arange, hstack as _hstack, empty as _empty
 
@@ -8,8 +8,8 @@ form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 is_form={
     'openmm.topology':form_name,
     'openmm.Topology':form_name,
-    'simtk.openmm.app.topology.Topology':form_name,
-    _simtk_openmm_app_Topology:form_name
+    'openmm.app.topology.Topology':form_name,
+    _openmm_app_Topology:form_name
 }
 
 info=["",""]
@@ -50,7 +50,7 @@ def to_yank_Topography(item, atom_indices='all', frame_indices='all'):
 def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt import get
-    from simtk.openmm.app import Modeller
+    from openmm.app import Modeller
 
     positions = get(trajectory_item, target='atom', indices=atom_indices,
                     frame_indices=frame_indices, coordinates=True)
@@ -61,8 +61,8 @@ def to_pdb(item, output_filename=None, trajectory_item=None, atom_indices='all',
            frame_indices='all'):
 
     from molsysmt import get as _get
-    from simtk.openmm.app import PDBFile
-    from simtk.openmm.version import short_version
+    from openmm.app import PDBFile
+    from openmm.version import short_version
     from io import StringIO
 
     coordinates = _get(trajectory_item, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
@@ -93,7 +93,7 @@ def extract(item, atom_indices='all', frame_indices='all'):
         return item
     else:
 
-        from simtk.openmm.app import Topology
+        from openmm.app import Topology
         new_item = Topology()
         atom_indices_to_be_kept = atom_indices
         newAtoms = {}

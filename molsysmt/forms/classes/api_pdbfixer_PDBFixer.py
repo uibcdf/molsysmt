@@ -90,7 +90,7 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.unit import nanometers
+    from openmm.unit import nanometers
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
 
     tmp_topology, _ = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
@@ -107,7 +107,7 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
 
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app import Modeller as openmm_Modeller
+    from openmm.app import Modeller as openmm_Modeller
 
     tmp_topology, _ = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
@@ -166,10 +166,10 @@ def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_i
 def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from io import StringIO
-    from simtk.openmm.app import PDBFile
-    from simtk.openmm.version import short_version
+    from openmm.app import PDBFile
+    from openmm.version import short_version
     from molsysmt import __version__ as msm_version
-    from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
+    from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
 
     tmp_io = StringIO()
     PDBFile.writeFile(item.topology, item.positions, tmp_io, keepIds=True)

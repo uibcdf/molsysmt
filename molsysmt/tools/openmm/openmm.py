@@ -1,6 +1,6 @@
 def check_platforms():
 
-    from simtk.openmm import Platform as _Platform
+    from openmm import Platform as _Platform
 
     for ii in range(_Platform.getNumPlatforms()):
         platform_name  = _Platform.getPlatform(ii).getName()

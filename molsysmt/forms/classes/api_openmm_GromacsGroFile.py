@@ -1,7 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from simtk.openmm.app import GromacsGroFile as _openmm_GromacsGroFile
+from openmm.app import GromacsGroFile as _openmm_GromacsGroFile
 import importlib
 import sys
 from molsysmt import puw

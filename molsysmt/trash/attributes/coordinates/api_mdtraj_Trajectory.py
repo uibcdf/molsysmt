@@ -19,7 +19,7 @@ def to_openmm(coordinates):
     # mdtraj uses nanometers: see http://mdtraj.org/development/api/generated/mdtraj.Trajectory.html
     # openmm uses nanometers
 
-    from simtk.unit import nanometers as _nanometers
+    from openmm.unit import nanometers as _nanometers
     tmp_coordinates = coordinates*_nanometers
     return tmp_coordinates
 

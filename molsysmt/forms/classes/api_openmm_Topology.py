@@ -1,14 +1,14 @@
 import numpy as np
 from molsysmt.forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
-from simtk.openmm.app import Topology as _simtk_openmm_app_Topology
+from openmm.app import Topology as _openmm_app_Topology
 from molsysmt import puw
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openmm.Topology'
 
 is_form={
-    _simtk_openmm_app_Topology:form_name,
+    _openmm_app_Topology:form_name,
 }
 
 info=["",""]
@@ -65,11 +65,11 @@ def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_i
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.basic import get
-    from simtk.openmm.app import Modeller
+    from openmm.app import Modeller
 
     tmp_item, _ = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
     positions = get(molecular_system, target='atom', coordinates=True)
-    positions = puw.convert(positions[0], 'nm', to_form='simtk.unit')
+    positions = puw.convert(positions[0], 'nm', to_form='openmm.unit')
     tmp_item = Modeller(item, positions)
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
@@ -142,16 +142,16 @@ def to_string_pdb(item, molecular_system=None, atom_indices='all', frame_indices
 
     from molsysmt.basic import get
     from molsysmt.version import __version__ as msm_version
-    from simtk.openmm.app import PDBFile
-    #from simtk.openmm.version import short_version
-    from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
+    from openmm.app import PDBFile
+    #from openmm.version import short_version
+    from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
     from io import StringIO
 
     coordinates = get(molecular_system, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
     topology, _ = to_openmm_Topology(item, atom_indices=atom_indices, copy_if_all=False)
 
     tmp_io = StringIO()
-    PDBFile.writeFile(topology, puw.convert(coordinates[0], 'nm', to_form='simtk.unit'), tmp_io, keepIds=True)
+    PDBFile.writeFile(topology, puw.convert(coordinates[0], 'nm', to_form='openmm.unit'), tmp_io, keepIds=True)
     filedata = tmp_io.getvalue()
     #openmm_version = short_version
     openmm_version = Platform.getOpenMMVersion()
@@ -215,7 +215,7 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 
-        from simtk.openmm.app import Topology
+        from openmm.app import Topology
         new_item = Topology()
         newAtoms = {}
         for chain in item.chains():
@@ -233,7 +233,7 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     else:
 
-        from simtk.openmm.app import Topology
+        from openmm.app import Topology
         new_item = Topology()
         atom_indices_to_be_kept = atom_indices
         newAtoms = {}
@@ -638,7 +638,7 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
 
 def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 
-    value = puw.convert(value, 'nanometers', to_form='simtk.unit')
+    value = puw.convert(value, 'nanometers', to_form='openmm.unit')
 
     n_frames = value.shape[0]
 

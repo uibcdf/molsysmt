@@ -155,7 +155,7 @@ def to_file_mol2(item, molecular_system=None, atom_indices='all', frame_indices=
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app.pdbfile import PDBFile
+    from openmm.app.pdbfile import PDBFile
     from molsysmt.forms.classes.api_openmm_PDBFile import to_openmm_Topology as openmm_PDBFile_to_openmm_Topology
 
     tmp_item, tmp_molecular_system = to_openmm_PDBFile(item, molecular_system=molecular_system)
@@ -165,8 +165,8 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app.pdbfile import PDBFile
-    from simtk.openmm.app.modeller import Modeller
+    from openmm.app.pdbfile import PDBFile
+    from openmm.app.modeller import Modeller
     from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_Modeller as openmm_Modeller_to_openmm_Modeller
 
     tmp_item = PDBFile(item)
@@ -220,7 +220,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 
 def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app.pdbfile import PDBFile
+    from openmm.app.pdbfile import PDBFile
     from molsysmt.forms.classes.api_openmm_PDBFile import to_openmm_PDBFile as openmm_PDBFile_to_openmm_PDBFile
 
     tmp_item = PDBFile(item)

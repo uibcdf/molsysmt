@@ -1,5 +1,5 @@
 import numpy as _np
-from simtk import unit as _unit
+from openmm import unit as _unit
 from molsysmt.lib import box as _libbox
 from molsysmt.lib import com as _libcom
 from molsysmt.utils.exceptions import *

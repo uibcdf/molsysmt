@@ -4,7 +4,7 @@
 
 from .utils.engines import digest_engines as _digest_engines
 from .utils.forcefields import switcher as _digest_forcefields
-import simtk._unit as _unit
+import openmm.unit as _unit
 
 """
 Potential Energy
@@ -87,8 +87,8 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
                                  progress_bar=True):
 
     import numpy as np
-    import simtk.openmm.app as app
-    import simtk.openmm as mm
+    import openmm.app as app
+    import openmm as mm
     from openmmtools.integrators import LangevinIntegrator, GeodesicBAOABIntegrator
 
     if progress_bar:

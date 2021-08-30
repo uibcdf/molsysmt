@@ -1,7 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy
-from simtk.openmm.app import AmberInpcrdFile as _openmm_AmberInpcrdFile
+from openmm.app import AmberInpcrdFile as _openmm_AmberInpcrdFile
 from molsysmt import puw
 from molsysmt.native.molecular_system import molecular_system_components
 

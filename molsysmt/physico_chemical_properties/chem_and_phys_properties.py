@@ -1,7 +1,7 @@
 from ._private_tools.exceptions import *
 from ._private_tools.forcefields import digest_forcefields
 from ._private_tools.engines import digest_engine
-from simtk import unit as _unit
+from openmm import unit as _unit
 
 def get_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
 
@@ -13,7 +13,7 @@ def get_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
     if form_in in ["openmm.Modeller", "openmm.System", "pdbfixer.PDBFixer"]:
 
         if form_in in ["openmm.Modeller", "pdbfixer.PDBFixer"]:
-            from simtk.openmm.app import ForceField
+            from openmm.app import ForceField
             forcefield_openmm = _digest_forcefields(forcefield)
             system = ForceField(*forcefield_openmm).createSystem(item.topology)
 
@@ -39,7 +39,7 @@ def get_net_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):
     if form_in in ["openmm.Modeller", "openmm.System", "pdbfixer.PDBFixer"]:
 
         if form_in in ["openmm.Modeller", "pdbfixer.PDBFixer"]:
-            from simtk.openmm.app import ForceField
+            from openmm.app import ForceField
             forcefield_openmm = _digest_forcefields(forcefield)
             system = ForceField(*forcefield_openmm).createSystem(item.topology)
 
@@ -65,7 +65,7 @@ def get_degrees_of_freedom(item, forcefield=['AMBER99SB-ILDN','TIP3P']):
     if form_in in ["openmm.Modeller", "openmm.System", "pdbfixer.PDBFixer"]:
 
         if form_in in ["openmm.Modeller", "pdbfixer.PDBFixer"]:
-            from simtk.openmm.app import ForceField
+            from openmm.app import ForceField
             forcefield_openmm = _digest_forcefields(forcefield)
             system = ForceField(*forcefield_openmm).createSystem(item.topology)
 

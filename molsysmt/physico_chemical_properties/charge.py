@@ -57,7 +57,7 @@ def charge(molecular_system, target='group', selection='all', type=None, engine=
 
         if engine == 'OpenMM':
 
-            from simtk.openmm import NonbondedForce
+            from openmm import NonbondedForce
 
             openmm_system = convert(molecular_system, to_form='openmm.System')
 

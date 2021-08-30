@@ -46,8 +46,6 @@ def parser_api(filepath):
     tmp_dependencies = set()
     for module in dependencies:
         module = module.split('.')[0]
-        if module == 'simtk':
-            module = 'simtk.openmm'
         tmp_dependencies.add(module)
 
     dependencies = tmp_dependencies

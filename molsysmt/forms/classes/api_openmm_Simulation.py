@@ -1,7 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from simtk.openmm.app import Simulation as _openmm_Simulation
+from openmm.app import Simulation as _openmm_Simulation
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openmm.Simulation'
@@ -58,7 +58,7 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app import Modeller
+    from openmm.app import Modeller
 
     topology, _ = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices)
     positions = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)

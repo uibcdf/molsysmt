@@ -1,7 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from simtk.openmm.app.modeller import Modeller as _openmm_Modeller
+from openmm.app.modeller import Modeller as _openmm_Modeller
 from molsysmt import puw
 import sys
 import importlib
@@ -122,10 +122,10 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
 def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from io import StringIO
-    from simtk.openmm.app import PDBFile
-    #from simtk.openmm.version import short_version
+    from openmm.app import PDBFile
+    #from openmm.version import short_version
     from molsysmt import __version__ as msm_version
-    from simtk.openmm import Platform # the openmm version is taken from this module (see: simtk/openmm/app/pdbfile.py)
+    from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
 
     tmp_item, tmp_molecular_system = to_openmm_Modeller(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
@@ -178,13 +178,13 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 
-        from simtk.openmm.app import Modeller
+        from openmm.app import Modeller
 
         tmp_item = Modeller(item.topology, item.positions)
 
     else:
 
-        from simtk.openmm.app import Modeller
+        from openmm.app import Modeller
         from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
         tmp_topology = openmm_Topology_to_openmm_Topology(item.topology, atom_indices=atom_indices)

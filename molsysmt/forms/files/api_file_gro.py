@@ -145,7 +145,7 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app.modeller import Modeller
+    from openmm.app.modeller import Modeller
     from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_Modeller as openmm_Modeller_to_openmm_Modeller
 
     tmp_item = to_parmed_Structure(item)
@@ -160,7 +160,7 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_GromacsGroFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app import GromacsGroFile
+    from openmm.app import GromacsGroFile
     from molsysmt.forms.classes.api_openmm_GromacsGroFile import to_openmm_GromacsGroFile as openmm_GromacsGroFile_to_openmm_GromacsGroFile
 
     tmp_item = GromacsGroFile(item)

@@ -1,7 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from simtk.openmm.app import GromacsTopFile as _openmm_GromacsTopFile
+from openmm.app import GromacsTopFile as _openmm_GromacsTopFile
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openmm.GromacsTopFile'

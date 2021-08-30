@@ -29,7 +29,7 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from simtk.openmm.app.modeller import Modeller
+    from openmm.app.modeller import Modeller
     from molsysmt.forms.classes.api_openmm_Modeller import to_openmm_Modeller as openmm_Modeller_to_openmm_Modeller
 
     tmp_item = Modeller(item.topology, item.positions)

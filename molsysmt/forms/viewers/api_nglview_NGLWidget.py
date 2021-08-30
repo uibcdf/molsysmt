@@ -21,7 +21,7 @@ for ii in ['elements', 'coordinates', 'box']:
 def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from io import StringIO
-    from simtk.openmm.app import PDBFile
+    from openmm.app import PDBFile
 
     try:
         structure_string = item.component_0.get_structure_string()
