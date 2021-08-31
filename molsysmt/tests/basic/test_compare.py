@@ -7,8 +7,8 @@ import molsysmt as msm
 import numpy as np
 
 def test_compare_all_eq_1():
-    molsys_A = msm.demo.classes.T4_lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
-    molsys_B = msm.demo.classes.T4_lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
+    molsys_A = msm.demo.classes.T4_Lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
+    molsys_B = msm.demo.classes.T4_Lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
     output = msm.compare(molsys_A, molsys_B, comparison='all', rule='A_eq_B')
     assert output == True
 

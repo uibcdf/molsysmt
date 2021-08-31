@@ -1,9 +1,13 @@
 import molsysmt as msm
-import pathlib import Path
+from pathlib import Path
 import os
 
-from fff in  Path('.').glob('*.msmpk'):
-    os.remove('*.msmpk')
+# Removing all msmpk files
+
+for msmpk_file in Path('.').glob('*.msmpk'):
+    os.remove(msmpk_file)
+
+# New msmpk files
 
 molsys = msm.build.build_peptide(['AceProNme',{'forcefield':'AMBER14', 'implicit_solvent':'OBC1'}])
 molsys = msm.convert(molsys, to_form='proline_dipeptide_vacuum.msmpk')

@@ -48,3 +48,10 @@ def T4_lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys'):
     molsys = convert(files['T4_lysozyme_L99A_in_pdbid_181l.msmpk'], to_form=to_form)
     return molsys
 
+def TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys'):
+
+    from molsysmt.demo import files
+    from molsysmt import convert
+    molsys = convert(files['TcTIM_in_pdbid_1tcd.msmpk'], to_form=to_form)
+    return molsys
+

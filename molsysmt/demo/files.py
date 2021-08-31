@@ -23,7 +23,8 @@ filenames = [
     'proline_dipeptide_vacuum.msmpk',
     'valine_dipeptide_vacuum.msmpk',
     'lysine_dipeptide_vacuum.msmpk',
-    'T4_lysozyme_L99A_in_pdbid_181l.msmpk',
+    'T4_Lysozyme_L99A_in_pdbid_181l.msmpk',
+    'TcTIM_in_pdbid_1tcd.msmpk',
     ]
 
 files_dict = {filename : get_path(filename) for filename in filenames}

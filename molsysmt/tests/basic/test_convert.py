@@ -10,7 +10,7 @@ import os
 # Whole systems (selection='all' and frame_indices='all')
 
 def test_string_pdbid_to_molsysmt_MolSys():
-    molsys_ref = msm.demo.classes.T4_lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
+    molsys_ref = msm.demo.classes.T4_Lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
     molsys = msm.convert('pdbid:181l', to_form='molsysmt.MolSys')
     output = msm.compare(molsys, molsys_ref, comparison='all', rule='A_eq_B')
     assert output == True
@@ -118,7 +118,7 @@ def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys():
     assert 'molsysmt.MolSys'==form
 
 def molsysmt_Topology_and_molsysmt_Trajectory_to_string_pdb():
-    molsys = msm.demo.classes.T4_lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
+    molsys = msm.demo.classes.T4_Lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
     molsys = msm.convert(molsys, to_form=['molsysmt.Topology', 'molsysmt.Trajectory'])
     molsys = msm.convert(molsys, to_form='string:pdb')
     form = msm.get_form(molsys)
