@@ -297,6 +297,12 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
 
     del(group_index_array, chain_index_array, component_index_array)
 
+    ## nan to None
+
+    tmp_item._nan_to_None()
+
+    ##
+
     if atom_indices is not 'all':
         tmp_item = tmp_item.extract(atom_indices)
 

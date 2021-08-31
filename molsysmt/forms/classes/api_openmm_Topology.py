@@ -45,7 +45,8 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices,
+            frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
@@ -345,10 +346,6 @@ def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
 
     raise NotImplementedError
 
-def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all'):
-
-    raise NotImplementedError
-
 def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     output=[]
@@ -373,7 +370,12 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if indices is 'all':
+        return get_n_bonds_from_system (item)
+    else:
+        inner_bonded_atoms = get_inner_bonded_atoms_from_atom(item, indices=indices,
+                frame_indices=frame_indices)
+        return inner_bonded_atoms.shape[0]
 
 ## group
 
@@ -539,19 +541,14 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 
     box = item.getPeriodicBoxVectors()
 
+    output = None
+
     if box is not None:
-        box_unit = box.unit
-        box = np.array(box._value)
+        unit = puw.get_unit(box)
+        box = np.array(puw.get_value(box))
         box = box.reshape(1, box.shape[0], box.shape[1])
-        box = box * box_unit
-
-    output=None
-
-    if box is not None:
-        if frame_indices is 'all':
-            output=box
-        else:
-            output=box[frame_indices,:,:]
+        box = box * unit
+        output = puw.standardize(box)
 
     return output
 

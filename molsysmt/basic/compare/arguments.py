@@ -14,8 +14,8 @@ argument_synonyms = {
 def digest_argument(argument):
 
     output_argument = argument.lower()
-    if output_argument in argument_synonym:
-        output_argument = argument_synonym[output_argument]
+    if output_argument in argument_synonyms:
+        output_argument = argument_synonyms[output_argument]
     if output_argument in arguments:
         return output_argument
     else:

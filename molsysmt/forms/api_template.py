@@ -117,7 +117,7 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
     if indices is 'all':
-        return get_n_inner_bonds_from_system (item)
+        return get_n_bonds_from_system (item)
     else:
         raise NotImplementedError()
 

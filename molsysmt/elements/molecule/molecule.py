@@ -16,7 +16,7 @@ def molecule_index_from_atom(item, indices='all'):
 def molecule_id_from_molecule(item, indices='all'):
 
     if indices is 'all':
-        n_molecules = get_n_molecules_from_system(item)
+        n_molecules = n_molecules_from_system(item)
         output = np.full(n_molecules, None, dtype=object)
     else:
         output = np.full(indices.shape[0], None, dtype=object)
@@ -26,7 +26,7 @@ def molecule_id_from_molecule(item, indices='all'):
 def molecule_name_from_molecule(item, indices='all'):
 
     if indices is 'all':
-        n_molecules = get_n_molecules_from_system(item)
+        n_molecules = n_molecules_from_system(item)
         output = np.full(n_molecules, None, dtype=object)
     else:
         output = np.full(indices.shape[0], None, dtype=object)

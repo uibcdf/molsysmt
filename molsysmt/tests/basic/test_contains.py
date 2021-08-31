@@ -8,7 +8,7 @@ import numpy as np
 
 def test_contains_1():
     molsys = msm.demo.classes.T4_lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
-    output = msm.contains(molsys, water=True)
+    output = msm.contains(molsys, waters=True)
     assert output == True
 
 def test_contains_2():

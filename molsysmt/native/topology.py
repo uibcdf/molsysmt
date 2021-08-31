@@ -74,10 +74,13 @@ class Topology():
             tmp_item.atoms_dataframe['atom_index']=np.arange(n_atoms)
             aux_dict=tmp_item.atoms_dataframe['atom_index'].to_dict()
             tmp_item.atoms_dataframe.index=np.arange(n_atoms)
+
             vaux_dict = np.vectorize(aux_dict.__getitem__)
 
-            tmp_item.bonds_dataframe['atom1_index']=vaux_dict(tmp_item.bonds_dataframe['atom1_index'].to_numpy())
-            tmp_item.bonds_dataframe['atom2_index']=vaux_dict(tmp_item.bonds_dataframe['atom2_index'].to_numpy())
+            if n_bonds>0:
+                tmp_item.bonds_dataframe['atom1_index']=vaux_dict(tmp_item.bonds_dataframe['atom1_index'].to_numpy())
+                tmp_item.bonds_dataframe['atom2_index']=vaux_dict(tmp_item.bonds_dataframe['atom2_index'].to_numpy())
+
             tmp_item.atoms_dataframe.index=tmp_item.atoms_dataframe['atom_index'].to_numpy()
 
             tmp_item._build_components()

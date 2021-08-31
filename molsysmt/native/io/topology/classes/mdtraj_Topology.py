@@ -117,6 +117,12 @@ def from_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_
 
     tmp_item._build_components_molecules_and_entities()
 
+    ## nan to None
+
+    tmp_item._nan_to_None()
+
+    ##
+
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     else:

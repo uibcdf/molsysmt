@@ -6,7 +6,7 @@ from molsysmt._private_tools.lists_and_tuples import list_to_csv_string
 from molsysmt._private_tools.strings import get_parenthesis
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.selection import indices_to_selection # basic_selection, within_selection, bonded_to_selection, parenthesis_substitution_in_selection
-from molsysmt._private_tools.get_arguments import where_get_argument
+from molsysmt.basic.get.arguments import where_argument as where_get_argument
 
 def select_standard(molecular_system, selection, syntaxis):
 

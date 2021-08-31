@@ -144,7 +144,7 @@ arguments = list(where_argument.keys())
 
 def digest_argument(argument, target):
 
-    output_argument = output_argument.lower()
+    output_argument = argument.lower()
     if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
         output_argument = ('_').join([target, output_argument])
     if output_argument in argument_synonyms:

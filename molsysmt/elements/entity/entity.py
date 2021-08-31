@@ -186,7 +186,7 @@ def entity_index_from_atom(item, indices='all'):
 def entity_id_from_entity(item, indices='all'):
 
     if indices is 'all':
-        from molsysmt.multitool import get
+        from molsysmt.basic.get import get
         n_entities = get(item, target='system', n_entities=True)
         output = np.full(n_entities, None, dtype=object)
     else:

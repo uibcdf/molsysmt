@@ -1,6 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools._digestion import *
-from .arguments import where_get_argument
+from .arguments import where_argument, digest_argument
 from molsysmt.forms import dict_get
 
 def get(molecular_system, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
@@ -62,7 +62,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', frame_in
     # selection works as a mask if indices or ids are used
 
     target = digest_target(target)
-    attributes = [ digest_get_argument(key, target) for key in kwargs.keys() if kwargs[key] ]
+    attributes = [ digest_argument(key, target) for key in kwargs.keys() if kwargs[key] ]
     indices = digest_indices(indices)
     frame_indices = digest_frame_indices(frame_indices)
 
@@ -79,7 +79,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', frame_in
 
         result = None
 
-        for where_attribute in where_get_argument[attribute]:
+        for where_attribute in where_argument[attribute]:
             item = getattr(molecular_system, where_attribute+'_item')
             form = getattr(molecular_system, where_attribute+'_form')
             if item is not None:

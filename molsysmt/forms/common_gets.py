@@ -280,7 +280,7 @@ def get_n_chains_from_atom (item, indices='all', frame_indices='all'):
 
 def get_n_entities_from_atom (item, indices='all', frame_indices='all'):
 
-    return _aux_n_big_from_small(item, 'n_entites', 'atom', indices)
+    return _aux_n_big_from_small(item, 'n_entities', 'atom', indices)
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 

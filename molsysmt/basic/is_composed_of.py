@@ -2,8 +2,8 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools._digestion import *
 
 def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT',
-        n_ions=0, n_waters=0, n_cosolutes=0, n_small_molecules=0, n_peptides=0, n_proteins=0,
-        n_dnas=0, n_rnas=0, n_lipids=0):
+        ions=False, waters=False, cosolutes=False, small_molecules=False, peptides=False,
+        proteins=False, dnas=False, rnas=False, lipids=False):
 
     from molsysmt.basic import get
 
@@ -13,13 +13,13 @@ def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT',
             n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True, n_rnas=True,
             n_lipids=True)
 
-    comparison = [[n_ions, n_ions_in], [n_waters, n_waters_in], [n_cosolutes, n_cosolutes_in],
-            [n_small_molecules, n_small_molecules_in], [n_peptides, n_peptides_in], [n_proteins,
-                n_proteins_in], [n_dnas, n_dnas_in], [n_rnas, n_rnas_in], [n_lipids, n_lipids_in]]
+    aux_list = [[ions, n_ions_in], [waters, n_waters_in], [cosolutes, n_cosolutes_in],
+            [small_molecules, n_small_molecules_in], [peptides, n_peptides_in], [proteins,
+                n_proteins_in], [dnas, n_dnas_in], [rnas, n_rnas_in], [lipids, n_lipids_in]]
 
     output = True
 
-    for condition, in_system in comparison:
+    for condition, in_system in aux_list:
 
         if type(condition)==int:
             if condition!=in_system:
@@ -29,6 +29,10 @@ def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT',
         elif type(condition)==bool:
             if condition==True:
                 if in_system==0:
+                    output = False
+                    break
+            else:
+                if in_system>0:
                     output = False
                     break
 

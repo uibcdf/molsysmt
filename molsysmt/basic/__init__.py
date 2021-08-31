@@ -11,4 +11,5 @@ from .merge import merge
 from .concatenate_frames import concatenate_frames
 from .is_composed_of import is_composed_of
 from .contains import contains
+from .compare import compare
 from .view import view
