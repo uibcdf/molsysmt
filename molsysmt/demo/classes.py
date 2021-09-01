@@ -41,11 +41,11 @@ def lysine_dipeptide_vacuum(to_form='molsysmt.MolSys'):
     molsys = convert(files['lysine_dipeptide_vacuum.msmpk'], to_form=to_form)
     return molsys
 
-def T4_lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys'):
+def T4_Lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys'):
 
     from molsysmt.demo import files
     from molsysmt import convert
-    molsys = convert(files['T4_lysozyme_L99A_in_pdbid_181l.msmpk'], to_form=to_form)
+    molsys = convert(files['T4_Lysozyme_L99A_in_pdbid_181l.msmpk'], to_form=to_form)
     return molsys
 
 def TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys'):

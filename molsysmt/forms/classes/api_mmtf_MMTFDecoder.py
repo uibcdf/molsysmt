@@ -339,26 +339,11 @@ def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
-
-    time = puw.quantity(np.zeros(n_frames, dtype=float), 'picoseconds')
-    time = puw.standardize(time)
-
-    if frame_indices is not 'all':
-        time = time[frame_indices]
-
-    return time
+    return None
 
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
-    n_frames = get_n_frames_from_system(item, indices='all', frame_indices='all')
-
-    step = np.arange(n_frames, dtype=int)
-
-    if frame_indices is not 'all':
-        step = step[frame_indices]
-
-    return step
+    return None
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
