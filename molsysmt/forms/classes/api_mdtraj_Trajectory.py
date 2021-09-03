@@ -196,7 +196,8 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
 def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        tmp_item = item.copy()
+        from copy import deepcopy
+        tmp_item = deepcopy(item)
     else:
         tmp_item = item
         if atom_indices is not 'all':
@@ -206,7 +207,11 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+def merge(item_1, item_2):
+
+    raise NotImplementedError
+
+def add(to_item, item):
 
     raise NotImplementedError
 
@@ -437,7 +442,10 @@ def get_step_from_system(item, indices='all', frame_indices='all'):
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if frame_indices is 'all':
+        return item.n_frames
+    else:
+        return frame_indices.shape[0]
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 

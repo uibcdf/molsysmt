@@ -2,12 +2,19 @@ from molsysmt._private_tools.exceptions import BadCallError
 
 arguments = [
         'all',
-        'molecules'
+        'info',
+        'n_elements',
+        'n_molecules',
+        'n_frames',
+        'form',
         ]
 
 
 argument_synonyms = {
-        'molecule': 'molecules',
+        'n_element': 'n_elements',
+        'n_molecule': 'n_molecules',
+        'n_frame': 'n_frames',
+        'forms': 'form',
 }
 
 

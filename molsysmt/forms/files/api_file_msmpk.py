@@ -46,6 +46,16 @@ def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', fram
 
     return tmp_item, tmp_molecular_system
 
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system,
+            atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item, molecular_system=tmp_molecular_system)
+
+    return tmp_item, tmp_molecular_system
 
 def to_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=False):
 
@@ -79,7 +89,11 @@ def extract_item(item, atom_indices='all', frame_indices='all', output_filename=
 
     return tmp_item
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+def merge(item_1, item_2):
+
+    raise NotImplementedError
+
+def add(to_item, item):
 
     raise NotImplementedError
 

@@ -21,8 +21,8 @@ from ._pyunitwizard import puw as puw
 from . import demo
 
 from .native.molsys import MolSys
-from .basic import select, extract, merge, concatenate_frames, info, get, set, \
-                       convert, copy, view, remove, get_form, contains, is_composed_of, compare
+from .basic import select, extract, add, merge, concatenate_frames, append_frames, info, get, set, \
+                   convert, copy, view, remove, get_form, contains, is_composed_of, compare
 from . import help
 from . import build
 from . import structure

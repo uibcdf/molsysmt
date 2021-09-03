@@ -9,4 +9,5 @@ from .mdanalysis_Universe import from_mdanalysis_Universe
 from .pytraj_Trajectory import from_pytraj_Trajectory
 from .TrajectoryDict import from_TrajectoryDict, to_TrajectoryDict
 from .XYZ import from_XYZ, to_XYZ
+from .nglview_NGLWidget import from_nglview_NGLWidget
 

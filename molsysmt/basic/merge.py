@@ -2,9 +2,9 @@ from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
-from molsysmt.forms import dict_add
+from molsysmt.forms import dict_merge#, dict_add
 
-def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
+def merge(molecular_systems, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
     """merge(items=None, selection='all', frame_indices='all', syntaxis='MolSysMT' to_form=None)
 
@@ -77,11 +77,11 @@ def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxi
 
     to_molecular_system = digest_molecular_system(to_molecular_system)
 
-    to_already_added=[]
-
     for aux_molecular_system, aux_selection, aux_frame_indices in zip(molecular_systems[1:], selections[1:], frame_indices[1:]):
 
         atom_indices = select(aux_molecular_system, selection=aux_selection, syntaxis=syntaxis)
+
+        to_already_merged=[]
 
         # topology
 
@@ -90,8 +90,21 @@ def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxi
 
         if to_form is not None:
             from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
-            dict_add[to_form](to_item, from_item)
-            to_already_added.append(to_item)
+            try:
+                dict_add[to_form](to_item, from_item)
+                to_already_merged.append(to_item)
+            except:
+                tmp_item=dict_merge[to_form](to_item, from_item)
+                to_molecular_system.elements_item = tmp_item
+                if to_molecular_system.ff_parameters_item == to_item:
+                    to_molecular_system.ff_parameters_item = tmp_item
+                if to_molecular_system.bonds_item == to_item:
+                    to_molecular_system.bonds_item = tmp_item
+                if to_molecular_system.coordinates_item == to_item:
+                    to_molecular_system.coordinates_item = tmp_item
+                if to_molecular_system.box_item == to_item:
+                    to_molecular_system.box_item = tmp_item
+                to_already_merged.append(tmp_item)
 
         # ff_parameters
 
@@ -99,10 +112,21 @@ def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxi
         to_item = to_molecular_system.ff_parameters_item
 
         if to_form is not None:
-            if to_item not in to_already_added:
+            if to_item not in to_already_merged:
                 from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
-                dict_add[to_form](to_item, from_item)
-                to_already_added.append(to_item)
+                try:
+                    dict_add[to_form](to_item, from_item)
+                    to_already_merged.append(to_item)
+                except:
+                    tmp_item=dict_merge[to_form](to_item, from_item)
+                    to_molecular_system.ff_parameters_item = tmp_item
+                    if to_molecular_system.bonds_item == to_item:
+                        to_molecular_system.bonds_item = tmp_item
+                    if to_molecular_system.coordinates_item == to_item:
+                        to_molecular_system.coordinates_item = tmp_item
+                    if to_molecular_system.box_item == to_item:
+                        to_molecular_system.box_item = tmp_item
+                    to_already_merged.append(tmp_item)
 
         # bonds
 
@@ -110,10 +134,20 @@ def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxi
         to_item = to_molecular_system.bonds_item
 
         if to_form is not None:
-            if to_item not in to_already_added:
+            if to_item not in to_already_merged:
                 from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
-                dict_add[to_form](to_item, from_item)
-                to_already_added.append(to_item)
+                try:
+                    dict_add[to_form](to_item, from_item)
+                    to_already_added.append(to_item)
+                except:
+                    tmp_item=dict_merge[to_form](to_item, from_item)
+                    to_molecular_system.bonds_item = tmp_item
+                    if to_molecular_system.coordinates_item == to_item:
+                        to_molecular_system.coordinates_item = tmp_item
+                    if to_molecular_system.box_item == to_item:
+                        to_molecular_system.box_item = tmp_item
+                    to_already_merged.append(tmp_item)
+
 
         # coordinates
 
@@ -121,10 +155,17 @@ def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxi
         to_item = to_molecular_system.coordinates_item
 
         if to_form is not None:
-            if to_item not in to_already_added:
+            if to_item not in to_already_merged:
                 from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
-                dict_add[to_form](to_item, from_item)
-                to_already_added.append(to_item)
+                try:
+                    dict_add[to_form](to_item, from_item)
+                    to_already_added.append(to_item)
+                except:
+                    tmp_item=dict_merge[to_form](to_item, from_item)
+                    to_molecular_system.coordinates_item = tmp_item
+                    if to_molecular_system.box_item == to_item:
+                        to_molecular_system.box_item = tmp_item
+                    to_already_merged.append(tmp_item)
 
         # The box info is taken from the first molecular_system
 
@@ -135,4 +176,5 @@ def merge(molecular_systems=None, selections='all', frame_indices='all', syntaxi
         output = output_items
 
     return output
+
 

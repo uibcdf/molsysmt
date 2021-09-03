@@ -16,4 +16,5 @@ from .pytraj_Trajectory import from_pytraj_Trajectory
 from .rdkit_Mol import from_rdkit_Mol
 from .openff_Molecule import from_openff_Molecule
 from .openff_Topology import from_openff_Topology
+from .nglview_NGLWidget import from_nglview_NGLWidget
 

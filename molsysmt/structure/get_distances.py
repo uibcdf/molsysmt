@@ -138,18 +138,20 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         nelements1 = coordinates_1.shape[1]
         nelements2 = coordinates_2.shape[1]
 
-        box, box_shape = get(molecular_system, target='system', box=True, box_shape=True, frame_indices=frame_indices)
+        if pbc:
 
-        orthogonal = 0
-        if box_shape is None:
-            orthogonal =1
-            if pbc:
+            box, box_shape = get(molecular_system, target='system', box=True, box_shape=True, frame_indices=frame_indices)
+
+            orthogonal = 0
+            if box_shape is None:
                 raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
-        elif box_shape == 'cubic':
-            orthogonal =1
+            elif box_shape == 'cubic':
+                orthogonal =1
 
-        if box is None:
+        else:
+
             box= np.zeros([nframes_1, 3, 3])*length_units
+            orthogonal = 1
 
         box = np.asfortranarray(puw.get_value(box), dtype='float64')
 

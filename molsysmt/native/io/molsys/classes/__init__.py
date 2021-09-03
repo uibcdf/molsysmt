@@ -14,3 +14,5 @@ from .openexplorer_OpenExplorerReporter import from_openexplorer_OpenExplorerRep
 from .mdanalysis_Universe import from_mdanalysis_Universe
 from .pytraj_Trajectory import from_pytraj_Trajectory
 from .XYZ import to_XYZ
+from .nglview_NGLWidget import from_nglview_NGLWidget
+

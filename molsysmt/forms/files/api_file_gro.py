@@ -83,22 +83,38 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
+
     tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from mdtraj import load_gro as mdtraj_gro_loader
+    from mdtraj import load
+    from molsysmt.forms.classes.api_mdtraj_Topology import to_mdtraj_Trajectory as mdtraj_Topology_to_mdtraj_Trajectory
     from molsysmt.forms.classes.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
 
-    tmp_item = mdtraj_gro_loader(item)
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        if molecular_system.coordinates_form!='file:gro':
+            tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system)
+            tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Trajectory(tmp_item,
+                molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+        else:
+            tmp_item, tmp_molecular_system = to_mdtraj_GroTrajectoryFile(item, molecular_system=molecular_system)
+            tmp_item = tmp_item.read_as_traj()
+            if tmp_molecular_system is not None:
+                tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+            else:
+                tmp_molecular_system = None
+            tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item,
+                    molecular_system=tmp_molecular_system, atom_indices=atom_indices,
+                    frame_indices=frame_indices, copy_if_all=False)
     else:
+        tmp_item, _ = to_mdtraj_GroTrajectoryFile(item)
+        tmp_item = tmp_item.read_as_traj()
+        tmp_item, _ = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices,
+                    frame_indices=frame_indices, copy_if_all=False)
         tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
@@ -215,7 +231,11 @@ def extract_item(item, atom_indices='all', frame_indices='all', output_filename=
 
     return tmp_item
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+def merge(item_1, item_2):
+
+    raise NotImplementedError
+
+def add(to_item, item):
 
     raise NotImplementedError
 

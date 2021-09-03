@@ -108,9 +108,13 @@ def to_openmm_AmberInpcrdFile(item, molecular_system=None, atom_indices='all', f
 
     return tmp_item, tmp_molecular_system
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+def merge(item_1, item_2):
 
-    raise NotImplementedError()
+    raise NotImplementedError
+
+def add(to_item, item):
+
+    raise NotImplementedError
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 

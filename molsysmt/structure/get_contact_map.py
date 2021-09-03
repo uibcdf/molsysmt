@@ -3,9 +3,9 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt import puw
 import numpy as np
 
-def get_contact_map(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, frame_indices="all",
+def get_contact_map(molecular_system, selection='atom_name=="CA"', groups_of_atoms=None, group_behavior=None, frame_indices="all",
                 selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
-                output_atom_indices=False, threshold=None, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
+                output_atom_indices=False, threshold='12 angstroms', pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
     from molsysmt.structure.get_distances import get_distances
 

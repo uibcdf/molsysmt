@@ -8,7 +8,9 @@ from .set import set
 from .info import info
 from .remove import remove
 from .merge import merge
+from .add import add
 from .concatenate_frames import concatenate_frames
+from .append_frames import append_frames
 from .is_composed_of import is_composed_of
 from .contains import contains
 from .compare import compare

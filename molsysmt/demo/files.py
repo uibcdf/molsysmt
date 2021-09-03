@@ -20,6 +20,8 @@ filenames = [
     '181l.pdb',
     '181l.mmtf',
     'caffeine.mol2',
+    'nglview_demo_md_1u19.gro',
+    'nglview_demo_md_1u19.xtc',
     'proline_dipeptide_vacuum.msmpk',
     'valine_dipeptide_vacuum.msmpk',
     'lysine_dipeptide_vacuum.msmpk',

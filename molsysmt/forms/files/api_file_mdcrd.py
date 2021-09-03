@@ -86,8 +86,11 @@ def extract_item(item, atom_indices='all', frame_indices='all', output_filename=
 
     return tmp_item
 
+def merge(item_1, item_2):
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+    raise NotImplementedError
+
+def add(to_item, item):
 
     raise NotImplementedError
 

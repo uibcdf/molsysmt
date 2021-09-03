@@ -2,13 +2,14 @@ from importlib import import_module
 import os
 from molsysmt.forms.loader import api_to_be_loaded, converts_to_be_loaded, modules_detected
 
-types = ['class', 'file', 'string', 'viewer']
+types = ['class', 'file', 'string']
 forms = []
 
 dict_type = {}
 dict_is_form = {}
 dict_info = {}
 dict_add = {}
+dict_merge = {}
 dict_append_frames = {}
 dict_convert = {}
 dict_get = {}
@@ -21,7 +22,7 @@ string_names_recognized = []
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-for dirname, typename in [['classes', 'class'], ['files', 'file'], ['strings', 'string'], ['viewers', 'viewer']]:
+for dirname, typename in [['classes', 'class'], ['files', 'file'], ['strings', 'string']]:
 
     type_dir = os.path.join(current_dir, dirname)
     list_apis = [filename.split('.')[0] for filename in os.listdir(type_dir) if filename.startswith('api')]
@@ -39,6 +40,7 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['strings', '
             dict_is_form.update(mod.is_form)
             dict_info[form_name]=mod.info
             dict_add[form_name]=mod.add
+            dict_merge[form_name]=mod.merge
             dict_append_frames[form_name]=mod.append_frames
             dict_extract_item[form_name]=mod.extract_item
 

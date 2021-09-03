@@ -6,8 +6,7 @@ Unit and regression test for the merge module of the molsysmt package.
 import molsysmt as msm
 import numpy as np
 
-
-def test_merge():
+def test_merge_molsysmt_MolSys_1():
     molsys_1 = msm.demo.classes.proline_dipeptide_vacuum(to_form='molsysmt.MolSys')
     molsys_2 = msm.demo.classes.valine_dipeptide_vacuum(to_form='molsysmt.MolSys')
     molsys_3 = msm.demo.classes.lysine_dipeptide_vacuum(to_form='molsysmt.MolSys')
@@ -16,5 +15,8 @@ def test_merge():
     n_atoms_3 = msm.get(molsys_3, target='system', n_atoms=True)
     molsys = msm.merge([molsys_1, molsys_2, molsys_3])
     n_atoms, n_frames = msm.get(molsys, target='system', n_atoms=True, n_frames=True)
-    assert (n_atoms == n_atoms_1+n_atoms_2+n_atoms_3) and (n_frames == 1)
+    check_form = ('molsysmt.MolSys'==msm.get_form(molsys))
+    check_n_atoms = (n_atoms == n_atoms_1+n_atoms_2+n_atoms_3)
+    check_n_frames = (n_frames == 1)
+    assert check_form and check_n_atoms and check_n_frames
 

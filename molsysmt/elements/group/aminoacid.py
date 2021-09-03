@@ -152,6 +152,7 @@ name = [
     'AS9',
     'ASA',
     'ASB',
+    'ASH',
     'ASI',
     'ASK',
     'ASL',
@@ -845,7 +846,7 @@ aa3_to_aa1 =  {'ACE': None, 'NME':  None, '00C': 'C', '01W':  'X', '02K':
 'ALO': 'T', 'ALS':  'A', 'ALT': 'A', 'ALV': 'A', 'ALY':  'K', 'AN8': 'A', 'APE':
 'X', 'APH':  'A', 'API': 'K',  'APK': 'K', 'APM':  'X', 'APP': 'X',  'AR2': 'R',
 'AR4': 'E', 'AR7':  'R', 'ARG': 'R', 'ARM': 'R', 'ARO':  'R', 'ARV': 'X', 'AS2':
-'D', 'AS9':  'X', 'ASA': 'D',  'ASB': 'D', 'ASI':  'D', 'ASK': 'D',  'ASL': 'D',
+'D', 'AS9':  'X', 'ASA': 'D',  'ASB': 'D','ASH':  'D', 'ASI':  'D', 'ASK': 'D',  'ASL': 'D',
 'ASM': 'X', 'ASN':  'N', 'ASP': 'D', 'ASQ': 'D', 'ASX':  'B', 'AVN': 'X', 'AYA':
 'A', 'AZK':  'K', 'AZS': 'S',  'AZY': 'Y', 'B1F':  'F', 'B2A': 'A',  'B2F': 'F',
 'B2I': 'I', 'B2V':  'V', 'B3A': 'A', 'B3D': 'D', 'B3E':  'E', 'B3K': 'K', 'B3L':

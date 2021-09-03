@@ -83,6 +83,22 @@ def to_file_top(item, molecular_system=None, atom_indices='all', frame_indices='
 
     return tmp_item, tmp_molecular_system
 
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    if molecular_system is not None:
+        if molecular_system.coordinates_item is not None:
+            from molsysmt.forms import dict_convert
+            tmp_item = molecular_system.coordinates_item
+            tmp_item_form = molecular_system.coordinates_form
+            tmp_item, tmp_molecular_system = dict_convert[tmp_item_form]['mdtraj.Trajectory'](tmp_item,
+                    molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+        else:
+            raise NotWithThisMolecularSystemError()
+    else:
+        raise NotWithThisMolecularSystemError()
+
+    return tmp_item, tmp_molecular_system
+
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     tmp_molecular_system = None
@@ -166,7 +182,11 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+def merge(item_1, item_2):
+
+    raise NotImplementedError()
+
+def add(to_item, item):
 
     raise NotImplementedError()
 

@@ -232,10 +232,17 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+def add(to_item, item):
 
-    item.add(from_item, selection=atom_indices, frame_indices=frame_indices)
+    to_item.add(item)
     pass
+
+def merge(item_1, item_2):
+
+    tmp_item = extract_item(item_1)
+    tmp_item.add(item_2)
+
+    return tmp_item
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 

@@ -38,6 +38,40 @@ def to_mdtraj_XTCTrajectoryFile(item, molecular_system=None, atom_indices='all',
 
     return tmp_item, tmp_molecular_system
 
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
+
+    tmp_item, _ = to_mdtraj_XTCTrajectoryFile(item)
+
+    if molecular_system.elements_item is not None:
+        if molecular_system.elements_form == 'mdtraj.Topology':
+            top = molecular_system.elements_item
+        else:
+            from molsysmt.forms import dict_convert
+            aux_item = molecular_system.elements_item
+            aux_item_form = molecular_system.elements_form
+            aux_item, _ = dict_convert[aux_item_form]['mdtraj.Topology'](aux_item)
+            top = aux_item
+    else:
+        raise NotWithThisMolecularSystemError()
+
+    aux_atom_indices=atom_indices
+    if aux_atom_indices=='all':
+        aux_atom_indices=None
+
+    tmp_item = tmp_item.read_as_traj(top, atom_indices=aux_atom_indices)
+
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
+
+    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item,
+            molecular_system=tmp_molecular_system, frame_indices=frame_indices, copy_if_all=False)
+
+    return tmp_item, tmp_molecular_system
+
 def to_file_xtc(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
 
     tmp_molecular_system = None
@@ -70,7 +104,11 @@ def extract_item(item, atom_indices='all', frame_indices='all', output_filename=
 
     return tmp_item
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+def merge(item_1, item_2):
+
+    raise NotImplementedError
+
+def add(to_item, item):
 
     raise NotImplementedError
 

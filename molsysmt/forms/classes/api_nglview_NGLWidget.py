@@ -5,6 +5,7 @@ from nglview import widget as _nglview_widget
 import importlib
 import sys
 from molsysmt.native.molecular_system import molecular_system_components
+from molsysmt import puw
 
 form_name='nglview.NGLWidget'
 
@@ -18,32 +19,77 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'coordinates', 'box']:
     has[ii]=True
 
-def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from io import StringIO
-    from openmm.app import PDBFile
+    from molsysmt.native.io.topology.classes import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Topology
+
+    tmp_item, tmp_molecular_system = nglview_NGLWidget_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices='all')
+
+    return tmp_item, tmp_molecular_system
+
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.trajectory.classes import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Trajectory
+
+    tmp_item, tmp_molecular_system = nglview_NGLWidget_to_molsysmt_Trajectory(item,
+            molecular_system=molecular_system, atom_indices=atom_indices,
+            frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.native.io.molsys.classes import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_MolSys
+
+    tmp_item, tmp_molecular_system = nglview_NGLWidget_to_molsysmt_MolSys(item,
+            molecular_system=molecular_system, atom_indices=atom_indices,
+            frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.strings.api_string_pdb import to_openmm_Topology as string_pdb_to_openmm_Topology
+    from molsysmt.forms.classes.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     try:
-        structure_string = item.component_0.get_structure_string()
+        tmp_item = item.component_0.get_structure_string()
     except:
-        structure_string = item.get_state()['_ngl_msg_archive'][0]['args'][0]['data']
-    str_as_file = StringIO(structure_string)
-    tmp_item = PDBFile(str_as_file)
-    str_as_file.close()
-    del(str_as_file)
+        tmp_item = item.get_state()['_ngl_msg_archive'][0]['args'][0]['data']
+
+    tmp_item, _ = string_pdb_to_openmm_Topology(tmp_item)
 
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
 
+    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Topology(tmp_item,
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, copy_if_all=False)
+
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_string_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.viewers import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Topology
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_string_pdb as molsysmt_MolSys_to_string_pdb
 
-    tmp_item, tmp_molecular_system = nglview_NGLWidget_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices='all')
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system,
+            atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_string_pdb(tmp_item,
+            molecular_system=tmp_molecular_system)
+
+    return tmp_item, tmp_molecular_system
+
+def to_string_aminoacids1(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_string_aminoacids1 as molsysmt_MolSys_to_string_aminoacids1
+
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system,
+            atom_indices=atom_indices, frame_indices=frame_indices)
+
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_string_aminoacids1(tmp_item,
+            molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
@@ -70,19 +116,43 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError()
+        from copy import copy
+        return copy(item)
     else:
-        raise NotImplementedError()
+        from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+        tmp_item, _ = to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item, _ = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+        return tmp_item
 
     return tmp_item
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+def merge(item_1, item_2):
+
+    raise NotImplementedError
+
+def add(to_item, item):
+
+        #from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+        #from molsysmt.forms.classes.api_molsysmt_MolSys import add as add_molsysmt_MolSys
+        #tmp_item, _ = to_molsysmt_MolSys(item)
+        #tmp_from_item, _ = to_molsysmt_MolSys(from_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        #print(type(item), tmp_item, tmp_from_item)
+        #tmp_item = add_molsysmt_MolSys(tmp_item, tmp_from_item)
+        #tmp_item, _ = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+        #return tmp_item
 
     raise NotImplementedError
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
+        #from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+        #from molsysmt.forms.classes.api_molsysmt_MolSys import append_frames as append_frames_molsysmt_MolSys
+        #tmp_item, _ = to_molsysmt_MolSys(item)
+        #tmp_item = append_frames_molsysmt_MolSys(tmp_item, step=step, time=time, coordinates=coordinates, box=box)
+        #tmp_item, _ = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+        #return tmp_item
     raise NotImplementedError
+
 
 ###### Get
 
@@ -92,12 +162,12 @@ def aux_get(item, indices='all', frame_indices='all'):
 
     method_name = sys._getframe(1).f_code.co_name
 
-    if 'openmm.PDBFile' in forms:
+    if 'openmm.Topology' in forms:
 
-        tmp_item, _ = to_openmm_PDBFile(item)
-        module = importlib.import_module('molsysmt.forms.classes.api_openmm_PDBFile')
+        tmp_item, _ = to_openmm_Topology(item, frame_indices=frame_indices)
+        module = importlib.import_module('molsysmt.forms.classes.api_openmm_Topology')
         _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+        output = _get(tmp_item, indices=indices)
 
     else:
 
@@ -153,11 +223,32 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    return aux_get(item, indices=indices, frame_indices=frame_indices)
+    if frame_indices is 'all':
+        n_frames = get_n_frames_from_system(item)
+        frame_indices = np.arange(n_frames)
+
+    coordinates = []
+
+    for ii in frame_indices:
+        if indices is 'all':
+            coordinates.append(item.component_0.get_coordinates(ii))
+        else:
+            coordinates.append(item.component_0.get_coordinates(ii)[indices,:])
+
+    coordinates = np.array(coordinates)
+    coordinates = puw.quantity(coordinates, unit='angstroms')
+    coordinates = puw.standardize(coordinates)
+
+    return coordinates
 
 def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
-    return aux_get(item, indices=indices, frame_indices=frame_indices)
+    coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices)
+    box = get_box_from_system(item, frame_indices=frame_indices)
+    step = get_step_from_system(item, frame_indices=frame_indices)
+    time = get_time_from_system(item, frame_indices=frame_indices)
+
+    return step, time, coordinates, box
 
 ## group
 
@@ -261,11 +352,48 @@ def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
-    return aux_get(item, indices=indices, frame_indices=frame_indices)
+    if frame_indices is 'all':
+        n_frames = get_n_frames_from_system(item)
+        frame_indices = np.arange(n_frames)
+
+    coordinates = []
+
+    for ii in frame_indices:
+        coordinates.append(item.component_0.get_coordinates(ii))
+
+    coordinates = np.array(coordinates)
+    coordinates = puw.quantity(coordinates, unit='angstroms')
+    coordinates = puw.standardize(coordinates)
+
+    return
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    return aux_get(item, indices=indices, frame_indices=frame_indices)
+    # We can only get the box from frame 0
+
+    from molsysmt.forms.classes.api_openmm_Topology import get_box_from_system as get_box_from_system_openmm_Topology
+
+    if frame_indices is 'all':
+        n_frames = get_n_frames_from_system(item)
+    else:
+        n_frames = frame_indices.shape[0]
+
+    openmm_Topology, _ = to_openmm_Topology(item, atom_indices='all', frame_indices=0)
+
+    aux_box = get_box_from_system_openmm_Topology(openmm_Topology)
+
+    if aux_box is not None:
+        aux_box_value_frame_0 = puw.get_value(aux_box[0])
+        aux_box_unit = puw.get_unit(aux_box)
+
+        box = [aux_box_value_frame_0 for ii in range(n_frames)]
+        box = np.array(box)
+        box = puw.quantity(box, unit=aux_box_unit)
+        box = puw.standardize(box)
+    else:
+        box = None
+
+    return box
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
@@ -285,15 +413,20 @@ def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    return aux_get(item, indices=indices, frame_indices=frame_indices)
+    return None
 
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
-    return aux_get(item, indices=indices, frame_indices=frame_indices)
+    return None
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    return aux_get(item, indices=indices, frame_indices=frame_indices)
+    if frame_indices is 'all':
+        n_frames = item.component_0.n_frames
+    else:
+        n_frames = frame_indices.shape[0]
+
+    return n_frames
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 
