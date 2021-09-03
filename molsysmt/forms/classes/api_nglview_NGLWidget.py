@@ -128,31 +128,30 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
 def merge(item_1, item_2):
 
-    raise NotImplementedError
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+    from molsysmt.forms.classes.api_molsysmt_MolSys import merge as merge_molsysmt_MolSys
+    tmp_item_1, _ = to_molsysmt_MolSys(item_1)
+    tmp_item_2, _ = to_molsysmt_MolSys(item_2)
+    tmp_item = merge_molsysmt_MolSys(tmp_item_1, tmp_item_2)
+    tmp_item, _ = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+    return tmp_item
 
 def add(to_item, item):
 
-        #from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
-        #from molsysmt.forms.classes.api_molsysmt_MolSys import add as add_molsysmt_MolSys
-        #tmp_item, _ = to_molsysmt_MolSys(item)
-        #tmp_from_item, _ = to_molsysmt_MolSys(from_item, atom_indices=atom_indices, frame_indices=frame_indices)
-        #print(type(item), tmp_item, tmp_from_item)
-        #tmp_item = add_molsysmt_MolSys(tmp_item, tmp_from_item)
-        #tmp_item, _ = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
-        #return tmp_item
-
-    raise NotImplementedError
+    raise NotWithThisForm()
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
-        #from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
-        #from molsysmt.forms.classes.api_molsysmt_MolSys import append_frames as append_frames_molsysmt_MolSys
-        #tmp_item, _ = to_molsysmt_MolSys(item)
-        #tmp_item = append_frames_molsysmt_MolSys(tmp_item, step=step, time=time, coordinates=coordinates, box=box)
-        #tmp_item, _ = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
-        #return tmp_item
-    raise NotImplementedError
+    raise NotWithThisForm()
 
+def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+    from molsysmt.forms.classes.api_molsysmt_MolSys import append_frames as append_frames_molsysmt_MolSys
+    tmp_item, _ = to_molsysmt_MolSys(item)
+    append_frames_molsysmt_MolSys(tmp_item, step=step, time=time, coordinates=coordinates, box=box)
+    tmp_item, _ = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
+    return tmp_item
 
 ###### Get
 

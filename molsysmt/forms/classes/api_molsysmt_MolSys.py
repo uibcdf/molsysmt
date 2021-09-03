@@ -249,6 +249,13 @@ def append_frames(item, step=None, time=None, coordinates=None, box=None):
     item.trajectory.append_frames(step=step, time=time, coordinates=coordinates, box=box)
     pass
 
+def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    tmp_item = extract_item(item)
+    tmp_item.append_frames(step=step, time=time, coordinates=coordinates, box=box)
+
+    return tmp_item
+
 ###### Get
 
 ## atom

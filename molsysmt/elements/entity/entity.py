@@ -95,6 +95,8 @@ def _aux(item):
 
     for m_index, m_type, m_atoms in zip(molecule_index, molecule_type, atom_indices_in_molecule):
 
+        m_atoms = m_atoms.astype(int)
+
         if m_index is not None:
 
             if m_type == 'water':

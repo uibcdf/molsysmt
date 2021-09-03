@@ -11,6 +11,7 @@ dict_info = {}
 dict_add = {}
 dict_merge = {}
 dict_append_frames = {}
+dict_concatenate_frames = {}
 dict_convert = {}
 dict_get = {}
 dict_set = {}
@@ -42,6 +43,7 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['strings', '
             dict_add[form_name]=mod.add
             dict_merge[form_name]=mod.merge
             dict_append_frames[form_name]=mod.append_frames
+            dict_concatenate_frames[form_name]=mod.concatenate_frames
             dict_extract_item[form_name]=mod.extract_item
 
             dict_has[form_name]= mod.has

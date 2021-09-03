@@ -3,6 +3,7 @@ from molsysmt._private_tools.exceptions import BadCallError
 arguments = [
         'all',
         'info',
+        'info_no_form',
         'n_elements',
         'n_molecules',
         'n_frames',

@@ -2,7 +2,7 @@ from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
-from molsysmt.forms import dict_append_frames
+from molsysmt.forms import dict_append_frames, dict_concatenate_frames
 
 def concatenate_frames(molecular_systems, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
@@ -43,11 +43,21 @@ def concatenate_frames(molecular_systems, selections='all', frame_indices='all',
 
         step, time, coordinates, box = get(aux_molecular_system, target='atom', selection=aux_selection, frame_indices=aux_frame_indices, frame=True)
 
-        if box_in_diff_item:
-            dict_append_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)
-            dict_append_frames[to_molecular_system.box_form](to_molecular_system.box_item, step=None, time=None, coordinates=None, box=box)
-        else:
-            dict_append_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=box)
+        try:
+            if box_in_diff_item:
+                dict_append_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)
+                dict_append_frames[to_molecular_system.box_form](to_molecular_system.box_item, step=None, time=None, coordinates=None, box=box)
+            else:
+                dict_append_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=box)
+        except:
+            if box_in_diff_item:
+                tmp_item = dict_concatenate_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)
+                to_molecular_system._replace_object(to_molecular_system.coordinates_item, tmp_item)
+                tmp_item = dict_concatenate_append_frames[to_molecular_system.box_form](to_molecular_system.box_item, step=None, time=None, coordinates=None, box=box)
+                to_molecular_system._replace_object(to_molecular_system.box_form, tmp_item)
+            else:
+                tmp_item = dict_concatenate_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=box)
+                to_molecular_system._replace_object(to_molecular_system.coordinates_item, tmp_item)
 
     output_items, output_forms = to_molecular_system.get_items()
     if len(output_items)==1:

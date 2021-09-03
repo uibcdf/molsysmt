@@ -147,3 +147,19 @@ class MolecularSystem():
 
         return output_molecular_system
 
+    def _replace_object(self, item, new_item, new_form=None):
+
+        if new_form is None:
+            from molsysmt.basic.get_form import get_form
+            new_form = get_form(new_item)
+
+        for component_name in molecular_system_components.keys():
+
+            aux_item = getattr(self, component_name+'_item')
+
+            if aux_item == item:
+                setattr(self, component_name+'_item', new_item)
+                setattr(self, component_name+'_form', new_form)
+
+        pass
+

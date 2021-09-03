@@ -3,6 +3,7 @@ from molsysmt._private_tools._digestion import *
 from .arguments import digest_argument
 from .compare_all import compare_all_eq, compare_all_in
 from .compare_info import compare_info_eq, compare_info_in
+from .compare_info_no_form import compare_info_no_form_eq, compare_info_no_form_in
 from .compare_n_elements import compare_n_elements_eq, compare_n_elements_in
 from .compare_n_molecules import compare_n_molecules_eq, compare_n_molecules_in
 from .compare_n_frames import compare_n_frames_eq, compare_n_frames_in
@@ -11,6 +12,7 @@ from .compare_form import compare_form_eq, compare_form_in
 dict_compare_eq={
         'all' : compare_all_eq,
         'info' : compare_info_eq,
+        'info_no_form' : compare_info_no_form_eq,
         'n_elements' : compare_n_elements_eq,
         'n_molecules' : compare_n_molecules_eq,
         'n_frames' : compare_n_frames_eq,
@@ -20,6 +22,7 @@ dict_compare_eq={
 dict_compare_in={
         'all' : compare_all_in,
         'info' : compare_info_in,
+        'info_no_form' : compare_info_no_form_in,
         'n_elements' : compare_n_elements_in,
         'n_molecules' : compare_n_molecules_in,
         'n_frames' : compare_n_frames_in,

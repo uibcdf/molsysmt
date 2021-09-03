@@ -154,6 +154,10 @@ def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
 
+def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
+
 #### Get
 
 def aux_get(item, indices='all', frame_indices='all'):

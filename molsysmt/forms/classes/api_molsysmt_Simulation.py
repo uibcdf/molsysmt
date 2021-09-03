@@ -65,4 +65,7 @@ def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotWithThisFormError()
 
+def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
 

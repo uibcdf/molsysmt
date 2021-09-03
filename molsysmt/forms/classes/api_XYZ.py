@@ -134,6 +134,10 @@ def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
 
+def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
+
 ###### Get
 
 def get_atom_id_from_atom(item, indices='all', frame_indices='all'):

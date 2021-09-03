@@ -2,7 +2,7 @@ from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
-from molsysmt.forms import dict_merge#, dict_add
+from molsysmt.forms import dict_merge, dict_add
 
 def merge(molecular_systems, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
@@ -95,15 +95,7 @@ def merge(molecular_systems, selections='all', frame_indices='all', syntaxis='Mo
                 to_already_merged.append(to_item)
             except:
                 tmp_item=dict_merge[to_form](to_item, from_item)
-                to_molecular_system.elements_item = tmp_item
-                if to_molecular_system.ff_parameters_item == to_item:
-                    to_molecular_system.ff_parameters_item = tmp_item
-                if to_molecular_system.bonds_item == to_item:
-                    to_molecular_system.bonds_item = tmp_item
-                if to_molecular_system.coordinates_item == to_item:
-                    to_molecular_system.coordinates_item = tmp_item
-                if to_molecular_system.box_item == to_item:
-                    to_molecular_system.box_item = tmp_item
+                to_molecular_system._replace_object(to_item, tmp_item)
                 to_already_merged.append(tmp_item)
 
         # ff_parameters
@@ -119,13 +111,7 @@ def merge(molecular_systems, selections='all', frame_indices='all', syntaxis='Mo
                     to_already_merged.append(to_item)
                 except:
                     tmp_item=dict_merge[to_form](to_item, from_item)
-                    to_molecular_system.ff_parameters_item = tmp_item
-                    if to_molecular_system.bonds_item == to_item:
-                        to_molecular_system.bonds_item = tmp_item
-                    if to_molecular_system.coordinates_item == to_item:
-                        to_molecular_system.coordinates_item = tmp_item
-                    if to_molecular_system.box_item == to_item:
-                        to_molecular_system.box_item = tmp_item
+                    to_molecular_system._replace_object(to_item, tmp_item)
                     to_already_merged.append(tmp_item)
 
         # bonds
@@ -141,11 +127,7 @@ def merge(molecular_systems, selections='all', frame_indices='all', syntaxis='Mo
                     to_already_added.append(to_item)
                 except:
                     tmp_item=dict_merge[to_form](to_item, from_item)
-                    to_molecular_system.bonds_item = tmp_item
-                    if to_molecular_system.coordinates_item == to_item:
-                        to_molecular_system.coordinates_item = tmp_item
-                    if to_molecular_system.box_item == to_item:
-                        to_molecular_system.box_item = tmp_item
+                    to_molecular_system._replace_object(to_item, tmp_item)
                     to_already_merged.append(tmp_item)
 
 
@@ -162,9 +144,7 @@ def merge(molecular_systems, selections='all', frame_indices='all', syntaxis='Mo
                     to_already_added.append(to_item)
                 except:
                     tmp_item=dict_merge[to_form](to_item, from_item)
-                    to_molecular_system.coordinates_item = tmp_item
-                    if to_molecular_system.box_item == to_item:
-                        to_molecular_system.box_item = tmp_item
+                    to_molecular_system._replace_object(to_item, tmp_item)
                     to_already_merged.append(tmp_item)
 
         # The box info is taken from the first molecular_system

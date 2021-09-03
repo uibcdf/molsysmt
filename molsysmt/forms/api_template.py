@@ -63,13 +63,21 @@ def extract_item(item, atom_indices='all', frame_indices='all'):
 
     return tmp_item
 
-def add(item, from_item, atom_indices='all', frame_indices='all'):
+def merge(item_1, item_2):
+
+    raise NotImplementedError
+
+def add(to_item, item):
 
     raise NotImplementedError()
 
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
+
+def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError
 
 ###### Get
 
