@@ -68,23 +68,14 @@ def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', fram
 
     return tmp_item, tmp_molecular_system
 
-def to_xyznpy(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
-
-    comment = None
-    atom_names = None
-    xyz = None
-    unit_name = None
-
-    xyz = item._value
-    unit_name = item.unit.get_name()
-
-    with open(output_filename, 'wb') as fff:
-        np.save(fff, comment)
-        np.save(fff, atom_names)
-        np.save(fff, unit_name)
-        np.save(fff, xyz)
+def to_file_xyznpy(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     tmp_item = output_filename
+
+    with open(tmp_item, 'wb') as fff:
+        np.save(fff, item.shape, allow_pickle=True)
+        np.save(fff, puw.get_value(item, to_unit='nm'), allow_pickle=True)
+
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
     else:

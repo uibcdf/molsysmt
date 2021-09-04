@@ -1,4 +1,5 @@
 import molsysmt as msm
+import numpy as np
 from pathlib import Path
 import os
 
@@ -30,5 +31,3 @@ del(molsys)
 molsys = msm.convert('1tcd.mmtf', to_form='molsysmt.MolSys')
 molsys = msm.convert(molsys, to_form='TcTIM_in_pdbid_1tcd.msmpk')
 del(molsys)
-
-

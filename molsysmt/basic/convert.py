@@ -92,11 +92,16 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
             break
 
 
-    if item_form is None:
-        raise NotImplementedConversionError(get_form(molecular_system), to_form)
-    else:
+    ### Lines to be removed if tests pass
+    #if item_form is None:
+    #    raise NotImplementedConversionError(get_form(molecular_system), to_form)
+    #else:
+
+    try:
         tmp_item, _ = dict_convert[item_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
-                                                     **conversion_arguments, **kwargs)
+                                                       **conversion_arguments, **kwargs)
+    except:
+        raise NotImplementedConversionError(get_form(molecular_system), to_form)
 
     tmp_item = digest_output(tmp_item)
 

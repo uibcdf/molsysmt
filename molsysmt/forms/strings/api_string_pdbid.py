@@ -45,6 +45,17 @@ def to_file_mmtf(item, molecular_system=None, atom_indices='all', frame_indices=
 
     return tmp_item, tmp_molecular_system
 
+def to_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+
+    from molsysmt.forms.classes.api_molsysmt_MolSys import to_file_msmpk as molsysmt_MolSys_to_file_msmpk
+
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system,
+            atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_file_msmpk(tmp_item,
+            molecular_system=tmp_molecular_system, output_filename=output_filename)
+
+    return tmp_item, tmp_molecular_system
+
 def to_file_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.files.api_file_fasta import to_file_fasta as file_fasta_to_file_fasta

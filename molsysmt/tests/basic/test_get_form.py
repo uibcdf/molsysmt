@@ -18,11 +18,21 @@ def test_file_mmtf():
     output = msm.get_form(molsys)
     assert output == 'file:mmtf'
 
-def test_files_inpcrd_prmtop():
+def test_file_inpcrd_prmtop():
     molsys1 = msm.demo.files['pentalanine.inpcrd']
     molsys2 = msm.demo.files['pentalanine.prmtop']
     output = msm.get_form([molsys1, molsys2])
     assert output == ['file:inpcrd', 'file:prmtop']
+
+def test_file_xyznpy():
+    molsys = msm.demo.files['particles_4_frames_3.xyznpy']
+    output = msm.get_form(molsys)
+    assert output == 'file:xyznpy'
+
+def test_file_msmpk():
+    molsys = msm.demo.files['valine_dipeptide_vacuum.msmpk']
+    output = msm.get_form(molsys)
+    assert output == 'file:msmpk'
 
 ## Strings
 
@@ -79,4 +89,9 @@ def test_nglview_NGLWidget():
     molsys = msm.view(molsys)
     output = msm.get_form(molsys)
     assert output == 'nglview.NGLWidget'
+
+def test_molsysmt_MolSys():
+    molsys = msm.demo.classes.valine_dipeptide_vacuum(to_form='molsysmt.MolSys')
+    output = msm.get_form(molsys)
+    assert output == 'molsysmt.MolSys'
 

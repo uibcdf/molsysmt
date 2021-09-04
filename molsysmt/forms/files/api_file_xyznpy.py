@@ -3,6 +3,7 @@ from molsysmt.forms.common_gets import *
 import numpy as np
 from molsysmt.native.molecular_system import molecular_system_components
 from molsysmt._private_tools.files_and_directories import tmp_filename
+from molsysmt import puw
 
 form_name='file:xyznpy'
 
@@ -13,8 +14,31 @@ is_form = {
 info = ["XYZ file format like saved with Numpy",""]
 
 has = molecular_system_components.copy()
-for ii in ['elements', 'coordinates']:
+for ii in ['coordinates']:
     has[ii]=True
+
+
+def to_XYZ(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+
+    with open(item, 'rb') as fff:
+        shape = np.load(fff)
+        tmp_item = np.load(fff)
+
+    if atom_indices is not 'all':
+        tmp_item = tmp_item[:, atom_indices,:]
+
+    if frame_indices is not 'all':
+        tmp_item = tmp_item[frame_indices, :, :]
+
+    tmp_item = tmp_item*puw.unit('nm')
+    tmp_item = puw.standardize(tmp_item)
+
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+    else:
+        tmp_molecular_system = None
+
+    return tmp_item, tmp_molecular_system
 
 def to_xyznpy(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True, output_filename=None):
 
@@ -117,18 +141,17 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
     with open(item, 'rb') as fff:
-        comment = np.load(fff, allow_pickle=True)
-        atom_names = np.load(fff, allow_pickle=True)
-        unit_name = np.load(fff, allow_pickle=True)
+        shape = np.load(fff, allow_pickle=True)
         coordinates = np.load(fff, allow_pickle=True)
-
-    coordinates = coordinates * getattr(unit, str(unit_name))
 
     if indices is not 'all':
         coordinates = coordinates[:, indices, :]
 
     if frame_indices is not 'all':
         coordinates = coordinates[frame_indices, :, :]
+
+    coordinates = coordinates * puw.unit('nm')
+    coordinates = puw.standardize(coordinates)
 
     return coordinates
 
@@ -215,34 +238,33 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    with open(item, 'rb') as fff:
+        shape = np.load(fff)
+    return shape[1]
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return 0
 
 def get_n_components_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.component import get_n_components_from_system as get
-    return get(item, indices)
+    return 0
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return 0
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.molecule import get_n_molecules_from_system as get
-    return get(item, indices)
+    return 0
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.elements.entity import get_n_entities_from_system as get
-    return get(item, indices)
+    return 0
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return 0
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
@@ -250,7 +272,7 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return None
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all'):
 
@@ -270,15 +292,20 @@ def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
 def get_time_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return None
 
 def get_step_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return None
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    if frame_indices is 'all':
+        with open(item, 'rb') as fff:
+            shape = np.load(fff)
+        return shape[0]
+    else:
+        return frame_indices.shape[0]
 
 def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
 

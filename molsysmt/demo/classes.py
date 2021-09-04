@@ -55,3 +55,11 @@ def TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys'):
     molsys = convert(files['TcTIM_in_pdbid_1tcd.msmpk'], to_form=to_form)
     return molsys
 
+def particles_4_frames_3(to_form='XYZ'):
+
+    from molsysmt.demo import files
+    from molsysmt import convert
+    molsys = convert(files['particles_4_frames_3.xyznpy'], to_form=to_form)
+    return molsys
+
+

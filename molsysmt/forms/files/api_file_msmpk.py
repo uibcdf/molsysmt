@@ -30,7 +30,7 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys.topology import from_file_msmpk as file_msmpk_to_molsysmt_Topology
+    from molsysmt.native.io.topology.files import from_file_msmpk as file_msmpk_to_molsysmt_Topology
 
     tmp_item, tmp_molecular_system = file_msmpk_to_molsysmt_Topology(item,
             molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
