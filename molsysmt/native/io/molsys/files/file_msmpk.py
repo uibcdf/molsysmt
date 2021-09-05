@@ -45,7 +45,7 @@ def to_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indices
 
     tmp_item, tmp_molecular_system = molsysmt_MolSys_to_molsysmt_MolSys(item,
             molecular_system=molecular_system, atom_indices=atom_indices,
-            frame_indices=frame_indices, copy_if_all=False)
+            frame_indices=frame_indices, copy_if_all=True)
 
     # lengths with nm values and times in ps
 

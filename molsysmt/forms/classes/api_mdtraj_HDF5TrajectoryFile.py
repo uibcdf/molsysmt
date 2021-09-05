@@ -319,7 +319,7 @@ def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
-    raise NotImplementedError
+    return get_coordinates_from_atom(item, indices='all', frame_indices=frame_indices)
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 

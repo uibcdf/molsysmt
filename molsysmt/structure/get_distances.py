@@ -84,10 +84,10 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         if selection is not None:
 
             if group_behavior == 'center_of_mass':
-                coordinates_1 = center_of_mass(molecular_system, selection=selection, frame_indices=frame_indices)
+                coordinates_1 = get_center_of_mass(molecular_system, selection=selection, frame_indices=frame_indices)
                 atom_indices_1 = [0]
             elif group_behavior == 'geometric_center':
-                coordinates_1 = geometric_center(molecular_system, selection=selection, frame_indices=frame_indices)
+                coordinates_1 = get_geometric_center(molecular_system, selection=selection, frame_indices=frame_indices)
                 atom_indices_1 = [0]
             else:
                 atom_indices_1 = select(molecular_system, selection=selection, syntaxis=syntaxis)
@@ -95,10 +95,10 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         else:
 
             if group_behavior == 'center_of_mass':
-                coordinates_1 = center_of_mass(molecular_system, groups_of_atoms=groups_of_atoms, frame_indices=frame_indices)
+                coordinates_1 = get_center_of_mass(molecular_system, groups_of_atoms=groups_of_atoms, frame_indices=frame_indices)
                 atom_indices_1 = np.range(coordinates_1.shape[1])
             elif group_behavior == 'geometric_center':
-                coordinates_1 = geometric_center(molecular_system, groups_of_atoms=groups_of_atoms, frame_indices=frame_indices)
+                coordinates_1 = get_geometric_center(molecular_system, groups_of_atoms=groups_of_atoms, frame_indices=frame_indices)
                 atom_indices_1 = np.arange(coordinates_1.shape[1])
             else:
                 raise ValueError("Value of argument group_behavior not recognized.")
@@ -106,10 +106,10 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         if selection_2 is not None:
 
             if group_behavior_2 == 'center_of_mass':
-                coordinates_2 = center_of_mass(molecular_system, selection=selection_2, frame_indices=frame_indices_2)
+                coordinates_2 = get_center_of_mass(molecular_system, selection=selection_2, frame_indices=frame_indices_2)
                 atom_indices_2 = [0]
             elif group_behavior_2 == 'geometric_center':
-                coordinates_2 = geometric_center(molecular_system, selection=selection_2, frame_indices=frame_indices_2)
+                coordinates_2 = get_geometric_center(molecular_system, selection=selection_2, frame_indices=frame_indices_2)
                 atom_indices_2 = [0]
             else:
                 atom_indices_2 = select(molecular_system, selection=selection_2, syntaxis=syntaxis)
@@ -122,10 +122,10 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                 coordinates_2 = coordinates_1
             else:
                 if group_behavior_2 == 'center_of_mass':
-                    coordinates_2 = center_of_mass(molecular_system, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
+                    coordinates_2 = get_center_of_mass(molecular_system, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
                     atom_indices_2 = np.arange(coordinates_2.shape[1])
                 elif group_behavior_2 == 'geometric_center':
-                    coordinates_2 = geometric_center(molecular_system, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
+                    coordinates_2 = get_geometric_center(molecular_system, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
                     atom_indices_2 = np.arange(coordinates_2.shape[1])
                 else:
                     raise ValueError("Value of argument group_behavior_2 not recognized.")

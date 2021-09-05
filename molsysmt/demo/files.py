@@ -27,6 +27,7 @@ filenames = [
     'lysine_dipeptide_vacuum.msmpk',
     'T4_Lysozyme_L99A_in_pdbid_181l.msmpk',
     'TcTIM_in_pdbid_1tcd.msmpk',
+    'pentalanine_traj.msmpk',
     'particles_4_frames_3.xyznpy',
     ]
 

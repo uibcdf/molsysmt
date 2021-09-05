@@ -296,3 +296,42 @@ def test_info_23():
     true_output = 'TRIOSEPHOSPHATE ISOMERASE@0'
     assert output == true_output
 
+def test_info_24():
+    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    df = msm.info(molsys, target='component', selection='molecule_type=="protein"')
+    true_dict = {'index': {0: 0, 1: 1},
+        'n atoms': {0: 1906, 1: 1912},
+        'n groups': {0: 248, 1: 249},
+        'chain index': {0: 0, 1: 1},
+        'molecule index': {0: 0, 1: 0},
+        'molecule type': {0: 'protein', 1: 'protein'},
+        'entity index': {0: 0, 1: 0},
+        'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE',
+         1: 'TRIOSEPHOSPHATE ISOMERASE'}}
+    true_df = DataFrame(true_dict)
+    assert df.data.equals(true_df)
+
+
+def test_info_24():
+    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    group_index_in_component_0 = msm.get(molsys, target='group',
+                                     selection='component_index==0', index=True)[69]
+    group_index_in_component_1 = msm.get(molsys, target='group',
+                                     selection='component_index==1', index=True)[12]
+    df = msm.info(molsys, target='group', indices=[group_index_in_component_0,
+                                                    group_index_in_component_1])
+    true_dict = {'index': {0: 69, 1: 260},
+        'id': {0: 73, 1: 15},
+        'name': {0: 'GLY', 1: 'CYS'},
+        'type': {0: 'aminoacid', 1: 'aminoacid'},
+        'n atoms': {0: 4, 1: 6},
+        'component index': {0: 0, 1: 1},
+        'chain index': {0: 0, 1: 1},
+        'molecule index': {0: 0, 1: 0},
+        'molecule type': {0: 'protein', 1: 'protein'},
+        'entity index': {0: 0, 1: 0},
+        'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE',
+         1: 'TRIOSEPHOSPHATE ISOMERASE'}}
+    true_df = DataFrame(true_dict)
+    assert df.data.equals(true_df)
+

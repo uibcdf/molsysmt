@@ -31,3 +31,9 @@ del(molsys)
 molsys = msm.convert('1tcd.mmtf', to_form='molsysmt.MolSys')
 molsys = msm.convert(molsys, to_form='TcTIM_in_pdbid_1tcd.msmpk')
 del(molsys)
+
+molsys = msm.convert('pentalanine.h5', to_form='molsysmt.MolSys')
+molsys = msm.convert(molsys, to_form='pentalanine_traj.msmpk')
+del(molsys)
+
+
