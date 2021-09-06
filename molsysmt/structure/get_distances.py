@@ -6,7 +6,7 @@ from molsysmt import puw
 import numpy as np
 
 def get_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, frame_indices="all",
-             selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
+             molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
              pairs=False, crossed_frames=False, pbc=False, parallel=False, output_form='tensor',
              output_atom_indices=False, output_frame_indices=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
@@ -25,6 +25,13 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
     # hacer un lista de listas frente a otra lista de listas.
 
     molecular_system = digest_molecular_system(molecular_system)
+
+    if molecular_system_2 is None:
+        same_system = True
+        molecular_system_2 = molecular_system
+    else:
+        same_system = False
+        molecular_system_2 = digest_molecular_system(molecular_system_2)
 
     engine = digest_engine(engine)
     frame_indices = digest_frame_indices(frame_indices)
@@ -54,32 +61,26 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
     if engine=='MolSysMT':
 
-        diff_set = True
         same_selection = False
         same_groups = False
         same_frames = False
 
         if groups_of_atoms is not None:
-
             selection=None
 
         if (selection is not None) and (selection_2 is None):
             if (groups_of_atoms_2 is None):
                 selection_2 = selection
                 same_selection = True
-                diff_set = False
 
         if groups_of_atoms is not None:
             if (selection_2 is None) and (groups_of_atoms_2 is None):
                 groups_of_atoms_2=groups_of_atoms
                 same_groups = True
-                diff_set = False
 
         if frame_indices_2 is None:
             frame_indices_2 = frame_indices
             same_frames = True
-        else:
-            diff_set = True
 
         if selection is not None:
 
@@ -103,32 +104,42 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
             else:
                 raise ValueError("Value of argument group_behavior not recognized.")
 
+
         if selection_2 is not None:
 
-            if group_behavior_2 == 'center_of_mass':
-                coordinates_2 = get_center_of_mass(molecular_system, selection=selection_2, frame_indices=frame_indices_2)
-                atom_indices_2 = [0]
-            elif group_behavior_2 == 'geometric_center':
-                coordinates_2 = get_geometric_center(molecular_system, selection=selection_2, frame_indices=frame_indices_2)
-                atom_indices_2 = [0]
+            if same_system and same_selection and same_frames:
+
+                atom_indices_2 = atom_indices_1
+                coordinates_2 = coordinates_1
+
             else:
-                atom_indices_2 = select(molecular_system, selection=selection_2, syntaxis=syntaxis)
-                coordinates_2 = get(molecular_system, target='atom', indices=atom_indices_2, frame_indices=frame_indices_2, coordinates=True)
+
+                if group_behavior_2 == 'center_of_mass':
+                    coordinates_2 = get_center_of_mass(molecular_system_2, selection=selection_2, frame_indices=frame_indices_2)
+                    atom_indices_2 = [0]
+                elif group_behavior_2 == 'geometric_center':
+                    coordinates_2 = get_geometric_center(molecular_system_2, selection=selection_2, frame_indices=frame_indices_2)
+                    atom_indices_2 = [0]
+                else:
+                    atom_indices_2 = select(molecular_system_2, selection=selection_2, syntaxis=syntaxis)
+                    coordinates_2 = get(molecular_system_2, target='atom', indices=atom_indices_2, frame_indices=frame_indices_2, coordinates=True)
 
         else:
 
-            if same_groups and same_frames:
+            if same_system and same_groups and same_frames:
                 atom_indices_2 = atom_indices_1
                 coordinates_2 = coordinates_1
             else:
                 if group_behavior_2 == 'center_of_mass':
-                    coordinates_2 = get_center_of_mass(molecular_system, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
+                    coordinates_2 = get_center_of_mass(molecular_system_2, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
                     atom_indices_2 = np.arange(coordinates_2.shape[1])
                 elif group_behavior_2 == 'geometric_center':
-                    coordinates_2 = get_geometric_center(molecular_system, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
+                    coordinates_2 = get_geometric_center(molecular_system_2, groups_of_atoms=groups_of_atoms_2, frame_indices=frame_indices_2)
                     atom_indices_2 = np.arange(coordinates_2.shape[1])
                 else:
                     raise ValueError("Value of argument group_behavior_2 not recognized.")
+
+        diff_set = not ((same_system and same_selection and same_frames) or (same_system and same_groups and same_frames))
 
         length_units = puw.get_unit(coordinates_1)
         coordinates_1 = np.asfortranarray(puw.get_value(coordinates_1), dtype='float64')

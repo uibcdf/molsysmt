@@ -20,8 +20,8 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
         groups_serialized = serialized_lists(groups_of_atoms, dtype='int64')
 
         if weights is None:
-            weights_array = np.ones((groups_serialized.n_values))
-        elif weights=='masses':
+            weights = np.ones((groups_serialized.n_values))
+        elif weights is 'masses':
             raise NotImplementedError
 
         coordinates = get(molecular_system, target='system', frame_indices=frame_indices, coordinates=True)
@@ -33,10 +33,10 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
 
         com = libcom.center_of_mass(coordinates,
                                     groups_serialized.indices, groups_serialized.values, groups_serialized.starts,
-                                    weights_array, n_frames, n_atoms,
+                                    weights, n_frames, n_atoms,
                                     groups_serialized.n_indices, groups_serialized.n_values)
 
-        del(coordinates, groups_serialized, weights_array)
+        del(coordinates, groups_serialized)
 
         return com*length_units
 

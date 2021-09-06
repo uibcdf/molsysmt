@@ -5,7 +5,8 @@ from molsysmt.basic import get
 def get_covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_blocks=False, selection='all',
                                syntaxis='MolSysMT'):
 
-    from molsymt.structure.get_covalent_blocks import get_covalent_blocks
+    from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
+    from molsysmt.topology.get_covalent_chains import get_covalent_chains
 
     molecular_system = digest_molecular_system(molecular_system)
 

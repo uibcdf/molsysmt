@@ -68,7 +68,7 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
 
             for quartet in quartets:
 
-                tmp_blocks = covalent_blocks(molecular_system, remove_bonds=[quartet[1], quartet[2]])
+                tmp_blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartet[1], quartet[2]])
                 blocks.append(tmp_blocks)
 
 
