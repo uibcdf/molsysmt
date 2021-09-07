@@ -8,7 +8,7 @@ from molsysmt.structure.set_dihedral_angles import set_dihedral_angles
 
 
 def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,
-                          frame_indices='all', pbc=True, in_place=True, engine='MolSysMT'):
+                          frame_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
 
     from molsysmt.basic import get
 

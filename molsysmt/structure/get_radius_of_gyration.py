@@ -1,37 +1,66 @@
-import numpy as _np
-from .basic import convert as _convert, extract as _extract, get as _get
-from ._private_tools.digest_inputs import _one_system as _digest_one_system
-from ._private_tools.digest_inputs import _coordinates as _digest_coordinates
-from .lib import geometry as _libgeometry
-from ._private_tools.exceptions import *
+from molsysmt._private_tools._digestion import *
+from molsysmt._private_tools.exceptions import *
+from molsysmt.basic import select, get
+from molsysmt.lib import geometry as libgeometry
+from molsysmt import puw
+import numpy as np
 
-def get_radius_of_gyration(item=None, selection=None, frame=None, engine='molsysmt'):
+def get_radius_of_gyration(molecular_system, selection='all', frame_indices='all',
+                           weights=None, pbc=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
-    if engine=='molsysmt':
+    molecular_system = digest_molecular_system(molecular_system)
 
-        tmp_item, atom_indices, frame_indices = _digest_one_system(item, selection, frame,
-                                                                      form='molsysmt.Trajectory')
-        tmp_coors, tmp_n_frames, tmp_n_atoms = _digest_coordinates(tmp_item, atom_indices, frame_indices, form='molsysmt.Trajectory')
-        masses = _get(tmp_item, selection=atom_indices, masses=True)
-        rg = _libgeometry.radius_of_gyration(tmp_coors, masses,tmp_n_frames,tmp_n_atoms)
-        del(tmp_item, atom_indices, frame_indices, tmp_coors, masses)
+    engine = digest_engine(engine)
+    frame_indices = digest_frame_indices(frame_indices)
 
-        return rg
+    if engine=='MolSysMT':
+
+        coordinates == msm.get(molecular_system, target='atom', selection=selection,
+                               frame_indices=frame_indices, syntaxis=syntaxis, coordinates=True)
+
+        length_units = puw.get_unit(coordinates_1)
+        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
+
+        n_frames = coordinates.shape[0]
+        n_atoms = coordinates.shape[1]
+
+        if pbc:
+
+            box, box_shape = get(molecular_system, target='system', box=True, box_shape=True, frame_indices=frame_indices)
+
+            orthogonal = 0
+            if box_shape is None:
+                raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
+            elif box_shape == 'cubic':
+                orthogonal =1
+
+        else:
+
+            box= np.zeros([nframes, 3, 3])*length_units
+            orthogonal = 1
+
+        box = np.asfortranarray(puw.get_value(box, to_unit=length_units), dtype='float64')
+
+        if weights is None:
+            weights = np.ones(n_atoms)
+            weights_units = 1
+        elif weights is 'masses':
+            masses = msm.chemphys.get_masses(molecular_systems, selection=selection, syntaxis=syntaxis)
+            weights_units = msm.puw.get_unit(masses)
+            weights = msm.puw.get_value(masses)
+
+        output = libgeometry.radius_of_gyration(coordinates, weights, box, orthogonal, int(pbc), n_frames, n_atoms)
+        output = output*weights_units*length_units*length_units
+
+        del(weights, coordinates, box, orthogonal)
 
     elif engine=='mdtraj':
 
-        from mdtraj import compute_rg as _mdtraj_rg
-
-        tmp_item1, atom_indices1, frame_indices1 = _digest_one_system(item, selection, frame,
-                                                                      form='mdtraj.Trajectory')
-        tmp_item1 = _extract(tmp_item1,atom_indices1)
-        masses = _get(tmp_item1, masses=True)
-        rg = _mdtraj_rg(tmp_item1,masses=_np.array(masses))
-        del(tmp_item1, atom_indices1, frame_indices1, masses)
-
-        return rg
+        raise NotImplementedError()
 
     else:
 
-        raise NotImplementedError(NotImplementedMessage)
+        raise NotImplementedError()
+
+    return output
 

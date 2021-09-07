@@ -12,10 +12,10 @@ import numpy as np
 def test_shift_dihedral_angles_from_molsysmt_MolSys_1():
     molsys = msm.demo.classes.metenkephalin(to_form='molsysmt.MolSys')
     phi_chains = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle='phi')
-    molecular_system = msm.structure.shift_dihedral_angles(molsys, quartets=phi_chains[2],
-                                                           angles_shifts='45.0 degrees', pbc=False)
+    molecular_system = msm.structure.set_dihedral_angles(molsys, quartets=phi_chains[2],
+                                                           angles='0.0 degrees', pbc=False)
     dihedral_angles = msm.structure.get_dihedral_angles(molecular_system, quartets=phi_chains[2])
-    true_value = np.array([[-135.00]])
+    true_value = np.array([[0.00]])
     check = np.allclose(true_value,msm.puw.get_value(dihedral_angles, to_unit='degrees'))
     assert check
 

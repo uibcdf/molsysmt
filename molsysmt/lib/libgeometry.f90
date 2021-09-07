@@ -173,36 +173,42 @@ CONTAINS
   END SUBROUTINE DISTANCE_PAIRS
 
 
-  !FUNCTION RADIUS_OF_GYRATION (coors,weights,n_frames,n_atoms) RESULT(Rg)
+  FUNCTION RADIUS_OF_GYRATION (coors, weights, box, ortho, mic_opt, n_frames, n_atoms) RESULT(Rg)
 
-  !  IMPLICIT NONE    
-  !  INTEGER, INTENT(IN)::n_frames,n_atoms
-  !  DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
-  !  DOUBLE PRECISION,DIMENSION(n_atoms),INTENT(IN)::weights
-  !  DOUBLE PRECISION,DIMENSION(n_frames)::Rg
+    IMPLICIT NONE    
+    INTEGER, INTENT(IN)::ortho, mic_opt, n_frames, n_atoms
+    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
+    DOUBLE PRECISION,DIMENSION(n_atoms),INTENT(IN)::weights
+    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
+    DOUBLE PRECISION,DIMENSION(n_frames)::Rg
 
-  !  INTEGER::ii,jj
-  !  DOUBLE PRECISION,DIMENSION(n_frames,3)::com
-  !  DOUBLE PRECISION,DIMENSION(3)::vect_aux
-  !  DOUBLE PRECISION::total_weight
-  !  DOUBLE PRECISION::val_aux
+    INTEGER::ii,jj
+    DOUBLE PRECISION,DIMENSION(n_frames,3)::com
+    DOUBLE PRECISION,DIMENSION(3)::vect_aux
+    DOUBLE PRECISION::total_weight
+    DOUBLE PRECISION::val_aux
 
-  !  Rg(:) = 0.0d0
-  !  com = CENTER_OF_MASS(coors,weights,n_frames,n_atoms)
-  !  total_weight=SUM(weights)
+    INTEGER,DIMENSION(1),INTENT(IN)::groups_indices
+    INTEGER,DIMENSION(2),INTENT(IN)::groups_starts
+    INTEGER,DIMENSION(n_atoms),INTENT(IN)::groups_atoms_indices
 
-  !  DO ii=1,n_frames
-  !      val_aux=0.0d0
-  !      DO jj=1,n_atoms
-  !          vect_aux = coors(ii,jj,:)-com(ii,:)
-  !          Rg(ii)=Rg(ii)+weights(jj)*dot_product(vect_aux,vect_aux)
-  !      END DO
-  !  END DO
+    Rg(:) = 0.0d0
+    com = CENTER_OF_MASS(coors, groups_indices, groups_atoms_indices, groups_starts, &
+        &weights, n_frames, n_atoms)
+    total_weight=SUM(weights)
 
-  !  Rg(:)=Rg(:)/total_weight
-  !  Rg(:)=sqrt(Rg(:))
+    DO ii=1,n_frames
+        val_aux=0.0d0
+        DO jj=1,n_atoms
+            vect_aux = coors(ii,jj,:)-com(ii,:)
+            Rg(ii)=Rg(ii)+weights(jj)*dot_product(vect_aux,vect_aux)
+        END DO
+    END DO
 
-  !END FUNCTION
+    Rg(:)=Rg(:)/total_weight
+    Rg(:)=sqrt(Rg(:))
+
+  END FUNCTION
 
   SUBROUTINE TRANSLATE(coors, shifts, frame_indices, n_atoms, n_frames, n_frame_indices)
  
