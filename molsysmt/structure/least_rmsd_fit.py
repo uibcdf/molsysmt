@@ -48,7 +48,7 @@ def least_rmsd_fit (molecular_system=None, selection='backbone', frame_indices='
         coordinates=puw.standardize(coordinates)
 
         if to_form is None:
-            tmp_molecular_system = _copy(molecular_system)
+            tmp_molecular_system = copy(molecular_system)
         else:
             tmp_molecular_system = convert(molecular_system, to_form=to_form)
 

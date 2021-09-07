@@ -1,8 +1,7 @@
 import numpy as np
 
 def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None, reference_selection=None,
-                      syntaxis='MolSysMT', target_intersection_set=None,
-                      target_non_intersection_set=None, engine='biopython'):
+                      syntaxis='MolSysMT', target_intersection_set=None, engine='biopython'):
 
     from molsysmt.topology.get_sequence_alignment import get_sequence_alignment
 
@@ -13,7 +12,7 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
         # ensembler: ensembler is only available for python 2.7
         # (https://github.com/choderalab/ensembler/blob/master/ensembler/modeling.py)
 
-        aln = sequence_alignment(molecular_system, selection=selection,
+        aln = get_sequence_alignment(molecular_system, selection=selection,
                 reference_molecular_system=reference_molecular_system,
                 reference_selection=reference_selection, syntaxis=syntaxis, engine=engine)
 
@@ -42,10 +41,10 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
         if target_intersection_set=='group':
             return seq_id, intersect_1, intersect_2
         elif target_intersection_set=='atom':
-            from molsysmt.basic import get as _get
-            set_1 = _get(reference_molecular_system, target='group', indices=intersect_1, atom_indices=True)
+            from molsysmt.basic import get
+            set_1 = get(reference_molecular_system, target='group', indices=intersect_1, atom_indices=True)
             set_1 = np.concatenate(set_1)
-            set_2 = _get(molecular_system, target='group', indices=intersect_2, atom_indices=True)
+            set_2 = get(molecular_system, target='group', indices=intersect_2, atom_indices=True)
             set_2 = np.concatenate(set_2)
             return seq_id, set_1, set_2
         else:
@@ -54,5 +53,4 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
     else:
 
         raise NotImplementedError
-
 

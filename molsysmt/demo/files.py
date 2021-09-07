@@ -19,6 +19,8 @@ filenames = [
     '1tcd.mmtf',
     '181l.pdb',
     '181l.mmtf',
+    '1l17.pdb',
+    '1l17.mmtf',
     'caffeine.mol2',
     'nglview_demo_md_1u19.gro',
     'nglview_demo_md_1u19.xtc',

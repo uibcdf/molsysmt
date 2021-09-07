@@ -11,11 +11,20 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
         # from ensembler.modeling.align_target_template
         # (https://github.com/choderalab/ensembler/blob/master/ensembler/modeling.py)
 
+        # See: https://biopython.org/docs/1.75/api/Bio.Align.html#Bio.Align.PairwiseAligner
+
         from Bio import Align
         tmp_ref_seq=convert(reference_molecular_system, selection=reference_selection,
                 syntaxis=syntaxis, to_form='biopython.Seq')
         tmp_seq=convert(molecular_system, selection=selection, syntaxis=syntaxis, to_form='biopython.Seq')
         aligner = Align.PairwiseAligner()
+        aligner.mode = 'global'
+        aligner.match_score = 1.0
+        aligner.mismatch_score = 0.0
+        aligner.open_gap_score = -0.5
+        aligner.extend_gap_score = -0.1
+        aligner.target_end_gap_score = 0.0
+        aligner.query_end_gap_score = 0.0
         alignment = aligner.align(tmp_ref_seq, tmp_seq)
         del(aligner, Align, tmp_ref_seq,tmp_seq)
 
