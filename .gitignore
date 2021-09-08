@@ -116,4 +116,4 @@ record.txt
 # In This Library
 devtools/playground/*
 !devtools/playground/README.md
-
+!molsysmt/build

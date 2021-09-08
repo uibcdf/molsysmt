@@ -1,7 +1,8 @@
 import numpy as np
 
-def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None, reference_selection=None,
-                      syntaxis='MolSysMT', target_intersection_set=None, engine='biopython'):
+def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None,
+                          reference_selection='all', target_intersection_set=None, syntaxis='MolSysMT',
+                          engine='biopython'):
 
     from molsysmt.topology.get_sequence_alignment import get_sequence_alignment
 

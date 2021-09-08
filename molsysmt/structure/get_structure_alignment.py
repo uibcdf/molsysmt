@@ -6,14 +6,16 @@ def get_structure_alignment(molecular_system, selection_alignment='all', selecti
         reference_selection_rmsd=None, reference_frame_index=0, syntaxis='MolSysMT', parallel=True,
         engine_sequence_alignment = 'biopython', engine_least_rmsd_fit = 'MolSysMT'):
 
-    from molsysmt.structure.least_rmsd_fit import least_rmsd_fit
 
     if reference_selection_rmsd is None:
         reference_selection_rmsd = selection_rmsd
 
     if engine_sequence_alignment == 'biopython':
 
-        idty, mask_reference_molecular_system, mask_molecular_system = sequence_identity(molecular_system,
+        from molsysmt.structure import least_rmsd_fit
+        from molsysmt.topology import get_sequence_identity
+
+        idty, mask_reference_molecular_system, mask_molecular_system = get_sequence_identity(molecular_system,
                 selection=selection_alignment,
                 reference_molecular_system=reference_molecular_system,
                 reference_selection=reference_selection_alignment,
