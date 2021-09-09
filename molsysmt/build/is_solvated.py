@@ -1,6 +1,7 @@
 def is_solvated(molecular_system):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
+    from molsysmt import puw
 
     output = False
 

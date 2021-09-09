@@ -1,34 +1,32 @@
-def mutate (item, residue_indices=None, to_residue_names=None, engine='PDBFixer', verbose=False):
+def mutate (molecular_system, residue_indices=None, to_residue_names=None, engine='PDBFixer', verbose=False):
+
 
     if engine=="PDBFixer":
-        if syntaxis=="PDBFixer":
 
-            if not hasattr(residue_indices, '__iter__'):
-                residue_indices = [residue_indices]
-            if not hasattr(to_residue_names, '__iter__'):
-                to_residue_names = [to_residue_names]
+        from molsysmt.basic import get, convert, get_form
 
-            form_in = get_form(item)
-            tmp_item = _convert(item, to_form="pdbfixer.PDBFixer")
+        if not hasattr(residue_indices, '__iter__'):
+            residue_indices = [residue_indices]
+        if not hasattr(to_residue_names, '__iter__'):
+            to_residue_names = [to_residue_names]
 
-            for residue_index, to_residue_name in zip(residue_indices, to_residue_names):
+        to_residue_names = [name.upper() for name in to_residue_names]
 
-                from_residue_name = _get(tmp_item, target='residue', index=residue_index,
-                                         residue_name=True)
+        form_in = get_form(molecular_system)
+        tmp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
 
-                in_chain_id = _get(tmp_item, target='residue', index=residue_index,
-                                         chain_id=True)
+        from_residue_names, residue_ids, in_chain_ids = get(tmp_molecular_system, target='group', indices=residue_indices,
+                                             group_name=True, group_id=True, chain_id=True)
 
-                mutation_string = "-".join([from_residue_name,str(residue_index),to_residue_name])
-                if verbose: print(mutation_string)
-                tmp_item.applyMutations([mutation_string], in_chain_id)
+        for residue_id, from_residue_name, to_residue_name, in_chain_id in zip(residue_ids, from_residue_names, to_residue_names, in_chain_ids):
+            mutation_string = "-".join([from_residue_name,str(residue_id),to_residue_name])
+            if verbose: print(mutation_string)
+            tmp_molecular_system.applyMutations([mutation_string], in_chain_id)
 
-            tmp_item = _convert(tmp_item, to_form=form_in)
+        tmp_molecular_system = convert(tmp_molecular_system, to_form=form_in)
 
-            return tmp_item
+        return tmp_molecular_system
 
-        else:
-            raise NotImplementedError
     else:
         raise NotImplementedError
 

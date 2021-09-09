@@ -4,7 +4,7 @@
 def standardize_view (view, atom_indices='all', frame_indices='all'):
 
     from molsysmt.basic import select, get, convert
-    from molsysmt.pbc import is_solvated
+    from molsysmt.build import is_solvated
 
 
     if atom_indices is not 'all':
@@ -82,7 +82,7 @@ def show_water_as_licorice(view, atom_indices='all', frame_indices='all'):
 def show_colored_surface_by_scalar_residue_values(view, values, selection='all', cmap=None, vmin=None, vmax=None):
 
     from nglview.color import _ColorScheme
-    from molsysmt.multitool import select
+    from molsysmt.basic import select
     from matplotlib.colors import Normalize, to_hex
 
     groups_selection = select(view, target='group', selection=selection, to_syntaxis='NGLview')
@@ -101,7 +101,7 @@ def show_colored_surface_by_scalar_residue_values(view, values, selection='all',
 def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all', cmap=None, vmin=None, vmax=None):
 
     from nglview.color import _ColorScheme
-    from molsysmt.multitool import select
+    from molsysmt.basic import select
 
     groups_selection = select(view, target='group', selection=selection, to_syntaxis='NGLview')
 

@@ -1,4 +1,4 @@
-def add_missing_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False):
+def add_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False):
 
     """add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False)
     The missing hydrogens of a molecular model are added. This method does not remove any hydrogen
@@ -39,7 +39,7 @@ def add_missing_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN',
     """
 
 
-    from molsysmt.multitool import convert, get_form
+    from molsysmt.basic import convert, get_form
     from molsysmt._private_tools._digestion import digest_engine
 
     form = get_form(molecular_system)

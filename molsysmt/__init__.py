@@ -27,6 +27,7 @@ from . import help
 from . import build
 from . import structure
 from . import topology
+from . import pbc
 from . import physico_chemical_properties as physchem
 from . import molecular_mechanics
 from . import molecular_dynamics

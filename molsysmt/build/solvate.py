@@ -11,7 +11,7 @@ Solvate Box
 Methods and wrappers to create and solvate boxes
 """
 
-def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='14.0 angstroms',
+def solvate (molecular_system, box_geometry="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
              ionic_strength='0.0 molar', engine="LEaP",
              to_form= None, logfile=False, verbose=False):
@@ -38,7 +38,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
     """
 
     from molsysmt._private_tools._digestion import digest_to_form, digest_engine
-    from molsysmt.multitool import get_form, convert
+    from molsysmt.basic import get_form, convert
 
     engine = digest_engine(engine)
     to_form = digest_to_form(to_form)
@@ -47,10 +47,10 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
 
     if engine=="OpenMM":
 
-        from simtk.openmm import Vec3
+        from openmm import Vec3
 
-        clearance = puw.convert(clearance, to_form='simtk.unit')
-        ionic_strength = puw.convert(ionic_strength, to_form='simtk.unit')
+        clearance = puw.convert(clearance, to_form='openmm.unit')
+        ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
 
         modeller = convert(molecular_system, to_form='openmm.Modeller')
         molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
@@ -65,7 +65,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         else:
             raise NotImplementedError()
 
-        if box_geometry=="truncated_octahedral":
+        if box_geometry=="truncated octahedral":
 
             max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
             vectors = Vec3(1.0, 0, 0), Vec3(1.0/3.0, 2.0*np.sqrt(2.0)/3.0,0.0), Vec3(-1.0/3.0, np.sqrt(2.0)/3.0, np.sqrt(6.0)/3.0)
@@ -74,7 +74,7 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
             modeller.addSolvent(forcefield, model=solvent_model, boxVectors = box_vectors, ionicStrength=ionic_strength,
                                 positiveIon=cation, negativeIon=anion)
 
-        elif box_geometry=="rhombic_dodecahedral":
+        elif box_geometry=="rhombic dodecahedral":
 
             max_size = max(max((pos[i] for pos in modeller.positions))-min((pos[i] for pos in modeller.positions)) for i in range(3))
             vectors = Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.5, 0.5, np.sqrt(2)/2)
@@ -97,10 +97,10 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
 
     elif engine=="PDBFixer":
 
-        from simtk.openmm import Vec3
+        from openmm import Vec3
 
-        clearance = puw.convert(clearance, to_form='simtk.unit')
-        ionic_strength = puw.convert(ionic_strength, to_form='simtk.unit')
+        clearance = puw.convert(clearance, to_form='openmm.unit')
+        ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
 
         pdbfixer = convert(molecular_system, to_form='pdbfixer.PDBFixer')
         max_size = max(max((pos[i] for pos in pdbfixer.positions))-min((pos[i] for pos in pdbfixer.positions)) for i in range(3))
@@ -108,16 +108,20 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         box_size = None
         box_vectors = None
 
-        if box_geometry=="truncated_octahedral":
+        if box_geometry=="truncated octahedral":
 
             vectors = Vec3(1.0, 0, 0), Vec3(1.0/3.0, 2.0*np.sqrt(2.0)/3.0,0.0), Vec3(-1.0/3.0,
                     np.sqrt(2.0)/3.0, np.sqrt(6.0)/3.0)
-            box_vectors = [(max_size+clearance)*v for v in vectors]
 
-        elif box_geometry=="rhombic_dodecahedral":
+        elif box_geometry=="rhombic dodecahedral":
 
             vectors = Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.5, 0.5, np.sqrt(2)/2)
-            box_vectors = [(max_size+clearance)*v for v in vectors]
+
+        elif box_geometry=="cubic":
+
+            vectors = Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.0, 0.0, 1.0)
+
+        box_vectors = [(max_size+clearance)*v for v in vectors]
 
         pdbfixer.addSolvent(boxVectors = box_vectors,
                             ionicStrength=ionic_strength, positiveIon=cation,
@@ -136,15 +140,14 @@ def solvate (molecular_system, box_geometry="truncated_octahedral", clearance='1
         from molsysmt.tools.pdb import replace_HETATM_from_capping_atoms
         from shutil import rmtree, copyfile
         from os import getcwd, chdir
-        from molsysmt import set as _set, select, has_hydrogens, remove_hydrogens
-
+        from molsysmt.basic import set as _set, select
+        from molsysmt.build import has_hydrogens, remove_hydrogens
 
         if has_hydrogens(molecular_system):
             raise ValueError("A molecular system without hydrogen atoms is needed.")
             #molecular_system = remove_hydrogens(molecular_system)
             #if verbose:
             #    print("All Hydrogen atoms were removed to be added by LEaP\n\n")
-
 
         indices_NME_C = select(molecular_system, target='atom', selection='group_name=="NME" and atom_name=="C"')
         with_NME_C = (len(indices_NME_C)>0)

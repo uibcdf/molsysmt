@@ -11,7 +11,7 @@ Methods to remove atoms from a molecular model.
 def remove_hydrogens (molecular_system, selection="all", include_selection=None, exclude_selection=None, syntaxis="MolSysMT"):
 
     from molsysmt._private_tools._digestion import digest_syntaxis, digest_molecular_system
-    from molsysmt.multitool import select, remove
+    from molsysmt.basic import select, remove
 
     molecular_system = digest_molecular_system(molecular_system)
     syntaxis = digest_syntaxis(syntaxis)

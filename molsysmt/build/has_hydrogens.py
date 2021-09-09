@@ -2,7 +2,7 @@ from molsysmt._private_tools.exceptions import *
 
 def has_hydrogens(molecular_system):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic.get import get
 
     output = False
 

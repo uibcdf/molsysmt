@@ -1,33 +1,31 @@
-def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=False):
-
-    from .multitool import get_form as get_form, convert as _convert
-
-    form_in = get_form(item)
+def model_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=False):
 
     if engine=='modeller':
 
-        from molsysmt import sequence_alignment as _sequence_alignment
+        from molsysmt.topology import get_sequence_alignment as get_sequence_alignment
         import tempfile as _tempfile
-        from os import remove as _remove
-        from os import curdir as _curdir
-        from os import listdir as _listdir
+        from os import remove
+        from os import curdir
+        from os import listdir
         from glob import glob
         import modeller as modeller
         import modeller.automodel as automodel
-        from .multitool import get as _get, set as _set
+        from molsysmt.basic import get_form, get, set
 
-        tmp_box = _get(item, box=True)
+        form_in = get_form(item)
 
-        seq_original = _convert(item, to_form='aminoacids1:seq')
-        seq_aligned, _, _, _, _ = _sequence_alignment('aminoacids1:'+seq_original,
+        tmp_box = get(item, box=True)
+
+        seq_original = convert(item, to_form='string:aminoacids1')
+        seq_aligned, _, _, _, _ = get_sequence_alignment('aminoacids1:'+seq_original,
                                                       'aminoacids1:'+target_sequence)[0]
 
-        tmp_pdbfilename = _tempfile.NamedTemporaryFile(suffix=".pdb").name
+        tmp_pdbfilename = tempfile.NamedTemporaryFile(suffix=".pdb").name
         tmp_name = tmp_pdbfilename.split('/')[-1].split('.')[0]
         tmp_seqfilename = '/tmp/'+tmp_name+'.seq'
         tmp_alifilename = '/tmp/'+tmp_name+'.ali'
 
-        _convert(item, to_form=tmp_pdbfilename)
+        _ = convert(item, to_form=tmp_pdbfilename)
 
         if verbose:
             modeller.log.verbose()
@@ -77,9 +75,9 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=
 
         a.make()
 
-        _remove(tmp_pdbfilename)
-        _remove(tmp_seqfilename)
-        _remove(tmp_alifilename)
+        remove(tmp_pdbfilename)
+        remove(tmp_seqfilename)
+        remove(tmp_alifilename)
 
         files_produced = [ ff for ff in _listdir(_curdir) if ff.startswith(tmp_name) ]
 
@@ -96,12 +94,12 @@ def add_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=
             pdb_file.close()
 
         print("Best loop model with modeller's objective function:",candidate_value)
-        tmp_item = _convert(candidate_pdb_file, to_form=form_in)
+        tmp_item = convert(candidate_pdb_file, to_form=form_in)
 
         for file_produced in files_produced:
-            _remove(file_produced)
+            remove(file_produced)
 
-        _set(tmp_item, box=tmp_box)
+        set(tmp_item, box=tmp_box)
         del(tmp_box)
 
         return tmp_item

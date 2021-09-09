@@ -9,7 +9,7 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
 
     if engine=="LEaP":
 
-        from molsysmt.multitool import convert
+        from molsysmt.basic import convert
         from os import getcwd, chdir
         from molsysmt.tools.tleap import TLeap
         from molsysmt._private_tools.files_and_directories import tmp_directory, tmp_filename
