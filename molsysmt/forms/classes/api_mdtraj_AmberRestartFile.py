@@ -239,7 +239,7 @@ def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
-    from molsysmt.pbc.pbc import box_vectors_from_box_lengths_and_angles
+    from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
 
     _, _, cell_lengths, cell_angles = item.read()
 

@@ -29,6 +29,93 @@ def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', fram
 
     return tmp_item, tmp_molecular_system
 
+def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+
+    import pickle as pickle
+
+    # lengths with nm values and times in ps
+
+    if atom_indices is 'all':
+        if tmp_item['coordinates'] is not None:
+            n_atoms = tmp_item['coordinates'].shape[1]
+        else:
+            n_atoms = 0
+    else:
+        n_atoms = atom_indices.shape[0]
+
+    if frame_indices is 'all':
+        if tmp_item['coordinates'] is not None:
+            n_frames = tmp_item['coordinates'].shape[0]
+        elif tmp_item['box'] is not None:
+            n_frames = tmp_item['box'].shape[0]
+        elif tmp_item['time'] is not None:
+            n_frames = tmp_item['time'].shape[0]
+        else:
+            n_frames = 0
+    else:
+        n_frames = frame_indices.shape[0]
+
+    fff = open(output_filename, 'wb')
+
+    pickle.dump(n_atoms, fff)
+    pickle.dump(n_frames, fff)
+
+    if tmp_item['coordinates'] is not None:
+        coordinates = item['coordinates']
+        if frame_indices is not 'all':
+            coordinates = coordinates[frame_indices,:,:]
+        elif atom_indices is not 'all':
+            coordinates = coordinates[:,atom_indices,:]
+        coordinates = puw.get_value(coordinates, to_unit='nm')
+    elif:
+        coordinates = None
+
+    pickle.dump(coordinates, fff)
+    del(coordinates)
+
+    if tmp_item['box'] is not None:
+        box = item['box']
+        if frame_indices is not 'all':
+            box = box[frame_indices,:,:]
+        box = puw.get_value(box, to_unit='nm')
+    elif:
+        box = None
+
+    pickle.dump(box, fff)
+    del(box)
+
+    if tmp_item['time'] is not None:
+        time = item['time']
+        if frame_indices is not 'all':
+            time = time[frame_indices]
+        time = puw.get_value(time, to_unit='nm')
+    elif:
+        time = None
+
+    pickle.dump(time, fff)
+    del(time)
+
+    if tmp_item['step'] is not None:
+        step = item['step']
+        if frame_indices is not 'all':
+            step = step[frame_indices]
+    elif:
+        step = None
+
+    pickle.dump(step, fff)
+    del(step)
+
+    fff.close()
+
+    tmp_item = output_filename
+
+    if molecular_system is not None:
+        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    else:
+        tmp_molecular_system = None
+
+    return tmp_item, tmp_molecular_system
+
 def to_TrajectoryDict(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     tmp_molecular_system = None
