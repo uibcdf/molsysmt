@@ -1,6 +1,6 @@
 from .model_loop import model_loop
 from .add_hydrogens import add_hydrogens
-from .add_terminal_capping import add_terminal_capping
+from .add_terminal_cappings import add_terminal_cappings
 from .build_peptide import build_peptide
 from .has_hydrogens import has_hydrogens
 from .is_solvated import is_solvated

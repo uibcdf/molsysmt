@@ -67,7 +67,7 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
         elif atom_indices is not 'all':
             coordinates = coordinates[:,atom_indices,:]
         coordinates = puw.get_value(coordinates, to_unit='nm')
-    elif:
+    else:
         coordinates = None
 
     pickle.dump(coordinates, fff)
@@ -78,7 +78,7 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
         if frame_indices is not 'all':
             box = box[frame_indices,:,:]
         box = puw.get_value(box, to_unit='nm')
-    elif:
+    else:
         box = None
 
     pickle.dump(box, fff)
@@ -89,7 +89,7 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
         if frame_indices is not 'all':
             time = time[frame_indices]
         time = puw.get_value(time, to_unit='nm')
-    elif:
+    else:
         time = None
 
     pickle.dump(time, fff)
@@ -99,7 +99,7 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
         step = item['step']
         if frame_indices is not 'all':
             step = step[frame_indices]
-    elif:
+    else:
         step = None
 
     pickle.dump(step, fff)

@@ -269,12 +269,12 @@ class TLeap:
             LEaP recognized name of the solvent model to use, e.g. "TIP3PBOX"
         clearance : unit.Quantity
             Add solvent up to clearance distance away (units of length) from the unit_name (radial)
-        box_geometry : "cubic" or "truncated_octahedral"
+        box_geometry : "cubic" or "truncated octahedral"
             Shape of the box to be solvated (Default is "cubic").
         """
         if box_geometry=="cubic":
             solvate_command='solvateBox'
-        elif box_geometry=="truncated_octahedral":
+        elif box_geometry=="truncated octahedral":
             solvate_command='solvateOct'
         else:
             raise ValueError('The argument box_geometry must take one of the following values: \

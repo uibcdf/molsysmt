@@ -1,7 +1,8 @@
-from molsysmt.basic import get_form, convert, get, select
 
 def add_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, selection='all',
                          syntaxis='MolSysMT', engine='PDBFixer'):
+
+    from molsysmt.basic import get_form, convert, get, select
 
     form_in = get_form(molecular_system)
 

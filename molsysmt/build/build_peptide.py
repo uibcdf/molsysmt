@@ -1,7 +1,7 @@
 def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
                    to_form='molsysmt.MolSys', engine='LEaP', logfile=False, verbose=False):
 
-    # box_geometry: "cubic" or "truncated_octahedral"
+    # box_geometry: "cubic" or "truncated octahedral"
 
     from molsysmt._private_tools._digestion import digest_engine
 
@@ -18,7 +18,6 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
         sequence = convert(molecular_system, to_form='string:aminoacids3')
         sequence = sequence.upper()
         sequence = ' '.join([sequence[ii:ii+3] for ii in range(0, len(sequence), 3)])
-
         molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
         mm_parameters = molecular_mechanics.get_leap_parameters()
         forcefield = mm_parameters['forcefield']
@@ -58,7 +57,8 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
 
         tleap.save_unit('peptide', tmp_prmtop)
 
-        errors=tleap.run(verbose=verbose)
+        errors=tleap.run(working_directory=working_directory, verbose=verbose)
+
 
         del(tleap)
 

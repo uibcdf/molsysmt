@@ -83,6 +83,9 @@ def to_string_aminoacids3(item, molecular_system=None, atom_indices='all', frame
 
     tmp_molecular_system = None
 
+    if item.startswith('aminoacids3:'):
+        item = item.replace('aminoacids3:','')
+
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
             tmp_item = extract_item(item)
