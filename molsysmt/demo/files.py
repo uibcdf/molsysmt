@@ -31,6 +31,7 @@ filenames = [
     'TcTIM_in_pdbid_1tcd.msmpk',
     'pentalanine_traj.msmpk',
     'particles_4_frames_3.xyznpy',
+    'Ar_Xe_pbc_vacuum.trjpk',
     ]
 
 files_dict = {filename : get_path(filename) for filename in filenames}

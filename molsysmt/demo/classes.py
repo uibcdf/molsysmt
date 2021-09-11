@@ -69,4 +69,11 @@ def particles_4_frames_3(to_form='XYZ'):
     molsys = convert(files['particles_4_frames_3.xyznpy'], to_form=to_form)
     return molsys
 
+def Ar_Xe_pbc_vacuum_traj(to_form='molsysmt.TrajectoryDict'):
+
+    from molsysmt.demo import files
+    from molsysmt import convert
+    molsys = convert(files['Ar_Xe_pbc_vacuum.trjpk'], to_form=to_form)
+    return molsys
+
 

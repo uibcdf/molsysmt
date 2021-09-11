@@ -48,19 +48,19 @@ def to_molsysmt_TrajectoryDict(item, molecular_system=None, atom_indices='all', 
     if coordinates is not None:
         if frame_indices is not 'all':
             coordinates = coordinates[frame_indices, :, :]
-        if indices is not 'all':
-            coordinates = coordinates[:, indices, :]
-        coordinates = puw.quantity(coordinates, to_unit='nm')
+        if atom_indices is not 'all':
+            coordinates = coordinates[:, atom_indices, :]
+        coordinates = puw.quantity(coordinates, unit='nm')
 
     if box is not None:
         if frame_indices is not 'all':
             box = box[frame_indices, :, :]
-        box = puw.quantity(box, to_unit='nm')
+        box = puw.quantity(box, unit='nm')
 
     if time is not None:
         if frame_indices is not 'all':
             time = time[frame_indices]
-        time = puw.quantity(time, to_unit='ps')
+        time = puw.quantity(time, unit='ps')
 
     if step is not None:
         if frame_indices is not 'all':
