@@ -18,8 +18,13 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
     if len(item.group_type_list)!=item.num_groups:
         raise NotImplementedError("The mmtf file has a group_type_list with different number of groups than the num_groups")
 
+    if len(item.bio_assembly)>0:
 
-    if len(item.bio_assembly)<1:
+        warning_message = ("The structure in the PDB has biological assemblies. "
+        "There are geometrical transformations proposed in the structure. "
+        "See the following issue in the source code repository: https://github.com/uibcdf/MolSysMT/issues/33")
+
+        warnings.warn(warning_message)
 
         mmtf_bioassembly = item.bio_assembly[bioassembly_index]
 
@@ -32,15 +37,9 @@ def from_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame
             warnings.warn(warning_message)
 
         if len(mmtf_bioassembly['transformList'][0]['chainIndexList']) != item.num_chains:
-            raise NotImplementedError("The bioassembly has a different number of chains than the total amount of chains")
-
-    if len(item.bio_assembly)>0:
-
-        warning_message = ("The structure in the PDB has biological assemblies. "
-        "There are geometrical transformations proposed in the structure. "
-        "See the following issue in the source code repository: https://github.com/uibcdf/MolSysMT/issues/33")
-
-        warnings.warn(warning_message)
+            warning_message = ("The bioassembly has a different number of chains than the total amount of chains")
+            print(warning_message)
+            warnings.warn(warning_message)
 
     # atoms, groups and bonds intra group
 

@@ -7,6 +7,7 @@ name = [
     'estradiol',
     'benzene',
     '2-hydroxyethyl disulfide',
+    'nadph dihydro-nicotinamide-adenine-dinucleotide phosphate',
 ]
 
 
@@ -21,5 +22,6 @@ mmtf_translator = {
     'ESTRADIOL' : 'estradiol',
     '2-HYDROXYETHYL DISULFIDE' : '2-hydroxyethyl disulfide',
     'BENZENE' : 'benzene',
+    'NADPH DIHYDRO-NICOTINAMIDE-ADENINE-DINUCLEOTIDE PHOSPHATE': 'nadph dihydro-nicotinamide-adenine-dinucleotide phosphate',
 }
 

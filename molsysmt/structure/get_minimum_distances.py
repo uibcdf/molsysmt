@@ -3,7 +3,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt import puw
 import numpy as np
 
-def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, as_entity_1=True, frame_indices="all",
+def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, as_entity=True, frame_indices="all",
                      selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, frame_indices_2=None,
                      atom_indices=False, output_frame_indices=False, pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
@@ -29,7 +29,7 @@ def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=Non
         length_units = puw.get_unit(all_dists)
         all_dists = puw.get_value(all_dists)
 
-        if (as_entity_1 is True) and (as_entity_2 is True):
+        if (as_entity is True) and (as_entity_2 is True):
 
             pairs=np.empty((nframes,2),dtype=int)
             dists=np.empty((nframes),dtype=float)
@@ -49,7 +49,7 @@ def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=Non
 
             return pairs, dists
 
-        elif (as_entity_1 is False) and (as_entity_2 is True):
+        elif (as_entity is False) and (as_entity_2 is True):
 
             pairs=np.empty((nframes, nelements_1), dtype=int)
             dists=np.empty((nframes, nelements_1), dtype=float)
@@ -68,7 +68,7 @@ def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=Non
 
             return pairs, dists
 
-        elif (as_entity_1 is True) and (as_entity_2 is False):
+        elif (as_entity is True) and (as_entity_2 is False):
 
             pairs=np.empty((nframes, nelements_2), dtype=int)
             dists=np.empty((nframes, nelements_2), dtype=float)
@@ -86,7 +86,7 @@ def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=Non
             return pairs, dists
 
         else:
-            raise ValueError("If both input arguments 'as_entity_1' and 'as_entity_2' are False, the method you are looking for is molsysmt.distance()")
+            raise ValueError("If both input arguments 'as_entity' and 'as_entity_2' are False, the method you are looking for is molsysmt.distance()")
 
     else:
 
@@ -94,7 +94,7 @@ def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=Non
         length_units = puw.get_unit(all_dists)
         all_dists = puw.get_value(all_dists)
 
-        if (as_entity_1 is True) and (as_entity_2 is True):
+        if (as_entity is True) and (as_entity_2 is True):
 
             pairs=np.empty((nframes),dtype=int)
             dists=np.empty((nframes),dtype=float)
@@ -110,5 +110,5 @@ def get_minimum_distances(molecular_system, selection="all", groups_of_atoms=Non
             return pairs, dists
 
         else:
-            raise ValueError("If 'pairs=True' both input arguments 'as_entity_1' and 'as_entity_2' need to be True")
+            raise ValueError("If 'pairs=True' both input arguments 'as_entity' and 'as_entity_2' need to be True")
 

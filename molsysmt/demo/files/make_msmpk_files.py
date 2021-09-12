@@ -10,8 +10,8 @@ for msmpk_file in Path('.').glob('*.msmpk'):
 
 # New msmpk files
 
-molsys = msm.build.build_peptide(['AceProNme',{'forcefield':'AMBER14', 'implicit_solvent':'OBC1'}])
-molsys = msm.convert(molsys, to_form='proline_dipeptide_vacuum.msmpk')
+molsys = msm.build.build_peptide(['AceAlaNme',{'forcefield':'AMBER14', 'implicit_solvent':'OBC1'}])
+molsys = msm.convert(molsys, to_form='alanine_dipeptide_vacuum.msmpk')
 del(molsys)
 
 molsys = msm.build.build_peptide(['AceValNme',{'forcefield':'AMBER14', 'implicit_solvent':'OBC1'}])
@@ -28,12 +28,20 @@ molsys = msm.convert('pdbid:181L', to_form='molsysmt.MolSys')
 molsys = msm.convert(molsys, to_form='T4_Lysozyme_L99A_in_pdbid_181l.msmpk')
 del(molsys)
 
-molsys = msm.convert('1tcd.mmtf', to_form='molsysmt.MolSys')
-molsys = msm.convert(molsys, to_form='TcTIM_in_pdbid_1tcd.msmpk')
+molsys = msm.convert('pdbid:1vii', to_form='molsysmt.MolSys')
+molsys = msm.convert(molsys, to_form='Villin_HP35_in_pdbid_1vii.msmpk')
 del(molsys)
 
-molsys = msm.convert('pentalanine.h5', to_form='molsysmt.MolSys')
-molsys = msm.convert(molsys, to_form='pentalanine_traj.msmpk')
+molsys = msm.convert('pdbid:1brs', to_form='molsysmt.MolSys')
+molsys = msm.convert(molsys, to_form='Barnase_Barstar_in_pdbid_1brs.msmpk')
+del(molsys)
+
+molsys = msm.convert('pdbid:4m6j', to_form='molsysmt.MolSys')
+molsys = msm.convert(molsys, to_form='DHFR_in_pdbid_4m6j.msmpk')
+del(molsys)
+
+molsys = msm.convert('pdbid:4m6j', to_form='molsysmt.MolSys')
+molsys = msm.convert(molsys, to_form='DHFR_in_pdbid_4m6j.msmpk')
 del(molsys)
 
 
