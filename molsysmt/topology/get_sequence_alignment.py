@@ -2,9 +2,7 @@ from molsysmt.basic import convert
 import numpy as np
 
 def get_sequence_alignment(molecular_system, selection='all', reference_molecular_system=None, reference_selection=None,
-                       engine='biopython', syntaxis='MolSysMT', prettyprint=False, prettyprint_alignment_index = 0):
-
-    alignment = None
+                       engine='biopython', syntaxis='MolSysMT', prettyprint=False, alignment_index = 0):
 
     if engine=='biopython':
 
@@ -28,6 +26,10 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
         alignment = aligner.align(tmp_ref_seq, tmp_seq)
         del(aligner, Align, tmp_ref_seq,tmp_seq)
 
+        txt_aln = alignment[alignment_index].format().split('\n')
+        seq_ref = txt_aln[0]
+        seq = txt_aln[2]
+
     elif engine=='modeller':
 
         raise NotImplementedError
@@ -43,37 +45,30 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
         endcolor = '\033[m' # reset color
         # Color guide in: http://ozzmaker.com/add-colour-to-text-in-python/
 
-        seq1 =""
-        seq2 =""
+        pptxt = ''
+        pptxt_ref = ''
 
-        txt_aln = alignment[prettyprint_alignment_index].format().split('\n')
-        txt_0 = txt_aln[0]
-        txt_1 = txt_aln[2]
-
-        for r in range(len(txt_0)):
-            res1 = txt_0[r]
-            res2 = txt_1[r]
-            if res1 == res2:
-                seq1+=res1
-                seq2+=res2
-            elif res1 == '-':
-                seq1+=res1
-                seq2+=textbluebold+res2+endcolor
-            elif res2 == '-':
-                seq1+=textbluebold+res1+endcolor
-                seq2+=res2
+        for res, res_ref in zip(seq, seq_ref):
+            if res == res_ref:
+                pptxt+=res
+                pptxt_ref+=res_ref
+            elif (res == '-' and res_ref != '-'):
+                pptxt+=res
+                pptxt_ref+=textbluebold+res_ref+endcolor
+            elif (res_ref == '-' and res != '-'):
+                pptxt+=textbluebold+res+endcolor
+                pptxt_ref+=res_ref
             else:
-                seq1+=textredbold+res1+endcolor
-                seq2+=textredbold+res2+endcolor
+                pptxt+=textredbold+res+endcolor
+                pptxt_ref+=textredbold+res_ref+endcolor
 
-        print(seq1)
+        print(pptxt)
         print()
-        print(seq2)
+        print(pptxt_ref)
 
         pass
 
     else:
 
-        return alignment
-
+        return seq, seq_ref
 

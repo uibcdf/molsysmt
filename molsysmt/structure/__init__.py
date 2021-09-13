@@ -15,7 +15,7 @@ from .get_ramachandran_angles import get_ramachandran_angles
 #from .get_radius_of_gyration import get_radius_of_gyration
 from .get_rmsd import get_rmsd
 from .get_least_rmsd import get_least_rmsd
-from .least_rmsd_fit import least_rmsd_fit
-from .get_structure_alignment import get_structure_alignment
+from .fit import fit
+from .align import align
 from .get_sasa import get_sasa
 

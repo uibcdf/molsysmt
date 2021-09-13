@@ -5,9 +5,9 @@ import numpy as np
 from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
 
-def least_rmsd_fit (molecular_system=None, selection='backbone', frame_indices='all',
-                    reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
-                    to_form=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
+def fit (molecular_system=None, selection='backbone', frame_indices='all',
+         reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
+         to_form=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
 
     molecular_system = digest_molecular_system(molecular_system)
     engine = digest_engine(engine)
