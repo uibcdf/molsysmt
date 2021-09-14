@@ -7,7 +7,7 @@ from molsysmt import puw
 
 def fit (molecular_system=None, selection='backbone', frame_indices='all',
          reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
-         to_form=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
+         to_form=None, parallel=True, syntaxis='MolSysMT', method='least rmsd', engine='MolSysMT'):
 
     molecular_system = digest_molecular_system(molecular_system)
     engine = digest_engine(engine)

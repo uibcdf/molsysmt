@@ -1,4 +1,3 @@
-from molsysmt.basic import select
 import numpy as np
 
 def align(molecular_system, selection='backbone', frame_indices='all',
@@ -10,23 +9,25 @@ def align(molecular_system, selection='backbone', frame_indices='all',
 
     if method == 'sequence alignment and least rmsd fit':
 
+        from molsysmt.basic import select
+
         if engine_sequence_alignment == 'biopython':
 
             from molsysmt.topology import get_sequence_identity
 
             identity, identical_groups, reference_identical_groups = get_sequence_identity(molecular_system,
                     selection=selection, reference_molecular_system=reference_molecular_system, reference_selection=reference_selection,
-                    target_intersection_set="group", engine='biopython')
+                    engine='biopython')
 
         else:
 
             raise NotImplementedError
 
-        aux_atoms_list = msm.select(molecular_system, target='atom', selection='group_index==@identical_groups')
-        selection_to_be_fitted = msm.select(molecular_system, target='atom', selection=selection, mask=aux_atoms_list)
+        aux_atoms_list = select(molecular_system, target='atom', selection='group_index==@identical_groups')
+        selection_to_be_fitted = select(molecular_system, target='atom', selection=selection, mask=aux_atoms_list)
 
-        aux_atoms_list = msm.select(reference_molecular_system, target='atom', selection='group_index==@reference_identical_groups')
-        reference_selection_to_be_fitted = msm.select(reference_molecular_system, target='atom',
+        aux_atoms_list = select(reference_molecular_system, target='atom', selection='group_index==@reference_identical_groups')
+        reference_selection_to_be_fitted = select(reference_molecular_system, target='atom',
                 selection=reference_selection, mask=aux_atoms_list)
 
         if engine_least_rmsd_fit == 'MolSysMT':

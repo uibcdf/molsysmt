@@ -8,4 +8,5 @@ from .mutate import mutate
 from .remove_hydrogens import remove_hydrogens
 from .remove_solvent import remove_solvent
 from .solvate import solvate
+from .get_missing_heavy_atoms import get_missing_heavy_atoms
 

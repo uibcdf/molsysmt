@@ -4,6 +4,7 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
                           reference_selection='all', syntaxis='MolSysMT', engine='biopython'):
 
     from molsysmt.topology.get_sequence_alignment import get_sequence_alignment
+    from molsysmt.basic import select
 
     if engine=='biopython':
 
@@ -12,8 +13,8 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
         # ensembler: ensembler is only available for python 2.7
         # (https://github.com/choderalab/ensembler/blob/master/ensembler/modeling.py)
 
-        group_indices = msm.select(molecular_system, target='group', selection=selection)
-        reference_group_indices = msm.select(reference_molecular_system, target='group', selection=reference_selection)
+        group_indices = select(molecular_system, target='group', selection=selection)
+        reference_group_indices = select(reference_molecular_system, target='group', selection=reference_selection)
 
         seq, seq_ref = get_sequence_alignment(molecular_system, selection=selection,
                 reference_molecular_system=reference_molecular_system,
@@ -25,7 +26,7 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
         ii=0
         ii_ref=0
 
-        for res, res_ref in zip(seq, seq_ref)
+        for res, res_ref in zip(seq, seq_ref):
 
             if res!='-' and res_ref=='-':
                 ii+=1
@@ -33,16 +34,19 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
                 ii_ref+=1
             elif res==res_ref:
                 if res!='-' and res_ref!='-':
-                    intersect_1.append(group_indices[ii])
-                    intersect_2.append(reference_group_indices[ii_ref])
+                    intersect.append(group_indices[ii])
+                    intersect_ref.append(reference_group_indices[ii_ref])
                     ii+=1
                     ii_ref+=1
-
-        seq_id = 100 * float(seq_id) / float(len_shorter_seq)
-
-        return identity, intersect, reference_intersect
+            else:
+                ii+=1
+                ii_ref+=1
 
     else:
 
         raise NotImplementedError
+
+    identity = 100.0 * (len(intersect)/len(group_indices))
+
+    return identity, intersect, intersect_ref
 
