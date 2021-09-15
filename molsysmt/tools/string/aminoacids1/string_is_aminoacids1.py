@@ -1,5 +1,5 @@
 
-def is_string_aminoacids1(string):
+def string_is_aminoacids1(string):
 
     from molsysmt.elements.group.aminoacid import aa1s
 

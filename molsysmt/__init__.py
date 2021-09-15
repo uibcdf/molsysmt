@@ -16,9 +16,8 @@ __github_issues_web__ = __github_web__ + '/issues'
 
 from ._pyunitwizard import puw as puw
 
-#from . import tools
-
 from . import demo
+from . import tools
 
 from .native.molsys import MolSys
 from .basic import select, extract, add, merge, concatenate_frames, append_frames, info, get, set, \

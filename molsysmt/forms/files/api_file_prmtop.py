@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import importlib
 from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import tmp_filename
+from molsysmt._private_tools.files_and_directories import temp_filename
 
 form_name='file:prmtop'
 
@@ -42,7 +42,7 @@ def to_file_prmtop(item, molecular_system=None, atom_indices='all', frame_indice
 def extract_item(item, atom_indices='all', frame_indices='all', output_filename=None):
 
     if output_filename is None:
-        output_filename = tmp_filename(extension='prmtop')
+        output_filename = temp_filename(extension='prmtop')
 
     tmp_item = None
 

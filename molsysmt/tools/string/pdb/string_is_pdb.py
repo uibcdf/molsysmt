@@ -1,5 +1,5 @@
 
-def is_string_pdb(string):
+def string_is_pdb(string):
 
     import re
 

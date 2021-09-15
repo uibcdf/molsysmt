@@ -4,7 +4,7 @@ import numpy as np
 import importlib
 import sys
 from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import tmp_filename
+from molsysmt._private_tools.files_and_directories import temp_filename
 
 form_name='file:pdb'
 
@@ -284,11 +284,11 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
     tmp_molecular_system = None
 
     if (atom_indices is not 'all') or (frame_indices is not 'all'):
-        tmp_file = to_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_item = show_file(tmp_file)
+        temp_file = to_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = show_file(temp_file)
         if molecular_system is not None:
             tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-        remove(tmp_file)
+        remove(temp_file)
     else:
         tmp_item = show_file(item)
         if molecular_system is not None:
@@ -336,7 +336,7 @@ def to_file_pdb(item, molecular_system=None, output_filename=None, atom_indices=
 def extract_item(item, atom_indices='all', frame_indices='all', output_filename=None):
 
     if output_filename is None:
-        output_filename = tmp_filename(extension='pdb')
+        output_filename = temp_filename(extension='pdb')
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 

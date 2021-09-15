@@ -1,5 +1,5 @@
 
-def is_string_aminoacids3(string):
+def string_is_aminoacids3(string):
 
     output = False
 

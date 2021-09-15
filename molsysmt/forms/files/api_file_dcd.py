@@ -2,7 +2,7 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import tmp_filename
+from molsysmt._private_tools.files_and_directories import temp_filename
 
 form_name='file:dcd'
 
@@ -39,7 +39,7 @@ def to_file_dcd(item, molecular_system=None, atom_indices='all', frame_indices='
 def extract_item(item, atom_indices='all', frame_indices='all', output_filename=None):
 
     if output_filename is None:
-        output_filename = tmp_filename(extension='dcd')
+        output_filename = temp_filename(extension='dcd')
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         raise NotImplementedError()

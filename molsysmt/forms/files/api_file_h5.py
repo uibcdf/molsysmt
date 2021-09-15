@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import importlib
 from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import tmp_filename
+from molsysmt._private_tools.files_and_directories import temp_filename
 
 form_name='file:h5'
 
@@ -131,7 +131,7 @@ def to_file_h5(item, molecular_system=None, atom_indices='all', frame_indices='a
 def extract_item(item, atom_indices='all', frame_indices='all', output_filename=None):
 
     if output_filename is None:
-        output_filename = tmp_filename(extension='h5')
+        output_filename = temp_filename(extension='h5')
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         from shutil import copyfile

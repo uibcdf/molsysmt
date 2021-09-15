@@ -4,7 +4,7 @@ import numpy as np
 import importlib
 import sys
 from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import tmp_filename
+from molsysmt._private_tools.files_and_directories import temp_filename
 #import io
 
 form_name='string:pdb'
@@ -291,7 +291,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     if output_filename is None:
-        output_filename = tmp_filename(extension='pdb')
+        output_filename = temp_filename(extension='pdb')
 
     tmp_item, tmp_molecular_system = to_string_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 

@@ -25,6 +25,8 @@ files_dict['in_pdbid_181l.msmpk'] = get_path('t4_lysozyme_l99a/in_pdbid_181l.msm
 
 # Other files
 files_dict['1l17.mmtf'] = get_path('1l17.mmtf')
+files_dict['nglview_demo_md_1u19.gro'] = get_path('nglview_demo_md_1u19.gro')
+files_dict['nglview_demo_md_1u19.xtc'] = get_path('nglview_demo_md_1u19.xtc')
 
 #filenames = [
 #    'pentalanine.h5',
@@ -34,8 +36,6 @@ files_dict['1l17.mmtf'] = get_path('1l17.mmtf')
 #    'trp-cage.pdb',
 #    'trp-cage_solvated.pdb',
 #    'caffeine.mol2',
-#    'nglview_demo_md_1u19.gro',
-#    'nglview_demo_md_1u19.xtc',
 #    'proline_dipeptide_vacuum.msmpk',
 #    'valine_dipeptide_vacuum.msmpk',
 #    'lysine_dipeptide_vacuum.msmpk',

@@ -5,7 +5,7 @@ from molsysmt import puw
 import sys
 import importlib
 from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import tmp_filename
+from molsysmt._private_tools.files_and_directories import temp_filename
 
 form_name='file:mmtf'
 
@@ -120,7 +120,7 @@ def to_file_mmtf(item, molecular_system=None, atom_indices='all', frame_indices=
 def extract_item(item, atom_indices='all', frame_indices='all', output_filename=None):
 
     if output_filename is None:
-        output_filename = tmp_filename(extension='mmtf')
+        output_filename = temp_filename(extension='mmtf')
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         raise NotImplementedError()

@@ -11,7 +11,6 @@ elements = [
     'bond',
 ]
 
-
 elements_from_plural={
     'atoms' : 'atom',
     'groups' : 'group',
@@ -24,7 +23,6 @@ elements_from_plural={
     'systems' : 'system',
     'bonds' : 'bond',
 }
-
 
 def digest_element(element):
 
@@ -70,18 +68,24 @@ def elements2string(molecular_system, indices=None, target='atom'):
 
         chain_indices, chain_ids, chain_names = get(molecular_system, target=target, indices=indices, index=True, id=True, name=True)
         for chain_index, chain_id, chain_name in zip(chain_indices, chain_ids, chain_names):
+            if chain_name is None:
+                chain_name = '_'
             string.append(chain_name+'-'+str(chain_id)+'@'+str(chain_index))
 
     elif target=='molecule':
 
         molecule_indices, molecule_names = get(molecular_system, target=target, indices=indices, index=True, name=True)
         for molecule_index, molecule_name in zip(molecule_indices, molecule_names):
+            if molecule_name is None:
+                molecule_name = '_'
             string.append(molecule_name+'@'+str(molecule_index))
 
     elif target=='entity':
 
         entity_indices, entity_names = get(molecular_system, target=target, indices=indices, index=True, name=True)
         for entity_index, entity_name in zip(entity_indices, entity_names):
+            if entity_name is None:
+                molecule_name = '_'
             string.append(entity_name+'@'+str(entity_index))
 
     return string

@@ -1,6 +1,6 @@
 import tempfile
 
-def tmp_file(dir=None, extension=None):
+def temp_file(dir=None, extension=None):
 
     if not extension.startswith("."):
         extension="."+extension
@@ -8,7 +8,7 @@ def tmp_file(dir=None, extension=None):
     return tempfile.NamedTemporaryFile(suffix=extension, dir=dir, delete=False)
 
 
-def tmp_filename(dir=None, extension=None):
+def temp_filename(dir=None, extension=None):
 
     if not extension.startswith("."):
         extension="."+extension
@@ -19,7 +19,7 @@ def tmp_filename(dir=None, extension=None):
     return filename
 
 
-def tmp_directory():
+def temp_directory():
 
     return tempfile.mkdtemp()
 

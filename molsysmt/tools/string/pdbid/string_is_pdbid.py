@@ -1,5 +1,7 @@
 
-def is_string_pdbid(string):
+regex = '[0-9][a-zA-Z_0-9]{3}'
+
+def string_is_pdbid(string):
 
     output = False
 
