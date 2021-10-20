@@ -23,7 +23,7 @@ string_names_recognized = []
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-for dirname, typename in [['classes', 'class'], ['files', 'file'], ['strings', 'string']]:
+for dirname in ['classes', 'files', 'strings']:
 
     type_dir = os.path.join(current_dir, dirname)
     list_apis = [filename.split('.')[0] for filename in os.listdir(type_dir) if filename.startswith('api')]
@@ -37,7 +37,14 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['strings', '
             form_name = mod.form_name
             forms.append(form_name)
 
-            dict_type[form_name]=typename
+            if form_name.startswith('string:'):
+                form_type = 'string'
+            elif form_name.startswith('file:'):
+                form_type = 'file'
+            else:
+                form_type = 'class'
+
+            dict_type[form_name]=form_type
             dict_is_form.update(mod.is_form)
             dict_info[form_name]=mod.info
             dict_add[form_name]=mod.add
@@ -73,7 +80,7 @@ for dirname, typename in [['classes', 'class'], ['files', 'file'], ['strings', '
 
             del(mod, form_name)
 
-    del(list_apis, type_dir, )
+    del(list_apis, type_dir)
 
 for aux_form_name in list(dict_is_form.keys()):
     if type(aux_form_name) is str:
@@ -82,5 +89,5 @@ for aux_form_name in list(dict_is_form.keys()):
         elif aux_form_name.startswith('string:'):
             string_names_recognized.append(aux_form_name.split(':')[-1])
 
-del(import_module, dirname, typename)
+del(import_module, dirname)
 
