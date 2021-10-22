@@ -138,7 +138,7 @@ class Topology():
 
     def _to_pdb_string(self, trajectory_item, frame_indices='all'):
 
-        from molsysmt.native.io.topology.files import to_pdb as molsysmt_Topology_to_pdb
+        from molsysmt.native.io.topology import to_pdb as molsysmt_Topology_to_pdb
 
         return molsysmt_Topology_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
                                          atom_indices='all', frame_indices=frame_indices)

@@ -21,7 +21,7 @@ def test_file_pdb_to_openmm_Topology():
     form = msm.get_form(molsys)
     assert 'openmm.Topology'==form
 
-def test_file_pdb_to_string_pdb():
+def test_file_pdb_to_string_pdb_text():
     molsys = msm.demo.files['1tcd.pdb']
     molsys = msm.convert(molsys, to_form='string:pdb')
     form = msm.get_form(molsys)

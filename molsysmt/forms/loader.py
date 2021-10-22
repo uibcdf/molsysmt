@@ -54,21 +54,26 @@ def parser_api(filepath):
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-for dirname, typename in [['classes', 'class'], ['files', 'file'], ['strings', 'string']]:
+list_apis = [filename.split('.')[0] for filename in os.listdir(current_dir) if filename.startswith('api')]
 
-    type_dir = os.path.join(current_dir, dirname)
-    list_apis = [filename.split('.')[0] for filename in os.listdir(type_dir) if filename.startswith('api')]
+for api in list_apis:
 
-    for api in list_apis:
+    form_name, dependencies, convert = parser_api(os.path.join(current_dir, api+'.py'))
 
-        form_name, dependencies, convert = parser_api(os.path.join(type_dir, api+'.py'))
+    api_form_name[api] = form_name
 
-        api_form_name[api] = form_name
-        api_type[api] = typename
-        api_module[api] = 'molsysmt.forms.'+dirname+'.'+api
-        api_dependencies[api] = dependencies - modules_already
-        modules_required.update(api_dependencies[api])
-        api_convert[api] = convert
+    if form_name.startswith('string:'):
+        form_type = 'string'
+    elif form_name.startswith('file:'):
+        form_type = 'file'
+    else:
+        form_type = 'class'
+
+    api_type[api] = form_type
+    api_module[api] = 'molsysmt.forms.'+api
+    api_dependencies[api] = dependencies - modules_already
+    modules_required.update(api_dependencies[api])
+    api_convert[api] = convert
 
 # modules detected:
 modules_detected = {ii: find_spec(ii) is not None for ii in modules_required}

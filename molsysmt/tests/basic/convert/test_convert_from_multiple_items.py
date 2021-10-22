@@ -14,7 +14,7 @@ def test_convert_file_prmtop_and_file_inpcrd_to_molsysmt_MolSys():
     form = msm.get_form(molsys)
     assert 'molsysmt.MolSys'==form
 
-def test_convert_molsysmt_Topology_and_molsysmt_Trajectory_to_string_pdb():
+def test_convert_molsysmt_Topology_and_molsysmt_Trajectory_to_string_pdb_text():
     molsys = msm.demo.classes.T4_Lysozyme_L99A_in_pdbid_181l(to_form='molsysmt.MolSys')
     molsys = msm.convert(molsys, to_form=['molsysmt.Topology', 'molsysmt.Trajectory'])
     molsys = msm.convert(molsys, to_form='string:pdb')

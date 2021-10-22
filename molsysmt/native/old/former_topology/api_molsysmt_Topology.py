@@ -43,12 +43,12 @@ def to_networkx_Graph(item, atom_indices='all', frame_indices='all'):
 
 def to_molsysmt_DataFrame(item, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology.classes.molsysmt_DataFrame import to_molsysmt_DataFrame as molsysmt_Topology_to_molsysmt_DataFrame
+    from molsysmt.native.io.topology.molsysmt_DataFrame import to_molsysmt_DataFrame as molsysmt_Topology_to_molsysmt_DataFrame
     tmp_item = molsysmt_Topology_to_molsysmt_DataFrame(item, atom_indices=atom_indices, frame_indices=frame_indices)
     return tmp_item
 
 def to_pdb(item, output_filepath=None, trajectory_item=None, atom_indices='all', frame_indices='all'):
-    from molsysmt.native.io.topology.files import to_pdb as molsysmt_Topology_to_pdb
+    from molsysmt.native.io.topology import to_pdb as molsysmt_Topology_to_pdb
     return molsysmt_Topology_to_pdb(item, output_filepath=output_filepath,
                                     trajectory_item=trajectory_item,  atom_indices=atom_indices,
                                     frame_indices=frame_indices)

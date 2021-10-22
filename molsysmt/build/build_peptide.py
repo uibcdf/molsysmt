@@ -12,7 +12,7 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
         from molsysmt.basic import convert
         from os import getcwd, chdir
         from molsysmt.tools.tleap import TLeap
-        from molsysmt._private_tools.files_and_directories import tmp_directory, tmp_filename
+        from molsysmt._private_tools_and_directories import tmp_directory, tmp_filename
         from shutil import rmtree, copyfile
 
         sequence = convert(molecular_system, to_form='string:aminoacids3')

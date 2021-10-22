@@ -28,8 +28,8 @@ def get_form(molecular_system):
 
     if puw.is_quantity(molecular_system):
 
-        from molsysmt.forms.classes.api_XYZ import this_Quantity_is_XYZ
-        from molsysmt.forms.classes.api_XYZ import form_name as form_XYZ
+        from molsysmt.forms.api_XYZ import this_Quantity_is_XYZ
+        from molsysmt.forms.api_XYZ import form_name as form_XYZ
 
         if this_Quantity_is_XYZ(molecular_system):
             return form_XYZ
@@ -38,10 +38,10 @@ def get_form(molecular_system):
 
     if type(molecular_system)==dict:
 
-        from molsysmt.forms.classes.api_dict_molecular_mechanics import this_dict_is_MolecularMechanicsDict
-        from molsysmt.forms.classes.api_dict_molecular_mechanics import form_name as form_MolecularMechanicsDict
-        from molsysmt.forms.classes.api_dict_simulation import this_dict_is_SimulationDict
-        from molsysmt.forms.classes.api_dict_simulation import form_name as form_SimulationDict
+        from molsysmt.forms.api_dict_molecular_mechanics import this_dict_is_MolecularMechanicsDict
+        from molsysmt.forms.api_dict_molecular_mechanics import form_name as form_MolecularMechanicsDict
+        from molsysmt.forms.api_dict_simulation import this_dict_is_SimulationDict
+        from molsysmt.forms.api_dict_simulation import form_name as form_SimulationDict
 
         if this_dict_is_MolecularMechanicsDict(molecular_system):
             return form_MolecularMechanicsDict

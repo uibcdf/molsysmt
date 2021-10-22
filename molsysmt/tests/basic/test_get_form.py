@@ -36,12 +36,12 @@ def test_file_msmpk():
 
 ## Strings
 
-def test_string_pdbid():
+def test_string_pdb_id():
     molsys = 'pdbid:2LAO'
     output = msm.get_form(molsys)
     assert output == 'string:pdbid'
 
-def test_string_pdbid_automatic_detection():
+def test_string_pdb_id_automatic_detection():
     molsys = '2LAO'
     output = msm.get_form(molsys)
     assert output == 'string:pdbid'
@@ -66,7 +66,7 @@ def test_string_aminoacids1_automatic_detection():
     output = msm.get_form(molsys)
     assert output == 'string:aminoacids1'
 
-def test_string_pdb():
+def test_string_pdb_text():
     molsys = msm.demo.strings.pdb_benzamidine
     molsys = 'pdb:'+molsys
     output = msm.get_form(molsys)
