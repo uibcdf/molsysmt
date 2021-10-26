@@ -12,7 +12,7 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
         from molsysmt.basic import convert
         from os import getcwd, chdir
         from molsysmt.tools.tleap import TLeap
-        from molsysmt._private_tools_and_directories import tmp_directory, tmp_filename
+        from molsysmt._private_tools.files_and_directories import temp_directory, temp_filename
         from shutil import rmtree, copyfile
 
         sequence = convert(molecular_system, to_form='string:aminoacids3')
@@ -33,10 +33,10 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
                 raise NotImplementedError
 
         current_directory = getcwd()
-        working_directory = tmp_directory()
-        tmp_prmtop = tmp_filename(dir=working_directory, extension='prmtop')
-        tmp_inpcrd = tmp_prmtop.replace('prmtop','inpcrd')
-        tmp_logfile = tmp_prmtop.replace('prmtop','leap.log')
+        working_directory = temp_directory()
+        temp_prmtop = temp_filename(dir=working_directory, extension='prmtop')
+        temp_inpcrd = temp_prmtop.replace('prmtop','inpcrd')
+        temp_logfile = temp_prmtop.replace('prmtop','leap.log')
 
         if verbose:
             print('Working directory:', working_directory)
@@ -55,7 +55,7 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
         if water_model is not None:
             tleap.solvate('peptide', solvent_model, clearance, box_geometry)
 
-        tleap.save_unit('peptide', tmp_prmtop)
+        tleap.save_unit('peptide', temp_prmtop)
 
         errors=tleap.run(working_directory=working_directory, verbose=verbose)
 
@@ -63,9 +63,9 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
         del(tleap)
 
         if logfile:
-            copyfile(tmp_logfile, current_directory+'/build_peptide.log')
+            copyfile(temp_logfile, current_directory+'/build_peptide.log')
 
-        tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)
+        temp_item = convert([temp_prmtop, temp_inpcrd], to_form=to_form)
 
         rmtree(working_directory)
 
@@ -73,5 +73,5 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
 
         raise NotImplementedError
 
-    return tmp_item
+    return temp_item
 

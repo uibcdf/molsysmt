@@ -73,6 +73,13 @@ def test_string_pdb_text():
     output = msm.get_form(molsys)
     assert output == 'string:pdb_text'
 
+def test_string_pdb_text_2():
+    fff=open(msm.demo.t4_lysozyme_L99A['181l.pdb'],'r')
+    molsys = fff.read()
+    fff.close()
+    output = msm.get_form(molsys)
+    assert output == 'string:pdb_text'
+
 def test_string_pdb_automatic_detection():
     molsys = msm.demo.benzamidine['benzamidine.pdb']
     molsys = msm.convert(molsys, 'string:pdb_text')

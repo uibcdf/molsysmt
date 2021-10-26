@@ -241,11 +241,11 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
     from os import remove
 
     temp_filename = temp_filename(extension='pdb')
-    tmp_item, tmp_molecular_system = to_file_pdb(item, molecular_system=molecular_system, output_filename=temp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, _ = to_file_pdb(item, molecular_system=molecular_system, output_filename=temp_filename, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item = nglview_show_file(temp_filename)
     remove(temp_filename)
-    if tmp_molecular_system is not None:
-        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
 

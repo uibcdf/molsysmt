@@ -5,6 +5,7 @@ import numpy as np
 from mmtf import MMTFDecoder as _mmtf_MMTFDecoder
 from molsysmt.native.molecular_system import molecular_system_components
 import importlib
+from copy import deepcopy
 import sys
 
 form_name='mmtf.MMTFDecoder'
@@ -96,7 +97,7 @@ def to_mmtf_MMTFDecoder(item, molecular_system=None, atom_indices='all', frame_i
 def extract_item(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        raise NotImplementedError()
+        tmp_item = deepcopy(item)
     else:
         raise NotImplementedError()
 

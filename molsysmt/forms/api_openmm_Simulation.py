@@ -82,11 +82,11 @@ def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_ind
 
 def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt._private_tools.files_and_directories import tmp_filename
+    from molsysmt._private_tools.files_and_directories import temp_filename
     from molsysmt.forms.api_file_pdb import to_pdbfixer_PDBFixer as file_pdb_to_pdbfixer_PDBFixer
     from os import remove
 
-    tmp_file = tmp_filename(extension='pdb')
+    tmp_file = temp_filename(extension='pdb')
     tmp_item, tmp_molecular_system = to_file_pdb(item, molecular_system=molecular_system, output_filename=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item, tmp_molecular_system = file_pdb_to_pdbfixer_PDBFixer(tmp_file, molecular_system=tmp_molecular_system)
     remove(tmp_pdbfile)

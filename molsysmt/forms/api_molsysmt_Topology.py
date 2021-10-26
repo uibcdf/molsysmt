@@ -56,7 +56,7 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='
 
 def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.topology import to_string_pdb_text as molsysmt_Topology_to_string_pdb
+    from molsysmt.native.io.topology import to_string_pdb_text as molsysmt_Topology_to_string_pdb_text
 
     tmp_item, tmp_molecular_system = molsysmt_Topology_to_string_pdb_text(item,
             molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)

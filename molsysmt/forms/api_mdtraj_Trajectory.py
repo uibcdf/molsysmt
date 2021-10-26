@@ -132,10 +132,10 @@ def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_i
 def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
-    from molsysmt._private_tools.files_and_directories import tmp_filename
+    from molsysmt._private_tools.files_and_directories import temp_filename
     from os import remove as remove
 
-    tmp_file = tmp_filename(extension='pdb')
+    tmp_file = temp_filename(extension='pdb')
     tmp_item, tmp_molecular_system = to_pdb(item, molecular_system=molecular_system, output_filename=tmp_file, atom_indices=atom_indices, frame_indices=frame_indices)
     tmp_item, tmp_molecular_system = pdb_to_pdbfixer_PDBFixer(tmp_item, tmp_molecular_system)
     remove(tmp_file)

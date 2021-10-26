@@ -10,7 +10,7 @@ import os
 # Whole systems (selection='all' and frame_indices='all')
 
 def test_mdtraj_Trajectory_to_string_aminoacids1():
-    molsys = msm.demo.files['1tcd.pdb']
+    molsys = msm.demo.villin_HP35['1vii.pdb']
     molsys = msm.convert(molsys, to_form='mdtraj.Trajectory')
     molsys = msm.convert(molsys, to_form='string:aminoacids1')
     form = msm.get_form(molsys)

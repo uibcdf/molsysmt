@@ -40,13 +40,13 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='
 
 def to_mdtraj_Trajectory (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt._private_tools.files_and_directories import tmp_filename
+    from molsysmt._private_tools.files_and_directories import temp_filename
     from molsysmt.forms.api_file_pdb import to_mdtraj_Trajectory as file_pdb_to_mdtraj_Trajectory
     from os import remove
 
     tmp_item, tmp_molecular_system = to_mdanalysis_Universe(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
 
-    tmp_file = tmp_filename(extension='pdb')
+    tmp_file = temp_filename(extension='pdb')
     to_pdb(tmp_item=item, output_filename=tmp_file)
     tmp_item=file_pdb_to_mdtraj_Trajectory(tmp_file)
     remove(tmp_file)

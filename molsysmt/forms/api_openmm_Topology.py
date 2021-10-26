@@ -169,10 +169,10 @@ def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_in
 def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.api_file_pdb import to_openmm_PDBFile as file_pdb_to_openmm_PDBFile
-    from molsysmt._private_tools.files_and_directories import tmp_filename
+    from molsysmt._private_tools.files_and_directories import temp_filename
     from os import remove
 
-    tmp_file = tmp_filename(extension='pdb')
+    tmp_file = temp_filename(extension='pdb')
     tmp_item, tmp_molecular_system = to_file_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=tmp_file)
     tmp_item, tmp_molecular_system = file_pdb_to_openmm_PDBFile(tmp_item, molecular_system=tmp_molecular_system)
 

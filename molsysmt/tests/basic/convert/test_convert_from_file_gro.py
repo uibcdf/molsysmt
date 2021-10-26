@@ -12,7 +12,7 @@ import os
 def test_file_gro_to_mdtraj_Trajectory():
     import warnings
     warnings.filterwarnings('ignore')
-    molsys = msm.demo.files['nglview_demo_md_1u19.gro']
+    molsys = msm.demo.nglview['1u19.gro']
     molsys = msm.convert(molsys, to_form='mdtraj.Trajectory')
     warnings.resetwarnings()
     form = msm.get_form(molsys)

@@ -10,7 +10,7 @@ def test_view_molsyst_MolSys_with_NLGView_1():
 
     import nglview as nv
 
-    molsys = msm.demo.t4_lysozyme_L99A['181L.pdb']
+    molsys = msm.demo.t4_lysozyme_L99A['181l.pdb']
     molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
     molsys_2 = nv.show_molsysmt(molsys)
     check_form = ('nglview.NGLWidget'==msm.get_form(molsys_2))
