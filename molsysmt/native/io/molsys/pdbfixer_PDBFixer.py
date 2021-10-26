@@ -16,7 +16,7 @@ def from_pdbfixer_PDBFixer (item, molecular_system=None, atom_indices='all', fra
 
 def to_pdbfixer_PDBFixer (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb
+    from molsysmt.native.io.molsys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
     from pdbfixer.pdbfixer import PDBFixer
     from io import StringIO
 

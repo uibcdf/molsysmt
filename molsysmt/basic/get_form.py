@@ -78,13 +78,13 @@ def get_form(molecular_system):
                     from molsysmt.tools.string_aminoacids1 import is_string_aminoacids1
 
                     if is_string_pdb_id(molecular_system):
-                        output = 'string:pdb_id'
+                        return 'string:pdb_id'
                     elif is_string_pdb_text(molecular_system):
                         return 'string:pdb_text'
                     elif is_string_aminoacids3(molecular_system):
-                        output = 'string:aminoacids3'
+                        return 'string:aminoacids3'
                     elif is_string_aminoacids1(molecular_system):
-                        output = 'string:aminoacids1'
+                        return 'string:aminoacids1'
                     else:
                         raise NotImplementedError()
 

@@ -9,17 +9,32 @@ import os
 
 # Whole systems (selection='all' and frame_indices='all')
 
+def test_file_mmtf_to_molsysmt_MolSys_1():
+    molsys = msm.demo.files['181l.mmtf']
+    molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
+    form = msm.get_form(molsys)
+    assert 'molsysmt.MolSys'==form
+
+def test_file_mmtf_to_molsysmt_MolSys_2():
+    molsys = msm.demo.files['1vii.mmtf']
+    molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
+    form = msm.get_form(molsys)
+    assert 'molsysmt.MolSys'==form
+
+def test_file_mmtf_to_molsysmt_MolSys_3():
+    molsys = msm.demo.files['1l17.mmtf']
+    molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
+    form = msm.get_form(molsys)
+    assert 'molsysmt.MolSys'==form
+
 def test_file_mmtf_to_string_aminoacids1():
-    molsys = msm.demo.files['1tcd.mmtf']
+    molsys = msm.demo.files['181l.mmtf']
     molsys = msm.convert(molsys, to_form='string:aminoacids1')
     form = msm.get_form(molsys)
     assert 'string:aminoacids1'==form
 
-def test_file_mmtf_to_molsysmt_MolSys():
-    molsys = msm.demo.files['1tcd.mmtf']
-    molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
-    form = msm.get_form(molsys)
-    assert 'molsysmt.MolSys'==form
+
+
 
 # Selection
 

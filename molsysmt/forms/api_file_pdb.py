@@ -298,7 +298,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 
 def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.api_string_pdb_text import to_string_pdb_text as string_pdb_to_string_pdb
+    from molsysmt.forms.api_string_pdb_text import to_string_pdb_text as string_pdb_text_to_string_pdb_text
 
     fff = open(item, 'r')
     tmp_item = fff.read()
@@ -309,7 +309,7 @@ def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_in
     else:
         tmp_molecular_system = None
 
-    tmp_item, tmp_molecular_system = string_pdb_to_string_pdb_text(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = string_pdb_text_to_string_pdb_text(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 

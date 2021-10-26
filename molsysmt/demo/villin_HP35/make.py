@@ -9,32 +9,32 @@ from mdtraj.reporters import HDF5Reporter
 
 # purge
 print('Removing old files...')
-files_to_be_purged = ['1vii.pdb', '1vii.mmtf', 'villin_hp35_vacuum.msmpk',
-        'villin_hp35_solvated.msmpk', 'villin_hp35_solvated.dcd', 'villin_hp35_solvated.h5',
-        'villin_hp35_solvated_last.pdb']
+files_to_be_purged = ['1vii.pdb', '1vii.mmtf', 'vacuum.msmpk',
+        'solvated.msmpk', 'traj_explicit_solvent.dcd', 'traj_explicit_solvent.h5']
 for filename in files_to_be_purged:
     if os.path.isfile(filename):
         os.remove(filename)
 
 # 1vii pdb and mmtf files
 print('Protein Data Bank files...')
-msm.convert('pdbid:1vii', to_form='1vii.pdb')
-msm.convert('pdbid:1vii', to_form='1vii.mmtf')
+msm.convert('pdb_id:1vii', to_form='1vii.pdb')
+msm.convert('pdb_id:1vii', to_form='1vii.mmtf')
 
 # vacuum
 print('Vacuum system in msmpk file...')
-molsys = msm.convert('pdbid:1vii', to_form='molsysmt.MolSys')
+molsys = msm.convert('pdb_id:1vii', to_form='molsysmt.MolSys')
+molsys = msm.build.remove_solvent(molsys)
 molsys = msm.build.remove_hydrogens(molsys)
 molsys = msm.build.add_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
 molsys = msm.build.add_hydrogens(molsys, pH=7.4)
-_ = msm.convert(molsys, to_form='villin_hp35_vacuum.msmpk')
+_ = msm.convert(molsys, to_form='vacuum.msmpk')
 
 # solvated
 print('Solvated system in msmpk file...')
 molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
                    box_geometry='truncated octahedral', clearance='14.0 angstroms',
                    to_form='molsysmt.MolSys', engine="OpenMM", verbose=False)
-_ = msm.convert(molsys, to_form='villin_hp35_solvated.msmpk')
+_ = msm.convert(molsys, to_form='solvated.msmpk')
 
 # simulation
 print('Trajectory files...')
@@ -49,10 +49,9 @@ simulation.minimizeEnergy()
 simulation.context.setVelocitiesToTemperature(300*unit.kelvin)
 simulation.reporters.append(app.StateDataReporter(stdout, 50000, progress=True,
     potentialEnergy=True, temperature=True, remainingTime=True, totalSteps=1000000))
-simulation.reporters.append(app.DCDReporter('villin_hp35_solvated.dcd', 50000, enforcePeriodicBox=True))
-simulation.reporters.append(HDF5Reporter('villin_hp35_solvated.h5', 50000))
+simulation.reporters.append(app.DCDReporter('traj_explicit_solvent.dcd', 50000, enforcePeriodicBox=True))
+simulation.reporters.append(HDF5Reporter('traj_explicit_solvent.h5', 50000))
 simulation.step(1000000)
 simulation.reporters[2].close()
 final_positions = simulation.context.getState(getPositions=True).getPositions()
-app.PDBFile.writeFile(modeller.topology, final_positions, open('villin_hp35_solvated_last.pdb', 'w'))
 
