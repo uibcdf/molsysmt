@@ -18,6 +18,5 @@ for filename in files_to_be_purged:
 print('Protein Data Bank files...')
 msm.convert('pdb_id:1tcd', to_form='1tcd.pdb')
 msm.convert('pdb_id:1tcd', to_form='1tcd.mmtf')
-molsys = msm.convert('1tcd.pdb', to_form='molsysmt.MolSys')
-msm.convert(molsys, to_form='1tcd.msmpk')
+msm.convert('pdb_id:1tcd', to_form='1tcd.msmpk')
 
