@@ -67,6 +67,13 @@ nglview={}
 nglview['1u19.gro']= parent.joinpath('nglview/1u19.gro').__str__()
 nglview['1u19.xtc']= parent.joinpath('nglview/1u19.xtc').__str__()
 
+# TcTIM (to be removed)
+
+TcTIM = {}
+TcTIM['1tcd.pdb']= parent.joinpath('TcTIM/1tcd.pdb').__str__()
+TcTIM['1tcd.mmtf']= parent.joinpath('TcTIM/1tcd.mmtf').__str__()
+TcTIM['1tcd.msmpk']= parent.joinpath('TcTIM/1tcd.msmpk').__str__()
+
 
 del(PurePath, parent)
 
