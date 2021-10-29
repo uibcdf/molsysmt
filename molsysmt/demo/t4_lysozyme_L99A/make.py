@@ -13,10 +13,11 @@ for filename in files_to_be_purged:
     if os.path.isfile(filename):
         os.remove(filename)
 
-# 181l pdb and mmtf files
+# 181l pdb, mmtf, msmpk files
 print('Protein Data Bank files...')
 msm.convert('pdb_id:181l', to_form='181l.pdb')
 msm.convert('pdb_id:181l', to_form='181l.mmtf')
+msm.convert('pdb_id:181l', to_form='181l.msmpk')
 
 # vacuum
 print('Vacuum system in msmpk file...')

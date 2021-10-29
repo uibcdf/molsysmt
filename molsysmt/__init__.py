@@ -16,7 +16,7 @@ __github_issues_web__ = __github_web__ + '/issues'
 
 from ._pyunitwizard import puw as puw
 
-from . import demo
+from .demo import demo
 from . import tools
 
 from .native.molsys import MolSys

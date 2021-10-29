@@ -9,15 +9,15 @@ import os
 
 
 def test_copy_1():
-    molsys = msm.demo.files['pentalanine.h5']
+    molsys = msm.demo.pentalanine['traj.h5']
     molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
     molsys_2 = msm.copy(molsys)
     output = msm.compare(molsys, molsys_2, comparison='all', rule='A_eq_B')
     assert output==True
 
 def test_copy_2():
-    molsys = msm.demo.files['pentalanine.h5']
-    molsys_2 = msm.copy(molsys, 'pentalanine.h5')
+    molsys = msm.demo.pentalanine['traj.h5']
+    molsys_2 = msm.copy(molsys, 'traj.h5')
     form = msm.get_form(molsys_2)
     os.remove(molsys_2)
     assert 'file:h5'==form

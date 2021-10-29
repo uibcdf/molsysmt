@@ -24,7 +24,7 @@ molecular_system[2,2,:] = [-1, 1, 0] * puw.unit('nm')
 molecular_system[0,3,:] = [-2, -2, -2] * puw.unit('nm')
 molecular_system[1,3,:] = [0, 0, 0] * puw.unit('nm')
 molecular_system[2,3,:] = [2, 2, 2] * puw.unit('nm')
-msm.convert(molecular_system, to_form='particles_4_frames_3.xyznpy')
+msm.convert(molecular_system, to_form='traj.xyznpy')
 
 
 

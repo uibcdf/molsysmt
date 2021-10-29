@@ -7,9 +7,9 @@ import molsysmt as msm
 import numpy as np
 
 def test_add_to_molsysmt_MolSys_1():
-    molsys_1 = msm.convert(msm.demo.proline_dipeptide['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    molsys_2 = msm.convert(msm.demo.valine_dipeptide['vacuum.msmpk'], to_form='molsysmt.MolSys')
-    molsys_3 = msm.convert(msm.demo.lysine_dipeptide['vacuum.msmpk'], to_form='molsysmt.MolSys')
+    molsys_1 = msm.convert(msm.demo['proline dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
+    molsys_2 = msm.convert(msm.demo['valine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
+    molsys_3 = msm.convert(msm.demo['lysine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     n_atoms_1 = msm.get(molsys_1, target='system', n_atoms=True)
     n_atoms_2 = msm.get(molsys_2, target='system', n_atoms=True)
     n_atoms_3 = msm.get(molsys_3, target='system', n_atoms=True)
