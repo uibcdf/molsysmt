@@ -136,8 +136,8 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
     elif engine=="LEaP":
 
         from molsysmt.tools.tleap import TLeap
-        from molsysmt._private_tools.files_and_directories import tmp_directory, tmp_filename
-        from molsysmt.tools.pdb import replace_HETATM_from_capping_atoms
+        from molsysmt._private_tools.files_and_directories import temp_directory, temp_filename
+        from molsysmt.tools.file_pdb import replace_HETATM_by_ATOM_in_terminal_cappings
         from shutil import rmtree, copyfile
         from os import getcwd, chdir
         from molsysmt.basic import set as _set, select
@@ -156,12 +156,12 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
             _set(molecular_system, target='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3')
 
         current_directory = getcwd()
-        working_directory = tmp_directory()
-        pdbfile_in = tmp_filename(dir=working_directory, extension='pdb')
+        working_directory = temp_directory()
+        pdbfile_in = temp_filename(dir=working_directory, extension='pdb')
         _ = convert(molecular_system, to_form=pdbfile_in)
         #replace_HETATM_from_capping_atoms(pdbfile_in)
 
-        tmp_prmtop = tmp_filename(dir=working_directory, extension='prmtop')
+        tmp_prmtop = temp_filename(dir=working_directory, extension='prmtop')
         tmp_inpcrd = tmp_prmtop.replace('prmtop','inpcrd')
         tmp_logfile = tmp_prmtop.replace('prmtop','leap.log')
 
