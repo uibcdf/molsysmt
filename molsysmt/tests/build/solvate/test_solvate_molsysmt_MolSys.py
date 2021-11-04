@@ -10,7 +10,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_solvate_molsysmt_MolSys_1():
-    molsys = msm.demo.villin_hp35.vacuum(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['chicken villin HP35']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.add_terminal_cappings(molsys)
     molsys = msm.build.add_hydrogens(molsys)
     molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
@@ -24,7 +24,7 @@ def test_solvate_molsysmt_MolSys_1():
     assert check_n_waters and check_shape and check_n_ions
 
 def test_solvate_molsysmt_MolSys_2():
-    molsys = msm.demo.villin_hp35.vacuum(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['chicken villin HP35']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.add_terminal_cappings(molsys)
     molsys = msm.build.add_hydrogens(molsys)
     molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
@@ -36,7 +36,7 @@ def test_solvate_molsysmt_MolSys_2():
     assert check_n_waters and check_shape
 
 def test_solvate_molsysmt_MolSys_3():
-    molsys = msm.demo.villin_hp35.vacuum(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['chicken villin HP35']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.add_terminal_cappings(molsys)
     molsys = msm.build.add_hydrogens(molsys)
     molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],

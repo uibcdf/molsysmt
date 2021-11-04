@@ -10,8 +10,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_get_sasa_from_molsysmt_MolSys_with_mdtraj_1():
-
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.remove_solvent(molsys)
     sasa_per_residue = msm.structure.get_sasa(molsys, target='group', engine='mdtraj')
     sasa_per_molecule = msm.structure.get_sasa(molsys, target='molecule', engine='mdtraj')

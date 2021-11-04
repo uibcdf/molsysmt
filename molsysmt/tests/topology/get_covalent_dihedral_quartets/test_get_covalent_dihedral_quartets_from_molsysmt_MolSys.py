@@ -10,7 +10,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     chains = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle='phi')
     true_value_1 = np.array([[ 2,  9, 10, 11],
        [11, 16, 17, 18],
@@ -34,7 +34,7 @@ def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_1():
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 
 def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_2():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     chains = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle='psi', selection='10<=group_index<=15')
     true_value_1 = np.array([[ 77,  78,  79,  86],
        [ 86,  87,  88,  92],
@@ -45,7 +45,7 @@ def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_2():
     assert check_value_1
 
 def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_3():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     chains = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle='chi5')
     true_value_1 = np.array([[1572, 1573, 1574, 1575],
        [1666, 1667, 1668, 1669],
@@ -58,7 +58,7 @@ def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_3():
     assert check_shape_1 and check_value_1
 
 def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_4():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     chains = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle='phi-psi')
     true_value_1 = np.array([[ 2,  9, 10, 11],
        [11, 16, 17, 18],
@@ -82,7 +82,7 @@ def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_4():
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 
 def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_5():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     chains = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle='all')
     true_value_1 = np.array([[ 2,  9, 10, 11],
        [11, 16, 17, 18],
@@ -106,7 +106,7 @@ def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_5():
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 
 def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_6():
-    molsys = msm.demo.classes.metenkephalin(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     phi_chains, phi_blocks = msm.topology.get_covalent_dihedral_quartets(molsys, dihedral_angle='phi', with_blocks=True)
     true_value_1 = np.array([33, 35, 37, 53])
     true_value_2 = np.array([{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36},

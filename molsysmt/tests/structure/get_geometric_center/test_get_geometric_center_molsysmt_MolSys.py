@@ -11,7 +11,7 @@ import numpy as np
 
 def test_get_geometric_center_molsysmt_MolSys_1():
 
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     center = msm.structure.get_geometric_center(molsys)
     n_frames = msm.get(molsys, target='system', n_frames=True)
     check_shape = np.all((n_frames,1,3)==center.shape)
@@ -20,7 +20,7 @@ def test_get_geometric_center_molsysmt_MolSys_1():
 
 def test_get_geometric_center_molsysmt_MolSys_2():
 
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     center_group_0 = msm.structure.get_geometric_center(molsys, selection='group_index==0')
     center_group_1 = msm.structure.get_geometric_center(molsys, selection='group_index==1')
     distance_groups = msm.structure.get_distances(center_group_0, molecular_system_2=center_group_1)
@@ -31,7 +31,7 @@ def test_get_geometric_center_molsysmt_MolSys_2():
 
 def test_get_geometric_center_molsysmt_MolSys_3():
 
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     center_group_0 = msm.structure.get_geometric_center(molsys, selection='group_index==0')
     center_group_1 = msm.structure.get_geometric_center(molsys, selection='group_index==1')
     distance_groups = msm.structure.get_distances(center_group_0, molecular_system_2=center_group_1)

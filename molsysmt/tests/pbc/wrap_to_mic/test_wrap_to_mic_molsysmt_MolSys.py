@@ -10,7 +10,7 @@ import math
 # Distance between atoms in space and time
 
 def test_wrap_to_pbc_molsysmt_MolSys_1():
-    molsys = msm.demo.villin_hp35.solvated(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['chicken villin HP35']['solvated.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.pbc.wrap_to_mic(molsys, center_of_selection='molecule_type=="peptide"')
     lengths = msm.get(molsys, target='system', box_lengths=True)
     distances = msm.structure.get_distances(molsys, molecular_system_2=[[0.0, 0.0, 0.0]]*msm.puw.unit('nm'), pbc=False)

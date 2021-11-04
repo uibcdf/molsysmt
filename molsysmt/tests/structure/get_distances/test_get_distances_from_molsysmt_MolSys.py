@@ -11,7 +11,7 @@ import numpy as np
 # Distances between atoms in space and time
 
 def test_get_distances_from_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys, selection="group_index==0", selection_2="group_index==1")
     check_shape = ((1,9,7)==distances.shape)
     check_distance = np.isclose(puw.get_value(distances[0,5,5], to_unit='nm'), 0.5271685)
@@ -20,7 +20,7 @@ def test_get_distances_from_molsysmt_MolSys_1():
 # Distances between atom groups
 
 def test_get_distances_from_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys, selection="group_index==0",
                          group_behavior="geometric_center", selection_2="group_index==1")
     check_shape = ((1,1,7)==distances.shape)
@@ -28,7 +28,7 @@ def test_get_distances_from_molsysmt_MolSys_1():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_2():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys, selection="group_index==0", group_behavior="geometric_center",
                          selection_2="group_index==1", group_behavior_2="geometric_center")
     check_shape = ((1,1,1)==distances.shape)
@@ -36,11 +36,8 @@ def test_get_distances_from_molsysmt_MolSys_2():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_3():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
-    list_groups_1 = msm.get(molsys, target="group",
-                        selection="group_index in [0,1,2,3]", atom_index=True)
-    list_groups_2 = msm.get(molsys, target="group",
-                        selection="group_index in [4,5,6,7,8]", atom_index=True)
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
+    list_groups_2 = msm.get(molsys, target="group", selection="group_index in [4,5,6,7,8]", atom_index=True)
     distances = msm.structure.get_distances(molsys, selection="group_index==0",
                          groups_of_atoms_2=list_groups_2, group_behavior_2="geometric_center")
     check_shape = ((1,9,5)==distances.shape)
@@ -48,7 +45,7 @@ def test_get_distances_from_molsysmt_MolSys_3():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_4():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     list_groups_1 = msm.get(molsys, target="group",
                         selection="group_index in [0,1,2,3]", atom_index=True)
     list_groups_2 = msm.get(molsys, target="group",
@@ -60,7 +57,7 @@ def test_get_distances_from_molsysmt_MolSys_4():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_5():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     list_groups_1 = msm.get(molsys, target="group",
                         selection="group_index in [0,1,2,3]", atom_index=True)
     list_groups_2 = msm.get(molsys, target="group",
@@ -72,7 +69,7 @@ def test_get_distances_from_molsysmt_MolSys_5():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_6():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     list_groups_1 = msm.get(molsys, target="group",
                         selection="group_index in [0,1,2,3]", atom_index=True)
     list_groups_2 = msm.get(molsys, target="group",
@@ -83,7 +80,7 @@ def test_get_distances_from_molsysmt_MolSys_6():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_6():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys, selection="group_index==0", group_behavior="geometric_center",
                          selection_2="group_index==6", group_behavior_2="geometric_center")
     check_shape = ((5000,1,1)==distances.shape)
@@ -91,7 +88,7 @@ def test_get_distances_from_molsysmt_MolSys_6():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_7():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     list_groups_1 = msm.get(molsys, target="group", selection="all", atom_index=True)
     distances = msm.structure.get_distances(molsys, groups_of_atoms=list_groups_1, group_behavior="geometric_center",
                          frame_indices=3000)
@@ -100,7 +97,7 @@ def test_get_distances_from_molsysmt_MolSys_7():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_8():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     distances = msm.structure.get_distances(molsys,
                          selection="group_index==0", group_behavior="geometric_center",
                          frame_indices=100,
@@ -111,7 +108,7 @@ def test_get_distances_from_molsysmt_MolSys_8():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_9():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     n_frames = msm.get(molsys, n_frames=True)
     all_frame_indices = np.arange(n_frames)
     displacements = msm.structure.get_distances(molsys, selection="group_index==0", group_behavior="geometric_center",
@@ -121,7 +118,7 @@ def test_get_distances_from_molsysmt_MolSys_9():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_10():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     n_frames = msm.get(molsys, n_frames=True)
     all_frame_indices = np.arange(n_frames)
     displacements = msm.structure.get_distances(molsys, selection="all",
@@ -131,7 +128,7 @@ def test_get_distances_from_molsysmt_MolSys_10():
     assert check_shape and check_distance
 
 def test_get_distances_from_molsysmt_MolSys_11():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     list_atom_groups = msm.get(molsys, target='group', selection='all', atom_index=True)
     distances = msm.structure.get_distances(molsys, groups_of_atoms=list_atom_groups,
                          group_behavior='geometric_center')
@@ -141,7 +138,7 @@ def test_get_distances_from_molsysmt_MolSys_11():
 
 def test_get_distances_from_molsysmt_MolSys_12():
     from itertools import combinations
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     list_atom_groups = msm.get(molsys, target='group', selection='all', atom_index=True)
     list_atom_groups_1=[]
     list_atom_groups_2=[]

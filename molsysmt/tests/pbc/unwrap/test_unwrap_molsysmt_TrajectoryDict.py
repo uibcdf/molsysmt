@@ -10,7 +10,7 @@ import math
 # Distance between atoms in space and time
 
 def test_unwrap_molsysmt_TrajectoryDict_1():
-    molsys = msm.demo.classes.Ar_Xe_pbc_vacuum_traj(to_form='molsysmt.TrajectoryDict')
+    molsys = msm.convert(msm.demo['two LJ particles']['traj.trjpk'], to_form='molsysmt.TrajectoryDict')
     molsys_wrapped = msm.pbc.wrap_to_pbc(molsys)
     molsys_unwrapped = msm.pbc.unwrap(molsys_wrapped)
     box_length = msm.get(molsys_wrapped, target='system', box_lengths=True)[0,0]

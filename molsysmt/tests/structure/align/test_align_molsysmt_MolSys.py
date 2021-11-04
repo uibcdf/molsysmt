@@ -11,9 +11,9 @@ import math as math
 # Distance between atoms in space and time
 
 def test_get_structure_alignment_molsysmt_MolSys_1():
-    molsys_1 = msm.demo.t4_lysozyme_l99a.in_pdbid_181l(to_form='molsysmt.MolSys')
+    molsys_1 = msm.convert(msm.demo['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys')
     molsys_1 = msm.extract(molsys_1, selection='molecule_type=="protein"')
-    molsys_2 = msm.demo.files['1l17.mmtf']
+    molsys_2 = msm.convert(msm.demo['T4 lysozyme L99A']['1l17.msmpk'], to_form='molsysmt.MolSys')
     molsys_2 = msm.convert(molsys_2, to_form='molsysmt.MolSys', selection='molecule_type=="protein"')
     molsys_2on1 = msm.structure.align(molsys_2, selection='backbone',
                                       reference_molecular_system=molsys_1,

@@ -11,7 +11,7 @@ import numpy as np
 
 def test_center_molsysmt_MolSys_1():
 
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     n_frames = msm.get(molsys, n_frames=True)
     origin = np.zeros([n_frames, 1, 3])*msm.puw.unit('nanometers')
     molsys = msm.structure.center(molsys)

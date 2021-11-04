@@ -8,7 +8,7 @@ from pandas import DataFrame
 
 def test_remove_1():
 
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.remove(molsys, selection='chain_index==[1,2,3]')
     df = msm.info(molsys)
     true_dict = {'form': {0: 'molsysmt.MolSys'},
@@ -25,7 +25,7 @@ def test_remove_1():
 
 def test_remove_2():
 
-    molsys = msm.demo.files['trp-cage.pdb']
+    molsys = msm.demo['Trp-Cage']['1l2y.pdb']
     molsys = msm.convert(molsys, to_form='molsysmt.Trajectory')
     molsys = msm.remove(molsys, frame_indices=range(1,38))
     df = msm.info(molsys)

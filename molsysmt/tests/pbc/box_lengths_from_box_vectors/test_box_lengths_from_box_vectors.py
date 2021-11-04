@@ -9,7 +9,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_box_lengths_from_box_vectors_1():
-    molsys = msm.demo.classes.metenkephalin()
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.solvate(molsys, box_geometry='cubic', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, target='system', box=True)
     lengths = msm.pbc.box_lengths_from_box_vectors(box)
@@ -17,7 +17,7 @@ def test_box_lengths_from_box_vectors_1():
     assert check
 
 def test_box_lengths_from_box_vectors_2():
-    molsys = msm.demo.classes.metenkephalin()
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.solvate(molsys, box_geometry='truncated octahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, target='system', box=True)
     lengths = msm.pbc.box_lengths_from_box_vectors(box)
@@ -25,7 +25,7 @@ def test_box_lengths_from_box_vectors_2():
     assert check
 
 def test_box_lengths_from_box_vectors_3():
-    molsys = msm.demo.classes.metenkephalin()
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.solvate(molsys, box_geometry='rhombic dodecahedral', clearance='14.0 angstroms', engine='PDBFixer')
     box = msm.get(molsys, target='system', box=True)
     lengths = msm.pbc.box_lengths_from_box_vectors(box)

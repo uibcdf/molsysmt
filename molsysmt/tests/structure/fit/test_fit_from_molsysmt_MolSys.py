@@ -9,10 +9,9 @@ import numpy as np
 
 # Distance between atoms in space and time
 
-def test_least_rmsd_fit_molsysmt_MolSys_1():
-
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
-    fitted_molsys = msm.structure.least_rmsd_fit(molsys, selection='backbone', frame_indices='all',
+def test_fit_molsysmt_MolSys_1():
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
+    fitted_molsys = msm.structure.fit(molsys, selection='backbone', frame_indices='all',
                                              reference_frame_index=0, to_form='molsysmt.MolSys')
     fitted_rmsd = msm.structure.get_rmsd(fitted_molsys, selection='backbone', frame_indices='all', reference_frame_index=0)
     lrmsd = msm.structure.get_least_rmsd(molsys, selection='backbone', frame_indices='all', reference_frame_index=0)

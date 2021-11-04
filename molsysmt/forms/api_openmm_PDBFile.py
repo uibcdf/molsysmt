@@ -206,19 +206,24 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
-    coordinates = np.array(item.positions._value)
-    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
+    if frame_indices is 'all':
 
-    if frame_indices is not 'all':
-        coordinates = coordinates[frame_indices,:,:]
+        n_frames = get_n_frames_from_system(item)
+        frame_indices = np.arange(n_frames)
 
-    if indices is not 'all':
-        coordinates = coordinates[:,indices,:]
+    output = []
 
-    coordinates = coordinates * item.positions.unit
-    coordinates = puw.standardize(coordinates)
+    for frame_index in frame_indices:
+        tmp_coordinates = item.getPositions(asNumpy=True, frame=frame_index)
+        tmp_unit = tmp_coordinates.unit
+        if indices is 'all':
+            output.append(tmp_coordinates._value)
+        else:
+            output.append(tmp_coordinates[indices,:]._value)
 
-    return coordinates
+    output = np.array(output)*tmp_unit
+
+    return output
 
 def get_frame_from_atom(item, indices='all', frame_indices='all'):
 
@@ -331,15 +336,7 @@ def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all'):
 
-    from numpy import array as _array
-
-    coordinates = _array(item.positions._value)
-    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
-    if frame_indices is not 'all':
-        coordinates = coordinates[frame_indices,:,:]
-    coordinates = coordinates * item.positions.unit
-
-    return coordinates
+    return get_coordinates_from_atom(item, indices='all', frame_indices=frame_indices)
 
 def get_box_from_system(item, indices='all', frame_indices='all'):
 
@@ -383,12 +380,7 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
 
     if frame_indices is 'all':
 
-        tmp_coordinates_shape = item.getPositions(asNumpy=True).shape
-        if len(tmp_coordinates_shape)==2:
-            output = 1
-        elif len(tmp_coordinates_shape)==3:
-            output = tmp_coordinates_shape[0]
-        return output
+        return item.getNumFrames()
 
     else:
 

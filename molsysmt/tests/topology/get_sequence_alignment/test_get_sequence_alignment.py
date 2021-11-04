@@ -10,9 +10,8 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_get_sequence_alignment_molsysmt_MolSys_1():
-    molsys = msm.demo.t4_lysozyme_l99a.in_pdbid_181l(to_form='molsysmt.MolSys')
-    molsys_2 = msm.demo.files['1l17.mmtf']
-    molsys_2 = msm.convert(molsys_2, to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys')
+    molsys_2 = msm.convert(msm.demo['T4 lysozyme L99A']['1l17.msmpk'], to_form='molsysmt.MolSys')
     seq, ref_seq = msm.topology.get_sequence_alignment(molsys, selection='molecule_type=="protein"',
                                     reference_molecular_system=molsys_2, reference_selection='molecule_type=="protein"',
                                     prettyprint=False)

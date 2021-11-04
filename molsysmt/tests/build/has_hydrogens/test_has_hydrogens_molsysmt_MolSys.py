@@ -10,13 +10,13 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_has_hydrogens_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.metenkephalin(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.pdb'], to_form='molsysmt.MolSys')
     output = msm.build.has_hydrogens(molsys)
     check = (output == True)
     assert check
 
 def test_has_hydrogens_molsysmt_MolSys_2():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.build.has_hydrogens(molsys)
     check = (output == False)
     assert check

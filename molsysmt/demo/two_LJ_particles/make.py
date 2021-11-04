@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 # purge
 print('Removing old files...')
-files_to_be_purged = ['two_lj_particles_traj.trjpk']
+files_to_be_purged = ['traj.trjpk']
 for filename in files_to_be_purged:
     if os.path.isfile(filename):
         os.remove(filename)
@@ -103,5 +103,5 @@ trajdict={
     'box' : box
           }
 
-msm.convert(trajdict, to_form='two_lj_particles_traj.trjpk')
+msm.convert(trajdict, to_form='traj.trjpk')
 

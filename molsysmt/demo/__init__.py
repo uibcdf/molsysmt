@@ -41,6 +41,9 @@ demo['T4 lysozyme L99A']['181l.pdb']= parent.joinpath('t4_lysozyme_L99A/181l.pdb
 demo['T4 lysozyme L99A']['181l.mmtf']= parent.joinpath('t4_lysozyme_L99A/181l.mmtf').__str__()
 demo['T4 lysozyme L99A']['181l.msmpk']= parent.joinpath('t4_lysozyme_L99A/181l.msmpk').__str__()
 demo['T4 lysozyme L99A']['vacuum.msmpk']= parent.joinpath('t4_lysozyme_L99A/vacuum.msmpk').__str__()
+demo['T4 lysozyme L99A']['1l17.pdb']= parent.joinpath('t4_lysozyme_L99A/1l17.pdb').__str__()
+demo['T4 lysozyme L99A']['1l17.mmtf']= parent.joinpath('t4_lysozyme_L99A/1l17.mmtf').__str__()
+demo['T4 lysozyme L99A']['1l17.msmpk']= parent.joinpath('t4_lysozyme_L99A/1l17.msmpk').__str__()
 
 # Pentalanine
 
@@ -76,6 +79,26 @@ demo['TcTIM']={}
 demo['TcTIM']['1tcd.pdb']= parent.joinpath('TcTIM/1tcd.pdb').__str__()
 demo['TcTIM']['1tcd.mmtf']= parent.joinpath('TcTIM/1tcd.mmtf').__str__()
 demo['TcTIM']['1tcd.msmpk']= parent.joinpath('TcTIM/1tcd.msmpk').__str__()
+
+# Trp-Cage
+
+demo['Trp-Cage']={}
+demo['Trp-Cage']['1l2y.pdb']= parent.joinpath('Trp-Cage/1l2y.pdb').__str__()
+demo['Trp-Cage']['1l2y.mmtf']= parent.joinpath('Trp-Cage/1l2y.mmtf').__str__()
+
+# Metenkephalin
+
+demo['Met-enkephalin']={}
+demo['Met-enkephalin']['vacuum.pdb']= parent.joinpath('Met-enkephalin/vacuum.pdb').__str__()
+demo['Met-enkephalin']['vacuum.msmpk']= parent.joinpath('Met-enkephalin/vacuum.msmpk').__str__()
+
+# Two LJ particles
+
+demo['two LJ particles']={}
+demo['two LJ particles']['traj.trjpk']= parent.joinpath('two_LJ_particles/traj.trjpk').__str__()
+
+
+
 
 del(PurePath, parent)
 

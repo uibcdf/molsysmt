@@ -11,7 +11,7 @@ import numpy as np
 
 def test_get_center_molsysmt_MolSys_1():
 
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     list_CAs = msm.select(molsys, selection='atom_name=="CA"')
     n_atoms_CAs = list_CAs.shape[0]
     center = msm.structure.get_center(molsys, selection=list_CAs, weights=np.ones(n_atoms_CAs))

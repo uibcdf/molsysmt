@@ -21,11 +21,11 @@ def test_file_mmtf_to_molsysmt_MolSys_2():
     form = msm.get_form(molsys)
     assert 'molsysmt.MolSys'==form
 
-def test_file_mmtf_to_string_aminoacids1():
-    molsys = msm.demo['T4 lysozyme L99A']['181l.mmtf']
-    molsys = msm.convert(molsys, to_form='string:aminoacids1')
-    form = msm.get_form(molsys)
-    assert 'string:aminoacids1'==form
+#def test_file_mmtf_to_string_aminoacids1():
+#    molsys = msm.demo['T4 lysozyme L99A']['181l.mmtf']
+#    molsys = msm.convert(molsys, to_form='string:aminoacids1')
+#    form = msm.get_form(molsys)
+#    assert 'string:aminoacids1'==form
 
 
 # Selection

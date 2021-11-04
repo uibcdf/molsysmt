@@ -10,7 +10,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_get_ramachandran_angles_from_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     phi_chains, psi_chains, phi_angles, psi_angles = msm.structure.get_ramachandran_angles(molsys)
     true_value_1 = np.array([-113.48003593, -161.21280086, -136.75724095, -144.99215202, -174.64791676])
     true_value_2 = np.array([149.55691211, 137.51702185, 133.44230978, 127.61043836, 163.17747611])
@@ -21,7 +21,7 @@ def test_get_ramachandran_angles_from_molsysmt_MolSys_1():
     assert check_shape_1 and check_shape_2 and  check_value_1 and check_value_2
 
 def test_get_ramachandran_angles_from_molsysmt_MolSys_2():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     phi_chains, psi_chains, phi_angles, psi_angles = msm.structure.get_ramachandran_angles(molsys, selection='group_index==[1,2]')
     true_value_1 = np.array([[-161.21280086],
        [ -71.93406033],

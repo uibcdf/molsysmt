@@ -10,7 +10,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_get_covalent_blocks_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.metenkephalin(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     blocks = msm.topology.get_covalent_blocks(molsys)
     true_blocks = np.array([{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
         21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
@@ -21,7 +21,7 @@ def test_get_covalent_blocks_molsysmt_MolSys_1():
     assert check
 
 def test_get_covalent_blocks_molsysmt_MolSys_2():
-    molsys = msm.demo.classes.metenkephalin(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     blocks = msm.topology.get_covalent_blocks(molsys, remove_bonds=[[19,21],[33,35]])
     true_blocks = np.array([{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
        {32, 33, 34, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31},
@@ -31,7 +31,7 @@ def test_get_covalent_blocks_molsysmt_MolSys_2():
     assert check
 
 def test_get_covalent_blocks_molsysmt_MolSys_3():
-    molsys = msm.demo.classes.metenkephalin(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     blocks = msm.topology.get_covalent_blocks(molsys, remove_bonds=[[19,21],[33,35]])
     blocks_np = msm.topology.get_covalent_blocks(molsys, remove_bonds=[[19,21],[33,35]], output_form='array')
     true_blocks = np.array([{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},

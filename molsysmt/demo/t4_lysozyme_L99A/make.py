@@ -8,7 +8,7 @@ from mdtraj.reporters import HDF5Reporter
 
 # purge
 print('Removing old files...')
-files_to_be_purged = ['181l.pdb', '181l.mmtf']
+files_to_be_purged = ['181l.pdb', '181l.mmtf', '1l17.pdb', '1l17.mmtf']
 for filename in files_to_be_purged:
     if os.path.isfile(filename):
         os.remove(filename)
@@ -18,6 +18,12 @@ print('Protein Data Bank files...')
 msm.convert('pdb_id:181l', to_form='181l.pdb')
 msm.convert('pdb_id:181l', to_form='181l.mmtf')
 msm.convert('pdb_id:181l', to_form='181l.msmpk')
+
+# 1l17 pdb, mmtf, msmpk files
+print('Protein Data Bank files...')
+msm.convert('pdb_id:1l17', to_form='1l17.pdb')
+msm.convert('pdb_id:1l17', to_form='1l17.mmtf')
+msm.convert('pdb_id:1l17', to_form='1l17.msmpk')
 
 # vacuum
 print('Vacuum system in msmpk file...')

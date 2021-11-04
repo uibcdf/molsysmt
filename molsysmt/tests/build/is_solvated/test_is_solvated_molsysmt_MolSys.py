@@ -10,8 +10,8 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_is_solvate_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.metenkephalin(to_form='molsysmt.MolSys')
-    molsys = msm.build.add_terminal_capping(molsys)
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.pdb'], to_form='molsysmt.MolSys')
+    molsys = msm.build.add_terminal_cappings(molsys)
     molsys = msm.build.add_hydrogens(molsys)
     output_before = msm.build.is_solvated(molsys)
     molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],

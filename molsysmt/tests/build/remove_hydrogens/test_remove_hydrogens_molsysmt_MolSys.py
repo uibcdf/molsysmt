@@ -10,7 +10,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_remove_hydrogens_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.metenkephalin(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.pdb'], to_form='molsysmt.MolSys')
     molsys = msm.build.remove_hydrogens(molsys)
     output = msm.build.has_hydrogens(molsys)
     check = (output == False)

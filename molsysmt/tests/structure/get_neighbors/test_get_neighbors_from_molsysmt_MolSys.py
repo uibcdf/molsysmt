@@ -11,7 +11,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_get_neighbors_from_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     CA_atoms_list = msm.select(molsys, selection='atom_name=="CA"')
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms_list, num_neighbors=3)
     check_shape_1 = ((5000, 5, 3)==neighbors.shape)
@@ -20,7 +20,7 @@ def test_get_neighbors_from_molsysmt_MolSys_1():
     assert check_shape_1 and check_shape_2 and check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_2():
-    molsys = msm.demo.classes.pentalanine_traj(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     CA_atoms_list = msm.select(molsys, selection='atom_name=="CA"')
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms_list, selection_2='all', num_neighbors=4)
     check_neighbors = (10==neighbors[2000,0,3])
@@ -28,7 +28,7 @@ def test_get_neighbors_from_molsysmt_MolSys_2():
     assert check_neighbors and check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_3():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_0 = msm.get(molsys, target='group',
                                     selection="molecule_type=='protein' and chain_index==0",
                                     atom_index=True)
@@ -43,7 +43,7 @@ def test_get_neighbors_from_molsysmt_MolSys_3():
     assert check_shape_1 and check_neighbors and check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_4():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_0 = msm.get(molsys, target='group',
                                     selection="molecule_type=='protein' and chain_index==0",
                                     atom_index=True)
@@ -61,7 +61,7 @@ def test_get_neighbors_from_molsysmt_MolSys_4():
     assert check_neighbors and check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_5():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_1 = msm.get(molsys, target='group',
                                     selection="molecule_type=='protein' and chain_index==1",
                                     atom_index=True)
@@ -74,7 +74,7 @@ def test_get_neighbors_from_molsysmt_MolSys_5():
     assert check_neighbors and check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_6():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     CA_atoms = msm.select(molsys, selection='atom_name=="CA"')
     neighbors, distances = msm.structure.get_neighbors(molsys, selection=CA_atoms, threshold='8 angstroms')
     check_shape_1 = ((1, 497)==neighbors.shape)
@@ -85,7 +85,7 @@ def test_get_neighbors_from_molsysmt_MolSys_6():
     assert check_shape_1 and check_shape_2 and check_neighbors and check_neighbors_2 and check_distance
 
 def test_get_neighbors_from_molsysmt_MolSys_7():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_0 = msm.get(molsys, target='group',
                                     selection="molecule_type=='protein' and chain_index==0",
                                     atom_index=True)

@@ -10,7 +10,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_get_covalent_chains_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     covalent_chains =msm.topology.get_covalent_chains(molsys, chain=['atom_name=="C"', 'atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"'],
                                                       selection="component_index==0")
     true_value_1 = np.array([[ 2,  9, 10, 11],
@@ -35,7 +35,7 @@ def test_get_covalent_chains_molsysmt_MolSys_1():
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 
 def test_get_covalent_chains_molsysmt_MolSys_2():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     covalent_chains =msm.topology.get_covalent_chains(molsys, chain=['atom_name=="C"', 'atom_name=="N"',
                                                               'atom_name=="CA"', 'atom_name==["C", "CB"]'],
                                                               selection="component_index==0")

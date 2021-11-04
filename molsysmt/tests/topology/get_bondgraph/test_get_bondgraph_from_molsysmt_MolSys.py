@@ -10,7 +10,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_get_bondgraph_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     graph = msm.topology.get_bondgraph(molsys, selection='molecule_index==0', to_form='networkx.Graph')
     n_nodes = graph.number_of_nodes()
     n_edges = graph.number_of_edges()

@@ -19,7 +19,7 @@ def test_build_peptide_molsysmt_MolSys_1():
 
 def test_build_peptide_molsysmt_MolSys_2():
     seq = 'TyrGlyGlyPheMet'
-    molsys = msm.build.build_peptide([seq, {'forcefield':'AMBER14', 'water_model':'TIP3P'}], box_geometry='truncated_octahedral',
+    molsys = msm.build.build_peptide([seq, {'forcefield':'AMBER14', 'water_model':'TIP3P'}], box_geometry='truncated octahedral',
                   to_form=['dialanine_amber14_tip3p.prmtop','dialanine_amber14_tip3p.inpcrd'],
                   verbose=False)
     molsys = msm.convert(['dialanine_amber14_tip3p.prmtop','dialanine_amber14_tip3p.inpcrd'],

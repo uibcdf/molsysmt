@@ -278,7 +278,7 @@ class TLeap:
             solvate_command='solvateOct'
         else:
             raise ValueError('The argument box_geometry must take one of the following values: \
-                             "cubic" or "truncated_octahedral".')
+                             "cubic" or "truncated octahedral".')
 
         clearance = puw.get_value(clearance, to_unit='angstroms')
 

@@ -11,7 +11,7 @@ import numpy as np
 # Distance between atoms in space and time
 
 def test_get_minimum_distances_from_molsysmt_MolSys_1():
-    molsys = msm.demo.classes.TcTIM_in_pdbid_1tcd(to_form='molsysmt.MolSys')
+    molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     atoms_groups_component_0 = msm.get(molsys, target='group',
                                    selection='component_index==0', atom_index=True)
     atoms_groups_component_1 = msm.get(molsys, target='group',
