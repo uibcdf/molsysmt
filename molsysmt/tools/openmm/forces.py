@@ -1,8 +1,8 @@
 def HarmonicRestraintPositions (atom_indices=None, K=None, positions=None):
     #2.5 * unit.kilocalories_per_mole/unit.angstrom**2
 
-    from simtk.openmm import CustomExternalForce
-    from simtk.unit import md_unit_system
+    from openmm import CustomExternalForce
+    from openmm.unit import md_unit_system
 
     harmonic_restraint_potential = "0.5*K*((x-xo)^2 + (y-yo)^2 + (z-zo)^2)"
     force = CustomExternalForce(harmonic_restraint_potential)
@@ -19,8 +19,8 @@ def HarmonicRestraintPositions (atom_indices=None, K=None, positions=None):
 def HarmonicRestraintDistances (atoms_pairs_list=None, K=None,
                                 distances=None, system_positions=None):
 
-    from simtk.openmm import HarmonicBondForce
-    from simtk.unit import md_unit_system
+    from openmm import HarmonicBondForce
+    from openmm.unit import md_unit_system
     from numpy import sqrt
 
     force = HarmonicBondForce()
@@ -38,7 +38,7 @@ def HarmonicRestraintDistances (atoms_pairs_list=None, K=None,
 
 def ConstantPullingForce (atom_indices=None, pulling_force=None):
 
-    from simtk.openmm import CustomExternalForce
+    from openmm import CustomExternalForce
 
     if not hasattr(atom_indices,'__iter__'):
         atom_indices = [atom_indices]

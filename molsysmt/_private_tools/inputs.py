@@ -3,7 +3,7 @@ from .exceptions import *
 
 def one_system(molecular_system=None, selection=None, frame_indices=None, form=None, syntaxis='MolSysMT'):
 
-    from molsysmt.multitool import convert, select
+    from molsysmt.basic import convert, select
 
     atom_indices=None
 
@@ -21,7 +21,7 @@ def one_system(molecular_system=None, selection=None, frame_indices=None, form=N
 
 def frameslist(molecular_system=None, frame_indices=None):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     if frame_indices is None:
         frame_indices = list(np.arange(get(molecular_system, n_frames=True), dtype=int))
@@ -75,7 +75,7 @@ def comparison_two_systems(molecular_system_1=None, selection_1=None, frame_indi
                            molecular_system_2=None, selection_2=None, frame_indices_2=None,
                            form=None, syntaxis='MolSysMT'):
 
-    from molsysmt.multitool import convert, select
+    from molsysmt.basic import convert, select
 
     single_molecular_system = False
     diff_selection = True

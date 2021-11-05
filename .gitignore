@@ -9,7 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
-build/
+build/*
 develop-eggs/
 dist/
 downloads/
@@ -116,4 +116,6 @@ record.txt
 # In This Library
 devtools/playground/*
 !devtools/playground/README.md
+!molsysmt/build/*
+!molsysmt/docs/contents/build/*
 

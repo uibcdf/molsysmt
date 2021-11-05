@@ -16,45 +16,31 @@ __github_issues_web__ = __github_web__ + '/issues'
 
 from ._pyunitwizard import puw as puw
 
-#from . import tools
-
-from . import demo_systems
+from .demo import demo
+from . import tools
 
 from .native.molsys import MolSys
-from .multitool import select, extract, merge, add, concatenate_frames, append_frames, info, get, set, \
-                       convert, copy, view, remove, get_form
-from .info_multitool import info_forms, info_convert, info_select, info_viewers
-
-from .additional_remove import remove_solvent, remove_hydrogens
-from .peptides import build_peptide
-from .geometrical_transformations import translate
-from .centers import geometric_center, center_of_mass, center, recenter
-from .distances import distance, minimum_distance, maximum_distance, contact_map, neighbors
-from .graphs import bondgraph
-from .covalent import covalent_chains, covalent_blocks, covalent_dihedral_quartets
-from .dihedral_angles import get_dihedral_angles, set_dihedral_angles, shift_dihedral_angles, ramachandran_angles
-from .protonation import add_missing_hydrogens, has_hydrogens
-from .terminals_capping import add_terminal_capping
+from .basic import select, extract, add, merge, concatenate_frames, append_frames, info, get, set, \
+                   convert, copy, view, remove, get_form, contains, is_composed_of, compare
+from . import help
+from . import build
+from . import structure
+from . import topology
+from . import pbc
 from . import physico_chemical_properties as physchem
-from .solvate_box import solvate, is_solvated
-from .potential_energy import energy_minimization, potential_energy
-from .sasa import sasa
-from .rmsd import rmsd, least_rmsd, least_rmsd_fit
+from . import molecular_mechanics
+from . import molecular_dynamics
 from . import hbonds
-from .pbc import wrap_to_pbc, unwrap_from_pbc
 
-#from .sequence import sequence_alignment, sequence_identity, structure_alignment
-#from .radius_of_gyration import radius_of_gyration
-#from .fix import fix_chains, fix
-#from .model_loops import add_loop
-#from .mutations import mutate
-#from . import elements as elements
-#from .pbc import minimum_image_convention,\
-#        box_shape_from_box_angles, box_shape_from_box_vectors, box_lengths_from_box_vectors, box_angles_from_box_vectors,\
-#        box_vectors_from_box_lengths_and_angles, box_volume_from_box_vectors
-#from .pockets import alpha_spheres
-#from . import physchem
-#from . import nglview
+from . import ion
+from . import water
+from . import cosolute
+from . import lipid
+from . import small_molecule
+from . import peptide
+from . import protein
+from . import rna
+from . import dna
 
 
 # With the following list sphinx can document de methods in the api section without adding the

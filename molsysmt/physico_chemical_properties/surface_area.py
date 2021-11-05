@@ -3,7 +3,7 @@ from molsysmt._private_tools.exceptions import *
 
 def surface_area(molecular_system, selection='all', type='collantes'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     if type == 'collantes':
         from .groups.surface_area import collantes as values

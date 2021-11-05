@@ -1,4 +1,4 @@
-import simtk.unit as unit
+import openmm.unit as unit
 from molsysmt.native.molsys import MolSys
 from molsysmt.native.trajectory import Trajectory
 import molsysmt as msm

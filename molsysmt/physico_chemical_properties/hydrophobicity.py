@@ -3,7 +3,7 @@ from molsysmt._private_tools.exceptions import *
 
 def hydrophobicity(molecular_system, selection='all', type='eisenberg'):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     if type == 'eisenberg':
         from .groups.hydrophobicity import eisenberg as values

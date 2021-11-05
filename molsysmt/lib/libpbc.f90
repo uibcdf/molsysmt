@@ -2,7 +2,7 @@ MODULE MODULE_PBC
 
 CONTAINS
 
-SUBROUTINE PBC(vector,box,inv,ortho)
+SUBROUTINE PBC(vector,box,inv,ortho) ! Periodic Boundary Conditions (image unit cell)
  
   IMPLICIT NONE
  
@@ -10,49 +10,63 @@ SUBROUTINE PBC(vector,box,inv,ortho)
   DOUBLE PRECISION,DIMENSION(3,3),INTENT(IN)::box,inv
   DOUBLE PRECISION,DIMENSION(3)::vaux,vaux2
   INTEGER,INTENT(IN)::ortho
-  INTEGER::ii,jj,kk
-  DOUBLE PRECISION::x,L,Lhalf
 
   IF (ortho==1) THEN
-     DO ii=1,3
-        vector(ii)=vector(ii)-box(ii,ii)*ANINT(vector(ii)/box(ii,ii))
-     END DO
-
+    vector(1)=vector(1)-box(1,1)*ANINT(vector(1)/box(1,1))
+    vector(2)=vector(2)-box(2,2)*ANINT(vector(2)/box(2,2))
+    vector(3)=vector(3)-box(3,3)*ANINT(vector(3)/box(3,3))
   ELSE
-     IF (.TRUE.) THEN
-        !vaux(1)=inv(1,1)*vector(1)
-        !vaux(2)=inv(2,1)*vector(1)+inv(2,2)*vector(2)
-        !vaux(3)=inv(3,1)*vector(1)+inv(3,2)*vector(2)+inv(3,3)*vector(3)
-        vaux(1)=inv(1,1)*vector(1)+inv(2,1)*vector(2)+inv(3,1)*vector(3)
-        vaux(2)=                   inv(2,2)*vector(2)+inv(3,2)*vector(3)
-        vaux(3)=                                      inv(3,3)*vector(3)
-        vaux(1)=vaux(1)-NINT(vaux(1))*1.0
-        vaux(2)=vaux(2)-NINT(vaux(2))*1.0
-        vaux(3)=vaux(3)-NINT(vaux(3))*1.0
-        vector(1)=box(1,1)*vaux(1)+box(2,1)*vaux(2)+box(3,1)*vaux(3)
-        vector(2)=                 box(2,2)*vaux(2)+box(3,2)*vaux(3)
-        vector(3)=                                  box(3,3)*vaux(3)
-     ELSE
-        L=1000000.0d0
-        vaux2=0.0d0
-        DO ii=-1,1,1
-           DO jj=-1,1,1
-              DO kk=-1,1,1
-                 vaux(:)=vector(:)+ii*box(1,:)+jj*box(2,:)+kk*box(3,:)
-                 x=(vaux(1)*vaux(1)+vaux(2)*vaux(2)+vaux(3)*vaux(3))
-                 IF (L>x) THEN
-                    vaux2=vaux
-                    L=x
-                 END IF
-              END DO
-           END DO
-        END DO
-        vector(:)=vaux2(:)
-     END IF
-
+    vaux(1)=inv(1,1)*vector(1)+inv(2,1)*vector(2)+inv(3,1)*vector(3)
+    vaux(2)=                   inv(2,2)*vector(2)+inv(3,2)*vector(3)
+    vaux(3)=                                      inv(3,3)*vector(3)
+    vaux(1)=vaux(1)-NINT(vaux(1))*1.0
+    vaux(2)=vaux(2)-NINT(vaux(2))*1.0
+    vaux(3)=vaux(3)-NINT(vaux(3))*1.0
+    vector(1)=box(1,1)*vaux(1)+box(2,1)*vaux(2)+box(3,1)*vaux(3)
+    vector(2)=                 box(2,2)*vaux(2)+box(3,2)*vaux(3)
+    vector(3)=                                  box(3,3)*vaux(3)
   END IF
   
 END SUBROUTINE PBC
+
+SUBROUTINE MIC(vector,box,inv,ortho) 
+ 
+  IMPLICIT NONE
+ 
+  DOUBLE PRECISION,DIMENSION(3),INTENT(INOUT)::vector
+  DOUBLE PRECISION,DIMENSION(3,3),INTENT(IN)::box,inv
+  DOUBLE PRECISION,DIMENSION(3)::vaux,vaux2,vaux3,vmin
+  INTEGER,INTENT(IN)::ortho
+  INTEGER::ii,jj,kk
+  DOUBLE PRECISION::d,dmin
+
+  CALL PBC(vector,box,inv,ortho)
+
+  IF (ortho/=1) THEN
+
+     vmin=vector
+     dmin=(vmin(1)*vmin(1)+vmin(2)*vmin(2)+vmin(3)*vmin(3))
+
+     DO ii=-1,1,1
+        vaux(:)=vector(:)+ii*box(1,:)
+        DO jj=-1,1,1
+           vaux2(:)=vaux(:)+jj*box(2,:)
+           DO kk=-1,1,1
+               vaux3(:)=vaux2(:)+kk*box(3,:)
+               d=(vaux3(1)*vaux3(1)+vaux3(2)*vaux3(2)+vaux3(3)*vaux3(3))
+               IF (dmin>d) THEN
+                  vmin=vaux3
+                  dmin=d
+               END IF
+           END DO
+        END DO
+     END DO
+
+     vector=vmin
+
+  END IF
+  
+END SUBROUTINE MIC
 
 !SUBROUTINE PBC_FRAMES(vector_frames,box,inv,ortho,nn)
 !
@@ -73,26 +87,26 @@ END SUBROUTINE PBC
 !
 !END SUBROUTINE PBC_FRAMES
 
-SUBROUTINE PBC_TENSOR(tensor, box, inv, ortho, n_frames, n_atoms)
-
-  IMPLICIT NONE
-
-  INTEGER,INTENT(IN)::n_frames, n_atoms ,ortho
-  DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::tensor
-  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
-
-  INTEGER::ii,jj
-  DOUBLE PRECISION,DIMENSION(3)::vect_aux
-
-  DO ii=1,n_atoms
-    DO jj=1,n_frames
-        vect_aux(:)=tensor(jj,ii,:)
-        CALL PBC(vect_aux,box(jj,:,:),inv(jj,:,:),ortho)
-        tensor(jj,ii,:)=vect_aux(:)
-    END DO
-  END DO
-
-END SUBROUTINE PBC_TENSOR
+!SUBROUTINE PBC_TENSOR(tensor, box, inv, ortho, n_frames, n_atoms)
+!
+!  IMPLICIT NONE
+!
+!  INTEGER,INTENT(IN)::n_frames, n_atoms ,ortho
+!  DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::tensor
+!  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
+!
+!  INTEGER::ii,jj
+!  DOUBLE PRECISION,DIMENSION(3)::vect_aux
+!
+!  DO ii=1,n_atoms
+!    DO jj=1,n_frames
+!        vect_aux(:)=tensor(jj,ii,:)
+!        CALL PBC(vect_aux,box(jj,:,:),inv(jj,:,:),ortho)
+!        tensor(jj,ii,:)=vect_aux(:)
+!    END DO
+!  END DO
+!
+!END SUBROUTINE PBC_TENSOR
 
 
 ! SUBROUTINE UNBOUNDED_CENTER_3DPBC(pbc_opt,coors,box,ortho,com)

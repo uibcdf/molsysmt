@@ -74,10 +74,13 @@ class Topology():
             tmp_item.atoms_dataframe['atom_index']=np.arange(n_atoms)
             aux_dict=tmp_item.atoms_dataframe['atom_index'].to_dict()
             tmp_item.atoms_dataframe.index=np.arange(n_atoms)
+
             vaux_dict = np.vectorize(aux_dict.__getitem__)
 
-            tmp_item.bonds_dataframe['atom1_index']=vaux_dict(tmp_item.bonds_dataframe['atom1_index'].to_numpy())
-            tmp_item.bonds_dataframe['atom2_index']=vaux_dict(tmp_item.bonds_dataframe['atom2_index'].to_numpy())
+            if n_bonds>0:
+                tmp_item.bonds_dataframe['atom1_index']=vaux_dict(tmp_item.bonds_dataframe['atom1_index'].to_numpy())
+                tmp_item.bonds_dataframe['atom2_index']=vaux_dict(tmp_item.bonds_dataframe['atom2_index'].to_numpy())
+
             tmp_item.atoms_dataframe.index=tmp_item.atoms_dataframe['atom_index'].to_numpy()
 
             tmp_item._build_components()
@@ -135,14 +138,14 @@ class Topology():
 
     def _to_pdb_string(self, trajectory_item, frame_indices='all'):
 
-        from molsysmt.native.io.topology.files import to_pdb as molsysmt_Topology_to_pdb
+        from molsysmt.native.io.topology import to_pdb as molsysmt_Topology_to_pdb
 
         return molsysmt_Topology_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
                                          atom_indices='all', frame_indices=frame_indices)
 
     def _build_components(self):
 
-        from molsysmt.elements.component import _shortpath_to_build_components
+        from molsysmt.elements.component.component import _shortpath_to_build_components
 
         n_atoms = self.atoms_dataframe.shape[0]
         n_bonds = self.bonds_dataframe.shape[0]
@@ -164,7 +167,7 @@ class Topology():
 
     def _build_molecules(self):
 
-        from molsysmt.elements.molecule import _shortpath_to_build_molecules
+        from molsysmt.elements.molecule.molecule import _shortpath_to_build_molecules
 
         component_index_from_atom = self.atoms_dataframe['component_index'].to_numpy()
         component_type_from_atom = self.atoms_dataframe['component_type'].to_numpy()
@@ -181,7 +184,7 @@ class Topology():
 
     def _build_entities(self):
 
-        from molsysmt.elements.entity import _shortpath_to_build_entities
+        from molsysmt.elements.entity.entity import _shortpath_to_build_entities
 
         molecule_index_from_atom = self.atoms_dataframe['molecule_index'].to_numpy()
         molecule_type_from_atom = self.atoms_dataframe['molecule_type'].to_numpy()
@@ -199,9 +202,9 @@ class Topology():
 
     def _build_components_molecules_and_entities(self):
 
-        from molsysmt.elements.component import _shortpath_to_build_components
-        from molsysmt.elements.molecule import _shortpath_to_build_molecules
-        from molsysmt.elements.entity import _shortpath_to_build_entities
+        from molsysmt.elements.component.component import _shortpath_to_build_components
+        from molsysmt.elements.molecule.molecule import _shortpath_to_build_molecules
+        from molsysmt.elements.entity.entity import _shortpath_to_build_entities
 
         n_atoms = self.atoms_dataframe.shape[0]
         n_bonds = self.bonds_dataframe.shape[0]

@@ -2,7 +2,7 @@ import numpy as np
 
 def complementary_frame_indices(molecular_system, frame_indices):
 
-    from molsysmt.multitool import get
+    from molsysmt.basic import get
 
     n_frames = get(molecular_system, target='system', n_frames=True)
 
@@ -17,7 +17,7 @@ def digest_frame_indices(frame_indices):
             frame_indices = 'all'
         else:
             raise ValueError()
-    elif type(frame_indices) in [int, np.int64, np.int]:
+    elif type(frame_indices) in [int, np.int64, np.int32]:
         frame_indices = np.array([frame_indices], dtype='int64')
     elif hasattr(frame_indices, '__iter__'):
         frame_indices = np.array(frame_indices, dtype='int64')

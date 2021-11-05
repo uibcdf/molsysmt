@@ -76,11 +76,11 @@ class Simulation():
 
     def to_openmm_Integrator(self):
 
-        from simtk.openmm import LangevinIntegrator
+        from openmm import LangevinIntegrator
 
-        temperature = puw.convert(self.temperature, to_unit='K', to_form='simtk.unit')
-        collisions_rate = puw.convert(self.collisions_rate, to_unit='1/ps', to_form='simtk.unit')
-        integration_timestep = puw.convert(self.integration_timestep, to_unit='fs', to_form='simtk.unit')
+        temperature = puw.convert(self.temperature, to_unit='K', to_form='openmm.unit')
+        collisions_rate = puw.convert(self.collisions_rate, to_unit='1/ps', to_form='openmm.unit')
+        integration_timestep = puw.convert(self.integration_timestep, to_unit='fs', to_form='openmm.unit')
 
         if self.integrator=='Langevin':
             integrator = LangevinIntegrator(temperature, collisions_rate, integration_timestep)
@@ -93,7 +93,7 @@ class Simulation():
 
     def to_openmm_Platform(self):
 
-        from simtk.openmm import Platform
+        from openmm import Platform
 
         if self.platform in ['CUDA', 'CPU']:
             platform = Platform.getPlatformByName(self.platform)
@@ -113,7 +113,7 @@ class Simulation():
 
     def to_openmm_Context(self, molecular_system=None, selection='all', frame_indices='all'):
 
-        from molsysmt.multitool import convert
+        from molsysmt.basic import convert
 
         if molecular_system is None:
             molecular_system = self._molecular_system
@@ -138,7 +138,7 @@ class Simulation():
 
     def to_openmm_Simulation(self, molecular_system=None, selection='all', frame_indices='all'):
 
-        from molsysmt.multitool import convert
+        from molsysmt.basic import convert
 
         if molecular_system is None:
             molecular_system = self._molecular_system

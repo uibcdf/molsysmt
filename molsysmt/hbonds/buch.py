@@ -2,14 +2,16 @@
 
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
-from molsysmt.hbonds.donors_and_acceptors import get_acceptor_atoms, get_donor_atoms
-from molsysmt.multitool.select import select
-from molsysmt.distances import neighbors
+from molsysmt.basic import select
 from molsysmt import puw
 import numpy as np
 
 def buch(molecular_system, selection='all', selection_2=None, frame_indices='all', threshold='2.3 angstroms',
         acceptors=None, donors=None, pbc=False, optimize=False, output_form='dict', engine='MolSysMT', syntaxis='MolSysMT'):
+
+
+    from molsysmt.hbonds.donors_and_acceptors import get_acceptor_atoms, get_donor_atoms
+    from molsysmt.structure import get_neighbors
 
     molecular_system = digest_molecular_system(molecular_system)
     engine = digest_engine(engine)
@@ -29,7 +31,7 @@ def buch(molecular_system, selection='all', selection_2=None, frame_indices='all
         else:
             donors_1 = select(molecular_system, selection=selection, mask=donors, syntaxis=syntaxis)
 
-        neighs, _ = neighbors(molecular_system, selection=acceptors_1, selection_2=donors_1[0],
+        neighs, _ = get_neighbors(molecular_system, selection=acceptors_1, selection_2=donors_1[0],
                 frame_indices=frame_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
 
         if output_form == 'dict':
@@ -66,10 +68,10 @@ def buch(molecular_system, selection='all', selection_2=None, frame_indices='all
             donors_1 = select(molecular_system, selection=selection, mask=donors, syntaxis=syntaxis)
             donors_2 = select(molecular_system, selection=selection_2, mask=donors, syntaxis=syntaxis)
 
-        neighs, _ = neighbors(molecular_system, selection=acceptors_1, selection_2=donors_2[0],
+        neighs, _ = get_neighbors(molecular_system, selection=acceptors_1, selection_2=donors_2[0],
                 frame_indices=frame_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
 
-        neighs_2, _ = neighbors(molecular_system, selection=acceptors_2, selection_2=donors_1[0],
+        neighs_2, _ = get_neighbors(molecular_system, selection=acceptors_2, selection_2=donors_1[0],
                 frame_indices=frame_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
 
         if output_form == 'dict':

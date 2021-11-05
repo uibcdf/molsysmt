@@ -2,7 +2,7 @@ from .lists_and_tuples import is_list_or_tuple
 
 def digest_molecular_system(molecular_system):
 
-    from molsysmt.molecular_system import MolecularSystem
+    from molsysmt.native.molecular_system import MolecularSystem
 
     if type(molecular_system)==MolecularSystem:
         return molecular_system

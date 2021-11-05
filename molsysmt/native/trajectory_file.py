@@ -12,7 +12,7 @@ class TrajectoryFile():
 
         if filepath is not None and mode=='read':
 
-            from molsysmt.multitool import get_form
+            from molsysmt.basic import get_form
             from molsysmt import get, convert
 
             self.path = filepath
@@ -23,7 +23,9 @@ class TrajectoryFile():
             elif self.form == 'file:h5':
                 self.mount_point = convert(filepath, to_form='mdtraj.HDF5TrajectoryFile')
             elif self.form == 'file:pdb':
-                self.mount_point = convert(filepath, to_form='mdtraj.PDBTrajectoryFile')
+                # Don't use mdtraj.PDBTrajectoryFile. It does not work well with alternate
+                # locations in a pdb
+                self.mount_point = convert(filepath, to_form='openmm.PDBFile')
             elif self.form == 'file:inpcrd':
                 self.mount_point = convert(filepath, to_form='mdtraj.AmberRestartFile')
             elif self.form == 'file:mmtf':
@@ -40,7 +42,7 @@ class TrajectoryFile():
     def read_frames(self, atom_indices='all', frame_indices='all'):
 
         from molsysmt import get
-        from molsysmt.multitool import get_form
+        from molsysmt.basic import get_form
         step, time, coordinates, box = get(self.mount_point, target='atom', indices=atom_indices, frame_indices=frame_indices, frame=True)
         self.atom_indices=atom_indices
         return step, time, coordinates, box

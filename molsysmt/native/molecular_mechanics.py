@@ -125,7 +125,7 @@ class MolecularMechanics():
 
     def to_openmm_ForceField(self):
 
-        from simtk.openmm.app import ForceField
+        from openmm.app import ForceField
 
         forcefield_names = self.get_openmm_forcefield_names()
         forcefield = ForceField(*forcefield_names)
@@ -134,7 +134,7 @@ class MolecularMechanics():
 
     def get_openmm_System_parameters(self):
 
-        from simtk.openmm import app
+        from openmm import app
 
         parameters = {}
 
@@ -154,11 +154,11 @@ class MolecularMechanics():
             raise NotImplementedError()
 
         if self.non_bonded_cutoff is not None:
-            parameters['nonbondedCutoff']=puw.convert(self.non_bonded_cutoff, to_form='simtk.unit',
+            parameters['nonbondedCutoff']=puw.convert(self.non_bonded_cutoff, to_form='openmm.unit',
                                                       to_unit='nm')
 
         if self.switch_distance is not None:
-            parameters['switchDistance']=puw.convert(self.switch_distance, to_form='simtk.unit',
+            parameters['switchDistance']=puw.convert(self.switch_distance, to_form='openmm.unit',
                                                        to_unit='nm')
 
         if self.constraints is not None:
@@ -196,9 +196,9 @@ class MolecularMechanics():
                 raise NotImplementedError
 
             parameters['implicitSolventSaltConc']=puw.convert(self.implicit_solvent_salt_cont,
-                                                              to_unit='mole/liter', to_form='simtk.unit')
+                                                              to_unit='mole/liter', to_form='openmm.unit')
             parameters['implicitSolventKappa']=puw.convert(self.implicit_solvent_salt_kappa,
-                                                           to_unit='1/nm', to_form='simtk.unit')
+                                                           to_unit='1/nm', to_form='openmm.unit')
             parameters['soluteDielectric']=self.solute_dielectric
             parameters['solventDielectric']=self.solvent_dielectric
 
@@ -212,7 +212,7 @@ class MolecularMechanics():
 
     def to_openmm_System(self, molecular_system=None, selection='all', frame_indices='all'):
 
-        from molsysmt.multitool import convert
+        from molsysmt.basic import convert
 
         if molecular_system is None:
             molecular_system = self._molecular_system

@@ -1,5 +1,5 @@
 """
-Unit and regression test for the test_uibcdf_library package.
+Unit and regression test for the molsysmt package.
 """
 
 # Import package, test suite, and other packages as needed

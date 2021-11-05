@@ -165,7 +165,7 @@ class Trajectory():
 
     def add(self, item, selection='all', frame_indices='all'):
 
-        from molsysmt.multitool import get
+        from molsysmt.basic import get
 
         step, time, coordinates, box = get(item, target="atom", selection=selection, frame_indices=frame_indices, frame=True)
 
@@ -187,7 +187,7 @@ class Trajectory():
 
     def append(self, item, selection='all', frame_indices='all'):
 
-        from molsysmt.multitool import get
+        from molsysmt.basic import get
 
         step, time, coordinate, box = get(item, target="atom", selection=selection, frame_indices=frame_indices, frame=True)
         self.append_frames(step, time, coordinate, box)
@@ -236,7 +236,7 @@ class Trajectory():
     #        if self.selection_mdtraj is not None:
     #            atom_indices = self._atom_indices_mdtraj
     #    else:
-    #        from molsysmt.multitool import select as _select
+    #        from molsysmt.basic import select as _select
     #        atom_indices = _select(self.topology_mdtraj,selection,syntaxis)
 
     #    from mdtraj import iterload as _mdtraj_iterload
