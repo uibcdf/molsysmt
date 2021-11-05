@@ -1,6 +1,0 @@
-molsysmt.multitool.convert
-==========================
-
-.. currentmodule:: molsysmt.multitool
-
-.. autofunction:: convert

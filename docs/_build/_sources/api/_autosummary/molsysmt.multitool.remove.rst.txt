@@ -1,6 +1,0 @@
-molsysmt.multitool.remove
-=========================
-
-.. currentmodule:: molsysmt.multitool
-
-.. autofunction:: remove

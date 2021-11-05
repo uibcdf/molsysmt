@@ -1,6 +1,0 @@
-molsysmt.physico\_chemical\_properties.volume
-=============================================
-
-.. currentmodule:: molsysmt.physico_chemical_properties
-
-.. autofunction:: volume

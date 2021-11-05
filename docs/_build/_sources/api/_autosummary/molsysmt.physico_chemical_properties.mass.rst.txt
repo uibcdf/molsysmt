@@ -1,6 +1,0 @@
-molsysmt.physico\_chemical\_properties.mass
-===========================================
-
-.. currentmodule:: molsysmt.physico_chemical_properties
-
-.. autofunction:: mass

@@ -4,5 +4,5 @@ API Documentation
 .. autosummary::
    :toctree: autosummary
 
-   molsysmt.get_form
+   molsysmt.basic.get_form
 

@@ -1,6 +1,0 @@
-molsysmt.multitool.get\_form
-============================
-
-.. currentmodule:: molsysmt.multitool
-
-.. autofunction:: get_form

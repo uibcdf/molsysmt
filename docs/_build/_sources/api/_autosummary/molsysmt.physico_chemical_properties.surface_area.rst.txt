@@ -1,6 +1,0 @@
-molsysmt.physico\_chemical\_properties.surface\_area
-====================================================
-
-.. currentmodule:: molsysmt.physico_chemical_properties
-
-.. autofunction:: surface_area
