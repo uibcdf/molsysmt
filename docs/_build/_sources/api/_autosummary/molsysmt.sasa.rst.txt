@@ -1,6 +1,0 @@
-molsysmt.sasa
-=============
-
-.. currentmodule:: molsysmt
-
-.. autofunction:: sasa

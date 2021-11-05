@@ -1,6 +1,0 @@
-molsysmt.multitool.view
-=======================
-
-.. currentmodule:: molsysmt.multitool
-
-.. autofunction:: view

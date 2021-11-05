@@ -132,7 +132,7 @@ html_theme_options = {
     # Toc options
     'collapse_navigation': False,
     'sticky_navigation': True,
-    'navigation_depth': 4,
+    'navigation_depth': 2,
     'includehidden': True,
     'titles_only': False
 }
@@ -165,6 +165,7 @@ html_css_files = [
 #
 # html_sidebars = {}
 
+html_show_sourcelink = False
 
 # -- Options for HTMLHelp output ---------------------------------------------
 

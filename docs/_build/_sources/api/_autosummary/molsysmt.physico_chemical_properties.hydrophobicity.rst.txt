@@ -1,6 +1,0 @@
-molsysmt.physico\_chemical\_properties.hydrophobicity
-=====================================================
-
-.. currentmodule:: molsysmt.physico_chemical_properties
-
-.. autofunction:: hydrophobicity

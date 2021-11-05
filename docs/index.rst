@@ -26,98 +26,31 @@ Exceptionally few home-made subroutines will be included here to fill specific g
         A version of this web page in spanish will be available soon.
 
 .. toctree::
-   :name: installation_quickguide
-   :caption: Installation and Quick Guide
-   :maxdepth: 1
+   :name: user_guide
+   :caption: User Guide
+   :maxdepth: 2
 
-   contents/Installation.md
-   contents/Quickstart.ipynb
-
-.. toctree::
-   :name: forms_elements
-   :caption: Forms and elements
-   :maxdepth: 1
-
-   contents/Molecular_System.ipynb
-   contents/Elements.md
-   contents/Item.ipynb
-   contents/Forms.ipynb
-   contents/Info_forms.ipynb
-   contents/MolSys.md
-
-.. toctree::
-   :name: basic_manipulations
-   :caption: Basic tools
-   :maxdepth: 1
-
-   contents/basic/get_form.ipynb
-   contents/basic/convert.ipynb
-   contents/basic/info.ipynb
-   contents/basic/selection.ipynb
-   contents/basic/get.ipynb
-   contents/basic/extract.ipynb
-   contents/basic/copy.ipynb
-   contents/basic/remove.ipynb
-   contents/basic/merge.ipynb
-   contents/basic/concatenate_frames.ipynb
-   contents/basic/contains.ipynb
-   contents/basic/is_composed_of.ipynb
-   contents/basic/view.ipynb
+   contents/intro/index.rst
+   contents/molsys/index.rst
+   contents/native/index.rst
+   contents/basic/index.rst
+   contents/build/index.rst
+   contents/topology/index.rst
+   contents/structure/index.rst
+   contents/pbc/index.rst
+   contents/hbonds/index.rst
+   contents/physchem/index.rst
+   contents/molmech/index.rst
+   contents/working_with/index.rst
+   contents/help/index.rst
+   contents/demo/index.rst
 
 .. toctree::
-   :name: building_system
-   :caption: Building tools
-   :maxdepth: 1
-
-   contents/Fix.ipynb
-   contents/Solvation.ipynb
-   contents/Protonation.ipynb
-   contents/Build_peptide.ipynb
-   contents/Terminal_capping.ipynb
-   contents/Model_loop.ipynb
-   contents/Energy_minimization.ipynb
-
-.. toctree::
-   :name: structural_observables
-   :caption: Structural tools
-   :maxdepth: 1
-
-   contents/Geometrical_transformations.ipynb
-   contents/Distances.ipynb
-   contents/PBC.ipynb
-   contents/Centers.ipynb
-   contents/RMSD.ipynb
-   contents/Rg.ipynb
-   contents/Dihedral_angles.ipynb
-   contents/SASA.ipynb
-
-.. toctree::
-   :name: topological_observables
-   :caption: Topological tools
-   :maxdepth: 1
-
-   contents/Bondgraph.ipynb
-   contents/Covalent_chains.ipynb
-   contents/Alignment.ipynb
-   contents/Mutations.ipynb
-
-.. toctree::
-   :name: physchem_admet_observables
-   :caption: PhysChem and ADMET tools
-   :maxdepth: 1
-
-   contents/Mass.ipynb
-   contents/Volume_and_radii.ipynb
-   contents/Charge.ipynb
-   contents/Polarity.ipynb
-   contents/Transmembrane_tendency.ipynb
-
-.. toctree::
+   :name: api_doc
    :caption: API Documentation
    :maxdepth: 1
 
-   api/index.rst
-%   api/index_elements
+   api.rst
 
 Glossary, indices and tables
 ============================

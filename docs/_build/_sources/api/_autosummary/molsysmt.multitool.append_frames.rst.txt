@@ -1,6 +1,0 @@
-molsysmt.multitool.append\_frames
-=================================
-
-.. currentmodule:: molsysmt.multitool
-
-.. autofunction:: append_frames
