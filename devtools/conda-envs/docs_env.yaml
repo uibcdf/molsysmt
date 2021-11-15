@@ -8,6 +8,8 @@ dependencies:
 - python
 - numpy
 - pyunitwizard
+- sabueso
+- mmtf-python
 - pandas
 - mdtraj
 - mdanalysis
@@ -18,8 +20,6 @@ dependencies:
 - nglview
 - parmed
 - pytraj
-- jupyterlab
-- matplotlib
 - openopenmmreporters
 - openmolecularsystems
 - sphinx

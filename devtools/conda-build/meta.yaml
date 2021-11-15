@@ -1,43 +1,40 @@
 package:
   name: molsysmt
   version: "{{ environ['GIT_DESCRIBE_TAG'] }}"
-
 source:
   path: ../../
-
 build:
   number: 1
-
 requirements:
   build:
-    - python
-    - setuptools
-    - numpy
-    - versioneer
-
+  - python
+  - setuptools
+  - numpy
   run:
-    - python
-    - numpy
-    - pyunitwizard
-    - pandas
-    - mdtraj
-    - mdanalysis
-    - openmm
-    - openmmtools
-    - biopython
-    - nglview
-    - pdbfixer
-    - parmed
-    - pytraj
-    - openopenmmreporters
-    - openmolecularsystems
-
+  - python
+  - numpy
+  - pyunitwizard
+  - sabueso
+  - mmtf-python
+  - pandas
+  - mdtraj
+  - mdanalysis
+  - openmm
+  - pdbfixer
+  - openmmtools
+  - biopython
+  - nglview
+  - parmed
+  - pytraj
+  - openopenmmreporters
+  - openmolecularsystems
 about:
   home: https://uibcdf.org
   license: MIT License
-  summary: ""
-  description: |
-    This toolkit library provides some useful classes, functions, pipes and wrappers daily used in the uibcdf lab to work with molecular systems.
+  summary: ''
+  description: 'This toolkit library provides some useful classes, functions, pipes
+    and wrappers daily used in the uibcdf lab to work with molecular systems.
+
+    '
   dev_url: https://github.com/uibcdf/MolSysMT
   doc_url: https://uibcdf.org/MolSysMT
-

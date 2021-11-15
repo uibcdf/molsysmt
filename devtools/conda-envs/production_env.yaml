@@ -8,6 +8,8 @@ dependencies:
 - python
 - numpy
 - pyunitwizard
+- sabueso
+- mmtf-python
 - pandas
 - mdtraj
 - mdanalysis
