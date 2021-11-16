@@ -117,3 +117,9 @@ def adding_molsysmt():
             with open(filepath,'w') as f:
                 f.write(content)
 
+        print('nglview patching added')
+
+    else:
+
+        print('no need to add nglview patch')
+
