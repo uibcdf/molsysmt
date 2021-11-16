@@ -71,6 +71,12 @@ jobs:
         python -m pip install . --no-deps
         conda list
 
+    - name: Patching NGLView
+
+      # conda setup requires this special shell
+      shell: bash -l {0}
+      run: |
+        echo 'import molsysmt as msm' | python
 
     - name: Run tests
 
