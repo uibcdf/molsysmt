@@ -142,9 +142,8 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='
 def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.basic import get
-    from molsysmt.version import __version__ as msm_version
+    from molsysmt import __version__ as msm_version
     from openmm.app import PDBFile
-    #from openmm.version import short_version
     from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
     from io import StringIO
 
@@ -154,7 +153,6 @@ def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_in
     tmp_io = StringIO()
     PDBFile.writeFile(topology, puw.convert(coordinates[0], 'nm', to_form='openmm.unit'), tmp_io, keepIds=True)
     filedata = tmp_io.getvalue()
-    #openmm_version = short_version
     openmm_version = Platform.getOpenMMVersion()
     filedata = filedata.replace('WITH OPENMM '+openmm_version, 'WITH OPENMM '+openmm_version+' BY MOLSYSMT '+msm_version)
     tmp_io.close()

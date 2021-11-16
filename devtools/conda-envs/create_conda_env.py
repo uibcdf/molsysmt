@@ -7,31 +7,8 @@ import subprocess as sp
 from tempfile import TemporaryDirectory
 from contextlib import contextmanager
 # YAML imports
-try:
-    import yaml  # PyYAML
-    loader = yaml.load
-except ImportError:
-    try:
-        import ruamel_yaml as yaml  # Ruamel YAML
-    except ImportError:
-        try:
-            # Load Ruamel YAML from the base conda environment
-            from importlib import util as import_util
-            CONDA_BIN = os.path.dirname(os.environ['CONDA_EXE'])
-            ruamel_yaml_path = glob.glob(os.path.join(CONDA_BIN, '..',
-                                                      'lib', 'python*.*', 'site-packages',
-                                                      'ruamel_yaml', '__init__.py'))[0]
-            # Based on importlib example, but only needs to load_module since its the whole package, not just
-            # a module
-            spec = import_util.spec_from_file_location('ruamel_yaml', ruamel_yaml_path)
-            yaml = spec.loader.load_module()
-        except (KeyError, ImportError, IndexError):
-            raise ImportError("No YAML parser could be found in this or the conda environment. "
-                              "Could not find PyYAML or Ruamel YAML in the current environment, "
-                              "AND could not find Ruamel YAML in the base conda environment through CONDA_EXE path. " 
-                              "Environment not created!")
-    loader = yaml.YAML(typ="safe").load  # typ="safe" avoids odd typing on output
-
+import yaml  # PyYAML
+loader = yaml.load
 
 @contextmanager
 def temp_cd():
@@ -58,7 +35,7 @@ args = parser.parse_args()
 
 # Open the base file
 with open(args.conda_file, "r") as handle:
-    yaml_script = loader(handle.read())
+    yaml_script = loader(handle.read(), Loader=yaml.FullLoader)
 
 python_replacement_string = "python {}*".format(args.python)
 

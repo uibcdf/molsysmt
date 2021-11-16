@@ -43,6 +43,10 @@ from . import rna
 from . import dna
 
 
+# Adding molsysmt to nglview
+
+tools.nglview.adding_molsysmt()
+
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:
 

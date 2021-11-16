@@ -87,32 +87,33 @@ def adding_molsysmt():
     import nglview as nv
 
 
-    ## show.py
+    if not hasattr(nv, 'show_molsysmt'):
 
-    filepath = Path(nv.__file__).parent / 'show.py'
+        ## show.py
 
-    with open(filepath) as f:
-        content = f.read()
+        filepath = Path(nv.__file__).parent / 'show.py'
 
-    if 'MolSysMT' not in content:
+        with open(filepath) as f:
+            content = f.read()
 
-        content += patch_show
+        if 'MolSysMT' not in content:
 
-        with open(filepath,'w') as f:
-            f.write(content)
+            content += patch_show
 
-    ## adaptor.py
+            with open(filepath,'w') as f:
+                f.write(content)
 
-    filepath = Path(nv.__file__).parent / 'adaptor.py'
+        ## adaptor.py
 
-    with open(filepath) as f:
-        content = f.read()
+        filepath = Path(nv.__file__).parent / 'adaptor.py'
 
-    if 'MolSysMT' not in content:
+        with open(filepath) as f:
+            content = f.read()
 
-        content += patch_adaptor
+        if 'MolSysMT' not in content:
 
-        with open(filepath,'w') as f:
-            f.write(content)
+            content += patch_adaptor
 
+            with open(filepath,'w') as f:
+                f.write(content)
 

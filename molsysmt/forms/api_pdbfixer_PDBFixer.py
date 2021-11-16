@@ -167,7 +167,6 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='
 
     from io import StringIO
     from openmm.app import PDBFile
-    from openmm.version import short_version
     from molsysmt import __version__ as msm_version
     from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
 
