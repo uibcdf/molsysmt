@@ -65,23 +65,19 @@ jobs:
 
     - name: Install package
 
-      # conda setup requires this special shell
       shell: bash -l {0}
       run: |
-        #python -m pip install . --no-deps
         python setup.py develop
         conda list
 
-    - name: Patching NGLView
+    - name: Checking version
 
-      # conda setup requires this special shell
       shell: bash -l {0}
       run: |
         echo 'import molsysmt ; print(molsysmt.__version__)' | python
 
     - name: Run tests
 
-      # conda setup requires this special shell
       shell: bash -l {0}
       run: |
         pytest -v --cov=molsysmt --cov-report=xml --color=yes molsysmt/tests/
