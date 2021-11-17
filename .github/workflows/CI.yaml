@@ -68,7 +68,8 @@ jobs:
       # conda setup requires this special shell
       shell: bash -l {0}
       run: |
-        python -m pip install . --no-deps
+        #python -m pip install . --no-deps
+        python setup.py develop
         conda list
 
     - name: Patching NGLView
