@@ -13,14 +13,12 @@ jobs:
     name: Sphinx docs to gh-pages
     steps:
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
 
       - name: Additional info about the build
         shell: bash
         run: |
           uname -a
-          df -h
-          ulimit -a
 
       - name: Make conda environment
         uses: conda-incubator/setup-miniconda@v2    # https://github.com/conda-incubator/setup-miniconda
