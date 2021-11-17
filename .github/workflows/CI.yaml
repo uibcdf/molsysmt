@@ -77,13 +77,12 @@ jobs:
       # conda setup requires this special shell
       shell: bash -l {0}
       run: |
-        echo 'import molsysmt as msm' | python
+        echo 'import molsysmt as msm; print(molsysmt.__version__)' | python
 
     - name: Run tests
 
       # conda setup requires this special shell
       shell: bash -l {0}
-
       run: |
         pytest -v --cov=molsysmt --cov-report=xml --color=yes molsysmt/tests/
 
