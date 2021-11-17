@@ -14,8 +14,7 @@ production:
     - ambermd
     - *setup_channels
   dependencies: &production_dependencies
-    - python
-    - numpy
+    - *setup_dependencies
     - pyunitwizard
     - sabueso
     - mmtf-python
