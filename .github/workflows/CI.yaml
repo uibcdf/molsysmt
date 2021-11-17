@@ -77,7 +77,7 @@ jobs:
       # conda setup requires this special shell
       shell: bash -l {0}
       run: |
-        echo 'import molsysmt as msm; print(molsysmt.__version__)' | python
+        echo 'import molsysmt ; print(molsysmt.__version__)' | python
 
     - name: Run tests
 
