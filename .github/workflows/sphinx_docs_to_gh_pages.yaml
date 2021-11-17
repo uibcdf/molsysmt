@@ -28,6 +28,12 @@ jobs:
         run: |
           gfortran --version
 
+      - name: Fetching tags
+        shell: bash -l {0}
+        run: |
+           #git fetch --all
+           git describe --tags
+
       - name: Install package
         # conda setup requires this special shell
         shell: bash -l {0}
@@ -35,6 +41,11 @@ jobs:
            #python -m pip install . --no-deps
            python setup.py develop
 
-      - name: Running the Sphinx to gh-pages Action
-        uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.0-beta.1
+      - name: Checking version
+        shell: bash -l {0}
+        run: |
+           echo 'import molsysmt; print(molsysmt.__version__)' | python
+
+           #- name: Running the Sphinx to gh-pages Action
+           #uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.0-beta.1
 
