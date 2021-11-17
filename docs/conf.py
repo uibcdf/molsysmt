@@ -36,6 +36,7 @@ version = molsysmt.__version__.split('+')[0]
 # The full version, including alpha/beta/rc tags
 release = molsysmt.__version__
 
+print(f'version {version}, release {release}')
 
 # -- General configuration ---------------------------------------------------
 

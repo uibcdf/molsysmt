@@ -52,6 +52,5 @@
    molsysmt.structure
    molsysmt.tools
    molsysmt.topology
-   molsysmt.version
    molsysmt.water
 
