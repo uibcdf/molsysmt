@@ -32,7 +32,9 @@ jobs:
         shell: bash -l {0}
         run: |
            #git fetch --all
-           git describe --tags
+           #git describe --tags
+           pwd
+           ls
 
       - name: Install package
         # conda setup requires this special shell
