@@ -23,9 +23,6 @@ dependencies:
 - pytraj
 - openopenmmreporters
 - openmolecularsystems
-- - python
-  - setuptools
-  - numpy
 - pytest
 - pip
 - pytest-cov

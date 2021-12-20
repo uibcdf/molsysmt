@@ -9,8 +9,13 @@ def heal(arg):
             for jj in ii:
                 if type(jj) is list:
                     for kk in jj:
-                        if kk not in output:
-                            output.append(kk)
+                        if type(kk) is list:
+                            for ll in kk:
+                                if ll not in output:
+                                    output.append(ll)
+                        else:
+                            if kk not in output:
+                                output.append(kk)
                 else:
                     if jj not in output:
                         output.append(jj)
