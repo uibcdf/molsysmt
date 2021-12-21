@@ -2,11 +2,11 @@ import numpy as np
 from molsysmt.basic import get
 from networkx import connected_components
 
-def get_covalent_blocks(molecular_system, remove_bonds=None, output_form='sets'):
+def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_form='sets', syntaxis='MolSysMT'):
 
     from molsysmt.topology.get_bondgraph import get_bondgraph
 
-    G = get_bondgraph(molecular_system, nodes_name='atom_index')
+    G = get_bondgraph(molecular_system, nodes_name='atom_index', selection=selection, syntaxis=syntaxis)
 
     if remove_bonds is not None:
 

@@ -15,6 +15,10 @@ Building
    get_missing_terminals.ipynb
    get_non_standard_residues.ipynb
    add_terminal_cappings.ipynb
+   has_waters.ipynb
+   has_ions.ipynb
+   has_cosolutes.ipynb
+   has_small_molecules.ipynb
    is_solvated.ipynb
    solvate.ipynb
    remove_solvent.ipynb
