@@ -1,5 +1,9 @@
 setup:
   channels: &setup_channels
+    - uibcdf/label/dev
+    - uibcdf
+    - conda-forge
+    - ambermd
     - defaults
   dependencies: &setup_dependencies
     - python
@@ -8,10 +12,6 @@ setup:
 
 production:
   channels: &production_channels
-    - uibcdf/label/dev
-    - uibcdf
-    - conda-forge
-    - ambermd
     - *setup_channels
   dependencies: &production_dependencies
     - *setup_dependencies
