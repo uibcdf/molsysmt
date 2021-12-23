@@ -1,9 +1,10 @@
 
+.. _Topology:
+
 Topology
 ========
 
 .. toctree::
-   :name: topology
    :maxdepth: 2
 
    get_bondgraph.ipynb

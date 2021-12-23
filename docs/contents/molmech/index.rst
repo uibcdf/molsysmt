@@ -1,9 +1,9 @@
+.. _Molecular mechanics:
 
-Molecular Mechanics
+Molecular mechanics
 ===================
 
 .. toctree::
-   :name: molmech
    :maxdepth: 2
 
    force_fields.ipynb

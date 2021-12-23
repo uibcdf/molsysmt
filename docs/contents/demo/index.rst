@@ -1,9 +1,10 @@
 
-Demo Systems
+.. _Demo systems:
+
+Demo systems
 ============
 
 .. toctree::
-   :name: demo
    :maxdepth: 2
 
    demo.ipynb

@@ -1,6 +1,19 @@
-def is_string_pdb_id(string):
+def is_string_pdb_id(item):
 
-    from sabueso.tools.string_pdb_id import is_string_pdb_id as sabueso_is_string_pdb_id
+    if type(item)!=str:
+        raise ValueError
 
-    return sabueso_is_string_pdb_id(string)
+    output = False
+
+    if item.startswith('pdb_id:'):
+
+        output = True
+
+    else:
+
+        from sabueso.tools.string_pdb_id import is_string_pdb_id as sabueso_is_string_pdb_id
+
+        output = sabueso_is_string_pdb_id(item)
+
+    return output
 

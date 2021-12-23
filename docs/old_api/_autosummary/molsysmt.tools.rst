@@ -1,4 +1,4 @@
-molsysmt.tools
+﻿molsysmt.tools
 ==============
 
 .. automodule:: molsysmt.tools
@@ -27,6 +27,9 @@ molsysmt.tools
    :toctree:
    :recursive:
 
+   molsysmt.tools.file_fasta
+   molsysmt.tools.file_mmtf
+   molsysmt.tools.file_msmpk
    molsysmt.tools.file_pdb
    molsysmt.tools.items
    molsysmt.tools.memory

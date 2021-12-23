@@ -1,9 +1,10 @@
 
-Working With
+.. _Working with:
+
+Working with
 ============
 
 .. toctree::
-   :name: working_with
    :maxdepth: 2
 
    openmm.ipynb

@@ -20,10 +20,21 @@ Exceptionally few home-made subroutines will be included here to fill specific g
 .. |IntroWarningText| replace::
         At this moment MolSysMT is a work in progress project maintened by the UIBCDF Lab. It was concieved as a central repository for those shortcuts and common routines in the daily workflow of our lab. If you think this library is useful to you, use it with caution. Any feedback is welcome.
 
-.. note:: |IntroNoteText|
+.. toctree::
+   :name: about
+   :caption: About
+   :maxdepth: 2
 
-.. |IntroNoteText| replace::
-        A version of this web page in spanish will be available soon.
+   contents/about/what.md
+
+.. toctree::
+   :name: installation_and_showcase
+   :caption: Installation and showcase
+   :maxdepth: 2
+
+   contents/installation/Installation.md
+   contents/showcase/index.rst
+
 
 .. toctree::
    :name: user_guide
@@ -32,7 +43,6 @@ Exceptionally few home-made subroutines will be included here to fill specific g
 
    contents/intro/index.rst
    contents/molsys/index.rst
-   contents/native/index.rst
    contents/basic/index.rst
    contents/build/index.rst
    contents/topology/index.rst
@@ -41,9 +51,11 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    contents/hbonds/index.rst
    contents/physchem/index.rst
    contents/molmech/index.rst
+   contents/tools/index.rst
    contents/working_with/index.rst
-   contents/help/index.rst
    contents/demo/index.rst
+   contents/native/index.rst
+   contents/help/index.rst
 
 .. toctree::
    :name: api_doc

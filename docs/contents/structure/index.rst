@@ -1,9 +1,10 @@
 
+.. _Structure:
+
 Structure
 =========
 
 .. toctree::
-   :name: structure
    :maxdepth: 2
 
    get_center.ipynb

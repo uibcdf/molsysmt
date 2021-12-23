@@ -1,9 +1,10 @@
 
-Native Forms
-============
+.. _Native classes:
+
+Native classes
+==============
 
 .. toctree::
-   :name: native
    :maxdepth: 2
 
    file_msmpk.ipynb

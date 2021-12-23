@@ -1,3 +1,4 @@
+from .is_file_pdb import is_file_pdb
 from .download import download
 from .replace_HETATM_by_ATOM_in_terminal_cappings import replace_HETATM_by_ATOM_in_terminal_cappings
 from .has_atoms_with_alternate_locations import has_atoms_with_alternate_locations

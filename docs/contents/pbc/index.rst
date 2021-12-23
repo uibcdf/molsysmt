@@ -1,9 +1,10 @@
 
-Periodic Boundary Conditions
+.. _Periodic boundary conditions:
+
+Periodic boundary conditions
 ============================
 
 .. toctree::
-   :name: pbc
    :maxdepth: 2
 
    box_angles_from_box_vectors.ipynb

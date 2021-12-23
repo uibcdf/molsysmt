@@ -1,9 +1,9 @@
+.. _Physico-chemical properties:
 
-Physico-chemical Properties
+Physico-chemical properties
 ===========================
 
 .. toctree::
-   :name: physchem
    :maxdepth: 2
 
    area_buried.ipynb

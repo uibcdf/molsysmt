@@ -1,9 +1,10 @@
 
+.. _Building:
+
 Building
 ========
 
 .. toctree::
-   :name: building
    :maxdepth: 2
 
    has_hydrogens.ipynb

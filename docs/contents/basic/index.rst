@@ -1,9 +1,10 @@
 
+.. _Basic:
+
 Basic
 =====
 
 .. toctree::
-   :name: basic
    :maxdepth: 2
 
    get_form.ipynb

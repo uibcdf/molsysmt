@@ -1,12 +1,9 @@
 
 .. intro intro
 
-Installation and Quick Guide
-============================
+Introduction
+============
 
 .. toctree::
    :maxdepth: 1
-
-   Installation.md
-   Quickstart.ipynb
 

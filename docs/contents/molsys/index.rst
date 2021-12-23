@@ -1,9 +1,10 @@
 
-Molecular Systems, Forms and Elements
+.. _Molecular systems, forms and elements:
+
+Molecular systems, forms and elements
 =====================================
 
 .. toctree::
-   :name: molsys
    :maxdepth: 2
 
    Molecular_Systems_Items_Forms.ipynb
