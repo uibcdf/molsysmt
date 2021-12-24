@@ -1,4 +1,4 @@
-molsysmt.forms.api\_pytraj\_Trajectory
+﻿molsysmt.forms.api\_pytraj\_Trajectory
 ======================================
 
 .. automodule:: molsysmt.forms.api_pytraj_Trajectory
@@ -16,7 +16,7 @@ molsysmt.forms.api\_pytraj\_Trajectory
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_id_from_chain
       get_atom_id_from_component

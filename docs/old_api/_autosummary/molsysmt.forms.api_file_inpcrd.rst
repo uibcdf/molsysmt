@@ -1,4 +1,4 @@
-molsysmt.forms.api\_file\_inpcrd
+﻿molsysmt.forms.api\_file\_inpcrd
 ================================
 
 .. automodule:: molsysmt.forms.api_file_inpcrd
@@ -17,7 +17,7 @@ molsysmt.forms.api\_file\_inpcrd
       append_frames
       aux_get
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_atom
       get_atom_index_from_bond

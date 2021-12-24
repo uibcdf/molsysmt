@@ -1,4 +1,4 @@
-molsysmt.forms.api\_string\_pdb\_id
+﻿molsysmt.forms.api\_string\_pdb\_id
 ===================================
 
 .. automodule:: molsysmt.forms.api_string_pdb_id
@@ -17,7 +17,7 @@ molsysmt.forms.api\_string\_pdb\_id
       append_frames
       aux_get
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_atom
       get_atom_index_from_bond

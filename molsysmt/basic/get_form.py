@@ -13,22 +13,19 @@ def get_form(molecular_system):
         output = [get_form(ii) for ii in molecular_system]
         return output
 
-    if type(molecular_system) in dict_is_form:
+    type_molecular_system = molecular_system.__class__.__module__+'.'+molecular_system.__class__.__name__
 
-        return dict_is_form[type(molecular_system)]
+    if type_molecular_system in dict_is_form:
 
-    if type(molecular_system)==MolecularSystem:
+        return dict_is_form[type_molecular_system]
+
+    if type_molecular_system=='molsysmt.native.molecular_system.MolecularSystem':
 
         _, output = molecular_system.get_items()
         output = digest_output(output)
         return output
 
-    try:
-        return dict_is_form[molecular_system]
-    except:
-        pass
-
-    if type(molecular_system)==dict:
+    if type_molecular_system=='builtins.dict':
 
         from molsysmt.forms.api_molsysmt_MolecularMechanicsDict import this_dict_is_MolecularMechanicsDict
         from molsysmt.forms.api_molsysmt_MolecularMechanicsDict import form_name as form_MolecularMechanicsDict
@@ -46,7 +43,7 @@ def get_form(molecular_system):
         else:
             raise NotImplementedError()
 
-    if type(molecular_system)==str:
+    if type_molecular_system=='builtins.str':
 
         file_extension = molecular_system.split('.')[-1].lower()
         if file_extension in file_extensions_recognized:

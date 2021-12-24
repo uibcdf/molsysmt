@@ -1,4 +1,4 @@
-molsysmt.forms.api\_mdtraj\_Trajectory
+﻿molsysmt.forms.api\_mdtraj\_Trajectory
 ======================================
 
 .. automodule:: molsysmt.forms.api_mdtraj_Trajectory
@@ -17,7 +17,7 @@ molsysmt.forms.api\_mdtraj\_Trajectory
       append_frames
       aux_get
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_bond
       get_atom_name_from_atom

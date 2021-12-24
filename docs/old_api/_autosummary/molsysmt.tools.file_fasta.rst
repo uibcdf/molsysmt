@@ -28,4 +28,5 @@ molsysmt.tools.file\_fasta
    :recursive:
 
    molsysmt.tools.file_fasta.is_file_fasta
+   molsysmt.tools.file_fasta.to_biopython_SeqRecord
 

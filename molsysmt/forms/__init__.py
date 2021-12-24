@@ -16,7 +16,7 @@ dict_convert = {}
 dict_get = {}
 dict_set = {}
 dict_has = {}
-dict_extract_item = {}
+dict_extract = {}
 
 file_extensions_recognized = []
 string_names_recognized = []
@@ -48,7 +48,7 @@ for api_name in list_apis:
         dict_merge[form_name]=mod.merge
         dict_append_frames[form_name]=mod.append_frames
         dict_concatenate_frames[form_name]=mod.concatenate_frames
-        dict_extract_item[form_name]=mod.extract_item
+        dict_extract[form_name]=mod.extract
 
         dict_has[form_name]= mod.has
 

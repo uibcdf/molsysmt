@@ -6,14 +6,16 @@ Tools
 .. toctree::
    :maxdepth: 1
 
-   string_entity_name/index.rst
-   string_entity_query/index.rst
-   string_pdb_id/index.rst
-   string_fasta_text/index.rst
-   string_uniprot_id/index.rst
-   database_RCSB_PDB/index.rst
-   database_UniProtKB/index.rst
+   file_crd/index.rst
+   file_dcd/index.rst
+   file_fasta/index.rst
+   file_gro/index.rst
+   file_h5/index.rst
+   file_inpcrd/index.rst
+   file_mdcrd/index.rst
+   file_mmtf/index.rst
    file_pdb/index.rst
-   sabueso_ProteinDict/index.rst
-   sabueso_UniProtKB_XMLDict/index.rst
+   string_pdb_id/index.rst
+   biopython_Seq/index.rst
+   biopython_SeqRecord/index.rst
 

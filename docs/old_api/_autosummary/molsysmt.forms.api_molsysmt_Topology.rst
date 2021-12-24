@@ -1,4 +1,4 @@
-molsysmt.forms.api\_molsysmt\_Topology
+﻿molsysmt.forms.api\_molsysmt\_Topology
 ======================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_Topology
@@ -16,7 +16,7 @@ molsysmt.forms.api\_molsysmt\_Topology
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_id_from_chain
       get_atom_id_from_component

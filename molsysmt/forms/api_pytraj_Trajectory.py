@@ -69,7 +69,7 @@ def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
     else:
         raise NotImplementedError()
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError()
 

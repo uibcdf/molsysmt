@@ -20,7 +20,7 @@ for ii in ['elements', 'bonds', 'coordinates', 'box']:
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.forms.api_mdtraj_Topology import extract_item as extract_mdtraj_Topology
+    from molsysmt.forms.api_mdtraj_Topology import extract as extract_mdtraj_Topology
 
     tmp_item = item.topology
     if (atom_indices is not 'all'):
@@ -38,7 +38,7 @@ def to_mdtraj_HDF5TrajectoryFile(item, molecular_system=None, atom_indices='all'
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
-            tmp_item = extract_item(item)
+            tmp_item = extract(item)
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
@@ -46,13 +46,13 @@ def to_mdtraj_HDF5TrajectoryFile(item, molecular_system=None, atom_indices='all'
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
         if molecular_system is not None:
             tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         raise NotImplementedError()

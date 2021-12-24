@@ -209,7 +209,7 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
-            tmp_item = extract_item(item)
+            tmp_item = extract(item)
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
@@ -217,13 +217,13 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_in
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
         if molecular_system is not None:
             tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         tmp_item = item.copy()
@@ -239,7 +239,7 @@ def add(to_item, item):
 
 def merge(item_1, item_2):
 
-    tmp_item = extract_item(item_1)
+    tmp_item = extract(item_1)
     tmp_item.add(item_2)
 
     return tmp_item
@@ -251,7 +251,7 @@ def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
 def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
 
-    tmp_item = extract_item(item)
+    tmp_item = extract(item)
     tmp_item.append_frames(step=step, time=time, coordinates=coordinates, box=box)
 
     return tmp_item

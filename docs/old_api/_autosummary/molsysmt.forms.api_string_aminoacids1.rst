@@ -1,4 +1,4 @@
-molsysmt.forms.api\_string\_aminoacids1
+﻿molsysmt.forms.api\_string\_aminoacids1
 =======================================
 
 .. automodule:: molsysmt.forms.api_string_aminoacids1
@@ -16,7 +16,7 @@ molsysmt.forms.api\_string\_aminoacids1
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_bond
       get_atom_name_from_atom

@@ -1,4 +1,4 @@
-molsysmt.forms.api\_molsysmt\_Trajectory
+﻿molsysmt.forms.api\_molsysmt\_Trajectory
 ========================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_Trajectory
@@ -16,7 +16,7 @@ molsysmt.forms.api\_molsysmt\_Trajectory
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_box_angles_from_system
       get_box_from_system
       get_box_lengths_from_system

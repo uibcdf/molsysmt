@@ -36,15 +36,6 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_DataFrame(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.dataframe.files import from_mdcrd as mdcrd_to_molsysmt_DataFrame
-
-    tmp_item, tmp_molecular_system = mdcrd_to_molsysmt_DataFrame(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item, tmp_molecular_system
-
 def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.io.trajectory import from_mdcrd as mdcrd_to_molsysmt_Trajectory
@@ -60,7 +51,7 @@ def to_file_mdcrd(item, molecular_system=None, atom_indices='all', frame_indices
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
-            tmp_item = extract_item(item, output_filename=output_filename)
+            tmp_item = extract(item, output_filename=output_filename)
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
@@ -68,13 +59,13 @@ def to_file_mdcrd(item, molecular_system=None, atom_indices='all', frame_indices
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
         if molecular_system is not None:
             tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all', output_filename=None):
+def extract(item, atom_indices='all', frame_indices='all', output_filename=None):
 
     if output_filename is None:
         output_filename = temp_filename(extension='mdcrd')

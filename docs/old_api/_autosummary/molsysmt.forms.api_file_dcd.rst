@@ -1,4 +1,4 @@
-molsysmt.forms.api\_file\_dcd
+﻿molsysmt.forms.api\_file\_dcd
 =============================
 
 .. automodule:: molsysmt.forms.api_file_dcd
@@ -16,7 +16,7 @@ molsysmt.forms.api\_file\_dcd
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       merge
       to_file_dcd
    

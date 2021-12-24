@@ -1,4 +1,4 @@
-molsysmt.forms.api\_file\_xyz
+﻿molsysmt.forms.api\_file\_xyz
 =============================
 
 .. automodule:: molsysmt.forms.api_file_xyz
@@ -16,7 +16,7 @@ molsysmt.forms.api\_file\_xyz
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_bond
       get_atom_name_from_atom

@@ -1,4 +1,3 @@
-from Bio.SeqRecord import SeqRecord as _Bio_SeqRecord
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
@@ -7,8 +6,7 @@ from molsysmt.native.molecular_system import molecular_system_components
 form_name = 'biopython.SeqRecord'
 
 is_form={
-    _Bio_SeqRecord : form_name,
-    'biopython.SeqRecord' : form_name,
+    'Bio.SeqRecord.SeqRecord' : form_name,
 }
 
 info=["",""]
@@ -24,7 +22,7 @@ def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', fram
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
-            tmp_item = extract_item(item)
+            tmp_item = extract(item)
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
@@ -32,7 +30,7 @@ def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', fram
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
         if molecular_system is not None:
             tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
@@ -54,10 +52,10 @@ def to_file_fasta(item, molecular_system=None, atom_indices='all', frame_indices
 
     return tmp_item, molecular_system
 
-def to_pir(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, style=None):
+def to_file_pir(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, style=None):
 
     from Bio.SeqIO.PirIO import PirWriter as PirWriter
-    from molsysmt.forms.api_pir import rewrite_to_style as rewrite
+    from molsysmt.forms.api_file_pir import rewrite_to_style as rewrite
 
     tmp_item, tmp_molecular_system = to_biopython_SeqRecord(item, molecular_system=molecular_system,  atom_indices=atom_indices,
             frame_indices=frame_indices, copy_if_all=False)
@@ -75,7 +73,7 @@ def to_pir(item, molecular_system=None, atom_indices='all', frame_indices='all',
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 

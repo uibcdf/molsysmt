@@ -1,4 +1,4 @@
-﻿molsysmt.tools.string\_pdb\_id
+molsysmt.tools.string\_pdb\_id
 ==============================
 
 .. automodule:: molsysmt.tools.string_pdb_id

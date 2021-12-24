@@ -1,5 +1,4 @@
 from molsysmt._private_tools.exceptions import *
-from Bio.Seq import Seq as _Bio_Seq
 from molsysmt.forms.common_gets import *
 from molsysmt import puw
 from molsysmt.native.molecular_system import molecular_system_components
@@ -8,8 +7,7 @@ import numpy as np
 form_name='biopython.Seq'
 
 is_form={
-    _Bio_Seq : form_name,
-    'biopython.Seq' : form_name
+    'Bio.Seq.Seq' : form_name
 }
 
 info=["",""]
@@ -25,7 +23,7 @@ def to_biopython_Seq(item, molecular_system=None, atom_indices='all', frame_indi
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
-            tmp_item = extract_item(item)
+            tmp_item = extract(item)
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
@@ -33,7 +31,7 @@ def to_biopython_Seq(item, molecular_system=None, atom_indices='all', frame_indi
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
         if molecular_system is not None:
             tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
@@ -61,16 +59,16 @@ def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', fram
 
     return tmp_item, tmp_molecular_system
 
-def to_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_fasta(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
-    from .api_biopython_SeqRecord import to_fasta as biopython_SeqRecord_to_fasta
+    from .api_biopython_SeqRecord import to_file_fasta as biopython_SeqRecord_to_file_fasta
 
     tmp_item, tmp_molecular_system = to_biopython_SeqRecord(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-    tmp_item, tmp_molecular_system = biopython_SeqRecord_to_fasta(tmp_item, molecular_system=molecular_system, output_filename=output_filename)
+    tmp_item, tmp_molecular_system = biopython_SeqRecord_to_file_fasta(tmp_item, molecular_system=molecular_system, output_filename=output_filename)
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 

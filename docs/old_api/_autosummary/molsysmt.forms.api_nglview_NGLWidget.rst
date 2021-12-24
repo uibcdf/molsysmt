@@ -1,4 +1,4 @@
-molsysmt.forms.api\_nglview\_NGLWidget
+﻿molsysmt.forms.api\_nglview\_NGLWidget
 ======================================
 
 .. automodule:: molsysmt.forms.api_nglview_NGLWidget
@@ -17,7 +17,7 @@ molsysmt.forms.api\_nglview\_NGLWidget
       append_frames
       aux_get
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_atom
       get_atom_index_from_bond

@@ -1,4 +1,4 @@
-molsysmt.forms.api\_biopython\_Seq
+﻿molsysmt.forms.api\_biopython\_Seq
 ==================================
 
 .. automodule:: molsysmt.forms.api_biopython_Seq
@@ -16,7 +16,7 @@ molsysmt.forms.api\_biopython\_Seq
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_bond
       get_atom_name_from_atom
@@ -69,7 +69,7 @@ molsysmt.forms.api\_biopython\_Seq
       set_coordinates_to_system
       to_biopython_Seq
       to_biopython_SeqRecord
-      to_fasta
+      to_file_fasta
    
    
 

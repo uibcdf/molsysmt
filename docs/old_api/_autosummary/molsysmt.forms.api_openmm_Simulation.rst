@@ -1,4 +1,4 @@
-molsysmt.forms.api\_openmm\_Simulation
+﻿molsysmt.forms.api\_openmm\_Simulation
 ======================================
 
 .. automodule:: molsysmt.forms.api_openmm_Simulation
@@ -16,7 +16,7 @@ molsysmt.forms.api\_openmm\_Simulation
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_box_from_system
       get_coordinates_from_atom
       get_coordinates_from_system

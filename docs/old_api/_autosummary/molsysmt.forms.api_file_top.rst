@@ -1,4 +1,4 @@
-molsysmt.forms.api\_file\_top
+﻿molsysmt.forms.api\_file\_top
 =============================
 
 .. automodule:: molsysmt.forms.api_file_top
@@ -16,7 +16,7 @@ molsysmt.forms.api\_file\_top
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       merge
       to_file_top
       to_mdtraj_Topology

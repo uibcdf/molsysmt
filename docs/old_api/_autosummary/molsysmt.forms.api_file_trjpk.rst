@@ -1,4 +1,4 @@
-molsysmt.forms.api\_file\_trjpk
+﻿molsysmt.forms.api\_file\_trjpk
 ===============================
 
 .. automodule:: molsysmt.forms.api_file_trjpk
@@ -16,7 +16,7 @@ molsysmt.forms.api\_file\_trjpk
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_name_from_atom
       get_atom_type_from_atom

@@ -1,4 +1,4 @@
-molsysmt.forms.api\_file\_mmtf
+﻿molsysmt.forms.api\_file\_mmtf
 ==============================
 
 .. automodule:: molsysmt.forms.api_file_mmtf
@@ -17,7 +17,7 @@ molsysmt.forms.api\_file\_mmtf
       append_frames
       aux_get
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_name_from_atom
       get_atom_type_from_atom

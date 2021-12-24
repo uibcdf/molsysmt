@@ -34,7 +34,7 @@ def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
     else:
         raise NotImplementedError()
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     raise NotImplementedError()
 

@@ -2,7 +2,7 @@ from molsysmt.tools.molecular_systems import *
 from molsysmt.tools.items import compatibles_for_a_single_molecular_system as items_compatibles_for_a_single_molecular_system
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools.exceptions import *
-from molsysmt.forms import dict_extract_item
+from molsysmt.forms import dict_extract
 
 molecular_system_components = {
 
@@ -96,7 +96,7 @@ class MolecularSystem():
 
             if aux_item is not None:
                 if aux_item not in extracted_items:
-                    aux_extracted_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+                    aux_extracted_item = dict_extract[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
                     extracted_items[aux_item] = aux_extracted_item
                 else:
                     aux_extracted_item = extracted_items[aux_item]
@@ -128,7 +128,7 @@ class MolecularSystem():
 
                     if (atom_indices is not 'all') or (frame_indices is not 'all'):
                         if aux_item not in extracted_items:
-                            aux_extracted_item = dict_extract_item[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
+                            aux_extracted_item = dict_extract[aux_form](aux_item, atom_indices=atom_indices, frame_indices=frame_indices)
                             extracted_items[aux_item] = aux_extracted_item
                         else:
                             aux_extracted_item = extracted_items[aux_item]

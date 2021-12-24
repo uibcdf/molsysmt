@@ -1,4 +1,4 @@
-molsysmt.forms.api\_openmm\_Context
+﻿molsysmt.forms.api\_openmm\_Context
 ===================================
 
 .. automodule:: molsysmt.forms.api_openmm_Context
@@ -16,7 +16,7 @@ molsysmt.forms.api\_openmm\_Context
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_atom
       get_atom_index_from_bond

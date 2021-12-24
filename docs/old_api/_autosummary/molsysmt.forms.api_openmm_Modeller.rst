@@ -1,4 +1,4 @@
-molsysmt.forms.api\_openmm\_Modeller
+﻿molsysmt.forms.api\_openmm\_Modeller
 ====================================
 
 .. automodule:: molsysmt.forms.api_openmm_Modeller
@@ -17,7 +17,7 @@ molsysmt.forms.api\_openmm\_Modeller
       append_frames
       aux_get
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_name_from_atom
       get_atom_type_from_atom

@@ -1,4 +1,4 @@
-molsysmt.forms.api\_molsysmt\_SimulationDict
+﻿molsysmt.forms.api\_molsysmt\_SimulationDict
 ============================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_SimulationDict
@@ -16,7 +16,7 @@ molsysmt.forms.api\_molsysmt\_SimulationDict
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       merge
       this_dict_is_SimulationDict
       to_SimulationDict

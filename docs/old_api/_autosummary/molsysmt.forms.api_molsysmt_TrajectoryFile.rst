@@ -1,4 +1,4 @@
-molsysmt.forms.api\_molsysmt\_TrajectoryFile
+﻿molsysmt.forms.api\_molsysmt\_TrajectoryFile
 ============================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_TrajectoryFile
@@ -16,7 +16,7 @@ molsysmt.forms.api\_molsysmt\_TrajectoryFile
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       merge
       to_molsysmt_TrajectoryFile
    

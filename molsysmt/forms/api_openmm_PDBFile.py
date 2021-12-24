@@ -97,7 +97,7 @@ def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_ind
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:
-            tmp_item = extract_item(item)
+            tmp_item = extract(item)
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
         else:
@@ -105,19 +105,19 @@ def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_ind
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
         if molecular_system is not None:
             tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         from copy import copy
         tmp_item = copy(item)
     else:
-        from molsysmt.forms.api_openmm_Topology import extract_item as extract_openmm_Topology
+        from molsysmt.forms.api_openmm_Topology import extract as extract_openmm_Topology
         from molsysmt import convert
         if atom_indices is not 'all':
             topology = extract_openmm_Topology(item.topology, atom_indices=atom_indices)

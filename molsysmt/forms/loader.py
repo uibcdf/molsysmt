@@ -11,7 +11,7 @@ api_module = {}
 api_type = {}
 api_dependencies = {}
 api_convert = {}
-api_extract_item = {}
+api_extract = {}
 
 modules_required = set()
 modules_detected = {}

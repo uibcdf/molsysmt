@@ -207,7 +207,7 @@ def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_
 
         if copy_if_all:
 
-            tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
 
@@ -219,13 +219,13 @@ def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_
 
     else:
 
-        tmp_item = extract_item(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
         if molecular_system is not None:
             tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract_item(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', frame_indices='all'):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
 

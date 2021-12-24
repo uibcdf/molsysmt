@@ -1,4 +1,4 @@
-molsysmt.forms.api\_mdtraj\_AmberRestartFile
+﻿molsysmt.forms.api\_mdtraj\_AmberRestartFile
 ============================================
 
 .. automodule:: molsysmt.forms.api_mdtraj_AmberRestartFile
@@ -16,7 +16,7 @@ molsysmt.forms.api\_mdtraj\_AmberRestartFile
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_atom
       get_atom_index_from_bond

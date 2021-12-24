@@ -1,4 +1,4 @@
-molsysmt.forms.api\_pytraj\_Topology
+﻿molsysmt.forms.api\_pytraj\_Topology
 ====================================
 
 .. automodule:: molsysmt.forms.api_pytraj_Topology
@@ -16,7 +16,7 @@ molsysmt.forms.api\_pytraj\_Topology
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_bond
       get_atom_name_from_atom
