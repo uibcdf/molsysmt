@@ -1,7 +1,7 @@
-.. _String pdb_id:
+.. _pdb_id:
 
-String pdb_id
-=============
+pdb_id
+======
 
 .. toctree::
    :maxdepth: 1

@@ -1,7 +1,7 @@
-.. _File mmtf:
+.. _mmtf:
 
-File mmtf
-=========
+mmtf
+====
 
 .. toctree::
    :maxdepth: 1

@@ -1,29 +1,6 @@
-molsysmt.tools.file\_mmtf.to\_molsysmt\_MolSys
+﻿molsysmt.tools.file\_mmtf.to\_molsysmt\_MolSys
 ==============================================
 
-.. automodule:: molsysmt.tools.file_mmtf.to_molsysmt_MolSys
+.. currentmodule:: molsysmt.tools.file_mmtf
 
-   
-   
-   
-
-   
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      to_molsysmt_MolSys
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
+.. autofunction:: to_molsysmt_MolSys

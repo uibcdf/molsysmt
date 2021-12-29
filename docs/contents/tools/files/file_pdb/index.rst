@@ -1,7 +1,7 @@
-.. _File pdb:
+.. _pdb:
 
-File pdb
-========
+pdb
+===
 
 .. toctree::
    :maxdepth: 1

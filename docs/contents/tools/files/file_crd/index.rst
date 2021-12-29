@@ -1,7 +1,7 @@
-.. _File crd:
+.. _crd:
 
-File crd
-========
+crd
+===
 
 .. toctree::
    :maxdepth: 1

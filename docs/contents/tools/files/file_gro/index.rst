@@ -1,7 +1,7 @@
-.. _File gro:
+.. _gro:
 
-File gro
-========
+gro
+===
 
 .. toctree::
    :maxdepth: 1

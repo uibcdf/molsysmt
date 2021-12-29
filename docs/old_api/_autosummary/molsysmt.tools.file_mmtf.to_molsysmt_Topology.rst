@@ -1,29 +1,6 @@
-molsysmt.tools.file\_mmtf.to\_molsysmt\_Topology
+﻿molsysmt.tools.file\_mmtf.to\_molsysmt\_Topology
 ================================================
 
-.. automodule:: molsysmt.tools.file_mmtf.to_molsysmt_Topology
+.. currentmodule:: molsysmt.tools.file_mmtf
 
-   
-   
-   
-
-   
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      to_molsysmt_Topology
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
+.. autofunction:: to_molsysmt_Topology

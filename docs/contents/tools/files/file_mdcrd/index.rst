@@ -1,7 +1,7 @@
-.. _File mdcrd:
+.. _mdcrd:
 
-File mdcrd
-==========
+mdcrd
+=====
 
 .. toctree::
    :maxdepth: 1

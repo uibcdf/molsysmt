@@ -37,6 +37,7 @@
    molsysmt.tools.file_inpcrd
    molsysmt.tools.file_mdcrd
    molsysmt.tools.file_mmtf
+   molsysmt.tools.file_mol2
    molsysmt.tools.file_msmpk
    molsysmt.tools.file_pdb
    molsysmt.tools.items

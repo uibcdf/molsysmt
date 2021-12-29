@@ -1,29 +1,6 @@
-molsysmt.tools.file\_mmtf.to\_mmtf\_MMTFDecoder
+﻿molsysmt.tools.file\_mmtf.to\_mmtf\_MMTFDecoder
 ===============================================
 
-.. automodule:: molsysmt.tools.file_mmtf.to_mmtf_MMTFDecoder
+.. currentmodule:: molsysmt.tools.file_mmtf
 
-   
-   
-   
-
-   
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      to_mmtf_MMTFDecoder
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
+.. autofunction:: to_mmtf_MMTFDecoder

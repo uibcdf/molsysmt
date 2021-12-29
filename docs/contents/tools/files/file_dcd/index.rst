@@ -1,7 +1,7 @@
-.. _File dcd:
+.. _dcd:
 
-File dcd
-========
+dcd
+===
 
 .. toctree::
    :maxdepth: 1

@@ -14,5 +14,6 @@ Files
    file_inpcrd/index.rst
    file_mdcrd/index.rst
    file_mmtf/index.rst
+   file_msmpk/index.rst
    file_pdb/index.rst
 

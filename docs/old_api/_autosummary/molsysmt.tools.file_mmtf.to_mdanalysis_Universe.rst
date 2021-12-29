@@ -1,29 +1,6 @@
-molsysmt.tools.file\_mmtf.to\_mdanalysis\_Universe
+﻿molsysmt.tools.file\_mmtf.to\_mdanalysis\_Universe
 ==================================================
 
-.. automodule:: molsysmt.tools.file_mmtf.to_mdanalysis_Universe
+.. currentmodule:: molsysmt.tools.file_mmtf
 
-   
-   
-   
-
-   
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      to_mdanalysis_Universe
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
+.. autofunction:: to_mdanalysis_Universe

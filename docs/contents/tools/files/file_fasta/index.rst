@@ -1,7 +1,7 @@
-.. _File fasta:
+.. _fasta:
 
-File fasta
-==========
+fasta
+=====
 
 .. toctree::
    :maxdepth: 1
