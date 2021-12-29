@@ -43,23 +43,6 @@ has = molecular_system_components.copy()
 for ii in ['elements']:
     has[ii]=True
 
-def rewrite_to_style(filename, style=None):
-
-    if style == 'modeller':
-        fff = open(filename,"r")
-        content = fff.readlines()
-        fff.close()
-
-        fff = open(filename,"w")
-        fff.writelines(content[0])
-        fff.write("sequence:::::::::")
-        fff.writelines(content[1:])
-        fff.close()
-
-        pass
-    else:
-        pass
-
 def to_file_pir(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=False):
 
     tmp_molecular_system = None

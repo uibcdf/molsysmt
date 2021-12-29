@@ -36,14 +36,6 @@ def to_parmed_GromacsTopologyFile(item, molecular_system=None, atom_indices='all
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.structure.classes import from_gromacs_Topology
-
-    tmp_item, tmp_molecular_system = from_gromacs_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item, tmp_molecular_system
-
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from mdtraj.core.topology import Topology

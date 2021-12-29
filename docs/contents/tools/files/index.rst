@@ -16,4 +16,8 @@ Files
    file_mmtf/index.rst
    file_msmpk/index.rst
    file_pdb/index.rst
+   file_pir/index.rst
+   file_prmtop/index.rst
+   file_smi/index.rst
+   file_top/index.rst
 

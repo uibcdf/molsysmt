@@ -9,4 +9,5 @@ Tools
    strings/index.rst
    files/index.rst
    classes/index.rst
+   libs_and_apps/index.rst
 

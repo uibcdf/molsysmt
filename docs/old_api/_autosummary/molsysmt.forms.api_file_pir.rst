@@ -19,7 +19,6 @@
       extract
       get_form_from_system
       merge
-      rewrite_to_style
       to_file_pir
    
    

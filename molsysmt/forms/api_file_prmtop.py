@@ -19,45 +19,6 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'box', 'bonds', 'ff_parameters']:
     has[ii]=True
 
-def to_file_prmtop(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
-
-    tmp_molecular_system = None
-
-    if (atom_indices is 'all') and (frame_indices is 'all'):
-        if copy_if_all:
-            tmp_item = extract(item, output_filename=output_filename)
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-        else:
-            tmp_item = item
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system
-    else:
-        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
-        if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def extract(item, atom_indices='all', frame_indices='all', output_filename=None):
-
-    if output_filename is None:
-        output_filename = temp_filename(extension='prmtop')
-
-    tmp_item = None
-
-    if (atom_indices is 'all') and (frame_indices is 'all'):
-
-        from shutil import copy as copy_file
-        copy_file(item, output_filename)
-        tmp_item = output_filename
-
-    else:
-
-        raise NotImplementedError()
-
-    return tmp_item
-
 def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt.forms.api_openmm_Modeller import to_file_pdb as openmm_Modeller_to_file_pdb
@@ -135,6 +96,46 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
             molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
+
+
+def to_file_prmtop(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
+
+    tmp_molecular_system = None
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+        if copy_if_all:
+            tmp_item = extract(item, output_filename=output_filename)
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
+        else:
+            tmp_item = item
+            if molecular_system is not None:
+                tmp_molecular_system = molecular_system
+    else:
+        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+        if molecular_system is not None:
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    return tmp_item, tmp_molecular_system
+
+def extract(item, atom_indices='all', frame_indices='all', output_filename=None):
+
+    if output_filename is None:
+        output_filename = temp_filename(extension='prmtop')
+
+    tmp_item = None
+
+    if (atom_indices is 'all') and (frame_indices is 'all'):
+
+        from shutil import copy as copy_file
+        copy_file(item, output_filename)
+        tmp_item = output_filename
+
+    else:
+
+        raise NotImplementedError()
+
+    return tmp_item
 
 def merge(item_1, item_2):
 

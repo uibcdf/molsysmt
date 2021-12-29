@@ -40,6 +40,8 @@
    molsysmt.tools.file_mol2
    molsysmt.tools.file_msmpk
    molsysmt.tools.file_pdb
+   molsysmt.tools.file_pir
+   molsysmt.tools.file_prmtop
    molsysmt.tools.items
    molsysmt.tools.memory
    molsysmt.tools.molecular_systems
