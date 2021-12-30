@@ -11,6 +11,7 @@ from . import file_pdb
 from . import file_pir
 from . import file_prmtop
 from . import file_smi
+from . import file_top
 from . import string_aminoacids1
 from . import string_aminoacids3
 from . import string_pdb_id

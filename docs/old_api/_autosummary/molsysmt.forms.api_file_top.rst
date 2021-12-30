@@ -20,7 +20,6 @@
       merge
       to_file_top
       to_mdtraj_Topology
-      to_molsysmt_Structure
       to_openmm_GromacsTopFile
       to_openmm_Topology
       to_parmed_GromacsTopologyFile

@@ -42,6 +42,8 @@
    molsysmt.tools.file_pdb
    molsysmt.tools.file_pir
    molsysmt.tools.file_prmtop
+   molsysmt.tools.file_smi
+   molsysmt.tools.file_top
    molsysmt.tools.items
    molsysmt.tools.memory
    molsysmt.tools.molecular_systems
