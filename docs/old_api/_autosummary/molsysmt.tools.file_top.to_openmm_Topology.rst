@@ -1,6 +1,29 @@
 molsysmt.tools.file\_top.to\_openmm\_Topology
 =============================================
 
-.. currentmodule:: molsysmt.tools.file_top
+.. automodule:: molsysmt.tools.file_top.to_openmm_Topology
 
-.. autofunction:: to_openmm_Topology
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Topology
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

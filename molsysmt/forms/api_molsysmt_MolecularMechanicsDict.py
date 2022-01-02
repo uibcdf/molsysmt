@@ -16,7 +16,7 @@ for ii in ['ff_parameters', 'mm_parameters']:
 
 def this_dict_is_MolecularMechanicsDict(item):
 
-    from molsysmt._private_tools.molecular_mechanics import is_molecular_mechanics_dict
+    from molsysmt.native.molecular_mechanics_dict import is_molecular_mechanics_dict
 
     return is_molecular_mechanics_dict(item)
 

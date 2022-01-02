@@ -40,7 +40,7 @@ def to_XYZ(item, molecular_system=None, atom_indices='all', frame_indices='all')
 
     return tmp_item, tmp_molecular_system
 
-def to_xyznpy(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True, output_filename=None):
+def to_file_xyznpy(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True, output_filename=None):
 
     tmp_molecular_system = None
 

@@ -1,9 +1,8 @@
+_item_fullname_='Bio.Seq.SeqRecord'
+
 def is_biopython_SeqRecord(item):
 
-    try:
-        output = (item.__class__.__name__=='SeqRecord') and (item.__class__.__module__=='Bio.SeqRecord')
-    except:
-        output = False
+    item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
 
-    return output
+    return _item_fullname_==item_fullname
 

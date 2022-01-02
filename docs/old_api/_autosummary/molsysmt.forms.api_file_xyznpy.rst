@@ -67,7 +67,7 @@
       set_box_to_system
       set_coordinates_to_system
       to_XYZ
-      to_xyznpy
+      to_file_xyznpy
    
    
 

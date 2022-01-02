@@ -20,4 +20,7 @@ Files
    file_prmtop/index.rst
    file_smi/index.rst
    file_top/index.rst
-
+   file_trjpk/index.rst
+   file_xtc/index.rst
+   file_xyz/index.rst
+   file_xyznpy/index.rst

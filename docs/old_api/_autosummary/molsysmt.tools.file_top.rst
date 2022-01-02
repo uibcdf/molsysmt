@@ -1,4 +1,4 @@
-molsysmt.tools.file\_top
+﻿molsysmt.tools.file\_top
 ========================
 
 .. automodule:: molsysmt.tools.file_top
@@ -27,8 +27,6 @@ molsysmt.tools.file\_top
    :toctree:
    :recursive:
 
-   molsysmt.tools.file_top.is_file_top
-   molsysmt.tools.file_top.to_mdtraj_Topology
    molsysmt.tools.file_top.to_openmm_GromacsTopFile
    molsysmt.tools.file_top.to_openmm_Topology
    molsysmt.tools.file_top.to_parmed_GromacsTopologyFile

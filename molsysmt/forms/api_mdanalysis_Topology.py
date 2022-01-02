@@ -1,13 +1,11 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from MDAnalysis.core.topology import Topology as _mdanalysis_Topology
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='mdanalysis.Topology'
 
 is_form={
-    _mdanalysis_Topology : form_name,
     'mdanalysis.Topology' : form_name
         }
 

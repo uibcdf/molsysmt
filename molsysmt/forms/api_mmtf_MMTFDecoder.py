@@ -2,7 +2,6 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 from molsysmt import puw
 import numpy as np
-from mmtf import MMTFDecoder as _mmtf_MMTFDecoder
 from molsysmt.native.molecular_system import molecular_system_components
 import importlib
 from copy import deepcopy
@@ -11,7 +10,7 @@ import sys
 form_name='mmtf.MMTFDecoder'
 
 is_form={
-    _mmtf_MMTFDecoder : form_name,
+    'mmtf.MMTFDecoder' : form_name,
 }
 
 info=["",""]

@@ -43,8 +43,19 @@
    molsysmt.tools.file_pir
    molsysmt.tools.file_prmtop
    molsysmt.tools.file_smi
-   molsysmt.tools.file_top
+   molsysmt.tools.file_trjpk
+   molsysmt.tools.file_xtc
+   molsysmt.tools.file_xyz
+   molsysmt.tools.file_xyznpy
    molsysmt.tools.items
+   molsysmt.tools.mdanalysis_Topology
+   molsysmt.tools.mdanalysis_Universe
+   molsysmt.tools.mdtraj_AmberRestartFile
+   molsysmt.tools.mdtraj_GroTrajectoryFile
+   molsysmt.tools.mdtraj_HDF5TrajectoryFile
+   molsysmt.tools.mdtraj_PDBTrajectoryFile
+   molsysmt.tools.mdtraj_Topology
+   molsysmt.tools.mdtraj_Trajectory
    molsysmt.tools.memory
    molsysmt.tools.molecular_systems
    molsysmt.tools.nglview

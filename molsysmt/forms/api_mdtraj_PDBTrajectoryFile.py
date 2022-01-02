@@ -1,7 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from mdtraj.formats.pdb import PDBTrajectoryFile as _mdtraj_PDBTrajectoryFile
 import importlib
 import sys
 from molsysmt import puw
@@ -10,7 +9,6 @@ from molsysmt.native.molecular_system import molecular_system_components
 form_name='mdtraj.PDBTrajectoryFile'
 
 is_form={
-    _mdtraj_PDBTrajectoryFile: form_name,
     'mdtraj.PDBTrajectoryFile': form_name
     }
 

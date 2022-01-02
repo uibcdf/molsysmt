@@ -1,7 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from mdtraj.core.trajectory import Trajectory as _mdtraj_Trajectory
 import importlib
 import sys
 from molsysmt import puw
@@ -10,7 +9,6 @@ from molsysmt.native.molecular_system import molecular_system_components
 form_name='mdtraj.Trajectory'
 
 is_form={
-    _mdtraj_Trajectory:form_name,
     'mdtraj.Trajectory':form_name
     }
 

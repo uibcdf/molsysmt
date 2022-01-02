@@ -1,6 +1,29 @@
 molsysmt.tools.file\_top.to\_openmm\_GromacsTopFile
 ===================================================
 
-.. currentmodule:: molsysmt.tools.file_top
+.. automodule:: molsysmt.tools.file_top.to_openmm_GromacsTopFile
 
-.. autofunction:: to_openmm_GromacsTopFile
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_GromacsTopFile
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,14 +1,12 @@
 import numpy as np
 from molsysmt.forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
-from mdtraj.formats.xtc import XTCTrajectoryFile as _mdtraj_XTCTrajectoryFile
 from molsysmt import puw
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='mdtraj.XTCTrajectoryFile'
 
 is_form={
-    _mdtraj_XTCTrajectoryFile: form_name,
     'mdtraj.XTCTrajectoryFile': form_name
     }
 

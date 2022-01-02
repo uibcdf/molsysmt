@@ -1,6 +1,29 @@
 molsysmt.tools.file\_top.to\_parmed\_GromacsTopologyFile
 ========================================================
 
-.. currentmodule:: molsysmt.tools.file_top
+.. automodule:: molsysmt.tools.file_top.to_parmed_GromacsTopologyFile
 
-.. autofunction:: to_parmed_GromacsTopologyFile
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_parmed_GromacsTopologyFile
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

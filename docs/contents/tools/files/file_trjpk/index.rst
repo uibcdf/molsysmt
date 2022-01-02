@@ -1,14 +1,11 @@
-.. _top:
+.. _trjpk:
 
-top
-===
+trjpk
+=====
 
 .. toctree::
    :maxdepth: 1
 
-   is_file_top.ipynb
-   to_mdtraj_Topology.ipynb
-   to_openmm_GromacsTopFile.ipynb
-   to_openmm_Topology.ipynb
-   to_parmed_GromacsTopologyFile.ipynb
-   to_parmed_Structure.ipynb
+   is_file_trjpk.ipynb
+   to_molsysmt_MolSys.ipynb
+   to_molsysmt_TrajectoryDict.ipynb

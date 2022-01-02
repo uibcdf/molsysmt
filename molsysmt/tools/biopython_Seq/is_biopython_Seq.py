@@ -1,9 +1,8 @@
+_item_fullname_='Bio.Seq.Seq'
+
 def is_biopython_Seq(item):
 
-    try:
-        output = (item.__class__.__name__=='Seq') and (item.__class__.__module__=='Bio.Seq')
-    except:
-        output = False
+    item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
 
-    return output
+    return _item_fullname_==item_fullname
 
