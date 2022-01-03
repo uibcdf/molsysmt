@@ -56,8 +56,11 @@
    molsysmt.tools.mdtraj_PDBTrajectoryFile
    molsysmt.tools.mdtraj_Topology
    molsysmt.tools.mdtraj_Trajectory
+   molsysmt.tools.mdtraj_XTCTrajectoryFile
    molsysmt.tools.memory
+   molsysmt.tools.mmtf_MMTFDecoder
    molsysmt.tools.molecular_systems
+   molsysmt.tools.molsysmt_MolecularMechanicsDict
    molsysmt.tools.nglview
    molsysmt.tools.openmm
    molsysmt.tools.string_aminoacids1

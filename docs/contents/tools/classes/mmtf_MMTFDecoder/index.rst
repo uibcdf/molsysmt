@@ -1,24 +1,15 @@
-.. _mdtraj.Trajectory:
+.. _mmtf.MMTFDecoder:
 
-mdtraj.Trajectory
-=======================
+mmtf.MMTFDecoder
+================
 
 .. toctree::
    :maxdepth: 1
 
-   is_mdtraj_Trajectory.ipynb
+   is_mmtf_MMTFDecoder.ipynb
    to_file_pdb.ipynb
-   to_file_xtc.ipynb
-   to_biopython_Seq.ipynb
-   to_biopython_SeqRecord.ipynb
-   to_mdtraj_Topology.ipynb
+   to_file_mmtf.ipynb
+   to_mdtraj_Trajectory.ipynb
    to_molsysmt_MolSys.ipynb
    to_molsysmt_Topology.ipynb
    to_molsysmt_Trajectory.ipynb
-   to_nglview_NGLWidget.ipynb
-   to_openmm_Modeller.ipynb
-   to_openmm_Topology.ipynb
-   to_parmed_Structure.ipynb
-   to_pdbfixer_PDBFixer.ipynb
-   to_string_aminoacids1.ipynb
-   to_string_aminoacids3.ipynb

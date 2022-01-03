@@ -33,6 +33,8 @@ from . import mdtraj_PDBTrajectoryFile
 from . import mdtraj_Topology
 from . import mdtraj_Trajectory
 from . import mdtraj_XTCTrajectoryFile
+from . import mmtf_MMTFDecoder
+from . import molsysmt_MolecularMechanicsDict
 
 from . import tleap
 from . import nglview

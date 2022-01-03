@@ -18,3 +18,4 @@ Classes
    mdtraj_Trajectory/index.rst
    mdtraj_XTCTrajectoryFile/index.rst
    mmtf_MMTFDecoder/index.rst
+   molsysmt_MolecularMechanicsDict/index.rst

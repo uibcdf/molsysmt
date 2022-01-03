@@ -1,2 +1,3 @@
 from .is_molsysmt_MolecularMechanicsDict import is_molsysmt_MolecularMechanicsDict
+from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics
 

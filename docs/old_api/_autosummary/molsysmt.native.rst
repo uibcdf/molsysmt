@@ -1,4 +1,4 @@
-molsysmt.native
+﻿molsysmt.native
 ===============
 
 .. automodule:: molsysmt.native
@@ -31,6 +31,7 @@ molsysmt.native
    molsysmt.native.forcefields
    molsysmt.native.io
    molsysmt.native.molecular_mechanics
+   molsysmt.native.molecular_mechanics_dict
    molsysmt.native.molecular_system
    molsysmt.native.molsys
    molsysmt.native.reporter
