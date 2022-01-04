@@ -12,4 +12,3 @@ def is_simulation_dict(dictionary):
 
     return output
 
-

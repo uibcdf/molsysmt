@@ -17,7 +17,7 @@ for ii in ['coordinates','box']:
 
 def this_dict_is_TrajectoryDict(item):
 
-    from molsysmt._private_tools.trajectory import is_trajectory_dict
+    from molsysmt.native.trajectory_dict import is_trajectory_dict
 
     return is_trajectory_dict(item)
 

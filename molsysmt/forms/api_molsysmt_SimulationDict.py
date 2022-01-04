@@ -16,7 +16,7 @@ for ii in ['thermo_state','simulation']:
 
 def this_dict_is_SimulationDict(item):
 
-    from molsysmt._private_tools.simulation import is_simulation_dict
+    from molsysmt.native.simulation_dict import is_simulation_dict
 
     return is_simulation_dict(item)
 
@@ -32,7 +32,7 @@ def to_molsysmt_Simulation(item, molecular_system=None, atom_indices='all', fram
 
     return tmp_item, tmp_molecular_system
 
-def to_SimulationDict(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_molsysmt_SimulationDict(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
 
     tmp_molecular_system = None
 
