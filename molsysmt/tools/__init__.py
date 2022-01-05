@@ -41,6 +41,17 @@ from . import molsysmt_SimulationDict
 from . import molsysmt_Simulation
 from . import molsysmt_Topology
 from . import molsysmt_TrajectoryDict
+from . import molsysmt_TrajectoryFile
+from . import molsysmt_Trajectory
+from . import nglview_NGLWidget
+from . import openff_Molecule
+from . import openff_Topology
+from . import openmm_AmberInpcrdFile
+from . import openmm_AmberPrmtopFile
+from . import openmm_Context
+from . import openmm_GromacsGroFile
+from . import openmm_GromacsTopFile
+from . import openmm_Modeller
 
 from . import tleap
 from . import nglview

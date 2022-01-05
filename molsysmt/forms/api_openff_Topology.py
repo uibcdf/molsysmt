@@ -1,14 +1,11 @@
 from molsysmt._private_tools.exceptions import *
 import numpy as np
 from molsysmt.forms.common_gets import *
-from openff.toolkit.topology import Topology as openff_Topology
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openff.Topology'
 
 is_form={
-    openff_Topology : form_name,
-    'openff.Topology' : form_name,
     'openff.toolkit.topology.Topology' : form_name,
 }
 
@@ -93,6 +90,11 @@ def add(to_item, item):
 def append_frames(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
+
+def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+
+    raise NotImplementedError()
+
 
 ###### Get
 

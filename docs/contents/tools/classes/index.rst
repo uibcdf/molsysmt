@@ -25,3 +25,13 @@ Classes
    molsysmt_Simulation/index.rst
    molsysmt_Topology/index.rst
    molsysmt_TrajectoryDict/index.rst
+   molsysmt_TrajectoryFile/index.rst
+   molsysmt_Trajectory/index.rst
+   networkx_Graph/index.rst
+   openff_Molecule/index.rst
+   openff_Topology/index.rst
+   openmm_AmberInpcrdFile/index.rst
+   openmm_AmberPrmtopFile/index.rst
+   openmm_Context/index.rst
+   openmm_GromacsGroFile/index.rst
+   openmm_GromacsTopFile/index.rst

@@ -19,8 +19,8 @@
       extract
       merge
       this_dict_is_SimulationDict
-      to_SimulationDict
       to_molsysmt_Simulation
+      to_molsysmt_SimulationDict
    
    
 

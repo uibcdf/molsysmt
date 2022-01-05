@@ -60,7 +60,13 @@
    molsysmt.tools.memory
    molsysmt.tools.mmtf_MMTFDecoder
    molsysmt.tools.molecular_systems
+   molsysmt.tools.molsysmt_MolSys
+   molsysmt.tools.molsysmt_MolecularMechanics
    molsysmt.tools.molsysmt_MolecularMechanicsDict
+   molsysmt.tools.molsysmt_Simulation
+   molsysmt.tools.molsysmt_SimulationDict
+   molsysmt.tools.molsysmt_Topology
+   molsysmt.tools.molsysmt_TrajectoryDict
    molsysmt.tools.nglview
    molsysmt.tools.openmm
    molsysmt.tools.string_aminoacids1

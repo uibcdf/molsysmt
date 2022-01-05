@@ -1,7 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from openmm.app import AmberPrmtopFile as _openmm_AmberPrmtopFile
 from molsysmt.native.molecular_system import molecular_system_components
 import sys
 import importlib
@@ -9,7 +8,7 @@ import importlib
 form_name='openmm.AmberPrmtopFile'
 
 is_form={
-    _openmm_AmberPrmtopFile : form_name,
+    'openmm.AmberPrmtopFile' : form_name,
 }
 
 info=["",""]

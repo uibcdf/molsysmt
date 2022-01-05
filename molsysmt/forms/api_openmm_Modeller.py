@@ -1,7 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from openmm.app.modeller import Modeller as _openmm_Modeller
 from molsysmt import puw
 import sys
 import importlib
@@ -10,7 +9,7 @@ from molsysmt.native.molecular_system import molecular_system_components
 form_name='openmm.Modeller'
 
 is_form={
-    _openmm_Modeller : form_name,
+    'openmm.Modeller' : form_name,
 }
 
 info=["",""]

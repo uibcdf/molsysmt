@@ -37,9 +37,11 @@
    molsysmt.native.reporter
    molsysmt.native.selector
    molsysmt.native.simulation
+   molsysmt.native.simulation_dict
    molsysmt.native.structure
    molsysmt.native.topography
    molsysmt.native.topology
    molsysmt.native.trajectory
+   molsysmt.native.trajectory_dict
    molsysmt.native.trajectory_file
 

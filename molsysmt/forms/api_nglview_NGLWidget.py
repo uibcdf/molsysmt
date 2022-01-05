@@ -1,7 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from nglview import widget as _nglview_widget
 import importlib
 import sys
 from molsysmt.native.molecular_system import molecular_system_components
@@ -10,7 +9,7 @@ from molsysmt import puw
 form_name='nglview.NGLWidget'
 
 is_form = {
-    _nglview_widget.NGLWidget: form_name
+    'nglview.NGLWidget': form_name
     }
 
 info=["NGLView visualization native object","http://nglviewer.org/nglview/latest/_modules/nglview/widget.html"]

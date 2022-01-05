@@ -1,29 +1,6 @@
-molsysmt.tools.molsysmt\_MolecularMechanicsDict.to\_molsysmt\_MolecularMechanics
+﻿molsysmt.tools.molsysmt\_MolecularMechanicsDict.to\_molsysmt\_MolecularMechanics
 ================================================================================
 
-.. automodule:: molsysmt.tools.molsysmt_MolecularMechanicsDict.to_molsysmt_MolecularMechanics
+.. currentmodule:: molsysmt.tools.molsysmt_MolecularMechanicsDict
 
-   
-   
-   
-
-   
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      to_molsysmt_MolecularMechanics
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
+.. autofunction:: to_molsysmt_MolecularMechanics
