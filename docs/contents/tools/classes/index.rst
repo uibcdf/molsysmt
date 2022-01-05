@@ -37,3 +37,6 @@ Classes
    openmm_GromacsTopFile/index.rst
    openmm_Modeller/index.rst
    openmm_PDBFile/index.rst
+   openmm_Simulation/index.rst
+   openmm_System/index.rst
+   openmm_Topology/index.rst

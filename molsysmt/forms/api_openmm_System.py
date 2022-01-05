@@ -1,14 +1,13 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from openmm import System as _openmm_System
 from molsysmt import puw
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='openmm.System'
 
 is_form={
-    _openmm_System : form_name,
+    'openmm.System' : form_name,
 }
 
 info=["",""]
