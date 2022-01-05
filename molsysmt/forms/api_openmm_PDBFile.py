@@ -1,7 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from openmm.app import PDBFile as _openmm_PDBFile
 import sys
 import importlib
 from molsysmt.native.molecular_system import molecular_system_components
@@ -10,7 +9,7 @@ from molsysmt import puw
 form_name='openmm.PDBFile'
 
 is_form={
-    _openmm_PDBFile : form_name,
+    'openmm.PDBFile' : form_name,
 }
 
 info=["",""]

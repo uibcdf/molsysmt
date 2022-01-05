@@ -52,6 +52,7 @@ from . import openmm_Context
 from . import openmm_GromacsGroFile
 from . import openmm_GromacsTopFile
 from . import openmm_Modeller
+from . import openmm_PDBFile
 
 from . import tleap
 from . import nglview

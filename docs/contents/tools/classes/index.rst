@@ -35,3 +35,5 @@ Classes
    openmm_Context/index.rst
    openmm_GromacsGroFile/index.rst
    openmm_GromacsTopFile/index.rst
+   openmm_Modeller/index.rst
+   openmm_PDBFile/index.rst
