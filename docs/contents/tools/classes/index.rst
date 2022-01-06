@@ -40,3 +40,8 @@ Classes
    openmm_Simulation/index.rst
    openmm_System/index.rst
    openmm_Topology/index.rst
+   parmed_GromacsTopologyFile/index.rst
+   parmed_Structure/index.rst
+   pdbfixer_PDBFixer/index.rst
+   pytraj_Topology/index.rst
+   pytraj_Trajectory/index.rst

@@ -1,13 +1,12 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from parmed.structure import Structure as _parmed_Structure
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='parmed.Structure'
 
 is_form={
-    _parmed_Structure : form_name
+    'parmed.Structure' : form_name
 }
 
 info=["",""]

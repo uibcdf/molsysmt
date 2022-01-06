@@ -1,14 +1,11 @@
 from molsysmt._private_tools.exceptions import *
 import numpy as np
 from molsysmt.forms.common_gets import *
-from rdkit.Chem.rdchem import Mol as rdkit_Mol
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='rdkit.Mol'
 
 is_form={
-    rdkit_Mol : form_name,
-    'rdkit.Mol' : form_name,
     'rdkit.Chem.rdchem.Mol' : form_name,
 }
 

@@ -56,6 +56,11 @@ from . import openmm_PDBFile
 from . import openmm_Simulation
 from . import openmm_System
 from . import openmm_Topology
+from . import parmed_GromacsTopologyFile
+from . import parmed_Structure
+from . import pdbfixer_PDBFixer
+from . import pytraj_Topology
+from . import pytraj_Trajectory
 
 from . import tleap
 from . import nglview

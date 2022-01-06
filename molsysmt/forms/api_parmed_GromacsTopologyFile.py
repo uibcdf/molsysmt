@@ -1,13 +1,12 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
-from parmed.gromacs.gromacstop import GromacsTopologyFile as _parmed_GromacsTopologyFile
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='parmed.GromacsTopologyFile'
 
 is_form={
-    _parmed_GromacsTopologyFile : form_name
+    'parmed.GromacsTopologyFile' : form_name
 }
 
 info=["",""]
