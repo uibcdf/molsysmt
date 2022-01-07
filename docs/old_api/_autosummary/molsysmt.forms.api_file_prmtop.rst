@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_prmtop
+molsysmt.forms.api\_file\_prmtop
 ================================
 
 .. automodule:: molsysmt.forms.api_file_prmtop

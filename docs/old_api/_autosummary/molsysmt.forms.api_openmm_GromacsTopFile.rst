@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_openmm\_GromacsTopFile
+molsysmt.forms.api\_openmm\_GromacsTopFile
 ==========================================
 
 .. automodule:: molsysmt.forms.api_openmm_GromacsTopFile

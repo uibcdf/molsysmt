@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_string\_pdb\_text
+molsysmt.forms.api\_string\_pdb\_text
 =====================================
 
 .. automodule:: molsysmt.forms.api_string_pdb_text

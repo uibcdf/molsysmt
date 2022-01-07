@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_string\_aminoacids1
+molsysmt.forms.api\_string\_aminoacids1
 =======================================
 
 .. automodule:: molsysmt.forms.api_string_aminoacids1

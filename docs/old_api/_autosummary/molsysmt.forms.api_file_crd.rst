@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_crd
+molsysmt.forms.api\_file\_crd
 =============================
 
 .. automodule:: molsysmt.forms.api_file_crd

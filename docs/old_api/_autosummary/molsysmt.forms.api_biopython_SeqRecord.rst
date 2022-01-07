@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_biopython\_SeqRecord
+molsysmt.forms.api\_biopython\_SeqRecord
 ========================================
 
 .. automodule:: molsysmt.forms.api_biopython_SeqRecord

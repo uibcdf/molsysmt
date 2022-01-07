@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_mol2
+molsysmt.forms.api\_file\_mol2
 ==============================
 
 .. automodule:: molsysmt.forms.api_file_mol2

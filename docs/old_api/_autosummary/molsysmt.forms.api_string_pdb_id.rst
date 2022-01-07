@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_string\_pdb\_id
+molsysmt.forms.api\_string\_pdb\_id
 ===================================
 
 .. automodule:: molsysmt.forms.api_string_pdb_id

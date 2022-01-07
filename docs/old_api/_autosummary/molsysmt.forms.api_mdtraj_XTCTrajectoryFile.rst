@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_mdtraj\_XTCTrajectoryFile
+molsysmt.forms.api\_mdtraj\_XTCTrajectoryFile
 =============================================
 
 .. automodule:: molsysmt.forms.api_mdtraj_XTCTrajectoryFile

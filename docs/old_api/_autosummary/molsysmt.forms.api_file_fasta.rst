@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_fasta
+molsysmt.forms.api\_file\_fasta
 ===============================
 
 .. automodule:: molsysmt.forms.api_file_fasta

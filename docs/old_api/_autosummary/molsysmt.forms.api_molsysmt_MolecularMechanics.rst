@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_molsysmt\_MolecularMechanics
+molsysmt.forms.api\_molsysmt\_MolecularMechanics
 ================================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_MolecularMechanics

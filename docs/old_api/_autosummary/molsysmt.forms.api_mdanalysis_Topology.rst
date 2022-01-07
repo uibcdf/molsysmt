@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_mdanalysis\_Topology
+molsysmt.forms.api\_mdanalysis\_Topology
 ========================================
 
 .. automodule:: molsysmt.forms.api_mdanalysis_Topology

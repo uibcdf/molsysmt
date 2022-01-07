@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_mdtraj\_AmberRestartFile
+molsysmt.forms.api\_mdtraj\_AmberRestartFile
 ============================================
 
 .. automodule:: molsysmt.forms.api_mdtraj_AmberRestartFile

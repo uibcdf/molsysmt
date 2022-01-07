@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_pytraj\_Topology
+molsysmt.forms.api\_pytraj\_Topology
 ====================================
 
 .. automodule:: molsysmt.forms.api_pytraj_Topology

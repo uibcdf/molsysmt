@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_mmtf
+molsysmt.forms.api\_file\_mmtf
 ==============================
 
 .. automodule:: molsysmt.forms.api_file_mmtf

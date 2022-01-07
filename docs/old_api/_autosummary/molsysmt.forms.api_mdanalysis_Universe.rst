@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_mdanalysis\_Universe
+molsysmt.forms.api\_mdanalysis\_Universe
 ========================================
 
 .. automodule:: molsysmt.forms.api_mdanalysis_Universe

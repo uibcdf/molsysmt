@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_string\_smiles
+molsysmt.forms.api\_string\_smiles
 ==================================
 
 .. automodule:: molsysmt.forms.api_string_smiles

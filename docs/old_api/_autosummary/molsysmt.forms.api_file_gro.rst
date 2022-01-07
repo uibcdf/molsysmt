@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_gro
+molsysmt.forms.api\_file\_gro
 =============================
 
 .. automodule:: molsysmt.forms.api_file_gro

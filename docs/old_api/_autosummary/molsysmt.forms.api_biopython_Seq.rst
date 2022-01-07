@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_biopython\_Seq
+molsysmt.forms.api\_biopython\_Seq
 ==================================
 
 .. automodule:: molsysmt.forms.api_biopython_Seq

@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_openmm\_Context
+molsysmt.forms.api\_openmm\_Context
 ===================================
 
 .. automodule:: molsysmt.forms.api_openmm_Context

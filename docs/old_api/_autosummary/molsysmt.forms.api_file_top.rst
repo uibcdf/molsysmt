@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_top
+molsysmt.forms.api\_file\_top
 =============================
 
 .. automodule:: molsysmt.forms.api_file_top

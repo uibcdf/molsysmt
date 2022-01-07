@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_molsysmt\_TrajectoryDict
+molsysmt.forms.api\_molsysmt\_TrajectoryDict
 ============================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_TrajectoryDict

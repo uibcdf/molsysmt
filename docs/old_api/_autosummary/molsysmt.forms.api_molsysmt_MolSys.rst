@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_molsysmt\_MolSys
+molsysmt.forms.api\_molsysmt\_MolSys
 ====================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_MolSys

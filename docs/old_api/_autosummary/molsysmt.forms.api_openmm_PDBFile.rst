@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_openmm\_PDBFile
+molsysmt.forms.api\_openmm\_PDBFile
 ===================================
 
 .. automodule:: molsysmt.forms.api_openmm_PDBFile

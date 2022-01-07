@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_networkx\_Graph
+molsysmt.forms.api\_networkx\_Graph
 ===================================
 
 .. automodule:: molsysmt.forms.api_networkx_Graph

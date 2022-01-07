@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_openmm\_AmberPrmtopFile
+molsysmt.forms.api\_openmm\_AmberPrmtopFile
 ===========================================
 
 .. automodule:: molsysmt.forms.api_openmm_AmberPrmtopFile

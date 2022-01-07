@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_mdtraj\_PDBTrajectoryFile
+molsysmt.forms.api\_mdtraj\_PDBTrajectoryFile
 =============================================
 
 .. automodule:: molsysmt.forms.api_mdtraj_PDBTrajectoryFile

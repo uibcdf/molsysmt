@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_molsysmt\_Trajectory
+molsysmt.forms.api\_molsysmt\_Trajectory
 ========================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_Trajectory

@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_mdtraj\_HDF5TrajectoryFile
+molsysmt.forms.api\_mdtraj\_HDF5TrajectoryFile
 ==============================================
 
 .. automodule:: molsysmt.forms.api_mdtraj_HDF5TrajectoryFile

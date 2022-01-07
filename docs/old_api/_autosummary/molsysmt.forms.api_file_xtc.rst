@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_xtc
+molsysmt.forms.api\_file\_xtc
 =============================
 
 .. automodule:: molsysmt.forms.api_file_xtc

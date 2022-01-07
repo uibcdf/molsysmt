@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_mmtf\_MMTFDecoder
+molsysmt.forms.api\_mmtf\_MMTFDecoder
 =====================================
 
 .. automodule:: molsysmt.forms.api_mmtf_MMTFDecoder

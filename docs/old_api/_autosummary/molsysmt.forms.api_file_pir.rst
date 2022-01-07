@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_pir
+molsysmt.forms.api\_file\_pir
 =============================
 
 .. automodule:: molsysmt.forms.api_file_pir

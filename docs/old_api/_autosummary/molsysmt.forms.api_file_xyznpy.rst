@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_xyznpy
+molsysmt.forms.api\_file\_xyznpy
 ================================
 
 .. automodule:: molsysmt.forms.api_file_xyznpy

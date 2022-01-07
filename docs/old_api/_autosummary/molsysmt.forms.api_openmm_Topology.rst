@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_openmm\_Topology
+molsysmt.forms.api\_openmm\_Topology
 ====================================
 
 .. automodule:: molsysmt.forms.api_openmm_Topology

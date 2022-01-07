@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_h5
+molsysmt.forms.api\_file\_h5
 ============================
 
 .. automodule:: molsysmt.forms.api_file_h5

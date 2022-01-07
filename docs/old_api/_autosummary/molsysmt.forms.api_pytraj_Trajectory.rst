@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_pytraj\_Trajectory
+molsysmt.forms.api\_pytraj\_Trajectory
 ======================================
 
 .. automodule:: molsysmt.forms.api_pytraj_Trajectory

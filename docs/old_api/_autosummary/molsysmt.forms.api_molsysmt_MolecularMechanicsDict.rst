@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_molsysmt\_MolecularMechanicsDict
+molsysmt.forms.api\_molsysmt\_MolecularMechanicsDict
 ====================================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_MolecularMechanicsDict

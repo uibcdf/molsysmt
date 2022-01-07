@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_msmpk
+molsysmt.forms.api\_file\_msmpk
 ===============================
 
 .. automodule:: molsysmt.forms.api_file_msmpk

@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_pdbfixer\_PDBFixer
+molsysmt.forms.api\_pdbfixer\_PDBFixer
 ======================================
 
 .. automodule:: molsysmt.forms.api_pdbfixer_PDBFixer

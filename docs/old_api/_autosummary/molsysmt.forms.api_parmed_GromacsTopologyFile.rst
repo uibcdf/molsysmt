@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_parmed\_GromacsTopologyFile
+molsysmt.forms.api\_parmed\_GromacsTopologyFile
 ===============================================
 
 .. automodule:: molsysmt.forms.api_parmed_GromacsTopologyFile

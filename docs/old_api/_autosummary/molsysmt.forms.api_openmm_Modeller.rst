@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_openmm\_Modeller
+molsysmt.forms.api\_openmm\_Modeller
 ====================================
 
 .. automodule:: molsysmt.forms.api_openmm_Modeller

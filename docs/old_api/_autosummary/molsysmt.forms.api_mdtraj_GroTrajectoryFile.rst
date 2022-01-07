@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_mdtraj\_GroTrajectoryFile
+molsysmt.forms.api\_mdtraj\_GroTrajectoryFile
 =============================================
 
 .. automodule:: molsysmt.forms.api_mdtraj_GroTrajectoryFile

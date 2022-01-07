@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_parmed\_Structure
+molsysmt.forms.api\_parmed\_Structure
 =====================================
 
 .. automodule:: molsysmt.forms.api_parmed_Structure

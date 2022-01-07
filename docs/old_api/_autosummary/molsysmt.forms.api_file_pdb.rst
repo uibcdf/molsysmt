@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_pdb
+molsysmt.forms.api\_file\_pdb
 =============================
 
 .. automodule:: molsysmt.forms.api_file_pdb

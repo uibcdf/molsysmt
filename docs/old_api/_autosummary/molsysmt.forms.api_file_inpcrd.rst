@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_inpcrd
+molsysmt.forms.api\_file\_inpcrd
 ================================
 
 .. automodule:: molsysmt.forms.api_file_inpcrd

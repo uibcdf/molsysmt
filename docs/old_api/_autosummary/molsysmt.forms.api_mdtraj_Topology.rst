@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_mdtraj\_Topology
+molsysmt.forms.api\_mdtraj\_Topology
 ====================================
 
 .. automodule:: molsysmt.forms.api_mdtraj_Topology

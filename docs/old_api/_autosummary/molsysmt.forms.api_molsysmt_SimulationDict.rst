@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_molsysmt\_SimulationDict
+molsysmt.forms.api\_molsysmt\_SimulationDict
 ============================================
 
 .. automodule:: molsysmt.forms.api_molsysmt_SimulationDict

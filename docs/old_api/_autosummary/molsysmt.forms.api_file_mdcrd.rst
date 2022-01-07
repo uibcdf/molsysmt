@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_mdcrd
+molsysmt.forms.api\_file\_mdcrd
 ===============================
 
 .. automodule:: molsysmt.forms.api_file_mdcrd

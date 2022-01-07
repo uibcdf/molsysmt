@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_file\_trjpk
+molsysmt.forms.api\_file\_trjpk
 ===============================
 
 .. automodule:: molsysmt.forms.api_file_trjpk

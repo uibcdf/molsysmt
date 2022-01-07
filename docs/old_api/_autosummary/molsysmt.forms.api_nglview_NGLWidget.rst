@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_nglview\_NGLWidget
+molsysmt.forms.api\_nglview\_NGLWidget
 ======================================
 
 .. automodule:: molsysmt.forms.api_nglview_NGLWidget

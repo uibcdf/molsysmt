@@ -66,12 +66,35 @@
    molsysmt.tools.molsysmt_Simulation
    molsysmt.tools.molsysmt_SimulationDict
    molsysmt.tools.molsysmt_Topology
+   molsysmt.tools.molsysmt_Trajectory
    molsysmt.tools.molsysmt_TrajectoryDict
+   molsysmt.tools.molsysmt_TrajectoryFile
+   molsysmt.tools.networkx_Graph
    molsysmt.tools.nglview
+   molsysmt.tools.nglview_NGLWidget
+   molsysmt.tools.openff_Molecule
+   molsysmt.tools.openff_Topology
    molsysmt.tools.openmm
+   molsysmt.tools.openmm_AmberInpcrdFile
+   molsysmt.tools.openmm_AmberPrmtopFile
+   molsysmt.tools.openmm_Context
+   molsysmt.tools.openmm_GromacsGroFile
+   molsysmt.tools.openmm_GromacsTopFile
+   molsysmt.tools.openmm_Modeller
+   molsysmt.tools.openmm_PDBFile
+   molsysmt.tools.openmm_Simulation
+   molsysmt.tools.openmm_System
+   molsysmt.tools.openmm_Topology
+   molsysmt.tools.parmed_GromacsTopologyFile
+   molsysmt.tools.parmed_Structure
+   molsysmt.tools.pdbfixer_PDBFixer
+   molsysmt.tools.pytraj_Topology
+   molsysmt.tools.pytraj_Trajectory
+   molsysmt.tools.rdkit_Mol
    molsysmt.tools.string_aminoacids1
    molsysmt.tools.string_aminoacids3
    molsysmt.tools.string_pdb_id
    molsysmt.tools.string_pdb_text
+   molsysmt.tools.string_smiles
    molsysmt.tools.tleap
 

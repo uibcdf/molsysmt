@@ -1,4 +1,4 @@
-﻿molsysmt.forms.api\_openmm\_AmberInpcrdFile
+molsysmt.forms.api\_openmm\_AmberInpcrdFile
 ===========================================
 
 .. automodule:: molsysmt.forms.api_openmm_AmberInpcrdFile
