@@ -61,6 +61,7 @@ from . import parmed_Structure
 from . import pdbfixer_PDBFixer
 from . import pytraj_Topology
 from . import pytraj_Trajectory
+from . import rdkit_Mol
 
 from . import tleap
 from . import nglview

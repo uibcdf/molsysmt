@@ -45,3 +45,4 @@ Classes
    pdbfixer_PDBFixer/index.rst
    pytraj_Topology/index.rst
    pytraj_Trajectory/index.rst
+   rdkit_Mol/index.rst
