@@ -5,7 +5,7 @@ from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Trajectory import to_molsysmt_Trajectory
 from .to_mdtraj_Topology import to_mdtraj_Topology
-from .to_mdtraj_PDBtrajectoryFile import to_mdtraj_PDBTrajectoryFile
+from .to_mdtraj_PDBTrajectoryFile import to_mdtraj_PDBTrajectoryFile
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_mdanalysis_Universe import to_mdanalysis_Universe
 from .to_mdanalysis_Topology import to_mdanalysis_Topology
