@@ -1,4 +1,8 @@
 from .is_molsysmt_MolSys import is_molsysmt_MolSys
+
+from .get import *
+from .set import *
+
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Trajectory import to_molsysmt_Trajectory
 from .to_mdtraj_Topology import to_mdtraj_Topology
