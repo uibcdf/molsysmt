@@ -5,15 +5,10 @@ from molsysmt.native.molecular_system import molecular_system_components
 import numpy as np
 
 form_name='biopython.Seq'
-from_type='class'
+form_type='class'
+form_info=["",""]
+form_components = molecular_system_components.copy()
 
-is_form={
-    'Bio.Seq.Seq' : form_name
-}
-
-info=["",""]
-
-has = molecular_system_components.copy()
 for ii in ['elements']:
     has[ii]=True
 

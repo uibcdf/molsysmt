@@ -1,8 +1,6 @@
 from .mmtf_MMTFDecoder import from_mmtf_MMTFDecoder
 from .mdtraj_Trajectory import from_mdtraj_Trajectory, to_mdtraj_Trajectory
 from .openmm_PDBFile import from_openmm_PDBFile
-from .molsysmt_Topology import to_molsysmt_Topology
-from .molsysmt_Trajectory import to_molsysmt_Trajectory
 from .openmm_Modeller import from_openmm_Modeller, to_openmm_Modeller
 from .openmm_Topology import to_openmm_Topology, from_openmm_Topology
 from .openmm_System import to_openmm_System
@@ -13,7 +11,6 @@ from .openexplorer_Explorer import from_openexplorer_Explorer
 from .openexplorer_OpenExplorerReporter import from_openexplorer_OpenExplorerReporter
 from .mdanalysis_Universe import from_mdanalysis_Universe
 from .pytraj_Trajectory import from_pytraj_Trajectory
-from .XYZ import to_XYZ
 from .nglview_NGLWidget import from_nglview_NGLWidget
 from .file_pdb import from_file_pdb, to_file_pdb
 from .file_mmtf import from_file_mmtf

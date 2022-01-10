@@ -1,13 +1,10 @@
-def to_molsysmt_Topology(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all'):
 
     from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-    from molsysmt.basic import convert
 
     if not is_molsysmt_MolSys(item):
         raise ValueError
 
-    tmp_item = convert(item, to_form='molsysmt.Topology', selection=selection,
-            frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item = item.topology.copy()
 
     return tmp_item
-
