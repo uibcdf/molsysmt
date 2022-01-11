@@ -1,26 +1,3 @@
-def to_openmm_Topology (item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.native.io.topology import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
-    from molsysmt import get, set
-
-    tmp_item = item.topology
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
-
-    tmp_item, tmp_molecular_system = molsysmt_Topology_to_openmm_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices)
-
-    if frame_indices is 'all':
-        box = get(item, target='system', frame_indices=0, box=True)
-    else:
-        box = get(item, target='system', frame_indices=frame_indices, box=True)
-
-    if box is not None:
-        set(tmp_item, target='system', box=box)
-
-    return tmp_item, tmp_molecular_system
-
 def from_openmm_Topology (item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.native.molsys import MolSys

@@ -1,9 +1,9 @@
-import pickle
 
 def from_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.api_molsysmt_MolSys import to_molsysmt_MolSys as molsysmt_MolSys_to_molsysmt_MolSys
     from molsysmt import puw
+    import pickle
 
     fff = open(item,'rb')
     tmp_item = pickle.load(fff)
@@ -37,38 +37,4 @@ def from_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indic
 
     return tmp_item, tmp_molecular_system
 
-
-def to_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
-
-    from molsysmt.forms.api_molsysmt_MolSys import to_molsysmt_MolSys as molsysmt_MolSys_to_molsysmt_MolSys
-    from molsysmt import puw
-
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_molsysmt_MolSys(item,
-            molecular_system=molecular_system, atom_indices=atom_indices,
-            frame_indices=frame_indices, copy_if_all=True)
-
-    # lengths with nm values and times in ps
-
-    if tmp_item.trajectory.coordinates is not None:
-        value = puw.get_value(tmp_item.trajectory.coordinates, to_unit='nm')
-        tmp_item.trajectory.coordinates = value
-
-    if tmp_item.trajectory.box is not None:
-        value = puw.get_value(tmp_item.trajectory.box, to_unit='nm')
-        tmp_item.trajectory.box = value
-
-    if tmp_item.trajectory.time is not None:
-        value = puw.get_value(tmp_item.trajectory.time, to_unit='ps')
-        tmp_item.trajectory.time = value
-
-    fff = open(output_filename,'wb')
-    pickle.dump(tmp_item, fff)
-    fff.close()
-
-    tmp_item = output_filename
-
-    if tmp_molecular_system is not None:
-        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
-
-    return tmp_item, tmp_molecular_system
 

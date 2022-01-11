@@ -73,3 +73,8 @@ class LibraryNotFound(NotImplementedError):
         message = 'The python library {} was not found.'.format(library)
         super().__init__(message)
 
+class ItemWithWrongForm(NotImplementedError):
+    def __init__(self, form):
+        message = 'The input item`s form should be {}'.format(form)
+        super().__init__(message)
+
