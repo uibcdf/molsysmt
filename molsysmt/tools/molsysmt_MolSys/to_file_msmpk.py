@@ -1,4 +1,3 @@
-
 def to_file_msmpk(item, atom_indices='all', frame_indices='all', output_filename=None):
 
     from molsysmt._private_tools.exceptions import ItemWithWrongForm
@@ -11,7 +10,7 @@ def to_file_msmpk(item, atom_indices='all', frame_indices='all', output_filename
         raise ItemWithWrongForm('molsysmt.MolSys')
 
     if output_filename is None:
-        raise ValueError('The value different from None is required for the argument "output_filename"')
+        raise ValueError('A value different from None is required for the argument "output_filename"')
 
     tmp_item = extract_molsysmt_MolSys(item, atom_indices=atom_indices,
                                        frame_indices=frame_indices, copy_if_all=True)

@@ -237,10 +237,16 @@ def to_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indices
 
 def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
-    from molsysmt.native.io.molsys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
+    from molsysmt.tools.molsysmt_MolSys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
 
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_to_string_pdb_text(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = molsysmt_MolSys_to_string_pdb_text(item, atom_indices=atom_indices, frame_indices=frame_indices)
+
+    if molecular_system is not None:
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item,
+                                                                   atom_indices=atom_indices,
+                                                                   frame_indices=frame_indices)
+    else:
+        tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 

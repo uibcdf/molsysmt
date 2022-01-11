@@ -32,16 +32,8 @@ from . import molecular_mechanics
 from . import molecular_dynamics
 from . import hbonds
 
-from . import ion
-from . import water
-from . import cosolute
-from . import lipid
-from . import small_molecule
-from . import peptide
-from . import protein
-from . import rna
-from . import dna
-
+from . import elements
+from . import entities
 
 # Adding molsysmt to nglview
 
