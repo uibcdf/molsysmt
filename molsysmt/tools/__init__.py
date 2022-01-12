@@ -1,3 +1,8 @@
+from .is_element import is_element
+from .is_attribute import is_attribute
+from .is_file import is_file
+from .is_string import is_string
+
 from . import file_crd
 from . import file_dcd
 from . import file_fasta
@@ -66,4 +71,6 @@ from . import rdkit_Mol
 from . import tleap
 from . import nglview
 from . import openmm
+
+from . import miscellaneous
 
