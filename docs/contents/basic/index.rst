@@ -7,11 +7,13 @@ Basic
 .. toctree::
    :maxdepth: 2
 
+   is_a_molecular_system.ipynb
    get_form.ipynb
    info.ipynb
    selection.ipynb
    get.ipynb
    set.ipynb
+   where.ipynb
    contains.ipynb
    is_composed_of.ipynb
    compare.ipynb
