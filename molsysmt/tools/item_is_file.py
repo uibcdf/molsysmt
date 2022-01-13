@@ -1,4 +1,4 @@
-def is_file(item):
+def item_is_file(item):
 
     from molsysmt.forms import file_extensions_recognized
 

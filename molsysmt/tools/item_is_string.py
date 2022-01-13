@@ -1,4 +1,4 @@
- def is_string(item):
+ def item_is_string(item):
 
      from molsysmt.forms import string_names_recognized
      from .strings import guess_form_from_string
