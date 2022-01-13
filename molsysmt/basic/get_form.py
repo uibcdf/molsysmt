@@ -1,9 +1,9 @@
 from molsysmt import puw
-from molsysmt.forms import dict_is_form
+from molsysmt.api_forms import dict_is_form
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import digest_output
-from molsysmt.forms import file_extensions_recognized
-from molsysmt.forms import string_names_recognized
+from molsysmt.api_forms import file_extensions_recognized
+from molsysmt.api_forms import string_names_recognized
 from molsysmt.native.molecular_system import MolecularSystem
 from molsysmt._private_tools.exceptions import *
 

@@ -1,20 +1,74 @@
 from molsysmt._private_tools.exceptions import *
-import numpy as np
+
+from molsysmt.tools.molsysmt_Topology.extract import extract
+from molsysmt.tools.molsysmt_Topology.add import add
+from molsysmt.tools.molsysmt_Topology.merge import merge
+from molsysmt.tools.molsysmt_Topology.append_frames import append_frames
+from molsysmt.tools.molsysmt_Topology.concatenate_frames import concatenate_frames
+from molsysmt.tools.molsysmt_Topology.get import *
+from molsysmt.tools.molsysmt_Topology.set import *
+
+from molsysmt._private_tools.exceptions import *
 from molsysmt.native.topology import Topology
 from molsysmt.native.molecular_system import molecular_system_components
 
 form_name='molsysmt.Topology'
-from_type='class'
+form_type='class'
+form_info=["",""]
 
-is_form={
-     Topology : form_name,
+form_elements = {
+    'atoms' : True,
+    'bonds' : True,
+    'groups' : True,
+    'component' : True,
+    'molecule' : True,
+    'chain' : True,
+    'entity' : True,
+        }
+
+form_attributes = {
+
+    'atom_id' : True,
+    'atom_name' : True,
+    'atom_type' : True,
+
+    'bond_id' : False,
+    'bond_name' : False,
+    'bond_type' : False,
+
+    'group_id' : True,
+    'group_name' : True,
+    'group_type' : True,
+
+    'component_id' : True,
+    'component_name' : True,
+    'component_type' : True,
+
+    'molecule_id' : True,
+    'molecule_name' : True,
+    'molecule_type' : True,
+
+    'chain_id' : True,
+    'chain_name' : True,
+    'chain_type' : True,
+
+    'entity_id' : True,
+    'entity_name' : True,
+    'entity_type' : True,
+
+    'coordinates' : False,
+    'velocities' : False,
+    'box' : False,
+    'time' : False,
+    'step' : False,
+
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
 }
 
-info=["",""]
-
-has = molecular_system_components.copy()
-for ii in ['elements', 'bonds']:
-    has[ii]=True
 
 def to_string_aminoacids3(item, molecular_system=None, atom_indices='all', frame_indices='all'):
 
@@ -83,31 +137,6 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_
             tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
-
-def extract(item, atom_indices='all', frame_indices='all'):
-
-    if (atom_indices is 'all'):
-        tmp_item = item.copy()
-    elif atom_indices is not 'all':
-        tmp_item = item.extract(atom_indices=atom_indices)
-
-    return tmp_item
-
-def merge(item_1, item_2):
-
-    raise NotImplementedError
-
-def add(to_item, item):
-
-    raise NotImplementedError
-
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
-
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
 
 ###### Get
 

@@ -1,13 +1,21 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt.forms.common_gets import *
-from molsysmt import puw
-from molsysmt.native.molecular_system import molecular_system_components
-import numpy as np
 
 form_name='biopython.Seq'
 form_type='class'
 form_info=["",""]
 form_components = molecular_system_components.copy()
+form_components = {
+    'elements' : True, # atoms, groups, chains, entities, etc.
+    'bonds' : True, # bonds
+    'coordinates' : True, # coordinates, steps, time
+    'velocities' : False, # velocities
+    'box' : True, # box or unit cell
+    'ff_parameters' : False, # interatomic interaction parameters or force field
+    'mm_parameters' : False, # molecular mechanics parameters to work with the interatomic interactions
+    'thermo_state' : False, # thermodinamic state or parameters of the ensemble: T and P.
+    'simulation' : False # Other simulation parameters to simulate the behaviour such as integrator, damping, etc.
+}
+
 
 for ii in ['elements']:
     has[ii]=True

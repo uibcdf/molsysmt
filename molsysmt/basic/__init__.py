@@ -11,7 +11,6 @@ from .set import set
 from .info import info
 from .remove import remove
 from .merge import merge
-from .cross import cross
 from .inherit import inherit
 from .add import add
 from .concatenate_frames import concatenate_frames

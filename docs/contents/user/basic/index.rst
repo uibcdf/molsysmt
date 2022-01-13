@@ -22,7 +22,7 @@ Basic
    extract.ipynb
    copy.ipynb
    merge.ipynb
-   cross.ipynb
+   inherit.ipynb
    remove.ipynb
    add.ipynb
    append_frames.ipynb
