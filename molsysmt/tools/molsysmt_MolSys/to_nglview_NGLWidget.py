@@ -1,13 +1,18 @@
-def to_nglview_NGLWidget(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def to_nglview_NGLWidget(item, atom_indices='all', frame_indices='all', check_form=True):
 
-    from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-    from molsysmt.basic import convert
+    if check_form:
+        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
+        from molsysmt._private_tools.exceptions import ItemWithWrongForm
+        if not is_molsysmt_MolSys(item):
+            raise ItemWithWrongForm('molsysmt.MolSys')
 
-    if not is_molsysmt_MolSys(item):
-        raise ValueError
+    try:
+        from nglview import show_molsysmt
+    except:
+        from molsysmt._private_tools.exceptions import LibraryNotFound
+        raise LibraryNotFound('nglview')
 
-    tmp_item = convert(item, to_form='nglview.NGLWidget', selection=selection,
-            frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item = show_molsysmt(item, selection=atom_indices, frame_indices=frame_indices)
 
     return tmp_item
 

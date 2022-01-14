@@ -22,7 +22,6 @@ from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_pytraj_Topology import to_pytraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
-from .to_rdkit_Mol import to_rdkit_Mol
 from .to_XYZ import to_XYZ
 from .to_string_aminoacids1 import to_string_aminoacids1
 from .to_string_aminoacids3 import to_string_aminoacids3

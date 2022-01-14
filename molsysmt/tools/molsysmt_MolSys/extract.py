@@ -1,4 +1,4 @@
-def extract(item, atom_indices='all', frame_indices='all', copy_if_all=True):
+def extract(item, atom_indices='all', frame_indices='all', copy_if_all=True, check_form=True):
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
         if copy_if_all:

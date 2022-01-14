@@ -1,13 +1,16 @@
-def to_string_pdb_text(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def to_string_pdb_text(item, coordinates, box, atom_indices='all', check_form=True):
 
-    from molsysmt.tools.molsysmt_Topology import is_molsysmt_Topology
-    from molsysmt.basic import convert
+    if check_form:
+        from molsysmt.tools.molsysmt_Topology import is_molsymst_Topology
+        from molsysmt._private_tools.exceptions import ItemWithWrongForm
+        if not is_molsysmt_Topology(item):
+            raise ItemWithWrongForm('molsysmt.Topology')
 
-    if not is_molsysmt_Topology(item):
-        raise ValueError
+    from molsysmt.tools.molsysmt_Topology import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
+    from molsysmt.tools.openmm_Topology import to_string_pdb_text as openmm_Topology_to_string_pdb_text
 
-    tmp_item = convert(item, to_form='string:pdb_text', selection=selection,
-            frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item =  molsysmt_Topology_to_openmm_Topology(item, box, atom_indices=atom_indices, check_form=False)
+    tmp_item =  openmm_Topology_to_string_pdb_text(tmp_item, coordinates, check_form=False)
 
     return tmp_item
 

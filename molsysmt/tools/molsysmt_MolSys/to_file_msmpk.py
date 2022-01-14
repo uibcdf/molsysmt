@@ -1,19 +1,19 @@
-def to_file_msmpk(item, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_msmpk(item, atom_indices='all', frame_indices='all', output_filename=None, check_form=True):
 
-    from molsysmt._private_tools.exceptions import ItemWithWrongForm
-    from molsysmt.tools.molsysmt_MolSys import is_molsymst_MolSys
-    from molsysmt.tools.molsysmt_MolSys import extract as extract_molsysmt_MolSys
-    from molsysmt import puw
-    import pickle
-
-    if not is_molsysmt_MolSys(item):
-        raise ItemWithWrongForm('molsysmt.MolSys')
+    if check_form:
+        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
+        from molsysmt._private_tools.exceptions import ItemWithWrongForm
+        if not is_molsysmt_MolSys(item):
+            raise ItemWithWrongForm('molsysmt.MolSys')
 
     if output_filename is None:
         raise ValueError('A value different from None is required for the argument "output_filename"')
 
-    tmp_item = extract_molsysmt_MolSys(item, atom_indices=atom_indices,
-                                       frame_indices=frame_indices, copy_if_all=True)
+    from molsysmt.tools.molsysmt_MolSys import extract
+    from molsysmt import puw
+    import pickle
+
+    tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=True, check_form=False)
 
     # lengths with nm values and times in ps
 

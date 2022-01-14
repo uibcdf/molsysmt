@@ -1,13 +1,15 @@
-def to_string_aminoacids3(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def to_string_aminoacids3(item, atom_indices='all', check_form=True):
 
-    from molsysmt.tools.molsysmt_Topology import is_molsysmt_Topology
-    from molsysmt.basic import convert
+    if check_form:
+        from molsysmt.tools.molsysmt_Topology import is_molsymst_Topology
+        from molsysmt._private_tools.exceptions import ItemWithWrongForm
+        if not is_molsysmt_Topology(item):
+            raise ItemWithWrongForm('molsysmt.Topology')
 
-    if not is_molsysmt_Topology(item):
-        raise ValueError
+    from molsysmt.tools.molsysmt_Topology import get_group_name_from_atom
 
-    tmp_item = convert(item, to_form='string:aminoacids3', selection=selection,
-            frame_indices=frame_indices, syntaxis=syntaxis)
+    group_names = get_group_name_from_atom(item, atom_indices='all')
+    tmp_item = ''.join([ii.title() for ii in group_names])
 
     return tmp_item
 

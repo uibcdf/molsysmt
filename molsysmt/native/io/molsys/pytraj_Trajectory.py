@@ -16,6 +16,3 @@ def from_pytraj_Trajectory (item, molecular_system=None, atom_indices='all', fra
 
     return tmp_item, tmp_molecular_system
 
-def to_pytraj_Trajectory (item, molecular_system, atom_indices='all', frame_indices='all'):
-
-    raise NotImplementedError()

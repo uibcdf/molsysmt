@@ -6,7 +6,7 @@ def to_XYZ(item, atom_indices='all', frame_indices='all'):
     if not is_molsysmt_MolSys(item):
         raise ValueError
 
-    tmp_item = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = get_coordinates_from_atom(item, indices=atom_indices, frame_indices=frame_indices, check_form=False)
 
     return tmp_item
 

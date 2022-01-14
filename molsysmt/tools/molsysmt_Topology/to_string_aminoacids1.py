@@ -1,13 +1,16 @@
-def to_string_aminoacids1(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def to_string_aminoacids1(item, atom_indices='all', check_form=True):
 
-    from molsysmt.tools.molsysmt_Topology import is_molsysmt_Topology
-    from molsysmt.basic import convert
+    if check_form:
+        from molsysmt.tools.molsysmt_Topology import is_molsymst_Topology
+        from molsysmt._private_tools.exceptions import ItemWithWrongForm
+        if not is_molsysmt_Topology(item):
+            raise ItemWithWrongForm('molsysmt.Topology')
 
-    if not is_molsysmt_Topology(item):
-        raise ValueError
+    from molsysmt.tools.string_aminoacids3 import to_string_aminoacids1 as string_aminoacids3_to_string_aminoacids1
+    from molsysmt.tools.molsysmt_Topology import to_string_aminoacids3 as molsysmt_Topology_to_string_aminoacids3
 
-    tmp_item = convert(item, to_form='string:aminoacids1', selection=selection,
-            frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item = molsysmt_Topology_to_string_aminoacids3(item, atom_indices=atom_indices, check_form=False)
+    tmp_item = string_aminoacids3_to_string_aminoacids1(tmp_item, check_form=False)
 
     return tmp_item
 
