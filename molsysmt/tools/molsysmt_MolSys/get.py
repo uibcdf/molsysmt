@@ -1,10 +1,11 @@
+from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
+from molsysmt._private_tools.exceptions import ItemWithWrongForm
+
 ## atom
 
 def get_atom_index_from_atom(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -14,8 +15,6 @@ def get_atom_index_from_atom(item, indices='all', check_form=True):
 def get_atom_id_from_atom(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -25,8 +24,6 @@ def get_atom_id_from_atom(item, indices='all', check_form=True):
 def get_atom_name_from_atom(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -36,8 +33,6 @@ def get_atom_name_from_atom(item, indices='all', check_form=True):
 def get_atom_type_from_atom(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -47,8 +42,6 @@ def get_atom_type_from_atom(item, indices='all', check_form=True):
 def get_group_index_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -58,8 +51,6 @@ def get_group_index_from_atom (item, indices='all', check_form=True):
 def get_group_id_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -69,8 +60,6 @@ def get_group_id_from_atom (item, indices='all', check_form=True):
 def get_group_name_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -80,8 +69,6 @@ def get_group_name_from_atom (item, indices='all', check_form=True):
 def get_group_type_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -91,8 +78,6 @@ def get_group_type_from_atom (item, indices='all', check_form=True):
 def get_component_name_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -102,8 +87,6 @@ def get_component_name_from_atom (item, indices='all', check_form=True):
 def get_component_index_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -113,8 +96,6 @@ def get_component_index_from_atom (item, indices='all', check_form=True):
 def get_component_id_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -124,8 +105,6 @@ def get_component_id_from_atom (item, indices='all', check_form=True):
 def get_component_type_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -135,8 +114,6 @@ def get_component_type_from_atom (item, indices='all', check_form=True):
 def get_chain_name_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -146,8 +123,6 @@ def get_chain_name_from_atom (item, indices='all', check_form=True):
 def get_chain_index_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -157,8 +132,6 @@ def get_chain_index_from_atom (item, indices='all', check_form=True):
 def get_chain_id_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -168,8 +141,6 @@ def get_chain_id_from_atom (item, indices='all', check_form=True):
 def get_chain_type_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -179,8 +150,6 @@ def get_chain_type_from_atom (item, indices='all', check_form=True):
 def get_molecule_index_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -190,8 +159,6 @@ def get_molecule_index_from_atom (item, indices='all', check_form=True):
 def get_molecule_id_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -201,8 +168,6 @@ def get_molecule_id_from_atom (item, indices='all', check_form=True):
 def get_molecule_name_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -212,8 +177,6 @@ def get_molecule_name_from_atom (item, indices='all', check_form=True):
 def get_molecule_type_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -223,8 +186,6 @@ def get_molecule_type_from_atom (item, indices='all', check_form=True):
 def get_entity_index_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -234,8 +195,6 @@ def get_entity_index_from_atom (item, indices='all', check_form=True):
 def get_entity_id_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -245,8 +204,6 @@ def get_entity_id_from_atom (item, indices='all', check_form=True):
 def get_entity_name_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -256,8 +213,6 @@ def get_entity_name_from_atom (item, indices='all', check_form=True):
 def get_entity_type_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -267,8 +222,6 @@ def get_entity_type_from_atom (item, indices='all', check_form=True):
 def get_n_atoms_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -278,8 +231,6 @@ def get_n_atoms_from_atom (item, indices='all', check_form=True):
 def get_n_groups_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -289,8 +240,6 @@ def get_n_groups_from_atom (item, indices='all', check_form=True):
 def get_n_components_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -300,8 +249,6 @@ def get_n_components_from_atom (item, indices='all', check_form=True):
 def get_n_molecules_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -311,8 +258,6 @@ def get_n_molecules_from_atom (item, indices='all', check_form=True):
 def get_n_chains_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -322,8 +267,6 @@ def get_n_chains_from_atom (item, indices='all', check_form=True):
 def get_n_entities_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -333,8 +276,6 @@ def get_n_entities_from_atom (item, indices='all', check_form=True):
 def get_bonded_atoms_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -344,8 +285,6 @@ def get_bonded_atoms_from_atom (item, indices='all', check_form=True):
 def get_bond_index_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -355,8 +294,6 @@ def get_bond_index_from_atom (item, indices='all', check_form=True):
 def get_n_bonds_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -366,8 +303,6 @@ def get_n_bonds_from_atom (item, indices='all', check_form=True):
 def get_inner_bond_index_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -377,8 +312,6 @@ def get_inner_bond_index_from_atom (item, indices='all', check_form=True):
 def get_inner_bonded_atoms_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -388,8 +321,6 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', check_form=True):
 def get_n_inner_bonds_from_atom (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -399,8 +330,6 @@ def get_n_inner_bonds_from_atom (item, indices='all', check_form=True):
 def get_coordinates_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -410,8 +339,6 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all', check_fo
 def get_frame_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -421,8 +348,6 @@ def get_frame_from_atom(item, indices='all', frame_indices='all', check_form=Tru
 def get_n_frames_from_atom(item, frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -434,8 +359,6 @@ def get_n_frames_from_atom(item, frame_indices='all', check_form=True):
 def get_atom_index_from_group(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -445,8 +368,6 @@ def get_atom_index_from_group(item, indices='all', check_form=True):
 def get_atom_id_from_group(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -456,8 +377,6 @@ def get_atom_id_from_group(item, indices='all', check_form=True):
 def get_atom_name_from_group(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -467,8 +386,6 @@ def get_atom_name_from_group(item, indices='all', check_form=True):
 def get_atom_type_from_group(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -478,8 +395,6 @@ def get_atom_type_from_group(item, indices='all', check_form=True):
 def get_group_index_from_group(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -489,8 +404,6 @@ def get_group_index_from_group(item, indices='all', check_form=True):
 def get_group_id_from_group(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -500,8 +413,6 @@ def get_group_id_from_group(item, indices='all', check_form=True):
 def get_group_name_from_group(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -511,8 +422,6 @@ def get_group_name_from_group(item, indices='all', check_form=True):
 def get_group_type_from_group(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -522,8 +431,6 @@ def get_group_type_from_group(item, indices='all', check_form=True):
 def get_component_name_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -533,8 +440,6 @@ def get_component_name_from_group (item, indices='all', check_form=True):
 def get_component_index_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -544,8 +449,6 @@ def get_component_index_from_group (item, indices='all', check_form=True):
 def get_component_id_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -555,8 +458,6 @@ def get_component_id_from_group (item, indices='all', check_form=True):
 def get_component_type_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -566,8 +467,6 @@ def get_component_type_from_group (item, indices='all', check_form=True):
 def get_chain_name_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -577,8 +476,6 @@ def get_chain_name_from_group (item, indices='all', check_form=True):
 def get_chain_index_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -588,8 +485,6 @@ def get_chain_index_from_group (item, indices='all', check_form=True):
 def get_chain_id_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -599,8 +494,6 @@ def get_chain_id_from_group (item, indices='all', check_form=True):
 def get_chain_type_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -610,8 +503,6 @@ def get_chain_type_from_group (item, indices='all', check_form=True):
 def get_molecule_index_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -621,8 +512,6 @@ def get_molecule_index_from_group (item, indices='all', check_form=True):
 def get_molecule_id_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -632,8 +521,6 @@ def get_molecule_id_from_group (item, indices='all', check_form=True):
 def get_molecule_name_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -643,8 +530,6 @@ def get_molecule_name_from_group (item, indices='all', check_form=True):
 def get_molecule_type_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -654,8 +539,6 @@ def get_molecule_type_from_group (item, indices='all', check_form=True):
 def get_entity_index_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -665,8 +548,6 @@ def get_entity_index_from_group (item, indices='all', check_form=True):
 def get_entity_id_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -676,8 +557,6 @@ def get_entity_id_from_group (item, indices='all', check_form=True):
 def get_entity_name_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -687,8 +566,6 @@ def get_entity_name_from_group (item, indices='all', check_form=True):
 def get_entity_type_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -698,8 +575,6 @@ def get_entity_type_from_group (item, indices='all', check_form=True):
 def get_n_atoms_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -709,8 +584,6 @@ def get_n_atoms_from_group (item, indices='all', check_form=True):
 def get_n_groups_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -720,8 +593,6 @@ def get_n_groups_from_group (item, indices='all', check_form=True):
 def get_n_components_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -731,8 +602,6 @@ def get_n_components_from_group (item, indices='all', check_form=True):
 def get_n_molecules_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -742,8 +611,6 @@ def get_n_molecules_from_group (item, indices='all', check_form=True):
 def get_n_chains_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -753,8 +620,6 @@ def get_n_chains_from_group (item, indices='all', check_form=True):
 def get_n_entities_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -764,8 +629,6 @@ def get_n_entities_from_group (item, indices='all', check_form=True):
 def get_n_bonds_from_group (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -777,8 +640,6 @@ def get_n_bonds_from_group (item, indices='all', check_form=True):
 def get_atom_index_from_component(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -788,8 +649,6 @@ def get_atom_index_from_component(item, indices='all', check_form=True):
 def get_atom_id_from_component(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -799,8 +658,6 @@ def get_atom_id_from_component(item, indices='all', check_form=True):
 def get_atom_name_from_component(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -810,8 +667,6 @@ def get_atom_name_from_component(item, indices='all', check_form=True):
 def get_atom_type_from_component(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -821,8 +676,6 @@ def get_atom_type_from_component(item, indices='all', check_form=True):
 def get_group_index_from_component(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -832,8 +685,6 @@ def get_group_index_from_component(item, indices='all', check_form=True):
 def get_group_id_from_component(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -843,8 +694,6 @@ def get_group_id_from_component(item, indices='all', check_form=True):
 def get_group_name_from_component(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -854,8 +703,6 @@ def get_group_name_from_component(item, indices='all', check_form=True):
 def get_group_type_from_component(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -865,8 +712,6 @@ def get_group_type_from_component(item, indices='all', check_form=True):
 def get_component_name_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -876,8 +721,6 @@ def get_component_name_from_component (item, indices='all', check_form=True):
 def get_component_index_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -887,8 +730,6 @@ def get_component_index_from_component (item, indices='all', check_form=True):
 def get_component_id_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -898,8 +739,6 @@ def get_component_id_from_component (item, indices='all', check_form=True):
 def get_component_type_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -909,8 +748,6 @@ def get_component_type_from_component (item, indices='all', check_form=True):
 def get_chain_name_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -920,8 +757,6 @@ def get_chain_name_from_component (item, indices='all', check_form=True):
 def get_chain_index_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -931,8 +766,6 @@ def get_chain_index_from_component (item, indices='all', check_form=True):
 def get_chain_id_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -942,8 +775,6 @@ def get_chain_id_from_component (item, indices='all', check_form=True):
 def get_chain_type_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -953,8 +784,6 @@ def get_chain_type_from_component (item, indices='all', check_form=True):
 def get_molecule_index_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -964,8 +793,6 @@ def get_molecule_index_from_component (item, indices='all', check_form=True):
 def get_molecule_id_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -975,8 +802,6 @@ def get_molecule_id_from_component (item, indices='all', check_form=True):
 def get_molecule_name_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -986,8 +811,6 @@ def get_molecule_name_from_component (item, indices='all', check_form=True):
 def get_molecule_type_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -997,8 +820,6 @@ def get_molecule_type_from_component (item, indices='all', check_form=True):
 def get_entity_index_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1008,8 +829,6 @@ def get_entity_index_from_component (item, indices='all', check_form=True):
 def get_entity_id_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1019,8 +838,6 @@ def get_entity_id_from_component (item, indices='all', check_form=True):
 def get_entity_name_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1030,8 +847,6 @@ def get_entity_name_from_component (item, indices='all', check_form=True):
 def get_entity_type_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1041,8 +856,6 @@ def get_entity_type_from_component (item, indices='all', check_form=True):
 def get_n_atoms_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1052,8 +865,6 @@ def get_n_atoms_from_component (item, indices='all', check_form=True):
 def get_n_groups_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1063,8 +874,6 @@ def get_n_groups_from_component (item, indices='all', check_form=True):
 def get_n_components_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1074,8 +883,6 @@ def get_n_components_from_component (item, indices='all', check_form=True):
 def get_n_molecules_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1085,8 +892,6 @@ def get_n_molecules_from_component (item, indices='all', check_form=True):
 def get_n_chains_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1096,8 +901,6 @@ def get_n_chains_from_component (item, indices='all', check_form=True):
 def get_n_entities_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1107,8 +910,6 @@ def get_n_entities_from_component (item, indices='all', check_form=True):
 def get_n_bonds_from_component (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1121,8 +922,6 @@ def get_n_bonds_from_component (item, indices='all', check_form=True):
 def get_atom_index_from_molecule(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1132,8 +931,6 @@ def get_atom_index_from_molecule(item, indices='all', check_form=True):
 def get_atom_id_from_molecule(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1143,8 +940,6 @@ def get_atom_id_from_molecule(item, indices='all', check_form=True):
 def get_atom_name_from_molecule(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1154,8 +949,6 @@ def get_atom_name_from_molecule(item, indices='all', check_form=True):
 def get_atom_type_from_molecule(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1165,8 +958,6 @@ def get_atom_type_from_molecule(item, indices='all', check_form=True):
 def get_group_index_from_molecule(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1176,8 +967,6 @@ def get_group_index_from_molecule(item, indices='all', check_form=True):
 def get_group_id_from_molecule(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1187,8 +976,6 @@ def get_group_id_from_molecule(item, indices='all', check_form=True):
 def get_group_name_from_molecule(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1198,8 +985,6 @@ def get_group_name_from_molecule(item, indices='all', check_form=True):
 def get_group_type_from_molecule(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1209,8 +994,6 @@ def get_group_type_from_molecule(item, indices='all', check_form=True):
 def get_component_name_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1220,8 +1003,6 @@ def get_component_name_from_molecule (item, indices='all', check_form=True):
 def get_component_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1231,8 +1012,6 @@ def get_component_index_from_molecule (item, indices='all', frame_indices='all',
 def get_component_id_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1242,8 +1021,6 @@ def get_component_id_from_molecule (item, indices='all', check_form=True):
 def get_component_type_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1253,8 +1030,6 @@ def get_component_type_from_molecule (item, indices='all', check_form=True):
 def get_chain_name_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1264,8 +1039,6 @@ def get_chain_name_from_molecule (item, indices='all', check_form=True):
 def get_chain_index_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1275,8 +1048,6 @@ def get_chain_index_from_molecule (item, indices='all', check_form=True):
 def get_chain_id_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1286,8 +1057,6 @@ def get_chain_id_from_molecule (item, indices='all', check_form=True):
 def get_chain_type_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1297,8 +1066,6 @@ def get_chain_type_from_molecule (item, indices='all', check_form=True):
 def get_molecule_index_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1308,8 +1075,6 @@ def get_molecule_index_from_molecule (item, indices='all', check_form=True):
 def get_molecule_id_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1319,8 +1084,6 @@ def get_molecule_id_from_molecule (item, indices='all', check_form=True):
 def get_molecule_name_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1330,8 +1093,6 @@ def get_molecule_name_from_molecule (item, indices='all', check_form=True):
 def get_molecule_type_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1341,8 +1102,6 @@ def get_molecule_type_from_molecule (item, indices='all', check_form=True):
 def get_entity_index_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1352,8 +1111,6 @@ def get_entity_index_from_molecule (item, indices='all', check_form=True):
 def get_entity_id_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1363,8 +1120,6 @@ def get_entity_id_from_molecule (item, indices='all', check_form=True):
 def get_entity_name_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1374,8 +1129,6 @@ def get_entity_name_from_molecule (item, indices='all', check_form=True):
 def get_entity_type_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1385,8 +1138,6 @@ def get_entity_type_from_molecule (item, indices='all', check_form=True):
 def get_n_atoms_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1396,8 +1147,6 @@ def get_n_atoms_from_molecule (item, indices='all', check_form=True):
 def get_n_groups_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1407,8 +1156,6 @@ def get_n_groups_from_molecule (item, indices='all', check_form=True):
 def get_n_components_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1418,8 +1165,6 @@ def get_n_components_from_molecule (item, indices='all', check_form=True):
 def get_n_molecules_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1429,8 +1174,6 @@ def get_n_molecules_from_molecule (item, indices='all', check_form=True):
 def get_n_chains_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1440,8 +1183,6 @@ def get_n_chains_from_molecule (item, indices='all', check_form=True):
 def get_n_entities_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1451,8 +1192,6 @@ def get_n_entities_from_molecule (item, indices='all', check_form=True):
 def get_n_bonds_from_molecule (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1464,8 +1203,6 @@ def get_n_bonds_from_molecule (item, indices='all', check_form=True):
 def get_atom_index_from_chain(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1475,8 +1212,6 @@ def get_atom_index_from_chain(item, indices='all', check_form=True):
 def get_atom_id_from_chain(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1486,8 +1221,6 @@ def get_atom_id_from_chain(item, indices='all', check_form=True):
 def get_atom_name_from_chain(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1497,8 +1230,6 @@ def get_atom_name_from_chain(item, indices='all', check_form=True):
 def get_atom_type_from_chain(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1508,8 +1239,6 @@ def get_atom_type_from_chain(item, indices='all', check_form=True):
 def get_group_index_from_chain(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1519,8 +1248,6 @@ def get_group_index_from_chain(item, indices='all', check_form=True):
 def get_group_id_from_chain(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1530,8 +1257,6 @@ def get_group_id_from_chain(item, indices='all', check_form=True):
 def get_group_name_from_chain(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1541,8 +1266,6 @@ def get_group_name_from_chain(item, indices='all', check_form=True):
 def get_group_type_from_chain(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1552,8 +1275,6 @@ def get_group_type_from_chain(item, indices='all', check_form=True):
 def get_component_name_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1563,8 +1284,6 @@ def get_component_name_from_chain (item, indices='all', check_form=True):
 def get_component_index_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1574,8 +1293,6 @@ def get_component_index_from_chain (item, indices='all', check_form=True):
 def get_component_id_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1585,8 +1302,6 @@ def get_component_id_from_chain (item, indices='all', check_form=True):
 def get_component_type_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1596,8 +1311,6 @@ def get_component_type_from_chain (item, indices='all', check_form=True):
 def get_chain_name_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1607,8 +1320,6 @@ def get_chain_name_from_chain (item, indices='all', check_form=True):
 def get_chain_index_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1618,8 +1329,6 @@ def get_chain_index_from_chain (item, indices='all', check_form=True):
 def get_chain_id_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1629,8 +1338,6 @@ def get_chain_id_from_chain (item, indices='all', check_form=True):
 def get_chain_type_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1640,8 +1347,6 @@ def get_chain_type_from_chain (item, indices='all', check_form=True):
 def get_molecule_index_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1651,8 +1356,6 @@ def get_molecule_index_from_chain (item, indices='all', check_form=True):
 def get_molecule_id_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1662,8 +1365,6 @@ def get_molecule_id_from_chain (item, indices='all', check_form=True):
 def get_molecule_name_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1673,8 +1374,6 @@ def get_molecule_name_from_chain (item, indices='all', check_form=True):
 def get_molecule_type_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1684,8 +1383,6 @@ def get_molecule_type_from_chain (item, indices='all', check_form=True):
 def get_entity_index_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1695,8 +1392,6 @@ def get_entity_index_from_chain (item, indices='all', check_form=True):
 def get_entity_id_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1706,8 +1401,6 @@ def get_entity_id_from_chain (item, indices='all', check_form=True):
 def get_entity_name_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1717,8 +1410,6 @@ def get_entity_name_from_chain (item, indices='all', check_form=True):
 def get_entity_type_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1728,8 +1419,6 @@ def get_entity_type_from_chain (item, indices='all', check_form=True):
 def get_n_atoms_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1739,8 +1428,6 @@ def get_n_atoms_from_chain (item, indices='all', check_form=True):
 def get_n_groups_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1750,8 +1437,6 @@ def get_n_groups_from_chain (item, indices='all', check_form=True):
 def get_n_components_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1761,8 +1446,6 @@ def get_n_components_from_chain (item, indices='all', check_form=True):
 def get_n_molecules_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1772,8 +1455,6 @@ def get_n_molecules_from_chain (item, indices='all', check_form=True):
 def get_n_chains_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1783,8 +1464,6 @@ def get_n_chains_from_chain (item, indices='all', check_form=True):
 def get_n_entities_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1794,8 +1473,6 @@ def get_n_entities_from_chain (item, indices='all', check_form=True):
 def get_n_bonds_from_chain (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1807,8 +1484,6 @@ def get_n_bonds_from_chain (item, indices='all', check_form=True):
 def get_atom_index_from_entity(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1818,8 +1493,6 @@ def get_atom_index_from_entity(item, indices='all', check_form=True):
 def get_atom_id_from_entity(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1829,8 +1502,6 @@ def get_atom_id_from_entity(item, indices='all', check_form=True):
 def get_atom_name_from_entity(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1840,8 +1511,6 @@ def get_atom_name_from_entity(item, indices='all', check_form=True):
 def get_atom_type_from_entity(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1851,8 +1520,6 @@ def get_atom_type_from_entity(item, indices='all', check_form=True):
 def get_group_index_from_entity(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1862,8 +1529,6 @@ def get_group_index_from_entity(item, indices='all', check_form=True):
 def get_group_id_from_entity(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1873,8 +1538,6 @@ def get_group_id_from_entity(item, indices='all', check_form=True):
 def get_group_name_from_entity(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1884,8 +1547,6 @@ def get_group_name_from_entity(item, indices='all', check_form=True):
 def get_group_type_from_entity(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1895,8 +1556,6 @@ def get_group_type_from_entity(item, indices='all', check_form=True):
 def get_component_name_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1906,8 +1565,6 @@ def get_component_name_from_entity (item, indices='all', check_form=True):
 def get_component_index_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1917,8 +1574,6 @@ def get_component_index_from_entity (item, indices='all', check_form=True):
 def get_component_id_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1928,8 +1583,6 @@ def get_component_id_from_entity (item, indices='all', check_form=True):
 def get_component_type_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1939,8 +1592,6 @@ def get_component_type_from_entity (item, indices='all', check_form=True):
 def get_chain_name_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1950,8 +1601,6 @@ def get_chain_name_from_entity (item, indices='all', check_form=True):
 def get_chain_index_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1961,8 +1610,6 @@ def get_chain_index_from_entity (item, indices='all', check_form=True):
 def get_chain_id_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1972,8 +1619,6 @@ def get_chain_id_from_entity (item, indices='all', check_form=True):
 def get_chain_type_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1983,8 +1628,6 @@ def get_chain_type_from_entity (item, indices='all', check_form=True):
 def get_molecule_index_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -1994,8 +1637,6 @@ def get_molecule_index_from_entity (item, indices='all', check_form=True):
 def get_molecule_id_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2005,8 +1646,6 @@ def get_molecule_id_from_entity (item, indices='all', check_form=True):
 def get_molecule_name_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2016,8 +1655,6 @@ def get_molecule_name_from_entity (item, indices='all', check_form=True):
 def get_molecule_type_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2027,8 +1664,6 @@ def get_molecule_type_from_entity (item, indices='all', check_form=True):
 def get_entity_index_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2038,8 +1673,6 @@ def get_entity_index_from_entity (item, indices='all', check_form=True):
 def get_entity_id_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2049,8 +1682,6 @@ def get_entity_id_from_entity (item, indices='all', check_form=True):
 def get_entity_name_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2060,8 +1691,6 @@ def get_entity_name_from_entity (item, indices='all', check_form=True):
 def get_entity_type_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2071,8 +1700,6 @@ def get_entity_type_from_entity (item, indices='all', check_form=True):
 def get_n_atoms_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2082,8 +1709,6 @@ def get_n_atoms_from_entity (item, indices='all', check_form=True):
 def get_n_groups_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2093,8 +1718,6 @@ def get_n_groups_from_entity (item, indices='all', check_form=True):
 def get_n_components_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2104,8 +1727,6 @@ def get_n_components_from_entity (item, indices='all', check_form=True):
 def get_n_molecules_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2115,8 +1736,6 @@ def get_n_molecules_from_entity (item, indices='all', check_form=True):
 def get_n_chains_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2126,8 +1745,6 @@ def get_n_chains_from_entity (item, indices='all', check_form=True):
 def get_n_entities_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2137,8 +1754,6 @@ def get_n_entities_from_entity (item, indices='all', check_form=True):
 def get_n_bonds_from_entity (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2151,8 +1766,6 @@ def get_n_bonds_from_entity (item, indices='all', check_form=True):
 def get_bonded_atoms_from_system(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2162,8 +1775,6 @@ def get_bonded_atoms_from_system(item, indices='all', check_form=True):
 def get_n_atoms_from_system(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2173,8 +1784,6 @@ def get_n_atoms_from_system(item, indices='all', check_form=True):
 def get_n_groups_from_system(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2184,8 +1793,6 @@ def get_n_groups_from_system(item, indices='all', check_form=True):
 def get_n_components_from_system(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2195,8 +1802,6 @@ def get_n_components_from_system(item, indices='all', check_form=True):
 def get_n_chains_from_system(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2206,8 +1811,6 @@ def get_n_chains_from_system(item, indices='all', check_form=True):
 def get_n_molecules_from_system(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2217,8 +1820,6 @@ def get_n_molecules_from_system(item, indices='all', check_form=True):
 def get_n_entities_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2228,8 +1829,6 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all', check_f
 def get_n_bonds_from_system(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2239,8 +1838,6 @@ def get_n_bonds_from_system(item, indices='all', check_form=True):
 def get_n_aminoacids_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2250,8 +1847,6 @@ def get_n_aminoacids_from_system (item, indices='all', check_form=True):
 def get_n_nucleotides_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2261,8 +1856,6 @@ def get_n_nucleotides_from_system (item, indices='all', check_form=True):
 def get_n_ions_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2272,8 +1865,6 @@ def get_n_ions_from_system (item, indices='all', check_form=True):
 def get_n_waters_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2283,8 +1874,6 @@ def get_n_waters_from_system (item, indices='all', check_form=True):
 def get_n_cosolutes_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2294,8 +1883,6 @@ def get_n_cosolutes_from_system (item, indices='all', check_form=True):
 def get_n_small_molecules_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2305,8 +1892,6 @@ def get_n_small_molecules_from_system (item, indices='all', check_form=True):
 def get_n_peptides_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2316,8 +1901,6 @@ def get_n_peptides_from_system (item, indices='all', check_form=True):
 def get_n_proteins_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2327,8 +1910,6 @@ def get_n_proteins_from_system (item, indices='all', check_form=True):
 def get_n_dnas_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2338,8 +1919,6 @@ def get_n_dnas_from_system (item, indices='all', check_form=True):
 def get_n_rnas_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2349,8 +1928,6 @@ def get_n_rnas_from_system (item, indices='all', check_form=True):
 def get_n_lipids_from_system (item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2360,8 +1937,6 @@ def get_n_lipids_from_system (item, indices='all', check_form=True):
 def get_coordinates_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2371,8 +1946,6 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all', check_
 def get_box_from_system(item, frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2382,8 +1955,6 @@ def get_box_from_system(item, frame_indices='all', check_form=True):
 def get_box_shape_from_system(item, frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2393,8 +1964,6 @@ def get_box_shape_from_system(item, frame_indices='all', check_form=True):
 def get_box_lengths_from_system(item, frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2406,8 +1975,6 @@ def get_box_lengths_from_system(item, frame_indices='all', check_form=True):
 def get_box_angles_from_system(item, frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2419,8 +1986,6 @@ def get_box_angles_from_system(item, frame_indices='all', check_form=True):
 def get_box_volume_from_system(item, frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2431,8 +1996,6 @@ def get_box_volume_from_system(item, frame_indices='all', check_form=True):
 def get_time_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2442,8 +2005,6 @@ def get_time_from_system(item, indices='all', frame_indices='all', check_form=Tr
 def get_step_from_system(item, frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2453,8 +2014,6 @@ def get_step_from_system(item, frame_indices='all', check_form=True):
 def get_frame_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2464,8 +2023,6 @@ def get_frame_from_system(item, indices='all', frame_indices='all', check_form=T
 def get_n_frames_from_system(item, frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2477,8 +2034,6 @@ def get_n_frames_from_system(item, frame_indices='all', check_form=True):
 def get_bond_index_from_bond(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2488,8 +2043,6 @@ def get_bond_index_from_bond(item, indices='all', check_form=True):
 def get_bond_order_from_bond(item, indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2499,8 +2052,6 @@ def get_bond_order_from_bond(item, indices='all', check_form=True):
 def get_bond_type_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2510,8 +2061,6 @@ def get_bond_type_from_bond(item, indices='all', frame_indices='all', check_form
 def get_atom_index_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
@@ -2521,8 +2070,6 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all', check_for
 def get_n_bonds_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 

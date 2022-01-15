@@ -69,7 +69,7 @@ def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indi
 
     from molsysmt.tools.molsysmt_Topology import to_string_aminoacids3 as molsysmt_Topology_to_string_aminoacids3
 
-    tmp_item = molsysmt_Topology_to_string_aminoacids3(item, atom_indices=atom_indices)
+    tmp_item = molsysmt_Topology_to_string_aminoacids3(item, atom_indices=atom_indices, check_form=False)
 
     return tmp_item
 
@@ -77,7 +77,7 @@ def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indi
 
     from molsysmt.tools.molsysmt_Topology import to_string_aminoacids1 as molsysmt_Topology_to_string_aminoacids1
 
-    tmp_item = molsysmt_Topology_to_string_aminoacids1(item, atom_indices=atom_indices)
+    tmp_item = molsysmt_Topology_to_string_aminoacids1(item, atom_indices=atom_indices, check_form=False)
 
     return tmp_item
 
@@ -88,7 +88,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     box = get(molecular_system, target='system', frame_indices=frame_indices, box=True)
 
-    tmp_item = molsysmt_Topology_to_openmm_Topology(item, box, atom_indices=atom_indices)
+    tmp_item = molsysmt_Topology_to_openmm_Topology(item, box, atom_indices=atom_indices, check_form=False)
 
     return tmp_item
 
@@ -96,7 +96,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     from molsysmt.tools.molsysmt_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
 
-    tmp_item = molsysmt_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices)
+    tmp_item = molsysmt_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices, check_form=False)
 
     return tmp_item
 
@@ -108,7 +108,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all',
     coordinates = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
     box = get(molecular_system, target='system', frame_indices=frame_indices, box=True)
 
-    tmp_item = molsysmt_Topology_to_file_pdb(item, coordinates, box, atom_indices=atom_indices, output_filename=output_filename)
+    tmp_item = molsysmt_Topology_to_file_pdb(item, coordinates, box, atom_indices=atom_indices, output_filename=output_filename, check_form=False)
 
     return tmp_item
 
@@ -120,7 +120,7 @@ def to_string_pdb_text(item, molecular_system, atom_indices='all', frame_indices
     coordinates = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
     box = get(molecular_system, target='system', frame_indices=frame_indices, box=True)
 
-    tmp_item = molsysmt_Topology_to_string_pdb_text(item, coordinates, box, atom_indices=atom_indices, output_filename=output_filename)
+    tmp_item = molsysmt_Topology_to_string_pdb_text(item, coordinates, box, atom_indices=atom_indices, output_filename=output_filename, check_form=False)
 
     return tmp_item
 
