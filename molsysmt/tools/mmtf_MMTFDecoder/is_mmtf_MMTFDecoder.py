@@ -1,8 +1,18 @@
-_item_fullname_='mmtf.MMTFDecoder'
+from molsysmt._private_tools.exceptions import ItemWithWrongForm
 
 def is_mmtf_MMTFDecoder(item):
 
     item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
+    output = (item_fullname == 'mmtf.MMTFDecoder')
 
-    return _item_fullname_==item_fullname
+    return output
+
+def _checking_form(item, check_form=True):
+
+    if check_form:
+        from molsysmt.tools.mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
+        if not is_mmtf_MMTFDecoder(item):
+            raise ItemWithWrongForm('mmtf.MMTFDecoder')
+
+    pass
 
