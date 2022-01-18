@@ -42,7 +42,7 @@ def get_atom_type_from_atom(item, indices='all', frame_indices='all', check_form
 
     return output
 
-def get_group_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_group_index_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -54,7 +54,7 @@ def get_group_index_from_atom (item, indices='all', frame_indices='all', check_f
 
     return output
 
-def get_component_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_component_index_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -66,7 +66,7 @@ def get_component_index_from_atom (item, indices='all', frame_indices='all', che
 
     return output
 
-def get_chain_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_index_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -78,7 +78,7 @@ def get_chain_index_from_atom (item, indices='all', frame_indices='all', check_f
 
     return output
 
-def get_molecule_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_index_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -90,7 +90,7 @@ def get_molecule_index_from_atom (item, indices='all', frame_indices='all', chec
 
     return output
 
-def get_entity_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_index_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -102,7 +102,7 @@ def get_entity_index_from_atom (item, indices='all', frame_indices='all', check_
 
     return output
 
-def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_inner_bonded_atoms_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -114,7 +114,7 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all', 
 
     return output
 
-def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_n_inner_bonds_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -200,7 +200,7 @@ def get_group_type_from_group(item, indices='all', frame_indices='all', check_fo
 
 ## From component
 
-def get_component_id_from_component (item, indices='all', frame_indices='all', check_form=True):
+def get_component_id_from_component(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -212,7 +212,7 @@ def get_component_id_from_component (item, indices='all', frame_indices='all', c
 
     return output
 
-def get_component_name_from_component (item, indices='all', frame_indices='all', check_form=True):
+def get_component_name_from_component(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -224,7 +224,7 @@ def get_component_name_from_component (item, indices='all', frame_indices='all',
 
     return output
 
-def get_component_type_from_component (item, indices='all', frame_indices='all', check_form=True):
+def get_component_type_from_component(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -238,7 +238,7 @@ def get_component_type_from_component (item, indices='all', frame_indices='all',
 
 ## From molecule
 
-def get_molecule_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_id_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -250,7 +250,7 @@ def get_molecule_id_from_molecule (item, indices='all', frame_indices='all', che
 
     return output
 
-def get_molecule_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_name_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -262,7 +262,7 @@ def get_molecule_name_from_molecule (item, indices='all', frame_indices='all', c
 
     return output
 
-def get_molecule_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_type_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -276,7 +276,7 @@ def get_molecule_type_from_molecule (item, indices='all', frame_indices='all', c
 
 ## From chain
 
-def get_chain_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_id_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -288,7 +288,7 @@ def get_chain_id_from_chain (item, indices='all', frame_indices='all', check_for
 
     return output
 
-def get_chain_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_name_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -300,7 +300,7 @@ def get_chain_name_from_chain (item, indices='all', frame_indices='all', check_f
 
     return output
 
-def get_chain_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_type_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -314,7 +314,7 @@ def get_chain_type_from_chain (item, indices='all', frame_indices='all', check_f
 
 ## From entity
 
-def get_entity_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_id_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -326,7 +326,7 @@ def get_entity_id_from_entity (item, indices='all', frame_indices='all', check_f
 
     return output
 
-def get_entity_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_name_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -338,7 +338,7 @@ def get_entity_name_from_entity (item, indices='all', frame_indices='all', check
 
     return output
 
-def get_entity_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_type_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -525,6 +525,7 @@ def get_bonded_atoms_from_system(item, indices='all', frame_indices='all', check
 
     return output
 
+
 ## From bond
 
 def get_bond_order_from_bond(item, indices='all', frame_indices='all', check_form=True):
@@ -584,7 +585,7 @@ def get_atom_index_from_atom(item, indices='all', frame_indices='all', check_for
 
     return output
 
-def get_group_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_group_id_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -599,7 +600,7 @@ def get_group_id_from_atom (item, indices='all', frame_indices='all', check_form
 
     return output
 
-def get_group_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_group_name_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -615,7 +616,7 @@ def get_group_name_from_atom (item, indices='all', frame_indices='all', check_fo
 
     return output
 
-def get_group_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_group_type_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -631,7 +632,7 @@ def get_group_type_from_atom (item, indices='all', frame_indices='all', check_fo
 
     return output
 
-def get_component_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_component_id_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -646,7 +647,7 @@ def get_component_id_from_atom (item, indices='all', frame_indices='all', check_
 
     return output
 
-def get_component_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_component_name_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -662,7 +663,7 @@ def get_component_name_from_atom (item, indices='all', frame_indices='all', chec
 
     return output
 
-def get_component_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_component_type_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -678,7 +679,7 @@ def get_component_type_from_atom (item, indices='all', frame_indices='all', chec
 
     return output
 
-def get_chain_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_id_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -693,7 +694,7 @@ def get_chain_id_from_atom (item, indices='all', frame_indices='all', check_form
 
     return output
 
-def get_chain_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_name_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -709,7 +710,7 @@ def get_chain_name_from_atom (item, indices='all', frame_indices='all', check_fo
 
     return output
 
-def get_chain_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_type_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -725,7 +726,7 @@ def get_chain_type_from_atom (item, indices='all', frame_indices='all', check_fo
 
     return output
 
-def get_molecule_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_id_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -740,7 +741,7 @@ def get_molecule_id_from_atom (item, indices='all', frame_indices='all', check_f
 
     return output
 
-def get_molecule_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_name_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -756,7 +757,7 @@ def get_molecule_name_from_atom (item, indices='all', frame_indices='all', check
 
     return output
 
-def get_molecule_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_type_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -772,7 +773,7 @@ def get_molecule_type_from_atom (item, indices='all', frame_indices='all', check
 
     return output
 
-def get_entity_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_id_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -787,7 +788,7 @@ def get_entity_id_from_atom (item, indices='all', frame_indices='all', check_for
 
     return output
 
-def get_entity_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_name_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -803,7 +804,7 @@ def get_entity_name_from_atom (item, indices='all', frame_indices='all', check_f
 
     return output
 
-def get_entity_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_type_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -819,7 +820,7 @@ def get_entity_type_from_atom (item, indices='all', frame_indices='all', check_f
 
     return output
 
-def get_n_atoms_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_n_atoms_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -830,7 +831,7 @@ def get_n_atoms_from_atom (item, indices='all', frame_indices='all', check_form=
 
     return output
 
-def get_n_groups_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_n_groups_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -844,7 +845,7 @@ def get_n_groups_from_atom (item, indices='all', frame_indices='all', check_form
 
     return output
 
-def get_n_components_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_n_components_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -858,7 +859,7 @@ def get_n_components_from_atom (item, indices='all', frame_indices='all', check_
 
     return output
 
-def get_n_molecules_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_n_molecules_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -872,7 +873,7 @@ def get_n_molecules_from_atom (item, indices='all', frame_indices='all', check_f
 
     return output
 
-def get_n_chains_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_n_chains_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -886,7 +887,7 @@ def get_n_chains_from_atom (item, indices='all', frame_indices='all', check_form
 
     return output
 
-def get_n_entities_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_n_entities_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -900,7 +901,7 @@ def get_n_entities_from_atom (item, indices='all', frame_indices='all', check_fo
 
     return output
 
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_bonded_atoms_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -931,7 +932,7 @@ def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all', check_
 
     return output
 
-def get_bond_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_bond_index_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -964,7 +965,7 @@ def get_bond_index_from_atom (item, indices='all', frame_indices='all', check_fo
 
     return output
 
-def get_n_bonds_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_n_bonds_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -995,7 +996,7 @@ def get_n_bonds_from_atom (item, indices='all', frame_indices='all', check_form=
 
     return output
 
-def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
+def get_inner_bond_index_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1071,7 +1072,7 @@ def get_atom_id_from_group(item, indices='all', frame_indices='all', check_form=
         aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1093,7 +1094,7 @@ def get_atom_name_from_group(item, indices='all', frame_indices='all', check_for
         aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1115,7 +1116,7 @@ def get_atom_type_from_group(item, indices='all', frame_indices='all', check_for
         aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1138,7 +1139,7 @@ def get_group_index_from_group(item, indices='all', frame_indices='all', check_f
 
     return output
 
-def get_component_index_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_component_index_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1146,11 +1147,13 @@ def get_component_index_from_group (item, indices='all', frame_indices='all', ch
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices, check_form=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_component_index_from_atom(item, target='atom', indices=first_atom_index_from_target, check_form=False)
+    output = get_component_index_from_atom(item, indices=first_atom_index_from_target, check_form=False)
+
+    del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
-def get_component_id_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_component_id_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1164,7 +1167,7 @@ def get_component_id_from_group (item, indices='all', frame_indices='all', check
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_component_name_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_component_name_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1178,7 +1181,7 @@ def get_component_name_from_group (item, indices='all', frame_indices='all', che
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_component_type_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_component_type_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1192,7 +1195,7 @@ def get_component_type_from_group (item, indices='all', frame_indices='all', che
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_chain_index_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_index_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1200,11 +1203,13 @@ def get_chain_index_from_group (item, indices='all', frame_indices='all', check_
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices, check_form=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, target='atom', indices=first_atom_index_from_target, check_form=False)
+    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, check_form=False)
+
+    del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
-def get_chain_id_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_id_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1218,7 +1223,7 @@ def get_chain_id_from_group (item, indices='all', frame_indices='all', check_for
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_chain_name_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_name_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1232,7 +1237,7 @@ def get_chain_name_from_group (item, indices='all', frame_indices='all', check_f
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_chain_type_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_type_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1246,7 +1251,7 @@ def get_chain_type_from_group (item, indices='all', frame_indices='all', check_f
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_molecule_index_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_index_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1254,11 +1259,13 @@ def get_molecule_index_from_group (item, indices='all', frame_indices='all', che
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices, check_form=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_molecule_index_from_atom(item, target='atom', indices=first_atom_index_from_target, check_form=False)
+    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, check_form=False)
+
+    del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
-def get_molecule_id_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_id_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1272,7 +1279,7 @@ def get_molecule_id_from_group (item, indices='all', frame_indices='all', check_
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_molecule_name_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_name_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1286,7 +1293,7 @@ def get_molecule_name_from_group (item, indices='all', frame_indices='all', chec
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_molecule_type_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_type_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1300,7 +1307,7 @@ def get_molecule_type_from_group (item, indices='all', frame_indices='all', chec
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_entity_index_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_index_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1308,11 +1315,13 @@ def get_entity_index_from_group (item, indices='all', frame_indices='all', check
 
     atom_index_from_target = get_atom_index_from_group(item, indices=indices, check_form=False)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, target='atom', indices=first_atom_index_from_target, check_form=False)
+    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, check_form=False)
+
+    del(atom_index_from_target, first_atom_index_from_target)
 
     return output
 
-def get_entity_id_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_id_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1326,7 +1335,7 @@ def get_entity_id_from_group (item, indices='all', frame_indices='all', check_fo
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_entity_name_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_name_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1340,7 +1349,7 @@ def get_entity_name_from_group (item, indices='all', frame_indices='all', check_
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_entity_type_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_type_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1354,7 +1363,7 @@ def get_entity_type_from_group (item, indices='all', frame_indices='all', check_
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_n_atoms_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_n_atoms_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1365,7 +1374,7 @@ def get_n_atoms_from_group (item, indices='all', frame_indices='all', check_form
     output = np.array(output)
     return output
 
-def get_n_groups_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_n_groups_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1376,7 +1385,7 @@ def get_n_groups_from_group (item, indices='all', frame_indices='all', check_for
 
     return output
 
-def get_n_components_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_n_components_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1390,7 +1399,7 @@ def get_n_components_from_group (item, indices='all', frame_indices='all', check
 
     return output
 
-def get_n_molecules_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_n_molecules_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1404,7 +1413,7 @@ def get_n_molecules_from_group (item, indices='all', frame_indices='all', check_
 
     return output
 
-def get_n_chains_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_n_chains_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1418,7 +1427,7 @@ def get_n_chains_from_group (item, indices='all', frame_indices='all', check_for
 
     return output
 
-def get_n_entities_from_group (item, indices='all', frame_indices='all', check_form=True):
+def get_n_entities_from_group(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1473,7 +1482,7 @@ def get_atom_id_from_component(item, indices='all', frame_indices='all', check_f
         aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1495,7 +1504,7 @@ def get_atom_name_from_component(item, indices='all', frame_indices='all', check
         aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1517,7 +1526,7 @@ def get_atom_type_from_component(item, indices='all', frame_indices='all', check
         aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1564,7 +1573,7 @@ def get_group_id_from_component(item, indices='all', frame_indices='all', check_
         aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1586,7 +1595,7 @@ def get_group_name_from_component(item, indices='all', frame_indices='all', chec
         aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1608,7 +1617,7 @@ def get_group_type_from_component(item, indices='all', frame_indices='all', chec
         aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1617,62 +1626,261 @@ def get_group_type_from_component(item, indices='all', frame_indices='all', chec
 
     return output
 
-def get_component_index_from_component (item, indices='all', frame_indices='all', check_form=True):
+def get_component_index_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    if indices is 'all':
+        n_aux = get_n_components_from_system(item, check_form=False)
+        output = np.arange(n_aux, dtype=int)
+    else:
+        output = np.array(indices, dtype=int)
+
+    return output
+
+def get_chain_index_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    atom_index_from_target = get_atom_index_from_component(item, indices=indices, check_form=False)
+    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
+    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, check_form=False)
+
+    del(atom_index_from_target, first_atom_index_from_target)
+
+    return output
+
+def get_chain_id_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_chain_index_from_component(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+def get_chain_name_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_chain_index_from_component(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+def get_chain_type_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_chain_index_from_component(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+def get_molecule_index_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    atom_index_from_target = get_atom_index_from_component(item, indices=indices, check_form=False)
+    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
+    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, check_form=False)
+
+    del(atom_index_from_target, first_atom_index_from_target)
+
+    return output
+
+def get_molecule_id_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_molecule_index_from_component(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+def get_molecule_name_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_molecule_index_from_component(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+def get_molecule_type_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_molecule_index_from_component(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
+
+    return output
+
+def get_entity_index_from_component(item, indices='all', frame_indices='all', check_form=True):
 
 
-def get_chain_index_from_component (item, indices='all', frame_indices='all', check_form=True):
 
+def get_entity_id_from_component(item, indices='all', frame_indices='all', check_form=True):
 
-def get_chain_id_from_component (item, indices='all', frame_indices='all', check_form=True):
+    _checking_form(item, check_form)
 
+    import numpy as np
 
-def get_chain_name_from_component (item, indices='all', frame_indices='all', check_form=True):
+    aux_indices = get_entity_index_from_component(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
 
+    return output
 
-def get_chain_type_from_component (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_name_from_component(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_molecule_index_from_component (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    aux_indices = get_entity_index_from_component(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
 
-def get_molecule_id_from_component (item, indices='all', frame_indices='all', check_form=True):
+    return output
 
+def get_entity_type_from_component(item, indices='all', frame_indices='all', check_form=True):
 
-def get_molecule_name_from_component (item, indices='all', frame_indices='all', check_form=True):
+    _checking_form(item, check_form)
 
+    import numpy as np
 
-def get_molecule_type_from_component (item, indices='all', frame_indices='all', check_form=True):
+    aux_indices = get_entity_index_from_component(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
 
+    return output
 
-def get_entity_index_from_component (item, indices='all', frame_indices='all', check_form=True):
+def get_n_atoms_from_component(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_entity_id_from_component (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    output = get_atom_index_from_component(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
 
-def get_entity_name_from_component (item, indices='all', frame_indices='all', check_form=True):
+def get_n_groups_from_component(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_entity_type_from_component (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    output = get_group_index_from_component(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
 
-def get_n_atoms_from_component (item, indices='all', frame_indices='all', check_form=True):
+def get_n_components_from_component(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_n_groups_from_component (item, indices='all', frame_indices='all', check_form=True):
+    if indices is 'all':
+        output = get_n_components_from_system(item, check_form=False)
+    else:
+        output = indices.shape[0]
 
+    return output
 
-def get_n_components_from_component (item, indices='all', frame_indices='all', check_form=True):
+def get_n_molecules_from_component(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_n_molecules_from_component (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    if indices is 'all':
+        output = get_n_molecules_from_system(item, check_form=False)
+    else:
+        output = get_molecule_index_from_component(item, indices=indices, check_form=True)
+        output = np.unique(output).shape[0]
 
-def get_n_chains_from_component (item, indices='all', frame_indices='all', check_form=True):
+    return output
 
+def get_n_chains_from_component(item, indices='all', frame_indices='all', check_form=True):
 
-def get_n_entities_from_component (item, indices='all', frame_indices='all', check_form=True):
+    _checking_form(item, check_form)
 
+    import numpy as np
+
+    if indices is 'all':
+        output = get_n_chains_from_system(item, check_form=False)
+    else:
+        output = get_chain_index_from_component(item, indices=indices, check_form=True)
+        output = np.unique(output).shape[0]
+
+    return output
+
+def get_n_entities_from_component(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    if indices is 'all':
+        output = get_n_entities_from_system(item, check_form=False)
+    else:
+        output = get_entity_index_from_component(item, indices=indices, check_form=True)
+        output = np.unique(output).shape[0]
+
+    return output
 
 ## molecule
 
@@ -1858,7 +2066,7 @@ def get_group_type_from_molecule(item, indices='all', frame_indices='all', check
 
     return output
 
-def get_component_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_component_index_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1883,7 +2091,7 @@ def get_component_index_from_molecule (item, indices='all', frame_indices='all',
 
     return output
 
-def get_component_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_component_id_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1905,7 +2113,7 @@ def get_component_id_from_molecule (item, indices='all', frame_indices='all', ch
 
     return output
 
-def get_component_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_component_name_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1927,7 +2135,7 @@ def get_component_name_from_molecule (item, indices='all', frame_indices='all', 
 
     return output
 
-def get_component_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_component_type_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1949,10 +2157,32 @@ def get_component_type_from_molecule (item, indices='all', frame_indices='all', 
 
     return output
 
-def get_chain_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_index_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_chain_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
+
+    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, check_form=False)
+    aux_indices = get_molecule_index_from_atom(item, check_form=False)
+    aux_vals = get_chain_index_from_atom(item, check_form=False)
+
+    output=[]
+
+    for ii in aux_atom_indices:
+        mask = (aux_indices==ii)
+        output.append(np.unique(aux_vals[mask]))
+
+    del(aux_atom_indices, aux_indices, aux_vals)
+
+    if len(output)==1:
+        output = np.array(output)
+    else:
+        output = np.array(output, dtype=object)
+
+    return output
+
+def get_chain_id_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1974,7 +2204,7 @@ def get_chain_id_from_molecule (item, indices='all', frame_indices='all', check_
 
     return output
 
-def get_chain_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_name_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1996,7 +2226,7 @@ def get_chain_name_from_molecule (item, indices='all', frame_indices='all', chec
 
     return output
 
-def get_chain_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_type_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2018,38 +2248,136 @@ def get_chain_type_from_molecule (item, indices='all', frame_indices='all', chec
 
     return output
 
-def get_molecule_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_index_from_molecule(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    if indices is 'all':
+        n_aux = get_n_molecules_from_system(item, check_form=False)
+        output = np.arange(n_aux, dtype=int)
+    else:
+        output = np.array(indices, dtype=int)
+
+    return output
+
+def get_entity_index_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
 
-def get_entity_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_id_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_entity_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    aux_indices = get_entity_index_from_molecule(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
 
-def get_entity_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+    return output
 
+def get_entity_name_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
-def get_entity_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+    _checking_form(item, check_form)
 
+    import numpy as np
 
-def get_n_atoms_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+    aux_indices = get_entity_index_from_molecule(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
 
+    return output
 
-def get_n_groups_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_type_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_n_components_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    aux_indices = get_entity_index_from_molecule(item, indices=indices, check_form=False)
+    aux_unique_indices = np.unique(aux_indices)
+    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check_form=False)
+    aux_dict = dict(zip(aux_unique_indices, aux_vals))
+    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
+    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
 
-def get_n_molecules_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+    return output
 
+def get_n_atoms_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
-def get_n_chains_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+    _checking_form(item, check_form)
 
+    import numpy as np
 
-def get_n_entities_from_molecule (item, indices='all', frame_indices='all', check_form=True):
+    output = get_atom_index_from_molecule(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
 
+def get_n_groups_from_molecule(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_group_index_from_molecule(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_components_from_molecule(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_component_index_from_molecule(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_molecules_from_molecule(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    if indices is 'all':
+        output = get_n_molecules_from_system(item, check_form=False)
+    else:
+        output = indices.shape[0]
+
+    return output
+
+def get_n_chains_from_molecule(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_chain_index_from_molecule(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_entities_from_molecule(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    if indices is 'all':
+        output = get_n_entities_from_system(item, check_form=False)
+    else:
+        output = get_entity_index_from_molecule(item, indices=indices, check_form=True)
+        output = np.unique(output).shape[0]
+
+    return output
 
 ## chain
 
@@ -2235,7 +2563,7 @@ def get_group_type_from_chain(item, indices='all', frame_indices='all', check_fo
 
     return output
 
-def get_component_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_component_index_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2260,7 +2588,7 @@ def get_component_index_from_chain (item, indices='all', frame_indices='all', ch
 
     return output
 
-def get_component_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_component_id_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2282,7 +2610,7 @@ def get_component_id_from_chain (item, indices='all', frame_indices='all', check
 
     return output
 
-def get_component_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_component_name_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2304,7 +2632,7 @@ def get_component_name_from_chain (item, indices='all', frame_indices='all', che
 
     return output
 
-def get_component_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_component_type_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2326,13 +2654,46 @@ def get_component_type_from_chain (item, indices='all', frame_indices='all', che
 
     return output
 
-def get_chain_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_chain_index_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_molecule_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    if indices is 'all':
+        n_aux = get_n_chains_from_system(item, check_form=False)
+        output = np.arange(n_aux, dtype=int)
+    else:
+        output = np.array(indices, dtype=int)
 
-def get_molecule_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    return output
+
+def get_molecule_index_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check_form=False)
+    aux_indices = get_chain_index_from_atom(item, check_form=False)
+    aux_vals = get_molecule_index_from_atom(item, check_form=False)
+
+    output=[]
+
+    for ii in aux_atom_indices:
+        mask = (aux_indices==ii)
+        output.append(np.unique(aux_vals[mask]))
+
+    del(aux_atom_indices, aux_indices, aux_vals)
+
+    if len(output)==1:
+        output = np.array(output)
+    else:
+        output = np.array(output, dtype=object)
+
+    return output
+
+def get_molecule_id_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2354,41 +2715,209 @@ def get_molecule_id_from_chain (item, indices='all', frame_indices='all', check_
 
     return output
 
-def get_molecule_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_name_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_molecule_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    aux_indices = get_molecule_index_from_chain(item, indices=indices, check_form=False)
 
-def get_entity_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
 
+    del(aux_indices)
 
-def get_entity_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    return output
 
+def get_molecule_type_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
-def get_entity_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    _checking_form(item, check_form)
 
+    import numpy as np
 
-def get_entity_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    aux_indices = get_molecule_index_from_chain(item, indices=indices, check_form=False)
 
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
 
-def get_n_atoms_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    del(aux_indices)
 
+    return output
 
-def get_n_groups_from_chain (item, indices='all', frame_indices='all', check_form=True):
+def get_entity_index_from_chain(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_n_components_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check_form=False)
+    aux_indices = get_chain_index_from_atom(item, check_form=False)
+    aux_vals = get_entity_index_from_atom(item, check_form=False)
 
-def get_n_molecules_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    output=[]
 
+    for ii in aux_atom_indices:
+        mask = (aux_indices==ii)
+        output.append(np.unique(aux_vals[mask]))
 
-def get_n_chains_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    del(aux_atom_indices, aux_indices, aux_vals)
 
+    if len(output)==1:
+        output = np.array(output)
+    else:
+        output = np.array(output, dtype=object)
 
-def get_n_entities_from_chain (item, indices='all', frame_indices='all', check_form=True):
+    return output
 
+def get_entity_id_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_entity_index_from_chain(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
+
+def get_entity_name_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_entity_index_from_chain(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
+
+def get_entity_type_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_entity_index_from_chain(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
+
+def get_n_atoms_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_atom_index_from_chain(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_groups_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_group_index_from_chain(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_components_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_component_index_from_chain(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_molecules_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_molecule_index_from_chain(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_chains_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    if indices is 'all':
+        output = get_n_chains_from_system(item, check_form=False)
+    else:
+        output = indices.shape[0]
+
+    return output
+
+def get_n_entities_from_chain(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    if indices is 'all':
+        output = get_n_entities_from_system(item, check_form=False)
+    else:
+        output = get_entity_index_from_chain(item, indices=indices, check_form=True)
+        output = np.unique(output).shape[0]
+
+    return output
 
 ## From entity
 
@@ -2419,12 +2948,69 @@ def get_atom_index_from_entity(item, indices='all', frame_indices='all', check_f
 
 def get_atom_id_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_atom_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
 
 def get_atom_name_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_atom_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
 
 def get_atom_type_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_atom_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
 
 def get_group_index_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
@@ -2453,14 +3039,71 @@ def get_group_index_from_entity(item, indices='all', frame_indices='all', check_
 
 def get_group_id_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_group_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
 
 def get_group_name_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_group_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
 
 def get_group_type_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_component_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
+
+    aux_indices = get_group_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
+
+def get_component_index_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2485,28 +3128,164 @@ def get_component_index_from_entity (item, indices='all', frame_indices='all', c
 
     return output
 
-def get_component_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
+def get_component_id_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_component_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    aux_indices = get_component_index_from_entity(item, indices=indices, check_form=False)
 
-def get_component_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
 
+    del(aux_indices)
 
-def get_chain_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    return output
 
+def get_component_name_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
-def get_chain_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    _checking_form(item, check_form)
 
+    import numpy as np
 
-def get_chain_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    aux_indices = get_component_index_from_entity(item, indices=indices, check_form=False)
 
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
 
-def get_chain_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    del(aux_indices)
 
+    return output
 
-def get_molecule_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
+def get_component_type_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_component_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
+
+def get_chain_index_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check_form=False)
+    aux_indices = get_entity_index_from_atom(item, check_form=False)
+    aux_vals = get_chain_index_from_atom(item, check_form=False)
+
+    output=[]
+
+    for ii in aux_atom_indices:
+        mask = (aux_indices==ii)
+        output.append(np.unique(aux_vals[mask]))
+
+    del(aux_atom_indices, aux_indices, aux_vals)
+
+    if len(output)==1:
+        output = np.array(output)
+    else:
+        output = np.array(output, dtype=object)
+
+    return output
+
+def get_chain_id_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_chain_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
+
+def get_chain_name_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_chain_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
+
+def get_chain_type_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    aux_indices = get_chain_index_from_entity(item, indices=indices, check_form=False)
+
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
+
+    del(aux_indices)
+
+    return output
+
+def get_molecule_index_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2531,35 +3310,151 @@ def get_molecule_index_from_entity (item, indices='all', frame_indices='all', ch
 
     return output
 
-def get_molecule_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_id_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_molecule_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    aux_indices = get_molecule_index_from_entity(item, indices=indices, check_form=False)
 
-def get_molecule_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
 
+    del(aux_indices)
 
-def get_entity_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    return output
 
+def get_molecule_name_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
-def get_n_atoms_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    _checking_form(item, check_form)
 
+    import numpy as np
 
-def get_n_groups_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    aux_indices = get_molecule_index_from_entity(item, indices=indices, check_form=False)
 
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
 
-def get_n_components_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    del(aux_indices)
 
+    return output
 
-def get_n_molecules_from_entity (item, indices='all', frame_indices='all', check_form=True):
+def get_molecule_type_from_entity(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
-def get_n_chains_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    import numpy as np
 
+    aux_indices = get_molecule_index_from_entity(item, indices=indices, check_form=False)
 
-def get_n_entities_from_entity (item, indices='all', frame_indices='all', check_form=True):
+    if len(aux_indices)>0:
+        aux_unique_indices = np.unique(np.concatenate(aux_indices))
+        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check_form=False)
+        aux_dict = dict(zip(aux_unique_indices, aux_vals))
+        vv = np.vectorize(aux_dict.__getitem__)
+        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        del(aux_unique_indices, aux_vals, aux_dict)
+    else:
+        output = np.array([], dtype=object)
 
+    del(aux_indices)
+
+    return output
+
+def get_entity_index_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    if indices is 'all':
+        n_aux = get_n_entities_from_system(item, check_form=False)
+        output = np.arange(n_aux, dtype=int)
+    else:
+        output = np.array(indices, dtype=int)
+
+    return output
+
+def get_n_atoms_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_atom_index_from_entity(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_groups_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_group_index_from_entity(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_components_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_component_index_from_entity(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_molecules_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_molecule_index_from_entity(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_chains_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    output = get_chain_index_from_entity(item, indices=indices, check_form=False)
+    output = [ii.shape[0] for ii in output]
+    output = np.array(output)
+    return output
+
+def get_n_entities_from_entity(item, indices='all', frame_indices='all', check_form=True):
+
+    _checking_form(item, check_form)
+
+    if indices is 'all':
+        output = get_n_entities_from_system(item, check_form=False)
+    else:
+        output = indices.shape[0]
+
+    return output
 
 ## system
 
@@ -2595,77 +3490,77 @@ def get_n_entities_from_entity (item, indices='all', frame_indices='all', check_
 #
 #    raise NotImplementedError
 
-def get_n_aminoacids_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_aminoacids_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
     group_types = get(item, target='group', indices='all', group_type=True)
     return (group_types=='aminoacid').sum()
 
-def get_n_nucleotides_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_nucleotides_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
     group_types = get(item, target='group', indices='all', group_type=True)
     return (group_types=='nucleotide').sum()
 
-def get_n_ions_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_ions_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
     return (molecule_types=='ion').sum()
 
-def get_n_waters_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_waters_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True, check_form=True)
     return (molecule_types=='water').sum()
 
-def get_n_cosolutes_from_system (item, indices='all', frame_indices='all'):
+def get_n_cosolutes_from_system(item, indices='all', frame_indices='all'):
 
     from molsysmt.basic import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True, check_form=True)
     return (molecule_types=='cosolute').sum()
 
-def get_n_small_molecules_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_small_molecules_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
     return (molecule_types=='small molecule').sum()
 
-def get_n_peptides_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_peptides_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
     return (molecule_types=='peptide').sum()
 
-def get_n_proteins_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_proteins_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
     return (molecule_types=='protein').sum()
 
-def get_n_dnas_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_dnas_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
     return (molecule_types=='dna').sum()
 
-def get_n_rnas_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_rnas_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
     molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
     return (molecule_types=='rna').sum()
 
-def get_n_lipids_from_system (item, indices='all', frame_indices='all', check_form=True):
+def get_n_lipids_from_system(item, indices='all', frame_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
@@ -2734,6 +3629,17 @@ def get_inner_bond_index_from_system(item, indices='all', frame_indices='all', c
 
 def get_bond_index_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    if indices is 'all':
+        n_aux = get_n_bonds_from_system(item, check_form=False)
+        output = np.arange(n_aux, dtype=int)
+    else:
+        output = np.array(indices, dtype=int)
+
+    return output
 
 #def get_bond_order_from_bond(item, indices='all', frame_indices='all', check_form=True):
 #
@@ -2757,4 +3663,12 @@ def get_bond_index_from_bond(item, indices='all', frame_indices='all', check_for
 
 def get_n_bonds_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
+
+    if indices is 'all':
+        output = get_n_bonds_from_system(item, check_form=False)
+    else:
+        output = indices.shape[0]
+
+    return output
 
