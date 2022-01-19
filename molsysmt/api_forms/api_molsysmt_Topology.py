@@ -1,5 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 
+from molsysmt.tools.molsysmt_Topology.is_molsysmt_Topology import is_molsysmt_Topology as is_form
 from molsysmt.tools.molsysmt_Topology.extract import extract
 from molsysmt.tools.molsysmt_Topology.add import add
 from molsysmt.tools.molsysmt_Topology.merge import merge

@@ -1,5 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 
+from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder as is_form
 from molsysmt.tools.mmtf_MMTFDecoder.extract import extract
 from molsysmt.tools.mmtf_MMTFDecoder.add import add
 from molsysmt.tools.mmtf_MMTFDecoder.merge import merge

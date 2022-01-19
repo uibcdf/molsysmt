@@ -1,5 +1,5 @@
-from molsysmt.forms import forms
-from molsysmt.tools.items import item_is_file
+from molsysmt.api_forms import forms
+from molsysmt.tools.item_is_file import item_is_file
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools.exceptions import *
 

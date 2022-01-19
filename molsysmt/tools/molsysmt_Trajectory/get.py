@@ -1,13 +1,10 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt.tools.molsysmt_Trajectory import is_molsymst_Trajectory
+from molsysmt.tools.molsysmt_Trajectory.is_molsysmt_Trajectory import _checking_form
 
 ## atom
 
 def get_coordinates_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     tmp_coordinates = item.coordinates
 
@@ -21,9 +18,7 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all', check_fo
 
 def get_n_atoms_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         output=item.coordinates.shape[1]
@@ -34,9 +29,7 @@ def get_n_atoms_from_atom(item, indices='all', frame_indices='all', check_form=T
 
 def get_frame_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     tmp_step = get_step_from_system(item, frame_indices=frame_indices, check_form=False)
     tmp_time = get_time_from_system(item, frame_indices=frame_indices, check_form=False)
@@ -47,9 +40,7 @@ def get_frame_from_atom(item, indices='all', frame_indices='all', check_form=Tru
 
 def get_n_frames_from_atom(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     return get_n_frames_from_system(item, indices='all', frame_indices='all', check_form=False)
 
@@ -57,9 +48,7 @@ def get_n_frames_from_atom(item, indices='all', frame_indices='all', check_form=
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         output=item.coordinates.shape[1]
@@ -70,9 +59,7 @@ def get_n_atoms_from_system(item, indices='all', frame_indices='all', check_form
 
 def get_coordinates_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     if frame_indices is 'all':
         output=item.coordinates
@@ -82,9 +69,7 @@ def get_coordinates_from_system(item, indices='all', frame_indices='all', check_
 
 def get_box_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     output=None
     if item.box is not None:
@@ -96,9 +81,7 @@ def get_box_from_system(item, indices='all', frame_indices='all', check_form=Tru
 
 def get_box_shape_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     from molsysmt.pbc import box_shape_from_box_vectors
     output = None
@@ -109,9 +92,7 @@ def get_box_shape_from_system(item, indices='all', frame_indices='all', check_fo
 
 def get_box_lengths_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     tmp_box_lengths = item.get_box_lengths()
     if frame_indices is 'all':
@@ -122,9 +103,7 @@ def get_box_lengths_from_system(item, indices='all', frame_indices='all', check_
 
 def get_box_angles_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     tmp_box_angles = item.get_box_angles()
     if frame_indices is 'all':
@@ -135,9 +114,7 @@ def get_box_angles_from_system(item, indices='all', frame_indices='all', check_f
 
 def get_time_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     if frame_indices is 'all':
         output = item.time
@@ -147,9 +124,7 @@ def get_time_from_system(item, indices='all', frame_indices='all', check_form=Tr
 
 def get_step_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     if frame_indices is 'all':
         output = item.step
@@ -159,17 +134,13 @@ def get_step_from_system(item, indices='all', frame_indices='all', check_form=Tr
 
 def get_frame_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     return get_frame_from_atom(item, frame_indices=frame_indices, check_form=False)
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+    _checking_form(item, check_form)
 
     if frame_indices is 'all':
         output=item.coordinates.shape[0]

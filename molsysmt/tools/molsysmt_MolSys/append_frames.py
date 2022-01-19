@@ -6,6 +6,7 @@ def append_frames(item, step=None, time=None, coordinates=None, box=None, check_
         if not is_molsysmt_MolSys(item):
             raise ItemWithWrongForm('molsysmt.MolSys')
 
-     item.trajectory.append_frames(step=step, time=time, coordinates=coordinates, box=box)
-     pass
+    item.trajectory.append_frames(step=step, time=time, coordinates=coordinates, box=box)
+
+    pass
 

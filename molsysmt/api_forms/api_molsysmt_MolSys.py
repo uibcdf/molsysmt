@@ -1,5 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 
+from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import is_molsysmt_MolSys as is_form
 from molsysmt.tools.molsysmt_MolSys.extract import extract
 from molsysmt.tools.molsysmt_MolSys.add import add
 from molsysmt.tools.molsysmt_MolSys.merge import merge

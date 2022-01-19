@@ -1,5 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 
+from molsysmt.tools.molsysmt_Trajectory.is_molsysmt_Trajectory import is_molsysmt_Trajectory as is_form
 from molsysmt.tools.molsysmt_Trajectory.extract import extract
 from molsysmt.tools.molsysmt_Trajectory.add import add
 from molsysmt.tools.molsysmt_Trajectory.merge import merge

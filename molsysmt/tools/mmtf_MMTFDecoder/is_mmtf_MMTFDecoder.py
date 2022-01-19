@@ -10,7 +10,6 @@ def is_mmtf_MMTFDecoder(item):
 def _checking_form(item, check_form=True):
 
     if check_form:
-        from molsysmt.tools.mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
         if not is_mmtf_MMTFDecoder(item):
             raise ItemWithWrongForm('mmtf.MMTFDecoder')
 

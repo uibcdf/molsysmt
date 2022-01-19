@@ -1,3 +1,4 @@
+from molsysmt._private_tools.exceptions import ItemWithWrongForm
 
 def is_molsysmt_MolSys(item):
 
@@ -5,4 +6,12 @@ def is_molsysmt_MolSys(item):
     output = (item_fullname == 'molsysmt.MolSys')
 
     return output
+
+def _checking_form(item, check_form=True):
+
+    if check_form:
+        if not is_molsysmt_MolSys(item):
+            raise ItemWithWrongForm('molsysmt.MolSys')
+
+    pass
 

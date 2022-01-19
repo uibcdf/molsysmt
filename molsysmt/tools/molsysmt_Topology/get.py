@@ -1,13 +1,10 @@
-from molsysmt.tools.molsysmt_Topology import is_molsymst_Topology
-from molsysmt._private_tools.exceptions import *
+from molsysmt.tools.molsysmt_Topology.is_molsysmt_Topology import _checking_form
 
-## Atom
+## From atom
 
 def get_atom_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         output = item.atoms_dataframe['atom_index'].to_numpy()
@@ -17,9 +14,7 @@ def get_atom_index_from_atom (item, indices='all', frame_indices='all', check_fo
 
 def get_atom_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['atom_id'][tmp_indices].to_numpy()
@@ -27,9 +22,7 @@ def get_atom_id_from_atom (item, indices='all', frame_indices='all', check_form=
 
 def get_atom_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['atom_name'][tmp_indices].to_numpy()
@@ -37,9 +30,7 @@ def get_atom_name_from_atom (item, indices='all', frame_indices='all', check_for
 
 def get_atom_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['atom_type'][tmp_indices].to_numpy()
@@ -47,9 +38,7 @@ def get_atom_type_from_atom (item, indices='all', frame_indices='all', check_for
 
 def get_group_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['group_index'][tmp_indices].to_numpy()
@@ -57,9 +46,7 @@ def get_group_index_from_atom (item, indices='all', frame_indices='all', check_f
 
 def get_group_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['group_id'][tmp_indices].to_numpy()
@@ -67,9 +54,7 @@ def get_group_id_from_atom (item, indices='all', frame_indices='all', check_form
 
 def get_group_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['group_name'][tmp_indices].to_numpy()
@@ -77,9 +62,7 @@ def get_group_name_from_atom (item, indices='all', frame_indices='all', check_fo
 
 def get_group_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['group_type'][tmp_indices].to_numpy()
@@ -87,9 +70,7 @@ def get_group_type_from_atom (item, indices='all', frame_indices='all', check_fo
 
 def get_component_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['component_index'][tmp_indices].to_numpy()
@@ -97,9 +78,7 @@ def get_component_index_from_atom (item, indices='all', frame_indices='all', che
 
 def get_component_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['component_id'][tmp_indices].to_numpy()
@@ -107,9 +86,7 @@ def get_component_id_from_atom (item, indices='all', frame_indices='all', check_
 
 def get_component_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['component_name'][tmp_indices].to_numpy()
@@ -117,9 +94,7 @@ def get_component_name_from_atom (item, indices='all', frame_indices='all', chec
 
 def get_component_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['component_type'][tmp_indices].to_numpy()
@@ -127,9 +102,7 @@ def get_component_type_from_atom (item, indices='all', frame_indices='all', chec
 
 def get_chain_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['chain_index'][tmp_indices].to_numpy()
@@ -137,9 +110,7 @@ def get_chain_index_from_atom (item, indices='all', frame_indices='all', check_f
 
 def get_chain_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['chain_id'][tmp_indices].to_numpy()
@@ -147,9 +118,7 @@ def get_chain_id_from_atom (item, indices='all', frame_indices='all', check_form
 
 def get_chain_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['chain_name'][tmp_indices].to_numpy()
@@ -157,9 +126,7 @@ def get_chain_name_from_atom (item, indices='all', frame_indices='all', check_fo
 
 def get_chain_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['chain_type'][tmp_indices].to_numpy()
@@ -167,9 +134,7 @@ def get_chain_type_from_atom (item, indices='all', frame_indices='all', check_fo
 
 def get_molecule_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['molecule_index'][tmp_indices].to_numpy()
@@ -177,9 +142,7 @@ def get_molecule_index_from_atom (item, indices='all', frame_indices='all', chec
 
 def get_molecule_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['molecule_id'][tmp_indices].to_numpy()
@@ -187,9 +150,7 @@ def get_molecule_id_from_atom (item, indices='all', frame_indices='all', check_f
 
 def get_molecule_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['molecule_name'][tmp_indices].to_numpy()
@@ -197,9 +158,7 @@ def get_molecule_name_from_atom (item, indices='all', frame_indices='all', check
 
 def get_molecule_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['molecule_type'][tmp_indices].to_numpy()
@@ -207,9 +166,7 @@ def get_molecule_type_from_atom (item, indices='all', frame_indices='all', check
 
 def get_entity_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['entity_index'][tmp_indices].to_numpy()
@@ -217,9 +174,7 @@ def get_entity_index_from_atom (item, indices='all', frame_indices='all', check_
 
 def get_entity_id_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['entity_id'][tmp_indices].to_numpy()
@@ -227,9 +182,7 @@ def get_entity_id_from_atom (item, indices='all', frame_indices='all', check_for
 
 def get_entity_name_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['entity_name'][tmp_indices].to_numpy()
@@ -237,9 +190,7 @@ def get_entity_name_from_atom (item, indices='all', frame_indices='all', check_f
 
 def get_entity_type_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = item.atoms_dataframe['entity_type'][tmp_indices].to_numpy()
@@ -247,9 +198,7 @@ def get_entity_type_from_atom (item, indices='all', frame_indices='all', check_f
 
 def get_n_atoms_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_atoms_from_system (item, check_form=False)
@@ -258,9 +207,7 @@ def get_n_atoms_from_atom (item, indices='all', frame_indices='all', check_form=
 
 def get_n_groups_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_groups_from_system (item, check_form=False)
@@ -271,9 +218,7 @@ def get_n_groups_from_atom (item, indices='all', frame_indices='all', check_form
 
 def get_n_components_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_components_from_system (item, check_form=False)
@@ -284,9 +229,7 @@ def get_n_components_from_atom (item, indices='all', frame_indices='all', check_
 
 def get_n_molecules_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_molecules_from_system (item, check_form=False)
@@ -297,9 +240,7 @@ def get_n_molecules_from_atom (item, indices='all', frame_indices='all', check_f
 
 def get_n_chains_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_chains_from_system (item, check_form=False)
@@ -310,9 +251,7 @@ def get_n_chains_from_atom (item, indices='all', frame_indices='all', check_form
 
 def get_n_entities_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_entities_from_system (item, check_form=False)
@@ -323,9 +262,7 @@ def get_n_entities_from_atom (item, indices='all', frame_indices='all', check_fo
 
 def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = None
 
@@ -355,9 +292,7 @@ def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all', check_
 
 def get_bond_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = None
 
@@ -389,9 +324,7 @@ def get_bond_index_from_atom (item, indices='all', frame_indices='all', check_fo
 
 def get_n_bonds_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = None
 
@@ -422,9 +355,7 @@ def get_n_bonds_from_atom (item, indices='all', frame_indices='all', check_form=
 
 def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = None
 
@@ -438,9 +369,7 @@ def get_inner_bond_index_from_atom (item, indices='all', frame_indices='all', ch
 
 def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
 
@@ -456,9 +385,7 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all', 
 
 def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     bond_indices = get_inner_bond_index_from_atom(item, indices=indices, check_form=False)
     output = bond_indices.shape[0]
@@ -469,9 +396,7 @@ def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all', check
 
 def get_atom_index_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -485,9 +410,7 @@ def get_atom_index_from_group (item, indices='all', frame_indices='all', check_f
 
 def get_atom_id_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -498,9 +421,7 @@ def get_atom_id_from_group (item, indices='all', frame_indices='all', check_form
 
 def get_atom_name_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -511,9 +432,7 @@ def get_atom_name_from_group (item, indices='all', frame_indices='all', check_fo
 
 def get_atom_type_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -524,9 +443,7 @@ def get_atom_type_from_group (item, indices='all', frame_indices='all', check_fo
 
 def get_group_index_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         output = item.atoms_dataframe['group_index'].unique()
@@ -536,9 +453,7 @@ def get_group_index_from_group (item, indices='all', frame_indices='all', check_
 
 def get_group_id_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -548,9 +463,7 @@ def get_group_id_from_group (item, indices='all', frame_indices='all', check_for
 
 def get_group_name_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -560,9 +473,7 @@ def get_group_name_from_group (item, indices='all', frame_indices='all', check_f
 
 def get_group_type_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -572,9 +483,7 @@ def get_group_type_from_group (item, indices='all', frame_indices='all', check_f
 
 def get_component_index_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -584,9 +493,7 @@ def get_component_index_from_group (item, indices='all', frame_indices='all', ch
 
 def get_component_id_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -596,9 +503,7 @@ def get_component_id_from_group (item, indices='all', frame_indices='all', check
 
 def get_component_name_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -608,9 +513,7 @@ def get_component_name_from_group (item, indices='all', frame_indices='all', che
 
 def get_component_type_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -620,9 +523,7 @@ def get_component_type_from_group (item, indices='all', frame_indices='all', che
 
 def get_chain_index_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -632,9 +533,7 @@ def get_chain_index_from_group (item, indices='all', frame_indices='all', check_
 
 def get_chain_id_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -644,9 +543,7 @@ def get_chain_id_from_group (item, indices='all', frame_indices='all', check_for
 
 def get_chain_name_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -656,9 +553,7 @@ def get_chain_name_from_group (item, indices='all', frame_indices='all', check_f
 
 def get_chain_type_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -668,9 +563,7 @@ def get_chain_type_from_group (item, indices='all', frame_indices='all', check_f
 
 def get_molecule_index_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -680,9 +573,7 @@ def get_molecule_index_from_group (item, indices='all', frame_indices='all', che
 
 def get_molecule_id_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -692,9 +583,7 @@ def get_molecule_id_from_group (item, indices='all', frame_indices='all', check_
 
 def get_molecule_name_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -704,9 +593,7 @@ def get_molecule_name_from_group (item, indices='all', frame_indices='all', chec
 
 def get_molecule_type_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -716,9 +603,7 @@ def get_molecule_type_from_group (item, indices='all', frame_indices='all', chec
 
 def get_entity_index_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -728,9 +613,7 @@ def get_entity_index_from_group (item, indices='all', frame_indices='all', check
 
 def get_entity_id_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -740,9 +623,7 @@ def get_entity_id_from_group (item, indices='all', frame_indices='all', check_fo
 
 def get_entity_name_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -752,9 +633,7 @@ def get_entity_name_from_group (item, indices='all', frame_indices='all', check_
 
 def get_entity_type_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_group_index_from_group(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['group_index'].to_numpy()
@@ -764,9 +643,7 @@ def get_entity_type_from_group (item, indices='all', frame_indices='all', check_
 
 def get_n_atoms_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_atom_index_from_group (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -774,9 +651,7 @@ def get_n_atoms_from_group (item, indices='all', frame_indices='all', check_form
 
 def get_n_groups_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_groups_from_system (item, check_form=False)
@@ -786,9 +661,7 @@ def get_n_groups_from_group (item, indices='all', frame_indices='all', check_for
 
 def get_n_components_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_components_from_system (item, check_form=False)
@@ -799,9 +672,7 @@ def get_n_components_from_group (item, indices='all', frame_indices='all', check
 
 def get_n_molecules_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_molecules_from_system (item, check_form=False)
@@ -812,9 +683,7 @@ def get_n_molecules_from_group (item, indices='all', frame_indices='all', check_
 
 def get_n_chains_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_chains_from_system (item, check_form=False)
@@ -825,9 +694,7 @@ def get_n_chains_from_group (item, indices='all', frame_indices='all', check_for
 
 def get_n_entities_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_chains_from_system (item, check_form=False)
@@ -838,9 +705,7 @@ def get_n_entities_from_group (item, indices='all', frame_indices='all', check_f
 
 def get_n_bonds_from_group (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     raise NotImplementedError
 
@@ -848,9 +713,7 @@ def get_n_bonds_from_group (item, indices='all', frame_indices='all', check_form
 
 def get_atom_index_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -864,9 +727,7 @@ def get_atom_index_from_component (item, indices='all', frame_indices='all', che
 
 def get_atom_id_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -877,9 +738,7 @@ def get_atom_id_from_component (item, indices='all', frame_indices='all', check_
 
 def get_atom_name_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -890,9 +749,7 @@ def get_atom_name_from_component (item, indices='all', frame_indices='all', chec
 
 def get_atom_type_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -903,9 +760,7 @@ def get_atom_type_from_component (item, indices='all', frame_indices='all', chec
 
 def get_group_index_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -919,9 +774,7 @@ def get_group_index_from_component (item, indices='all', frame_indices='all', ch
 
 def get_group_id_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -932,9 +785,7 @@ def get_group_id_from_component (item, indices='all', frame_indices='all', check
 
 def get_group_name_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -945,9 +796,7 @@ def get_group_name_from_component (item, indices='all', frame_indices='all', che
 
 def get_group_type_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -958,9 +807,7 @@ def get_group_type_from_component (item, indices='all', frame_indices='all', che
 
 def get_component_index_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         output = item.atoms_dataframe['component_index'].unique()
@@ -970,9 +817,7 @@ def get_component_index_from_component (item, indices='all', frame_indices='all'
 
 def get_component_id_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -982,9 +827,7 @@ def get_component_id_from_component (item, indices='all', frame_indices='all', c
 
 def get_component_name_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -994,9 +837,7 @@ def get_component_name_from_component (item, indices='all', frame_indices='all',
 
 def get_component_type_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1006,9 +847,7 @@ def get_component_type_from_component (item, indices='all', frame_indices='all',
 
 def get_chain_index_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1018,9 +857,7 @@ def get_chain_index_from_component (item, indices='all', frame_indices='all', ch
 
 def get_chain_id_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1030,9 +867,7 @@ def get_chain_id_from_component (item, indices='all', frame_indices='all', check
 
 def get_chain_name_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1042,9 +877,7 @@ def get_chain_name_from_component (item, indices='all', frame_indices='all', che
 
 def get_chain_type_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1054,9 +887,7 @@ def get_chain_type_from_component (item, indices='all', frame_indices='all', che
 
 def get_molecule_index_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1066,9 +897,7 @@ def get_molecule_index_from_component (item, indices='all', frame_indices='all',
 
 def get_molecule_id_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1078,9 +907,7 @@ def get_molecule_id_from_component (item, indices='all', frame_indices='all', ch
 
 def get_molecule_name_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1090,9 +917,7 @@ def get_molecule_name_from_component (item, indices='all', frame_indices='all', 
 
 def get_molecule_type_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1102,9 +927,7 @@ def get_molecule_type_from_component (item, indices='all', frame_indices='all', 
 
 def get_entity_index_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1114,9 +937,7 @@ def get_entity_index_from_component (item, indices='all', frame_indices='all', c
 
 def get_entity_id_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1126,9 +947,7 @@ def get_entity_id_from_component (item, indices='all', frame_indices='all', chec
 
 def get_entity_name_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1138,9 +957,7 @@ def get_entity_name_from_component (item, indices='all', frame_indices='all', ch
 
 def get_entity_type_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_component_index_from_component(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['component_index'].to_numpy()
@@ -1150,9 +967,7 @@ def get_entity_type_from_component (item, indices='all', frame_indices='all', ch
 
 def get_n_atoms_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_atom_index_from_component (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1160,9 +975,7 @@ def get_n_atoms_from_component (item, indices='all', frame_indices='all', check_
 
 def get_n_groups_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_group_index_from_component (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1170,9 +983,7 @@ def get_n_groups_from_component (item, indices='all', frame_indices='all', check
 
 def get_n_components_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_components_from_system (item, check_form=False)
@@ -1182,9 +993,7 @@ def get_n_components_from_component (item, indices='all', frame_indices='all', c
 
 def get_n_molecules_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_molecules_from_system (item, check_form=False)
@@ -1195,9 +1004,7 @@ def get_n_molecules_from_component (item, indices='all', frame_indices='all', ch
 
 def get_n_chains_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_chains_from_system (item, check_form=False)
@@ -1208,9 +1015,7 @@ def get_n_chains_from_component (item, indices='all', frame_indices='all', check
 
 def get_n_entities_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_entities_from_system (item, check_form=False)
@@ -1221,9 +1026,7 @@ def get_n_entities_from_component (item, indices='all', frame_indices='all', che
 
 def get_n_bonds_from_component (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     raise NotImplementedError
 
@@ -1231,9 +1034,7 @@ def get_n_bonds_from_component (item, indices='all', frame_indices='all', check_
 
 def get_atom_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -1247,9 +1048,7 @@ def get_atom_index_from_molecule (item, indices='all', frame_indices='all', chec
 
 def get_atom_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1260,9 +1059,7 @@ def get_atom_id_from_molecule (item, indices='all', frame_indices='all', check_f
 
 def get_atom_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1273,9 +1070,7 @@ def get_atom_name_from_molecule (item, indices='all', frame_indices='all', check
 
 def get_atom_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1286,9 +1081,7 @@ def get_atom_type_from_molecule (item, indices='all', frame_indices='all', check
 
 def get_group_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -1302,9 +1095,7 @@ def get_group_index_from_molecule (item, indices='all', frame_indices='all', che
 
 def get_group_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1315,9 +1106,7 @@ def get_group_id_from_molecule (item, indices='all', frame_indices='all', check_
 
 def get_group_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1328,9 +1117,7 @@ def get_group_name_from_molecule (item, indices='all', frame_indices='all', chec
 
 def get_group_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1341,9 +1128,7 @@ def get_group_type_from_molecule (item, indices='all', frame_indices='all', chec
 
 def get_component_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -1357,9 +1142,7 @@ def get_component_index_from_molecule (item, indices='all', frame_indices='all',
 
 def get_component_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_component_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1370,9 +1153,7 @@ def get_component_id_from_molecule (item, indices='all', frame_indices='all', ch
 
 def get_component_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_component_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1383,9 +1164,7 @@ def get_component_name_from_molecule (item, indices='all', frame_indices='all', 
 
 def get_component_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_component_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1396,9 +1175,7 @@ def get_component_type_from_molecule (item, indices='all', frame_indices='all', 
 
 def get_chain_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -1412,9 +1189,7 @@ def get_chain_index_from_molecule (item, indices='all', frame_indices='all', che
 
 def get_chain_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_chain_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1425,9 +1200,7 @@ def get_chain_id_from_molecule (item, indices='all', frame_indices='all', check_
 
 def get_chain_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_chain_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1438,9 +1211,7 @@ def get_chain_name_from_molecule (item, indices='all', frame_indices='all', chec
 
 def get_chain_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_chain_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1451,9 +1222,7 @@ def get_chain_type_from_molecule (item, indices='all', frame_indices='all', chec
 
 def get_molecule_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         output = item.atoms_dataframe['molecule_index'].unique()
@@ -1463,9 +1232,7 @@ def get_molecule_index_from_molecule (item, indices='all', frame_indices='all', 
 
 def get_molecule_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['molecule_index'].to_numpy()
@@ -1475,9 +1242,7 @@ def get_molecule_id_from_molecule (item, indices='all', frame_indices='all', che
 
 def get_molecule_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['molecule_index'].to_numpy()
@@ -1487,9 +1252,7 @@ def get_molecule_name_from_molecule (item, indices='all', frame_indices='all', c
 
 def get_molecule_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['molecule_index'].to_numpy()
@@ -1499,9 +1262,7 @@ def get_molecule_type_from_molecule (item, indices='all', frame_indices='all', c
 
 def get_entity_index_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['molecule_index'].to_numpy()
@@ -1511,9 +1272,7 @@ def get_entity_index_from_molecule (item, indices='all', frame_indices='all', ch
 
 def get_entity_id_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['molecule_index'].to_numpy()
@@ -1523,9 +1282,7 @@ def get_entity_id_from_molecule (item, indices='all', frame_indices='all', check
 
 def get_entity_name_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['molecule_index'].to_numpy()
@@ -1535,9 +1292,7 @@ def get_entity_name_from_molecule (item, indices='all', frame_indices='all', che
 
 def get_entity_type_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_molecule_index_from_molecule(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['molecule_index'].to_numpy()
@@ -1547,9 +1302,7 @@ def get_entity_type_from_molecule (item, indices='all', frame_indices='all', che
 
 def get_n_atoms_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_atom_index_from_molecule (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1557,9 +1310,7 @@ def get_n_atoms_from_molecule (item, indices='all', frame_indices='all', check_f
 
 def get_n_groups_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_group_index_from_molecule (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1567,9 +1318,7 @@ def get_n_groups_from_molecule (item, indices='all', frame_indices='all', check_
 
 def get_n_components_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_component_index_from_molecule (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1577,9 +1326,7 @@ def get_n_components_from_molecule (item, indices='all', frame_indices='all', ch
 
 def get_n_molecules_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_molecules_from_system (item, check_form=False)
@@ -1589,9 +1336,7 @@ def get_n_molecules_from_molecule (item, indices='all', frame_indices='all', che
 
 def get_n_chains_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_chain_index_from_molecule (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1599,9 +1344,7 @@ def get_n_chains_from_molecule (item, indices='all', frame_indices='all', check_
 
 def get_n_entities_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_entities_from_system (item, check_form=False)
@@ -1612,9 +1355,7 @@ def get_n_entities_from_molecule (item, indices='all', frame_indices='all', chec
 
 def get_n_bonds_from_molecule (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     raise NotImplementedError
 
@@ -1622,9 +1363,7 @@ def get_n_bonds_from_molecule (item, indices='all', frame_indices='all', check_f
 
 def get_atom_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -1638,9 +1377,7 @@ def get_atom_index_from_chain (item, indices='all', frame_indices='all', check_f
 
 def get_atom_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1651,9 +1388,7 @@ def get_atom_id_from_chain (item, indices='all', frame_indices='all', check_form
 
 def get_atom_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1664,9 +1399,7 @@ def get_atom_name_from_chain (item, indices='all', frame_indices='all', check_fo
 
 def get_atom_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1677,9 +1410,7 @@ def get_atom_type_from_chain (item, indices='all', frame_indices='all', check_fo
 
 def get_group_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -1693,9 +1424,7 @@ def get_group_index_from_chain (item, indices='all', frame_indices='all', check_
 
 def get_group_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1706,9 +1435,7 @@ def get_group_id_from_chain (item, indices='all', frame_indices='all', check_for
 
 def get_group_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1719,9 +1446,7 @@ def get_group_name_from_chain (item, indices='all', frame_indices='all', check_f
 
 def get_group_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1732,9 +1457,7 @@ def get_group_type_from_chain (item, indices='all', frame_indices='all', check_f
 
 def get_component_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -1748,9 +1471,7 @@ def get_component_index_from_chain (item, indices='all', frame_indices='all', ch
 
 def get_component_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_component_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1765,9 +1486,7 @@ def get_component_id_from_chain (item, indices='all', frame_indices='all', check
 
 def get_component_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_component_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1778,9 +1497,7 @@ def get_component_name_from_chain (item, indices='all', frame_indices='all', che
 
 def get_component_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_component_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1791,9 +1508,7 @@ def get_component_type_from_chain (item, indices='all', frame_indices='all', che
 
 def get_chain_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         output = item.atoms_dataframe['chain_index'].unique()
@@ -1803,9 +1518,7 @@ def get_chain_index_from_chain (item, indices='all', frame_indices='all', check_
 
 def get_chain_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['chain_index'].to_numpy()
@@ -1815,9 +1528,7 @@ def get_chain_id_from_chain (item, indices='all', frame_indices='all', check_for
 
 def get_chain_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['chain_index'].to_numpy()
@@ -1827,9 +1538,7 @@ def get_chain_name_from_chain (item, indices='all', frame_indices='all', check_f
 
 def get_chain_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_chain_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['chain_index'].to_numpy()
@@ -1839,9 +1548,7 @@ def get_chain_type_from_chain (item, indices='all', frame_indices='all', check_f
 
 def get_molecule_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -1855,9 +1562,7 @@ def get_molecule_index_from_chain (item, indices='all', frame_indices='all', che
 
 def get_molecule_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_molecule_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1868,9 +1573,7 @@ def get_molecule_id_from_chain (item, indices='all', frame_indices='all', check_
 
 def get_molecule_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_molecule_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1881,9 +1584,7 @@ def get_molecule_name_from_chain (item, indices='all', frame_indices='all', chec
 
 def get_molecule_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_molecule_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1894,9 +1595,7 @@ def get_molecule_type_from_chain (item, indices='all', frame_indices='all', chec
 
 def get_entity_index_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -1910,9 +1609,7 @@ def get_entity_index_from_chain (item, indices='all', frame_indices='all', check
 
 def get_entity_id_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_entity_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1923,9 +1620,7 @@ def get_entity_id_from_chain (item, indices='all', frame_indices='all', check_fo
 
 def get_entity_name_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_entity_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1936,9 +1631,7 @@ def get_entity_name_from_chain (item, indices='all', frame_indices='all', check_
 
 def get_entity_type_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_entity_index_from_chain(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -1949,9 +1642,7 @@ def get_entity_type_from_chain (item, indices='all', frame_indices='all', check_
 
 def get_n_atoms_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_atom_index_from_chain (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1959,9 +1650,7 @@ def get_n_atoms_from_chain (item, indices='all', frame_indices='all', check_form
 
 def get_n_groups_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_group_index_from_chain (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1969,9 +1658,7 @@ def get_n_groups_from_chain (item, indices='all', frame_indices='all', check_for
 
 def get_n_components_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_component_index_from_chain (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1979,9 +1666,7 @@ def get_n_components_from_chain (item, indices='all', frame_indices='all', check
 
 def get_n_molecules_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_molecule_index_from_chain (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -1989,9 +1674,7 @@ def get_n_molecules_from_chain (item, indices='all', frame_indices='all', check_
 
 def get_n_chains_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_chains_from_system (item)
@@ -2002,9 +1685,7 @@ def get_n_chains_from_chain (item, indices='all', frame_indices='all', check_for
 
 def get_n_entities_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_entities_from_system (item, check_form=False)
@@ -2015,9 +1696,7 @@ def get_n_entities_from_chain (item, indices='all', frame_indices='all', check_f
 
 def get_n_bonds_from_chain (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     raise NotImplementedError
 
@@ -2025,9 +1704,7 @@ def get_n_bonds_from_chain (item, indices='all', frame_indices='all', check_form
 
 def get_atom_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -2041,9 +1718,7 @@ def get_atom_index_from_entity (item, indices='all', frame_indices='all', check_
 
 def get_atom_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2054,9 +1729,7 @@ def get_atom_id_from_entity (item, indices='all', frame_indices='all', check_for
 
 def get_atom_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2067,9 +1740,7 @@ def get_atom_name_from_entity (item, indices='all', frame_indices='all', check_f
 
 def get_atom_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_atom_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2080,9 +1751,7 @@ def get_atom_type_from_entity (item, indices='all', frame_indices='all', check_f
 
 def get_group_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -2096,9 +1765,7 @@ def get_group_index_from_entity (item, indices='all', frame_indices='all', check
 
 def get_group_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2109,9 +1776,7 @@ def get_group_id_from_entity (item, indices='all', frame_indices='all', check_fo
 
 def get_group_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2122,9 +1787,7 @@ def get_group_name_from_entity (item, indices='all', frame_indices='all', check_
 
 def get_group_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_group_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2135,9 +1798,7 @@ def get_group_type_from_entity (item, indices='all', frame_indices='all', check_
 
 def get_component_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -2151,9 +1812,7 @@ def get_component_index_from_entity (item, indices='all', frame_indices='all', c
 
 def get_component_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_component_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2164,9 +1823,7 @@ def get_component_id_from_entity (item, indices='all', frame_indices='all', chec
 
 def get_component_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_component_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2177,9 +1834,7 @@ def get_component_name_from_entity (item, indices='all', frame_indices='all', ch
 
 def get_component_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_component_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2190,9 +1845,7 @@ def get_component_type_from_entity (item, indices='all', frame_indices='all', ch
 
 def get_chain_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -2206,9 +1859,7 @@ def get_chain_index_from_entity (item, indices='all', frame_indices='all', check
 
 def get_chain_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_chain_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2219,9 +1870,7 @@ def get_chain_id_from_entity (item, indices='all', frame_indices='all', check_fo
 
 def get_chain_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_chain_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2232,9 +1881,7 @@ def get_chain_name_from_entity (item, indices='all', frame_indices='all', check_
 
 def get_chain_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_chain_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2245,9 +1892,7 @@ def get_chain_type_from_entity (item, indices='all', frame_indices='all', check_
 
 def get_molecule_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = []
     if indices is 'all':
@@ -2261,9 +1906,7 @@ def get_molecule_index_from_entity (item, indices='all', frame_indices='all', ch
 
 def get_molecule_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_molecule_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2274,9 +1917,7 @@ def get_molecule_id_from_entity (item, indices='all', frame_indices='all', check
 
 def get_molecule_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_molecule_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2287,9 +1928,7 @@ def get_molecule_name_from_entity (item, indices='all', frame_indices='all', che
 
 def get_molecule_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output=[]
     tmp_indices = get_molecule_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
@@ -2300,9 +1939,7 @@ def get_molecule_type_from_entity (item, indices='all', frame_indices='all', che
 
 def get_entity_index_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         output = item.atoms_dataframe['entity_index'].unique()
@@ -2312,9 +1949,7 @@ def get_entity_index_from_entity (item, indices='all', frame_indices='all', chec
 
 def get_entity_id_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_entity_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['entity_index'].to_numpy()
@@ -2324,9 +1959,7 @@ def get_entity_id_from_entity (item, indices='all', frame_indices='all', check_f
 
 def get_entity_name_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_entity_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['entity_index'].to_numpy()
@@ -2336,9 +1969,7 @@ def get_entity_name_from_entity (item, indices='all', frame_indices='all', check
 
 def get_entity_type_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_indices = get_entity_index_from_entity(item, indices=indices, frame_indices=frame_indices, check_form=False)
     all_indices = item.atoms_dataframe['entity_index'].to_numpy()
@@ -2348,9 +1979,7 @@ def get_entity_type_from_entity (item, indices='all', frame_indices='all', check
 
 def get_n_atoms_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_atom_index_from_entity (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -2358,9 +1987,7 @@ def get_n_atoms_from_entity (item, indices='all', frame_indices='all', check_for
 
 def get_n_groups_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_group_index_from_entity (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -2368,9 +1995,7 @@ def get_n_groups_from_entity (item, indices='all', frame_indices='all', check_fo
 
 def get_n_components_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_component_index_from_entity (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -2378,9 +2003,7 @@ def get_n_components_from_entity (item, indices='all', frame_indices='all', chec
 
 def get_n_molecules_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_molecule_index_from_entity (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -2388,9 +2011,7 @@ def get_n_molecules_from_entity (item, indices='all', frame_indices='all', check
 
 def get_n_chains_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = get_chain_index_from_entity (item, indices=indices, frame_indices=frame_indices, check_form=False)
     output = [ii.shape[0] for ii in output]
@@ -2398,9 +2019,7 @@ def get_n_chains_from_entity (item, indices='all', frame_indices='all', check_fo
 
 def get_n_entities_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_entities_from_system (item)
@@ -2411,9 +2030,7 @@ def get_n_entities_from_entity (item, indices='all', frame_indices='all', check_
 
 def get_n_bonds_from_entity (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     raise NotImplementedError
 
@@ -2421,26 +2038,20 @@ def get_n_bonds_from_entity (item, indices='all', frame_indices='all', check_for
 
 def get_n_atoms_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     return item.atoms_dataframe.shape[0]
 
 def get_n_groups_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = item.atoms_dataframe['group_index'].unique()
     return output.shape[0]
 
 def get_n_components_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = item.atoms_dataframe['component_index'].unique()
     indices_not_None = np.where(output!=None)
@@ -2449,9 +2060,7 @@ def get_n_components_from_system(item, indices='all', frame_indices='all', check
 
 def get_n_chains_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = item.atoms_dataframe['chain_index'].unique()
     indices_not_None = np.where(output!=None)
@@ -2460,9 +2069,7 @@ def get_n_chains_from_system(item, indices='all', frame_indices='all', check_for
 
 def get_n_molecules_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = item.atoms_dataframe['molecule_index'].unique()
     indices_not_None = np.where(output!=None)
@@ -2471,9 +2078,7 @@ def get_n_molecules_from_system(item, indices='all', frame_indices='all', check_
 
 def get_n_entities_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     output = item.atoms_dataframe['entity_index'].unique()
     indices_not_None = np.where(output!=None)
@@ -2482,17 +2087,13 @@ def get_n_entities_from_system(item, indices='all', frame_indices='all', check_f
 
 def get_n_bonds_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     return item.bonds_dataframe.shape[0]
 
 def get_n_aminoacids_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['group_type']=='aminoacid').to_numpy()
     serie_indices=item.atoms_dataframe['group_index'][mask]
@@ -2500,9 +2101,7 @@ def get_n_aminoacids_from_system (item, indices='all', frame_indices='all', chec
 
 def get_n_nucleotides_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['group_type']=='nucleotide').to_numpy()
     serie_indices=item.atoms_dataframe['group_index'][mask]
@@ -2510,9 +2109,7 @@ def get_n_nucleotides_from_system (item, indices='all', frame_indices='all', che
 
 def get_n_ions_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['molecule_type']=='ion').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
@@ -2520,9 +2117,7 @@ def get_n_ions_from_system (item, indices='all', frame_indices='all', check_form
 
 def get_n_waters_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['molecule_type']=='water').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
@@ -2530,9 +2125,7 @@ def get_n_waters_from_system (item, indices='all', frame_indices='all', check_fo
 
 def get_n_cosolutes_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['molecule_type']=='cosolute').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
@@ -2540,9 +2133,7 @@ def get_n_cosolutes_from_system (item, indices='all', frame_indices='all', check
 
 def get_n_small_molecules_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['molecule_type']=='small molecule').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
@@ -2550,9 +2141,7 @@ def get_n_small_molecules_from_system (item, indices='all', frame_indices='all',
 
 def get_n_peptides_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['molecule_type']=='peptide').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
@@ -2560,9 +2149,7 @@ def get_n_peptides_from_system (item, indices='all', frame_indices='all', check_
 
 def get_n_proteins_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['molecule_type']=='protein').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
@@ -2570,9 +2157,7 @@ def get_n_proteins_from_system (item, indices='all', frame_indices='all', check_
 
 def get_n_dnas_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['molecule_type']=='dna').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
@@ -2580,9 +2165,7 @@ def get_n_dnas_from_system (item, indices='all', frame_indices='all', check_form
 
 def get_n_rnas_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['molecule_type']=='rna').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
@@ -2590,9 +2173,7 @@ def get_n_rnas_from_system (item, indices='all', frame_indices='all', check_form
 
 def get_n_lipids_from_system (item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     mask=(item.atoms_dataframe['molecule_type']=='lipid').to_numpy()
     serie_indices=item.atoms_dataframe['molecule_index'][mask]
@@ -2600,9 +2181,7 @@ def get_n_lipids_from_system (item, indices='all', frame_indices='all', check_fo
 
 def get_n_frames_from_system(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     return 0
 
@@ -2610,33 +2189,25 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all', check_for
 
 def get_index_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     return get_bond_index_from_bond(item, indices=indices, check_form=False)
 
 def get_order_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     return get_bond_order_from_bond(item, indices=indices, check_form=False)
 
 def get_type_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     return get_bond_type_from_bond(item, indices=indices, check_form=False)
 
 def get_bond_index_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_out = None
 
@@ -2651,9 +2222,7 @@ def get_bond_index_from_bond(item, indices='all', frame_indices='all', check_for
 
 def get_bond_order_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_out = None
 
@@ -2666,9 +2235,7 @@ def get_bond_order_from_bond(item, indices='all', frame_indices='all', check_for
 
 def get_bond_type_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_out = None
 
@@ -2681,9 +2248,7 @@ def get_bond_type_from_bond(item, indices='all', frame_indices='all', check_form
 
 def get_atom_index_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     tmp_out = None
 
@@ -2696,9 +2261,7 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all', check_for
 
 def get_n_bonds_from_bond(item, indices='all', frame_indices='all', check_form=True):
 
-    if check_form:
-        if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+    _checking_form(item, check_form)
 
     if indices is 'all':
         return get_n_bonds_from_system(item, check_form=False)

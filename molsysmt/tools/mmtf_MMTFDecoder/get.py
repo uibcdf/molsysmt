@@ -1760,7 +1760,17 @@ def get_molecule_type_from_component(item, indices='all', frame_indices='all', c
 
 def get_entity_index_from_component(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
 
+    import numpy as np
+
+    atom_index_from_target = get_atom_index_from_component(item, indices=indices, check_form=False)
+    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
+    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, check_form=False)
+
+    del(atom_index_from_target, first_atom_index_from_target)
+
+    return output
 
 def get_entity_id_from_component(item, indices='all', frame_indices='all', check_form=True):
 
@@ -1922,7 +1932,7 @@ def get_atom_id_from_molecule(item, indices='all', frame_indices='all', check_fo
         aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1944,7 +1954,7 @@ def get_atom_name_from_molecule(item, indices='all', frame_indices='all', check_
         aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -1966,7 +1976,7 @@ def get_atom_type_from_molecule(item, indices='all', frame_indices='all', check_
         aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2013,7 +2023,7 @@ def get_group_id_from_molecule(item, indices='all', frame_indices='all', check_f
         aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2035,7 +2045,7 @@ def get_group_name_from_molecule(item, indices='all', frame_indices='all', check
         aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2057,7 +2067,7 @@ def get_group_type_from_molecule(item, indices='all', frame_indices='all', check
         aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2104,7 +2114,7 @@ def get_component_id_from_molecule(item, indices='all', frame_indices='all', che
         aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2126,7 +2136,7 @@ def get_component_name_from_molecule(item, indices='all', frame_indices='all', c
         aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2148,7 +2158,7 @@ def get_component_type_from_molecule(item, indices='all', frame_indices='all', c
         aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2195,7 +2205,7 @@ def get_chain_id_from_molecule(item, indices='all', frame_indices='all', check_f
         aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2217,7 +2227,7 @@ def get_chain_name_from_molecule(item, indices='all', frame_indices='all', check
         aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2239,7 +2249,7 @@ def get_chain_type_from_molecule(item, indices='all', frame_indices='all', check
         aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2264,6 +2274,17 @@ def get_molecule_index_from_molecule(item, indices='all', frame_indices='all', c
 
 def get_entity_index_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
+    _checking_form(item, check_form)
+
+    import numpy as np
+
+    atom_index_from_target = get_atom_index_from_molecule(item, indices=indices, check_form=False)
+    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
+    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, check_form=False)
+
+    del(atom_index_from_target, first_atom_index_from_target)
+
+    return output
 
 def get_entity_id_from_molecule(item, indices='all', frame_indices='all', check_form=True):
 
@@ -2419,7 +2440,7 @@ def get_atom_id_from_chain(item, indices='all', frame_indices='all', check_form=
         aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2441,7 +2462,7 @@ def get_atom_name_from_chain(item, indices='all', frame_indices='all', check_for
         aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2463,7 +2484,7 @@ def get_atom_type_from_chain(item, indices='all', frame_indices='all', check_for
         aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2510,7 +2531,7 @@ def get_group_id_from_chain(item, indices='all', frame_indices='all', check_form
         aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2532,7 +2553,7 @@ def get_group_name_from_chain(item, indices='all', frame_indices='all', check_fo
         aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2554,7 +2575,7 @@ def get_group_type_from_chain(item, indices='all', frame_indices='all', check_fo
         aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2601,7 +2622,7 @@ def get_component_id_from_chain(item, indices='all', frame_indices='all', check_
         aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2623,7 +2644,7 @@ def get_component_name_from_chain(item, indices='all', frame_indices='all', chec
         aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2645,7 +2666,7 @@ def get_component_type_from_chain(item, indices='all', frame_indices='all', chec
         aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2706,7 +2727,7 @@ def get_molecule_id_from_chain(item, indices='all', frame_indices='all', check_f
         aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2728,7 +2749,7 @@ def get_molecule_name_from_chain(item, indices='all', frame_indices='all', check
         aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2750,7 +2771,7 @@ def get_molecule_type_from_chain(item, indices='all', frame_indices='all', check
         aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2797,7 +2818,7 @@ def get_entity_id_from_chain(item, indices='all', frame_indices='all', check_for
         aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2819,7 +2840,7 @@ def get_entity_name_from_chain(item, indices='all', frame_indices='all', check_f
         aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2841,7 +2862,7 @@ def get_entity_type_from_chain(item, indices='all', frame_indices='all', check_f
         aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2959,7 +2980,7 @@ def get_atom_id_from_entity(item, indices='all', frame_indices='all', check_form
         aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -2981,7 +3002,7 @@ def get_atom_name_from_entity(item, indices='all', frame_indices='all', check_fo
         aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3003,7 +3024,7 @@ def get_atom_type_from_entity(item, indices='all', frame_indices='all', check_fo
         aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3050,7 +3071,7 @@ def get_group_id_from_entity(item, indices='all', frame_indices='all', check_for
         aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3072,7 +3093,7 @@ def get_group_name_from_entity(item, indices='all', frame_indices='all', check_f
         aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3094,7 +3115,7 @@ def get_group_type_from_entity(item, indices='all', frame_indices='all', check_f
         aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3141,7 +3162,7 @@ def get_component_id_from_entity(item, indices='all', frame_indices='all', check
         aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3163,7 +3184,7 @@ def get_component_name_from_entity(item, indices='all', frame_indices='all', che
         aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3185,7 +3206,7 @@ def get_component_type_from_entity(item, indices='all', frame_indices='all', che
         aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3232,7 +3253,7 @@ def get_chain_id_from_entity(item, indices='all', frame_indices='all', check_for
         aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3254,7 +3275,7 @@ def get_chain_name_from_entity(item, indices='all', frame_indices='all', check_f
         aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3276,7 +3297,7 @@ def get_chain_type_from_entity(item, indices='all', frame_indices='all', check_f
         aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3323,7 +3344,7 @@ def get_molecule_id_from_entity(item, indices='all', frame_indices='all', check_
         aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3345,7 +3366,7 @@ def get_molecule_name_from_entity(item, indices='all', frame_indices='all', chec
         aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
@@ -3367,7 +3388,7 @@ def get_molecule_type_from_entity(item, indices='all', frame_indices='all', chec
         aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check_form=False)
         aux_dict = dict(zip(aux_unique_indices, aux_vals))
         vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices, dtype=object)
+        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
         del(aux_unique_indices, aux_vals, aux_dict)
     else:
         output = np.array([], dtype=object)
