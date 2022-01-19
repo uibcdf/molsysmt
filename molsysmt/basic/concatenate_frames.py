@@ -1,12 +1,11 @@
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
-from molsysmt.tools.molecular_systems import is_a_single_molecular_system
-from molsysmt.forms import dict_append_frames, dict_concatenate_frames
+from molsysmt.api_forms import dict_append_frames, dict_concatenate_frames
 
 def concatenate_frames(molecular_systems, selections='all', frame_indices='all', syntaxis='MolSysMT', to_form=None):
 
-    from molsysmt.basic import convert, extract, get
+    from molsysmt.basic import convert, extract, get, is_a_molecular_system
 
     if is_a_single_molecular_system(molecular_systems):
         raise NeedsMultipleMolecularSystemsError()

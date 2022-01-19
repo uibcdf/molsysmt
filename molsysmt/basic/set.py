@@ -1,4 +1,4 @@
-from molsysmt.forms import dict_set
+from molsysmt.api_forms import dict_set
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.set_arguments import where_set_argument
 from molsysmt._private_tools.exceptions import *

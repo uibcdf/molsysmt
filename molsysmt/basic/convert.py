@@ -1,11 +1,9 @@
-from molsysmt.forms import dict_convert, dict_has
+from molsysmt.api_forms import dict_convert, dict_elements, dict_attributes
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.selection import selection_is_all
 from molsysmt._private_tools.forms import to_form_is_file, form_of_file
-from molsysmt.basic.select import select
-from molsysmt.basic.get_form import get_form
 
 def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 
@@ -54,6 +52,8 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     -----
 
     """
+
+    from molsysmt.basic import select, get_form
 
     if to_form is None:
         to_form = get_form(molecular_system)

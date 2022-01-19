@@ -1,7 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools._digestion import *
 from .arguments import where_argument, digest_argument
-from molsysmt.forms import dict_get
+from molsysmt.api_forms import dict_get
 
 def get(molecular_system, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
 

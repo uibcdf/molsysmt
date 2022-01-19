@@ -1,16 +1,15 @@
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
-from molsysmt.tools.molecular_systems import is_a_single_molecular_system
-from molsysmt.forms import dict_append_frames
+from molsysmt.api_forms import dict_append_frames
 
 def append_frames(to_molecular_system, from_molecular_systems, selections='all', frame_indices='all', syntaxis='MolSysMT'):
 
-    from molsysmt.basic import convert, extract, get
+    from molsysmt.basic import convert, extract, get, is_a_molecular_system
 
     to_molecular_system = digest_molecular_system(to_molecular_system)
 
-    if is_a_single_molecular_system(from_molecular_systems):
+    if is_a_molecular_system(from_molecular_systems):
         from_molecular_systems = [digest_molecular_system(from_molecular_systems)]
     else:
         tmp_from_molecular_systems = []

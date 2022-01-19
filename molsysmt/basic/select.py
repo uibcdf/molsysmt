@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt.forms import dict_get
+from molsysmt.api_forms import dict_get
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.selection import selection_is_all
 from molsysmt._private_tools.lists_and_tuples import list_to_csv_string
