@@ -1,24 +1,71 @@
-import importlib
-import numpy as np
-import urllib
-import sys
-from shutil import move
-from molsysmt._private_tools.exceptions import *
-from molsysmt.forms.common_gets import *
-from molsysmt.native.molecular_system import molecular_system_components
+rom molsysmt._private_tools.exceptions import *
+
+from molsysmt.tools.string_pdb_id.is_string_pdb_id import is_string_pdb_id as is_form
+from molsysmt.tools.string_pdb_id.extract import extract
+from molsysmt.tools.string_pdb_id.add import add
+from molsysmt.tools.string_pdb_id.merge import merge
+from molsysmt.tools.string_pdb_id.append_frames import append_frames
+from molsysmt.tools.string_pdb_id.concatenate_frames import concatenate_frames
+from molsysmt.tools.string_pdb_id.get import *
+from molsysmt.tools.string_pdb_id.set import *
 
 form_name='string:pdb_id'
 from_type='string'
+form_info=["",""]
 
-is_form = {
-    'string:pdb_id': form_name,
-    }
+form_elements = {
+    'atoms' : True,
+    'bonds' : True,
+    'groups' : True,
+    'component' : False,
+    'molecule' : True,
+    'chain' : True,
+    'entity' : True,
+        }
 
-info=["",""]
+form_attributes = {
 
-has = molecular_system_components.copy()
-for ii in ['elements', 'coordinates', 'box', 'bonds']:
-    has[ii]=True
+    'atom_id' : True,
+    'atom_name' : True,
+    'atom_type' : True,
+
+    'bond_id' : True,
+    'bond_name' : True,
+    'bond_type' : True,
+
+    'group_id' : True,
+    'group_name' : True,
+    'group_type' : True,
+
+    'component_id' : False,
+    'component_name' : False,
+    'component_type' : False,
+
+    'molecule_id' : True,
+    'molecule_name' : True,
+    'molecule_type' : True,
+
+    'chain_id' : True,
+    'chain_name' : True,
+    'chain_type' : True,
+
+    'entity_id' : True,
+    'entity_name' : True,
+    'entity_type' : True,
+
+    'coordinates' : True,
+    'velocities' : False,
+    'box' : True,
+    'time' : False,
+    'step' : False,
+
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
+}
+
 
 def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
 

@@ -1,12 +1,9 @@
 def add(to_item, item, check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_Trajectory import is_molsymst_Trajectory
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
-        if not is_molsysmt_Trajectory(to_item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+        from molsysmt.tools.molsysmt_Trajectory.is_molsysmt_Trajectory import _checking_form
+        _checking_form(to_item, check_form=check_form)
+        _checking_form(item, check_form=check_form)
 
     raise NotImplementedError
 

@@ -9,10 +9,8 @@ import numpy as np
 def set_atom_name_to_atom(item, indices='all', frame_indices='all', value=None, check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
-        if not is_molsysmt_MolSys(item):
-            raise ItemWithWrongForm('molsysmt.MolSys')
+        from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import _checking_form
+        _checking_form(item, check_form=check_form)
 
     from .api_molsysmt_Topology import set_atom_name_to_atom as _set
 
@@ -21,10 +19,8 @@ def set_atom_name_to_atom(item, indices='all', frame_indices='all', value=None, 
 def set_coordinates_to_atom(item, indices='all', frame_indices='all', value=None, check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
-        if not is_molsysmt_MolSys(item):
-            raise ItemWithWrongForm('molsysmt.MolSys')
+        from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import _checking_form
+        _checking_form(item, check_form=check_form)
 
     value = puw.standardize(value)
 
@@ -52,10 +48,8 @@ def set_coordinates_to_atom(item, indices='all', frame_indices='all', value=None
 def set_box_to_system(item, indices='all', frame_indices='all', value=None, check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
-        if not is_molsysmt_MolSys(item):
-            raise ItemWithWrongForm('molsysmt.MolSys')
+        from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import _checking_form
+        _checking_form(item, check_form=check_form)
 
     item.trajectory.box = value
     pass
@@ -63,10 +57,8 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None, chec
 def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None, check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
-        if not is_molsysmt_MolSys(item):
-            raise ItemWithWrongForm('molsysmt.MolSys')
+        from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import _checking_form
+        _checking_form(item, check_form=check_form)
 
     return set_coordinates_to_atom(item, indices='all', frame_indices=frame_indices, value=value)
 

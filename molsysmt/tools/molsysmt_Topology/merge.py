@@ -1,12 +1,9 @@
 def merge(item_1, item_2):
 
     if check_form:
-        from molsysmt.tools.molsysmt_Topology import is_molsymst_Topology
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
-        if not is_molsysmt_Topology(item_1):
-            raise ItemWithWrongForm('molsysmt.Topology')
-        if not is_molsysmt_Topology(item_2):
-            raise ItemWithWrongForm('molsysmt.Topology')
+        from molsysmt.tools.molsysmt_Topology.is_molsysmt_Topology import _checking_form
+        _checking_form(item_1, check_form=check_form)
+        _checking_form(item_2, check_form=check_form)
 
     raise NotImplementedError
 

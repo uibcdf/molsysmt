@@ -1,4 +1,13 @@
 from .is_string_pdb_id import is_string_pdb_id
+
+from .extract import extract
+from .add import add
+from .merge import merge
+from .append_frames import append_frames
+from .concatenate_frames import concatenate_frames
+from .get import *
+from .set import *
+
 from .to_file_pdb import to_file_pdb
 from .to_file_mmtf import to_file_mmtf
 from .to_file_msmpk import to_file_msmpk

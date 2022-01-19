@@ -2,12 +2,8 @@
 def set_box_to_system(item, indices='all', frame_indices='all', value=None, check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_Trajectory import is_molsymst_Trajectory
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
-        if not is_molsysmt_Trajectory(to_item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+        from molsysmt.tools.molsysmt_Trajectory.is_molsysmt_Trajectory import _checking_form
+        _checking_form(item, check_form=check_form)
 
     n_frames_trajectory = item.coordinates.shape[0]
     n_frames_box = value.shape[0]
@@ -25,12 +21,8 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None, chec
 def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None, check_form=True):
 
     if check_form:
-        from molsysmt.tools.molsysmt_Trajectory import is_molsymst_Trajectory
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
-        if not is_molsysmt_Trajectory(item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
-        if not is_molsysmt_Trajectory(to_item):
-            raise ItemWithWrongForm('molsysmt.Trajectory')
+        from molsysmt.tools.molsysmt_Trajectory.is_molsysmt_Trajectory import _checking_form
+        _checking_form(item, check_form=check_form)
 
     raise NotImplementedError
 
