@@ -1,6 +1,5 @@
 from .mdtraj_Topology import from_mdtraj_Topology
 from .mdtraj_Trajectory import from_mdtraj_Trajectory
-from .mmtf_MMTFDecoder import from_mmtf_MMTFDecoder
 from .openmm_PDBFile import from_openmm_PDBFile
 from .openmm_GromacsGroFile import from_openmm_GromacsGroFile
 from .openmm_Topology import from_openmm_Topology, to_openmm_Topology
@@ -24,6 +23,5 @@ from .file_crd import from_file_crd
 from .file_h5 import from_file_h5
 from .file_msmpk import from_file_msmpk
 from .string_pdb_text import from_string_pdb_text
-from .string_pdb_id import from_string_pdb_id
 from .string_smiles import from_string_smiles
 

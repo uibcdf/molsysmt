@@ -1,13 +1,15 @@
-def to_molsysmt_Trajectory(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def to_molsysmt_Trajectory(item, atom_indices='all', frame_indices='all', check_form=True):
 
-    from molsysmt.tools.mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
-    from molsysmt.basic import convert
+    if check_form:
+        from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import _checking_form
+        _checking_form(item, check_form=check_form)
 
-    if not is_mmtf_MMTFDecoder(item):
-        raise ValueError
+    from molsysmt.native.trajectory import Trajectory
+    from molsysmt.tools.api_mmtf_MMTFDecoder.get import get_frame_from_atom
 
-    tmp_item = convert(item, to_form='molsysmt.Trajectory', selection=selection,
-            frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item = Trajectory()
+    step, time, coordinates, box = get_frame_from_atom(item, indices=atom_indices, frame_indices=frame_indices, check_form=False)
+    tmp_item.append_frames(step=step, time=time, coordinates=coordinates, box=box)
 
     return tmp_item
 

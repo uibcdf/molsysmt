@@ -5,8 +5,11 @@ def extract(item, atom_indices='all', frame_indices='all', copy_if_all=True, che
         _checking_form(item, check_form=check_form)
 
     if (atom_indices is 'all') and (frame_indices is 'all'):
-        from copy import deepcopy
-        tmp_item = deepcopy(item)
+        if copy_if_all:
+            from copy import deepcopy
+            tmp_item = deepcopy(item)
+        else:
+            tmp_item = item
     else:
         raise NotImplementedError()
 

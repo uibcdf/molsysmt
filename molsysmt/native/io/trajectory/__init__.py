@@ -1,4 +1,3 @@
-from .mmtf_MMTFDecoder import from_mmtf_MMTFDecoder
 from .openmm_Modeller import from_openmm_Modeller
 from .openmm_Context import from_openmm_Context
 from .openmm_Simulation import from_openmm_Simulation

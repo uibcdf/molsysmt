@@ -1,13 +1,14 @@
 def to_mdtraj_Trajectory(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
 
-    from molsysmt.tools.mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
-    from molsysmt.basic import convert
+    if check_form:
+        from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import _checking_form
+        _checking_form(item, check_form=check_form)
 
-    if not is_mmtf_MMTFDecoder(item):
-        raise ValueError
+    from molsysmt.tools.mmtf_MMTFDecoder.to_molsysmt_MolSys import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys
+    from molsysmt.tools.molsysmt_MolSys.to_mdtraj_Trajectory import to_mdtraj_Trajectory as molsysmt_MolSys_to_mdtraj_Trajectory
 
-    tmp_item = convert(item, to_form='mdtraj.Trajectory', selection=selection,
-            frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices, check_form=False)
+    tmp_item = molsysmt_MolSys_to_mdtraj_Trajectory(tmp_item, check_form=False)
 
     return tmp_item
 

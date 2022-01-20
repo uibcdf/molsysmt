@@ -1,19 +1,16 @@
-def to_file_pdb(item, selection='all', model_indices='all', output_filename=None, syntaxis='MolSysMT'):
+def to_file_pdb(item, atom_indices='all', model_indices='all', output_filename=None, check_form=True):
 
-    from molsysmt.tools.string_pdb_id import is_string_pdb_id
-    from molsysmt.tools.file_pdb import is_file_pdb
-    from molsysmt.basic import convert
-
-    if not is_string_pdb_id(item):
-        raise ValueError
+    if check_form:
+        from molsysmt.tools.string_pdb_id.is_string_pdb_id import _checking_form
+        _checking_form(item, check_form=check_form)
 
     if output_filename is None:
         raise ValueError
 
-    if not is_file_pdb(output_filename):
-        raise ValueError
+    from molsysmt.tools.file_pdb import download, extract
 
-    tmp_item = convert(item, output_filename, selection=selection, frame_indices=model_indices, syntaxis=syntaxis)
+    download_pdb(item, output_filename)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, model_indices=model_indices, output_filename=output_filename, copy_if_all=False)
 
     return tmp_item
 
