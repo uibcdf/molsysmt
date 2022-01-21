@@ -1,12 +1,14 @@
-def to_molsysmt_Topology(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def to_molsysmt_Topology(item, atom_indices='all', model_indices='all', check_form=True):
 
-    from molsysmt.tools.file_pdb import is_file_pdb
-    from molsysmt.basic import convert
+    if check_form:
+        from molsysmt.tools.file_pdb.is_file_pdb import _checking_form
+        _checking_form(item, check_form=check_form)
 
-    if not is_file_pdb(item):
-        raise ValueError
+    from molsysmt.tools.file_pdb import to_openmm_PDBFile as file_pdb_to_openmm_PDBFile
+    from molsysmt.tools.openmm_PDBFile import to_molsysmt_Topology as openmm_PDBFile_to_molsysmt_Topology
 
-    tmp_item = convert(item, 'molsysmt.Topology', selection=selection, frame_indices=frame_indices, syntaxis=syntaxis)
+    tmp_item = file_pdb_to_openmm_PDBFile(item, molecular_system=molecular_system, check_form=False)
+    tmp_item = openmm_PDBFile_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, model_indices=model_indices, check_form=False)
 
     return tmp_item
 

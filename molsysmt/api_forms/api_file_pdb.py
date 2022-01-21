@@ -1,4 +1,72 @@
 from molsysmt._private_tools.exceptions import *
+
+from molsysmt.tools.file_pdb.is_string_pdb_id import is_string_pdb_id as is_form
+from molsysmt.tools.file_pdb.extract import extract
+from molsysmt.tools.file_pdb.add import add
+from molsysmt.tools.file_pdb.merge import merge
+from molsysmt.tools.file_pdb.append_frames import append_frames
+from molsysmt.tools.file_pdb.concatenate_frames import concatenate_frames
+from molsysmt.tools.file_pdb.get import *
+from molsysmt.tools.file_pdb.set import *
+
+form_name='file:pdb'
+form_type='file'
+form_info=["Protein Data Bank file format","https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
+
+form_elements = {
+    'atoms' : True,
+    'bonds' : True,
+    'groups' : True,
+    'component' : False,
+    'molecule' : True,
+    'chain' : True,
+    'entity' : True,
+        }
+
+form_attributes = {
+    'atom_id' : True,
+    'atom_name' : True,
+    'atom_type' : True,
+
+    'bond_id' : True,
+    'bond_name' : True,
+    'bond_type' : True,
+
+    'group_id' : True,
+    'group_name' : True,
+    'group_type' : True,
+
+    'component_id' : False,
+    'component_name' : False,
+    'component_type' : False,
+
+    'molecule_id' : True,
+    'molecule_name' : True,
+    'molecule_type' : True,
+
+    'chain_id' : True,
+    'chain_name' : True,
+    'chain_type' : True,
+
+    'entity_id' : True,
+    'entity_name' : True,
+    'entity_type' : True,
+
+    'coordinates' : True,
+    'velocities' : False,
+    'box' : True,
+    'time' : False,
+    'step' : False,
+
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
+}
+
+
+from molsysmt._private_tools.exceptions import *
 from molsysmt.forms.common_gets import *
 import numpy as np
 import importlib
@@ -6,85 +74,56 @@ import sys
 from molsysmt.native.molecular_system import molecular_system_components
 from molsysmt._private_tools.files_and_directories import temp_filename
 
-form_name='file:pdb'
-from_type='file'
 
-is_form = {
-        'file:pdb': form_name
-    }
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-info = ["Protein Data Bank file format","https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
+    from molsysmt.tools.file_pdb import to_molsysmt_MolSys as file_pdb_to_molsysmt_MolSys
 
-has = molecular_system_components.copy()
-for ii in ['elements', 'bonds', 'coordinates', 'box']:
-    has[ii]=True
+    tmp_item = file_pdb_to_molsysmt_MolSys(item, atom_indices=atom_indices, model_indices=frame_indices, check_form=False)
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    return tmp_item
 
-    from molsysmt.native.io.molsys import from_file_pdb as file_pdb_to_molsysmt_MolSys
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    tmp_item, tmp_molecular_system = file_pdb_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.tools.file_pdb import to_molsysmt_Topology as file_pdb_to_molsysmt_Topology
 
-    return tmp_item, tmp_molecular_system
+    tmp_item = file_pdb_to_molsysmt_Topology(item, atom_indices=atom_indices, model_indices=frame_indices, check_form=False)
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    return tmp_item
 
-    from molsysmt.native.io.topology import from_file_pdb as file_pdb_to_molsysmt_Topology
+def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    tmp_item, tmp_molecular_system = file_pdb_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.tools.file_pdb import to_molsysmt_Trajectory as file_pdb_to_molsysmt_Trajectory
 
-    return tmp_item, tmp_molecular_system
+    tmp_item = file_pdb_to_molsysmt_Trajectory(item, atom_indices=atom_indices, model_indices=frame_indices, check_form=False)
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    return tmp_item
 
-    from molsysmt.native.io.trajectory import from_file_pdb as file_pdb_to_molsysmt_Trajectory
+def to_parmed_Structure(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    tmp_item, tmp_molecular_system = file_pdb_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    from molsysmt.tools.file_pdb import to_parmed_Structure as file_pdb_to_parmed_Structure
 
-    return tmp_item, tmp_molecular_system
+    tmp_item = file_pdb_to_parmed_Structure(item, atom_indices=atom_indices, model_indices=frame_indices, check_form=False)
 
-def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+    return tmp_item
 
-    from parmed import load_file as parmed_file_loader
-    from molsysmt.forms.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
+def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    tmp_item = parmed_file_loader(item)
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = parmed_Structure_to_parmed_Structure(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    from molsysmt.tools.file_pdb import to_mdanalysis_Universe as file_pdb_to_mdanalysis_Universe
+
+    tmp_item = file_pdb_to_mdanalysis_Universe(item, atom_indices=atom_indices, model_indices=frame_indices, check_form=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
-    from MDAnalysis import Universe as mdanalysis_Universe
-    from molsysmt.forms.api_mdanalysis_Universe import to_mdanalysis_Universe as mdanalysis_Universe_to_mdanalysis_Universe
+    from molsysmt.tools.file_pdb import to_mdanalysis_Topology as file_pdb_to_mdanalysis_Topology
 
-    tmp_item = mdanalysis_Universe(item)
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = mdanalysis_Universe_to_mdanalysis_Universe(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item = file_pdb_to_mdanalysis_Topology(item, atom_indices=atom_indices, model_indices=frame_indices, check_form=False)
 
-    return tmp_item, tmp_molecular_system
+    return tmp_item
 
-def to_mdanalysis_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
-
-    from molsysmt.forms.api_mdanalysis_topology_PDBParser import to_mdanalysis_Topology as mdanalysis_topology_PDBParser_to_mdanalysis_Topology
-
-    tmp_item, tmp_molecular_system = to_mdanalysis_topology_PDBParser(item,
-            molecular_system=molecular_system)
-    tmp_item, tmp_molecular_system = mdanalysis_topology_PDBParser_to_mdanalysis_Topology(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_mdanalysis_topology_PDBParser(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_topology_PDBParser(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from MDAnalysis.topology import PDBParser
 
@@ -96,7 +135,7 @@ def to_mdanalysis_topology_PDBParser(item, molecular_system=None, atom_indices='
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_topology as mdtraj_load_topology
     from molsysmt.forms.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
@@ -110,7 +149,7 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from mdtraj import load_pdb as mdtraj_pdb_loader
     from molsysmt.forms.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
@@ -124,7 +163,7 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_PDBTrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_PDBTrajectoryFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from mdtraj.formats.pdb import PDBTrajectoryFile
 
@@ -136,7 +175,7 @@ def to_mdtraj_PDBTrajectoryFile(item, molecular_system=None, atom_indices='all',
 
     return tmp_item, tmp_molecular_system
 
-def to_file_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_mol2(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
 
     from parmed import load_file as parmed_file_loader
     from molsysmt.forms.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
@@ -154,7 +193,7 @@ def to_file_mol2(item, molecular_system=None, atom_indices='all', frame_indices=
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from openmm.app.pdbfile import PDBFile
     from molsysmt.forms.api_openmm_PDBFile import to_openmm_Topology as openmm_PDBFile_to_openmm_Topology
@@ -164,7 +203,7 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from openmm.app.pdbfile import PDBFile
     from openmm.app.modeller import Modeller
@@ -180,7 +219,7 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all',
+def to_openmm_System(item, molecular_system, atom_indices='all', frame_indices='all',
                      forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                      rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False):
@@ -199,7 +238,7 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indi
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all',
+def to_openmm_Simulation(item, molecular_system, atom_indices='all', frame_indices='all',
                          forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
                          rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                          flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
@@ -219,7 +258,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_PDBFile(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from openmm.app.pdbfile import PDBFile
     from molsysmt.forms.api_openmm_PDBFile import to_openmm_PDBFile as openmm_PDBFile_to_openmm_PDBFile
@@ -233,7 +272,7 @@ def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_ind
 
     return tmp_item, tmp_molecular_system
 
-def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from pdbfixer.pdbfixer import PDBFixer
     from molsysmt.forms.api_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_pdbfixer_PDBFixer
@@ -248,7 +287,7 @@ def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from pytraj import load as pytraj_load
     from molsysmt.forms.api_pytraj_Trajectory import to_pytraj_Trajectory as pytraj_Trajectory_to_pytraj_Trajectory
@@ -263,7 +302,7 @@ def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from pytraj import load_topology as pytraj_load_topology
     from molsysmt.forms.api_pytraj_Topology import to_pytraj_Topology as pytraj_Topology_to_pytraj_Topology
@@ -277,7 +316,7 @@ def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from nglview import show_file
     from os import remove
@@ -297,7 +336,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_
 
     return tmp_item, tmp_molecular_system
 
-def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_string_pdb_text(item, molecular_system, atom_indices='all', frame_indices='all'):
 
     from molsysmt.forms.api_string_pdb_text import to_string_pdb_text as string_pdb_text_to_string_pdb_text
 
@@ -313,345 +352,4 @@ def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_in
     tmp_item, tmp_molecular_system = string_pdb_text_to_string_pdb_text(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
 
     return tmp_item, tmp_molecular_system
-
-def to_file_pdb(item, molecular_system=None, output_filename=None, atom_indices='all', frame_indices='all', copy_if_all=True):
-
-    tmp_molecular_system = None
-
-    if (atom_indices is 'all') and (frame_indices is 'all'):
-        if copy_if_all:
-            tmp_item = extract(item, output_filename=output_filename)
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-        else:
-            tmp_item = item
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system
-    else:
-        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
-        if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def extract(item, atom_indices='all', frame_indices='all', output_filename=None):
-
-    if output_filename is None:
-        output_filename = temp_filename(extension='pdb')
-
-    if (atom_indices is 'all') and (frame_indices is 'all'):
-
-        from shutil import copy as copy_file
-        copy_file(item, output_filename)
-        tmp_item = output_filename
-
-    else:
-        from molsysmt.forms.api_mdtraj_Trajectory import to_file_pdb as mdtraj_Trajectory_to_file_pdb
-        tmp_item, _ = to_mdtraj_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices)
-        tmp_item, _  = mdtraj_Trajectory_to_file_pdb(tmp_item, output_filename=output_filename)
-
-    return tmp_item
-
-def merge(item_1, item_2):
-
-    raise NotImplementedError
-
-def add(to_item, item):
-
-    raise NotImplementedError
-
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
-
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
-
-###### Get
-
-def aux_get_top(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms import forms
-
-    method_name = sys._getframe(1).f_code.co_name
-
-    if 'openmm.PDBFile' in forms:
-
-        tmp_item, _ = to_openmm_PDBFile(item)
-        module = importlib.import_module('molsysmt.forms.api_openmm_PDBFile')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-    elif 'pdbfixer.PDBFixer' in forms:
-
-        tmp_item, _ = to_pdbfixer_PDBFixer(item)
-        module = importlib.import_module('molsysmt.forms.api_pdbfixer_PDBFixer')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-    elif 'mdtraj.Topology' in forms:
-
-        tmp_item, _ = to_mdtraj_Topology(item)
-        module = importlib.import_module('molsysmt.forms.api_mdtraj_PDBTopology')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-    else:
-
-        raise NotImplementedError
-
-    return output
-
-def aux_get_coors(item, indices='all', frame_indices='all'):
-
-    from molsysmt.forms import forms
-
-    method_name = sys._getframe(1).f_code.co_name
-
-    if 'openmm.PDBFile' in forms:
-
-        tmp_item, _ = to_openmm_PDBFile(item)
-        module = importlib.import_module('molsysmt.forms.api_openmm_PDBFile')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-    elif 'pdbfixer.PDBFixer' in forms:
-
-        tmp_item, _ = to_pdbfixer_PDBFixer(item)
-        module = importlib.import_module('molsysmt.forms.api_pdbfixer_PDBFixer')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-    elif 'mdtraj.PDBTrajectoryFile' in forms:
-
-        tmp_item, _ = to_mdtraj_PDBTrajectoryFile(item)
-        module = importlib.import_module('molsysmt.forms.api_mdtraj_PDBTrajectoryFile')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
-
-    else:
-
-        raise NotImplementedError
-
-    return output
-
-
-## atom
-
-def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_group_index_from_atom (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_component_index_from_atom (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_frame_from_atom(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-## group
-
-def get_group_id_from_group(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_group_name_from_group(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_group_type_from_group(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-## component
-
-def get_component_id_from_component (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_component_name_from_component (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_component_type_from_component (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-## molecule
-
-def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-## chain
-
-def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-## entity
-
-def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-## system
-
-def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_n_groups_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_n_components_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_n_chains_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_n_entities_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_coordinates_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_box_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_box_shape_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_box_angles_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_box_volume_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_time_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_step_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_n_frames_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
-
-def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-## bond
-
-def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
-
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
-
-###### Set
-
-def set_box_to_system(item, indices='all', frame_indices='all', value=None):
-
-    raise NotImplementedError
-
-def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
-
-    raise NotImplementedError
 
