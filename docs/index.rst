@@ -62,6 +62,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :maxdepth: 2
 
    contents/developer/intro/index.rst
+   contents/developer/documentation/index.rst
 
 .. toctree::
    :name: api_doc

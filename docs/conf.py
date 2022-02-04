@@ -25,7 +25,7 @@ import molsysmt
 # -- Project information -----------------------------------------------------
 
 project = 'MolSysMT'
-copyright = ("2021, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors."
+copyright = ("2022, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors."
              "Computational Molecular Science Python Cookiecutter version 1.5")
 author = 'Liliana M. Moreno Vargas & Diego Prada Gracia'
 
@@ -56,10 +56,8 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.githubpages',
     'sphinxcontrib.bibtex',
-    'nbsphinx',
-    'recommonmark',
-    'sphinx_markdown_tables',
-    'sphinx.ext.extlinks'
+    'sphinx.ext.extlinks',
+    'myst_nb'
 ]
 
 autosummary_generate = True
@@ -81,10 +79,7 @@ templates_path = ['_templates']
 source_parsers={
 }
 
-source_suffix = {
-    '.rst': 'restructuredtext',
-    '.md': 'markdown'
-}
+source_suffix = ['.rst', '.md']
 
 # The master toctree document.
 master_doc = 'index'
