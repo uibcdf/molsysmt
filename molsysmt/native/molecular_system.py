@@ -1,8 +1,9 @@
-from molsysmt.tools.molecular_systems import *
-from molsysmt.tools.items import compatibles_for_a_single_molecular_system as items_compatibles_for_a_single_molecular_system
+#from molsysmt.tools.molecular_systems import *
+#from molsysmt.tools.items import compatibles_for_a_single_molecular_system as items_compatibles_for_a_single_molecular_system
+
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools.exceptions import *
-from molsysmt.forms import dict_extract
+from molsysmt.api_forms import dict_extract
 
 molecular_system_components = {
 
@@ -21,6 +22,8 @@ molecular_system_components = {
 class MolecularSystem():
 
     def __init__(self, items=None):
+
+        from molsysmt.basic import is_a_molecular_system
 
         self.elements_item, self.elements_form = None, None
         self.bonds_item, self.bonds_form = None, None
@@ -58,7 +61,7 @@ class MolecularSystem():
                         aux_items.append(item)
                 items = aux_items
 
-                if not is_a_single_molecular_system(items):
+                if not is_a_molecular_system(items):
                     raise NeedsSingleMolecularSystemError()
 
                 self.elements_item, self.elements_form = where_elements_in_molecular_system(items)

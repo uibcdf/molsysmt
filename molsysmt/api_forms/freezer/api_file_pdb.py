@@ -1,6 +1,6 @@
 from molsysmt._private_tools.exceptions import *
 
-from molsysmt.tools.file_pdb.is_string_pdb_id import is_string_pdb_id as is_form
+from molsysmt.tools.file_pdb.is_file_pdb import is_file_pdb as is_form
 from molsysmt.tools.file_pdb.extract import extract
 from molsysmt.tools.file_pdb.add import add
 from molsysmt.tools.file_pdb.merge import merge

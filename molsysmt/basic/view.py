@@ -1,4 +1,4 @@
-from molsysmt.forms import *
+#from molsysmt.forms import *
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 
