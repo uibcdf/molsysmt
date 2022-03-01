@@ -14,7 +14,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     tmp_item = Topology()
 
     # sanity checks
-
     for n_chain_per_model in item.chains_per_model:
         if n_chain_per_model != item.num_chains:
             raise NotImplementedError("The bioassembly has models with different number of chains")
@@ -42,7 +41,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
         if len(mmtf_bioassembly['transformList'][0]['chainIndexList']) != item.num_chains:
             warning_message = ("The bioassembly has a different number of chains than the total amount of chains")
-            print(warning_message)
             warnings.warn(warning_message)
 
     # atoms, groups and bonds intra group

@@ -1,4 +1,4 @@
-from .is_molsysmt_Trajectory import is_molsysmt_Trajectory
+from .is_molsysmt_StructuresCollection import is_molsysmt_StructuresCollection
 
 from .extract import extract
 from .add import add

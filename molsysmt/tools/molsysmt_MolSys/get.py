@@ -258,22 +258,15 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_Trajectory import get_coordinates_from_atom as _get
-    return _get(item.trajectory, indices=indices, structure_indices=structure_indices, check_form=False)
+    from molsysmt.tools.molsysmt_StructuresCollection import get_coordinates_from_atom as _get
+    return _get(item.structures, indices=indices, structure_indices=structure_indices, check_form=False)
 
-def get_frame_from_atom(item, indices='all', structure_indices='all', check_form=True):
-
-    _checking_form(item, check_form)
-
-    from molsysmt.tools.molsysmt_Trajectory import get_frame_from_atom as _get
-    return _get(item.trajectory, indices=indices, structure_indices=structure_indices, check_form=False)
-
-def get_n_frames_from_atom(item, structure_indices='all', check_form=True):
+def get_n_structures_from_atom(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_Trajectory import get_n_frames_from_atom as _get
-    return _get(item.trajectory, structure_indices=structure_indices, check_form=False)
+    from molsysmt.tools.molsysmt_StructuresCollection import get_n_structures_from_atom as _get
+    return _get(item.structures, structure_indices=structure_indices, check_form=False)
 
 ## group
 
@@ -1511,14 +1504,14 @@ def get_coordinates_from_system(item, indices='all', structure_indices='all', ch
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_Trajectory import get_coordinates_from_system as _get
-    return _get(item.trajectory, indices=indices, structure_indices=structure_indices, check_form=False)
+    from molsysmt.tools.molsysmt_StructuresCollection import get_coordinates_from_system as _get
+    return _get(item.structures, indices=indices, structure_indices=structure_indices, check_form=False)
 
 def get_box_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_Trajectory import get_box_from_system as _get
+    from molsysmt.tools.molsysmt_StructuresCollection import get_box_from_system as _get
     return _get(item.trajectory, structure_indices=structure_indices, check_form=False)
 
 def get_box_shape_from_system(item, structure_indices='all', check_form=True):
@@ -1568,19 +1561,12 @@ def get_step_from_system(item, structure_indices='all', check_form=True):
     from molsysmt.tools.molsysmt_Trajectory import get_step_from_system as _get
     return _get(item.trajectory, structure_indices=structure_indices, check_form=False)
 
-def get_frame_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_structures_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_Trajectory import get_frame_from_system as _get
-    return _get(item.trajectory, indices=indices, structure_indices=structure_indices, check_form=False)
-
-def get_n_frames_from_system(item, structure_indices='all', check_form=True):
-
-    _checking_form(item, check_form)
-
-    from molsysmt.tools.molsysmt_Trajectory import get_n_frames_from_system as _get
-    return _get(item.trajectory, structure_indices=structure_indices, check_form=False)
+    from molsysmt.tools.molsysmt_StructuresCollection import get_n_structures_from_system as _get
+    return _get(item.structures, structure_indices=structure_indices, check_form=False)
 
 ## bond
 

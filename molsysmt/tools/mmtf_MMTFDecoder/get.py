@@ -133,9 +133,6 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
     import numpy as np
     from molsysmt import puw
 
-    n_frames = get_n_frames_from_system(item, indices='all', structure_indices='all', check_form=False)
-    n_atoms = get_n_atoms_from_system(item, indices='all', structure_indices='all', check_form=False)
-
     xyz = np.column_stack([item.x_coord_list, item.y_coord_list, item.z_coord_list])
     xyz = xyz.reshape([-1, item.num_atoms, 3])
     xyz = puw.quantity(xyz, 'angstroms')
@@ -148,17 +145,6 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
         xyz = xyz[:,indices,:]
 
     return xyz
-
-def get_frame_from_atom(item, indices='all', structure_indices='all', check_form=True):
-
-    _checking_form(item, check_form)
-
-    tmp_step = get_step_from_system(item, structure_indices=structure_indices, check_form=False)
-    tmp_time = get_time_from_system(item, structure_indices=structure_indices, check_form=False)
-    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check_form=False)
-    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, structure_indices=structure_indices, check_form=False)
-
-    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 ## From group
 
@@ -1002,29 +988,6 @@ def get_inner_bond_index_from_atom(item, indices='all', structure_indices='all',
 
     raise NotImplementedError
 
-    #output = None
-
-    #if indices is 'all':
-    #    output = get(item, target='bond', index=True)
-    #else:
-    #    edges = get(item, target='bond', atom_index=True)
-    #    aux_list = list(indices)
-    #    output = item.bonds_dataframe.query('atom1_index==@aux_list and atom2_index==@aux_list').index.to_numpy(dtype=int, copy=True)
-
-    #return output
-
-#def get_coordinates_from_atom(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_frame_from_atom(item, indices='all', structure_indices='all', check_form=True):
-#
-#    from molsysmt.basic import get
-#
-#    tmp_step, tmp_time, tmp_box = get(item, target='system', structure_indices=structure_indices, step=True, time=True, box=True)
-#    tmp_coordinates = get(item, target='atom', indices=indices, structure_indices=structure_indices, coordinates=True)
-#
-#    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
 #def get_n_frames_from_atom(item, indices='all', structure_indices='all', check_form=True):
 #
@@ -3479,172 +3442,112 @@ def get_n_entities_from_entity(item, indices='all', structure_indices='all', che
 
 ## system
 
-#def get_bonded_atoms_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_n_atoms_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_n_groups_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_n_components_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_n_chains_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_n_molecules_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_n_entities_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_n_bonds_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
 def get_n_aminoacids_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    group_types = get(item, target='group', indices='all', group_type=True)
+    group_types = get_group_type_from_group(item, check_form=False)
     return (group_types=='aminoacid').sum()
 
 def get_n_nucleotides_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    group_types = get(item, target='group', indices='all', group_type=True)
+    group_types = get_group_type_from_group(item, check_form=False)
     return (group_types=='nucleotide').sum()
 
 def get_n_ions_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='ion').sum()
 
 def get_n_waters_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True, check_form=True)
+    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='water').sum()
 
 def get_n_cosolutes_from_system(item, indices='all', structure_indices='all'):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True, check_form=True)
+    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='cosolute').sum()
 
 def get_n_small_molecules_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='small molecule').sum()
 
 def get_n_peptides_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='peptide').sum()
 
 def get_n_proteins_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='protein').sum()
 
 def get_n_dnas_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='dna').sum()
 
 def get_n_rnas_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='rna').sum()
 
 def get_n_lipids_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
+    _checking_form(item, check_form)
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='lipid').sum()
 
 def get_coordinates_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
-    return get(item, target='atom', structure_indices=structure_indices)
+    _checking_form(item, check_form)
 
-#def get_box_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_box_shape_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_box_lengths_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_box_angles_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_time_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_step_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-def get_frame_from_system(item, indices='all', structure_indices='all', check_form=True):
-
-    from molsysmt.basic import get
-    return get(item, target='atom', structure_indices=structure_indices, frame=True)
-
-#def get_n_frames_from_system(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
+    return get_coordinates_from_atom(item, structure_indices=structure_indices, check_form=False)
 
 def get_bonded_atoms_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
-    return get(item, target='atoms', indices='all', bonded_atoms=True)
+    _checking_form(item, check_form)
+
+    return get_bonded_atoms_from_atom(item, structure_indices=structure_indices, check_form=False)
 
 def get_bond_index_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
-    return get(item, target='atoms', indices='all', bond_index=True)
+    _checking_form(item, check_form)
+
+    return get_bond_index_from_atom(item, structure_indices=structure_indices, check_form=False)
 
 def get_inner_bonded_atoms_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
-    return get(item, target='bond', indices='all', atom_index=True)
+    _checking_form(item, check_form)
+
+    return get_inner_bonded_atoms_from_atom(item, structure_indices=structure_indices, check_form=False)
 
 def get_inner_bond_index_from_system(item, indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.basic import get
-    return get(item, target='bond', indices='all', bond_index=True)
+    _checking_form(item, check_form)
+
+    return get_inner_bond_index_from_atom(item, structure_indices=structure_indices, check_form=False)
 
 ## bond
 
@@ -3661,26 +3564,6 @@ def get_bond_index_from_bond(item, indices='all', structure_indices='all', check
         output = np.array(indices, dtype=int)
 
     return output
-
-#def get_bond_order_from_bond(item, indices='all', structure_indices='all', check_form=True):
-#
-#    return _aux_getter_attribute(item, 'order', 'bond', indices)
-#
-#def get_bond_type_from_bond(item, indices='all', structure_indices='all', check_form=True):
-#
-#    return _aux_getter_attribute(item, 'type', 'bond', indices)
-
-#def get_bond_order_from_bond(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_bond_type_from_bond(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
-
-#def get_atom_index_from_bond(item, indices='all', structure_indices='all', check_form=True):
-#
-#    raise NotImplementedError
 
 def get_n_bonds_from_bond(item, indices='all', structure_indices='all', check_form=True):
 

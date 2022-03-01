@@ -1,4 +1,4 @@
-from molsysmt.tools.molsysmt_Trajectory.is_molsysmt_Trajectory import _checking_form
+from molsysmt.tools.molsysmt_StructuresCollection.is_molsysmt_StructuresCollection import _checking_form
 
 ## atom
 

@@ -6,11 +6,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', check_
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_Topology as mmtf_MMTFDecoder_to_molsysmt_Topology
-    from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
+    from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_StructuresCollection as mmtf_MMTFDecoder_to_molsysmt_StructuresCollection
 
     tmp_item = MolSys()
     tmp_item.topology = mmtf_MMTFDecoder_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
-    tmp_item.trajectory = mmtf_MMTFDecoder_to_molsysmt_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item.structures = mmtf_MMTFDecoder_to_molsysmt_StructuresCollection(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
 
     return tmp_item
 

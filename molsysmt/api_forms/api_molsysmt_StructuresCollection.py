@@ -69,7 +69,7 @@ form_attributes = {
 
 # Methods
 
-def to_molsysmt_StructuresCollectionDict(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_molsysmt_TrajectoryDict(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_StructuresCollection import to_molsysmt_TrajectoryDict as molsysmt_StructuresCollection_to_molsysmt_TrajectoryDict
 
