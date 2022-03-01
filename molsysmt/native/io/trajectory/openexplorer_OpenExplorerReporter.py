@@ -1,5 +1,5 @@
 
-def from_openexplorer_OpenExplorerReporter(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_openexplorer_OpenExplorerReporter(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt import box_shape_from_box_vectors
     from molsysmt.native.trajectory import Trajectory
@@ -14,14 +14,14 @@ def from_openexplorer_OpenExplorerReporter(item, molecular_system=None, atom_ind
     tmp_item.coordinates = array(item.coordinates._value, dtype=float)
     if atom_indices is not 'all':
         tmp_item.coordinates = tmp_item.coordinates[:,atom_indices,:]
-    if frame_indices is not 'all':
-        tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
+    if structure_indices is not 'all':
+        tmp_item.coordinates = tmp_item.coordinates[structure_indices,:,:]
     tmp_item.coordinates = tmp_item.coordinates*units
 
     if item.box is not None:
         tmp_item.box = array(item.box._value, dtype=float)
-        if frame_indices is not 'all':
-            tmp_item.box = tmp_item.box[frame_indices,:,:]
+        if structure_indices is not 'all':
+            tmp_item.box = tmp_item.box[structure_indices,:,:]
         tmp_item.box = tmp_item.box*units
         tmp_item.box_shape = box_shape_from_box_vectors(tmp_item.box)
 
@@ -31,7 +31,7 @@ def from_openexplorer_OpenExplorerReporter(item, molecular_system=None, atom_ind
 
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item,
-                atom_indices=atom_indices, frame_indices=frame_indices)
+                atom_indices=atom_indices, structure_indices=structure_indices)
     else:
         tmp_molecular_system = None
 

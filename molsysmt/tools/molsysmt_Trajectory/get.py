@@ -2,21 +2,21 @@ from molsysmt.tools.molsysmt_Trajectory.is_molsysmt_Trajectory import _checking_
 
 ## atom
 
-def get_coordinates_from_atom(item, indices='all', frame_indices='all', check_form=True):
+def get_coordinates_from_atom(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     tmp_coordinates = item.coordinates
 
-    if frame_indices is not 'all':
-        tmp_coordinates = tmp_coordinates[frame_indices,:,:]
+    if structure_indices is not 'all':
+        tmp_coordinates = tmp_coordinates[structure_indices,:,:]
 
     if indices is not 'all':
         tmp_coordinates = tmp_coordinates[:,indices,:]
 
     return tmp_coordinates
 
-def get_n_atoms_from_atom(item, indices='all', frame_indices='all', check_form=True):
+def get_n_atoms_from_atom(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -27,26 +27,26 @@ def get_n_atoms_from_atom(item, indices='all', frame_indices='all', check_form=T
 
     return output
 
-def get_frame_from_atom(item, indices='all', frame_indices='all', check_form=True):
+def get_frame_from_atom(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    tmp_step = get_step_from_system(item, frame_indices=frame_indices, check_form=False)
-    tmp_time = get_time_from_system(item, frame_indices=frame_indices, check_form=False)
-    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, frame_indices=frame_indices, check_form=False)
-    tmp_box = get_box_from_system(item, frame_indices=frame_indices, check_form=False)
+    tmp_step = get_step_from_system(item, structure_indices=structure_indices, check_form=False)
+    tmp_time = get_time_from_system(item, structure_indices=structure_indices, check_form=False)
+    tmp_coordinates = get_coordinates_from_atom(item, indices=indices, structure_indices=structure_indices, check_form=False)
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check_form=False)
 
     return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
-def get_n_frames_from_atom(item, indices='all', frame_indices='all', check_form=True):
+def get_n_frames_from_atom(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    return get_n_frames_from_system(item, indices='all', frame_indices='all', check_form=False)
+    return get_n_frames_from_system(item, indices='all', structure_indices='all', check_form=False)
 
 ## system
 
-def get_n_atoms_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_n_atoms_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -57,95 +57,95 @@ def get_n_atoms_from_system(item, indices='all', frame_indices='all', check_form
 
     return output
 
-def get_coordinates_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_coordinates_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         output=item.coordinates
     else:
-        output=item.coordinates[frame_indices,:,:]
+        output=item.coordinates[structure_indices,:,:]
     return output
 
-def get_box_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_box_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     output=None
     if item.box is not None:
-        if frame_indices is 'all':
+        if structure_indices is 'all':
             output=item.box
         else:
-            output=item.box[frame_indices,:,:]
+            output=item.box[structure_indices,:,:]
     return output
 
-def get_box_shape_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_box_shape_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.pbc import box_shape_from_box_vectors
     output = None
-    box = get_box_from_system(item, indices=indices, frame_indices=frame_indices, check_form=False)
+    box = get_box_from_system(item, indices=indices, structure_indices=structure_indices, check_form=False)
     if box is not None:
         output = box_shape_from_box_vectors(box)
     return output
 
-def get_box_lengths_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_box_lengths_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     tmp_box_lengths = item.get_box_lengths()
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         output = tmp_box_lengths
     else:
-        output = tmp_box_lengths[frame_indices,:]
+        output = tmp_box_lengths[structure_indices,:]
     return output
 
-def get_box_angles_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_box_angles_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     tmp_box_angles = item.get_box_angles()
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         output = tmp_box_angles
     else:
-        output = tmp_box_angles[frame_indices,:]
+        output = tmp_box_angles[structure_indices,:]
     return output
 
-def get_time_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_time_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         output = item.time
     else:
-        output = item.time[frame_indices]
+        output = item.time[structure_indices]
     return output
 
-def get_step_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_step_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         output = item.step
     else:
-        output = item.step[frame_indices]
+        output = item.step[structure_indices]
     return output
 
-def get_frame_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_frame_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    return get_frame_from_atom(item, frame_indices=frame_indices, check_form=False)
+    return get_frame_from_atom(item, structure_indices=structure_indices, check_form=False)
 
-def get_n_frames_from_system(item, indices='all', frame_indices='all', check_form=True):
+def get_n_frames_from_system(item, indices='all', structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         output=item.coordinates.shape[0]
     else:
-        output=frame_indices.shape[0]
+        output=structure_indices.shape[0]
 
     return output
 

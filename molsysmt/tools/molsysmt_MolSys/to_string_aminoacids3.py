@@ -2,9 +2,9 @@ def to_string_aminoacids3(item, atom_indices='all', check_form=True):
 
     if check_form:
         from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
+        from molsysmt._private_tools.exceptions import WrongFormError
         if not is_molsysmt_MolSys(item):
-            raise ItemWithWrongForm('molsysmt.MolSys')
+            raise WrongFormError('molsysmt.MolSys')
 
     from molsysmt.tools.molsysmt_MolSys import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
     from molsysmt.tools.molsysmt_Topology import to_string_aminoacids3 as molsysmt_Topology_to_string_aminoacids3

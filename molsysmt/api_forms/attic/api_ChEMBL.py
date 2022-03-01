@@ -15,9 +15,9 @@ with_trajectory=False
 def to_UniProt_id(form_id):
     pass
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', structure_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -30,7 +30,7 @@ def copy(item):
 
 ## system
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
+def get_form_from_system(item, indices='all', structure_indices='all'):
 
     return form_name
 

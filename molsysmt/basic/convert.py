@@ -5,9 +5,9 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.selection import selection_is_all
 from molsysmt._private_tools.forms import to_form_is_file, form_of_file
 
-def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs):
 
-    """convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs)
+    """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs)
 
     Convert a molecular model into other form.
 
@@ -64,10 +64,10 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     if is_list_or_tuple(to_form):
         tmp_item=[]
         for item_out in to_form:
-            tmp_item.append(convert(molecular_system, to_form=item_out, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis))
+            tmp_item.append(convert(molecular_system, to_form=item_out, selection=selection, structure_indices=structure_indices, syntaxis=syntaxis))
         return tmp_item
 
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     if not selection_is_all(selection):
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
@@ -83,25 +83,19 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
     tmp_item = None
 
     item = None
-    item_form = None
+    from_form = None
 
-    for component_name, required in dict_has[to_form].items():
-        if required:
-            item = getattr(molecular_system, component_name+'_item')
-            item_form = getattr(molecular_system, component_name+'_form')
-            break
-
-
-    ### Lines to be removed if tests pass
-    #if item_form is None:
-    #    raise NotImplementedConversionError(get_form(molecular_system), to_form)
-    #else:
+    if is_list_or_tuple(molecular_system):
+        raise NotImplementedMethodError()
+    else:
+        item=molecular_system
+        from_form=get_form(molecular_system)
 
     try:
-        tmp_item, _ = dict_convert[item_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
+        tmp_item = dict_convert[from_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
                                                        **conversion_arguments, **kwargs)
     except:
-        raise NotImplementedConversionError(get_form(molecular_system), to_form)
+        raise NotImplementedConversionError(from_form, to_form)
 
     tmp_item = digest_output(tmp_item)
 

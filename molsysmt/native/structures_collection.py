@@ -6,9 +6,9 @@ from molsysmt._private_tools.exceptions import *
 
 # Un frame tiene: step, time, coordinates, cell
 
-class Trajectory():
+class StructuresCollection():
 
-    def __init__(self, filepath=None, atom_indices='all', frame_indices='all'):
+    def __init__(self, filepath=None, atom_indices='all', structure_indices='all'):
 
         self.step  = None
         self.time  = None
@@ -22,9 +22,9 @@ class Trajectory():
         self.file = None
 
         if filepath is not None:
-            self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices, frame_indices=frame_indices)
+            self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices, structure_indices=structure_indices)
 
-    def append_frames(self, step=None, time=None, coordinates=None, box=None):
+    def append_structures(self, step=None, time=None, coordinates=None, box=None):
 
         if step is not None:
             if type(step) not in [list, np.ndarray]:
@@ -102,14 +102,14 @@ class Trajectory():
 
         return angles
 
-    def load_frames_from_file (self, filepath=None, atom_indices='all', frame_indices='all'):
+    def load_structures_from_file (self, filepath=None, atom_indices='all', structure_indices='all'):
 
         if filepath is not None:
 
             from .trajectory_file import TrajectoryFile
             self.file = TrajectoryFile(filepath=filepath)
 
-        step, time, coordinates, box = self.file.read_frames(atom_indices=atom_indices, frame_indices=frame_indices)
+        step, time, coordinates, box = self.file.read_frames(atom_indices=atom_indices, structure_indices=structure_indices)
 
         self.append_frames(step, time, coordinates, box)
 
@@ -117,9 +117,9 @@ class Trajectory():
 
         pass
 
-    def extract (self, atom_indices='all', frame_indices='all'):
+    def extract (self, atom_indices='all', structure_indices='all'):
 
-        if atom_indices is 'all' and frame_indices is 'all':
+        if atom_indices is 'all' and structure_indices is 'all':
 
             tmp_item = self.copy()
 
@@ -130,20 +130,20 @@ class Trajectory():
             tmp_item = Trajectory()
 
             if self.step is not None:
-                if frame_indices is not 'all':
-                    tmp_item.step = self.step[frame_indices]
+                if structure_indices is not 'all':
+                    tmp_item.step = self.step[structure_indices]
                 else:
                     tmp_item.step = deepcopy(self.step)
 
             if self.time is not None:
-                if frame_indices is not 'all':
-                    tmp_item.time = self.time[frame_indices]
+                if structure_indices is not 'all':
+                    tmp_item.time = self.time[structure_indices]
                 else:
                     tmp_item.time = deepcopy(self.time)
 
             if self.box is not None:
-                if frame_indices is not 'all':
-                    tmp_item.box = self.box[frame_indices]
+                if structure_indices is not 'all':
+                    tmp_item.box = self.box[structure_indices]
                 else:
                     tmp_item.box = deepcopy(self.box)
 
@@ -152,8 +152,8 @@ class Trajectory():
             else:
                 tmp_item.coordinates = deepcopy(self.coordinates)
 
-            if frame_indices is not 'all':
-                tmp_item.coordinates = tmp_item.coordinates[frame_indices,:,:]
+            if structure_indices is not 'all':
+                tmp_item.coordinates = tmp_item.coordinates[structure_indices,:,:]
 
             tmp_item.n_frames = tmp_item.coordinates.shape[0]
             tmp_item.n_atoms = tmp_item.coordinates.shape[1]
@@ -163,11 +163,11 @@ class Trajectory():
 
         return tmp_item
 
-    def add(self, item, selection='all', frame_indices='all'):
+    def add(self, item, selection='all', structure_indices='all'):
 
         from molsysmt.basic import get
 
-        step, time, coordinates, box = get(item, target="atom", selection=selection, frame_indices=frame_indices, frame=True)
+        step, time, coordinates, box = get(item, target="atom", selection=selection, structure_indices=structure_indices, frame=True)
 
         if self.n_frames==0:
             self.append_frames(step, time, coordinates, box)
@@ -185,11 +185,11 @@ class Trajectory():
 
         pass
 
-    def append(self, item, selection='all', frame_indices='all'):
+    def append(self, item, selection='all', structure_indices='all'):
 
         from molsysmt.basic import get
 
-        step, time, coordinate, box = get(item, target="atom", selection=selection, frame_indices=frame_indices, frame=True)
+        step, time, coordinate, box = get(item, target="atom", selection=selection, structure_indices=structure_indices, frame=True)
         self.append_frames(step, time, coordinate, box)
 
         pass

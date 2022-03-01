@@ -1,6 +1,6 @@
-def from_file_h5(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_file_h5(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_file_h5 import to_mdtraj_Topology as file_h5_to_mdtraj_Topology
+    from molsysmt.api_forms.api_file_h5 import to_mdtraj_Topology as file_h5_to_mdtraj_Topology
     from molsysmt.native.io.topology import from_mdtraj_Topology as mdtraj_Topology_to_molsysmt_Topology
 
     tmp_item, _ = file_h5_to_mdtraj_Topology(item)

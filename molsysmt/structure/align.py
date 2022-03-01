@@ -1,6 +1,6 @@
 import numpy as np
 
-def align(molecular_system, selection='backbone', frame_indices='all',
+def align(molecular_system, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection='backbone', reference_frame_index=0,
           syntaxis='MolSysMT', parallel=True, method='sequence alignment and least rmsd fit',
           engine_sequence_alignment = 'biopython', engine_least_rmsd_fit = 'MolSysMT'):
@@ -35,7 +35,7 @@ def align(molecular_system, selection='backbone', frame_indices='all',
             from molsysmt.structure import fit
 
 
-            output = fit(molecular_system=molecular_system, selection=selection_to_be_fitted, frame_indices=frame_indices,
+            output = fit(molecular_system=molecular_system, selection=selection_to_be_fitted, structure_indices=structure_indices,
                          reference_molecular_system=reference_molecular_system,
                          reference_selection=reference_selection_to_be_fitted, reference_frame_index=reference_frame_index,
                          engine='MolSysMT', parallel=parallel, syntaxis=syntaxis)

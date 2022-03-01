@@ -15,7 +15,7 @@ has = molecular_system_components.copy()
 for ii in ['thermo_state', 'simulation']:
     has[ii]=True
 
-def to_SimulationDict(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_SimulationDict(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     tmp_item = item.to_dict()
     if molecular_system is not None:
@@ -25,11 +25,11 @@ def to_SimulationDict(item, molecular_system=None, atom_indices='all', frame_ind
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_molsysmt_Simulation(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True):
 
     tmp_molecular_system=None
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         if copy_if_all:
             tmp_item = extract(item)
             if molecular_system is not None:
@@ -39,15 +39,15 @@ def to_molsysmt_Simulation(item, molecular_system=None, atom_indices='all', fram
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
         if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', structure_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         tmp_item = item.copy()
     else:
         raise NotWithThisFormError()

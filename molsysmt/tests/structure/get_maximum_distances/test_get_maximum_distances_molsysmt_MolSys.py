@@ -30,8 +30,8 @@ def test_get_maximum_distances_from_molsysmt_MolSys_2():
                                                 group_behavior='geometric_center',
                                                 groups_of_atoms_2=list_atom_groups,
                                                 group_behavior_2='geometric_center',
-                                                frame_indices=frames[:-1],
-                                                frame_indices_2=frames[1:],
+                                                structure_indices=frames[:-1],
+                                                structure_indices_2=frames[1:],
                                                 pairs=True)
     check_shape_1 = ((4999,)==max_group.shape)
     check_distance = np.isclose(puw.get_value(max_distances[1000], to_unit='nm'), 0.85040462)

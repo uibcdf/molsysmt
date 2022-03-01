@@ -1,4 +1,4 @@
-def from_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from .mdtraj_Topology import from_mdtraj_Topology
 
@@ -7,7 +7,7 @@ def from_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', fram
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = from_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = from_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 

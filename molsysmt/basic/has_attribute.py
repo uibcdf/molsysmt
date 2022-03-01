@@ -5,7 +5,7 @@ def has_attribute(molecular_system, attribute):
     from molsysmt.basic.get_form import get_form
     from molsysmt.basic.is_a_molecular_system import is_a_molecular_system
     from molsysmt.tools import is_attribute
-    from molsysmt.forms import dict_has
+    from molsysmt.api_forms import dict_has
     from molsysmt._private_tools.output import digest_output
 
     attributes = attribute

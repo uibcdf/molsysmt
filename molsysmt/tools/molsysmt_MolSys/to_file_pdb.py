@@ -1,11 +1,11 @@
 
-def to_file_pdb(item, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     if check_form:
         from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-        from molsysmt._private_tools.exceptions import ItemWithWrongForm
+        from molsysmt._private_tools.exceptions import WrongFormError
         if not is_molsysmt_MolSys(item):
-            raise ItemWithWrongForm('molsysmt.MolSys')
+            raise WrongFormError('molsysmt.MolSys')
 
     if output_filename is None:
         raise ValueError('The value different from None is required for the argument "output_filename"')

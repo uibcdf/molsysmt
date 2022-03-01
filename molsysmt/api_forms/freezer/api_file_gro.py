@@ -1,5 +1,5 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt.forms.common_gets import *
+from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt.native.molecular_system import molecular_system_components
 from molsysmt._private_tools.files_and_directories import temp_filename
@@ -19,35 +19,35 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'coordinates', 'box']:
     has[ii]=True
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.molsys import from_file_gro as file_gro_to_molsysmt_MolSys
 
-    tmp_item, tmp_molecular_system = file_gro_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = file_gro_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.topology import from_file_gro as file_gro_to_molsysmt_Topology
 
     tmp_item, tmp_molecular_system = file_gro_to_molsysmt_Topology(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+            molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.trajectory import from_file_gro as file_gro_to_molsysmt_Trajectory
 
-    tmp_item = file_gro_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item = file_gro_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item
 
-def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from parmed import load_file as parmed_file_loader
-    from molsysmt.forms.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
+    from molsysmt.api_forms.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
 
     tmp_item = parmed_file_loader(item)
     if molecular_system is not None:
@@ -55,14 +55,14 @@ def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_i
     else:
         tmp_molecular_system = None
     tmp_item, tmp_molecular_system = parmed_Structure_to_parmed_Structure(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from MDAnalysis import Universe as mdanalysis_Universe
-    from molsysmt.forms.api_mdanalysis_Universe import to_mdanalysis_Universe as mdanalysis_Universe_to_mdanalysis_Universe
+    from molsysmt.api_forms.api_mdanalysis_Universe import to_mdanalysis_Universe as mdanalysis_Universe_to_mdanalysis_Universe
 
     tmp_item = mdanalysis_Universe(item)
     if molecular_system is not None:
@@ -70,14 +70,14 @@ def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', fram
     else:
         tmp_molecular_system = None
     tmp_item, tmp_molecular_system = mdanalysis_Universe_to_mdanalysis_Universe(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from mdtraj import load_topology as mdtraj_load_topology
-    from molsysmt.forms.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
+    from molsysmt.api_forms.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
 
     tmp_item = mdtraj_load_topology(item)
     if molecular_system is not None:
@@ -85,21 +85,21 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
     else:
         tmp_molecular_system = None
 
-    tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from mdtraj import load
-    from molsysmt.forms.api_mdtraj_Topology import to_mdtraj_Trajectory as mdtraj_Topology_to_mdtraj_Trajectory
-    from molsysmt.forms.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
+    from molsysmt.api_forms.api_mdtraj_Topology import to_mdtraj_Trajectory as mdtraj_Topology_to_mdtraj_Trajectory
+    from molsysmt.api_forms.api_mdtraj_Trajectory import to_mdtraj_Trajectory as mdtraj_Trajectory_to_mdtraj_Trajectory
 
     if molecular_system is not None:
         if molecular_system.coordinates_form!='file:gro':
             tmp_item, tmp_molecular_system = to_mdtraj_Topology(item, molecular_system=molecular_system)
             tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Trajectory(tmp_item,
-                molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+                molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
         else:
             tmp_item, tmp_molecular_system = to_mdtraj_GroTrajectoryFile(item, molecular_system=molecular_system)
             tmp_item = tmp_item.read_as_traj()
@@ -109,17 +109,17 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_
                 tmp_molecular_system = None
             tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item,
                     molecular_system=tmp_molecular_system, atom_indices=atom_indices,
-                    frame_indices=frame_indices, copy_if_all=False)
+                    structure_indices=structure_indices, copy_if_all=False)
     else:
         tmp_item, _ = to_mdtraj_GroTrajectoryFile(item)
         tmp_item = tmp_item.read_as_traj()
         tmp_item, _ = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices,
-                    frame_indices=frame_indices, copy_if_all=False)
+                    structure_indices=structure_indices, copy_if_all=False)
         tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_GroTrajectoryFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_GroTrajectoryFile(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from mdtraj.formats import GroTrajectoryFile
 
@@ -131,10 +131,10 @@ def to_mdtraj_GroTrajectoryFile(item, molecular_system=None, atom_indices='all',
 
     return tmp_item, tmp_molecular_system
 
-def to_file_mol2(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_mol2(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
 
     from parmed import load_file as parmed_file_loader
-    from molsysmt.forms.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
+    from molsysmt.api_forms.api_parmed_Structure import to_parmed_Structure as parmed_Structure_to_parmed_Structure
 
     tmp_item = parmed_file_loader(item)
     if molecular_system is not None:
@@ -142,7 +142,7 @@ def to_file_mol2(item, molecular_system=None, atom_indices='all', frame_indices=
     else:
         tmp_molecular_system = None
     tmp_item, tmp_molecular_system = parmed_Structure_to_parmed_Structure(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
     tmp_item.save(output_filename)
     tmp_item = output_filename
     if tmp_molecular_system is not None:
@@ -150,20 +150,20 @@ def to_file_mol2(item, molecular_system=None, atom_indices='all', frame_indices=
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_parmed_Structure import to_openmm_Topology as parmed_Structure_to_openmm_Topology
+    from molsysmt.api_forms.api_parmed_Structure import to_openmm_Topology as parmed_Structure_to_openmm_Topology
 
     tmp_item, tmp_molecular_system = to_parmed_Structure(item, molecular_system=molecular_system)
     tmp_item, tmp_molecular_system = parmed_Structure_to_openmm_Topology(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from openmm.app.modeller import Modeller
-    from molsysmt.forms.api_openmm_Modeller import to_openmm_Modeller as openmm_Modeller_to_openmm_Modeller
+    from molsysmt.api_forms.api_openmm_Modeller import to_openmm_Modeller as openmm_Modeller_to_openmm_Modeller
 
     tmp_item = to_parmed_Structure(item)
     tmp_item = Modeller(tmp_item.topology, tmp_item.positions)
@@ -171,14 +171,14 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
     else:
         tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = openmm_Modeller_to_openmm_Modeller(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, tmp_molecular_system = openmm_Modeller_to_openmm_Modeller(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_GromacsGroFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_GromacsGroFile(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from openmm.app import GromacsGroFile
-    from molsysmt.forms.api_openmm_GromacsGroFile import to_openmm_GromacsGroFile as openmm_GromacsGroFile_to_openmm_GromacsGroFile
+    from molsysmt.api_forms.api_openmm_GromacsGroFile import to_openmm_GromacsGroFile as openmm_GromacsGroFile_to_openmm_GromacsGroFile
 
     tmp_item = GromacsGroFile(item)
     if molecular_system is not None:
@@ -186,25 +186,25 @@ def to_openmm_GromacsGroFile(item, molecular_system=None, atom_indices='all', fr
     else:
         tmp_molecular_system = None
     tmp_item, tmp_molecular_system = openmm_GromacsGroFile_to_openmm_GromacsGroFile(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+    from molsysmt.api_forms.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
-    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
     tmp_item, tmp_molecular_system = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item,
             molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_gro(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True, output_filename=None):
+def to_file_gro(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True, output_filename=None):
 
     tmp_molecular_system = None
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         if copy_if_all:
             tmp_item = extract(item)
             if molecular_system is not None:
@@ -214,18 +214,18 @@ def to_file_gro(item, molecular_system=None, atom_indices='all', frame_indices='
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
         if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract(item, atom_indices='all', frame_indices='all', output_filename=None):
+def extract(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     if output_filename is None:
         output_filename = temp_filename(extension='gro')
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         raise NotImplementedError()
     else:
         raise NotImplementedError()
@@ -250,18 +250,18 @@ def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
 
 ###### Get
 
-def aux_get_top(item, indices='all', frame_indices='all'):
+def aux_get_top(item, indices='all', structure_indices='all'):
 
-    from molsysmt.forms import forms
+    from molsysmt.api_forms import forms
 
     method_name = sys._getframe(1).f_code.co_name
 
     if 'mdtraj.Topology' in forms:
 
         tmp_item, _ = to_mdtraj_Topology(item)
-        module = importlib.import_module('molsysmt.forms.api_mdtraj_Topology')
+        module = importlib.import_module('molsysmt.api_forms.api_mdtraj_Topology')
         _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+        output = _get(tmp_item, indices=indices, structure_indices=structure_indices)
 
     else:
 
@@ -269,25 +269,25 @@ def aux_get_top(item, indices='all', frame_indices='all'):
 
     return output
 
-def aux_get_coors(item, indices='all', frame_indices='all'):
+def aux_get_coors(item, indices='all', structure_indices='all'):
 
-    from molsysmt.forms import forms
+    from molsysmt.api_forms import forms
 
     method_name = sys._getframe(1).f_code.co_name
 
     if 'openmm.GromacsGroFile' in forms:
 
         tmp_item, _ = to_openmm_GromacsGroFilee(item)
-        module = importlib.import_module('molsysmt.forms.api_openmm_GromacsGroFile')
+        module = importlib.import_module('molsysmt.api_forms.api_openmm_GromacsGroFile')
         _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+        output = _get(tmp_item, indices=indices, structure_indices=structure_indices)
 
     elif 'mdtraj.GroTrajectoryFile' in forms:
 
         tmp_item, _ = to_mdtraj_Topology(item)
-        module = importlib.import_module('molsysmt.forms.api_mdtraj_Topology')
+        module = importlib.import_module('molsysmt.api_forms.api_mdtraj_Topology')
         _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, frame_indices=frame_indices)
+        output = _get(tmp_item, indices=indices, structure_indices=structure_indices)
 
     else:
 
@@ -298,219 +298,219 @@ def aux_get_coors(item, indices='all', frame_indices='all'):
 
 ## atom
 
-def get_atom_index_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_index_from_atom(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_id_from_atom(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_name_from_atom(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_type_from_atom(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_group_index_from_atom (item, indices='all', frame_indices='all'):
+def get_group_index_from_atom (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+def get_component_index_from_atom (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
+def get_chain_index_from_atom (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+def get_molecule_index_from_atom (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
+def get_entity_index_from_atom (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+def get_inner_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
+def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
+def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_frame_from_atom(item, indices='all', frame_indices='all'):
+def get_frame_from_atom(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
 ## group
 
-def get_group_id_from_group(item, indices='all', frame_indices='all'):
+def get_group_id_from_group(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_group_name_from_group(item, indices='all', frame_indices='all'):
+def get_group_name_from_group(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_group_type_from_group(item, indices='all', frame_indices='all'):
+def get_group_type_from_group(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
 ## component
 
-def get_component_id_from_component (item, indices='all', frame_indices='all'):
+def get_component_id_from_component (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_component_name_from_component (item, indices='all', frame_indices='all'):
+def get_component_name_from_component (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_component_type_from_component (item, indices='all', frame_indices='all'):
+def get_component_type_from_component (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
 ## molecule
 
-def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
+def get_molecule_id_from_molecule (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
+def get_molecule_name_from_molecule (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
+def get_molecule_type_from_molecule (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
 ## chain
 
-def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_id_from_chain (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_name_from_chain (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_type_from_chain (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
 ## entity
 
-def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
+def get_entity_id_from_entity (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
+def get_entity_name_from_entity (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
+def get_entity_type_from_entity (item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
 ## system
 
-def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_groups_from_system(item, indices='all', frame_indices='all'):
+def get_n_groups_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_components_from_system(item, indices='all', frame_indices='all'):
+def get_n_components_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_chains_from_system(item, indices='all', frame_indices='all'):
+def get_n_chains_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
+def get_n_molecules_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_entities_from_system(item, indices='all', frame_indices='all'):
+def get_n_entities_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_coordinates_from_system(item, indices='all', frame_indices='all'):
+def get_coordinates_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_box_from_system(item, indices='all', frame_indices='all'):
+def get_box_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_box_shape_from_system(item, indices='all', frame_indices='all'):
+def get_box_shape_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
+def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_box_angles_from_system(item, indices='all', frame_indices='all'):
+def get_box_angles_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+def get_box_volume_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_time_from_system(item, indices='all', frame_indices='all'):
+def get_time_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_step_from_system(item, indices='all', frame_indices='all'):
+def get_step_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+def get_n_frames_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_coors(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_coors(item, indices=indices, structure_indices=structure_indices)
 
-def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
+def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
 ## bond
 
-def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+def get_bond_order_from_bond(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+def get_bond_type_from_bond(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
-def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+def get_atom_index_from_bond(item, indices='all', structure_indices='all'):
 
-    return aux_get_top(item, indices=indices, frame_indices=frame_indices)
+    return aux_get_top(item, indices=indices, structure_indices=structure_indices)
 
 ###### Set
 
-def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+def set_box_to_system(item, indices='all', structure_indices='all', value=None):
 
     raise NotImplementedError
 
-def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
 
     raise NotImplementedError
 

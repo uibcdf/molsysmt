@@ -22,7 +22,7 @@ def test_get_minimum_distances_from_XYZ_1():
 def test_get_minimum_distances_from_XYZ_2():
     molsys = msm.convert(msm.demo['4 particles']['traj.xyznpy'], to_form='XYZ')
     min_pairs, min_distances = msm.structure.get_minimum_distances(molsys, selection=[0,1,2], selection_2=[0,1,2],
-                                               frame_indices=[0,1], frame_indices_2=[1,2], pairs=True)
+                                               structure_indices=[0,1], structure_indices_2=[1,2], pairs=True)
     check_shape_1 = ((2,)==min_pairs.shape)
     check_shape_2 = ((2,)==min_distances.shape)
     check_distance = np.isclose(puw.get_value(min_distances[1], to_unit='nm'), 1.0)
@@ -30,7 +30,7 @@ def test_get_minimum_distances_from_XYZ_2():
 
 def test_get_minimum_distances_from_XYZ_3():
     molsys = msm.convert(msm.demo['4 particles']['traj.xyznpy'], to_form='XYZ')
-    min_pairs, min_distances = msm.structure.get_minimum_distances(molsys, selection=[1,2], frame_indices=[0,1,2],
+    min_pairs, min_distances = msm.structure.get_minimum_distances(molsys, selection=[1,2], structure_indices=[0,1,2],
                                                 selection_2=[0,1], as_entity=False, as_entity_2=True)
     check_shape_1 = ((3,2)==min_pairs.shape)
     check_shape_2 = ((3,2)==min_distances.shape)

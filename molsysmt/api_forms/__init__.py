@@ -17,13 +17,16 @@ dict_get = {}
 dict_set = {}
 dict_convert = {}
 
-#file_extensions_recognized = []
-#string_names_recognized = []
+apis = []
+file_apis = []
+string_apis = []
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-list_apis = [filename.split('.')[0] for filename in os.listdir(current_dir) if filename.startswith('api_')]
+apis = [filename.split('.')[0] for filename in os.listdir(current_dir) if filename.startswith('api_')]
+file_apis = [filename.split('.')[0] for filename in os.listdir(current_dir) if filename.startswith('api_file_')]
+string_apis = [filename.split('.')[0] for filename in os.listdir(current_dir) if filename.startswith('api_string_')]
 
-for api_name in list_apis:
+for api_name in apis:
 
     mod = import_module('molsysmt.api_forms.'+api_name)
 
@@ -63,11 +66,6 @@ for api_name in list_apis:
             option, target = method[4:].split('_to_')
             dict_set[mod.form_name][target][option]=getattr(mod, method)
 
-    #if mod.form_type=='file':
-    #    file_extensions_recognized.append(mod.form_name.split(':')[-1].lower())
-    #elif mod.form_type=='string':
-    #    string_names_recognized.append(mod.form_name.split(':')[-1])
-
 del(mod, method, out_form_name)
-del(list_apis, current_dir, import_module)
+del(current_dir, import_module)
 

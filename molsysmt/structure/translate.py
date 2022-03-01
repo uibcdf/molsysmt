@@ -3,11 +3,11 @@ from molsysmt import puw
 from molsysmt.basic import get, set, select, copy
 from molsysmt._private_tools.molecular_system import digest_molecular_system
 
-def translate(molecular_system, translation=None, selection='all', frame_indices='all', syntaxis='MolSysMT', in_place=False):
+def translate(molecular_system, translation=None, selection='all', structure_indices='all', syntaxis='MolSysMT', in_place=False):
 
 
     atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
-    coordinates = get(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+    coordinates = get(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True)
 
     length_units = puw.get_unit(coordinates)
     coordinates = puw.get_value(coordinates)
@@ -36,10 +36,10 @@ def translate(molecular_system, translation=None, selection='all', frame_indices
     coordinates=coordinates*length_units
 
     if in_place:
-        return set(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=coordinates)
+        return set(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
     else:
         tmp_molecular_system = copy(molecular_system)
         tmp_molecular_system = digest_molecular_system(tmp_molecular_system)
-        set(tmp_molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices, coordinates=coordinates)
+        set(tmp_molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
         return tmp_molecular_system
 

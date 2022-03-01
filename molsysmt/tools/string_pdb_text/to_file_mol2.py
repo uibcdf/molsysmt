@@ -1,4 +1,4 @@
-def to_file_mol2(item, selection='all', model_indices='all', output_filename=None, syntaxis='MolSysMT'):
+def to_file_mol2(item, selection='all', structure_indices='all', output_filename=None, syntaxis='MolSysMT'):
 
     from molsysmt.tools.string_pdb_text import is_string_pdb_text
     from molsysmt.tools.file_mol2 import is_file_mol2
@@ -13,7 +13,7 @@ def to_file_mol2(item, selection='all', model_indices='all', output_filename=Non
     if not is_file_mol2(output_filename):
         raise ValueError
 
-    tmp_item = convert(item, output_filename, selection=selection, frame_indices=model_indices, syntaxis=syntaxis)
+    tmp_item = convert(item, output_filename, selection=selection, structure_indices=structure_indices, syntaxis=syntaxis)
 
     return tmp_item
 

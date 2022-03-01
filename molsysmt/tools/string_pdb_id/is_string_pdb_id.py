@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import ItemWithWrongForm
+from molsysmt._private_tools.exceptions import WrongFormError
 
 def is_string_pdb_id(item):
 
@@ -18,7 +18,7 @@ def _checking_form(item, check_form=True):
 
     if check_form:
         if not is_string_pdb_id(item):
-            raise ItemWithWrongForm('string:pdb_id')
+            raise WrongFormError('string:pdb_id')
 
     pass
 

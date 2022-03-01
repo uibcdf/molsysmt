@@ -3,7 +3,7 @@ from molsysmt.basic import convert, select, get
 from molsysmt._private_tools._digestion import digest_engine, digest_target
 import numpy as np
 
-def get_sasa (molecular_system, target='atom', selection='all', frame_indices='all', syntaxis='MolSysMT',
+def get_sasa (molecular_system, target='atom', selection='all', structure_indices='all', syntaxis='MolSysMT',
           engine='MDTraj'):
 
     engine = digest_engine(engine)
@@ -13,7 +13,7 @@ def get_sasa (molecular_system, target='atom', selection='all', frame_indices='a
 
         from mdtraj import shrake_rupley
 
-        tmp_item = convert(molecular_system, frame_indices=frame_indices, to_form='mdtraj.Trajectory')
+        tmp_item = convert(molecular_system, structure_indices=structure_indices, to_form='mdtraj.Trajectory')
 
         sasa_array = shrake_rupley(tmp_item, mode='atom') # tiene probe_radius y n_sphere_points
 

@@ -3,7 +3,7 @@
 from .adaptor import MolSysMTTrajectory
 from nglview.widget import NGLWidget
 
-def show_molsysmt(molsys, selection='all', frame_indices='all', **kwargs):
+def show_molsysmt(molsys, selection='all', structure_indices='all', **kwargs):
     '''Show NGL widget with molsysmt.MolSys object.
 
     Visit `MolSysmt documentation webpage <http://www.uibcdf.org/MolSysMT>`_ for further info.
@@ -17,6 +17,6 @@ def show_molsysmt(molsys, selection='all', frame_indices='all', **kwargs):
     ... w
     '''
     structure_trajectory = MolSysMTTrajectory(molsys, selection=selection,
-                                              frame_indices=frame_indices)
+                                              structure_indices=structure_indices)
     return NGLWidget(structure_trajectory, **kwargs)
 

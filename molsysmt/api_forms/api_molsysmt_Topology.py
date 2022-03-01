@@ -66,7 +66,7 @@ form_attributes = {
     'damping' : False,
 }
 
-def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_Topology import to_string_aminoacids3 as molsysmt_Topology_to_string_aminoacids3
 
@@ -74,7 +74,7 @@ def to_string_aminoacids3(item, molecular_system, atom_indices='all', frame_indi
 
     return tmp_item
 
-def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_Topology import to_string_aminoacids1 as molsysmt_Topology_to_string_aminoacids1
 
@@ -82,18 +82,18 @@ def to_string_aminoacids1(item, molecular_system, atom_indices='all', frame_indi
 
     return tmp_item
 
-def to_openmm_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_Topology import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
     from molsysmt.basic import get
 
-    box = get(molecular_system, target='system', frame_indices=frame_indices, box=True)
+    box = get(molecular_system, target='system', structure_indices=structure_indices, box=True)
 
     tmp_item = molsysmt_Topology_to_openmm_Topology(item, box, atom_indices=atom_indices, check_form=False)
 
     return tmp_item
 
-def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
 
@@ -101,25 +101,25 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', frame_indices
 
     return tmp_item
 
-def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
     from molsysmt.tools.molsysmt_Topology import to_file_pdb as molsysmt_Topology_to_file_pdb
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
-    box = get(molecular_system, target='system', frame_indices=frame_indices, box=True)
+    coordinates = get(molecular_system, target='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
+    box = get(molecular_system, target='system', structure_indices=structure_indices, box=True)
 
     tmp_item = molsysmt_Topology_to_file_pdb(item, coordinates, box, atom_indices=atom_indices, output_filename=output_filename, check_form=False)
 
     return tmp_item
 
-def to_string_pdb_text(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_Topology import to_string_pdb_text as molsysmt_Topology_to_string_pdb_text
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
-    box = get(molecular_system, target='system', frame_indices=frame_indices, box=True)
+    coordinates = get(molecular_system, target='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
+    box = get(molecular_system, target='system', structure_indices=structure_indices, box=True)
 
     tmp_item = molsysmt_Topology_to_string_pdb_text(item, coordinates, box, atom_indices=atom_indices, output_filename=output_filename, check_form=False)
 

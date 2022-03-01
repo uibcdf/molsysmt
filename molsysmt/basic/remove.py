@@ -1,11 +1,11 @@
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.frame_indices import complementary_frame_indices
+from molsysmt._private_tools.structure_indices import complementary_structure_indices
 from molsysmt._private_tools.atom_indices import complementary_atom_indices
 
-def remove(molecular_system, selection=None, frame_indices=None, to_form=None, syntaxis='MolSysMT'):
+def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntaxis='MolSysMT'):
 
-    """remove(item, selection=None, frame_indices=None, syntaxis='MolSysMT')
+    """remove(item, selection=None, structure_indices=None, syntaxis='MolSysMT')
 
     Remove atoms or frames from the molecular model.
 
@@ -22,7 +22,7 @@ def remove(molecular_system, selection=None, frame_indices=None, to_form=None, s
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
 
-    frame_indices: str, list, tuple or np.ndarray, default=None
+    structure_indices: str, list, tuple or np.ndarray, default=None
         XXX
 
     syntaxis: str, default='MolSysMT'
@@ -63,19 +63,19 @@ def remove(molecular_system, selection=None, frame_indices=None, to_form=None, s
     from molsysmt.basic import select, extract
 
     molecular_system = digest_molecular_system(molecular_system)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     atom_indices_to_be_kept = 'all'
-    frame_indices_to_be_kept = 'all'
+    structure_indices_to_be_kept = 'all'
 
     if selection is not None:
         atom_indices_to_be_removed = select(molecular_system, selection=selection, syntaxis=syntaxis)
         atom_indices_to_be_kept = complementary_atom_indices(molecular_system, atom_indices_to_be_removed)
 
-    if frame_indices is not None:
-        frame_indices_to_be_kept = complementary_frame_indices(molecular_system, frame_indices)
+    if structure_indices is not None:
+        structure_indices_to_be_kept = complementary_structure_indices(molecular_system, structure_indices)
 
-    tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept, frame_indices=frame_indices_to_be_kept, to_form=to_form)
+    tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept, structure_indices=structure_indices_to_be_kept, to_form=to_form)
     tmp_item = digest_output(tmp_item)
 
     return tmp_item

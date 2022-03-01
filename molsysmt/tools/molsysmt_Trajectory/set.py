@@ -1,5 +1,5 @@
 
-def set_box_to_system(item, indices='all', frame_indices='all', value=None, check_form=True):
+def set_box_to_system(item, indices='all', structure_indices='all', value=None, check_form=True):
 
     if check_form:
         from molsysmt.tools.molsysmt_Trajectory.is_molsysmt_Trajectory import _checking_form
@@ -18,7 +18,7 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None, chec
 
     pass
 
-def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None, check_form=True):
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check_form=True):
 
     if check_form:
         from molsysmt.tools.molsysmt_Trajectory.is_molsysmt_Trajectory import _checking_form

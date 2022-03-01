@@ -27,7 +27,7 @@ def test_remove_2():
 
     molsys = msm.demo['Trp-Cage']['1l2y.pdb']
     molsys = msm.convert(molsys, to_form='molsysmt.Trajectory')
-    molsys = msm.remove(molsys, frame_indices=range(1,38))
+    molsys = msm.remove(molsys, structure_indices=range(1,38))
     df = msm.info(molsys)
     true_dict = {'form': {0: 'molsysmt.Trajectory'},
                  'n_atoms': {0: 304},

@@ -48,7 +48,7 @@ class Topology():
         self.atoms_dataframe=Atoms_DataFrame()
         self.bonds_dataframe=Bonds_DataFrame()
 
-    def extract(self, atom_indices='all', frame_indices='all'):
+    def extract(self, atom_indices='all', structure_indices='all'):
 
         if type(atom_indices)==str:
 
@@ -98,11 +98,11 @@ class Topology():
 
         return tmp_item
 
-    def add(self, item, selection='all', frame_indices='all'):
+    def add(self, item, selection='all', structure_indices='all'):
 
         from molsysmt import convert, get
 
-        tmp_item = convert(item, selection=selection, frame_indices=frame_indices, to_form='molsysmt.Topology')
+        tmp_item = convert(item, selection=selection, structure_indices=structure_indices, to_form='molsysmt.Topology')
 
         n_atoms, n_groups, n_components, n_chains, n_molecules = get(self, target='system', n_atoms=True, n_groups=True,
                 n_components=True, n_chains=True, n_molecules=True)
@@ -136,12 +136,12 @@ class Topology():
 
         return tmp_item
 
-    def _to_pdb_string(self, trajectory_item, frame_indices='all'):
+    def _to_pdb_string(self, trajectory_item, structure_indices='all'):
 
         from molsysmt.native.io.topology import to_pdb as molsysmt_Topology_to_pdb
 
         return molsysmt_Topology_to_pdb(self, trajectory_item=trajectory_item, output_filepath='.pdb',
-                                         atom_indices='all', frame_indices=frame_indices)
+                                         atom_indices='all', structure_indices=structure_indices)
 
     def _build_components(self):
 

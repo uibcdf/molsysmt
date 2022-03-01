@@ -1,5 +1,5 @@
 from molsysmt._private_tools.engines import digest_engine
-from molsysmt._private_tools.frame_indices import digest_frame_indices
+from molsysmt._private_tools.structure_indices import digest_structure_indices
 from molsysmt._private_tools.forms import digest_form
 from molsysmt._private_tools.box import digest_box_angles, digest_box_lengths
 from molsysmt.lib import box as libbox
@@ -8,7 +8,7 @@ from molsysmt import puw
 
 #def minimum_image_convention(item, selection='all', reference_selection=None,
 #                             reference_coordinates=None, center_of_selection='geometrical_center',
-#                             center_of_reference_selection='geometrical_center', frame_indices='all',
+#                             center_of_reference_selection='geometrical_center', structure_indices='all',
 #                             syntaxis='MDTraj', engine='MolSysMT'):
 #
 #    from molsysmt import convert, select, get, duplicate
@@ -19,8 +19,8 @@ from molsysmt import puw
 #    n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
 #    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 #    n_atom_indices = len(atom_indices)
-#    frame_indices = _digest_frame_indices(item, frame_indices)
-#    n_frame_indices = len(frame_indices)
+#    structure_indices = _digest_structure_indices(item, structure_indices)
+#    n_structure_indices = len(structure_indices)
 #
 #    engine = _digest_engines(engine)
 #    form_in, _ = _digest_forms(item, engine)
@@ -31,7 +31,7 @@ from molsysmt import puw
 #        if reference_coordinates is None:
 #            if center_of_reference_selection == 'geometrical_center':
 #                reference_coordinates = geometrical_center(tmp_item, selection=reference_selection,
-#                                                        frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
+#                                                        structure_indices=structure_indices, syntaxis=syntaxis, engine=engine)
 #
 #        molecules = get(tmp_item, molecules=True)
 #
@@ -46,9 +46,9 @@ from molsysmt import puw
 #
 #        if center_of_selection == 'geometrical_center':
 #            centers_molecules = geometrical_center(tmp_item, selection_groups=molecules,
-#                    frame_indices=frame_indices, syntaxis=syntaxis, engine=engine)
+#                    structure_indices=structure_indices, syntaxis=syntaxis, engine=engine)
 #
-#        coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, frame_indices='all')
+#        coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, structure_indices='all')
 #
 #        units = puw.get_unit(coordinates)
 #        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
@@ -59,9 +59,9 @@ from molsysmt import puw
 #
 #        libbox.minimum_image_convention(coordinates, reference_coordinates, centers_molecules,
 #                molecules_serialized.indices, molecules_serialized.values,
-#                molecules_serialized.starts, frame_indices, box, orthogonal,
+#                molecules_serialized.starts, structure_indices, box, orthogonal,
 #                n_frames, n_atoms, molecules_serialized.n_indices, molecules_serialized.n_values,
-#                n_frame_indices)
+#                n_structure_indices)
 #
 #        coordinates=np.ascontiguousarray(coordinates)*units
 #
@@ -76,7 +76,7 @@ from molsysmt import puw
 #
 #        raise NotImplementedError
 
-#def keep_compact_molecules_in_pbc(item, selection='all', frame_indices='all', syntaxis='MDTraj', engine='MolSysMT'):
+#def keep_compact_molecules_in_pbc(item, selection='all', structure_indices='all', syntaxis='MDTraj', engine='MolSysMT'):
 #
 #    from molsysmt import convert, select, get, duplicate
 #    from molsysmt import set as _set
@@ -85,8 +85,8 @@ from molsysmt import puw
 #    n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
 #    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 #    n_atom_indices = len(atom_indices)
-#    frame_indices = _digest_frame_indices(item, frame_indices)
-#    n_frame_indices = len(frame_indices)
+#    structure_indices = _digest_structure_indices(item, structure_indices)
+#    n_structure_indices = len(structure_indices)
 #
 #    engine = _digest_engines(engine)
 #    form_in, _ = _digest_forms(item, engine)
@@ -108,7 +108,7 @@ from molsysmt import puw
 #        bonded_atoms = get(tmp_item, target='atom', indices=atom_indices, bonded_atoms=True)
 #        bonded_atoms_serialized = serialized_lists(bonded_atoms, dtype='int64')
 #
-#        coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, frame_indices='all')
+#        coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, structure_indices='all')
 #
 #        units = puw.get_unit(coordinates)
 #        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
@@ -118,10 +118,10 @@ from molsysmt import puw
 #
 #        libbox.unwrap(coordinates, molecules_serialized.indices, molecules_serialized.values, molecules_serialized.starts,
 #                       bonded_atoms_serialized.indices, bonded_atoms_serialized.values, bonded_atoms_serialized.starts,
-#                       frame_indices, box, orthogonal, n_frames, n_atoms,
+#                       structure_indices, box, orthogonal, n_frames, n_atoms,
 #                       molecules_serialized.n_indices, molecules_serialized.n_values,
 #                       bonded_atoms_serialized.n_indices, bonded_atoms_serialized.n_values,
-#                       n_frame_indices)
+#                       n_structure_indices)
 #
 #        coordinates=_np.ascontiguousarray(coordinates)*units
 #

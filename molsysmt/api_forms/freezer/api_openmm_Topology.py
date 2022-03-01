@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt.forms.common_gets import *
+from molsysmt.api_forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt import puw
 from molsysmt.native.molecular_system import molecular_system_components
@@ -17,27 +17,27 @@ has = molecular_system_components.copy()
 for ii in ['elements', 'bonds', 'box']:
     has[ii]=True
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.topology import from_openmm_Topology as molsysmt_Topology_from_openmm_Topology
 
     tmp_item, tmp_molecular_system = molsysmt_Topology_from_openmm_Topology(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+            molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.molsys import from_openmm_Topology as molsysmt_MolSys_from_openmm_Topology
 
     tmp_item, tmp_molecular_system = molsysmt_MolSys_from_openmm_Topology(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+            molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
+    from molsysmt.api_forms.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
     from mdtraj.core.topology import Topology as mdtraj_Topology
 
     tmp_item = mdtraj_Topology.from_openmm(item)
@@ -46,15 +46,15 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
     else:
         tmp_molecular_system = None
     tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices,
-            frame_indices=frame_indices, copy_if_all=False)
+            structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from parmed.openmm import load_topology
 
-    tmp_item, _ = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, _ = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
     tmp_item = load_topology(tmp_item)
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
@@ -63,12 +63,12 @@ def to_parmed_Structure(item, molecular_system=None, atom_indices='all', frame_i
 
     return tmp_item
 
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import get
     from openmm.app import Modeller
 
-    tmp_item, _ = to_openmm_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item, _ = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
     positions = get(molecular_system, target='atom', coordinates=True)
     positions = puw.convert(positions[0], 'nm', to_form='openmm.unit')
     tmp_item = Modeller(item, positions)
@@ -79,7 +79,7 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_System(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import convert
 
@@ -103,27 +103,27 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indi
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Context(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_openmm_System import to_openmm_Context as openmm_System_to_openmm_Context
+    from molsysmt.api_forms.api_openmm_System import to_openmm_Context as openmm_System_to_openmm_Context
 
-    tmp_item, tmp_molecular_system = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
     tmp_item, tmp_molecular_system = openmm_System_to_openmm_Context(tmp_item, molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
+    from molsysmt.api_forms.api_openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
 
-    tmp_item, tmp_molecular_system = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = to_openmm_System(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
     tmp_item, tmp_molecular_system = openmm_System_to_openmm_Simulation(tmp_item, molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
 
-    tmp_item, _ = to_string_pdb_text(item, molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, _ = to_string_pdb_text(item, molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     with open(output_filename, 'w') as fff:
         fff.write(tmp_item)
@@ -139,7 +139,7 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', frame_indices='
 
     return tmp_item, tmp_molecular_system
 
-def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_string_pdb_text(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import get
     from molsysmt import __version__ as msm_version
@@ -147,7 +147,7 @@ def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_in
     from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
     from io import StringIO
 
-    coordinates = get(molecular_system, target="atom", indices=atom_indices, frame_indices=frame_indices, coordinates=True)
+    coordinates = get(molecular_system, target="atom", indices=atom_indices, structure_indices=structure_indices, coordinates=True)
     topology, _ = to_openmm_Topology(item, atom_indices=atom_indices, copy_if_all=False)
 
     tmp_io = StringIO()
@@ -164,37 +164,37 @@ def to_string_pdb_text(item, molecular_system=None, atom_indices='all', frame_in
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_file_pdb import to_openmm_PDBFile as file_pdb_to_openmm_PDBFile
+    from molsysmt.api_forms.api_file_pdb import to_openmm_PDBFile as file_pdb_to_openmm_PDBFile
     from molsysmt._private_tools.files_and_directories import temp_filename
     from os import remove
 
     tmp_file = temp_filename(extension='pdb')
-    tmp_item, tmp_molecular_system = to_file_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=tmp_file)
+    tmp_item, tmp_molecular_system = to_file_pdb(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, output_filename=tmp_file)
     tmp_item, tmp_molecular_system = file_pdb_to_openmm_PDBFile(tmp_item, molecular_system=tmp_molecular_system)
 
     remove(tmp_file)
 
     return tmp_item, tmp_molecular_system
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     if molecular_system.trajectory_item is None:
         raise ValueError('To convert a openmm.Topology object to NGLView, a trajectory_item is needed.')
     else:
         from .api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
-        tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item, tmp_molecular_system = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
         tmp_item, tmp_molecular_system = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item,
                 molecular_system=tmp_molecular_system)
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True):
 
     tmp_molecular_system = None
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         if copy_if_all:
             tmp_item = extract(item)
             if molecular_system is not None:
@@ -204,15 +204,15 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', frame_in
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
         if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', structure_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
 
         from openmm.app import Topology
         new_item = Topology()
@@ -280,79 +280,79 @@ def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
 
 ## Atom
 
-def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_id_from_atom(item, indices='all', structure_indices='all'):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
     atom=list(item.atoms())
     output=[atom[ii].id for ii in tmp_indices]
     output=np.array(output, dtype=int)
     del(atom)
     return output
 
-def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_name_from_atom(item, indices='all', structure_indices='all'):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
     atom=list(item.atoms())
     output=[atom[ii].name for ii in tmp_indices]
     output=np.array(output)
     del(atom)
     return output
 
-def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_type_from_atom(item, indices='all', structure_indices='all'):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
     atom=list(item.atoms())
     output=[atom[ii].element.symbol for ii in tmp_indices]
     output=np.array(output)
     del(atom)
     return output
 
-def get_group_index_from_atom (item, indices='all', frame_indices='all'):
+def get_group_index_from_atom (item, indices='all', structure_indices='all'):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
     atom=list(item.atoms())
     output = [atom[ii].residue.index for ii in tmp_indices]
     output=np.array(output)
     del(atom)
     return output
 
-def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+def get_component_index_from_atom (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.component import component_index_from_atom as get
     return get(item, indices=indices)
 
-def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
+def get_chain_index_from_atom (item, indices='all', structure_indices='all'):
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, frame_indices=frame_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
     atom=list(item.atoms())
     output = [atom[ii].residue.chain.index for ii in tmp_indices]
     del(atom)
     output =np.array(output)
     return output
 
-def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+def get_molecule_index_from_atom (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.molecule import molecule_index_from_atom as _get
     return _get(item, indices=indices)
 
-def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
+def get_entity_index_from_atom (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.entity import entity_index_from_atom as _get
     return _get(item, indices=indices)
 
-def get_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+def get_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
 
-def get_bond_index_from_atom (item, indices='all', frame_indices='all'):
+def get_bond_index_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
 
-def get_n_bonds_from_atom (item, indices='all', frame_indices='all'):
+def get_n_bonds_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
 
-def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+def get_inner_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
 
     output=[]
 
@@ -374,18 +374,18 @@ def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
 
     return(output)
 
-def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
+def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
 
     if indices is 'all':
         return get_n_bonds_from_system (item)
     else:
         inner_bonded_atoms = get_inner_bonded_atoms_from_atom(item, indices=indices,
-                frame_indices=frame_indices)
+                structure_indices=structure_indices)
         return inner_bonded_atoms.shape[0]
 
 ## group
 
-def get_group_id_from_group(item, indices='all', frame_indices='all'):
+def get_group_id_from_group(item, indices='all', structure_indices='all'):
 
     if indices is 'all':
         n_indices = get_n_groups_from_system(item)
@@ -397,7 +397,7 @@ def get_group_id_from_group(item, indices='all', frame_indices='all'):
     output = np.array(output, dtype=int)
     return output
 
-def get_group_name_from_group(item, indices='all', frame_indices='all'):
+def get_group_name_from_group(item, indices='all', structure_indices='all'):
 
     if indices is 'all':
         n_indices = get_n_groups_from_system(item)
@@ -409,7 +409,7 @@ def get_group_name_from_group(item, indices='all', frame_indices='all'):
     output =np.array(output, dtype=object)
     return output
 
-def get_group_type_from_group(item, indices='all', frame_indices='all'):
+def get_group_type_from_group(item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.group import name_to_type
 
@@ -425,41 +425,41 @@ def get_group_type_from_group(item, indices='all', frame_indices='all'):
 
 ## component
 
-def get_component_id_from_component (item, indices='all', frame_indices='all'):
+def get_component_id_from_component (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.component import get_component_index_from_atom as get
     return get(item, indices=indices)
 
-def get_component_name_from_component (item, indices='all', frame_indices='all'):
+def get_component_name_from_component (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.component import get_component_name_from_atom as get
     return get(item, indices=indices)
 
-def get_component_type_from_component (item, indices='all', frame_indices='all'):
+def get_component_type_from_component (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.component import get_component_type_from_atom as get
     return get(item, indices=indices)
 
 ## molecule
 
-def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
+def get_molecule_id_from_molecule (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.molecule import molecule_id_from_molecule as get
     return get(item, indices)
 
-def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
+def get_molecule_name_from_molecule (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.molecule import molecule_name_from_molecule as get
     return get(item, indices)
 
-def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
+def get_molecule_type_from_molecule (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.molecule import molecule_type_from_molecule as get
     return get(item, indices)
 
 ## chain
 
-def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_id_from_chain (item, indices='all', structure_indices='all'):
 
     if indices is 'all':
         n_indices = get_n_chains_from_system(item)
@@ -471,7 +471,7 @@ def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
     output = np.array(output)
     return output
 
-def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_name_from_chain (item, indices='all', structure_indices='all'):
 
     if indices is 'all':
         n_indices = get_n_chains_from_system(item)
@@ -481,7 +481,7 @@ def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
     output = np.array(output)
     return output
 
-def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_type_from_chain (item, indices='all', structure_indices='all'):
 
     if indices is 'all':
         n_indices = get_n_chains_from_system(item)
@@ -493,55 +493,55 @@ def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
 
 ## entity
 
-def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
+def get_entity_id_from_entity (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.entity import entity_id_from_entity as get
     return get(item, indices)
 
-def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
+def get_entity_name_from_entity (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.entity import entity_name_from_entity as get
     return get(item, indices)
 
-def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
+def get_entity_type_from_entity (item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.entity import entity_type_from_entity as get
     return get(item, indices)
 
 ## system
 
-def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system(item, indices='all', structure_indices='all'):
 
     return item.getNumAtoms()
 
-def get_n_groups_from_system(item, indices='all', frame_indices='all'):
+def get_n_groups_from_system(item, indices='all', structure_indices='all'):
 
     return item.getNumResidues()
 
-def get_n_components_from_system(item, indices='all', frame_indices='all'):
+def get_n_components_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.component import n_components_from_system as _get
     return _get(item)
 
-def get_n_chains_from_system(item, indices='all', frame_indices='all'):
+def get_n_chains_from_system(item, indices='all', structure_indices='all'):
 
     return item.getNumChains()
 
-def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
+def get_n_molecules_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.molecule import n_molecules_from_system as _get
     return _get(item)
 
-def get_n_entities_from_system(item, indices='all', frame_indices='all'):
+def get_n_entities_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.elements.entity import n_entities_from_system as _get
     return _get(item)
 
-def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
 
     return item.getNumBonds()
 
-def get_box_from_system(item, indices='all', frame_indices='all'):
+def get_box_from_system(item, indices='all', structure_indices='all'):
 
     from numpy import array as _array
 
@@ -558,38 +558,38 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
 
     return output
 
-def get_box_shape_from_system(item, indices='all', frame_indices='all'):
+def get_box_shape_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.pbc import box_shape_from_box_vectors
 
-    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices)
     output = box_shape_from_box_vectors(tmp_box)
 
     return output
 
-def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
+def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.pbc import box_lengths_from_box_vectors
 
-    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices)
     output = box_lengths_from_box_vectors(tmp_box)
 
     return output
 
-def get_box_angles_from_system(item, indices='all', frame_indices='all'):
+def get_box_angles_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.pbc import box_angles_from_box_vectors
 
-    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices)
     output = box_angles_from_box_vectors(tmp_box)
 
     return output
 
-def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+def get_box_volume_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.pbc import box_volume_from_box_vectors
 
-    tmp_box = get_box_from_system(item, frame_indices=frame_indices)
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices)
     if tmp_box is None:
         output=None
     else:
@@ -597,35 +597,35 @@ def get_box_volume_from_system(item, indices='all', frame_indices='all'):
 
     return output
 
-def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+def get_n_frames_from_system(item, indices='all', structure_indices='all'):
 
     return None
 
-def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
+def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
 
 ## bond
 
-def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+def get_bond_order_from_bond(item, indices='all', structure_indices='all'):
 
-    tmp_indices = get_bond_index_from_bond(item, indices=indices, frame_indices=frame_indices)
+    tmp_indices = get_bond_index_from_bond(item, indices=indices, structure_indices=structure_indices)
     bond = list(item.bonds())
     output=[bond[ii].order for ii in tmp_indices]
     output=np.array(output)
     del(bond)
     return output
 
-def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+def get_bond_type_from_bond(item, indices='all', structure_indices='all'):
 
-    tmp_indices = get_bond_index_from_bond(item, indices=indices, frame_indices=frame_indices)
+    tmp_indices = get_bond_index_from_bond(item, indices=indices, structure_indices=structure_indices)
     bond = list(item.bonds())
     output=[bond[ii].type for ii in tmp_indices]
     output=np.array(output)
     del(bond)
     return output
 
-def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+def get_atom_index_from_bond(item, indices='all', structure_indices='all'):
 
     if indices is 'all':
         n_bonds = get_n_bonds_from_system(item)
@@ -639,7 +639,7 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
 
 ###### Set
 
-def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+def set_box_to_system(item, indices='all', structure_indices='all', value=None):
 
     value = puw.convert(value, 'nanometers', to_form='openmm.unit')
 
@@ -653,7 +653,7 @@ def set_box_to_system(item, indices='all', frame_indices='all', value=None):
 
         raise ValueError("The box to set in to a openmm.Topology has corresponds to more than a frame")
 
-def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
 
     raise NotWithThisFormError()
 

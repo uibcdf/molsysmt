@@ -1,18 +1,18 @@
 from molsysmt._private_tools.engines import digest_engine
-from molsysmt._private_tools.frame_indices import digest_frame_indices
+from molsysmt._private_tools.structure_indices import digest_structure_indices
 from molsysmt._private_tools.forms import digest_form
 from molsysmt._private_tools.box import digest_box_angles, digest_box_lengths
 from molsysmt.lib import box as libbox
 import numpy as np
 from molsysmt import puw
 
-def wrap_to_mic(molecular_system, selection='all', frame_indices='all',
+def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
                 center='[0,0,0] nanometers', center_of_selection=None, weights_for_center=None,
                 recenter=True, keep_covalent_bonds=False,
                 syntaxis='MolSysMT', engine='MolSysMT', in_place=False):
 
     engine = digest_engine(engine)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     if engine=='MolSysMT':
 
@@ -24,7 +24,7 @@ def wrap_to_mic(molecular_system, selection='all', frame_indices='all',
         length_units = puw.get_unit(coordinates)
         n_frames = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
-        box, box_shape = get(molecular_system, target='system', frame_indices=frame_indices, box=True, box_shape=True)
+        box, box_shape = get(molecular_system, target='system', structure_indices=structure_indices, box=True, box_shape=True)
         box = puw.convert(box, to_unit=length_units)
 
         orthogonal = 0
@@ -37,7 +37,7 @@ def wrap_to_mic(molecular_system, selection='all', frame_indices='all',
 
             from molsysmt.structure import get_center
             center = get_center(molecular_system, selection=center_of_selection,
-                                weights=weights_for_center, frame_indices=frame_indices,
+                                weights=weights_for_center, structure_indices=structure_indices,
                                 syntaxis=syntaxis, engine='MolSysMT')
 
             center = puw.convert(center, to_unit=length_units)
@@ -79,7 +79,7 @@ def wrap_to_mic(molecular_system, selection='all', frame_indices='all',
 
     if in_place:
 
-        set(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices,
+        set(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices,
                 syntaxis=syntaxis, coordinates=coordinates)
 
         pass
@@ -87,7 +87,7 @@ def wrap_to_mic(molecular_system, selection='all', frame_indices='all',
     else:
 
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices,
+        set(tmp_molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices,
             syntaxis=syntaxis, coordinates=coordinates)
 
         return tmp_molecular_system

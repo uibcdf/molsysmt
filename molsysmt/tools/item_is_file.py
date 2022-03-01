@@ -1,13 +1,15 @@
 def item_is_file(item):
 
-    from molsysmt.forms import file_extensions_recognized
+    from molsysmt.api_forms import file_apis
+    from importlib import import_module
 
     output = False
 
-    if type(item) is str:
-        file_extension = item.split('.')[-1].lower()
-        if file_extension in file_extensions_recognized:
-            output = 'file:'+file_extension
+    for file_api in file_apis:
+        api = import_module(api, 'molsysmt.api_forms')
+        if api.is_form(item):
+            output = True
+            break
 
     return output
 

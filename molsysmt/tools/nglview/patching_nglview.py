@@ -8,7 +8,7 @@ from .adaptor import MolSysMTTrajectory\n\
 \n\
 __all__.append('show_molsysmt')\n\
 \n\
-def show_molsysmt(molsys, selection='all', frame_indices='all', **kwargs):\n\
+def show_molsysmt(molsys, selection='all', structure_indices='all', **kwargs):\n\
     '''Show NGL widget with molsysmt.MolSys object.\n\
 \n\
     Visit `MolSysmt documentation webpage <http://www.uibcdf.org/MolSysMT>`_ for further\n\
@@ -23,7 +23,7 @@ def show_molsysmt(molsys, selection='all', frame_indices='all', **kwargs):\n\
     ... w\n\
     '''\n\
     structure_trajectory = MolSysMTTrajectory(molsys, selection=selection,\n\
-                                              frame_indices=frame_indices)\n\
+                                              structure_indices=structure_indices)\n\
     return NGLWidget(structure_trajectory, **kwargs)\n\
 "
 
@@ -51,7 +51,7 @@ class MolSysMTTrajectory(Trajectory, Structure):\n\
     >>> w\n\
     '''\n\
 \n\
-    def __init__(self, molsys, selection='all', frame_indices='all'):\n\
+    def __init__(self, molsys, selection='all', structure_indices='all'):\n\
 \n\
         try:\n\
             import molsysmt as msm\n\
@@ -60,8 +60,8 @@ class MolSysMTTrajectory(Trajectory, Structure):\n\
             raise ImportError(\n\
                 \"'MolSysMTTrajectory' requires the molsysmt package\")\n\
 \n\
-        self.pdb = msm.convert(molsys, to_form='string:pdb_text', selection=selection, frame_indices=0)\n\
-        _coordinates = msm.get(molsys, target='system', frame_indices=frame_indices, coordinates=True)\n\
+        self.pdb = msm.convert(molsys, to_form='string:pdb_text', selection=selection, structure_indices=0)\n\
+        _coordinates = msm.get(molsys, target='system', structure_indices=structure_indices, coordinates=True)\n\
         self.coordinates = puw.get_value(_coordinates,'angstroms')\n\
         self.ext = \"pdb\"\n\
         self.params = {}\n\

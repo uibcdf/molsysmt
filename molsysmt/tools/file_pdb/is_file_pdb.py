@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import ItemWithWrongForm
+from molsysmt._private_tools.exceptions import WrongFormError
 
 def is_file_pdb(item):
 
@@ -15,6 +15,6 @@ def _checking_form(item, check_form=True):
 
     if check_form:
         if not is_file_pdb(item):
-            raise ItemWithWrongForm('file:pdb')
+            raise WrongFormError('file:pdb')
 
 

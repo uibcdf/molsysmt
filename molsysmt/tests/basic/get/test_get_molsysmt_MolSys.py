@@ -363,7 +363,7 @@ def test_get_54():
 
 def test_get_55():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    coordinates = msm.get(molsys, target='atom', indices=100, frame_indices=0, coordinates=True)
+    coordinates = msm.get(molsys, target='atom', indices=100, structure_indices=0, coordinates=True)
     value = msm.puw.get_value(coordinates)
     unit = msm.puw.get_unit(coordinates)
     assert (unit==msm.puw.unit('nanometers')) and (np.allclose(value, np.array([[[1.8835, 3.8271, 5.0365]]])))
@@ -375,7 +375,7 @@ def test_get_56():
 
 def test_get_57():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    box = msm.get(molsys, target='system', frame_indices=0, box=True)
+    box = msm.get(molsys, target='system', structure_indices=0, box=True)
     value = msm.puw.get_value(box)
     unit = msm.puw.get_unit(box)
     true_value = np.array([[[4.37099990e+00, 0.00000000e+00, 0.00000000e+00],
@@ -385,14 +385,14 @@ def test_get_57():
 
 def test_get_58():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    box_lengths =msm.get(molsys, target='system', frame_indices=0, box_lengths=True)
+    box_lengths =msm.get(molsys, target='system', structure_indices=0, box_lengths=True)
     value = msm.puw.get_value(box_lengths)
     unit = msm.puw.get_unit(box_lengths)
     assert (unit==msm.puw.unit('nanometers')) and (np.allclose(value, np.array([[ 4.371   ,  7.765   , 14.953999]])))
 
 def test_get_59():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    box_angles =msm.get(molsys, target='system', frame_indices=0, box_angles=True)
+    box_angles =msm.get(molsys, target='system', structure_indices=0, box_angles=True)
     value = msm.puw.get_value(box_angles)
     unit = msm.puw.get_unit(box_angles)
     assert (unit==msm.puw.unit('degree')) and (np.allclose(value, np.array([[ 90., 90., 90.]])))

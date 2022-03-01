@@ -3,9 +3,9 @@ from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.api_forms import dict_add
 
-def add(to_molecular_system, from_molecular_systems, selections='all', frame_indices='all', syntaxis='MolSysMT'):
+def add(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT'):
 
-    """add(items=None, selection='all', frame_indices='all', syntaxis='MolSysMT' to_form=None)
+    """add(items=None, selection='all', structure_indices='all', syntaxis='MolSysMT' to_form=None)
 
     XXX
 
@@ -66,13 +66,13 @@ def add(to_molecular_system, from_molecular_systems, selections='all', frame_ind
     elif len(selections)!=n_from_molecular_systems:
         raise ValueError("The length of the lists items and selections need to be equal.")
 
-    if not is_list_or_tuple(frame_indices):
-        frame_indices = [digest_frame_indices(frame_indices) for ii in range(n_from_molecular_systems)]
-    elif len(frame_indices)!=n_from_molecular_systems:
-        raise ValueError("The length of the lists items and frame_indices need to be equal.")
+    if not is_list_or_tuple(structure_indices):
+        structure_indices = [digest_structure_indices(structure_indices) for ii in range(n_from_molecular_systems)]
+    elif len(structure_indices)!=n_from_molecular_systems:
+        raise ValueError("The length of the lists items and structure_indices need to be equal.")
 
 
-    for aux_molecular_system, aux_selection, aux_frame_indices in zip(from_molecular_systems, selections, frame_indices):
+    for aux_molecular_system, aux_selection, aux_structure_indices in zip(from_molecular_systems, selections, structure_indices):
 
         atom_indices = select(aux_molecular_system, selection=aux_selection, syntaxis=syntaxis)
 
@@ -84,7 +84,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', frame_ind
         to_item = to_molecular_system.elements_item
 
         if to_form is not None:
-            from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
+            from_item = convert(aux_molecular_system, selection=atom_indices, structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form)
             dict_add[to_form](to_item, from_item)
             to_already_added.append(to_item)
 
@@ -95,7 +95,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', frame_ind
 
         if to_form is not None:
             if to_item not in to_already_added:
-                from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
+                from_item = convert(aux_molecular_system, selection=atom_indices, structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form)
                 dict_add[to_form](to_item, from_item)
                 to_already_added.append(to_item)
 
@@ -106,7 +106,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', frame_ind
 
         if to_form is not None:
             if to_item not in to_already_added:
-                from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
+                from_item = convert(aux_molecular_system, selection=atom_indices, structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form)
                 dict_add[to_form](to_item, from_item)
                 to_already_added.append(to_item)
 
@@ -117,7 +117,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', frame_ind
 
         if to_form is not None:
             if to_item not in to_already_added:
-                from_item = convert(aux_molecular_system, selection=atom_indices, frame_indices=aux_frame_indices, syntaxis=syntaxis, to_form=to_form)
+                from_item = convert(aux_molecular_system, selection=atom_indices, structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form)
                 dict_add[to_form](to_item, from_item)
                 to_already_added.append(to_item)
 

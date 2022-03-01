@@ -1,4 +1,4 @@
-def to_biopython_SeqRecord(item, selection='all', frame_indices='all', syntaxis='MolSysMT'):
+def to_biopython_SeqRecord(item, selection='all', structure_indices='all', syntaxis='MolSysMT'):
 
     from molsysmt.tools.pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
     from molsysmt.basic import convert
@@ -7,7 +7,7 @@ def to_biopython_SeqRecord(item, selection='all', frame_indices='all', syntaxis=
         raise ValueError
 
     tmp_item = convert(item, to_form='biopython.SeqRecord', selection=selection,
-            frame_indices=frame_indices, syntaxis=syntaxis)
+            structure_indices=structure_indices, syntaxis=syntaxis)
 
     return tmp_item
 

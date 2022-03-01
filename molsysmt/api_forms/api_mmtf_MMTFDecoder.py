@@ -67,51 +67,51 @@ form_attributes = {
 }
 
 
-def to_file_mmtf(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_mmtf(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
     from molsysmt.tools.mmtf_MMTFDecoder import to_file_mmtf as mmtf_MMTFDecoder_to_file_mmtf
 
-    tmp_item = mmtf_MMTFDecoder_to_file_mmtf(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename, check_form=False)
+    tmp_item = mmtf_MMTFDecoder_to_file_mmtf(item, atom_indices=atom_indices, structure_indices=structure_indices, output_filename=output_filename, check_form=False)
 
     return tmp_item
 
-def to_file_pdb(item, molecular_system, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
     from molsysmt.tools.mmtf_MMTFDecoder import to_file_pdb as mmtf_MMTFDecoder_to_file_pdb
 
-    tmp_item = mmtf_MMTFDecoder_to_file_pdb(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename, check_form=False)
+    tmp_item = mmtf_MMTFDecoder_to_file_pdb(item, atom_indices=atom_indices, structure_indices=structure_indices, output_filename=output_filename, check_form=False)
 
     return tmp_item
 
-def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_MolSys as mmtf_MMTFDecoder_to_molsysmt_MolSys
 
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(item, atom_indices=atom_indices, frame_indices=frame_indices, check_form=False)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
 
     return tmp_item
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_Topology as mmtf_MMTFDecoder_to_molsysmt_Topology
 
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Topology(item, atom_indices=atom_indices, frame_indices=frame_indices, check_form=False)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
 
     return tmp_item
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
 
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices, check_form=False)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
 
     return tmp_item
 
-def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', frame_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.mmtf_MMTFDecoder import to_mdtraj_Trajectory as mmtf_MMTFDecoder_to_mdtraj_Trajectory
 
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Trajectory(item, atom_indices=atom_indices, frame_indices=frame_indices, check_form=False)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
 
     return tmp_item
 

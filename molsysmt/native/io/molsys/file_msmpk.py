@@ -1,7 +1,7 @@
 
-def from_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_file_msmpk(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_molsysmt_MolSys import to_molsysmt_MolSys as molsysmt_MolSys_to_molsysmt_MolSys
+    from molsysmt.api_forms.api_molsysmt_MolSys import to_molsysmt_MolSys as molsysmt_MolSys_to_molsysmt_MolSys
     from molsysmt import puw
     import pickle
 
@@ -33,7 +33,7 @@ def from_file_msmpk(item, molecular_system=None, atom_indices='all', frame_indic
 
     tmp_item, tmp_molecular_system = molsysmt_MolSys_to_molsysmt_MolSys(tmp_item,
             molecular_system=tmp_molecular_system, atom_indices=atom_indices,
-            frame_indices=frame_indices, copy_if_all=False)
+            structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 

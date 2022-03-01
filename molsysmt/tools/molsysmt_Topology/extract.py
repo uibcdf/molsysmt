@@ -1,4 +1,4 @@
-def extract(item, atom_indices='all', frame_indices='all', copy_if_all=True, check_form=True):
+def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check_form=True):
 
     if check_form:
         from molsysmt.tools.molsysmt_Topology.is_molsysmt_Topology import _checking_form

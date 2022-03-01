@@ -7,7 +7,7 @@ import molsysmt as msm
 import numpy as np
 import os
 
-# Whole systems (selection='all' and frame_indices='all')
+# Whole systems (selection='all' and structure_indices='all')
 
 def test_file_msmpk_to_molsysmt_MolSys():
     molsys = msm.demo['T4 lysozyme L99A']['vacuum.msmpk']

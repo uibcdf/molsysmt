@@ -29,8 +29,8 @@ dict_compare_in={
         'form' : compare_form_in,
         }
 
-def compare(molecular_system_A, molecular_system_B, selection_A='all', frame_indices_A='all',
-        selection_B='all', frame_indices_B='all', comparison='all', rule='A_eq_B',
+def compare(molecular_system_A, molecular_system_B, selection_A='all', structure_indices_A='all',
+        selection_B='all', structure_indices_B='all', comparison='all', rule='A_eq_B',
         syntaxis='MolSysMT', report=False):
 
     # rule in ['A_eq_B', 'A_neq_B', 'A_in_B', 'B_in_A']
@@ -43,8 +43,8 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', frame_ind
     if rule == 'A_eq_B':
 
         result, dict_report = dict_compare_eq[comparison](molecular_system_A, molecular_system_B,
-                 selection_A=selection_A, frame_indices_A=frame_indices_A,
-                 selection_B=selection_B, frame_indices_B=frame_indices_B,
+                 selection_A=selection_A, structure_indices_A=structure_indices_A,
+                 selection_B=selection_B, structure_indices_B=structure_indices_B,
                  syntaxis=syntaxis)
 
     elif rule in ['A_in_B', 'B_in_A']:
@@ -52,15 +52,15 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', frame_ind
         if rule == 'A_in_B':
 
             result, dict_report = dict_compare_in[argument](molecular_system_A, molecular_system_B,
-                    selection_A=selection_A, frame_indices_A=frame_indices_A,
-                    selection_B=selection_B, frame_indices_B=frame_indices_B,
+                    selection_A=selection_A, structure_indices_A=structure_indices_A,
+                    selection_B=selection_B, structure_indices_B=structure_indices_B,
                     syntaxis=syntaxis)
 
         else:
 
             result, dict_report = dict_compare_in[argument](molecular_system_B, molecular_system_A,
-                    selection_A=selection_B, frame_indices_A=frame_indices_B,
-                    selection_B=selection_A, frame_indices_B=frame_indices_A,
+                    selection_A=selection_B, structure_indices_A=structure_indices_B,
+                    selection_B=selection_A, structure_indices_B=structure_indices_A,
                     syntaxis=syntaxis)
 
     else:

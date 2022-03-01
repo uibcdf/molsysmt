@@ -47,7 +47,7 @@ class MolSysMTTrajectory(Trajectory, Structure):
     >>> w
     '''
 
-    def __init__(self, molsys, selection='all', frame_indices='all'):
+    def __init__(self, molsys, selection='all', structure_indices='all'):
 
         try:
             import molsysmt as msm
@@ -55,8 +55,8 @@ class MolSysMTTrajectory(Trajectory, Structure):
             raise ImportError(
                 "'MolSysMTTrajectory' requires the molsysmt package")
 
-        self.pdb = msm.convert(molsys, to_form='string:pdb_text', selection=selection, frame_indices=0)
-        self.coordinates = 10.0*msm.get(molsys, target='system', frame_indices=frame_indices,
+        self.pdb = msm.convert(molsys, to_form='string:pdb_text', selection=selection, structure_indices=0)
+        self.coordinates = 10.0*msm.get(molsys, target='system', structure_indices=structure_indices,
                                         coordinates=True)._value
         self.ext = "pdb"
         self.params = {}

@@ -5,18 +5,18 @@ from molsysmt.lib import geometry as libgeometry
 from molsysmt import puw
 import numpy as np
 
-def get_radius_of_gyration(molecular_system, selection='all', frame_indices='all',
+def get_radius_of_gyration(molecular_system, selection='all', structure_indices='all',
                            weights=None, pbc=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
     molecular_system = digest_molecular_system(molecular_system)
 
     engine = digest_engine(engine)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     if engine=='MolSysMT':
 
         coordinates == msm.get(molecular_system, target='atom', selection=selection,
-                               frame_indices=frame_indices, syntaxis=syntaxis, coordinates=True)
+                               structure_indices=structure_indices, syntaxis=syntaxis, coordinates=True)
 
         length_units = puw.get_unit(coordinates_1)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
@@ -26,7 +26,7 @@ def get_radius_of_gyration(molecular_system, selection='all', frame_indices='all
 
         if pbc:
 
-            box, box_shape = get(molecular_system, target='system', box=True, box_shape=True, frame_indices=frame_indices)
+            box, box_shape = get(molecular_system, target='system', box=True, box_shape=True, structure_indices=structure_indices)
 
             orthogonal = 0
             if box_shape is None:

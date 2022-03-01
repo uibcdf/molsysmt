@@ -1,4 +1,4 @@
-def to_parmed_Structure(item, atom_indices='all', model_indices='all', check_form=True):
+def to_parmed_Structure(item, atom_indices='all', structure_indices='all', check_form=True):
 
     if check_form:
         from molsysmt.tools.file_pdb.is_file_pdb import _checking_form
@@ -13,7 +13,7 @@ def to_parmed_Structure(item, atom_indices='all', model_indices='all', check_for
     from molsysmt.tools.parmed_Structure import extract
 
     tmp_item = load_file(item)
-    tmp_item = extract(tmp_item, atom_indices=atom_indices, frame_indices=model_indices, copy_if_all=False)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item
 

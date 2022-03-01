@@ -4,7 +4,7 @@ def where_is_attribute(molecular_system, attribute=None):
 
     from molsysmt.basic.get_form import get_form
     from molsysmt.basic.is_a_molecular_system import is_a_molecular_system
-    from molsysmt.forms import dict_has
+    from molsysmt.api_forms import dict_has
     from molsysmt.tools import is_attribute
 
     if not is_a_single_molecular_system(items):

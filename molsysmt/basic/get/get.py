@@ -3,9 +3,9 @@ from molsysmt._private_tools._digestion import *
 from .arguments import where_argument, digest_argument
 from molsysmt.api_forms import dict_get
 
-def get(molecular_system, target='atom', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+def get(molecular_system, target='atom', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs):
 
-    """get(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT')
+    """get(item, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Get specific attributes and observables.
 
@@ -64,7 +64,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', frame_in
     target = digest_target(target)
     attributes = [ digest_argument(key, target) for key in kwargs.keys() if kwargs[key] ]
     indices = digest_indices(indices)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     # doing the work here
 
@@ -83,7 +83,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', frame_in
             item = getattr(molecular_system, where_attribute+'_item')
             form = getattr(molecular_system, where_attribute+'_form')
             if item is not None:
-                result = dict_get[form][target][attribute](item, indices=indices, frame_indices=frame_indices)
+                result = dict_get[form][target][attribute](item, indices=indices, structure_indices=structure_indices)
             if result is not None:
                 break
 

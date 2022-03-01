@@ -1,4 +1,4 @@
-def to_molsysmt_Topology(item, atom_indices='all', frame_indices='all', bioassembly_index=0,
+def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
                          bioassembly_name=None, check_form=True):
 
     if check_form:

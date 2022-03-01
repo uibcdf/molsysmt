@@ -12,7 +12,7 @@ info=["",""]
 with_topology=True
 with_trajectory=False
 
-def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
+def to_aminoacids1_seq(item, atom_indices='all', structure_indices='all'):
 
     import urllib as _urllib
 
@@ -26,16 +26,16 @@ def to_aminoacids1_seq(item, atom_indices='all', frame_indices='all'):
     del(url_fasta,request_fasta,response_fasta,fasta_result)
     return tmp_sequence
 
-def to_aminoacids3_seq(item, atom_indices='all', frame_indices='all'):
-    from molsysmt.forms.seqs.api_aminoacids1 import to_aminoacids3_seq as _to_aa3_seq
+def to_aminoacids3_seq(item, atom_indices='all', structure_indices='all'):
+    from molsysmt.api_forms.seqs.api_aminoacids1 import to_aminoacids3_seq as _to_aa3_seq
     tmp_sequence = to_aminoacids1_seq(item)
     tmp_sequence = _to_aa3_seq(tmp_sequence)
     del(_to_aa3_seq)
     return tmp_sequence
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', structure_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -48,7 +48,7 @@ def copy(item):
 
 ## system
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
+def get_form_from_system(item, indices='all', structure_indices='all'):
 
     return form_name
 

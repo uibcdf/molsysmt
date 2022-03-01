@@ -1,4 +1,4 @@
-def to_file_fasta(item, atom_indices='all', model_indices='all', output_filename=None, check_form=True):
+def to_file_fasta(item, atom_indices='all', structure_indices='all', output_filename=None, check_form=True):
 
     if check_form:
         from molsysmt.tools.string_pdb_id.is_string_pdb_id import _checking_form
@@ -7,7 +7,7 @@ def to_file_fasta(item, atom_indices='all', model_indices='all', output_filename
     if output_filename is None:
         raise ValueError
 
-    from molsysmt.forms.api_file_fasta import to_file_fasta as file_fasta_to_file_fasta
+    from molsysmt.api_forms.api_file_fasta import to_file_fasta as file_fasta_to_file_fasta
 
     tmp_item = item.split(':')[-1]
     url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+tmp_item+'&compressionType=uncompressed'
@@ -23,7 +23,7 @@ def to_file_fasta(item, atom_indices='all', model_indices='all', output_filename
     else:
         tmp_molecular_system = None
     tmp_item, tmp_molecular_system= file_fasta_to_file_fasta(tmp_item, molecular_system=tmp_molecular_items, atom_indices=atom_indices,
-            frame_indices=frame_indices, output_filename=output_filename, copy_if_all=False)
+            structure_indices=structure_indices, output_filename=output_filename, copy_if_all=False)
 
     return tmp_item
 

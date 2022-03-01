@@ -20,15 +20,15 @@ _dssp_to_abc = {"I" : "c", # coil
                 "C" : "c",
                 "X" : "X"} # undefined
 
-def to_secondary_structure_abc(item, atom_indices='all', frame_indices='all'):
+def to_secondary_structure_abc(item, atom_indices='all', structure_indices='all'):
     raise NotImplementedError
 
 def select_with_MDTraj(item, selection):
     raise NotImplementedError
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', structure_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         return item
     else:
         raise NotImplementedError
@@ -42,7 +42,7 @@ def copy(item):
 
 ## system
 
-def get_form_from_system(item, indices='all', frame_indices='all'):
+def get_form_from_system(item, indices='all', structure_indices='all'):
 
     return form_name
 

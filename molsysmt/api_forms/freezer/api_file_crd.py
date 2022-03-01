@@ -1,5 +1,5 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt.forms.common_gets import *
+from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt.native.molecular_system import molecular_system_components
 from molsysmt._private_tools.files_and_directories import temp_filename
@@ -18,11 +18,11 @@ for ii in ['coordinates', 'box']:
     has[ii]=True
 
 
-def to_file_crd(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None, copy_if_all=True):
+def to_file_crd(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True):
 
     tmp_molecular_system = None
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         if copy_if_all:
             tmp_item = extract(item, output_filename=output_filename)
             if molecular_system is not None:
@@ -32,18 +32,18 @@ def to_file_crd(item, molecular_system=None, atom_indices='all', frame_indices='
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices, output_filename=output_filename)
+        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, output_filename=output_filename)
         if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract(item, atom_indices='all', frame_indices='all', output_filename=None):
+def extract(item, atom_indices='all', structure_indices='all', output_filename=None):
 
     if output_filename is None:
         output_filename = temp_filename(extension='crd')
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
 
         from shutil import copy as copy_file
         from molsysmt._private_tools.files_and_directories import temp_filename
@@ -56,33 +56,33 @@ def extract(item, atom_indices='all', frame_indices='all', output_filename=None)
 
     return tmp_item
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.molsys import from_crd as crd_to_molsysmt_MolSys
 
-    tmp_item, tmp_molecular_system = crd_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = crd_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.topology import from_crd as crd_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = crd_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = crd_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.trajectory import from_crd as crd_to_molsysmt_Trajectory
 
-    tmp_item, tmp_molecular_system = crd_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = crd_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_mdanalysis_Universe import to_mdanalysis_Universe as mdanalysis_Universe_to_mdanalysis_Universe
+    from molsysmt.api_forms.api_mdanalysis_Universe import to_mdanalysis_Universe as mdanalysis_Universe_to_mdanalysis_Universe
     from MDAnalysis import Universe
 
     tmp_item = Universe(item)
@@ -91,13 +91,13 @@ def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', fram
     else:
         tmp_molecular_system = None
     tmp_item, tmp_molecular_system = mdanalysis_Universe_to_mdanalysis_Universe(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdanalysis_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_mdanalysis_Topology import to_mdanalysis_Topology as mdanalysis_Topology_to_mdanalysis_Topology
+    from molsysmt.api_forms.api_mdanalysis_Topology import to_mdanalysis_Topology as mdanalysis_Topology_to_mdanalysis_Topology
     from MDAnalysis.topology import CRDParser
 
     tmp_item = CRDParser.CRDParser(item)
@@ -107,11 +107,11 @@ def to_mdanalysis_Topology(item, molecular_system=None, atom_indices='all', fram
     else:
         tmp_molecular_system = None
     tmp_item, tmp_molecular_system = mdanalysis_Topology_to_mdanalysis_Topology(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
 
-def to_mdanalysis_topology_CRDParser(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_topology_CRDParser(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from MDAnalysis.topology import CRDParser
 
@@ -123,7 +123,7 @@ def to_mdanalysis_topology_CRDParser(item, molecular_system=None, atom_indices='
 
     return tmp_item, tmp_molecular_system
 
-def to_mdanalysis_coordinates_CRDReader(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_coordinates_CRDReader(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from MDAnalysis.coordinates.CRD import CRDReader
 
@@ -135,7 +135,7 @@ def to_mdanalysis_coordinates_CRDReader(item, molecular_system=None, atom_indice
 
     return tmp_item, tmp_molecular_system
 
-def to_mdtraj_AmberRestartFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdtraj_AmberRestartFile(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from mdtraj.formats import AmberRestartFile
 
@@ -147,7 +147,7 @@ def to_mdtraj_AmberRestartFile(item, molecular_system=None, atom_indices='all', 
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_AmberInpcrdFile(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_AmberInpcrdFile(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from openmm.app import AmberInpcrdFile
 
@@ -179,33 +179,33 @@ def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
 
 # Atom
 
-def get_coordinates_from_atom (item, indices='all', frame_indices='all'):
+def get_coordinates_from_atom (item, indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_mdtraj_AmberRestartFile import get_coordinates_from_atom as _get
+    from molsysmt.api_forms.api_mdtraj_AmberRestartFile import get_coordinates_from_atom as _get
     tmp_item = to_mdtraj_AmberRestartFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return _get(tmp_item, indices=indices, structure_indices=structure_indices)
 
-def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+def get_n_atoms_from_atom (item, indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_mdtraj_AmberRestartFile import get_n_atoms_from_atom as _get
+    from molsysmt.api_forms.api_mdtraj_AmberRestartFile import get_n_atoms_from_atom as _get
     tmp_item = to_mdtraj_AmberRestartFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return _get(tmp_item, indices=indices, structure_indices=structure_indices)
 
 # System
 
-def get_coordinates_from_system (item, indices='all', frame_indices='all'):
+def get_coordinates_from_system (item, indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_mdtraj_AmberRestartFile import get_coordinates_from_system as _get
+    from molsysmt.api_forms.api_mdtraj_AmberRestartFile import get_coordinates_from_system as _get
     tmp_item = to_mdtraj_AmberRestartFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return _get(tmp_item, indices=indices, structure_indices=structure_indices)
 
-def get_n_frames_from_system (item, indices='all', frame_indices='all'):
+def get_n_frames_from_system (item, indices='all', structure_indices='all'):
 
-    from molsysmt.forms.api_mdtraj_AmberRestartFile import get_n_frames_from_system as _get
+    from molsysmt.api_forms.api_mdtraj_AmberRestartFile import get_n_frames_from_system as _get
     tmp_item = to_mdtraj_AmberRestartFile(item)
-    return _get(tmp_item, indices=indices, frame_indices=frame_indices)
+    return _get(tmp_item, indices=indices, structure_indices=structure_indices)
 
-def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system (item, indices='all', structure_indices='all'):
 
     return get_n_atoms_from_atom(item)
 

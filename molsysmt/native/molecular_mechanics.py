@@ -210,7 +210,7 @@ class MolecularMechanics():
 
         return parameters
 
-    def to_openmm_System(self, molecular_system=None, selection='all', frame_indices='all'):
+    def to_openmm_System(self, molecular_system=None, selection='all', structure_indices='all'):
 
         from molsysmt.basic import convert
 

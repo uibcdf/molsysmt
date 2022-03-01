@@ -1,7 +1,7 @@
 
-def extract(molecular_system, selection='all', frame_indices='all', to_form=None, syntaxis='MolSysMT'):
+def extract(molecular_system, selection='all', structure_indices='all', to_form=None, syntaxis='MolSysMT'):
 
-    """extract(item, selection='all', frame_indices='all', syntaxis='MolSysMT')
+    """extract(item, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Extract a subset of a molecular model.
 
@@ -43,5 +43,5 @@ def extract(molecular_system, selection='all', frame_indices='all', to_form=None
 
     from molsysmt.basic import convert
 
-    return convert(molecular_system, selection=selection, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis)
+    return convert(molecular_system, selection=selection, structure_indices=structure_indices, to_form=to_form, syntaxis=syntaxis)
 

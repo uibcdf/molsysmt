@@ -1,5 +1,5 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt.forms.common_gets import *
+from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt import puw
 from molsysmt.native.molecular_system import molecular_system_components
@@ -17,12 +17,12 @@ has = molecular_system_components.copy()
 for ii in ['box', 'ff_parameters', 'mm_parameters']:
     has[ii]=True
 
-def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Context(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import convert, get
     from openmm import Context
 
-    positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
+    positions = get(molecular_system, target='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
     positions = puw.convert(positions[0], to_unit='nm', to_form='openmm.unit')
     simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 
@@ -44,13 +44,13 @@ def to_openmm_Context(item, molecular_system=None, atom_indices='all', frame_ind
 
     return tmp_item, tmp_molecular_simulation
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.basic import convert, get
     from openmm.app import Simulation
 
     topology = convert(molecular_system, to_form='openmm.Topology', selection=atom_indices)
-    positions = get(molecular_system, target='atom', selection=atom_indices, frame_indices=frame_indices, coordinates=True)
+    positions = get(molecular_system, target='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
     positions = puw.convert(positions[0], to_unit='nm', to_form='openmm.unit')
     simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 
@@ -66,17 +66,17 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_
         tmp_item.context.setVelocitiesToTemperature(temperature)
 
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
     else:
         tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_openmm_System(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True):
 
     tmp_molecular_system = None
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         if copy_if_all:
             tmp_item = extract(item)
             if molecular_system is not None:
@@ -86,15 +86,15 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', frame_indi
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
         if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', structure_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         tmp_item = item.__copy__()
     else:
         raise NotImplementedError
@@ -121,187 +121,187 @@ def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
 
 ## Atom
 
-def get_n_atoms_from_atom (item, indices='all', frame_indices='all'):
+def get_n_atoms_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_n_atoms_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_atom_name_from_atom (item, indices='all', frame_indices='all'):
+def get_atom_name_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_atom_name_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_atom_index_from_atom (item, indices='all', frame_indices='all'):
+def get_atom_index_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_atom_index_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_atom_id_from_atom (item, indices='all', frame_indices='all'):
+def get_atom_id_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_atom_id_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_atom_type_from_atom (item, indices='all', frame_indices='all'):
+def get_atom_type_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_atom_type_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_groups_from_atom (item, indices='all', frame_indices='all'):
+def get_n_groups_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_n_groups_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_group_name_from_atom (item, indices='all', frame_indices='all'):
+def get_group_name_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_n_group_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_group_index_from_atom (item, indices='all', frame_indices='all'):
+def get_group_index_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_group_index_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_group_id_from_atom (item, indices='all', frame_indices='all'):
+def get_group_id_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_group_id_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
+def get_chain_index_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_chain_index_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_chain_id_from_atom (item, indices='all', frame_indices='all'):
+def get_chain_id_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_chain_id_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_aminoacids_from_atom (item, indices='all', frame_indices='all'):
+def get_n_aminoacids_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_n_aminoacids_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_nucleotides_from_atom (item, indices='all', frame_indices='all'):
+def get_n_nucleotides_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_n_nucleotides_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_waters_from_atom (item, indices='all', frame_indices='all'):
+def get_n_waters_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_n_waters_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_n_ions_from_atom (item, indices='all', frame_indices='all'):
+def get_n_ions_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_n_ions_from_atom as _get
     _get(item.topology, indices=indices)
 
-def get_mass_from_atom (item, indices='all', frame_indices='all'):
+def get_mass_from_atom (item, indices='all', structure_indices='all'):
 
     from molsysmt import get_mass as _get
     return _get(item, indices=indices)
 
-def get_net_mass_from_atom (item, indices='all', frame_indices='all'):
+def get_net_mass_from_atom (item, indices='all', structure_indices='all'):
 
     from molsysmt import get_net_mass as _get
     return _get(item, indices=indices)
 
-def get_charge_from_atom (item, indices='all', frame_indices='all'):
+def get_charge_from_atom (item, indices='all', structure_indices='all'):
 
     from molsysmt import get_charge as _get
     return _get(item, indices=indices)
-def get_net_charge_from_atom (item, indices='all', frame_indices='all'):
+def get_net_charge_from_atom (item, indices='all', structure_indices='all'):
 
     from molsysmt import get_net_charge as _get
     return _get(item, indices=indices)
 
-def get_n_degrees_of_freedom_from_atom (item, indices='all', frame_indices='all'):
+def get_n_degrees_of_freedom_from_atom (item, indices='all', structure_indices='all'):
 
     from molsysmt import get_degrees_of_freedom_charge as _get
     return _get(item, indices=indices)
 
-def get_molecule_type_from_atom (item, indices='all', frame_indices='all'):
+def get_molecule_type_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_molecule_type_from_atom as _get
     return _get(item, indices=indices)
 
-def get_coordinates_from_atom (item, indices='all', frame_indices='all'):
+def get_coordinates_from_atom (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Positions import get_coordinates_from_atom as _get
     return _get(item, indices=indices)
 
 ## group
 
-def get_n_groups_from_group (item, indices='all', frame_indices='all'):
+def get_n_groups_from_group (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_n_groups_from_group as _get
     return _get(item, indices=indices)
 
-def get_group_name_from_group (item, indices='all', frame_indices='all'):
+def get_group_name_from_group (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_group_name_from_group as _get
     return _get(item, indices=indices)
 
-def get_group_index_from_group (item, indices='all', frame_indices='all'):
+def get_group_index_from_group (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_group_index_from_group as _get
     return _get(item, indices=indices)
 
-def get_group_id_from_group (item, indices='all', frame_indices='all'):
+def get_group_id_from_group (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_group_id_from_group as _get
     return _get(item, indices=indices)
 
-def get_chain_index_from_group (item, indices='all', frame_indices='all'):
+def get_chain_index_from_group (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_chain_index_from_group as _get
     return _get(item, indices=indices)
 
-def get_chain_id_from_group (item, indices='all', frame_indices='all'):
+def get_chain_id_from_group (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_chain_id_from_group as _get
     return _get(item, indices=indices)
 
-def get_molecule_type_from_group (item, indices='all', frame_indices='all'):
+def get_molecule_type_from_group (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_molecule_type_from_group as _get
     return _get(item, indices=indices)
 
 ## chain
 
-def get_chain_index_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_index_from_chain (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_chain_index_from_chain as _get
     return _get(item, indices=indices)
 
-def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_id_from_chain (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_chain_id_from_chain as _get
     return _get(item, indices=indices)
 
-def get_molecule_type_from_chain (item, indices='all', frame_indices='all'):
+def get_molecule_type_from_chain (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_molecule_type_from_chain as _get
     return _get(item, indices=indices)
 
 ## system
 
-def get_n_atoms_from_system (item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system (item, indices='all', structure_indices='all'):
 
     from .api_openmm_Topology import get_n_atoms_from_system as _get
     return _get(item, indices=indices)
 
-def get_charge_from_system (item, indices='all', frame_indices='all'):
+def get_charge_from_system (item, indices='all', structure_indices='all'):
 
     from molsysmt import get_charge as _get
     return _get(item, indices=indices)
 
-def get_net_charge_from_system (item, indices='all', frame_indices='all'):
+def get_net_charge_from_system (item, indices='all', structure_indices='all'):
 
     from molsysmt import get_net_charge as _get
     return _get(item, indices=indices)
 
-def get_n_degrees_of_freedom_from_system (item, indices='all', frame_indices='all'):
+def get_n_degrees_of_freedom_from_system (item, indices='all', structure_indices='all'):
 
     from molsysmt import get_degrees_of_freedom as _get
     return _get(item, indices=indices)

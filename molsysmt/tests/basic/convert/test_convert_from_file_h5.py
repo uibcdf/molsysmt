@@ -7,7 +7,7 @@ import molsysmt as msm
 import numpy as np
 import os
 
-# Whole systems (selection='all' and frame_indices='all')
+# Whole systems (selection='all' and structure_indices='all')
 
 # Selection
 

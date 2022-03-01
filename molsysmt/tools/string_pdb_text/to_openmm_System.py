@@ -1,4 +1,4 @@
-def to_openmm_System(item, selection='all', model_indices='all', syntaxis='MolSysMT'):
+def to_openmm_System(item, selection='all', structure_indices='all', syntaxis='MolSysMT'):
 
     from molsysmt.tools.string_pdb_text import is_string_pdb_text
     from molsysmt.basic import convert
@@ -6,7 +6,7 @@ def to_openmm_System(item, selection='all', model_indices='all', syntaxis='MolSy
     if not is_string_pdb_text(item):
         raise ValueError
 
-    tmp_item = convert(item, to_form='openmm.System', selection=selection, frame_indices=model_indices, syntaxis=syntaxis)
+    tmp_item = convert(item, to_form='openmm.System', selection=selection, structure_indices=structure_indices, syntaxis=syntaxis)
 
     return tmp_item
 

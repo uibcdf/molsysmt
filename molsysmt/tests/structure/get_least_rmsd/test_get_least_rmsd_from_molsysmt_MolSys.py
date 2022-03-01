@@ -12,7 +12,7 @@ import numpy as np
 def test_get_least_rmsd_molsysmt_MolSys_1():
 
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
-    rmsd = msm.structure.get_least_rmsd(molsys, selection='backbone', frame_indices='all', reference_frame_index=0)
+    rmsd = msm.structure.get_least_rmsd(molsys, selection='backbone', structure_indices='all', reference_frame_index=0)
     true_value_1 = np.array([0.270763  , 0.22951274, 0.26526436, 0.24263974, 0.23508047])
     check_value_1 = np.allclose(true_value_1, msm.puw.get_value(rmsd[1000:1005], to_unit='nm'))
     assert check_value_1

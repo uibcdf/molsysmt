@@ -1,4 +1,4 @@
-def set_atom_name_to_atom(item, indices='all', frame_indices='all', value=None, check_form=True):
+def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None, check_form=True):
 
     if check_form:
         from molsysmt.tools.molsysmt_Topology.is_molsysmt_Topology import _checking_form

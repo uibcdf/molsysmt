@@ -1,4 +1,4 @@
-def to_molsysmt_Trajectory(item, atom_indices='all', model_indices='all', check_form=True):
+def to_molsysmt_Trajectory(item, atom_indices='all', structure_indices='all', check_form=True):
 
     if check_form:
         from molsysmt.tools.string_pdb_id.is_string_pdb_id import _checking_form
@@ -8,7 +8,7 @@ def to_molsysmt_Trajectory(item, atom_indices='all', model_indices='all', check_
     from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
 
     tmp_item = string_pdb_id_to_mmtf_MMTFDecoder(item, check_form=False)
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Trajectory(tmp_item, atom_indices=atom_indices, model_indices=model_indices, check_form=False)
+    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Trajectory(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
 
     return tmp_item
 

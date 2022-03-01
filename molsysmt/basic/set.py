@@ -3,9 +3,9 @@ from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.set_arguments import where_set_argument
 from molsysmt._private_tools.exceptions import *
 
-def set(molecular_system, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+def set(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs):
 
-    """into(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MolSysMT')
+    """into(item, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Set a new value to an attribute.
 
@@ -31,7 +31,7 @@ def set(molecular_system, target='system', indices=None, selection='all', frame_
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
 
-    frame_indices: int, list, tuple, np.ndarray or 'all', default='all'
+    structure_indices: int, list, tuple, np.ndarray or 'all', default='all'
         List of indices referring the set of frames this method is going to work with. This set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
@@ -68,7 +68,7 @@ def set(molecular_system, target='system', indices=None, selection='all', frame_
     value_of_attribute = { digest_set_argument(key, target): kwargs[key] for key in kwargs.keys()}
     attributes = value_of_attribute.keys()
     indices = digest_indices(indices)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     # doing the work here
 
@@ -86,7 +86,7 @@ def set(molecular_system, target='system', indices=None, selection='all', frame_
 
             if item is not None:
                 value = value_of_attribute[attribute]
-                dict_set[form][target][attribute](item, indices=indices, frame_indices=frame_indices, value=value)
+                dict_set[form][target][attribute](item, indices=indices, structure_indices=structure_indices, value=value)
 
     pass
 

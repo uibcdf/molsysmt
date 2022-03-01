@@ -1,4 +1,4 @@
-def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from pytraj import Topology
     from pytraj import Atom as pytraj_atom, Residue as pytraj_residue
@@ -68,14 +68,14 @@ def to_pytraj_Topology(item, molecular_system=None, atom_indices='all', frame_in
     tmp_item.add_bonds(bonds)
 
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
     else:
         tmp_molecular_system = None
 
     return tmp_item
 
 
-def from_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indices='all'):
+def from_pytraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native import Topology
     import numpy as np
@@ -177,7 +177,7 @@ def from_pytraj_Topology(item, molecular_system, atom_indices='all', frame_indic
     tmp_item._nan_to_None()
 
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
     else:
         tmp_molecular_system = None
 

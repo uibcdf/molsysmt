@@ -1,4 +1,4 @@
-def to_mmtf_MMTFDecoder(item, atom_indices='all', model_indices='all', check_form=True):
+def to_mmtf_MMTFDecoder(item, atom_indices='all', structure_indices='all', check_form=True):
 
     if check_form:
         from molsysmt.tools.string_pdb_id.is_string_pdb_id import _checking_form
@@ -9,7 +9,7 @@ def to_mmtf_MMTFDecoder(item, atom_indices='all', model_indices='all', check_for
 
     tmp_item = item.split(':')[-1]
     tmp_item = fetch(tmp_item)
-    tmp_item = extract_mmtf_MMTFDecoder(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices, copy_if_all=False)
+    tmp_item = extract_mmtf_MMTFDecoder(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item
 

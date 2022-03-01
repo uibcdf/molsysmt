@@ -1,7 +1,7 @@
 import numpy as np
 from .exceptions import *
 
-def one_system(molecular_system=None, selection=None, frame_indices=None, form=None, syntaxis='MolSysMT'):
+def one_system(molecular_system=None, selection=None, structure_indices=None, form=None, syntaxis='MolSysMT'):
 
     from molsysmt.basic import convert, select
 
@@ -15,28 +15,28 @@ def one_system(molecular_system=None, selection=None, frame_indices=None, form=N
     if selection is not None:
         atom_indices=select(molecular_system, selection, syntaxis=syntaxis)
 
-    frame_indices=frameslist(tmp_molecular_system, frame_indices)
+    structure_indices=frameslist(tmp_molecular_system, structure_indices)
 
-    return tmp_molecular_system, atom_indices, frame_indices
+    return tmp_molecular_system, atom_indices, structure_indices
 
-def frameslist(molecular_system=None, frame_indices=None):
+def frameslist(molecular_system=None, structure_indices=None):
 
     from molsysmt.basic import get
 
-    if frame_indices is None:
-        frame_indices = list(np.arange(get(molecular_system, n_frames=True), dtype=int))
-    elif type(frame_indices) == int:
-        frame_indices = np.asarray([frame_indices])
-    elif type(frame_indices) == list:
-        frame_indices = np.asarray(frame_indices)
-    elif type(frame_indices) == np.ndarray:
-        frame_indices = frame_indices
+    if structure_indices is None:
+        structure_indices = list(np.arange(get(molecular_system, n_frames=True), dtype=int))
+    elif type(structure_indices) == int:
+        structure_indices = np.asarray([structure_indices])
+    elif type(structure_indices) == list:
+        structure_indices = np.asarray(structure_indices)
+    elif type(structure_indices) == np.ndarray:
+        structure_indices = structure_indices
     elif frame == 'all':
-        frame_indices = np.arange(get(molecular_system, n_frames=True))
+        structure_indices = np.arange(get(molecular_system, n_frames=True))
 
-    return frame_indices
+    return structure_indices
 
-def coordinates(molecular_system=None, atom_indices=None, frame_indices=None, form='molsysmt.MolSys'):
+def coordinates(molecular_system=None, atom_indices=None, structure_indices=None, form='molsysmt.MolSys'):
 
     if form=='molsysmt.MolSys':
         tmp_molecular_system = molecular_system.trajectory
@@ -46,15 +46,15 @@ def coordinates(molecular_system=None, atom_indices=None, frame_indices=None, fo
         raise NotImplementedError()
 
     if atom_indices is not None:
-        if frame_indices is not None:
-            tmp_coordinates = tmp_molecular_system.coordinates[frame_indices,:,:]
+        if structure_indices is not None:
+            tmp_coordinates = tmp_molecular_system.coordinates[structure_indices,:,:]
             tmp_coordinates = tmp_coordinates[:,atom_indices,:]
         else:
             tmp_coordinates = tmp_item.coordinates[:,atom_indices,:]
     else:
-        if frame_indices is not None:
-            tmp_frame_indices=frameslist(tmp_molecular_system, frame_indices)
-            tmp_coordinates = tmp_item.coordinates[frame_indices,:,:]
+        if structure_indices is not None:
+            tmp_structure_indices=frameslist(tmp_molecular_system, structure_indices)
+            tmp_coordinates = tmp_item.coordinates[structure_indices,:,:]
         else:
             tmp_coordinates = tmp_item.coordinates
 
@@ -71,8 +71,8 @@ def coordinates(molecular_system=None, atom_indices=None, frame_indices=None, fo
     return tmp_coordinates, tmp_nframes, tmp_natoms
 
 
-def comparison_two_systems(molecular_system_1=None, selection_1=None, frame_indices_1=None,
-                           molecular_system_2=None, selection_2=None, frame_indices_2=None,
+def comparison_two_systems(molecular_system_1=None, selection_1=None, structure_indices_1=None,
+                           molecular_system_2=None, selection_2=None, structure_indices_2=None,
                            form=None, syntaxis='MolSysMT'):
 
     from molsysmt.basic import convert, select
@@ -123,10 +123,10 @@ def comparison_two_systems(molecular_system_1=None, selection_1=None, frame_indi
             else:
                 atom_indices_2 = select(tmp_molecular_system_2, selection_1, syntaxis=syntaxis)
 
-    frame_indices_1 = frameslist(tmp_molecular_system_1, frame_indices_1)
-    frame_indices_2 = frameslist(tmp_molecular_system_2, frame_indices_2)
+    structure_indices_1 = frameslist(tmp_molecular_system_1, structure_indices_1)
+    structure_indices_2 = frameslist(tmp_molecular_system_2, structure_indices_2)
 
-    return tmp_molecular_system_1, atom_indices_1, frame_indices_1, \
-           tmp_molecular_system_2, atom_indices_2, frame_indices_2, \
+    return tmp_molecular_system_1, atom_indices_1, structure_indices_1, \
+           tmp_molecular_system_2, atom_indices_2, structure_indices_2, \
            single_molecular_system, diff_selection
 

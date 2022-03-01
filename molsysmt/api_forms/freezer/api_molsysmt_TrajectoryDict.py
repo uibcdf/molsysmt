@@ -1,5 +1,5 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt.forms.common_gets import *
+from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt import puw
 from molsysmt.native.molecular_system import molecular_system_components
@@ -22,15 +22,15 @@ def this_dict_is_TrajectoryDict(item):
 
     return is_trajectory_dict(item)
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.trajectory import from_TrajectoryDict as TrajectoryDict_to_molsysmt_Trajectory
 
-    tmp_item, tmp_molecular_system = TrajectoryDict_to_molsysmt_Trajectory(item, None, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item, tmp_molecular_system = TrajectoryDict_to_molsysmt_Trajectory(item, None, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices='all', output_filename=None):
+def to_file_trjpk(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
 
     import pickle as pickle
 
@@ -44,7 +44,7 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
     else:
         n_atoms = atom_indices.shape[0]
 
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         if item['coordinates'] is not None:
             n_frames = item['coordinates'].shape[0]
         elif tmp_item['box'] is not None:
@@ -54,7 +54,7 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
         else:
             n_frames = 0
     else:
-        n_frames = frame_indices.shape[0]
+        n_frames = structure_indices.shape[0]
 
     fff = open(output_filename, 'wb')
 
@@ -64,8 +64,8 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
     if 'coordinates' in item:
         if item['coordinates'] is not None:
             coordinates = item['coordinates']
-            if frame_indices is not 'all':
-                coordinates = coordinates[frame_indices,:,:]
+            if structure_indices is not 'all':
+                coordinates = coordinates[structure_indices,:,:]
             elif atom_indices is not 'all':
                 coordinates = coordinates[:,atom_indices,:]
             coordinates = puw.get_value(coordinates, to_unit='nm')
@@ -80,8 +80,8 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
     if 'box' in item:
         if item['box'] is not None:
             box = item['box']
-            if frame_indices is not 'all':
-                box = box[frame_indices,:,:]
+            if structure_indices is not 'all':
+                box = box[structure_indices,:,:]
             box = puw.get_value(box, to_unit='nm')
         else:
             box = None
@@ -94,8 +94,8 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
     if 'time' in item:
         if item['time'] is not None:
             time = item['time']
-            if frame_indices is not 'all':
-                time = time[frame_indices]
+            if structure_indices is not 'all':
+                time = time[structure_indices]
             time = puw.get_value(time, to_unit='ps')
         else:
             time = None
@@ -108,8 +108,8 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
     if 'step' in item:
         if item['step'] is not None:
             step = item['step']
-            if frame_indices is not 'all':
-                step = step[frame_indices]
+            if structure_indices is not 'all':
+                step = step[structure_indices]
         else:
             step = None
     else:
@@ -129,11 +129,11 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', frame_indices
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_TrajectoryDict(item, molecular_system=None, atom_indices='all', frame_indices='all', copy_if_all=True):
+def to_molsysmt_TrajectoryDict(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True):
 
     tmp_molecular_system = None
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         if copy_if_all:
             tmp_item = extract(item)
             if molecular_system is not None:
@@ -143,15 +143,15 @@ def to_molsysmt_TrajectoryDict(item, molecular_system=None, atom_indices='all', 
             if molecular_system is not None:
                 tmp_molecular_system = molecular_system
     else:
-        tmp_item = extract(item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
         if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
-def extract(item, atom_indices='all', frame_indices='all'):
+def extract(item, atom_indices='all', structure_indices='all'):
 
-    if (atom_indices is 'all') and (frame_indices is 'all'):
+    if (atom_indices is 'all') and (structure_indices is 'all'):
         from copy import deepcopy
         tmp_item = deepcopy(item)
     else:
@@ -179,52 +179,52 @@ def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
 
 ## atom
 
-def get_atom_id_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_id_from_atom(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_atom_name_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_name_from_atom(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_atom_type_from_atom(item, indices='all', frame_indices='all'):
+def get_atom_type_from_atom(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_group_index_from_atom (item, indices='all', frame_indices='all'):
+def get_group_index_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_component_index_from_atom (item, indices='all', frame_indices='all'):
+def get_component_index_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_chain_index_from_atom (item, indices='all', frame_indices='all'):
+def get_chain_index_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_molecule_index_from_atom (item, indices='all', frame_indices='all'):
+def get_molecule_index_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_entity_index_from_atom (item, indices='all', frame_indices='all'):
+def get_entity_index_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_inner_bonded_atoms_from_atom (item, indices='all', frame_indices='all'):
+def get_inner_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_n_inner_bonds_from_atom (item, indices='all', frame_indices='all'):
+def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
+def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     tmp_coordinates = item['coordinates']
 
-    if frame_indices is not 'all':
-        tmp_coordinates = tmp_coordinates[frame_indices,:,:]
+    if structure_indices is not 'all':
+        tmp_coordinates = tmp_coordinates[structure_indices,:,:]
 
     if indices is not 'all':
         tmp_coordinates = tmp_coordinates[:,indices,:]
@@ -233,77 +233,77 @@ def get_coordinates_from_atom(item, indices='all', frame_indices='all'):
 
 ## group
 
-def get_group_id_from_group(item, indices='all', frame_indices='all'):
+def get_group_id_from_group(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_group_name_from_group(item, indices='all', frame_indices='all'):
+def get_group_name_from_group(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_group_type_from_group(item, indices='all', frame_indices='all'):
+def get_group_type_from_group(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
 ## component
 
-def get_component_id_from_component (item, indices='all', frame_indices='all'):
+def get_component_id_from_component (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_component_name_from_component (item, indices='all', frame_indices='all'):
+def get_component_name_from_component (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_component_type_from_component (item, indices='all', frame_indices='all'):
+def get_component_type_from_component (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
 ## molecule
 
-def get_molecule_id_from_molecule (item, indices='all', frame_indices='all'):
+def get_molecule_id_from_molecule (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_molecule_name_from_molecule (item, indices='all', frame_indices='all'):
+def get_molecule_name_from_molecule (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_molecule_type_from_molecule (item, indices='all', frame_indices='all'):
+def get_molecule_type_from_molecule (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
 ## chain
 
-def get_chain_id_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_id_from_chain (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_chain_name_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_name_from_chain (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_chain_type_from_chain (item, indices='all', frame_indices='all'):
+def get_chain_type_from_chain (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
 ## entity
 
-def get_entity_id_from_entity (item, indices='all', frame_indices='all'):
+def get_entity_id_from_entity (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_entity_name_from_entity (item, indices='all', frame_indices='all'):
+def get_entity_name_from_entity (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_entity_type_from_entity (item, indices='all', frame_indices='all'):
+def get_entity_type_from_entity (item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
 ## system
 
-def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
+def get_n_atoms_from_system(item, indices='all', structure_indices='all'):
 
     output = None
 
@@ -312,31 +312,31 @@ def get_n_atoms_from_system(item, indices='all', frame_indices='all'):
 
     return output
 
-def get_n_groups_from_system(item, indices='all', frame_indices='all'):
+def get_n_groups_from_system(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_n_components_from_system(item, indices='all', frame_indices='all'):
+def get_n_components_from_system(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_n_chains_from_system(item, indices='all', frame_indices='all'):
+def get_n_chains_from_system(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_n_molecules_from_system(item, indices='all', frame_indices='all'):
+def get_n_molecules_from_system(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_n_entities_from_system(item, indices='all', frame_indices='all'):
+def get_n_entities_from_system(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_n_bonds_from_system(item, indices='all', frame_indices='all'):
+def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_box_from_system(item, indices='all', frame_indices='all'):
+def get_box_from_system(item, indices='all', structure_indices='all'):
 
     output=None
 
@@ -345,78 +345,78 @@ def get_box_from_system(item, indices='all', frame_indices='all'):
         len_shape = len(item['box'].shape)
 
         if len_shape==3:
-            if frame_indices is 'all':
+            if structure_indices is 'all':
                 output=item['box']
             else:
-                output=item['box'][frame_indices,:,:]
+                output=item['box'][structure_indices,:,:]
         elif len_shape==2:
-            if frame_indices is 'all':
+            if structure_indices is 'all':
                 n_frames=get_n_frames_from_system(item)
             else:
-                n_frames=len(frame_indices)
+                n_frames=len(structure_indices)
             output=np.tile(item['box'], (n_frames, 1, 1))
 
     return output
 
-def get_box_shape_from_system(item, indices='all', frame_indices='all'):
+def get_box_shape_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.pbc import box_shape_from_box_vectors
     output = None
-    box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+    box = get_box_from_system(item, indices=indices, structure_indices=structure_indices)
     if box is not None:
         output = box_shape_from_box_vectors(box)
     return output
 
-def get_box_lengths_from_system(item, indices='all', frame_indices='all'):
+def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.pbc import box_lengths_from_box_vectors
     output = None
-    box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+    box = get_box_from_system(item, indices=indices, structure_indices=structure_indices)
     if box is not None:
         output = box_lengths_from_box_vectors(box)
     return output
 
-def get_box_angles_from_system(item, indices='all', frame_indices='all'):
+def get_box_angles_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.pbc import box_angles_from_box_vectors
     output = None
-    box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+    box = get_box_from_system(item, indices=indices, structure_indices=structure_indices)
     if box is not None:
         output = box_angles_from_box_vectors(box)
     return output
 
-def get_box_volume_from_system(item, indices='all', frame_indices='all'):
+def get_box_volume_from_system(item, indices='all', structure_indices='all'):
 
     from molsysmt.pbc import box_volume_from_box_vectors
     output = None
-    box = get_box_from_system(item, indices=indices, frame_indices=frame_indices)
+    box = get_box_from_system(item, indices=indices, structure_indices=structure_indices)
     if box is not None:
         output = box_volume_from_box_vectors(box)
     return output
 
-def get_time_from_system(item, indices='all', frame_indices='all'):
+def get_time_from_system(item, indices='all', structure_indices='all'):
 
     output = None
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         output = item['time']
     else:
-        output = item['time'][frame_indices]
+        output = item['time'][structure_indices]
     return output
 
-def get_step_from_system(item, indices='all', frame_indices='all'):
+def get_step_from_system(item, indices='all', structure_indices='all'):
 
     output = None
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         output = item['step']
     else:
-        output = item['step'][frame_indices]
+        output = item['step'][structure_indices]
     return output
 
-def get_n_frames_from_system(item, indices='all', frame_indices='all'):
+def get_n_frames_from_system(item, indices='all', structure_indices='all'):
 
     output = None
 
-    if frame_indices is 'all':
+    if structure_indices is 'all':
         if 'coordinates' in item:
             output=item['coordinates'].shape[0]
         elif 'box' in item:
@@ -426,25 +426,25 @@ def get_n_frames_from_system(item, indices='all', frame_indices='all'):
             elif len_shape==2:
                 output=1
     else:
-        output=frame_indices.shape[0]
+        output=structure_indices.shape[0]
 
     return output
 
-def get_bonded_atoms_from_system(item, indices='all', frame_indices='all'):
+def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
 ## bond
 
-def get_bond_order_from_bond(item, indices='all', frame_indices='all'):
+def get_bond_order_from_bond(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_bond_type_from_bond(item, indices='all', frame_indices='all'):
+def get_bond_type_from_bond(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
+def get_atom_index_from_bond(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
@@ -452,31 +452,31 @@ def get_atom_index_from_bond(item, indices='all', frame_indices='all'):
 
 ## atom
 
-def set_coordinates_to_atom(item, indices='all', frame_indices='all', value=None):
+def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None):
 
     length_unit = puw.get_unit(item['coordinates'])
     value = puw.convert(value, to_unit=length_unit)
 
     if indices is 'all':
-        if frame_indices is 'all':
+        if structure_indices is 'all':
             item['coordinates']=value
         else:
-            item['coordinates'][frame_indices,:,:]=value
+            item['coordinates'][structure_indices,:,:]=value
     else:
-        if frame_indices is 'all':
+        if structure_indices is 'all':
             item['coordinates'][:,indices,:]=value
         else:
-            item['coordinates'][np.ix_(indices,frame_indices)]=value
+            item['coordinates'][np.ix_(indices,structure_indices)]=value
 
     pass
 
 ## system
 
-def set_box_to_system(item, indices='all', frame_indices='all', value=None):
+def set_box_to_system(item, indices='all', structure_indices='all', value=None):
 
     raise NotImplementedError
 
-def set_coordinates_to_system(item, indices='all', frame_indices='all', value=None):
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
 
     raise NotImplementedError
 

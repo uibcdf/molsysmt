@@ -1,4 +1,4 @@
-def from_parmed_Structure(item, atom_indices='all', frame_indices='all'):
+def from_parmed_Structure(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.dataframe.classes import from_parmed_Structure as parmed_Structure_to_molsysmt_DataFrame
     from .molsysmt_DataFrame import from_molsysmt_DataFrame as molsysmt_DataFrame_to_molsysmt_Topology

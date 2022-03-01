@@ -1,10 +1,10 @@
 from molsysmt._private_tools.exceptions import *
 
-def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     raise NotImplementedError()
 
-def from_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from .pytraj_Topology import from_pytraj_Topology as molsysmt_Topology_from_pytraj_Topology
 
@@ -14,7 +14,7 @@ def from_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', fram
     else:
         tmp_molecular_system = None
     tmp_item, tmp_molecular_system = molsysmt_Topology_from_pytraj_Topology(tmp_item,
-            molecular_system=tmp_molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+            molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 

@@ -1,4 +1,4 @@
-def to_mdanalysis_Universe(item, atom_indices='all', model_indices='all', check_form=True):
+def to_mdanalysis_Universe(item, atom_indices='all', structure_indices='all', check_form=True):
 
     if check_form:
         from molsysmt.tools.file_pdb.is_file_pdb import _checking_form
@@ -13,7 +13,7 @@ def to_mdanalysis_Universe(item, atom_indices='all', model_indices='all', check_
     from molsysmt.tools.mdanalysis_Universe import extract
 
     tmp_item = Universe(item)
-    tmp_item = extract(tmp_item, atom_indices=atom_indices, frame_indices=model_indices, copy_if_all=False)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item
 

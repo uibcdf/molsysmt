@@ -1,19 +1,19 @@
 import numpy as np
 from molsysmt import puw
 from molsysmt._private_tools.molecular_system import digest_molecular_system
-from molsysmt._private_tools.frame_indices import digest_frame_indices
+from molsysmt._private_tools.structure_indices import digest_structure_indices
 from molsysmt.lib import geometry as libgeometry
 from molsysmt.structure.get_dihedral_angles import get_dihedral_angles
 from molsysmt.structure.set_dihedral_angles import set_dihedral_angles
 
 
 def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,
-                          frame_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
+                          structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
 
     from molsysmt.basic import get
 
     molecular_system = digest_molecular_system(molecular_system)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     if type(quartets) in [list,tuple]:
         quartets = np.array(quartets, dtype=int)
@@ -36,7 +36,7 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
         raise ValueError
 
     n_quartets = quartets.shape[0]
-    n_frames = get(molecular_system, target='system', frame_indices=frame_indices, n_frames=True)
+    n_frames = get(molecular_system, target='system', structure_indices=structure_indices, n_frames=True)
 
     angles_shifts_units = puw.get_unit(angles_shifts)
     angles_shifts_value = puw.get_value(angles_shifts)
@@ -60,9 +60,9 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
 
     angles_shifts=angles_shifts_value*angles_shifts_units
 
-    angles = get_dihedral_angles(molecular_system, quartets=quartets, frame_indices=frame_indices, pbc=pbc)
+    angles = get_dihedral_angles(molecular_system, quartets=quartets, structure_indices=structure_indices, pbc=pbc)
     angles = angles + angles_shifts
 
     return set_dihedral_angles(molecular_system, quartets=quartets, angles=angles, blocks=None,
-                               frame_indices=frame_indices, pbc=pbc, in_place=in_place, engine=engine)
+                               structure_indices=structure_indices, pbc=pbc, in_place=in_place, engine=engine)
 

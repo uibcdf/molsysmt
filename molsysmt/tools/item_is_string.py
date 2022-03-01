@@ -1,6 +1,6 @@
 def item_is_string(item):
 
-    from molsysmt.forms import string_names_recognized
+    from molsysmt.api_forms import string_names_recognized
     from .strings import guess_form_from_string
 
     output = False

@@ -1,17 +1,17 @@
 import numpy as np
 from molsysmt import puw
 from molsysmt._private_tools.molecular_system import digest_molecular_system
-from molsysmt._private_tools.frame_indices import digest_frame_indices
+from molsysmt._private_tools.structure_indices import digest_structure_indices
 from molsysmt.basic import get
 from molsysmt.lib import geometry as libgeometry
 
 def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', quartets=None,
-                        frame_indices='all', syntaxis='MolSysMT', pbc=False):
+                        structure_indices='all', syntaxis='MolSysMT', pbc=False):
 
     from molsysmt.topology.get_covalent_dihedral_quartets import get_covalent_dihedral_quartets
 
     molecular_system = digest_molecular_system(molecular_system)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     if quartets is None:
 
@@ -38,7 +38,7 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
         raise ValueError
 
 
-    coordinates = get(molecular_system, target='system', frame_indices=frame_indices, coordinates=True)
+    coordinates = get(molecular_system, target='system', structure_indices=structure_indices, coordinates=True)
 
     n_angles = quartets.shape[0]
     n_frames = coordinates.shape[0]
@@ -46,7 +46,7 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
 
     if pbc:
 
-        box, box_shape = get(molecular_system, target='system', frame_indices=frame_indices, box=True, box_shape=True)
+        box, box_shape = get(molecular_system, target='system', structure_indices=structure_indices, box=True, box_shape=True)
         if box_shape is None:
             raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
         orthogonal = 0

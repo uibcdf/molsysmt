@@ -1,4 +1,4 @@
-def from_openmm_Topology (item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_openmm_Topology (item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.trajectory import Trajectory
@@ -6,12 +6,12 @@ def from_openmm_Topology (item, molecular_system=None, atom_indices='all', frame
     from molsysmt import convert, get, set
 
     tmp_item = MolSys()
-    tmp_item.topology, _ = openmm_Topology_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices)
+    tmp_item.topology, _ = openmm_Topology_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     if trajectory_item is None:
         tmp_item.trajectory = Trajectory()
     else:
-        tmp_item.trajectory = convert(trajectory_item, selection=atom_indices, frame_indices=frame_indices, to_form='molsysmt.Trajectory')
+        tmp_item.trajectory = convert(trajectory_item, selection=atom_indices, structure_indices=structure_indices, to_form='molsysmt.Trajectory')
         if not get(trajectory_item, target='system', has_box=True):
             if get(item, target='system', has_box=True):
                 box = get(item, target='system', box=True)
@@ -19,7 +19,7 @@ def from_openmm_Topology (item, molecular_system=None, atom_indices='all', frame
                     set(tmp_item.trajectory, target='system', box=box)
 
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
     else:
         tmp_molecular_system = None
 

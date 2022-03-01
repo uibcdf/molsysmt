@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import ItemWithWrongForm
+from molsysmt._private_tools.exceptions import WrongFormError
 
 def is_molsysmt_Topology(item):
 
@@ -11,7 +11,7 @@ def _checking_form(item, check_form=True):
 
     if check_form:
         if not is_molsysmt_Topology(item):
-            raise ItemWithWrongForm('molsysmt.Topology')
+            raise WrongFormError('molsysmt.Topology')
 
     pass
 

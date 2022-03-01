@@ -1,10 +1,10 @@
 from molsysmt._private_tools.exceptions import *
 
-def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     raise NotImplementedError()
 
-def from_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
@@ -117,7 +117,7 @@ def from_mdanalysis_Universe(item, molecular_system=None, atom_indices='all', fr
     tmp_item._nan_to_None()
 
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
     else:
         tmp_molecular_system = None
 

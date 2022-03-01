@@ -3,16 +3,16 @@ from molsysmt._private_tools.exceptions import *
 from molsysmt import puw
 import numpy as np
 
-def get_contacts(molecular_system, selection='atom_name=="CA"', groups_of_atoms=None, group_behavior=None, frame_indices="all",
-                selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
+def get_contacts(molecular_system, selection='atom_name=="CA"', groups_of_atoms=None, group_behavior=None, structure_indices="all",
+                selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
                 output_atom_indices=False, threshold='12 angstroms', pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
     from molsysmt.structure.get_distances import get_distances
 
     atom_indices_1, atom_indices_2, all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms,
-                                                group_behavior=group_behavior, frame_indices=frame_indices,
+                                                group_behavior=group_behavior, structure_indices=structure_indices,
                                                 selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                                                group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                                                group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
                                                 output_atom_indices=True,
                                                 pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 
