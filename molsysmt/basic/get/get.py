@@ -79,7 +79,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', structur
 
     for argument in arguments:
 
-        
+        if argument in 
 
         result = get_argument(molecular_system, target, argument, indices, structure_indices)
 
