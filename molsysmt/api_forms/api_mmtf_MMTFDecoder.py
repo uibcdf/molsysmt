@@ -13,42 +13,39 @@ form_name='mmtf.MMTFDecoder'
 form_type='class'
 form_info=["",""]
 
-form_elements = {
-    'atoms' : True,
-    'bonds' : True,
-    'groups' : True,
-    'component' : False,
-    'molecule' : True,
-    'chain' : True,
-    'entity' : True,
-        }
-
 form_attributes = {
 
+    'atom_index' : True,
     'atom_id' : True,
     'atom_name' : True,
     'atom_type' : True,
 
+    'bond_index' : True,
     'bond_id' : True,
     'bond_name' : True,
     'bond_type' : True,
 
+    'group_index' : True,
     'group_id' : True,
     'group_name' : True,
     'group_type' : True,
 
+    'component_index' : True,
     'component_id' : False,
     'component_name' : False,
     'component_type' : False,
 
+    'molecule_index' : True,
     'molecule_id' : True,
     'molecule_name' : True,
     'molecule_type' : True,
 
+    'chain_index' : True,
     'chain_id' : True,
     'chain_name' : True,
     'chain_type' : True,
 
+    'entity_index' : True,
     'entity_id' : True,
     'entity_name' : True,
     'entity_type' : True,
