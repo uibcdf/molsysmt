@@ -273,7 +273,7 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
 

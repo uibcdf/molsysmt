@@ -6,7 +6,7 @@ def from_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', stru
 
     tmp_item = Trajectory()
     _, _, coordinates, box = get_frame_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
-    tmp_item.append_frames(coordinates=coordinates, box=box)
+    tmp_item.append_structures(coordinates=coordinates, box=box)
 
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)

@@ -24,7 +24,7 @@ def frameslist(molecular_system=None, structure_indices=None):
     from molsysmt.basic import get
 
     if structure_indices is None:
-        structure_indices = list(np.arange(get(molecular_system, n_frames=True), dtype=int))
+        structure_indices = list(np.arange(get(molecular_system, n_structures=True), dtype=int))
     elif type(structure_indices) == int:
         structure_indices = np.asarray([structure_indices])
     elif type(structure_indices) == list:
@@ -32,7 +32,7 @@ def frameslist(molecular_system=None, structure_indices=None):
     elif type(structure_indices) == np.ndarray:
         structure_indices = structure_indices
     elif frame == 'all':
-        structure_indices = np.arange(get(molecular_system, n_frames=True))
+        structure_indices = np.arange(get(molecular_system, n_structures=True))
 
     return structure_indices
 

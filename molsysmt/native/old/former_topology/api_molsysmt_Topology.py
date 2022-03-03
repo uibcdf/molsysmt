@@ -1282,7 +1282,7 @@ def get_charge_from_system(item, indices='all', structure_indices='all'):
 
     return _get(item.dataframe, indices=indices, structure_indices=structure_indices)
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     return 0
 

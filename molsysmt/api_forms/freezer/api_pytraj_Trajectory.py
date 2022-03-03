@@ -51,14 +51,14 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', struct
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.native.io.trajectory import from_pytraj_Trajectory as pytraj_Trajectory_to_molsysmt_Trajectory
-    from molsysmt.api_forms.api_molsysmt_Trajectory import to_molsysmt_Trajectory as molsysmt_Trajectory_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory import from_pytraj_Trajectory as pytraj_Trajectory_to_molsysmt_Structures
+    from molsysmt.api_forms.api_molsysmt_Structures import to_molsysmt_Structures as molsysmt_Structures_to_molsysmt_Structures
 
-    tmp_item, tmp_molecular_system = pytraj_Trajectory_to_molsysmt_Trajectory(item,
+    tmp_item, tmp_molecular_system = pytraj_Trajectory_to_molsysmt_Structures(item,
             molecular_system=molecular_system)
-    tmp_item, tmp_molecular_system = molsysmt_Trajectory_to_molsysmt_Trajectory(tmp_item,
+    tmp_item, tmp_molecular_system = molsysmt_Structures_to_molsysmt_Structures(tmp_item,
             molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
 
     return tmp_item, tmp_molecular_system
@@ -82,11 +82,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -345,9 +345,9 @@ def get_frame_from_atom(item, indices='all', structure_indices='all'):
 
     return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
-def get_n_frames_from_atom(item, indices='all', structure_indices='all'):
+def get_n_structures_from_atom(item, indices='all', structure_indices='all'):
 
-    return get_n_frames_from_system(item, indices='all', structure_indices='all')
+    return get_n_structures_from_system(item, indices='all', structure_indices='all')
 
 def get_form_from_atom(item, indices='all', structure_indices='all'):
 
@@ -1542,9 +1542,9 @@ def get_frame_from_system(item, indices='all', structure_indices='all'):
 
     return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
-    return item.n_frames
+    return item.n_structures
 
 def get_form_from_system(item, indices='all', structure_indices='all'):
 

@@ -145,11 +145,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 

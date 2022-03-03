@@ -5,7 +5,7 @@ def is_a_molecular_system(items):
 
     from molsysmt.basic.get_form import get_form
     from molsysmt.basic.get import get
-    from molsysmt.api_forms import dict_elements, dict_attributes
+    from molsysmt.api_forms import dict_attributes
 
     if is_list_or_tuple(items):
         for item in items:
@@ -51,7 +51,7 @@ def is_a_molecular_system(items):
                 with_atoms_and_coordinates=0
                 for item in items:
                     form_in = get_form(item)
-                    has_atoms = dict_elements[form_in]["atoms"]
+                    has_atoms = dict_attributes[form_in]["atom_index"]
                     has_coordinates = dict_attributes[form_in]["coordinates"]
                     if has_atoms and has_coordinates:
                         with_atoms_and_coordinates+=1

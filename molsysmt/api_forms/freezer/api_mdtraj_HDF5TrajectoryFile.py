@@ -68,11 +68,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -131,7 +131,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     from molsysmt._private_tools.math import serie_to_chunks
 
     if structure_indices is 'all':
-        structure_indices = np.arange(get_n_frames_from_system(item))
+        structure_indices = np.arange(get_n_structures_from_system(item))
     if indices is 'all':
         indices = np.arange(get_n_atoms_from_system(item))
 
@@ -141,7 +141,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        frame_hdf5 = item.read(n_frames=size, atom_indices=indices)
+        frame_hdf5 = item.read(n_structures=size, atom_indices=indices)
         xyz = frame_hdf5.coordinates
         xyz_list.append(xyz)
 
@@ -161,7 +161,7 @@ def get_frame_from_atom(item, indices='all', structure_indices='all'):
     from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
 
     if structure_indices is 'all':
-        structure_indices = np.arange(get_n_frames_from_system(item))
+        structure_indices = np.arange(get_n_structures_from_system(item))
     if indices is 'all':
         indices = np.arange(get_n_atoms_from_system(item))
 
@@ -173,7 +173,7 @@ def get_frame_from_atom(item, indices='all', structure_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        frame_hdf5 = item.read(n_frames=size, atom_indices=indices)
+        frame_hdf5 = item.read(n_structures=size, atom_indices=indices)
         xyz = frame_hdf5.coordinates
         xyz_list.append(xyz)
         time = frame_hdf5.time
@@ -326,7 +326,7 @@ def get_box_from_system(item, indices='all', structure_indices='all'):
     from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
 
     if structure_indices is 'all':
-        structure_indices = np.arange(get_n_frames_from_system(item))
+        structure_indices = np.arange(get_n_structures_from_system(item))
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -334,7 +334,7 @@ def get_box_from_system(item, indices='all', structure_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        frame_hdf5 = item.read(n_frames=size, atom_indices=atom_indices)
+        frame_hdf5 = item.read(n_structures=size, atom_indices=atom_indices)
         cell_lengths = frame_hdf5.cell_lengths
         cell_angles = frame_hdf5.cell_angles
         box = box_vectors_from_box_lengths_and_angles(cell_lengths*puw.unit('nm'), cell_angles*puw.unit('degrees'))
@@ -354,7 +354,7 @@ def get_box_shape_from_system (item, indices='all', structure_indices='all'):
 
     from molsysmt._private_tools.pbc import get_shape_from_angles
     position = item.tell()
-    frame_hdf5 = item.read(n_frames=1)
+    frame_hdf5 = item.read(n_structures=1)
     cell_angles = frame_hdf5.cell_angles * puw.unit('degrees')
     shape = get_shape_from_angles(cell_angles)
     item.seek(position)
@@ -366,7 +366,7 @@ def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
     from molsysmt._private_tools.math import serie_to_chunks
 
     if structure_indices is 'all':
-        structure_indices = np.arange(get_n_frames_from_system(item))
+        structure_indices = np.arange(get_n_structures_from_system(item))
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -374,7 +374,7 @@ def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        frame_hdf5 = item.read(n_frames=size, atom_indices=atom_indices)
+        frame_hdf5 = item.read(n_structures=size, atom_indices=atom_indices)
         cell_lengths_list.append(frame_hdf5.cell_lengths)
 
     cell_lengths = np.concatenate(cell_lengths_list)
@@ -392,7 +392,7 @@ def get_box_angles_from_system(item, indices='all', structure_indices='all'):
     from molsysmt._private_tools.math import serie_to_chunks
 
     if structure_indices is 'all':
-        structure_indices = np.arange(get_n_frames_from_system(item))
+        structure_indices = np.arange(get_n_structures_from_system(item))
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -400,7 +400,7 @@ def get_box_angles_from_system(item, indices='all', structure_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        frame_hdf5 = item.read(n_frames=size, atom_indices=atom_indices)
+        frame_hdf5 = item.read(n_structures=size, atom_indices=atom_indices)
         cell_angles_list.append(frame_hdf5.cell_angles)
 
     cell_angles = np.concatenate(cell_angles_list)
@@ -422,7 +422,7 @@ def get_time_from_system(item, indices='all', structure_indices='all'):
     from molsysmt._private_tools.math import serie_to_chunks
 
     if structure_indices is 'all':
-        structure_indices = np.arange(get_n_frames_from_system(item))
+        structure_indices = np.arange(get_n_structures_from_system(item))
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -430,7 +430,7 @@ def get_time_from_system(item, indices='all', structure_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        frame_hdf5 = item.read(n_frames=size, atom_indices=atom_indices)
+        frame_hdf5 = item.read(n_structures=size, atom_indices=atom_indices)
         time = frame_hdf5.time
         time_list.append(time)
 
@@ -448,7 +448,7 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     return None
 
-def get_n_frames_from_system (item, indices='all', structure_indices='all'):
+def get_n_structures_from_system (item, indices='all', structure_indices='all'):
 
     return item._handle.root.coordinates.shape[0]
 

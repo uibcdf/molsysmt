@@ -22,11 +22,11 @@ def this_dict_is_TrajectoryDict(item):
 
     return is_trajectory_dict(item)
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.native.io.trajectory import from_TrajectoryDict as TrajectoryDict_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory import from_TrajectoryDict as TrajectoryDict_to_molsysmt_Structures
 
-    tmp_item, tmp_molecular_system = TrajectoryDict_to_molsysmt_Trajectory(item, None, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item, tmp_molecular_system = TrajectoryDict_to_molsysmt_Structures(item, None, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -46,20 +46,20 @@ def to_file_trjpk(item, molecular_system=None, atom_indices='all', structure_ind
 
     if structure_indices is 'all':
         if item['coordinates'] is not None:
-            n_frames = item['coordinates'].shape[0]
+            n_structures = item['coordinates'].shape[0]
         elif tmp_item['box'] is not None:
-            n_frames = item['box'].shape[0]
+            n_structures = item['box'].shape[0]
         elif tmp_item['time'] is not None:
-            n_frames = item['time'].shape[0]
+            n_structures = item['time'].shape[0]
         else:
-            n_frames = 0
+            n_structures = 0
     else:
-        n_frames = structure_indices.shape[0]
+        n_structures = structure_indices.shape[0]
 
     fff = open(output_filename, 'wb')
 
     pickle.dump(n_atoms, fff)
-    pickle.dump(n_frames, fff)
+    pickle.dump(n_structures, fff)
 
     if 'coordinates' in item:
         if item['coordinates'] is not None:
@@ -167,11 +167,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -351,10 +351,10 @@ def get_box_from_system(item, indices='all', structure_indices='all'):
                 output=item['box'][structure_indices,:,:]
         elif len_shape==2:
             if structure_indices is 'all':
-                n_frames=get_n_frames_from_system(item)
+                n_structures=get_n_structures_from_system(item)
             else:
-                n_frames=len(structure_indices)
-            output=np.tile(item['box'], (n_frames, 1, 1))
+                n_structures=len(structure_indices)
+            output=np.tile(item['box'], (n_structures, 1, 1))
 
     return output
 
@@ -412,7 +412,7 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
         output = item['step'][structure_indices]
     return output
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     output = None
 

@@ -1,8 +1,10 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools._digestion import *
-from .get_argument import get_argument
+from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
+from molsysmt.api_forms import dict_attributes, dict_get
+from .arguments import required_attributes, required_indices, reverse_search, digest_argument
 
-def get(molecular_system, target='atom', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs):
+def get(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs):
 
     """get(item, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
@@ -54,7 +56,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', structur
 
     """
 
-    from molsysmt.basic import select
+    from molsysmt.basic import get_form, select, is_a_molecular_system
 
     if not is_a_molecular_system(molecular_system):
         raise SingleMolecularSystemNeededError()
@@ -65,7 +67,7 @@ def get(molecular_system, target='atom', indices=None, selection='all', structur
     forms_in = get_form(molecular_system)
 
     target = digest_target(target)
-    arguments = [ key for key in kwargs.keys() if kwargs[key] ]
+    arguments = [ digest_argument(key, target) for key in kwargs.keys() if kwargs[key] ]
     indices = digest_indices(indices)
     structure_indices = digest_structure_indices(structure_indices)
 
@@ -79,18 +81,28 @@ def get(molecular_system, target='atom', indices=None, selection='all', structur
 
     for argument in arguments:
 
-        if argument in 
+        result = None
 
-        result = get_argument(molecular_system, target, argument, indices, structure_indices)
+        if reverse_search:
+            aux_zip = zip(reversed(molecular_system), reversed(forms_in))
+        else:
+            aux_zip = zip(molecular_system, forms_in)
 
-        #for where_attribute in where_argument[attribute]:
-        #    print(where_attribute)
-        #    item = getattr(molecular_system, where_attribute+'_item')
-        #    form = getattr(molecular_system, where_attribute+'_form')
-        #    if item is not None:
-        #        result = dict_get[form][target][attribute](item, indices=indices, structure_indices=structure_indices)
-        #    if result is not None:
-        #        break
+        dict_indices = {}
+        if target != 'system':
+            if 'indices' in required_indices[argument]:
+                dict_indices['indices']=indices
+        if 'structure_indices' in required_indices[argument]:
+            dict_indices['structure_indices']=structure_indices
+
+        for item, form_in in aux_zip:
+            for required_attribute in required_attributes[argument]:
+                if dict_attributes[form_in][required_attribute]:
+                    result = dict_get[form_in][target][argument](item, **dict_indices)
+                if result is not None:
+                    break
+            if result is not None:
+                break
 
         output.append(result)
 

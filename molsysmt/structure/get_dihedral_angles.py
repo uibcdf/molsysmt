@@ -41,7 +41,7 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
     coordinates = get(molecular_system, target='system', structure_indices=structure_indices, coordinates=True)
 
     n_angles = quartets.shape[0]
-    n_frames = coordinates.shape[0]
+    n_structures = coordinates.shape[0]
     n_atoms = coordinates.shape[1]
 
     if pbc:
@@ -59,12 +59,12 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
     else:
 
         orthogonal = 1
-        box = np.zeros([n_frames,3,3])*puw.unit('nm')
+        box = np.zeros([n_structures,3,3])*puw.unit('nm')
 
     box = np.asfortranarray(puw.get_value(box, to_unit='nm'), dtype='float64')
     coordinates = np.asfortranarray(puw.get_value(coordinates, to_unit='nm'), dtype='float64')
 
-    angles = libgeometry.dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_frames)
+    angles = libgeometry.dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, n_angles, n_atoms, n_structures)
     angles = np.ascontiguousarray(angles)*puw.unit('degrees')
 
     return angles

@@ -26,7 +26,7 @@ def from_openexplorer_OpenExplorerReporter(item, molecular_system=None, atom_ind
         tmp_item.box_shape = box_shape_from_box_vectors(tmp_item.box)
 
 
-    tmp_item.n_frames = tmp_item.coordinates.shape[0]
+    tmp_item.n_structures = tmp_item.coordinates.shape[0]
     tmp_item.n_atoms = tmp_item.coordinates.shape[1]
 
     if molecular_system is not None:

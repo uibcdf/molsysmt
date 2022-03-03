@@ -7,17 +7,17 @@ objects.
 import molsysmt as msm
 import numpy as np
 
-def test_append_frames_molsysmt_MolSys():
+def test_append_structures_molsysmt_MolSys():
     molsys_1 = msm.convert(msm.demo['proline dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.1, 0.1, 0.1] nanometers')
     molsys_3 = msm.structure.translate(molsys_1, translation='[0.2, 0.2, 0.2] nanometers')
-    n_atoms_1, n_frames_1 = msm.get(molsys_1, target='system', n_atoms=True, n_frames=True)
-    n_frames_2 = msm.get(molsys_2, target='system', n_frames=True)
-    n_frames_3 = msm.get(molsys_3, target='system', n_frames=True)
-    molsys = msm.concatenate_frames([molsys_1, molsys_2, molsys_3])
-    n_atoms, n_frames = msm.get(molsys, target='system', n_atoms=True, n_frames=True)
+    n_atoms_1, n_structures_1 = msm.get(molsys_1, target='system', n_atoms=True, n_structures=True)
+    n_structures_2 = msm.get(molsys_2, target='system', n_structures=True)
+    n_structures_3 = msm.get(molsys_3, target='system', n_structures=True)
+    molsys = msm.concatenate_structures([molsys_1, molsys_2, molsys_3])
+    n_atoms, n_structures = msm.get(molsys, target='system', n_atoms=True, n_structures=True)
     check_form = ('molsysmt.MolSys'==msm.get_form(molsys))
     check_n_atoms = (n_atoms == n_atoms_1)
-    check_n_frames = (n_frames == n_frames_1 + n_frames_2 + n_frames_3)
-    assert check_form and check_n_atoms and check_n_frames
+    check_n_structures = (n_structures == n_structures_1 + n_structures_2 + n_structures_3)
+    assert check_form and check_n_atoms and check_n_structures
 

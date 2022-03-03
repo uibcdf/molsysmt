@@ -28,11 +28,11 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', struct
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.native.io.trajectory import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_Structures
 
-    tmp_item, tmp_molecular_system = openmm_PDBFile_to_molsysmt_Trajectory(item,
+    tmp_item, tmp_molecular_system = openmm_PDBFile_to_molsysmt_Structures(item,
             molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
@@ -136,11 +136,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -208,8 +208,8 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
 
-        n_frames = get_n_frames_from_system(item)
-        structure_indices = np.arange(n_frames)
+        n_structures = get_n_structures_from_system(item)
+        structure_indices = np.arange(n_structures)
 
     output = []
 
@@ -363,20 +363,20 @@ def get_time_from_system(item, indices='all', structure_indices='all'):
     from numpy import array as _array
     from openmm.unit import picoseconds
 
-    n_frames = get_n_frames_from_system(item)
-    output = [None for ii in range(n_frames)]
+    n_structures = get_n_structures_from_system(item)
+    output = [None for ii in range(n_structures)]
     output = _array(output)*picoseconds
     return output
 
 def get_step_from_system(item, indices='all', structure_indices='all'):
 
     from numpy import array as _array
-    n_frames = get_n_frames_from_system(item)
-    output = [None for ii in range(n_frames)]
+    n_structures = get_n_structures_from_system(item)
+    output = [None for ii in range(n_structures)]
     output = _array(output)
     return output
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
 

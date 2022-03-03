@@ -19,11 +19,11 @@ has = molecular_system_components.copy()
 for ii in ['coordinates', 'box']:
     has[ii]=True
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.native.io.trajectory import from_file_xtc as file_xtc_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory import from_file_xtc as file_xtc_to_molsysmt_Structures
 
-    tmp_item, tmp_molecular_system = file_xtc_to_molsysmt_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item, tmp_molecular_system = file_xtc_to_molsysmt_Structures(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
 
@@ -113,11 +113,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -332,7 +332,7 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     return aux_get(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     return aux_get(item, indices=indices, structure_indices=structure_indices)
 

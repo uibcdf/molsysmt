@@ -6,7 +6,7 @@ arguments = [
         'info_no_form',
         'n_elements',
         'n_molecules',
-        'n_frames',
+        'n_structures',
         'form',
         ]
 
@@ -14,7 +14,7 @@ arguments = [
 argument_synonyms = {
         'n_element': 'n_elements',
         'n_molecule': 'n_molecules',
-        'n_frame': 'n_frames',
+        'n_frame': 'n_structures',
         'forms': 'form',
 }
 

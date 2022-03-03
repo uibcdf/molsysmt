@@ -7,8 +7,9 @@ def where_is_attribute(molecular_system, attribute=None):
     from molsysmt.api_forms import dict_has
     from molsysmt.tools import is_attribute
 
-    if not is_a_single_molecular_system(items):
-        raise ValueError ("This method needs a single molecular system as input")
+    if not is_a_molecular_system(molecular_system):
+        raise SingleMolecularSystemNeededError()
+
 
     output_item = None
     output_form = None

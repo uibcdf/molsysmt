@@ -2428,7 +2428,7 @@ def get_box_angles_from_system(item, indices='all', structure_indices='all'):
 
     return output
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     return 0
 

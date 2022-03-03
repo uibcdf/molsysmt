@@ -38,11 +38,11 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all',
     from molsysmt.native.io.topology import from_openexplorer_Explorer as molsysmt_Topology_from_openexplorer_Explorer
     return molsysmt_Topology_from_openexplorer_Explorer(item, atom_indices=atom_indices)
 
-def to_molsysmt_Trajectory(item, atom_indices='all', structure_indices='all',
+def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all',
            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
-    from molsysmt.native.io.trajectory import from_openexplorer_Explorer as molsysmt_Trajectory_from_openexplorer_Explorer
-    return molsysmt_Trajectory_from_openexplorer_Explorer(item, atom_indices=atom_indices)
+    from molsysmt.native.io.trajectory import from_openexplorer_Explorer as molsysmt_Structures_from_openexplorer_Explorer
+    return molsysmt_Structures_from_openexplorer_Explorer(item, atom_indices=atom_indices)
 
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all',
            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
@@ -358,7 +358,7 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
     tmp_item = to_openmm_Context(item)
     return _get(tmp_item, indices=indices, structure_indices=structure_indices)
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
 

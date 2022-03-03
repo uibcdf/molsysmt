@@ -27,11 +27,11 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', struct
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.native.io.trajectory import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Structures
 
-    tmp_item, tmp_molecular_system = nglview_NGLWidget_to_molsysmt_Trajectory(item,
+    tmp_item, tmp_molecular_system = nglview_NGLWidget_to_molsysmt_Structures(item,
             molecular_system=molecular_system, atom_indices=atom_indices,
             structure_indices=structure_indices)
 
@@ -140,16 +140,16 @@ def add(to_item, item):
 
     raise NotWithThisForm()
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotWithThisForm()
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     from molsysmt.api_forms.api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
-    from molsysmt.api_forms.api_molsysmt_MolSys import append_frames as append_frames_molsysmt_MolSys
+    from molsysmt.api_forms.api_molsysmt_MolSys import append_structures as append_structures_molsysmt_MolSys
     tmp_item, _ = to_molsysmt_MolSys(item)
-    append_frames_molsysmt_MolSys(tmp_item, step=step, time=time, coordinates=coordinates, box=box)
+    append_structures_molsysmt_MolSys(tmp_item, step=step, time=time, coordinates=coordinates, box=box)
     tmp_item, _ = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
     return tmp_item
 
@@ -223,8 +223,8 @@ def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
-        n_frames = get_n_frames_from_system(item)
-        structure_indices = np.arange(n_frames)
+        n_structures = get_n_structures_from_system(item)
+        structure_indices = np.arange(n_structures)
 
     coordinates = []
 
@@ -352,8 +352,8 @@ def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
 def get_coordinates_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
-        n_frames = get_n_frames_from_system(item)
-        structure_indices = np.arange(n_frames)
+        n_structures = get_n_structures_from_system(item)
+        structure_indices = np.arange(n_structures)
 
     coordinates = []
 
@@ -373,9 +373,9 @@ def get_box_from_system(item, indices='all', structure_indices='all'):
     from molsysmt.api_forms.api_openmm_Topology import get_box_from_system as get_box_from_system_openmm_Topology
 
     if structure_indices is 'all':
-        n_frames = get_n_frames_from_system(item)
+        n_structures = get_n_structures_from_system(item)
     else:
-        n_frames = structure_indices.shape[0]
+        n_structures = structure_indices.shape[0]
 
     openmm_Topology, _ = to_openmm_Topology(item, atom_indices='all', structure_indices=0)
 
@@ -385,7 +385,7 @@ def get_box_from_system(item, indices='all', structure_indices='all'):
         aux_box_value_frame_0 = puw.get_value(aux_box[0])
         aux_box_unit = puw.get_unit(aux_box)
 
-        box = [aux_box_value_frame_0 for ii in range(n_frames)]
+        box = [aux_box_value_frame_0 for ii in range(n_structures)]
         box = np.array(box)
         box = puw.quantity(box, unit=aux_box_unit)
         box = puw.standardize(box)
@@ -418,14 +418,14 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     return None
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
-        n_frames = item.component_0.n_frames
+        n_structures = item.component_0.n_structures
     else:
-        n_frames = structure_indices.shape[0]
+        n_structures = structure_indices.shape[0]
 
-    return n_frames
+    return n_structures
 
 def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
 

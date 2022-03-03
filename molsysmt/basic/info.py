@@ -211,10 +211,11 @@ def info(molecular_system, target='system', indices=None, selection='all', synta
 
             form = get_form(molecular_system)
 
-            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_frames,\
+            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_structures,\
             n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas,\
             n_rnas, n_lipids = get(molecular_system, target=target,
-                    n_atoms=True, n_groups=True, n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_frames=True,
+                    n_atoms=True, n_groups=True, n_components=True, n_chains=True,
+                    n_molecules=True, n_entities=True, n_structures=True,
                     n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
                     n_dnas=True, n_rnas=True, n_lipids=True)
 
@@ -222,7 +223,7 @@ def info(molecular_system, target='system', indices=None, selection='all', synta
                 'n_chains':n_chains, 'n_molecules':n_molecules, 'n_entities':n_entities,
                 'n_waters':n_waters, 'n_ions':n_ions, 'n_cosolutes':n_cosolutes, 'n_small_molecules':n_small_molecules,
                 'n_peptides':n_peptides, 'n_proteins':n_proteins, 'n_dnas':n_dnas, 'n_rnas':n_rnas, 'n_lipids':n_lipids,
-                'n_frames':n_frames}], index=[0])
+                'n_structures':n_structures}], index=[0])
 
             if n_ions==0 or n_ions is None: tmp_df.drop(columns=['n_ions'], inplace=True)
             if n_waters==0 or n_waters is None: tmp_df.drop(columns=['n_waters'], inplace=True)

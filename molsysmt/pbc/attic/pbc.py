@@ -16,7 +16,7 @@ from molsysmt import puw
 #    from molsysmt.tools.math import serialized_lists
 #    from molsysmt.centers import geometrical_center
 #
-#    n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
+#    n_atoms, n_structures = get(item, n_atoms=True, n_structures=True)
 #    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 #    n_atom_indices = len(atom_indices)
 #    structure_indices = _digest_structure_indices(item, structure_indices)
@@ -60,7 +60,7 @@ from molsysmt import puw
 #        libbox.minimum_image_convention(coordinates, reference_coordinates, centers_molecules,
 #                molecules_serialized.indices, molecules_serialized.values,
 #                molecules_serialized.starts, structure_indices, box, orthogonal,
-#                n_frames, n_atoms, molecules_serialized.n_indices, molecules_serialized.n_values,
+#                n_structures, n_atoms, molecules_serialized.n_indices, molecules_serialized.n_values,
 #                n_structure_indices)
 #
 #        coordinates=np.ascontiguousarray(coordinates)*units
@@ -82,7 +82,7 @@ from molsysmt import puw
 #    from molsysmt import set as _set
 #    from molsysmt.tools.math import serialized_lists
 #
-#    n_atoms, n_frames = get(item, n_atoms=True, n_frames=True)
+#    n_atoms, n_structures = get(item, n_atoms=True, n_structures=True)
 #    atom_indices = select(item, selection=selection, syntaxis=syntaxis)
 #    n_atom_indices = len(atom_indices)
 #    structure_indices = _digest_structure_indices(item, structure_indices)
@@ -118,7 +118,7 @@ from molsysmt import puw
 #
 #        libbox.unwrap(coordinates, molecules_serialized.indices, molecules_serialized.values, molecules_serialized.starts,
 #                       bonded_atoms_serialized.indices, bonded_atoms_serialized.values, bonded_atoms_serialized.starts,
-#                       structure_indices, box, orthogonal, n_frames, n_atoms,
+#                       structure_indices, box, orthogonal, n_structures, n_atoms,
 #                       molecules_serialized.n_indices, molecules_serialized.n_values,
 #                       bonded_atoms_serialized.n_indices, bonded_atoms_serialized.n_values,
 #                       n_structure_indices)

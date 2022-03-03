@@ -10,7 +10,7 @@ with open('data/1tcd.pickle', 'rb') as f:
 
 item_pdb_file = 'data/1tcd.pdb'
 item_molsysmt_MolSys = convert('data/1tcd.pdb', to_form='molsysmt.MolSys')
-item_molsysmt_Trajectory = convert('data/1tcd.pdb', to_form='molsysmt.Trajectory')
+item_molsysmt_Structures = convert('data/1tcd.pdb', to_form='molsysmt.Trajectory')
 item_openmm_Modeller = convert('data/1tcd.pdb', to_form='openmm.Modeller')
 item_openmm_PDBFile = convert('data/1tcd.pdb', to_form='openmm.PDBFile')
 item_pdbfixer_PDBFixer = convert('data/1tcd.pdb', to_form='pdbfixer.PDBFixer')
@@ -18,33 +18,33 @@ item_pdbfixer_PDBFixer = convert('data/1tcd.pdb', to_form='pdbfixer.PDBFixer')
 args = [
     item_pdb_file,
     item_molsysmt_MolSys,
-    item_molsysmt_Trajectory,
+    item_molsysmt_Structures,
     item_openmm_Modeller,
     item_openmm_PDBFile,
     item_pdbfixer_PDBFixer
 ]
 
-# n_frames
+# n_structures
 
 @pytest.mark.parametrize("item", args, ids=get_form)
-def test_n_frames_from_atom_1(item):
-    output = get(item, target='atom', structure_indices='all', n_frames=True)
-    assert output==expected_values['n_frames_from_atom_1']
+def test_n_structures_from_atom_1(item):
+    output = get(item, target='atom', structure_indices='all', n_structures=True)
+    assert output==expected_values['n_structures_from_atom_1']
 
 @pytest.mark.parametrize("item", args, ids=get_form)
-def test_n_frames_from_atom_2(item):
-    output = get(item, target='atom', structure_indices=0, n_frames=True)
-    assert output==expected_values['n_frames_from_atom_2']
+def test_n_structures_from_atom_2(item):
+    output = get(item, target='atom', structure_indices=0, n_structures=True)
+    assert output==expected_values['n_structures_from_atom_2']
 
 @pytest.mark.parametrize("item", args, ids=get_form)
-def test_n_frames_from_system_1(item):
-    output = get(item, target='system', structure_indices='all', n_frames=True)
-    assert output==expected_values['n_frames_from_system_1']
+def test_n_structures_from_system_1(item):
+    output = get(item, target='system', structure_indices='all', n_structures=True)
+    assert output==expected_values['n_structures_from_system_1']
 
 @pytest.mark.parametrize("item", args, ids=get_form)
-def test_n_frames_from_system_2(item):
-    output = get(item, target='system', structure_indices=0, n_frames=True)
-    assert output==expected_values['n_frames_from_system_2']
+def test_n_structures_from_system_2(item):
+    output = get(item, target='system', structure_indices=0, n_structures=True)
+    assert output==expected_values['n_structures_from_system_2']
 
 # coordinates
 

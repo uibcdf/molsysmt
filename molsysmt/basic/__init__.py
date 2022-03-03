@@ -13,8 +13,8 @@ from .remove import remove
 from .merge import merge
 from .inherit import inherit
 from .add import add
-from .concatenate_frames import concatenate_frames
-from .append_frames import append_frames
+from .concatenate_structures import concatenate_structures
+from .append_structures import append_structures
 from .is_composed_of import is_composed_of
 from .contains import contains
 from .compare import compare

@@ -35,13 +35,13 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
 
     n_atoms = get(molecular_system, target='system', n_atoms=True)
     n_quartets = quartets.shape[0]
-    n_frames = get(molecular_system, target='system', structure_indices=structure_indices, n_frames=True)
+    n_structures = get(molecular_system, target='system', structure_indices=structure_indices, n_structures=True)
 
     angles_units = puw.get_unit(angles)
     angles_value = puw.get_value(angles)
 
     if type(angles_value) in [float]:
-        if (n_quartets==1 and n_frames==1):
+        if (n_quartets==1 and n_structures==1):
             angles_value = np.array([[angles_value]], dtype=float)
         else:
             raise ValueError("angles do not match the number of frames and quartets")
@@ -55,7 +55,7 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
     shape = angles_value.shape
 
     if len(shape)==1:
-        angles_value = angles_value.reshape([n_frames, n_quartets])
+        angles_value = angles_value.reshape([n_structures, n_quartets])
 
     angles = angles_value*angles_units
 
@@ -89,7 +89,7 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         else:
 
             orthogonal = 1
-            box= np.zeros([n_frames,3,3])*puw.unit('nm')
+            box= np.zeros([n_structures,3,3])*puw.unit('nm')
 
         length_units = puw.unit(coordinates)
         box = np.asfortranarray(puw.get_value(box, to_unit=length_units), dtype='float64')
@@ -108,7 +108,7 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         aux_atoms_per_block = np.array(aux_atoms_per_block, dtype=int)
 
         libgeometry.set_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, angles,
-                                         aux_blocks, aux_atoms_per_block, n_quartets, n_atoms, n_frames, aux_blocks.shape[0])
+                                         aux_blocks, aux_atoms_per_block, n_quartets, n_atoms, n_structures, aux_blocks.shape[0])
 
         coordinates=np.ascontiguousarray(coordinates)*length_units
 

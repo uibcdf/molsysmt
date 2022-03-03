@@ -34,7 +34,7 @@ def item_in_good_shape(item):
 
 def this_Quantity_has_XYZ_shape(item):
 
-    # Only np.arrays of shape [n_frames, n_particles, coordinates] or [n_particles, coordinates] are
+    # Only np.arrays of shape [n_structures, n_particles, coordinates] or [n_particles, coordinates] are
     # admitted
 
     has_right_shape = False
@@ -52,7 +52,7 @@ def this_Quantity_has_XYZ_shape(item):
 
 def this_Quantity_is_XYZ(item):
 
-    # Only np.arrays of shape [n_frames, n_particles, coordinates] or [n_particles, coordinates] are
+    # Only np.arrays of shape [n_structures, n_particles, coordinates] or [n_particles, coordinates] are
     # admitted
 
     is_length = puw.compatibility(item, puw.unit('nm'))
@@ -60,11 +60,11 @@ def this_Quantity_is_XYZ(item):
 
     return (has_right_shape and is_length)
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.native.io.trajectory import from_XYZ as XYZ_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory import from_XYZ as XYZ_to_molsysmt_Structures
 
-    tmp_item, tmp_molecular_system = XYZ_to_molsysmt_Trajectory(item,
+    tmp_item, tmp_molecular_system = XYZ_to_molsysmt_Structures(item,
             molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
@@ -122,11 +122,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError()
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -320,7 +320,7 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     raise NotWithThisFormError()
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     tmp_item = item_in_good_shape(item)
     return tmp_item.shape[0]

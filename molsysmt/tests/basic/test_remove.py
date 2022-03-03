@@ -19,7 +19,7 @@ def test_remove_1():
                  'n_molecules': {0: 1},
                  'n_entities': {0: 1},
                  'n_proteins': {0: 1},
-                 'n_frames': {0: 1}}
+                 'n_structures': {0: 1}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
@@ -36,7 +36,7 @@ def test_remove_2():
                  'n_chains': {0: None},
                  'n_molecules': {0: None},
                  'n_entities': {0: None},
-                 'n_frames': {0: 1}}
+                 'n_structures': {0: 1}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 

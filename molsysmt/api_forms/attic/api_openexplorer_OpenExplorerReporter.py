@@ -30,7 +30,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all',
     from molsysmt.native.io.topology import from_openexplorer_OpenExplorerReporter as convert
     return convert(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
-def to_molsysmt_Trajectory(item, atom_indices='all', structure_indices='all',
+def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all',
                            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
     from molsysmt.native.io.trajectory import from_openexplorer_OpenExplorerReporter as convert
@@ -354,9 +354,9 @@ def get_frame_from_atom(item, indices='all', structure_indices='all'):
 
     return step, time, coordinates, box
 
-def get_n_frames_from_atom(item, indices='all', structure_indices='all'):
+def get_n_structures_from_atom(item, indices='all', structure_indices='all'):
 
-    return get_n_frames_from_system(item, structure_indices=structure_indices)
+    return get_n_structures_from_system(item, structure_indices=structure_indices)
 
 def get_form_from_atom(item, indices='all', structure_indices='all'):
 
@@ -1661,7 +1661,7 @@ def get_frame_from_system(item, indices='all', structure_indices='all'):
 
     return step, time, coordinates, box
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
 

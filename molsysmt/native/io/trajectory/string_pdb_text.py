@@ -5,7 +5,7 @@ def from_string_pdb_text(item, molecular_system=None, atom_indices='all', struct
 
     tmp_item = Trajectory()
     _, time, coordinates, box = get_frame_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
-    tmp_item.append_frames(coordinates=coordinates, box=box, time=time)
+    tmp_item.append_structures(coordinates=coordinates, box=box, time=time)
 
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)

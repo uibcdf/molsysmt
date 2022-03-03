@@ -205,16 +205,16 @@ CONTAINS
 
 !  SUBROUTINE COMPACT_MOLECULES (coors, molecules_indices, molecules_values, molecules_starts, &
 !          & bonded_atoms_indices, bonded_atoms_values, bonded_atoms_starts, &
-!          & structure_indices, box, ortho, n_frames, n_atoms, n_molecules_indices, &
+!          & structure_indices, box, ortho, n_structures, n_atoms, n_molecules_indices, &
 !          & n_molecules_values, n_bonded_atoms_indices, n_bonded_atoms_values, &
 !          & n_structure_indices)
 !
 !    IMPLICIT NONE
 !
-!    INTEGER,INTENT(IN):: n_frames, n_atoms, ortho, n_structure_indices
+!    INTEGER,INTENT(IN):: n_structures, n_atoms, ortho, n_structure_indices
 !    INTEGER,INTENT(IN):: n_molecules_indices, n_molecules_values
 !    INTEGER,INTENT(IN):: n_bonded_atoms_indices, n_bonded_atoms_values
-!    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
+!    DOUBLE PRECISION,DIMENSION(n_structures,n_atoms,3),INTENT(INOUT)::coors
 !    INTEGER,DIMENSION(n_molecules_indices),INTENT(IN)::molecules_indices
 !    INTEGER,DIMENSION(n_molecules_indices+1),INTENT(IN)::molecules_starts
 !    INTEGER,DIMENSION(n_molecules_values),INTENT(IN)::molecules_values
@@ -222,8 +222,8 @@ CONTAINS
 !    INTEGER,DIMENSION(n_bonded_atoms_indices+1),INTENT(IN)::bonded_atoms_starts
 !    INTEGER,DIMENSION(n_bonded_atoms_values),INTENT(IN)::bonded_atoms_values
 !    INTEGER,DIMENSION(n_structure_indices),INTENT(IN)::structure_indices
-!    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
-!    DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
+!    DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box
+!    DOUBLE PRECISION,DIMENSION(n_structures,3,3)::inv
 !
 !    INTEGER:: ii, jj, kk, ll
 !    INTEGER:: molecule_start, molecule_end, molecule_natoms
@@ -235,7 +235,7 @@ CONTAINS
 !    INTEGER,DIMENSION(n_atoms)::atom_id_to_position_in_bonds
 !    INTEGER::frame_index
 !    
-!    CALL BOX2INVBOX (box, inv, n_frames)
+!    CALL BOX2INVBOX (box, inv, n_structures)
 !
 !    aux_filter(:)=.FALSE.
 !
@@ -292,19 +292,19 @@ CONTAINS
 !  END SUBROUTINE COMPACT_MOLECULES
 !
 !  SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors, reference_coors, center_groups, groups_indices, groups_atoms_indices, groups_starts, &
-!          structure_indices, box, ortho, n_frames, n_atoms, n_groups, n_groups_atoms, n_structure_indices)
+!          structure_indices, box, ortho, n_structures, n_atoms, n_groups, n_groups_atoms, n_structure_indices)
 !
 !    IMPLICIT NONE
 !
-!    INTEGER,INTENT(IN):: n_frames, n_atoms, n_groups, n_groups_atoms, n_structure_indices, ortho
-!    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
+!    INTEGER,INTENT(IN):: n_structures, n_atoms, n_groups, n_groups_atoms, n_structure_indices, ortho
+!    DOUBLE PRECISION,DIMENSION(n_structures,n_atoms,3),INTENT(INOUT)::coors
 !    DOUBLE PRECISION,DIMENSION(n_structure_indices,1,3),INTENT(IN)::reference_coors
 !    DOUBLE PRECISION,DIMENSION(n_structure_indices,n_groups,3),INTENT(IN)::center_groups
 !    INTEGER,DIMENSION(n_groups),INTENT(IN)::groups_indices ! Molecules in this case
 !    INTEGER,DIMENSION(n_groups+1),INTENT(IN)::groups_starts
 !    INTEGER,DIMENSION(n_groups_atoms),INTENT(IN)::groups_atoms_indices
 !    INTEGER,DIMENSION(n_structure_indices),INTENT(IN)::structure_indices
-!    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
+!    DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box
 !
 !    INTEGER::ii,jj,ll
 !    INTEGER::atom_index, frame_index

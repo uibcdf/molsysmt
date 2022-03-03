@@ -4,8 +4,8 @@ from molsysmt.tools.string_pdb_id.is_string_pdb_id import is_string_pdb_id as is
 from molsysmt.tools.string_pdb_id.extract import extract
 from molsysmt.tools.string_pdb_id.add import add
 from molsysmt.tools.string_pdb_id.merge import merge
-from molsysmt.tools.string_pdb_id.append_frames import append_frames
-from molsysmt.tools.string_pdb_id.concatenate_frames import concatenate_frames
+from molsysmt.tools.string_pdb_id.append_structures import append_structures
+from molsysmt.tools.string_pdb_id.concatenate_structures import concatenate_structures
 from molsysmt.tools.string_pdb_id.get import *
 from molsysmt.tools.string_pdb_id.set import *
 
@@ -13,42 +13,39 @@ form_name='string:pdb_id'
 form_type='string'
 form_info=["",""]
 
-form_elements = {
-    'atoms' : True,
-    'bonds' : True,
-    'groups' : True,
-    'component' : False,
-    'molecule' : True,
-    'chain' : True,
-    'entity' : True,
-        }
-
 form_attributes = {
 
+    'atom_index' : True,
     'atom_id' : True,
     'atom_name' : True,
     'atom_type' : True,
 
-    'bond_id' : True,
-    'bond_name' : True,
-    'bond_type' : True,
+    'bond_index' : False,
+    'bond_id' : False,
+    'bond_name' : False,
+    'bond_type' : False,
 
+    'group_index' : True,
     'group_id' : True,
     'group_name' : True,
     'group_type' : True,
 
+    'component_index' : False,
     'component_id' : False,
     'component_name' : False,
     'component_type' : False,
 
+    'molecule_index' : True,
     'molecule_id' : True,
     'molecule_name' : True,
     'molecule_type' : True,
 
+    'chain_index' : True,
     'chain_id' : True,
     'chain_name' : True,
     'chain_type' : True,
 
+    'entity_index' : True,
     'entity_id' : True,
     'entity_name' : True,
     'entity_type' : True,
@@ -129,11 +126,11 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
     return tmp_item
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_id import to_molsysmt_Trajectory as string_pdb_id_to_molsysmt_Trajectory
+    from molsysmt.tools.string_pdb_id import to_molsysmt_Structures as string_pdb_id_to_molsysmt_Structures
 
-    tmp_item = string_pdb_id_to_molsysmt_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = string_pdb_id_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
 
     return tmp_item
 

@@ -3,10 +3,10 @@ class MolSys():
     def __init__(self):
 
         from .topology import Topology
-        from .structures_collection import StructuresCollection
+        from .structures import Structures
 
         self.topology = Topology()
-        self.structures = StructuresCollection()
+        self.structures = Structures()
 
     def extract(self, atom_indices='all', structure_indices='all'):
 

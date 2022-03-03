@@ -21,7 +21,7 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
         length_units = puw.get_unit(coordinates_1)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
 
-        n_frames = coordinates.shape[0]
+        n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
 
         if pbc:
@@ -49,7 +49,7 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
             weights_units = msm.puw.get_unit(masses)
             weights = msm.puw.get_value(masses)
 
-        output = libgeometry.radius_of_gyration(coordinates, weights, box, orthogonal, int(pbc), n_frames, n_atoms)
+        output = libgeometry.radius_of_gyration(coordinates, weights, box, orthogonal, int(pbc), n_structures, n_atoms)
         output = output*weights_units*length_units*length_units
 
         del(weights, coordinates, box, orthogonal)

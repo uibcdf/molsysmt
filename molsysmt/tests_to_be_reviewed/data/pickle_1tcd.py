@@ -443,10 +443,10 @@ expected_values['n_rnas_from_system'] = get(molecular_system, target='system', n
 
 # Coordinates, box, frames, etc.
 
-expected_values['n_frames_from_atom_1'] = get(molecular_system, target='atom', structure_indices='all', n_frames=True)
-expected_values['n_frames_from_atom_2'] = get(molecular_system, target='atom', structure_indices=0, n_frames=True)
-expected_values['n_frames_from_system_1'] = get(molecular_system, target='system', structure_indices='all', n_frames=True)
-expected_values['n_frames_from_system_2'] = get(molecular_system, target='system', structure_indices=0, n_frames=True)
+expected_values['n_structures_from_atom_1'] = get(molecular_system, target='atom', structure_indices='all', n_structures=True)
+expected_values['n_structures_from_atom_2'] = get(molecular_system, target='atom', structure_indices=0, n_structures=True)
+expected_values['n_structures_from_system_1'] = get(molecular_system, target='system', structure_indices='all', n_structures=True)
+expected_values['n_structures_from_system_2'] = get(molecular_system, target='system', structure_indices=0, n_structures=True)
 expected_values['coordinates_from_atom_1'] = get(molecular_system, target='atom', structure_indices='all', coordinates=True)
 expected_values['coordinates_from_atom_2'] = get(molecular_system, target='atom', structure_indices=0, coordinates=True)
 expected_values['coordinates_from_atom_3'] = get(molecular_system, target='atom', indices=range(20,30), structure_indices=0, coordinates=True)

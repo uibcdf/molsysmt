@@ -2,11 +2,11 @@ def from_nglview_NGLWidget (item, molecular_system=None, atom_indices='all', str
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.io.topology import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Topology
-    from molsysmt.native.io.trajectory import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Trajectory
+    from molsysmt.native.io.trajectory import from_nglview_NGLWidget as nglview_NGLWidget_to_molsysmt_Structures
 
     tmp_item = MolSys()
     tmp_item.topology, _ = nglview_NGLWidget_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item.trajectory, _ = nglview_NGLWidget_to_molsysmt_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item.trajectory, _ = nglview_NGLWidget_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices)
     if molecular_system is not None:
         tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
     else:

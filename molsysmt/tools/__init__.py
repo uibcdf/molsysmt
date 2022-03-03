@@ -4,13 +4,6 @@ from .is_item import is_item
 from .item_is_file import item_is_file
 from .item_is_string import item_is_string
 
-from . import file_mmtf
-from . import file_msmpk
-from . import file_pdb
-from . import file_trjpk
-from . import file_xyznpy
-from . import file_xyz
-
 from . import string_pdb_id
 from . import string_pdb_text
 
@@ -23,7 +16,7 @@ from . import molsysmt_Simulation
 from . import molsysmt_Topology
 from . import molsysmt_TrajectoryDict
 from . import molsysmt_TrajectoryFile
-from . import molsysmt_StructuresCollection
+from . import molsysmt_Structures
 from . import nglview_NGLWidget
 
 from . import tleap

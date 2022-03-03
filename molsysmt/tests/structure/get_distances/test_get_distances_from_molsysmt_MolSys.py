@@ -109,8 +109,8 @@ def test_get_distances_from_molsysmt_MolSys_8():
 
 def test_get_distances_from_molsysmt_MolSys_9():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
-    n_frames = msm.get(molsys, n_frames=True)
-    all_structure_indices = np.arange(n_frames)
+    n_structures = msm.get(molsys, n_structures=True)
+    all_structure_indices = np.arange(n_structures)
     displacements = msm.structure.get_distances(molsys, selection="group_index==0", group_behavior="geometric_center",
                              structure_indices=all_structure_indices[:-1], structure_indices_2=all_structure_indices[1:])
     check_shape = ((4999,1,6)==displacements.shape)
@@ -119,10 +119,10 @@ def test_get_distances_from_molsysmt_MolSys_9():
 
 def test_get_distances_from_molsysmt_MolSys_10():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
-    n_frames = msm.get(molsys, n_frames=True)
-    all_structure_indices = np.arange(n_frames)
+    n_structures = msm.get(molsys, n_structures=True)
+    all_structure_indices = np.arange(n_structures)
     displacements = msm.structure.get_distances(molsys, selection="all",
-                             structure_indices=np.zeros(n_frames), structure_indices_2=all_structure_indices)
+                             structure_indices=np.zeros(n_structures), structure_indices_2=all_structure_indices)
     check_shape = ((5000,62,62)==displacements.shape)
     check_distance = np.isclose(puw.get_value(displacements[1000, 30, 30], to_unit='nm'), 0.4517681)
     assert check_shape and check_distance

@@ -29,11 +29,11 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
         length_units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         n_atoms = coordinates.shape[1]
-        n_frames = coordinates.shape[0]
+        n_structures = coordinates.shape[0]
 
         com = libcom.center_of_mass(coordinates,
                                     groups_serialized.indices, groups_serialized.values, groups_serialized.starts,
-                                    weights, n_frames, n_atoms,
+                                    weights, n_structures, n_atoms,
                                     groups_serialized.n_indices, groups_serialized.n_values)
 
         del(coordinates, groups_serialized)

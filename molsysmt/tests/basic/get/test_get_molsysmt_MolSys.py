@@ -358,8 +358,8 @@ def test_get_53():
 
 def test_get_54():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    n_frames = msm.get(molsys, target='system', n_frames=True)
-    assert n_frames==1
+    n_structures = msm.get(molsys, target='system', n_structures=True)
+    assert n_structures==1
 
 def test_get_55():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')

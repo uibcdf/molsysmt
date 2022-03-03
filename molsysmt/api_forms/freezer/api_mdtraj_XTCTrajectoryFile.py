@@ -54,11 +54,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -112,8 +112,8 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
 
-        n_frames= get_n_frames_from_system(item)
-        structure_indices = np.arange(n_frames)
+        n_structures= get_n_structures_from_system(item)
+        structure_indices = np.arange(n_structures)
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -122,9 +122,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
         if indices is 'all':
-            xyz, _, _, _ = item.read(n_frames=size)
+            xyz, _, _, _ = item.read(n_structures=size)
         else:
-            xyz, _, _, _ = item.read(n_frames=size, atom_indices=indices)
+            xyz, _, _, _ = item.read(n_structures=size, atom_indices=indices)
         xyz_list.append(xyz)
 
     xyz = np.concatenate(xyz_list)
@@ -144,8 +144,8 @@ def get_frame_from_atom(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
 
-        n_frames= get_n_frames_from_system(item)
-        structure_indices = np.arange(n_frames)
+        n_structures= get_n_structures_from_system(item)
+        structure_indices = np.arange(n_structures)
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -157,9 +157,9 @@ def get_frame_from_atom(item, indices='all', structure_indices='all'):
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
         if indices is 'all':
-            xyz, time, step, box = item.read(n_frames=size)
+            xyz, time, step, box = item.read(n_structures=size)
         else:
-            xyz, time, step, box = item.read(n_frames=size, atom_indices=indices)
+            xyz, time, step, box = item.read(n_structures=size, atom_indices=indices)
         xyz_list.append(xyz)
         time_list.append(time)
         step_list.append(step)
@@ -263,7 +263,7 @@ def get_entity_type_from_entity (item, indices='all', structure_indices='all'):
 def get_n_atoms_from_system (item, indices='all', structure_indices='all'):
 
     position = item.tell()
-    xyz, _, _, _ = item.read(n_frames=1)
+    xyz, _, _, _ = item.read(n_structures=1)
     n_atoms = xyz.shape[1]
     del(xyz)
     item.seek(position)
@@ -299,8 +299,8 @@ def get_box_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
 
-        n_frames= get_n_frames_from_system(item)
-        structure_indices = np.arange(n_frames)
+        n_structures= get_n_structures_from_system(item)
+        structure_indices = np.arange(n_structures)
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -308,7 +308,7 @@ def get_box_from_system(item, indices='all', structure_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        _, _, _, box = item.read(n_frames=size)
+        _, _, _, box = item.read(n_structures=size)
         box_list.append(box)
 
     box = np.concatenate(box_list)
@@ -343,8 +343,8 @@ def get_time_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
 
-        n_frames= get_n_frames_from_system(item)
-        structure_indices = np.arange(n_frames)
+        n_structures= get_n_structures_from_system(item)
+        structure_indices = np.arange(n_structures)
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -352,7 +352,7 @@ def get_time_from_system(item, indices='all', structure_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        _, time, _, _ = item.read(n_frames=size)
+        _, time, _, _ = item.read(n_structures=size)
         time_list.append(time)
 
     time = np.concatenate(time_list)
@@ -371,8 +371,8 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
 
-        n_frames= get_n_frames_from_system(item)
-        structure_indices = np.arange(n_frames)
+        n_structures= get_n_structures_from_system(item)
+        structure_indices = np.arange(n_structures)
 
     starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 
@@ -380,7 +380,7 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     for start, size in zip(starts_serie_frames, size_serie_frames):
         item.seek(start)
-        _, _, step, _ = item.read(n_frames=size)
+        _, _, step, _ = item.read(n_structures=size)
         step_list.append(step)
 
     step = np.concatenate(step_list)
@@ -390,7 +390,7 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     return step
 
-def get_n_frames_from_system (item, indices='all', structure_indices='all'):
+def get_n_structures_from_system (item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
         return len(item.offsets)

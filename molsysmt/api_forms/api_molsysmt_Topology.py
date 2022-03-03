@@ -4,8 +4,8 @@ from molsysmt.tools.molsysmt_Topology.is_molsysmt_Topology import is_molsysmt_To
 from molsysmt.tools.molsysmt_Topology.extract import extract
 from molsysmt.tools.molsysmt_Topology.add import add
 from molsysmt.tools.molsysmt_Topology.merge import merge
-from molsysmt.tools.molsysmt_Topology.append_frames import append_frames
-from molsysmt.tools.molsysmt_Topology.concatenate_frames import concatenate_frames
+from molsysmt.tools.molsysmt_Topology.append_structures import append_structures
+from molsysmt.tools.molsysmt_Topology.concatenate_structures import concatenate_structures
 from molsysmt.tools.molsysmt_Topology.get import *
 from molsysmt.tools.molsysmt_Topology.set import *
 
@@ -13,42 +13,39 @@ form_name='molsysmt.Topology'
 form_type='class'
 form_info=["",""]
 
-form_elements = {
-    'atoms' : True,
-    'bonds' : True,
-    'groups' : True,
-    'component' : True,
-    'molecule' : True,
-    'chain' : True,
-    'entity' : True,
-        }
-
 form_attributes = {
 
+    'atom_index' : True,
     'atom_id' : True,
     'atom_name' : True,
     'atom_type' : True,
 
-    'bond_id' : False,
-    'bond_name' : False,
-    'bond_type' : False,
+    'bond_index' : True,
+    'bond_id' : True,
+    'bond_name' : True,
+    'bond_type' : True,
 
+    'group_index' : True,
     'group_id' : True,
     'group_name' : True,
     'group_type' : True,
 
+    'component_index' : True,
     'component_id' : True,
     'component_name' : True,
     'component_type' : True,
 
+    'molecule_index' : True,
     'molecule_id' : True,
     'molecule_name' : True,
     'molecule_type' : True,
 
+    'chain_index' : True,
     'chain_id' : True,
     'chain_name' : True,
     'chain_type' : True,
 
+    'entity_index' : True,
     'entity_id' : True,
     'entity_name' : True,
     'entity_type' : True,

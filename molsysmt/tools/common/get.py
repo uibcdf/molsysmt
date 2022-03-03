@@ -411,11 +411,11 @@ def get_inner_bond_index_from_atom (item, indices='all', structure_indices='all'
 #
 #    return tmp_step, tmp_time, tmp_coordinates, tmp_box
 
-def get_n_frames_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_n_structures_from_atom(item, indices='all', structure_indices='all', check_form=True):
 
     from molsysmt.basic import get
 
-    return get(item, target='system', indices='all', structure_indices=structure_indices, n_frames=True)
+    return get(item, target='system', indices='all', structure_indices=structure_indices, n_structures=True)
 
 ## group
 
@@ -1172,7 +1172,7 @@ def get_frame_from_system(item, indices='all', structure_indices='all', check_fo
     from molsysmt.basic import get
     return get(item, target='atom', structure_indices=structure_indices, frame=True)
 
-#def get_n_frames_from_system(item, indices='all', structure_indices='all', check_form=True):
+#def get_n_structures_from_system(item, indices='all', structure_indices='all', check_form=True):
 #
 #    raise NotImplementedError
 

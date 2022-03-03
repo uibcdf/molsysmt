@@ -76,16 +76,16 @@ CONTAINS
   END FUNCTION ANG3VECTS
 
 
-  SUBROUTINE DISTANCE(diff_set, coors1, coors2, box, ortho, mic_opt, n1, n2, n_frames, matrix)
+  SUBROUTINE DISTANCE(diff_set, coors1, coors2, box, ortho, mic_opt, n1, n2, n_structures, matrix)
   
   IMPLICIT NONE
-  INTEGER,INTENT(IN):: diff_set, ortho, mic_opt, n1, n2, n_frames
-  DOUBLE PRECISION,DIMENSION(n_frames,n1,3),INTENT(IN)::coors1
-  DOUBLE PRECISION,DIMENSION(n_frames,n2,3),INTENT(IN)::coors2
-  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
-  DOUBLE PRECISION,DIMENSION(n_frames,n1,n2),INTENT(OUT)::matrix
+  INTEGER,INTENT(IN):: diff_set, ortho, mic_opt, n1, n2, n_structures
+  DOUBLE PRECISION,DIMENSION(n_structures,n1,3),INTENT(IN)::coors1
+  DOUBLE PRECISION,DIMENSION(n_structures,n2,3),INTENT(IN)::coors2
+  DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box
+  DOUBLE PRECISION,DIMENSION(n_structures,n1,n2),INTENT(OUT)::matrix
 
-  DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
+  DOUBLE PRECISION,DIMENSION(n_structures,3,3)::inv
   
   INTEGER::ii,jj,kk
   DOUBLE PRECISION::val_aux
@@ -97,11 +97,11 @@ CONTAINS
 
   inv=0.0d0
   IF (mic_opt==1) THEN
-    CALL BOX2INVBOX (box, inv, n_frames)
+    CALL BOX2INVBOX (box, inv, n_structures)
   END IF
 
   IF (diff_set==1) THEN
-    DO kk=1,n_frames
+    DO kk=1,n_structures
       tmp_box=box(kk,:,:)
       tmp_inv=inv(kk,:,:)
       DO ii=1,n1
@@ -113,7 +113,7 @@ CONTAINS
       END DO
     END DO
   ELSE
-    DO kk=1,n_frames
+    DO kk=1,n_structures
       tmp_box=box(kk,:,:)
       tmp_inv=inv(kk,:,:)
       DO ii=1,n1
@@ -134,16 +134,16 @@ CONTAINS
  
   END SUBROUTINE DISTANCE
   
-  SUBROUTINE DISTANCE_PAIRS(coors1, coors2, box, ortho, mic_opt, n1, n2, n_frames, matrix)
+  SUBROUTINE DISTANCE_PAIRS(coors1, coors2, box, ortho, mic_opt, n1, n2, n_structures, matrix)
   
   IMPLICIT NONE
-  INTEGER,INTENT(IN):: ortho, mic_opt, n1, n2, n_frames
-  DOUBLE PRECISION,DIMENSION(n_frames,n1,3),INTENT(IN)::coors1
-  DOUBLE PRECISION,DIMENSION(n_frames,n2,3),INTENT(IN)::coors2
-  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
-  DOUBLE PRECISION,DIMENSION(n_frames,n1),INTENT(OUT)::matrix
+  INTEGER,INTENT(IN):: ortho, mic_opt, n1, n2, n_structures
+  DOUBLE PRECISION,DIMENSION(n_structures,n1,3),INTENT(IN)::coors1
+  DOUBLE PRECISION,DIMENSION(n_structures,n2,3),INTENT(IN)::coors2
+  DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box
+  DOUBLE PRECISION,DIMENSION(n_structures,n1),INTENT(OUT)::matrix
 
-  DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
+  DOUBLE PRECISION,DIMENSION(n_structures,3,3)::inv
   
   INTEGER::ii,kk
   DOUBLE PRECISION,DIMENSION(:),ALLOCATABLE::vect,vect_aux,vect_aux2
@@ -154,10 +154,10 @@ CONTAINS
 
   inv=0.0d0
   IF (mic_opt==1) THEN
-    CALL BOX2INVBOX (box, inv, n_frames)
+    CALL BOX2INVBOX (box, inv, n_structures)
   END IF
 
-  DO kk=1,n_frames
+  DO kk=1,n_structures
     tmp_box=box(kk,:,:)
     tmp_inv=inv(kk,:,:)
     DO ii=1,n1
@@ -173,17 +173,17 @@ CONTAINS
   END SUBROUTINE DISTANCE_PAIRS
 
 
- ! FUNCTION RADIUS_OF_GYRATION (coors, weights, box, ortho, mic_opt, n_frames, n_atoms) RESULT(Rg)
+ ! FUNCTION RADIUS_OF_GYRATION (coors, weights, box, ortho, mic_opt, n_structures, n_atoms) RESULT(Rg)
 
  !   IMPLICIT NONE    
- !   INTEGER, INTENT(IN)::ortho, mic_opt, n_frames, n_atoms
- !   DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
+ !   INTEGER, INTENT(IN)::ortho, mic_opt, n_structures, n_atoms
+ !   DOUBLE PRECISION,DIMENSION(n_structures,n_atoms,3),INTENT(IN)::coors
  !   DOUBLE PRECISION,DIMENSION(n_atoms),INTENT(IN)::weights
- !   DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
- !   DOUBLE PRECISION,DIMENSION(n_frames)::Rg
+ !   DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box
+ !   DOUBLE PRECISION,DIMENSION(n_structures)::Rg
 
  !   INTEGER::ii,jj
- !   DOUBLE PRECISION,DIMENSION(n_frames,3)::com
+ !   DOUBLE PRECISION,DIMENSION(n_structures,3)::com
  !   DOUBLE PRECISION,DIMENSION(3)::vect_aux
  !   DOUBLE PRECISION::total_weight
  !   DOUBLE PRECISION::val_aux
@@ -194,10 +194,10 @@ CONTAINS
 
  !   Rg(:) = 0.0d0
  !   com = CENTER_OF_MASS(coors, groups_indices, groups_atoms_indices, groups_starts, &
- !       &weights, n_frames, n_atoms)
+ !       &weights, n_structures, n_atoms)
  !   total_weight=SUM(weights)
 
- !   DO ii=1,n_frames
+ !   DO ii=1,n_structures
  !       val_aux=0.0d0
  !       DO jj=1,n_atoms
  !           vect_aux = coors(ii,jj,:)-com(ii,:)
@@ -210,11 +210,11 @@ CONTAINS
 
  ! END FUNCTION
 
-  SUBROUTINE TRANSLATE(coors, shifts, structure_indices, n_atoms, n_frames, n_structure_indices)
+  SUBROUTINE TRANSLATE(coors, shifts, structure_indices, n_atoms, n_structures, n_structure_indices)
  
     IMPLICIT NONE
-    INTEGER,INTENT(IN)::n_frames, n_atoms, n_structure_indices
-    DOUBLE PRECISION,DIMENSION(n_frames, n_atoms, 3),INTENT(INOUT)::coors
+    INTEGER,INTENT(IN)::n_structures, n_atoms, n_structure_indices
+    DOUBLE PRECISION,DIMENSION(n_structures, n_atoms, 3),INTENT(INOUT)::coors
     DOUBLE PRECISION,DIMENSION(n_structure_indices, 3),INTENT(IN)::shifts
     INTEGER,DIMENSION(n_structure_indices),INTENT(IN)::structure_indices
     INTEGER::ii,jj,frame_index
@@ -228,15 +228,15 @@ CONTAINS
 
   END SUBROUTINE
 
-  SUBROUTINE DIHEDRAL_ANGLES (angs, coors, box, ortho, mic_opt, quartets, n_angs, n_atoms, n_frames)
+  SUBROUTINE DIHEDRAL_ANGLES (angs, coors, box, ortho, mic_opt, quartets, n_angs, n_atoms, n_structures)
 
-    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, mic_opt, n_frames
+    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, mic_opt, n_structures
     INTEGER,DIMENSION(n_angs,4),INTENT(IN)::quartets
-    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(IN)::coors
-    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
-    DOUBLE PRECISION,DIMENSION(n_frames,n_angs),INTENT(OUT)::angs
+    DOUBLE PRECISION,DIMENSION(n_structures,n_atoms,3),INTENT(IN)::coors
+    DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box
+    DOUBLE PRECISION,DIMENSION(n_structures,n_angs),INTENT(OUT)::angs
 
-    DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
+    DOUBLE PRECISION,DIMENSION(n_structures,3,3)::inv
     DOUBLE PRECISION,DIMENSION(3,3)::tmp_box,tmp_inv
     INTEGER::ii,jj
     INTEGER::atom1,atom2,atom3,atom4
@@ -244,10 +244,10 @@ CONTAINS
     
     inv=0.0d0
     IF (mic_opt==1) THEN
-        CALL BOX2INVBOX (box, inv, n_frames)
+        CALL BOX2INVBOX (box, inv, n_structures)
     END IF
 
-    DO jj=1,n_frames
+    DO jj=1,n_structures
         tmp_box=box(jj,:,:)
         tmp_inv=inv(jj,:,:)
         DO ii=1,n_angs
@@ -270,17 +270,17 @@ CONTAINS
   END SUBROUTINE DIHEDRAL_ANGLES
 
   SUBROUTINE SET_DIHEDRAL_ANGLES (coors, box, ortho, mic_opt, quartets, angs, blocks, atoms_per_block, n_angs, n_atoms, &
-      n_frames, blocks_size)
+      n_structures, blocks_size)
 
-    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, mic_opt, n_frames, blocks_size
+    INTEGER,INTENT(IN)::ortho, n_atoms, n_angs, mic_opt, n_structures, blocks_size
     INTEGER,DIMENSION(n_angs,4),INTENT(IN)::quartets
-    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
-    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
-    DOUBLE PRECISION,DIMENSION(n_frames,n_angs),INTENT(IN)::angs
+    DOUBLE PRECISION,DIMENSION(n_structures,n_atoms,3),INTENT(INOUT)::coors
+    DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box
+    DOUBLE PRECISION,DIMENSION(n_structures,n_angs),INTENT(IN)::angs
     INTEGER,DIMENSION(blocks_size),INTENT(IN)::blocks
     INTEGER,DIMENSION(n_angs),INTENT(IN)::atoms_per_block
 
-    DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
+    DOUBLE PRECISION,DIMENSION(n_structures,3,3)::inv
     DOUBLE PRECISION,DIMENSION(3,3)::tmp_box,tmp_inv
     INTEGER::ii,jj,kk,ll
     INTEGER::atom1,atom2,atom3,atom4
@@ -296,10 +296,10 @@ CONTAINS
     
     inv=0.0d0
     IF (mic_opt==1) THEN
-        CALL BOX2INVBOX (box, inv, n_frames)
+        CALL BOX2INVBOX (box, inv, n_structures)
     END IF
 
-    DO jj=1,n_frames
+    DO jj=1,n_structures
         tmp_box=box(jj,:,:)
         tmp_inv=inv(jj,:,:)
         DO ii=1,n_angs

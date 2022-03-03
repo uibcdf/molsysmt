@@ -613,7 +613,7 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
 
     return tmp_molecular_system
 
-def append_frames(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT'):
+def append_structures(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT'):
 
     to_molecular_system = digest_molecular_system(to_molecular_system)
 
@@ -646,14 +646,14 @@ def append_frames(to_molecular_system, from_molecular_systems, selections='all',
         step, time, coordinates, box = get(aux_molecular_system, target='atom', selection=aux_selection, structure_indices=aux_structure_indices, frame=True)
 
         if box_in_diff_item:
-            dict_append_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)
-            dict_append_frames[to_molecular_system.box_form](to_molecular_system.box_item, step=None, time=None, coordinates=None, box=box)
+            dict_append_structures[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)
+            dict_append_structures[to_molecular_system.box_form](to_molecular_system.box_item, step=None, time=None, coordinates=None, box=box)
         else:
-            dict_append_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=box)
+            dict_append_structures[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=box)
 
     pass
 
-def concatenate_frames(molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT', to_form=None):
+def concatenate_structures(molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT', to_form=None):
 
     if is_a_single_molecular_system(molecular_systems):
         raise NeedsMultipleMolecularSystemsError()
@@ -680,7 +680,7 @@ def concatenate_frames(molecular_systems, selections='all', structure_indices='a
     else:
         tmp_molecular_system = convert(molecular_systems[0], selection=selections[0], structure_indices=structure_indices[0], to_form=to_form)
 
-    append_frames(tmp_molecular_system, molecular_systems[1:], selections=selections[1:], structure_indices=structure_indices[1:])
+    append_structures(tmp_molecular_system, molecular_systems[1:], selections=selections[1:], structure_indices=structure_indices[1:])
 
     return tmp_molecular_system
 
@@ -890,10 +890,10 @@ def info(molecular_system, target='system', indices=None, selection='all', synta
 
             form = get_form(molecular_system)
 
-            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_frames,\
+            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_structures,\
             n_ions, n_waters, n_cosolutes, n_small_molecules, n_peptides, n_proteins, n_dnas,\
             n_rnas = get(molecular_system, target=target,
-                    n_atoms=True, n_groups=True, n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_frames=True,
+                    n_atoms=True, n_groups=True, n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_structures=True,
                     n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
                     n_dnas=True, n_rnas=True)
 
@@ -901,7 +901,7 @@ def info(molecular_system, target='system', indices=None, selection='all', synta
                 'n_chains':n_chains, 'n_molecules':n_molecules, 'n_entities':n_entities,
                 'n_waters':n_waters, 'n_ions':n_ions, 'n_cosolutes':n_cosolutes, 'n_small_molecules':n_small_molecules,
                 'n_peptides':n_peptides, 'n_proteins':n_proteins, 'n_dnas':n_dnas, 'n_rnas':n_rnas,
-                'n_frames':n_frames}], index=[0])
+                'n_structures':n_structures}], index=[0])
 
             if n_ions==0 or n_ions is None: tmp_df.drop(columns=['n_ions'], inplace=True)
             if n_waters==0 or n_waters is None: tmp_df.drop(columns=['n_waters'], inplace=True)
@@ -1252,7 +1252,7 @@ def copy(molecular_system, output_filename=None):
     return output
 
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
-         concatenate_frames=False, standardize=True, surface=False, syntaxis='MolSysMT'):
+         concatenate_structures=False, standardize=True, surface=False, syntaxis='MolSysMT'):
 
     viewer, form_viewer = digest_viewer(viewer)
 
@@ -1260,9 +1260,9 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
         molecular_system = digest_molecular_system(molecular_system)
         tmp_item = convert(molecular_system, to_form=form_viewer, selection=selection, structure_indices=structure_indices, syntaxis=syntaxis)
     else:
-        if concatenate_frames:
-            from molsysmt.multitool import concatenate_frames
-            molecular_system = concatenate_frames(molecular_system, selections=selection, structure_indices=structure_indices, syntaxis=syntaxis)
+        if concatenate_structures:
+            from molsysmt.multitool import concatenate_structures
+            molecular_system = concatenate_structures(molecular_system, selections=selection, structure_indices=structure_indices, syntaxis=syntaxis)
         else:
             molecular_system = merge(molecular_system, selections=selection, structure_indices=structure_indices, syntaxis=syntaxis)
         tmp_item = convert(molecular_system, to_form=form_viewer)

@@ -15,12 +15,12 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
         from molsysmt.basic import select, get
         from molsysmt._private_tools._digestion import digest_structure_indices
 
-        n_atoms, n_frames = get(molecular_system, n_atoms=True, n_frames=True)
+        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
         n_atom_indices = atom_indices.shape[0]
         structure_indices = digest_structure_indices(structure_indices)
         if structure_indices is 'all':
-            structure_indices = np.arange(n_frames)
+            structure_indices = np.arange(n_structures)
         n_structure_indices = structure_indices.shape[0]
 
         if reference_coordinates is None:
@@ -44,7 +44,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
             raise ValueError("reference selection and selection needs to have the same number of atoms")
 
         rmsd_val = librmsd.rmsd(coordinates, atom_indices, reference_coordinates, structure_indices,
-                                 n_atoms, n_frames, n_atom_indices, n_structure_indices)
+                                 n_atoms, n_structures, n_atom_indices, n_structure_indices)
 
         rmsd_val = rmsd_val * units
         rmsd_val = puw.standardize(rmsd_val)

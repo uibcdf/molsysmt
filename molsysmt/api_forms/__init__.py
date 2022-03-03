@@ -5,14 +5,13 @@ forms = []
 
 dict_type = {}
 dict_info = {}
-dict_elements = {}
 dict_attributes = {}
 dict_is_form = {}
 dict_extract = {}
 dict_add = {}
 dict_merge = {}
-dict_append_frames = {}
-dict_concatenate_frames = {}
+dict_append_structures = {}
+dict_concatenate_structures = {}
 dict_get = {}
 dict_set = {}
 dict_convert = {}
@@ -34,14 +33,13 @@ for api_name in apis:
 
     dict_type[mod.form_name]=mod.form_type
     dict_info[mod.form_name]=mod.form_info
-    dict_elements[mod.form_name]=mod.form_elements
     dict_attributes[mod.form_name]=mod.form_attributes
 
     dict_is_form[mod.form_name]=mod.is_form
     dict_add[mod.form_name]=mod.add
     dict_merge[mod.form_name]=mod.merge
-    dict_append_frames[mod.form_name]=mod.append_frames
-    dict_concatenate_frames[mod.form_name]=mod.concatenate_frames
+    dict_append_structures[mod.form_name]=mod.append_structures
+    dict_concatenate_structures[mod.form_name]=mod.concatenate_structures
     dict_extract[mod.form_name]=mod.extract
 
     dict_convert[mod.form_name]= {}

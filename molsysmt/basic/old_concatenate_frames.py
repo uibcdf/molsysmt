@@ -2,9 +2,9 @@ from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
-from molsysmt.api_forms import dict_append_frames
+from molsysmt.api_forms import dict_append_structures
 
-def concatenate_frames(molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT', to_form=None):
+def concatenate_structures(molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT', to_form=None):
 
     from molsysmt.basic import convert, extract, get
 
@@ -44,10 +44,10 @@ def concatenate_frames(molecular_systems, selections='all', structure_indices='a
         step, time, coordinates, box = get(aux_molecular_system, target='atom', selection=aux_selection, structure_indices=aux_structure_indices, frame=True)
 
         if box_in_diff_item:
-            dict_append_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)
-            dict_append_frames[to_molecular_system.box_form](to_molecular_system.box_item, step=None, time=None, coordinates=None, box=box)
+            dict_append_structures[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)
+            dict_append_structures[to_molecular_system.box_form](to_molecular_system.box_item, step=None, time=None, coordinates=None, box=box)
         else:
-            dict_append_frames[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=box)
+            dict_append_structures[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=box)
 
     output_items, output_forms = to_molecular_system.get_items()
     if len(output_items)==1:

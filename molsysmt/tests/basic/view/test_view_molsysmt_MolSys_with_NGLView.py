@@ -16,8 +16,8 @@ def test_view_molsyst_MolSys_with_NLGView_1():
     check_form = ('nglview.NGLWidget'==msm.get_form(molsys_2))
     check_n_elements = msm.compare(molsys, molsys_2, comparison='n_elements')
     check_n_molecules = msm.compare(molsys, molsys_2, comparison='n_molecules')
-    check_n_frames = msm.compare(molsys, molsys_2, comparison='n_frames')
-    assert check_form and check_n_elements and check_n_molecules and check_n_frames
+    check_n_structures = msm.compare(molsys, molsys_2, comparison='n_structures')
+    assert check_form and check_n_elements and check_n_molecules and check_n_structures
 
 def test_view_molsyst_MolSys_with_NGLView_2():
 
@@ -46,8 +46,8 @@ def test_view_molsyst_MolSys_with_NGLView_5():
 
     molsys_1 = msm.convert(msm.demo['alanine dipeptide']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys_2 = msm.structure.translate(molsys_1, translation='[0.5, 0.0, 0.0] nm')
-    view = msm.view([molsys_1, molsys_2], concatenate_frames=True, viewer='NGLView')
-    molsys_concatenated = msm.concatenate_frames([molsys_1, molsys_2])
+    view = msm.view([molsys_1, molsys_2], concatenate_structures=True, viewer='NGLView')
+    molsys_concatenated = msm.concatenate_structures([molsys_1, molsys_2])
     check_comparison = msm.compare(view, molsys_concatenated, rule='A_eq_B', comparison='info_no_form')
     assert check_comparison
 

@@ -22,8 +22,8 @@ def test_file_msmpk_to_nglview_NGLWidget():
     check_form = ('nglview.NGLWidget'==msm.get_form(molsys))
     check_n_elements = msm.compare(molsys, molsys_ref, comparison='n_elements')
     check_n_molecules = msm.compare(molsys, molsys_ref, comparison='n_molecules')
-    check_n_frames =msm.compare(molsys, molsys_ref, comparison='n_frames')
-    assert check_form and check_n_elements and check_n_molecules and check_n_frames
+    check_n_structures =msm.compare(molsys, molsys_ref, comparison='n_structures')
+    assert check_form and check_n_elements and check_n_molecules and check_n_structures
 
 # Selection
 

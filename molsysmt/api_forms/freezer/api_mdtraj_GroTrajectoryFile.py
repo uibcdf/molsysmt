@@ -43,7 +43,7 @@ def load_frame (item, atom_indices='all', structure_indices='all'):
 
         for start, size in zip(starts_serie_frames, size_serie_frames):
             item.seek(start)
-            coordinates, time, box = item.read(n_frames=size, atom_indices=atom_indices)
+            coordinates, time, box = item.read(n_structures=size, atom_indices=atom_indices)
             coordinates_list.append(coordinates)
             time_list.append(time)
             step_list.append(step)
@@ -103,11 +103,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -309,12 +309,12 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
 
-def get_n_frames_from_system (item, indices='all', structure_indices='all'):
+def get_n_structures_from_system (item, indices='all', structure_indices='all'):
 
     _, _, box = item.read()
-    n_frames = box.shape[0]
+    n_structures = box.shape[0]
     del(box)
-    return n_frames
+    return n_structures
 
 def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
 

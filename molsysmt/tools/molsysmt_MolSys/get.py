@@ -258,14 +258,14 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_StructuresCollection import get_coordinates_from_atom as _get
+    from molsysmt.tools.molsysmt_Structures import get_coordinates_from_atom as _get
     return _get(item.structures, indices=indices, structure_indices=structure_indices, check_form=False)
 
 def get_n_structures_from_atom(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_StructuresCollection import get_n_structures_from_atom as _get
+    from molsysmt.tools.molsysmt_Structures import get_n_structures_from_atom as _get
     return _get(item.structures, structure_indices=structure_indices, check_form=False)
 
 ## group
@@ -714,14 +714,14 @@ def get_atom_index_from_molecule(item, indices='all', check_form=True):
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_atom_index_from_molecule as _get
-    return _get(item.topology, indices=indices, structure_indices=structure_indices, check_form=False)
+    return _get(item.topology, indices=indices, check_form=False)
 
 def get_atom_id_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_atom_id_from_molecule as _get
-    return _get(item.topology, indices=indices, structure_indices=structure_indices, check_form=False)
+    return _get(item.topology, indices=indices, check_form=False)
 
 def get_atom_name_from_molecule(item, indices='all', check_form=True):
 
@@ -772,7 +772,7 @@ def get_component_name_from_molecule (item, indices='all', check_form=True):
     from molsysmt.tools.molsysmt_Topology import get_component_name_from_molecule as _get
     return _get(item.topology, indices=indices, check_form=False)
 
-def get_component_index_from_molecule (item, indices='all', structure_indices='all', check_form=True):
+def get_component_index_from_molecule (item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1367,159 +1367,159 @@ def get_n_bonds_from_entity (item, indices='all', check_form=True):
 
 ## system
 
-def get_bonded_atoms_from_system(item, indices='all', check_form=True):
+def get_bonded_atoms_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_bonded_atoms_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_atoms_from_system(item, indices='all', check_form=True):
+def get_n_atoms_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_atoms_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_groups_from_system(item, indices='all', check_form=True):
+def get_n_groups_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_groups_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_components_from_system(item, indices='all', check_form=True):
+def get_n_components_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_components_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_chains_from_system(item, indices='all', check_form=True):
+def get_n_chains_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_chains_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_molecules_from_system(item, indices='all', check_form=True):
+def get_n_molecules_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_molecules_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_entities_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_entities_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_entities_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_bonds_from_system(item, indices='all', check_form=True):
+def get_n_bonds_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_bonds_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_aminoacids_from_system (item, indices='all', check_form=True):
+def get_n_aminoacids_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_aminoacids_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_nucleotides_from_system (item, indices='all', check_form=True):
+def get_n_nucleotides_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_nucleotides_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_ions_from_system (item, indices='all', check_form=True):
+def get_n_ions_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_ions_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_waters_from_system (item, indices='all', check_form=True):
+def get_n_waters_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_waters_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_cosolutes_from_system (item, indices='all', check_form=True):
+def get_n_cosolutes_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_cosolutes_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_small_molecules_from_system (item, indices='all', check_form=True):
+def get_n_small_molecules_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_small_molecules_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_peptides_from_system (item, indices='all', check_form=True):
+def get_n_peptides_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_peptides_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_proteins_from_system (item, indices='all', check_form=True):
+def get_n_proteins_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_proteins_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_dnas_from_system (item, indices='all', check_form=True):
+def get_n_dnas_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_dnas_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_rnas_from_system (item, indices='all', check_form=True):
+def get_n_rnas_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_rnas_from_system as _get
-    return _get(item.topology, indices=indices, structure_indices=structure_indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_n_lipids_from_system (item, indices='all', check_form=True):
+def get_n_lipids_from_system (item, check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_n_lipids_from_system as _get
-    return _get(item.topology, indices=indices, check_form=False)
+    return _get(item.topology, check_form=False)
 
-def get_coordinates_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_coordinates_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_StructuresCollection import get_coordinates_from_system as _get
-    return _get(item.structures, indices=indices, structure_indices=structure_indices, check_form=False)
+    from molsysmt.tools.molsysmt_Structures import get_coordinates_from_system as _get
+    return _get(item.structures, structure_indices=structure_indices, check_form=False)
 
 def get_box_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_StructuresCollection import get_box_from_system as _get
+    from molsysmt.tools.molsysmt_Structures import get_box_from_system as _get
     return _get(item.trajectory, structure_indices=structure_indices, check_form=False)
 
 def get_box_shape_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_Trajectory import get_box_shape_from_system as _get
-    return _get(item.trajectory, indices=indices, structure_indices=structure_indices, check_form=False)
+    from molsysmt.tools.molsysmt_Structures import get_box_shape_from_system as _get
+    return _get(item.trajectory, structure_indices=structure_indices, check_form=False)
 
 def get_box_lengths_from_system(item, structure_indices='all', check_form=True):
 
@@ -1547,26 +1547,26 @@ def get_box_volume_from_system(item, structure_indices='all', check_form=True):
     tmp_box = get_box_from_system(item, indices=indices, structure_indices=structure_indices, check_form=False)
     return box_volume_from_box_vectors(tmp_box)
 
-def get_time_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_time_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_Trajectory import get_time_from_system as _get
+    from molsysmt.tools.molsysmt_Structures import get_time_from_system as _get
     return _get(item.trajectory, structure_indices=structure_indices, check_form=False)
 
 def get_step_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_Trajectory import get_step_from_system as _get
+    from molsysmt.tools.molsysmt_Structures import get_step_from_system as _get
     return _get(item.trajectory, structure_indices=structure_indices, check_form=False)
 
-def get_n_structures_from_system(item, structure_indices='all', check_form=True):
+def get_n_structures_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
-    from molsysmt.tools.molsysmt_StructuresCollection import get_n_structures_from_system as _get
-    return _get(item.structures, structure_indices=structure_indices, check_form=False)
+    from molsysmt.tools.molsysmt_Structures import get_n_structures_from_system as _get
+    return _get(item.structures, check_form=False)
 
 ## bond
 
@@ -1584,21 +1584,21 @@ def get_bond_order_from_bond(item, indices='all', check_form=True):
     from molsysmt.tools.molsysmt_Topology import get_bond_order_from_bond as _get
     return _get(item.topology, indices=indices, check_form=False)
 
-def get_bond_type_from_bond(item, indices='all', structure_indices='all', check_form=True):
+def get_bond_type_from_bond(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_bond_type_from_bond as _get
     return _get(item.topology, indices=indices, check_form=False)
 
-def get_atom_index_from_bond(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_index_from_bond(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     from molsysmt.tools.molsysmt_Topology import get_atom_index_from_bond as _get
     return _get(item.topology, indices=indices, check_form=False)
 
-def get_n_bonds_from_bond(item, indices='all', structure_indices='all', check_form=True):
+def get_n_bonds_from_bond(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 

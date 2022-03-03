@@ -11,19 +11,19 @@ class Trajectory():
 
     def __init__(self):
 
-        self.coordinates = None # ndarray with shape=(n_frames, n_atoms, 3) and dtype=float
+        self.coordinates = None # ndarray with shape=(n_structures, n_atoms, 3) and dtype=float
                                 # and order=F, with units nanometers
-        self.box   = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
-        self.cell  = None # ndarray with shape=(n_frames,3,3), dtype=float and order='F'
+        self.box   = None # ndarray with shape=(n_structures,3,3), dtype=float and order='F'
+        self.cell  = None # ndarray with shape=(n_structures,3,3), dtype=float and order='F'
         self.timestep  = None
         self.integstep = None
         self.step  = None
         self.time  = None
         self.model = None # In case it is a model and not a timestep
-        self.n_frames = 0
+        self.n_structures = 0
         self.n_atoms = 0
 
-        self.invbox       = None #_np.zeros(shape=(n_frames,3,3),dtype=float,order='F')
+        self.invbox       = None #_np.zeros(shape=(n_structures,3,3),dtype=float,order='F')
         self.orthogonal   = 0
         self.volume       = 0.0
 
@@ -64,7 +64,7 @@ class Trajectory():
                 self.cell = None
 
         if self.coordinates is not None:
-            self.n_frames = self.coordinates.shape[0]
+            self.n_structures = self.coordinates.shape[0]
             self.n_atoms = self.coordinates.shape[1]
 
         ii = self.coordinates
@@ -104,15 +104,15 @@ class Trajectory():
         pass
 
     def cell2box(self):
-        self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell, self.n_frames)
+        self.box,self.volume,self.orthogonal=_libbox.cell2box(self.cell, self.n_structures)
         pass
 
     def box2cell(self):
-        self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box, self.n_frames)
+        self.cell,self.volume,self.orthogonal=_libbox.box2cell(self.box, self.n_structures)
         pass
 
     def box2invbox(self):
-        self.invbox=_libbox.box2invbox(self.box, self.n_frames)
+        self.invbox=_libbox.box2invbox(self.box, self.n_structures)
         pass
 
     #problema con topologia
@@ -142,7 +142,7 @@ class Trajectory():
         _libbox.minimum_image_convention(self.coordinates, molecules_array_all,
                        molecules_array_starts, atom_indices_reference,
                        self.box, self.invbox, self.orthogonal,
-                       self.n_frames, self.n_atoms,
+                       self.n_structures, self.n_atoms,
                        molecules_array_all.shape[0], molecules_array_starts.shape[0],
                        atom_indices_reference.shape[0])
 
@@ -177,7 +177,7 @@ class Trajectory():
         _libbox.unwrap(self.coordinates, molecules_array_all,
                        molecules_array_starts, bonds_array_all, bonds_array_starts,
                        self.box, self.invbox, self.orthogonal,
-                       self.n_frames, self.n_atoms,
+                       self.n_structures, self.n_atoms,
                        molecules_array_all.shape[0], molecules_array_starts.shape[0],
                        bonds_array_all.shape[0], bonds_array_starts.shape[0])
 
@@ -287,7 +287,7 @@ class Trajectory():
 
         self.coordinates=_np.asfortranarray(self.coordinates,dtype='float64')
         _libcom.recenter(self.coordinates, atom_indices, weights_array,
-                              self.n_frames, self.n_atoms, atom_indices.shape[0])
+                              self.n_structures, self.n_atoms, atom_indices.shape[0])
         self.coordinates=_np.ascontiguousarray(self.coordinates)
 
         pass

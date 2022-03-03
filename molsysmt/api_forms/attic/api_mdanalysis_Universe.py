@@ -72,11 +72,11 @@ def to_molsysmt_Topology (item, atom_indices='all', structure_indices='all',
     return molsysmt_Topology_from_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                 topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None)
 
-def to_molsysmt_Trajectory (item, atom_indices='all', structure_indices='all',
+def to_molsysmt_Structures (item, atom_indices='all', structure_indices='all',
            topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
 
-    from molsysmt.native.io.trajectory import from_mdanalysis_Universe as molsysmt_Trajectory_from_mdanalysis_Universe
-    return molsysmt_Trajectory_from_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices,
+    from molsysmt.native.io.trajectory import from_mdanalysis_Universe as molsysmt_Structures_from_mdanalysis_Universe
+    return molsysmt_Structures_from_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                 topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None)
 
 def select_with_Amber(item, selection):
@@ -351,15 +351,15 @@ def get_time_from_system(item, indices='all', structure_indices='all'):
 def get_step_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
-        output = np.arange(get_n_frames_from_system(item))
+        output = np.arange(get_n_structures_from_system(item))
     else:
         output = structure_indices
     return output
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     if structure_indices is 'all':
-        output=item.trajectory.n_frames
+        output=item.trajectory.n_structures
     else:
         output=structure_indices.shape[0]
 

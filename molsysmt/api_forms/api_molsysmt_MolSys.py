@@ -4,8 +4,8 @@ from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import is_molsysmt_MolSys
 from molsysmt.tools.molsysmt_MolSys.extract import extract
 from molsysmt.tools.molsysmt_MolSys.add import add
 from molsysmt.tools.molsysmt_MolSys.merge import merge
-from molsysmt.tools.molsysmt_MolSys.append_frames import append_frames
-from molsysmt.tools.molsysmt_MolSys.concatenate_frames import concatenate_frames
+from molsysmt.tools.molsysmt_MolSys.append_structures import append_structures
+from molsysmt.tools.molsysmt_MolSys.concatenate_structures import concatenate_structures
 from molsysmt.tools.molsysmt_MolSys.get import *
 from molsysmt.tools.molsysmt_MolSys.set import *
 
@@ -72,11 +72,11 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
     return tmp_item
 
-def to_molsysmt_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.molsysmt_MolSys import to_molsysmt_Trajectory as molsysmt_MolSys_to_molsysmt_Trajectory
+    from molsysmt.tools.molsysmt_MolSys import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
 
-    tmp_item = molsysmt_MolSys_to_molsysmt_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = molsysmt_MolSys_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
 
     return tmp_item
 

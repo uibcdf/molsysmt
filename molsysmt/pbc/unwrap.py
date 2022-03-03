@@ -17,7 +17,7 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
         from molsysmt.basic import select, get, set, extract
 
         coordinates= get(molecular_system, target='atom', selection=selection, coordinates=True)
-        n_frames = coordinates.shape[0]
+        n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
         box, box_shape = get(molecular_system, target='system', structure_indices=structure_indices, box=True, box_shape=True)
 
@@ -33,7 +33,7 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
         box = np.asfortranarray(puw.get_value(box), dtype='float64')
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
 
-        libbox.unwrap(coordinates, box, orthogonal, n_atoms, n_frames)
+        libbox.unwrap(coordinates, box, orthogonal, n_atoms, n_structures)
 
         coordinates=np.ascontiguousarray(coordinates)*length_units
 

@@ -165,7 +165,7 @@ def test_info_8():
                  'n_entities': {0: 2},
                  'n_waters': {0: 165},
                  'n_proteins': {0: 1},
-                 'n_frames': {0: 1}}
+                 'n_structures': {0: 1}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
@@ -182,7 +182,7 @@ def test_info_9():
                  'n_entities': {0: 2},
                  'n_waters': {0: 165},
                  'n_proteins': {0: 1},
-                 'n_frames': {0: None}}
+                 'n_structures': {0: None}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
@@ -197,7 +197,7 @@ def test_info_10():
                  'n_chains': {0: None},
                  'n_molecules': {0: None},
                  'n_entities': {0: None},
-                 'n_frames': {0: 1}}
+                 'n_structures': {0: 1}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
@@ -214,7 +214,7 @@ def test_info_11():
                  'n_entities': {0: 2},
                  'n_waters': {0: 165},
                  'n_proteins': {0: 1},
-                 'n_frames': {0: 1}}
+                 'n_structures': {0: 1}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 

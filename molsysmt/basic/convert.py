@@ -1,4 +1,4 @@
-from molsysmt.api_forms import dict_convert, dict_elements, dict_attributes
+from molsysmt.api_forms import dict_convert, dict_attributes
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *

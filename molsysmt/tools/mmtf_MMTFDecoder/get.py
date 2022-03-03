@@ -6,7 +6,7 @@ from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import _checking_form
 
 ## From atom
 
-def get_atom_id_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_id_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -14,11 +14,11 @@ def get_atom_id_from_atom(item, indices='all', structure_indices='all', check_fo
     from molsysmt.tools.molsysmt_Topology import get_atom_id_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_atom_name_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_name_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -26,11 +26,11 @@ def get_atom_name_from_atom(item, indices='all', structure_indices='all', check_
     from molsysmt.tools.molsysmt_Topology import get_atom_name_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_atom_type_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_type_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -38,11 +38,11 @@ def get_atom_type_from_atom(item, indices='all', structure_indices='all', check_
     from molsysmt.tools.molsysmt_Topology import get_atom_type_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_group_index_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_group_index_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -50,11 +50,11 @@ def get_group_index_from_atom(item, indices='all', structure_indices='all', chec
     from molsysmt.tools.molsysmt_Topology import get_group_index_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_component_index_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_component_index_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -62,11 +62,11 @@ def get_component_index_from_atom(item, indices='all', structure_indices='all', 
     from molsysmt.tools.molsysmt_Topology import get_component_index_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_chain_index_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_index_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -74,11 +74,11 @@ def get_chain_index_from_atom(item, indices='all', structure_indices='all', chec
     from molsysmt.tools.molsysmt_Topology import get_chain_index_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_molecule_index_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_index_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -86,11 +86,11 @@ def get_molecule_index_from_atom(item, indices='all', structure_indices='all', c
     from molsysmt.tools.molsysmt_Topology import get_molecule_index_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_entity_index_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_index_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -98,11 +98,11 @@ def get_entity_index_from_atom(item, indices='all', structure_indices='all', che
     from molsysmt.tools.molsysmt_Topology import get_entity_index_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_inner_bonded_atoms_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_inner_bonded_atoms_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -110,11 +110,11 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', structure_indices='all
     from molsysmt.tools.molsysmt_Topology import get_inner_bonded_atoms_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_n_inner_bonds_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_n_inner_bonds_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -122,7 +122,7 @@ def get_n_inner_bonds_from_atom(item, indices='all', structure_indices='all', ch
     from molsysmt.tools.molsysmt_Topology import get_n_inner_bonds_from_atom as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
@@ -148,7 +148,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
 ## From group
 
-def get_group_id_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_group_id_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -156,11 +156,11 @@ def get_group_id_from_group(item, indices='all', structure_indices='all', check_
     from molsysmt.tools.molsysmt_Topology import get_group_id_from_group as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_group_name_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_group_name_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -168,11 +168,11 @@ def get_group_name_from_group(item, indices='all', structure_indices='all', chec
     from molsysmt.tools.molsysmt_Topology import get_group_name_from_group as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_group_type_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_group_type_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -180,13 +180,13 @@ def get_group_type_from_group(item, indices='all', structure_indices='all', chec
     from molsysmt.tools.molsysmt_Topology import get_group_type_from_group as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
 ## From component
 
-def get_component_id_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_component_id_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -194,11 +194,11 @@ def get_component_id_from_component(item, indices='all', structure_indices='all'
     from molsysmt.tools.molsysmt_Topology import get_component_id_from_component as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_component_name_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_component_name_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -206,11 +206,11 @@ def get_component_name_from_component(item, indices='all', structure_indices='al
     from molsysmt.tools.molsysmt_Topology import get_component_name_from_component as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_component_type_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_component_type_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -218,13 +218,13 @@ def get_component_type_from_component(item, indices='all', structure_indices='al
     from molsysmt.tools.molsysmt_Topology import get_component_type_from_component as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
 ## From molecule
 
-def get_molecule_id_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_id_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -232,11 +232,11 @@ def get_molecule_id_from_molecule(item, indices='all', structure_indices='all', 
     from molsysmt.tools.molsysmt_Topology import get_molecule_id_from_molecule as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_molecule_name_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_name_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -244,11 +244,11 @@ def get_molecule_name_from_molecule(item, indices='all', structure_indices='all'
     from molsysmt.tools.molsysmt_Topology import get_molecule_name_from_molecule as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_molecule_type_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_type_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -256,13 +256,13 @@ def get_molecule_type_from_molecule(item, indices='all', structure_indices='all'
     from molsysmt.tools.molsysmt_Topology import get_molecule_type_from_molecule as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
 ## From chain
 
-def get_chain_id_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_id_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -270,11 +270,11 @@ def get_chain_id_from_chain(item, indices='all', structure_indices='all', check_
     from molsysmt.tools.molsysmt_Topology import get_chain_id_from_chain as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_chain_name_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_name_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -282,11 +282,11 @@ def get_chain_name_from_chain(item, indices='all', structure_indices='all', chec
     from molsysmt.tools.molsysmt_Topology import get_chain_name_from_chain as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_chain_type_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_type_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -294,13 +294,13 @@ def get_chain_type_from_chain(item, indices='all', structure_indices='all', chec
     from molsysmt.tools.molsysmt_Topology import get_chain_type_from_chain as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
 ## From entity
 
-def get_entity_id_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_id_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -308,11 +308,11 @@ def get_entity_id_from_entity(item, indices='all', structure_indices='all', chec
     from molsysmt.tools.molsysmt_Topology import get_entity_id_from_entity as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_entity_name_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_name_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -320,11 +320,11 @@ def get_entity_name_from_entity(item, indices='all', structure_indices='all', ch
     from molsysmt.tools.molsysmt_Topology import get_entity_name_from_entity as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_entity_type_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_type_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -332,14 +332,14 @@ def get_entity_type_from_entity(item, indices='all', structure_indices='all', ch
     from molsysmt.tools.molsysmt_Topology import get_entity_type_from_entity as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
 
 ## From system
 
-def get_n_atoms_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_atoms_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
@@ -347,11 +347,11 @@ def get_n_atoms_from_system(item, indices='all', structure_indices='all', check_
     from molsysmt.tools.molsysmt_Topology import get_n_atoms_from_system as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, check_form=False)
 
     return output
 
-def get_n_groups_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_groups_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
@@ -359,11 +359,11 @@ def get_n_groups_from_system(item, indices='all', structure_indices='all', check
     from molsysmt.tools.molsysmt_Topology import get_n_groups_from_system as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, check_form=False)
 
     return output
 
-def get_n_components_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_components_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
@@ -371,11 +371,11 @@ def get_n_components_from_system(item, indices='all', structure_indices='all', c
     from molsysmt.tools.molsysmt_Topology import get_n_components_from_system as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, check_form=False)
 
     return output
 
-def get_n_chains_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_chains_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
@@ -383,11 +383,11 @@ def get_n_chains_from_system(item, indices='all', structure_indices='all', check
     from molsysmt.tools.molsysmt_Topology import get_n_chains_from_system as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, check_form=False)
 
     return output
 
-def get_n_molecules_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_molecules_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
@@ -395,11 +395,11 @@ def get_n_molecules_from_system(item, indices='all', structure_indices='all', ch
     from molsysmt.tools.molsysmt_Topology import get_n_molecules_from_system as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, check_form=False)
 
     return output
 
-def get_n_entities_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_entities_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
@@ -407,11 +407,11 @@ def get_n_entities_from_system(item, indices='all', structure_indices='all', che
     from molsysmt.tools.molsysmt_Topology import get_n_entities_from_system as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_n_bonds_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_bonds_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
@@ -419,11 +419,11 @@ def get_n_bonds_from_system(item, indices='all', structure_indices='all', check_
     from molsysmt.tools.molsysmt_Topology import get_n_bonds_from_system as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, check_form=False)
 
     return output
 
-def get_box_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_box_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -431,12 +431,12 @@ def get_box_from_system(item, indices='all', structure_indices='all', check_form
     from molsysmt import puw
     from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
 
-    n_frames = get_n_frames_from_system(item, indices='all', structure_indices='all', check_form=False)
+    n_structures = get_n_structures_from_system(item, check_form=False)
 
     if item.unit_cell is not None:
 
-        cell_lengths = np.empty([n_frames,3], dtype='float64')
-        cell_angles = np.empty([n_frames,3], dtype='float64')
+        cell_lengths = np.empty([n_structures,3], dtype='float64')
+        cell_angles = np.empty([n_structures,3], dtype='float64')
         for ii in range(3):
             cell_lengths[:,ii] = item.unit_cell[ii]
             cell_angles[:,ii] = item.unit_cell[ii+3]
@@ -457,49 +457,49 @@ def get_box_from_system(item, indices='all', structure_indices='all', check_form
 
     return box
 
-def get_box_shape_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_box_shape_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     raise NotImplementedError()
 
-def get_box_lengths_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_box_lengths_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     raise NotImplementedError()
 
-def get_box_angles_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_box_angles_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     raise NotImplementedError()
 
-def get_box_volume_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_box_volume_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     raise NotImplementedError()
 
-def get_time_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_time_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     return None
 
-def get_step_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_step_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     return None
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_structures_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     return item.num_models
 
-def get_bonded_atoms_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_bonded_atoms_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
@@ -507,14 +507,14 @@ def get_bonded_atoms_from_system(item, indices='all', structure_indices='all', c
     from molsysmt.tools.molsysmt_Topology import get_bonded_atoms_from_system as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, check_form=False)
 
     return output
 
 
 ## From bond
 
-def get_bond_order_from_bond(item, indices='all', structure_indices='all', check_form=True):
+def get_bond_order_from_bond(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -522,11 +522,11 @@ def get_bond_order_from_bond(item, indices='all', structure_indices='all', check
     from molsysmt.tools.molsysmt_Topology import get_bond_order_from_bond as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_bond_type_from_bond(item, indices='all', structure_indices='all', check_form=True):
+def get_bond_type_from_bond(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -534,11 +534,11 @@ def get_bond_type_from_bond(item, indices='all', structure_indices='all', check_
     from molsysmt.tools.molsysmt_Topology import get_bond_type_from_bond as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
-def get_atom_index_from_bond(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_index_from_bond(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -546,7 +546,7 @@ def get_atom_index_from_bond(item, indices='all', structure_indices='all', check
     from molsysmt.tools.molsysmt_Topology import get_atom_index_from_bond as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check_form=False)
-    output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check_form=False)
+    output = aux_get(tmp_item, indices=indices, check_form=False)
 
     return output
 
@@ -557,7 +557,7 @@ def get_atom_index_from_bond(item, indices='all', structure_indices='all', check
 
 ## From atom
 
-def get_atom_index_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_index_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -571,7 +571,7 @@ def get_atom_index_from_atom(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_group_id_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_group_id_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -586,7 +586,7 @@ def get_group_id_from_atom(item, indices='all', structure_indices='all', check_f
 
     return output
 
-def get_group_name_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_group_name_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -602,7 +602,7 @@ def get_group_name_from_atom(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_group_type_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_group_type_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -618,7 +618,7 @@ def get_group_type_from_atom(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_component_id_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_component_id_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -633,7 +633,7 @@ def get_component_id_from_atom(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_component_name_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_component_name_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -649,7 +649,7 @@ def get_component_name_from_atom(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_component_type_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_component_type_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -665,7 +665,7 @@ def get_component_type_from_atom(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_chain_id_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_id_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -680,7 +680,7 @@ def get_chain_id_from_atom(item, indices='all', structure_indices='all', check_f
 
     return output
 
-def get_chain_name_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_name_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -696,7 +696,7 @@ def get_chain_name_from_atom(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_chain_type_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_type_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -712,7 +712,7 @@ def get_chain_type_from_atom(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_molecule_id_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_id_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -727,7 +727,7 @@ def get_molecule_id_from_atom(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_molecule_name_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_name_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -743,7 +743,7 @@ def get_molecule_name_from_atom(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_molecule_type_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_type_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -759,7 +759,7 @@ def get_molecule_type_from_atom(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_entity_id_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_id_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -774,7 +774,7 @@ def get_entity_id_from_atom(item, indices='all', structure_indices='all', check_
 
     return output
 
-def get_entity_name_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_name_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -790,7 +790,7 @@ def get_entity_name_from_atom(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_entity_type_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_type_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -806,7 +806,7 @@ def get_entity_type_from_atom(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_n_atoms_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_n_atoms_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -817,7 +817,7 @@ def get_n_atoms_from_atom(item, indices='all', structure_indices='all', check_fo
 
     return output
 
-def get_n_groups_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_n_groups_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -831,7 +831,7 @@ def get_n_groups_from_atom(item, indices='all', structure_indices='all', check_f
 
     return output
 
-def get_n_components_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_n_components_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -845,7 +845,7 @@ def get_n_components_from_atom(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_n_molecules_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_n_molecules_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -859,7 +859,7 @@ def get_n_molecules_from_atom(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_n_chains_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_n_chains_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -873,7 +873,7 @@ def get_n_chains_from_atom(item, indices='all', structure_indices='all', check_f
 
     return output
 
-def get_n_entities_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_n_entities_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -887,7 +887,7 @@ def get_n_entities_from_atom(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_bonded_atoms_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_bonded_atoms_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -918,7 +918,7 @@ def get_bonded_atoms_from_atom(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_bond_index_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_bond_index_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -951,7 +951,7 @@ def get_bond_index_from_atom(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_n_bonds_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_n_bonds_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -982,22 +982,16 @@ def get_n_bonds_from_atom(item, indices='all', structure_indices='all', check_fo
 
     return output
 
-def get_inner_bond_index_from_atom(item, indices='all', structure_indices='all', check_form=True):
+def get_inner_bond_index_from_atom(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     raise NotImplementedError
 
 
-#def get_n_frames_from_atom(item, indices='all', structure_indices='all', check_form=True):
-#
-#    from molsysmt.basic import get
-#
-#    return get(item, target='system', indices='all', structure_indices=structure_indices, n_frames=True)
-
 ## From group
 
-def get_atom_index_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_index_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1022,7 +1016,7 @@ def get_atom_index_from_group(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_atom_id_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_id_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1044,7 +1038,7 @@ def get_atom_id_from_group(item, indices='all', structure_indices='all', check_f
 
     return output
 
-def get_atom_name_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_name_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1066,7 +1060,7 @@ def get_atom_name_from_group(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_atom_type_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_type_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1088,7 +1082,7 @@ def get_atom_type_from_group(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_group_index_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_group_index_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1102,7 +1096,7 @@ def get_group_index_from_group(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_component_index_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_component_index_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1116,7 +1110,7 @@ def get_component_index_from_group(item, indices='all', structure_indices='all',
 
     return output
 
-def get_component_id_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_component_id_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1130,7 +1124,7 @@ def get_component_id_from_group(item, indices='all', structure_indices='all', ch
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_component_name_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_component_name_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1144,7 +1138,7 @@ def get_component_name_from_group(item, indices='all', structure_indices='all', 
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_component_type_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_component_type_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1158,7 +1152,7 @@ def get_component_type_from_group(item, indices='all', structure_indices='all', 
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_chain_index_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_index_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1172,7 +1166,7 @@ def get_chain_index_from_group(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_chain_id_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_id_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1186,7 +1180,7 @@ def get_chain_id_from_group(item, indices='all', structure_indices='all', check_
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_chain_name_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_name_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1200,7 +1194,7 @@ def get_chain_name_from_group(item, indices='all', structure_indices='all', chec
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_chain_type_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_type_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1214,7 +1208,7 @@ def get_chain_type_from_group(item, indices='all', structure_indices='all', chec
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_molecule_index_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_index_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1228,7 +1222,7 @@ def get_molecule_index_from_group(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_molecule_id_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_id_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1242,7 +1236,7 @@ def get_molecule_id_from_group(item, indices='all', structure_indices='all', che
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_molecule_name_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_name_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1256,7 +1250,7 @@ def get_molecule_name_from_group(item, indices='all', structure_indices='all', c
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_molecule_type_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_type_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1270,7 +1264,7 @@ def get_molecule_type_from_group(item, indices='all', structure_indices='all', c
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_entity_index_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_index_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1284,7 +1278,7 @@ def get_entity_index_from_group(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_entity_id_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_id_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1298,7 +1292,7 @@ def get_entity_id_from_group(item, indices='all', structure_indices='all', check
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_entity_name_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_name_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1312,7 +1306,7 @@ def get_entity_name_from_group(item, indices='all', structure_indices='all', che
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_entity_type_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_type_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1326,7 +1320,7 @@ def get_entity_type_from_group(item, indices='all', structure_indices='all', che
     del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
     return output
 
-def get_n_atoms_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_n_atoms_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1337,7 +1331,7 @@ def get_n_atoms_from_group(item, indices='all', structure_indices='all', check_f
     output = np.array(output)
     return output
 
-def get_n_groups_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_n_groups_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1348,7 +1342,7 @@ def get_n_groups_from_group(item, indices='all', structure_indices='all', check_
 
     return output
 
-def get_n_components_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_n_components_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1362,7 +1356,7 @@ def get_n_components_from_group(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_n_molecules_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_n_molecules_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1376,7 +1370,7 @@ def get_n_molecules_from_group(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_n_chains_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_n_chains_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1390,7 +1384,7 @@ def get_n_chains_from_group(item, indices='all', structure_indices='all', check_
 
     return output
 
-def get_n_entities_from_group(item, indices='all', structure_indices='all', check_form=True):
+def get_n_entities_from_group(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1407,7 +1401,7 @@ def get_n_entities_from_group(item, indices='all', structure_indices='all', chec
 
 ## From component
 
-def get_atom_index_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_index_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1432,7 +1426,7 @@ def get_atom_index_from_component(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_atom_id_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_id_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1454,7 +1448,7 @@ def get_atom_id_from_component(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_atom_name_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_name_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1476,7 +1470,7 @@ def get_atom_name_from_component(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_atom_type_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_type_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1498,7 +1492,7 @@ def get_atom_type_from_component(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_group_index_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_group_index_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1523,7 +1517,7 @@ def get_group_index_from_component(item, indices='all', structure_indices='all',
 
     return output
 
-def get_group_id_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_group_id_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1545,7 +1539,7 @@ def get_group_id_from_component(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_group_name_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_group_name_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1567,7 +1561,7 @@ def get_group_name_from_component(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_group_type_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_group_type_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1589,7 +1583,7 @@ def get_group_type_from_component(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_component_index_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_component_index_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1603,7 +1597,7 @@ def get_component_index_from_component(item, indices='all', structure_indices='a
 
     return output
 
-def get_chain_index_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_index_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1617,7 +1611,7 @@ def get_chain_index_from_component(item, indices='all', structure_indices='all',
 
     return output
 
-def get_chain_id_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_id_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1632,7 +1626,7 @@ def get_chain_id_from_component(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_chain_name_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_name_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1647,7 +1641,7 @@ def get_chain_name_from_component(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_chain_type_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_type_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1662,7 +1656,7 @@ def get_chain_type_from_component(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_molecule_index_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_index_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1676,7 +1670,7 @@ def get_molecule_index_from_component(item, indices='all', structure_indices='al
 
     return output
 
-def get_molecule_id_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_id_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1691,7 +1685,7 @@ def get_molecule_id_from_component(item, indices='all', structure_indices='all',
 
     return output
 
-def get_molecule_name_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_name_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1706,7 +1700,7 @@ def get_molecule_name_from_component(item, indices='all', structure_indices='all
 
     return output
 
-def get_molecule_type_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_type_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1721,7 +1715,7 @@ def get_molecule_type_from_component(item, indices='all', structure_indices='all
 
     return output
 
-def get_entity_index_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_index_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1735,7 +1729,7 @@ def get_entity_index_from_component(item, indices='all', structure_indices='all'
 
     return output
 
-def get_entity_id_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_id_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1750,7 +1744,7 @@ def get_entity_id_from_component(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_entity_name_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_name_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1765,7 +1759,7 @@ def get_entity_name_from_component(item, indices='all', structure_indices='all',
 
     return output
 
-def get_entity_type_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_type_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1780,7 +1774,7 @@ def get_entity_type_from_component(item, indices='all', structure_indices='all',
 
     return output
 
-def get_n_atoms_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_n_atoms_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1791,7 +1785,7 @@ def get_n_atoms_from_component(item, indices='all', structure_indices='all', che
     output = np.array(output)
     return output
 
-def get_n_groups_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_n_groups_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1802,7 +1796,7 @@ def get_n_groups_from_component(item, indices='all', structure_indices='all', ch
     output = np.array(output)
     return output
 
-def get_n_components_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_n_components_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1813,7 +1807,7 @@ def get_n_components_from_component(item, indices='all', structure_indices='all'
 
     return output
 
-def get_n_molecules_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_n_molecules_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1827,7 +1821,7 @@ def get_n_molecules_from_component(item, indices='all', structure_indices='all',
 
     return output
 
-def get_n_chains_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_n_chains_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1841,7 +1835,7 @@ def get_n_chains_from_component(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_n_entities_from_component(item, indices='all', structure_indices='all', check_form=True):
+def get_n_entities_from_component(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1857,7 +1851,7 @@ def get_n_entities_from_component(item, indices='all', structure_indices='all', 
 
 ## molecule
 
-def get_atom_index_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_index_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1882,7 +1876,7 @@ def get_atom_index_from_molecule(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_atom_id_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_id_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1904,7 +1898,7 @@ def get_atom_id_from_molecule(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_atom_name_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_name_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1926,7 +1920,7 @@ def get_atom_name_from_molecule(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_atom_type_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_type_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1948,7 +1942,7 @@ def get_atom_type_from_molecule(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_group_index_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_group_index_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1973,7 +1967,7 @@ def get_group_index_from_molecule(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_group_id_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_group_id_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -1995,7 +1989,7 @@ def get_group_id_from_molecule(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_group_name_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_group_name_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2017,7 +2011,7 @@ def get_group_name_from_molecule(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_group_type_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_group_type_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2039,7 +2033,7 @@ def get_group_type_from_molecule(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_component_index_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_component_index_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2064,7 +2058,7 @@ def get_component_index_from_molecule(item, indices='all', structure_indices='al
 
     return output
 
-def get_component_id_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_component_id_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2086,7 +2080,7 @@ def get_component_id_from_molecule(item, indices='all', structure_indices='all',
 
     return output
 
-def get_component_name_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_component_name_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2108,7 +2102,7 @@ def get_component_name_from_molecule(item, indices='all', structure_indices='all
 
     return output
 
-def get_component_type_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_component_type_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2130,7 +2124,7 @@ def get_component_type_from_molecule(item, indices='all', structure_indices='all
 
     return output
 
-def get_chain_index_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_index_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2155,7 +2149,7 @@ def get_chain_index_from_molecule(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_chain_id_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_id_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2177,7 +2171,7 @@ def get_chain_id_from_molecule(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_chain_name_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_name_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2199,7 +2193,7 @@ def get_chain_name_from_molecule(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_chain_type_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_type_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2221,7 +2215,7 @@ def get_chain_type_from_molecule(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_molecule_index_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_index_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2235,7 +2229,7 @@ def get_molecule_index_from_molecule(item, indices='all', structure_indices='all
 
     return output
 
-def get_entity_index_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_index_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2249,7 +2243,7 @@ def get_entity_index_from_molecule(item, indices='all', structure_indices='all',
 
     return output
 
-def get_entity_id_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_id_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2264,7 +2258,7 @@ def get_entity_id_from_molecule(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_entity_name_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_name_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2279,7 +2273,7 @@ def get_entity_name_from_molecule(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_entity_type_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_type_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2294,7 +2288,7 @@ def get_entity_type_from_molecule(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_n_atoms_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_n_atoms_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2305,7 +2299,7 @@ def get_n_atoms_from_molecule(item, indices='all', structure_indices='all', chec
     output = np.array(output)
     return output
 
-def get_n_groups_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_n_groups_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2316,7 +2310,7 @@ def get_n_groups_from_molecule(item, indices='all', structure_indices='all', che
     output = np.array(output)
     return output
 
-def get_n_components_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_n_components_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2327,7 +2321,7 @@ def get_n_components_from_molecule(item, indices='all', structure_indices='all',
     output = np.array(output)
     return output
 
-def get_n_molecules_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_n_molecules_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2338,7 +2332,7 @@ def get_n_molecules_from_molecule(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_n_chains_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_n_chains_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2349,7 +2343,7 @@ def get_n_chains_from_molecule(item, indices='all', structure_indices='all', che
     output = np.array(output)
     return output
 
-def get_n_entities_from_molecule(item, indices='all', structure_indices='all', check_form=True):
+def get_n_entities_from_molecule(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2365,7 +2359,7 @@ def get_n_entities_from_molecule(item, indices='all', structure_indices='all', c
 
 ## chain
 
-def get_atom_index_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_index_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2390,7 +2384,7 @@ def get_atom_index_from_chain(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_atom_id_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_id_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2412,7 +2406,7 @@ def get_atom_id_from_chain(item, indices='all', structure_indices='all', check_f
 
     return output
 
-def get_atom_name_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_name_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2434,7 +2428,7 @@ def get_atom_name_from_chain(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_atom_type_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_type_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2456,7 +2450,7 @@ def get_atom_type_from_chain(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_group_index_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_group_index_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2481,7 +2475,7 @@ def get_group_index_from_chain(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_group_id_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_group_id_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2503,7 +2497,7 @@ def get_group_id_from_chain(item, indices='all', structure_indices='all', check_
 
     return output
 
-def get_group_name_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_group_name_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2525,7 +2519,7 @@ def get_group_name_from_chain(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_group_type_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_group_type_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2547,7 +2541,7 @@ def get_group_type_from_chain(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_component_index_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_component_index_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2572,7 +2566,7 @@ def get_component_index_from_chain(item, indices='all', structure_indices='all',
 
     return output
 
-def get_component_id_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_component_id_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2594,7 +2588,7 @@ def get_component_id_from_chain(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_component_name_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_component_name_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2616,7 +2610,7 @@ def get_component_name_from_chain(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_component_type_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_component_type_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2638,7 +2632,7 @@ def get_component_type_from_chain(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_chain_index_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_index_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2652,7 +2646,7 @@ def get_chain_index_from_chain(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_molecule_index_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_index_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2677,7 +2671,7 @@ def get_molecule_index_from_chain(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_molecule_id_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_id_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2699,7 +2693,7 @@ def get_molecule_id_from_chain(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_molecule_name_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_name_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2721,7 +2715,7 @@ def get_molecule_name_from_chain(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_molecule_type_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_type_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2743,7 +2737,7 @@ def get_molecule_type_from_chain(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_entity_index_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_index_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2768,7 +2762,7 @@ def get_entity_index_from_chain(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_entity_id_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_id_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2790,7 +2784,7 @@ def get_entity_id_from_chain(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_entity_name_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_name_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2812,7 +2806,7 @@ def get_entity_name_from_chain(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_entity_type_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_type_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2834,7 +2828,7 @@ def get_entity_type_from_chain(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_n_atoms_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_n_atoms_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2845,7 +2839,7 @@ def get_n_atoms_from_chain(item, indices='all', structure_indices='all', check_f
     output = np.array(output)
     return output
 
-def get_n_groups_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_n_groups_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2856,7 +2850,7 @@ def get_n_groups_from_chain(item, indices='all', structure_indices='all', check_
     output = np.array(output)
     return output
 
-def get_n_components_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_n_components_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2867,7 +2861,7 @@ def get_n_components_from_chain(item, indices='all', structure_indices='all', ch
     output = np.array(output)
     return output
 
-def get_n_molecules_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_n_molecules_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2878,7 +2872,7 @@ def get_n_molecules_from_chain(item, indices='all', structure_indices='all', che
     output = np.array(output)
     return output
 
-def get_n_chains_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_n_chains_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2889,7 +2883,7 @@ def get_n_chains_from_chain(item, indices='all', structure_indices='all', check_
 
     return output
 
-def get_n_entities_from_chain(item, indices='all', structure_indices='all', check_form=True):
+def get_n_entities_from_chain(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2905,7 +2899,7 @@ def get_n_entities_from_chain(item, indices='all', structure_indices='all', chec
 
 ## From entity
 
-def get_atom_index_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_index_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2930,7 +2924,7 @@ def get_atom_index_from_entity(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_atom_id_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_id_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2952,7 +2946,7 @@ def get_atom_id_from_entity(item, indices='all', structure_indices='all', check_
 
     return output
 
-def get_atom_name_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_name_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2974,7 +2968,7 @@ def get_atom_name_from_entity(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_atom_type_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_atom_type_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -2996,7 +2990,7 @@ def get_atom_type_from_entity(item, indices='all', structure_indices='all', chec
 
     return output
 
-def get_group_index_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_group_index_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3021,7 +3015,7 @@ def get_group_index_from_entity(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_group_id_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_group_id_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3043,7 +3037,7 @@ def get_group_id_from_entity(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_group_name_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_group_name_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3065,7 +3059,7 @@ def get_group_name_from_entity(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_group_type_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_group_type_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3087,7 +3081,7 @@ def get_group_type_from_entity(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_component_index_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_component_index_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3112,7 +3106,7 @@ def get_component_index_from_entity(item, indices='all', structure_indices='all'
 
     return output
 
-def get_component_id_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_component_id_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3134,7 +3128,7 @@ def get_component_id_from_entity(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_component_name_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_component_name_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3156,7 +3150,7 @@ def get_component_name_from_entity(item, indices='all', structure_indices='all',
 
     return output
 
-def get_component_type_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_component_type_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3178,7 +3172,7 @@ def get_component_type_from_entity(item, indices='all', structure_indices='all',
 
     return output
 
-def get_chain_index_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_index_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3203,7 +3197,7 @@ def get_chain_index_from_entity(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_chain_id_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_id_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3225,7 +3219,7 @@ def get_chain_id_from_entity(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_chain_name_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_name_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3247,7 +3241,7 @@ def get_chain_name_from_entity(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_chain_type_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_chain_type_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3269,7 +3263,7 @@ def get_chain_type_from_entity(item, indices='all', structure_indices='all', che
 
     return output
 
-def get_molecule_index_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_index_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3294,7 +3288,7 @@ def get_molecule_index_from_entity(item, indices='all', structure_indices='all',
 
     return output
 
-def get_molecule_id_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_id_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3316,7 +3310,7 @@ def get_molecule_id_from_entity(item, indices='all', structure_indices='all', ch
 
     return output
 
-def get_molecule_name_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_name_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3338,7 +3332,7 @@ def get_molecule_name_from_entity(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_molecule_type_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_molecule_type_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3360,7 +3354,7 @@ def get_molecule_type_from_entity(item, indices='all', structure_indices='all', 
 
     return output
 
-def get_entity_index_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_entity_index_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3374,7 +3368,7 @@ def get_entity_index_from_entity(item, indices='all', structure_indices='all', c
 
     return output
 
-def get_n_atoms_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_n_atoms_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3385,7 +3379,7 @@ def get_n_atoms_from_entity(item, indices='all', structure_indices='all', check_
     output = np.array(output)
     return output
 
-def get_n_groups_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_n_groups_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3396,7 +3390,7 @@ def get_n_groups_from_entity(item, indices='all', structure_indices='all', check
     output = np.array(output)
     return output
 
-def get_n_components_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_n_components_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3407,7 +3401,7 @@ def get_n_components_from_entity(item, indices='all', structure_indices='all', c
     output = np.array(output)
     return output
 
-def get_n_molecules_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_n_molecules_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3418,7 +3412,7 @@ def get_n_molecules_from_entity(item, indices='all', structure_indices='all', ch
     output = np.array(output)
     return output
 
-def get_n_chains_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_n_chains_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3429,7 +3423,7 @@ def get_n_chains_from_entity(item, indices='all', structure_indices='all', check
     output = np.array(output)
     return output
 
-def get_n_entities_from_entity(item, indices='all', structure_indices='all', check_form=True):
+def get_n_entities_from_entity(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3442,116 +3436,116 @@ def get_n_entities_from_entity(item, indices='all', structure_indices='all', che
 
 ## system
 
-def get_n_aminoacids_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_aminoacids_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     group_types = get_group_type_from_group(item, check_form=False)
     return (group_types=='aminoacid').sum()
 
-def get_n_nucleotides_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_nucleotides_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     group_types = get_group_type_from_group(item, check_form=False)
     return (group_types=='nucleotide').sum()
 
-def get_n_ions_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_ions_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
-    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
+    molecule_types = get_group_type_from_group(item, check_form=False)
     return (molecule_types=='ion').sum()
 
-def get_n_waters_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_waters_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
-    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
+    molecule_types = get_group_type_from_group(item, check_form=False)
     return (molecule_types=='water').sum()
 
-def get_n_cosolutes_from_system(item, indices='all', structure_indices='all'):
+def get_n_cosolutes_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
-    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
+    molecule_types = get_group_type_from_group(item, check_form=False)
     return (molecule_types=='cosolute').sum()
 
-def get_n_small_molecules_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_small_molecules_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
-    molecule_types = get_molecule_type_from_molecule(item, check_form=False)
+    molecule_types = get_group_type_from_group(item, check_form=False)
     return (molecule_types=='small molecule').sum()
 
-def get_n_peptides_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_peptides_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='peptide').sum()
 
-def get_n_proteins_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_proteins_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='protein').sum()
 
-def get_n_dnas_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_dnas_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='dna').sum()
 
-def get_n_rnas_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_rnas_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='rna').sum()
 
-def get_n_lipids_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_n_lipids_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
     molecule_types = get_molecule_type_from_molecule(item, check_form=False)
     return (molecule_types=='lipid').sum()
 
-def get_coordinates_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_coordinates_from_system(item, structure_indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
     return get_coordinates_from_atom(item, structure_indices=structure_indices, check_form=False)
 
-def get_bonded_atoms_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_bonded_atoms_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
-    return get_bonded_atoms_from_atom(item, structure_indices=structure_indices, check_form=False)
+    return get_bonded_atoms_from_atom(item, check_form=False)
 
-def get_bond_index_from_system(item, indices='all', structure_indices='all', check_form=True):
-
-    _checking_form(item, check_form)
-
-    return get_bond_index_from_atom(item, structure_indices=structure_indices, check_form=False)
-
-def get_inner_bonded_atoms_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_bond_index_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
-    return get_inner_bonded_atoms_from_atom(item, structure_indices=structure_indices, check_form=False)
+    return get_bond_index_from_atom(item, check_form=False)
 
-def get_inner_bond_index_from_system(item, indices='all', structure_indices='all', check_form=True):
+def get_inner_bonded_atoms_from_system(item, check_form=True):
 
     _checking_form(item, check_form)
 
-    return get_inner_bond_index_from_atom(item, structure_indices=structure_indices, check_form=False)
+    return get_inner_bonded_atoms_from_atom(item, check_form=False)
+
+def get_inner_bond_index_from_system(item, check_form=True):
+
+    _checking_form(item, check_form)
+
+    return get_inner_bond_index_from_atom(item, check_form=False)
 
 ## bond
 
-def get_bond_index_from_bond(item, indices='all', structure_indices='all', check_form=True):
+def get_bond_index_from_bond(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 
@@ -3565,7 +3559,7 @@ def get_bond_index_from_bond(item, indices='all', structure_indices='all', check
 
     return output
 
-def get_n_bonds_from_bond(item, indices='all', structure_indices='all', check_form=True):
+def get_n_bonds_from_bond(item, indices='all', check_form=True):
 
     _checking_form(item, check_form)
 

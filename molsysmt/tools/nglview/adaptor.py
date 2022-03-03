@@ -66,7 +66,7 @@ class MolSysMTTrajectory(Trajectory, Structure):
             return self.coordinates[index]
 
     @property
-    def n_frames(self):
+    def n_structures(self):
         return self.coordinates.shape[0]
 
     def get_structure_string(self):

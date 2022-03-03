@@ -14,12 +14,12 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
 
     if engine=='MolSysMT':
 
-        n_atoms, n_frames = get(molecular_system, n_atoms=True, n_frames=True)
+        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
         n_atom_indices = atom_indices.shape[0]
         structure_indices = digest_structure_indices(structure_indices)
         if structure_indices is 'all':
-            structure_indices = np.arange(n_frames)
+            structure_indices = np.arange(n_structures)
         n_structure_indices = structure_indices.shape[0]
 
         if reference_molecular_system is None:
@@ -42,7 +42,7 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
             raise ValueError("reference selection and selection needs to have the same number of atoms")
 
         librmsd.least_rmsd_fit(coordinates, atom_indices, reference_coordinates, structure_indices,
-                                n_atoms, n_frames, n_atom_indices, n_structure_indices)
+                                n_atoms, n_structures, n_atom_indices, n_structure_indices)
 
         coordinates=np.ascontiguousarray(coordinates)*units
         coordinates=puw.standardize(coordinates)

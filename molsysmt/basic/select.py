@@ -6,7 +6,6 @@ from molsysmt._private_tools.lists_and_tuples import list_to_csv_string
 from molsysmt._private_tools.strings import get_parenthesis
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.selection import indices_to_selection # basic_selection, within_selection, bonded_to_selection, parenthesis_substitution_in_selection
-from molsysmt.basic.get.arguments import where_argument as where_get_argument
 
 def select_standard(molecular_system, selection, syntaxis):
 
@@ -154,7 +153,11 @@ def select(molecular_system, selection='all', frame_index=0, target='atom', mask
 
     """
 
-    molecular_system = digest_molecular_system(molecular_system)
+    from molsysmt.basic import get_form, select, is_a_molecular_system
+
+    if not is_a_molecular_system(molecular_system):
+        raise SingleMolecularSystemNeededError()
+
     target = digest_target(target)
     syntaxis = digest_syntaxis(syntaxis)
     selection = digest_selection(selection, syntaxis)

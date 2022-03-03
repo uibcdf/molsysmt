@@ -36,13 +36,13 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
         raise ValueError
 
     n_quartets = quartets.shape[0]
-    n_frames = get(molecular_system, target='system', structure_indices=structure_indices, n_frames=True)
+    n_structures = get(molecular_system, target='system', structure_indices=structure_indices, n_structures=True)
 
     angles_shifts_units = puw.get_unit(angles_shifts)
     angles_shifts_value = puw.get_value(angles_shifts)
 
     if type(angles_shifts_value) in [float]:
-        if (n_quartets==1 and n_frames==1):
+        if (n_quartets==1 and n_structures==1):
             angles_shifts_value = np.array([[angles_shifts_value]], dtype=float)
         else:
             raise ValueError("angles_shifts do not match the number of frames and quartets")
@@ -56,7 +56,7 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
     shape = angles_shifts_value.shape
 
     if len(shape)==1:
-        angles_shifts_value = angles_shifts_value.reshape([n_frames, n_quartets])
+        angles_shifts_value = angles_shifts_value.reshape([n_structures, n_quartets])
 
     angles_shifts=angles_shifts_value*angles_shifts_units
 

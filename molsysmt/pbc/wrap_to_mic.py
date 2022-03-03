@@ -22,7 +22,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
 
         coordinates= get(molecular_system, target='atom', indices=atom_indices, coordinates=True)
         length_units = puw.get_unit(coordinates)
-        n_frames = coordinates.shape[0]
+        n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
         box, box_shape = get(molecular_system, target='system', structure_indices=structure_indices, box=True, box_shape=True)
         box = puw.convert(box, to_unit=length_units)
@@ -51,12 +51,12 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
 
             center_shape = np.shape(center)
             if len(center_shape)==1 and center_shape[-1]==3:
-                center = np.tile(center,[n_frames,1,1])
-            elif len(center_shape)==2 and center_shape[-1]==3 and center_shape[0]==n_frames:
+                center = np.tile(center,[n_structures,1,1])
+            elif len(center_shape)==2 and center_shape[-1]==3 and center_shape[0]==n_structures:
                 center = np.expand_dims(center, axis=1)
             elif len(center_shape)==2 and center_shape[-1]==3 and center_shape[0]==1:
-                center = np.tile(center[0],[n_frames,1,1])
-            elif len(center_shape)==3 and center_shape[-1]==3 and center_shape[0]==n_frames and center_shape[1]==1:
+                center = np.tile(center[0],[n_structures,1,1])
+            elif len(center_shape)==3 and center_shape[-1]==3 and center_shape[0]==n_structures and center_shape[1]==1:
                 center = np.array(center)
             else:
                 raise ValueError('center needs the right shape')
@@ -65,7 +65,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         center = np.asfortranarray(center, dtype='float64')
 
-        libbox.wrap_mic(coordinates, center, box, orthogonal, n_atoms, n_frames)
+        libbox.wrap_mic(coordinates, center, box, orthogonal, n_atoms, n_structures)
 
         if recenter:
             translation = np.tile(-center,(n_atoms,1))

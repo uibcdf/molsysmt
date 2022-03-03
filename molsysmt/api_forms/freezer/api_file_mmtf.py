@@ -55,12 +55,12 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', struct
 
     return tmp_item, tmp_molecular_system
 
-def to_molsysmt_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.api_forms.api_mmtf_MMTFDecoder import to_molsysmt_Trajectory as mmtf_MMTFDecoder_to_molsysmt_Trajectory
+    from molsysmt.api_forms.api_mmtf_MMTFDecoder import to_molsysmt_Structures as mmtf_MMTFDecoder_to_molsysmt_Structures
 
     tmp_item, tmp_molecular_system = to_mmtf_MMTFDecoder(item, molecular_system=molecular_system, atom_indices='all', structure_indices='all')
-    tmp_item, tmp_molecular_system = mmtf_MMTFDecoder_to_molsysmt_Trajectory(tmp_item,
+    tmp_item, tmp_molecular_system = mmtf_MMTFDecoder_to_molsysmt_Structures(tmp_item,
             molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item, tmp_molecular_system
@@ -138,11 +138,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -345,7 +345,7 @@ def get_step_from_system(item, indices='all', structure_indices='all'):
 
     return aux_get(item, indices=indices, structure_indices=structure_indices)
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     return aux_get(item, indices=indices, structure_indices=structure_indices)
 

@@ -29,9 +29,9 @@ def get_sasa (molecular_system, target='atom', selection='all', structure_indice
             sets_atoms = get(molecular_system, target=target, selection=selection, syntaxis=syntaxis, atom_index=True)
 
             n_sets = len(sets_atoms)
-            n_frames = sasa_array.shape[0]
+            n_structures = sasa_array.shape[0]
 
-            new_sasa_array = np.empty([n_frames, n_sets], dtype='float')
+            new_sasa_array = np.empty([n_structures, n_sets], dtype='float')
             for ii in range(n_sets):
                 new_sasa_array[:,ii] = sasa_array[:,sets_atoms[ii].astype(int)].sum(axis=1)
             sasa_array = new_sasa_array

@@ -268,11 +268,11 @@ def add(to_item, item):
 
     raise NotImplementedError
 
-def append_frames(item, step=None, time=None, coordinates=None, box=None):
+def append_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
-def concatenate_frames(item, step=None, time=None, coordinates=None, box=None):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
 
     raise NotImplementedError
 
@@ -597,7 +597,7 @@ def get_box_volume_from_system(item, indices='all', structure_indices='all'):
 
     return output
 
-def get_n_frames_from_system(item, indices='all', structure_indices='all'):
+def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
     return None
 
@@ -643,9 +643,9 @@ def set_box_to_system(item, indices='all', structure_indices='all', value=None):
 
     value = puw.convert(value, 'nanometers', to_form='openmm.unit')
 
-    n_frames = value.shape[0]
+    n_structures = value.shape[0]
 
-    if n_frames == 1:
+    if n_structures == 1:
 
         item.setPeriodicBoxVectors(value[0])
 
