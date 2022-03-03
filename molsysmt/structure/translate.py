@@ -1,10 +1,11 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt.basic import get, set, select, copy
-from molsysmt._private_tools.molecular_system import digest_molecular_system
+from molsysmt.basic import get, set, select, copy, is_a_molecular_system
 
 def translate(molecular_system, translation=None, selection='all', structure_indices='all', syntaxis='MolSysMT', in_place=False):
 
+    if not is_a_molecular_system(molecular_system):
+        raise SingleMolecularSystemNeededError()
 
     atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
     coordinates = get(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True)

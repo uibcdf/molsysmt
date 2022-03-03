@@ -1,16 +1,17 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.molecular_system import digest_molecular_system
 from molsysmt._private_tools.structure_indices import digest_structure_indices
 from molsysmt.lib import geometry as libgeometry
-from molsysmt.basic import get, convert, set, copy
+from molsysmt.basic import get, convert, set, copy, is_a_molecular_system
 
 def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=None,
         structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
 
     from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
 
-    molecular_system = digest_molecular_system(molecular_system)
+    if not is_a_molecular_system(molecular_system):
+        raise SingleMolecularSystemNeededError()
+
     structure_indices = digest_structure_indices(structure_indices)
 
     if type(quartets) in [list,tuple]:

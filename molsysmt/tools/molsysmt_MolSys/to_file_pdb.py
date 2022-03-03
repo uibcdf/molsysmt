@@ -1,5 +1,5 @@
 
-def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None):
+def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, check_form=True):
 
     if check_form:
         from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys

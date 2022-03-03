@@ -1,8 +1,8 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
-from molsysmt.api_forms import dict_attributes, dict_get
-from .arguments import required_attributes, required_indices, reverse_search, digest_argument
+from molsysmt.api_forms import dict_get
+from .arguments import required_indices, digest_argument
 
 def get(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs):
 
@@ -56,7 +56,7 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
 
     """
 
-    from molsysmt.basic import get_form, select, is_a_molecular_system
+    from molsysmt.basic import get_form, select, is_a_molecular_system, where_is_attribute
 
     if not is_a_molecular_system(molecular_system):
         raise SingleMolecularSystemNeededError()
@@ -81,13 +81,6 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
 
     for argument in arguments:
 
-        result = None
-
-        if reverse_search:
-            aux_zip = zip(reversed(molecular_system), reversed(forms_in))
-        else:
-            aux_zip = zip(molecular_system, forms_in)
-
         dict_indices = {}
         if target != 'system':
             if 'indices' in required_indices[argument]:
@@ -95,15 +88,8 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
         if 'structure_indices' in required_indices[argument]:
             dict_indices['structure_indices']=structure_indices
 
-        for item, form_in in aux_zip:
-            for required_attribute in required_attributes[argument]:
-                if dict_attributes[form_in][required_attribute]:
-                    result = dict_get[form_in][target][argument](item, **dict_indices)
-                if result is not None:
-                    break
-            if result is not None:
-                break
-
+        aux_item, aux_form = where_is_attribute(molecular_system, argument)
+        result = dict_get[aux_form][target][argument](aux_item, **dict_indices)
         output.append(result)
 
     output=digest_output(output)

@@ -1,14 +1,12 @@
 
-def to_string_pdb_text(item, selection='all', structure_indices='all', syntaxis='MolSysMT'):
+def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.tools.molsysmt_MolSys import is_molsymst_MolSys
-    from molsysmt.basic import convert
+    if check_form:
+        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
+        from molsysmt._private_tools.exceptions import WrongFormError
+        if not is_molsysmt_MolSys(item):
+            raise WrongFormError('molsysmt.MolSys')
 
-    if not is_molsysmt_MolSys(item):
-        raise ValueError
+    raise NotImplementedError
 
-    tmp_item = convert(item, to_form='string:pdb_text', selection=selection,
-            structure_indices=structure_indices, syntaxis=syntaxis)
-
-    return tmp_item
 

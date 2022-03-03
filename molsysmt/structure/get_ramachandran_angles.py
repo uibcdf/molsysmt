@@ -1,14 +1,16 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.molecular_system import digest_molecular_system
 from molsysmt._private_tools.structure_indices import digest_structure_indices
 
 def get_ramachandran_angles(molecular_system, selection='all', structure_indices='all', syntaxis='MolSysMT', pbc=False):
 
-    from molsysmt.structure.get_dihedral_angles import get_dihedral_angles
-    from molsysmt.topology.get_covalent_dihedral_quartets import get_covalent_dihedral_quartets
+    from molsysmt.structure import get_dihedral_angles
+    from molsysmt.topology import get_covalent_dihedral_quartets
+    from molsysmt.basic import is_a_molecular_system
 
-    molecular_system = digest_molecular_system(molecular_system)
+    if not is_a_molecular_system(molecular_system):
+        raise SingleMolecularSystemNeededError()
+
     structure_indices = digest_structure_indices(structure_indices)
 
     phi_covalent_chain = get_covalent_dihedral_quartets(molecular_system, dihedral_angle='phi', selection=selection, syntaxis=syntaxis)

@@ -1,4 +1,3 @@
-from .molecular_system import digest_molecular_system
 from .forms import digest_form, digest_to_form
 from .selection import digest_selection, digest_syntaxis, digest_to_syntaxis
 from .targets import digest_target

@@ -1,4 +1,4 @@
-from molsysmt._private_tools._digestion import digest_molecular_system, digest_engine
+from molsysmt._private_tools._digestion import digest_engine
 import numpy as np
 from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
@@ -7,7 +7,11 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
           reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
 
-    molecular_system = digest_molecular_system(molecular_system)
+    from molsysmt.basic import is_a_molecular_system
+
+    if not is_a_molecular_system(molecular_system):
+        raise SingleMolecularSystemNeededError()
+
     engine = digest_engine(engine)
 
     if engine=='MolSysMT':

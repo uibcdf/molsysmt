@@ -60,9 +60,11 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
 
     """
 
-    from molsysmt.basic import select, extract
+    from molsysmt.basic import select, extract, is_a_molecular_system
 
-    molecular_system = digest_molecular_system(molecular_system)
+    if not is_a_molecular_system(molecular_system):
+        raise SingleMolecularSystemNeededError()
+
     structure_indices = digest_structure_indices(structure_indices)
 
     atom_indices_to_be_kept = 'all'

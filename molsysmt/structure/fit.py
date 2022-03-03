@@ -1,6 +1,6 @@
-from molsysmt._private_tools._digestion import digest_molecular_system, digest_engine
+from molsysmt._private_tools._digestion import digest_engine
 from molsysmt._private_tools._digestion import digest_structure_indices
-from molsysmt.basic import select, get, set, convert, copy
+from molsysmt.basic import select, get, set, convert, copy, is_a_molecular_system
 import numpy as np
 from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
@@ -9,7 +9,9 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
          reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
          to_form=None, parallel=True, syntaxis='MolSysMT', method='least rmsd', engine='MolSysMT'):
 
-    molecular_system = digest_molecular_system(molecular_system)
+    if not is_a_molecular_system(molecular_system):
+        raise SingleMolecularSystemNeededError()
+
     engine = digest_engine(engine)
 
     if engine=='MolSysMT':

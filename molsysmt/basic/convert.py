@@ -58,7 +58,6 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
     if to_form is None:
         to_form = get_form(molecular_system)
 
-    molecular_system = digest_molecular_system(molecular_system)
     to_form = digest_to_form(to_form)
 
     if is_list_or_tuple(to_form):

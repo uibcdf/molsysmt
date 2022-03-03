@@ -1,8 +1,7 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.molecular_system import digest_molecular_system
 from molsysmt._private_tools.structure_indices import digest_structure_indices
-from molsysmt.basic import get
+from molsysmt.basic import get, is_a_molecular_system
 from molsysmt.lib import geometry as libgeometry
 
 def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', quartets=None,
@@ -10,7 +9,9 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
 
     from molsysmt.topology.get_covalent_dihedral_quartets import get_covalent_dihedral_quartets
 
-    molecular_system = digest_molecular_system(molecular_system)
+    if not is_a_molecular_system(molecular_system):
+        raise SingleMolecularSystemNeededError()
+
     structure_indices = digest_structure_indices(structure_indices)
 
     if quartets is None:

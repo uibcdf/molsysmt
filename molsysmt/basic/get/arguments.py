@@ -17,7 +17,7 @@ reverse_search['atom_index'] = False
 argument_synonyms['atom_names'] = 'atom_name'
 required_attributes['atom_name'] = ['atom_name']
 required_indices['atom_name'] = ['indices']
-reverse_search['atom_index'] = False
+reverse_search['atom_name'] = False
 
 # atom_id
 

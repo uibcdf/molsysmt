@@ -1,9 +1,10 @@
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', check_form=True):
 
-    from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
-
-    if not is_molsysmt_MolSys(item):
-        raise ValueError
+    if check_form:
+        from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
+        from molsysmt._private_tools.exceptions import WrongFormError
+        if not is_molsysmt_MolSys(item):
+            raise WrongFormError('molsysmt.MolSys')
 
     tmp_item = item.structures.copy()
 

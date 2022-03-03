@@ -1,8 +1,6 @@
-from .is_element import is_element
-from .is_attribute import is_attribute
-from .is_item import is_item
-from .item_is_file import item_is_file
-from .item_is_string import item_is_string
+from . import item
+from . import element
+from . import attribute
 
 from . import string_pdb_id
 from . import string_pdb_text
