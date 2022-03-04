@@ -6,21 +6,21 @@ import numpy as np
 
 ## Atom
 
-def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None, check_form=True):
+def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=None, check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import _checking_form
-        _checking_form(item, check_form=check_form)
+        _checking_form(item, check=check)
 
     from .api_molsysmt_Topology import set_atom_name_to_atom as _set
 
-    return _set(item.topology, indices=indices, structure_indices=structure_indices, value=value, check_form=True)
+    return _set(item.topology, indices=indices, structure_indices=structure_indices, value=value, check=True)
 
-def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None, check_form=True):
+def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None, check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import _checking_form
-        _checking_form(item, check_form=check_form)
+        _checking_form(item, check=check)
 
     value = puw.standardize(value)
 
@@ -45,20 +45,20 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
 ## System
 
-def set_box_to_system(item, indices='all', structure_indices='all', value=None, check_form=True):
+def set_box_to_system(item, indices='all', structure_indices='all', value=None, check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import _checking_form
-        _checking_form(item, check_form=check_form)
+        _checking_form(item, check=check)
 
     item.trajectory.box = value
     pass
 
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check_form=True):
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_MolSys.is_molsysmt_MolSys import _checking_form
-        _checking_form(item, check_form=check_form)
+        _checking_form(item, check=check)
 
     return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices, value=value)
 

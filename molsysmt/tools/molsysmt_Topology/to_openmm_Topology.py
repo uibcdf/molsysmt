@@ -1,6 +1,6 @@
-def to_openmm_Topology(item, box=None, atom_indices='all', check_form=True):
+def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_Topology import is_molsymst_Topology
         from molsysmt._private_tools.exceptions import WrongFormError
         if not is_molsysmt_Topology(item):

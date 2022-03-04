@@ -1,19 +1,22 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 
-def where_is_attribute(molecular_system, attribute=None):
+def where_is_attribute(molecular_system, attribute, check=True):
 
     from molsysmt.basic.get_form import get_form
-    from molsysmt.basic.is_a_molecular_system import is_a_molecular_system
     from molsysmt.basic.get.arguments import reverse_search, required_attributes
-    from molsysmt.tools.attribute import is_attribute
     from molsysmt.api_forms import dict_attributes
 
-    if not is_attribute(attribute):
-        raise BadCallError('attribute')
+    if check:
 
-    if not is_a_molecular_system(molecular_system):
-        raise SingleMolecularSystemNeededError()
+        from molsysmt.tools.molecular_system import is_molecular_system
+        from molsysmt.tools.attribute import is_attribute
+
+        if not is_attribute(attribute):
+            raise WrongAttributeError('attribute')
+
+        if not is_molecular_system(molecular_system):
+            raise SingleMolecularSystemNeededError()
 
     if not is_list_or_tuple(molecular_system):
         molecular_system = [molecular_system]

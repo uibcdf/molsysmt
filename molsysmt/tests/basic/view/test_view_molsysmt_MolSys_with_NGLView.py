@@ -13,11 +13,11 @@ def test_view_molsyst_MolSys_with_NLGView_1():
     molsys = msm.demo['T4 lysozyme L99A']['181l.pdb']
     molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
     molsys_2 = nv.show_molsysmt(molsys)
-    check_form = ('nglview.NGLWidget'==msm.get_form(molsys_2))
+    check = ('nglview.NGLWidget'==msm.get_form(molsys_2))
     check_n_elements = msm.compare(molsys, molsys_2, comparison='n_elements')
     check_n_molecules = msm.compare(molsys, molsys_2, comparison='n_molecules')
     check_n_structures = msm.compare(molsys, molsys_2, comparison='n_structures')
-    assert check_form and check_n_elements and check_n_molecules and check_n_structures
+    assert check and check_n_elements and check_n_molecules and check_n_structures
 
 def test_view_molsyst_MolSys_with_NGLView_2():
 

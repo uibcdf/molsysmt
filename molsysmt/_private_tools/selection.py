@@ -1,35 +1,10 @@
 from .exceptions import BadCallError
 
-syntaxis = [
-    'MolSysMT',
-    'Amber',
-    'MDAnalysis',
-    'MDTraj',
-    'ParmEd',
-    'NGLView',
-]
-
-syntaxis_from_lower = { ii.lower():ii for ii in syntaxis }
-
-def digest_syntaxis(syntaxis):
-
-    try:
-        syntaxis = syntaxis_from_lower[syntaxis.lower()]
-        return syntaxis
-    except:
-        raise BadCallError()
-
-def digest_to_syntaxis(to_syntaxis):
-
-    if to_syntaxis is None:
-        return None
-    else:
-        return digest_syntaxis(to_syntaxis)
-
 def digest_selection(selection, syntaxis="MolSysMT"):
 
     if type(selection) is str:
 
+        from .syntaxis import digest_syntaxis
         syntaxis = digest_syntaxis(syntaxis)
 
         if syntaxis=='MolSysMT':
@@ -40,7 +15,7 @@ def digest_selection(selection, syntaxis="MolSysMT"):
 
 def indices_to_selection(molecular_system, indices, target='atom', syntaxis=None):
 
-    from molsysmt._private_tools.targets import digest_target
+    from molsysmt._private_tools.target import digest_target
     from molsysmt._private_tools.molecular_system import digest_molecular_system
 
     syntaxis = digest_syntaxis(syntaxis)

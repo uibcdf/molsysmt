@@ -1,7 +1,7 @@
 
-def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, check_form=True):
+def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
         from molsysmt._private_tools.exceptions import WrongFormError
         if not is_molsysmt_MolSys(item):
@@ -13,8 +13,8 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
     from molsysmt.tools.molsys_MolSys import to_openmm_Topology as molsysmt_MolSys_to_openmm_Topology
     from molsysmt.tools.openmm_Topology import to_file_pdb as openmm_Topology_to_file_pdb
 
-    tmp_item = molsysmt_MolSys_to_openmm_Topology(item, check_form=False)
-    tmp_item = openmm_Topology_to_file_pdb(tmp_item, atom_indices=atom_indices, output_filename=output_filename, check_form=False)
+    tmp_item = molsysmt_MolSys_to_openmm_Topology(item, check=False)
+    tmp_item = openmm_Topology_to_file_pdb(tmp_item, atom_indices=atom_indices, output_filename=output_filename, check=False)
 
     return tmp_item
 

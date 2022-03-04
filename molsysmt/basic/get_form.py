@@ -4,6 +4,9 @@ from molsysmt._private_tools.exceptions import *
 
 def get_form(molecular_system):
 
+    # This method can check if molecular system is indeed a molecular system
+    # This method is used to check that a molecular system is a molecular system
+
     if is_list_or_tuple(molecular_system):
         output = [get_form(ii) for ii in molecular_system]
         return output
@@ -16,7 +19,7 @@ def get_form(molecular_system):
             break
 
     if output is None:
-        raise NotImplementedError()
+        raise NotSupportedFormError()
 
     return output
 

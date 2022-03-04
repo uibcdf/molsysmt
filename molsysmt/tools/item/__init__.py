@@ -1,4 +1,4 @@
 from .is_item import is_item
-from .item_is_file import item_is_file
-from .item_is_string import item_is_string
+from .is_file import is_file
+from .is_string import is_string
 

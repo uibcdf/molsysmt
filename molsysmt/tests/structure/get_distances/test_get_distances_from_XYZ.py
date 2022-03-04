@@ -34,9 +34,9 @@ def test_get_distances_from_XYZ_3():
 def test_get_distances_from_XYZ_4():
     molsys = msm.convert(msm.demo['4 particles']['traj.xyznpy'], to_form='XYZ')
     distances = msm.structure.get_distances(molsys, selection=1, selection_2=[0,2], output_form='dict')
-    check_form = (type(distances)==dict)
+    check = (type(distances)==dict)
     check_distance = np.isclose(puw.get_value(distances[1][2][0], to_unit='nm'), 1.41421356)
-    assert check_form and check_distance
+    assert check and check_distance
 
 def test_get_distances_from_XYZ_5():
     molsys = msm.convert(msm.demo['4 particles']['traj.xyznpy'], to_form='XYZ')

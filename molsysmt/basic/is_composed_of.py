@@ -1,9 +1,26 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools._digestion import *
+from molsysmt._private_tools.digestion import *
+from molsysmt.tools.molecular_system import is_molecular_system
+
 
 def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT',
         ions=False, waters=False, cosolutes=False, small_molecules=False, peptides=False,
-        proteins=False, dnas=False, rnas=False, lipids=False):
+        proteins=False, dnas=False, rnas=False, lipids=False, check=True):
+
+    if check:
+
+        if not is_molecular_system(to_molecular_system):
+            raise MolecularSystemNeededError()
+
+        try:
+            syntaxis = digest_syntaxis(syntaxis)
+        except:
+            raise WrongSyntaxisError(syntaxis)
+
+        try:
+            selection = digest_selection(selection, syntaxis)
+        except:
+            raise WrongSelectionError()
 
     from molsysmt.basic import get
 
@@ -11,7 +28,7 @@ def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT',
     n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, target="system", selection=selection,
             syntaxis=syntaxis, n_ions=True, n_waters=True, n_cosolutes=True,
             n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True, n_rnas=True,
-            n_lipids=True)
+            n_lipids=True, check=False)
 
     aux_list = [[ions, n_ions_in], [waters, n_waters_in], [cosolutes, n_cosolutes_in],
             [small_molecules, n_small_molecules_in], [peptides, n_peptides_in], [proteins,

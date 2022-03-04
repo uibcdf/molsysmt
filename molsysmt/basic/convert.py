@@ -1,11 +1,13 @@
+from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
 from molsysmt.api_forms import dict_convert, dict_attributes
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
-from molsysmt._private_tools._digestion import *
-from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.selection import selection_is_all
-from molsysmt._private_tools.forms import to_form_is_file, form_of_file
+from molsysmt.tools.molecular_system import is_molecular_system
+from molsysmt.tools.item import is_item, is_file
 
-def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs):
+def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all',
+        syntaxis='MolSysMT', check=True, **kwargs):
 
     """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs)
 
@@ -53,31 +55,56 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
 
     """
 
+
+    if check:
+
+        if not is_molecular_system(molecular_system):
+            raise MolecularSystemNeededError()
+
+        try:
+            to_form = digest_to_form(to_form)
+        except:
+            raise WrongToFormError(to_form)
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+        try:
+            syntaxis = digest_syntaxis(syntaxis)
+        except:
+            raise WrongSyntaxisError()
+
+        try:
+            selection = digest_selection(selection, syntaxis)
+        except:
+            raise WrongSelectionError()
+
+
     from molsysmt.basic import select, get_form
 
     if to_form is None:
         to_form = get_form(molecular_system)
 
-    to_form = digest_to_form(to_form)
-
     if is_list_or_tuple(to_form):
         tmp_item=[]
         for item_out in to_form:
-            tmp_item.append(convert(molecular_system, to_form=item_out, selection=selection, structure_indices=structure_indices, syntaxis=syntaxis))
+            tmp_item.append(convert(molecular_system, to_form=item_out, selection=selection,
+                structure_indices=structure_indices, syntaxis=syntaxis, check=False))
         return tmp_item
 
-    structure_indices = digest_structure_indices(structure_indices)
-
     if not selection_is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
     else:
         atom_indices = 'all'
 
     conversion_arguments={}
 
-    if to_form_is_file(to_form):
-        conversion_arguments['output_filename'] = to_form
-        to_form = form_of_file(to_form)
+    if is_item(to_form):
+        if is_file(to_form, check=False):
+            conversion_arguments['output_filename'] = to_form
+            to_form = get_form(to_form)
 
     tmp_item = None
 

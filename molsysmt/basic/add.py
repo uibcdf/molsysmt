@@ -1,9 +1,11 @@
-from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
-from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
+from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 from molsysmt.api_forms import dict_add
+from molsysmt.tools.molecular_system import is_molecular_system
 
-def add(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all', syntaxis='MolSysMT'):
+def add(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all',
+        syntaxis='MolSysMT', check=True):
 
     """add(items=None, selection='all', structure_indices='all', syntaxis='MolSysMT' to_form=None)
 
@@ -47,17 +49,22 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
     """
 
-    from molsysmt.basic import convert, extract, select, is_a_molecular_system
 
-    to_molecular_system = digest_molecular_system(to_molecular_system)
+    if check:
 
-    if is_a_single_molecular_system(from_molecular_systems):
-        from_molecular_systems = [digest_molecular_system(from_molecular_systems)]
-    else:
-        tmp_from_molecular_systems = []
-        for aux in from_molecular_systems:
-            tmp_from_molecular_systems.append(digest_molecular_system(aux))
-        from_molecular_systems = tmp_from_molecular_systems
+        if not is_molecular_system(to_molecular_system):
+            raise MolecularSystemNeededError()
+
+        if not is_molecular_system(from_molecular_system):
+            if not are_multiple_molecular_systems(from_molecular_system):
+                raise MolecularSystemNeededError()
+
+        raise NotImplementedMethod()
+
+    from molsysmt.basic import convert, extract, select
+
+    if is_single_molecular_system(from_molecular_systems):
+        from_molecular_systems = [from_molecular_systems]
 
     n_from_molecular_systems = len(from_molecular_systems)
 
@@ -74,7 +81,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(from_molecular_systems, selections, structure_indices):
 
-        atom_indices = select(aux_molecular_system, selection=aux_selection, syntaxis=syntaxis)
+        atom_indices = select(aux_molecular_system, selection=aux_selection, syntaxis=syntaxis, check=False)
 
         to_already_added=[]
 
@@ -84,7 +91,9 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
         to_item = to_molecular_system.elements_item
 
         if to_form is not None:
-            from_item = convert(aux_molecular_system, selection=atom_indices, structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form)
+            from_item = convert(aux_molecular_system, selection=atom_indices,
+                    structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form,
+                    check=False)
             dict_add[to_form](to_item, from_item)
             to_already_added.append(to_item)
 
@@ -95,7 +104,9 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
         if to_form is not None:
             if to_item not in to_already_added:
-                from_item = convert(aux_molecular_system, selection=atom_indices, structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form)
+                from_item = convert(aux_molecular_system, selection=atom_indices,
+                        structure_indices=aux_structure_indices, syntaxis=syntaxis,
+                        to_form=to_form, check=False)
                 dict_add[to_form](to_item, from_item)
                 to_already_added.append(to_item)
 
@@ -106,7 +117,9 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
         if to_form is not None:
             if to_item not in to_already_added:
-                from_item = convert(aux_molecular_system, selection=atom_indices, structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form)
+                from_item = convert(aux_molecular_system, selection=atom_indices,
+                        structure_indices=aux_structure_indices, syntaxis=syntaxis,
+                        to_form=to_form, check=False)
                 dict_add[to_form](to_item, from_item)
                 to_already_added.append(to_item)
 
@@ -117,7 +130,9 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
         if to_form is not None:
             if to_item not in to_already_added:
-                from_item = convert(aux_molecular_system, selection=atom_indices, structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form)
+                from_item = convert(aux_molecular_system, selection=atom_indices,
+                        structure_indices=aux_structure_indices, syntaxis=syntaxis,
+                        to_form=to_form, check=False)
                 dict_add[to_form](to_item, from_item)
                 to_already_added.append(to_item)
 

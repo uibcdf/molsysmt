@@ -79,7 +79,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
     from molsysmt.tools.file_pdb import to_molsysmt_MolSys as file_pdb_to_molsysmt_MolSys
 
-    tmp_item = file_pdb_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = file_pdb_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 
@@ -87,7 +87,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
     from molsysmt.tools.file_pdb import to_molsysmt_Topology as file_pdb_to_molsysmt_Topology
 
-    tmp_item = file_pdb_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = file_pdb_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 
@@ -95,7 +95,7 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
     from molsysmt.tools.file_pdb import to_molsysmt_Structures as file_pdb_to_molsysmt_Structures
 
-    tmp_item = file_pdb_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = file_pdb_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 
@@ -103,7 +103,7 @@ def to_parmed_Structure(item, molecular_system, atom_indices='all', structure_in
 
     from molsysmt.tools.file_pdb import to_parmed_Structure as file_pdb_to_parmed_Structure
 
-    tmp_item = file_pdb_to_parmed_Structure(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = file_pdb_to_parmed_Structure(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 
@@ -111,7 +111,7 @@ def to_mdanalysis_Universe(item, molecular_system, atom_indices='all', structure
 
     from molsysmt.tools.file_pdb import to_mdanalysis_Universe as file_pdb_to_mdanalysis_Universe
 
-    tmp_item = file_pdb_to_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = file_pdb_to_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item, tmp_molecular_system
 
@@ -119,7 +119,7 @@ def to_mdanalysis_Topology(item, molecular_system, atom_indices='all', structure
 
     from molsysmt.tools.file_pdb import to_mdanalysis_Topology as file_pdb_to_mdanalysis_Topology
 
-    tmp_item = file_pdb_to_mdanalysis_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = file_pdb_to_mdanalysis_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 

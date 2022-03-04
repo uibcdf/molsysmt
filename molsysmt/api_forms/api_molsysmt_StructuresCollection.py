@@ -70,7 +70,7 @@ def to_molsysmt_TrajectoryDict(item, molecular_system, atom_indices='all', struc
 
     from molsysmt.tools.molsysmt_Structures import to_molsysmt_TrajectoryDict as molsysmt_Structures_to_molsysmt_TrajectoryDict
 
-    tmp_item = molsysmt_Structures_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = molsysmt_Structures_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 
@@ -78,7 +78,7 @@ def to_XYZ(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_Structures import to_XYZ as molsysmt_Structures_to_XYZ
 
-    tmp_item = molsysmt_Structures_to_XYZ(item, atom_indices=atom_indices, structure_indices=structure_indices, check_form=False)
+    tmp_item = molsysmt_Structures_to_XYZ(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 

@@ -1,7 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
 
-def is_a_molecular_system(items):
+def is_molecular_system(items):
 
     from molsysmt.basic.get_form import get_form
     from molsysmt.basic.get import get

@@ -22,18 +22,18 @@ from . import tools
 from .native.molsys import MolSys
 from .basic import select, extract, add, merge, concatenate_structures, append_structures, info, get, set, \
                    convert, copy, view, remove, get_form, contains, is_composed_of, compare
+from . import topology
 from . import help
 from . import build
 from . import structure
-#from . import topology
-#from . import pbc
-#from . import physchem
-#from . import molecular_mechanics
-#from . import molecular_dynamics
-#from . import hbonds
+from . import pbc
+from . import physchem
+from . import molecular_mechanics
+from . import molecular_dynamics
+from . import hbonds
 #
-#from . import elements
-#from . import entities
+from . import elements
+from . import entities
 
 # Adding molsysmt to nglview
 

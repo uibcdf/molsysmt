@@ -1,6 +1,7 @@
+from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
 from molsysmt import puw
 from molsysmt.basic import convert, select, get
-from molsysmt._private_tools._digestion import digest_engine, digest_target
 import numpy as np
 
 def get_sasa (molecular_system, target='atom', selection='all', structure_indices='all', syntaxis='MolSysMT',

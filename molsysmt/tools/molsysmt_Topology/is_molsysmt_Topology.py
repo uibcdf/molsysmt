@@ -7,9 +7,9 @@ def is_molsysmt_Topology(item):
 
     return output
 
-def _checking_form(item, check_form=True):
+def _checking_form(item, check=True):
 
-    if check_form:
+    if check:
         if not is_molsysmt_Topology(item):
             raise WrongFormError('molsysmt.Topology')
 

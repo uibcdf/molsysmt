@@ -1,6 +1,10 @@
 import numpy as np
 from molsysmt import puw
 
+def digest_box(box):
+
+    raise NotImplementedError
+
 def digest_box_lengths_value(box_lengths):
 
     output = None

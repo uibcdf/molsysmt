@@ -1,7 +1,7 @@
 
-def to_file_pdb(item, coordinates, box, atom_indices='all', output_filename=None, check_form=True):
+def to_file_pdb(item, coordinates, box, atom_indices='all', output_filename=None, check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_Topology import is_molsymst_Topology
         from molsysmt._private_tools.exceptions import WrongFormError
         if not is_molsysmt_Topology(item):

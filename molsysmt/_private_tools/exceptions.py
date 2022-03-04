@@ -435,7 +435,7 @@ class WrongFormError(ValueError):
         super().__init__(message)
 
 
-class UnknownFormError(ValueError):
+class NotSupportedFormError(ValueError):
     """Exception raised when the item's form is unknown and thereby not supported.
 
     This exception is raised when Sabueso does not recognize the item as a supported form.
@@ -446,24 +446,24 @@ class UnknownFormError(ValueError):
 
     Raises
     ------
-    UnknownFormError
+    NotSupportedFormError
         A message is printed out with the name of the class or the method raising the exception,
         the link to the API documentation with the list of supported forms, and the link to the
         issues board of Sabueso's GitHub repository.
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import UnknownFormError
+    >>> from molsysmt._private_tools.exceptions import NotSupportedFormError
     >>> from molsysmt import get_form
     >>> try:
     ...    _ = get_form(item)
     ... except:
-    ...    raise UnknownFormError
+    ...    raise NotSupportedFormError
 
     .. admonition:: See Also
        :class: attention
 
-        :ref:`Developer Guide \> Exceptions \> UnknownFormError <developer:exceptions:UnknownFormError>`
+        :ref:`Developer Guide \> Exceptions \> NotSupportedFormError <developer:exceptions:NotSupportedFormError>`
 
     """
 
@@ -479,7 +479,7 @@ class UnknownFormError(ValueError):
         api_doc = ''
 
         message = (
-                f"The input item in \"{method_name}\" has an unknown form. "
+                f"The input molecular system or item in \"{method_name}\" has a not supported form. "
                 f"Check {api_doc} for more information. "
                 f"If you still need help, open a new issue in {__github_issues_web__}."
                 )
@@ -658,21 +658,69 @@ class NotWithThisMolecularSystemError(ValueError):
             message = 'This method can not be applied over this molecular system.'
         super().__init__(message)
 
-class NeedsMultipleMolecularSystemsError(ValueError):
+class MultipleMolecularSystemsNeededError(ValueError):
     def __init__(self, message=None):
         if message is None:
             message = 'This method works only over a single molecular system. But multiple molecular systems are provided.'
         super().__init__(message)
 
-class NeedsSingleMolecularSystemError(ValueError):
+class MolecularSystemNeededError(ValueError):
     def __init__(self, message=None):
         if message is None:
             message = 'This method works only over a single molecular system. But multiple molecular systems are provided.'
         super().__init__(message)
 
-class NoMolecularSystemError(ValueError):
+class WrongFormError(ValueError):
     def __init__(self, message=None):
         if message is None:
-            message = 'A molecular system is needed.'
+            message = ''
+        super().__init__(message)
+
+class WrongToFormError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongStructureIndicesError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongIndicesError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongSyntaxisError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongSelectionError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongTargetError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongComparisonError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongOutputFilenameError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
         super().__init__(message)
 

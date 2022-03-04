@@ -1,5 +1,5 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools._digestion import *
+from molsysmt._private_tools.digestion import *
 from molsysmt._private_tools.math import serialized_lists
 from molsysmt.basic import select, get
 from molsysmt.lib import com as libcom

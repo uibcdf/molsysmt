@@ -1,5 +1,5 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools._digestion import *
+from molsysmt._private_tools.digestion import *
 import numpy as np
 
 def compare_info_eq(molecular_system_A, molecular_system_B, selection_A='all',

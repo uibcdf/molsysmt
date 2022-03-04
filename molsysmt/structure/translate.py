@@ -1,11 +1,16 @@
+from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
 import numpy as np
 from molsysmt import puw
-from molsysmt.basic import get, set, select, copy, is_a_molecular_system
+from molsysmt.basic import get, set, select, copy
 
-def translate(molecular_system, translation=None, selection='all', structure_indices='all', syntaxis='MolSysMT', in_place=False):
+def translate(molecular_system, translation=None, selection='all', structure_indices='all',
+        syntaxis='MolSysMT', in_place=False, check=True):
 
-    if not is_a_molecular_system(molecular_system):
-        raise SingleMolecularSystemNeededError()
+    if check:
+        from molsysmt.tools.molecular_system import is_molecular_system
+        if not is_molecular_system(molecular_system):
+            raise MolecularSystemNeededError()
 
     atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
     coordinates = get(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True)

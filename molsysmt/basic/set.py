@@ -1,9 +1,10 @@
-from molsysmt.api_forms import dict_set
-from molsysmt._private_tools._digestion import *
-from molsysmt._private_tools.set_arguments import where_set_argument
 from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
+from molsysmt.api_forms import dict_set
+from molsysmt.tools.molecular_system import is_molecular_system
+from molsysmt._private_tools.set_arguments import where_set_argument
 
-def set(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs):
+def set(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
 
     """into(item, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
@@ -58,23 +59,64 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
 
     """
 
-    from molsysmt.basic import select
+    if check:
 
-    molecular_system = digest_molecular_system(molecular_system)
+        if not is_molecular_system(molecular_system):
+            raise MolecularSystemNeeded()
+
+        try:
+            target = digest_target(target)
+        except:
+            raise WrongTargetError(target)
+
+        try:
+            syntaxis = digest_syntaxis(syntaxis)
+        except:
+            raise WrongSyntaxisError(syntaxis)
+
+        try:
+            selection = digest_selection(selection, syntaxis)
+        except:
+            raise WrongSelectionError(selection)
+
+        try:
+            indices = digest_indices(indices)
+        except:
+            raise WrongIndicesError()
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+        value_of_attribute = {}
+        for key in kwargs.keys():
+            if kwargs[key]:
+                try:
+                    value_of_attribute[digest_set_argument(key, target)]=kwargs[key]
+                except:
+                    raise WrongSetArgumentError(key)
+
+    else:
+
+        value_of_attribute = {}
+        for key in kwargs.keys():
+            if kwargs[key]:
+                value_of_attribute[digest_set_argument(key, target)]=kwargs[key]
+
+
+    from molsysmt.basic import select
 
     # selection works as a mask if indices or ids are used
 
-    target = digest_target(target)
-    value_of_attribute = { digest_set_argument(key, target): kwargs[key] for key in kwargs.keys()}
     attributes = value_of_attribute.keys()
-    indices = digest_indices(indices)
-    structure_indices = digest_structure_indices(structure_indices)
 
     # doing the work here
 
     if indices is None:
         if selection is not 'all':
-            indices = select(molecular_system, target=target, selection=selection, syntaxis=syntaxis)
+            indices = select(molecular_system, target=target, selection=selection,
+                    syntaxis=syntaxis, check=False)
         else:
             indices = 'all'
 

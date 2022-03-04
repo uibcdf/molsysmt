@@ -1,3 +1,5 @@
+from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
 import numpy as np
 
 def align(molecular_system, selection='backbone', structure_indices='all',

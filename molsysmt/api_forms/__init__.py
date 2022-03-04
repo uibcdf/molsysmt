@@ -1,7 +1,6 @@
 from importlib import import_module
 import os
 
-forms = []
 
 dict_type = {}
 dict_info = {}
@@ -15,6 +14,11 @@ dict_concatenate_structures = {}
 dict_get = {}
 dict_set = {}
 dict_convert = {}
+
+
+forms = []
+file_forms = []
+string_forms = []
 
 apis = []
 file_apis = []
@@ -30,6 +34,11 @@ for api_name in apis:
     mod = import_module('molsysmt.api_forms.'+api_name)
 
     forms.append(mod.form_name)
+
+    if api_name in file_apis:
+        file_forms.append(mod.form_name)
+    if api_name in string_apis:
+        string_forms.append(mod.form_name)
 
     dict_type[mod.form_name]=mod.form_type
     dict_info[mod.form_name]=mod.form_info

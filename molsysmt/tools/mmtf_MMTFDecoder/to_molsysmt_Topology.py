@@ -1,9 +1,9 @@
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioassembly_index=0,
-                         bioassembly_name=None, check_form=True):
+                         bioassembly_name=None, check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import _checking_form
-        _checking_form(item, check_form=check_form)
+        _checking_form(item, check=check)
 
     import warnings
     from molsysmt.native import Topology

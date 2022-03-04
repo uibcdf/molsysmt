@@ -1,4 +1,5 @@
-from molsysmt._private_tools._digestion import digest_engine
+from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
 import numpy as np
 from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw

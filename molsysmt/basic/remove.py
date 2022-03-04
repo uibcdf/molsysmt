@@ -1,9 +1,11 @@
-from molsysmt._private_tools._digestion import *
 from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
 from molsysmt._private_tools.structure_indices import complementary_structure_indices
 from molsysmt._private_tools.atom_indices import complementary_atom_indices
+from molsysmt.tools.molecular_system import is_molecular_system
 
-def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntaxis='MolSysMT'):
+def remove(molecular_system, selection=None, structure_indices=None, to_form=None,
+        syntaxis='MolSysMT', check=True):
 
     """remove(item, selection=None, structure_indices=None, syntaxis='MolSysMT')
 
@@ -60,24 +62,47 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
 
     """
 
-    from molsysmt.basic import select, extract, is_a_molecular_system
 
-    if not is_a_molecular_system(molecular_system):
-        raise SingleMolecularSystemNeededError()
+    if check:
 
-    structure_indices = digest_structure_indices(structure_indices)
+        if not is_molecular_system(molecular_system):
+            raise SingleMolecularSystemNeededError()
+
+        try:
+            syntaxis = digest_syntaxis(syntaxis)
+        except:
+            raise WrongSyntaxisError(syntaxis)
+
+        try:
+            selection = digest_selection(selection, syntaxis)
+        except:
+            raise WrongSelectionError()
+
+        if structure_indices is not None:
+            try:
+                structure_indices = digest_structure_indices(structure_indices)
+            except:
+                raise WrongStructureIndicesError()
+
+        try:
+            to_form = digest_to_form(to_form)
+        except:
+            raise WrongToFormErro(to_form)
+
+    from molsysmt.basic import select, extract
 
     atom_indices_to_be_kept = 'all'
     structure_indices_to_be_kept = 'all'
 
     if selection is not None:
-        atom_indices_to_be_removed = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        atom_indices_to_be_removed = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
         atom_indices_to_be_kept = complementary_atom_indices(molecular_system, atom_indices_to_be_removed)
 
     if structure_indices is not None:
         structure_indices_to_be_kept = complementary_structure_indices(molecular_system, structure_indices)
 
-    tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept, structure_indices=structure_indices_to_be_kept, to_form=to_form)
+    tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept,
+            structure_indices=structure_indices_to_be_kept, to_form=to_form, copy_if_all=False, check=False)
     tmp_item = digest_output(tmp_item)
 
     return tmp_item

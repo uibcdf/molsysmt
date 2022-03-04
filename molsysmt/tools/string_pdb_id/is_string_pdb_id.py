@@ -14,9 +14,9 @@ def is_string_pdb_id(item):
 
     return output
 
-def _checking_form(item, check_form=True):
+def _checking_form(item, check=True):
 
-    if check_form:
+    if check:
         if not is_string_pdb_id(item):
             raise WrongFormError('string:pdb_id')
 

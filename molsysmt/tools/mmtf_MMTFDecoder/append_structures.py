@@ -1,8 +1,16 @@
-def append_structures(item, step=None, time=None, coordinates=None, box=None, check_form=True):
+from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
+from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
 
-    if check_form:
-        from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import _checking_form
-        _checking_form(item, check_form=check_form)
+def append_structures(item, step=None, time=None, coordinates=None, box=None, check=True):
 
-    raise NotImplementedError
+    if check:
+
+        if not is_mmtf_MMTFDecoder(item):
+            raise WrongFormError('mmtf.MMTFDecoder')
+
+        try:
+            step = digest_step
+
+    raise NotImplementedMethodError()
 

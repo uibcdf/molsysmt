@@ -127,7 +127,7 @@ class Structures():
 
             from copy import deepcopy
 
-            tmp_item = Trajectory()
+            tmp_item = Structures()
 
             if self.step is not None:
                 if structure_indices is not 'all':
@@ -198,7 +198,7 @@ class Structures():
 
         from copy import deepcopy
 
-        tmp_item = Trajectory()
+        tmp_item = Structures()
 
         tmp_item.step = deepcopy(self.step)
         tmp_item.time = deepcopy(self.time)

@@ -1,5 +1,5 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools._digestion import *
+from molsysmt._private_tools.digestion import *
 from .arguments import digest_argument
 from .compare_all import compare_all_eq, compare_all_in
 from .compare_info import compare_info_eq, compare_info_in
@@ -31,14 +31,52 @@ dict_compare_in={
 
 def compare(molecular_system_A, molecular_system_B, selection_A='all', structure_indices_A='all',
         selection_B='all', structure_indices_B='all', comparison='all', rule='A_eq_B',
-        syntaxis='MolSysMT', report=False):
+        syntaxis='MolSysMT', report=False, check=True):
 
     # rule in ['A_eq_B', 'A_neq_B', 'A_in_B', 'B_in_A']
 
-    molecular_system_A = digest_molecular_system(molecular_system_A)
-    molecular_system_B = digest_molecular_system(molecular_system_B)
+    if check:
 
-    comparison = digest_argument(comparison)
+        if not is_molecular_system(molecular_system_A):
+            raise MolecularSystemNeededError()
+
+        if not is_molecular_system(molecular_system_B):
+            raise MolecularSystemNeededError()
+
+        try:
+            target=digest_target(target)
+        except:
+            raise WrongTargetError(target)
+
+        try:
+            syntaxis=digest_syntaxis(syntaxis)
+        except:
+            raise WrongSyntaxisError(syntaxis)
+
+        try:
+            selection=digest_selection(selection_A, syntaxis)
+        except:
+            raise WrongSelectionError(selection_A)
+
+        try:
+            selection=digest_selection(selection_B, syntaxis)
+        except:
+            raise WrongSelectionError(selection_B)
+
+        try:
+            structure_indices_A = digest_structure_indices(structure_indices_A)
+        except:
+            raise WrongStructureIndicesError(structure_indices_A)
+
+        try:
+            structure_indices_B = digest_structure_indices(structure_indices_B)
+        except:
+            raise WrongStructureIndicesError(structure_indices_B)
+
+        try:
+            comparison = digest_argument(comparison)
+        except:
+            raise WrongComparisonError(comparison)
 
     if rule == 'A_eq_B':
 

@@ -1,6 +1,6 @@
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', check_form=True):
+def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_MolSys import is_molsysmt_MolSys
         from molsysmt._private_tools.exceptions import WrongFormError
         if not is_molsysmt_MolSys(item):

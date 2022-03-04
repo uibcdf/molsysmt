@@ -1,9 +1,9 @@
 
-def set_box_to_system(item, indices='all', structure_indices='all', value=None, check_form=True):
+def set_box_to_system(item, indices='all', structure_indices='all', value=None, check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_Structures.is_molsysmt_Structures import _checking_form
-        _checking_form(item, check_form=check_form)
+        _checking_form(item, check=check)
 
     n_structures_trajectory = item.coordinates.shape[0]
     n_structures_box = value.shape[0]
@@ -18,11 +18,11 @@ def set_box_to_system(item, indices='all', structure_indices='all', value=None, 
 
     pass
 
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check_form=True):
+def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check=True):
 
-    if check_form:
+    if check:
         from molsysmt.tools.molsysmt_Structures.is_molsysmt_Structures import _checking_form
-        _checking_form(item, check_form=check_form)
+        _checking_form(item, check=check)
 
     raise NotImplementedError
 

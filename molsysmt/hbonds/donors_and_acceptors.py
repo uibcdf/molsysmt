@@ -1,6 +1,6 @@
-from molsysmt.basic.select import select
-from molsysmt._private_tools._digestion import digest_engine
 from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
+from molsysmt.basic.select import select
 import numpy as np
 
 acceptor_inclusion_rules = [

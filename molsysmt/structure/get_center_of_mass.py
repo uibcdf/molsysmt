@@ -1,3 +1,5 @@
+from molsysmt._private_tools.exceptions import *
+from molsysmt._private_tools.digestion import *
 
 def get_center_of_mass(molecular_system, selection='all', groups_of_atoms=None, structure_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
 
