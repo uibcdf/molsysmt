@@ -1,17 +1,20 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
 from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
+from molsysmt._private_tools.exceptions import WrongFormError
 
 def add(to_item, item, check=True):
 
     if check:
 
-        if not is_mmtf_MMTFDecoder(item):
+        try:
+            is_mmtf_MMTFDecoder(item)
+        except:
             raise WrongFormError('mmtf.MMTFDecoder')
 
-        if not is_mmtf_MMTFDecoder(to_item):
+        try:
+            is_mmtf_MMTFDecoder(to_item)
+        except:
             raise WrongFormError('mmtf.MMTFDecoder')
-
 
     raise NotImplementedMethodError()
+    pass
 

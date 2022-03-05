@@ -1,9 +1,10 @@
 import numpy as np
 from molsysmt import puw
+from molsysmt._private_tools.exceptions import NotImplementedMethodError
 
 def digest_box(box):
 
-    raise NotImplementedError
+    raise NotImplementedMethodError()
 
 def digest_box_lengths_value(box_lengths):
 

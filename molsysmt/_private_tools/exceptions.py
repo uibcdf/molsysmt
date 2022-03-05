@@ -724,3 +724,27 @@ class WrongOutputFilenameError(ValueError):
             message = ''
         super().__init__(message)
 
+class WrongStepError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongTimeError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongCoordinatesError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+
+class WrongBoxError(ValueError):
+    def __init__(self, message=None):
+        if message is None:
+            message = ''
+        super().__init__(message)
+

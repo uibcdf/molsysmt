@@ -2,8 +2,6 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import _checking_form
-
 ## From atom
 
 def get_atom_id_from_atom(item, indices='all', check=True):

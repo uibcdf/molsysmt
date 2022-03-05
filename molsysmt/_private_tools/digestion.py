@@ -10,5 +10,6 @@ from .indices import digest_indices
 from .output import digest_output
 from .engine import digest_engine
 from .viewers import digest_viewer
+from .step import digest_step
 from .box import digest_box_angles, digest_box_lengths
 
