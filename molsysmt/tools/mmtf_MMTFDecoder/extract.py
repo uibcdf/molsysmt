@@ -1,5 +1,8 @@
 from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
-from molsysmt._private_tools.exceptions import WrongFormError, WrongStepError
+from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private_tools.exceptions import NotImplementedMethodError
+from molsysmt._private_tools.atom_indices import digest_atom_indices
+from molsysmt._private_tools.structure_indices import digest_structure_indices
 from molsysmt._private_tools.step import digest_step
 from molsysmt._private_tools.time import digest_time
 from molsysmt._private_tools.coordinates import digest_coordinates
@@ -15,19 +18,15 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
             raise WrongFormError('mmtf.MMTFDecoder')
 
         try:
-            coordinates = digest_coordinates(coordinates)
+            atom_indices = digest_atom_indices(atom_indices)
         except:
-            raise WrongCoordinatesError()
+            raise WrongAtomIndicesError()
 
         try:
-            box = digest_box(box)
+            structure_indices = digest_structure_indices(structure_indices)
         except:
-            raise WrongBoxError()
+            raise WrongStructureIndicesError()
 
-
-    if check:
-        from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import _checking_form
-        _checking_form(item, check=check)
 
     if (atom_indices is 'all') and (structure_indices is 'all'):
         if copy_if_all:
@@ -36,7 +35,7 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
         else:
             tmp_item = item
     else:
-        raise NotImplementedError()
+        raise NotImplementedMethodError()
 
     return tmp_item
 

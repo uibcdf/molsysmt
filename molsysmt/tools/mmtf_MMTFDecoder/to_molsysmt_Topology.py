@@ -181,16 +181,9 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
         entity_type = entity_type_from_MMTFDecoder_entity(mmtf_entity)
         entity_name = mmtf_entity['description']
 
-        for chain_index in mmtf_entity['chainIndexList']:
-
-            for atom_index in np.where(chain_index_array==chain_index)[0]:
-
-                entity_index_array[atom_index] = entity_index
-                entity_name_array[atom_index] = entity_name
-                entity_type_array[atom_index] = entity_type
-                entity_id_array[atom_index] = entity_index
-
         if entity_type == "protein":
+
+            entity_name = entity_name.capitalize()
 
             molecule_type = "protein"
             molecule_name = entity_name
@@ -203,7 +196,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
                     molecule_type_array[atom_index] = molecule_type
                     molecule_id_array[atom_index] = molecule_index
 
-            molecule_index += 1
+                molecule_index += 1
 
         elif entity_type == "water":
 
@@ -279,6 +272,15 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
         else:
             print(entity_name, entity_type, mmtf_entity)
             raise ValueError("Entity type not recognized")
+
+        for chain_index in mmtf_entity['chainIndexList']:
+
+            for atom_index in np.where(chain_index_array==chain_index)[0]:
+
+                entity_index_array[atom_index] = entity_index
+                entity_name_array[atom_index] = entity_name
+                entity_type_array[atom_index] = entity_type
+                entity_id_array[atom_index] = entity_index
 
         entity_index += 1
 

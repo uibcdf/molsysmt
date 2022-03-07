@@ -18,6 +18,7 @@ from . import molsysmt_TrajectoryDict
 from . import molsysmt_TrajectoryFile
 from . import molsysmt_Structures
 from . import nglview_NGLWidget
+from . import pdbfixer_PDBFixer
 
 from . import tleap
 from . import nglview

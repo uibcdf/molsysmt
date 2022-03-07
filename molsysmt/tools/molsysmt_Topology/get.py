@@ -1133,7 +1133,7 @@ def get_component_index_from_molecule (item, indices='all', check=True):
     for ii in indices:
         mask = (item.atoms_dataframe['molecule_index']==ii)
         output.append(item.atoms_dataframe['component_index'][mask].unique())
-    output = np.array(output)
+    output = np.array(output, dtype=object)
     return output
 
 def get_component_id_from_molecule (item, indices='all', check=True):
