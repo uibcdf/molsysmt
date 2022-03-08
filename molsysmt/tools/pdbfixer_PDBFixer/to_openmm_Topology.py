@@ -1,13 +1,32 @@
-def to_openmm_Topology(item, selection='all', structure_indices='all', syntaxis='MolSysMT'):
+from molsysmt.tools.pdbfixer_PDBFixer.is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
+from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private_tools.exceptions import LibraryNotFoundError
+from molsysmt._private_tools.atom_indices import digest_atom_indices
+from molsysmt._private_tools.structure_indices import digest_structure_indices
 
-    from molsysmt.tools.pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-    from molsysmt.basic import convert
+def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=True):
 
-    if not is_pdbfixer_PDBFixer(item):
-        raise ValueError
+    if check:
 
-    tmp_item = convert(item, to_form='openmm.Topology', selection=selection,
-            structure_indices=structure_indices, syntaxis=syntaxis)
+        try:
+            is_pdbfixer_PDBFixer(item)
+        except:
+            raise WrongFormError('pdbfixer.PDBFixer')
+
+        try:
+            atom_indices = digest_atom_indices(atom_indices)
+        except:
+            raise WrongAtomIndicesError()
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+    from molsysmt.tools.openmm_Topology import extract as extract_openmm_Topology
+
+    tmp_item = item.topology
+    tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices, check=False)
 
     return tmp_item
 

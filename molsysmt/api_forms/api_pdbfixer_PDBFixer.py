@@ -65,7 +65,7 @@ form_attributes = {
 
 
 
-def to_string_aminoacids3(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.pdbfixer_PDBFixer import to_string_aminoacids3 as pdbfixer_PDBFixer_to_string_aminoacids3
 
@@ -73,506 +73,100 @@ def to_string_aminoacids3(item, molecular_system=None, atom_indices='all', struc
 
     return tmp_item
 
+def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    tmp_item, _ = to_openm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item = ''.join([ r.name for r in tmp_item.groups() ])
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_wit_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
+    from molsysmt.tools.pdbfixer_PDBFixer import to_string_aminoacids1 as pdbfixer_PDBFixer_to_string_aminoacids1
 
-    return tmp_item, tmp_molecular_system
-
-def to_string_aminoacids1(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms.api_string_aminoacids3 import to_string_aminoacids1 as string_aminoacids3_to_string_aminoacids1
-
-    tmp_item, _ = to_string_aminoacids3(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item, _ = string_aminoacids3_to_string_aminoacids1(tmp_item)
-
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_wit_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
-
-def to_biopython_Seq(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms.api_string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq
-
-    tmp_item, _ = to_string_aminoacids1(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item, _ = string_aminoacids1_to_biopython_Seq(tmp_item)
-
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
-
-def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms.api_string_aminoacids1 import to_biopython_SeqRecord as string_aminoacids1_to_biopython_SeqRecord
-
-    tmp_item, _ = to_string_aminoacids1(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item, _ = string_aminoacids1_to_biopython_SeqRecord(tmp_item)
-
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
-
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from mdtraj.core.topology import Topology as mdtraj_Topology
-
-    tmp_item, _ = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item = mdtraj_Topology.from_openmm(tmp_item)
-
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
-
-def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from openmm.unit import nanometers
-    from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
-
-    tmp_topology, _ = to_mdtraj_Topology(item, molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
-    coordinates = coordinates.in_units_of(nanometers)._value
-    tmp_item = mdtraj_Trajectory(coordinates, tmp_topology)
-
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
-
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from openmm.app import Modeller as openmm_Modeller
-
-    tmp_topology, _ = to_openmm_Topology(item, molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
-    tmp_item = openmm_Modeller(tmp_topology, coordinates)
-
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
-
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
-
-    tmp_item = item.topology
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Topology(tmp_item,
-                                                                        tmp_molecular_system,
-                                                                        atom_indices=atom_indices,
-                                                                        structure_indices=structure_indices,
-                                                                        copy_if_all=False)
-
-    return tmp_item, tmp_molecular_system
-
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.native.io.topology import from_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_molsysmt_Topology
-
-    tmp_item, tmp_molecular_system = pdbfixer_PDBFixer_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.native.io.molsys import from_pdbfixer_PDBFixer as pdbfixer_PDBFixer_to_molsysmt_MolSys
-
-    tmp_item, tmp_molecular_system = pdbfixer_PDBFixer_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_parmed_Structure(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms.api_openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
-
-    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item, tmp_molecular_system = openmm_Topology_to_parmed_Structure(tmp_item,
-            molecular_system=tmp_molecular_system)
-
-    return tmp_item, tmp_molecular_system
-
-def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
-
-    from io import StringIO
-    from openmm.app import PDBFile
-    from molsysmt import __version__ as msm_version
-    from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
-
-    tmp_io = StringIO()
-    PDBFile.writeFile(item.topology, item.positions, tmp_io, keepIds=True)
-    filedata = tmp_io.getvalue()
-    openmm_version = Platform.getOpenMMVersion()
-    filedata = filedata.replace('WITH OPENMM '+openmm_version, 'WITH OPENMM '+openmm_version+' BY MOLSYSMT '+msm_version)
-    tmp_io.close()
-    del(tmp_io)
-
-    with open(output_filename, 'w') as file:
-        file.write(filedata)
-    tmp_item = output_filename
-
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
-
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from .api_mdtraj_Trajectory import to_nglview_NGLWidget as mdtraj_trajectory_to_nglview_NGLWidget
-
-    tmp_item, tmp_molecular_system = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item, tmp_molecular_system = mdtraj_Trajectory_nglview_NGLWidget(tmp_item,
-            molecular_system=tmp_molecular_system)
-
-    return tmp_item, tmp_molecular_system
-
-def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True):
-
-    tmp_molecular_system = None
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-
-        if copy_if_all:
-
-            tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-
-        else:
-
-            tmp_item = item
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system
-
-    else:
-
-        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-        if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def extract(item, atom_indices='all', structure_indices='all'):
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-
-        from copy import copy
-        tmp_item = copy(item)
-
-    else:
-        tmp_item, _ = to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices)
-        tmp_item, _ = openmm_Modeller_to_pdbfixer_PDBFixer(tmp_item)
+    tmp_item = pdbfixer_PDBFixer_to_string_aminoacids1(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 
-def merge(item_1, item_2):
+def to_biopython_Seq(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.tools.pdbfixer_PDBFixer import to_biopython_Seq as pdbfixer_PDBFixer_to_biopython_Seq
 
-def add(to_item, item):
+    tmp_item = pdbfixer_PDBFixer_to_biopython_Seq(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    raise NotImplementedError
+    return tmp_item
 
-def append_structures(item, step=None, time=None, coordinates=None, box=None):
+def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    raise NotImplementedError
+    from molsysmt.tools.pdbfixer_PDBFixer import to_biopython_Seq as pdbfixer_PDBFixer_to_biopython_Seq
 
-def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
+    tmp_item = pdbfixer_PDBFixer_to_biopython_SeqRecord(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    raise NotImplementedError
+    return tmp_item
 
-##### Get
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-def aux_get(item, indices='all', structure_indices='all'):
+    from molsysmt.tools.pdbfixer_PDBFixer import to_mdtraj_Topology as pdbfixer_PDBFixer_to_mdtraj_Topology
 
-    from molsysmt.api_forms import forms
+    tmp_item = pdbfixer_PDBFixer_to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    method_name = sys._getframe(1).f_code.co_name
+    return tmp_item
 
-    if 'openmm.Topology' in forms:
+def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-        tmp_item, _ = to_openmm_Topology(item)
-        module = importlib.import_module('molsysmt.api_forms.api_openmm_Topology')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, structure_indices=structure_indices)
+    from molsysmt.tools.pdbfixer_PDBFixer import to_mdtraj_Trajectory as pdbfixer_PDBFixer_to_mdtraj_Trajectory
 
-    else:
+    tmp_item = pdbfixer_PDBFixer_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-        raise NotImplementedError
+    return tmp_item
 
-    return output
+def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-## Atom
+    from molsysmt.tools.pdbfixer_PDBFixer import to_openmm_Modeller as pdbfixer_PDBFixer_to_openmm_Modeller
 
-def get_atom_id_from_atom(item, indices='all', structure_indices='all'):
+    tmp_item = pdbfixer_PDBFixer_to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    return tmp_item
 
-def get_atom_name_from_atom(item, indices='all', structure_indices='all'):
+def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    from molsysmt.tools.pdbfixer_PDBFixer import to_openmm_Topology as pdbfixer_PDBFixer_to_openmm_Topology
 
-def get_atom_type_from_atom(item, indices='all', structure_indices='all'):
+    tmp_item = pdbfixer_PDBFixer_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    return tmp_item
 
-def get_group_index_from_atom (item, indices='all', structure_indices='all'):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    from molsysmt.tools.pdbfixer_PDBFixer import to_molsysmt_Topology as pdbfixer_PDBFixer_to_molsysmt_Topology
 
-def get_component_index_from_atom (item, indices='all', structure_indices='all'):
+    tmp_item = pdbfixer_PDBFixer_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    return tmp_item
 
-def get_chain_index_from_atom (item, indices='all', structure_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    from molsysmt.tools.pdbfixer_PDBFixer import to_molsysmt_MolSys as pdbfixer_PDBFixer_to_molsysmt_MolSys
 
-def get_molecule_index_from_atom (item, indices='all', structure_indices='all'):
+    tmp_item = pdbfixer_PDBFixer_to_molsysmt_MolSys(item, atom_indices=atom_indices, check=False)
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    return tmp_item
 
-def get_entity_index_from_atom (item, indices='all', structure_indices='all'):
+def to_parmed_Structure(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    from molsysmt.tools.pdbfixer_PDBFixer import to_parmed_Structure as pdbfixer_PDBFixer_to_parmed_Structure
 
-def get_inner_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
+    tmp_item = pdbfixer_PDBFixer_to_parmed_Structure(item, atom_indices=atom_indices, check=False)
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    return tmp_item
 
-def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
+def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
 
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
+    from molsysmt.tools.pdbfixer_PDBFixer import to_file_pdb as pdbfixer_PDBFixer_to_file_pdb
 
-def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
+    tmp_item = pdbfixer_PDBFixer_to_file_pdb(item, atom_indices=atom_indices, check=False)
 
-    unit = puw.get_unit(item.positions)
-    coordinates = np.array(puw.get_value(item.positions))
-    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
+    return tmp_item
 
-    if structure_indices is not 'all':
-        coordinates = coordinates[structure_indices,:,:]
+def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    if indices is not 'all':
-        coordinates = coordinates[:,indices,:]
+    from molsysmt.tools.pdbfixer_PDBFixer import to_nglview_NLGWidget as pdbfixer_PDBFixer_to_nglview_NGLWidget
 
-    coordinates = coordinates * unit
-    coordinates = puw.standardize(coordinates)
+    tmp_item = pdbfixer_PDBFixer_to_nglview_NGLWidget(item, atom_indices=atom_indices, check=False)
 
-    return coordinates
+    return tmp_item
 
-def get_frame_from_atom(item, indices='all', structure_indices='all'):
-
-    coordinates = get_coordinates_from_atom(item, indices=indices, structure_indices=structure_indices)
-    box = get_box_from_system(item, structure_indices=structure_indices)
-    step = get_step_from_system(item, structure_indices=structure_indices)
-    time = get_time_from_system(item, structure_indices=structure_indices)
-
-    return step, time, coordinates, box
-
-## group
-
-def get_group_id_from_group(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_group_name_from_group(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_group_type_from_group(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## component
-
-def get_component_id_from_component (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_component_name_from_component (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_component_type_from_component (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## molecule
-
-def get_molecule_id_from_molecule (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_molecule_name_from_molecule (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_molecule_type_from_molecule (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## chain
-
-def get_chain_id_from_chain (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_chain_name_from_chain (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_chain_type_from_chain (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## entity
-
-def get_entity_id_from_entity (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_entity_name_from_entity (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_entity_type_from_entity (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## system
-
-def get_n_atoms_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_groups_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_components_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_chains_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_molecules_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_entities_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_box_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_box_shape_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_box_angles_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_box_volume_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_time_from_system(item, indices='all', structure_indices='all'):
-
-    return None
-
-def get_step_from_system(item, indices='all', structure_indices='all'):
-
-    return None
-
-def get_n_structures_from_system(item, indices='all', structure_indices='all'):
-
-    output = None
-
-    if structure_indices is 'all':
-
-        return 1
-
-    else:
-
-        output = structure_indices.shape[0]
-        if output>1:
-            raise ValueError('The molecular system has a single frame')
-        return output
-
-def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## bond
-
-def get_bond_order_from_bond(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_bond_type_from_bond(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_atom_index_from_bond(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-###### Set
-
-def set_box_to_system(item, indices='all', structure_indices='all', value=None):
-
-    raise NotImplementedError
-
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
-
-    raise NotImplementedError
-
-def set_name_to_group(item, indices='all', structure_indices='all', value=None):
-    for group in tmp_item.topology.groups():
-        if group.index in indices:
-            name = value[np.where(indices == group.index)[0][0]]
-            group.name = name
-    for bond in tmp_item.topology.bonds():
-        for ii in [0,1]:
-            if bond[ii].group.index in set_indices:
-                name = kwargs[option][np.where(array_indices == bond[ii].group.index)[0][0]]
-                bond[ii].group.name = name
 

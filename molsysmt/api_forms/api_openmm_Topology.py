@@ -1,107 +1,131 @@
-import numpy as np
-from molsysmt.api_forms.common_gets import *
 from molsysmt._private_tools.exceptions import *
-from molsysmt import puw
-from molsysmt.native.molecular_system import molecular_system_components
+
+from molsysmt.tools.openmm_Topology.is_openmm_Topology import is_openmm_Topology as is_form
+from molsysmt.tools.openmm_Topology.extract import extract
+from molsysmt.tools.openmm_Topology.add import add
+from molsysmt.tools.openmm_Topology.merge import merge
+from molsysmt.tools.openmm_Topology.append_structures import append_structures
+from molsysmt.tools.openmm_Topology.concatenate_structures import concatenate_structures
+from molsysmt.tools.openmm_Topology.get import *
+from molsysmt.tools.openmm_Topology.set import *
 
 form_name='openmm.Topology'
-from_type='class'
+form_type='class'
+form_info=["",""]
 
-is_form={
-    'openmm.Topology':form_name,
+form_attributes = {
+
+    'atom_index' : True,
+    'atom_id' : True,
+    'atom_name' : True,
+    'atom_type' : True,
+
+    'bond_index' : True,
+    'bond_id' : True,
+    'bond_name' : True,
+    'bond_type' : True,
+
+    'group_index' : True,
+    'group_id' : True,
+    'group_name' : True,
+    'group_type' : True,
+
+    'component_index' : True,
+    'component_id' : False,
+    'component_name' : False,
+    'component_type' : False,
+
+    'molecule_index' : True,
+    'molecule_id' : True,
+    'molecule_name' : True,
+    'molecule_type' : True,
+
+    'chain_index' : True,
+    'chain_id' : True,
+    'chain_name' : True,
+    'chain_type' : True,
+
+    'entity_index' : False,
+    'entity_id' : False,
+    'entity_name' : False,
+    'entity_type' : False,
+
+    'coordinates' : False,
+    'velocities' : False,
+    'box' : True,
+    'time' : False,
+    'step' : False,
+
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
 }
 
-info=["",""]
 
-has = molecular_system_components.copy()
-for ii in ['elements', 'bonds', 'box']:
-    has[ii]=True
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all'):
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    from molsysmt.tools.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
 
-    from molsysmt.native.io.topology import from_openmm_Topology as molsysmt_Topology_from_openmm_Topology
-
-    tmp_item, tmp_molecular_system = molsysmt_Topology_from_openmm_Topology(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.native.io.molsys import from_openmm_Topology as molsysmt_MolSys_from_openmm_Topology
-
-    tmp_item, tmp_molecular_system = molsysmt_MolSys_from_openmm_Topology(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms.api_mdtraj_Topology import to_mdtraj_Topology as mdtraj_Topology_to_mdtraj_Topology
-    from mdtraj.core.topology import Topology as mdtraj_Topology
-
-    tmp_item = mdtraj_Topology.from_openmm(item)
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = mdtraj_Topology_to_mdtraj_Topology(tmp_item, tmp_molecular_system, atom_indices=atom_indices,
-            structure_indices=structure_indices, copy_if_all=False)
-
-    return tmp_item, tmp_molecular_system
-
-def to_parmed_Structure(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from parmed.openmm import load_topology
-
-    tmp_item, _ = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
-    tmp_item = load_topology(tmp_item)
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
+    tmp_item = openmm_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
 
     return tmp_item
 
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
+    from molsysmt.tools.openmm_Topology import to_molsysmt_MolSys as openmm_Topology_to_molsysmt_MolSys
     from molsysmt.basic import get
-    from openmm.app import Modeller
 
-    tmp_item, _ = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
-    positions = get(molecular_system, target='atom', coordinates=True)
-    positions = puw.convert(positions[0], 'nm', to_form='openmm.unit')
-    tmp_item = Modeller(item, positions)
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
+    coordinates, box = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, coordinates=True, box=True)
 
-    return tmp_item, tmp_molecular_system
+    tmp_item = openmm_Topology_to_molsysmt_MolSys(item, atom_indices=atom_indices,
+                                                  coordinates=coordinates, box=box, check=False)
+
+    return tmp_item
+
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all'):
+
+    from molsysmt.tools.openmm_Topology import to_mdtraj_Topology as openmm_Topology_to_mdtraj_Topology
+
+    tmp_item = openmm_Topology_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
+
+    return tmp_item
+
+def to_parmed_Structure(item, molecular_system, atom_indices='all'):
+
+    from molsysmt.tools.openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
+
+    tmp_item = openmm_Topology_to_parmed_Structure(item, atom_indices=atom_indices, check=False)
+
+    return tmp_item
+
+def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.tools.openmm_Topology import to_openmm_Modeller as openmm_Topology_to_openmm_Modeller
+    from molsysmt.basic import get
+
+    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, coordinates=True)
+
+    tmp_item = openmm_Topology_to_openmm_Modeller(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
+
+    return tmp_item
 
 def to_openmm_System(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
+    from molsysmt.tools.openmm_Topology import to_openmm_System as openmm_Topology_to_openmm_System
     from molsysmt.basic import convert
 
     molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
 
     forcefield = molecular_mechanics.to_openmm_ForceField()
     system_parameters = molecular_mechanics.get_openmm_System_parameters()
-    tmp_item = forcefield.createSystem(item, **system_parameters)
 
-    if molecular_mechanics.use_dispersion_correction or molecular_mechanics.ewald_error_tolerance:
-        forces = {ii.__class__.__name__ : ii for ii in tmp_item.getForces()}
-    if molecular_mechanics.use_dispersion_correction:
-        forces['NonbondedForce'].setUseDispersionCorrection(True)
-    if molecular_mechanics.ewald_error_tolerance:
-        forces['NonbondedForce'].setEwaldErrorTolerance(molecular_mechanics.ewald_error_tolerance)
+    tmp_item = openmm_Topology_to_openmm_System(item, atom_indices=atom_indices,
+                                                forcefield=forcefield, parameters=parameters,
+                                                check=False)
 
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
+    return tmp_item
 
 def to_openmm_Context(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 

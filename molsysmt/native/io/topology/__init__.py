@@ -2,7 +2,6 @@ from .mdtraj_Topology import from_mdtraj_Topology
 from .mdtraj_Trajectory import from_mdtraj_Trajectory
 from .openmm_PDBFile import from_openmm_PDBFile
 from .openmm_GromacsGroFile import from_openmm_GromacsGroFile
-from .openmm_Topology import from_openmm_Topology, to_openmm_Topology
 from .parmed_Structure import from_parmed_Structure
 from .openmm_Modeller import from_openmm_Modeller
 from .openmm_Simulation import from_openmm_Simulation

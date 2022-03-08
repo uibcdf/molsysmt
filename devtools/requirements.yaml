@@ -20,17 +20,9 @@ production:
     - sabueso
     - mmtf-python
     - pandas
-    - mdtraj
-    - mdanalysis
     - openmm
     - pdbfixer
-    - openmmtools
-    - biopython
     - nglview
-    - parmed
-    - pytraj
-    - openopenmmreporters
-    - openmolecularsystems
 
 test:
   channels: &test_channels

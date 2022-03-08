@@ -1,5 +1,21 @@
+from molsysmt.tools.pdbfixer_PDBFixer.is_openmm_Topology import is_openmm_Topology
+from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError
+from molsysmt._private_tools.exceptions import NotImplementedMethodError
+from molsysmt._private_tools.atom_indices import digest_atom_indices
 
-def from_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Topology(item, atom_indices='all', check=True):
+
+    if check:
+
+        try:
+            is_openmm_Topology(item)
+        except:
+            raise WrongFormError('openmm.Topology')
+
+        try:
+            atom_indices = digest_atom_indices(atom_indices)
+        except:
+            raise WrongAtomIndicesError()
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
