@@ -2,7 +2,7 @@ from molsysmt.tools.string_pdb_id.is_string_pdb_id import is_string_pdb_id
 from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
 from molsysmt._private_tools.atom_indices import digest_atom_indices, digest_structure_indices
 
-def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', check=True):
+def to_parmed_Structure(item, atom_indices='all', structure_indices='all', check=True):
 
     if check:
 
@@ -21,11 +21,11 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', chec
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.string_pdb_id import to_mmtf_MMTFDecoder as string_pdb_id_to_mmtf_MMTFDecoder
-    from molsysmt.tools.mmtf_MMTFDecoder import to_molsysmt_Topology as mmtf_MMTFDecoder_to_molsysmt_Topology
+    from molsysmt.tools.string_pdb_id import to_string_pdb_text as string_pdb_id_to_string_pdb_text
+    from molsysmt.tools.string_pdb_text import to_parmed_Structure as string_pdb_text_to_parmed_Structure
 
-    tmp_item = string_pdb_id_to_mmtf_MMTFDecoder(item, check=False)
-    tmp_item = mmtf_MMTFDecoder_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = string_pdb_id_to_string_pdb_text(item, check=False)
+    tmp_item = string_pdb_text_to_parmed_Structure(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, check=True)
 
     return tmp_item
 

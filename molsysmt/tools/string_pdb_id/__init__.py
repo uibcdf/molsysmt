@@ -23,7 +23,5 @@ from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_openmm_Modeller import to_openmm_Modeller
 from .to_openmm_Topology import to_openmm_Topology
 from .to_openmm_PDBFile import to_openmm_PDBFile
-from .to_mdanalysis_Universe import to_mdanalysis_Universe
-from .to_pytraj_Trajectory import to_pytraj_Trajectory
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 

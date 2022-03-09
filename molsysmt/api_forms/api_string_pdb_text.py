@@ -1,48 +1,91 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt.api_forms.common_gets import *
-import numpy as np
-import importlib
-import sys
-from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import temp_filename
-#import io
+
+from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text as is_form
+from molsysmt.tools.string_pdb_text.extract import extract
+from molsysmt.tools.string_pdb_text.add import add
+from molsysmt.tools.string_pdb_text.merge import merge
+from molsysmt.tools.string_pdb_text.append_structures import append_structures
+from molsysmt.tools.string_pdb_text.concatenate_structures import concatenate_structures
+from molsysmt.tools.string_pdb_text.get import *
+from molsysmt.tools.string_pdb_text.set import *
 
 form_name='string:pdb_text'
 from_type='string'
-
-is_form = {
-        'string:pdb_text': form_name
-    }
-
 info = ["Protein Data Bank file format","https://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html"]
 
-has = molecular_system_components.copy()
-for ii in ['elements', 'bonds', 'coordinates', 'box']:
-    has[ii]=True
+form_attributes = {
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    'atom_index' : True,
+    'atom_id' : True,
+    'atom_name' : True,
+    'atom_type' : True,
 
-    from molsysmt.native.io.molsys import from_string_pdb_text as string_pdb_to_molsysmt_MolSys
+    'bond_index' : True,
+    'bond_id' : True,
+    'bond_name' : True,
+    'bond_type' : True,
 
-    tmp_item, tmp_molecular_system = string_pdb_to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
+    'group_index' : True,
+    'group_id' : True,
+    'group_name' : True,
+    'group_type' : True,
 
-    return tmp_item, tmp_molecular_system
+    'component_index' : True,
+    'component_id' : False,
+    'component_name' : False,
+    'component_type' : False,
+
+    'molecule_index' : True,
+    'molecule_id' : True,
+    'molecule_name' : True,
+    'molecule_type' : True,
+
+    'chain_index' : True,
+    'chain_id' : True,
+    'chain_name' : True,
+    'chain_type' : True,
+
+    'entity_index' : False,
+    'entity_id' : False,
+    'entity_name' : False,
+    'entity_type' : False,
+
+    'coordinates' : True,
+    'velocities' : False,
+    'box' : True,
+    'time' : False,
+    'step' : False,
+
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
+}
+
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.tools.string_pdb_text import to_molsysmt_MolSys as string_pdb_text_to_molsysmt_MolSys
+
+    tmp_item = string_pdb_text_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+
+    return tmp_item
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.native.io.topology import from_string_pdb_text as string_pdb_to_molsysmt_Topology
+    from molsysmt.tools.string_pdb_text import to_molsysmt_Topology as string_pdb_text_to_molsysmt_Topology
 
-    tmp_item, tmp_molecular_system = string_pdb_to_molsysmt_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = string_pdb_text_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    return tmp_item, tmp_molecular_system
+    return tmp_item
 
 def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.native.io.trajectory import from_string_pdb_text as string_pdb_to_molsysmt_Structures
+    from molsysmt.tools.string_pdb_text import to_molsysmt_Structures as string_pdb_text_to_molsysmt_Structures
 
-    tmp_item, tmp_molecular_system = string_pdb_to_molsysmt_Structures(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = string_pdb_text_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    return tmp_item, tmp_molecular_system
+    return tmp_item
 
 def to_parmed_Structure(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 

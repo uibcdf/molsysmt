@@ -1,21 +1,33 @@
+from molsysmt.tools.pdbfixer_PDBFixer.is_openmm_Topology import is_openmm_Topology
+from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError
+from molsysmt._private_tools.exceptions import NotImplementedMethodError
+from molsysmt._private_tools.atom_indices import digest_atom_indices, digest_coordinates
 
-def to_file_pdb(item, atom_indices='all', coordinates=None, box=None, output_filename=None, syntaxis='MolSysMT'):
+def to_file_pdb(item, atom_indices='all', coordinates=None, output_filename=None, check=True):
 
-    from io import StringIO
-    from openmm.app import PDBFile
-    from molsysmt import __version__ as msm_version
-    from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
+    if check:
 
-    tmp_io = StringIO()
-    PDBFile.writeFile(item.topology, item.positions, tmp_io, keepIds=True)
-    filedata = tmp_io.getvalue()
-    openmm_version = Platform.getOpenMMVersion()
-    filedata = filedata.replace('WITH OPENMM '+openmm_version, 'WITH OPENMM '+openmm_version+' BY MOLSYSMT '+msm_version)
-    tmp_io.close()
-    del(tmp_io)
+        try:
+            is_openmm_Topology(item)
+        except:
+            raise WrongFormError('openmm.Topology')
+
+        try:
+            atom_indices = digest_atom_indices(atom_indices)
+        except:
+            raise WrongAtomIndicesError()
+
+        try:
+            coordinates = digest_coordinates(coordinates)
+        except:
+            raise WrongCoordinatesError()
+
+    from molsysmt.tools.openmm_Topology import to_string_pdb_text as openmm_Topology_to_string_pdb_text
+
+    string_pdb_text = openmm_Topology_to_string_pdb_text(item, atom_indices=atom_indices, coordinates=None, check=False)
 
     with open(output_filename, 'w') as file:
-        file.write(filedata)
+        file.write(string_pdb_text)
     tmp_item = output_filename
 
     return tmp_item

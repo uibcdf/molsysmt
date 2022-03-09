@@ -7,12 +7,12 @@ def merge(item_1, item_2, check=True):
     if check:
 
         try:
-            is_mmtf_MMTFDecoder(item_1)
+            is_pdbfixer_PDBFixer(item_1)
         except:
             raise WrongFormError('pdbfixer.PDBFixer')
 
         try:
-            is_mmtf_MMTFDecoder(item_2)
+            is_pdbfixer_PDBFixer(item_2)
         except:
             raise WrongFormError('pdbfixer.PDBFixer')
 

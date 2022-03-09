@@ -1,4 +1,3 @@
-from molsysmt._private_tools.exceptions import WrongFormError
 
 def is_string_pdb_id(item):
 
@@ -13,12 +12,4 @@ def is_string_pdb_id(item):
             output = sabueso_is_string_pdb_id(item)
 
     return output
-
-def _checking_form(item, check=True):
-
-    if check:
-        if not is_string_pdb_id(item):
-            raise WrongFormError('string:pdb_id')
-
-    pass
 

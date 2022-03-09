@@ -1,4 +1,4 @@
-from .is_string_pdb_id import is_string_pdb_id
+from .is_openmm_Topology import is_openmm_Topology
 from molsysmt._private_tools.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
 from molsysmt._private_tools.exceptions import NotImplementedMethodError
 from molsysmt._private_tools.indices import digest_indices
@@ -9,9 +9,9 @@ def set_box_to_system(item, structure_indices='all', value=None, check=True):
     if check:
 
         try:
-            is_string_pdb_id(item)
+            is_openmm_Topology(item)
         except:
-            raise WrongFormError('string:pdb_id')
+            raise WrongFormError('openmm.Topology')
 
         try:
             indices = digest_indices(indices)
@@ -23,28 +23,17 @@ def set_box_to_system(item, structure_indices='all', value=None, check=True):
         except:
             raise WrongStructureIndicesError()
 
+    value = puw.convert(value, 'nanometers', to_form='openmm.unit')
 
-    raise NotImplementedMethodError()
+    n_structures = value.shape[0]
 
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check=True):
+    if n_structures == 1:
 
-    if check:
+        item.setPeriodicBoxVectors(value[0])
 
-        try:
-            is_string_pdb_id(item)
-        except:
-            raise WrongFormError('string:pdb_id')
+    else:
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        raise ValueError("The box to set in to a openmm.Topology has corresponds to more than a frame")
 
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    raise NotImplementedMethodError()
-
+    pass
 

@@ -1,18 +1,18 @@
-from molsysmt.tools.string_pdb_id.is_string_pdb_id import is_string_pdb_id
+from molsysmt.tools.openmm_Topology.is_openmm_Topology import is_openmm_Topology
 from molsysmt._private_tools.exceptions import WrongFormError, WrongStepError
 from molsysmt._private_tools.step import digest_step
 from molsysmt._private_tools.time import digest_time
 from molsysmt._private_tools.coordinates import digest_coordinates
 from molsysmt._private_tools.box import digest_box
 
-def append_structures(item, step=None, time=None, coordinates=None, box=None, check=True):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None, check=True):
 
     if check:
 
         try:
-            is_string_pdb_id(item)
+            is_openmm_Topology(item)
         except:
-            raise WrongFormError('string:pdb_id')
+            raise WrongFormError('openmm.Topology')
 
         try:
             step = digest_step(step)
@@ -35,5 +35,6 @@ def append_structures(item, step=None, time=None, coordinates=None, box=None, ch
             raise WrongBoxError()
 
     raise NotImplementedMethodError()
+
     pass
 

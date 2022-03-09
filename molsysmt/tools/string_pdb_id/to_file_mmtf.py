@@ -2,7 +2,7 @@ from molsysmt.tools.string_pdb_id.is_string_pdb_id import is_string_pdb_id
 from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
 from molsysmt._private_tools.atom_indices import digest_atom_indices, digest_structure_indices
 
-def to_mmtf_MMTFDecoder(item, atom_indices='all', structure_indices='all', check=True):
+def to_file_mmtf(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
 
     if check:
 
@@ -16,17 +16,12 @@ def to_mmtf_MMTFDecoder(item, atom_indices='all', structure_indices='all', check
         except:
             raise WrongAtomIndicesError()
 
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
 
-    from mmtf import fetch
-    from molsysmt.tools.mmtf_MMTFDecoder import extract as extract_mmtf_MMTFDecoder
+    from molsysmt.tools.file_mmtf import download, extract
 
-    tmp_item = item.split(':')[-1]
-    tmp_item = fetch(tmp_item)
-    tmp_item = extract_mmtf_MMTFDecoder(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
+    download_pdb(item, output_filename)
+    tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
+            output_filename=output_filename, copy_if_all=False, check=False)
 
     return tmp_item
 

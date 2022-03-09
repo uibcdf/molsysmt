@@ -8,19 +8,3 @@ def to_string_pdb_text(item, molecular_system=None, atom_indices='all', structur
 
     return tmp_item, tmp_molecular_system
 
-def from_string_pdb_text(item, molecular_system, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.native import MolSys
-    from molsysmt.native.io.topology import from_string_pdb_text as string_pdb_text_to_molsysmt_Topology
-    from molsysmt.native.io.trajectory import from_string_pdb_text as string_pdb_text_to_molsysmt_Structures
-
-    tmp_item = MolSys()
-    tmp_item.topology, _ = string_pdb_text_to_molsysmt_Topology(item, molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item.trajectory, _ = string_pdb_text_to_molsysmt_Structures(item, molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
-

@@ -765,70 +765,6 @@ def get_box_from_system(item, structure_indices='all', check=True):
 
     return box
 
-def get_box_shape_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_mmtf_MMTFDecoder(item)
-        except:
-            raise WrongFormError('mmtf.MMTFDecoder')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    raise NotImplementedError()
-
-def get_box_lengths_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_mmtf_MMTFDecoder(item)
-        except:
-            raise WrongFormError('mmtf.MMTFDecoder')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    raise NotImplementedError()
-
-def get_box_angles_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_mmtf_MMTFDecoder(item)
-        except:
-            raise WrongFormError('mmtf.MMTFDecoder')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    raise NotImplementedError()
-
-def get_box_volume_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_mmtf_MMTFDecoder(item)
-        except:
-            raise WrongFormError('mmtf.MMTFDecoder')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    raise NotImplementedError()
-
 def get_time_from_system(item, structure_indices='all', check=True):
 
     if check:
@@ -5291,6 +5227,94 @@ def get_coordinates_from_system(item, structure_indices='all', check=True):
             raise WrongStructureIndicesError()
 
     return get_coordinates_from_atom(item, structure_indices=structure_indices, check=False)
+
+
+def get_box_shape_from_system(item, structure_indices='all', check=True):
+
+    if check:
+
+        try:
+            is_mmtf_MMTFDecoder(item)
+        except:
+            raise WrongFormError('mmtf.MMTFDecoder')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+    from molsysmt.pbc import box_shape_from_box_vectors
+
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check=False)
+    output = box_shape_from_box_vectors(tmp_box, check=False)
+
+    return output
+
+def get_box_lengths_from_system(item, structure_indices='all', check=True):
+
+    if check:
+
+        try:
+            is_mmtf_MMTFDecoder(item)
+        except:
+            raise WrongFormError('mmtf.MMTFDecoder')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+    from molsysmt.pbc import box_lengths_from_box_vectors
+
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check=False)
+    output = box_lengths_from_box_vectors(tmp_box, check=False)
+
+    return output
+
+def get_box_angles_from_system(item, structure_indices='all', check=True):
+
+    if check:
+
+        try:
+            is_mmtf_MMTFDecoder(item)
+        except:
+            raise WrongFormError('mmtf.MMTFDecoder')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+    from molsysmt.pbc import box_angles_from_box_vectors
+
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check=False)
+    output = box_angles_from_box_vectors(tmp_box, check=False)
+
+    return output
+
+def get_box_volume_from_system(item, structure_indices='all', check=True):
+
+    if check:
+
+        try:
+            is_mmtf_MMTFDecoder(item)
+        except:
+            raise WrongFormError('mmtf.MMTFDecoder')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+    from molsysmt.pbc import box_volume_from_box_vectors
+
+    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check=False)
+    if tmp_box is None:
+        output=None
+    else:
+        output = box_volume_from_box_vectors(tmp_box, check=False)
+
+    return output
 
 def get_bonded_atoms_from_system(item, check=True):
 

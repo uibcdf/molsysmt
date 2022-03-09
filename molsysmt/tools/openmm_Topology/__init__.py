@@ -1,4 +1,13 @@
-from .is_openmm_System import is_openmm_System
+from .is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
+
+from .extract import extract
+from .add import add
+from .merge import merge
+from .append_structures import append_structures
+from .concatenate_structures import concatenate_structures
+from .get import *
+from .set import *
+
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
