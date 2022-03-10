@@ -177,38 +177,6 @@ def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indic
 
 ###### Get
 
-def aux_get_top(item, indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms import forms
-
-    method_name = sys._getframe(1).f_code.co_name
-
-    if 'openmm.PDBFile' in forms:
-
-        tmp_item, _ = to_openmm_PDBFile(item)
-        module = importlib.import_module('molsysmt.api_forms.api_openmm_PDBFile')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, structure_indices=structure_indices)
-
-    elif 'pdbfixer.PDBFixer' in forms:
-
-        tmp_item, _ = to_pdbfixer_PDBFixer(item)
-        module = importlib.import_module('molsysmt.api_forms.api_pdbfixer_PDBFixer')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, structure_indices=structure_indices)
-
-    elif 'mdtraj.Topology' in forms:
-
-        tmp_item, _ = to_mdtraj_Topology(item)
-        module = importlib.import_module('molsysmt.api_forms.api_mdtraj_PDBTopology')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, structure_indices=structure_indices)
-
-    else:
-
-        raise NotImplementedError
-
-    return output
 
 def aux_get_coors(item, indices='all', structure_indices='all'):
 
