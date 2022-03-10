@@ -1,18 +1,21 @@
+import re
 
 def is_string_pdb_text(string):
 
-    import re
+    output = False
 
-    pattern_1 = r'((ATOM||HETATM)+\s+\d+\s+\w+\s+\w+\s+\w+\s+\d+(\s+[+-]?([0-9]+([.][0-9]*))){5})'
-    pattern_2 = r'((ATOM||HETATM)+\s+\d+\s+\w+\s+\w+\s+\w+\s+(\s+[+-]?([0-9]+([.][0-9]*))){5})'
+    if type(string) is str:
 
-    for pattern in [pattern_1, pattern_2]:
+        pattern_1 = r'((ATOM||HETATM)+\s+\d+\s+\w+\s+\w+\s+\w+\s+\d+(\s+[+-]?([0-9]+([.][0-9]*))){5})'
+        pattern_2 = r'((ATOM||HETATM)+\s+\d+\s+\w+\s+\w+\s+\w+\s+(\s+[+-]?([0-9]+([.][0-9]*))){5})'
 
-        n_good_lines = len(re.findall(pattern, string))
-        output = (n_good_lines>0)
+        for pattern in [pattern_1, pattern_2]:
 
-        if output:
-            break
+            n_good_lines = len(re.findall(pattern, string))
+            output = (n_good_lines>0)
+
+            if output:
+                break
 
     return output
 

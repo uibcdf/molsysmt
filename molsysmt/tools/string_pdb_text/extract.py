@@ -1,4 +1,4 @@
-from molsysmt.tools.pdbfixer_PDBFixer.is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
+from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text
 from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
 from molsysmt._private_tools.exceptions import NotImplementedMethodError
 from molsysmt._private_tools.atom_indices import digest_atom_indices
@@ -27,20 +27,16 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     if (atom_indices is 'all') and (structure_indices is 'all'):
 
         if copy_if_all:
-            from copy import deepcopy
-            tmp_item = deepcopy(item)
+            from copy import copy
+            tmp_item = copy(item)
         else:
             tmp_item = item
     else:
 
-        from molsysmt.tools.pdbfixer_PDBFixer import to_openmm_Topology as pdbfixer_PDBFixer_to_openmm_Topology
-        from molsysmt.tools.pdbfixer_PDBFixer import get_coordinates_from_atom, get_box_from_atom
-        from molsysmt.tools.openmm_Topology import to_pdbfixer_PDBFixer as openmm_Topology_to_pdbfixer_PDBFixer
-
-        tmp_item = pdbfixer_PDBFixer_to_openmm_Topology(item, atom_indices=atom_indices, check=False)
-        coordinates = get_coordinates_from_atom(tmp_item, atom_indices=atom_indices, check=False)
-        box = get_box_from_atom(tmp_item, check=False)
-        tmp_item = openmm_Topology_to_pdbfixer_PDBFixer(tmp_item, coordinates=coordinates, box=box, check=False)
+        from molsysmt.tools.string_pdb_text import to_molsysmt_MolSys as string_pdb_text_to_molsysmt_MolSys
+        from molsysmt.tools.molsysmt_MolSys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
+        tmp_item = string_pdb_text_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+        tmp_item = molsysmt_MolSys_to_string_pdb_text(tmp_item, output_filename=output_filename, check=False)
 
     return tmp_item
 

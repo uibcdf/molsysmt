@@ -1,12 +1,31 @@
-def to_openmm_Modeller(item, selection='all', structure_indices='all', syntaxis='MolSysMT'):
+from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text
+from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private_tools.atom_indices import digest_atom_indices, digest_structure_indices
 
-    from molsysmt.tools.string_pdb_text import is_string_pdb_text
-    from molsysmt.basic import convert
+def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', check=True):
 
-    if not is_string_pdb_text(item):
-        raise ValueError
+    if check:
 
-    tmp_item = convert(item, to_form='openmm.Modeller', selection=selection, structure_indices=structure_indices, syntaxis=syntaxis)
+        try:
+            is_string_pdb_text(item)
+        except:
+            raise WrongFormError('string:pdb_text')
+
+        try:
+            atom_indices = digest_atom_indices(atom_indices)
+        except:
+            raise WrongAtomIndicesError()
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+    from molsysmt.tools.string_pdb_text import to_openmm_PDBFile as string_pdb_text_to_openmm_PDBFile
+    from molsysmt.tools.openmm_PDBFile import to_openmm_Modeller as openmm_PDBFile_to_openmm_Modeller
+
+    tmp_item = string_pdb_text_to_openmm_PDBFile(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = openmm_PDBFile_to_openmm_Modeller(tmp_item, check=False)
 
     return tmp_item
 

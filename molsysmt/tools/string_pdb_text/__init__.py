@@ -19,5 +19,4 @@ from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
 from .to_pytraj_Trajectory import to_pytraj_Trajectory
 from .to_pytraj_Topology import to_pytraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
-from .to_parmed_Structure import to_parmed_Structure
 
