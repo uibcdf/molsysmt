@@ -7,11 +7,3 @@ def is_molsysmt_MolSys(item):
 
     return output
 
-def _checking_form(item, check=True):
-
-    if check:
-        if not is_molsysmt_MolSys(item):
-            raise WrongFormError('molsysmt.MolSys')
-
-    pass
-

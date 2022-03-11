@@ -1,6 +1,7 @@
 from molsysmt.tools.string_pdb_id.is_string_pdb_id import is_string_pdb_id
 from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices, digest_structure_indices
+from molsysmt._private_tools.atom_indices import digest_atom_indices
+from molsysmt._private_tools.structure_indices import digest_structure_indices
 
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', check=True):
 

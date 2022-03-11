@@ -1,6 +1,7 @@
-from molsysmt.tools.pdbfixer_PDBFixer.is_openmm_Topology import is_openmm_Topology
+from molsysmt.tools.openmm_Topology.is_openmm_Topology import is_openmm_Topology
 from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices, digest_coordinates
+from molsysmt._private_tools.atom_indices import digest_atom_indices
+from molsysmt._private_tools.coordinates import digest_coordinates
 
 def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, check=True):
 

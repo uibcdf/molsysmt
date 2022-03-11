@@ -1,4 +1,4 @@
-from molsysmt.tools.mmtf_MMTFDecoder.is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
+from molsysmt.tools.pdbfixer_PDBFixer.is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
 from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError
 from molsysmt._private_tools.exceptions import NotImplementedMethodError
 from molsysmt._private_tools.atom_indices import digest_atom_indices

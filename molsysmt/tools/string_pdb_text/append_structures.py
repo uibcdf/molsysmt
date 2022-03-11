@@ -1,4 +1,4 @@
-from molsysmt.tools.string_pdb_text.string_pdb_text import is_string_pdb_text
+from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text
 from molsysmt._private_tools.exceptions import WrongFormError, WrongStepError
 from molsysmt._private_tools.step import digest_step
 from molsysmt._private_tools.time import digest_time

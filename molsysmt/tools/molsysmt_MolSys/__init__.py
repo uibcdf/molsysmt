@@ -20,7 +20,6 @@ from .to_openmm_System import to_openmm_System
 from .to_biopython_Seq import to_biopython_Seq
 from .to_biopython_SeqRecord import to_biopython_SeqRecord
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
-from .to_pytraj_Topology import to_pytraj_Topology
 from .to_nglview_NGLWidget import to_nglview_NGLWidget
 from .to_XYZ import to_XYZ
 from .to_string_aminoacids1 import to_string_aminoacids1

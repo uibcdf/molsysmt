@@ -245,6 +245,11 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
         except:
             raise WrongIndicesError()
 
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
     from molsysmt import puw
 
     unit = puw.get_unit(item.positions)

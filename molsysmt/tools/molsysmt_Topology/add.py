@@ -1,9 +1,19 @@
+from molsysmt.tools.molsysmt_Topology.is_molsysmt_Topology import is_molsysmt_Topology
+from molsysmt._private_tools.exceptions import WrongFormError
+
 def add(to_item, item, check=True):
 
     if check:
-        from molsysmt.tools.molsysmt_Topology.is_molsysmt_Topology import _checking_form
-        _checking_form(to_item, check=check)
-        _checking_form(item, check=check)
+
+        try:
+            is_molsysmt_Topology(item)
+        except:
+            raise WrongFormError('molsysmt.Topology')
+
+        try:
+            is_molsysmt_Topology(to_item)
+        except:
+            raise WrongFormError('molsysmt.Topology')
 
     raise NotImplementedError
 

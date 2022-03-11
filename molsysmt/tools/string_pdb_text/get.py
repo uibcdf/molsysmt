@@ -824,11 +824,75 @@ def get_box_from_system(item, structure_indices='all', check=True):
 
 def get_time_from_system(item, structure_indices='all', check=True):
 
+    if check:
+
+        try:
+            is_string_pdb_text(item)
+        except:
+            raise WrongFormError('string:pdb_text')
+
+        try:
+            indices = digest_indices(indices)
+        except:
+            raise WrongIndicesError()
+
+    from molsysmt.tools.string_pdb_text import to_molsysmt_Structures
+    from molsysmt.tools.molsysmt_Structures import get_time_from_system as aux_get
+
+    tmp_item = to_molsysmt_Structures(item, check=False)
+    output = aux_get(tmp_item, indices=indices, check=False)
+
+    return output
+
+
+
 
 def get_step_from_system(item, structure_indices='all', check=True):
 
+    if check:
+
+        try:
+            is_string_pdb_text(item)
+        except:
+            raise WrongFormError('string:pdb_text')
+
+        try:
+            indices = digest_indices(indices)
+        except:
+            raise WrongIndicesError()
+
+    from molsysmt.tools.string_pdb_text import to_molsysmt_Structures
+    from molsysmt.tools.molsysmt_Structures import get_step_from_system as aux_get
+
+    tmp_item = to_molsysmt_Structures(item, check=False)
+    output = aux_get(tmp_item, indices=indices, check=False)
+
+    return output
+
+
 
 def get_n_structures_from_system(item, check=True):
+
+    if check:
+
+        try:
+            is_string_pdb_text(item)
+        except:
+            raise WrongFormError('string:pdb_text')
+
+        try:
+            indices = digest_indices(indices)
+        except:
+            raise WrongIndicesError()
+
+    from molsysmt.tools.string_pdb_text import to_molsysmt_Structures
+    from molsysmt.tools.molsysmt_Structures import get_n_structures_from_system as aux_get
+
+    tmp_item = to_molsysmt_Structures(item, check=False)
+    output = aux_get(tmp_item, indices=indices, check=False)
+
+    return output
+
 
 
 def get_bonded_atoms_from_system(item, check=True):
@@ -836,17 +900,24 @@ def get_bonded_atoms_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
-    from molsysmt.tools.pdbfixer_PDBFixer import to_openmm_Topology
-    from molsysmt.tools.openmm_Topology import get_bonded_atoms_from_system as aux_get
+        try:
+            indices = digest_indices(indices)
+        except:
+            raise WrongIndicesError()
 
-    tmp_item = to_openmm_Topology(item, check=False)
-    output = aux_get(tmp_item, check=False)
+    from molsysmt.tools.string_pdb_text import to_molsysmt_Topology
+    from molsysmt.tools.molsysmt_Structures import get_bonded_atoms_from_system as aux_get
+
+    tmp_item = to_molsysmt_Structures(item, check=False)
+    output = aux_get(tmp_item, indices=indices, check=False)
 
     return output
+
+
 
 ## From bond
 
@@ -855,66 +926,72 @@ def get_bond_order_from_bond(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
         except:
             raise WrongIndicesError()
 
-    from molsysmt.tools.pdbfixer_PDBFixer import to_openmm_Topology
-    from molsysmt.tools.openmm_Topology import get_bond_order_from_bond as aux_get
+    from molsysmt.tools.string_pdb_text import to_molsysmt_Topology
+    from molsysmt.tools.molsysmt_Structures import get_bond_order_from_bond as aux_get
 
-    tmp_item = to_openmm_Topology(item, check=False)
+    tmp_item = to_molsysmt_Structures(item, check=False)
     output = aux_get(tmp_item, indices=indices, check=False)
 
     return output
+
+
 
 def get_bond_type_from_bond(item, indices='all', check=True):
 
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
         except:
             raise WrongIndicesError()
 
-    from molsysmt.tools.pdbfixer_PDBFixer import to_openmm_Topology
-    from molsysmt.tools.openmm_Topology import get_bond_type_from_bond as aux_get
+    from molsysmt.tools.string_pdb_text import to_molsysmt_Topology
+    from molsysmt.tools.molsysmt_Structures import get_bond_type_from_bond as aux_get
 
-    tmp_item = to_openmm_Topology(item, check=False)
+    tmp_item = to_molsysmt_Structures(item, check=False)
     output = aux_get(tmp_item, indices=indices, check=False)
 
     return output
+
+
 
 def get_atom_index_from_bond(item, indices='all', check=True):
 
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
         except:
             raise WrongIndicesError()
 
-    from molsysmt.tools.pdbfixer_PDBFixer import to_openmm_Topology
-    from molsysmt.tools.openmm_Topology import get_atom_index_from_bond as aux_get
+    from molsysmt.tools.string_pdb_text import to_molsysmt_Topology
+    from molsysmt.tools.molsysmt_Structures import get_atom_index_from_bond as aux_get
 
-    tmp_item = to_openmm_Topology(item, check=False)
+    tmp_item = to_molsysmt_Structures(item, check=False)
     output = aux_get(tmp_item, indices=indices, check=False)
 
     return output
+
+
 
 
 #######################################################################################
@@ -928,9 +1005,9 @@ def get_atom_index_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -950,9 +1027,9 @@ def get_group_id_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -973,9 +1050,9 @@ def get_group_name_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -997,9 +1074,9 @@ def get_group_type_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1021,9 +1098,9 @@ def get_component_id_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1044,9 +1121,9 @@ def get_component_name_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1068,9 +1145,9 @@ def get_component_type_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1092,9 +1169,9 @@ def get_chain_id_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1115,9 +1192,9 @@ def get_chain_name_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1139,9 +1216,9 @@ def get_chain_type_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1163,9 +1240,9 @@ def get_molecule_id_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1186,9 +1263,9 @@ def get_molecule_name_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1210,9 +1287,9 @@ def get_molecule_type_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1234,9 +1311,9 @@ def get_entity_id_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1257,9 +1334,9 @@ def get_entity_name_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1281,9 +1358,9 @@ def get_entity_type_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1305,9 +1382,9 @@ def get_n_atoms_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1326,9 +1403,9 @@ def get_n_groups_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1348,9 +1425,9 @@ def get_n_components_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1370,9 +1447,9 @@ def get_n_molecules_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1392,9 +1469,9 @@ def get_n_chains_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1414,9 +1491,9 @@ def get_n_entities_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1436,9 +1513,9 @@ def get_bonded_atoms_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1475,9 +1552,9 @@ def get_bond_index_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1515,9 +1592,9 @@ def get_n_bonds_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1553,9 +1630,9 @@ def get_inner_bond_index_from_atom(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1572,9 +1649,9 @@ def get_atom_index_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1605,9 +1682,9 @@ def get_atom_id_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1635,9 +1712,9 @@ def get_atom_name_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1665,9 +1742,9 @@ def get_atom_type_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1695,9 +1772,9 @@ def get_group_index_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1717,9 +1794,9 @@ def get_component_index_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1739,9 +1816,9 @@ def get_component_id_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1761,9 +1838,9 @@ def get_component_name_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1783,9 +1860,9 @@ def get_component_type_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1805,9 +1882,9 @@ def get_chain_index_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1827,9 +1904,9 @@ def get_chain_id_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1849,9 +1926,9 @@ def get_chain_name_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1871,9 +1948,9 @@ def get_chain_type_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1893,9 +1970,9 @@ def get_molecule_index_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1915,9 +1992,9 @@ def get_molecule_id_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1937,9 +2014,9 @@ def get_molecule_name_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1959,9 +2036,9 @@ def get_molecule_type_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -1981,9 +2058,9 @@ def get_entity_index_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2003,9 +2080,9 @@ def get_entity_id_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2025,9 +2102,9 @@ def get_entity_name_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2047,9 +2124,9 @@ def get_entity_type_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2069,9 +2146,9 @@ def get_n_atoms_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2088,9 +2165,9 @@ def get_n_groups_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2110,9 +2187,9 @@ def get_n_components_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2132,9 +2209,9 @@ def get_n_molecules_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2154,9 +2231,9 @@ def get_n_chains_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2176,9 +2253,9 @@ def get_n_entities_from_group(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2201,9 +2278,9 @@ def get_atom_index_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2234,9 +2311,9 @@ def get_atom_id_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2264,9 +2341,9 @@ def get_atom_name_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2294,9 +2371,9 @@ def get_atom_type_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2324,9 +2401,9 @@ def get_group_index_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2357,9 +2434,9 @@ def get_group_id_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2387,9 +2464,9 @@ def get_group_name_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2417,9 +2494,9 @@ def get_group_type_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2447,9 +2524,9 @@ def get_component_index_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2469,9 +2546,9 @@ def get_chain_index_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2491,9 +2568,9 @@ def get_chain_id_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2514,9 +2591,9 @@ def get_chain_name_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2537,9 +2614,9 @@ def get_chain_type_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2560,9 +2637,9 @@ def get_molecule_index_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2582,9 +2659,9 @@ def get_molecule_id_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2605,9 +2682,9 @@ def get_molecule_name_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2628,9 +2705,9 @@ def get_molecule_type_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2651,9 +2728,9 @@ def get_entity_index_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2673,9 +2750,9 @@ def get_entity_id_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2696,9 +2773,9 @@ def get_entity_name_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2719,9 +2796,9 @@ def get_entity_type_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2742,9 +2819,9 @@ def get_n_atoms_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2761,9 +2838,9 @@ def get_n_groups_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2780,9 +2857,9 @@ def get_n_components_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2801,9 +2878,9 @@ def get_n_molecules_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2823,9 +2900,9 @@ def get_n_chains_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2845,9 +2922,9 @@ def get_n_entities_from_component(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2869,9 +2946,9 @@ def get_atom_index_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2902,9 +2979,9 @@ def get_atom_id_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2932,9 +3009,9 @@ def get_atom_name_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2962,9 +3039,9 @@ def get_atom_type_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -2992,9 +3069,9 @@ def get_group_index_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3025,9 +3102,9 @@ def get_group_id_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3055,9 +3132,9 @@ def get_group_name_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3085,9 +3162,9 @@ def get_group_type_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3115,9 +3192,9 @@ def get_component_index_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3148,9 +3225,9 @@ def get_component_id_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3178,9 +3255,9 @@ def get_component_name_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3208,9 +3285,9 @@ def get_component_type_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3238,9 +3315,9 @@ def get_chain_index_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3271,9 +3348,9 @@ def get_chain_id_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3301,9 +3378,9 @@ def get_chain_name_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3331,9 +3408,9 @@ def get_chain_type_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3361,9 +3438,9 @@ def get_molecule_index_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3383,9 +3460,9 @@ def get_entity_index_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3405,9 +3482,9 @@ def get_entity_id_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3428,9 +3505,9 @@ def get_entity_name_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3451,9 +3528,9 @@ def get_entity_type_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3474,9 +3551,9 @@ def get_n_atoms_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3493,9 +3570,9 @@ def get_n_groups_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3512,9 +3589,9 @@ def get_n_components_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3531,9 +3608,9 @@ def get_n_molecules_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3552,9 +3629,9 @@ def get_n_chains_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3571,9 +3648,9 @@ def get_n_entities_from_molecule(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3595,9 +3672,9 @@ def get_atom_index_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3628,9 +3705,9 @@ def get_atom_id_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3658,9 +3735,9 @@ def get_atom_name_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3688,9 +3765,9 @@ def get_atom_type_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3718,9 +3795,9 @@ def get_group_index_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3751,9 +3828,9 @@ def get_group_id_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3781,9 +3858,9 @@ def get_group_name_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3811,9 +3888,9 @@ def get_group_type_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3841,9 +3918,9 @@ def get_component_index_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3874,9 +3951,9 @@ def get_component_id_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3904,9 +3981,9 @@ def get_component_name_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3934,9 +4011,9 @@ def get_component_type_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3964,9 +4041,9 @@ def get_chain_index_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -3986,9 +4063,9 @@ def get_molecule_index_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4019,9 +4096,9 @@ def get_molecule_id_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4049,9 +4126,9 @@ def get_molecule_name_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4079,9 +4156,9 @@ def get_molecule_type_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4109,9 +4186,9 @@ def get_entity_index_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4142,9 +4219,9 @@ def get_entity_id_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4172,9 +4249,9 @@ def get_entity_name_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4202,9 +4279,9 @@ def get_entity_type_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4232,9 +4309,9 @@ def get_n_atoms_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4251,9 +4328,9 @@ def get_n_groups_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4270,9 +4347,9 @@ def get_n_components_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4289,9 +4366,9 @@ def get_n_molecules_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4308,9 +4385,9 @@ def get_n_chains_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4329,9 +4406,9 @@ def get_n_entities_from_chain(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4353,9 +4430,9 @@ def get_atom_index_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4386,9 +4463,9 @@ def get_atom_id_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4416,9 +4493,9 @@ def get_atom_name_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4446,9 +4523,9 @@ def get_atom_type_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4476,9 +4553,9 @@ def get_group_index_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4509,9 +4586,9 @@ def get_group_id_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4539,9 +4616,9 @@ def get_group_name_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4569,9 +4646,9 @@ def get_group_type_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4599,9 +4676,9 @@ def get_component_index_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4632,9 +4709,9 @@ def get_component_id_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4662,9 +4739,9 @@ def get_component_name_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4692,9 +4769,9 @@ def get_component_type_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4722,9 +4799,9 @@ def get_chain_index_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4755,9 +4832,9 @@ def get_chain_id_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4785,9 +4862,9 @@ def get_chain_name_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4815,9 +4892,9 @@ def get_chain_type_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4845,9 +4922,9 @@ def get_molecule_index_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4878,9 +4955,9 @@ def get_molecule_id_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4908,9 +4985,9 @@ def get_molecule_name_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4938,9 +5015,9 @@ def get_molecule_type_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4968,9 +5045,9 @@ def get_entity_index_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -4990,9 +5067,9 @@ def get_n_atoms_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -5009,9 +5086,9 @@ def get_n_groups_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -5028,9 +5105,9 @@ def get_n_components_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -5047,9 +5124,9 @@ def get_n_molecules_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -5066,9 +5143,9 @@ def get_n_chains_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -5085,9 +5162,9 @@ def get_n_entities_from_entity(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -5108,9 +5185,9 @@ def get_n_aminoacids_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     group_types = get_group_type_from_group(item, check=False)
     return (group_types=='aminoacid').sum()
@@ -5120,9 +5197,9 @@ def get_n_nucleotides_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     group_types = get_group_type_from_group(item, check=False)
     return (group_types=='nucleotide').sum()
@@ -5132,9 +5209,9 @@ def get_n_ions_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     molecule_types = get_group_type_from_group(item, check=False)
     return (molecule_types=='ion').sum()
@@ -5144,9 +5221,9 @@ def get_n_waters_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     molecule_types = get_group_type_from_group(item, check=False)
     return (molecule_types=='water').sum()
@@ -5156,9 +5233,9 @@ def get_n_cosolutes_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     molecule_types = get_group_type_from_group(item, check=False)
     return (molecule_types=='cosolute').sum()
@@ -5168,9 +5245,9 @@ def get_n_small_molecules_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     molecule_types = get_group_type_from_group(item, check=False)
     return (molecule_types=='small molecule').sum()
@@ -5180,9 +5257,9 @@ def get_n_peptides_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     molecule_types = get_molecule_type_from_molecule(item, check=False)
     return (molecule_types=='peptide').sum()
@@ -5192,9 +5269,9 @@ def get_n_proteins_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     molecule_types = get_molecule_type_from_molecule(item, check=False)
     return (molecule_types=='protein').sum()
@@ -5204,9 +5281,9 @@ def get_n_dnas_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     molecule_types = get_molecule_type_from_molecule(item, check=False)
     return (molecule_types=='dna').sum()
@@ -5216,9 +5293,9 @@ def get_n_rnas_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     molecule_types = get_molecule_type_from_molecule(item, check=False)
     return (molecule_types=='rna').sum()
@@ -5228,9 +5305,9 @@ def get_n_lipids_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     molecule_types = get_molecule_type_from_molecule(item, check=False)
     return (molecule_types=='lipid').sum()
@@ -5240,9 +5317,9 @@ def get_coordinates_from_system(item, structure_indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             structure_indices = digest_structure_indices(structure_indices)
@@ -5343,9 +5420,9 @@ def get_bonded_atoms_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     return get_bonded_atoms_from_atom(item, check=False)
 
@@ -5354,9 +5431,9 @@ def get_bond_index_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
 
     return get_bond_index_from_atom(item, check=False)
@@ -5366,9 +5443,9 @@ def get_inner_bonded_atoms_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     return get_inner_bonded_atoms_from_atom(item, check=False)
 
@@ -5377,9 +5454,9 @@ def get_inner_bond_index_from_system(item, check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
     return get_inner_bond_index_from_atom(item, check=False)
 
@@ -5390,9 +5467,9 @@ def get_bond_index_from_bond(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)
@@ -5412,9 +5489,9 @@ def get_n_bonds_from_bond(item, indices='all', check=True):
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_string_pdb_text(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('string:pdb_text')
 
         try:
             indices = digest_indices(indices)

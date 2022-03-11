@@ -1,4 +1,4 @@
-from molsysmt.tools.pdbfixer_PDBFixer.is_openmm_Topology import is_openmm_Topology
+from molsysmt.tools.openmm_Topology.is_openmm_Topology import is_openmm_Topology
 from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError
 from molsysmt._private_tools.exceptions import NotImplementedMethodError
 from molsysmt._private_tools.atom_indices import digest_atom_indices
