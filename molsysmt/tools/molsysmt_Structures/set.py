@@ -1,9 +1,31 @@
+from .is_molsysmt_Structures import is_molsysmt_Structures
+from molsysmt._private_tools.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
+from molsysmt._private_tools.exceptions import NotImplementedMethodError
+from molsysmt._private_tools.indices import digest_indices
+from molsysmt._private_tools.structure_indices import digest_structure_indices
+
+###### Set
+
+## System
 
 def set_box_to_system(item, indices='all', structure_indices='all', value=None, check=True):
 
     if check:
-        from molsysmt.tools.molsysmt_Structures.is_molsysmt_Structures import _checking_form
-        _checking_form(item, check=check)
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            indices = digest_indices(indices)
+        except:
+            raise WrongIndicesError()
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
 
     n_structures_trajectory = item.coordinates.shape[0]
     n_structures_box = value.shape[0]
@@ -17,12 +39,4 @@ def set_box_to_system(item, indices='all', structure_indices='all', value=None, 
             raise ValueError("box and coordinates have different shape")
 
     pass
-
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check=True):
-
-    if check:
-        from molsysmt.tools.molsysmt_Structures.is_molsysmt_Structures import _checking_form
-        _checking_form(item, check=check)
-
-    raise NotImplementedError
 

@@ -1,10 +1,25 @@
-from molsysmt.tools.molsysmt_Structures.is_molsysmt_Structures import _checking_form
+from molsysmt.tools.molsysmt_Structures.is_molsysmt_Structures import is_molsysmt_Structures
+from molsysmt._private_tools.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
+from molsysmt._private_tools.indices import digest_indices
+from molsysmt._private_tools.structure_indices import digest_structure_indices
+import numpy as np
+from networkx import Graph
 
 ## atom
 
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            indices = digest_indices(indices)
+        except:
+            raise WrongIndicesError()
 
     tmp_coordinates = item.coordinates
 
@@ -18,7 +33,17 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
 def get_n_atoms_from_atom(item, indices='all', check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            indices = digest_indices(indices)
+        except:
+            raise WrongIndicesError()
 
     if indices is 'all':
         output=item.coordinates.shape[1]
@@ -31,7 +56,12 @@ def get_n_atoms_from_atom(item, indices='all', check=True):
 
 def get_n_atoms_from_system(item, check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
 
     output=item.coordinates.shape[1]
 
@@ -39,7 +69,17 @@ def get_n_atoms_from_system(item, check=True):
 
 def get_coordinates_from_system(item, structure_indices='all', check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongIndicesError()
 
     if structure_indices is 'all':
         output=item.coordinates
@@ -49,7 +89,17 @@ def get_coordinates_from_system(item, structure_indices='all', check=True):
 
 def get_box_from_system(item, structure_indices='all', check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongIndicesError()
 
     output=None
     if item.box is not None:
@@ -61,7 +111,17 @@ def get_box_from_system(item, structure_indices='all', check=True):
 
 def get_box_shape_from_system(item, structure_indices='all', check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongIndicesError()
 
     from molsysmt.pbc import box_shape_from_box_vectors
     output = None
@@ -72,7 +132,17 @@ def get_box_shape_from_system(item, structure_indices='all', check=True):
 
 def get_box_lengths_from_system(item, structure_indices='all', check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongIndicesError()
 
     tmp_box_lengths = item.get_box_lengths()
     if structure_indices is 'all':
@@ -83,7 +153,17 @@ def get_box_lengths_from_system(item, structure_indices='all', check=True):
 
 def get_box_angles_from_system(item, structure_indices='all', check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongIndicesError()
 
     tmp_box_angles = item.get_box_angles()
     if structure_indices is 'all':
@@ -94,7 +174,17 @@ def get_box_angles_from_system(item, structure_indices='all', check=True):
 
 def get_time_from_system(item, structure_indices='all', check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongIndicesError()
 
     if structure_indices is 'all':
         output = item.time
@@ -104,7 +194,17 @@ def get_time_from_system(item, structure_indices='all', check=True):
 
 def get_step_from_system(item, structure_indices='all', check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongIndicesError()
 
     if structure_indices is 'all':
         output = item.step
@@ -114,7 +214,12 @@ def get_step_from_system(item, structure_indices='all', check=True):
 
 def get_n_structures_from_system(item, check=True):
 
-    _checking_form(item, check)
+    if check:
+
+        try:
+            is_molsysmt_Structures(item)
+        except:
+            raise WrongFormError('molsysmt.Structures')
 
     output=item.coordinates.shape[0]
 

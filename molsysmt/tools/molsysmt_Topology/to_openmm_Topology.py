@@ -76,7 +76,9 @@ def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
 
     if box is not None:
 
-        tmp_item.setPeriodicBoxVectors(box)
+        from molsysmt.tools.openmm_Topology import set_box_to_system
+
+        set_box_to_system(tmp_item, value=box, check=False)
 
     return tmp_item
 

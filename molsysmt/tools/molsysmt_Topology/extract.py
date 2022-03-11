@@ -9,9 +9,9 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     if check:
 
         try:
-            is_molsysmt_MolSys(item)
+            is_molsysmt_Topology(item)
         except:
-            raise WrongFormError('molsysmt.MolSys')
+            raise WrongFormError('molsysmt.Topology')
 
         try:
             atom_indices = digest_atom_indices(atom_indices)

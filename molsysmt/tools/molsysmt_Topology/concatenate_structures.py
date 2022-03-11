@@ -12,7 +12,7 @@ def concatenate_structures(item, step=None, time=None, coordinates=None, box=Non
         try:
             is_molsysmt_Topology(item)
         except:
-            raise WrongFormError('molsysmt.MolSys')
+            raise WrongFormError('molsysmt.Topology')
 
         try:
             step = digest_step(step)
