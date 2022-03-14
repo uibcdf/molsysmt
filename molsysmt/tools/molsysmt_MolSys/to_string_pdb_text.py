@@ -27,7 +27,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=
     from molsysmt.tools.openmm_Topology import to_string_pdb_text as openmm_Topology_to_string_pdb_text
 
     tmp_item = molsysmt_MolSys_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-    coordinates = get_coordinates_from_atom(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices, check=False)
     tmp_item = openmm_Topology_to_string_pdb_text(tmp_item, coordinates=coordinates, check=False)
 
     return tmp_item

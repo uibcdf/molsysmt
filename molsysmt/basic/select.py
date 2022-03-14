@@ -1,5 +1,7 @@
 from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
+from molsysmt._private_tools.target import digest_target
+from molsysmt._private_tools.syntaxis import digest_syntaxis, digest_to_syntaxis
+from molsysmt._private_tools.selection import digest_selection
 import numpy as np
 from molsysmt.api_forms import dict_get
 from molsysmt._private_tools.selection import selection_is_all
@@ -164,12 +166,12 @@ def select(molecular_system, selection='all', structure_index=0, target='atom', 
         except:
             raise WrongSyntaxisError(syntaxis)
         try:
-            to_syntaxis=digest_syntaxis(to_syntaxis)
+            to_syntaxis=digest_to_syntaxis(to_syntaxis)
         except:
             raise WrongSyntaxisError(to_syntaxis)
 
         try:
-            selection=digest_selection(syntaxis, syntaxis)
+            selection=digest_selection(selection, syntaxis)
         except:
             raise WrongSelectionError(selection)
 

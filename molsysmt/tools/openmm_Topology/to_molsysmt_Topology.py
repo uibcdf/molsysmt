@@ -119,10 +119,5 @@ def to_molsysmt_Topology(item, atom_indices='all', check=True):
 
     tmp_item._nan_to_None()
 
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
+    return tmp_item
 

@@ -1,4 +1,13 @@
 from .is_string_pdb_text import is_string_pdb_text
+
+from .extract import extract
+from .add import add
+from .merge import merge
+from .append_structures import append_structures
+from .concatenate_structures import concatenate_structures
+from .get import *
+from .set import *
+
 from .to_file_pdb import to_file_pdb
 from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology

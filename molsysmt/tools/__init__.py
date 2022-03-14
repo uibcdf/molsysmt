@@ -19,6 +19,8 @@ from . import molsysmt_TrajectoryFile
 from . import molsysmt_Structures
 from . import nglview_NGLWidget
 from . import pdbfixer_PDBFixer
+from . import biopython_Seq
+from . import biopython_SeqRecord
 
 from . import tleap
 from . import nglview

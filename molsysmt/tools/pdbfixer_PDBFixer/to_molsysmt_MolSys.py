@@ -20,6 +20,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', check=True):
     from molsysmt.tools.pdbfixer_PDBFixer import to_molsysmt_Topology as pdbfixer_PDBFixer_to_molsysmt_Topology
     from molsysmt.tools.pdbfixer_PDBFixer import to_molsysmt_Structures as pdbfixer_PDBFixer_to_molsysmt_Structures
 
+    tmp_item = MolSys()
+
     tmp_item.topology = pdbfixer_PDBFixer_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
     tmp_item.structures = pdbfixer_PDBFixer_to_molsysmt_Structures(item, atom_indices=atom_indices, check=False)
 

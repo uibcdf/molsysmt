@@ -1,13 +1,36 @@
-def to_molsysmt_MolSys(item, selection='all', structure_indices='all', syntaxis='MolSysMT'):
+from molsysmt.tools.nglview_NGLWidget.is_nglview_NGLWidget import is_nglview_NGLWidget
+from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private_tools.atom_indices import digest_atom_indices
 
-    from molsysmt.tools.nglview_NGLWidget import is_nglview_NGLWidget
-    from molsysmt.basic import convert
+def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', check=True):
 
-    if not is_nglview_NGLWidget(item):
-        raise ValueError
+    if check:
 
-    tmp_item = convert(item, to_form='molsysmt.MolSys', selection=selection,
-            structure_indices=structure_indices, syntaxis=syntaxis)
+        try:
+            is_nglview_NGLWidget(item)
+        except:
+            raise WrongFormError('nglview.NGLWidget')
 
+        try:
+            atom_indices = digest_atom_indices(atom_indices)
+        except:
+            raise WrongAtomIndicesError()
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+    from molsysmt.native.molsys import MolSys
+    from molsysmt.tools.nglview_NGLWidget import to_molsysmt_Topology as nglview_NGLWidget_to_molsysmt_Topology
+    from molsysmt.tools.nglview_NGLWidget import to_molsysmt_Structures as nglview_NGLWidget_to_molsysmt_Structures
+
+    tmp_item = MolSys()
+    tmp_item.topology = nglview_NGLWidget_to_molsysmt_Topology(item, atom_indices=atom_indices,
+                                                               structure_indices=structure_indices,
+                                                               check=False)
+    tmp_item.structures = nglview_NGLWidget_to_molsysmt_Structures(item, atom_indices=atom_indices,
+                                                                   structure_indices=structure_indices,
+                                                                   check=False)
     return tmp_item
 

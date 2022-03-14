@@ -14,11 +14,10 @@ def add_missing_heavy_atoms(molecular_system, selection='all', missing_heavy_ato
 
         output_form = get_form(molecular_system)
 
+
         if missing_heavy_atoms is None:
             from molsysmt.build import get_missing_heavy_atoms
             missing_heavy_atoms = get_missing_heavy_atoms(molecular_system, selection=selection, syntaxis=syntaxis)
-
-
 
         tmp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
 

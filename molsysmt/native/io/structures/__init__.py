@@ -8,7 +8,6 @@ from .mdanalysis_Universe import from_mdanalysis_Universe
 from .pytraj_Trajectory import from_pytraj_Trajectory
 from .TrajectoryDict import from_TrajectoryDict
 from .XYZ import from_XYZ, to_XYZ
-from .nglview_NGLWidget import from_nglview_NGLWidget
 from .file_h5 import from_file_h5
 from .file_pdb import from_file_pdb
 from .file_mmtf import from_file_mmtf

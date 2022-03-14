@@ -467,7 +467,7 @@ class NotSupportedFormError(ValueError):
 
     """
 
-    def __init__(self):
+    def __init__(self, form_type):
 
         from molsysmt import __github_issues_web__
         from inspect import stack
@@ -479,10 +479,10 @@ class NotSupportedFormError(ValueError):
         api_doc = ''
 
         message = (
-                f"The input molecular system or item in \"{method_name}\" has a not supported form. "
-                f"Check {api_doc} for more information. "
-                f"If you still need help, open a new issue in {__github_issues_web__}."
-                )
+            f"The input molecular system or item in \"{caller_name}\" has a not supported form: {form_type} "
+            f"Check {api_doc} for more information. "
+            f"If you still need help, open a new issue in {__github_issues_web__}."
+            )
 
         super().__init__(message)
 

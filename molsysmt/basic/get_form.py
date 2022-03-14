@@ -19,7 +19,7 @@ def get_form(molecular_system):
             break
 
     if output is None:
-        raise NotSupportedFormError()
+        raise NotSupportedFormError(type(output))
 
     return output
 

@@ -1,104 +1,87 @@
 from molsysmt._private_tools.exceptions import *
 
+from molsysmt.tools.biopython_Seq.is_biopython_Seq import is_biopython_Seq as is_form
+from molsysmt.tools.biopython_Seq.extract import extract
+from molsysmt.tools.biopython_Seq.add import add
+from molsysmt.tools.biopython_Seq.merge import merge
+from molsysmt.tools.biopython_Seq.append_structures import append_structures
+from molsysmt.tools.biopython_Seq.concatenate_structures import concatenate_structures
+from molsysmt.tools.biopython_Seq.get import *
+from molsysmt.tools.biopython_Seq.set import *
+
 form_name='biopython.Seq'
 form_type='class'
 form_info=["",""]
-form_components = molecular_system_components.copy()
-form_components = {
-    'elements' : True, # atoms, groups, chains, entities, etc.
-    'bonds' : True, # bonds
-    'coordinates' : True, # coordinates, steps, time
-    'velocities' : False, # velocities
-    'box' : True, # box or unit cell
-    'ff_parameters' : False, # interatomic interaction parameters or force field
-    'mm_parameters' : False, # molecular mechanics parameters to work with the interatomic interactions
-    'thermo_state' : False, # thermodinamic state or parameters of the ensemble: T and P.
-    'simulation' : False # Other simulation parameters to simulate the behaviour such as integrator, damping, etc.
+
+form_attributes = {
+
+    'atom_index' : True,
+    'atom_id' : True,
+    'atom_name' : True,
+    'atom_type' : True,
+
+    'bond_index' : True,
+    'bond_id' : True,
+    'bond_name' : True,
+    'bond_type' : True,
+
+    'group_index' : True,
+    'group_id' : True,
+    'group_name' : True,
+    'group_type' : True,
+
+    'component_index' : True,
+    'component_id' : False,
+    'component_name' : False,
+    'component_type' : False,
+
+    'molecule_index' : True,
+    'molecule_id' : True,
+    'molecule_name' : True,
+    'molecule_type' : True,
+
+    'chain_index' : True,
+    'chain_id' : True,
+    'chain_name' : True,
+    'chain_type' : True,
+
+    'entity_index' : True,
+    'entity_id' : True,
+    'entity_name' : True,
+    'entity_type' : True,
+
+    'coordinates' : True,
+    'velocities' : False,
+    'box' : True,
+    'time' : False,
+    'step' : False,
+
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
 }
 
 
-for ii in ['elements']:
-    has[ii]=True
-
-def to_biopython_Seq(item, molecular_system=None, atom_indices='all', structure_indices='all',
-        copy_if_all=True):
-
-    tmp_molecular_system = None
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        if copy_if_all:
-            tmp_item = extract(item)
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-        else:
-            tmp_item = item
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system
-    else:
-        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-        if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_biopython_SeqRecord(item, molecular_system=None, atom_indices='all', structure_indices='all',
+def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', structure_indices='all',
                            id=None, name=None, description=None):
 
-    from Bio.SeqRecord import SeqRecord as Bio_SeqRecord
-    from .api_biopython_SeqRecord import extract as extract_biopython_SeqRecord
+    from molsysmt.tools.biopython_Seq import to_biopython_SeqRecord as biopython_Seq_to_biopython_SeqRecord
 
-    if id is None:
-        id = 'None'
-    if name is None:
-        name = 'None'
-    if description is None:
-        description = 'None'
-
-    tmp_item, tmp_molecular_system = to_biopython_Seq(item, molecular_system=molecular_system, atom_indices='all', structure_indices='all', copy_if_all=False)
-
-    tmp_item=Bio_SeqRecord(tmp_item, id=id, name=name, description=description)
-
-    if tmp_molecular_system is not None:
-        tmp_molecular_system = tmp_molecular_system.combine_with_items(tmp_item)
-
-    return tmp_item, tmp_molecular_system
-
-def to_file_fasta(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
-
-    from .api_biopython_SeqRecord import to_file_fasta as biopython_SeqRecord_to_file_fasta
-
-    tmp_item, tmp_molecular_system = to_biopython_SeqRecord(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item, tmp_molecular_system = biopython_SeqRecord_to_file_fasta(tmp_item, molecular_system=molecular_system, output_filename=output_filename)
-
-    return tmp_item, tmp_molecular_system
-
-def extract(item, atom_indices='all', structure_indices='all'):
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-
-        tmp_item = item.copy()
-
-    else:
-
-        raise NotImplementedError
+    tmp_item = biopython_Seq_to_biopython_SeqRecord(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 
-def merge(item_1, item_2):
+def to_file_fasta(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
-    raise NotImplementedError
+    from molsysmt.tools.biopython_Seq import to_file_fasta as biopython_Seq_to_file_fasta
 
-def add(to_item, item):
+    tmp_item = biopython_Seq_to_file_fasta(item, atom_indices=atom_indices,
+                                           structure_indices=structure_indices,
+                                           output_filename=output_filename, check=False)
 
-    raise NotImplementedError
-
-def append_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
-
-def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
+    return tmp_item
 
 ###### Get
 

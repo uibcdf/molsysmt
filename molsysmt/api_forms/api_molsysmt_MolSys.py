@@ -218,7 +218,7 @@ def to_pytraj_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.nglview_NGLWidget import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+    from molsysmt.tools.molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
     tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
