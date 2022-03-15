@@ -6,6 +6,8 @@ from . import attribute
 
 from . import string_pdb_id
 from . import string_pdb_text
+from . import string_aminoacids1
+from . import string_aminoacids3
 
 from . import mmtf_MMTFDecoder
 from . import molsysmt_MolecularMechanicsDict

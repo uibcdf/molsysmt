@@ -8,7 +8,7 @@ def to_string_aminoacids3(item, atom_indices='all', check=True):
 
     from molsysmt.tools.molsysmt_Topology import get_group_name_from_atom
 
-    group_names = get_group_name_from_atom(item, atom_indices='all')
+    group_names = get_group_name_from_atom(item, indices='all', check=False)
     tmp_item = ''.join([ii.title() for ii in group_names])
 
     return tmp_item

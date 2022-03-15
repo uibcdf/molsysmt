@@ -15,44 +15,44 @@ form_info=["",""]
 
 form_attributes = {
 
-    'atom_index' : True,
-    'atom_id' : True,
-    'atom_name' : True,
-    'atom_type' : True,
+    'atom_index' : False,
+    'atom_id' : False,
+    'atom_name' : False,
+    'atom_type' : False,
 
-    'bond_index' : True,
-    'bond_id' : True,
-    'bond_name' : True,
-    'bond_type' : True,
+    'bond_index' : False,
+    'bond_id' : False,
+    'bond_name' : False,
+    'bond_type' : False,
 
     'group_index' : True,
-    'group_id' : True,
+    'group_id' : False,
     'group_name' : True,
-    'group_type' : True,
+    'group_type' : False,
 
-    'component_index' : True,
+    'component_index' : False,
     'component_id' : False,
     'component_name' : False,
     'component_type' : False,
 
-    'molecule_index' : True,
-    'molecule_id' : True,
-    'molecule_name' : True,
-    'molecule_type' : True,
+    'molecule_index' : False,
+    'molecule_id' : False,
+    'molecule_name' : False,
+    'molecule_type' : False,
 
-    'chain_index' : True,
-    'chain_id' : True,
-    'chain_name' : True,
-    'chain_type' : True,
+    'chain_index' : False,
+    'chain_id' : False,
+    'chain_name' : False,
+    'chain_type' : False,
 
-    'entity_index' : True,
-    'entity_id' : True,
-    'entity_name' : True,
-    'entity_type' : True,
+    'entity_index' : False,
+    'entity_id' : False,
+    'entity_name' : False,
+    'entity_type' : False,
 
-    'coordinates' : True,
+    'coordinates' : False,
     'velocities' : False,
-    'box' : True,
+    'box' : False,
     'time' : False,
     'step' : False,
 
@@ -82,220 +82,4 @@ def to_file_fasta(item, molecular_system, atom_indices='all', structure_indices=
                                            output_filename=output_filename, check=False)
 
     return tmp_item
-
-###### Get
-
-## atom
-
-def get_atom_id_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_atom_name_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_atom_type_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_group_index_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_component_index_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_chain_index_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_molecule_index_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_entity_index_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_inner_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_frame_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## group
-
-def get_group_id_from_group(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_group_name_from_group(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_group_type_from_group(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## component
-
-def get_component_id_from_component (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_component_name_from_component (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_component_type_from_component (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## molecule
-
-def get_molecule_id_from_molecule (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_molecule_name_from_molecule (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_molecule_type_from_molecule (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## chain
-
-def get_chain_id_from_chain (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_chain_name_from_chain (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_chain_type_from_chain (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## entity
-
-def get_entity_id_from_entity (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_entity_name_from_entity (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_entity_type_from_entity (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## system
-
-def get_n_atoms_from_system(item, indices='all', structure_indices='all'):
-
-    return None
-
-def get_n_groups_from_system(item, indices='all', structure_indices='all'):
-
-    return len(item)
-
-def get_n_components_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_n_chains_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_n_molecules_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_n_entities_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_coordinates_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_box_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_box_shape_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_box_angles_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_box_volume_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_time_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_step_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_n_structures_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## bond
-
-def get_bond_order_from_bond(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_bond_type_from_bond(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_atom_index_from_bond(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-###### Set
-
-def set_box_to_system(item, indices='all', structure_indices='all', value=None):
-
-    raise NotImplementedError
-
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
-
-    raise NotImplementedError
 

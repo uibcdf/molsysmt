@@ -16,10 +16,10 @@ def to_biopython_Seq(item, atom_indices='all', check=True):
         except:
             raise WrongAtomIndicesError()
 
-    from molsysmt.tools.molsysmt_MolSys import to_string_aminoacids1 as molsysmt_Molsys_to_string_aminoacids1
+    from molsysmt.tools.molsysmt_MolSys import to_string_aminoacids1 as molsysmt_MolSys_to_string_aminoacids1
     from molsysmt.tools.string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq
 
-    tmp_item = to_string_aminoacids1(item, atom_indices=atom_indices, check=False)
+    tmp_item = molsysmt_MolSys_to_string_aminoacids1(item, atom_indices=atom_indices, check=False)
     tmp_item = string_aminoacids1_to_biopython_Seq(tmp_item, check=False)
 
     return tmp_item
