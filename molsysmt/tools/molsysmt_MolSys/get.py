@@ -624,9 +624,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_molsysmt_MolSys(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('molsysmt.MolSys')
 
         try:
             indices = digest_indices(indices)

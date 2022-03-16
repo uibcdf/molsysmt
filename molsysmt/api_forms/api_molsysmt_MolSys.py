@@ -91,32 +91,48 @@ def to_XYZ(item, molecular_system, atom_indices='all', structure_indices='all'):
 def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_MolSys import to_string_aminoacids3 as molsysmt_MolSys_to_string_aminoacids3
+    from molsysmt.tools.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
 
-    tmp_item = molsysmt_MolSys_to_string_aminoacids3(item, atom_indices=atom_indices, check=False)
+    group_indices = get_group_index_from_atom_molsysmt_MolSys(item, indices=atom_indices, check=False)
+    group_indices = np.unique(group_indices)
+
+    tmp_item = molsysmt_MolSys_to_string_aminoacids3(item, group_indices=group_indices, check=False)
 
     return tmp_item
 
 def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_MolSys import to_string_aminoacids1 as molsysmt_MolSys_to_string_aminoacids1
+    from molsysmt.tools.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
 
-    tmp_item = molsysmt_MolSys_to_string_aminoacids1(item, atom_indices=atom_indices, check=False)
+    group_indices = get_group_index_from_atom_molsysmt_MolSys(item, indices=atom_indices, check=False)
+    group_indices = np.unique(group_indices)
+
+    tmp_item = molsysmt_MolSys_to_string_aminoacids1(item, group_indices=group_indices, check=False)
 
     return tmp_item
 
 def to_biopython_Seq(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_MolSys import to_biopython_Seq as molsysmt_MolSys_to_biopython_Seq
+    from molsysmt.tools.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
 
-    tmp_item = molsysmt_MolSys_to_biopython_Seq(item, atom_indices=atom_indices, check=False)
+    group_indices = get_group_index_from_atom_molsysmt_MolSys(item, indices=atom_indices, check=False)
+    group_indices = np.unique(group_indices)
+
+    tmp_item = molsysmt_MolSys_to_biopython_Seq(item, group_indices=group_indices, check=False)
 
     return tmp_item
 
 def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_MolSys import to_biopython_SeqRecord as molsysmt_MolSys_to_biopython_SeqRecord
+    from molsysmt.tools.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
 
-    tmp_item = molsysmt_MolSys_to_biopython_SeqRecord(item, atom_indices=atom_indices, check=False)
+    group_indices = get_group_index_from_atom_molsysmt_MolSys(item, indices=atom_indices, check=False)
+    group_indices = np.unique(group_indices)
+
+    tmp_item = molsysmt_MolSys_to_biopython_SeqRecord(item, group_indices=group_indices, check=False)
 
     return tmp_item
 

@@ -1,6 +1,8 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt.tools.molecular_system import is_molecular_system
 from molsysmt.tools.item import is_file
+from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
+from molsysmt.api_forms import dict_extract
 
 def copy(molecular_system, output_filename=None, check=False):
 
@@ -19,9 +21,9 @@ def copy(molecular_system, output_filename=None, check=False):
 
     from molsysmt.basic import get_form
 
-    form_in = get_form()
+    form_in = get_form(molecular_system)
 
-    if not is_list_or_tuple(get_form):
+    if not is_list_or_tuple(form_in):
         form_in = [form_in]
         molecular_system = [molecular_system]
 
@@ -29,7 +31,7 @@ def copy(molecular_system, output_filename=None, check=False):
 
     for item_form, item in zip(form_in, molecular_system):
 
-        output_item = dict_extract[form_in](item, copy_if_all=True, check=False)
+        output_item = dict_extract[item_form](item, copy_if_all=True, check=False)
         output.append(output_item)
 
     if len(output)==1:

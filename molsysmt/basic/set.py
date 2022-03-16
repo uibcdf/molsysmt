@@ -1,7 +1,7 @@
 from molsysmt._private_tools.exceptions import *
 from molsysmt._private_tools.digestion import *
 from molsysmt.api_forms import dict_set
-from molsysmt.tools.molecular_system import is_molecular_system
+from molsysmt.tools.molecular_system import is_molecular_system, where_is_attribute
 from molsysmt._private_tools.set_arguments import where_set_argument
 
 def set(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
@@ -91,18 +91,16 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
 
         value_of_attribute = {}
         for key in kwargs.keys():
-            if kwargs[key]:
-                try:
-                    value_of_attribute[digest_set_argument(key, target)]=kwargs[key]
-                except:
-                    raise WrongSetArgumentError(key)
+            try:
+                value_of_attribute[digest_set_argument(key, target)]=kwargs[key]
+            except:
+                raise WrongSetArgumentError(key)
 
     else:
 
         value_of_attribute = {}
         for key in kwargs.keys():
-            if kwargs[key]:
-                value_of_attribute[digest_set_argument(key, target)]=kwargs[key]
+            value_of_attribute[key]=kwargs[key]
 
 
     from molsysmt.basic import select
@@ -122,13 +120,10 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
 
     for attribute in attributes:
 
-        for where_attribute in where_set_argument[attribute]:
-            item = getattr(molecular_system, where_attribute+'_item')
-            form = getattr(molecular_system, where_attribute+'_form')
+        item, form = where_is_attribute(molecular_system, attribute, check=False)
 
-            if item is not None:
-                value = value_of_attribute[attribute]
-                dict_set[form][target][attribute](item, indices=indices, structure_indices=structure_indices, value=value)
+        value = value_of_attribute[attribute]
+        dict_set[form][target][attribute](item, indices=indices, structure_indices=structure_indices, value=value)
 
     pass
 

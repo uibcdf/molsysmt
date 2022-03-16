@@ -33,21 +33,7 @@ def atom_indices_to_AmberMask(molecular_system, atom_indices):
     mask[atom_indices]=1
     return list(mask)
 
-def digest_atom_indices(atom_indices):
-
-    if type(atom_indices)==str:
-        if atom_indices in ['all', 'All', 'ALL']:
-            atom_indices = 'all'
-        else:
-            raise ValueError()
-    elif type(atom_indices) in [int, np.int64, np.int]:
-        atom_indices = np.array([atom_indices], dtype='int64')
-    elif hasattr(atom_indices, '__iter__'):
-        atom_indices = np.array(atom_indices, dtype='int64')
-
-    return atom_indices
-
-def atom_indices_to_string(atom_indices):
+def atom_indices_to_csv(atom_indices):
 
     return ",".join([str(ii) for ii in atom_indices])
 

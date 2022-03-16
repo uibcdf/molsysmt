@@ -3,6 +3,7 @@ from molsysmt._private_tools.exceptions import WrongFormError, WrongIndicesError
 from molsysmt._private_tools.exceptions import NotImplementedMethodError
 from molsysmt._private_tools.indices import digest_indices
 from molsysmt._private_tools.structure_indices import digest_structure_indices
+from molsysmt import puw
 
 ###### Set
 
@@ -13,9 +14,9 @@ def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=No
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_molsysmt_MolSys(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('molsysmt.MolSys')
 
         try:
             indices = digest_indices(indices)
@@ -36,9 +37,9 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_molsysmt_MolSys(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('molsysmt.MolSys')
 
         try:
             indices = digest_indices(indices)
@@ -78,9 +79,9 @@ def set_box_to_system(item, indices='all', structure_indices='all', value=None, 
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_molsysmt_MolSys(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('molsysmt.MolSys')
 
         try:
             indices = digest_indices(indices)
@@ -100,9 +101,9 @@ def set_coordinates_to_system(item, indices='all', structure_indices='all', valu
     if check:
 
         try:
-            is_pdbfixer_PDBFixer(item)
+            is_molsysmt_MolSys(item)
         except:
-            raise WrongFormError('pdbfixer.PDBFixer')
+            raise WrongFormError('molsysmt.MolSys')
 
         try:
             indices = digest_indices(indices)
