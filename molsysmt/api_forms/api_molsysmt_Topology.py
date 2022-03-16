@@ -66,6 +66,9 @@ form_attributes = {
 def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.tools.molsysmt_Topology import to_string_aminoacids3 as molsysmt_Topology_to_string_aminoacids3
+    from molsysmt.tools.molsysmt_Topology import get_group_index_from_atom as get_group_index_from_atom_molsysmt_Topology
+
+    group_indices = get_group_index_from_atom_molsysmt_Topology(item, indices=indices)
 
     tmp_item = molsysmt_Topology_to_string_aminoacids3(item, atom_indices=atom_indices, check=False)
 
