@@ -14,15 +14,13 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
         if not are_multiple_molecular_systems(molecular_systems):
             raise MultipleMolecularSystemsNeededError()
 
-        raise NotImplementedError()
-
         try:
             syntaxis = digest_syntaxis(syntaxis)
         except:
             raise WrongSyntaxisError(syntaxis)
 
         try:
-            selection = digest_selection(selection, syntaxis)
+            selections = digest_selection(selections, syntaxis)
         except:
             raise WrongSelectionError()
 

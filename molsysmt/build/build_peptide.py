@@ -1,9 +1,10 @@
 def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
-                   to_form='molsysmt.MolSys', engine='LEaP', logfile=False, verbose=False):
+                   to_form='molsysmt.MolSys', engine='LEaP', logfile=False, verbose=False,
+                   check=True):
 
     # box_geometry: "cubic" or "truncated octahedral"
 
-    from molsysmt._private_tools._digestion import digest_engine
+    from molsysmt._private_tools.engine import digest_engine
 
     engine = digest_engine(engine)
 
