@@ -1,4 +1,4 @@
-from molsysmt.tools.biopython_SeqRecord.is_biopython_SeqRecord import is_biopython_SeqRecord
+from .is_biopython_SeqRecord import is_biopython_SeqRecord
 from molsysmt._private_tools.exceptions import WrongFormError
 
 def add(to_item, item, check=True):

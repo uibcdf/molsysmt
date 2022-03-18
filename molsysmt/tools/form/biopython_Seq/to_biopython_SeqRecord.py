@@ -1,4 +1,4 @@
-from molsysmt.tools.biopython_Seq.is_biopython_Seq import is_biopython_Seq
+from .is_biopython_Seq import is_biopython_Seq
 from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError
 from molsysmt._private_tools.exceptions import NotImplementedMethodError
 from molsysmt._private_tools.atom_indices import digest_atom_indices
@@ -19,7 +19,7 @@ def to_biopython_SeqRecord(item, atom_indices='all', structure_indices='all',
             raise WrongAtomIndicesError()
 
     from Bio.SeqRecord import SeqRecord as Bio_SeqRecord
-    from molsysmt.tools.biopython_Seq import extract
+    from molsysmt.tools.form.biopython_Seq import extract
 
     if id is None:
         id = 'None'

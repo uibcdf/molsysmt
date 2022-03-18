@@ -1,4 +1,4 @@
-from molsysmt.tools.biopython_Seq.is_biopython_Seq import is_biopython_Seq
+from .is_biopython_Seq import is_biopython_Seq
 from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
 from molsysmt._private_tools.exceptions import NotImplementedMethodError
 from molsysmt._private_tools.atom_indices import digest_atom_indices

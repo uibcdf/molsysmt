@@ -1,4 +1,4 @@
-from molsysmt.tools.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
+from .is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
 from molsysmt._private_tools.exceptions import WrongFormError
 from molsysmt._private_tools.exceptions import NotImplementedMethodError
 

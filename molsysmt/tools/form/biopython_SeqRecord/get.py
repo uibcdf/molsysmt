@@ -2,7 +2,7 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt.tools.biopython_SeqRecord.is_biopython_SeqRecord import is_biopython_SeqRecord
+from .is_biopython_SeqRecord import is_biopython_SeqRecord
 from molsysmt._private_tools.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
 from molsysmt._private_tools.exceptions import NotSupportedFormError
 from molsysmt._private_tools.indices import digest_indices

@@ -1,4 +1,4 @@
-from molsysmt.tools.biopython_SeqRecord.is_biopython_SeqRecord import is_biopython_SeqRecord
+from .is_biopython_SeqRecord import is_biopython_SeqRecord
 from molsysmt._private_tools.exceptions import WrongFormError, WrongStepError
 from molsysmt._private_tools.step import digest_step
 from molsysmt._private_tools.time import digest_time

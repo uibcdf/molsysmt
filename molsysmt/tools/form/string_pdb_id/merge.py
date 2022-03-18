@@ -1,4 +1,4 @@
-from molsysmt.tools.string_pdb_id.is_string_pdb_id import is_string_pdb_id
+from .is_string_pdb_id import is_string_pdb_id
 from molsysmt._private_tools.exceptions import WrongFormError
 from molsysmt._private_tools.exceptions import NotImplementedMethodError
 
