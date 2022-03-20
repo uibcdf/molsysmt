@@ -1,7 +1,0 @@
-from .is_biopython_SeqRecord import is_biopython_SeqRecord
-from molsysmt._private_tools.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
-from molsysmt._private_tools.indices import digest_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
-
-
