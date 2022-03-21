@@ -1,13 +1,34 @@
-def to_molsysmt_MolSys(item, selection='all', structure_indices='all', syntaxis='MolSysMT'):
+from .is_openmm_Modeller import is_openmm_Modeller
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
-    from molsysmt.tools.openmm_Modeller import is_openmm_Modeller
-    from molsysmt.basic import convert
+def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', check=True):
 
-    if not is_openmm_Modeller(item):
-        raise ValueError
+    if check:
 
-    tmp_item = convert(item, to_form='molsysmt.MolSys', selection=selection,
-            structure_indices=structure_indices, syntaxis=syntaxis)
+        try:
+            is_openmm_Modeller(item)
+        except:
+            raise WrongFormError('openmm.Modeller')
+
+        try:
+            atom_indices = digest_atom_indices(atom_indices)
+        except:
+            raise WrongAtomIndicesError()
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+    from molsysmt.native.molsys import MolSys
+    from . import to_molsysmt_Topology
+    from . import to_molsysmt_Structures
+
+    tmp_item = MolSys()
+    tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item.trajectory  = to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices)
 
     return tmp_item
 

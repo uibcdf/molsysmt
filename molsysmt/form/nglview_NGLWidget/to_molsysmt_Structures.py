@@ -1,6 +1,6 @@
-from molsysmt.tools.nglview_NGLWidget.is_nglview_NGLWidget import is_nglview_NGLWidget
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
+from .is_nglview_NGLWidget import is_nglview_NGLWidget
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
 
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', check=True):
 
@@ -23,7 +23,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', ch
 
 
     from molsysmt.native.structures import Structures
-    from molsysmt.tools.nglview_NGLWidget import get_coordinates_from_atom, get_box_from_system, get_step_from_system, get_time_from_system
+    from . import get_coordinates_from_atom, get_box_from_system, get_step_from_system, get_time_from_system
 
     tmp_item = Structures()
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices, check=False)

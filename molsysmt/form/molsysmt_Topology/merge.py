@@ -1,6 +1,6 @@
-from molsysmt.tools.molsysmt_Topology.is_molsysmt_Topology import is_molsysmt_Topology
-from molsysmt._private_tools.exceptions import WrongFormError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
+from .is_molsysmt_Topology import is_molsysmt_Topology
+from molsysmt._private.exceptions import WrongFormError
+from molsysmt._private.exceptions import NotImplementedMethodError
 
 def merge(item_1, item_2):
 

@@ -1,7 +1,7 @@
-from molsysmt.tools.nglview_NGLWidget.is_nglview_NGLWidget import is_nglview_NGLWidget
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from .is_nglview_NGLWidget import is_nglview_NGLWidget
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=True):
 
@@ -22,7 +22,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.string_pdb_text import extract
+    from ..string_pdb_text import extract
 
     try:
         tmp_item = item.component_0.get_structure_string()

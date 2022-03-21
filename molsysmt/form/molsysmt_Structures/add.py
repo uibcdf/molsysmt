@@ -1,5 +1,5 @@
-from molsysmt.tools.molsysmt_Structures.is_molsysmt_Structures import is_molsysmt_Structures
-from molsysmt._private_tools.exceptions import WrongFormError
+from .is_molsysmt_Structures import is_molsysmt_Structures
+from molsysmt._private.exceptions import WrongFormError
 
 def add(to_item, item, check=True):
 

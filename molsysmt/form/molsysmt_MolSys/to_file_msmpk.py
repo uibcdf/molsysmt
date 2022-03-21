@@ -1,7 +1,7 @@
 from .is_molsysmt_MolSys import is_molsysmt_MolSys
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
 
@@ -25,7 +25,7 @@ def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_file
     if output_filename is None:
         raise ValueError('A value different from None is required for the argument "output_filename"')
 
-    from molsysmt.tools.form.molsysmt_MolSys import extract
+    from . import extract
     from molsysmt import puw
     import pickle
 

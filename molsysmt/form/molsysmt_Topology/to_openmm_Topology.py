@@ -1,17 +1,33 @@
+from .is_molsysmt_Topology import is_molsysmt_Topology
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.exceptions import LibraryNotFound
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
+
 def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
 
     if check:
-        from molsysmt.tools.molsysmt_Topology import is_molsymst_Topology
-        from molsysmt._private_tools.exceptions import WrongFormError
-        if not is_molsysmt_Topology(item):
+
+        try:
+            is_molsysmt_Topology(item)
+        except:
             raise WrongFormError('molsysmt.Topology')
+
+        try:
+            atom_indices = digest_atom_indices(atom_indices)
+        except:
+            raise WrongAtomIndicesError()
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
 
     try:
         import openmm as mm
         import openmm.app as app
         import openmm.unit as unit
     except:
-        from molsysmt._private_tools.exceptions import LibraryNotFound
         raise LibraryNotFound('openmm')
 
     n_atoms = item.atoms_dataframe.shape[0]
@@ -76,7 +92,7 @@ def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
 
     if box is not None:
 
-        from molsysmt.tools.openmm_Topology import set_box_to_system
+        from ..openmm_Topology import set_box_to_system
 
         set_box_to_system(tmp_item, value=box, check=False)
 

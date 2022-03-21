@@ -1,16 +1,32 @@
+from .is_molsysmt_Topology import is_molsysmt_Topology
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.exception import LibraryNotFound
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
+
 def to_mdtraj_Topology(item, atom_indices='all', check=True):
 
     if check:
-        from molsysmt.tools.molsysmt_Topology import is_molsymst_Topology
-        from molsysmt._private_tools.exceptions import WrongFormError
-        if not is_molsysmt_Topology(item):
+
+        try:
+            is_molsysmt_Topology(item)
+        except:
             raise WrongFormError('molsysmt.Topology')
+
+        try:
+            atom_indices = digest_atom_indices(atom_indices)
+        except:
+            raise WrongAtomIndicesError()
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
 
     try:
         from mdtraj import Topology
         from mdtraj.core import element
     except:
-        from molsysmt._private_tools.exception import LibraryNotFound
         raise LibraryNotFound('mdtraj')
 
     n_atoms = item.atoms_dataframe.shape[0]

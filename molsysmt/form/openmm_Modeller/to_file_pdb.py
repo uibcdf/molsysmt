@@ -1,17 +1,38 @@
+from .is_openmm_Modeller import is_openmm_Modeller
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.exceptions import LibraryNotFound
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
-def to_file_pdb(item, selection='all', structure_indices='all', output_filename=None, syntaxis='MolSysMT'):
+def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
 
-    from molsysmt.tools.openmm_Modeller import is_openmm_Modeller
-    from molsysmt.basic import convert
+    if check:
 
-    if not is_openmm_Modeller(item):
-        raise ValueError
+        try:
+            is_openmm_Modeller(item)
+        except:
+            raise WrongFormError('openmm.Modeller')
+
+        try:
+            atom_indices = digest_atom_indices(atom_indices)
+        except:
+            raise WrongAtomIndicesError()
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
 
     if output_filename is None:
         raise ValueError
 
-    tmp_item = convert(item, to_form=output_filename, selection=selection,
-            structure_indices=structure_indices, syntaxis=syntaxis)
+    from . import to_openmm_Topology
+    from . import get_coordinates_from_atom
+    from ..openmm_Topology import to_file_pdb as openmm_Topology_to_file_pdb
+
+    tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    coordinates = get_coordinates_from_atom(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = openmm_Topology_to_file_pdb(tmp_item, coordinates=coordinates, output_filename=output_filename, check=False)
 
     return tmp_item
 

@@ -1,6 +1,6 @@
 from .is_molsysmt_MolSys import is_molsysmt_MolSys
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.group_indices import digest_group_indices
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.group_indices import digest_group_indices
 
 def to_biopython_SeqRecord(item, group_indices='all', check=True):
 
@@ -16,10 +16,10 @@ def to_biopython_SeqRecord(item, group_indices='all', check=True):
         except:
             raise WrongAtomIndicesError()
 
-    from molsysmt.tools.form.molsysmt_MolSys import to_string_aminoacids1 as molsysmt_MolSys_to_string_aminoacids1
-    from molsysmt.tools.form.string_aminoacids1 import to_biopython_SeqRecord as string_aminoacids1_to_biopython_SeqRecord
+    from . import to_string_aminoacids1
+    from ..string_aminoacids1 import to_biopython_SeqRecord as string_aminoacids1_to_biopython_SeqRecord
 
-    tmp_item = molsysmt_MolSys_to_string_aminoacids1(item, group_indices=group_indices, check=False)
+    tmp_item = to_string_aminoacids1(item, group_indices=group_indices, check=False)
     tmp_item = string_aminoacids1_to_biopython_SeqRecord(tmp_item, check=False)
 
     return tmp_item

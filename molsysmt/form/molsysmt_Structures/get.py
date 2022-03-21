@@ -1,7 +1,7 @@
-from molsysmt.tools.molsysmt_Structures.is_molsysmt_Structures import is_molsysmt_Structures
-from molsysmt._private_tools.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.indices import digest_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from .is_molsysmt_Structures import is_molsysmt_Structures
+from molsysmt._private.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
+from molsysmt._private.indices import digest_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 import numpy as np
 from networkx import Graph
 

@@ -1,7 +1,7 @@
 from .is_molsysmt_MolSys import is_molsysmt_MolSys
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def to_mdtraj_Topology(item, atom_indices='all', check=True):
 
@@ -22,10 +22,10 @@ def to_mdtraj_Topology(item, atom_indices='all', check=True):
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.form.molsysmt_MolSys import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
-    from molsysmt.tools.form.molsysmt_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
+    from . import to_molsysmt_Topology
+    from ..molsysmt_Topology import to_mdtraj_Topology as molsysmt_Topology_to_mdtraj_Topology
 
-    tmp_item = molsysmt_MolSys_to_molsysmt_Topology(item, check=False)
+    tmp_item = to_molsysmt_Topology(item, check=False)
     tmp_item = molsysmt_Topology_to_mdtraj_Topology(tmp_item, atom_indices=atom_indices, check=False)
 
     return tmp_item

@@ -1,7 +1,8 @@
 from .is_molsysmt_MolSys import is_molsysmt_MolSys
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.exceptions import LibraryNotFound
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', check=True):
 
@@ -22,16 +23,16 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', chec
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt._private_tools.exceptions import LibraryNotFound, WrongFormError
     from molsysmt import puw
-    from molsysmt.tools.form.molsysmt_MolSys import to_mdtraj_Topology as molsysmt_MolSys_to_mdtraj_Topology
-    from molsysmt.tools.form.molsysmt_MolSys import get_box_lengths_from_system, get_box_angles_from_system, get_coordinates_from_atom, get_time_from_system
+    from . import to_mdtraj_Topology
+    from . import get_box_lengths_from_system, get_box_angles_from_system, get_coordinates_from_atom, get_time_from_system
+
     try:
         from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
     except:
         raise LibraryNotFound('mdtraj')
 
-    tmp_item_topology = molsysmt_MolSys_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
+    tmp_item_topology = to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
 
     tmp_box_lengths = get_box_lengths_from_system(item, structure_indices=structure_indices, check=False)
     if tmp_box_lengths is not None:
