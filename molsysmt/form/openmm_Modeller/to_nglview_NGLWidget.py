@@ -23,11 +23,11 @@ def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', chec
             raise WrongStructureIndicesError()
 
 
-    from .api_molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+    from . import to_molsysmt_MolSys as to_molsysmt_MolSys
+    from ..molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
-    tmp_item, tmp_molecular_system  = to_molsysmt_MolSys(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item, tmp_molecular_system  = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item,
-            molecular_system=tmp_molecular_system)
+    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item)
 
     return tmp_item
 

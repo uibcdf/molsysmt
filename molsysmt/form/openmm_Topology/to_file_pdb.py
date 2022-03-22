@@ -1,8 +1,8 @@
-from molsysmt.tools.openmm_Topology.is_openmm_Topology import is_openmm_Topology
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.coordinates import digest_coordinates
+from .is_openmm_Topology import is_openmm_Topology
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.coordinates import digest_coordinates
 
 def to_file_pdb(item, atom_indices='all', coordinates=None, output_filename=None, check=True):
 
@@ -23,9 +23,9 @@ def to_file_pdb(item, atom_indices='all', coordinates=None, output_filename=None
         except:
             raise WrongCoordinatesError()
 
-    from molsysmt.tools.openmm_Topology import to_string_pdb_text as openmm_Topology_to_string_pdb_text
+    from . import to_string_pdb_text
 
-    string_pdb_text = openmm_Topology_to_string_pdb_text(item, atom_indices=atom_indices, coordinates=None, check=False)
+    string_pdb_text = to_string_pdb_text(item, atom_indices=atom_indices, coordinates=None, check=False)
 
     with open(output_filename, 'w') as file:
         file.write(string_pdb_text)
