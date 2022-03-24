@@ -1,6 +1,6 @@
 from .is_molsysmt_Topology import is_molsysmt_Topology
 from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private.exception import LibraryNotFound
+from molsysmt._private.exceptions import LibraryNotFoundError
 from molsysmt._private.atom_indices import digest_atom_indices
 from molsysmt._private.structure_indices import digest_structure_indices
 

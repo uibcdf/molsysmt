@@ -1,6 +1,5 @@
 from .is_openmm_Modeller import is_openmm_Modeller
 from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private.exceptions import LibraryNotFound
 from molsysmt._private.atom_indices import digest_atom_indices
 from molsysmt._private.structure_indices import digest_structure_indices
 

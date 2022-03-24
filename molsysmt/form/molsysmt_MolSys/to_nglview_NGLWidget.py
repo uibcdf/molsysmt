@@ -1,6 +1,5 @@
 from .is_molsysmt_MolSys import is_molsysmt_MolSys
 from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private.exceptions import LibraryNotFound
 from molsysmt._private.atom_indices import digest_atom_indices
 from molsysmt._private.structure_indices import digest_structure_indices
 
@@ -23,10 +22,7 @@ def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', chec
         except:
             raise WrongStructureIndicesError()
 
-    try:
-        from nglview import show_molsysmt
-    except:
-        raise LibraryNotFound('nglview')
+    from nglview import show_molsysmt
 
     tmp_item = show_molsysmt(item, selection=atom_indices, structure_indices=structure_indices)
 

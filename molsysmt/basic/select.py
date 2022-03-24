@@ -7,7 +7,8 @@ from molsysmt.api_forms import dict_get
 from molsysmt._private.selection import selection_is_all
 from molsysmt._private.strings import get_parenthesis
 from molsysmt._private.selection import indices_to_selection
-from molsysmt.tools.molecular_system import is_molecular_system, where_is_attribute
+from .is_molecular_system import is_molecular_system
+from .where_is_attribute import where_is_attribute
 
 def select_standard(molecular_system, selection, syntaxis):
 

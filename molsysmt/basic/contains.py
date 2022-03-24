@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt.tools.molecular_system import is_molecular_system
+from .is_molecular_system import is_molecular_system
 
 def contains(molecular_system, selection='all', syntaxis='MolSysMT',
         ions=None, waters=None, cosolutes=None, small_molecules=None, peptides=None, proteins=None,

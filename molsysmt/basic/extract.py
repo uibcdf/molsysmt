@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.selection import selection_is_all
-from molsysmt.tools.molecular_system import is_molecular_system
+from .is_molecular_system import is_molecular_system
 from molsysmt.api_forms import dict_extract
 
 def extract(molecular_system, selection='all', structure_indices='all', to_form=None,

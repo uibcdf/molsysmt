@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from molsysmt.tools.molecular_system import is_molecular_system
+from ..is_molecular_system import is_molecular_system
 from molsysmt.api_forms import dict_get
 from .arguments import required_indices, digest_argument
 

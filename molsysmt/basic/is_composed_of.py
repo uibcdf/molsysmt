@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt.tools.molecular_system import is_molecular_system
+from .is_molecular_system import is_molecular_system
 
 
 def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT',
