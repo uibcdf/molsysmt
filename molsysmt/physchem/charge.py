@@ -1,10 +1,10 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 
 def charge(molecular_system, target='group', selection='all', type=None, engine='OpenMM'):
 
-    from molsysmt._private_tools._digestion import digest_engine, digest_target
+    from molsysmt._private._digestion import digest_engine, digest_target
 
     engine=digest_engine(engine)
     target=digest_target(target)
@@ -50,7 +50,7 @@ def charge(molecular_system, target='group', selection='all', type=None, engine=
 
     else:
 
-        from molsysmt._private_tools._digestion import digest_molecular_system
+        from molsysmt._private._digestion import digest_molecular_system
         from molsysmt.basic import get, convert, get_form
 
         molecular_system = digest_molecular_system(molecular_system)

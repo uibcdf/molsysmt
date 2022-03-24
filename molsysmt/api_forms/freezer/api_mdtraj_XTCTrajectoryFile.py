@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt.api_forms.common_gets import *
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt import puw
 from molsysmt.native.molecular_system import molecular_system_components
 
@@ -108,7 +108,7 @@ def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
 
     if structure_indices is 'all':
 
@@ -140,7 +140,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
 def get_frame_from_atom(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
 
     if structure_indices is 'all':
 
@@ -295,7 +295,7 @@ def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
 
 def get_box_from_system(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
 
     if structure_indices is 'all':
 
@@ -339,7 +339,7 @@ def get_box_volume_from_system(item, indices='all', structure_indices='all'):
 
 def get_time_from_system(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
 
     if structure_indices is 'all':
 
@@ -367,7 +367,7 @@ def get_time_from_system(item, indices='all', structure_indices='all'):
 
 def get_step_from_system(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
 
     if structure_indices is 'all':
 

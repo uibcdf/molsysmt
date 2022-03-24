@@ -1,5 +1,5 @@
-from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text
-from molsysmt._private_tools.exceptions import WrongFormError
+from .is_string_pdb_text import is_string_pdb_text
+from molsysmt._private.exceptions import WrongFormError
 
 def add(to_item, item, check=True):
 

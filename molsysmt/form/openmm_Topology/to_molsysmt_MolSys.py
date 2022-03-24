@@ -1,9 +1,9 @@
-from molsysmt.tools.openmm_Topology.is_openmm_Topology import is_openmm_Topology
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError, WrongBoxError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.coordinates import digest_coordinates
-from molsysmt._private_tools.box import digest_box
+from .is_openmm_Topology import is_openmm_Topology
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError, WrongBoxError
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.coordinates import digest_coordinates
+from molsysmt._private.box import digest_box
 
 def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None, check=True):
 
@@ -31,11 +31,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None, che
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.structures import Structures
-    from molsysmt.tools.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
-    from molsysmt.tools.openmm_Topology import get_box_from_system
+    from . import to_molsysmt_Topology as to_molsysmt_Topology
+    from . import get_box_from_system
 
     tmp_item = MolSys()
-    tmp_item.topology = openmm_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
+    tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
     tmp_item.structures = Structures()
     if box is None:
         box = get_box_from_system(item)

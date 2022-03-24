@@ -1,7 +1,7 @@
 # Source: V. J. Buch. J. Chem. Phys. 96, 3814-3823 (1992)
 
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from molsysmt.basic import select
 from molsysmt import puw
 import numpy as np

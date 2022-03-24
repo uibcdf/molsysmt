@@ -1,4 +1,3 @@
-
 def is_string_aminoacids1(item):
 
     output = False

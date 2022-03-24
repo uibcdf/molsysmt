@@ -1,6 +1,6 @@
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.exceptions import WrongFormError
+    from molsysmt._private.exceptions import WrongFormError
     from molsysmt.tools.mdtraj_Trajectory import is_mdtraj_Trajectory
     from molsysmt.native.molsys import MolSys
     from molsysmt.tools.mdtraj_Trajectory import to_molsysmt_Topology as mdtraj_Trajectory_to_molsysmt_Topology

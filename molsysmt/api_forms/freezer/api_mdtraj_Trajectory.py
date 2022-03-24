@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 import importlib
@@ -131,7 +131,7 @@ def to_parmed_Structure(item, molecular_system=None, atom_indices='all', structu
 def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.api_forms.api_pdb import to_pdbfixer_PDBFixer as pdb_to_pdbfixer_PDBFixer
-    from molsysmt._private_tools.files_and_directories import temp_filename
+    from molsysmt._private.files_and_directories import temp_filename
     from os import remove as remove
 
     tmp_file = temp_filename(extension='pdb')

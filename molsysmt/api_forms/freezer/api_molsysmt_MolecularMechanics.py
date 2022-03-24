@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.native.molecular_mechanics import MolecularMechanics as _molsysmt_MolecularMechanics
 from molsysmt.native.molecular_system import molecular_system_components
 

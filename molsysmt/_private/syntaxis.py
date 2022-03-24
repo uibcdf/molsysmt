@@ -40,8 +40,8 @@ def digest_selection(selection, syntaxis="MolSysMT"):
 
 def indices_to_selection(molecular_system, indices, target='atom', syntaxis=None):
 
-    from molsysmt._private_tools.targets import digest_target
-    from molsysmt._private_tools.molecular_system import digest_molecular_system
+    from molsysmt._private.targets import digest_target
+    from molsysmt._private.molecular_system import digest_molecular_system
 
     syntaxis = digest_syntaxis(syntaxis)
     target = digest_target(target)

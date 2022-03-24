@@ -1,4 +1,4 @@
-from molsysmt._private_tools.engines import digest_engine
+from molsysmt._private.engines import digest_engine
 
 forcefields = {
 

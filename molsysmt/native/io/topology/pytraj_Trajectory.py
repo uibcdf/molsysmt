@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 
 def to_pytraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 

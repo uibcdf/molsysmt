@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from os.path import basename as _basename
 from mdtraj.core.topology import Topology as _mdtraj_Topology
 import numpy as _np

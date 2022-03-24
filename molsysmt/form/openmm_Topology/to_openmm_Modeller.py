@@ -1,7 +1,7 @@
-from molsysmt.tools.openmm_Topology.is_openmm_Topology import is_openmm_Topology
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.coordinates import digest_coordinates
+from .is_openmm_Topology import is_openmm_Topology
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.coordinates import digest_coordinates
 
 def to_openmm_Modeller(item, atom_indices='all', coordinates=None, check=True):
 
@@ -22,11 +22,11 @@ def to_openmm_Modeller(item, atom_indices='all', coordinates=None, check=True):
         except:
             raise WrongCoordinatesError()
 
-    from molsysmt.tools.openmm_Topology import extract as extract_openmm_Topology
+    from . import extract
     from molsysmt import puw
     from openmm.app import Modeller
 
-    tmp_item = extract_openmm_Topology(item, atom_indices=atom_indices, copy_if_all=False, check=False)
+    tmp_item = extract(item, atom_indices=atom_indices, copy_if_all=False, check=False)
     positions = puw.convert(coordinates[0], 'nm', to_form='openmm.unit')
     tmp_item = Modeller(tmp_item, positions)
 

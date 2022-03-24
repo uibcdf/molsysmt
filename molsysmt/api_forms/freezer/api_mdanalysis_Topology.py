@@ -1,63 +1,62 @@
-from molsysmt._private_tools.exceptions import *
+from os.path import basename as _basename
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
-from molsysmt.native.molecular_system import molecular_system_components
+from MDAnalysis.core.topology import Topology as _mdanalysis_Topology
 
-form_name='mdanalysis.Topology'
-from_type='class'
+form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
+    _mdanalysis_Topology : form_name,
     'mdanalysis.Topology' : form_name
         }
 
 info=["",""]
+with_topology=True
+with_coordinates=False
+with_box=False
+with_parameters=False
 
-has = molecular_system_components.copy()
-for ii in ['elements', 'bonds']:
-    has[ii]=True
+def select_with_Amber(item, selection):
 
-def to_mdanalysis_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True):
+    raise NotImplementedError
 
-    tmp_molecular_system = None
+def select_with_MDAnalysis(item, selection):
 
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        if copy_if_all:
-            tmp_item = extract(item)
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-        else:
-            tmp_item = item
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system
-    else:
-        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-        if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
+    raise NotImplementedError
 
-    return tmp_item, tmp_molecular_system
+def select_with_MDTraj(item, selection):
+
+    raise NotImplementedError
+
+def select_with_MolSysMT(item, selection):
+
+    raise NotImplementedError
 
 def extract(item, atom_indices='all', structure_indices='all'):
 
     if (atom_indices is 'all') and (structure_indices is 'all'):
-        raise NotImplementedError
+        return item
     else:
         raise NotImplementedError
 
-    return tmp_item
-
-def merge(item_1, item_2):
+def copy(item):
 
     raise NotImplementedError
 
-def add(to_item, item):
+def merge(list_items, list_atom_indices, list_structure_indices):
 
     raise NotImplementedError
 
-def append_structures(item, step=None, time=None, coordinates=None, box=None):
+def concatenate(list_items, list_atom_indices, list_structure_indices):
 
     raise NotImplementedError
 
-def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
+def add(item, list_items, list_atom_indices, list_structure_indices):
+
+    raise NotImplementedError
+
+def append(item, list_items, list_atom_indices, list_structure_indices):
 
     raise NotImplementedError
 
@@ -121,6 +120,25 @@ def get_entity_index_from_atom (item, indices='all', structure_indices='all'):
     from molsysmt.elements.entity import get_entity_index_from_atom as _get
     return _get(item, indices=indices)
 
+def get_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
+
+    raise NotImplementedError
+
+def get_bond_index_from_atom (item, indices='all', structure_indices='all'):
+
+    raise NotImplementedError
+
+def get_n_bonds_from_atom (item, indices='all', structure_indices='all'):
+
+    if indices is 'all':
+        return get_n_bonds_from_system (item)
+    else:
+        raise NotImplementedError
+
+def get_inner_bond_index_from_atom (item, indices='all', structure_indices='all'):
+
+    raise NotImplementedError
+
 def get_inner_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
@@ -133,10 +151,6 @@ def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
         raise NotImplementedError
 
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_frame_from_atom(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
 
@@ -281,10 +295,6 @@ def get_box_angles_from_system(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
 
-def get_box_volume_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
 def get_time_from_system(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
@@ -300,6 +310,43 @@ def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
 
     raise NotImplementedError
+
+def get_form_from_system(item, indices='all', structure_indices='all'):
+
+    return form_name
+
+def get_has_topology_from_system(item, indices='all', structure_indices='all'):
+
+    return with_topology
+
+def get_has_parameters_from_system(item, indices='all', structure_indices='all'):
+
+    return with_parameters
+
+def get_has_coordinates_from_system(item, indices='all', structure_indices='all'):
+
+    return with_coordinates
+
+def get_has_box_from_system(item, indices='all', structure_indices='all'):
+
+    output = False
+
+    if with_box:
+        tmp_box = get_box_from_system(item, indices=indices, structure_indices=structure_indices)
+        if tmp_box[0] is not None:
+            output = True
+
+    return output
+
+def get_has_bonds_from_system(item, indices='all', structure_indices='all'):
+
+    output = False
+
+    if with_topology:
+        if get_n_bonds_from_system(item, indices=indices, structure_indices=structure_indices):
+            output = True
+
+    return output
 
 ## bond
 

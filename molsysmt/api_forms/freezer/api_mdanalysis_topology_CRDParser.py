@@ -1,14 +1,14 @@
 from os.path import basename as _basename
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
-from MDAnalysis.core.topology import Topology as _mdanalysis_Topology
+from MDAnalysis.topology import CRDParser as _mdanalysis_topology_CRDParser
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    _mdanalysis_Topology : form_name,
-    'mdanalysis.Topology' : form_name
+    _mdanalysis_topology_CRDParser : form_name,
+    'mdanalysis.topology.CRDParser' : form_name
         }
 
 info=["",""]
@@ -16,6 +16,15 @@ with_topology=True
 with_coordinates=False
 with_box=False
 with_parameters=False
+
+def to_mdanalysis_Topology(item, atom_indices='all', structure_indices='all',
+                           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
+
+    from .api_mdanalysis_Topology import extract as extract_mdanalysis_Topology
+
+    tmp_item = item.parse()
+    tmp_item = extract_mdanalysis_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
+    return tmp_item
 
 def select_with_Amber(item, selection):
 
@@ -66,34 +75,19 @@ def append(item, list_items, list_atom_indices, list_structure_indices):
 
 def get_atom_id_from_atom(item, indices='all', structure_indices='all'):
 
-    output = item.ids.values
-    if indices is not 'all':
-        output = output[indices]
-    return output
+    raise NotImplementedError
 
 def get_atom_name_from_atom(item, indices='all', structure_indices='all'):
 
-    output = item.names.values
-    if indices is not 'all':
-        output = output[indices]
-    return output
+    raise NotImplementedError
 
 def get_atom_type_from_atom(item, indices='all', structure_indices='all'):
 
-    output = item.types.values
-    if indices is not 'all':
-        output = output[indices]
-    return output
+    raise NotImplementedError
 
 def get_group_index_from_atom (item, indices='all', structure_indices='all'):
 
-    if indices is 'all':
-        n_atoms = get_n_atoms_from_system(item)
-        indices = np.arange(n_atoms)
-
-    output = item.tt.atoms2residues(indices)
-
-    return output
+    raise NotImplementedError
 
 def get_component_index_from_atom (item, indices='all', structure_indices='all'):
 
@@ -102,23 +96,15 @@ def get_component_index_from_atom (item, indices='all', structure_indices='all')
 
 def get_chain_index_from_atom (item, indices='all', structure_indices='all'):
 
-    if indices is 'all':
-        n_atoms = get_n_atoms_from_system(item)
-        indices = np.arange(n_atoms)
-
-    output = item.tt.atoms2segments(indices)
-
-    return output
+    raise NotImplementedError
 
 def get_molecule_index_from_atom (item, indices='all', structure_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_index_from_atom as _get
-    return _get(item, indices=indices)
+    raise NotImplementedError
 
 def get_entity_index_from_atom (item, indices='all', structure_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_index_from_atom as _get
-    return _get(item, indices=indices)
+    raise NotImplementedError
 
 def get_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
 
@@ -189,18 +175,15 @@ def get_component_type_from_component (item, indices='all', structure_indices='a
 
 def get_molecule_id_from_molecule (item, indices='all', structure_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_id_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_molecule_name_from_molecule (item, indices='all', structure_indices='all'):
 
-    from molsysmt.elements.molecule import get_molecule_name_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_molecule_type_from_molecule (item, indices='all', structure_indices='all'):
 
-    from molsysmt.elements.component import get_component_type_from_component as get
-    return get(item, indices)
+    raise NotImplementedError
 
 ## chain
 
@@ -220,52 +203,39 @@ def get_chain_type_from_chain (item, indices='all', structure_indices='all'):
 
 def get_entity_id_from_entity (item, indices='all', structure_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_id_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_entity_name_from_entity (item, indices='all', structure_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_name_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 def get_entity_type_from_entity (item, indices='all', structure_indices='all'):
 
-    from molsysmt.elements.entity import get_entity_type_from_molecule as get
-    return get(item, indices)
+    raise NotImplementedError
 
 ## system
 
 def get_n_atoms_from_system(item, indices='all', structure_indices='all'):
 
-    return item.n_atoms
+    raise NotImplementedError
 
 def get_n_groups_from_system(item, indices='all', structure_indices='all'):
 
-    return item.n_residues
+    raise NotImplementedError
 
 def get_n_components_from_system(item, indices='all', structure_indices='all'):
 
     output = get_component_index_from_atom(item, indices='all')
-    if output[0] is None:
-        n_components = 0
-    else:
-        output = np.unique(output)
-        n_components = output.shape[0]
-    return n_components
+    output = np.unique(output)
+    return output.shape[0]
 
 def get_n_chains_from_system(item, indices='all', structure_indices='all'):
 
-    return item.n_segments
+    raise NotImplementedError
 
 def get_n_molecules_from_system(item, indices='all', structure_indices='all'):
 
-    output = get_molecule_index_from_atom(item, indices='all')
-    if output[0] is None:
-        n_molecules = 0
-    else:
-        output = np.unique(output)
-        n_molecules = output.shape[0]
-    return n_molecules
+    raise NotImplementedError
 
 def get_n_entities_from_system(item, indices='all', structure_indices='all'):
 
@@ -273,7 +243,7 @@ def get_n_entities_from_system(item, indices='all', structure_indices='all'):
 
 def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
 
-    return len(item.bonds.values)
+    raise NotImplementedError
 
 def get_coordinates_from_system(item, indices='all', structure_indices='all'):
 

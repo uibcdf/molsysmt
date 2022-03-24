@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 
 # Tiene que haber una manera automatica con f2py dar siempre de salida Ccontiguous_np.arrays
 

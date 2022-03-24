@@ -18,7 +18,7 @@ class NotImplementedMethodError(NotImplementedError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import NotImplementedMethodError
+    >>> from molsysmt._private.exceptions import NotImplementedMethodError
     >>> def method_name(a, b=True):
     ...    raise NotImplementedMethodError
     ...    pass
@@ -70,7 +70,7 @@ class NotImplementedClassError(NotImplementedError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import NotImplementedClassError
+    >>> from molsysmt._private.exceptions import NotImplementedClassError
     >>> class ClassName():
     ...    def __init__(self):
     ...       raise NotImplementedClassError
@@ -125,7 +125,7 @@ class NotImplementedFormError(NotImplementedError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import NotImplementedFormError
+    >>> from molsysmt._private.exceptions import NotImplementedFormError
     >>> from molsysmt import get_form
     >>> def method_name(item):
     ...    input_form = get_form(item)
@@ -180,7 +180,7 @@ class NotImplementedSyntaxisError(NotImplementedError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import NotImplementedSyntaxisError
+    >>> from molsysmt._private.exceptions import NotImplementedSyntaxisError
     >>> def method_name(syntaxis):
     ...    if syntaxis not in ['MolSysMT', 'MDTraj']:
     ...       raise NotImplementedSyntaxisError(syntaxis)
@@ -233,7 +233,7 @@ class NotImplementedEngineError(NotImplementedError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import NotImplementedEngineError
+    >>> from molsysmt._private.exceptions import NotImplementedEngineError
     >>> def method_name(engine):
     ...    if engine not in ['MolSysMT', 'MDTraj']:
     ...       raise NotImplementedEngineError(engine)
@@ -289,7 +289,7 @@ class NotImplementedConversionError(NotImplementedError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import NotImplementedConversionError
+    >>> from molsysmt._private.exceptions import NotImplementedConversionError
     >>> def method_name(molecular_system, to_form):
     ...    from molsysmt.basic import get_form
     ...    from_form = get_form(molecular_system)
@@ -347,7 +347,7 @@ class NotWithThisFormError(ValueError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import NotWithThisFormError
+    >>> from molsysmt._private.exceptions import NotWithThisFormError
     >>> from molsysmt import get_form
     >>> def method_name(item):
     ...    input_form = get_form(item)
@@ -402,7 +402,7 @@ class WrongFormError(ValueError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import WrongFormError
+    >>> from molsysmt._private.exceptions import WrongFormError
     >>> from molsysmt import get_form
     >>> input_form = get_form('1VII.pdb')
     ... if input_form != 'file:top':
@@ -453,7 +453,7 @@ class NotSupportedFormError(ValueError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import NotSupportedFormError
+    >>> from molsysmt._private.exceptions import NotSupportedFormError
     >>> from molsysmt import get_form
     >>> try:
     ...    _ = get_form(item)
@@ -506,7 +506,7 @@ class BadCallError(ValueError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import BadCallError
+    >>> from molsysmt._private.exceptions import BadCallError
     >>> def method_name(item, a=True):
     ...    if type(a) not in [int, float]:
     ...       raise BadCallError('a')
@@ -561,7 +561,7 @@ class WrongGetArgumentError(ValueError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import WrongGetArgumentError
+    >>> from molsysmt._private.exceptions import WrongGetArgumentError
     >>> from molsysmt.basic.get.arguments import arguments
     >>> argument = 'atom_color'
     >>> if atom_color not in arguments:
@@ -616,7 +616,7 @@ class LibraryNotFoundError(NotImplementedError):
 
     Examples
     --------
-    >>> from molsysmt._private_tools.exceptions import LibraryNotFoundError
+    >>> from molsysmt._private.exceptions import LibraryNotFoundError
     >>> def method_name(item, engine='MolSysMT'):
     ...    if engine == 'OpenMM':
     ...       try:

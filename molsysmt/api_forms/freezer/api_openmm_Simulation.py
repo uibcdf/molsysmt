@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt.native.molecular_system import molecular_system_components
@@ -82,7 +82,7 @@ def to_openmm_Context(item, molecular_system=None, atom_indices='all', structure
 
 def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.files_and_directories import temp_filename
+    from molsysmt._private.files_and_directories import temp_filename
     from molsysmt.api_forms.api_file_pdb import to_pdbfixer_PDBFixer as file_pdb_to_pdbfixer_PDBFixer
     from os import remove
 

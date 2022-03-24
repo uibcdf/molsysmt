@@ -1,83 +1,21 @@
 from os.path import basename as _basename
-from molsysmt._private_tools.exceptions import *
+from MDAnalysis.coordinates.CRD import CRDReader as _mdanalysis_coordinates_CRDReader
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
-from MDAnalysis import Universe as _mdanalysis_Universe
 import numpy as np
 
 form_name=_basename(__file__).split('.')[0].replace('api_','').replace('_','.')
 
 is_form={
-    _mdanalysis_Universe : form_name,
-    'mdanalysis.Universe' : form_name
+    _mdanalysis_coordinates_CRDReader : form_name,
+    'mdanalysis.coordinates.CRDReader' : form_name
 }
 
 info=["",""]
-with_topology=True
-wih_coordinates=True
+with_topology=False
+with_coordinates=True
 with_box=True
 with_parameters=False
-
-def to_nglview_NGLView(item, atom_indices='all', structure_indices='all',
-                       topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
-
-    from nglview import show_mdtraj
-
-    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item = show_mdtraj(tmp_item)
-
-    return tmp_item
-
-def to_pdb(item, atom_indices='all', structure_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None,
-           output_filename=None, multiframe=False):
-
-    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item.atoms.write(output_filename, multiframe=multiframe)
-
-    return output_filename
-
-def to_mdtraj_Trajectory (item, atom_indices='all', structure_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
-
-    from molsysmt._private_tools.pdb import tmp_pdb_filename
-    from molsysmt.api_forms.api_pdb import to_mdtraj_Trajectory as pdb_to_mdtraj_Trajectory
-    from os import remove
-
-    tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_file = tmp_pdb_filename()
-    to_pdb(tmp_item=item, output_filename=tmp_file)
-    tmp_item=pdb_to_mdtraj_Trajectory(tmp_file)
-    remove(tmp_file)
-
-    return tmp_item
-
-def to_molsysmt_MolSys (item, atom_indices='all', structure_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
-
-    from molsysmt.native.io.molsys import from_mdanalysis_Universe as molsysmt_MolSys_from_mdanalysis_Universe
-    return molsysmt_MolSys_from_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None)
-
-def to_molsysmt_MolSys (item, atom_indices='all', structure_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
-
-    from molsysmt.native.io.molsys import from_mdanalysis_Universe as molsysmt_MolSys_from_mdanalysis_Universe
-    return molsysmt_MolSys_from_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None)
-
-def to_molsysmt_Topology (item, atom_indices='all', structure_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
-
-    from molsysmt.native.io.topology import from_mdanalysis_Universe as molsysmt_Topology_from_mdanalysis_Universe
-    return molsysmt_Topology_from_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None)
-
-def to_molsysmt_Structures (item, atom_indices='all', structure_indices='all',
-           topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None):
-
-    from molsysmt.native.io.trajectory import from_mdanalysis_Universe as molsysmt_Structures_from_mdanalysis_Universe
-    return molsysmt_Structures_from_mdanalysis_Universe(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                topology_item=None, trajectory_item=None, coordinates_item=None, box_item=None)
 
 def select_with_Amber(item, selection):
 
@@ -85,17 +23,11 @@ def select_with_Amber(item, selection):
 
 def select_with_MDAnalysis(item, selection):
 
-    tmp_atomgroup=item.select_atoms(selection)
-    tmp_sel = tmp_atomgroup.atoms.ids
-    del(tmp_atomgroup)
-
-    return tmp_sel
+    raise NotImplementedError
 
 def select_with_MDTraj(item, selection):
 
-    tmp_form=to_mdtraj(item,multiframe=True)
-
-    return tmp_form.topology.select(selection)
+    raise NotImplementedError
 
 def select_with_MolSysMT(item, selection):
 
@@ -125,10 +57,6 @@ def add(item, list_items, list_atom_indices, list_structure_indices):
     raise NotImplementedError
 
 def append(item, list_items, list_atom_indices, list_structure_indices):
-
-    raise NotImplementedError
-
-def select_with_MolSysMT(item, selection):
 
     raise NotImplementedError
 
@@ -184,14 +112,7 @@ def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    tmp_item=np.array(item.trajectory)*0.1*unit.nanometers
-
-    if structure_indices is not 'all':
-        tmp_item=item_item[structure_indices,:,:]
-    if indices is not 'all':
-        tmp_item=tmp_item[:,indices,:]
-
-    return tmp_item
+    raise NotImplementedError
 
 ## group
 
@@ -307,21 +228,11 @@ def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
 
 def get_coordinates_from_system(item, indices='all', structure_indices='all'):
 
-    tmp_item=np.array(item.trajectory)*0.1*unit.nanometers
-
-    if structure_indices is not 'all':
-        tmp_item=item_item[structure_indices,:,:]
-
-    return tmp_item
+    raise NotImplementedError
 
 def get_box_from_system(item, indices='all', structure_indices='all'):
 
-    tmp_item = np.array([frame.triclinic_dimensions for frame in item.trajectory])*0.1*unit.nanometers
-
-    if structure_indices is not 'all':
-        tmp_item=item_item[structure_indices,:,:]
-
-    return tmp_item
+    raise NotImplementedError
 
 def get_box_shape_from_system(item, indices='all', structure_indices='all'):
 
@@ -341,29 +252,15 @@ def get_box_volume_from_system(item, indices='all', structure_indices='all'):
 
 def get_time_from_system(item, indices='all', structure_indices='all'):
 
-    tmp_item = np.array([frame.time for frame in item.trajectory])*unit.picoseconds
-
-    if structure_indices is not 'all':
-        tmp_item=item_item[structure_indices]
-
-    return tmp_item
+    raise NotImplementedError
 
 def get_step_from_system(item, indices='all', structure_indices='all'):
 
-    if structure_indices is 'all':
-        output = np.arange(get_n_structures_from_system(item))
-    else:
-        output = structure_indices
-    return output
+    raise NotImplementedError
 
 def get_n_structures_from_system(item, indices='all', structure_indices='all'):
 
-    if structure_indices is 'all':
-        output=item.trajectory.n_structures
-    else:
-        output=structure_indices.shape[0]
-
-    return output
+    raise NotImplementedError
 
 def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
 
@@ -429,5 +326,4 @@ def set_box_to_system(item, indices='all', structure_indices='all', value=None):
 def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
 
     raise NotImplementedError
-
 

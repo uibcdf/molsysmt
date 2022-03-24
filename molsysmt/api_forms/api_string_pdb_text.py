@@ -1,13 +1,13 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 
-from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text as is_form
-from molsysmt.tools.string_pdb_text.extract import extract
-from molsysmt.tools.string_pdb_text.add import add
-from molsysmt.tools.string_pdb_text.merge import merge
-from molsysmt.tools.string_pdb_text.append_structures import append_structures
-from molsysmt.tools.string_pdb_text.concatenate_structures import concatenate_structures
-from molsysmt.tools.string_pdb_text.get import *
-from molsysmt.tools.string_pdb_text.set import *
+from molsysmt.form.string_pdb_text.is_string_pdb_text import is_string_pdb_text as is_form
+from molsysmt.form.string_pdb_text.extract import extract
+from molsysmt.form.string_pdb_text.add import add
+from molsysmt.form.string_pdb_text.merge import merge
+from molsysmt.form.string_pdb_text.append_structures import append_structures
+from molsysmt.form.string_pdb_text.concatenate_structures import concatenate_structures
+from molsysmt.form.string_pdb_text.get import *
+from molsysmt.form.string_pdb_text.set import *
 
 form_name='string:pdb_text'
 form_type='string'
@@ -65,7 +65,7 @@ form_attributes = {
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_molsysmt_MolSys as string_pdb_text_to_molsysmt_MolSys
+    from molsysmt.form.string_pdb_text import to_molsysmt_MolSys as string_pdb_text_to_molsysmt_MolSys
 
     tmp_item = string_pdb_text_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -73,7 +73,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
 def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_molsysmt_Topology as string_pdb_text_to_molsysmt_Topology
+    from molsysmt.form.string_pdb_text import to_molsysmt_Topology as string_pdb_text_to_molsysmt_Topology
 
     tmp_item = string_pdb_text_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -81,7 +81,7 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', struct
 
 def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_molsysmt_Structures as string_pdb_text_to_molsysmt_Structures
+    from molsysmt.form.string_pdb_text import to_molsysmt_Structures as string_pdb_text_to_molsysmt_Structures
 
     tmp_item = string_pdb_text_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -89,7 +89,7 @@ def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', stru
 
 def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_mdtraj_Topology as string_pdb_text_to_mdtraj_Topology
+    from molsysmt.form.string_pdb_text import to_mdtraj_Topology as string_pdb_text_to_mdtraj_Topology
 
     tmp_item = string_pdb_text_to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -97,7 +97,7 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structur
 
 def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_mdtraj_Trajectory as string_pdb_text_to_mdtraj_Trajectory
+    from molsysmt.form.string_pdb_text import to_mdtraj_Trajectory as string_pdb_text_to_mdtraj_Trajectory
 
     tmp_item = string_pdb_text_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -105,7 +105,7 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', struct
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_openmm_Topology as string_pdb_text_to_openmm_Topology
+    from molsysmt.form.string_pdb_text import to_openmm_Topology as string_pdb_text_to_openmm_Topology
 
     tmp_item = string_pdb_text_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -113,7 +113,7 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structur
 
 def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_openmm_Topology as string_pdb_text_to_openmm_Topology
+    from molsysmt.form.string_pdb_text import to_openmm_Topology as string_pdb_text_to_openmm_Topology
 
     tmp_item = string_pdb_text_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -124,7 +124,7 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', structure_
                      rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False):
 
-    from molsysmt.tools.string_pdb_text import to_openmm_System as string_pdb_text_to_openmm_System
+    from molsysmt.form.string_pdb_text import to_openmm_System as string_pdb_text_to_openmm_System
 
     tmp_item = string_pdb_text_to_openmm_System(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -136,7 +136,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', struct
                          flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
                          collisions_rate='1.0 1/ps', integration_timestep='2.0 fs', platform='CUDA'):
 
-    from molsysmt.tools.string_pdb_text import to_openmm_System as string_pdb_text_to_openmm_System
+    from molsysmt.form.string_pdb_text import to_openmm_System as string_pdb_text_to_openmm_System
 
     tmp_item = string_pdb_text_to_openmm_Simulation(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -144,7 +144,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', struct
 
 def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_openmm_PDBFile as string_pdb_text_to_openmm_PDBFile
+    from molsysmt.form.string_pdb_text import to_openmm_PDBFile as string_pdb_text_to_openmm_PDBFile
 
     tmp_item = string_pdb_text_to_openmm_PDBFile(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -152,7 +152,7 @@ def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', structure
 
 def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_pdbfixer_PDBFixer as string_pdb_text_to_pdbfixer_PDBFixer
+    from molsysmt.form.string_pdb_text import to_pdbfixer_PDBFixer as string_pdb_text_to_pdbfixer_PDBFixer
 
     tmp_item = string_pdb_text_to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -160,7 +160,7 @@ def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', struct
 
 def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.string_pdb_text import to_nglview_NGLWidget as string_pdb_text_to_nglview_NGLWidget
+    from molsysmt.form.string_pdb_text import to_nglview_NGLWidget as string_pdb_text_to_nglview_NGLWidget
 
     tmp_item = string_pdb_text_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -168,7 +168,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', struct
 
 def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
 
-    from molsysmt.tools.string_pdb_text import to_file_pdb as string_pdb_text_to_file_pdb
+    from molsysmt.form.string_pdb_text import to_file_pdb as string_pdb_text_to_file_pdb
 
     tmp_item = string_pdb_text_to_file_pdb(item, atom_indices=atom_indices, structure_indices=structure_indices,
             output_filename=output_filename, check=False)

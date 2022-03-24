@@ -1,7 +1,7 @@
-from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from .is_string_pdb_text import is_string_pdb_text
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', check=True):
 
@@ -22,10 +22,10 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', chec
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.string_pdb_text import to_openmm_PDBFile as string_pdb_text_to_openmm_PDBFile
-    from molsysmt.tools.openmm_PDBFile import to_molsysmt_Topology as openmm_PDBFile_to_molsysmt_Topology
+    from . import to_openmm_PDBFile
+    from ..openmm_PDBFile import to_molsysmt_Topology as openmm_PDBFile_to_molsysmt_Topology
 
-    tmp_item = string_pdb_text_to_openmm_PDBFile(item, check=False)
+    tmp_item = to_openmm_PDBFile(item, check=False)
     tmp_item = openmm_PDBFile_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices,
             structure_indices=structure_indices, check=False)
 

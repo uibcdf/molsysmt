@@ -4,7 +4,7 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
 
     # box_geometry: "cubic" or "truncated octahedral"
 
-    from molsysmt._private_tools.engine import digest_engine
+    from molsysmt._private.engine import digest_engine
 
     engine = digest_engine(engine)
 
@@ -13,7 +13,7 @@ def build_peptide (molecular_system, box_geometry='cubic', clearance='10.0 Å',
         from molsysmt.basic import convert
         from os import getcwd, chdir
         from molsysmt.tools.tleap import TLeap
-        from molsysmt._private_tools.files_and_directories import temp_directory, temp_filename
+        from molsysmt._private.files_and_directories import temp_directory, temp_filename
         from shutil import rmtree, copyfile
 
         sequence = convert(molecular_system, to_form='string:aminoacids3')

@@ -1,8 +1,8 @@
-from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from .is_string_pdb_text import is_string_pdb_text
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
 
@@ -33,10 +33,10 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
             tmp_item = item
     else:
 
-        from molsysmt.tools.string_pdb_text import to_molsysmt_MolSys as string_pdb_text_to_molsysmt_MolSys
-        from molsysmt.tools.molsysmt_MolSys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
-        tmp_item = string_pdb_text_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-        tmp_item = molsysmt_MolSys_to_string_pdb_text(tmp_item, output_filename=output_filename, check=False)
+        from . import to_molsysmt_MolSys
+        from ..molsysmt_MolSys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
+        tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+        tmp_item = molsysmt_MolSys_to_string_pdb_text(tmp_item, check=False)
 
     return tmp_item
 

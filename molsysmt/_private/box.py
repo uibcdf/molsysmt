@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
+from molsysmt._private.exceptions import NotImplementedMethodError
 
 def digest_box(box):
 

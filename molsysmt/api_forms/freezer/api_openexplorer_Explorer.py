@@ -1,5 +1,5 @@
 from os.path import basename as _basename
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 import openmm.unit as unit
 from molsysmt.api_forms.common_gets import *
 import numpy as np

@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 import numpy as np
 from .aminoacid import name as aminoacid_names
 from .water import name as water_names

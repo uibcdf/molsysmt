@@ -7,7 +7,7 @@ def to_parmed_Structure(item, atom_indices='all', structure_indices='all', check
     try:
         from parmed import load_file
     except:
-        from molsysmt._private_tools.exceptions import LibraryNotFound
+        from molsysmt._private.exceptions import LibraryNotFound
         raise LibraryNotFound('parmed')
 
     from molsysmt.tools.parmed_Structure import extract

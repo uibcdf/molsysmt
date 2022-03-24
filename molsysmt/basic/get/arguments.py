@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import WrongGetArgumentError
+from molsysmt._private.exceptions import WrongGetArgumentError
 
 argument_synonyms = {}
 required_attributes = {}

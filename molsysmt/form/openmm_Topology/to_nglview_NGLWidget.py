@@ -1,7 +1,7 @@
-from molsysmt.tools.openmm_Topology.is_openmm_Topology import is_openmm_Topology
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.coordinates import digest_coordinates
+from .is_openmm_Topology import is_openmm_Topology
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.coordinates import digest_coordinates
 
 
 def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None, check=True):
@@ -23,10 +23,10 @@ def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None, check=True)
         except:
             raise WrongCoordinatesError()
 
-    from molsysmt.tools.openmm_Topology import to_string_pdb_text as openmm_Topology_to_string_pdb_text
-    from molsysmt.tools.string_pdb_text import to_nglview_NGLWidget as string_pdb_text_to_nglview_NGLWidget
+    from . import to_string_pdb_text as to_string_pdb_text
+    from ..string_pdb_text import to_nglview_NGLWidget as string_pdb_text_to_nglview_NGLWidget
 
-    tmp_item = openmm_Topology_to_string_pdb_text(item, atom_indices=atom_indices, check=False)
+    tmp_item = to_string_pdb_text(item, atom_indices=atom_indices, check=False)
     tmp_item = string_pdb_text_to_nglview_NGLWidget(tmp_item, check=False)
 
     return tmp_item

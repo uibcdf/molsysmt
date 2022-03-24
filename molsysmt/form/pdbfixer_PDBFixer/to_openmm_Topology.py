@@ -1,8 +1,8 @@
-from molsysmt.tools.pdbfixer_PDBFixer.is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.exceptions import LibraryNotFoundError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.exceptions import LibraryNotFoundError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=True):
 

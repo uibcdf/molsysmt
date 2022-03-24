@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt import puw
@@ -128,7 +128,7 @@ def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
 
 def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
 
     if structure_indices is 'all':
         structure_indices = np.arange(get_n_structures_from_system(item))
@@ -157,7 +157,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
 
 def get_frame_from_atom(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
     from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
 
     if structure_indices is 'all':
@@ -322,7 +322,7 @@ def get_coordinates_from_system(item, indices='all', structure_indices='all'):
 
 def get_box_from_system(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
     from molsysmt.pbc import box_vectors_from_box_lengths_and_angles
 
     if structure_indices is 'all':
@@ -352,7 +352,7 @@ def get_box_from_system(item, indices='all', structure_indices='all'):
 
 def get_box_shape_from_system (item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.pbc import get_shape_from_angles
+    from molsysmt._private.pbc import get_shape_from_angles
     position = item.tell()
     frame_hdf5 = item.read(n_structures=1)
     cell_angles = frame_hdf5.cell_angles * puw.unit('degrees')
@@ -363,7 +363,7 @@ def get_box_shape_from_system (item, indices='all', structure_indices='all'):
 
 def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
 
     if structure_indices is 'all':
         structure_indices = np.arange(get_n_structures_from_system(item))
@@ -389,7 +389,7 @@ def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
 
 def get_box_angles_from_system(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
 
     if structure_indices is 'all':
         structure_indices = np.arange(get_n_structures_from_system(item))
@@ -419,7 +419,7 @@ def get_box_volume_from_system(item, indices='all', structure_indices='all'):
 
 def get_time_from_system(item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.math import serie_to_chunks
+    from molsysmt._private.math import serie_to_chunks
 
     if structure_indices is 'all':
         structure_indices = np.arange(get_n_structures_from_system(item))

@@ -1,6 +1,6 @@
 from molsysmt.api_forms import forms
-from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.lists_and_tuples import is_list_or_tuple
+from molsysmt._private.exceptions import *
 from molsysmt.tools.form import is_file as form_is_file
 
 form_from_lowercase = {ii.lower():ii for ii in forms}

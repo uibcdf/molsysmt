@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt.native.molecular_system import molecular_system_components
@@ -32,7 +32,7 @@ def load_frame (item, atom_indices='all', structure_indices='all'):
 
     else:
 
-        from molsysmt._private_tools.math import serie_to_chunks
+        from molsysmt._private.math import serie_to_chunks
 
         starts_serie_frames, size_serie_frames = serie_to_chunks(structure_indices)
 

@@ -1,7 +1,7 @@
-from molsysmt.tools.openmm_Topology.is_openmm_Topology import is_openmm_Topology
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
+from .is_openmm_Topology import is_openmm_Topology
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.atom_indices import digest_atom_indices
 
 def to_molsysmt_Topology(item, atom_indices='all', check=True):
 

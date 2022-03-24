@@ -1,5 +1,5 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from .arguments import digest_argument
 from .compare_all import compare_all_eq, compare_all_in
 from .compare_info import compare_info_eq, compare_info_in

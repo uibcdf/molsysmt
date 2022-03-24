@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
+from molsysmt._private.exceptions import NotImplementedMethodError
 
 def digest_time(time):
 

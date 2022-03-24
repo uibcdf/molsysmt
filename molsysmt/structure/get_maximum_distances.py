@@ -1,5 +1,5 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from molsysmt import puw
 import numpy as np
 

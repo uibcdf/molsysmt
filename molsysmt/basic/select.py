@@ -1,12 +1,12 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.target import digest_target
-from molsysmt._private_tools.syntaxis import digest_syntaxis, digest_to_syntaxis
-from molsysmt._private_tools.selection import digest_selection
+from molsysmt._private.exceptions import *
+from molsysmt._private.target import digest_target
+from molsysmt._private.syntaxis import digest_syntaxis, digest_to_syntaxis
+from molsysmt._private.selection import digest_selection
 import numpy as np
 from molsysmt.api_forms import dict_get
-from molsysmt._private_tools.selection import selection_is_all
-from molsysmt._private_tools.strings import get_parenthesis
-from molsysmt._private_tools.selection import indices_to_selection
+from molsysmt._private.selection import selection_is_all
+from molsysmt._private.strings import get_parenthesis
+from molsysmt._private.selection import indices_to_selection
 from molsysmt.tools.molecular_system import is_molecular_system, where_is_attribute
 
 def select_standard(molecular_system, selection, syntaxis):

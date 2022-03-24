@@ -1,5 +1,5 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
+from molsysmt._private.exceptions import *
+from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
 def where_is_attribute(molecular_system, attribute, check=True):
 

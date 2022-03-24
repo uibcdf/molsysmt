@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt.native.molecular_system import molecular_system_components
@@ -94,8 +94,8 @@ def extract(item, atom_indices='all', structure_indices='all'):
     else:
 
         from copy import deepcopy
-        from molsysmt._private_tools.atom_indices import atom_indices_to_AmberMask
-        from molsysmt._private_tools.atom_indices import complementary_atom_indices
+        from molsysmt._private.atom_indices import atom_indices_to_AmberMask
+        from molsysmt._private.atom_indices import complementary_atom_indices
         tmp_atom_indices = complementary_atom_indices(item, atom_indices)
         mask = atom_indices_to_AmberMask(item, tmp_atom_indices)
         tmp_item = copy(item)
@@ -169,7 +169,7 @@ def get_molecules_from_atom (item, indices='all', structure_indices='all'):
 
 def get_molecule_type_from_atom (item, indices='all', structure_indices='all'):
 
-    from molsysmt._private_tools.types import group2molecule_types
+    from molsysmt._private.types import group2molecule_types
     tmp_molecules = getting(item,molecules=True)
     tmp_types = []
     for molecule in tmp_molecules:

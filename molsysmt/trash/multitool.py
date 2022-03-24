@@ -1,17 +1,17 @@
 import numpy as np
 from molsysmt import puw
 from molsysmt.api_forms import *
-from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
-from molsysmt._private_tools._digestion import *
-from molsysmt._private_tools.selection import selection_is_all
-from molsysmt._private_tools.forms import to_form_is_file, form_is_file, form_of_file, are_equal_sets_of_forms
-from molsysmt._private_tools.get_arguments import where_get_argument
-from molsysmt._private_tools.set_arguments import where_set_argument
-from molsysmt._private_tools.elements import elements2string
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.selection import indices_to_selection, basic_selection, within_selection, bonded_to_selection, parenthesis_substitution_in_selection
-from molsysmt._private_tools.structure_indices import complementary_structure_indices
-from molsysmt._private_tools.atom_indices import complementary_atom_indices
+from molsysmt._private.lists_and_tuples import is_list_or_tuple
+from molsysmt._private._digestion import *
+from molsysmt._private.selection import selection_is_all
+from molsysmt._private.forms import to_form_is_file, form_is_file, form_of_file, are_equal_sets_of_forms
+from molsysmt._private.get_arguments import where_get_argument
+from molsysmt._private.set_arguments import where_set_argument
+from molsysmt._private.elements import elements2string
+from molsysmt._private.exceptions import *
+from molsysmt._private.selection import indices_to_selection, basic_selection, within_selection, bonded_to_selection, parenthesis_substitution_in_selection
+from molsysmt._private.structure_indices import complementary_structure_indices
+from molsysmt._private.atom_indices import complementary_atom_indices
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
 from molsysmt.molecular_system import MolecularSystem
 
@@ -146,7 +146,7 @@ def select(molecular_system, selection='all', target='atom', mask=None, syntaxis
 
     if 'within' in selection or 'bonded to' in selection:
 
-        from molsysmt._private_tools.selection import parenthesis_substitution_in_selection
+        from molsysmt._private.selection import parenthesis_substitution_in_selection
 
 
 

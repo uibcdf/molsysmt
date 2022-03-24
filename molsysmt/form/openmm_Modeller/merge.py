@@ -1,6 +1,6 @@
-from molsysmt.tools.openmm_Modeller.is_openmm_Modeller import is_openmm_Modeller
-from molsysmt._private_tools.exceptions import WrongFormError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
+from .is_openmm_Modeller import is_openmm_Modeller
+from molsysmt._private.exceptions import WrongFormError
+from molsysmt._private.exceptions import NotImplementedMethodError
 
 def merge(item_1, item_2, check=True):
 

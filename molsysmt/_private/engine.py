@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import BadCallError
+from molsysmt._private.exceptions import BadCallError
 
 engines = [
     'Amber',

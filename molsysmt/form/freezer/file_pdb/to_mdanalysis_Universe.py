@@ -7,7 +7,7 @@ def to_mdanalysis_Universe(item, atom_indices='all', structure_indices='all', ch
     try:
         from MDAnalysis import Universe
     except:
-        from molsysmt._private_tools.exceptions import LibraryNotFound
+        from molsysmt._private.exceptions import LibraryNotFound
         raise LibraryNotFound('MDAnalysis')
 
     from molsysmt.tools.mdanalysis_Universe import extract

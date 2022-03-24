@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 import numpy as np
 from molsysmt.api_forms.common_gets import *
 from molsysmt.native.molecular_system import molecular_system_components

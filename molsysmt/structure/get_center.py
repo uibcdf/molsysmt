@@ -1,6 +1,6 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
-from molsysmt._private_tools.math import serialized_lists
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+from molsysmt._private.math import serialized_lists
 from molsysmt.basic import select, get
 from molsysmt.lib import com as libcom
 from molsysmt import puw

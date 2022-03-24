@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import WrongFormError
+from molsysmt._private.exceptions import WrongFormError
 
 def is_file_pdb(item):
 

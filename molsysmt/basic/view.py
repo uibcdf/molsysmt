@@ -1,5 +1,5 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def view(molecular_system=None, viewer='NGLView', selection='all', structure_indices='all',
          concatenate_structures=False, standardize=False, water_as_surface=False, syntaxis='MolSysMT'):

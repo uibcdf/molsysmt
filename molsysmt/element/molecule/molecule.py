@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 import numpy as np
 from .rna import group_name as rna_group_names
 from .dna import group_name as dna_group_names

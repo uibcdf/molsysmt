@@ -1,7 +1,7 @@
-from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from .is_string_pdb_text import is_string_pdb_text
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', check=True):
 
@@ -23,9 +23,9 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', ch
             raise WrongStructureIndicesError()
 
     from molsysmt.native.structures import Structures
-    from molsysmt.tools.string_pdb_text import get_time_from_system
-    from molsysmt.tools.string_pdb_text import get_box_from_system
-    from molsysmt.tools.string_pdb_text import get_coordinates_from_atom
+    from . import get_time_from_system
+    from . import get_box_from_system
+    from . import get_coordinates_from_atom
 
     tmp_item = Structures()
     time = get_time_from_system(item, structure_indices=structure_indices)

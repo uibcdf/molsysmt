@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 
 from molsysmt.tools.file_pdb.is_file_pdb import is_file_pdb as is_form
 from molsysmt.tools.file_pdb.extract import extract
@@ -66,13 +66,13 @@ form_attributes = {
 }
 
 
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 import importlib
 import sys
 from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import temp_filename
+from molsysmt._private.files_and_directories import temp_filename
 
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):

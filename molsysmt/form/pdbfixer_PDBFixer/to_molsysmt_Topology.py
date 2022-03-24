@@ -1,6 +1,6 @@
-from molsysmt.tools.pdbfixer_PDBFixer.is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
+from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
 
 def to_molsysmt_Topology(item, atom_indices='all', check=True):
 
@@ -16,10 +16,10 @@ def to_molsysmt_Topology(item, atom_indices='all', check=True):
         except:
             raise WrongAtomIndicesError()
 
-    from molsysmt.tools.pdbfixer_PDBFixer import to_openmm_Topology as pdbfixer_PDBFixer_to_openmm_Topology
-    from molsysmt.tools.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
+    from . import to_openmm_Topology
+    from ..openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
 
-    tmp_item = pdbfixer_PDBFixer_to_openmm_Topology(item, check=False)
+    tmp_item = to_openmm_Topology(item, check=False)
     tmp_item = openmm_Topology_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, check=False)
 
     return tmp_item

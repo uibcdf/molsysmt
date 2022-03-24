@@ -1,8 +1,8 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from molsysmt.api_forms import dict_set
 from molsysmt.tools.molecular_system import is_molecular_system, where_is_attribute
-from molsysmt._private_tools.set_arguments import where_set_argument
+from molsysmt._private.set_arguments import where_set_argument
 
 def set(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
 

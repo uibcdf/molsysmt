@@ -1,10 +1,10 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 import sys
 import importlib
 from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import temp_filename
+from molsysmt._private.files_and_directories import temp_filename
 
 form_name='file:inpcrd'
 from_type='file'
@@ -98,7 +98,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
     if (atom_indices is 'all') and (structure_indices is 'all'):
 
         from shutil import copy as copy_file
-        from molsysmt._private_tools.files_and_directories import temp_filename
+        from molsysmt._private.files_and_directories import temp_filename
 
         copy_file(item, output_filename)
 

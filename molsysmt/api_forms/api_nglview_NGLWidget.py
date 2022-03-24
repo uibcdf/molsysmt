@@ -1,13 +1,13 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 
-from molsysmt.tools.nglview_NGLWidget.is_nglview_NGLWidget import is_nglview_NGLWidget as is_form
-from molsysmt.tools.nglview_NGLWidget.extract import extract
-from molsysmt.tools.nglview_NGLWidget.add import add
-from molsysmt.tools.nglview_NGLWidget.merge import merge
-from molsysmt.tools.nglview_NGLWidget.append_structures import append_structures
-from molsysmt.tools.nglview_NGLWidget.concatenate_structures import concatenate_structures
-from molsysmt.tools.nglview_NGLWidget.get import *
-from molsysmt.tools.nglview_NGLWidget.set import *
+from molsysmt.form.nglview_NGLWidget.is_nglview_NGLWidget import is_nglview_NGLWidget as is_form
+from molsysmt.form.nglview_NGLWidget.extract import extract
+from molsysmt.form.nglview_NGLWidget.add import add
+from molsysmt.form.nglview_NGLWidget.merge import merge
+from molsysmt.form.nglview_NGLWidget.append_structures import append_structures
+from molsysmt.form.nglview_NGLWidget.concatenate_structures import concatenate_structures
+from molsysmt.form.nglview_NGLWidget.get import *
+from molsysmt.form.nglview_NGLWidget.set import *
 
 form_name='nglview.NGLWidget'
 form_type='class'
@@ -65,7 +65,7 @@ form_attributes = {
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.nglview_NGLWidget import to_molsysmt_Topology as nglview_NGLWidget_to_molsysmt_Topology
+    from molsysmt.form.nglview_NGLWidget import to_molsysmt_Topology as nglview_NGLWidget_to_molsysmt_Topology
 
     tmp_item = nglview_NGLWidget_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -73,7 +73,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.nglview_NGLWidget import to_molsysmt_Structures as nglview_NGLWidget_to_molsysmt_Structures
+    from molsysmt.form.nglview_NGLWidget import to_molsysmt_Structures as nglview_NGLWidget_to_molsysmt_Structures
 
     tmp_item = nglview_NGLWidget_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -81,7 +81,7 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.nglview_NGLWidget import to_molsysmt_Structures as nglview_NGLWidget_to_molsysmt_Structures
+    from molsysmt.form.nglview_NGLWidget import to_molsysmt_Structures as nglview_NGLWidget_to_molsysmt_Structures
 
     tmp_item = nglview_NGLWidget_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -89,7 +89,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.nglview_NGLWidget import to_openmm_Topology as nglview_NGLWidget_to_openmm_Topology
+    from molsysmt.form.nglview_NGLWidget import to_openmm_Topology as nglview_NGLWidget_to_openmm_Topology
 
     tmp_item = nglview_NGLWidget_to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -97,7 +97,7 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structur
 
 def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.nglview_NGLWidget import to_string_pdb_text as nglview_NGLWidget_to_string_pdb_text
+    from molsysmt.form.nglview_NGLWidget import to_string_pdb_text as nglview_NGLWidget_to_string_pdb_text
 
     tmp_item = nglview_NGLWidget_to_string_pdb_text(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -105,7 +105,7 @@ def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_ind
 
 def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.nglview_NGLWidget import to_string_aminoacids1 as nglview_NGLWidget_to_aminoacids1
+    from molsysmt.form.nglview_NGLWidget import to_string_aminoacids1 as nglview_NGLWidget_to_aminoacids1
 
     tmp_item = nglview_NGLWidget_to_aminoacids1(item, atom_indices=atom_indices, check=False)
 
@@ -113,7 +113,7 @@ def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_
 
 def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.tools.nglview_NGLWidget import to_string_aminoacids3 as nglview_NGLWidget_to_aminoacids3
+    from molsysmt.form.nglview_NGLWidget import to_string_aminoacids3 as nglview_NGLWidget_to_aminoacids3
 
     tmp_item = nglview_NGLWidget_to_aminoacids3(item, atom_indices=atom_indices, check=False)
 

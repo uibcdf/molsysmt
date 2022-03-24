@@ -1,7 +1,7 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
-from molsysmt._private_tools.structure_indices import complementary_structure_indices
-from molsysmt._private_tools.atom_indices import complementary_atom_indices
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+from molsysmt._private.structure_indices import complementary_structure_indices
+from molsysmt._private.atom_indices import complementary_atom_indices
 from molsysmt.tools.molecular_system import is_molecular_system
 
 def remove(molecular_system, selection=None, structure_indices=None, to_form=None,

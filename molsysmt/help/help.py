@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms import dict_type, dict_convert, dict_info
 from molsysmt.api_forms import forms as _forms
 

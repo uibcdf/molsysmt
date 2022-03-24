@@ -1,5 +1,5 @@
 from .is_openmm_Modeller import is_openmm_Modeller
-from molsysmt._private_tools.exceptions import WrongFormError
+from molsysmt._private.exceptions import WrongFormError
 
 def add(to_item, item, check=True):
 

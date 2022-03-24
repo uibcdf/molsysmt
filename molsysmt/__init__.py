@@ -16,12 +16,11 @@ __github_issues_web__ = __github_web__ + '/issues'
 
 from ._pyunitwizard import puw as puw
 
-from .demo import demo
-from . import tools
-
 from .native.molsys import MolSys
-from .basic import select, extract, add, merge, concatenate_structures, append_structures, info, get, set, \
-                   convert, copy, view, remove, get_form, contains, is_composed_of, compare
+
+from . import form
+from .basic import *
+
 from . import topology
 from . import help
 from . import build
@@ -34,6 +33,7 @@ from . import hbonds
 #
 from . import elements
 from . import entities
+from .demo import demo
 
 # Adding molsysmt to nglview
 

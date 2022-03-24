@@ -1,8 +1,8 @@
-from molsysmt.tools.openmm_Modeller.is_openmm_Modeller import is_openmm_Modeller
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from .is_openmm_Modeller import is_openmm_Modeller
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
 

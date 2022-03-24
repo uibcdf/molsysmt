@@ -8,8 +8,8 @@ Remove waters
 Methods to remove atoms from a molecular model.
 """
 
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def remove_waters (molecular_system, selection="all", include_selection=None,
         exclude_selection=None, syntaxis="MolSysMT", check=True):

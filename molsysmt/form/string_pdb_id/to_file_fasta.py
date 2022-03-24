@@ -1,7 +1,7 @@
 from .is_string_pdb_id import is_string_pdb_id
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 
 def to_file_fasta(item, atom_indices='all', structure_indices='all', output_filename=None, check=True):
 
@@ -18,7 +18,7 @@ def to_file_fasta(item, atom_indices='all', structure_indices='all', output_file
             raise WrongAtomIndicesError()
 
 
-    from molsysmt.tools.file_fasta import extract as extract_file_fasta
+    from ..file_fasta import extract as extract_file_fasta
 
     tmp_item = item.split(':')[-1]
     url = 'https://www.rcsb.org/pdb/download/downloadFastaFiles.do?structureIdList='+tmp_item+'&compressionType=uncompressed'

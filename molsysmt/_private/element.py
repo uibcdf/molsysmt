@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import BadCallError
+from molsysmt._private.exceptions import BadCallError
 
 elements = [
     'atom',
@@ -40,7 +40,7 @@ def digest_element(element):
 def elements2string(molecular_system, indices=None, target='atom'):
 
     from molsysmt.basic import get
-    from molsysmt._private_tools.targets import digest_target
+    from molsysmt._private.targets import digest_target
 
     target = digest_target(target)
 

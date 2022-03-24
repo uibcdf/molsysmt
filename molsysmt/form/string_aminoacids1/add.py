@@ -1,5 +1,5 @@
-from molsysmt.tools.string_aminoacids1.is_string_aminoacids1 import is_string_aminoacids1
-from molsysmt._private_tools.exceptions import WrongFormError
+from .is_string_aminoacids1 import is_string_aminoacids1
+from molsysmt._private.exceptions import WrongFormError
 
 def add(to_item, item, check=True):
 

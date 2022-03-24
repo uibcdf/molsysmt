@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 from molsysmt.basic import get
 from molsysmt.lib import geometry as libgeometry
 from molsysmt.topology.get_covalent_dihedral_quartets import get_covalent_dihedral_quartets

@@ -1,9 +1,9 @@
-from molsysmt.tools.string_pdb_text.is_string_pdb_text import is_string_pdb_text
-from molsysmt._private_tools.exceptions import WrongFormError, WrongStepError
-from molsysmt._private_tools.step import digest_step
-from molsysmt._private_tools.time import digest_time
-from molsysmt._private_tools.coordinates import digest_coordinates
-from molsysmt._private_tools.box import digest_box
+from .is_string_pdb_text import is_string_pdb_text
+from molsysmt._private.exceptions import WrongFormError, WrongStepError
+from molsysmt._private.step import digest_step
+from molsysmt._private.time import digest_time
+from molsysmt._private.coordinates import digest_coordinates
+from molsysmt._private.box import digest_box
 
 def append_structures(item, step=None, time=None, coordinates=None, box=None, check=True):
 

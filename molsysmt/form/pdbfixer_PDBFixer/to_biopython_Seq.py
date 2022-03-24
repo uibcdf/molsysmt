@@ -1,7 +1,7 @@
-from molsysmt.tools.pdbfixer_PDBFixer.is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-from molsysmt._private_tools.exceptions import WrongFormError, WrongAtomIndicesError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
+from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
+from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError
+from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.atom_indices import digest_atom_indices
 
 def to_biopython_Seq(item, atom_indices='all', check=True):
 
@@ -17,10 +17,10 @@ def to_biopython_Seq(item, atom_indices='all', check=True):
         except:
             raise WrongAtomIndicesError()
 
-    from molsysmt.tools.pdbfixer_PDBFixer import to_string_aminoacids1 as pdbfixer_PDBFixer_to_string_aminoacids1
-    from molsysmt.tools.string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq
+    from . import to_string_aminoacids1
+    from ..string_aminoacids1 import to_biopython_Seq as string_aminoacids1_to_biopython_Seq
 
-    tmp_item = pdbfixer_PDBFixer_to_string_aminoacids1(item, atom_indices=atom_indices, check=False)
+    tmp_item = to_string_aminoacids1(item, atom_indices=atom_indices, check=False)
     tmp_item = string_aminoacids1_to_biopython_Seq(tmp_item, check=False)
 
     return tmp_item

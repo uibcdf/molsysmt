@@ -1,6 +1,6 @@
 from .is_string_pdb_id import is_string_pdb_id
-from molsysmt._private_tools.exceptions import WrongFormError
-from molsysmt._private_tools.exceptions import NotImplementedMethodError
+from molsysmt._private.exceptions import WrongFormError
+from molsysmt._private.exceptions import NotImplementedMethodError
 
 def merge(item_1, item_2, check=True):
 

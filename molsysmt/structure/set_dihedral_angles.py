@@ -1,6 +1,6 @@
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 from molsysmt.lib import geometry as libgeometry
 from molsysmt.basic import get, convert, set, copy
 

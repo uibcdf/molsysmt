@@ -2,11 +2,11 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt.tools.string_aminoacids3.is_string_aminoacids3 import is_string_aminoacids3
-from molsysmt._private_tools.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
-from molsysmt._private_tools.exceptions import NotSupportedFormError
-from molsysmt._private_tools.indices import digest_indices
-from molsysmt._private_tools.structure_indices import digest_structure_indices
+from .is_string_aminoacids3 import is_string_aminoacids3
+from molsysmt._private.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
+from molsysmt._private.exceptions import NotSupportedFormError
+from molsysmt._private.indices import digest_indices
+from molsysmt._private.structure_indices import digest_structure_indices
 import numpy as np
 from networkx import Graph
 

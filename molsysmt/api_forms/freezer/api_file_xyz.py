@@ -1,8 +1,8 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private_tools.files_and_directories import temp_filename
+from molsysmt._private.files_and_directories import temp_filename
 
 form_name='file:xyz'
 from_type='file'

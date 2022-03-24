@@ -1,6 +1,6 @@
-from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
-from molsysmt._private_tools._digestion import *
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.lists_and_tuples import is_list_or_tuple
+from molsysmt._private._digestion import *
+from molsysmt._private.exceptions import *
 from molsysmt.tools.molecular_systems import is_a_single_molecular_system
 from molsysmt.api_forms import dict_add
 

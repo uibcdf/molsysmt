@@ -1,8 +1,8 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.digestion import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
 from pandas import DataFrame as df
-from molsysmt._private_tools.element import elements2string
+from molsysmt._private.element import elements2string
 from molsysmt.tools.molecular_system import is_molecular_system
 
 def info(molecular_system, target='system', indices=None, selection='all', syntaxis='MolSysMT',

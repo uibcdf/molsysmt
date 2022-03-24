@@ -1,6 +1,6 @@
-from molsysmt.tools.pdbfixer_PDBFixer.is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-from molsysmt._private_tools.exceptions import WrongAtomIndicesError
-from molsysmt._private_tools.atom_indices import digest_atom_indices
+from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
+from molsysmt._private.exceptions import WrongAtomIndicesError
+from molsysmt._private.atom_indices import digest_atom_indices
 
 def to_molsysmt_Structures(item, atom_indices='all', check=True):
 
