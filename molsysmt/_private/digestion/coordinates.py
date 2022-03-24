@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import NotImplementedMethodError
+from ..exceptions import *
 
 def digest_coordinates(coordinates):
 

@@ -1,5 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from .is_biopython_Seq import is_biopython_Seq
-from molsysmt._private.exceptions import WrongFormError
 
 def add(to_item, item, check=True):
 

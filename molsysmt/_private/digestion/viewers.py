@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import BadCallError
+from ..exceptions import *
 
 viewers_forms = {
     'NGLView' : 'nglview.NGLWidget',

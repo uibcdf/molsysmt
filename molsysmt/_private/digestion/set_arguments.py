@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import BadCallError
+from ..exceptions import *
 
 where_set_argument = {
 

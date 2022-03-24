@@ -1,18 +1,5 @@
 from .exceptions import BadCallError
 
-def digest_selection(selection, syntaxis="MolSysMT"):
-
-    if type(selection) is str:
-
-        from .syntaxis import digest_syntaxis
-        syntaxis = digest_syntaxis(syntaxis)
-
-        if syntaxis=='MolSysMT':
-
-            selection=selection.replace('backbone', '(atom_name==["CA", "N", "C", "O"])')
-
-    return selection
-
 def indices_to_selection(molecular_system, indices, target='atom', syntaxis=None):
 
     from molsysmt._private.target import digest_target

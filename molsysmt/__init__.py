@@ -33,11 +33,12 @@ from . import hbonds
 #
 from . import element
 from . import item
+from . import thirds
 from .demo import demo
 
 # Adding molsysmt to nglview
 
-tools.nglview.adding_molsysmt()
+thirds.nglview.adding_molsysmt()
 
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:

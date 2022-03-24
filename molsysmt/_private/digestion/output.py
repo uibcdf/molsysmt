@@ -1,4 +1,4 @@
-from .lists_and_tuples import is_list_or_tuple
+from ..lists_and_tuples import is_list_or_tuple
 
 def digest_output(output):
 

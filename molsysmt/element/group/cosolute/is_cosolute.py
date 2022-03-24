@@ -1,4 +1,4 @@
-from .ion_names import cosolute_names
+from .cosolute_names import cosolute_names
 
 def is_cosolute(name):
 
