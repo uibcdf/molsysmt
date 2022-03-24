@@ -1,7 +1,5 @@
 # This comes from MDTRAJ, we have to check if there is a place where this can also be found.
 name_to_type =  {
-    'ACE': None,
-    'NME':  None,
     '00C': 'CYS',
     '01W': 'XAA',
     '02K': 'ALA',
@@ -820,4 +818,10 @@ name_to_type =  {
     'ZU0': 'THR',
     'ZZJ': 'ALA'
     }
+
+aminoacid_names = list(name_to_type.keys())
+
+def get_aminoacid_type_from_name(name):
+
+    return name_to_type(name)
 

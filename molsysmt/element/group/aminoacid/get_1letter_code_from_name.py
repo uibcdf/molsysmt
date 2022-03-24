@@ -27,3 +27,8 @@ aa3_to_aa1 = {
         'XAA': 'X', # Any amino acid
         'XLE': 'J', # Leucine or Isoleucine
         }
+
+def get_1letter_code_from_name(name):
+
+    return aa3_to_aa1[name]
+
