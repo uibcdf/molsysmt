@@ -1,5 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from .is_openmm_Topology import is_openmm_Topology
-from molsysmt._private.exceptions import WrongFormError
 
 def add(to_item, item, check=True):
 

@@ -1,9 +1,6 @@
 from .is_openmm_Topology import is_openmm_Topology
-from molsysmt._private.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
-from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.indices import digest_indices
-from molsysmt._private.structure_indices import digest_structure_indices
-from molsysmt._private.box import digest_box
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from molsysmt import puw
 
 ## System

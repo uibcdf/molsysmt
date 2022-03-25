@@ -1,7 +1,6 @@
 from .is_openmm_Topology import is_openmm_Topology
-from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError
-from molsysmt._private.atom_indices import digest_atom_indices
-from molsysmt._private.coordinates import digest_coordinates
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 
 def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None, check=True):

@@ -1,9 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from .is_openmm_Topology import is_openmm_Topology
-from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongCoordinatesError, WrongBoxError
-from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.atom_indices import digest_atom_indices
-from molsysmt._private.coordinates import digest_coordinates
-from molsysmt._private.box import digest_box
 
 def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None, check=True):
 
