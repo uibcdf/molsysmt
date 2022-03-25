@@ -1,7 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from .is_nglview_NGLWidget import is_nglview_NGLWidget
-from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private.atom_indices import digest_atom_indices
-from molsysmt._private.structure_indices import digest_structure_indices
 
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=True):
 

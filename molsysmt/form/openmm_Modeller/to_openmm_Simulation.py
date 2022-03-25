@@ -1,7 +1,6 @@
 from .is_openmm_Modeller import is_openmm_Modeller
-from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private.atom_indices import digest_atom_indices
-from molsysmt._private.structure_indices import digest_structure_indices
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def to_openmm_Simulation(item, atom_indices='all', structure_indices='all',
                          forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,

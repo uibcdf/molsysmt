@@ -1,7 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from .is_biopython_Seq import is_biopython_Seq
-from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError
-from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.atom_indices import digest_atom_indices
 
 def to_biopython_SeqRecord(item, atom_indices='all', structure_indices='all',
                            id=None, name=None, description=None, check=True):

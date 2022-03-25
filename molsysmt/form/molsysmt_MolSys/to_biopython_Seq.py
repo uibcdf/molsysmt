@@ -1,6 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from .is_molsysmt_MolSys import is_molsysmt_MolSys
-from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private.group_indices import digest_group_indices
 
 def to_biopython_Seq(item, group_indices='all', check=True):
 

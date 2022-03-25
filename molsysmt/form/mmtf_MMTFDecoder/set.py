@@ -1,8 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from .is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder
-from molsysmt._private.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
-from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.indices import digest_indices
-from molsysmt._private.structure_indices import digest_structure_indices
 
 def set_box_to_system(item, structure_indices='all', value=None, check=True):
 

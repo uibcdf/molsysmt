@@ -1,3 +1,5 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def is_string(form, check=True):
 

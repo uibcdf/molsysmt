@@ -1,5 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from .is_nglview_NGLWidget import is_nglview_NGLWidget
-from molsysmt._private.exceptions import WrongFormError
 
 def add(to_item, item, check=True):
 

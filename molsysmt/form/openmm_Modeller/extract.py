@@ -1,8 +1,6 @@
 from .is_openmm_Modeller import is_openmm_Modeller
-from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError, WrongStructureIndicesError
-from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.atom_indices import digest_atom_indices
-from molsysmt._private.structure_indices import digest_structure_indices
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
 
@@ -27,7 +25,6 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     from openmm.app import Modeller
 
     if (atom_indices is 'all') and (structure_indices is 'all'):
-
 
         tmp_item = Modeller(item.topology, item.positions)
 
