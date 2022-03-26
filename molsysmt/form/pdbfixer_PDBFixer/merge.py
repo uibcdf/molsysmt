@@ -1,6 +1,6 @@
 from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-from molsysmt._private.exceptions import WrongFormError
-from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def merge(item_1, item_2, check=True):
 

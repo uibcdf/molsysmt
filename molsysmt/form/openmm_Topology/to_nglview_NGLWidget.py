@@ -1,6 +1,6 @@
-from .is_openmm_Topology import is_openmm_Topology
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from .is_openmm_Topology import is_openmm_Topology
 
 
 def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None, check=True):
