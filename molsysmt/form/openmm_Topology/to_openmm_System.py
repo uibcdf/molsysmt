@@ -1,7 +1,6 @@
 from .is_openmm_Topology import is_openmm_Topology
-from molsysmt._private.exceptions import WrongFormError, WrongAtomIndicesError
-from molsysmt._private.atom_indices import digest_atom_indices
-from molsysmt._private.exceptions import NotImplementedMethodError
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def to_openmm_System(item, atom_indices='all', forcefield=None, parameters=None, check=True):
 
