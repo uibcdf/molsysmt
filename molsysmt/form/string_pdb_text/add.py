@@ -1,5 +1,6 @@
 from .is_string_pdb_text import is_string_pdb_text
-from molsysmt._private.exceptions import WrongFormError
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def add(to_item, item, check=True):
 

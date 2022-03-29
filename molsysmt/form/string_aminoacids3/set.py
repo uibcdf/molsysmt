@@ -1,7 +1,5 @@
 from .is_string_aminoacids3 import is_string_aminoacids3
-from molsysmt._private.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
-from molsysmt._private.exceptions import NotImplementedMethodError
-from molsysmt._private.indices import digest_indices
-from molsysmt._private.structure_indices import digest_structure_indices
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 

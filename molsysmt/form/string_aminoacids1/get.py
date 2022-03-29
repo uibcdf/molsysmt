@@ -3,10 +3,8 @@
 #######################################################################################
 
 from .is_string_aminoacids1 import is_string_aminoacids1
-from molsysmt._private.exceptions import WrongFormError, WrongIndicesError, WrongStructureIndicesError
-from molsysmt._private.exceptions import NotSupportedFormError
-from molsysmt._private.indices import digest_indices
-from molsysmt._private.structure_indices import digest_structure_indices
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
 from networkx import Graph
 

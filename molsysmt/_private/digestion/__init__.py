@@ -1,7 +1,7 @@
 from .atom_indices import digest_atom_indices
 from .box import digest_box
-from .box import digest_box_lengths, digest_box_lengths_values,
-from .box import digest_box_angles, digest_box_angles_values
+from .box import digest_box_lengths, digest_box_lengths_value
+from .box import digest_box_angles, digest_box_angles_value
 from .coordinates import digest_coordinates
 from .element import digest_element
 from .engine import digest_engine
