@@ -1,6 +1,11 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.coordinates import *
 from .is_openmm_Topology import is_openmm_Topology
+<<<<<<< HEAD
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+=======
+>>>>>>> 5c6ee6a0366ddfe994d7fe0c3fc26225984869c7
 
 def to_openmm_PDBFile(item, atom_indices='all', coordinates=None, check=True):
 

@@ -1,6 +1,11 @@
-from .is_openmm_Topology import is_openmm_Topology
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from .is_openmm_Topology import is_openmm_Topology
+<<<<<<< HEAD
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+=======
+>>>>>>> 5c6ee6a0366ddfe994d7fe0c3fc26225984869c7
 
 def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, check=True):
 
