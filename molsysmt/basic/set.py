@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt._private.digestion.set_arguments import where_set_argument
+from molsysmt.attribute.attributes import _required_indices, attribute_synonyms, attributes
 
 def set(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
 
@@ -93,7 +93,7 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
         value_of_attribute = {}
         for key in kwargs.keys():
             try:
-                value_of_attribute[digest_set_argument(key, target)]=kwargs[key]
+                value_of_attribute[_digest_argument(key, target)]=kwargs[key]
             except:
                 raise WrongSetArgumentError(key)
 
@@ -124,4 +124,16 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
         dict_set[form][target][attribute](item, indices=indices, structure_indices=structure_indices, value=value)
 
     pass
+
+def _digest_argument(argument, target):
+
+    output_argument = argument.lower()
+    if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
+        output_argument = ('_').join([target, output_argument])
+    if output_argument in attribute_synonyms:
+        output_argument = attribute_synonyms[output_argument]
+    if output_argument in attributes:
+        return output_argument
+    else:
+        raise WrongGetArgumentError()
 

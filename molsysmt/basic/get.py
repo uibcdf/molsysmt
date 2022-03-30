@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from .arguments import required_indices, digest_argument
+from molsysmt.attribute.attributes import _required_indices, attribute_synonyms, attributes
 
 def get(molecular_system, target='system', indices=None, selection='all', structure_indices='all',
         syntaxis='MolSysMT', check=True, **kwargs):
@@ -121,9 +121,9 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
 
         dict_indices = {}
         if target != 'system':
-            if 'indices' in required_indices[argument]:
+            if 'indices' in _required_indices[argument]:
                 dict_indices['indices']=indices
-        if 'structure_indices' in required_indices[argument]:
+        if 'structure_indices' in _required_indices[argument]:
             dict_indices['structure_indices']=structure_indices
 
         aux_item, aux_form = where_is_attribute(molecular_system, argument, check=False)
@@ -132,4 +132,16 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
 
     output=digest_output(output)
     return output
+
+def _digest_argument(argument, target):
+
+    output_argument = argument.lower()
+    if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
+        output_argument = ('_').join([target, output_argument])
+    if output_argument in attribute_synonyms:
+        output_argument = attribute_synonyms[output_argument]
+    if output_argument in attributes:
+        return output_argument
+    else:
+        raise WrongGetArgumentError()
 

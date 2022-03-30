@@ -10,7 +10,6 @@ from .group_indices import digest_group_indices
 from .indices import digest_indices
 from .output import digest_output
 from .selection import digest_selection
-from .set_arguments import digest_set_argument
 from .step import digest_step
 from .structure_indices import digest_structure_indices
 from .syntaxis import digest_syntaxis, digest_to_syntaxis
