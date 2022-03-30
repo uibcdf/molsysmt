@@ -1,8 +1,5 @@
 from molsysmt._private.exceptions import *
-from .is_molecular_system import is_molecular_system
-from molsysmt.item import is_file
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from molsysmt.api_forms import dict_extract
 
 def copy(molecular_system, output_filename=None, check=False):
 
@@ -19,7 +16,9 @@ def copy(molecular_system, output_filename=None, check=False):
 
         raise NotImplementedMethodError()
 
-    from molsysmt.basic import get_form
+    from . import get_form, is_molecular_system
+    from molsysmt.item import is_file
+    from molsysmt.api_forms import dict_extract
 
     form_in = get_form(molecular_system)
 

@@ -1,6 +1,5 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_molecular_system import is_molecular_system
 
 def contains(molecular_system, selection='all', syntaxis='MolSysMT',
         ions=None, waters=None, cosolutes=None, small_molecules=None, peptides=None, proteins=None,
@@ -21,7 +20,7 @@ def contains(molecular_system, selection='all', syntaxis='MolSysMT',
         except:
             raise WrongSelectionError()
 
-    from molsysmt.basic import get
+    from . import get, is_molecular_system
 
     n_ions_in, n_waters_in, n_cosolutes_in, n_small_molecules_in, n_peptides_in, n_proteins_in,\
     n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, target="system", selection=selection,

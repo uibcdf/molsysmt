@@ -1,13 +1,12 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from molsysmt.api_forms import dict_append_structures, dict_concatenate_structures
-from .are_multiple_molecular_systems import are_multiple_molecular_systems
 
 def concatenate_structures(molecular_systems, selections='all', structure_indices='all',
         syntaxis='MolSysMT', to_form=None, check=True):
 
-    from molsysmt.basic import convert, extract, get
+    from . import convert, extract, get, are_multiple_molecular_systems
+    from molsysmt.api_forms import dict_append_structures, dict_concatenate_structures
 
     if check:
 

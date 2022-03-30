@@ -3,8 +3,7 @@ from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
 def is_molecular_system(items):
 
-    from molsysmt.basic.get_form import get_form
-    from molsysmt.basic.get import get
+    from . import get_form, get
     from molsysmt.api_forms import dict_attributes
 
     if is_list_or_tuple(items):

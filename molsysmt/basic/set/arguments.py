@@ -5,13 +5,6 @@ required_attributes = {}
 required_indices = {}
 reverse_search = {}
 
-# atom_index
-
-argument_synonyms['atom_indices'] = 'atom_index'
-required_attributes['atom_index'] = ['atom_index']
-required_indices['atom_index'] = ['indices']
-reverse_search['atom_index'] = False
-
 # atom_name
 
 argument_synonyms['atom_names'] = 'atom_name'

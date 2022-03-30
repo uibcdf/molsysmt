@@ -1,16 +1,15 @@
 from molsysmt._private.exceptions import *
-from molsysmt._private.target import digest_target
-from molsysmt._private.syntaxis import digest_syntaxis, digest_to_syntaxis
-from molsysmt._private.selection import digest_selection
+from molsysmt._private.digestion import *
 import numpy as np
-from molsysmt.api_forms import dict_get
 from molsysmt._private.selection import selection_is_all
 from molsysmt._private.strings import get_parenthesis
 from molsysmt._private.selection import indices_to_selection
-from .is_molecular_system import is_molecular_system
-from .where_is_attribute import where_is_attribute
 
 def select_standard(molecular_system, selection, syntaxis):
+
+    #from .is_molecular_system import is_molecular_system
+    from . import where_is_attribute
+    from molsysmt.api_forms import dict_get
 
     if type(selection)==str:
         if selection_is_all(selection):
@@ -152,6 +151,9 @@ def select(molecular_system, selection='all', structure_index=0, target='atom', 
 
     """
 
+    from . import get_form, where_is_attribute, is_molecular_system
+    from molsysmt.api_forms import dict_get
+
     if check:
 
         if not is_molecular_system(molecular_system):
@@ -175,8 +177,6 @@ def select(molecular_system, selection='all', structure_index=0, target='atom', 
             selection=digest_selection(selection, syntaxis)
         except:
             raise WrongSelectionError(selection)
-
-    from molsysmt.basic import get_form, select
 
     if mask is 'all':
         mask=None
@@ -234,7 +234,7 @@ def selection_with_special_subsentences(selection):
 
 def select_with_MDTraj(item, selection):
 
-    from molsysmt.basic import convert, get_form
+    from . import convert, get_form
 
     form_in = get_form(item)
 
@@ -249,7 +249,7 @@ def select_with_MDTraj(item, selection):
 
 def select_with_MDAnalysis(item, selection):
 
-    from molsysmt.basic import convert, get_form
+    from . import convert, get_form
 
     form_in = get_form(item)
 
@@ -266,7 +266,7 @@ def select_with_MDAnalysis(item, selection):
 
 def select_with_MolSysMT(item, selection):
 
-    from molsysmt.basic import convert, get_form
+    from . import convert, get_form
     from molsysmt.native.selector import elements_select
 
     form_in = get_form(item)
@@ -282,7 +282,7 @@ def select_with_MolSysMT(item, selection):
 
 def select_with_ParmEd(item, selection):
 
-    from molsysmt.basic import convert, get_form
+    from . import convert, get_form
     from parmed.amber import AmberMask as _AmberMask
 
     form_in = get_form(item)
@@ -299,7 +299,7 @@ def select_with_ParmEd(item, selection):
 
 def select_with_Amber(item, selection):
 
-    from molsysmt.basic import convert, get_form
+    from . import convert, get_form
 
     if form_in == 'pytraj.Topology':
         tmp_item = item

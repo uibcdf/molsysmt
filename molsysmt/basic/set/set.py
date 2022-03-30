@@ -1,9 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt.api_forms import dict_set
-from .is_molecular_system import is_molecular_system
-from .where_is_attribute import where_is_attribute
-from molsysmt._private.set_arguments import where_set_argument
+from molsysmt._private.digestion.set_arguments import where_set_argument
 
 def set(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
 
@@ -60,6 +57,9 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
 
     """
 
+    from . import select, is_molecular_system, where_is_attribute
+    from molsysmt.api_forms import dict_set
+
     if check:
 
         if not is_molecular_system(molecular_system):
@@ -102,9 +102,6 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
         value_of_attribute = {}
         for key in kwargs.keys():
             value_of_attribute[key]=kwargs[key]
-
-
-    from molsysmt.basic import select
 
     # selection works as a mask if indices or ids are used
 

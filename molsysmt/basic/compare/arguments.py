@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import BadCallError
+from molsysmt._private.exceptions import *
 
 arguments = [
         'all',

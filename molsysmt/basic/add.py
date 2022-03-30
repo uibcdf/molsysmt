@@ -1,8 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from molsysmt.api_forms import dict_add
-from .is_molecular_system import is_molecular_system
 
 def add(to_molecular_system, from_molecular_systems, selections='all', structure_indices='all',
         syntaxis='MolSysMT', check=True):
@@ -49,6 +47,8 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
     """
 
+    from . import convert, extract, select, is_molecular_system
+    from molsysmt.api_forms import dict_add
 
     if check:
 
@@ -60,8 +60,6 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
                 raise MolecularSystemNeededError()
 
         raise NotImplementedMethod()
-
-    from molsysmt.basic import convert, extract, select
 
     if is_single_molecular_system(from_molecular_systems):
         from_molecular_systems = [from_molecular_systems]

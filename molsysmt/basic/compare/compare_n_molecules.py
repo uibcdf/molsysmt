@@ -7,7 +7,7 @@ def compare_n_molecules_eq(molecular_system_A, molecular_system_B, selection_A='
 
     report = {}
 
-    from molsysmt.basic import get
+    from .. import get
 
     n_ions_A, n_waters_A, n_cosolutes_A, n_small_molecules_A, n_peptides_A, n_proteins_A, n_dnas_A,\
     n_rnas_A, n_lipids_A = get(molecular_system_A, target='system', selection=selection_A, structure_indices=structure_indices_A,

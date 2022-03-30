@@ -1,10 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt.api_forms import dict_convert, dict_attributes
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.selection import selection_is_all
-from .is_molecular_system import is_molecular_system
-from molsysmt.item import is_item, is_file
 
 def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all',
         syntaxis='MolSysMT', check=True, **kwargs):
@@ -55,6 +52,9 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
 
     """
 
+    from . import select, get_form, is_molecular_system
+    from molsysmt.item import is_item, is_file
+    from molsysmt.api_forms import dict_convert, dict_attributes
 
     if check:
 
@@ -80,9 +80,6 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
             selection = digest_selection(selection, syntaxis)
         except:
             raise WrongSelectionError()
-
-
-    from molsysmt.basic import select, get_form
 
     if to_form is None:
         to_form = get_form(molecular_system)

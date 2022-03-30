@@ -1,14 +1,12 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from molsysmt.api_forms import dict_append_structures
-from .are_multiple_molecular_systems import are_multiple_molecular_systems
-from .is_molecular_system import is_molecular_system
-
 
 def append_structures(to_molecular_system, from_molecular_systems, selections='all',
         structure_indices='all', syntaxis='MolSysMT', check=True):
 
+    from . import convert, extract, get, are_multiple_molecular_systems, is_molecular_system
+    from molsysmt.api_forms import dict_append_structures
 
     if check:
 
@@ -36,7 +34,6 @@ def append_structures(to_molecular_system, from_molecular_systems, selections='a
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.basic import convert, extract, get
 
     n_from_molecular_systems = len(from_molecular_systems)
 

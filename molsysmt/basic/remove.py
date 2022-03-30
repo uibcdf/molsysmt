@@ -2,7 +2,6 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.structure_indices import complementary_structure_indices
 from molsysmt._private.atom_indices import complementary_atom_indices
-from .is_molecular_system import is_molecular_system
 
 def remove(molecular_system, selection=None, structure_indices=None, to_form=None,
         syntaxis='MolSysMT', check=True):
@@ -62,6 +61,7 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
 
     """
 
+    from . import select, extract, is_molecular_system
 
     if check:
 
@@ -88,8 +88,6 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
             to_form = digest_to_form(to_form)
         except:
             raise WrongToFormErro(to_form)
-
-    from molsysmt.basic import select, extract
 
     atom_indices_to_be_kept = 'all'
     structure_indices_to_be_kept = 'all'

@@ -1,7 +1,6 @@
 from importlib import import_module
 import os
 
-
 dict_type = {}
 dict_info = {}
 dict_attributes = {}
@@ -75,4 +74,6 @@ for api_name in apis:
 
 del(mod, method, out_form_name)
 del(current_dir, import_module)
+
+_dicts_forms_lowercase = {ii.lower():ii for ii in forms}
 

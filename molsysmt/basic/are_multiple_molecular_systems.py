@@ -1,9 +1,10 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from .is_molecular_system import is_molecular_system
 import numpy as np
 
 def are_multiple_molecular_systems(items):
+
+    from . import is_molecular_system
 
     output = False
 

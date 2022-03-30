@@ -63,8 +63,6 @@ form_attributes = {
     'damping' : False,
 }
 
-
-
 def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.pdbfixer_PDBFixer import to_string_aminoacids3 as pdbfixer_PDBFixer_to_string_aminoacids3
@@ -168,5 +166,4 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', struct
     tmp_item = pdbfixer_PDBFixer_to_nglview_NGLWidget(item, atom_indices=atom_indices, check=False)
 
     return tmp_item
-
 

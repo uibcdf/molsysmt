@@ -7,7 +7,7 @@ def compare_info_no_form_eq(molecular_system_A, molecular_system_B, selection_A=
 
     report = {}
 
-    from molsysmt.basic import get, get_form
+    from .. import get, get_form
 
     form_A = get_form(molecular_system_A)
     form_B = get_form(molecular_system_B)

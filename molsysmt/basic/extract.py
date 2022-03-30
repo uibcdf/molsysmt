@@ -2,8 +2,6 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.selection import selection_is_all
-from .is_molecular_system import is_molecular_system
-from molsysmt.api_forms import dict_extract
 
 def extract(molecular_system, selection='all', structure_indices='all', to_form=None,
         syntaxis='MolSysMT', copy_if_all=True, check=True):
@@ -73,15 +71,13 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
         except:
             raise WrongSelectionError()
 
+    from . import get_form, select, convert, is_molecular_system
+    from molsysmt.api_forms import dict_extract
 
     if to_form is not None:
 
-        from molsysmt.basic import convert
-
         return convert(molecular_system, selection=selection, structure_indices=structure_indices,
                 to_form=to_form, syntaxis=syntaxis, check=False)
-
-    from molsysmt.basic import get_form, select
 
     forms_in = get_form(molecular_system)
 

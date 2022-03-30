@@ -7,7 +7,7 @@ def compare_all_eq(molecular_system_A, molecular_system_B, selection_A='all',
 
     report = {}
 
-    from molsysmt.basic import select, get
+    from .. import select, get
 
     molecular_system_A = digest_molecular_system(molecular_system_A)
     molecular_system_B = digest_molecular_system(molecular_system_B)

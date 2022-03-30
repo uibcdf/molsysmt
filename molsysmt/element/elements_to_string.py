@@ -1,6 +1,6 @@
 from ..exceptions import *
 
-def elements2string(molecular_system, indices=None, target='atom'):
+def elements_to_string(molecular_system, indices=None, target='atom'):
 
     from molsysmt.basic import get
     from molsysmt._private.targets import digest_target

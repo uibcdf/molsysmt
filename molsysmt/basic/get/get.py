@@ -1,8 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from ..is_molecular_system import is_molecular_system
-from molsysmt.api_forms import dict_get
 from .arguments import required_indices, digest_argument
 
 def get(molecular_system, target='system', indices=None, selection='all', structure_indices='all',
@@ -57,6 +55,9 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
 
     """
 
+    from .. import get_form, select, is_molecular_system, where_is_attribute
+    from molsysmt.api_forms import dict_get
+
     if check:
 
         if not is_molecular_system(molecular_system):
@@ -102,8 +103,6 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
             if kwargs[key]:
                 arguments.append(key)
 
-    from molsysmt.basic import get_form, select
-    from molsysmt.tools.molecular_system import where_is_attribute
 
     if not is_list_or_tuple(molecular_system):
         molecular_system = [molecular_system]
