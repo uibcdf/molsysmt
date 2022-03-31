@@ -1,7 +1,5 @@
-from molsysmt._private.engines import digest_engine
-from molsysmt._private.structure_indices import digest_structure_indices
-from molsysmt._private.forms import digest_form
-from molsysmt._private.box import digest_box_angles, digest_box_lengths
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from molsysmt.lib import box as libbox
 import numpy as np
 from molsysmt import puw

@@ -1,4 +1,4 @@
-group_name = [
+names = [
     'DA',
     'DG',
     'DC',

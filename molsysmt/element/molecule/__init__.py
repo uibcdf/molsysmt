@@ -1,2 +1,12 @@
-from .molecule import molecule_index_from_atom, molecule_id_from_molecule, molecule_name_from_molecule
-from .molecule import molecule_type_from_molecule, n_molecules_from_system
+from . import water
+from . import ion
+from . import cosolute
+from . import small_molecule
+from . import peptide
+from . import protein
+from . import dna
+from . import rna
+from . import lipid
+
+from .get_molecule_type_from_sequence impor get_molecule_type_from_sequence
+

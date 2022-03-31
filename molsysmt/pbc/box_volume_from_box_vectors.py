@@ -1,5 +1,7 @@
-import numpy as np
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from molsysmt import puw
+import numpy as np
 
 def box_volume_from_box_vectors(box):
 

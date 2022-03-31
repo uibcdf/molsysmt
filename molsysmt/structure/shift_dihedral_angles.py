@@ -1,6 +1,7 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt import puw
-from molsysmt._private.structure_indices import digest_structure_indices
 from molsysmt.lib import geometry as libgeometry
 from molsysmt.structure.get_dihedral_angles import get_dihedral_angles
 from molsysmt.structure.set_dihedral_angles import set_dihedral_angles

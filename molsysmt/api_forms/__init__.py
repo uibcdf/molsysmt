@@ -75,5 +75,5 @@ for api_name in apis:
 del(mod, method, out_form_name)
 del(current_dir, import_module)
 
-_dicts_forms_lowercase = {ii.lower():ii for ii in forms}
+_dict_forms_lowercase = {ii.lower():ii for ii in forms}
 

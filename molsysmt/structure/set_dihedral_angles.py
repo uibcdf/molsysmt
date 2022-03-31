@@ -1,6 +1,7 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt import puw
-from molsysmt._private.structure_indices import digest_structure_indices
 from molsysmt.lib import geometry as libgeometry
 from molsysmt.basic import get, convert, set, copy
 

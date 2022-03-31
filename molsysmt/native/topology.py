@@ -145,7 +145,7 @@ class Topology():
 
     def _build_components(self):
 
-        from molsysmt.elements.component.component import _shortpath_to_build_components
+        from molsysmt.lib import bonds as _libbonds
 
         n_atoms = self.atoms_dataframe.shape[0]
         n_bonds = self.bonds_dataframe.shape[0]
@@ -154,8 +154,42 @@ class Topology():
         group_type_from_atom = self.atoms_dataframe['group_type'].to_numpy()
         atom_index_from_bond = self.bonds_dataframe[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
 
-        index_array, id_array, name_array, type_array = _shortpath_to_build_components(n_atoms,
-                n_bonds, atom_index_from_bond, group_index_from_atom, group_type_from_atom)
+        if n_bonds==0:
+
+            index_array = np.full(n_atoms, None, dtype=object)
+            id_array = np.full(n_atoms, None, dtype=object)
+            name_array = np.full(n_atoms, None, dtype=object)
+            type_array = np.full(n_atoms, None, dtype=object)
+
+        else:
+
+            index_array = _libbonds.component_indices(atom_index_from_bond, n_atoms, n_bonds)
+            index_array = np.ascontiguousarray(index_array, dtype=int)
+
+            component_indices = np.unique(index_array)
+            n_components = component_indices.shape[0]
+
+            id_array = np.full(n_atoms, None, dtype=object)
+            name_array = np.full(n_atoms, None, dtype=object)
+            type_array = np.full(n_atoms, None, dtype=object)
+
+            for ii in component_indices:
+                mask = (index_array==ii)
+                first_type = group_type_from_atom[mask][0]
+                if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
+                    tmp_type=first_type
+                elif first_type == 'aminoacid':
+                    n_groups = np.unique(group_index_from_atom[mask]).shape[0]
+                    if n_groups>=50:
+                        tmp_type='protein'
+                    else:
+                        tmp_type='peptide'
+                elif first_type == 'nucleotide':
+                    if first_name in rna_group_names:
+                        tmp_type = 'rna'
+                    elif first_name in dna_group_names:
+                        tmp_type = 'dna'
+                type_array[mask]=tmp_type
 
         self.atoms_dataframe["component_index"] = index_array
         self.atoms_dataframe["component_id"] = id_array
@@ -167,12 +201,14 @@ class Topology():
 
     def _build_molecules(self):
 
-        from molsysmt.elements.molecule.molecule import _shortpath_to_build_molecules
-
         component_index_from_atom = self.atoms_dataframe['component_index'].to_numpy()
         component_type_from_atom = self.atoms_dataframe['component_type'].to_numpy()
 
-        index_array, id_array, name_array, type_array = _shortpath_to_build_molecules(component_index_from_atom, component_type_from_atom)
+        n_atoms=component_index_from_atom.shape[0]
+        index_array = component_index_from_atom.copy()
+        id_array = np.full(n_atoms, None, dtype=object)
+        name_array = np.full(n_atoms, None, dtype=object)
+        type_array = component_type_from_atom.copy()
 
         self.atoms_dataframe["molecule_index"] = index_array
         self.atoms_dataframe["molecule_id"] = id_array
@@ -184,13 +220,103 @@ class Topology():
 
     def _build_entities(self):
 
-        from molsysmt.elements.entity.entity import _shortpath_to_build_entities
-
         molecule_index_from_atom = self.atoms_dataframe['molecule_index'].to_numpy()
         molecule_type_from_atom = self.atoms_dataframe['molecule_type'].to_numpy()
         group_name_from_atom = self.atoms_dataframe['group_name'].to_numpy()
 
-        index_array, id_array, name_array, type_array = _shortpath_to_build_entities(molecule_index_from_atom, molecule_type_from_atom, group_name_from_atom)
+        n_atoms = molecule_index_from_atom.shape[0]
+        not_None = np.where(molecule_index_from_atom!=None)
+        molecule_indices = np.unique(molecule_index_from_atom[not_None])
+
+        index_array = np.full(n_atoms, None, dtype=object)
+        id_array = np.full(n_atoms, None, dtype=object)
+        name_array = np.full(n_atoms, None, dtype=object)
+        type_array = np.full(n_atoms, None, dtype=object)
+
+        entities = {}
+        n_entities = 0
+        n_peptides = 0
+        n_proteins = 0
+
+        for molecule_index in molecule_indices:
+
+            mask = (molecule_index_from_atom==molecule_index)
+            molecule_type = molecule_type_from_atom[mask][0]
+
+            if molecule_type == 'water':
+                entity_name = 'water'
+                entity_type = 'water'
+                try:
+                    entity_index = entities[entity_name]
+                except:
+                    entities[entity_name]=n_entities
+                    entity_index=n_entities
+                    n_entities+=1
+
+            elif molecule_type == 'ion':
+                entity_name = group_name_from_atom[mask][0]
+                entity_type = 'ion'
+                try:
+                    entity_index = entities[entity_name]
+                except:
+                    entities[entity_name]=n_entities
+                    entity_index=n_entities
+                    n_entities+=1
+
+            elif molecule_type == 'peptide':
+                entity_name = 'Peptide_'+str(n_peptides)
+                entity_type = 'peptide'
+                n_peptides+=1
+                try:
+                    index = entities[entity_name]
+                except:
+                    entities[entity_name]=n_entities
+                    entity_index=n_entities
+                    n_entities+=1
+
+            elif molecule_type == 'protein':
+                entity_name = 'Protein_'+str(n_proteins)
+                entity_type = 'protein'
+                n_proteins+=1
+                try:
+                    entity_index = entities[entity_name]
+                except:
+                    entities[entity_name]=n_entities
+                    entity_index=n_entities
+                    n_entities+=1
+
+            elif molecule_type == 'lipid':
+                entity_name = group_name_from_atom[mask][0]
+                entity_type = 'lipid'
+                try:
+                    entity_index = entities[entity_name]
+                except:
+                    entity_entities[entity_name]=n_entities
+                    entity_index=n_entities
+                    n_entities+=1
+
+            elif molecule_type == 'small molecule':
+                entity_name = group_name_from_atom[mask][0]
+                entity_type = 'small molecule'
+                try:
+                    entity_index = entities[entity_name]
+                except:
+                    entities[entity_name]=n_entities
+                    entity_index=n_entities
+                    n_entities+=1
+            else:
+                entity_name = 'unknown'
+                entity_type = 'unknown'
+                try:
+                    entity_index = entities[entity_name]
+                except:
+                    entities[entity_name]=n_entities
+                    entity_index=n_entities
+                    n_entities+=1
+
+            index_array[mask]=entity_index
+            name_array[mask]=entity_name
+            type_array[mask]=entity_type
 
         self.atoms_dataframe["entity_index"] = index_array
         self.atoms_dataframe["entity_id"] = id_array
@@ -200,58 +326,9 @@ class Topology():
         del(molecule_index_from_atom, molecule_type_from_atom, group_name_from_atom, index_array, id_array, name_array,
                 type_array)
 
-    def _build_components_molecules_and_entities(self):
-
-        from molsysmt.elements.component.component import _shortpath_to_build_components
-        from molsysmt.elements.molecule.molecule import _shortpath_to_build_molecules
-        from molsysmt.elements.entity.entity import _shortpath_to_build_entities
-
-        n_atoms = self.atoms_dataframe.shape[0]
-        n_bonds = self.bonds_dataframe.shape[0]
-        group_index_from_atom = self.atoms_dataframe['group_index'].to_numpy()
-        group_type_from_atom = self.atoms_dataframe['group_type'].to_numpy()
-        group_name_from_atom = self.atoms_dataframe['group_name'].to_numpy()
-        atom_index_from_bond = self.bonds_dataframe[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
-
-        component_index_from_atom, component_id_from_atom, component_name_from_atom,\
-        component_type_from_atom = _shortpath_to_build_components(n_atoms, n_bonds, atom_index_from_bond,
-                group_index_from_atom, group_type_from_atom)
-
-        self.atoms_dataframe["component_index"] = component_index_from_atom
-        self.atoms_dataframe["component_id"] = component_id_from_atom
-        self.atoms_dataframe["component_name"] = component_name_from_atom
-        self.atoms_dataframe["component_type"] = component_type_from_atom
-
-        del(n_atoms, n_bonds, group_index_from_atom, group_type_from_atom, atom_index_from_bond,
-                component_id_from_atom, component_name_from_atom)
-
-        molecule_index_from_atom, molecule_id_from_atom, molecule_name_from_atom,\
-        molecule_type_from_atom = _shortpath_to_build_molecules(component_index_from_atom, component_type_from_atom)
-
-
-        self.atoms_dataframe["molecule_index"] = molecule_index_from_atom
-        self.atoms_dataframe["molecule_id"] = molecule_id_from_atom
-        self.atoms_dataframe["molecule_name"] = molecule_name_from_atom
-        self.atoms_dataframe["molecule_type"] = molecule_type_from_atom
-
-        del(component_index_from_atom, component_type_from_atom, molecule_id_from_atom, molecule_name_from_atom)
-
-        entity_index_from_atom, entity_id_from_atom, entity_name_from_atom,\
-        entity_type_from_atom = _shortpath_to_build_entities(molecule_index_from_atom, molecule_type_from_atom, group_name_from_atom)
-
-        self.atoms_dataframe["entity_index"] = entity_index_from_atom
-        self.atoms_dataframe["entity_id"] = entity_id_from_atom
-        self.atoms_dataframe["entity_name"] = entity_name_from_atom
-        self.atoms_dataframe["entity_type"] = entity_type_from_atom
-
-        del(group_name_from_atom, molecule_index_from_atom, molecule_type_from_atom,
-                entity_index_from_atom, entity_id_from_atom, entity_name_from_atom,
-                entity_type_from_atom)
-
     def _join_molecules(self, indices=None):
 
         pass
-
 
     def _nan_to_None(self):
 

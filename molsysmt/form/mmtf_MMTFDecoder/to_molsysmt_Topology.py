@@ -23,8 +23,8 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
     import warnings
     from molsysmt.native import Topology
     import numpy as np
-    from molsysmt.element.group import name_to_type as group_name_to_group_type
-    from molsysmt.element.entity import type_from_MMTFDecoder_entity as entity_type_from_MMTFDecoder_entity
+    from molsysmt.element.group import get_group_type_from_group_name
+    from molsysmt.element.entity import get_entity_type_from_MMTFDecoder_entity
 
     tmp_item = Topology()
 
@@ -88,7 +88,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
         mmtf_group = item.group_list[mmtf_group_type]
         group_name = mmtf_group['groupName']
-        group_type = group_name_to_group_type(group_name)
+        group_type = get_group_type_from_group_name(group_name)
 
         # bonds intra-groups
 
@@ -193,7 +193,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', bioa
 
     for mmtf_entity in item.entity_list:
 
-        entity_type = entity_type_from_MMTFDecoder_entity(mmtf_entity)
+        entity_type = get_entity_type_from_MMTFDecoder_entity(mmtf_entity)
         entity_name = mmtf_entity['description']
 
         if entity_type == "protein":

@@ -1,8 +1,8 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
-from molsysmt import puw
 
 def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
                 center='[0,0,0] nanometers', center_of_selection=None, weights_for_center=None,
