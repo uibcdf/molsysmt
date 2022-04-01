@@ -1,3 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+
 def model_loop (item, target_sequence=None, finesse=0, engine='modeller', verbose=False):
 
     if engine=='modeller':

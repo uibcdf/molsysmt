@@ -14,11 +14,10 @@ from molsysmt._private.digestion import *
 def remove_waters (molecular_system, selection="all", include_selection=None,
         exclude_selection=None, syntaxis="MolSysMT", check=True):
 
-    from molsysmt.basic import select, remove
+    from molsysmt.basic import select, remove, is_molecular_system
 
     if check:
 
-        from molsysmt.tools.molecular_system import is_molecular_system
         if not is_molecular_system(molecular_system):
             raise NeedsSingleMolecularSystemError()
 

@@ -21,7 +21,7 @@ def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.openmm_Topology import extract as extract_openmm_Topology
+    from ..openmm_Topology import extract as extract_openmm_Topology
 
     tmp_item = item.topology
     tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices, check=False)

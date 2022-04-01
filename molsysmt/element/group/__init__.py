@@ -8,4 +8,3 @@ from . import nucleotide
 from . import lipid
 
 from .get_group_type_from_group_name import get_group_type_from_group_name
-from .get_group_type_from_group import get_group_type_from_group

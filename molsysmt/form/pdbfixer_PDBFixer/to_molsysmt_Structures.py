@@ -17,7 +17,7 @@ def to_molsysmt_Structures(item, atom_indices='all', check=True):
             raise WrongAtomIndicesError()
 
     from molsysmt.native.structures import Structures
-    from molsysmt.tools.pdbfixer_PDBFixer import get_coordinates_from_atom, get_box_from_system
+    from . import get_coordinates_from_atom, get_box_from_system
 
     tmp_item = Structures()
     coordinates = get_coordinates_from_atom(item, indices=atom_indices, check=False)

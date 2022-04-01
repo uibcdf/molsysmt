@@ -18,7 +18,7 @@ def to_molsysmt_Topology(item, atom_indices='all', check=True):
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros
-    from molsysmt.elements.group import name_to_type as group_name_to_group_type
+    from molsysmt.element.group import get_group_type_from_group_name
 
     tmp_item = Topology()
 
@@ -54,7 +54,7 @@ def to_molsysmt_Topology(item, atom_indices='all', check=True):
         group_index_array[atom_index] = atom.residue.index
         group_name_array[atom_index] = atom.residue.name
         group_id_array[atom_index] = atom.residue.id
-        group_type_array[atom_index] = group_name_to_group_type(atom.residue.name)
+        group_type_array[atom_index] = get_group_type_from_group_name(atom.residue.name)
 
         chain_index_array[atom_index] = atom.residue.chain.index
         chain_id_array[atom_index] = atom.residue.chain.id

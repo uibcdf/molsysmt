@@ -1,3 +1,5 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def add_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, selection='all',
                          syntaxis='MolSysMT', engine='PDBFixer'):

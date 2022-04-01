@@ -637,7 +637,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.molsysmt_Structures import get_coordinates_from_atom as aux_get
+    from ..molsysmt_Structures import get_coordinates_from_atom as aux_get
     return aux_get(item.structures, indices=indices, structure_indices=structure_indices, check=False)
 
 ## group
@@ -3438,7 +3438,7 @@ def get_coordinates_from_system(item, structure_indices='all', check=True):
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.molsysmt_Structures import get_coordinates_from_system as aux_get
+    from ..molsysmt_Structures import get_coordinates_from_system as aux_get
     return aux_get(item.structures, structure_indices=structure_indices, check=False)
 
 def get_box_from_system(item, structure_indices='all', check=True):
@@ -3455,7 +3455,7 @@ def get_box_from_system(item, structure_indices='all', check=True):
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.molsysmt_Structures import get_box_from_system as aux_get
+    from ..molsysmt_Structures import get_box_from_system as aux_get
     return aux_get(item.structures, structure_indices=structure_indices, check=False)
 
 def get_box_shape_from_system(item, structure_indices='all', check=True):
@@ -3472,7 +3472,7 @@ def get_box_shape_from_system(item, structure_indices='all', check=True):
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.molsysmt_Structures import get_box_shape_from_system as aux_get
+    from ..molsysmt_Structures import get_box_shape_from_system as aux_get
     return aux_get(item.structures, structure_indices=structure_indices, check=False)
 
 def get_box_lengths_from_system(item, structure_indices='all', check=True):
@@ -3489,7 +3489,7 @@ def get_box_lengths_from_system(item, structure_indices='all', check=True):
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.molsysmt_Structures import get_box_lengths_from_system as aux_get
+    from ..molsysmt_Structures import get_box_lengths_from_system as aux_get
     return aux_get(item.structures, structure_indices=structure_indices, check=False)
 
 def get_box_angles_from_system(item, structure_indices='all', check=True):
@@ -3506,7 +3506,7 @@ def get_box_angles_from_system(item, structure_indices='all', check=True):
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.molsysmt_Structures import get_box_angles_from_system as aux_get
+    from ..molsysmt_Structures import get_box_angles_from_system as aux_get
     return aux_get(item.structures, structure_indices=structure_indices, check=False)
 
 def get_box_volume_from_system(item, structure_indices='all', check=True):
@@ -3523,7 +3523,7 @@ def get_box_volume_from_system(item, structure_indices='all', check=True):
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.molsysmt_Structures import get_box_volume_from_system as aux_get
+    from ..molsysmt_Structures import get_box_volume_from_system as aux_get
     return aux_get(item.structures, structure_indices=structure_indices, check=False)
 
 def get_time_from_system(item, structure_indices='all', check=True):
@@ -3540,7 +3540,7 @@ def get_time_from_system(item, structure_indices='all', check=True):
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.molsysmt_Structures import get_time_from_system as aux_get
+    from ..molsysmt_Structures import get_time_from_system as aux_get
     return aux_get(item.trajectory, structure_indices=structure_indices, check=False)
 
 def get_step_from_system(item, structure_indices='all', check=True):
@@ -3557,7 +3557,7 @@ def get_step_from_system(item, structure_indices='all', check=True):
         except:
             raise WrongStructureIndicesError()
 
-    from molsysmt.tools.molsysmt_Structures import get_step_from_system as aux_get
+    from ..molsysmt_Structures import get_step_from_system as aux_get
     return aux_get(item.trajectory, structure_indices=structure_indices, check=False)
 
 def get_n_structures_from_system(item, check=True):
@@ -3569,7 +3569,7 @@ def get_n_structures_from_system(item, check=True):
         except:
             raise WrongFormError('molsysmt.MolSys')
 
-    from molsysmt.tools.molsysmt_Structures import get_n_structures_from_system as aux_get
+    from ..molsysmt_Structures import get_n_structures_from_system as aux_get
     return aux_get(item.structures, check=False)
 
 def get_bonded_atoms_from_system(item, check=True):

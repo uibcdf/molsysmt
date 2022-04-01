@@ -1,9 +1,9 @@
 
 def get_entity_type_from_sequence(sequence):
 
-    from molsysmt.elements.molecule.molecule import _get_type_from_sequence as molecule_type_from_sequence
+    from molsysmt.element.molecule import get_molecule_type_from_sequence
 
-    molecule_type = molecule_type_from_sequence(sequence)
+    molecule_type = get_molecule_type_from_sequence(sequence)
 
     if molecule_type == 'protein':
         return 'protein'

@@ -92,7 +92,7 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
         for key in kwargs.keys():
             if kwargs[key]:
                 try:
-                    arguments.append(digest_argument(key, target))
+                    arguments.append(_digest_argument(key, target))
                 except:
                     raise WrongGetArgumentError(key)
 

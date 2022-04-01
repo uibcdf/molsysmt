@@ -8,9 +8,11 @@ Remove ions
 Methods to remove atoms from a molecular model.
 """
 
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+
 def remove_ions (molecular_system, selection="all", include_selection=None, exclude_selection=None, syntaxis="MolSysMT"):
 
-    from molsysmt._private._digestion import digest_syntaxis, digest_molecular_system
     from molsysmt.basic import select, remove
 
     molecular_system = digest_molecular_system(molecular_system)

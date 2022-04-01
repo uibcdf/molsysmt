@@ -8,5 +8,5 @@ from . import dna
 from . import rna
 from . import lipid
 
-from .get_molecule_type_from_sequence impor get_molecule_type_from_sequence
+from .get_molecule_type_from_sequence import get_molecule_type_from_sequence
 

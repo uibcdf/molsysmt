@@ -1,5 +1,5 @@
 from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import digest_engine
+from molsysmt._private.digestion import *
 
 def get_missing_heavy_atoms(molecular_system, selection='all', engine='PDBFixer',
                             syntaxis='MolSysMT'):

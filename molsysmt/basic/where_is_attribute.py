@@ -5,9 +5,9 @@ from molsysmt._private.lists_and_tuples import is_list_or_tuple
 def where_is_attribute(molecular_system, attribute, check=True):
 
     from . import get_form, is_molecular_system
-    from molsysmt.basic.get.arguments import reverse_search, required_attributes
+    from molsysmt.attribute.attributes import _reverse_search_in_molecular_system, _required_attributes
     from molsysmt.api_forms import dict_attributes
-    from molsysmt.tools.attribute import is_attribute
+    from molsysmt.attribute import is_attribute
 
     if check:
 
@@ -22,7 +22,7 @@ def where_is_attribute(molecular_system, attribute, check=True):
 
     forms_in = get_form(molecular_system)
 
-    if reverse_search[attribute]:
+    if _reverse_search_in_molecular_system[attribute]:
         aux_zip = zip(reversed(molecular_system), reversed(forms_in))
     else:
         aux_zip = zip(molecular_system, forms_in)
@@ -31,7 +31,7 @@ def where_is_attribute(molecular_system, attribute, check=True):
     output_form = None
 
     for item, form_in in aux_zip:
-        for required_attribute in required_attributes[attribute]:
+        for required_attribute in _required_attributes[attribute]:
             if dict_attributes[form_in][required_attribute]:
                 output_item = item
                 output_form = form_in

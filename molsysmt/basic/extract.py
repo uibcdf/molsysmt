@@ -46,6 +46,9 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
 
     """
 
+    from . import get_form, select, convert, is_molecular_system
+    from molsysmt.api_forms import dict_extract
+
     if check:
 
         if not is_molecular_system(molecular_system):
@@ -70,9 +73,6 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
             selection = digest_selection(selection, syntaxis)
         except:
             raise WrongSelectionError()
-
-    from . import get_form, select, convert, is_molecular_system
-    from molsysmt.api_forms import dict_extract
 
     if to_form is not None:
 
