@@ -127,7 +127,10 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
             dict_indices['structure_indices']=structure_indices
 
         aux_item, aux_form = where_is_attribute(molecular_system, argument, check=False)
-        result = dict_get[aux_form][target][argument](aux_item, **dict_indices)
+        if aux_item is None:
+            result = None
+        else:
+            result = dict_get[aux_form][target][argument](aux_item, **dict_indices)
         output.append(result)
 
     output=digest_output(output)

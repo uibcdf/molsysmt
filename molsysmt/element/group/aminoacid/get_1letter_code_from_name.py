@@ -1,3 +1,4 @@
+from .types import name_to_type as _name_to_type
 
 aa3_to_aa1 = {
         'ALA': 'A', # Alanine
@@ -30,5 +31,7 @@ aa3_to_aa1 = {
 
 def get_1letter_code_from_name(name):
 
-    return aa3_to_aa1[name]
+    aa_type = _name_to_type[name]
+
+    return aa3_to_aa1[aa_type]
 

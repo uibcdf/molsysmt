@@ -23,6 +23,7 @@ production:
     - openmm
     - pdbfixer
     - nglview
+    - ambertools
 
 test:
   channels: &test_channels

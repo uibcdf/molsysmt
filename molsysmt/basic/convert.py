@@ -105,19 +105,29 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
 
     tmp_item = None
 
-    item = None
-    from_form = None
+    if not is_list_or_tuple(molecular_system):
+        molecular_system = [molecular_system]
 
-    if is_list_or_tuple(molecular_system):
-        raise NotImplementedMethodError()
-    else:
-        item=molecular_system
-        from_form=get_form(molecular_system)
+    for item in molecular_system:
 
-    try:
-        tmp_item = dict_convert[from_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
-                                                       **conversion_arguments, **kwargs)
-    except:
+        from_form=get_form(item)
+
+        if (from_form==to_form) and (atom_indices=='all') and(structure_indices=='all'):
+            tmp_item = item
+        else:
+            try:
+                tmp_item = dict_convert[from_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
+                                                               **conversion_arguments, **kwargs)
+            except:
+                tmp_item = None
+
+        if tmp_item is not None:
+            break
+
+    if tmp_item is None:
+
+        from_form = get_form(molecular_system)
+        from_form = digest_output(from_form)
         raise NotImplementedConversionError(from_form, to_form)
 
     tmp_item = digest_output(tmp_item)

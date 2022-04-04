@@ -8,11 +8,3 @@ molecular_mechanics_parameters = {
     'implicit_solvent_kappa',
 }
 
-def is_molecular_mechanics_dict(dictionary):
-
-    keys=set(dictionary.keys())
-    output = (keys <= molecular_mechanics_parameters)
-
-    return output
-
-
