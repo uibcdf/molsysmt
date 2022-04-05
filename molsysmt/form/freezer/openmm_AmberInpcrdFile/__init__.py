@@ -1,2 +1,0 @@
-from .is_openmm_AmberInpcrdFile import is_openmm_AmberInpcrdFile
-
