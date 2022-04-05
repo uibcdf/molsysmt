@@ -1,319 +1,67 @@
 from molsysmt._private.exceptions import *
-from molsysmt.api_forms.common_gets import *
-import numpy as np
-from molsysmt.native.molecular_system import molecular_system_components
-import sys
-import importlib
+
+from molsysmt.form.openmm_AmberPrmtopFile.is_openmm_AmberPrmtopFile import is_openmm_AmberPrmtopFile as is_form
+from molsysmt.form.openmm_AmberPrmtopFile.extract import extract
+from molsysmt.form.openmm_AmberPrmtopFile.add import add
+from molsysmt.form.openmm_AmberPrmtopFile.merge import merge
+from molsysmt.form.openmm_AmberPrmtopFile.append_structures import append_structures
+from molsysmt.form.openmm_AmberPrmtopFile.concatenate_structures import concatenate_structures
+from molsysmt.form.openmm_AmberPrmtopFile.get import *
+from molsysmt.form.openmm_AmberPrmtopFile.set import *
 
 form_name='openmm.AmberPrmtopFile'
-from_type='class'
-
-is_form={
-    'openmm.AmberPrmtopFile' : form_name,
-}
-
+form_type='class'
 info=["",""]
 
-has = molecular_system_components.copy()
-for ii in ['elements', 'bonds', 'ff_parameters']:
-    has[ii]=True
-
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms.api_openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
-
-    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system)
-    tmp_item, tmp_molecular_system = openmm_Topology_to_molsysmt_Topology(item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
-
-    tmp_item = item.topology
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
-
-    return tmp_item, tmp_molecular_system
-
-def to_openmm_System(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    tmp_item = item.createSystem()
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = openmm_System_to_openmm_System(tmp_item, tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
-
-    return tmp_item, tmp_molecular_system
-
-def to_openmm_AmberPrmtopFile(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True):
-
-    tmp_molecular_system = None
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        if copy_if_all:
-            tmp_item = extract(item)
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-        else:
-            tmp_item = item
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system
-    else:
-        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-        if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def extract(item, atom_indices='all', structure_indices='all'):
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        raise NotImplementedError()
-    else:
-        raise NotImplementedError()
-
-    return tmp_item
-
-def merge(item_1, item_2):
-
-    raise NotImplementedError
-
-def add(to_item, item):
-
-    raise NotImplementedError
-
-def append_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError()
-
-def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
-
-##### Set
-
-def aux_get(item, indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms import forms
-
-    method_name = sys._getframe(1).f_code.co_name
-
-    if 'openmm.Topology' in forms:
-
-        tmp_item, _ = to_openmm_Topology(item)
-        module = importlib.import_module('molsysmt.api_forms.api_openmm_Topology')
-        _get = getattr(module, method_name)
-        output = _get(tmp_item, indices=indices, structure_indices=structure_indices)
-
-    else:
-
-        raise NotImplementedError()
-
-    return output
-
-## Atom
-
-def get_atom_id_from_atom(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_atom_name_from_atom(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_atom_type_from_atom(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_group_index_from_atom (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_component_index_from_atom (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_chain_index_from_atom (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_molecule_index_from_atom (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_entity_index_from_atom (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_inner_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotWithThisFormError()
-
-def get_frame_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotWithThisFormError()
-
-## group
-
-def get_group_id_from_group(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_group_name_from_group(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_group_type_from_group(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## component
-
-def get_component_id_from_component (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_component_name_from_component (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_component_type_from_component (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## molecule
-
-def get_molecule_id_from_molecule (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_molecule_name_from_molecule (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_molecule_type_from_molecule (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## chain
-
-def get_chain_id_from_chain (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_chain_name_from_chain (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_chain_type_from_chain (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-## entity
-
-def get_entity_id_from_entity (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_entity_name_from_entity (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_entity_type_from_entity (item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-# System
-
-def get_n_atoms_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_groups_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_components_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_chains_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_molecules_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_entities_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_coordinates_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotWithThisFormError()
-
-def get_box_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_box_shape_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_box_angles_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_box_volume_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-def get_time_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotWithThisFormError()
-
-def get_step_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotWithThisFormError()
-
-def get_n_structures_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotWithThisFormError()
-
-def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
-
-    return aux_get(item, indices=indices, structure_indices=structure_indices)
-
-###### Set
-
-def set_box_to_system(item, indices='all', structure_indices='all', value=None):
-
-    raise NotImplementedError
-
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
-
-    raise NotImplementedError
+form_attributes = {
+
+    'atom_index' : True,
+    'atom_id' : True,
+    'atom_name' : True,
+    'atom_type' : True,
+
+    'bond_index' : True,
+    'bond_id' : True,
+    'bond_name' : True,
+    'bond_type' : True,
+
+    'group_index' : True,
+    'group_id' : True,
+    'group_name' : True,
+    'group_type' : True,
+
+    'component_index' : True,
+    'component_id' : False,
+    'component_name' : False,
+    'component_type' : False,
+
+    'molecule_index' : True,
+    'molecule_id' : True,
+    'molecule_name' : True,
+    'molecule_type' : True,
+
+    'chain_index' : True,
+    'chain_id' : True,
+    'chain_name' : True,
+    'chain_type' : True,
+
+    'entity_index' : False,
+    'entity_id' : False,
+    'entity_name' : False,
+    'entity_type' : False,
+
+    'coordinates' : False,
+    'velocities' : False,
+    'box' : True,
+    'time' : False,
+    'step' : False,
+
+    'forcefield_parameters' : True,
+
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
+}
 

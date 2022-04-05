@@ -12,7 +12,7 @@ def add(to_item, item, check=True):
             raise WrongFormError('openmm.AmberInpcrdFile')
 
         try:
-            is_pdbfixer_PDBFixer(to_item)
+            is_openmm_AmberInpcrdFile(to_item)
         except:
             raise WrongFormError('openmm.AmberInpcrdFile')
 
