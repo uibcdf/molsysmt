@@ -47,7 +47,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
     """
 
-    from . import convert, extract, select, is_molecular_system
+    from . import convert, extract, select, is_molecular_system, are_multiple_molecular_systems
     from molsysmt.api_forms import dict_add
 
     if check:
@@ -55,13 +55,11 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
         if not is_molecular_system(to_molecular_system):
             raise MolecularSystemNeededError()
 
-        if not is_molecular_system(from_molecular_system):
-            if not are_multiple_molecular_systems(from_molecular_system):
+        if not is_molecular_system(from_molecular_systems):
+            if not are_multiple_molecular_systems(from_molecular_systems):
                 raise MolecularSystemNeededError()
 
-        raise NotImplementedMethod()
-
-    if is_single_molecular_system(from_molecular_systems):
+    if is_molecular_system(from_molecular_systems):
         from_molecular_systems = [from_molecular_systems]
 
     n_from_molecular_systems = len(from_molecular_systems)
@@ -81,60 +79,10 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
         atom_indices = select(aux_molecular_system, selection=aux_selection, syntaxis=syntaxis, check=False)
 
-        to_already_added=[]
+        aux_item = convert(aux_molecular_system, selection=aux_selection, structure_indices=aux_structure_indices, syntaxis=syntaxis,
+                to_form=to_form, check=False)
 
-        # topology
-
-        to_form = to_molecular_system.elements_form
-        to_item = to_molecular_system.elements_item
-
-        if to_form is not None:
-            from_item = convert(aux_molecular_system, selection=atom_indices,
-                    structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form,
-                    check=False)
-            dict_add[to_form](to_item, from_item)
-            to_already_added.append(to_item)
-
-        # ff_parameters
-
-        to_form = to_molecular_system.ff_parameters_form
-        to_item = to_molecular_system.ff_parameters_item
-
-        if to_form is not None:
-            if to_item not in to_already_added:
-                from_item = convert(aux_molecular_system, selection=atom_indices,
-                        structure_indices=aux_structure_indices, syntaxis=syntaxis,
-                        to_form=to_form, check=False)
-                dict_add[to_form](to_item, from_item)
-                to_already_added.append(to_item)
-
-        # bonds
-
-        to_form = to_molecular_system.bonds_form
-        to_item = to_molecular_system.bonds_item
-
-        if to_form is not None:
-            if to_item not in to_already_added:
-                from_item = convert(aux_molecular_system, selection=atom_indices,
-                        structure_indices=aux_structure_indices, syntaxis=syntaxis,
-                        to_form=to_form, check=False)
-                dict_add[to_form](to_item, from_item)
-                to_already_added.append(to_item)
-
-        # coordinates
-
-        to_form = to_molecular_system.coordinates_form
-        to_item = to_molecular_system.coordinates_item
-
-        if to_form is not None:
-            if to_item not in to_already_added:
-                from_item = convert(aux_molecular_system, selection=atom_indices,
-                        structure_indices=aux_structure_indices, syntaxis=syntaxis,
-                        to_form=to_form, check=False)
-                dict_add[to_form](to_item, from_item)
-                to_already_added.append(to_item)
-
-        # The box info is taken from the first molecular_system
+        dict_add[to_form](to_item, from_item)
 
     pass
 

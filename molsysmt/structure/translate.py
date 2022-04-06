@@ -2,13 +2,13 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt import puw
-from molsysmt.basic import get, set, select, copy
 
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
         syntaxis='MolSysMT', in_place=False, check=True):
 
+    from molsysmt.basic import get, set, select, copy, is_molecular_system
+
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
         if not is_molecular_system(molecular_system):
             raise MolecularSystemNeededError()
 
@@ -45,7 +45,6 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
         return set(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
     else:
         tmp_molecular_system = copy(molecular_system)
-        tmp_molecular_system = digest_molecular_system(tmp_molecular_system)
         set(tmp_molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
         return tmp_molecular_system
 
