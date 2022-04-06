@@ -11,7 +11,7 @@ from molsysmt.form.openmm_AmberInpcrdFile.set import *
 
 form_name='openmm.AmberInpcrdFile'
 form_type='class'
-info = []
+form_info=["",""]
 
 form_attributes = {
 

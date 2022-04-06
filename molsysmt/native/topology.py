@@ -178,8 +178,11 @@ class Topology():
                 first_type = group_type_from_atom[mask][0]
                 if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
                     tmp_type=first_type
-                elif first_type == 'aminoacid':
-                    n_groups = np.unique(group_index_from_atom[mask]).shape[0]
+                elif (first_type == 'aminoacid') or (first_type == 'terminal_capping'):
+                    n_terminals = 0
+                    if first_type == 'terminal_capping': n_terminals += 1
+                    if group_type_from_atom[mask][-1] == 'terminal_capping': n_terminals += 1
+                    n_groups = np.unique(group_index_from_atom[mask]).shape[0] - n_terminals
                     if n_groups>=50:
                         tmp_type='protein'
                     else:

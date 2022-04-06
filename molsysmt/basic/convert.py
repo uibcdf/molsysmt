@@ -115,12 +115,10 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
         if (from_form==to_form) and (atom_indices=='all') and(structure_indices=='all'):
             tmp_item = item
         else:
-            try:
-                tmp_item = dict_convert[from_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
-                                                               **conversion_arguments, **kwargs)
-            except:
-                tmp_item = None
-
+            if from_form in dict_convert:
+                if to_form in dict_convert[from_form]:
+                    tmp_item = dict_convert[from_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices,
+                                                                structure_indices=structure_indices, **conversion_arguments, **kwargs)
         if tmp_item is not None:
             break
 

@@ -8,7 +8,7 @@ from .concatenate_structures import concatenate_structures
 from .get import *
 from .set import *
 
-from .to_mdtraj_AmberInpcrdFile import to_mdtraj_AmberInpcrdFile
+from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
 from .to_mdtraj_AmberRestartFile import to_mdtraj_AmberRestartFile
 from .to_molsysmt_Structures import to_molsysmt_Structures
 

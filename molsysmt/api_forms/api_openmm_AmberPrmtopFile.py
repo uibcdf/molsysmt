@@ -11,7 +11,7 @@ from molsysmt.form.openmm_AmberPrmtopFile.set import *
 
 form_name='openmm.AmberPrmtopFile'
 form_type='class'
-info=["",""]
+form_info=["",""]
 
 form_attributes = {
 

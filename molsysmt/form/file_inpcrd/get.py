@@ -30,7 +30,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
             raise WrongStructureIndicesError()
 
     from . import to_openmm_AmberInpcrdFile
-    from ..openmm_AmberInpcrdFile import get_atom_id_from_atom as aux_get
+    from ..openmm_AmberInpcrdFile import get_coordinates_from_atom as aux_get
 
     tmp_item = to_openmm_AmberInpcrdFile(item, check=False)
     output = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, check=False)

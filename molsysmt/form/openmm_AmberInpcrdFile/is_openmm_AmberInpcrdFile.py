@@ -2,7 +2,7 @@
 def is_openmm_AmberInpcrdFile(item):
 
     item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
-    output = (item_fullname_='openmm.AmberInpcrdFile')
+    output = (item_fullname=='openmm.AmberInpcrdFile')
 
     return output
 

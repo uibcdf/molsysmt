@@ -70,7 +70,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
     from molsysmt.form.file_prmtop import to_file_pdb as file_prmtop_to_file_pdb
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, coordinates=True, check=False)
+    coordinates = get(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True, check=False)
     tmp_item = file_prmtop_to_file_pdb(item, atom_indices=atom_indices, coordinates=coordinates, output_filename=output_filename, check=False)
 
     return tmp_item
@@ -88,7 +88,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
     from molsysmt.form.file_prmtop import to_molsysmt_MolSys as file_prmtop_to_molsysmt_MolSys
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, coordinates=True, check=False)
+    coordinates = get(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True, check=False)
     tmp_item  = file_prmtop_to_molsysmt_MolSys(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
 
     return tmp_item

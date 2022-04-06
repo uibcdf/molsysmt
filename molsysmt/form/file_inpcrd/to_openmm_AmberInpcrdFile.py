@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from .is_file_inpcrd import is_file_inpcrd
 
-def to_mdtraj_AmberInpcrdFile(item, atom_indices='all', structure_indices='all', check=True):
+def to_openmm_AmberInpcrdFile(item, atom_indices='all', structure_indices='all', check=True):
 
     if check:
 

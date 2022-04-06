@@ -11,7 +11,7 @@ from molsysmt.form.file_inpcrd.set import *
 
 form_name='file:inpcrd'
 form_type='file'
-info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
+form_info = ["AMBER ASCII restart/inpcrd file format","https://ambermd.org/FileFormats.php#trajectory"]
 
 form_attributes = {
 

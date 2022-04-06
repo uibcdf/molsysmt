@@ -18,5 +18,5 @@ def to_openmm_Topology(item, atom_indices='all', check=True):
     tmp_item = to_openmm_AmberPrmtopFile(item, check=False)
     tmp_item = openmm_AmberPrmtopFile_to_openmm_Topology(tmp_item, atom_indices=atom_indices, check=False)
 
-    return tmp_item, tmp_molecular_system
+    return tmp_item
 
