@@ -1,6 +1,7 @@
 from .is_string_aminoacids1 import is_string_aminoacids1
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+from copy import copy
 
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
 
@@ -25,7 +26,7 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     if (atom_indices is 'all') and (structure_indices is 'all'):
 
         if copy_if_all:
-            tmp_item = item.copy()
+            tmp_item = copy(item)
         else:
             tmp_item = item
     else:

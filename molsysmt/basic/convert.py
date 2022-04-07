@@ -54,7 +54,7 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
 
     from . import select, get_form, is_molecular_system
     from molsysmt.item import is_item, is_file
-    from molsysmt.api_forms import dict_convert, dict_attributes
+    from molsysmt.api_forms import dict_convert, dict_extract, dict_attributes
 
     if check:
 
@@ -112,8 +112,9 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
 
         from_form=get_form(item)
 
-        if (from_form==to_form) and (atom_indices=='all') and(structure_indices=='all'):
-            tmp_item = item
+        if (from_form==to_form):
+            tmp_item = dict_extract[from_form](item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                               copy_if_all=False, check=False)
         else:
             if from_form in dict_convert:
                 if to_form in dict_convert[from_form]:

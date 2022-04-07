@@ -47,7 +47,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
     """
 
-    from . import convert, extract, select, is_molecular_system, are_multiple_molecular_systems
+    from . import get_form, convert, extract, select, is_molecular_system, are_multiple_molecular_systems
     from molsysmt.api_forms import dict_add
 
     if check:
@@ -58,6 +58,11 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
         if not is_molecular_system(from_molecular_systems):
             if not are_multiple_molecular_systems(from_molecular_systems):
                 raise MolecularSystemNeededError()
+
+    if not is_list_or_tuple(to_molecular_system):
+        to_molecular_system = [to_molecular_system]
+
+    to_forms = get_form(to_molecular_system)
 
     if is_molecular_system(from_molecular_systems):
         from_molecular_systems = [from_molecular_systems]
@@ -76,13 +81,12 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(from_molecular_systems, selections, structure_indices):
+        for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
 
-        atom_indices = select(aux_molecular_system, selection=aux_selection, syntaxis=syntaxis, check=False)
+            aux_item = convert(aux_molecular_system, selection=aux_selection, structure_indices=aux_structure_indices, syntaxis=syntaxis,
+                               to_form=aux_to_form, check=False)
 
-        aux_item = convert(aux_molecular_system, selection=aux_selection, structure_indices=aux_structure_indices, syntaxis=syntaxis,
-                to_form=to_form, check=False)
-
-        dict_add[to_form](to_item, from_item)
+            dict_add[aux_to_form](aux_to_item, aux_item)
 
     pass
 
