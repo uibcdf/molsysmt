@@ -1,6 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from .is_nglview_NGLWidget import is_nglview_NGLWidget
+from copy import copy
 
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
 
@@ -24,7 +25,6 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     if (atom_indices is 'all') and (structure_indices is 'all'):
 
         if copy_if_all:
-            from copy import copy
             tmp_item = copy(item)
         else:
             tmp_item = item

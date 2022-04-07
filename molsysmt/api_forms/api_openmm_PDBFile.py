@@ -1,115 +1,124 @@
 from molsysmt._private.exceptions import *
-from molsysmt.api_forms.common_gets import *
-import numpy as np
-import sys
-import importlib
-from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt import puw
+
+from molsysmt.form.openmm_PDBFile.is_openmm_PDBFile import is_openmm_PDBFile as is_form
+from molsysmt.form.openmm_PDBFile.extract import extract
+from molsysmt.form.openmm_PDBFile.add import add
+from molsysmt.form.openmm_PDBFile.merge import merge
+from molsysmt.form.openmm_PDBFile.append_structures import append_structures
+from molsysmt.form.openmm_PDBFile.concatenate_structures import concatenate_structures
+from molsysmt.form.openmm_PDBFile.get import *
+from molsysmt.form.openmm_PDBFile.set import *
 
 form_name='openmm.PDBFile'
-from_type='class'
+form_type='class'
+form_info=["",""]
 
-is_form={
-    'openmm.PDBFile' : form_name,
+form_attributes = {
+
+    'atom_index' : True,
+    'atom_id' : True,
+    'atom_name' : True,
+    'atom_type' : True,
+
+    'bond_index' : False,
+    'bond_id' : False,
+    'bond_name' : False,
+    'bond_type' : False,
+
+    'group_index' : True,
+    'group_id' : True,
+    'group_name' : True,
+    'group_type' : True,
+
+    'component_index' : True,
+    'component_id' : True,
+    'component_name' : True,
+    'component_type' : True,
+
+    'molecule_index' : True,
+    'molecule_id' : True,
+    'molecule_name' : True,
+    'molecule_type' : True,
+
+    'chain_index' : True,
+    'chain_id' : True,
+    'chain_name' : True,
+    'chain_type' : True,
+
+    'entity_index' : True,
+    'entity_id' : True,
+    'entity_name' : True,
+    'entity_type' : True,
+
+    'coordinates' : True,
+    'velocities' : False,
+    'box' : True,
+    'time' : True,
+    'step' : True,
+
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
+
 }
 
-info=["",""]
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-has = molecular_system_components.copy()
-for ii in ['elements', 'coordinates', 'box', 'bonds']:
-    has[ii]=True
+    from molsysmt.form.openmm_PDBFile import to_molsysmt_Topology as openmm_PDBFile_to_molsysmt_Topology
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    tmp_item = openmm_PDBFile_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
 
-    from molsysmt.native.io.topology import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_Topology
+    return tmp_item
 
-    tmp_item, tmp_molecular_system = openmm_PDBFile_to_molsysmt_Topology(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
+def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    return tmp_item, tmp_molecular_system
+    from molsysmt.form.openmm_PDBFile import to_molsysmt_Structures as openmm_PDBFile_to_molsysmt_Structures
 
-def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    tmp_item = openmm_PDBFile_to_molsysmt_Structures(item, atom_indices=atom_indices, check=False)
 
-    from molsysmt.native.io.trajectory import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_Structures
+    return tmp_item
 
-    tmp_item, tmp_molecular_system = openmm_PDBFile_to_molsysmt_Structures(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    return tmp_item, tmp_molecular_system
+    from molsysmt.form.openmm_PDBFile import to_molsysmt_MolSys as openmm_PDBFile_to_molsysmt_MolSys
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    tmp_item = openmm_PDBFile_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    from molsysmt.native.io.molsys import from_openmm_PDBFile as openmm_PDBFile_to_molsysmt_MolSys
+    return tmp_item
 
-    tmp_item, tmp_molecular_system = openmm_PDBFile_to_molsysmt_MolSys(item,
-            molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
+def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    return tmp_item, tmp_molecular_system
+    from molsysmt.form.openmm_PDBFile import to_mdtraj_Trajectory as openmm_PDBFile_to_mdtraj_Trajectory
 
-def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    tmp_item = openmm_PDBFile_to_molsysmt_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    import openmm.unit as _unit
-    from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
-    from molsysmt.api_forms.api_mdtraj_Trajectory import mdtraj_Trajectory_to_mdtraj_Trajectory
+    return tmp_item
 
-    topology, _ = to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices)
-    positions = puw.get_value(item.positions, to_unit='nanometers')
-    tmp_item = mdtraj_Trajectory(positions, topology)
-    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_mdtraj_Trajectory(tmp_item, molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    return tmp_item, tmp_molecular_system
+    from molsysmt.form.openmm_PDBFile import to_mdtraj_Topology as openmm_PDBFile_to_mdtraj_Topology
 
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    tmp_item = openmm_PDBFile_to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    from molsysmt.api_forms.api_openmm_Topology import to_mdtraj_Topology as openmm_Topology_to_mdtraj_Topology
+    return tmp_item
 
-    tmp_item, tmp_molecular_system = to_openmm_Topology(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item, tmp_molecular_system = openmm_Topology_to_mdtraj_Topology(tmp_item, molecular_system=tmp_molecular_system)
+def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    return tmp_item, tmp_molecular_system
+    from molsysmt.form.openmm_Topology import to_openmm_Topology as openmm_PDBFile_to_mdtraj_Topology
 
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    tmp_item = openmm_PDBFile_to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    from molsysmt.api_forms.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
+    return tmp_item
 
-    tmp_item = item.getTopology()
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-    else:
-        tmp_molecular_system = None
-    tmp_item, tmp_molecular_system = openmm_Topology_to_openmm_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=False)
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    return tmp_item, tmp_molecular_system
+    from molsysmt.form.openmm_Topology import to_nglview_NGLWidget as openmm_Topology_to_nglview_NGLWidget
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    tmp_item = openmm_Topology_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    from molsysmt.api_forms.api_mdtraj_Trajectory import to_nglview_NGLWidget as mdtraj_Trajectory_to_nglview_NGLWidget
-
-    tmp_item, tmp_molecular_system = to_mdtraj_Trajectory(item, molecular_system=molecular_system, atom_indices=atom_indices, structure_indices=structure_indices)
-    tmp_item, tmp_molecular_system = mdtraj_Trajectory_to_nglview_NGLWidget(tmp_item,
-            molecular_system=tmp_molecular_system)
-
-    return tmp_item, tmp_molecular_system
-
-def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True):
-
-    tmp_molecular_system = None
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        if copy_if_all:
-            tmp_item = extract(item)
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-        else:
-            tmp_item = item
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system
-    else:
-        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-        if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
+    return tmp_item
 
 def extract(item, atom_indices='all', structure_indices='all'):
 
@@ -128,21 +137,6 @@ def extract(item, atom_indices='all', structure_indices='all'):
 
     return tmp_item
 
-def merge(item_1, item_2):
-
-    raise NotImplementedError
-
-def add(to_item, item):
-
-    raise NotImplementedError
-
-def append_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
-
-def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
 
 ###### Get
 
