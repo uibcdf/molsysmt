@@ -7,6 +7,7 @@ from molsysmt._private.digestion import *
 from .is_openmm_Modeller import is_openmm_Modeller
 import numpy as np
 from networkx import Graph
+from molsysmt import puw
 
 ## From atom
 
@@ -750,10 +751,10 @@ def get_box_from_system(item, structure_indices='all', check=True):
             raise WrongIndicesError()
 
     from . import to_openmm_Topology
-    from ..to_openmm_Topology import get_box_from_system as aux_get
+    from ..openmm_Topology import get_box_from_system as aux_get
 
     tmp_item = to_openmm_Topology(item, check=False)
-    output = aux_get(item, indices=indices, check=False)
+    output = aux_get(tmp_item, structure_indices=structure_indices, check=False)
 
     return output
 

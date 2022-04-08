@@ -24,7 +24,7 @@ class Structures():
         if filepath is not None:
             self.load_frames_from_file(filepath=filepath, atom_indices=atom_indices, structure_indices=structure_indices)
 
-    def append_structures(self, step=None, time=None, coordinates=None, box=None):
+    def append_structures(self, step=None, time=None, coordinates=None, box=None, check=True):
 
         if step is not None:
             if type(step) not in [list, np.ndarray]:
