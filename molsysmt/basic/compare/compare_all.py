@@ -9,9 +9,6 @@ def compare_all_eq(molecular_system_A, molecular_system_B, selection_A='all',
 
     from .. import select, get
 
-    molecular_system_A = digest_molecular_system(molecular_system_A)
-    molecular_system_B = digest_molecular_system(molecular_system_B)
-
     # Number of atoms, groups, molecules, chains, entities
 
     n_atoms_A, n_groups_A, n_molecules_A, n_chains_A, n_entities_A, n_bonds_A = get(molecular_system_A,

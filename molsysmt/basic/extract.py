@@ -93,7 +93,6 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     output = []
 
     for form_in, item in zip(forms_in, molecular_system):
-
         output_item = dict_extract[form_in](item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=copy_if_all, check=False)
         output.append(output_item)
 

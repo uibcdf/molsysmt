@@ -113,9 +113,26 @@ def get_component_index_from_atom(item, indices='all', check=True):
         except:
             raise WrongIndicesError()
 
+    from molsysmt.lib import bonds as _libbonds
 
-    from molsysmt.element.component import component_index_from_atom as _get
-    return _get(item, indices=indices, check=False)
+    n_atoms = get_n_atoms_from_system(item)
+    n_bonds = get_n_bonds_from_system(item)
+
+    if n_bonds==0:
+
+        output = np.full(n_atoms, None, dtype=object)
+
+    else:
+
+        atom_indices = get_atom_indices_from_bond(item)
+
+        output = _libbonds.component_indices(atoms_indices, n_atoms, n_bonds)
+        output = np.ascontiguousarray(output, dtype=int)
+
+    if indices is not 'all':
+        output = output[indices]
+
+    return output
 
 def get_chain_index_from_atom(item, indices='all', check=True):
 
@@ -340,8 +357,9 @@ def get_component_id_from_component(item, indices='all', check=True):
         except:
             raise WrongIndicesError()
 
-    from molsysmt.element.component import get_component_index_from_atom as _get
-    return _get(item, indices=indices, check=False)
+    output = get_component_index_from_component(item, indices=indices, check=False)
+
+    return output
 
 def get_component_name_from_component(item, indices='all', check=True):
 
@@ -357,8 +375,9 @@ def get_component_name_from_component(item, indices='all', check=True):
         except:
             raise WrongIndicesError()
 
-    from molsysmt.element.component import get_component_name_from_atom as _get
-    return _get(item, indices=indices, check=False)
+    output = get_component_index_from_component(item, indices=indices, check=False)
+
+    return output
 
 def get_component_type_from_component(item, indices='all', check=True):
 
@@ -374,8 +393,14 @@ def get_component_type_from_component(item, indices='all', check=True):
         except:
             raise WrongIndicesError()
 
-    from molsysmt.element.component import get_component_type_from_atom as _get
-    return _get(item, indices=indices)
+    from molsysmt.element.component import get_component_type_from_group_types
+
+    output = []
+    group_types = get_group_type_from_component(item, indices=indices, check=False)
+    for aux in group_types:
+        output.append(get_component_type_from_group_types(aux))
+    output = np.array(output, dtype=object)
+    return output
 
 ## From molecule
 
@@ -587,8 +612,15 @@ def get_n_components_from_system(item, check=True):
         except:
             raise WrongFormError('openmm.Topology')
 
-    from molsysmt.element.component import n_components_from_system as _get
-    return _get(item, check=False)
+    component_index_from_atom = get_component_index_from_atom(item, indices='all')
+
+    if component_index_from_atom[0] is None:
+        n_components = 0
+    else:
+        output = np.unique(component_index_from_atom)
+        n_components = output.shape[0]
+
+    return n_components
 
 def get_n_chains_from_system(item, check=True):
 

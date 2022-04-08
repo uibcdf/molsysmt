@@ -1,6 +1,5 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .arguments import digest_argument
 from .compare_all import compare_all_eq, compare_all_in
 from .compare_info import compare_info_eq, compare_info_in
 from .compare_info_no_form import compare_info_no_form_eq, compare_info_no_form_in
@@ -35,6 +34,8 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
     # rule in ['A_eq_B', 'A_neq_B', 'A_in_B', 'B_in_A']
 
+    from .. import is_molecular_system
+
     if check:
 
         if not is_molecular_system(molecular_system_A):
@@ -42,11 +43,6 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
 
         if not is_molecular_system(molecular_system_B):
             raise MolecularSystemNeededError()
-
-        try:
-            target=digest_target(target)
-        except:
-            raise WrongTargetError(target)
 
         try:
             syntaxis=digest_syntaxis(syntaxis)
@@ -74,7 +70,7 @@ def compare(molecular_system_A, molecular_system_B, selection_A='all', structure
             raise WrongStructureIndicesError(structure_indices_B)
 
         try:
-            comparison = digest_argument(comparison)
+            comparison = digest_comparison(comparison)
         except:
             raise WrongComparisonError(comparison)
 

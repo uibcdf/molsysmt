@@ -146,6 +146,7 @@ class Topology():
     def _build_components(self):
 
         from molsysmt.lib import bonds as _libbonds
+        from molsysmt.element.component import get_component_type_from_group_types
 
         n_atoms = self.atoms_dataframe.shape[0]
         n_bonds = self.bonds_dataframe.shape[0]
@@ -169,34 +170,22 @@ class Topology():
             component_indices = np.unique(index_array)
             n_components = component_indices.shape[0]
 
-            id_array = np.full(n_atoms, None, dtype=object)
-            name_array = np.full(n_atoms, None, dtype=object)
             type_array = np.full(n_atoms, None, dtype=object)
 
             for ii in component_indices:
+
                 mask = (index_array==ii)
-                first_type = group_type_from_atom[mask][0]
-                if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
-                    tmp_type=first_type
-                elif (first_type == 'aminoacid') or (first_type == 'terminal_capping'):
-                    n_terminals = 0
-                    if first_type == 'terminal_capping': n_terminals += 1
-                    if group_type_from_atom[mask][-1] == 'terminal_capping': n_terminals += 1
-                    n_groups = np.unique(group_index_from_atom[mask]).shape[0] - n_terminals
-                    if n_groups>=50:
-                        tmp_type='protein'
-                    else:
-                        tmp_type='peptide'
-                elif first_type == 'nucleotide':
-                    if first_name in rna_group_names:
-                        tmp_type = 'rna'
-                    elif first_name in dna_group_names:
-                        tmp_type = 'dna'
-                type_array[mask]=tmp_type
+                group_indices=np.unique(group_index_from_atom[mask])
+                group_types=[]
+                for group_index in group_indices:
+                    first_occurrence = np.where(group_index_from_atom==group_index)[0]
+                    group_types.append(group_type_from_atom[first_occurrence])
+
+                type_array[mask]=get_component_type_from_group_types(group_types)
 
         self.atoms_dataframe["component_index"] = index_array
-        self.atoms_dataframe["component_id"] = id_array
-        self.atoms_dataframe["component_name"] = name_array
+        self.atoms_dataframe["component_id"] = index_array
+        self.atoms_dataframe["component_name"] = index_array
         self.atoms_dataframe["component_type"] = type_array
 
         del(group_index_from_atom, group_type_from_atom, atom_index_from_bond, index_array,
