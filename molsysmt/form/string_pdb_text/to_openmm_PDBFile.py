@@ -27,10 +27,7 @@ def to_openmm_PDBFile(item, atom_indices='all', structure_indices='all', check=T
 
     tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
-    tmp_io = StringIO()
-    tmp_io.write(tmp_item)
-    tmp_io.close()
-
+    tmp_item = StringIO(tmp_item)
     tmp_item = PDBFile(tmp_item)
 
     return tmp_item

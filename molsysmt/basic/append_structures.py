@@ -5,7 +5,7 @@ from molsysmt._private.lists_and_tuples import is_list_or_tuple
 def append_structures(to_molecular_system, from_molecular_systems, selections='all',
         structure_indices='all', syntaxis='MolSysMT', check=True):
 
-    from . import convert, extract, get, are_multiple_molecular_systems, is_molecular_system
+    from . import get_form, convert, extract, get, are_multiple_molecular_systems, is_molecular_system
     from molsysmt.api_forms import dict_append_structures
 
     if check:
@@ -13,11 +13,9 @@ def append_structures(to_molecular_system, from_molecular_systems, selections='a
         if not is_molecular_system(to_molecular_system):
             raise MolecularSystemNeededError()
 
-        if not is_molecular_system(from_molecular_system):
-            if not are_multiple_molecular_systems(from_molecular_system):
+        if not is_molecular_system(from_molecular_systems):
+            if not are_multiple_molecular_systems(from_molecular_systems):
                 raise MolecularSystemNeededError()
-
-        raise NotImplementedError()
 
         try:
             syntaxis = digest_syntaxis(syntaxis)
@@ -25,7 +23,7 @@ def append_structures(to_molecular_system, from_molecular_systems, selections='a
             raise WrongSyntaxisError(syntaxis)
 
         try:
-            selection = digest_selection(selection, syntaxis)
+            selection = digest_selection(selections, syntaxis)
         except:
             raise WrongSelectionError()
 
@@ -34,6 +32,13 @@ def append_structures(to_molecular_system, from_molecular_systems, selections='a
         except:
             raise WrongStructureIndicesError()
 
+    if not is_list_or_tuple(to_molecular_system):
+        to_molecular_system = [to_molecular_system]
+
+    to_forms = get_form(to_molecular_system)
+
+    if is_molecular_system(from_molecular_systems):
+        from_molecular_systems = [from_molecular_systems]
 
     n_from_molecular_systems = len(from_molecular_systems)
 
@@ -47,20 +52,19 @@ def append_structures(to_molecular_system, from_molecular_systems, selections='a
     elif len(structure_indices)!=n_from_molecular_systems:
         raise ValueError("The length of the lists items and structure_indices need to be equal.")
 
-    box_in_diff_item=False
-    if to_molecular_system.coordinates_item != to_molecular_system.box_item:
-        box_in_diff_item=True
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(from_molecular_systems, selections, structure_indices):
 
-        step, time, coordinates, box = get(aux_molecular_system, target='atom',
-                selection=aux_selection, structure_indices=aux_structure_indices, frame=True,
-                check=False)
 
-        if box_in_diff_item:
-            dict_append_structures[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)
-            dict_append_structures[to_molecular_system.box_form](to_molecular_system.box_item, step=None, time=None, coordinates=None, box=box)
-        else:
-            dict_append_structures[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=box)
+        coordinates = get(aux_molecular_system, target='atom', selection=aux_selection, structure_indices=aux_structure_indices,
+                          coordinates=True, check=False)
+
+        step, time, box = get(aux_molecular_system, target='system', structure_indices=aux_structure_indices, step=True,
+                              time=True, box=True, check=False)
+
+        for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
+
+            dict_append_structures[aux_to_form](aux_to_item, step=step, time=time, coordinates=coordinates, box=box)
 
     pass
+

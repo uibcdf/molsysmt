@@ -773,7 +773,6 @@ def get_n_entities_from_system(item, check=True):
     return output
 
 
-
 def get_n_bonds_from_system(item, check=True):
 
     if check:
@@ -797,7 +796,6 @@ def get_n_bonds_from_system(item, check=True):
     return output
 
 
-
 def get_box_from_system(item, structure_indices='all', check=True):
 
     if check:
@@ -808,15 +806,15 @@ def get_box_from_system(item, structure_indices='all', check=True):
             raise WrongFormError('string:pdb_text')
 
         try:
-            indices = digest_indices(indices)
+            structure_indices = digest_structure_indices(structure_indices)
         except:
             raise WrongIndicesError()
 
-    from . import to_molsysmt_Structures
-    from ..molsysmt_Structures import get_box_from_system as aux_get
+    from . import to_openmm_PDBFile
+    from ..openmm_PDBFile import get_box_from_system as aux_get
 
-    tmp_item = to_molsysmt_Structures(item, check=False)
-    output = aux_get(tmp_item, indices=indices, check=False)
+    tmp_item = to_openmm_PDBFile(item, check=False)
+    output = aux_get(tmp_item, structure_indices=structure_indices, check=False)
 
     return output
 
@@ -831,19 +829,17 @@ def get_time_from_system(item, structure_indices='all', check=True):
             raise WrongFormError('string:pdb_text')
 
         try:
-            indices = digest_indices(indices)
+            structure_indices = digest_structure_indices(structure_indices)
         except:
             raise WrongIndicesError()
 
-    from . import to_molsysmt_Structures
-    from ..molsysmt_Structures import get_time_from_system as aux_get
+    from . import to_openmm_PDBFile
+    from ..openmm_PDBFile import get_time_from_system as aux_get
 
-    tmp_item = to_molsysmt_Structures(item, check=False)
-    output = aux_get(tmp_item, indices=indices, check=False)
+    tmp_item = to_openmm_PDBFile(item, check=False)
+    output = aux_get(tmp_item, structure_indices=structure_indices, check=False)
 
     return output
-
-
 
 
 def get_step_from_system(item, structure_indices='all', check=True):
@@ -856,18 +852,17 @@ def get_step_from_system(item, structure_indices='all', check=True):
             raise WrongFormError('string:pdb_text')
 
         try:
-            indices = digest_indices(indices)
+            structure_indices = digest_structure_indices(structure_indices)
         except:
             raise WrongIndicesError()
 
-    from . import to_molsysmt_Structures
-    from ..molsysmt_Structures import get_step_from_system as aux_get
+    from . import to_openmm_PDBFile
+    from ..openmm_PDBFile import get_step_from_system as aux_get
 
-    tmp_item = to_molsysmt_Structures(item, check=False)
-    output = aux_get(tmp_item, indices=indices, check=False)
+    tmp_item = to_openmm_PDBFile(item, check=False)
+    output = aux_get(tmp_item, structure_indices=structure_indices, check=False)
 
     return output
-
 
 
 def get_n_structures_from_system(item, check=True):
@@ -879,19 +874,13 @@ def get_n_structures_from_system(item, check=True):
         except:
             raise WrongFormError('string:pdb_text')
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+    from . import to_openmm_PDBFile
+    from ..openmm_PDBFile import get_n_structures_from_system as aux_get
 
-    from . import to_molsysmt_Structures
-    from ..molsysmt_Structures import get_n_structures_from_system as aux_get
-
-    tmp_item = to_molsysmt_Structures(item, check=False)
-    output = aux_get(tmp_item, indices=indices, check=False)
+    tmp_item = to_openmm_PDBFile(item, check=False)
+    output = aux_get(tmp_item, structure_indices=structure_indices, check=False)
 
     return output
-
 
 
 def get_bonded_atoms_from_system(item, check=True):
@@ -915,7 +904,6 @@ def get_bonded_atoms_from_system(item, check=True):
     output = aux_get(tmp_item, indices=indices, check=False)
 
     return output
-
 
 
 ## From bond

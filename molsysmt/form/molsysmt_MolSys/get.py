@@ -3541,7 +3541,7 @@ def get_time_from_system(item, structure_indices='all', check=True):
             raise WrongStructureIndicesError()
 
     from ..molsysmt_Structures import get_time_from_system as aux_get
-    return aux_get(item.trajectory, structure_indices=structure_indices, check=False)
+    return aux_get(item.structures, structure_indices=structure_indices, check=False)
 
 def get_step_from_system(item, structure_indices='all', check=True):
 
@@ -3558,7 +3558,7 @@ def get_step_from_system(item, structure_indices='all', check=True):
             raise WrongStructureIndicesError()
 
     from ..molsysmt_Structures import get_step_from_system as aux_get
-    return aux_get(item.trajectory, structure_indices=structure_indices, check=False)
+    return aux_get(item.structures, structure_indices=structure_indices, check=False)
 
 def get_n_structures_from_system(item, check=True):
 

@@ -19,4 +19,5 @@ from . import openmm_AmberInpcrdFile
 from . import openmm_AmberPrmtopFile
 from . import openmm_Modeller
 from . import openmm_Topology
+from . import openmm_PDBFile
 from . import pdbfixer_PDBFixer

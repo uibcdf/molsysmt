@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from .is_openmm_PDBFile import is_openmm_PDBFile
 
-def append_structures(item, step=None, time=None, coordinates=None, box=None, check=True):
+def concatenate_structures(item, step=None, time=None, coordinates=None, box=None, check=True):
 
     if check:
 
@@ -32,6 +32,6 @@ def append_structures(item, step=None, time=None, coordinates=None, box=None, ch
             raise WrongBoxError()
 
     raise NotImplementedMethodError()
-    pass
 
+    pass
 

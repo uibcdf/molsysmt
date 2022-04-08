@@ -3,7 +3,6 @@ from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt._private.selection import selection_is_all
 from molsysmt._private.strings import get_parenthesis
-from molsysmt._private.selection import indices_to_selection
 
 def select_standard(molecular_system, selection, syntaxis):
 
@@ -220,7 +219,6 @@ def select(molecular_system, selection='all', structure_index=0, target='atom', 
     else:
         return indices_to_selection(molecular_system, output_indices, target=target, syntaxis=to_syntaxis)
 
-
 def selection_with_special_subsentences(selection):
 
     output = None
@@ -307,4 +305,43 @@ def select_with_Amber(item, selection):
         tmp_item = convert(item, to_form='pytraj.Topology')
 
     raise NotImplementedError()
+
+def indices_to_selection(molecular_system, indices, target='atom', syntaxis=None):
+
+    syntaxis = digest_syntaxis(syntaxis)
+    target = digest_target(target)
+
+    output_string = ''
+
+    if syntaxis=='NGLView':
+
+        if target=='atom':
+            output_string = '@'+','.join([str(ii) for ii in indices])
+        elif target=='group':
+            from molsysmt import get
+            group_ids, chain_ids = get(molecular_system, target='group', indices=indices, group_id=True, chain_id=True)
+            output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
+        elif target=='chain':
+            from molsysmt import get
+            chain_ids = get(molecular_system, target='chain', indices=indices, chain_id=True)
+            output_string = ' '.join([':'+ii for ii in chain_ids])
+        else:
+            raise NotImplementedError
+
+    elif syntaxis=='MDTraj':
+
+        if target=='atom':
+            output_string = 'index '+' '.join([str(ii) for ii in indices])
+        elif target=='group':
+            output_string = 'resid '+' '.join([str(ii) for ii in indices])
+        elif target=='chain':
+            output_string = 'chainid '+' '.join([str(ii) for ii in indices])
+        else:
+            raise NotImplementedError
+
+    else:
+
+        raise NotImplementedError
+
+    return output_string
 

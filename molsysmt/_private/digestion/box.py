@@ -4,7 +4,7 @@ from ..exceptions import *
 
 def digest_box(box):
 
-    raise NotImplementedMethodError()
+    return box
 
 def digest_box_lengths_value(box_lengths):
 

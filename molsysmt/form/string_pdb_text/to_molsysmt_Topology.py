@@ -25,8 +25,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', chec
     from ..openmm_PDBFile import to_molsysmt_Topology as openmm_PDBFile_to_molsysmt_Topology
 
     tmp_item = to_openmm_PDBFile(item, check=False)
-    tmp_item = openmm_PDBFile_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices,
-            structure_indices=structure_indices, check=False)
+    tmp_item = openmm_PDBFile_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, check=False)
 
     return tmp_item
 
