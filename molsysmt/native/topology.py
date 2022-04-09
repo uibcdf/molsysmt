@@ -146,13 +146,13 @@ class Topology():
     def _build_components(self):
 
         from molsysmt.lib import bonds as _libbonds
-        from molsysmt.element.component import get_component_type_from_group_types
+        from molsysmt.element.component import get_component_type_from_group_names
 
         n_atoms = self.atoms_dataframe.shape[0]
         n_bonds = self.bonds_dataframe.shape[0]
 
         group_index_from_atom = self.atoms_dataframe['group_index'].to_numpy()
-        group_type_from_atom = self.atoms_dataframe['group_type'].to_numpy()
+        group_name_from_atom = self.atoms_dataframe['group_name'].to_numpy()
         atom_index_from_bond = self.bonds_dataframe[['atom1_index','atom2_index']].to_numpy(dtype=int, copy=True)
 
         if n_bonds==0:
@@ -176,20 +176,19 @@ class Topology():
 
                 mask = (index_array==ii)
                 group_indices=np.unique(group_index_from_atom[mask])
-                group_types=[]
+                group_names=[]
                 for group_index in group_indices:
-                    first_occurrence = np.where(group_index_from_atom==group_index)[0]
-                    group_types.append(group_type_from_atom[first_occurrence])
+                    first_occurrence = np.where(group_index_from_atom==group_index)[0][0]
+                    group_names.append(group_name_from_atom[first_occurrence])
 
-                type_array[mask]=get_component_type_from_group_types(group_types)
+                type_array[mask]=get_component_type_from_group_names(group_names)
 
         self.atoms_dataframe["component_index"] = index_array
         self.atoms_dataframe["component_id"] = index_array
         self.atoms_dataframe["component_name"] = index_array
         self.atoms_dataframe["component_type"] = type_array
 
-        del(group_index_from_atom, group_type_from_atom, atom_index_from_bond, index_array,
-                id_array, name_array, type_array)
+        del(group_index_from_atom, group_name_from_atom, atom_index_from_bond, index_array, type_array)
 
     def _build_molecules(self):
 

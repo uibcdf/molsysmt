@@ -9,6 +9,7 @@ from .engine import digest_engine
 from .form import digest_form, digest_to_form
 from .group_indices import digest_group_indices
 from .indices import digest_indices
+from .item import digest_item
 from .output import digest_output
 from .selection import digest_selection
 from .step import digest_step

@@ -2,11 +2,16 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from .is_openmm_Topology import is_openmm_Topology
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
-import numpy as np
-from networkx import Graph
+from molsysmt._private.exceptions import NotWithThisFormError as _NotWithThisFormError
+from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplementedMethodError
+from molsysmt._private.digestion import digest_item as _digest_item
+from molsysmt._private.digestion import digest_indices as _digest_indices
+from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt import puw as _puw
+import numpy as _np
+from networkx import Graph as _Graph
+
+_form='openmm.Topology'
 
 ## From atom
 
@@ -14,20 +19,13 @@ def get_atom_id_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     atom=list(item.atoms())
     output=[atom[ii].id for ii in tmp_indices]
-    output=np.array(output, dtype=int)
+    output=_np.array(output, dtype=int)
     del(atom)
 
     return output
@@ -36,20 +34,13 @@ def get_atom_name_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     atom=list(item.atoms())
     output=[atom[ii].name for ii in tmp_indices]
-    output=np.array(output)
+    output=_np.array(output)
     del(atom)
 
     return output
@@ -58,20 +49,13 @@ def get_atom_type_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     atom=list(item.atoms())
     output=[atom[ii].element.symbol for ii in tmp_indices]
-    output=np.array(output)
+    output=_np.array(output)
     del(atom)
 
     return output
@@ -80,21 +64,13 @@ def get_group_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     atom=list(item.atoms())
     output = [atom[ii].residue.index for ii in tmp_indices]
-    output=np.array(output)
+    output=_np.array(output)
     del(atom)
 
     return output
@@ -103,15 +79,8 @@ def get_component_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from molsysmt.lib import bonds as _libbonds
 
@@ -120,14 +89,14 @@ def get_component_index_from_atom(item, indices='all', check=True):
 
     if n_bonds==0:
 
-        output = np.full(n_atoms, None, dtype=object)
+        output = _np.full(n_atoms, None, dtype=object)
 
     else:
 
-        atom_indices = get_atom_indices_from_bond(item)
+        atom_indices = get_atom_index_from_bond(item)
 
-        output = _libbonds.component_indices(atoms_indices, n_atoms, n_bonds)
-        output = np.ascontiguousarray(output, dtype=int)
+        output = _libbonds.component_indices(atom_indices, n_atoms, n_bonds)
+        output = _np.ascontiguousarray(output, dtype=int)
 
     if indices is not 'all':
         output = output[indices]
@@ -138,21 +107,14 @@ def get_chain_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     atom=list(item.atoms())
     output = [atom[ii].residue.chain.index for ii in tmp_indices]
     del(atom)
-    output =np.array(output)
+    output = _np.array(output)
 
     return output
 
@@ -160,32 +122,20 @@ def get_molecule_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+    output = get_component_index_from_atom(item, indices=indices, check=False)
 
-    from molsysmt.element.molecule import molecule_index_from_atom as _get
-    return _get(item, indices=indices, check=False)
+    return output
+
 
 def get_entity_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from molsysmt.element.entity import entity_index_from_atom as _get
     return _get(item, indices=indices, check=False)
@@ -194,15 +144,8 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     output=[]
 
@@ -220,7 +163,7 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', check=True):
                 if bond.atom2.index in set_indices:
                     output.append([bond.atom1.index, bond.atom2.index])
 
-    output = np.array(output, dtype=int)
+    output = _np.array(output, dtype=int)
 
     return(output)
 
@@ -228,15 +171,8 @@ def get_n_inner_bonds_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     if indices is 'all':
         return get_n_bonds_from_system (item)
@@ -248,19 +184,7 @@ def get_n_inner_bonds_from_atom(item, indices='all', check=True):
 
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', check=True):
 
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    raise NotWithThisFormError()
+    raise _NotWithThisFormError()
 
 ## From group
 
@@ -268,15 +192,8 @@ def get_group_id_from_group(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     if indices is 'all':
         n_indices = get_n_groups_from_system(item, check=False)
@@ -285,7 +202,7 @@ def get_group_id_from_group(item, indices='all', check=True):
     group=list(item.residues())
     output = [group[ii].id for ii in indices]
     del(group)
-    output = np.array(output, dtype=int)
+    output = _np.array(output, dtype=int)
 
     return output
 
@@ -293,15 +210,8 @@ def get_group_name_from_group(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     if indices is 'all':
         n_indices = get_n_groups_from_system(item, check=False)
@@ -310,7 +220,7 @@ def get_group_name_from_group(item, indices='all', check=True):
     group=list(item.residues())
     output = [group[ii].name for ii in indices]
     del(group)
-    output =np.array(output, dtype=object)
+    output = _np.array(output, dtype=object)
 
     return output
 
@@ -318,26 +228,19 @@ def get_group_type_from_group(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    from molsysmt.element.group import name_to_type
+    from molsysmt.element.group import get_group_type_from_group_name
 
     if indices is 'all':
         n_indices = get_n_groups_from_system(item, check=False)
         indices = range(n_indices)
 
     group=list(item.residues())
-    output = [name_to_type(group[ii].name) for ii in indices]
+    output = [get_group_type_from_group_name(group[ii].name) for ii in indices]
     del(group)
-    output = np.array(output, dtype=object)
+    output = _np.array(output, dtype=object)
 
     return output
 
@@ -347,15 +250,8 @@ def get_component_id_from_component(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     output = get_component_index_from_component(item, indices=indices, check=False)
 
@@ -365,15 +261,8 @@ def get_component_name_from_component(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     output = get_component_index_from_component(item, indices=indices, check=False)
 
@@ -383,23 +272,16 @@ def get_component_type_from_component(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    from molsysmt.element.component import get_component_type_from_group_types
+    from molsysmt.element.component import get_component_type_from_group_names
 
     output = []
-    group_types = get_group_type_from_component(item, indices=indices, check=False)
-    for aux in group_types:
-        output.append(get_component_type_from_group_types(aux))
-    output = np.array(output, dtype=object)
+    group_names_from_component = get_group_name_from_component(item, indices=indices, check=False)
+    for group_name in group_names_from_component:
+        output.append(get_component_type_from_group_names(aux))
+    output = _np.array(output, dtype=object)
     return output
 
 ## From molecule
@@ -408,52 +290,52 @@ def get_molecule_id_from_molecule(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+    if indices is 'all':
+        n_molecules = get_n_molecules_from_system(item)
+        output = _np.full(n_molecules, None, dtype=object)
+    else:
+        output = _np.full(indices.shape[0], None, dtype=object)
 
-    from molsysmt.element.molecule import molecule_id_from_molecule as _get
-    return _get(item, indices)
+    return output
 
 def get_molecule_name_from_molecule(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+    if indices is 'all':
+        n_molecules = get_n_molecules_from_system(item)
+        output = _np.full(n_molecules, None, dtype=object)
+    else:
+        output = _np.full(indices.shape[0], None, dtype=object)
 
-    from molsysmt.element.molecule import molecule_name_from_molecule as _get
-    return _get(item, indices, check=False)
+    return output
 
 def get_molecule_type_from_molecule(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+    from molsysmt.element.molecule import get_molecule_type_from_group_names
 
-    from molsysmt.element.molecule import molecule_type_from_molecule as _get
-    return _get(item, indices, check=False)
+    group_names_from_molecule = get_group_name_from_molecule(item, indices=indices, check=False)
+
+    output = []
+
+    for group_names in group_names_from_molecule:
+        molecule_type = get_molecule_type_from_group_names(group_names)
+        output.append(molecule_type)
+
+    output = _np.array(output, dtype=object)
+
+    return output
 
 ## From chain
 
@@ -461,15 +343,8 @@ def get_chain_id_from_chain(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     if indices is 'all':
         n_indices = get_n_chains_from_system(item, check=False)
@@ -478,7 +353,7 @@ def get_chain_id_from_chain(item, indices='all', check=True):
     chain=list(item.chains())
     output = [chain[ii].id for ii in indices]
     del(chain)
-    output = np.array(output)
+    output = _np.array(output)
 
     return output
 
@@ -486,44 +361,30 @@ def get_chain_name_from_chain(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     if indices is 'all':
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
 
     output = [None for ii in indices]
-    output = np.array(output)
+    output = _np.array(output)
     return output
 
 def get_chain_type_from_chain(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     if indices is 'all':
         n_indices = get_n_chains_from_system(item, check=False)
         indices = range(n_indices)
 
     output = [None for ii in indices]
-    output = np.array(output)
+    output = _np.array(output)
     return output
 
 ## From entity
@@ -532,15 +393,8 @@ def get_entity_id_from_entity(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from molsysmt.element.entity import entity_id_from_entity as _get
     return _get(item, indices, check=False)
@@ -549,15 +403,8 @@ def get_entity_name_from_entity(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from molsysmt.element.entity import entity_name_from_entity as _get
     return _get(item, indices)
@@ -566,15 +413,8 @@ def get_entity_type_from_entity(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from molsysmt.element.entity import entity_type_from_entity as _get
     return _get(item, indices)
@@ -585,10 +425,7 @@ def get_n_atoms_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
 
     return item.getNumAtoms()
 
@@ -596,10 +433,7 @@ def get_n_groups_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
 
     return item.getNumResidues()
 
@@ -607,17 +441,14 @@ def get_n_components_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
 
     component_index_from_atom = get_component_index_from_atom(item, indices='all')
 
     if component_index_from_atom[0] is None:
         n_components = 0
     else:
-        output = np.unique(component_index_from_atom)
+        output = _np.unique(component_index_from_atom)
         n_components = output.shape[0]
 
     return n_components
@@ -626,10 +457,7 @@ def get_n_chains_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
 
     return item.getNumChains()
 
@@ -637,34 +465,35 @@ def get_n_molecules_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
 
-    from molsysmt.element.molecule import n_molecules_from_system as _get
-    return _get(item, check=False)
+    molecule_index_from_atom = get_molecule_index_from_atom(item, check=False)
+    if molecule_index_from_atom[0] is None:
+        n_molecules = 0
+    else:
+        output = _np.unique(molecule_index_from_atom)
+        n_molecules = output.shape[0]
+    return n_molecules
 
 def get_n_entities_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
 
-    from molsysmt.element.entity import n_entities_from_system as _get
-    return _get(item, check=False)
+    entity_index_from_atom = get_entity_index_from_atom(item, check=False)
+    if entity_index_from_atom[0] is None:
+        n_entities = 0
+    else:
+        output = _np.unique(entity_index_from_atom)
+        n_entities = output.shape[0]
+    return n_entities
 
 def get_n_bonds_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
 
     return item.getNumBonds()
 
@@ -672,28 +501,20 @@ def get_box_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from molsysmt import puw
 
     box = item.getPeriodicBoxVectors()
 
     output = None
 
     if box is not None:
-        unit = puw.get_unit(box)
-        box = np.array(puw.get_value(box))
+        unit = _puw.get_unit(box)
+        box = _np.array(_puw.get_value(box))
         box = box.reshape(1, box.shape[0], box.shape[1])
         box = box * unit
-        output = puw.standardize(box)
+        output = _puw.standardize(box)
 
     return output
 
@@ -701,15 +522,8 @@ def get_time_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     return None
 
@@ -717,15 +531,8 @@ def get_step_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     return None
 
@@ -733,10 +540,7 @@ def get_n_structures_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
 
     return 0
 
@@ -744,12 +548,9 @@ def get_bonded_atoms_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, _form)
 
-    raise NotImplementedMethodError
+    raise _NotImplementedMethodError
 
 ## From bond
 
@@ -757,20 +558,13 @@ def get_bond_order_from_bond(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     tmp_indices = get_bond_index_from_bond(item, indices=indices, check=False)
     bond = list(item.bonds())
     output=[bond[ii].order for ii in tmp_indices]
-    output=np.array(output)
+    output=_np.array(output)
     del(bond)
 
     return output
@@ -779,20 +573,13 @@ def get_bond_type_from_bond(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     tmp_indices = get_bond_index_from_bond(item, indices=indices, check=False)
     bond = list(item.bonds())
     output=[bond[ii].type for ii in tmp_indices]
-    output=np.array(output)
+    output=_np.array(output)
     del(bond)
 
     return output
@@ -801,23 +588,16 @@ def get_atom_index_from_bond(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     if indices is 'all':
         n_bonds = get_n_bonds_from_system(item, check=False)
-        indices = np.arange(n_bonds)
+        indices = _np.arange(n_bonds)
 
     bond = list(item.bonds())
     output=[[bond[ii].atom1.index, bond[ii].atom2.index] for ii in indices]
-    output=np.array(output)
+    output=_np.array(output)
     del(bond)
 
     return output
@@ -826,4510 +606,14 @@ def get_atom_index_from_bond(item, indices='all', check=True):
 ######### DO NOT TOUCH THE FOLLOWING LINES, JUST INCLUDE THEM AS THEY ARE #############
 #######################################################################################
 
-## From atom
+from os import path
+this_folder = path.dirname(path.abspath(__file__))
+common_get = path.join(this_folder, '../../_private/common_get.py')
+execfile(common_get, globals(), locals())
+del(path, this_folder, common_get)
+
+#######################################################################################
+########### REMOVE COMMON GET METHODS NOT DEFINED FOR THIS CURRENT FORM ###############
+#######################################################################################
 
-def get_atom_index_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_atoms_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_group_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_group_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_group_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_component_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_component_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_component_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_n_atoms_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_atoms_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_groups_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_groups_from_system(item, check=False)
-    else:
-        output = get_group_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_components_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_components_from_system(item, check=False)
-    else:
-        output = get_component_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_molecules_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_molecules_from_system(item, check=False)
-    else:
-        output = get_molecule_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_chains_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_chains_from_system(item, check=False)
-    else:
-        output = get_chain_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_entities_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_bonded_atoms_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-
-    output = None
-
-    G = Graph()
-    edges = get_atom_index_from_bond(item, check=False)
-    G.add_edges_from(edges)
-
-    if indices is 'all':
-
-        indices = get_atom_index_from_atom(item, check=False)
-
-    output = []
-
-    for ii in indices:
-        if ii in G:
-            output.append(np.array([n for n in G[ii]]))
-        else:
-            output.append(np.array([]))
-
-    output = np.array(output, dtype=object)
-
-    del(Graph, G, edges)
-
-    return output
-
-def get_bond_index_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = None
-
-    G = Graph()
-    edges = get_atom_index_from_bond(item, check=False)
-    n_bonds = edges.shape[0]
-    edge_indices = np.array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
-    G.add_edges_from(np.hstack([edges, edge_indices]))
-
-    if indices is 'all':
-
-        indices = get_atom_index_from_atom(item, check=False)
-
-    output = []
-
-    for ii in indices:
-        if ii in G:
-            output.append(np.array([n['index'] for n in G[ii].values()]))
-        else:
-            output.append(np.array([]))
-
-    output = np.array(output, dtype=object)
-
-    del(Graph, G, edges, edge_indices)
-
-    return output
-
-def get_n_bonds_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = None
-
-    G = Graph()
-    edges = get_atom_index_from_bond(item, check=False)
-    G.add_edges_from(edges)
-
-    if indices is 'all':
-
-        indices = get_atom_index_from_atom(item, check=False)
-
-    output = []
-
-    for ii in indices:
-        if ii in G:
-            output.append(len(G[ii]))
-        else:
-            output.append(0)
-
-    output = np.array(output)
-
-    del(Graph, G, edges)
-
-    return output
-
-def get_inner_bond_index_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    raise NotImplementedError
-
-
-## From group
-
-def get_atom_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_group(item, indices=indices, check=False)
-    aux_indices = get_group_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_group(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_group(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_group(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_groups_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_component_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_component_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_component_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_component_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_component_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_chain_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_chain_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_chain_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_chain_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_molecule_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_molecule_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_molecule_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_molecule_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_entity_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_entity_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_entity_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_entity_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_n_atoms_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_group(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-
-    if indices is 'all':
-        output = get_n_groups_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_components_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        return get_n_components_from_system(item, check=False)
-    else:
-        output = get_component_index_from_group(item, indices=indices, check=False)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_molecules_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        return get_n_molecules_from_system(item, check=False)
-    else:
-        output = get_molecule_index_from_group(item, indices=indices, check=False)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_chains_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        return get_n_chains_from_system(item, check=False)
-    else:
-        output = get_chain_index_from_group(item, indices=indices, check=False)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_entities_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        return get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_group(item, indices=indices, check=False)
-        output = np.unique(output).shape[0]
-
-    return output
-
-
-## From component
-
-def get_atom_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_component(item, indices=indices, check=False)
-    aux_indices = get_component_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_component(item, indices=indices, check=False)
-    aux_indices = get_component_index_from_atom(item, check=False)
-    aux_vals = get_group_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_group_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_components_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_chain_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_chain_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_molecule_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_entity_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_n_atoms_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_component(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_group_index_from_component(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_components_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_components_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_molecules_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_molecules_from_system(item, check=False)
-    else:
-        output = get_molecule_index_from_component(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_chains_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_chains_from_system(item, check=False)
-    else:
-        output = get_chain_index_from_component(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_entities_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_component(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-## molecule
-
-def get_atom_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-    aux_indices = get_molecule_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-    aux_indices = get_molecule_index_from_atom(item, check=False)
-    aux_vals = get_group_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_group_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-    aux_indices = get_molecule_index_from_atom(item, check=False)
-    aux_vals = get_component_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_component_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-    aux_indices = get_molecule_index_from_atom(item, check=False)
-    aux_vals = get_chain_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_chain_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_molecules_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_entity_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_molecule(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_entity_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_molecule(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_molecule(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_molecule(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_n_atoms_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_molecule(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_group_index_from_molecule(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_components_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_component_index_from_molecule(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_molecules_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_molecules_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_chains_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_chain_index_from_molecule(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_entities_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_molecule(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-## chain
-
-def get_atom_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_group_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_group_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_component_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_component_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_chains_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_molecule_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_molecule_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_molecule_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_entity_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_entity_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_entity_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_entity_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_entity_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_n_atoms_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_chain(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_group_index_from_chain(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_components_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_component_index_from_chain(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_molecules_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_molecule_index_from_chain(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_chains_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_chains_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_entities_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_chain(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-## From entity
-
-def get_atom_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_group_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_group_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_component_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_component_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_chain_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_chain_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_molecule_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_molecule_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_entity_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_entities_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_n_atoms_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_group_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_components_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_component_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_molecules_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_molecule_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_chains_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_chain_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_entities_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-## system
-
-def get_n_aminoacids_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    group_types = get_group_type_from_group(item, check=False)
-    return (group_types=='aminoacid').sum()
-
-def get_n_nucleotides_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    group_types = get_group_type_from_group(item, check=False)
-    return (group_types=='nucleotide').sum()
-
-def get_n_ions_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    molecule_types = get_group_type_from_group(item, check=False)
-    return (molecule_types=='ion').sum()
-
-def get_n_waters_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    molecule_types = get_group_type_from_group(item, check=False)
-    return (molecule_types=='water').sum()
-
-def get_n_cosolutes_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    molecule_types = get_group_type_from_group(item, check=False)
-    return (molecule_types=='cosolute').sum()
-
-def get_n_small_molecules_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    molecule_types = get_group_type_from_group(item, check=False)
-    return (molecule_types=='small molecule').sum()
-
-def get_n_peptides_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='peptide').sum()
-
-def get_n_proteins_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='protein').sum()
-
-def get_n_dnas_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='dna').sum()
-
-def get_n_rnas_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='rna').sum()
-
-def get_n_lipids_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='lipid').sum()
-
-def get_coordinates_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    return get_coordinates_from_atom(item, structure_indices=structure_indices, check=False)
-
-def get_box_shape_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from molsysmt.pbc import box_shape_from_box_vectors
-
-    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check=False)
-    output = box_shape_from_box_vectors(tmp_box, check=False)
-
-    return output
-
-def get_box_lengths_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from molsysmt.pbc import box_lengths_from_box_vectors
-
-    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check=False)
-    output = box_lengths_from_box_vectors(tmp_box, check=False)
-
-    return output
-
-def get_box_angles_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from molsysmt.pbc import box_angles_from_box_vectors
-
-    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check=False)
-    output = box_angles_from_box_vectors(tmp_box, check=False)
-
-    return output
-
-def get_box_volume_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from molsysmt.pbc import box_volume_from_box_vectors
-
-    tmp_box = get_box_from_system(item, structure_indices=structure_indices, check=False)
-    if tmp_box is None:
-        output=None
-    else:
-        output = box_volume_from_box_vectors(tmp_box, check=False)
-
-    return output
-
-def get_bonded_atoms_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    return get_bonded_atoms_from_atom(item, check=False)
-
-def get_bond_index_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-
-    return get_bond_index_from_atom(item, check=False)
-
-def get_inner_bonded_atoms_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    return get_inner_bonded_atoms_from_atom(item, check=False)
-
-def get_inner_bond_index_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-    return get_inner_bond_index_from_atom(item, check=False)
-
-## bond
-
-def get_bond_index_from_bond(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_bonds_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_n_bonds_from_bond(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_bonds_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
 

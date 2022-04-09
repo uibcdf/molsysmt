@@ -1,1 +1,1 @@
-from .get_component_type_from_group_types import get_component_type_from_group_types
+from .get_component_type_from_group_names import get_component_type_from_group_names
