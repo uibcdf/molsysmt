@@ -1,7 +1,7 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
-from .is_molsysmt_Topology import is_molsysmt_Topology
-from molsysmt import puw
+from molsysmt._private.digestion import digest_item as _digest_item
+from molsysmt._private.digestion import digest_indices as _digest_indices
+from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt import puw as _puw
 
 ###### Set
 
@@ -11,20 +11,9 @@ def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=No
 
     if check:
 
-        try:
-            is_molsysmt_Topology(item)
-        except:
-            raise WrongFormError('molsysmt.Topology')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        _digest_item(item, 'molsysmt.Topology')
+        indices = _digest_indices(indices)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     item.atoms_dataframe.loc[indices, 'atom_name']=value
 

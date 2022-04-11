@@ -20,10 +20,10 @@ form_attributes = {
     'atom_name' : True,
     'atom_type' : True,
 
-    'bond_index' : False,
-    'bond_id' : False,
-    'bond_name' : False,
-    'bond_type' : False,
+    'bond_index' : True,
+    'bond_id' : True,
+    'bond_name' : True,
+    'bond_type' : True,
 
     'group_index' : True,
     'group_id' : True,

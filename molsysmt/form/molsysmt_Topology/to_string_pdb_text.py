@@ -6,20 +6,9 @@ def to_string_pdb_text(item, coordinates, box, atom_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Topology(item)
-        except:
-            raise WrongFormError('molsysmt.Topology')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        digest_item(item, 'molsysmt.Topology')
+        atom_indices = digest_atom_indices(atom_indices)
+        coordinates = digest_coordinates(coordinates)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import to_string_pdb_text as openmm_Topology_to_string_pdb_text

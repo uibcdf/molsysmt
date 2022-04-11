@@ -1,4 +1,3 @@
-from .is_openmm_AmberPrmtopFile import is_openmm_AmberPrmtopFile
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
@@ -6,15 +5,8 @@ def to_openmm_System(item, atom_indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_AmberPrmtopFile(item)
-        except:
-            raise WrongFormError('openmm.AmberPrmtopFile')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
+        digest_item(item, 'openmm.AmberPrmtopFile')
+        atom_indices = digest_atom_indices(atom_indices)
 
     tmp_item = item.createSystem()
 

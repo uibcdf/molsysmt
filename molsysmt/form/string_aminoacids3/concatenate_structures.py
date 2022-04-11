@@ -6,32 +6,11 @@ def concatenate_structures(item, step=None, time=None, coordinates=None, box=Non
 
     if check:
 
-        try:
-            is_string_aminoacids3(item)
-        except:
-            raise WrongFormError('string:aminoacids3')
-
-        try:
-            step = digest_step(step)
-        except:
-            raise WrongStepError()
-
-        try:
-            time = digest_time(time)
-        except:
-            raise WrongTimeError()
-
-        try:
-            coordinates = digest_coordinates(coordinates)
-        except:
-            raise WrongCoordinatesError()
-
-        try:
-            box = digest_box(box)
-        except:
-            raise WrongBoxError()
+        digest_item(item, 'string:aminoacids3')
+        step = digest_step(step)
+        time = digest_time(time)
+        coordinates = digest_coordinates(coordinates)
+        box = digest_box(box)
 
     raise NotImplementedMethodError()
-
-    pass
 

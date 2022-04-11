@@ -1,4 +1,3 @@
-from .is_string_pdb_text import is_string_pdb_text
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
@@ -6,20 +5,9 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', chec
 
     if check:
 
-        try:
-            is_string_pdb_text(item)
-        except:
-            raise WrongFormError('string:pdb_text')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        digest_item(item, 'string:pdb_text')
+        atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
     from io import StringIO
     from pdbfixer.pdbfixer import PDBFixer

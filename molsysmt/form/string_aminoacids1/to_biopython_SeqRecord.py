@@ -1,20 +1,12 @@
-from .is_string_aminoacids1 import is_string_aminoacids1
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_biopython_SeqRecord(item, atom_indices='all', structure_indices='all', check=True):
+def to_biopython_SeqRecord(item, group_indices='all', check=True):
 
     if check:
 
-        try:
-            is_string_aminoacids1(item)
-        except:
-            raise WrongFormError('string:aminoacids1')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
+        digest_item(item, 'string:aminoacids1')
+        group_indices = digest_group_indices(group_indices)
 
     from . import to_biopython_Seq
     from ..biopython_Seq import to_biopython_SeqRecord as biopython_Seq_to_biopython_SeqRecord

@@ -1,63 +1,12 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
-from .is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer
-
-def set_box_to_system(item, structure_indices='all', value=None, check=True):
-
-    if check:
-
-        try:
-            is_pdbfixer_PDBFixer(item)
-        except:
-            raise WrongFormError('pdbfixer.PDBFixer')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-
-    raise NotImplementedMethodError()
-
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check=True):
-
-    if check:
-
-        try:
-            is_pdbfixer_PDBFixer(item)
-        except:
-            raise WrongFormError('pdbfixer.PDBFixer')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    raise NotImplementedMethodError()
+from molsysmt._private.digestion import digest_item as _digest_item
+from molsysmt._private.digestion import digest_indices as _digest_indices
 
 def set_group_name_to_group(item, indices='all', value=None, check=True):
 
     if check:
 
-        try:
-            is_pdbfixer_PDBFixer(item)
-        except:
-            raise WrongFormError('pdbfixer.PDBFixer')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, 'pdbfixer.PDBFixer')
+        indices = _digest_indices(indices)
 
     for group in tmp_item.topology.groups():
         if group.index in indices:

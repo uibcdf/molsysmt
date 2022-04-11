@@ -1,25 +1,13 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_molsysmt_MolSys import is_molsysmt_MolSys
 
 def to_openmm_Context(item, atom_indices='all', structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_MolSys(item)
-        except:
-            raise WrongFormError('molsysmt.MolSys')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        digest_item(item, 'molsysmt.MolSys')
+        atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import to_openmm_Context as openmm_Topology_to_openmm_Context

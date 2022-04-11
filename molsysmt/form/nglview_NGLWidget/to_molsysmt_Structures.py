@@ -1,26 +1,13 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_nglview_NGLWidget import is_nglview_NGLWidget
 
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_nglview_NGLWidget(item)
-        except:
-            raise WrongFormError('nglview.NGLWidget')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
+        digest_item(item, 'nglview.NGLWidget')
+        atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
     from molsysmt.native.structures import Structures
     from . import get_coordinates_from_atom, get_box_from_system, get_step_from_system, get_time_from_system

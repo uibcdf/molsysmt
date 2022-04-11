@@ -1,20 +1,12 @@
-from .is_string_aminoacids3 import is_string_aminoacids3
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def to_string_aminoacids1(item, atom_indices='all', structure_indices='all', check=True):
+def to_string_aminoacids1(item, group_indices='all', check=True):
 
     if check:
 
-        try:
-            is_string_aminoacids3(item)
-        except:
-            raise WrongFormError('string:aminoacids3')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
+        digest_item(item, 'string:aminoacids3')
+        group_indices = digest_group_indices(group_indices)
 
     if item.startswith('aminoacids3:'):
         item = item[12:]

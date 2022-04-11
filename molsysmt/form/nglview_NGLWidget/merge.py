@@ -1,20 +1,12 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_nglview_NGLWidget import is_nglview_NGLWidget
 
 def merge(item_1, item_2, check=True):
 
     if check:
 
-        try:
-            is_nglview_NGLWidget(item_1)
-        except:
-            raise WrongFormError('nglview.NGLWidget')
-
-        try:
-            is_nglview_NGLWidget(item_2)
-        except:
-            raise WrongFormError('nglview.NGLWidget')
+        digest_item(item_1, 'nglview.NGLWidget')
+        digest_item(item_2, 'nglview.NGLWidget')
 
     from . import to_molsysmt_MolSys
     from ..molsysmt_MolSys import merge as merge_molsysmt_MolSys

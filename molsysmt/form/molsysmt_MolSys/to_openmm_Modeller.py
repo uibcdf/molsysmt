@@ -6,20 +6,9 @@ def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', check=
 
     if check:
 
-        try:
-            is_molsysmt_MolSys(item)
-        except:
-            raise WrongFormError('molsysmt.MolSys')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        digest_item(item, 'molsysmt.MolSys')
+        atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
     try:
         from openmm.app import Modeller

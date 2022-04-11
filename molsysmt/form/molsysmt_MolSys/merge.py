@@ -6,16 +6,8 @@ def merge(item_1, item_2, check=True):
 
     if check:
 
-        try:
-            is_molsysmt_MolSys(item_1)
-        except:
-            raise WrongFormError('molsysmt.MolSys')
-
-        try:
-            is_molsysmt_MolSys(item_2)
-        except:
-            raise WrongFormError('molsysmt.MolSys')
-
+        digest_item(item_1, 'molsysmt.MolSys')
+        digest_item(item_2, 'molsysmt.MolSys')
 
     tmp_item = extract(item_1)
     tmp_item.add(item_2)

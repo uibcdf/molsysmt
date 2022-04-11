@@ -1,4 +1,3 @@
-from .is_string_pdb_id import is_string_pdb_id
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
@@ -6,20 +5,9 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
 
     if check:
 
-        try:
-            is_string_pdb_id(item)
-        except:
-            raise WrongFormError('string:pdb_id')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        digest_item(item, 'string:pdb_id')
+        atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
     from ..file_pdb import download as download_file_pdb
     from ..file_pdb import extract as extract_file_pdb

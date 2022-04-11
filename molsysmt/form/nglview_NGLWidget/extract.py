@@ -1,26 +1,14 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_nglview_NGLWidget import is_nglview_NGLWidget
 from copy import copy
 
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
 
     if check:
 
-        try:
-            is_nglview_NGLWidget(item)
-        except:
-            raise WrongFormError('nglview.NGLWidget')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        digest_item(item, 'nglview.NGLWidget')
+        indices = digest_indices(indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
     if (atom_indices is 'all') and (structure_indices is 'all'):
 

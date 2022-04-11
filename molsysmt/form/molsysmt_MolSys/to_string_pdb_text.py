@@ -1,25 +1,13 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_molsysmt_MolSys import is_molsysmt_MolSys
 
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_MolSys(item)
-        except:
-            raise WrongFormError('molsysmt.MolSys')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        digest_item(item, 'string:pdb_text')
+        atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
     from . import to_openmm_Topology
     from . import get_coordinates_from_atom

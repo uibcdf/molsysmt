@@ -1,4 +1,3 @@
-from .is_string_pdb_text import is_string_pdb_text
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
@@ -7,20 +6,9 @@ def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=
 
     if check:
 
-        try:
-            is_string_pdb_text(item)
-        except:
-            raise WrongFormError('string:pdb_text')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        digest_item(item, 'string:pdb_text')
+        atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
     from . import to_openmm_PDBFile
     from ..openmm_PDBFile import to_openmm_Topology as openmm_PDBFile_to_openmm_Topology

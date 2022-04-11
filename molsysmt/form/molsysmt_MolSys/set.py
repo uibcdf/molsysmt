@@ -1,7 +1,8 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
-from .is_molsysmt_MolSys import is_molsysmt_MolSys
-from molsysmt import puw
+from molsysmt._private.digestion import digest_item as _digest_item
+from molsysmt._private.digestion import digest_indices as _digest_indices
+from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt import puw as _puw
+import numpy as _np
 
 ###### Set
 
@@ -11,20 +12,9 @@ def set_atom_name_to_atom(item, indices='all', structure_indices='all', value=No
 
     if check:
 
-        try:
-            is_molsysmt_MolSys(item)
-        except:
-            raise WrongFormError('molsysmt.MolSys')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        _digest_item(item, 'molsysmt.MolSys')
+        indices = _digest_indices(indices)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     from ..molsysmt_Topology import set_atom_name_to_atom as aux_set
 
@@ -34,22 +24,11 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
 
     if check:
 
-        try:
-            is_molsysmt_MolSys(item)
-        except:
-            raise WrongFormError('molsysmt.MolSys')
+        _digest_item(item, 'molsysmt.MolSys')
+        indices = _digest_indices(indices)
+        structure_indices = _digest_structure_indices(structure_indices)
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    value = puw.standardize(value)
+    value = _puw.standardize(value)
 
     if indices is 'all':
         if item.structures.coordinates.shape[1]!=value.shape[1]:
@@ -68,7 +47,7 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
         if structure_indices is 'all':
             item.structures.coordinates[:,indices,:] = value[:,:,:]
         else:
-            item.structures.coordinates[np.ix_(structure_indices, indices)]=value[:,:,:]
+            item.structures.coordinates[_np.ix_(structure_indices, indices)]=value[:,:,:]
 
 ## System
 
@@ -76,42 +55,21 @@ def set_box_to_system(item, indices='all', structure_indices='all', value=None, 
 
     if check:
 
-        try:
-            is_molsysmt_MolSys(item)
-        except:
-            raise WrongFormError('molsysmt.MolSys')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        _digest_item(item, 'molsysmt.MolSys')
+        indices = _digest_indices(indices)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     item.trajectory.box = value
+
     pass
 
 def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, check=True):
 
     if check:
 
-        try:
-            is_molsysmt_MolSys(item)
-        except:
-            raise WrongFormError('molsysmt.MolSys')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        _digest_item(item, 'molsysmt.MolSys')
+        indices = _digest_indices(indices)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,
             value=value, check=False)

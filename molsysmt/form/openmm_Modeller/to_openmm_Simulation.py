@@ -1,4 +1,3 @@
-from .is_openmm_Modeller import is_openmm_Modeller
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
@@ -8,6 +7,12 @@ def to_openmm_Simulation(item, atom_indices='all', structure_indices='all',
                          flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
                          collisions_rate='1.0 1/ps', integration_timestep='2.0 fs',
                          platform='CUDA', check=True):
+
+    if check:
+
+        digest_item(item, 'openmm.Modeller')
+        atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
     from . import to_openmm_Topology
     from . import get_coordinates_from_atom

@@ -1,7 +1,7 @@
-from .is_openmm_Topology import is_openmm_Topology
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
-from molsysmt import puw
+from molsysmt._private.digestion import digest_item as _digest_item
+from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt._private.digestion import digest_box as _digest_box
+from molsysmt import puw as _puw
 
 ## System
 
@@ -9,22 +9,11 @@ def set_box_to_system(item, structure_indices='all', value=None, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        _digest_item(item, 'openmm.Topology')
+        structure_indices = _digest_structure_indices(structure_indices)
+        box = _digest_box(value)
 
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-        try:
-            box = digest_box(value)
-        except:
-            raise WrongStructureIndicesError()
-
-    box = puw.convert(value, to_unit='nanometers', to_form='openmm.unit')
+    box = _puw.convert(value, to_unit='nanometers', to_form='openmm.unit')
 
     n_structures = box.shape[0]
 
