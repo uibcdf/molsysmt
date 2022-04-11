@@ -2,11 +2,17 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from .is_openmm_PDBFile import is_openmm_PDBFile
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
-import numpy as np
-from networkx import Graph
+
+from molsysmt._private.exceptions import NotWithThisFormError as _NotWithThisFormError
+from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplementedMethodError
+from molsysmt._private.digestion import digest_item as _digest_item
+from molsysmt._private.digestion import digest_indices as _digest_indices
+from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt import puw as _puw
+import numpy as _np
+from networkx import Graph as _Graph
+
+_form='openmm.PDBFile'
 
 ## From atom
 
@@ -14,15 +20,8 @@ def get_atom_id_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_atom_id_from_atom as aux_get
@@ -36,15 +35,8 @@ def get_atom_name_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_atom_name_from_atom as aux_get
@@ -58,15 +50,8 @@ def get_atom_type_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_atom_type_from_atom as aux_get
@@ -80,15 +65,8 @@ def get_group_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_group_index_from_atom as aux_get
@@ -102,15 +80,8 @@ def get_component_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_component_index_from_atom as aux_get
@@ -124,15 +95,8 @@ def get_chain_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_chain_index_from_atom as aux_get
@@ -146,15 +110,8 @@ def get_molecule_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_molecule_index_from_atom as aux_get
@@ -168,15 +125,8 @@ def get_entity_index_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_entity_index_from_atom as aux_get
@@ -190,15 +140,8 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_inner_bonded_atoms_from_atom as aux_get
@@ -212,15 +155,8 @@ def get_n_inner_bonds_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_n_inner_bonds_from_atom as aux_get
@@ -234,25 +170,12 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
+        structure_indices = _digest_structure_indices(structure_indices)
 
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from molsysmt import puw
-
-    unit = puw.get_unit(item.positions)
-    coordinates = np.array(puw.get_value(item.getPositions(asNumpy=True)))
+    unit = _puw.get_unit(item.positions)
+    coordinates = _np.array(_puw.get_value(item.getPositions(asNumpy=True)))
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
 
     if structure_indices is not 'all':
@@ -262,7 +185,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
         coordinates = coordinates[:,indices,:]
 
     coordinates = coordinates * unit
-    coordinates = puw.standardize(coordinates)
+    coordinates = _puw.standardize(coordinates)
 
     return coordinates
 
@@ -272,15 +195,8 @@ def get_group_id_from_group(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_group_id_from_group as aux_get
@@ -294,15 +210,8 @@ def get_group_name_from_group(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_group_name_from_group as aux_get
@@ -316,15 +225,8 @@ def get_group_type_from_group(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_group_type_from_group as aux_get
@@ -340,15 +242,8 @@ def get_component_id_from_component(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_component_id_from_component as aux_get
@@ -362,15 +257,8 @@ def get_component_name_from_component(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_component_name_from_component as aux_get
@@ -384,15 +272,8 @@ def get_component_type_from_component(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_component_type_from_component as aux_get
@@ -408,15 +289,8 @@ def get_molecule_id_from_molecule(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_molecule_id_from_molecule as aux_get
@@ -430,15 +304,8 @@ def get_molecule_name_from_molecule(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_molecule_name_from_molecule as aux_get
@@ -452,15 +319,8 @@ def get_molecule_type_from_molecule(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_molecule_type_from_molecule as aux_get
@@ -476,15 +336,8 @@ def get_chain_id_from_chain(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_chain_id_from_chain as aux_get
@@ -498,15 +351,8 @@ def get_chain_name_from_chain(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_chain_name_from_chain as aux_get
@@ -520,15 +366,8 @@ def get_chain_type_from_chain(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_chain_type_from_chain as aux_get
@@ -544,15 +383,8 @@ def get_entity_id_from_entity(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_entity_id_from_entity as aux_get
@@ -566,15 +398,8 @@ def get_entity_name_from_entity(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_entity_name_from_entity as aux_get
@@ -588,15 +413,8 @@ def get_entity_type_from_entity(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_entity_type_from_entity as aux_get
@@ -613,10 +431,7 @@ def get_n_atoms_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_n_atoms_from_system as aux_get
@@ -630,10 +445,7 @@ def get_n_groups_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_n_groups_from_system as aux_get
@@ -647,10 +459,7 @@ def get_n_components_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_n_components_from_system as aux_get
@@ -664,10 +473,7 @@ def get_n_chains_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_n_chains_from_system as aux_get
@@ -681,10 +487,7 @@ def get_n_molecules_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_n_molecules_from_system as aux_get
@@ -698,10 +501,7 @@ def get_n_entities_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_n_entities_from_system as aux_get
@@ -715,10 +515,7 @@ def get_n_bonds_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_n_bonds_from_system as aux_get
@@ -732,106 +529,11 @@ def get_box_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_box_from_system as aux_get
-
-    tmp_item = to_openmm_Topology(item, structure_indices=structure_indices, check=False)
-    output = aux_get(tmp_item, check=False)
-
-    return output
-
-def get_box_shape_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from . import to_openmm_Topology
-    from ..openmm_Topology import get_box_shape_from_system as aux_get
-
-    tmp_item = to_openmm_Topology(item, structure_indices=structure_indices, check=False)
-    output = aux_get(tmp_item, check=False)
-
-    return output
-
-def get_box_lengths_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from . import to_openmm_Topology
-    from ..openmm_Topology import get_box_lengths_from_system as aux_get
-
-    tmp_item = to_openmm_Topology(item, structure_indices=structure_indices, check=False)
-    output = aux_get(tmp_item, check=False)
-
-    return output
-
-def get_box_angles_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from . import to_openmm_Topology
-    from ..openmm_Topology import get_box_angles_from_system as aux_get
-
-    tmp_item = to_openmm_Topology(item, structure_indices=structure_indices, check=False)
-    output = aux_get(tmp_item, check=False)
-
-    return output
-
-def get_box_volume_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    from . import to_openmm_Topology
-    from ..openmm_Topology import get_box_volume_from_system as aux_get
 
     tmp_item = to_openmm_Topology(item, structure_indices=structure_indices, check=False)
     output = aux_get(tmp_item, check=False)
@@ -842,15 +544,8 @@ def get_time_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     return None
 
@@ -858,15 +553,8 @@ def get_step_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     return None
 
@@ -874,10 +562,7 @@ def get_n_structures_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
 
     return item.getNumFrames()
 
@@ -885,10 +570,7 @@ def get_bonded_atoms_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        _digest_item(item, _form)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_bonded_atoms_from_system as aux_get
@@ -904,15 +586,8 @@ def get_bond_order_from_bond(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_bond_order_from_bond as aux_get
@@ -926,15 +601,8 @@ def get_bond_type_from_bond(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_bond_type_from_bond as aux_get
@@ -948,15 +616,8 @@ def get_atom_index_from_bond(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     from . import to_openmm_Topology
     from ..openmm_Topology import get_atom_index_from_bond as aux_get
@@ -971,4423 +632,216 @@ def get_atom_index_from_bond(item, indices='all', check=True):
 ######### DO NOT TOUCH THE FOLLOWING LINES, JUST INCLUDE THEM AS THEY ARE #############
 #######################################################################################
 
-## From atom
-
-def get_atom_index_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_atoms_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_group_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_group_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_group_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_component_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_component_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_component_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_id_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_name_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_type_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_atom(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    output = output.astype(object)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_n_atoms_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_atoms_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_groups_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_groups_from_system(item, check=False)
-    else:
-        output = get_group_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_components_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_components_from_system(item, check=False)
-    else:
-        output = get_component_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_molecules_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_molecules_from_system(item, check=False)
-    else:
-        output = get_molecule_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_chains_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_chains_from_system(item, check=False)
-    else:
-        output = get_chain_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_entities_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_atom(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_bonded_atoms_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-
-    output = None
-
-    G = Graph()
-    edges = get_atom_index_from_bond(item, check=False)
-    G.add_edges_from(edges)
-
-    if indices is 'all':
-
-        indices = get_atom_index_from_atom(item, check=False)
-
-    output = []
-
-    for ii in indices:
-        if ii in G:
-            output.append(np.array([n for n in G[ii]]))
-        else:
-            output.append(np.array([]))
-
-    output = np.array(output, dtype=object)
-
-    del(Graph, G, edges)
-
-    return output
-
-def get_bond_index_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = None
-
-    G = Graph()
-    edges = get_atom_index_from_bond(item, check=False)
-    n_bonds = edges.shape[0]
-    edge_indices = np.array([{'index':ii} for ii in range(n_bonds)]).reshape([n_bonds,1])
-    G.add_edges_from(np.hstack([edges, edge_indices]))
-
-    if indices is 'all':
-
-        indices = get_atom_index_from_atom(item, check=False)
-
-    output = []
-
-    for ii in indices:
-        if ii in G:
-            output.append(np.array([n['index'] for n in G[ii].values()]))
-        else:
-            output.append(np.array([]))
-
-    output = np.array(output, dtype=object)
-
-    del(Graph, G, edges, edge_indices)
-
-    return output
-
-def get_n_bonds_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = None
-
-    G = Graph()
-    edges = get_atom_index_from_bond(item, check=False)
-    G.add_edges_from(edges)
-
-    if indices is 'all':
-
-        indices = get_atom_index_from_atom(item, check=False)
-
-    output = []
-
-    for ii in indices:
-        if ii in G:
-            output.append(len(G[ii]))
-        else:
-            output.append(0)
-
-    output = np.array(output)
-
-    del(Graph, G, edges)
-
-    return output
-
-def get_inner_bond_index_from_atom(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    raise NotImplementedError
-
-
-## From group
-
-def get_atom_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_group(item, indices=indices, check=False)
-    aux_indices = get_group_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_group(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_group(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_group(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_groups_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_component_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_component_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_component_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_component_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_component_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_chain_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_chain_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_chain_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_chain_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_molecule_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_molecule_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_molecule_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_molecule_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_entity_index_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_entity_id_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_entity_name_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_entity_type_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_group(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-    return output
-
-def get_n_atoms_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_group(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-
-    if indices is 'all':
-        output = get_n_groups_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_components_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        return get_n_components_from_system(item, check=False)
-    else:
-        output = get_component_index_from_group(item, indices=indices, check=False)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_molecules_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        return get_n_molecules_from_system(item, check=False)
-    else:
-        output = get_molecule_index_from_group(item, indices=indices, check=False)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_chains_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        return get_n_chains_from_system(item, check=False)
-    else:
-        output = get_chain_index_from_group(item, indices=indices, check=False)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_entities_from_group(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        return get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_group(item, indices=indices, check=False)
-        output = np.unique(output).shape[0]
-
-    return output
-
-
-## From component
-
-def get_atom_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_component(item, indices=indices, check=False)
-    aux_indices = get_component_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_component(item, indices=indices, check=False)
-    aux_indices = get_component_index_from_atom(item, check=False)
-    aux_vals = get_group_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_group_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_component(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_components_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_chain_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_chain_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_chain_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_molecule_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_molecule_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_index_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_entity_id_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_name_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_type_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_component(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_n_atoms_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_component(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_group_index_from_component(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_components_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_components_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_molecules_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_molecules_from_system(item, check=False)
-    else:
-        output = get_molecule_index_from_component(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_chains_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_chains_from_system(item, check=False)
-    else:
-        output = get_chain_index_from_component(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-def get_n_entities_from_component(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_component(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-## molecule
-
-def get_atom_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-    aux_indices = get_molecule_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-    aux_indices = get_molecule_index_from_atom(item, check=False)
-    aux_vals = get_group_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_group_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-    aux_indices = get_molecule_index_from_atom(item, check=False)
-    aux_vals = get_component_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_component_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_molecule(item, indices=indices, check=False)
-    aux_indices = get_molecule_index_from_atom(item, check=False)
-    aux_vals = get_chain_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_chain_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_molecule(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_molecules_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_entity_index_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    atom_index_from_target = get_atom_index_from_molecule(item, indices=indices, check=False)
-    first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, check=False)
-
-    del(atom_index_from_target, first_atom_index_from_target)
-
-    return output
-
-def get_entity_id_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_molecule(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_name_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_molecule(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_entity_type_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_molecule(item, indices=indices, check=False)
-    aux_unique_indices = np.unique(aux_indices)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-    aux_dict = dict(zip(aux_unique_indices, aux_vals))
-    output = np.vectorize(aux_dict.__getitem__)(aux_indices)
-    del(aux_indices, aux_unique_indices, aux_vals, aux_dict)
-
-    return output
-
-def get_n_atoms_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_molecule(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_group_index_from_molecule(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_components_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_component_index_from_molecule(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_molecules_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_molecules_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_chains_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_chain_index_from_molecule(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_entities_from_molecule(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_molecule(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-## chain
-
-def get_atom_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_group_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_group_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_component_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_component_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_chains_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_molecule_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_molecule_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_molecule_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_entity_index_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_chain(item, indices=indices, check=False)
-    aux_indices = get_chain_index_from_atom(item, check=False)
-    aux_vals = get_entity_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_entity_id_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_entity_name_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_entity_type_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_entity_index_from_chain(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_n_atoms_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_chain(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_group_index_from_chain(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_components_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_component_index_from_chain(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_molecules_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_molecule_index_from_chain(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_chains_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_chains_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-def get_n_entities_from_chain(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = get_entity_index_from_chain(item, indices=indices, check=True)
-        output = np.unique(output).shape[0]
-
-    return output
-
-## From entity
-
-def get_atom_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_atom_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_atom_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_atom_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_group_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_group_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_group_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_group_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_component_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_component_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_component_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_component_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_chain_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_chain_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_name_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_chain_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_chain_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_atom_indices = get_atom_index_from_entity(item, indices=indices, check=False)
-    aux_indices = get_entity_index_from_atom(item, check=False)
-    aux_vals = get_molecule_index_from_atom(item, check=False)
-
-    output=[]
-
-    for ii in aux_atom_indices:
-        mask = (aux_indices==ii)
-        output.append(np.unique(aux_vals[mask]))
-
-    del(aux_atom_indices, aux_indices, aux_vals)
-
-    if len(output)==1:
-        output = np.array(output)
-    else:
-        output = np.array(output, dtype=object)
-
-    return output
-
-def get_molecule_id_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_name_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_molecule_type_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    aux_indices = get_molecule_index_from_entity(item, indices=indices, check=False)
-
-    if len(aux_indices)>0:
-        aux_unique_indices = np.unique(np.concatenate(aux_indices))
-        aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, check=False)
-        aux_dict = dict(zip(aux_unique_indices, aux_vals))
-        vv = np.vectorize(aux_dict.__getitem__)
-        output = np.array([vv(ii) for ii in aux_indices], dtype=object)
-        del(aux_unique_indices, aux_vals, aux_dict)
-    else:
-        output = np.array([], dtype=object)
-
-    del(aux_indices)
-
-    return output
-
-def get_entity_index_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_entities_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_n_atoms_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_atom_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_groups_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_group_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_components_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_component_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_molecules_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_molecule_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_chains_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    output = get_chain_index_from_entity(item, indices=indices, check=False)
-    output = [ii.shape[0] for ii in output]
-    output = np.array(output)
-    return output
-
-def get_n_entities_from_entity(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_entities_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
-
-## system
-
-def get_n_aminoacids_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    group_types = get_group_type_from_group(item, check=False)
-    return (group_types=='aminoacid').sum()
-
-def get_n_nucleotides_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    group_types = get_group_type_from_group(item, check=False)
-    return (group_types=='nucleotide').sum()
-
-def get_n_ions_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    molecule_types = get_group_type_from_group(item, check=False)
-    return (molecule_types=='ion').sum()
-
-def get_n_waters_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    molecule_types = get_group_type_from_group(item, check=False)
-    return (molecule_types=='water').sum()
-
-def get_n_cosolutes_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    molecule_types = get_group_type_from_group(item, check=False)
-    return (molecule_types=='cosolute').sum()
-
-def get_n_small_molecules_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    molecule_types = get_group_type_from_group(item, check=False)
-    return (molecule_types=='small molecule').sum()
-
-def get_n_peptides_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='peptide').sum()
-
-def get_n_proteins_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='protein').sum()
-
-def get_n_dnas_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='dna').sum()
-
-def get_n_rnas_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='rna').sum()
-
-def get_n_lipids_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    molecule_types = get_molecule_type_from_molecule(item, check=False)
-    return (molecule_types=='lipid').sum()
-
-def get_coordinates_from_system(item, structure_indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-    return get_coordinates_from_atom(item, structure_indices=structure_indices, check=False)
-
-def get_bonded_atoms_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    return get_bonded_atoms_from_atom(item, check=False)
-
-def get_bond_index_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-
-    return get_bond_index_from_atom(item, check=False)
-
-def get_inner_bonded_atoms_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    return get_inner_bonded_atoms_from_atom(item, check=False)
-
-def get_inner_bond_index_from_system(item, check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-    return get_inner_bond_index_from_atom(item, check=False)
-
-## bond
-
-def get_bond_index_from_bond(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        n_aux = get_n_bonds_from_system(item, check=False)
-        output = np.arange(n_aux, dtype=int)
-    else:
-        output = np.array(indices, dtype=int)
-
-    return output
-
-def get_n_bonds_from_bond(item, indices='all', check=True):
-
-    if check:
-
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-    if indices is 'all':
-        output = get_n_bonds_from_system(item, check=False)
-    else:
-        output = indices.shape[0]
-
-    return output
+from os import path
+this_folder = path.dirname(path.abspath(__file__))
+common_get = path.join(this_folder, '../../_private/common_get.py')
+execfile(common_get, globals(), locals())
+del(path, this_folder, common_get)
+
+#######################################################################################
+############## REMOVE COMMON GET METHODS NOT DEFINED FOR THIS FORM ####################
+#######################################################################################
+
+del(
+
+    # From atom
+    #get_atom_index_from_atom,
+    #get_group_id_from_atom,
+    #get_group_name_from_atom,
+    #get_group_type_from_atom,
+    #get_component_id_from_atom,
+    #get_component_name_from_atom,
+    #get_component_type_from_atom,
+    #get_chain_id_from_atom,
+    #get_chain_name_from_atom,
+    #get_chain_type_from_atom,
+    #get_molecule_id_from_atom,
+    #get_molecule_name_from_atom,
+    #get_molecule_type_from_atom,
+    #get_entity_id_from_atom,
+    #get_entity_name_from_atom,
+    #get_entity_type_from_atom,
+    #get_n_atoms_from_atom,
+    #get_n_groups_from_atom,
+    #get_n_components_from_atom,
+    #get_n_molecules_from_atom,
+    #get_n_chains_from_atom,
+    #get_n_entities_from_atom,
+    #get_bonded_atoms_from_atom,
+    #get_bond_index_from_atom,
+    #get_n_bonds_from_atom,
+    #get_inner_bond_index_from_atom,
+
+    # From group
+    #get_atom_index_from_group,
+    #get_atom_id_from_group,
+    #get_atom_name_from_group,
+    #get_atom_type_from_group,
+    #get_group_index_from_group,
+    #get_component_index_from_group,
+    #get_component_id_from_group,
+    #get_component_name_from_group,
+    #get_component_type_from_group,
+    #get_chain_index_from_group,
+    #get_chain_id_from_group,
+    #get_chain_name_from_group,
+    #get_chain_type_from_group,
+    #get_molecule_index_from_group,
+    #get_molecule_id_from_group,
+    #get_molecule_name_from_group,
+    #get_molecule_type_from_group,
+    #get_entity_index_from_group,
+    #get_entity_id_from_group,
+    #get_entity_name_from_group,
+    #get_entity_type_from_group,
+    #get_n_atoms_from_group,
+    #get_n_groups_from_group,
+    #get_n_components_from_group,
+    #get_n_molecules_from_group,
+    #get_n_chains_from_group,
+    #get_n_entities_from_group,
+
+    # From component
+    #get_atom_index_from_component,
+    #get_atom_id_from_component,
+    #get_atom_name_from_component,
+    #get_atom_type_from_component,
+    #get_group_index_from_component,
+    #get_group_id_from_component,
+    #get_group_name_from_component,
+    #get_group_type_from_component,
+    #get_component_index_from_component,
+    #get_chain_index_from_component,
+    #get_chain_id_from_component,
+    #get_chain_name_from_component,
+    #get_chain_type_from_component,
+    #get_molecule_index_from_component,
+    #get_molecule_id_from_component,
+    #get_molecule_name_from_component,
+    #get_molecule_type_from_component,
+    #get_entity_index_from_component,
+    #get_entity_id_from_component,
+    #get_entity_name_from_component,
+    #get_entity_type_from_component,
+    #get_n_atoms_from_component,
+    #get_n_groups_from_component,
+    #get_n_components_from_component,
+    #get_n_molecules_from_component,
+    #get_n_chains_from_component,
+    #get_n_entities_from_component,
+
+    # From molecule
+    #get_atom_index_from_molecule,
+    #get_atom_id_from_molecule,
+    #get_atom_name_from_molecule,
+    #get_atom_type_from_molecule,
+    #get_group_index_from_molecule,
+    #get_group_id_from_molecule,
+    #get_group_name_from_molecule,
+    #get_group_type_from_molecule,
+    #get_component_index_from_molecule,
+    #get_component_id_from_molecule,
+    #get_component_name_from_molecule,
+    #get_component_type_from_molecule,
+    #get_chain_index_from_molecule,
+    #get_chain_id_from_molecule,
+    #get_chain_name_from_molecule,
+    #get_chain_type_from_molecule,
+    #get_molecule_index_from_molecule,
+    #get_entity_index_from_molecule,
+    #get_entity_id_from_molecule,
+    #get_entity_name_from_molecule,
+    #get_entity_type_from_molecule,
+    #get_n_atoms_from_molecule,
+    #get_n_groups_from_molecule,
+    #get_n_components_from_molecule,
+    #get_n_molecules_from_molecule,
+    #get_n_chains_from_molecule,
+    #get_n_entities_from_molecule,
+
+    # From chain
+    #get_atom_index_from_chain,
+    #get_atom_id_from_chain,
+    #get_atom_name_from_chain,
+    #get_atom_type_from_chain,
+    #get_group_index_from_chain,
+    #get_group_id_from_chain,
+    #get_group_name_from_chain,
+    #get_group_type_from_chain,
+    #get_component_index_from_chain,
+    #get_component_id_from_chain,
+    #get_component_name_from_chain,
+    #get_component_type_from_chain,
+    #get_chain_index_from_chain,
+    #get_molecule_index_from_chain,
+    #get_molecule_id_from_chain,
+    #get_molecule_name_from_chain,
+    #get_molecule_type_from_chain,
+    #get_entity_index_from_chain,
+    #get_entity_id_from_chain,
+    #get_entity_name_from_chain,
+    #get_entity_type_from_chain,
+    #get_n_atoms_from_chain,
+    #get_n_groups_from_chain,
+    #get_n_components_from_chain,
+    #get_n_molecules_from_chain,
+    #get_n_chains_from_chain,
+    #get_n_entities_from_chain,
+
+    # From entity
+    #get_atom_index_from_entity,
+    #get_atom_id_from_entity,
+    #get_atom_name_from_entity,
+    #get_atom_type_from_entity,
+    #get_group_index_from_entity,
+    #get_group_id_from_entity,
+    #get_group_name_from_entity,
+    #get_group_type_from_entity,
+    #get_component_index_from_entity,
+    #get_component_id_from_entity,
+    #get_component_name_from_entity,
+    #get_component_type_from_entity,
+    #get_chain_index_from_entity,
+    #get_chain_id_from_entity,
+    #get_chain_name_from_entity,
+    #get_chain_type_from_entity,
+    #get_molecule_index_from_entity,
+    #get_molecule_id_from_entity,
+    #get_molecule_name_from_entity,
+    #get_molecule_type_from_entity,
+    #get_entity_index_from_entity,
+    #get_n_atoms_from_entity,
+    #get_n_groups_from_entity,
+    #get_n_components_from_entity,
+    #get_n_molecules_from_entity,
+    #get_n_chains_from_entity,
+    #get_n_entities_from_entity,
+
+    # From system
+    #get_n_aminoacids_from_system,
+    #get_n_nucleotides_from_system,
+    #get_n_ions_from_system,
+    #get_n_waters_from_system,
+    #get_n_cosolutes_from_system,
+    #get_n_small_molecules_from_system,
+    #get_n_peptides_from_system,
+    #get_n_proteins_from_system,
+    #get_n_dnas_from_system,
+    #get_n_rnas_from_system,
+    #get_n_lipids_from_system,
+    #get_coordinates_from_system,
+    #get_box_shape_from_system,
+    #get_box_lengths_from_system,
+    #get_box_angles_from_system,
+    #get_box_volume_from_system,
+    #get_bonded_atoms_from_system,
+    #get_bond_index_from_system,
+    #get_inner_bonded_atoms_from_system,
+    #get_inner_bond_index_from_system,
+
+    # From bond
+    #get_bond_index_from_bond,
+    #get_n_bonds_from_bond
+
+    )
 

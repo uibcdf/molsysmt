@@ -1,8 +1,13 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
-from .is_molsysmt_Structures import is_molsysmt_Structures
-import numpy as np
-from networkx import Graph
+from molsysmt._private.exceptions import NotWithThisFormError as _NotWithThisFormError
+from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplementedMethodError
+from molsysmt._private.digestion import digest_item as _digest_item
+from molsysmt._private.digestion import digest_indices as _digest_indices
+from molsysmt._private.digestion import digest_structure_indices as _digest_structure_indices
+from molsysmt import puw as _puw
+import numpy as _np
+from networkx import Graph as _Graph
+
+_form='molsysmt.Structures'
 
 ## atom
 
@@ -10,15 +15,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     tmp_coordinates = item.coordinates
 
@@ -34,15 +33,8 @@ def get_n_atoms_from_atom(item, indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        indices = _digest_indices(indices)
 
     if indices is 'all':
         output=item.coordinates.shape[1]
@@ -57,10 +49,7 @@ def get_n_atoms_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
+        _digest_item(item, _form)
 
     output=item.coordinates.shape[1]
 
@@ -70,15 +59,8 @@ def get_coordinates_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     if structure_indices is 'all':
         output=item.coordinates
@@ -90,15 +72,8 @@ def get_box_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     output=None
     if item.box is not None:
@@ -112,15 +87,8 @@ def get_box_shape_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     from molsysmt.pbc import box_shape_from_box_vectors
     output = None
@@ -133,15 +101,8 @@ def get_box_lengths_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     tmp_box_lengths = item.get_box_lengths()
     if structure_indices is 'all':
@@ -154,15 +115,8 @@ def get_box_angles_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     tmp_box_angles = item.get_box_angles()
     if structure_indices is 'all':
@@ -175,15 +129,8 @@ def get_time_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     if structure_indices is 'all':
         output = item.time
@@ -195,15 +142,8 @@ def get_step_from_system(item, structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongIndicesError()
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     if structure_indices is 'all':
         output = item.step
@@ -215,10 +155,8 @@ def get_n_structures_from_system(item, check=True):
 
     if check:
 
-        try:
-            is_molsysmt_Structures(item)
-        except:
-            raise WrongFormError('molsysmt.Structures')
+        _digest_item(item, _form)
+        structure_indices = _digest_structure_indices(structure_indices)
 
     output=item.coordinates.shape[0]
 
