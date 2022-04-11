@@ -24,6 +24,7 @@ form_attributes = {
     'bond_id' : True,
     'bond_name' : True,
     'bond_type' : True,
+    'bond_order' : True,
 
     'group_index' : True,
     'group_id' : True,

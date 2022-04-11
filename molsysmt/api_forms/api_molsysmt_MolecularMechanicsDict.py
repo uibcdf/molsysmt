@@ -25,6 +25,7 @@ form_attributes = {
     'bond_id' : False,
     'bond_name' : False,
     'bond_type' : False,
+    'bond_order' : False,
 
     'group_index' : False,
     'group_id' : False,

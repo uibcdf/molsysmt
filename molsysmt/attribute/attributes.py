@@ -255,12 +255,12 @@ _required_attributes['bond_type'] = ['bond_type']
 _required_indices['bond_type'] = ['indices']
 _reverse_search_in_molecular_system['bond_type'] = False
 
-# bonds_order
+# bond_order
 
 attributes.append('bond_order')
 attribute_synonyms['bonds_order'] = 'bond_order'
 
-_required_attributes['bonds_order'] = ['bond_order']
+_required_attributes['bond_order'] = ['bond_order']
 _required_indices['bond_order'] = ['indices']
 _reverse_search_in_molecular_system['bond_order'] = False
 

@@ -571,16 +571,7 @@ def get_n_structures_from_system(item, check=True):
 
         _digest_item(item, _form)
 
-    if structure_indices is 'all':
-
-        return 1
-
-    else:
-
-        output = structure_indices.shape[0]
-        if output>1:
-            raise ValueError('The molecular system has a single frame')
-        return output
+    return 1
 
 def get_bonded_atoms_from_system(item, check=True):
 

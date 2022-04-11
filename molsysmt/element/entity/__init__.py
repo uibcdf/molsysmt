@@ -11,6 +11,6 @@ from . import lipid
 from .get_entity_type_from_sequence import get_entity_type_from_sequence
 from .get_entity_type_from_MMTFDecoder_entity import get_entity_type_from_MMTFDecoder_entity
 
-#from .entity import entity_index_from_atom, entity_id_from_entity, entity_name_from_entity
-#from .entity import entity_type_from_entity, n_entities_from_system
+from .old_entity import entity_index_from_atom, entity_id_from_entity, entity_name_from_entity
+from .old_entity import entity_type_from_entity, n_entities_from_system
 

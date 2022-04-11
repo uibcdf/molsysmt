@@ -138,7 +138,7 @@ def get_entity_index_from_atom(item, indices='all', check=True):
         indices = _digest_indices(indices)
 
     from molsysmt.element.entity import entity_index_from_atom as _get
-    return _get(item, indices=indices, check=False)
+    return _get(item, indices=indices)
 
 def get_inner_bonded_atoms_from_atom(item, indices='all', check=True):
 
