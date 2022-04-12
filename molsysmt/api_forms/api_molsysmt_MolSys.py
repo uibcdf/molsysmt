@@ -9,6 +9,8 @@ from molsysmt.form.molsysmt_MolSys.concatenate_structures import concatenate_str
 from molsysmt.form.molsysmt_MolSys.get import *
 from molsysmt.form.molsysmt_MolSys.set import *
 
+import numpy as np
+
 form_name='molsysmt.MolSys'
 form_type='class'
 form_info=["",""]
