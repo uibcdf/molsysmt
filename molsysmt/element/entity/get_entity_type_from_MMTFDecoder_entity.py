@@ -25,8 +25,6 @@ mmtf_translator.update(mmtf_translator_small_molecule)
 mmtf_translator.update(mmtf_translator_water)
 
 
-
-
 def get_entity_type_from_MMTFDecoder_entity(mmtf_entity):
 
     from . import get_entity_type_from_entity_name

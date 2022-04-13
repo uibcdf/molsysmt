@@ -1,15 +1,38 @@
-from ..exceptions import *
 
 def digest_selection(selection, syntaxis="MolSysMT"):
 
-    if type(selection) is str:
+    from ..exceptions import WrongSelectionError
 
-        from .syntaxis import digest_syntaxis
-        syntaxis = digest_syntaxis(syntaxis)
+    try:
 
-        if syntaxis=='MolSysMT':
+        if type(selection) is str:
 
-            selection=selection.replace('backbone', '(atom_name==["CA", "N", "C", "O"])')
+            from .syntaxis import digest_syntaxis
+            syntaxis = digest_syntaxis(syntaxis)
 
-    return selection
+            if syntaxis=='MolSysMT':
+
+                selection=selection.replace('backbone', '(atom_name==["CA", "N", "C", "O"])')
+
+        return selection
+
+    except:
+
+        raise WrongSelectionError()
+
+def digest_multiple_selections(selections, syntaxis="MolSysMT"):
+
+    from ..lists_and_tuples import is_list_or_tuple
+
+    output = None
+
+    if is_list_or_tuple(selections):
+
+        output = [digest_selection(ii) for ii in selections]
+
+    else:
+
+        output = digest_selection(selections)
+
+    return output
 

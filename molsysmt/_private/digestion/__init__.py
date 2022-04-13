@@ -10,10 +10,11 @@ from .form import digest_form, digest_to_form
 from .group_indices import digest_group_indices
 from .indices import digest_indices
 from .item import digest_item
+from .molecular_system import digest_single_molecular_system, digest_multiple_molecular_systems
 from .output import digest_output
-from .selection import digest_selection
+from .selection import digest_selection, digest_multiple_selections
 from .step import digest_step
-from .structure_indices import digest_structure_indices
+from .structure_indices import digest_structure_indices, digest_multiple_structure_indices
 from .syntaxis import digest_syntaxis, digest_to_syntaxis
 from .target import digest_target
 from .time import digest_time

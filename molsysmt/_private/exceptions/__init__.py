@@ -9,6 +9,7 @@ from .not_implemented_class_error import NotImplementedClassError
 from .not_supported_form_error import NotSupportedFormError
 from .not_implemented_conversion_error import NotImplementedConversionError
 from .not_with_this_form_error import NotWithThisFormError
+from .molecular_system_needed_error import MolecularSystemNeededError
 from .multiple_molecular_system_needed_error import MultipleMolecularSystemsNeededError
 from .wrong_get_argument_error import WrongGetArgumentError
 from .wrong_syntaxis_error import WrongSyntaxisError

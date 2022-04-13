@@ -18,11 +18,11 @@ def get_group_type_from_group_name(name):
     elif is_cosolute(name):
         output = 'cosolute'
     elif is_small_molecule(name):
-        output = 'small_molecule'
+        output = 'small molecule'
     elif is_aminoacid(name):
         output = 'aminoacid'
     elif is_terminal_capping(name):
-        output = 'terminal_capping'
+        output = 'terminal capping'
     elif is_nucleotide(name):
         output = 'nucleotide'
     elif is_lipid(name):

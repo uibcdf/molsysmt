@@ -1,4 +1,3 @@
-from ..exceptions import *
 
 syntaxis = [
     'MolSysMT',
@@ -13,11 +12,13 @@ syntaxis_from_lower = { ii.lower():ii for ii in syntaxis }
 
 def digest_syntaxis(syntaxis):
 
+    from ..exceptions import WrongSyntaxisError
+
     try:
         syntaxis = syntaxis_from_lower[syntaxis.lower()]
         return syntaxis
     except:
-        raise BadCallError()
+        raise WrongSyntaxisError()
 
 def digest_to_syntaxis(to_syntaxis):
 

@@ -11,9 +11,9 @@ def get_component_type_from_group_names(group_names):
 
     if first_type in ['water', 'ion', 'cosolute', 'small molecule', 'lipid']:
         tmp_type=first_type
-    elif (first_type == 'aminoacid') or (first_type == 'terminal_capping'):
-        if first_type == 'terminal_capping': n_groups -=1
-        if last_type == 'terminal_capping': n_groups -=1
+    elif (first_type == 'aminoacid') or (first_type == 'terminal capping'):
+        if first_type == 'terminal capping': n_groups -=1
+        if last_type == 'terminal capping': n_groups -=1
         if n_groups>=50:
             tmp_type='protein'
         else:

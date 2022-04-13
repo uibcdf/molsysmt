@@ -15,3 +15,19 @@ def digest_structure_indices(structure_indices):
         raise ValueError()
     return structure_indices
 
+def digest_multiple_structure_indices(structure_indices):
+
+    from ..lists_and_tuples import is_list_or_tuple
+
+    output = None
+
+    if is_list_or_tuple(structure_indices):
+
+        output = [digest_structure_indices(ii) for ii in structure_indices]
+
+    else:
+
+        output = digest_structure_indices(structure_indices)
+
+    return output
+

@@ -44,9 +44,5 @@ def get_entity_type_from_entity_name(name):
 
         output = 'small molecule'
 
-    elif name in water_names:
-
-        output = 'water'
-
-    return water
+    return output
 

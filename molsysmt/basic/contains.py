@@ -7,20 +7,11 @@ def contains(molecular_system, selection='all', syntaxis='MolSysMT',
 
     if check:
 
-        if not is_molecular_system(to_molecular_system):
-            raise MolecularSystemNeededError()
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
 
-        try:
-            syntaxis = digest_syntaxis(syntaxis)
-        except:
-            raise WrongSyntaxisError(syntaxis)
-
-        try:
-            selection = digest_selection(selection, syntaxis)
-        except:
-            raise WrongSelectionError()
-
-    from . import get, is_molecular_system
+    from . import get
 
     n_ions_in, n_waters_in, n_cosolutes_in, n_small_molecules_in, n_peptides_in, n_proteins_in,\
     n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, target="system", selection=selection,
