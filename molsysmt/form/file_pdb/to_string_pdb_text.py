@@ -8,7 +8,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', check=
         atom_indices = digest_atom_indices(atom_indices)
         structure_indices = digest_structure_indices(structure_indices)
 
-    from ..string_pdb_text import extract import extract_string_pdb_text
+    from ..string_pdb_text import extract as extract_string_pdb_text
 
     fff = open(item, 'r')
     tmp_item = fff.read()

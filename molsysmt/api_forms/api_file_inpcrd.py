@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.file_inpcrd.is_file_inpcrd import is_file_inpcrd as is_form
 from molsysmt.form.file_inpcrd.extract import extract
 from molsysmt.form.file_inpcrd.add import add
-from molsysmt.form.file_inpcrd.merge import merge
 from molsysmt.form.file_inpcrd.append_structures import append_structures
-from molsysmt.form.file_inpcrd.concatenate_structures import concatenate_structures
 from molsysmt.form.file_inpcrd.get import *
 from molsysmt.form.file_inpcrd.set import *
 

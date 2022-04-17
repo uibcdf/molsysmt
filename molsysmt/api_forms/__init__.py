@@ -7,9 +7,7 @@ dict_attributes = {}
 dict_is_form = {}
 dict_extract = {}
 dict_add = {}
-dict_merge = {}
 dict_append_structures = {}
-dict_concatenate_structures = {}
 dict_get = {}
 dict_set = {}
 dict_convert = {}
@@ -45,9 +43,7 @@ for api_name in apis:
 
     dict_is_form[mod.form_name]=mod.is_form
     dict_add[mod.form_name]=mod.add
-    dict_merge[mod.form_name]=mod.merge
     dict_append_structures[mod.form_name]=mod.append_structures
-    dict_concatenate_structures[mod.form_name]=mod.concatenate_structures
     dict_extract[mod.form_name]=mod.extract
 
     dict_convert[mod.form_name]= {}

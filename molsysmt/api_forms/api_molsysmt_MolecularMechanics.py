@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.molsysmt_MolecularMechanics.is_molsysmt_MolecularMechanics import is_molsysmt_MolecularMechanics as is_form
 from molsysmt.form.molsysmt_MolecularMechanics.extract import extract
 from molsysmt.form.molsysmt_MolecularMechanics.add import add
-from molsysmt.form.molsysmt_MolecularMechanics.merge import merge
 from molsysmt.form.molsysmt_MolecularMechanics.append_structures import append_structures
-from molsysmt.form.molsysmt_MolecularMechanics.concatenate_structures import concatenate_structures
 from molsysmt.form.molsysmt_MolecularMechanics.get import *
 from molsysmt.form.molsysmt_MolecularMechanics.set import *
 

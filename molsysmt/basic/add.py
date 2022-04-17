@@ -52,8 +52,7 @@ def add(to_molecular_system, from_molecular_systems, selections='all', structure
 
     if check:
 
-        if not is_molecular_system(to_molecular_system):
-            raise MolecularSystemNeededError()
+        digest_single_molecular_system(to_molecular_system)
 
         if not is_molecular_system(from_molecular_systems):
             if not are_multiple_molecular_systems(from_molecular_systems):

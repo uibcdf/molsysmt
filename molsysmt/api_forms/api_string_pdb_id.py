@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.string_pdb_id.is_string_pdb_id import is_string_pdb_id as is_form
 from molsysmt.form.string_pdb_id.extract import extract
 from molsysmt.form.string_pdb_id.add import add
-from molsysmt.form.string_pdb_id.merge import merge
 from molsysmt.form.string_pdb_id.append_structures import append_structures
-from molsysmt.form.string_pdb_id.concatenate_structures import concatenate_structures
 from molsysmt.form.string_pdb_id.get import *
 from molsysmt.form.string_pdb_id.set import *
 

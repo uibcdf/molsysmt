@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.string_aminoacids3.is_string_aminoacids3 import is_string_aminoacids3 as is_form
 from molsysmt.form.string_aminoacids3.extract import extract
 from molsysmt.form.string_aminoacids3.add import add
-from molsysmt.form.string_aminoacids3.merge import merge
 from molsysmt.form.string_aminoacids3.append_structures import append_structures
-from molsysmt.form.string_aminoacids3.concatenate_structures import concatenate_structures
 from molsysmt.form.string_aminoacids3.get import *
 from molsysmt.form.string_aminoacids3.set import *
 

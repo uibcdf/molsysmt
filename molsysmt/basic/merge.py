@@ -47,40 +47,15 @@ def merge(molecular_systems, selections='all', structure_indices='all', syntaxis
 
     """
 
+    from . import convert, extract, add
+
     if check:
 
-        raise NotImplementedError()
-
-        if not is_a_molecular_system(molecular_system):
-            raise SingleMolecularSystemNeededError()
-
-        try:
-            syntaxis = digest_syntaxis(syntaxis)
-        except:
-            raise WrongSyntaxisError(syntaxis)
-
-        try:
-            selection = digest_selection(selection, syntaxis)
-        except:
-            raise WrongSelectionError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-        try:
-            to_form = digest_to_form(to_form)
-        except:
-            raise WrongToFormErro(to_form)
-
-    from . import convert, extract, select, is_molecular_system
-    from molsysmt.api_forms import dict_merge, dict_add
-
-    tmp_molecular_systems = []
-    for aux in molecular_systems:
-        tmp_molecular_systems.append(digest_molecular_system(aux))
-    molecular_systems = tmp_molecular_systems
+        digest_single_molecular_system(molecular_system)
+        structure_indices = digest_multiple_structure_indices(structure_indices)
+        syntaxis = digest_syntaxis(syntaxis)
+        selections = digest_multiple_selections(selections, syntaxis)
+        to_form = digest_to_form(to_form)
 
     n_molecular_systems = len(molecular_systems)
 
@@ -101,92 +76,8 @@ def merge(molecular_systems, selections='all', structure_indices='all', syntaxis
         to_molecular_system = convert(molecular_systems[0], selection=selections[0],
                 structure_indices=structure_indices[0], to_form=to_form, check=False)
 
-    for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
+    add(to_molecular_system, molecular_systems[1:], selections=selections[1:], structure_indices=structure_indices[1:], check=False)
 
-        atom_indices = select(aux_molecular_system, selection=aux_selection, syntaxis=syntaxis, check=False)
-
-        to_already_merged=[]
-
-        # topology
-
-        to_form = to_molecular_system.elements_form
-        to_item = to_molecular_system.elements_item
-
-        if to_form is not None:
-            from_item = convert(aux_molecular_system, selection=atom_indices,
-                    structure_indices=aux_structure_indices, syntaxis=syntaxis, to_form=to_form,
-                    check=False)
-            try:
-                dict_add[to_form](to_item, from_item)
-                to_already_merged.append(to_item)
-            except:
-                tmp_item=dict_merge[to_form](to_item, from_item)
-                to_molecular_system._replace_object(to_item, tmp_item)
-                to_already_merged.append(tmp_item)
-
-        # ff_parameters
-
-        to_form = to_molecular_system.ff_parameters_form
-        to_item = to_molecular_system.ff_parameters_item
-
-        if to_form is not None:
-            if to_item not in to_already_merged:
-                from_item = convert(aux_molecular_system, selection=atom_indices,
-                        structure_indices=aux_structure_indices, syntaxis=syntaxis,
-                        to_form=to_form, check=False)
-                try:
-                    dict_add[to_form](to_item, from_item)
-                    to_already_merged.append(to_item)
-                except:
-                    tmp_item=dict_merge[to_form](to_item, from_item)
-                    to_molecular_system._replace_object(to_item, tmp_item)
-                    to_already_merged.append(tmp_item)
-
-        # bonds
-
-        to_form = to_molecular_system.bonds_form
-        to_item = to_molecular_system.bonds_item
-
-        if to_form is not None:
-            if to_item not in to_already_merged:
-                from_item = convert(aux_molecular_system, selection=atom_indices,
-                        structure_indices=aux_structure_indices, syntaxis=syntaxis,
-                        to_form=to_form, check=False)
-                try:
-                    dict_add[to_form](to_item, from_item)
-                    to_already_added.append(to_item)
-                except:
-                    tmp_item=dict_merge[to_form](to_item, from_item)
-                    to_molecular_system._replace_object(to_item, tmp_item)
-                    to_already_merged.append(tmp_item)
-
-
-        # coordinates
-
-        to_form = to_molecular_system.coordinates_form
-        to_item = to_molecular_system.coordinates_item
-
-        if to_form is not None:
-            if to_item not in to_already_merged:
-                from_item = convert(aux_molecular_system, selection=atom_indices,
-                        structure_indices=aux_structure_indices, syntaxis=syntaxis,
-                        to_form=to_form, check=False)
-                try:
-                    dict_add[to_form](to_item, from_item)
-                    to_already_added.append(to_item)
-                except:
-                    tmp_item=dict_merge[to_form](to_item, from_item)
-                    to_molecular_system._replace_object(to_item, tmp_item)
-                    to_already_merged.append(tmp_item)
-
-        # The box info is taken from the first molecular_system
-
-    output_items, output_forms = to_molecular_system.get_items()
-    if len(output_items)==1:
-        output = output_items[0]
-    else:
-        output = output_items
-
-    return output
+    return to_molecular_system
 
 

@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.biopython_Seq.is_biopython_Seq import is_biopython_Seq as is_form
 from molsysmt.form.biopython_Seq.extract import extract
 from molsysmt.form.biopython_Seq.add import add
-from molsysmt.form.biopython_Seq.merge import merge
 from molsysmt.form.biopython_Seq.append_structures import append_structures
-from molsysmt.form.biopython_Seq.concatenate_structures import concatenate_structures
 from molsysmt.form.biopython_Seq.get import *
 from molsysmt.form.biopython_Seq.set import *
 

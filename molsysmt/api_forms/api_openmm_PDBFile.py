@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.openmm_PDBFile.is_openmm_PDBFile import is_openmm_PDBFile as is_form
 from molsysmt.form.openmm_PDBFile.extract import extract
 from molsysmt.form.openmm_PDBFile.add import add
-from molsysmt.form.openmm_PDBFile.merge import merge
 from molsysmt.form.openmm_PDBFile.append_structures import append_structures
-from molsysmt.form.openmm_PDBFile.concatenate_structures import concatenate_structures
 from molsysmt.form.openmm_PDBFile.get import *
 from molsysmt.form.openmm_PDBFile.set import *
 

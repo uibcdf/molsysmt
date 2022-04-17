@@ -23,7 +23,7 @@ def to_openmm_Simulation(item, atom_indices='all', structure_indices='all',
                          hydrogen_mass=hydrogen_mass, switch_distance=switch_distance,
                          flexible_constraints=flexible_constraints, integrator=integrator,
                          temperature=temperature, collisions_rate=collisions_rate,
-                         integration_timestep=integration_timestep, platform=platform, check=False):
+                         integration_timestep=integration_timestep, platform=platform, check=False)
 
     return tmp_item
 

@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.openmm_AmberInpcrdFile.is_openmm_AmberInpcrdFile import is_openmm_AmberInpcrdFile as is_form
 from molsysmt.form.openmm_AmberInpcrdFile.extract import extract
 from molsysmt.form.openmm_AmberInpcrdFile.add import add
-from molsysmt.form.openmm_AmberInpcrdFile.merge import merge
 from molsysmt.form.openmm_AmberInpcrdFile.append_structures import append_structures
-from molsysmt.form.openmm_AmberInpcrdFile.concatenate_structures import concatenate_structures
 from molsysmt.form.openmm_AmberInpcrdFile.get import *
 from molsysmt.form.openmm_AmberInpcrdFile.set import *
 

@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.pdbfixer_PDBFixer.is_pdbfixer_PDBFixer import is_pdbfixer_PDBFixer as is_form
 from molsysmt.form.pdbfixer_PDBFixer.extract import extract
 from molsysmt.form.pdbfixer_PDBFixer.add import add
-from molsysmt.form.pdbfixer_PDBFixer.merge import merge
 from molsysmt.form.pdbfixer_PDBFixer.append_structures import append_structures
-from molsysmt.form.pdbfixer_PDBFixer.concatenate_structures import concatenate_structures
 from molsysmt.form.pdbfixer_PDBFixer.get import *
 from molsysmt.form.pdbfixer_PDBFixer.set import *
 

@@ -2,9 +2,7 @@ from .is_openmm_Topology import is_openmm_Topology
 
 from .extract import extract
 from .add import add
-from .merge import merge
 from .append_structures import append_structures
-from .concatenate_structures import concatenate_structures
 from .get import *
 from .set import *
 

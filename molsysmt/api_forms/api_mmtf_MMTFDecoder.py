@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.mmtf_MMTFDecoder.is_mmtf_MMTFDecoder import is_mmtf_MMTFDecoder as is_form
 from molsysmt.form.mmtf_MMTFDecoder.extract import extract
 from molsysmt.form.mmtf_MMTFDecoder.add import add
-from molsysmt.form.mmtf_MMTFDecoder.merge import merge
 from molsysmt.form.mmtf_MMTFDecoder.append_structures import append_structures
-from molsysmt.form.mmtf_MMTFDecoder.concatenate_structures import concatenate_structures
 from molsysmt.form.mmtf_MMTFDecoder.get import *
 from molsysmt.form.mmtf_MMTFDecoder.set import *
 

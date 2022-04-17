@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.molsysmt_Topology.is_molsysmt_Topology import is_molsysmt_Topology as is_form
 from molsysmt.form.molsysmt_Topology.extract import extract
 from molsysmt.form.molsysmt_Topology.add import add
-from molsysmt.form.molsysmt_Topology.merge import merge
 from molsysmt.form.molsysmt_Topology.append_structures import append_structures
-from molsysmt.form.molsysmt_Topology.concatenate_structures import concatenate_structures
 from molsysmt.form.molsysmt_Topology.get import *
 from molsysmt.form.molsysmt_Topology.set import *
 

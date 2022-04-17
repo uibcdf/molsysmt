@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.file_prmtop.is_file_prmtop import is_file_prmtop as is_form
 from molsysmt.form.file_prmtop.extract import extract
 from molsysmt.form.file_prmtop.add import add
-from molsysmt.form.file_prmtop.merge import merge
 from molsysmt.form.file_prmtop.append_structures import append_structures
-from molsysmt.form.file_prmtop.concatenate_structures import concatenate_structures
 from molsysmt.form.file_prmtop.get import *
 from molsysmt.form.file_prmtop.set import *
 

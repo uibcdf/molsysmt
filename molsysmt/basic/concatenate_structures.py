@@ -6,7 +6,7 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
         syntaxis='MolSysMT', to_form=None, check=True):
 
     from . import convert, extract, get, get_form
-    from molsysmt.api_forms import dict_append_structures, dict_concatenate_structures
+    from molsysmt.api_forms import dict_append_structures
 
     if check:
 

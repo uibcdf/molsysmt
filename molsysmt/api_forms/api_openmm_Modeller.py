@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.openmm_Modeller.is_openmm_Modeller import is_openmm_Modeller as is_form
 from molsysmt.form.openmm_Modeller.extract import extract
 from molsysmt.form.openmm_Modeller.add import add
-from molsysmt.form.openmm_Modeller.merge import merge
 from molsysmt.form.openmm_Modeller.append_structures import append_structures
-from molsysmt.form.openmm_Modeller.concatenate_structures import concatenate_structures
 from molsysmt.form.openmm_Modeller.get import *
 from molsysmt.form.openmm_Modeller.set import *
 

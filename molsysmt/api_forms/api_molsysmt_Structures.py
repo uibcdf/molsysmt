@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.molsysmt_Structures.is_molsysmt_Structures import is_molsysmt_Structures as is_form
 from molsysmt.form.molsysmt_Structures.extract import extract
 from molsysmt.form.molsysmt_Structures.add import add
-from molsysmt.form.molsysmt_Structures.merge import merge
 from molsysmt.form.molsysmt_Structures.append_structures import append_structures
-from molsysmt.form.molsysmt_Structures.concatenate_structures import concatenate_structures
 from molsysmt.form.molsysmt_Structures.get import *
 from molsysmt.form.molsysmt_Structures.set import *
 

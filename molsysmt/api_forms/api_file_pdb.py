@@ -1,13 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.tools.file_pdb.is_file_pdb import is_file_pdb as is_form
-from molsysmt.tools.file_pdb.extract import extract
-from molsysmt.tools.file_pdb.add import add
-from molsysmt.tools.file_pdb.merge import merge
-from molsysmt.tools.file_pdb.append_structures import append_structures
-from molsysmt.tools.file_pdb.concatenate_structures import concatenate_structures
-from molsysmt.tools.file_pdb.get import *
-from molsysmt.tools.file_pdb.set import *
+from molsysmt.form.file_pdb.is_file_pdb import is_file_pdb as is_form
+from molsysmt.form.file_pdb.extract import extract
+from molsysmt.form.file_pdb.add import add
+from molsysmt.form.file_pdb.append_structures import append_structures
+from molsysmt.form.file_pdb.get import *
+from molsysmt.form.file_pdb.set import *
 
 form_name='file:pdb'
 form_type='file'

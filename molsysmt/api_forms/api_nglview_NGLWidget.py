@@ -3,9 +3,7 @@ from molsysmt._private.exceptions import *
 from molsysmt.form.nglview_NGLWidget.is_nglview_NGLWidget import is_nglview_NGLWidget as is_form
 from molsysmt.form.nglview_NGLWidget.extract import extract
 from molsysmt.form.nglview_NGLWidget.add import add
-from molsysmt.form.nglview_NGLWidget.merge import merge
 from molsysmt.form.nglview_NGLWidget.append_structures import append_structures
-from molsysmt.form.nglview_NGLWidget.concatenate_structures import concatenate_structures
 from molsysmt.form.nglview_NGLWidget.get import *
 from molsysmt.form.nglview_NGLWidget.set import *
 
