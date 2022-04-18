@@ -1,4 +1,11 @@
 from .is_file_mmtf import is_file_mmtf
+
+from .extract import extract
+from .add import add
+from .append_structures import append_structures
+from .get import *
+from .set import *
+
 from .to_mdanalysis_Universe import to_mdanalysis_Universe
 from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
 from .to_molsysmt_Topology import to_molsysmt_Topology

@@ -1,14 +1,20 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
-
 def is_file(form, check=True):
 
-    if check:
-        from .is_form import is_form
-        if not is_form(form):
-            raise WrongFormError()
+    from .file_inpcrd import is_file_inpcrd
+    from .file_prmtop import is_file_prmtop
+    from .file_pdb import is_file_pdb
+    from .file_mmtf import is_file_mmtf
 
-    from molsysmt.api_forms import file_forms
+    output = False
 
-    return (form in file_forms)
+    if is_file_pdb(form):
+        output = True
+    elif is_file_mmtf(form):
+        output = True
+    elif is_file_inpcrd(form):
+        output = True
+    elif is_file_prmtop(form):
+        output = True
+
+    return output
 

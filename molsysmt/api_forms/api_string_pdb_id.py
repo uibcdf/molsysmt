@@ -67,7 +67,9 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
 
     from molsysmt.form.string_pdb_id import to_file_pdb as string_pdb_id_to_file_pdb
 
-    tmp_item = string_pdb_id_to_file_pdb(item, atom_indices=atom_indices, structure_indices=structure_indices, output_filaname=output_filanme, check=False)
+    tmp_item = string_pdb_id_to_file_pdb(item, atom_indices=atom_indices,
+                                         structure_indices=structure_indices,
+                                         output_filename=output_filename, check=False)
 
     return tmp_item
 
@@ -75,7 +77,9 @@ def to_file_mmtf(item, molecular_system, atom_indices='all', structure_indices='
 
     from molsysmt.form.string_pdb_id import to_file_mmtf as string_pdb_id_to_file_mmtf
 
-    tmp_item = string_pdb_id_to_file_mmtf(item, atom_indices=atom_indices, structure_indices=structure_indices, output_filaname=output_filanme, check=False)
+    tmp_item = string_pdb_id_to_file_mmtf(item, atom_indices=atom_indices,
+                                          structure_indices=structure_indices,
+                                          output_filename=output_filename, check=False)
 
     return tmp_item
 
@@ -83,7 +87,9 @@ def to_file_msmpk(item, molecular_system, atom_indices='all', structure_indices=
 
     from molsysmt.form.string_pdb_id import to_file_mmtf as string_pdb_id_to_file_msmpk
 
-    tmp_item = string_pdb_id_to_file_msmpk(item, atom_indices=atom_indices, structure_indices=structure_indices, output_filaname=output_filanme, check=False)
+    tmp_item = string_pdb_id_to_file_msmpk(item, atom_indices=atom_indices,
+                                           structure_indices=structure_indices,
+                                           output_filename=output_filename, check=False)
 
     return tmp_item
 

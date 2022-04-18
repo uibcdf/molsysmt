@@ -5,7 +5,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
 
     if check:
 
-        digest_item(item, 'file:pdb')
+        digest_item(item, 'file:mmtf')
         atom_indices = digest_atom_indices(atom_indices)
         structure_indices = digest_structure_indices(structure_indices)
 
