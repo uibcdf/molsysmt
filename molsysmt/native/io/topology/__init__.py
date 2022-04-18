@@ -1,5 +1,3 @@
-from .mdtraj_Topology import from_mdtraj_Topology
-from .mdtraj_Trajectory import from_mdtraj_Trajectory
 from .openmm_GromacsGroFile import from_openmm_GromacsGroFile
 from .parmed_Structure import from_parmed_Structure
 from .openmm_Modeller import from_openmm_Modeller

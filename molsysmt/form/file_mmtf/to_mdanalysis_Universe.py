@@ -1,5 +1,5 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
-from molsysmt._private.exception import LibraryNotFoundError
+from molsysmt._private.exceptions import LibraryNotFoundError
 
 def to_mdanalysis_Universe(item, atom_indices='all', structure_indices='all', check=True):
 

@@ -9,7 +9,7 @@ from molsysmt.form.file_mmtf.set import *
 
 form_name='file:mmtf'
 form_type='file'
-info=["",""]
+form_info=["",""]
 
 form_attributes = {
 

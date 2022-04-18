@@ -13,6 +13,8 @@ from . import file_mmtf
 
 from . import biopython_Seq
 from . import biopython_SeqRecord
+from . import mdtraj_Trajectory
+from . import mdtraj_Topology
 from . import mmtf_MMTFDecoder
 from . import molsysmt_MolecularMechanics
 from . import molsysmt_MolecularMechanicsDict

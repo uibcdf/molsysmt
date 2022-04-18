@@ -132,7 +132,8 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_i
 
     from molsysmt.form.file_pdb import to_mdtraj_Trajectory as file_pdb_to_mdtraj_Trajectory
 
-    tmp_item = file_pdb_to_mdtraj_Trajectory(item, atom_indices=atom_indices, check=False)
+    tmp_item = file_pdb_to_mdtraj_Trajectory(item, atom_indices=atom_indices,
+            structure_indices=structure_indices, check=False)
 
     return tmp_item
 

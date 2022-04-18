@@ -9,12 +9,11 @@ def to_file_mmtf(item, atom_indices='all', structure_indices='all', output_filen
         atom_indices = digest_atom_indices(atom_indices)
         structure_indices = digest_structure_indices(structure_indices)
 
-    from ..file_mmtf import download as download_file_mmtf
-    from ..file_mmtf import extract as extract_file_mmtf
+    from . import to_mmtf_MMTFDecoder
+    from ..mmtf_MMTFDecoder import to_file_mmtf
 
-    download_file_mmtf(item, output_filename)
-    tmp_item = extract_file_mmtf(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
-            output_filename=output_filename, copy_if_all=False, check=False)
+    tmp_item = to_mmtf_MMTFDecoder(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = to_file_mmtf(tmp_item, output_filename=output_filename, check=False)
 
     return tmp_item
 
