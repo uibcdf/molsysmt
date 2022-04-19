@@ -1,4 +1,5 @@
 from molsysmt._private.exceptions import *
+import numpy as np
 
 from molsysmt.form.mdtraj_Trajectory.is_mdtraj_Trajectory import is_mdtraj_Trajectory as is_form
 from molsysmt.form.mdtraj_Trajectory.extract import extract
@@ -65,8 +66,11 @@ form_attributes = {
 def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.mdtraj_Trajectory import to_string_aminoacids3 as mdtraj_Trajectory_to_string_aminoacids3
+    from molsysmt.form.mdtraj_Trajectory import get_group_index_from_atom
 
-    tmp_item = mdtraj_Trajectory_to_string_aminoacids3(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    group_indices = get_group_index_from_atom(item, indices=atom_indices, check=False)
+    group_indices = np.unique(group_indices)
+    tmp_item = mdtraj_Trajectory_to_string_aminoacids3(item, group_indices=group_indices, check=False)
 
     return tmp_item
 
@@ -74,7 +78,9 @@ def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_
 
     from molsysmt.form.mdtraj_Trajectory import to_string_aminoacids1 as mdtraj_Trajectory_to_string_aminoacids1
 
-    tmp_item = mdtraj_Trajectory_to_string_aminoacids1(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    group_indices = get_group_index_from_atom(item, indices=atom_indices, check=False)
+    group_indices = np.unique(group_indices)
+    tmp_item = mdtraj_Trajectory_to_string_aminoacids1(item, group_indices=group_indices, check=False)
 
     return tmp_item
 
@@ -82,7 +88,9 @@ def to_biopython_Seq(item, molecular_system, atom_indices='all', structure_indic
 
     from molsysmt.form.mdtraj_Trajectory import to_biopython_Seq as mdtraj_Trajectory_to_biopython_Seq
 
-    tmp_item = mdtraj_Trajectory_to_biopython_Seq(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    group_indices = get_group_index_from_atom(item, indices=atom_indices, check=False)
+    group_indices = np.unique(group_indices)
+    tmp_item = mdtraj_Trajectory_to_biopython_Seq(item, group_indices=group_indices, check=False)
 
     return tmp_item
 
@@ -90,7 +98,9 @@ def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', structure
 
     from molsysmt.form.mdtraj_Trajectory import to_biopython_Seq as mdtraj_Trajectory_to_biopython_SeqRecord
 
-    tmp_item = mdtraj_Trajectory_to_biopython_SeqRecord(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    group_indices = get_group_index_from_atom(item, indices=atom_indices, check=False)
+    group_indices = np.unique(group_indices)
+    tmp_item = mdtraj_Trajectory_to_biopython_SeqRecord(item, group_indices=group_indices, check=False)
 
     return tmp_item
 

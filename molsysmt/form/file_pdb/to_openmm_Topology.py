@@ -7,8 +7,7 @@ def to_openmm_Topology(item, atom_indices='all', check=True):
         digest_item(item, 'file:pdb')
         atom_indices = digest_atom_indices(atom_indices)
 
-
-    from . import to_opemm_PDBFile
+    from . import to_openmm_PDBFile
     from ..openmm_PDBFile import to_openmm_Topology as openmm_PDBFile_to_openmm_Topology
 
     tmp_item = to_openmm_PDBFile(item, check=False)

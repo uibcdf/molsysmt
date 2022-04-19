@@ -1,64 +1,77 @@
 from molsysmt._private.exceptions import *
-from molsysmt.api_forms.common_gets import *
-import numpy as np
-from molsysmt import puw
-from molsysmt.native.molecular_system import molecular_system_components
+
+from molsysmt.form.file_pdb.is_file_pdb import is_file_pdb as is_form
+from molsysmt.form.file_pdb.extract import extract
+from molsysmt.form.file_pdb.add import add
+from molsysmt.form.file_pdb.append_structures import append_structures
+from molsysmt.form.file_pdb.get import *
+from molsysmt.form.file_pdb.set import *
 
 form_name='mdtraj.HDF5TrajectoryFile'
-from_type='class'
+form_type='class'
+form_info=["",""]
 
-is_form={
-    'mdtraj.HDF5TrajectoryFile': form_name
-    }
+form_attributes = {
 
-info=["",""]
+    'atom_index' : True,
+    'atom_id' : True,
+    'atom_name' : True,
+    'atom_type' : True,
 
-has = molecular_system_components.copy()
-for ii in ['elements', 'bonds', 'coordinates', 'box']:
-    has[ii]=True
+    'bond_index' : True,
+    'bond_id' : True,
+    'bond_name' : True,
+    'bond_type' : True,
+    'bond_order' : True,
 
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    'group_index' : True,
+    'group_id' : True,
+    'group_name' : True,
+    'group_type' : True,
 
-    from molsysmt.api_forms.api_mdtraj_Topology import extract as extract_mdtraj_Topology
+    'component_index' : True,
+    'component_id' : False,
+    'component_name' : False,
+    'component_type' : False,
 
-    tmp_item = item.topology
-    if (atom_indices is not 'all'):
-        tmp_item = extract_mdtraj_Topology(tmp_item, atom_indices=atom_indices)
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices)
-    else:
-        tmp_molecular_system = None
+    'molecule_index' : True,
+    'molecule_id' : True,
+    'molecule_name' : True,
+    'molecule_type' : True,
 
-    return tmp_item, tmp_molecular_system
+    'chain_index' : True,
+    'chain_id' : True,
+    'chain_name' : True,
+    'chain_type' : True,
 
-def to_mdtraj_HDF5TrajectoryFile(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True):
+    'entity_index' : False,
+    'entity_id' : False,
+    'entity_name' : False,
+    'entity_type' : False,
 
-    tmp_molecular_system = None
+    'coordinates' : True,
+    'velocities' : True,
+    'box' : True,
+    'time' : True,
+    'step' : True,
 
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        if copy_if_all:
-            tmp_item = extract(item)
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-        else:
-            tmp_item = item
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system
-    else:
-        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices)
-        if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
+    'forcefield_parameters' : True,
 
-    return tmp_item, tmp_molecular_system
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
+}
 
-def extract(item, atom_indices='all', structure_indices='all'):
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        raise NotImplementedError()
-    else:
-        raise NotImplementedError()
+    from molsysmt.form.mdtraj_HDF5TrajectoryFile import to_mdtraj_Topology as mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology
+
+    tmp_item = mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
+
 
 def merge(item_1, item_2):
 

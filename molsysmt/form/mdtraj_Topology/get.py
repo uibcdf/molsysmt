@@ -22,9 +22,9 @@ def get_atom_id_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     output=[item.atom(ii).serial for ii in tmp_indices]
-    output=np.array(output, dtype=int)
+    output=_np.array(output, dtype=int)
     return output
 
 def get_atom_name_from_atom(item, indices='all', check=True):
@@ -34,9 +34,9 @@ def get_atom_name_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     output=[item.atom(ii).name for ii in tmp_indices]
-    output=np.array(output, dtype=object)
+    output=_np.array(output, dtype=object)
     return output
 
 def get_atom_type_from_atom(item, indices='all', check=True):
@@ -46,9 +46,9 @@ def get_atom_type_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     output=[item.atom(ii).element.symbol for ii in tmp_indices]
-    output=np.array(output, dtype=object)
+    output=_np.array(output, dtype=object)
     return output
 
 def get_group_index_from_atom(item, indices='all', check=True):
@@ -58,9 +58,9 @@ def get_group_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     output=[item.atom(ii).residue.index for ii in tmp_indices]
-    output=np.array(output, dtype=int)
+    output=_np.array(output, dtype=int)
     return output
 
 def get_component_index_from_atom(item, indices='all', check=True):
@@ -81,9 +81,9 @@ def get_chain_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    tmp_indices = get_atom_index_from_atom(item, indices=indices, structure_indices=structure_indices)
+    tmp_indices = get_atom_index_from_atom(item, indices=indices, check=False)
     output=[item.atom(ii).residue.chain.index for ii in tmp_indices]
-    output=np.array(output, dtype=int)
+    output=_np.array(output, dtype=int)
     return output
 
 def get_molecule_index_from_atom(item, indices='all', check=True):
@@ -135,10 +135,10 @@ def get_group_id_from_group(item, indices='all', check=True):
 
     if indices is 'all':
         n_indices = get_n_groups_from_system(item)
-        indices = np.arange(n_indices)
+        indices = _np.arange(n_indices)
 
     output = [item.residue(ii).resSeq for ii in indices]
-    output = np.array(output, dtype=int)
+    output = _np.array(output, dtype=int)
     return output
 
 def get_group_name_from_group(item, indices='all', check=True):
@@ -150,10 +150,10 @@ def get_group_name_from_group(item, indices='all', check=True):
 
     if indices is 'all':
         n_indices = get_n_groups_from_system(item)
-        indices = np.arange(n_indices)
+        indices = _np.arange(n_indices)
 
     output = [item.residue(ii).name for ii in indices]
-    output = np.array(output, dtype=object)
+    output = _np.array(output, dtype=object)
     return output
 
 def get_group_type_from_group(item, indices='all', check=True):
@@ -390,7 +390,7 @@ def get_atom_index_from_bond(item, indices='all', check=True):
     tmp_indices = get_bond_index_from_bond(item, indices=indices, structure_indices=structure_indices)
     bond = list(item.bonds)
     output=[[bond[ii].atom1.index, bond[ii].atom2.index] for ii in tmp_indices]
-    output=np.array(output)
+    output=_np.array(output)
     del(bond)
     return output
 

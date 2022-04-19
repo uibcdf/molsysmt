@@ -10,11 +10,13 @@ from . import file_inpcrd
 from . import file_prmtop
 from . import file_pdb
 from . import file_mmtf
+from . import file_h5
 
 from . import biopython_Seq
 from . import biopython_SeqRecord
 from . import mdtraj_Trajectory
 from . import mdtraj_Topology
+from . import mdtraj_HDF5TrajectoryFile
 from . import mmtf_MMTFDecoder
 from . import molsysmt_MolecularMechanics
 from . import molsysmt_MolecularMechanicsDict

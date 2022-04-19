@@ -1,6 +1,6 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
 
-def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices=structure_indices, check=True):
+def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', check=True):
 
     if check:
 

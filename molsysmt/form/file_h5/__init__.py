@@ -1,4 +1,11 @@
 from .is_file_h5 import is_file_h5
+
+from .extract import extract
+from .add import add
+from .append_structures import append_structures
+from .get import *
+from .set import *
+
 from .to_file_pdb import to_file_pdb
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
 from .to_mdtraj_Topology import to_mdtraj_Topology
