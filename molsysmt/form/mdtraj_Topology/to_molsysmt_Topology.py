@@ -9,7 +9,7 @@ def to_molsysmt_Topology(item, atom_indices='all', check=True):
 
     from molsysmt.native import Topology
     import numpy as np
-    from molsysmt.elements.group import name_to_type as group_name_to_group_type
+    from molsysmt.element.group import get_group_type_from_group_name
 
     tmp_item = Topology()
 
@@ -35,7 +35,7 @@ def to_molsysmt_Topology(item, atom_indices='all', check=True):
 
     group_type_array = np.empty(n_atoms, dtype=object)
 
-    tmp_item.atoms_dataframe["group_type"] = list(map(group_name_to_group_type,tmp_item.atoms_dataframe["group_name"]))
+    tmp_item.atoms_dataframe["group_type"] = list(map(get_group_type_from_group_name, tmp_item.atoms_dataframe["group_name"]))
 
 
     group_index_array = np.empty(n_atoms, dtype=int)
@@ -51,7 +51,9 @@ def to_molsysmt_Topology(item, atom_indices='all', check=True):
 
     del(group_index_array, chain_index_array)
 
-    tmp_item._build_components_molecules_and_entities()
+    tmp_item._build_components()
+    tmp_item._build_molecules()
+    tmp_item._build_entities()
 
     ## nan to None
 

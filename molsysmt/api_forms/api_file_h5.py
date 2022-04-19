@@ -98,7 +98,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_ind
 
     return tmp_item
 
-def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.file_h5 import to_molsysmt_MolSys as file_h5_to_molsysmt_MolSys
 
@@ -107,7 +107,7 @@ def to_molsysmt_MolSys(item, molecular_system=None, atom_indices='all', structur
 
     return tmp_item
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all'):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.file_h5 import to_molsysmt_Topology as file_h5_to_molsysmt_Topology
 
@@ -115,7 +115,7 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all'):
 
     return tmp_item
 
-def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.file_h5 import to_molsysmt_Structures as file_h5_to_molsysmt_Structures
 
@@ -124,7 +124,7 @@ def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', stru
 
     return tmp_item
 
-def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
     from molsysmt.form.file_h5 import to_file_pdb as file_h5_to_file_pdb
 

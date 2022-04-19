@@ -180,7 +180,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
     if indices is not 'all':
         coordinates=coordinates[:,indices,:]
 
-    coordinates = coordinates*puw.unit('nanometer')
+    coordinates = coordinates*_puw.unit('nanometer')
 
     return coordinates
 
@@ -531,8 +531,8 @@ def get_box_from_system(item, structure_indices='all', check=True):
 
     if item.unitcell_vectors is not None:
 
-        output = item.unitcell_vectors * puw.unit('nanometers')
-        output = puw.standardize(output)
+        output = item.unitcell_vectors * _puw.unit('nanometers')
+        output = _puw.standardize(output)
 
     return output
 

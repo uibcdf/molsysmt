@@ -12,4 +12,6 @@ from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
+from .to_string_aminoacids1 import to_string_aminoacids1
+from .to_string_aminoacids3 import to_string_aminoacids3
 

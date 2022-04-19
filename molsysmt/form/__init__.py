@@ -11,6 +11,7 @@ from . import file_prmtop
 from . import file_pdb
 from . import file_mmtf
 from . import file_h5
+from . import file_mol2
 
 from . import biopython_Seq
 from . import biopython_SeqRecord
@@ -29,4 +30,7 @@ from . import openmm_AmberPrmtopFile
 from . import openmm_Modeller
 from . import openmm_Topology
 from . import openmm_PDBFile
+from . import parmed_Structure
 from . import pdbfixer_PDBFixer
+from . import pytraj_Trajectory
+from . import pytraj_Topology

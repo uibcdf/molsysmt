@@ -122,8 +122,7 @@ def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_ind
 
     coordinates = get(molecular_system, target='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
     box = get(molecular_system, target='system', structure_indices=structure_indices, box=True)
-
-    tmp_item = molsysmt_Topology_to_string_pdb_text(item, coordinates, box, atom_indices=atom_indices, output_filename=output_filename, check=False)
+    tmp_item = molsysmt_Topology_to_string_pdb_text(item, coordinates=coordinates, box=box, atom_indices=atom_indices, check=False)
 
     return tmp_item
 

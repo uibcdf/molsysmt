@@ -211,6 +211,14 @@ def to_pytraj_Trajectory(item, molecular_system, atom_indices='all', structure_i
 
     return tmp_item
 
+def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.string_pdb_id import to_string_pdb_text as string_pdb_id_to_string_pdb_text
+
+    tmp_item = string_pdb_id_to_string_pdb_text(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+
+    return tmp_item
+
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_id import to_nglview_NGLWidget as string_pdb_id_to_nglview_NGLWidget

@@ -7,6 +7,8 @@ from molsysmt.form.file_mmtf.append_structures import append_structures
 from molsysmt.form.file_mmtf.get import *
 from molsysmt.form.file_mmtf.set import *
 
+import numpy as np
+
 form_name='file:mmtf'
 form_type='file'
 form_info=["",""]
@@ -99,8 +101,24 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.file_mmtf import to_string_aminoacids1 as file_mmtf_to_string_aminoacids1
+    from molsysmt.form.file_mmtf import get_group_index_from_atom
 
-    tmp_item = file_mmtf_to_string_aminoacids1(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    group_indices = get_group_index_from_atom(item, indices=atom_indices)
+    group_indices = np.unique(group_indices)
+
+    tmp_item = file_mmtf_to_string_aminoacids1(item, group_indices=group_indices, check=False)
+
+    return tmp_item
+
+def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.file_mmtf import to_string_aminoacids3 as file_mmtf_to_string_aminoacids3
+    from molsysmt.form.file_mmtf import get_group_index_from_atom
+
+    group_indices = get_group_index_from_atom(item, indices=atom_indices)
+    group_indices = np.unique(group_indices)
+
+    tmp_item = file_mmtf_to_string_aminoacids3(item, group_indices=group_indices, check=False)
 
     return tmp_item
 

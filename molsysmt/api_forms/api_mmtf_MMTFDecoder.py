@@ -111,3 +111,27 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_i
 
     return tmp_item
 
+def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.mmtf_MMTFDecoder import to_string_aminoacids1 as mmtf_MMTFDecoder_to_string_aminoacids1
+    from molsysmt.form.mmtf_MMTFDecoder import get_group_index_from_atom
+
+    group_indices = get_group_index_from_atom(item, indices=atom_indices)
+    group_indices = np.unique(group_indices)
+
+    tmp_item = mmtf_MMTFDecoder_to_string_aminoacids1(item, group_indices=group_indices, check=False)
+
+    return tmp_item
+
+def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.mmtf_MMTFDecoder import to_string_aminoacids3 as mmtf_MMTFDecoder_to_string_aminoacids3
+    from molsysmt.form.mmtf_MMTFDecoder import get_group_index_from_atom
+
+    group_indices = get_group_index_from_atom(item, indices=atom_indices)
+    group_indices = np.unique(group_indices)
+
+    tmp_item = mmtf_MMTFDecoder_to_string_aminoacids3(item, group_indices=group_indices, check=False)
+
+    return tmp_item
+

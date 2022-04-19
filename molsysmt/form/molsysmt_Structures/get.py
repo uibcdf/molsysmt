@@ -156,7 +156,6 @@ def get_n_structures_from_system(item, check=True):
     if check:
 
         _digest_item(item, _form)
-        structure_indices = _digest_structure_indices(structure_indices)
 
     output=item.coordinates.shape[0]
 

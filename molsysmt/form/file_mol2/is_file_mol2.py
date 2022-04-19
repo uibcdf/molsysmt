@@ -1,4 +1,4 @@
-def is_file_mols2(item):
+def is_file_mol2(item):
 
     output = False
 
