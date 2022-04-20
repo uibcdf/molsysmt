@@ -1,10 +1,10 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
 
-def to_molsysmt_MolSys(item, atom_indices='all', structure_indices=structure_indices, check=True):
+def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', check=True):
 
     if check:
 
-        digest_item(item, 'file:mmtf.MMTFDecoder')
+        digest_item(item, 'pytraj.Trajectory')
         atom_indices = digest_atom_indices(atom_indices)
         structure_indices = digest_structure_indices(structure_indices)
 

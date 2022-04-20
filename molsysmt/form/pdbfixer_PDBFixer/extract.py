@@ -1,5 +1,4 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest_item, atom_indices, structure_indices
 
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
 

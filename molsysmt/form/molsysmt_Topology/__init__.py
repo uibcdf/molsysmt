@@ -11,5 +11,6 @@ from .to_string_aminoacids1 import to_string_aminoacids1
 from .to_string_pdb_text import to_string_pdb_text
 from .to_file_pdb import to_file_pdb
 from .to_openmm_Topology import to_openmm_Topology
+from .to_pytraj_Topology import to_pytraj_Topology
 from .to_mdtraj_Topology import to_mdtraj_Topology
 

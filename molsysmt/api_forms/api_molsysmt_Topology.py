@@ -103,6 +103,14 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_ind
 
     return tmp_item
 
+def to_pytraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.molsysmt_Topology import to_pytraj_Topology as molsysmt_Topology_to_pytraj_Topology
+
+    tmp_item = molsysmt_Topology_to_pytraj_Topology(item, atom_indices=atom_indices, check=False)
+
+    return tmp_item
+
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
     from molsysmt.form.molsysmt_Topology import to_file_pdb as molsysmt_Topology_to_file_pdb

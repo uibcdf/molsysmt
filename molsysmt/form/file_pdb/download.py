@@ -1,6 +1,6 @@
 def download(pdb_id=None, output_filename=None, tempfile=False, wwPDB_Partner='RCSB PDB'):
 
-    from molsysmt._private_tools.files_and_directories import temp_filename
+    from molsysmt._private.files_and_directories import temp_filename
     from urllib.request import urlretrieve
 
     output = None

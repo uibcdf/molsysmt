@@ -1,14 +1,14 @@
 from molsysmt._private.exceptions import *
 import numpy as np
 
-from molsysmt.form.pytraj_Topology.is_pytraj_Topology import is_pytraj_Topology as is_form
-from molsysmt.form.pytraj_Topology.extract import extract
-from molsysmt.form.pytraj_Topology.add import add
-from molsysmt.form.pytraj_Topology.append_structures import append_structures
-from molsysmt.form.pytraj_Topology.get import *
-from molsysmt.form.pytraj_Topology.set import *
+from molsysmt.form.mdanalysis_Topology.is_mdanalysis_Topology import is_mdanalysis_Topology as is_form
+from molsysmt.form.mdanalysis_Topology.extract import extract
+from molsysmt.form.mdanalysis_Topology.add import add
+from molsysmt.form.mdanalysis_Topology.append_structures import append_structures
+from molsysmt.form.mdanalysis_Topology.get import *
+from molsysmt.form.mdanalysis_Topology.set import *
 
-form_name='pytraj.Topology'
+form_name='mdanalysis.Topology'
 form_type='class'
 form_info=["",""]
 
@@ -62,12 +62,4 @@ form_attributes = {
     'integrator' : False,
     'damping' : False,
 }
-
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.form.pytraj_Topology import to_molsysmt_Topology as pytraj_Topology_to_molsysmt_Topology
-
-    tmp_item = pytraj_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
-
-    return tmp_item
 

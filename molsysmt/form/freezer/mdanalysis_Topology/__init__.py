@@ -1,2 +1,0 @@
-from .is_mdanalysis_Topology import is_mdanalysis_Topology
-

@@ -15,6 +15,8 @@ from . import file_mol2
 
 from . import biopython_Seq
 from . import biopython_SeqRecord
+from . import mdanalysis_Universe
+from . import mdanalysis_Topology
 from . import mdtraj_Trajectory
 from . import mdtraj_Topology
 from . import mdtraj_HDF5TrajectoryFile

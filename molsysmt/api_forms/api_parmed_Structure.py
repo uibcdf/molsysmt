@@ -132,4 +132,30 @@ def to_file_mol2(item, molecular_system=None, atom_indices='all', structure_indi
 
     return tmp_item
 
+def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.parmed_Structure import to_molsysmt_MolSys as parmed_Structure_to_molsysmt_MolSys
+
+    tmp_item = parmed_Structure_to_molsysmt_MolSys(item, atom_indices=atom_indices,
+                                                    structure_indices=structure_indices, check=False)
+
+    return tmp_item
+
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.parmed_Structure import to_molsysmt_Topology as parmed_Structure_to_molsysmt_Topology
+
+    tmp_item = parmed_Structure_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
+
+    return tmp_item
+
+def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.parmed_Structure import to_molsysmt_Structures as parmed_Structure_to_molsysmt_Structures
+
+    tmp_item = parmed_Structure_to_molsysmt_Structures(item, atom_indices=atom_indices,
+                                                        structure_indices=structure_indices, check=False)
+
+    return tmp_item
+
 
