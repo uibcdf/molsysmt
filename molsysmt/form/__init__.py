@@ -12,6 +12,7 @@ from . import file_pdb
 from . import file_mmtf
 from . import file_h5
 from . import file_mol2
+from . import file_msmpk
 
 from . import biopython_Seq
 from . import biopython_SeqRecord
@@ -36,3 +37,4 @@ from . import parmed_Structure
 from . import pdbfixer_PDBFixer
 from . import pytraj_Trajectory
 from . import pytraj_Topology
+from . import XYZ

@@ -2,6 +2,7 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
+from molsysmt._private.execfile import execfile
 from molsysmt._private.exceptions import NotImplementedMethodError as _NotImplementedMethodError
 from molsysmt._private.digestion import digest_item as _digest_item
 from molsysmt._private.digestion import digest_indices as _digest_indices

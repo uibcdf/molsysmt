@@ -20,17 +20,17 @@ def to_file_msmpk(item, atom_indices='all', structure_indices='all', output_file
 
     # lengths with nm values and times in ps
 
-    if tmp_item.trajectory.coordinates is not None:
-        value = puw.get_value(tmp_item.trajectory.coordinates, to_unit='nm')
-        tmp_item.trajectory.coordinates = value
+    if tmp_item.structures.coordinates is not None:
+        value = puw.get_value(tmp_item.structures.coordinates, to_unit='nm')
+        tmp_item.structures.coordinates = value
 
-    if tmp_item.trajectory.box is not None:
-        value = puw.get_value(tmp_item.trajectory.box, to_unit='nm')
-        tmp_item.trajectory.box = value
+    if tmp_item.structures.box is not None:
+        value = puw.get_value(tmp_item.structures.box, to_unit='nm')
+        tmp_item.structures.box = value
 
-    if tmp_item.trajectory.time is not None:
-        value = puw.get_value(tmp_item.trajectory.time, to_unit='ps')
-        tmp_item.trajectory.time = value
+    if tmp_item.structures.time is not None:
+        value = puw.get_value(tmp_item.structures.time, to_unit='ps')
+        tmp_item.structures.time = value
 
     fff = open(output_filename,'wb')
     pickle.dump(tmp_item, fff)

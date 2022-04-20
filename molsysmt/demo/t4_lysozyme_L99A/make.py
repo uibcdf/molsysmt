@@ -26,11 +26,11 @@ msm.convert('pdb_id:1l17', to_form='1l17.mmtf')
 msm.convert('pdb_id:1l17', to_form='1l17.msmpk')
 
 # vacuum
-print('Vacuum system in msmpk file...')
-molsys = msm.convert('pdb_id:181l', to_form='molsysmt.MolSys')
-molsys = msm.build.remove_solvent(molsys)
-molsys = msm.build.remove_hydrogens(molsys)
-molsys = msm.build.add_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
-molsys = msm.build.add_hydrogens(molsys, pH=7.4)
-_ = msm.convert(molsys, to_form='t4_lysozyme_l99a_vacuum.msmpk')
+#print('Vacuum system in msmpk file...')
+#molsys = msm.convert('pdb_id:181l', to_form='molsysmt.MolSys')
+#molsys = msm.build.remove_solvent(molsys)
+#molsys = msm.build.remove_hydrogens(molsys)
+#molsys = msm.build.add_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
+#molsys = msm.build.add_hydrogens(molsys, pH=7.4)
+#_ = msm.convert(molsys, to_form='t4_lysozyme_l99a_vacuum.msmpk')
 

@@ -85,7 +85,7 @@ def to_file_mmtf(item, molecular_system, atom_indices='all', structure_indices='
 
 def to_file_msmpk(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
-    from molsysmt.form.string_pdb_id import to_file_mmtf as string_pdb_id_to_file_msmpk
+    from molsysmt.form.string_pdb_id import to_file_msmpk as string_pdb_id_to_file_msmpk
 
     tmp_item = string_pdb_id_to_file_msmpk(item, atom_indices=atom_indices,
                                            structure_indices=structure_indices,

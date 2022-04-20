@@ -70,7 +70,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
     return tmp_item
 
-def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_text import to_molsysmt_Topology as string_pdb_text_to_molsysmt_Topology
 
@@ -78,7 +78,7 @@ def to_molsysmt_Topology(item, molecular_system=None, atom_indices='all', struct
 
     return tmp_item
 
-def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_text import to_molsysmt_Structures as string_pdb_text_to_molsysmt_Structures
 
@@ -86,7 +86,7 @@ def to_molsysmt_Structures(item, molecular_system=None, atom_indices='all', stru
 
     return tmp_item
 
-def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_text import to_mdtraj_Topology as string_pdb_text_to_mdtraj_Topology
 
@@ -94,7 +94,7 @@ def to_mdtraj_Topology(item, molecular_system=None, atom_indices='all', structur
 
     return tmp_item
 
-def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_text import to_mdtraj_Trajectory as string_pdb_text_to_mdtraj_Trajectory
 
@@ -102,7 +102,7 @@ def to_mdtraj_Trajectory(item, molecular_system=None, atom_indices='all', struct
 
     return tmp_item
 
-def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_text import to_openmm_Topology as string_pdb_text_to_openmm_Topology
 
@@ -110,7 +110,7 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structur
 
     return tmp_item
 
-def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_text import to_openmm_Topology as string_pdb_text_to_openmm_Topology
 
@@ -118,7 +118,7 @@ def to_openmm_Modeller(item, molecular_system=None, atom_indices='all', structur
 
     return tmp_item
 
-def to_openmm_System(item, molecular_system=None, atom_indices='all', structure_indices='all',
+def to_openmm_System(item, molecular_system, atom_indices='all', structure_indices='all',
                      forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                      rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False):
@@ -129,7 +129,7 @@ def to_openmm_System(item, molecular_system=None, atom_indices='all', structure_
 
     return tmp_item
 
-def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', structure_indices='all',
+def to_openmm_Simulation(item, molecular_system, atom_indices='all', structure_indices='all',
                          forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff=None, constraints=None,
                          rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                          flexible_constraints=False, integrator='Langevin', temperature='300.0 K',
@@ -141,7 +141,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', struct
 
     return tmp_item
 
-def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_openmm_PDBFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_text import to_openmm_PDBFile as string_pdb_text_to_openmm_PDBFile
 
@@ -149,7 +149,7 @@ def to_openmm_PDBFile(item, molecular_system=None, atom_indices='all', structure
 
     return tmp_item
 
-def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_text import to_pdbfixer_PDBFixer as string_pdb_text_to_pdbfixer_PDBFixer
 
@@ -157,7 +157,7 @@ def to_pdbfixer_PDBFixer(item, molecular_system=None, atom_indices='all', struct
 
     return tmp_item
 
-def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.string_pdb_text import to_nglview_NGLWidget as string_pdb_text_to_nglview_NGLWidget
 
@@ -165,7 +165,7 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', struct
 
     return tmp_item
 
-def to_file_pdb(item, molecular_system=None, atom_indices='all', structure_indices='all', output_filename=None):
+def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
     from molsysmt.form.string_pdb_text import to_file_pdb as string_pdb_text_to_file_pdb
 

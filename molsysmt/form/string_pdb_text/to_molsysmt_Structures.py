@@ -15,9 +15,9 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', ch
     from . import get_coordinates_from_atom
 
     tmp_item = Structures()
+    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
     time = get_time_from_system(item, structure_indices=structure_indices)
     box = get_box_from_system(item, structure_indices=structure_indices)
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices)
     tmp_item.append_structures(coordinates=coordinates, box=box, time=time)
 
     return tmp_item
