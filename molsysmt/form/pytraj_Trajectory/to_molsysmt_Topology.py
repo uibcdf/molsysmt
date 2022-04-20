@@ -1,13 +1,17 @@
-def to_molsysmt_Topology(item, selection='all', structure_indices='all', syntaxis='MolSysMT'):
+from molsysmt._private.digestion import digest_item, digest_atom_indices
 
-    from molsysmt.tools.pytraj_Trajectory import is_pytraj_Trajectory
-    from molsysmt.basic import convert
+def to_molsysmt_Topology(item, atom_indices='all', check=True):
 
-    if not is_pytraj_Trajectory(item):
-        raise ValueError
+    if check:
 
-    tmp_item = convert(item, to_form='molsysmt.Topology', selection=selection,
-            structure_indices=structure_indices, syntaxis=syntaxis)
+        digest_item(item, 'pytraj.Trajectory')
+        atom_indices = digest_atom_indices(atom_indices)
+
+    from . import to_pytraj_Topology
+    from ..pytraj_Topology import to_molsysmt_Topology
+
+    tmp_item = to_pytraj_Topology(item, check=False)
+    tmp_item = pytraj_Topology_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, check=False)
 
     return tmp_item
 
