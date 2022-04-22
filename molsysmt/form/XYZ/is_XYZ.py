@@ -1,10 +1,11 @@
 from molsysmt import puw
+import numpy as np
 
 def is_XYZ(item):
 
     output = False
 
-    if puw.is_quantity(molecular_system):
+    if puw.is_quantity(item):
         if  puw.compatibility(item, puw.unit('nm')):
 
             shape = np.shape(item)

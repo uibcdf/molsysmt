@@ -25,6 +25,7 @@ form_attributes = {
     'bond_name' : True,
     'bond_type' : True,
     'bond_order' : True,
+    'bonded_atoms' : True,
 
     'group_index' : True,
     'group_id' : True,
