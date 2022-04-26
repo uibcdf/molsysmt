@@ -7,7 +7,7 @@ import molsysmt as msm
 import numpy as np
 import os
 
-# Whole systems (selection='all' and frame_indices='all')
+# Whole systems (selection='all' and structure_indices='all')
 
 def test_string_pdb_id_to_molsysmt_MolSys():
     molsys = msm.convert('pdb_id:181l', to_form='molsysmt.MolSys')

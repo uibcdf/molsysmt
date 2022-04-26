@@ -1,17 +1,21 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.molecular_system import digest_molecular_system
-from molsysmt._private_tools.frame_indices import digest_frame_indices
 from molsysmt.lib import geometry as libgeometry
 from molsysmt.basic import get, convert, set, copy
 
 def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=None,
-        frame_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
+        structure_indices='all', pbc=True, in_place=False, engine='MolSysMT', check=True):
+
+    if check:
+        from molsysmt.tools.molecular_system import is_molecular_system
+        if not is_molecular_system(molecular_system):
+            raise MolecularSystemNeededError()
 
     from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
 
-    molecular_system = digest_molecular_system(molecular_system)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     if type(quartets) in [list,tuple]:
         quartets = np.array(quartets, dtype=int)
@@ -33,15 +37,16 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
     else:
         raise ValueError
 
-    n_atoms = get(molecular_system, target='system', n_atoms=True)
+    n_atoms = get(molecular_system, target='system', n_atoms=True, check=False)
     n_quartets = quartets.shape[0]
-    n_frames = get(molecular_system, target='system', frame_indices=frame_indices, n_frames=True)
+    n_structures = get(molecular_system, target='system', structure_indices=structure_indices,
+            n_structures=True, check=False)
 
     angles_units = puw.get_unit(angles)
     angles_value = puw.get_value(angles)
 
     if type(angles_value) in [float]:
-        if (n_quartets==1 and n_frames==1):
+        if (n_quartets==1 and n_structures==1):
             angles_value = np.array([[angles_value]], dtype=float)
         else:
             raise ValueError("angles do not match the number of frames and quartets")
@@ -55,7 +60,7 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
     shape = angles_value.shape
 
     if len(shape)==1:
-        angles_value = angles_value.reshape([n_frames, n_quartets])
+        angles_value = angles_value.reshape([n_structures, n_quartets])
 
     angles = angles_value*angles_units
 
@@ -68,15 +73,18 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
 
             for quartet in quartets:
 
-                tmp_blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartet[1], quartet[2]])
+                tmp_blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartet[1],
+                    quartet[2]], check=False)
                 blocks.append(tmp_blocks)
 
 
-        coordinates = get(molecular_system, target='system', frame_indices=frame_indices, coordinates=True)
+        coordinates = get(molecular_system, target='system', structure_indices=structure_indices,
+                coordinates=True, check=False)
 
         if pbc:
 
-            box, box_shape = get(molecular_system, target='system', frame_indices=frame_indices, box=True, box_shape=True)
+            box, box_shape = get(molecular_system, target='system',
+                    structure_indices=structure_indices, box=True, box_shape=True, check=False)
             if box_shape is None:
                 raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
             orthogonal = 0
@@ -89,7 +97,7 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         else:
 
             orthogonal = 1
-            box= np.zeros([n_frames,3,3])*puw.unit('nm')
+            box= np.zeros([n_structures,3,3])*puw.unit('nm')
 
         length_units = puw.unit(coordinates)
         box = np.asfortranarray(puw.get_value(box, to_unit=length_units), dtype='float64')
@@ -108,15 +116,17 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         aux_atoms_per_block = np.array(aux_atoms_per_block, dtype=int)
 
         libgeometry.set_dihedral_angles(coordinates, box, orthogonal, int(pbc), quartets, angles,
-                                         aux_blocks, aux_atoms_per_block, n_quartets, n_atoms, n_frames, aux_blocks.shape[0])
+                                         aux_blocks, aux_atoms_per_block, n_quartets, n_atoms, n_structures, aux_blocks.shape[0])
 
         coordinates=np.ascontiguousarray(coordinates)*length_units
 
         if in_place:
-            return set(molecular_system, target='system', coordinates=coordinates, frame_indices=frame_indices)
+            return set(molecular_system, target='system', coordinates=coordinates,
+                    structure_indices=structure_indices, check=False)
         else:
-            tmp_molecular_system = copy(molecular_system)
-            set(tmp_molecular_system, target='system', coordinates=coordinates, frame_indices=frame_indices)
+            tmp_molecular_system = copy(molecular_system, check=False)
+            set(tmp_molecular_system, target='system', coordinates=coordinates,
+                    structure_indices=structure_indices, check=False)
             return tmp_molecular_system
 
     else:

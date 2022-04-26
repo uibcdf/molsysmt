@@ -20,30 +20,49 @@ Exceptionally few home-made subroutines will be included here to fill specific g
 .. |IntroWarningText| replace::
         At this moment MolSysMT is a work in progress project maintened by the UIBCDF Lab. It was concieved as a central repository for those shortcuts and common routines in the daily workflow of our lab. If you think this library is useful to you, use it with caution. Any feedback is welcome.
 
-.. note:: |IntroNoteText|
+.. toctree::
+   :name: about
+   :caption: About
+   :maxdepth: 2
 
-.. |IntroNoteText| replace::
-        A version of this web page in spanish will be available soon.
+   contents/about/what.md
+
+.. toctree::
+   :name: installation_and_showcase
+   :caption: Installation and showcase
+   :maxdepth: 2
+
+   contents/show/installation/Installation.md
+   contents/show/showcase/index.rst
+
 
 .. toctree::
    :name: user_guide
    :caption: User Guide
    :maxdepth: 2
 
-   contents/intro/index.rst
-   contents/molsys/index.rst
-   contents/native/index.rst
-   contents/basic/index.rst
-   contents/build/index.rst
-   contents/topology/index.rst
-   contents/structure/index.rst
-   contents/pbc/index.rst
-   contents/hbonds/index.rst
-   contents/physchem/index.rst
-   contents/molmech/index.rst
-   contents/working_with/index.rst
-   contents/help/index.rst
-   contents/demo/index.rst
+   contents/user/intro/index.rst
+   contents/user/basic/index.rst
+   contents/user/build/index.rst
+   contents/user/topology/index.rst
+   contents/user/structure/index.rst
+   contents/user/pbc/index.rst
+   contents/user/hbonds/index.rst
+   contents/user/physchem/index.rst
+   contents/user/molmech/index.rst
+   contents/user/tools/index.rst
+   contents/user/working_with/index.rst
+   contents/user/demo/index.rst
+   contents/user/native/index.rst
+   contents/user/help/index.rst
+
+.. toctree::
+   :name: developer_guide
+   :caption: Developer Guide
+   :maxdepth: 2
+
+   contents/developer/intro/index.rst
+   contents/developer/documentation/index.rst
 
 .. toctree::
    :name: api_doc

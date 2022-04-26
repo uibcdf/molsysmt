@@ -1,8 +1,8 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt.forms import types, dict_type, dict_convert, dict_info
-from molsysmt.forms import forms as _forms
+from molsysmt._private.exceptions import *
+from molsysmt.api_forms import dict_type, dict_convert, dict_info
+from molsysmt.api_forms import forms as _forms
 
-dict_forms_of_type = { ii:[] for ii in types}
+dict_forms_of_type = { ii:[] for ii in ['class', 'string', 'file']}
 
 for ii, jj in dict_type.items():
     dict_forms_of_type[jj].append(ii)

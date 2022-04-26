@@ -16,7 +16,7 @@ molsysmt.forms.api\_openmm\_GromacsTopFile
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       merge
       to_openmm_GromacsTopFile
       to_openmm_Topology

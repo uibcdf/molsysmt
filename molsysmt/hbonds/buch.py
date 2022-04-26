@@ -1,12 +1,12 @@
 # Source: V. J. Buch. J. Chem. Phys. 96, 3814-3823 (1992)
 
-from molsysmt._private_tools._digestion import *
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from molsysmt.basic import select
 from molsysmt import puw
 import numpy as np
 
-def buch(molecular_system, selection='all', selection_2=None, frame_indices='all', threshold='2.3 angstroms',
+def buch(molecular_system, selection='all', selection_2=None, structure_indices='all', threshold='2.3 angstroms',
         acceptors=None, donors=None, pbc=False, optimize=False, output_form='dict', engine='MolSysMT', syntaxis='MolSysMT'):
 
 
@@ -15,7 +15,7 @@ def buch(molecular_system, selection='all', selection_2=None, frame_indices='all
 
     molecular_system = digest_molecular_system(molecular_system)
     engine = digest_engine(engine)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     output = None
 
@@ -32,7 +32,7 @@ def buch(molecular_system, selection='all', selection_2=None, frame_indices='all
             donors_1 = select(molecular_system, selection=selection, mask=donors, syntaxis=syntaxis)
 
         neighs, _ = get_neighbors(molecular_system, selection=acceptors_1, selection_2=donors_1[0],
-                frame_indices=frame_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
+                structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
 
         if output_form == 'dict':
 
@@ -69,10 +69,10 @@ def buch(molecular_system, selection='all', selection_2=None, frame_indices='all
             donors_2 = select(molecular_system, selection=selection_2, mask=donors, syntaxis=syntaxis)
 
         neighs, _ = get_neighbors(molecular_system, selection=acceptors_1, selection_2=donors_2[0],
-                frame_indices=frame_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
+                structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
 
         neighs_2, _ = get_neighbors(molecular_system, selection=acceptors_2, selection_2=donors_1[0],
-                frame_indices=frame_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
+                structure_indices=structure_indices, threshold=threshold, pbc=pbc, engine=engine, syntaxis=syntaxis)
 
         if output_form == 'dict':
 

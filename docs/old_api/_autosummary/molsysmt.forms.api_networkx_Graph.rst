@@ -16,7 +16,7 @@ molsysmt.forms.api\_networkx\_Graph
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       merge
       to_networkx_Graph
    

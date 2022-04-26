@@ -1,4 +1,4 @@
-def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioassembly_index=0, bioassembly_name=None):
+def from_mmtf_MMTFDecoder(item, atom_indices='all', structure_indices='all', bioassembly_index=0, bioassembly_name=None):
 
 
     from molsysmt.native.io.dataframe.classes import from_mmtf_MMTFDecoder as molsysmt_dataframe_from_mmtf_MMTFDecoder
@@ -6,7 +6,7 @@ def from_mmtf_MMTFDecoder(item, atom_indices='all', frame_indices='all', bioasse
     from numpy import reshape, sum
 
     dataframe = molsysmt_dataframe_from_mmtf_MMTFDecoder(item, atom_indices='all',
-            frame_indices='all', bioassembly_index=bioassembly_index,
+            structure_indices='all', bioassembly_index=bioassembly_index,
             bioassembly_name=bioassembly_name)
 
     tmp_item = molsysmt_topology_from_molsysmt_DataFrame(dataframe)

@@ -87,19 +87,19 @@ END SUBROUTINE MIC
 !
 !END SUBROUTINE PBC_FRAMES
 
-!SUBROUTINE PBC_TENSOR(tensor, box, inv, ortho, n_frames, n_atoms)
+!SUBROUTINE PBC_TENSOR(tensor, box, inv, ortho, n_structures, n_atoms)
 !
 !  IMPLICIT NONE
 !
-!  INTEGER,INTENT(IN)::n_frames, n_atoms ,ortho
-!  DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::tensor
-!  DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box,inv
+!  INTEGER,INTENT(IN)::n_structures, n_atoms ,ortho
+!  DOUBLE PRECISION,DIMENSION(n_structures,n_atoms,3),INTENT(INOUT)::tensor
+!  DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box,inv
 !
 !  INTEGER::ii,jj
 !  DOUBLE PRECISION,DIMENSION(3)::vect_aux
 !
 !  DO ii=1,n_atoms
-!    DO jj=1,n_frames
+!    DO jj=1,n_structures
 !        vect_aux(:)=tensor(jj,ii,:)
 !        CALL PBC(vect_aux,box(jj,:,:),inv(jj,:,:),ortho)
 !        tensor(jj,ii,:)=vect_aux(:)

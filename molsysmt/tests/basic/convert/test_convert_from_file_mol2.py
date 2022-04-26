@@ -7,7 +7,7 @@ import molsysmt as msm
 import numpy as np
 import os
 
-# Whole systems (selection='all' and frame_indices='all')
+# Whole systems (selection='all' and structure_indices='all')
 
 def test_file_mol2_to_openmm_Modeller():
     molsys = msm.demo['caffeine']['caffeine.mol2']

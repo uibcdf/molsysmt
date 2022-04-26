@@ -1,10 +1,10 @@
-from molsysmt._private_tools._digestion import *
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from molsysmt import puw
 import numpy as np
 
-def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, frame_indices="all",
-              selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, frame_indices_2=None,
+def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
+              selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
               threshold=None, num_neighbors=None, atom_indices=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
 
     from molsysmt.structure.get_distances import get_distances
@@ -26,7 +26,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
     elif (groups_of_atoms is not None) and (selection_2 is None) and (groups_of_atoms_2 is None):
         same_groups = True
 
-    if frame_indices_2 is None:
+    if structure_indices_2 is None:
         same_frames = True
 
     same_set= (same_selections or same_groups) and same_frames
@@ -34,17 +34,17 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
     if atom_indices:
 
         atom_indices_1, atom_indices_2, all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms,
-                                                    group_behavior=group_behavior, frame_indices=frame_indices,
+                                                    group_behavior=group_behavior, structure_indices=structure_indices,
                                                     selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                                                    group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                                                    group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
                                                     pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 
     else:
 
         all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms,
-                            group_behavior=group_behavior, frame_indices=frame_indices,
+                            group_behavior=group_behavior, structure_indices=structure_indices,
                             selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                            group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2,
+                            group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
                             pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 
     nframes, nelements_1, nelements_2 = all_dists.shape

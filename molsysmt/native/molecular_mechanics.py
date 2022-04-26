@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt import puw
 
 class MolecularMechanics():
@@ -107,7 +107,7 @@ class MolecularMechanics():
 
     def get_leap_parameters(self):
 
-        from molsysmt.native.forcefields import get_forcefield_names
+        from molsysmt.molecular_mechanics.forcefields import get_forcefield_names
 
         parameters = {}
 
@@ -119,7 +119,7 @@ class MolecularMechanics():
 
     def get_openmm_forcefield_names(self):
 
-        from molsysmt.native.forcefields import get_forcefield_names
+        from molsysmt.molecular_mechanics.forcefields import get_forcefield_names
 
         return  get_forcefield_names(self.forcefield, 'OpenMM', water_model=self.water_model, implicit_solvent=self.implicit_solvent)
 
@@ -210,7 +210,7 @@ class MolecularMechanics():
 
         return parameters
 
-    def to_openmm_System(self, molecular_system=None, selection='all', frame_indices='all'):
+    def to_openmm_System(self, molecular_system=None, selection='all', structure_indices='all'):
 
         from molsysmt.basic import convert
 

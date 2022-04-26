@@ -1,4 +1,4 @@
-molsysmt.build
+﻿molsysmt.build
 ==============
 
 .. automodule:: molsysmt.build
@@ -36,11 +36,17 @@ molsysmt.build
    molsysmt.build.get_missing_residues
    molsysmt.build.get_missing_terminals
    molsysmt.build.get_non_standard_residues
+   molsysmt.build.has_cosolutes
    molsysmt.build.has_hydrogens
+   molsysmt.build.has_ions
+   molsysmt.build.has_small_molecules
+   molsysmt.build.has_waters
    molsysmt.build.is_solvated
    molsysmt.build.model_loop
    molsysmt.build.mutate
    molsysmt.build.remove_hydrogens
+   molsysmt.build.remove_ions
    molsysmt.build.remove_solvent
+   molsysmt.build.remove_waters
    molsysmt.build.solvate
 

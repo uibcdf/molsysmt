@@ -16,20 +16,14 @@ production:
   dependencies: &production_dependencies
     - *setup_dependencies
     - pyunitwizard
+    - pint
     - sabueso
     - mmtf-python
     - pandas
-    - mdtraj
-    - mdanalysis
     - openmm
     - pdbfixer
-    - openmmtools
-    - biopython
     - nglview
-    - parmed
-    - pytraj
-    - openopenmmreporters
-    - openmolecularsystems
+    - ambertools
 
 test:
   channels: &test_channels
@@ -49,9 +43,7 @@ docs:
     - sphinx
     - sphinx_rtd_theme
     - sphinxcontrib-bibtex
-    - nbsphinx
-    - recommonmark
-    - sphinx-markdown-tables
+    - myst-nb
 
 development:
   channels:

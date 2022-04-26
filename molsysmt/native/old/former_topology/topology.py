@@ -33,7 +33,7 @@ class Topology():
 
         self.dataframe = None
 
-    def extract(self, atom_indices='all', frame_indices='all'):
+    def extract(self, atom_indices='all', structure_indices='all'):
 
         from .io.topology.classes import from_molsysmt_DataFrame
 

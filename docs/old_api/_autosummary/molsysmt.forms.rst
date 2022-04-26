@@ -1,4 +1,4 @@
-molsysmt.forms
+﻿molsysmt.forms
 ==============
 
 .. automodule:: molsysmt.forms
@@ -82,7 +82,6 @@ molsysmt.forms
    molsysmt.forms.api_openmm_Simulation
    molsysmt.forms.api_openmm_System
    molsysmt.forms.api_openmm_Topology
-   molsysmt.forms.api_openmolecularsystems_OpenMolecularSystem
    molsysmt.forms.api_parmed_GromacsTopologyFile
    molsysmt.forms.api_parmed_Structure
    molsysmt.forms.api_pdbfixer_PDBFixer

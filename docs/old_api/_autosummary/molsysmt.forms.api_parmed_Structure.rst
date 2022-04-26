@@ -16,7 +16,7 @@ molsysmt.forms.api\_parmed\_Structure
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_bonded_atoms_from_atom
       get_bonds_from_atom
       get_graph_from_atom

@@ -1,16 +1,13 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools._digestion import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
 
 def compare_all_eq(molecular_system_A, molecular_system_B, selection_A='all',
-        frame_indices_A='all', selection_B='all', frame_indices_B='all', syntaxis='MolSysMT'):
+        structure_indices_A='all', selection_B='all', structure_indices_B='all', syntaxis='MolSysMT'):
 
     report = {}
 
-    from molsysmt.basic import select, get
-
-    molecular_system_A = digest_molecular_system(molecular_system_A)
-    molecular_system_B = digest_molecular_system(molecular_system_B)
+    from .. import select, get
 
     # Number of atoms, groups, molecules, chains, entities
 
@@ -158,10 +155,10 @@ def compare_all_eq(molecular_system_A, molecular_system_B, selection_A='all',
     if report['n_atoms']:
 
         coordinates_A = get(molecular_system_A, target='atom',
-                selection=selection_A, frame_indices=frame_indices_A, coordinates=True)
+                selection=selection_A, structure_indices=structure_indices_A, coordinates=True)
 
         coordinates_B = get(molecular_system_B, target='atom',
-                selection=selection_B, frame_indices=frame_indices_B, coordinates=True)
+                selection=selection_B, structure_indices=structure_indices_B, coordinates=True)
 
         if coordinates_A is None:
             if coordinates_B is None:
@@ -181,10 +178,10 @@ def compare_all_eq(molecular_system_A, molecular_system_B, selection_A='all',
     # box
 
     box_A = get(molecular_system_A, target='system',
-            selection=selection_A, frame_indices=frame_indices_A, box=True)
+            selection=selection_A, structure_indices=structure_indices_A, box=True)
 
     box_B = get(molecular_system_B, target='system',
-            selection=selection_B, frame_indices=frame_indices_B, box=True)
+            selection=selection_B, structure_indices=structure_indices_B, box=True)
 
     if box_A is None:
         if box_B is None:
@@ -206,7 +203,7 @@ def compare_all_eq(molecular_system_A, molecular_system_B, selection_A='all',
 
 
 def compare_all_in(molecular_system_A, molecular_system_B, selection_A='all',
-        frame_indices_A='all', selection_B='all', frame_indices_B='all', syntaxis='MolSysMT'):
+        structure_indices_A='all', selection_B='all', structure_indices_B='all', syntaxis='MolSysMT'):
 
     raise NotImplementedError()
 

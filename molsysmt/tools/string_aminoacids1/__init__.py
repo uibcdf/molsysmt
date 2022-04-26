@@ -1,1 +1,0 @@
-from .is_string_aminoacids1 import is_string_aminoacids1

@@ -16,7 +16,7 @@ molsysmt.forms.api\_molsysmt\_Simulation
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       merge
       to_SimulationDict
       to_molsysmt_Simulation

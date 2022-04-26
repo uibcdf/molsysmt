@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 
 def area_buried(molecular_system, selection='all', type='rose'):
 

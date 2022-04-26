@@ -1,7 +1,12 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+from molsysmt._private.lists_and_tuples import is_list_or_tuple
+from molsysmt._private.selection import selection_is_all
 
-def extract(molecular_system, selection='all', frame_indices='all', to_form=None, syntaxis='MolSysMT'):
+def extract(molecular_system, selection='all', structure_indices='all', to_form=None,
+        syntaxis='MolSysMT', copy_if_all=True, check=True):
 
-    """extract(item, selection='all', frame_indices='all', syntaxis='MolSysMT')
+    """extract(item, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Extract a subset of a molecular model.
 
@@ -41,7 +46,58 @@ def extract(molecular_system, selection='all', frame_indices='all', to_form=None
 
     """
 
-    from molsysmt.basic import convert
+    from . import get_form, select, convert, is_molecular_system
+    from molsysmt.api_forms import dict_extract
 
-    return convert(molecular_system, selection=selection, frame_indices=frame_indices, to_form=to_form, syntaxis=syntaxis)
+    if check:
+
+        if not is_molecular_system(molecular_system):
+            raise MolecularSystemNeededError()
+
+        try:
+            to_form = digest_to_form(to_form)
+        except:
+            raise WrongToFormError(to_form)
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+        try:
+            syntaxis = digest_syntaxis(syntaxis)
+        except:
+            raise WrongSyntaxisError()
+
+        try:
+            selection = digest_selection(selection, syntaxis)
+        except:
+            raise WrongSelectionError()
+
+    if to_form is not None:
+
+        return convert(molecular_system, selection=selection, structure_indices=structure_indices,
+                to_form=to_form, syntaxis=syntaxis, check=False)
+
+    forms_in = get_form(molecular_system)
+
+    if not selection_is_all(selection):
+        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+    else:
+        atom_indices = 'all'
+
+    if not is_list_or_tuple(get_form):
+        forms_in = [forms_in]
+        molecular_system = [molecular_system]
+
+    output = []
+
+    for form_in, item in zip(forms_in, molecular_system):
+        output_item = dict_extract[form_in](item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=copy_if_all, check=False)
+        output.append(output_item)
+
+    if len(output)==1:
+        output=output[0]
+
+    return output
 

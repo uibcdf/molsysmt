@@ -1,4 +1,4 @@
-def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_indices='all'):
+def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', structure_indices='all'):
 
     from .molsysmt_DataFrame import to_molsysmt_DataFrame as molsysmt_Topology_to_molsysmt_DataFrame
     from molsysmt.native.io.dataframe.classes import to_openmm_Topology as molsysmt_DataFrame_to_openmm_Topology
@@ -9,7 +9,7 @@ def to_openmm_Topology(item, trajectory_item=None, atom_indices='all', frame_ind
     return tmp_item
 
 
-def from_openmm_Topology(item, atom_indices='all', frame_indices='all'):
+def from_openmm_Topology(item, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native.io.dataframe.classes import from_openmm_Topology as openmm_Topology_to_molsysmt_DataFrame
     from .molsysmt_DataFrame import from_molsysmt_DataFrame as molsysmt_DataFrame_to_molsysmt_Topology

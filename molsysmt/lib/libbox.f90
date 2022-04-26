@@ -205,25 +205,25 @@ CONTAINS
 
 !  SUBROUTINE COMPACT_MOLECULES (coors, molecules_indices, molecules_values, molecules_starts, &
 !          & bonded_atoms_indices, bonded_atoms_values, bonded_atoms_starts, &
-!          & frame_indices, box, ortho, n_frames, n_atoms, n_molecules_indices, &
+!          & structure_indices, box, ortho, n_structures, n_atoms, n_molecules_indices, &
 !          & n_molecules_values, n_bonded_atoms_indices, n_bonded_atoms_values, &
-!          & n_frame_indices)
+!          & n_structure_indices)
 !
 !    IMPLICIT NONE
 !
-!    INTEGER,INTENT(IN):: n_frames, n_atoms, ortho, n_frame_indices
+!    INTEGER,INTENT(IN):: n_structures, n_atoms, ortho, n_structure_indices
 !    INTEGER,INTENT(IN):: n_molecules_indices, n_molecules_values
 !    INTEGER,INTENT(IN):: n_bonded_atoms_indices, n_bonded_atoms_values
-!    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
+!    DOUBLE PRECISION,DIMENSION(n_structures,n_atoms,3),INTENT(INOUT)::coors
 !    INTEGER,DIMENSION(n_molecules_indices),INTENT(IN)::molecules_indices
 !    INTEGER,DIMENSION(n_molecules_indices+1),INTENT(IN)::molecules_starts
 !    INTEGER,DIMENSION(n_molecules_values),INTENT(IN)::molecules_values
 !    INTEGER,DIMENSION(n_bonded_atoms_indices),INTENT(IN)::bonded_atoms_indices
 !    INTEGER,DIMENSION(n_bonded_atoms_indices+1),INTENT(IN)::bonded_atoms_starts
 !    INTEGER,DIMENSION(n_bonded_atoms_values),INTENT(IN)::bonded_atoms_values
-!    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
-!    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
-!    DOUBLE PRECISION,DIMENSION(n_frames,3,3)::inv
+!    INTEGER,DIMENSION(n_structure_indices),INTENT(IN)::structure_indices
+!    DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box
+!    DOUBLE PRECISION,DIMENSION(n_structures,3,3)::inv
 !
 !    INTEGER:: ii, jj, kk, ll
 !    INTEGER:: molecule_start, molecule_end, molecule_natoms
@@ -235,7 +235,7 @@ CONTAINS
 !    INTEGER,DIMENSION(n_atoms)::atom_id_to_position_in_bonds
 !    INTEGER::frame_index
 !    
-!    CALL BOX2INVBOX (box, inv, n_frames)
+!    CALL BOX2INVBOX (box, inv, n_structures)
 !
 !    aux_filter(:)=.FALSE.
 !
@@ -265,8 +265,8 @@ CONTAINS
 !                DO kk=bonded_atoms_starts(atom_pos1)+1,bonded_atoms_starts(atom_pos1+1)
 !                    atom_id2=bonded_atoms_values(kk)+1
 !                    IF (aux_filter(atom_id2).eqv..FALSE.) THEN
-!                        DO ll=1,n_frame_indices
-!                            frame_index=frame_indices(ll)+1
+!                        DO ll=1,n_structure_indices
+!                            frame_index=structure_indices(ll)+1
 !                            vect_aux(:)=coors(frame_index,atom_id2,:)-coors(frame_index,atom_id1,:)
 !                            CALL PBC(vect_aux,box(frame_index,:,:),inv(frame_index,:,:),ortho)
 !                            coors(frame_index,atom_id2,:)=coors(frame_index,atom_id1,:)+vect_aux(:)
@@ -292,42 +292,42 @@ CONTAINS
 !  END SUBROUTINE COMPACT_MOLECULES
 !
 !  SUBROUTINE MINIMUM_IMAGE_CONVENTION(coors, reference_coors, center_groups, groups_indices, groups_atoms_indices, groups_starts, &
-!          frame_indices, box, ortho, n_frames, n_atoms, n_groups, n_groups_atoms, n_frame_indices)
+!          structure_indices, box, ortho, n_structures, n_atoms, n_groups, n_groups_atoms, n_structure_indices)
 !
 !    IMPLICIT NONE
 !
-!    INTEGER,INTENT(IN):: n_frames, n_atoms, n_groups, n_groups_atoms, n_frame_indices, ortho
-!    DOUBLE PRECISION,DIMENSION(n_frames,n_atoms,3),INTENT(INOUT)::coors
-!    DOUBLE PRECISION,DIMENSION(n_frame_indices,1,3),INTENT(IN)::reference_coors
-!    DOUBLE PRECISION,DIMENSION(n_frame_indices,n_groups,3),INTENT(IN)::center_groups
+!    INTEGER,INTENT(IN):: n_structures, n_atoms, n_groups, n_groups_atoms, n_structure_indices, ortho
+!    DOUBLE PRECISION,DIMENSION(n_structures,n_atoms,3),INTENT(INOUT)::coors
+!    DOUBLE PRECISION,DIMENSION(n_structure_indices,1,3),INTENT(IN)::reference_coors
+!    DOUBLE PRECISION,DIMENSION(n_structure_indices,n_groups,3),INTENT(IN)::center_groups
 !    INTEGER,DIMENSION(n_groups),INTENT(IN)::groups_indices ! Molecules in this case
 !    INTEGER,DIMENSION(n_groups+1),INTENT(IN)::groups_starts
 !    INTEGER,DIMENSION(n_groups_atoms),INTENT(IN)::groups_atoms_indices
-!    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
-!    DOUBLE PRECISION,DIMENSION(n_frames,3,3),INTENT(IN)::box
+!    INTEGER,DIMENSION(n_structure_indices),INTENT(IN)::structure_indices
+!    DOUBLE PRECISION,DIMENSION(n_structures,3,3),INTENT(IN)::box
 !
 !    INTEGER::ii,jj,ll
 !    INTEGER::atom_index, frame_index
-!    DOUBLE PRECISION,DIMENSION(n_frame_indices,3,3)::box_frames, inv_frames
-!    DOUBLE PRECISION,DIMENSION(n_frame_indices,1,3)::vect_aux
+!    DOUBLE PRECISION,DIMENSION(n_structure_indices,3,3)::box_frames, inv_frames
+!    DOUBLE PRECISION,DIMENSION(n_structure_indices,1,3)::vect_aux
 !
-!    DO ll=1,n_frame_indices
-!        frame_index=frame_indices(ll)+1
+!    DO ll=1,n_structure_indices
+!        frame_index=structure_indices(ll)+1
 !        box_frames(ll,:,:)=box(frame_index,:,:)
 !    END DO
 !
-!    CALL BOX2INVBOX (box_frames, inv_frames, n_frame_indices)
+!    CALL BOX2INVBOX (box_frames, inv_frames, n_structure_indices)
 !
 !    DO ii=1, n_groups
 !
 !        vect_aux(:,1,:) = center_groups(:,ii,:) - reference_coors(:,1,:)
 !
-!        CALL PBC_TENSOR(vect_aux, box_frames, inv_frames, ortho, n_frame_indices, 1)
+!        CALL PBC_TENSOR(vect_aux, box_frames, inv_frames, ortho, n_structure_indices, 1)
 !
 !        DO jj=groups_starts(ii)+1, groups_starts(ii+1)
 !            atom_index = groups_atoms_indices(jj)+1
-!            DO ll=1,n_frame_indices
-!                frame_index=frame_indices(ll)+1
+!            DO ll=1,n_structure_indices
+!                frame_index=structure_indices(ll)+1
 !                coors(frame_index, atom_index, :) = coors(frame_index, atom_index, :) - center_groups(ll, ii, :) +&
 !                & vect_aux(ll, 1, :) + reference_coors(ll, 1, :)
 !            END DO

@@ -1,18 +1,16 @@
-from molsysmt._private_tools.engines import digest_engine
-from molsysmt._private_tools.frame_indices import digest_frame_indices
-from molsysmt._private_tools.forms import digest_form
-from molsysmt._private_tools.box import digest_box_angles, digest_box_lengths
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
-from molsysmt import puw
 
-def wrap_to_pbc(molecular_system, selection='all', frame_indices='all',
+def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
                 center='[0,0,0] nanometers', center_of_selection=None, weights_for_center=None,
                 recenter=True, keep_covalent_bonds=False,
                 syntaxis='MolSysMT', engine='MolSysMT', in_place=False):
 
     engine = digest_engine(engine)
-    frame_indices = digest_frame_indices(frame_indices)
+    structure_indices = digest_structure_indices(structure_indices)
 
     if engine=='MolSysMT':
 
@@ -22,9 +20,9 @@ def wrap_to_pbc(molecular_system, selection='all', frame_indices='all',
 
         coordinates= get(molecular_system, target='atom', indices=atom_indices, coordinates=True)
         length_units = puw.get_unit(coordinates)
-        n_frames = coordinates.shape[0]
+        n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
-        box, box_shape = get(molecular_system, target='system', frame_indices=frame_indices, box=True, box_shape=True)
+        box, box_shape = get(molecular_system, target='system', structure_indices=structure_indices, box=True, box_shape=True)
         box = puw.convert(box, to_unit=length_units)
 
         orthogonal = 0
@@ -37,7 +35,7 @@ def wrap_to_pbc(molecular_system, selection='all', frame_indices='all',
 
             from molsysmt.structure import get_center
             center = get_center(molecular_system, selection=center_of_selection,
-                                weights=weights_for_center, frame_indices=frame_indices,
+                                weights=weights_for_center, structure_indices=structure_indices,
                                 syntaxis=syntaxis, engine='MolSysMT')
 
             center = puw.convert(center, to_unit=length_units)
@@ -51,12 +49,12 @@ def wrap_to_pbc(molecular_system, selection='all', frame_indices='all',
 
             center_shape = np.shape(center)
             if len(center_shape)==1 and center_shape[-1]==3:
-                center = np.tile(center,[n_frames,1,1])
-            elif len(center_shape)==2 and center_shape[-1]==3 and center_shape[0]==n_frames:
+                center = np.tile(center,[n_structures,1,1])
+            elif len(center_shape)==2 and center_shape[-1]==3 and center_shape[0]==n_structures:
                 center = np.expand_dims(center, axis=1)
             elif len(center_shape)==2 and center_shape[-1]==3 and center_shape[0]==1:
-                center = np.tile(center[0],[n_frames,1,1])
-            elif len(center_shape)==3 and center_shape[-1]==3 and center_shape[0]==n_frames and center_shape[1]==1:
+                center = np.tile(center[0],[n_structures,1,1])
+            elif len(center_shape)==3 and center_shape[-1]==3 and center_shape[0]==n_structures and center_shape[1]==1:
                 center = np.array(center)
             else:
                 raise ValueError('center needs the right shape')
@@ -65,7 +63,7 @@ def wrap_to_pbc(molecular_system, selection='all', frame_indices='all',
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         center = np.asfortranarray(center, dtype='float64')
 
-        libbox.wrap_pbc(coordinates, center, box, orthogonal, n_atoms, n_frames)
+        libbox.wrap_pbc(coordinates, center, box, orthogonal, n_atoms, n_structures)
 
         if recenter:
             translation = np.tile(-center,(n_atoms,1))
@@ -79,7 +77,7 @@ def wrap_to_pbc(molecular_system, selection='all', frame_indices='all',
 
     if in_place:
 
-        set(molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices,
+        set(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices,
                 syntaxis=syntaxis, coordinates=coordinates)
 
         pass
@@ -87,7 +85,7 @@ def wrap_to_pbc(molecular_system, selection='all', frame_indices='all',
     else:
 
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, target='atom', indices=atom_indices, frame_indices=frame_indices,
+        set(tmp_molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices,
             syntaxis=syntaxis, coordinates=coordinates)
 
         return tmp_molecular_system

@@ -16,7 +16,7 @@ molsysmt.forms.api\_molsysmt\_MolecularMechanicsDict
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       merge
       this_dict_is_MolecularMechanicsDict
       to_MolecularMechanicsDict

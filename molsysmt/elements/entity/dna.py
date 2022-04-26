@@ -1,9 +1,0 @@
-name = [
-]
-
-
-mmtf_translator = {
-}
-
-
-

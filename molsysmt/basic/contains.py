@@ -1,17 +1,23 @@
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools._digestion import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
 def contains(molecular_system, selection='all', syntaxis='MolSysMT',
         ions=None, waters=None, cosolutes=None, small_molecules=None, peptides=None, proteins=None,
-        dnas=None, rnas=None, lipids=None):
+        dnas=None, rnas=None, lipids=None, check=True):
 
-    from molsysmt.basic import get
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+
+    from . import get
 
     n_ions_in, n_waters_in, n_cosolutes_in, n_small_molecules_in, n_peptides_in, n_proteins_in,\
     n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, target="system", selection=selection,
             syntaxis=syntaxis, n_ions=True, n_waters=True, n_cosolutes=True,
             n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True, n_rnas=True,
-            n_lipids=True)
+            n_lipids=True, check=False)
 
     aux_list = [[ions, n_ions_in], [waters, n_waters_in], [cosolutes, n_cosolutes_in],
             [small_molecules, n_small_molecules_in], [peptides, n_peptides_in], [proteins,

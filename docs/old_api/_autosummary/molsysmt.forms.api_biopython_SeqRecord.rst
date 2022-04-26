@@ -16,7 +16,7 @@ molsysmt.forms.api\_biopython\_SeqRecord
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_bond
       get_atom_name_from_atom
@@ -68,7 +68,7 @@ molsysmt.forms.api\_biopython\_SeqRecord
       set_coordinates_to_system
       to_biopython_SeqRecord
       to_file_fasta
-      to_pir
+      to_file_pir
    
    
 

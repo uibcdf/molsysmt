@@ -16,7 +16,7 @@ molsysmt.forms.api\_file\_smi
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       get_form_from_system
       merge
       to_file_smi

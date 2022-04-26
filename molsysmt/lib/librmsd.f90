@@ -3,14 +3,15 @@ IMPLICIT NONE
 
 CONTAINS
 
-  FUNCTION RMSD(coors, list_atoms, coors_ref, frame_indices, n_atoms, n_frames, n_list_atoms, n_frame_indices) RESULT(rmsd_val)
+  FUNCTION RMSD(coors, list_atoms, coors_ref, structure_indices, n_atoms, n_structures, n_list_atoms, &
+          n_structure_indices) RESULT(rmsd_val)
  
-    INTEGER,INTENT(IN)::n_atoms, n_frames, n_list_atoms, n_frame_indices
+    INTEGER,INTENT(IN)::n_atoms, n_structures, n_list_atoms, n_structure_indices
     DOUBLE PRECISION,DIMENSION(1, n_list_atoms, 3),INTENT(IN)::coors_ref
-    DOUBLE PRECISION,DIMENSION(n_frames, n_atoms, 3),INTENT(IN)::coors
+    DOUBLE PRECISION,DIMENSION(n_structures, n_atoms, 3),INTENT(IN)::coors
     INTEGER,DIMENSION(n_list_atoms),INTENT(IN)::list_atoms
-    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
-    DOUBLE PRECISION,DIMENSION(n_frame_indices)::rmsd_val
+    INTEGER,DIMENSION(n_structure_indices),INTENT(IN)::structure_indices
+    DOUBLE PRECISION,DIMENSION(n_structure_indices)::rmsd_val
 
     DOUBLE PRECISION::val_aux
     DOUBLE PRECISION,DIMENSION(3)::vect_aux
@@ -19,8 +20,8 @@ CONTAINS
 
     rmsd_val(:)=0.0d0
 
-    DO ll=1,n_frame_indices
-       frame_index = frame_indices(ll)+1
+    DO ll=1,n_structure_indices
+       frame_index = structure_indices(ll)+1
        val_aux = 0.0d0
        DO ii=1,n_list_atoms
           jj=list_atoms(ii)+1
@@ -34,14 +35,15 @@ CONTAINS
 
   END FUNCTION RMSD
 
-  SUBROUTINE LEAST_RMSD (coors, list_atoms, coors_ref, frame_indices, n_atoms, n_frames, n_list_atoms, n_frame_indices, rmsd_val) 
+  SUBROUTINE LEAST_RMSD (coors, list_atoms, coors_ref, structure_indices, n_atoms, n_structures, n_list_atoms, &
+          n_structure_indices, rmsd_val) 
  
-    INTEGER,INTENT(IN)::n_atoms, n_frames, n_list_atoms, n_frame_indices
+    INTEGER,INTENT(IN)::n_atoms, n_structures, n_list_atoms, n_structure_indices
     DOUBLE PRECISION,DIMENSION(1, n_list_atoms, 3),INTENT(IN)::coors_ref
-    DOUBLE PRECISION,DIMENSION(n_frames, n_atoms, 3),INTENT(IN)::coors
+    DOUBLE PRECISION,DIMENSION(n_structures, n_atoms, 3),INTENT(IN)::coors
     INTEGER,DIMENSION(n_list_atoms),INTENT(IN)::list_atoms
-    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
-    DOUBLE PRECISION,DIMENSION(n_frame_indices),INTENT(OUT)::rmsd_val
+    INTEGER,DIMENSION(n_structure_indices),INTENT(IN)::structure_indices
+    DOUBLE PRECISION,DIMENSION(n_structure_indices),INTENT(OUT)::rmsd_val
     DOUBLE PRECISION,DIMENSION(n_list_atoms,3)::x, y
     DOUBLE PRECISION,DIMENSION(n_list_atoms)::w
    
@@ -82,9 +84,9 @@ CONTAINS
        x_norm=x_norm+dot_product(x(:,i),x(:,i))
     END DO
 
-    DO ll=1,n_frame_indices
+    DO ll=1,n_structure_indices
 
-      frame_index = frame_indices(ll)+1
+      frame_index = structure_indices(ll)+1
 
       y=0.0d0
       CC=0.0d0
@@ -150,13 +152,14 @@ CONTAINS
   
   END SUBROUTINE LEAST_RMSD
 
-  SUBROUTINE LEAST_RMSD_FIT(coors, list_atoms, coors_ref, frame_indices, n_atoms, n_frames, n_list_atoms, n_frame_indices) 
+  SUBROUTINE LEAST_RMSD_FIT(coors, list_atoms, coors_ref, structure_indices, n_atoms, n_structures, n_list_atoms, &
+      n_structure_indices) 
  
-    INTEGER,INTENT(IN)::n_atoms, n_frames, n_list_atoms, n_frame_indices
+    INTEGER,INTENT(IN)::n_atoms, n_structures, n_list_atoms, n_structure_indices
     DOUBLE PRECISION,DIMENSION(1, n_list_atoms, 3),INTENT(IN)::coors_ref
-    DOUBLE PRECISION,DIMENSION(n_frames, n_atoms, 3),INTENT(INOUT)::coors
+    DOUBLE PRECISION,DIMENSION(n_structures, n_atoms, 3),INTENT(INOUT)::coors
     INTEGER,DIMENSION(n_list_atoms),INTENT(IN)::list_atoms
-    INTEGER,DIMENSION(n_frame_indices),INTENT(IN)::frame_indices
+    INTEGER,DIMENSION(n_structure_indices),INTENT(IN)::structure_indices
     DOUBLE PRECISION,DIMENSION(n_list_atoms,3)::x, y
     DOUBLE PRECISION,DIMENSION(n_list_atoms)::w
    
@@ -198,9 +201,9 @@ CONTAINS
        x_norm=x_norm+dot_product(x(:,i),x(:,i))
     END DO
 
-    DO ll=1,n_frame_indices
+    DO ll=1,n_structure_indices
 
-      frame_index = frame_indices(ll)+1
+      frame_index = structure_indices(ll)+1
 
       y=0.0d0
       CC=0.0d0

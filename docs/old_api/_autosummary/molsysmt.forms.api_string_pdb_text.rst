@@ -18,7 +18,7 @@ molsysmt.forms.api\_string\_pdb\_text
       aux_get_coors
       aux_get_top
       concatenate_frames
-      extract_item
+      extract
       get_atom_id_from_atom
       get_atom_index_from_atom
       get_atom_index_from_bond

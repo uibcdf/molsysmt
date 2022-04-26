@@ -1,6 +1,6 @@
-from ._private_tools.exceptions import *
-from ._private_tools.forcefields import digest_forcefields
-from ._private_tools.engines import digest_engine
+from ._private.exceptions import *
+from ._private.forcefields import digest_forcefields
+from ._private.engines import digest_engine
 from openmm import unit as _unit
 
 def get_mass(item, atom_indices, forcefield=['AMBER99SB-ILDN','TIP3P']):

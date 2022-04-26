@@ -19,7 +19,7 @@ sorted list of integer
 
 ## Frame indices
 
-name variable: 'frame_indices'
+name variable: 'structure_indices'
 
 Default: None
 'all': all atoms

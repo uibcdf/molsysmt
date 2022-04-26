@@ -15,8 +15,8 @@ def test_get_center_molsysmt_MolSys_1():
     list_CAs = msm.select(molsys, selection='atom_name=="CA"')
     n_atoms_CAs = list_CAs.shape[0]
     center = msm.structure.get_center(molsys, selection=list_CAs, weights=np.ones(n_atoms_CAs))
-    n_frames = msm.get(molsys, target='system', n_frames=True)
-    check_shape = np.all((n_frames,1,3)==center.shape)
+    n_structures = msm.get(molsys, target='system', n_structures=True)
+    check_shape = np.all((n_structures,1,3)==center.shape)
     true_values = np.array([[[ 0.79670861,  1.07878454, -0.02861541]],
        [[ 0.83204994,  1.10665931, -0.06361365]],
        [[ 0.77414551,  0.99350907,  0.01043041]]])

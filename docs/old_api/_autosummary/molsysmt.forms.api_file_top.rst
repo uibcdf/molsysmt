@@ -16,11 +16,10 @@ molsysmt.forms.api\_file\_top
       add
       append_frames
       concatenate_frames
-      extract_item
+      extract
       merge
       to_file_top
       to_mdtraj_Topology
-      to_molsysmt_Structure
       to_openmm_GromacsTopFile
       to_openmm_Topology
       to_parmed_GromacsTopologyFile

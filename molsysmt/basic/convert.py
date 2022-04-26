@@ -1,15 +1,12 @@
-from molsysmt.forms import dict_convert, dict_has
-from molsysmt._private_tools.lists_and_tuples import is_list_or_tuple
-from molsysmt._private_tools._digestion import *
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.selection import selection_is_all
-from molsysmt._private_tools.forms import to_form_is_file, form_of_file
-from molsysmt.basic.select import select
-from molsysmt.basic.get_form import get_form
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+from molsysmt._private.lists_and_tuples import is_list_or_tuple
+from molsysmt._private.selection import selection_is_all
 
-def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs):
+def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all',
+        syntaxis='MolSysMT', check=True, **kwargs):
 
-    """convert(item, to_form='molsysmt.MolSys', selection='all', frame_indices='all', syntaxis='MolSysMT', **kwargs)
+    """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs)
 
     Convert a molecular model into other form.
 
@@ -55,53 +52,82 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', frame_
 
     """
 
+    from . import select, get_form, is_molecular_system
+    from molsysmt.item import is_item, is_file
+    from molsysmt.api_forms import dict_convert, dict_extract, dict_attributes
+
+    if check:
+
+        if not is_molecular_system(molecular_system):
+            raise MolecularSystemNeededError()
+
+        try:
+            to_form = digest_to_form(to_form)
+        except:
+            raise WrongToFormError(to_form)
+
+        try:
+            structure_indices = digest_structure_indices(structure_indices)
+        except:
+            raise WrongStructureIndicesError()
+
+        try:
+            syntaxis = digest_syntaxis(syntaxis)
+        except:
+            raise WrongSyntaxisError()
+
+        try:
+            selection = digest_selection(selection, syntaxis)
+        except:
+            raise WrongSelectionError()
+
     if to_form is None:
         to_form = get_form(molecular_system)
-
-    molecular_system = digest_molecular_system(molecular_system)
-    to_form = digest_to_form(to_form)
 
     if is_list_or_tuple(to_form):
         tmp_item=[]
         for item_out in to_form:
-            tmp_item.append(convert(molecular_system, to_form=item_out, selection=selection, frame_indices=frame_indices, syntaxis=syntaxis))
+            tmp_item.append(convert(molecular_system, to_form=item_out, selection=selection,
+                structure_indices=structure_indices, syntaxis=syntaxis, check=False))
         return tmp_item
 
-    frame_indices = digest_frame_indices(frame_indices)
-
     if not selection_is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
     else:
         atom_indices = 'all'
 
     conversion_arguments={}
 
-    if to_form_is_file(to_form):
-        conversion_arguments['output_filename'] = to_form
-        to_form = form_of_file(to_form)
+    if is_item(to_form):
+        if is_file(to_form, check=False):
+            conversion_arguments['output_filename'] = to_form
+            to_form = get_form(to_form)
 
     tmp_item = None
 
-    item = None
-    item_form = None
+    if not is_list_or_tuple(molecular_system):
+        molecular_system = [molecular_system]
 
-    for component_name, required in dict_has[to_form].items():
-        if required:
-            item = getattr(molecular_system, component_name+'_item')
-            item_form = getattr(molecular_system, component_name+'_form')
+    for item in molecular_system:
+
+        from_form=get_form(item)
+
+        if (from_form==to_form):
+            tmp_item = dict_extract[from_form](item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                               copy_if_all=False, check=False)
+        else:
+            if from_form in dict_convert:
+                if to_form in dict_convert[from_form]:
+                    tmp_item = dict_convert[from_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices,
+                                                                structure_indices=structure_indices, **conversion_arguments, **kwargs)
+        if tmp_item is not None:
             break
 
+    if tmp_item is None:
 
-    ### Lines to be removed if tests pass
-    #if item_form is None:
-    #    raise NotImplementedConversionError(get_form(molecular_system), to_form)
-    #else:
-
-    try:
-        tmp_item, _ = dict_convert[item_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices, frame_indices=frame_indices,
-                                                       **conversion_arguments, **kwargs)
-    except:
-        raise NotImplementedConversionError(get_form(molecular_system), to_form)
+        from_form = get_form(molecular_system)
+        from_form = digest_output(from_form)
+        raise NotImplementedConversionError(from_form, to_form)
 
     tmp_item = digest_output(tmp_item)
 

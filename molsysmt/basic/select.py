@@ -1,38 +1,35 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
-from molsysmt.forms import dict_get
-from molsysmt._private_tools._digestion import *
-from molsysmt._private_tools.selection import selection_is_all
-from molsysmt._private_tools.lists_and_tuples import list_to_csv_string
-from molsysmt._private_tools.strings import get_parenthesis
-from molsysmt._private_tools.exceptions import *
-from molsysmt._private_tools.selection import indices_to_selection # basic_selection, within_selection, bonded_to_selection, parenthesis_substitution_in_selection
-from molsysmt.basic.get.arguments import where_argument as where_get_argument
+from molsysmt._private.selection import selection_is_all
+from molsysmt._private.strings import get_parenthesis
+from re import findall
+from inspect import stack
 
 def select_standard(molecular_system, selection, syntaxis):
 
+    #from .is_molecular_system import is_molecular_system
+    from . import where_is_attribute
+    from molsysmt.api_forms import dict_get
+
     if type(selection)==str:
         if selection_is_all(selection):
-            n_atoms = None
-            for where_attribute in where_get_argument['n_atoms']:
-                aux_item = getattr(molecular_system, where_attribute+'_item')
-                aux_form = getattr(molecular_system, where_attribute+'_form')
-                if aux_item is not None:
-                    n_atoms = dict_get[aux_form]['system']['n_atoms'](aux_item)
-                if n_atoms is not None:
-                    break
+            aux_item, aux_form = where_is_attribute(molecular_system, 'n_atoms')
+            n_atoms = dict_get[aux_form]['system']['n_atoms'](aux_item)
             atom_indices = np.arange(n_atoms, dtype='int64')
         else:
             selection = digest_selection(selection, syntaxis)
+            aux_item, aux_form = where_is_attribute(molecular_system, 'atom_index')
             if syntaxis=='MolSysMT':
-                atom_indices = select_with_MolSysMT(molecular_system.elements_item, selection)
+                atom_indices = select_with_MolSysMT(aux_item, selection)
             elif syntaxis=='MDTraj':
-                atom_indices = select_with_MDTraj(molecular_system.elements_item, selection)
+                atom_indices = select_with_MDTraj(aux_item, selection)
             elif syntaxis=='Amber':
-                atom_indices = select_with_Amber(molecular_system.elements_item, selection)
+                atom_indices = select_with_Amber(aux_item, selection)
             elif syntaxis=='ParmEd':
-                atom_indices = select_with_ParmEd(molecular_system.elements_item, selection)
+                atom_indices = select_with_ParmEd(aux_item, selection)
             elif syntaxis=='MDAnalysis':
-                atom_indices = select_with_MDAnalysis(molecular_system.elements_item, selection)
+                atom_indices = select_with_MDAnalysis(aux_item, selection)
             else:
                 raise NotImplementedSyntaxisError()
 
@@ -47,7 +44,7 @@ def select_standard(molecular_system, selection, syntaxis):
 
     return atom_indices
 
-def select_within(molecular_system, selection, frame_index, syntaxis):
+def select_within(molecular_system, selection, structure_index, syntaxis):
 
     from molsysmt.structure.get_contacts import get_contacts
 
@@ -70,7 +67,7 @@ def select_within(molecular_system, selection, frame_index, syntaxis):
     threshold, selection_2 = tmp_selection.split(" of ")
 
     atom_indices_1, atom_indices_2, cmap = get_contacts(molecular_system, selection=selection_1, selection_2=selection_2,
-                                           frame_indices=frame_index, threshold=threshold, pbc=pbc, engine='MolSysMT',
+                                           structure_indices=structure_index, threshold=threshold, pbc=pbc, engine='MolSysMT',
                                            syntaxis=syntaxis, output_atom_indices=True)
 
     if not_within:
@@ -103,7 +100,8 @@ def select_bonded_to(molecular_system, selection, syntaxis):
 
     return output
 
-def select(molecular_system, selection='all', frame_index=0, target='atom', mask=None, syntaxis='MolSysMT', to_syntaxis=None):
+def select(molecular_system, selection='all', structure_index=0, target='atom', mask=None,
+        syntaxis='MolSysMT', to_syntaxis=None, check=True):
 
     # to_syntaxis: 'NGLView', 'MDTraj', ...
 
@@ -154,11 +152,32 @@ def select(molecular_system, selection='all', frame_index=0, target='atom', mask
 
     """
 
-    molecular_system = digest_molecular_system(molecular_system)
-    target = digest_target(target)
-    syntaxis = digest_syntaxis(syntaxis)
-    selection = digest_selection(selection, syntaxis)
-    to_syntaxis = digest_to_syntaxis(to_syntaxis)
+    from . import get_form, where_is_attribute, is_molecular_system
+    from molsysmt.api_forms import dict_get
+
+    if check:
+
+        if not is_molecular_system(molecular_system):
+            raise MolecularSystemNeededError()
+
+        try:
+            target=digest_target(target)
+        except:
+            raise WrongTargetError(target)
+
+        try:
+            syntaxis=digest_syntaxis(syntaxis)
+        except:
+            raise WrongSyntaxisError(syntaxis)
+        try:
+            to_syntaxis=digest_to_syntaxis(to_syntaxis)
+        except:
+            raise WrongSyntaxisError(to_syntaxis)
+
+        try:
+            selection=digest_selection(selection, syntaxis)
+        except:
+            raise WrongSelectionError(selection)
 
     if mask is 'all':
         mask=None
@@ -168,12 +187,11 @@ def select(molecular_system, selection='all', frame_index=0, target='atom', mask
         while selection_with_special_subsentences(selection):
 
             sub_selection = selection_with_special_subsentences(selection)
-            sub_atom_indices = select(molecular_system, sub_selection, syntaxis=syntaxis)
-            #selection = selection.replace(sub_selection, 'atom_index==('+list_to_csv_string(sub_atom_indices)+')')
+            sub_atom_indices = select(molecular_system, sub_selection, syntaxis=syntaxis, check=False)
             selection = selection.replace(sub_selection, 'atom_index==@sub_atom_indices')
 
         if 'within' in selection:
-            atom_indices = select_within(molecular_system, selection, frame_index, syntaxis)
+            atom_indices = select_within(molecular_system, selection, structure_index, syntaxis)
         elif 'bonded to' in selection:
             atom_indices = select_bonded_to(molecular_system, selection, syntaxis)
         else:
@@ -186,10 +204,12 @@ def select(molecular_system, selection='all', frame_index=0, target='atom', mask
     if target=='atom':
         output_indices = atom_indices
     elif target in ['group', 'component', 'chain', 'molecule', 'entity']:
-        output_indices = dict_get[molecular_system.elements_form]['atom'][target+'_index'](molecular_system.elements_item, indices=atom_indices)
+        aux_item, aux_form = where_is_attribute(molecular_system, target+'_index', check=False)
+        output_indices = dict_get[aux_form]['atom'][target+'_index'](aux_item, indices=atom_indices)
         output_indices = np.unique(output_indices)
     elif target=='bond':
-        output_indices = dict_get[molecular_system.elements_form]['atom']['inner_bond_index'](molecular_system.elements_item, indices=atom_indices)
+        aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index', check=False)
+        output_indices = dict_get[aux_form]['atom']['inner_bond_index'](aux_item, indices=atom_indices)
     else:
         raise NotImplementedError()
 
@@ -200,7 +220,6 @@ def select(molecular_system, selection='all', frame_index=0, target='atom', mask
         return output_indices
     else:
         return indices_to_selection(molecular_system, output_indices, target=target, syntaxis=to_syntaxis)
-
 
 def selection_with_special_subsentences(selection):
 
@@ -215,7 +234,7 @@ def selection_with_special_subsentences(selection):
 
 def select_with_MDTraj(item, selection):
 
-    from molsysmt.basic import convert, get_form
+    from . import convert, get_form
 
     form_in = get_form(item)
 
@@ -230,7 +249,7 @@ def select_with_MDTraj(item, selection):
 
 def select_with_MDAnalysis(item, selection):
 
-    from molsysmt.basic import convert, get_form
+    from . import convert, get_form
 
     form_in = get_form(item)
 
@@ -245,10 +264,10 @@ def select_with_MDAnalysis(item, selection):
 
     return atom_indices
 
+
 def select_with_MolSysMT(item, selection):
 
-    from molsysmt.basic import convert, get_form
-    from molsysmt.native.selector import elements_select
+    from . import convert, get_form
 
     form_in = get_form(item)
 
@@ -257,13 +276,56 @@ def select_with_MolSysMT(item, selection):
     else:
         tmp_item = convert(item, to_form='molsysmt.Topology')
 
-    atom_indices = elements_select(tmp_item.atoms_dataframe, selection)
+    tmp_selection = selection
 
-    return atom_indices
+### Before:
+
+    if '@' in selection:
+
+        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
+        first_var_name = var_names[0]
+
+        f_with_vars = None
+
+        for stack_frame in stack():
+            if first_var_name in stack_frame[0].f_globals.keys():
+                f_with_vars = stack_frame[0].f_globals
+                break
+            elif first_var_name in stack_frame[0].f_locals.keys():
+                f_with_vars = stack_frame[0].f_locals
+
+        if f_with_vars is None:
+            raise ValueError("An @variable in a selection sentence was not found")
+
+        for var_name in var_names:
+            var_value = f_with_vars[var_name]
+            if type(var_value) in [np.ndarray]:
+                var_value = list(var_value)
+            locals()[var_name]=var_value
+
+### Now:
+
+#    if '@' in selection:
+#
+#        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
+#
+#        all_stack_frames = stack()
+#        caller_stack_frame = all_stack_frames[3]
+#
+#        for var_name in var_names:
+#            var_value = caller_stack_frame[0].f_globals[var_name]
+#            tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)
+#            if type(var_value) in [np.ndarray]:
+#                var_value = list(var_value)
+#            locals()['auxiliar_variable_'+var_name]=var_value
+
+    indices = tmp_item.atoms_dataframe.query(tmp_selection).index.to_numpy()
+
+    return indices
 
 def select_with_ParmEd(item, selection):
 
-    from molsysmt.basic import convert, get_form
+    from . import convert, get_form
     from parmed.amber import AmberMask as _AmberMask
 
     form_in = get_form(item)
@@ -280,7 +342,7 @@ def select_with_ParmEd(item, selection):
 
 def select_with_Amber(item, selection):
 
-    from molsysmt.basic import convert, get_form
+    from . import convert, get_form
 
     if form_in == 'pytraj.Topology':
         tmp_item = item
@@ -288,4 +350,43 @@ def select_with_Amber(item, selection):
         tmp_item = convert(item, to_form='pytraj.Topology')
 
     raise NotImplementedError()
+
+def indices_to_selection(molecular_system, indices, target='atom', syntaxis=None):
+
+    syntaxis = digest_syntaxis(syntaxis)
+    target = digest_target(target)
+
+    output_string = ''
+
+    if syntaxis=='NGLView':
+
+        if target=='atom':
+            output_string = '@'+','.join([str(ii) for ii in indices])
+        elif target=='group':
+            from molsysmt import get
+            group_ids, chain_ids = get(molecular_system, target='group', indices=indices, group_id=True, chain_id=True)
+            output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
+        elif target=='chain':
+            from molsysmt import get
+            chain_ids = get(molecular_system, target='chain', indices=indices, chain_id=True)
+            output_string = ' '.join([':'+ii for ii in chain_ids])
+        else:
+            raise NotImplementedError
+
+    elif syntaxis=='MDTraj':
+
+        if target=='atom':
+            output_string = 'index '+' '.join([str(ii) for ii in indices])
+        elif target=='group':
+            output_string = 'resid '+' '.join([str(ii) for ii in indices])
+        elif target=='chain':
+            output_string = 'chainid '+' '.join([str(ii) for ii in indices])
+        else:
+            raise NotImplementedError
+
+    else:
+
+        raise NotImplementedError
+
+    return output_string
 
