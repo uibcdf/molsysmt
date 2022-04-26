@@ -13,6 +13,8 @@ from . import file_mmtf
 from . import file_h5
 from . import file_mol2
 from . import file_msmpk
+from . import file_xtc
+from . import file_gro
 
 from . import biopython_Seq
 from . import biopython_SeqRecord
@@ -21,6 +23,7 @@ from . import mdanalysis_Topology
 from . import mdtraj_Trajectory
 from . import mdtraj_Topology
 from . import mdtraj_HDF5TrajectoryFile
+from . import mdtraj_XTCTrajectoryFile
 from . import mmtf_MMTFDecoder
 from . import molsysmt_MolecularMechanics
 from . import molsysmt_MolecularMechanicsDict
@@ -30,6 +33,8 @@ from . import molsysmt_Topology
 from . import nglview_NGLWidget
 from . import openmm_AmberInpcrdFile
 from . import openmm_AmberPrmtopFile
+from . import openmm_GromacsTopFile
+from . import openmm_GromacsGroFile
 from . import openmm_Modeller
 from . import openmm_Topology
 from . import openmm_PDBFile

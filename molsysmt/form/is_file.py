@@ -1,29 +1,23 @@
-def is_file(form, check=True):
+from importlib import import_module
+import os
 
-    from .file_inpcrd import is_file_inpcrd
-    from .file_prmtop import is_file_prmtop
-    from .file_pdb import is_file_pdb
-    from .file_mmtf import is_file_mmtf
-    from .file_h5 import is_file_h5
-    from .file_mol2 import is_file_mol2
-    from .file_msmpk import is_file_msmpk
+list_is_file_form = []
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+for dirname in os.listdir(current_dir):
+    if dirname.startswith('file_'):
+        form_name = dirname
+        mod = import_module('molsysmt.form.'+dirname)
+        list_is_file_form.append(getattr(mod, 'is_'+form_name))
+
+def is_file(form, check=True):
 
     output = False
 
-    if is_file_pdb(form):
-        output = True
-    elif is_file_mmtf(form):
-        output = True
-    elif is_file_inpcrd(form):
-        output = True
-    elif is_file_prmtop(form):
-        output = True
-    elif is_file_h5(form):
-        output = True
-    elif is_file_mol2(form):
-        output = True
-    elif is_file_msmpk(form):
-        output = True
+    for is_file_form in list_is_file_form:
+        if is_file_form(form):
+            output = True
+            break
 
     return output
 

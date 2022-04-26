@@ -10,7 +10,7 @@ def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT',
 
     if check:
 
-        if not is_molecular_system(to_molecular_system):
+        if not is_molecular_system(molecular_system):
             raise MolecularSystemNeededError()
 
         try:

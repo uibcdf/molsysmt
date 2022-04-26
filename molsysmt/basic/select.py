@@ -3,6 +3,8 @@ from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt._private.selection import selection_is_all
 from molsysmt._private.strings import get_parenthesis
+from re import findall
+from inspect import stack
 
 def select_standard(molecular_system, selection, syntaxis):
 
@@ -265,7 +267,6 @@ def select_with_MDAnalysis(item, selection):
 def select_with_MolSysMT(item, selection):
 
     from . import convert, get_form
-    from molsysmt.native.selector import elements_select
 
     form_in = get_form(item)
 
@@ -274,9 +275,32 @@ def select_with_MolSysMT(item, selection):
     else:
         tmp_item = convert(item, to_form='molsysmt.Topology')
 
-    atom_indices = elements_select(tmp_item.atoms_dataframe, selection)
+    if '@' in selection:
 
-    return atom_indices
+        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
+        first_var_name = var_names[0]
+
+        f_with_vars = None
+
+        for stack_frame in stack():
+            if first_var_name in stack_frame[0].f_globals.keys():
+                f_with_vars = stack_frame[0].f_globals
+                break
+            elif first_var_name in stack_frame[0].f_locals.keys():
+                f_with_vars = stack_frame[0].f_localsa
+
+        if f_with_vars is None:
+            raise ValueError("An @variable in a selection sentence was not found")
+
+        for var_name in var_names:
+            var_value = f_with_vars[var_name]
+            if type(var_value) in [np.ndarray]:
+                var_value = list(var_value)
+            locals()[var_name]=var_value
+
+    indices = tmp_item.atoms_dataframe.query(selection).index.to_numpy()
+
+    return indices
 
 def select_with_ParmEd(item, selection):
 

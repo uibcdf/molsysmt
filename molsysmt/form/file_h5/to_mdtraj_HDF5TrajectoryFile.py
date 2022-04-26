@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest_item, digest_atom_indices
+from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
 
 def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', structure_indices='all', check=True):
 
@@ -6,6 +6,7 @@ def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', structure_indices='al
 
         digest_item(item, 'file:h5')
         atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_atom_indices(structure_indices)
 
     from mdtraj.formats import HDF5TrajectoryFile
     from ..mdtraj_HDF5TrajectoryFile import extract as extract_mdtraj_HDF5TrajectoryFile

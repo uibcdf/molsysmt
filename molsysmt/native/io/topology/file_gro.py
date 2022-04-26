@@ -10,14 +10,3 @@ def to_file_gro(item, molecular_system=None, atom_indices='all', structure_indic
 
     return tmp_item, tmp_molecular_system
 
-
-def from_file_gro(item, molecular_system=None, atom_indices='all', structure_indices='all'):
-
-    from molsysmt.api_forms.api_file_gro import to_parmed_Structure as file_gro_to_parmed_Structure
-    from molsysmt.native.io.topology import from_parmed_Structure as parmed_Structure_to_molsysmt_Topology
-
-    tmp_item, tmp_molecular_system = file_gro_to_parmed_Structure(item, molecular_system=molecular_system)
-    tmp_item, tmp_molecular_system = parmed_Structure_to_molsysmt_Topology(tmp_item, molecular_system=tmp_molecular_system, atom_indices=atom_indices)
-
-    return tmp_item, tmp_molecular_system
-
