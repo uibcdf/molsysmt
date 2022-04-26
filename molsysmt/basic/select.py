@@ -264,6 +264,7 @@ def select_with_MDAnalysis(item, selection):
 
     return atom_indices
 
+
 def select_with_MolSysMT(item, selection):
 
     from . import convert, get_form
@@ -274,6 +275,10 @@ def select_with_MolSysMT(item, selection):
         tmp_item = item
     else:
         tmp_item = convert(item, to_form='molsysmt.Topology')
+
+    tmp_selection = selection
+
+### Before:
 
     if '@' in selection:
 
@@ -287,7 +292,7 @@ def select_with_MolSysMT(item, selection):
                 f_with_vars = stack_frame[0].f_globals
                 break
             elif first_var_name in stack_frame[0].f_locals.keys():
-                f_with_vars = stack_frame[0].f_localsa
+                f_with_vars = stack_frame[0].f_locals
 
         if f_with_vars is None:
             raise ValueError("An @variable in a selection sentence was not found")
@@ -298,7 +303,23 @@ def select_with_MolSysMT(item, selection):
                 var_value = list(var_value)
             locals()[var_name]=var_value
 
-    indices = tmp_item.atoms_dataframe.query(selection).index.to_numpy()
+### Now:
+
+#    if '@' in selection:
+#
+#        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
+#
+#        all_stack_frames = stack()
+#        caller_stack_frame = all_stack_frames[3]
+#
+#        for var_name in var_names:
+#            var_value = caller_stack_frame[0].f_globals[var_name]
+#            tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)
+#            if type(var_value) in [np.ndarray]:
+#                var_value = list(var_value)
+#            locals()['auxiliar_variable_'+var_name]=var_value
+
+    indices = tmp_item.atoms_dataframe.query(tmp_selection).index.to_numpy()
 
     return indices
 
