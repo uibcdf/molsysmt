@@ -1,3 +1,5 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
 
 def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None,

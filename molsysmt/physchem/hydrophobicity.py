@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 
 def hydrophobicity(molecular_system, selection='all', type='eisenberg'):
 

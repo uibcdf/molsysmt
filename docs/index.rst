@@ -32,8 +32,8 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :caption: Installation and showcase
    :maxdepth: 2
 
-   contents/installation/Installation.md
-   contents/showcase/index.rst
+   contents/show/installation/Installation.md
+   contents/show/showcase/index.rst
 
 
 .. toctree::
@@ -41,21 +41,28 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :caption: User Guide
    :maxdepth: 2
 
-   contents/intro/index.rst
-   contents/molsys/index.rst
-   contents/basic/index.rst
-   contents/build/index.rst
-   contents/topology/index.rst
-   contents/structure/index.rst
-   contents/pbc/index.rst
-   contents/hbonds/index.rst
-   contents/physchem/index.rst
-   contents/molmech/index.rst
-   contents/tools/index.rst
-   contents/working_with/index.rst
-   contents/demo/index.rst
-   contents/native/index.rst
-   contents/help/index.rst
+   contents/user/intro/index.rst
+   contents/user/basic/index.rst
+   contents/user/build/index.rst
+   contents/user/topology/index.rst
+   contents/user/structure/index.rst
+   contents/user/pbc/index.rst
+   contents/user/hbonds/index.rst
+   contents/user/physchem/index.rst
+   contents/user/molmech/index.rst
+   contents/user/tools/index.rst
+   contents/user/working_with/index.rst
+   contents/user/demo/index.rst
+   contents/user/native/index.rst
+   contents/user/help/index.rst
+
+.. toctree::
+   :name: developer_guide
+   :caption: Developer Guide
+   :maxdepth: 2
+
+   contents/developer/intro/index.rst
+   contents/developer/documentation/index.rst
 
 .. toctree::
    :name: api_doc

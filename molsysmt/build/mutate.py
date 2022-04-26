@@ -1,3 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+
 def mutate (molecular_system, residue_indices=None, to_residue_names=None, engine='PDBFixer', verbose=False):
 
 

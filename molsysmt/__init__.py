@@ -16,36 +16,29 @@ __github_issues_web__ = __github_web__ + '/issues'
 
 from ._pyunitwizard import puw as puw
 
-from .demo import demo
-from . import tools
-
 from .native.molsys import MolSys
-from .basic import select, extract, add, merge, concatenate_frames, append_frames, info, get, set, \
-                   convert, copy, view, remove, get_form, contains, is_composed_of, compare
+
+from . import form
+from .basic import *
+
+from . import topology
 from . import help
 from . import build
 from . import structure
-from . import topology
 from . import pbc
 from . import physchem
 from . import molecular_mechanics
 from . import molecular_dynamics
 from . import hbonds
-
-from . import ion
-from . import water
-from . import cosolute
-from . import lipid
-from . import small_molecule
-from . import peptide
-from . import protein
-from . import rna
-from . import dna
-
+#
+from . import element
+from . import item
+from . import thirds
+from .demo import demo
 
 # Adding molsysmt to nglview
 
-tools.nglview.adding_molsysmt()
+thirds.nglview.adding_molsysmt()
 
 # With the following list sphinx can document de methods in the api section without adding the
 # module files names explicitly:

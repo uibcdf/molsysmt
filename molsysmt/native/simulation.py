@@ -1,4 +1,4 @@
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
 from molsysmt import puw
 
 class Simulation():
@@ -111,7 +111,7 @@ class Simulation():
 
         return parameters
 
-    def to_openmm_Context(self, molecular_system=None, selection='all', frame_indices='all'):
+    def to_openmm_Context(self, molecular_system=None, selection='all', structure_indices='all'):
 
         from molsysmt.basic import convert
 
@@ -136,7 +136,7 @@ class Simulation():
 
         return parameters
 
-    def to_openmm_Simulation(self, molecular_system=None, selection='all', frame_indices='all'):
+    def to_openmm_Simulation(self, molecular_system=None, selection='all', structure_indices='all'):
 
         from molsysmt.basic import convert
 

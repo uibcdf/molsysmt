@@ -6,7 +6,7 @@ class TrajectoryFile():
         self.path = None
         self.mount_point = None
         self.form = None
-        self.n_frames = 0
+        self.n_structures = 0
         self.n_atoms = 0
         self.atom_indices = None
 
@@ -35,15 +35,15 @@ class TrajectoryFile():
             else:
                 raise NotImplementedError
 
-            self.n_frames = get(self.mount_point, target='system', n_frames=True)
+            self.n_structures = get(self.mount_point, target='system', n_structures=True)
             self.n_atoms = get(self.mount_point, target='system', n_atoms=True)
             self.opened = True
 
-    def read_frames(self, atom_indices='all', frame_indices='all'):
+    def read_frames(self, atom_indices='all', structure_indices='all'):
 
         from molsysmt import get
         from molsysmt.basic import get_form
-        step, time, coordinates, box = get(self.mount_point, target='atom', indices=atom_indices, frame_indices=frame_indices, frame=True)
+        step, time, coordinates, box = get(self.mount_point, target='atom', indices=atom_indices, structure_indices=structure_indices, frame=True)
         self.atom_indices=atom_indices
         return step, time, coordinates, box
 

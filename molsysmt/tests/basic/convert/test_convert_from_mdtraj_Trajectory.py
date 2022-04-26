@@ -7,7 +7,7 @@ import molsysmt as msm
 import numpy as np
 import os
 
-# Whole systems (selection='all' and frame_indices='all')
+# Whole systems (selection='all' and structure_indices='all')
 
 def test_mdtraj_Trajectory_to_string_aminoacids1():
     molsys = msm.demo['chicken villin HP35']['1vii.pdb']

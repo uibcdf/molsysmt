@@ -1,4 +1,4 @@
-def from_rdkit_Mol(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_rdkit_Mol(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from molsysmt.native import Topology
     import numpy as np
@@ -113,13 +113,13 @@ def from_rdkit_Mol(item, molecular_system=None, atom_indices='all', frame_indice
     tmp_item._nan_to_None()
 
     if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, frame_indices=frame_indices)
+        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
     else:
         tmp_molecular_system = None
 
     return tmp_item, tmp_molecular_system
 
-def to_rdkit_Mol(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def to_rdkit_Mol(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from rdkit import Chem, Geometry
 

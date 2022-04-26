@@ -1,3 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+
 def add_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False):
 
     """add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False)
@@ -40,7 +43,6 @@ def add_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine=
 
 
     from molsysmt.basic import convert, get_form
-    from molsysmt._private_tools._digestion import digest_engine
 
     form = get_form(molecular_system)
     engine = digest_engine(engine)

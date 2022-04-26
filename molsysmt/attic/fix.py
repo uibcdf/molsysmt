@@ -1,6 +1,6 @@
 from .multitool import get_form
 from .multitool import get as _get
-from ._private_tools.exceptions import *
+from ._private.exceptions import *
 
 _chain_IDs=['A','B','C','D','E','F','G','H','I','J','K','L','M',
             'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
@@ -97,7 +97,7 @@ def fix(item, missing_atoms=True, missing_residues=True, nonstandard_residues=Tr
     """
 
     from .tools.forms import digest as digest_forms
-    from ._private_tools.engines import digest_engine
+    from ._private.engines import digest_engine
     from .multitool import convert
 
     form_in, form_out = digest_forms(item, to_form)

@@ -1,10 +1,10 @@
-from molsysmt._private_tools._digestion import *
-from molsysmt._private_tools.exceptions import *
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 from molsysmt import puw
 import numpy as np
 
-def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, as_entity=True, frame_indices="all",
-                     selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, frame_indices_2=None,
+def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, as_entity=True, structure_indices="all",
+                     selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, as_entity_2=True, structure_indices_2=None,
                      atom_indices=False, pairs=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MDTraj'):
 
     from molsysmt.structure.get_distances import get_distances
@@ -12,15 +12,15 @@ def get_maximum_distances(molecular_system, selection="all", groups_of_atoms=Non
     if atom_indices:
 
         atom_indices_1, atom_indices_2, all_dists = get_distances(molecular_system=molecular_system, selection=selection,
-                groups_of_atoms=groups_of_atoms, group_behavior=group_behavior, frame_indices=frame_indices,
-                selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2, pairs=pairs, pbc=pbc,
+                groups_of_atoms=groups_of_atoms, group_behavior=group_behavior, structure_indices=structure_indices,
+                selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2, group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc,
                 parallel=parallel, output_form='tensor', output_atom_indices=True, engine=engine, syntaxis=syntaxis)
 
     else:
 
         all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms, group_behavior=group_behavior,
-                frame_indices=frame_indices, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
-                group_behavior_2=group_behavior_2, frame_indices_2=frame_indices_2, pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor',
+                structure_indices=structure_indices, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc, parallel=parallel, output_form='tensor',
                 engine=engine, syntaxis=syntaxis)
 
     if pairs is False:

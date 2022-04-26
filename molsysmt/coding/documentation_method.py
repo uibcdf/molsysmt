@@ -1,4 +1,4 @@
-    """method_name(item, target='system', indices=None, selection='all', frame_indices='all', syntaxis='MDTraj')
+    """method_name(item, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MDTraj')
 
     Print out general information of a molecular model.
 
@@ -16,7 +16,7 @@
        the selected atom index or indices (0-based) by means of an integer, or a list, a tuple, or
        numpy array of integers.
 
-    frame_indices: int, list, tuple, np.ndarray or 'all', default='all'
+    structure_indices: int, list, tuple, np.ndarray or 'all', default='all'
         Frames selection on which the action is applied. The frame index or indices
         (0-based) can be referred by an integer or by a list, tuple or numpy array of integers.
 

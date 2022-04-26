@@ -1,9 +1,11 @@
 # =======================
 # Creando cajas solvatadas
 # =======================
+
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt import puw
-from molsysmt._private_tools.exceptions import *
 
 """
 Solvate Box
@@ -37,7 +39,6 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
     -----
     """
 
-    from molsysmt._private_tools._digestion import digest_to_form, digest_engine
     from molsysmt.basic import get_form, convert
 
     engine = digest_engine(engine)
@@ -135,8 +136,8 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
 
     elif engine=="LEaP":
 
-        from molsysmt.tools.tleap import TLeap
-        from molsysmt._private_tools.files_and_directories import temp_directory, temp_filename
+        from molsysmt.thirds.tleap import TLeap
+        from molsysmt._private.files_and_directories import temp_directory, temp_filename
         from molsysmt.tools.file_pdb import replace_HETATM_by_ATOM_in_terminal_cappings
         from shutil import rmtree, copyfile
         from os import getcwd, chdir

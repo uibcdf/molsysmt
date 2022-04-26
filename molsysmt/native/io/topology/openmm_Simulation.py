@@ -1,4 +1,4 @@
-def from_openmm_Simulation(item, molecular_system=None, atom_indices='all', frame_indices='all'):
+def from_openmm_Simulation(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
     from .openmm_Topology import from_openmm_Topology as openmm_Topology_to_molsysmt_Topology
 

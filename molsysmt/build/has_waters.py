@@ -1,3 +1,6 @@
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
+
 def has_waters(molecular_system):
 
     from molsysmt.basic import get

@@ -1,2 +1,0 @@
-from .is_mdtraj_XTCTrajectoryFile import is_mdtraj_XTCTrajectoryFile
-
