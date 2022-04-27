@@ -3,10 +3,10 @@ from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt.attribute.attributes import _required_indices, attribute_synonyms, attributes
 
-def get(molecular_system, target='system', indices=None, selection='all', structure_indices='all',
+def get(molecular_system, element='system', indices=None, selection='all', structure_indices='all',
         syntaxis='MolSysMT', check=True, **kwargs):
 
-    """get(item, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
+    """get(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Get specific attributes and observables.
 
@@ -18,12 +18,12 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
     item: molecular model
         Molecular model in any of the supported forms by MolSysMT. (See: XXX)
 
-    target: str, default='system'
+    element: str, default='system'
         The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
         'system'.
 
     indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ('atom', 'group' or 'chain') this
+        List of indices referring the set of elementted entities ('atom', 'group' or 'chain') this
         method is going to work with. The set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
@@ -39,7 +39,7 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
     Returns
     -------
     None
-        The method prints out a pandas dataframe with relevant information depending on the target
+        The method prints out a pandas dataframe with relevant information depending on the element
         chosen.
 
     Examples
@@ -64,9 +64,9 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
             raise MolecularSystemNeededError()
 
         try:
-            target = digest_target(target)
+            element = digest_element(element)
         except:
-            raise WrongTargetError(target)
+            raise WrongTargetError(element)
 
         try:
             syntaxis = digest_syntaxis(syntaxis)
@@ -92,7 +92,7 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
         for key in kwargs.keys():
             if kwargs[key]:
                 try:
-                    arguments.append(_digest_argument(key, target))
+                    arguments.append(_digest_argument(key, element))
                 except:
                     raise WrongGetArgumentError(key)
 
@@ -111,7 +111,7 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
 
     if indices is None:
         if selection is not 'all':
-            indices = select(molecular_system, target=target, selection=selection, syntaxis=syntaxis, check=False)
+            indices = select(molecular_system, element=element, selection=selection, syntaxis=syntaxis, check=False)
         else:
             indices = 'all'
 
@@ -120,7 +120,7 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
     for argument in arguments:
 
         dict_indices = {}
-        if target != 'system':
+        if element != 'system':
             if 'indices' in _required_indices[argument]:
                 dict_indices['indices']=indices
         if 'structure_indices' in _required_indices[argument]:
@@ -130,17 +130,17 @@ def get(molecular_system, target='system', indices=None, selection='all', struct
         if aux_item is None:
             result = None
         else:
-            result = dict_get[aux_form][target][argument](aux_item, **dict_indices)
+            result = dict_get[aux_form][element][argument](aux_item, **dict_indices)
         output.append(result)
 
     output=digest_output(output)
     return output
 
-def _digest_argument(argument, target):
+def _digest_argument(argument, element):
 
     output_argument = argument.lower()
     if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
-        output_argument = ('_').join([target, output_argument])
+        output_argument = ('_').join([element, output_argument])
     if output_argument in attribute_synonyms:
         output_argument = attribute_synonyms[output_argument]
     if output_argument in attributes:

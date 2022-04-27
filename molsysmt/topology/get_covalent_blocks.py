@@ -39,7 +39,7 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
 
     elif output_form=='array':
 
-        n_atoms = get(molecular_system, target='system', n_atoms=True)
+        n_atoms = get(molecular_system, element='system', n_atoms=True)
         blocks = -np.ones([n_atoms], dtype=int)
         component_index = 0
         for component in components:

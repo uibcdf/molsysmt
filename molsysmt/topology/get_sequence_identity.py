@@ -15,8 +15,8 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
         # ensembler: ensembler is only available for python 2.7
         # (https://github.com/choderalab/ensembler/blob/master/ensembler/modeling.py)
 
-        group_indices = select(molecular_system, target='group', selection=selection)
-        reference_group_indices = select(reference_molecular_system, target='group', selection=reference_selection)
+        group_indices = select(molecular_system, element='group', selection=selection)
+        reference_group_indices = select(reference_molecular_system, element='group', selection=reference_selection)
 
         seq, seq_ref = get_sequence_alignment(molecular_system, selection=selection,
                 reference_molecular_system=reference_molecular_system,

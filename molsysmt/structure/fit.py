@@ -36,7 +36,7 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
         reference_atom_indices = select(reference_molecular_system, selection=reference_selection,
                 syntaxis=syntaxis, check=False)
 
-        reference_coordinates = get(reference_molecular_system, target='atom', indices=reference_atom_indices,
+        reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
                                     structure_indices=reference_frame_index, coordinates=True,
                                     check=False)
 
@@ -59,7 +59,7 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
         else:
             tmp_molecular_system = convert(molecular_system, to_form=to_form, check=False)
 
-        set(tmp_molecular_system, target='system', coordinates=coordinates, check=False)
+        set(tmp_molecular_system, element='system', coordinates=coordinates, check=False)
         del(coordinates, units)
         return tmp_molecular_system
 

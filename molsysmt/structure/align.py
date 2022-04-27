@@ -25,11 +25,11 @@ def align(molecular_system, selection='backbone', structure_indices='all',
 
             raise NotImplementedError
 
-        aux_atoms_list = select(molecular_system, target='atom', selection='group_index==@identical_groups')
-        selection_to_be_fitted = select(molecular_system, target='atom', selection=selection, mask=aux_atoms_list)
+        aux_atoms_list = select(molecular_system, element='atom', selection='group_index==@identical_groups')
+        selection_to_be_fitted = select(molecular_system, element='atom', selection=selection, mask=aux_atoms_list)
 
-        aux_atoms_list = select(reference_molecular_system, target='atom', selection='group_index==@reference_identical_groups')
-        reference_selection_to_be_fitted = select(reference_molecular_system, target='atom',
+        aux_atoms_list = select(reference_molecular_system, element='atom', selection='group_index==@reference_identical_groups')
+        reference_selection_to_be_fitted = select(reference_molecular_system, element='atom',
                 selection=reference_selection, mask=aux_atoms_list)
 
         if engine_least_rmsd_fit == 'MolSysMT':

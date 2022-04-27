@@ -41,7 +41,7 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
 
-        step, time, coordinates, box = get(aux_molecular_system, target='atom', selection=aux_selection, structure_indices=aux_structure_indices, frame=True)
+        step, time, coordinates, box = get(aux_molecular_system, element='atom', selection=aux_selection, structure_indices=aux_structure_indices, frame=True)
 
         if box_in_diff_item:
             dict_append_structures[to_molecular_system.coordinates_form](to_molecular_system.coordinates_item, step=step, time=time, coordinates=coordinates, box=None)

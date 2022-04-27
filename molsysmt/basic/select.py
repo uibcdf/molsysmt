@@ -100,12 +100,12 @@ def select_bonded_to(molecular_system, selection, syntaxis):
 
     return output
 
-def select(molecular_system, selection='all', structure_index=0, target='atom', mask=None,
+def select(molecular_system, selection='all', structure_index=0, element='atom', mask=None,
         syntaxis='MolSysMT', to_syntaxis=None, check=True):
 
     # to_syntaxis: 'NGLView', 'MDTraj', ...
 
-    """select(item, selection='all', target='atom', syntaxis='MolSysMT')
+    """select(item, selection='all', element='atom', syntaxis='MolSysMT')
 
     Get the atom indices corresponding to a selection criterion.
 
@@ -123,7 +123,7 @@ def select(molecular_system, selection='all', structure_index=0, target='atom', 
     mask: list, tuple, numpy array or None. default=None
        XXX
 
-    target: str, default='atom'
+    element: str, default='atom'
        The output indices list can correspond to 'atom', 'group', 'component', 'molecule', 'chain',
        'entity' or 'bond' indices.
 
@@ -161,9 +161,9 @@ def select(molecular_system, selection='all', structure_index=0, target='atom', 
             raise MolecularSystemNeededError()
 
         try:
-            target=digest_target(target)
+            element=digest_element(element)
         except:
-            raise WrongTargetError(target)
+            raise WrongTargetError(element)
 
         try:
             syntaxis=digest_syntaxis(syntaxis)
@@ -201,13 +201,13 @@ def select(molecular_system, selection='all', structure_index=0, target='atom', 
 
         atom_indices = select_standard(molecular_system, selection, syntaxis)
 
-    if target=='atom':
+    if element=='atom':
         output_indices = atom_indices
-    elif target in ['group', 'component', 'chain', 'molecule', 'entity']:
-        aux_item, aux_form = where_is_attribute(molecular_system, target+'_index', check=False)
-        output_indices = dict_get[aux_form]['atom'][target+'_index'](aux_item, indices=atom_indices)
+    elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
+        aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', check=False)
+        output_indices = dict_get[aux_form]['atom'][element+'_index'](aux_item, indices=atom_indices)
         output_indices = np.unique(output_indices)
-    elif target=='bond':
+    elif element=='bond':
         aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index', check=False)
         output_indices = dict_get[aux_form]['atom']['inner_bond_index'](aux_item, indices=atom_indices)
     else:
@@ -219,7 +219,7 @@ def select(molecular_system, selection='all', structure_index=0, target='atom', 
     if to_syntaxis is None:
         return output_indices
     else:
-        return indices_to_selection(molecular_system, output_indices, target=target, syntaxis=to_syntaxis)
+        return indices_to_selection(molecular_system, output_indices, element=element, syntaxis=to_syntaxis)
 
 def selection_with_special_subsentences(selection):
 
@@ -351,35 +351,35 @@ def select_with_Amber(item, selection):
 
     raise NotImplementedError()
 
-def indices_to_selection(molecular_system, indices, target='atom', syntaxis=None):
+def indices_to_selection(molecular_system, indices, element='atom', syntaxis=None):
 
     syntaxis = digest_syntaxis(syntaxis)
-    target = digest_target(target)
+    element = digest_element(element)
 
     output_string = ''
 
     if syntaxis=='NGLView':
 
-        if target=='atom':
+        if element=='atom':
             output_string = '@'+','.join([str(ii) for ii in indices])
-        elif target=='group':
+        elif element=='group':
             from molsysmt import get
-            group_ids, chain_ids = get(molecular_system, target='group', indices=indices, group_id=True, chain_id=True)
+            group_ids, chain_ids = get(molecular_system, element='group', indices=indices, group_id=True, chain_id=True)
             output_string = ' '.join([str(ii)+':'+str(jj) for ii,jj in zip(group_ids, chain_ids)])
-        elif target=='chain':
+        elif element=='chain':
             from molsysmt import get
-            chain_ids = get(molecular_system, target='chain', indices=indices, chain_id=True)
+            chain_ids = get(molecular_system, element='chain', indices=indices, chain_id=True)
             output_string = ' '.join([':'+ii for ii in chain_ids])
         else:
             raise NotImplementedError
 
     elif syntaxis=='MDTraj':
 
-        if target=='atom':
+        if element=='atom':
             output_string = 'index '+' '.join([str(ii) for ii in indices])
-        elif target=='group':
+        elif element=='group':
             output_string = 'resid '+' '.join([str(ii) for ii in indices])
-        elif target=='chain':
+        elif element=='chain':
             output_string = 'chainid '+' '.join([str(ii) for ii in indices])
         else:
             raise NotImplementedError

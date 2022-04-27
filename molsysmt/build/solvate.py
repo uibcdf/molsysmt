@@ -150,11 +150,11 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
             #if verbose:
             #    print("All Hydrogen atoms were removed to be added by LEaP\n\n")
 
-        indices_NME_C = select(molecular_system, target='atom', selection='group_name=="NME" and atom_name=="C"')
+        indices_NME_C = select(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"')
         with_NME_C = (len(indices_NME_C)>0)
 
         if with_NME_C:
-            _set(molecular_system, target='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3')
+            _set(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3')
 
         current_directory = getcwd()
         working_directory = temp_directory()
@@ -210,7 +210,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)
 
         if with_NME_C:
-            _set(tmp_item, target='atom', selection='group_name=="NME" and atom_name=="CH3"', atom_name='C')
+            _set(tmp_item, element='atom', selection='group_name=="NME" and atom_name=="CH3"', atom_name='C')
 
         rmtree(working_directory)
 

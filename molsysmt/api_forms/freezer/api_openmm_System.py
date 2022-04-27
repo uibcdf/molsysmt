@@ -22,7 +22,7 @@ def to_openmm_Context(item, molecular_system=None, atom_indices='all', structure
     from molsysmt.basic import convert, get
     from openmm import Context
 
-    positions = get(molecular_system, target='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
+    positions = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
     positions = puw.convert(positions[0], to_unit='nm', to_form='openmm.unit')
     simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 
@@ -50,7 +50,7 @@ def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', struct
     from openmm.app import Simulation
 
     topology = convert(molecular_system, to_form='openmm.Topology', selection=atom_indices)
-    positions = get(molecular_system, target='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
+    positions = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
     positions = puw.convert(positions[0], to_unit='nm', to_form='openmm.unit')
     simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 

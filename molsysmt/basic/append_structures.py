@@ -56,10 +56,10 @@ def append_structures(to_molecular_system, from_molecular_systems, selections='a
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(from_molecular_systems, selections, structure_indices):
 
 
-        coordinates = get(aux_molecular_system, target='atom', selection=aux_selection, structure_indices=aux_structure_indices,
+        coordinates = get(aux_molecular_system, element='atom', selection=aux_selection, structure_indices=aux_structure_indices,
                           coordinates=True, check=False)
 
-        step, time, box = get(aux_molecular_system, target='system', structure_indices=aux_structure_indices, step=True,
+        step, time, box = get(aux_molecular_system, element='system', structure_indices=aux_structure_indices, step=True,
                               time=True, box=True, check=False)
 
         for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):

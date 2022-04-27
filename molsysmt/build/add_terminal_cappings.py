@@ -14,13 +14,13 @@ def add_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, se
 
         tmp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer')
         atom_indices_in_selection = select(tmp_molecular_system, selection=selection, syntaxis=syntaxis)
-        atom_indices_in_components = get(tmp_molecular_system, target='component', selection='component_type in ["peptide", "protein"] \
+        atom_indices_in_components = get(tmp_molecular_system, element='component', selection='component_type in ["peptide", "protein"] \
                                          and atom_index in @atom_indices_in_selection', atom_index=True)
 
         for atom_indices_in_component in atom_indices_in_components:
 
-            chain_id = get(tmp_molecular_system, target='chain', selection='atom_index in @atom_indices_in_component', chain_id=True)
-            groups_sequence = get(tmp_molecular_system, target='group', selection='atom_index in @atom_indices_in_component', group_name=True)
+            chain_id = get(tmp_molecular_system, element='chain', selection='atom_index in @atom_indices_in_component', chain_id=True)
+            groups_sequence = get(tmp_molecular_system, element='group', selection='atom_index in @atom_indices_in_component', group_name=True)
 
             groups_sequence = list(groups_sequence)
 
@@ -38,7 +38,7 @@ def add_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, se
         tmp_molecular_system.findMissingAtoms()
         tmp_molecular_system.addMissingAtoms()
 
-        n_hs = get(tmp_molecular_system, target='atom', selection='atom_type=="H"', n_atoms=True)
+        n_hs = get(tmp_molecular_system, element='atom', selection='atom_type=="H"', n_atoms=True)
 
         if n_hs > 0:
 

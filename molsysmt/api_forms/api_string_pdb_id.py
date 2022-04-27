@@ -101,7 +101,7 @@ def to_file_fasta(item, molecular_system, atom_indices='all', structure_indices=
     import numpy as np
 
     tmp_item = string_pdb_id_to_file_fasta(item, check=False)
-    group_indices = get(molecular_system, target='atom', indices=atom_indices, group_index=True)
+    group_indices = get(molecular_system, element='atom', indices=atom_indices, group_index=True)
     group_indices = np.unique(group_indices)
     tmp_item = extract_file_fasta(tmp_item, group_indices=group_indices, output_filename=output_filename, copy_if_all=False)
 

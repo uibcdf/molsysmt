@@ -2,12 +2,12 @@ import numpy as np
 from molsysmt import puw
 from molsysmt._private.exceptions import *
 
-def charge(molecular_system, target='group', selection='all', type=None, engine='OpenMM'):
+def charge(molecular_system, element='group', selection='all', type=None, engine='OpenMM'):
 
-    from molsysmt._private._digestion import digest_engine, digest_target
+    from molsysmt._private._digestion import digest_engine, digest_element
 
     engine=digest_engine(engine)
-    target=digest_target(target)
+    element=digest_element(element)
 
     if type in ['physical_pH7', 'collantes']:
 
@@ -23,27 +23,27 @@ def charge(molecular_system, target='group', selection='all', type=None, engine=
 
         output = []
 
-        if target=='atom':
-            raise ValueError('Only targets bigger than, or equal to, groups are allowed when type is "physical_pH7" or "collantes"')
+        if element=='atom':
+            raise ValueError('Only elements bigger than, or equal to, groups are allowed when type is "physical_pH7" or "collantes"')
 
-        elif target=='group':
+        elif element=='group':
 
-            group_names = get(molecular_system, target = target, selection = selection, group_name = True)
+            group_names = get(molecular_system, element = element, selection = selection, group_name = True)
             for ii in group_names:
                 output.append(values[ii.upper()])
 
-        elif target in ['component', 'molecule', 'chain', 'entity']:
+        elif element in ['component', 'molecule', 'chain', 'entity']:
 
-            group_names = get(molecular_system, target = target, selection = selection, group_name = True)
+            group_names = get(molecular_system, element = element, selection = selection, group_name = True)
             for aux in group_names:
                 output.append(np.sum([values[ii.upper()] for ii in aux]))
 
-        elif target=='system':
+        elif element=='system':
 
-            group_names = get(molecular_system, target = 'group', selection = 'all', group_names = True)
+            group_names = get(molecular_system, element = 'group', selection = 'all', group_names = True)
             output.append(np.sum([values[ii.upper()] for ii in group_names]))
 
-        if target =='system':
+        if element =='system':
             output = output[0]*puw.unit(units)
         else:
             output = puw.quantity(np.array(output), units)
@@ -63,9 +63,9 @@ def charge(molecular_system, target='group', selection='all', type=None, engine=
 
             output = []
 
-            if target=='atom':
+            if element=='atom':
 
-                atom_indices = get(molecular_system, target = target, selection = selection, atom_index = True)
+                atom_indices = get(molecular_system, element = element, selection = selection, atom_index = True)
 
                 for force_index in range(openmm_system.getNumForces()):
                     force = openmm_system.getForce(force_index)
@@ -75,9 +75,9 @@ def charge(molecular_system, target='group', selection='all', type=None, engine=
 
                 output = np.array(output, dtype=float).round(4)*puw.unit('e')
 
-            elif target in ['group', 'component', 'chain', 'molecule', 'entity']:
+            elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
 
-                atom_indices = get(molecular_system, target = target, selection = selection, atom_index = True)
+                atom_indices = get(molecular_system, element = element, selection = selection, atom_index = True)
 
                 for force_index in range(openmm_system.getNumForces()):
                     force = openmm_system.getForce(force_index)
@@ -90,9 +90,9 @@ def charge(molecular_system, target='group', selection='all', type=None, engine=
 
                 output = np.array(output, dtype=float).round(4)*puw.unit('e')
 
-            elif target=='system':
+            elif element=='system':
 
-                atom_indices = get(molecular_system, target = 'atom', selection = 'all', index = True)
+                atom_indices = get(molecular_system, element = 'atom', selection = 'all', index = True)
 
                 var_aux = 0.0
                 for force_index in range(openmm_system.getNumForces()):

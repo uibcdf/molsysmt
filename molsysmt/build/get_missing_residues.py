@@ -13,7 +13,7 @@ def get_missing_residues(molecular_system, selection='all', engine='PDBFixer', s
 
         #correction_group_indices = False
         #if selection is not 'all':
-        #    group_indices_in_selection = select(molecular_system, target='group', selection=selection)
+        #    group_indices_in_selection = select(molecular_system, element='group', selection=selection)
         #    correction_group_indices = True
 
         #tmp_item = convert(molecular_system, selection=selection, to_form="pdbfixer.PDBFixer",

@@ -7,7 +7,7 @@ def has_cosolutes(molecular_system):
 
     output = False
 
-    n_cosolutes = get(molecular_system, target='system', n_cosolutes=True)
+    n_cosolutes = get(molecular_system, element='system', n_cosolutes=True)
 
     if n_cosolutes>0:
         output = True

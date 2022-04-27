@@ -38,7 +38,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
 
             reference_atom_indices = select(reference_molecular_system, selection=reference_selection, syntaxis=syntaxis)
 
-            reference_coordinates = get(reference_molecular_system, target='atom', indices=reference_atom_indices, structure_indices=reference_frame_index, coordinates=True)
+            reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices, structure_indices=reference_frame_index, coordinates=True)
 
         coordinates = get(molecular_system, coordinates=True, structure_indices='all')
         units = puw.get_unit(coordinates)

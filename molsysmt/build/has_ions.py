@@ -7,7 +7,7 @@ def has_ions(molecular_system):
 
     output = False
 
-    n_ions = get(molecular_system, target='system', n_ions=True)
+    n_ions = get(molecular_system, element='system', n_ions=True)
 
     if n_ions>0:
         output = True

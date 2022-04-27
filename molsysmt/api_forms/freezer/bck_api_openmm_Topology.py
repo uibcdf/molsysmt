@@ -52,7 +52,7 @@ def to_openmm_Modeller(item, trajectory_item=None, atom_indices='all', structure
     from molsysmt import get
     from openmm.app import Modeller
 
-    positions = get(trajectory_item, target='atom', indices=atom_indices,
+    positions = get(trajectory_item, element='atom', indices=atom_indices,
                     structure_indices=structure_indices, coordinates=True)
     tmp_item = Modeller(item, positions[0])
     return tmp_item
@@ -65,7 +65,7 @@ def to_pdb(item, output_filename=None, trajectory_item=None, atom_indices='all',
     from openmm.version import short_version
     from io import StringIO
 
-    coordinates = _get(trajectory_item, target="atom", indices=atom_indices, structure_indices=structure_indices, coordinates=True)
+    coordinates = _get(trajectory_item, element="atom", indices=atom_indices, structure_indices=structure_indices, coordinates=True)
 
     if atom_indices is 'all':
         tmp_item = item

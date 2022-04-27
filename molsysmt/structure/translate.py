@@ -13,7 +13,7 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
             raise MolecularSystemNeededError()
 
     atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
-    coordinates = get(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True)
+    coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True)
 
     length_units = puw.get_unit(coordinates)
     coordinates = puw.get_value(coordinates)
@@ -42,9 +42,9 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     coordinates=coordinates*length_units
 
     if in_place:
-        return set(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
+        return set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
     else:
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
+        set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
         return tmp_molecular_system
 

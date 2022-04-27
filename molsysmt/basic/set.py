@@ -2,9 +2,9 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt.attribute.attributes import _required_indices, attribute_synonyms, attributes
 
-def set(molecular_system, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
+def set(molecular_system, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
 
-    """into(item, target='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
+    """into(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Set a new value to an attribute.
 
@@ -16,12 +16,12 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
     item: molecular model
         Molecular model in any of the supported forms by MolSysMT. (See: XXX)
 
-    target: str, default='system'
+    element: str, default='system'
         The nature of the entities this method is going to work with: 'atom', 'group', 'chain' or
         'system'.
 
     indices: int, list, tuple or np.ndarray, default=None
-        List of indices referring the set of targetted entities ('atom', 'group' or 'chain') this
+        List of indices referring the set of elementted entities ('atom', 'group' or 'chain') this
         method is going to work with. The set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
@@ -66,9 +66,9 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
             raise MolecularSystemNeeded()
 
         try:
-            target = digest_target(target)
+            element = digest_element(element)
         except:
-            raise WrongTargetError(target)
+            raise WrongTargetError(element)
 
         try:
             syntaxis = digest_syntaxis(syntaxis)
@@ -93,7 +93,7 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
         value_of_attribute = {}
         for key in kwargs.keys():
             try:
-                value_of_attribute[_digest_argument(key, target)]=kwargs[key]
+                value_of_attribute[_digest_argument(key, element)]=kwargs[key]
             except:
                 raise WrongSetArgumentError(key)
 
@@ -111,7 +111,7 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
 
     if indices is None:
         if selection is not 'all':
-            indices = select(molecular_system, target=target, selection=selection,
+            indices = select(molecular_system, element=element, selection=selection,
                     syntaxis=syntaxis, check=False)
         else:
             indices = 'all'
@@ -121,15 +121,15 @@ def set(molecular_system, target='system', indices=None, selection='all', struct
         item, form = where_is_attribute(molecular_system, attribute, check=False)
 
         value = value_of_attribute[attribute]
-        dict_set[form][target][attribute](item, indices=indices, structure_indices=structure_indices, value=value)
+        dict_set[form][element][attribute](item, indices=indices, structure_indices=structure_indices, value=value)
 
     pass
 
-def _digest_argument(argument, target):
+def _digest_argument(argument, element):
 
     output_argument = argument.lower()
     if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
-        output_argument = ('_').join([target, output_argument])
+        output_argument = ('_').join([element, output_argument])
     if output_argument in attribute_synonyms:
         output_argument = attribute_synonyms[output_argument]
     if output_argument in attributes:

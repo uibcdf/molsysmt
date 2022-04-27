@@ -37,9 +37,9 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
     else:
         raise ValueError
 
-    n_atoms = get(molecular_system, target='system', n_atoms=True, check=False)
+    n_atoms = get(molecular_system, element='system', n_atoms=True, check=False)
     n_quartets = quartets.shape[0]
-    n_structures = get(molecular_system, target='system', structure_indices=structure_indices,
+    n_structures = get(molecular_system, element='system', structure_indices=structure_indices,
             n_structures=True, check=False)
 
     angles_units = puw.get_unit(angles)
@@ -78,12 +78,12 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
                 blocks.append(tmp_blocks)
 
 
-        coordinates = get(molecular_system, target='system', structure_indices=structure_indices,
+        coordinates = get(molecular_system, element='system', structure_indices=structure_indices,
                 coordinates=True, check=False)
 
         if pbc:
 
-            box, box_shape = get(molecular_system, target='system',
+            box, box_shape = get(molecular_system, element='system',
                     structure_indices=structure_indices, box=True, box_shape=True, check=False)
             if box_shape is None:
                 raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
@@ -121,11 +121,11 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         coordinates=np.ascontiguousarray(coordinates)*length_units
 
         if in_place:
-            return set(molecular_system, target='system', coordinates=coordinates,
+            return set(molecular_system, element='system', coordinates=coordinates,
                     structure_indices=structure_indices, check=False)
         else:
             tmp_molecular_system = copy(molecular_system, check=False)
-            set(tmp_molecular_system, target='system', coordinates=coordinates,
+            set(tmp_molecular_system, element='system', coordinates=coordinates,
                     structure_indices=structure_indices, check=False)
             return tmp_molecular_system
 

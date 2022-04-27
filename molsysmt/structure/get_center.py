@@ -24,7 +24,7 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
         elif weights is 'masses':
             raise NotImplementedError
 
-        coordinates = get(molecular_system, target='system', structure_indices=structure_indices, coordinates=True)
+        coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
 
         length_units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')

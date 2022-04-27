@@ -38,7 +38,7 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
             reference_atom_indices = select(reference_molecular_system,
                     selection=reference_selection, syntaxis=syntaxis, check=False)
 
-            reference_coordinates = get(reference_molecular_system, target='atom',
+            reference_coordinates = get(reference_molecular_system, element='atom',
                     indices=reference_atom_indices, structure_indices=reference_frame_index,
                     coordinates=True, check=False)
 
