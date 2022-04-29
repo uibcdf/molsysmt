@@ -1,3 +1,5 @@
+import numpy as np
+
 def _aux(item):
 
     from molsysmt import get
@@ -5,7 +7,7 @@ def _aux(item):
 
     entities = {}
     n_entities = 0
-    n_atoms = get(item, target='system', n_atoms=True)
+    n_atoms = get(item, element='system', n_atoms=True)
 
     n_peptides = 0
     n_proteins = 0
@@ -14,8 +16,8 @@ def _aux(item):
     name_array = full(n_atoms, None, dtype=object)
     type_array = full(n_atoms, None, dtype=object)
 
-    molecule_index, molecule_type = get(item, target='molecule', molecule_index=True, molecule_type=True)
-    atom_indices_in_molecule = get(item, target='molecule', atom_index=True)
+    molecule_index, molecule_type = get(item, element='molecule', molecule_index=True, molecule_type=True)
+    atom_indices_in_molecule = get(item, element='molecule', atom_index=True)
 
 
     for m_index, m_type, m_atoms in zip(molecule_index, molecule_type, atom_indices_in_molecule):
@@ -34,7 +36,7 @@ def _aux(item):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'ion':
-                group_name = get(item, target='atom', indices=m_atoms, group_name=True)[0]
+                group_name = get(item, element='atom', indices=m_atoms, group_name=True)[0]
                 name = group_name
                 type = 'ion'
                 try:
@@ -64,7 +66,7 @@ def _aux(item):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'lipid':
-                group_name = get(item, target='atom', indices=m_atoms[0], group_name=True)[0]
+                group_name = get(item, element='atom', indices=m_atoms[0], group_name=True)[0]
                 name = group_name
                 type = 'lipid'
                 try:
@@ -74,7 +76,7 @@ def _aux(item):
                     index=n_entities
                     n_entities+=1
             elif m_type == 'small molecule':
-                group_name = get(item, target='atom', indices=m_atoms[0], group_name=True)[0]
+                group_name = get(item, element='atom', indices=m_atoms[0], group_name=True)[0]
                 name = group_name
                 type = 'small molecule'
                 try:
@@ -101,7 +103,7 @@ def _aux(item):
 
     return index_array, name_array, type_array
 
-def entity_index_from_atom(item, indices='all'):
+def entity_index_from_atom(item, indices='all', check=True):
 
     output, _,  _ = _aux(item)
 
@@ -110,18 +112,18 @@ def entity_index_from_atom(item, indices='all'):
 
     return output
 
-def entity_id_from_entity(item, indices='all'):
+def entity_id_from_entity(item, indices='all', check=True):
 
     if indices is 'all':
         from molsysmt.basic.get import get
-        n_entities = get(item, target='system', n_entities=True)
+        n_entities = get(item, element='system', n_entities=True)
         output = np.full(n_entities, None, dtype=object)
     else:
         output = np.full(indices.shape[0], None, dtype=object)
 
     return output
 
-def entity_name_from_entity(item, indices='all'):
+def entity_name_from_entity(item, indices='all', check=True):
 
     entity_index_from_atom, entity_name_from_atom, _ = _aux(item)
 
@@ -137,7 +139,7 @@ def entity_name_from_entity(item, indices='all'):
 
     return output
 
-def entity_type_from_entity(item, indices='all'):
+def entity_type_from_entity(item, indices='all', check=True):
 
     entity_index_from_atom, _, entity_type_from_atom = _aux(item)
 
@@ -153,11 +155,11 @@ def entity_type_from_entity(item, indices='all'):
 
     return output
 
-def n_entities_from_system(item, indices='all'):
+def n_entities_from_system(item, indices='all', check=True):
 
     from molsysmt import get
 
-    entity_index_from_atom = get(item, target='atom', indices='all', entity_index=True)
+    entity_index_from_atom = get(item, element='atom', indices='all', entity_index=True)
     if entity_index_from_atom[0] is None:
         n_entities = 0
     else:

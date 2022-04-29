@@ -9,14 +9,14 @@ def component_index_from_atom(item, indices='all'):
     from molsysmt.basic import get
     from molsysmt.lib import bonds as _libbonds
 
-    n_atoms, n_bonds = get(item, target='system', n_atoms=True, n_bonds=True)
+    n_atoms, n_bonds = get(item, element='system', n_atoms=True, n_bonds=True)
 
     if n_bonds==0:
         output = np.full(n_atoms, None, dtype=object)
 
     else:
 
-        atoms_indices = get(item, target='bond', indices='all', atom_index=True)
+        atoms_indices = get(item, element='bond', indices='all', atom_index=True)
 
         output = _libbonds.component_indices(atoms_indices, n_atoms, n_bonds)
         output = np.ascontiguousarray(output, dtype=int)
@@ -30,7 +30,7 @@ def component_id_from_component(item, indices='all'):
 
     if indices is 'all':
         from molsysmt.basic import get
-        n_components = get(item, target='system', n_components=True)
+        n_components = get(item, element='system', n_components=True)
         output = np.full(n_components, None, dtype=object)
     else:
         output = np.full(indices.shape[0], None, dtype=object)
@@ -41,7 +41,7 @@ def component_name_from_component(item, indices='all'):
 
     if indices is 'all':
         from molsysmt.basic import get
-        n_components = get(item, target='system', n_components=True)
+        n_components = get(item, element='system', n_components=True)
         output = np.full(n_components, None, dtype=object)
     else:
         output = np.full(indices.shape[0], None, dtype=object)
@@ -52,7 +52,7 @@ def component_type_from_component(item, indices='all'):
 
     from molsysmt.basic import get
 
-    group_types_from_component = get(item, target='component', indices=indices, group_type=True)
+    group_types_from_component = get(item, element='component', indices=indices, group_type=True)
 
     output = []
 
@@ -68,7 +68,7 @@ def n_components_from_system(item, indices='all'):
 
     from molsysmt import get
 
-    component_index_from_atom = get(item, target='atom', indices='all', component_index=True)
+    component_index_from_atom = get(item, element='atom', indices='all', component_index=True)
     if component_index_from_atom[0] is None:
         n_components = 0
     else:

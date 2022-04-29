@@ -30,9 +30,9 @@ form_attributes = {
     'group_type' : True,
 
     'component_index' : True,
-    'component_id' : False,
-    'component_name' : False,
-    'component_type' : False,
+    'component_id' : True,
+    'component_name' : True,
+    'component_type' : True,
 
     'molecule_index' : True,
     'molecule_id' : True,
@@ -44,10 +44,10 @@ form_attributes = {
     'chain_name' : True,
     'chain_type' : True,
 
-    'entity_index' : False,
-    'entity_id' : False,
-    'entity_name' : False,
-    'entity_type' : False,
+    'entity_index' : True,
+    'entity_id' : True,
+    'entity_name' : True,
+    'entity_type' : True,
 
     'coordinates' : True,
     'velocities' : False,

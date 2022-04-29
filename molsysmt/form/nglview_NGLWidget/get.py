@@ -579,10 +579,7 @@ def get_n_structures_from_system(item, check=True):
 
         _digest_item(item, _form)
 
-    if structure_indices is 'all':
-        n_structures = item.component_0.n_structures
-    else:
-        n_structures = structure_indices.shape[0]
+    n_structures = item.component_0.n_frames
 
     return n_structures
 
