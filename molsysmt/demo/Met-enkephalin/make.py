@@ -12,7 +12,7 @@ for filename in files_to_be_purged:
 
 molsys = msm.build.build_peptide(['TyrGlyGlyPheMet',{'forcefield':'AMBER14', 'implicit_solvent':'OBC1'}])
 _ = msm.convert(molsys, to_form='vacuum.msmpk')
-_ = msm.convert(molsys, to_form='vacuum.pdb')
+#_ = msm.convert(molsys, to_form='vacuum.pdb')
 del(molsys)
 
 

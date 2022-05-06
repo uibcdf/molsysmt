@@ -6,24 +6,24 @@ from molsysmt import puw
 
 def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
-          reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
+          reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT',
+          check=True):
 
-    from molsysmt.basic import is_a_molecular_system
+    if check:
 
-    if not is_a_molecular_system(molecular_system):
-        raise SingleMolecularSystemNeededError()
-
-    engine = digest_engine(engine)
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
 
     if engine=='MolSysMT':
 
         from molsysmt.basic import select, get
-        from molsysmt._private._digestion import digest_structure_indices
 
         n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
         n_atom_indices = atom_indices.shape[0]
-        structure_indices = digest_structure_indices(structure_indices)
         if structure_indices is 'all':
             structure_indices = np.arange(n_structures)
         n_structure_indices = structure_indices.shape[0]
@@ -36,9 +36,12 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
             if reference_selection is None:
                 reference_selection = selection
 
-            reference_atom_indices = select(reference_molecular_system, selection=reference_selection, syntaxis=syntaxis)
+            reference_atom_indices = select(reference_molecular_system,
+                    selection=reference_selection, syntaxis=syntaxis, check=False)
 
-            reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices, structure_indices=reference_frame_index, coordinates=True)
+            reference_coordinates = get(reference_molecular_system, element='atom',
+                    indices=reference_atom_indices, structure_indices=reference_frame_index,
+                    coordinates=True, check=False)
 
         coordinates = get(molecular_system, coordinates=True, structure_indices='all')
         units = puw.get_unit(coordinates)

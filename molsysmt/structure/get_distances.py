@@ -27,6 +27,10 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
         if molecular_system_2 is not None:
             digest_single_molecular_system(molecular_system_2)
 
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        selection_2 = digest_selection(selection, syntaxis)
+
         structure_indices = digest_structure_indices(structure_indices)
         if structure_indices_2 is not None:
             structure_indices_2 = digest_structure_indices(structure_indices_2)

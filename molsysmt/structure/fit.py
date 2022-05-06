@@ -9,13 +9,24 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
          to_form=None, parallel=True, syntaxis='MolSysMT', method='least rmsd', engine='MolSysMT',
          check=True):
 
-    from molsysmt.basic import select, get, set, convert, copy, is_molecular_system
-
     if check:
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
 
-    engine = digest_engine(engine)
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
+
+        if reference_molecular_system is not None:
+            digest_single_molecular_system(reference_molecular_system)
+
+        if reference_selection is not None:
+            reference_selection = digest_selection(reference_selection, syntaxis)
+
+        if reference_structure_index is not None:
+            reference_structure_index = digest_structure_indices(reference_structure_index)
+
+    from molsysmt.basic import select, get, set, convert, copy, is_molecular_system
 
     if engine=='MolSysMT':
 

@@ -11,11 +11,12 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
           check=True):
 
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
-        if not is_a_molecular_system(molecular_system):
-            raise SingleMolecularSystemNeededError()
 
-    engine = digest_engine(engine)
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
 
     if engine=='MolSysMT':
 
