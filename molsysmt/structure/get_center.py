@@ -1,15 +1,20 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt._private.math import serialized_lists
-from molsysmt.basic import select, get
 from molsysmt.lib import com as libcom
 from molsysmt import puw
 import numpy as np
 
-def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None, structure_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False):
+def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=None,
+        structure_indices='all', syntaxis='MolSysMT', engine='MolSysMT', parallel=False, check=True):
 
-    molecular_system = digest_molecular_system(molecular_system)
-    engine = digest_engine(engine)
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
+
+    from molsysmt.basic import select, get
 
     if engine=='MolSysMT':
 

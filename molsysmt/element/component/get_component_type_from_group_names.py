@@ -23,6 +23,8 @@ def get_component_type_from_group_names(group_names):
             tmp_type = 'rna'
         elif first_name in dna_names:
             tmp_type = 'dna'
+    else:
+        tmp_type = 'unknown'
 
     return tmp_type
 

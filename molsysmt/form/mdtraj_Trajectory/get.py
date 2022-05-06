@@ -544,7 +544,7 @@ def get_time_from_system(item, structure_indices='all', check=True):
         _digest_item(item, _form)
         structure_indices = _digest_structure_indices(structure_indices)
 
-    raise NotImplementedError
+    return None
 
 def get_step_from_system(item, structure_indices='all', check=True):
 
@@ -553,7 +553,7 @@ def get_step_from_system(item, structure_indices='all', check=True):
         _digest_item(item, _form)
         structure_indices = _digest_structure_indices(structure_indices)
 
-    raise NotImplementedError
+    return None
 
 def get_n_structures_from_system(item, check=True):
 

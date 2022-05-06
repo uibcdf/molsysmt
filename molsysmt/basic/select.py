@@ -278,46 +278,50 @@ def select_with_MolSysMT(item, selection):
 
     tmp_selection = selection
 
-### Before:
 
     if '@' in selection:
 
-        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
-        first_var_name = var_names[0]
-
-        f_with_vars = None
-
-        for stack_frame in stack():
-            if first_var_name in stack_frame[0].f_globals.keys():
-                f_with_vars = stack_frame[0].f_globals
-                break
-            elif first_var_name in stack_frame[0].f_locals.keys():
-                f_with_vars = stack_frame[0].f_locals
-
-        if f_with_vars is None:
-            raise ValueError("An @variable in a selection sentence was not found")
-
-        for var_name in var_names:
-            var_value = f_with_vars[var_name]
-            if type(var_value) in [np.ndarray]:
-                var_value = list(var_value)
-            locals()[var_name]=var_value
+### Before:
+#
+#       var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
+#       first_var_name = var_names[0]
+#
+#       f_with_vars = None
+#
+#       for stack_frame in stack():
+#           if first_var_name in stack_frame[0].f_globals.keys():
+#               f_with_vars = stack_frame[0].f_globals
+#               break
+#           elif first_var_name in stack_frame[0].f_locals.keys():
+#               f_with_vars = stack_frame[0].f_locals
+#
+#       if f_with_vars is None:
+#           raise ValueError("An @variable in a selection sentence was not found")
+#
+#       for var_name in var_names:
+#           var_value = f_with_vars[var_name]
+#           if type(var_value) in [np.ndarray]:
+#               var_value = list(var_value)
+#           locals()[var_name]=var_value
 
 ### Now:
 
-#    if '@' in selection:
-#
-#        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
-#
-#        all_stack_frames = stack()
-#        caller_stack_frame = all_stack_frames[3]
-#
-#        for var_name in var_names:
-#            var_value = caller_stack_frame[0].f_globals[var_name]
-#            tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)
-#            if type(var_value) in [np.ndarray]:
-#                var_value = list(var_value)
-#            locals()['auxiliar_variable_'+var_name]=var_value
+        var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
+
+        all_stack_frames = stack()
+        caller_stack_frame = all_stack_frames[3]
+
+        for var_name in var_names:
+            if var_name in caller_stack_frame[0].f_globals:
+                var_value = caller_stack_frame[0].f_globals[var_name]
+            elif var_name in caller_stack_frame[0].f_locals:
+                var_value = caller_stack_frame[0].f_locals[var_name]
+            else:
+                raise ValueError("The variable", var_name, "was not found by the selection tool.")
+            tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)
+            if type(var_value) in [np.ndarray]:
+                var_value = list(var_value)
+            locals()['auxiliar_variable_'+var_name]=var_value
 
     indices = tmp_item.atoms_dataframe.query(tmp_selection).index.to_numpy()
 

@@ -5,7 +5,7 @@ from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
 
 def fit (molecular_system=None, selection='backbone', structure_indices='all',
-         reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
+         reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
          to_form=None, parallel=True, syntaxis='MolSysMT', method='least rmsd', engine='MolSysMT',
          check=True):
 
@@ -37,7 +37,7 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
                 syntaxis=syntaxis, check=False)
 
         reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
-                                    structure_indices=reference_frame_index, coordinates=True,
+                                    structure_indices=reference_structure_index, coordinates=True,
                                     check=False)
 
         coordinates = get(molecular_system, coordinates=True, structure_indices='all', check=False)

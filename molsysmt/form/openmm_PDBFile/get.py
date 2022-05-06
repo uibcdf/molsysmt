@@ -175,14 +175,19 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
         structure_indices = _digest_structure_indices(structure_indices)
 
     unit = _puw.get_unit(item.positions)
-    coordinates = _np.array(_puw.get_value(item.getPositions(asNumpy=True)))
-    coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
 
-    if structure_indices is not 'all':
-        coordinates = coordinates[structure_indices,:,:]
+    if structure_indices is 'all':
+        structure_indices = list(range(get_n_structures_from_system(item, check=False)))
 
-    if indices is not 'all':
-        coordinates = coordinates[:,indices,:]
+    coordinates = []
+
+    for structure_index in structure_indices:
+
+        aux = item.getPositions(asNumpy=True)._value
+        if indices is not 'all':
+            aux = aux[indices,:]
+
+        coordinates.append(aux)
 
     coordinates = coordinates * unit
     coordinates = _puw.standardize(coordinates)

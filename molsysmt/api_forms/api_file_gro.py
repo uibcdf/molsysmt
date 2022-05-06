@@ -90,6 +90,32 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
     return tmp_item
 
+def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.file_gro import to_mdtraj_Trajectory as file_gro_to_mdtraj_Trajectory
+
+    tmp_item = file_gro_to_mdtraj_Trajectory(item, atom_indices=atom_indices,
+                                             structure_indices=structure_indices, check=False)
+
+    return tmp_item
+
+def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.file_gro import to_mdtraj_Topology as file_gro_to_mdtraj_Topology
+
+    tmp_item = file_gro_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
+
+    return tmp_item
+
+def to_mdtraj_GroTrajectoryFile(item, molecular_system, atom_indices='all', structure_indices='all'):
+
+    from molsysmt.form.file_gro import to_mdtraj_GroTrajectoryFile as file_gro_to_mdtraj_GroTrajectoryFile
+
+    tmp_item = file_gro_to_mdtraj_GroTrajectoryFile(item, atom_indices=atom_indices,
+            structure_indices=structure_indices, check=False)
+
+    return tmp_item
+
 def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.form.file_gro import to_openmm_Topology as file_gro_to_openmm_Topology

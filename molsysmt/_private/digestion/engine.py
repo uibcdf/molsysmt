@@ -2,6 +2,7 @@ from ..exceptions import *
 
 engines = [
     'Amber',
+    'Biopython',
     'PDBFixer',
     'OpenMM',
     'MDTraj',

@@ -28,7 +28,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', chec
     tmp_coordinates = get_rank_3_XYZ(item)
 
     if indices is not 'all':
-        tmp_coordinates = tmp_item[:,indices,:]
+        tmp_coordinates = tmp_coordinates[:,indices,:]
 
     if structure_indices is not 'all':
         tmp_coordinates = tmp_coordinates[structure_indices,:,:]

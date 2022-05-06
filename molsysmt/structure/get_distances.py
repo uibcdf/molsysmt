@@ -1,6 +1,5 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt.basic import select, get
 from molsysmt.lib import geometry as libgeometry
 from molsysmt import puw
 import numpy as np
@@ -8,10 +7,8 @@ import numpy as np
 def get_distances(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
              molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
              pairs=False, crossed_frames=False, pbc=False, parallel=False, output_form='tensor',
-             output_atom_indices=False, output_structure_indices=False, engine='MolSysMT', syntaxis='MolSysMT'):
-
-    from molsysmt.structure.get_center_of_mass import get_center_of_mass
-    from molsysmt.structure.get_geometric_center import get_geometric_center
+             output_atom_indices=False, output_structure_indices=False, engine='MolSysMT',
+             syntaxis='MolSysMT', check=True):
 
     # group_behavior in
     # ['center_of_mass','geometric_center','minimum_distance','maximum_distance']
@@ -24,18 +21,27 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
     # selection groups está por si quiero distancias entre centros de masas, necesita
     # hacer un lista de listas frente a otra lista de listas.
 
-    molecular_system = digest_molecular_system(molecular_system)
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        if molecular_system_2 is not None:
+            digest_single_molecular_system(molecular_system_2)
+
+        structure_indices = digest_structure_indices(structure_indices)
+        if structure_indices_2 is not None:
+            structure_indices_2 = digest_structure_indices(structure_indices_2)
+
+        engine = digest_engine(engine)
+
+    from molsysmt.basic import select, get
+    from . import get_center_of_mass
+    from . import get_geometric_center
+
+    same_system = False
 
     if molecular_system_2 is None:
         same_system = True
         molecular_system_2 = molecular_system
-    else:
-        same_system = False
-        molecular_system_2 = digest_molecular_system(molecular_system_2)
-
-    engine = digest_engine(engine)
-    structure_indices = digest_structure_indices(structure_indices)
-    structure_indices_2 = digest_structure_indices(structure_indices_2)
 
     if group_behavior=='minimum_distance' or group_behavior_2=='minimum_distance':
         if group_behavior=='minimum_distance' and group_behavior_2=='minimum_distance':
