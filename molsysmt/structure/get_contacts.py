@@ -5,7 +5,8 @@ import numpy as np
 
 def get_contacts(molecular_system, selection=None, groups_of_atoms=None, group_behavior=None, structure_indices="all",
                 selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-                output_atom_indices=False, threshold='12 angstroms', pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
+                output_atom_indices=False, threshold='12 angstroms', pbc=False, parallel=False,
+                 engine='MolSysMT', syntaxis='MolSysMT', check=True):
 
     from molsysmt.structure.get_distances import get_distances
 
@@ -14,7 +15,8 @@ def get_contacts(molecular_system, selection=None, groups_of_atoms=None, group_b
                                                 selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                                                 group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
                                                 output_atom_indices=True,
-                                                pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
+                                                pbc=pbc, parallel=parallel, output_form='tensor',
+                                                engine=engine, syntaxis=syntaxis, check=check)
 
     if threshold is None:
         raise BadCallError(BadCallMessage)

@@ -4,10 +4,27 @@ from molsysmt import puw
 import numpy as np
 
 def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group_behavior=None, structure_indices="all",
-              selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
-              threshold=None, num_neighbors=None, atom_indices=False, pbc=False, parallel=False, engine='MolSysMT', syntaxis='MolSysMT'):
+                  molecular_system_2=None, selection_2=None, groups_of_atoms_2=None, group_behavior_2=None, structure_indices_2=None,
+                  threshold=None, num_neighbors=None, atom_indices=False, pbc=False, parallel=False,
+                  engine='MolSysMT', syntaxis='MolSysMT', check=True):
 
-    from molsysmt.structure.get_distances import get_distances
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        if molecular_system_2 is not None:
+            digest_single_molecular_system(molecular_system_2)
+
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        selection_2 = digest_selection(selection_2, syntaxis)
+
+        structure_indices = digest_structure_indices(structure_indices)
+        if structure_indices_2 is not None:
+            structure_indices_2 = digest_structure_indices(structure_indices_2)
+
+        engine = digest_engine(engine)
+
+    from . import get_distances
 
     if (threshold is None) and (num_neighbors is None):
         raise BadCallError(BadCallMessage)
@@ -35,7 +52,7 @@ def get_neighbors(molecular_system, selection="all", groups_of_atoms=None, group
 
         atom_indices_1, atom_indices_2, all_dists = get_distances(molecular_system=molecular_system, selection=selection, groups_of_atoms=groups_of_atoms,
                                                     group_behavior=group_behavior, structure_indices=structure_indices,
-                                                    selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
+                                                    molecular_system_2=molecular_system_2, selection_2=selection_2, groups_of_atoms_2=groups_of_atoms_2,
                                                     group_behavior_2=group_behavior_2, structure_indices_2=structure_indices_2,
                                                     pbc=pbc, parallel=parallel, output_form='tensor', engine=engine, syntaxis=syntaxis)
 

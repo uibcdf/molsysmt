@@ -11,6 +11,8 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
     if check:
 
         digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
         structure_indices = digest_structure_indices(structure_indices)
         engine = digest_engine(engine)
 
@@ -19,7 +21,8 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
     if engine=='MolSysMT':
 
         if groups_of_atoms is None:
-            atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+            atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis,
+                                  check=False)
             groups_of_atoms = [atom_indices]
 
         groups_serialized = serialized_lists(groups_of_atoms, dtype='int64')
@@ -29,7 +32,8 @@ def get_center(molecular_system, selection='all', groups_of_atoms=None, weights=
         elif weights is 'masses':
             raise NotImplementedError
 
-        coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
+        coordinates = get(molecular_system, element='system', structure_indices=structure_indices,
+                          coordinates=True, check=False)
 
         length_units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
