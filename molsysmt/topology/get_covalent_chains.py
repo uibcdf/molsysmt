@@ -7,11 +7,12 @@ def get_covalent_chains(molecular_system, chain=None, selection='all', syntaxis=
         check=True):
 
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
 
-    from molsysmt.topology.get_bondgraph import get_bondgraph
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+
+    from . import get_bondgraph
 
     if selection is 'all':
         mask = None
@@ -21,13 +22,12 @@ def get_covalent_chains(molecular_system, chain=None, selection='all', syntaxis=
     chain_atom_indices = []
 
     for sel_in_chain in chain:
-        atom_indices = select(molecular_system, selection=sel_in_chain, mask=mask)
+        atom_indices = select(molecular_system, selection=sel_in_chain, mask=mask, check=False)
         chain_atom_indices.append(atom_indices)
 
     atom_indices = np.sort(np.unique(np.concatenate(chain_atom_indices)))
 
-    graph = get_bondgraph(molecular_system, selection=atom_indices, nodes_name='atom_index',
-            check=False)
+    graph = get_bondgraph(molecular_system, selection=atom_indices, nodes_name='atom_index', check=False)
 
     n_slaves = len(chain_atom_indices)
 

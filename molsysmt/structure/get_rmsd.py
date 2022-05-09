@@ -5,7 +5,7 @@ from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
 
 def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
-          reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
+          reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
           reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT',
           check=True):
 
@@ -17,12 +17,21 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
         structure_indices = digest_structure_indices(structure_indices)
         engine = digest_engine(engine)
 
+        if reference_molecular_system is not None:
+            reference_molecular_system = digest_single_molecular_system(reference_molecular_system)
+
+        if reference_selection is not None:
+            reference_selection = digest_selection(reference_selection, syntaxis)
+
+        if reference_structure_index is not None:
+            reference_structure_index = digest_structure_indices(reference_structure_index)
+
     if engine=='MolSysMT':
 
         from molsysmt.basic import select, get
 
-        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True, check=False)
+        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
         n_atom_indices = atom_indices.shape[0]
         if structure_indices is 'all':
             structure_indices = np.arange(n_structures)
@@ -40,10 +49,10 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
                     selection=reference_selection, syntaxis=syntaxis, check=False)
 
             reference_coordinates = get(reference_molecular_system, element='atom',
-                    indices=reference_atom_indices, structure_indices=reference_frame_index,
+                    indices=reference_atom_indices, structure_indices=reference_structure_index,
                     coordinates=True, check=False)
 
-        coordinates = get(molecular_system, coordinates=True, structure_indices='all')
+        coordinates = get(molecular_system, coordinates=True, structure_indices='all', check=False)
         units = puw.get_unit(coordinates)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
@@ -66,7 +75,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
 
         #tmp_molecular_system = convert(molecular_system, to_form='mdtraj.Trajectory')
 
-        #rmsd_val = mdtraj_rmsd(tmp_molecular_system, ref_item, frame=ref_structure_indices,
+        #rmsd_val = mdtraj_rmsd(tmp_molecular_system, ref_item, structure=ref_structure_indices,
         #                        ref_atom_indices=ref_atom_indices, atom_indices=atom_indices,
         #                        parallel=parallel, precentered=precentered)
 

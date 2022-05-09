@@ -1,20 +1,28 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt import puw
-from molsysmt.basic import convert, select, get
 import numpy as np
 
 def get_sasa (molecular_system, element='atom', selection='all', structure_indices='all', syntaxis='MolSysMT',
-          engine='MDTraj'):
+          engine='MDTraj', check=True):
 
-    engine = digest_engine(engine)
-    element = digest_element(element)
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        element = digest_element(element)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        center_of_selection = digest_selection(center_of_selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
 
     if engine == 'MDTraj':
 
         from mdtraj import shrake_rupley
+        from molsysmt.basic import convert, select, get
 
-        tmp_item = convert(molecular_system, structure_indices=structure_indices, to_form='mdtraj.Trajectory')
+        tmp_item = convert(molecular_system, structure_indices=structure_indices,
+                to_form='mdtraj.Trajectory', check=False)
 
         sasa_array = shrake_rupley(tmp_item, mode='atom') # tiene probe_radius y n_sphere_points
 
