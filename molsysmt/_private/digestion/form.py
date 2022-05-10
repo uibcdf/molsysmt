@@ -4,7 +4,7 @@ from ..exceptions import *
 def digest_form(form):
 
     from molsysmt.api_forms import _dict_forms_lowercase
-    from molsysmt.form import is_file
+    from molsysmt.item import is_file
 
     if is_list_or_tuple(form):
         output = [digest_form(ii) for ii in form]

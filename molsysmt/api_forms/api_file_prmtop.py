@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.file_prmtop.is_file_prmtop import is_file_prmtop as is_form
-from molsysmt.form.file_prmtop.extract import extract
-from molsysmt.form.file_prmtop.add import add
-from molsysmt.form.file_prmtop.append_structures import append_structures
-from molsysmt.form.file_prmtop.get import *
-from molsysmt.form.file_prmtop.set import *
+from molsysmt.item.file_prmtop.is_file_prmtop import is_file_prmtop as is_form
+from molsysmt.item.file_prmtop.extract import extract
+from molsysmt.item.file_prmtop.add import add
+from molsysmt.item.file_prmtop.append_structures import append_structures
+from molsysmt.item.file_prmtop.get import *
+from molsysmt.item.file_prmtop.set import *
 
 form_name='file:prmtop'
 form_type='file'
@@ -66,7 +66,7 @@ form_attributes = {
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
-    from molsysmt.form.file_prmtop import to_file_pdb as file_prmtop_to_file_pdb
+    from molsysmt.item.file_prmtop import to_file_pdb as file_prmtop_to_file_pdb
     from molsysmt.basic import get
 
     coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True, check=False)
@@ -76,7 +76,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_prmtop import to_mdtraj_Topology as file_prmtop_to_mdtraj_Topology
+    from molsysmt.item.file_prmtop import to_mdtraj_Topology as file_prmtop_to_mdtraj_Topology
 
     tmp_item = file_prmtop_to_mdtraj_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -84,7 +84,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_prmtop import to_molsysmt_MolSys as file_prmtop_to_molsysmt_MolSys
+    from molsysmt.item.file_prmtop import to_molsysmt_MolSys as file_prmtop_to_molsysmt_MolSys
     from molsysmt.basic import get
 
     coordinates = get(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True, check=False)
@@ -94,7 +94,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_prmtop import to_molsysmt_Topology as file_prmtop_to_molsysmt_Topology
+    from molsysmt.item.file_prmtop import to_molsysmt_Topology as file_prmtop_to_molsysmt_Topology
 
     tmp_item  = file_prmtop_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -102,7 +102,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_prmtop import to_nglview_NGLWidget as file_prmtop_to_nglview_NGLWidget
+    from molsysmt.item.file_prmtop import to_nglview_NGLWidget as file_prmtop_to_nglview_NGLWidget
     from molsysmt.basic import get
 
     coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, coordinates=True, check=False)
@@ -112,7 +112,7 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_i
 
 def to_openmm_AmberPrmtopFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_prmtop import to_openmm_AmberPrmtopFile as file_prmtop_to_openmm_AmberPrmtopFile
+    from molsysmt.item.file_prmtop import to_openmm_AmberPrmtopFile as file_prmtop_to_openmm_AmberPrmtopFile
 
     tmp_item  = file_prmtop_to_nglview_NGLWidget(item, atom_indices=atom_indices, check=False)
 
@@ -120,7 +120,7 @@ def to_openmm_AmberPrmtopFile(item, molecular_system, atom_indices='all', struct
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_prmtop import to_openmm_Topology as file_prmtop_to_openmm_Topology
+    from molsysmt.item.file_prmtop import to_openmm_Topology as file_prmtop_to_openmm_Topology
 
     tmp_item  = file_prmtop_to_openmm_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -128,7 +128,7 @@ def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structur
 
 def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_prmtop import to_openmm_Modeller as file_prmtop_to_openmm_Modeller
+    from molsysmt.item.file_prmtop import to_openmm_Modeller as file_prmtop_to_openmm_Modeller
     from molsysmt.basic import get
 
     coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices, coordinates=True, check=False)

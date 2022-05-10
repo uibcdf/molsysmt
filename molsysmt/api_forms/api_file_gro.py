@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.file_gro.is_file_gro import is_file_gro as is_form
-from molsysmt.form.file_gro.extract import extract
-from molsysmt.form.file_gro.add import add
-from molsysmt.form.file_gro.append_structures import append_structures
-from molsysmt.form.file_gro.get import *
-from molsysmt.form.file_gro.set import *
+from molsysmt.item.file_gro.is_file_gro import is_file_gro as is_form
+from molsysmt.item.file_gro.extract import extract
+from molsysmt.item.file_gro.add import add
+from molsysmt.item.file_gro.append_structures import append_structures
+from molsysmt.item.file_gro.get import *
+from molsysmt.item.file_gro.set import *
 
 form_name='file:gro'
 form_type='file'
@@ -66,7 +66,7 @@ form_attributes = {
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_molsysmt_MolSys as file_gro_to_molsysmt_MolSys
+    from molsysmt.item.file_gro import to_molsysmt_MolSys as file_gro_to_molsysmt_MolSys
 
     tmp_item = file_gro_to_molsysmt_MolSys(item, atom_indices=atom_indices,
                                           structure_indices=structure_indices, check=False)
@@ -75,7 +75,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_molsysmt_Topology as file_gro_to_molsysmt_Topology
+    from molsysmt.item.file_gro import to_molsysmt_Topology as file_gro_to_molsysmt_Topology
 
     tmp_item = file_gro_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -83,7 +83,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_molsysmt_Structures as file_gro_to_molsysmt_Structures
+    from molsysmt.item.file_gro import to_molsysmt_Structures as file_gro_to_molsysmt_Structures
 
     tmp_item = file_gro_to_molsysmt_Structures(item, atom_indices=atom_indices,
                                                structure_indices=structure_indices, check=False)
@@ -92,7 +92,7 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_mdtraj_Trajectory as file_gro_to_mdtraj_Trajectory
+    from molsysmt.item.file_gro import to_mdtraj_Trajectory as file_gro_to_mdtraj_Trajectory
 
     tmp_item = file_gro_to_mdtraj_Trajectory(item, atom_indices=atom_indices,
                                              structure_indices=structure_indices, check=False)
@@ -101,7 +101,7 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_i
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_mdtraj_Topology as file_gro_to_mdtraj_Topology
+    from molsysmt.item.file_gro import to_mdtraj_Topology as file_gro_to_mdtraj_Topology
 
     tmp_item = file_gro_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -109,7 +109,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_mdtraj_GroTrajectoryFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_mdtraj_GroTrajectoryFile as file_gro_to_mdtraj_GroTrajectoryFile
+    from molsysmt.item.file_gro import to_mdtraj_GroTrajectoryFile as file_gro_to_mdtraj_GroTrajectoryFile
 
     tmp_item = file_gro_to_mdtraj_GroTrajectoryFile(item, atom_indices=atom_indices,
             structure_indices=structure_indices, check=False)
@@ -118,7 +118,7 @@ def to_mdtraj_GroTrajectoryFile(item, molecular_system, atom_indices='all', stru
 
 def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_openmm_Topology as file_gro_to_openmm_Topology
+    from molsysmt.item.file_gro import to_openmm_Topology as file_gro_to_openmm_Topology
 
     tmp_item = file_gro_to_openmm_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -126,7 +126,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_openmm_Modeller as file_gro_to_openmm_Modeller
+    from molsysmt.item.file_gro import to_openmm_Modeller as file_gro_to_openmm_Modeller
 
     tmp_item = file_gro_to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -134,7 +134,7 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_ind
 
 def to_openmm_GromacsGroFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_openmm_GromacsGroFile as file_gro_to_openmm_GromacsGroFile
+    from molsysmt.item.file_gro import to_openmm_GromacsGroFile as file_gro_to_openmm_GromacsGroFile
 
     tmp_item = file_gro_to_openmm_GromacsGroFile(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -142,7 +142,7 @@ def to_openmm_GromacsGroFile(item, molecular_system, atom_indices='all', structu
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_gro import to_nglview_NGLWidget as file_gro_to_nglview_NGLWidget
+    from molsysmt.item.file_gro import to_nglview_NGLWidget as file_gro_to_nglview_NGLWidget
 
     tmp_item = file_gro_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 

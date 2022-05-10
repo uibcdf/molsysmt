@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.mdtraj_HDF5TrajectoryFile.is_mdtraj_HDF5TrajectoryFile import is_mdtraj_HDF5TrajectoryFile as is_form
-from molsysmt.form.mdtraj_HDF5TrajectoryFile.extract import extract
-from molsysmt.form.mdtraj_HDF5TrajectoryFile.add import add
-from molsysmt.form.mdtraj_HDF5TrajectoryFile.append_structures import append_structures
-from molsysmt.form.mdtraj_HDF5TrajectoryFile.get import *
-from molsysmt.form.mdtraj_HDF5TrajectoryFile.set import *
+from molsysmt.item.mdtraj_HDF5TrajectoryFile.is_mdtraj_HDF5TrajectoryFile import is_mdtraj_HDF5TrajectoryFile as is_form
+from molsysmt.item.mdtraj_HDF5TrajectoryFile.extract import extract
+from molsysmt.item.mdtraj_HDF5TrajectoryFile.add import add
+from molsysmt.item.mdtraj_HDF5TrajectoryFile.append_structures import append_structures
+from molsysmt.item.mdtraj_HDF5TrajectoryFile.get import *
+from molsysmt.item.mdtraj_HDF5TrajectoryFile.set import *
 
 form_name='mdtraj.HDF5TrajectoryFile'
 form_type='class'
@@ -66,7 +66,7 @@ form_attributes = {
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_HDF5TrajectoryFile import to_mdtraj_Topology as mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology
+    from molsysmt.item.mdtraj_HDF5TrajectoryFile import to_mdtraj_Topology as mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology
 
     tmp_item = mdtraj_HDF5TrajectoryFile_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -74,7 +74,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_HDF5TrajectoryFile import to_openmm_Topology as mdtraj_HDF5TrajectoryFile_to_openmm_Topology
+    from molsysmt.item.mdtraj_HDF5TrajectoryFile import to_openmm_Topology as mdtraj_HDF5TrajectoryFile_to_openmm_Topology
 
     tmp_item = mdtraj_HDF5TrajectoryFile_to_openmm_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -82,7 +82,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_HDF5TrajectoryFile import to_molsysmt_MolSys as mdtraj_HDF5TrajectoryFile_to_molsysmt_MolSys
+    from molsysmt.item.mdtraj_HDF5TrajectoryFile import to_molsysmt_MolSys as mdtraj_HDF5TrajectoryFile_to_molsysmt_MolSys
 
     tmp_item = mdtraj_HDF5TrajectoryFile_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -90,7 +90,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_HDF5TrajectoryFile import to_molsysmt_Topology as mdtraj_HDF5TrajectoryFile_to_molsysmt_Topology
+    from molsysmt.item.mdtraj_HDF5TrajectoryFile import to_molsysmt_Topology as mdtraj_HDF5TrajectoryFile_to_molsysmt_Topology
 
     tmp_item = mdtraj_HDF5TrajectoryFile_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -98,7 +98,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_HDF5TrajectoryFile import to_molsysmt_Structures as mdtraj_HDF5TrajectoryFile_to_molsysmt_Structures
+    from molsysmt.item.mdtraj_HDF5TrajectoryFile import to_molsysmt_Structures as mdtraj_HDF5TrajectoryFile_to_molsysmt_Structures
 
     tmp_item = mdtraj_HDF5TrajectoryFile_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 

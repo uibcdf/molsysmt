@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.file_msmpk.is_file_msmpk import is_file_msmpk as is_form
-from molsysmt.form.file_msmpk.extract import extract
-from molsysmt.form.file_msmpk.add import add
-from molsysmt.form.file_msmpk.append_structures import append_structures
-from molsysmt.form.file_msmpk.get import *
-from molsysmt.form.file_msmpk.set import *
+from molsysmt.item.file_msmpk.is_file_msmpk import is_file_msmpk as is_form
+from molsysmt.item.file_msmpk.extract import extract
+from molsysmt.item.file_msmpk.add import add
+from molsysmt.item.file_msmpk.append_structures import append_structures
+from molsysmt.item.file_msmpk.get import *
+from molsysmt.item.file_msmpk.set import *
 
 form_name='file:msmpk'
 form_type='file'
@@ -67,7 +67,7 @@ form_attributes = {
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_msmpk import to_molsysmt_MolSys as file_msmpk_to_molsysmt_MolSys
+    from molsysmt.item.file_msmpk import to_molsysmt_MolSys as file_msmpk_to_molsysmt_MolSys
 
     tmp_item = file_msmpk_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -75,7 +75,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_msmpk import to_molsysmt_Topology as file_msmpk_to_molsysmt_Topology
+    from molsysmt.item.file_msmpk import to_molsysmt_Topology as file_msmpk_to_molsysmt_Topology
 
     tmp_item = file_msmpk_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -83,7 +83,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_msmpk import to_molsysmt_Structures as file_msmpk_to_molsysmt_Structures
+    from molsysmt.item.file_msmpk import to_molsysmt_Structures as file_msmpk_to_molsysmt_Structures
 
     tmp_item = file_msmpk_to_molsysmt_Structures(item, atom_indices=atom_indices, check=False)
 
@@ -91,7 +91,7 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_msmpk import to_nglview_NGLWidget as file_msmpk_to_nglview_NGLWidget
+    from molsysmt.item.file_msmpk import to_nglview_NGLWidget as file_msmpk_to_nglview_NGLWidget
 
     tmp_item = file_msmpk_to_molsysmt_nglview_NGLWidget(item, atom_indices=atom_indices,
             structure_indices=structure_indices, check=False)

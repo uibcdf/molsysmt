@@ -64,7 +64,7 @@ def to_openmm_GromacsTopFile(item, molecular_system=None, atom_indices='all', st
 
 def to_openmm_Topology(item, molecular_system=None, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.formats.classes.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
+    from molsysmt.itemats.classes.api_openmm_Topology import to_openmm_Topology as openmm_Topology_to_openmm_Topology
 
     tmp_item = to_openmm_GromacsTopFile(item)
     tmp_item = tmp_item.topology

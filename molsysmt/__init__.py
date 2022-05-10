@@ -16,25 +16,24 @@ __github_issues_web__ = __github_web__ + '/issues'
 
 from ._pyunitwizard import puw as puw
 
-from .native.molsys import MolSys
-
-from . import form
 from .basic import *
 
+from . import item
+from . import element
+
 from . import topology
-from . import help
-from . import build
 from . import structure
+from . import build
+
+from . import help
 from . import pbc
 from . import physchem
 from . import molecular_mechanics
 from . import molecular_dynamics
 from . import hbonds
-#
-from . import element
-from . import item
 from . import thirds
 from .demo import demo
+
 
 # Adding molsysmt to nglview
 

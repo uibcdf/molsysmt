@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.networkx_Graph.is_networkx_Graph import is_networkx_Graph as is_form
-from molsysmt.form.networkx_Graph.extract import extract
-from molsysmt.form.networkx_Graph.add import add
-from molsysmt.form.networkx_Graph.append_structures import append_structures
-from molsysmt.form.networkx_Graph.get import *
-from molsysmt.form.networkx_Graph.set import *
+from molsysmt.item.networkx_Graph.is_networkx_Graph import is_networkx_Graph as is_form
+from molsysmt.item.networkx_Graph.extract import extract
+from molsysmt.item.networkx_Graph.add import add
+from molsysmt.item.networkx_Graph.append_structures import append_structures
+from molsysmt.item.networkx_Graph.get import *
+from molsysmt.item.networkx_Graph.set import *
 
 import numpy as np
 
@@ -65,34 +65,4 @@ form_attributes = {
     'damping' : False,
 
 }
-
-def extract(item, atom_indices='all', structure_indices='all'):
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        tmp_item = item.copy()
-    else:
-        tmp_item = item.subgraph(atom_indices).copy()
-
-    return tmp_item
-
-def merge(item_1, item_2):
-
-    raise NotImplementedError
-
-def add(to_item, item):
-
-    raise NotImplementedError
-
-def append_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError()
-
-def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError()
-
-###### Get
-
-## system
-
 

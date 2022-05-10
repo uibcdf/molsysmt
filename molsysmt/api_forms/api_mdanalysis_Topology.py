@@ -1,12 +1,12 @@
 from molsysmt._private.exceptions import *
 import numpy as np
 
-from molsysmt.form.mdanalysis_Topology.is_mdanalysis_Topology import is_mdanalysis_Topology as is_form
-from molsysmt.form.mdanalysis_Topology.extract import extract
-from molsysmt.form.mdanalysis_Topology.add import add
-from molsysmt.form.mdanalysis_Topology.append_structures import append_structures
-from molsysmt.form.mdanalysis_Topology.get import *
-from molsysmt.form.mdanalysis_Topology.set import *
+from molsysmt.item.mdanalysis_Topology.is_mdanalysis_Topology import is_mdanalysis_Topology as is_form
+from molsysmt.item.mdanalysis_Topology.extract import extract
+from molsysmt.item.mdanalysis_Topology.add import add
+from molsysmt.item.mdanalysis_Topology.append_structures import append_structures
+from molsysmt.item.mdanalysis_Topology.get import *
+from molsysmt.item.mdanalysis_Topology.set import *
 
 form_name='mdanalysis.Topology'
 form_type='class'
