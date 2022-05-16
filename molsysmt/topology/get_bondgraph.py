@@ -1,7 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from networkx import Graph
-from molsysmt.basic import get
 
 def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', syntaxis='MolSysMT',
               to_form='networkx.Graph', check=True):
@@ -14,9 +13,13 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
     # nodes_name en ['atom_index', 'short_string', 'long_string']
 
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
+
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        to_form = digest_to_form(to_form)
+
+    from molsysmt.basic import get
 
     tmp_molecular_system = None
 

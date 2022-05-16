@@ -12,7 +12,6 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
         syntaxis = digest_syntaxis(syntaxis)
         selection = digest_selection(selection, syntaxis)
         structure_indices = digest_structure_indices(structure_indices)
-        engine = digest_engine(engine)
 
     from molsysmt.basic import get, set, select, copy
 

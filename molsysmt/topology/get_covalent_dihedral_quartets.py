@@ -1,18 +1,18 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 import numpy as np
-from molsysmt.basic import get
 
 def get_covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_blocks=False, selection='all',
                                syntaxis='MolSysMT', check=True):
 
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
 
-    from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
-    from molsysmt.topology.get_covalent_chains import get_covalent_chains
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+
+    from molsysmt.basic import get
+    from . import get_covalent_blocks, get_covalent_chains
 
     if dihedral_angle is not None:
         if dihedral_angle=='phi':
