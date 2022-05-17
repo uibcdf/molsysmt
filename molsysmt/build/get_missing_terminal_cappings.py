@@ -1,7 +1,7 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def get_missing_heavy_atoms(molecular_system, selection='all', syntaxis='MolSysMT', engine='PDBFixer', check=True):
+def get_missing_terminal_cappings(molecular_system, selection='all', syntaxis='MolSysMT', engine='PDBFixer', check=True):
 
     if check:
 
@@ -22,17 +22,15 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntaxis='MolSysM
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()
+        missingAtoms = tmp_item.missingTerminals
 
-        for group, atoms in temp_molecular_system.missingAtoms.items():
-            original_group_index = group_indices_in_selecton[group.index]
-            output[original_group_index]=[]
-            for atom in atoms:
-                output[original_group_index].append(atom.name)
+        for group, atoms in temp_molecular_system.missingTerminals.items():
+            original_group_index = group_indices_in_selection[group.index]
+            output[original_group_index]=atoms
 
     else:
 
         raise NotImplementedError
-
 
     return output
 

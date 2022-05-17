@@ -21,9 +21,7 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
 
     from molsysmt.basic import get
 
-    tmp_molecular_system = None
-
-    to_form = digest_to_form(to_form)
+    output = None
 
     if to_form == 'networkx.Graph':
 
@@ -42,11 +40,11 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
 
             raise NotImplementedError
 
-        tmp_molecular_system = G
+        output = G
 
     else:
 
         raise NotImplementedError
 
-    return tmp_molecular_system
+    return output
 

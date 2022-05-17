@@ -1,10 +1,14 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def get_non_standard_residues(molecular_system, selection='all', engine='PDBFixer',
-                            syntaxis='MolSysMT'):
+def get_non_standard_residues(molecular_system, selection='all', syntaxis='MolSysMT', engine='PDBFixer'):
 
-    engine = digest_engine(engine)
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        engine = digest_engine(engine)
 
     output = {}
 
@@ -12,22 +16,15 @@ def get_non_standard_residues(molecular_system, selection='all', engine='PDBFixe
 
         from molsysmt.basic import convert, get_form, select
 
-        correction_group_indices = False
-        if selection is not 'all':
-            group_indices_in_selection = select(molecular_system, element='group', selection=selection)
-            correction_group_indices = True
+        group_indices_in_selection = select(molecular_system, element='group', selection=selection, check=False)
 
-        tmp_item = convert(molecular_system, selection=selection, to_form="pdbfixer.PDBFixer",
-                           syntaxis=syntaxis)
+        temp_molecular_system = convert(molecular_system, selection=selection, to_form="pdbfixer.PDBFixer", syntaxis=syntaxis)
 
-        tmp_item.findNonstandardResidues()
+        temp_molecular_system.findNonstandardResidues()
 
         for group, substitution in tmp_item.nonstandardResidues:
-            if correction_group_indices:
-                group_index = group_indices_in_selection[group.index]
-            else:
-                group_index = group.index
-            output[group_index]=substitution.name
+                original_group_index = group_indices_in_selection[group.index]
+            output[original_group_index]=substitution.name
 
     else:
 

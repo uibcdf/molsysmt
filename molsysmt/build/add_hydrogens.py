@@ -1,9 +1,9 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def add_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False):
+def add_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', check=True):
 
-    """add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM', verbose=False)
+    """add_missing_hydrogens(item, pH=7.4, forcefield='AMBER99SB-ILDN', engine='OpenMM')
     The missing hydrogens of a molecular model are added. This method does not remove any hydrogen
     already present.
     Regarding the protonation states of the aminoacids the documentation corresponding to the
@@ -26,8 +26,6 @@ def add_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine=
               `OpenMM Api Guide
               <http://docs.openmm.org/development/api-python/generated/simtk.openmm.app.modeller.Modeller.html#simtk.openmm.app.modeller.Modeller.addHydrogens>`_.
             - 'PDBFixer': The method pdbfixer.PDBFixer.addMissingHydrogens() is included in the workflow. See the `PDBFixer Manual <http://htmlpreview.github.io/?https://raw.github.com/pandegroup/pdbfixer/master/Manual.html>`_.
-    verbose: bool, default: False
-        The method prints out useful information if verbose=`True`.
     Returns
     -------
     item : Molecular model in the same form as input `item`.
@@ -41,39 +39,32 @@ def add_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN', engine=
     -----
     """
 
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        engine = digest_engine(engine)
 
     from molsysmt.basic import convert, get_form
 
-    form = get_form(molecular_system)
-    engine = digest_engine(engine)
+    output_molecular_system = None
+    form_in = get_form(molecular_system)
+    form_out = form_in
 
     if engine=="OpenMM":
 
-        tmp_item = convert(molecular_system, to_form="openmm.Modeller")
-        log_residues_changed = tmp_item.addHydrogens(pH=pH)
-
-        if verbose:
-            print('Missing hydrogens added.')
-            ii = 0
-            for residue in item.topology.residues():
-                if log_residues_changed[ii] is not None:
-                    print('{}-{} to {}-{}'.format(residue.name, residue.index,
-                                                   log_residues_changed[ii], residue.index))
-                ii+=1
+        temp_molecular_system = convert(molecular_system, to_form="openmm.Modeller", check=False)
+        log_residues_changed = temp_molecular_system.addHydrogens(pH=pH)
 
     elif engine=='PDBFixer':
 
-        tmp_item = convert(molecular_system, to_form="pdbfixer.PDBFixer")
-        tmp_item.addMissingHydrogens(pH=pH)
-
-        if verbose:
-            print('Missing hydrogens added (PDBFixer gives no details).')
+        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", check=False)
+        temp_molecular_system.addMissingHydrogens(pH=pH)
 
     else:
 
         raise NotImplementedError
 
-    tmp_item = convert(tmp_item, to_form=form)
+    output_molecular_system = convert(temp_molecular_system, to_form=form_out, check=False)
 
-    return tmp_item
+    return output_molecular_system
 

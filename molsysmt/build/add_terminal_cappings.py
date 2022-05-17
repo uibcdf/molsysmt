@@ -1,26 +1,35 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def add_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, selection='all',
-                         syntaxis='MolSysMT', engine='PDBFixer'):
+def add_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, pH=7.4, selection='all',
+                         syntaxis='MolSysMT', engine='PDBFixer', check=True):
+
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        engine = digest_engine(engine)
 
     from molsysmt.basic import get_form, convert, get, select
 
+    output_molecular_system = None
     form_in = get_form(molecular_system)
+    form_out = form_in
 
     if engine is 'PDBFixer':
 
         from pdbfixer.pdbfixer import Sequence
 
-        tmp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer')
-        atom_indices_in_selection = select(tmp_molecular_system, selection=selection, syntaxis=syntaxis)
-        atom_indices_in_components = get(tmp_molecular_system, element='component', selection='component_type in ["peptide", "protein"] \
-                                         and atom_index in @atom_indices_in_selection', atom_index=True)
+        temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer', check=False)
+        atom_indices_in_selection = select(temp_molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+        atom_indices_in_components = get(temp_molecular_system, element='component', selection='component_type in ["peptide", "protein"] \
+                                         and atom_index in @atom_indices_in_selection', atom_index=True, check=False)
 
         for atom_indices_in_component in atom_indices_in_components:
 
-            chain_id = get(tmp_molecular_system, element='chain', selection='atom_index in @atom_indices_in_component', chain_id=True)
-            groups_sequence = get(tmp_molecular_system, element='group', selection='atom_index in @atom_indices_in_component', group_name=True)
+            chain_id = get(temp_molecular_system, element='chain', selection='atom_index in @atom_indices_in_component', chain_id=True, check=False)
+            groups_sequence = get(temp_molecular_system, element='group', selection='atom_index in @atom_indices_in_component', group_name=True, check=False)
 
             groups_sequence = list(groups_sequence)
 
@@ -32,23 +41,23 @@ def add_terminal_cappings(molecular_system, N_terminal=None, C_terminal=None, se
 
                 groups_sequence = groups_sequence+[C_terminal]
 
-            tmp_molecular_system.sequences.append(Sequence(chain_id, groups_sequence))
+            temp_molecular_system.sequences.append(Sequence(chain_id, groups_sequence))
 
-        tmp_molecular_system.findMissingResidues()
-        tmp_molecular_system.findMissingAtoms()
-        tmp_molecular_system.addMissingAtoms()
+        temp_molecular_system.findMissingResidues()
+        temp_molecular_system.findMissingAtoms()
+        temp_molecular_system.addMissingAtoms()
 
-        n_hs = get(tmp_molecular_system, element='atom', selection='atom_type=="H"', n_atoms=True)
+        n_hs = get(temp_molecular_system, element='atom', selection='atom_type=="H"', n_atoms=True, check=False)
 
         if n_hs > 0:
 
-            tmp_molecular_system.addMissingHydrogens(pH=7.4)
-
-        tmp_molecular_system = convert(tmp_molecular_system, to_form=form_in)
+            temp_molecular_system.addMissingHydrogens(pH)
 
     else:
 
         raise NotImplementedError
 
-    return tmp_molecular_system
+    output_molecular_system = convert(output_molecular_system, to_form=form_out, check=False)
+
+    return output_molecular_system
 
