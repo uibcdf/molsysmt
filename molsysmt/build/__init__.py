@@ -7,7 +7,7 @@ from .solvate import solvate
 from .mutate import mutate
 from .remove_solvent import remove_solvent
 from .get_missing_heavy_atoms import get_missing_heavy_atoms
-from .get_missing_terminal_cappings import get_missing_terminals
+from .get_missing_terminal_cappings import get_missing_terminal_cappings
 from .add_heavy_atoms import add_heavy_atoms
 from .get_non_standard_residues import get_non_standard_residues
 

@@ -23,7 +23,7 @@ def get_non_standard_residues(molecular_system, selection='all', syntaxis='MolSy
         temp_molecular_system.findNonstandardResidues()
 
         for group, substitution in tmp_item.nonstandardResidues:
-                original_group_index = group_indices_in_selection[group.index]
+            original_group_index = group_indices_in_selection[group.index]
             output[original_group_index]=substitution.name
 
     else:

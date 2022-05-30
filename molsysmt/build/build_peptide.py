@@ -9,7 +9,6 @@ def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP', c
         engine = digest_engine(engine)
         to_form = digest_to_form(to_form)
 
-
     if engine=="LEaP":
 
         from molsysmt.basic import convert
@@ -34,7 +33,7 @@ def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP', c
         tleap = TLeap()
 
         # 'AMBER14'
-        tleap.load_parameters(["leaprc.protein.ff14SB"])
+        tleap.load_parameters("leaprc.protein.ff14SB")
 
         # implicit_solvent 'OBC1'
         tleap.set_global_parameter(PBRadii='mbondi2')
@@ -45,7 +44,7 @@ def build_peptide (molecular_system, to_form='molsysmt.MolSys', engine='LEaP', c
 
         tleap.save_unit('peptide', temp_prmtop)
 
-        errors=tleap.run(working_directory=working_directory, verbose=verbose)
+        errors=tleap.run(working_directory=working_directory, verbose=False)
 
         del(tleap)
 
