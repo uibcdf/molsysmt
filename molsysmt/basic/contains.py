@@ -13,7 +13,7 @@ def _evaluation(condition, n_in_system):
             elif condition==False and n_in_system>0:
                 output = False
         elif type(condition)==int:
-            if condition>in_system:
+            if condition>n_in_system:
                 output = False
 
     return output
@@ -67,7 +67,7 @@ def contains(molecular_system, selection='all', syntaxis='MolSysMT',
 
     if proteins is not None:
 
-        n_in_system = get(molecular_system, n_peptides=True, check=False)
+        n_in_system = get(molecular_system, n_proteins=True, check=False)
 
         if not _evaluation(proteins, n_in_system):
             return False

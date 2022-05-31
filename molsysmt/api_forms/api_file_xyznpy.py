@@ -1,4 +1,22 @@
 from molsysmt._private.exceptions import *
+
+from molsysmt.item.file_xyznpy.is_file_xyznpy import is_file_xyznpy as is_form
+from molsysmt.item.file_xyznpy.extract import extract
+from molsysmt.item.file_xyznpy.add import add
+from molsysmt.item.file_xyznpy.append_structures import append_structures
+from molsysmt.item.file_xyznpy.get import *
+from molsysmt.item.file_xyznpy.set import *
+
+form_name='XYZ'
+form_type='class'
+form_info = ["",""]
+
+form_name='file:xyznpy'
+from_type='file'
+form_info = ["XYZ file format like saved with Numpy",""]
+
+
+from molsysmt._private.exceptions import *
 from molsysmt.api_forms.common_gets import *
 import numpy as np
 from molsysmt.native.molecular_system import molecular_system_components
@@ -7,12 +25,7 @@ from molsysmt import puw
 
 form_name='file:xyznpy'
 from_type='file'
-
-is_form = {
-        'file:xyznpy': form_name
-    }
-
-info = ["XYZ file format like saved with Numpy",""]
+form_info = ["XYZ file format like saved with Numpy",""]
 
 has = molecular_system_components.copy()
 for ii in ['coordinates']:
