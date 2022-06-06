@@ -16,7 +16,7 @@ Methods and wrappers to create and solvate boxes
 def solvate (molecular_system, box_geometry="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', num_anions="neutralize", cation='Na+', num_cations="neutralize",
              ionic_strength='0.0 molar', engine="LEaP",
-             to_form= None, logfile=False, verbose=False):
+             to_form= None, logfile=False, check=True):
 
     """solvate(item, geometry=None, water=None, engine=None)
     Methods and wrappers to create and solvate boxes
@@ -39,10 +39,14 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
     -----
     """
 
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        engine = digest_engine(engine)
+        to_form = digest_to_form(to_form)
+
     from molsysmt.basic import get_form, convert
 
-    engine = digest_engine(engine)
-    to_form = digest_to_form(to_form)
     if to_form is None:
         to_form = get_form(molecular_system)
 
@@ -53,8 +57,8 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         clearance = puw.convert(clearance, to_form='openmm.unit')
         ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
 
-        modeller = convert(molecular_system, to_form='openmm.Modeller')
-        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
+        modeller = convert(molecular_system, to_form='openmm.Modeller', check=False)
+        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics', check=False)
         parameters = molecular_mechanics.get_openmm_System_parameters()
         forcefield = molecular_mechanics.to_openmm_ForceField()
 
@@ -90,7 +94,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
                                ionicStrength=ionic_strength, positiveIon=cation,
                                negativeIon=anion)
 
-        tmp_item = convert(modeller, to_form=to_form)
+        tmp_item = convert(modeller, to_form=to_form, check=False)
 
         del(modeller)
 
@@ -103,7 +107,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         clearance = puw.convert(clearance, to_form='openmm.unit')
         ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
 
-        pdbfixer = convert(molecular_system, to_form='pdbfixer.PDBFixer')
+        pdbfixer = convert(molecular_system, to_form='pdbfixer.PDBFixer', check=False)
         max_size = max(max((pos[i] for pos in pdbfixer.positions))-min((pos[i] for pos in pdbfixer.positions)) for i in range(3))
 
         box_size = None
@@ -128,7 +132,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
                             ionicStrength=ionic_strength, positiveIon=cation,
                             negativeIon=anion)
 
-        tmp_item = convert(pdbfixer, to_form=to_form)
+        tmp_item = convert(pdbfixer, to_form=to_form, check=False)
 
         del(pdbfixer)
 
@@ -150,23 +154,23 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
             #if verbose:
             #    print("All Hydrogen atoms were removed to be added by LEaP\n\n")
 
-        indices_NME_C = select(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"')
+        indices_NME_C = select(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"', check=False)
         with_NME_C = (len(indices_NME_C)>0)
 
         if with_NME_C:
-            _set(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3')
+            _set(molecular_system, element='atom', selection='group_name=="NME" and atom_name=="C"', atom_name='CH3', check=False)
 
         current_directory = getcwd()
         working_directory = temp_directory()
         pdbfile_in = temp_filename(dir=working_directory, extension='pdb')
-        _ = convert(molecular_system, to_form=pdbfile_in)
+        _ = convert(molecular_system, to_form=pdbfile_in, check=False)
         #replace_HETATM_from_capping_atoms(pdbfile_in)
 
         tmp_prmtop = temp_filename(dir=working_directory, extension='prmtop')
         tmp_inpcrd = tmp_prmtop.replace('prmtop','inpcrd')
         tmp_logfile = tmp_prmtop.replace('prmtop','leap.log')
 
-        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
+        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics', check=False)
         parameters = molecular_mechanics.get_leap_parameters()
         forcefield = parameters['forcefield']
         water = parameters['water_model']
@@ -179,7 +183,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         elif water =='TIP4P':
             solvent_model='TIP4PBOX'
 
-        if verbose:
+        if False:
             print('Working directory:', working_directory)
 
         tleap = TLeap()
@@ -200,7 +204,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
             tleap.add_ions('MolecularSystem', cation, num_ions=num_cations, replace_solvent=True)
 
         tleap.save_unit('MolecularSystem', tmp_prmtop)
-        errors=tleap.run(working_directory=working_directory, verbose=verbose)
+        errors=tleap.run(working_directory=working_directory, verbose=False)
 
         del(tleap)
 

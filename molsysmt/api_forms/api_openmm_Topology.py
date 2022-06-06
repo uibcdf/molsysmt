@@ -63,7 +63,7 @@ form_attributes = {
 }
 
 
-def to_molsysmt_Topology(item, molecular_system, atom_indices='all'):
+def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
     from molsysmt.item.openmm_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
 

@@ -1,6 +1,6 @@
 HEADER    ACTIN BINDING                           15-JAN-97   1VII              
-TITLE     THERMOSTABLE SUBDOMAIN FROM CHICKEN VILLIN HEADPIECE, NMR,            
-TITLE    2 MINIMIZED AVERAGE STRUCTURE                                          
+TITLE     THERMOSTABLE SUBDOMAIN FROM CHICKEN VILLIN HEADPIECE, NMR, MINIMIZED  
+TITLE    2 AVERAGE STRUCTURE                                                    
 COMPND    MOL_ID: 1;                                                            
 COMPND   2 MOLECULE: VILLIN;                                                    
 COMPND   3 CHAIN: A;                                                            
@@ -24,12 +24,12 @@ SOURCE  14 EXPRESSION_SYSTEM_PLASMID: PVHP42-76B
 KEYWDS    ACTIN BINDING, 3 HELIX MOTIF, THERMOSTABLE SUBDOMAIN                  
 EXPDTA    SOLUTION NMR                                                          
 AUTHOR    C.J.MCKNIGHT                                                          
+REVDAT   4   02-MAR-22 1VII    1       REMARK                                   
 REVDAT   3   24-FEB-09 1VII    1       VERSN                                    
 REVDAT   2   01-APR-03 1VII    1       JRNL                                     
 REVDAT   1   12-AUG-97 1VII    0                                                
 JRNL        AUTH   C.J.MCKNIGHT,P.T.MATSUDAIRA,P.S.KIM                          
-JRNL        TITL   NMR STRUCTURE OF THE 35-RESIDUE VILLIN HEADPIECE             
-JRNL        TITL 2 SUBDOMAIN.                                                   
+JRNL        TITL   NMR STRUCTURE OF THE 35-RESIDUE VILLIN HEADPIECE SUBDOMAIN.  
 JRNL        REF    NAT.STRUCT.BIOL.              V.   4   180 1997              
 JRNL        REFN                   ISSN 1072-8368                               
 JRNL        PMID   9164455                                                      
@@ -37,8 +37,7 @@ JRNL        DOI    10.1038/NSB0397-180
 REMARK   1                                                                      
 REMARK   1 REFERENCE 1                                                          
 REMARK   1  AUTH   C.J.MCKNIGHT,D.S.DOERING,P.T.MATSUDAIRA,P.S.KIM              
-REMARK   1  TITL   A THERMOSTABLE 35-RESIDUE SUBDOMAIN WITHIN VILLIN            
-REMARK   1  TITL 2 HEADPIECE                                                    
+REMARK   1  TITL   A THERMOSTABLE 35-RESIDUE SUBDOMAIN WITHIN VILLIN HEADPIECE  
 REMARK   1  REF    J.MOL.BIOL.                   V. 260   126 1996              
 REMARK   1  REFN                   ISSN 0022-2836                               
 REMARK   2                                                                      
@@ -49,18 +48,19 @@ REMARK   3   PROGRAM     : X-PLOR
 REMARK   3   AUTHORS     : BRUNGER                                              
 REMARK   3                                                                      
 REMARK   3  OTHER REFINEMENT REMARKS: THE X-PLOR (R6)1/6 NOE POTENTIAL WAS      
-REMARK   3  USED FOR NOE'S INVOLVING NON-STEREOSPECIFICALLY ASSIGNED            
-REMARK   3  METHYL, METHYLENE, AND AROMATIC PROTONS. NO ATTRACTIVE              
-REMARK   3  POTENTIALS WERE USED IN CALCULATING THE STRUCTURES. THE VAN         
-REMARK   3  DER WAALS CUTOFF USED FOR THE X-PLOR REPEL FUNCTION WAS 0.75        
-REMARK   3  ANGSTROMS. AFTER DISTANCE GEOMETRY AND REGULARIZATION, EACH         
-REMARK   3  STRUCTURE WAS SUBJECTED TO ONE ROUND OF SIMULATED ANNEALING         
-REMARK   3  FROM 2000K TO 100K OVER 2000 STEPS. THIS IS THE AVERAGE OF 29       
-REMARK   3  STRUCTURES MINIMIZED USING ONLY REPULSIVE POTENTIALS.               
+REMARK   3  USED FOR NOE'S INVOLVING NON-STEREOSPECIFICALLY ASSIGNED METHYL,    
+REMARK   3  METHYLENE, AND AROMATIC PROTONS. NO ATTRACTIVE POTENTIALS WERE      
+REMARK   3  USED IN CALCULATING THE STRUCTURES. THE VAN DER WAALS CUTOFF        
+REMARK   3  USED FOR THE X-PLOR REPEL FUNCTION WAS 0.75 ANGSTROMS. AFTER        
+REMARK   3  DISTANCE GEOMETRY AND REGULARIZATION, EACH STRUCTURE WAS            
+REMARK   3  SUBJECTED TO ONE ROUND OF SIMULATED ANNEALING FROM 2000K TO 100K    
+REMARK   3  OVER 2000 STEPS. THIS IS THE AVERAGE OF 29 STRUCTURES MINIMIZED     
+REMARK   3  USING ONLY REPULSIVE POTENTIALS.                                    
 REMARK   4                                                                      
-REMARK   4 1VII COMPLIES WITH FORMAT V. 3.15, 01-DEC-08                         
+REMARK   4 1VII COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
 REMARK 100                                                                      
 REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY BNL.                                
+REMARK 100 THE DEPOSITION ID IS D_1000177045.                                   
 REMARK 210                                                                      
 REMARK 210 EXPERIMENTAL DETAILS                                                 
 REMARK 210  EXPERIMENT TYPE                : NMR                                
@@ -70,8 +70,8 @@ REMARK 210  IONIC STRENGTH                 : NULL
 REMARK 210  PRESSURE                       : NULL                               
 REMARK 210  SAMPLE CONTENTS                : NULL                               
 REMARK 210                                                                      
-REMARK 210  NMR EXPERIMENTS CONDUCTED      : NOESY, CLEANTOCSY, DQFCOSY,        
-REMARK 210                                   HSQC, ECOSY, HMQCJ                 
+REMARK 210  NMR EXPERIMENTS CONDUCTED      : NOESY; CLEANTOCSY; DQFCOSY;        
+REMARK 210                                   HSQC; ECOSY; HMQCJ                 
 REMARK 210  SPECTROMETER FIELD STRENGTH    : 500 MHZ                            
 REMARK 210  SPECTROMETER MODEL             : AMX500                             
 REMARK 210  SPECTROMETER MANUFACTURER      : BRUKER                             
@@ -84,8 +84,8 @@ REMARK 210
 REMARK 210 CONFORMERS, NUMBER CALCULATED   : 100                                
 REMARK 210 CONFORMERS, NUMBER SUBMITTED    : 1                                  
 REMARK 210 CONFORMERS, SELECTION CRITERIA  : NO NOE VIOLATIONS > 0.4            
-REMARK 210                                   ANGSTROMS, NO ANGLE VIOLATION      
-REMARK 210                                   > 5 DEG                            
+REMARK 210                                   ANGSTROMS, NO ANGLE VIOLATION >    
+REMARK 210                                   5 DEG                              
 REMARK 210                                                                      
 REMARK 210 BEST REPRESENTATIVE CONFORMER IN THIS ENSEMBLE : NULL                
 REMARK 210                                                                      
@@ -96,6 +96,25 @@ REMARK 215 THE COORDINATES IN THIS ENTRY WERE GENERATED FROM SOLUTION
 REMARK 215 NMR DATA.  PROTEIN DATA BANK CONVENTIONS REQUIRE THAT                
 REMARK 215 CRYST1 AND SCALE RECORDS BE INCLUDED, BUT THE VALUES ON              
 REMARK 215 THESE RECORDS ARE MEANINGLESS.                                       
+REMARK 300                                                                      
+REMARK 300 BIOMOLECULE: 1                                                       
+REMARK 300 SEE REMARK 350 FOR THE AUTHOR PROVIDED AND/OR PROGRAM                
+REMARK 300 GENERATED ASSEMBLY INFORMATION FOR THE STRUCTURE IN                  
+REMARK 300 THIS ENTRY. THE REMARK MAY ALSO PROVIDE INFORMATION ON               
+REMARK 300 BURIED SURFACE AREA.                                                 
+REMARK 350                                                                      
+REMARK 350 COORDINATES FOR A COMPLETE MULTIMER REPRESENTING THE KNOWN           
+REMARK 350 BIOLOGICALLY SIGNIFICANT OLIGOMERIZATION STATE OF THE                
+REMARK 350 MOLECULE CAN BE GENERATED BY APPLYING BIOMT TRANSFORMATIONS          
+REMARK 350 GIVEN BELOW.  BOTH NON-CRYSTALLOGRAPHIC AND                          
+REMARK 350 CRYSTALLOGRAPHIC OPERATIONS ARE GIVEN.                               
+REMARK 350                                                                      
+REMARK 350 BIOMOLECULE: 1                                                       
+REMARK 350 AUTHOR DETERMINED BIOLOGICAL UNIT: MONOMERIC                         
+REMARK 350 APPLY THE FOLLOWING TO CHAINS: A                                     
+REMARK 350   BIOMT1   1  1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT2   1  0.000000  1.000000  0.000000        0.00000            
+REMARK 350   BIOMT3   1  0.000000  0.000000  1.000000        0.00000            
 REMARK 500                                                                      
 REMARK 500 GEOMETRY AND STEREOCHEMISTRY                                         
 REMARK 500 SUBTOPIC: CLOSE CONTACTS                                             
@@ -750,5 +769,5 @@ ATOM    594  HE1 PHE A  76       8.404 -12.974   5.540  1.00  6.17           H
 ATOM    595  HE2 PHE A  76      10.822  -9.507   6.326  1.00  6.53           H  
 ATOM    596  HZ  PHE A  76      10.604 -11.962   6.103  1.00  6.80           H  
 TER     597      PHE A  76                                                      
-MASTER      103    0    0    3    0    0    2    6  596    1    0    3          
+MASTER      122    0    0    3    0    0    2    6  295    1    0    3          
 END                                                                             

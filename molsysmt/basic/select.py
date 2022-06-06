@@ -4,7 +4,7 @@ import numpy as np
 from molsysmt._private.selection import selection_is_all
 from molsysmt._private.strings import get_parenthesis
 from re import findall
-from inspect import stack
+from inspect import stack, getargvalues
 
 def select_standard(molecular_system, selection, syntaxis):
 
@@ -309,7 +309,17 @@ def select_with_MolSysMT(item, selection):
         var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
 
         all_stack_frames = stack()
-        caller_stack_frame = all_stack_frames[3]
+
+        counter = 0
+        for aux_stack in all_stack_frames:
+            args,args_paramname,kwargs_paramname,values = getargvalues(aux_stack.frame)
+            if 'selection' in args:
+                if values['selection']==selection:
+                    counter+=1
+            else:
+                break
+
+        caller_stack_frame = all_stack_frames[counter]
 
         for var_name in var_names:
             if var_name in caller_stack_frame[0].f_globals:

@@ -1,22 +1,27 @@
 import numpy as np
 from molsysmt import puw
 from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
-def charge(molecular_system, element='group', selection='all', type=None, engine='OpenMM'):
+def charge(molecular_system, element='group', selection='all', definition=None, engine='OpenMM',
+        syntaxis='MolSysMT', check=True):
 
-    from molsysmt._private._digestion import digest_engine, digest_element
+    if check:
 
-    engine=digest_engine(engine)
-    element=digest_element(element)
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        engine = digest_engine(engine)
+        element = digest_element(element)
 
-    if type in ['physical_pH7', 'collantes']:
+    if definition in ['physical_pH7', 'collantes']:
 
         from molsysmt.basic import get
 
         from molsysmt.physico_chemical_properties.groups.charge import units
-        if type=='physical_pH7':
+        if definition=='physical_pH7':
             from molsysmt.physico_chemical_properties.groups.charge import physical_pH7 as values, units
-        elif type=='collantes':
+        elif definition=='collantes':
             from molsysmt.physico_chemical_properties.groups.charge import collantes as values, units
         else:
             raise NotImplementedError()
@@ -24,7 +29,7 @@ def charge(molecular_system, element='group', selection='all', type=None, engine
         output = []
 
         if element=='atom':
-            raise ValueError('Only elements bigger than, or equal to, groups are allowed when type is "physical_pH7" or "collantes"')
+            raise ValueError('Only elements bigger than, or equal to, groups are allowed when definition is "physical_pH7" or "collantes"')
 
         elif element=='group':
 
@@ -50,10 +55,7 @@ def charge(molecular_system, element='group', selection='all', type=None, engine
 
     else:
 
-        from molsysmt._private._digestion import digest_molecular_system
         from molsysmt.basic import get, convert, get_form
-
-        molecular_system = digest_molecular_system(molecular_system)
 
         if engine == 'OpenMM':
 

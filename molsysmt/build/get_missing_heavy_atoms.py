@@ -24,7 +24,7 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntaxis='MolSysM
         temp_molecular_system.findMissingAtoms()
 
         for group, atoms in temp_molecular_system.missingAtoms.items():
-            original_group_index = group_indices_in_selecton[group.index]
+            original_group_index = group_indices_in_selection[group.index]
             output[original_group_index]=[]
             for atom in atoms:
                 output[original_group_index].append(atom.name)

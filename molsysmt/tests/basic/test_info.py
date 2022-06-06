@@ -25,10 +25,10 @@ def test_info_1():
                  'molecule index': {0: 0, 1: 0, 2: 0, 3: 0},
                  'molecule type': {0: 'protein', 1: 'protein', 2: 'protein', 3: 'protein'},
                  'entity index': {0: 0, 1: 0, 2: 0, 3: 0},
-                 'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE',
-                  1: 'TRIOSEPHOSPHATE ISOMERASE',
-                  2: 'TRIOSEPHOSPHATE ISOMERASE',
-                  3: 'TRIOSEPHOSPHATE ISOMERASE'}}
+                 'entity name': {0: 'Triosephosphate isomerase',
+                  1: 'Triosephosphate isomerase',
+                  2: 'Triosephosphate isomerase',
+                  3: 'Triosephosphate isomerase'}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
@@ -56,11 +56,11 @@ def test_info_2():
                   3: 'protein',
                   4: 'protein'},
                  'entity index': {0: 0, 1: 0, 2: 0, 3: 0, 4: 0},
-                 'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE',
-                  1: 'TRIOSEPHOSPHATE ISOMERASE',
-                  2: 'TRIOSEPHOSPHATE ISOMERASE',
-                  3: 'TRIOSEPHOSPHATE ISOMERASE',
-                  4: 'TRIOSEPHOSPHATE ISOMERASE'}}
+                 'entity name': {0: 'Triosephosphate isomerase',
+                  1: 'Triosephosphate isomerase',
+                  2: 'Triosephosphate isomerase',
+                  3: 'Triosephosphate isomerase',
+                  4: 'Triosephosphate isomerase'}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
@@ -77,10 +77,10 @@ def test_info_3():
                 'molecule index': {0: 0, 1: 0, 2: 0, 3: 0},
                 'molecule type': {0: 'protein', 1: 'protein', 2: 'protein', 3: 'protein'},
                 'entity index': {0: 0, 1: 0, 2: 0, 3: 0},
-                'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE',
-                 1: 'TRIOSEPHOSPHATE ISOMERASE',
-                 2: 'TRIOSEPHOSPHATE ISOMERASE',
-                 3: 'TRIOSEPHOSPHATE ISOMERASE'}}
+                'entity name': {0: 'Triosephosphate isomerase',
+                 1: 'Triosephosphate isomerase',
+                 2: 'Triosephosphate isomerase',
+                 3: 'Triosephosphate isomerase'}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
@@ -91,11 +91,11 @@ def test_info_4():
                  'n atoms': {0: 1906, 1: 1912},
                  'n groups': {0: 248, 1: 249},
                  'chain index': {0: 0, 1: 1},
-                 'molecule index': {0: 0, 1: 0},
+                 'molecule index': {0: 0, 1: 1},
                  'molecule type': {0: 'protein', 1: 'protein'},
                  'entity index': {0: 0, 1: 0},
-                 'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE',
-                  1: 'TRIOSEPHOSPHATE ISOMERASE'}}
+                 'entity name': {0: 'Triosephosphate isomerase',
+                     1: 'Triosephosphate isomerase'}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
@@ -117,8 +117,8 @@ def test_info_4():
 #                  2: np.array(['water' for ii in range(73)], dtype=object),
 #                  3: np.array(['water' for ii in range(92)], dtype=object)},
 #                 'entity index': {0: 0, 1: 0, 2: 1, 3: 1},
-#                 'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE',
-#                  1: 'TRIOSEPHOSPHATE ISOMERASE',
+#                 'entity name': {0: 'Triosephosphate isomerase',
+#                  1: 'Triosephosphate isomerase',
 #                  2: 'water',
 #                  3: 'water'}}
 #    true_df = DataFrame(true_dict)
@@ -127,31 +127,30 @@ def test_info_4():
 def test_info_6():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     df = msm.info(molsys, element='molecule', selection='molecule_type!="water"')
-    true_dict = {'index': {0: 0},
-                 'name': {0: 'TRIOSEPHOSPHATE ISOMERASE'},
-                 'type': {0: 'protein'},
-                 'n atoms': {0: 3818},
-                 'n groups': {0: 497},
-                 'n components': {0: 2},
-                 'chain index': {0: np.array([0, 1], dtype=object)},
-                 'entity index': {0: 0},
-                 'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE'}}
-    true_df = DataFrame(true_dict)
-    assert df.data.equals(true_df)
+    true_dict = {'index': {0: 0, 1: 1},
+                 'name': {0: 'Triosephosphate isomerase', 1: 'Triosephosphate isomerase'},
+                 'type': {0: 'protein', 1: 'protein'},
+                 'n atoms': {0: 1906, 1: 1912},
+                 'n groups': {0: 248, 1: 249},
+                 'n components': {0: 1, 1: 1},
+                 'chain index': {0: 0, 1: 1},
+                 'entity index': {0: 0, 1: 0},
+                 'entity name': {0: 'Triosephosphate isomerase',
+                  1: 'Triosephosphate isomerase'}}
+    assert df.data.to_dict()==true_dict
 
 def test_info_7():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     df = msm.info(molsys, element='entity')
     true_dict = {'index': {0: 0, 1: 1},
-                 'name': {0: 'TRIOSEPHOSPHATE ISOMERASE', 1: 'water'},
+                 'name': {0: 'Triosephosphate isomerase', 1: 'water'},
                  'type': {0: 'protein', 1: 'water'},
                  'n atoms': {0: 3818, 1: 165},
                  'n groups': {0: 497, 1: 165},
                  'n components': {0: 2, 1: 165},
                  'n chains': {0: 2, 1: 2},
-                 'n molecules': {0: 1, 1: 165}}
-    true_df = DataFrame(true_dict)
-    assert df.data.equals(true_df)
+                 'n molecules': {0: 2, 1: 165}}
+    assert df.data.to_dict()==true_dict
 
 def test_info_8():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
@@ -161,10 +160,10 @@ def test_info_8():
                  'n_groups': {0: 662},
                  'n_components': {0: 167},
                  'n_chains': {0: 4},
-                 'n_molecules': {0: 166},
+                 'n_molecules': {0: 167},
                  'n_entities': {0: 2},
                  'n_waters': {0: 165},
-                 'n_proteins': {0: 1},
+                 'n_proteins': {0: 2},
                  'n_structures': {0: 1}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
@@ -178,19 +177,19 @@ def test_info_9():
                  'n_groups': {0: 662},
                  'n_components': {0: 167},
                  'n_chains': {0: 4},
-                 'n_molecules': {0: 166},
+                 'n_molecules': {0: 167},
                  'n_entities': {0: 2},
                  'n_waters': {0: 165},
-                 'n_proteins': {0: 1},
+                 'n_proteins': {0: 2},
                  'n_structures': {0: None}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
 def test_info_10():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    molsys = msm.convert(molsys, to_form='molsysmt.Trajectory')
+    molsys = msm.convert(molsys, to_form='molsysmt.Structures')
     df = msm.info(molsys)
-    true_dict = {'form': {0: 'molsysmt.Trajectory'},
+    true_dict = {'form': {0: 'molsysmt.Structures'},
                  'n_atoms': {0: 3983},
                  'n_groups': {0: None},
                  'n_components': {0: None},
@@ -203,17 +202,17 @@ def test_info_10():
 
 def test_info_11():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    molsys = msm.convert(molsys, to_form=['molsysmt.Topology', 'molsysmt.Trajectory'])
+    molsys = msm.convert(molsys, to_form=['molsysmt.Topology', 'molsysmt.Structures'])
     df = msm.info(molsys)
-    true_dict = {'form': {0: ['molsysmt.Topology', 'molsysmt.Trajectory']},
+    true_dict = {'form': {0: ['molsysmt.Topology', 'molsysmt.Structures']},
                  'n_atoms': {0: 3983},
                  'n_groups': {0: 662},
                  'n_components': {0: 167},
                  'n_chains': {0: 4},
-                 'n_molecules': {0: 166},
+                 'n_molecules': {0: 167},
                  'n_entities': {0: 2},
                  'n_waters': {0: 165},
-                 'n_proteins': {0: 1},
+                 'n_proteins': {0: 2},
                  'n_structures': {0: 1}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
@@ -233,7 +232,7 @@ def test_info_13():
 def test_info_14():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.info(molsys, element='atom', indices=10, output='long_string')
-    true_output = 'CA-11@10/PRO-5@1/A-A@0/TRIOSEPHOSPHATE ISOMERASE@0'
+    true_output = 'CA-11@10/PRO-5@1/A-A@0/Triosephosphate isomerase@0'
     assert output == true_output
 
 def test_info_15():
@@ -245,7 +244,7 @@ def test_info_15():
 def test_info_15():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.info(molsys, element='group', indices=3, output='long_string')
-    true_output = 'PRO-7@3/A-A@0/TRIOSEPHOSPHATE ISOMERASE@0'
+    true_output = 'PRO-7@3/A-A@0/Triosephosphate isomerase@0'
     assert output == true_output
 
 def test_info_16():
@@ -257,7 +256,7 @@ def test_info_16():
 def test_info_17():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.info(molsys, element='component', indices=2, output='long_string')
-    true_output = '2/A-C@2/water@1'
+    true_output = '2/A-C@2/water@2'
     assert output == true_output
 
 def test_info_18():
@@ -275,25 +274,25 @@ def test_info_19():
 def test_info_20():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.info(molsys, element='molecule', indices=0, output='short_string')
-    true_output = 'TRIOSEPHOSPHATE ISOMERASE@0'
+    true_output = 'Triosephosphate isomerase@0'
     assert output == true_output
 
 def test_info_21():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.info(molsys, element='molecule', indices=0, output='long_string')
-    true_output = 'TRIOSEPHOSPHATE ISOMERASE@0'
+    true_output = 'Triosephosphate isomerase@0'
     assert output == true_output
 
 def test_info_22():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.info(molsys, element='entity', indices=0, output='short_string')
-    true_output = 'TRIOSEPHOSPHATE ISOMERASE@0'
+    true_output = 'Triosephosphate isomerase@0'
     assert output == true_output
 
 def test_info_23():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.info(molsys, element='entity', indices=0, output='long_string')
-    true_output = 'TRIOSEPHOSPHATE ISOMERASE@0'
+    true_output = 'Triosephosphate isomerase@0'
     assert output == true_output
 
 def test_info_24():
@@ -303,16 +302,15 @@ def test_info_24():
         'n atoms': {0: 1906, 1: 1912},
         'n groups': {0: 248, 1: 249},
         'chain index': {0: 0, 1: 1},
-        'molecule index': {0: 0, 1: 0},
+        'molecule index': {0: 0, 1: 1},
         'molecule type': {0: 'protein', 1: 'protein'},
         'entity index': {0: 0, 1: 0},
-        'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE',
-         1: 'TRIOSEPHOSPHATE ISOMERASE'}}
+        'entity name': {0: 'Triosephosphate isomerase',
+         1: 'Triosephosphate isomerase'}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 
-
-def test_info_24():
+def test_info_25():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     group_index_in_component_0 = msm.get(molsys, element='group',
                                      selection='component_index==0', index=True)[69]
@@ -327,11 +325,11 @@ def test_info_24():
         'n atoms': {0: 4, 1: 6},
         'component index': {0: 0, 1: 1},
         'chain index': {0: 0, 1: 1},
-        'molecule index': {0: 0, 1: 0},
+        'molecule index': {0: 0, 1: 1},
         'molecule type': {0: 'protein', 1: 'protein'},
         'entity index': {0: 0, 1: 0},
-        'entity name': {0: 'TRIOSEPHOSPHATE ISOMERASE',
-         1: 'TRIOSEPHOSPHATE ISOMERASE'}}
+        'entity name': {0: 'Triosephosphate isomerase',
+         1: 'Triosephosphate isomerase'}}
     true_df = DataFrame(true_dict)
     assert df.data.equals(true_df)
 

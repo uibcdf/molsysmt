@@ -130,7 +130,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
     from molsysmt.item.pdbfixer_PDBFixer import to_molsysmt_Topology as pdbfixer_PDBFixer_to_molsysmt_Topology
 
-    tmp_item = pdbfixer_PDBFixer_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    tmp_item = pdbfixer_PDBFixer_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
 
     return tmp_item
 

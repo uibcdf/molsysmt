@@ -16,6 +16,11 @@ def to_openmm_Topology(item, box=None, atom_indices='all', check=True):
     except:
         raise LibraryNotFound('openmm')
 
+
+    if atom_indices is not 'all':
+        from . import extract
+        item = extract(item, atom_indices=atom_indices)
+
     n_atoms = item.atoms_dataframe.shape[0]
 
     atom_index_array = item.atoms_dataframe["atom_index"].to_numpy()

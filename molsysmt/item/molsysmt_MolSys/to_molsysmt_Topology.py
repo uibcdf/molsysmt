@@ -9,6 +9,13 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', chec
         atom_indices = digest_atom_indices(atom_indices)
         structure_indices = digest_structure_indices(structure_indices)
 
-    tmp_item = item.topology.copy()
+    if atom_indices is 'all':
+
+        tmp_item = item.topology.copy()
+
+    else:
+
+        from molsysmt.item.molsysmt_Topology import extract
+        tmp_item = extract(item.topology, atom_indices=atom_indices, check=False)
 
     return tmp_item

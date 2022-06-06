@@ -1,30 +1,14 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_openmm_Topology import is_openmm_Topology
 
 def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            coordinates = digest_coordinates(coordinates)
-        except:
-            raise WrongCoordinatesError()
-
-        try:
-            box = digest_box(box)
-        except:
-            raise WrongBoxError()
+        digest_item(item, 'openmm.Topology')
+        atom_indices = digest_atom_indices(atom_indices)
+        coordinates = digest_coordinates(coordinates)
+        box = digest_box(box)
 
     from molsysmt.native.molsys import MolSys
     from molsysmt.native.structures import Structures

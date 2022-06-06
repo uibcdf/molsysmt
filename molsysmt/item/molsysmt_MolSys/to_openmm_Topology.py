@@ -13,9 +13,9 @@ def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=
     from . import get_box_from_system
     from ..molsysmt_Topology import to_openmm_Topology as molsysmt_Topology_to_openmm_Topology
 
-    tmp_item = to_molsysmt_Topology(item, check=False)
+    tmp_item = to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
     box = get_box_from_system(item, structure_indices=structure_indices, check=False)
-    tmp_item = molsysmt_Topology_to_openmm_Topology(tmp_item, box=box, atom_indices=atom_indices, check=False)
+    tmp_item = molsysmt_Topology_to_openmm_Topology(tmp_item, box=box, check=False)
 
     return tmp_item
 

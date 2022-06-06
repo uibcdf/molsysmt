@@ -7,345 +7,69 @@ from molsysmt.item.file_xyznpy.append_structures import append_structures
 from molsysmt.item.file_xyznpy.get import *
 from molsysmt.item.file_xyznpy.set import *
 
-form_name='XYZ'
-form_type='class'
-form_info = ["",""]
-
 form_name='file:xyznpy'
-from_type='file'
+form_type='file'
 form_info = ["XYZ file format like saved with Numpy",""]
 
 
-from molsysmt._private.exceptions import *
-from molsysmt.api_forms.common_gets import *
-import numpy as np
-from molsysmt.native.molecular_system import molecular_system_components
-from molsysmt._private.files_and_directories import temp_filename
-from molsysmt import puw
+form_attributes = {
 
-form_name='file:xyznpy'
-from_type='file'
-form_info = ["XYZ file format like saved with Numpy",""]
+    'atom_index' : False,
+    'atom_id' : False,
+    'atom_name' : False,
+    'atom_type' : False,
 
-has = molecular_system_components.copy()
-for ii in ['coordinates']:
-    has[ii]=True
+    'bond_index' : False,
+    'bond_id' : False,
+    'bond_name' : False,
+    'bond_type' : False,
+    'bond_order' : False,
+
+    'group_index' : False,
+    'group_id' : False,
+    'group_name' : False,
+    'group_type' : False,
+
+    'component_index' : False,
+    'component_id' : False,
+    'component_name' : False,
+    'component_type' : False,
+
+    'molecule_index' : False,
+    'molecule_id' : False,
+    'molecule_name' : False,
+    'molecule_type' : False,
+
+    'chain_index' : False,
+    'chain_id' : False,
+    'chain_name' : False,
+    'chain_type' : False,
+
+    'entity_index' : False,
+    'entity_id' : False,
+    'entity_name' : False,
+    'entity_type' : False,
+
+    'coordinates' : True,
+    'velocities' : False,
+    'box' : False,
+    'time' : False,
+    'step' : False,
+
+    'forcefield' : False,
+    'temperature' : False,
+    'pressure' : False,
+    'integrator' : False,
+    'damping' : False,
+}
 
 
-def to_XYZ(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+def to_XYZ(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    with open(item, 'rb') as fff:
-        shape = np.load(fff)
-        tmp_item = np.load(fff)
+    from molsysmt.item.file_xyznpy import to_XYZ as file_xyznpy_to_XYZ
 
-    if atom_indices is not 'all':
-        tmp_item = tmp_item[:, atom_indices,:]
-
-    if structure_indices is not 'all':
-        tmp_item = tmp_item[structure_indices, :, :]
-
-    tmp_item = tmp_item*puw.unit('nm')
-    tmp_item = puw.standardize(tmp_item)
-
-    if molecular_system is not None:
-        tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-    else:
-        tmp_molecular_system = None
-
-    return tmp_item, tmp_molecular_system
-
-def to_file_xyznpy(item, molecular_system=None, atom_indices='all', structure_indices='all', copy_if_all=True, output_filename=None):
-
-    tmp_molecular_system = None
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        if copy_if_all:
-            tmp_item = extract(item, output_filename=output_filename)
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system.combine_with_items(tmp_item)
-        else:
-            tmp_item = item
-            if molecular_system is not None:
-                tmp_molecular_system = molecular_system
-    else:
-        tmp_item = extract(item, atom_indices=atom_indices, structure_indices=structure_indices, output_filename=output_filename)
-        if molecular_system is not None:
-            tmp_molecular_system = molecular_system.combine_with_items(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices)
-
-    return tmp_item, tmp_molecular_system
-
-def extract(item, atom_indices='all', structure_indices='all', output_filename=None):
-
-    if output_filename is None:
-        output_filename = temp_filename(extension='xyznpy')
-
-    if (atom_indices is 'all') and (structure_indices is 'all'):
-        raise NotImplementedError()
-    else:
-        raise NotImplementedError()
+    tmp_item = XYZ_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
     return tmp_item
 
-def merge(item_1, item_2):
-
-    raise NotImplementedError
-
-def add(to_item, item):
-
-    raise NotImplementedError
-
-def append_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
-
-def concatenate_structures(item, step=None, time=None, coordinates=None, box=None):
-
-    raise NotImplementedError
-
-###### Get
-
-## atom
-
-def get_atom_id_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_atom_name_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_atom_type_from_atom(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_group_index_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_component_index_from_atom (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.component import get_component_index_from_atom as _get
-    return _get(item, indices=indices)
-
-def get_chain_index_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_molecule_index_from_atom (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.molecule import get_molecule_index_from_atom as _get
-    return _get(item, indices=indices)
-
-def get_entity_index_from_atom (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.entity import get_entity_index_from_atom as _get
-    return _get(item, indices=indices)
-
-def get_inner_bonded_atoms_from_atom (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_n_inner_bonds_from_atom (item, indices='all', structure_indices='all'):
-
-    if indices is 'all':
-        return get_n_inner_bonds_from_system (item)
-    else:
-        raise NotImplementedError
-
-def get_coordinates_from_atom(item, indices='all', structure_indices='all'):
-
-    with open(item, 'rb') as fff:
-        shape = np.load(fff, allow_pickle=True)
-        coordinates = np.load(fff, allow_pickle=True)
-
-    if indices is not 'all':
-        coordinates = coordinates[:, indices, :]
-
-    if structure_indices is not 'all':
-        coordinates = coordinates[structure_indices, :, :]
-
-    coordinates = coordinates * puw.unit('nm')
-    coordinates = puw.standardize(coordinates)
-
-    return coordinates
-
-## group
-
-def get_group_id_from_group(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_group_name_from_group(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_group_type_from_group(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## component
-
-def get_component_id_from_component (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.component import get_component_id_from_component as get
-    return get(item, indices)
-
-def get_component_name_from_component (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.component import get_component_name_from_component as get
-    return get(item, indices)
-
-def get_component_type_from_component (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.component import get_component_type_from_component as get
-    return get(item, indices)
-
-## molecule
-
-def get_molecule_id_from_molecule (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.molecule import get_molecule_id_from_molecule as get
-    return get(item, indices)
-
-def get_molecule_name_from_molecule (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.molecule import get_molecule_name_from_molecule as get
-    return get(item, indices)
-
-def get_molecule_type_from_molecule (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.molecule import get_molecule_type_from_molecule as get
-    return get(item, indices)
-
-## chain
-
-def get_chain_id_from_chain (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_chain_name_from_chain (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_chain_type_from_chain (item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## entity
-
-def get_entity_id_from_entity (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.entity import get_entity_id_from_molecule as get
-    return get(item, indices)
-
-def get_entity_name_from_entity (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.entity import get_entity_name_from_molecule as get
-    return get(item, indices)
-
-def get_entity_type_from_entity (item, indices='all', structure_indices='all'):
-
-    from molsysmt.elements.entity import get_entity_type_from_molecule as get
-    return get(item, indices)
-
-## system
-
-def get_n_atoms_from_system(item, indices='all', structure_indices='all'):
-
-    with open(item, 'rb') as fff:
-        shape = np.load(fff)
-    return shape[1]
-
-def get_n_groups_from_system(item, indices='all', structure_indices='all'):
-
-    return 0
-
-def get_n_components_from_system(item, indices='all', structure_indices='all'):
-
-    return 0
-
-def get_n_chains_from_system(item, indices='all', structure_indices='all'):
-
-    return 0
-
-def get_n_molecules_from_system(item, indices='all', structure_indices='all'):
-
-    return 0
-
-def get_n_entities_from_system(item, indices='all', structure_indices='all'):
-
-    return 0
-
-def get_n_bonds_from_system(item, indices='all', structure_indices='all'):
-
-    return 0
-
-def get_coordinates_from_system(item, indices='all', structure_indices='all'):
-
-    return get_coordinates_from_atom(item, indices='all', structure_indices=structure_indices)
-
-def get_box_from_system(item, indices='all', structure_indices='all'):
-
-    return None
-
-def get_box_shape_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_box_lengths_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_box_angles_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_box_volume_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_time_from_system(item, indices='all', structure_indices='all'):
-
-    return None
-
-def get_step_from_system(item, indices='all', structure_indices='all'):
-
-    return None
-
-def get_n_structures_from_system(item, indices='all', structure_indices='all'):
-
-    if structure_indices is 'all':
-        with open(item, 'rb') as fff:
-            shape = np.load(fff)
-        return shape[0]
-    else:
-        return structure_indices.shape[0]
-
-def get_bonded_atoms_from_system(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-## bond
-
-def get_bond_order_from_bond(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_bond_type_from_bond(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-def get_atom_index_from_bond(item, indices='all', structure_indices='all'):
-
-    raise NotImplementedError
-
-###### Set
-
-def set_box_to_system(item, indices='all', structure_indices='all', value=None):
-
-    raise NotImplementedError
-
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None):
-
-    raise NotImplementedError
 

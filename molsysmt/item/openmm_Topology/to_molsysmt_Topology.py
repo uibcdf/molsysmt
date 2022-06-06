@@ -1,20 +1,12 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_openmm_Topology import is_openmm_Topology
 
 def to_molsysmt_Topology(item, atom_indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
-
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
+        digest_item(item, 'openmm.Topology')
+        atom_indices = digest_atom_indices(atom_indices)
 
     from molsysmt.native import Topology
     from numpy import empty, array, arange, reshape, where, unique, nan, sort, zeros

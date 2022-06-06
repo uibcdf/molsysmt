@@ -23,17 +23,17 @@ msm.convert('pdb_id:1vii', to_form='1vii.mmtf')
 # vacuum
 print('Vacuum system in msmpk file...')
 molsys = msm.convert('pdb_id:1vii', to_form='molsysmt.MolSys')
-molsys = msm.build.remove_solvent(molsys)
-molsys = msm.build.remove_hydrogens(molsys)
-molsys = msm.build.add_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
-molsys = msm.build.add_hydrogens(molsys, pH=7.4)
+molsys = msm.basic.remove(molsys, selection='group_type==["water", "ion", "cosolute"]')
+molsys = msm.basic.remove(molsys, selection='atom_type=="H"')
+molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
+molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4)
 _ = msm.convert(molsys, to_form='vacuum.msmpk')
 
 # solvated
 print('Solvated system in msmpk file...')
 molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
                    box_geometry='truncated octahedral', clearance='14.0 angstroms',
-                   to_form='molsysmt.MolSys', engine="OpenMM", verbose=False)
+                   to_form='molsysmt.MolSys', engine="OpenMM")
 _ = msm.convert(molsys, to_form='solvated.msmpk')
 
 # simulation

@@ -1,25 +1,14 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_openmm_Topology import is_openmm_Topology
 
 def to_openmm_System(item, atom_indices='all', forcefield=None, parameters=None, check=True):
 
     if check:
 
-        try:
-            is_openmm_Topology(item)
-        except:
-            raise WrongFormError('openmm.Topology')
+        digest_item(item, 'openmm.Topology')
+        atom_indices = digest_atom_indices(atom_indices)
+        forcefield = digest_forcefield(forcefield)
 
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            forcefield = digest_forcefield(forcefield)
-        except:
-            raise WrongForceFieldError()
 
     #forcefield = molecular_mechanics.to_openmm_ForceField()
     #system_parameters = molecular_mechanics.get_openmm_System_parameters()

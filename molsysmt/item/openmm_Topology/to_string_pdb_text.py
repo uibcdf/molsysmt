@@ -15,6 +15,10 @@ def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, che
     from openmm import Platform # the openmm version is taken from this module (see: openmm/app/pdbfile.py)
     from molsysmt import puw
 
+    if atom_indices is not 'all':
+        from . import extract
+        item = extract(item, atom_indices=atom_indices, check=False)
+
     n_structures = coordinates.shape[0]
     if n_structures>1:
         import warnings
