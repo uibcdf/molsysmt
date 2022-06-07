@@ -1,28 +1,19 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from .is_openmm_PDBFile import is_openmm_PDBFile
 
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', check=True):
 
     if check:
 
-        try:
-            is_openmm_PDBFile(item)
-        except:
-            raise WrongFormError('openmm.PDBFile')
+        digest_item(item, 'openmm.PDBFile')
+        atom_indices = digest_atom_indices(atom_indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
-        try:
-            atom_indices = digest_atom_indices(atom_indices)
-        except:
-            raise WrongAtomIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
+    from molsysmt.item.openmm_Topology import extract as extract_openmm_Topology
 
     tmp_item = item.getTopology()
+    tmp_item = extract_openmm_Topology(tmp_item, atom_indices=atom_indices,
+            structure_indices=structure_indices, check=False, copy_if_all=False)
 
     return tmp_item
 

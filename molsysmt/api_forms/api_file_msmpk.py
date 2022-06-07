@@ -93,7 +93,7 @@ def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_i
 
     from molsysmt.item.file_msmpk import to_nglview_NGLWidget as file_msmpk_to_nglview_NGLWidget
 
-    tmp_item = file_msmpk_to_molsysmt_nglview_NGLWidget(item, atom_indices=atom_indices,
+    tmp_item = file_msmpk_to_nglview_NGLWidget(item, atom_indices=atom_indices,
             structure_indices=structure_indices, check=False)
 
     return tmp_item

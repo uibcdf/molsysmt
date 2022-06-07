@@ -1,4 +1,5 @@
 from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
+import numpy as np
 from molsysmt import puw
 
 def to_XYZ(item, atom_indices='all', structure_indices='all', check=True):

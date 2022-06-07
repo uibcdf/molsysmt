@@ -6,7 +6,7 @@ from molsysmt._private.strings import get_parenthesis
 from re import findall
 from inspect import stack, getargvalues
 
-def select_standard(molecular_system, selection, syntaxis):
+def select_standard(molecular_system, selection='all', syntaxis='MolSysMT'):
 
     #from .is_molecular_system import is_molecular_system
     from . import where_is_attribute
@@ -195,7 +195,7 @@ def select(molecular_system, selection='all', structure_index=0, element='atom',
         elif 'bonded to' in selection:
             atom_indices = select_bonded_to(molecular_system, selection, syntaxis)
         else:
-            atom_indices = select_standard(molecular_system, selection, syntaxis)
+            atom_indices = select_standard(molecular_system, selection=selection, syntaxis=syntaxis)
 
     else:
 
@@ -281,51 +281,30 @@ def select_with_MolSysMT(item, selection):
 
     if '@' in selection:
 
-### Before:
-#
-#       var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
-#       first_var_name = var_names[0]
-#
-#       f_with_vars = None
-#
-#       for stack_frame in stack():
-#           if first_var_name in stack_frame[0].f_globals.keys():
-#               f_with_vars = stack_frame[0].f_globals
-#               break
-#           elif first_var_name in stack_frame[0].f_locals.keys():
-#               f_with_vars = stack_frame[0].f_locals
-#
-#       if f_with_vars is None:
-#           raise ValueError("An @variable in a selection sentence was not found")
-#
-#       for var_name in var_names:
-#           var_value = f_with_vars[var_name]
-#           if type(var_value) in [np.ndarray]:
-#               var_value = list(var_value)
-#           locals()[var_name]=var_value
-
-### Now:
-
         var_names = [ii[1:] for ii in findall(r"@[\w']+", selection)]
 
         all_stack_frames = stack()
 
         counter = 0
+        n_frames = len(all_stack_frames)
+
         for aux_stack in all_stack_frames:
-            args,args_paramname,kwargs_paramname,values = getargvalues(aux_stack.frame)
+            args, args_paramname, kwargs_paramname, values = getargvalues(aux_stack.frame)
             if 'selection' in args:
-                if values['selection']==selection:
-                    counter+=1
+                counter+=1
             else:
                 break
 
-        caller_stack_frame = all_stack_frames[counter]
-
         for var_name in var_names:
-            if var_name in caller_stack_frame[0].f_globals:
-                var_value = caller_stack_frame[0].f_globals[var_name]
-            elif var_name in caller_stack_frame[0].f_locals:
-                var_value = caller_stack_frame[0].f_locals[var_name]
+
+            if var_name in all_stack_frames[counter][0].f_locals:
+                var_value = all_stack_frames[counter][0].f_locals[var_name]
+            elif var_name in all_stack_frames[counter][0].f_globals:
+                var_value = all_stack_frames[counter][0].f_globals[var_name]
+            elif var_name in all_stack_frames[counter-1][0].f_locals:
+                var_value = all_stack_frames[counter-1][0].f_locals[var_name]
+            elif var_name in all_stack_frames[counter-1][0].f_globals:
+                var_value = all_stack_frames[counter-1][0].f_globals[var_name]
             else:
                 raise ValueError("The variable", var_name, "was not found by the selection tool.")
             tmp_selection = tmp_selection.replace('@'+var_name, '@auxiliar_variable_'+var_name)

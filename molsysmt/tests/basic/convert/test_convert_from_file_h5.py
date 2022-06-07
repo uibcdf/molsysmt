@@ -15,7 +15,7 @@ import os
 
 def test_file_h5_to_molsysmt_Topology_and_molsysmt_Structures():
     molsys = msm.demo['pentalanine']['traj.h5']
-    molsys = msm.convert(molsys, to_form=['molsysmt.Topology', 'molsysmt.Trajectory'])
+    molsys = msm.convert(molsys, to_form=['molsysmt.Topology', 'molsysmt.Structures'])
     form = msm.get_form(molsys)
-    assert ['molsysmt.Topology', 'molsysmt.Trajectory']==form
+    assert ['molsysmt.Topology', 'molsysmt.Structures']==form
 

@@ -170,13 +170,13 @@ def test_get_23():
 def test_get_24():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     group_indices = msm.get(molsys, element='molecule', indices=[0,1], group_index=True)
-    true_group_indices = np.array([np.array(range(497)), np.array([497])], dtype=object)
+    true_group_indices = np.array([np.array(range(248)), np.array(range(248, 497))], dtype=object)
     check_group_indices = np.all([np.all(ii==jj) for ii,jj in zip(group_indices, true_group_indices)])
     assert check_group_indices
 
 def test_get_25():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    group_names = msm.get(molsys, element='molecule', indices=[1,2], group_name=True)
+    group_names = msm.get(molsys, element='molecule', indices=[3,4], group_name=True)
     true_group_names = np.array([['HOH'], ['HOH']], dtype=object)
     check_group_names = np.all([np.all(ii==jj) for ii,jj in zip(group_names, true_group_names)])
     assert check_group_names
@@ -184,12 +184,12 @@ def test_get_25():
 def test_get_26():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_molecules = msm.get(molsys, element='molecule', selection='molecule_type=="protein"', n_molecules=True)
-    assert n_molecules==1
+    assert n_molecules==2
 
 def test_get_27():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_groups = msm.get(molsys, element='molecule', selection='molecule_type=="protein"', n_groups=True)
-    true_n_groups = [497]
+    true_n_groups = [248, 249]
     assert np.all(n_groups==true_n_groups)
 
 def test_get_28():
@@ -197,98 +197,98 @@ def test_get_28():
     n_groups = msm.get(molsys, element='group', selection='molecule_type=="water"', n_groups=True)
     assert n_groups==165
 
-def test_get_28():
+def test_get_29():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     names = msm.get(molsys, element='entity', indices=0, name=True)
-    true_names = np.array(['TRIOSEPHOSPHATE ISOMERASE'], dtype=object)
+    true_names = np.array(['Triosephosphate isomerase'], dtype=object)
     assert np.all(names==true_names)
 
-def test_get_29():
+def test_get_30():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     types = msm.get(molsys, element='entity', indices=1, type=True)
     true_types = np.array(['water'], dtype=object)
     assert np.all(types==true_types)
 
-def test_get_30():
+def test_get_31():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_molecules = msm.get(molsys, element='entity', indices=1, n_molecules=True)
     true_n_molecules = [165]
     assert np.all(n_molecules==true_n_molecules)
 
-def test_get_31():
+def test_get_32():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     molecule_index = msm.get(molsys, element='entity', indices=1, molecule_index=True)
-    true_molecule_index = np.array([list(range(1,166))], dtype=object)
+    true_molecule_index = np.array([list(range(2, 167))], dtype=object)
     check_molecule_index = np.all([np.all(ii==jj) for ii,jj in zip(molecule_index, true_molecule_index)])
     assert check_molecule_index
 
-def test_get_31():
+def test_get_33():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     molecule_types = msm.get(molsys, element='group', indices=[10,11,12], molecule_type=True)
     true_molecule_types = np.array(['protein', 'protein', 'protein'], dtype=object)
     check_molecule_types = np.all(molecule_types==true_molecule_types)
     assert check_molecule_types
 
-def test_get_32():
+def test_get_34():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     molecule_types = msm.get(molsys, element='molecule', indices=range(1,10), molecule_type=True)
-    true_molecule_types = np.array(['water', 'water', 'water', 'water', 'water', 'water', 'water',
+    true_molecule_types = np.array(['protein', 'water', 'water', 'water', 'water', 'water', 'water',
        'water', 'water'], dtype=object)
     check_molecule_types = np.all(molecule_types==true_molecule_types)
     assert check_molecule_types
 
-def test_get_33():
+def test_get_35():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_groups = msm.get(molsys, element='group', selection='group_type=="aminoacid"', n_groups=True)
     assert n_groups==497
 
-def test_get_34():
+def test_get_36():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_groups = msm.get(molsys, element='component', indices=[0,1], n_groups=True)
     true_n_groups = [248, 249]
     assert np.all(n_groups==true_n_groups)
 
-def test_get_35():
+def test_get_37():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_groups = msm.get(molsys, element='atom', selection='component_index==[0,1]', n_groups=True)
     assert n_groups==497
 
-def test_get_36():
+def test_get_38():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_aminoacids = msm.get(molsys, element='system', n_aminoacids=True)
     assert n_aminoacids==497
 
-def test_get_37():
+def test_get_39():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_waters = msm.get(molsys, element='system', n_waters=True)
     assert n_waters==165
 
-def test_get_38():
+def test_get_40():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_ions = msm.get(molsys, element='system', n_ions=True)
     assert n_ions==0
 
-def test_get_39():
+def test_get_41():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_proteins = msm.get(molsys, element='system', n_proteins=True)
-    assert n_proteins==1
+    assert n_proteins==2
 
-def test_get_40():
+def test_get_42():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_rnas = msm.get(molsys, element='system', n_rnas=True)
     assert n_rnas==0
 
-def test_get_41():
+def test_get_43():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_atoms = msm.get(molsys, element='system', n_atoms=True)
     assert n_atoms==3983
 
-def test_get_42():
+def test_get_44():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_entities = msm.get(molsys, element='system', n_entities=True)
     assert n_entities==2
 
-def test_get_43():
+def test_get_45():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     bonded_atoms = msm.get(molsys, element='atom', indices=[0,1,2,3,4,5], bonded_atoms=True)
     true_bonded_atoms = np.array([np.array([1]), np.array([0, 2, 4]), np.array([1, 3, 9]), np.array([2]),
@@ -296,7 +296,7 @@ def test_get_43():
     check_bonded_atoms = np.all([np.all(ii==jj) for ii,jj in zip(bonded_atoms, true_bonded_atoms)])
     assert check_bonded_atoms
 
-def test_get_44():
+def test_get_46():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     bond_index = msm.get(molsys, element='atom', indices=[0,1,2,3,4,5], bond_index=True)
     true_bond_index = np.array([np.array([0]), np.array([0, 1, 3]), np.array([   1,    2, 3395]),
@@ -304,76 +304,76 @@ def test_get_44():
     check_bond_index = np.all([np.all(ii==jj) for ii,jj in zip(bond_index, true_bond_index)])
     assert check_bond_index
 
-def test_get_45():
+def test_get_47():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_bonds = msm.get(molsys, element='atom', indices=[0,1,2,3,4,5], n_bonds=True)
     true_n_bonds = np.array([1, 3, 3, 1, 2, 2])
     assert np.all(n_bonds==true_n_bonds)
 
-def test_get_46():
+def test_get_48():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     inner_bonded_atoms = msm.get(molsys, element='atom', indices=[0,1,2,3,4,5], inner_bonded_atoms=True)
     true_inner_bonded_atoms = np.array([[1, 0], [2, 1], [3, 2], [4, 1], [5, 4]])
     check_bonded_index = np.all([np.all(ii==jj) for ii,jj in zip(inner_bonded_atoms, true_inner_bonded_atoms)])
     assert check_bonded_index
 
-def test_get_47():
+def test_get_49():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     inner_bond_index = msm.get(molsys, element='atom', indices=[0,1,2,3,4,5], inner_bond_index=True)
     true_inner_bond_index = np.array([0, 1, 2, 3, 4])
     assert np.all(inner_bond_index==true_inner_bond_index)
 
-def test_get_48():
+def test_get_50():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_inner_bonds = msm.get(molsys, element='atom', indices=[0,1,2,3,4,5], n_inner_bonds=True)
     assert n_inner_bonds==5
 
-def test_get_49():
+def test_get_51():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     indices = msm.get(molsys, element='bond', selection='group_index==3', index=True)
     true_indices = np.array([23, 24, 25, 26, 27, 28, 29])
     assert np.all(indices==true_indices)
 
-def test_get_50():
+def test_get_52():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     atom_indices = msm.get(molsys, element='bond', indices=[0,1,2,3,4], atom_index=True)
     true_atom_indices = np.array([[1, 0], [2, 1], [3, 2], [4, 1], [5, 4]])
     assert np.all(atom_indices==true_atom_indices)
 
-def test_get_51():
+def test_get_53():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     order = msm.get(molsys, element='bond', indices=[0,1,2,3], order=True)
     true_order = np.array([1, 1, 2, 1])
     assert np.all(order==true_order)
 
-def test_get_52():
+def test_get_54():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_bonds = msm.get(molsys, element='bond', selection='group_index==3', n_bonds=True)
     assert n_bonds==7
 
-def test_get_53():
+def test_get_55():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_bonds = msm.get(molsys, element='system', n_bonds=True)
     assert n_bonds==3890
 
-def test_get_54():
+def test_get_56():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     n_structures = msm.get(molsys, element='system', n_structures=True)
     assert n_structures==1
 
-def test_get_55():
+def test_get_57():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     coordinates = msm.get(molsys, element='atom', indices=100, structure_indices=0, coordinates=True)
     value = msm.puw.get_value(coordinates)
     unit = msm.puw.get_unit(coordinates)
     assert (unit==msm.puw.unit('nanometers')) and (np.allclose(value, np.array([[[1.8835, 3.8271, 5.0365]]])))
 
-def test_get_56():
+def test_get_58():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     time = msm.get(molsys, element='system', time=True)
     assert (time is None)
 
-def test_get_57():
+def test_get_59():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     box = msm.get(molsys, element='system', structure_indices=0, box=True)
     value = msm.puw.get_value(box)
@@ -383,14 +383,14 @@ def test_get_57():
         [2.00000000e-07, 2.00000000e-07, 1.49539993e+01]]])
     assert (unit==msm.puw.unit('nanometers')) and (np.allclose(value, true_value))
 
-def test_get_58():
+def test_get_60():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     box_lengths =msm.get(molsys, element='system', structure_indices=0, box_lengths=True)
     value = msm.puw.get_value(box_lengths)
     unit = msm.puw.get_unit(box_lengths)
     assert (unit==msm.puw.unit('nanometers')) and (np.allclose(value, np.array([[ 4.371   ,  7.765   , 14.953999]])))
 
-def test_get_59():
+def test_get_61():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     box_angles =msm.get(molsys, element='system', structure_indices=0, box_angles=True)
     value = msm.puw.get_value(box_angles)

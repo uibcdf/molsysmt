@@ -21,7 +21,7 @@ def test_select_2():
 def test_select_3():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.select(molsys, element='molecule', selection=[3900, 3910, 3920])
-    true_output = np.array([ 83,  93, 103])
+    true_output = np.array([ 84,  94, 104])
     assert np.all(output==true_output)
 
 def test_select_4():
@@ -75,7 +75,7 @@ def test_select_11():
 def test_select_12():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.select(molsys, 'molecule_type=="water" and molecule_index==[100,101]')
-    true_output = np.array([3917, 3918])
+    true_output = np.array([3916, 3917])
     assert np.all(output==true_output)
 
 def test_select_13():
@@ -153,7 +153,7 @@ def test_select_23():
 def test_select_24():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.select(molsys, 'molecule_type=="water"', element='molecule')
-    true_output = np.array(list(range(1,166)))
+    true_output = np.array(list(range(2,167)))
     assert np.all(output==true_output)
 
 def test_select_25():
