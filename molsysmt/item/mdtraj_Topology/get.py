@@ -71,9 +71,11 @@ def get_component_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.component import component_index_from_atom
+    from molsysmt.element.component import get_component_index_from_atom
 
-    return component_index_from_atom(item, indices=indices)
+    output = get_component_index_from_atom(item, indices=indices, check=False)
+
+    return output
 
 def get_chain_index_from_atom(item, indices='all', check=True):
 
@@ -94,8 +96,11 @@ def get_molecule_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.molecule import molecule_index_from_atom as get
-    return get(item, indices=indices)
+    from molsysmt.element.molecule import get_molecule_index_from_atom
+
+    output = get_molecule_index_from_atom(item, indices=indices, check=False)
+
+    return output
 
 def get_entity_index_from_atom(item, indices='all', check=True):
 
@@ -104,8 +109,11 @@ def get_entity_index_from_atom(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.entity import entity_index_from_atom as get
-    return get(item, indices=indices)
+    from molsysmt.element.entity import get_entity_index_from_atom
+
+    output = get_entity_index_from_atom(item, indices=indices, check=False)
+
+    return output
 
 def get_inner_bonded_atoms_from_atom(item, indices='all', check=True):
 
@@ -176,8 +184,11 @@ def get_component_id_from_component(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.component import component_id_from_component
-    return component_id_from_component(item, indices=indices)
+    from molsysmt.element.component import get_component_id_from_component
+
+    output = get_component_id_from_component(item, indices=indices, check=False)
+
+    return output
 
 def get_component_name_from_component(item, indices='all', check=True):
 
@@ -186,8 +197,11 @@ def get_component_name_from_component(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.component import component_name_from_component
-    return component_name_from_component(item, indices=indices)
+    from molsysmt.element.component import get_component_name_from_component
+
+    output = get_component_name_from_component(item, indices=indices, check=False)
+
+    return output
 
 def get_component_type_from_component(item, indices='all', check=True):
 
@@ -196,8 +210,11 @@ def get_component_type_from_component(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.component import component_type_from_component
-    return component_type_from_component(item, indices=indices)
+    from molsysmt.element.component import get_component_type_from_component
+
+    output = get_component_type_from_component(item, indices=indices, check=False)
+
+    return output
 
 ## From molecule
 
@@ -208,8 +225,11 @@ def get_molecule_id_from_molecule(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.molecule import molecule_id_from_molecule
-    return molecule_id_from_molecule(item, indices=indices)
+    from molsysmt.element.molecule import get_molecule_id_from_molecule
+
+    output = get_molecule_id_from_molecule(item, indices=indices, check=False)
+
+    return output
 
 def get_molecule_name_from_molecule(item, indices='all', check=True):
 
@@ -218,8 +238,11 @@ def get_molecule_name_from_molecule(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.molecule import molecule_name_from_molecule
-    return molecule_name_from_molecule(item, indices=indices)
+    from molsysmt.element.molecule import get_molecule_name_from_molecule
+
+    output = get_molecule_name_from_molecule(item, indices=indices, check=False)
+
+    return output
 
 def get_molecule_type_from_molecule(item, indices='all', check=True):
 
@@ -228,8 +251,11 @@ def get_molecule_type_from_molecule(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.molecule import molecule_type_from_molecule
-    return molecule_type_from_molecule(item, indices=indices)
+    from molsysmt.element.molecule import get_molecule_type_from_molecule
+
+    output = get_molecule_type_from_molecule(item, indices=indices, check=False)
+
+    return output
 
 ## From chain
 
@@ -269,8 +295,11 @@ def get_entity_id_from_entity(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.entity import entity_id_from_entity
-    return entity_id_from_entity(item, indices=indices)
+    from molsysmt.element.entity import get_entity_id_from_entity
+
+    output = get_entity_id_from_entity(item, indices=indices, check=False)
+
+    return output
 
 def get_entity_name_from_entity(item, indices='all', check=True):
 
@@ -279,8 +308,11 @@ def get_entity_name_from_entity(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.entity import entity_name_from_entity
-    return entity_name_from_entity(item, indices=indices)
+    from molsysmt.element.entity import get_entity_name_from_entity
+
+    output = get_entity_name_from_entity(item, indices=indices, check=False)
+
+    return output
 
 def get_entity_type_from_entity(item, indices='all', check=True):
 
@@ -289,8 +321,11 @@ def get_entity_type_from_entity(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    from molsysmt.element.entity import entity_type_from_entity
-    return entity_type_from_entity(item, indices=indices)
+    from molsysmt.element.entity import get_entity_type_from_entity
+
+    output = get_entity_type_from_entity(item, indices=indices, check=False)
+
+    return output
 
 ## From system
 
@@ -316,8 +351,11 @@ def get_n_components_from_system(item, check=True):
 
         _digest_item(item, _form)
 
-    from molsysmt.element.component import n_components_from_system as get
-    return get(item)
+    from molsysmt.element.component import get_n_components_from_system
+
+    output = get_n_components_from_system(item, indices=indices, check=False)
+
+    return output
 
 def get_n_chains_from_system(item, check=True):
 
@@ -333,8 +371,11 @@ def get_n_molecules_from_system(item, check=True):
 
         _digest_item(item, _form)
 
-    from molsysmt.element.molecule import n_molecules_from_system as get
-    return get(item)
+    from molsysmt.element.component import get_n_molecules_from_system
+
+    output = get_n_molecules_from_system(item, indices=indices, check=False)
+
+    return output
 
 def get_n_entities_from_system(item, check=True):
 
@@ -342,8 +383,11 @@ def get_n_entities_from_system(item, check=True):
 
         _digest_item(item, _form)
 
-    from molsysmt.element.entity import n_entities_from_system as get
-    return get(item)
+    from molsysmt.element.entity import get_n_entities_from_system
+
+    output = get_n_entities_from_system(item, indices=indices, check=False)
+
+    return output
 
 def get_n_bonds_from_system(item, check=True):
 
