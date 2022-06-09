@@ -353,7 +353,7 @@ def get_n_components_from_system(item, check=True):
 
     from molsysmt.element.component import get_n_components_from_system
 
-    output = get_n_components_from_system(item, indices=indices, check=False)
+    output = get_n_components_from_system(item, check=False)
 
     return output
 
@@ -371,9 +371,9 @@ def get_n_molecules_from_system(item, check=True):
 
         _digest_item(item, _form)
 
-    from molsysmt.element.component import get_n_molecules_from_system
+    from molsysmt.element.molecule import get_n_molecules_from_system
 
-    output = get_n_molecules_from_system(item, indices=indices, check=False)
+    output = get_n_molecules_from_system(item, check=False)
 
     return output
 
@@ -385,7 +385,7 @@ def get_n_entities_from_system(item, check=True):
 
     from molsysmt.element.entity import get_n_entities_from_system
 
-    output = get_n_entities_from_system(item, indices=indices, check=False)
+    output = get_n_entities_from_system(item, check=False)
 
     return output
 
@@ -432,7 +432,7 @@ def get_atom_index_from_bond(item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    tmp_indices = get_bond_index_from_bond(item, indices=indices, structure_indices=structure_indices)
+    tmp_indices = get_bond_index_from_bond(item, indices=indices, check=False)
     bond = list(item.bonds)
     output=[[bond[ii].atom1.index, bond[ii].atom2.index] for ii in tmp_indices]
     output=_np.array(output)

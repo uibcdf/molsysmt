@@ -9,5 +9,20 @@ def get_entity_name_from_entity(molecular_system, indices='all', check=True):
         digest_single_molecular_system(molecular_system)
         indices = digest_indices(indices)
 
-    raise NotImplementedError
+    from .get_entity_all_from_atom import get_entity_all_from_atom
+
+    entity_index_from_atom, entity_name_from_atom, _ = get_entity_all_from_atom(molecular_system, check=False)
+
+    output=[]
+
+    if indices is 'all':
+        indices = np.unique(entity_index_from_atom)
+
+    for ii in indices:
+        atom_index = np.where(entity_index_from_atom==ii)[0][0]
+        output.append(entity_name_from_atom[atom_index])
+
+    output = np.array(output, dtype=object)
+
+    return output
 

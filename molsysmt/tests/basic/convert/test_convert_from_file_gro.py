@@ -9,14 +9,14 @@ import os
 
 # Whole systems (selection='all' and structure_indices='all')
 
-def test_file_gro_to_mdtraj_Trajectory():
-    import warnings
-    warnings.filterwarnings('ignore')
-    molsys = msm.demo['nglview']['1u19.gro']
-    molsys = msm.convert(molsys, to_form='mdtraj.Trajectory')
-    warnings.resetwarnings()
-    form = msm.get_form(molsys)
-    assert 'mdtraj.Trajectory'==form
+#def test_file_gro_to_mdtraj_Trajectory():
+#    import warnings
+#    warnings.filterwarnings('ignore')
+#    molsys = msm.demo['nglview']['1u19.gro']
+#    molsys = msm.convert(molsys, to_form='mdtraj.Trajectory')
+#    warnings.resetwarnings()
+#    form = msm.get_form(molsys)
+#    assert 'mdtraj.Trajectory'==form
 
 # Selection
 

@@ -13,7 +13,7 @@ def test_get_geometric_center_molsysmt_MolSys_1():
 
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
     center = msm.structure.get_geometric_center(molsys)
-    n_structures = msm.get(molsys, target='system', n_structures=True)
+    n_structures = msm.get(molsys, element='system', n_structures=True)
     check_shape = np.all((n_structures,1,3)==center.shape)
     check_values = np.allclose([0.800907, 1.0867966, -0.02075539], msm.puw.get_value(center[1000, 0, :], to_unit='nm'))
     assert check_shape and check_values

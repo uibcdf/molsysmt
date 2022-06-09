@@ -21,23 +21,23 @@ def test_convert_molsysmt_Topology_and_molsysmt_Structures_to_string_pdb_text():
     form = msm.get_form(molsys)
     assert 'string:pdb_text'==form
 
-def test_convert_file_gro_and_file_xtc_to_molsysmt_MolSys():
-    import warnings
-    warnings.filterwarnings('ignore')
-    molsys_1 = msm.demo['nglview']['1u19.gro']
-    molsys_2 = msm.demo['nglview']['1u19.xtc']
-    molsys = msm.convert([molsys_1, molsys_2], to_form='molsysmt.MolSys')
-    warnings.resetwarnings()
-    form = msm.get_form(molsys)
-    assert 'molsysmt.MolSys'==form
-
-def test_convert_file_gro_and_file_xtc_to_mdtraj_Structures():
-    import warnings
-    warnings.filterwarnings('ignore')
-    molsys_1 = msm.demo['nglview']['1u19.gro']
-    molsys_2 = msm.demo['nglview']['1u19.xtc']
-    molsys = msm.convert([molsys_1, molsys_2], to_form='mdtraj.Trajectory')
-    warnings.resetwarnings()
-    form = msm.get_form(molsys)
-    assert 'mdtraj.Trajectory'==form
+#def test_convert_file_gro_and_file_xtc_to_molsysmt_MolSys():
+#    import warnings
+#    warnings.filterwarnings('ignore')
+#    molsys_1 = msm.demo['nglview']['1u19.gro']
+#    molsys_2 = msm.demo['nglview']['1u19.xtc']
+#    molsys = msm.convert([molsys_1, molsys_2], to_form='molsysmt.MolSys')
+#    warnings.resetwarnings()
+#    form = msm.get_form(molsys)
+#    assert 'molsysmt.MolSys'==form
+#
+#def test_convert_file_gro_and_file_xtc_to_mdtraj_Structures():
+#    import warnings
+#    warnings.filterwarnings('ignore')
+#    molsys_1 = msm.demo['nglview']['1u19.gro']
+#    molsys_2 = msm.demo['nglview']['1u19.xtc']
+#    molsys = msm.convert([molsys_1, molsys_2], to_form='mdtraj.Trajectory')
+#    warnings.resetwarnings()
+#    form = msm.get_form(molsys)
+#    assert 'mdtraj.Trajectory'==form
 

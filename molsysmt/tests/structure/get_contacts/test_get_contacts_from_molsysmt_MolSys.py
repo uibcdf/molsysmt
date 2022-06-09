@@ -22,8 +22,8 @@ def test_get_contacts_from_molsysmt_MolSys_1():
 
 def test_get_contacts_from_molsysmt_MolSys_2():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    CA_atoms_chain_0 = msm.get(molsys, selection="atom_name=='CA' and chain_index==0", atom_index=True)
-    CA_atoms_chain_1 = msm.get(molsys, selection="atom_name=='CA' and chain_index==1", atom_index=True)
+    CA_atoms_chain_0 = msm.get(molsys, element='atom', selection="atom_name=='CA' and chain_index==0", atom_index=True)
+    CA_atoms_chain_1 = msm.get(molsys, element='atom', selection="atom_name=='CA' and chain_index==1", atom_index=True)
     contact_map = msm.structure.get_contacts(molsys, selection=CA_atoms_chain_0, selection_2=CA_atoms_chain_1,
                               threshold=1.2*puw.unit('nm'))
     check_shape_1 = ((1, 248, 249)==contact_map.shape)
@@ -32,9 +32,9 @@ def test_get_contacts_from_molsysmt_MolSys_2():
 
 def test_get_contacts_from_molsysmt_MolSys_3():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    atoms_in_residues_chain_0 = msm.get(molsys, target='group',
+    atoms_in_residues_chain_0 = msm.get(molsys, element='group',
                                     selection="molecule_type=='protein' and chain_index==0", atom_index=True)
-    atoms_in_residues_chain_1 = msm.get(molsys, target='group',
+    atoms_in_residues_chain_1 = msm.get(molsys, element='group',
                                     selection="molecule_type=='protein' and chain_index==1", atom_index=True)
     contact_map = msm.structure.get_contacts(molsys,
                               groups_of_atoms=atoms_in_residues_chain_0, group_behavior='geometric_center',

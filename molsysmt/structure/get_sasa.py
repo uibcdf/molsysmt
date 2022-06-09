@@ -12,7 +12,6 @@ def get_sasa (molecular_system, element='atom', selection='all', structure_indic
         element = digest_element(element)
         syntaxis = digest_syntaxis(syntaxis)
         selection = digest_selection(selection, syntaxis)
-        center_of_selection = digest_selection(center_of_selection, syntaxis)
         structure_indices = digest_structure_indices(structure_indices)
         engine = digest_engine(engine)
 

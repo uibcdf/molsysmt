@@ -12,7 +12,7 @@ import numpy as np
 
 def test_get_maximum_distances_from_molsysmt_MolSys_1():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
-    list_atom_groups = msm.get(molsys, target='group', selection='all', atom_index=True)
+    list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)
     max_pairs, max_distances = msm.structure.get_maximum_distances(molsys, groups_of_atoms=list_atom_groups,
                                                 group_behavior='geometric_center')
     check_shape_1 = ((5000,2)==max_pairs.shape)
@@ -23,7 +23,7 @@ def test_get_maximum_distances_from_molsysmt_MolSys_1():
 
 def test_get_maximum_distances_from_molsysmt_MolSys_2():
     molsys = msm.convert(msm.demo['pentalanine']['traj.h5'], to_form='molsysmt.MolSys')
-    list_atom_groups = msm.get(molsys, target='group', selection='all', atom_index=True)
+    list_atom_groups = msm.get(molsys, element='group', selection='all', atom_index=True)
     frames=np.arange(msm.get(molsys, n_structures=True))
     max_group, max_distances = msm.structure.get_maximum_distances(molsys,
                                                 groups_of_atoms=list_atom_groups,

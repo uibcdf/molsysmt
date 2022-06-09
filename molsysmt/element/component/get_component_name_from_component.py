@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 import numpy as np
 
-def component_name_from_component(item, indices='all'):
+def get_component_name_from_component(molecular_system, indices='all'):
 
     if check:
 

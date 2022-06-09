@@ -11,7 +11,7 @@ def get_molecule_index_from_atom(molecular_system, indices='all', check=True):
 
     from molsysmt.basic import get
 
-    output = get(molecular_system, target='atom', indices=indices, component_index=True)
+    output = get(molecular_system, element='atom', indices=indices, component_index=True)
 
     return output
 

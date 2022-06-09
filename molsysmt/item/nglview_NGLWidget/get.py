@@ -510,7 +510,7 @@ def get_n_entities_from_system(item, check=True):
     from ..molsysmt_Topology import get_n_entities_from_system as aux_get
 
     tmp_item = to_molsysmt_Topology(item, check=False)
-    output = aux_get(tmp_item, indices=indices, check=False)
+    output = aux_get(tmp_item, check=False)
 
     return output
 

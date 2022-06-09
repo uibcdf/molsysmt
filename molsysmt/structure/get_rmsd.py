@@ -18,7 +18,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
         engine = digest_engine(engine)
 
         if reference_molecular_system is not None:
-            reference_molecular_system = digest_single_molecular_system(reference_molecular_system)
+            digest_single_molecular_system(reference_molecular_system)
 
         if reference_selection is not None:
             reference_selection = digest_selection(reference_selection, syntaxis)
@@ -37,6 +37,10 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
             structure_indices = np.arange(n_structures)
         n_structure_indices = structure_indices.shape[0]
 
+        coordinates = get(molecular_system, coordinates=True, structure_indices='all', check=False)
+        units = puw.get_unit(coordinates)
+        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
+
         if reference_coordinates is None:
 
             if reference_molecular_system is None:
@@ -52,9 +56,6 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
                     indices=reference_atom_indices, structure_indices=reference_structure_index,
                     coordinates=True, check=False)
 
-        coordinates = get(molecular_system, coordinates=True, structure_indices='all', check=False)
-        units = puw.get_unit(coordinates)
-        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
 
         if reference_coordinates.shape[1]!=n_atom_indices:
@@ -66,6 +67,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
         rmsd_val = rmsd_val * units
         rmsd_val = puw.standardize(rmsd_val)
         del(coordinates, units)
+
         return rmsd_val
 
     elif engine=='MDTraj':

@@ -44,10 +44,10 @@ form_attributes = {
     'chain_name' : True,
     'chain_type' : True,
 
-    'entity_index' : False,
-    'entity_id' : False,
-    'entity_name' : False,
-    'entity_type' : False,
+    'entity_index' : True,
+    'entity_id' : True,
+    'entity_name' : True,
+    'entity_type' : True,
 
     'coordinates' : True,
     'velocities' : False,

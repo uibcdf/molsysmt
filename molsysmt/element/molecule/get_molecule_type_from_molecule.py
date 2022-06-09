@@ -16,7 +16,7 @@ def get_molecule_type_from_molecule(molecular_system, indices='all', check=True)
 
     output = []
 
-    for group_names in group_types_from_molecule:
+    for group_names in group_names_from_molecule:
         molecule_type = get_molecule_type_from_group_names(group_names)
         output.append(molecule_type)
 
