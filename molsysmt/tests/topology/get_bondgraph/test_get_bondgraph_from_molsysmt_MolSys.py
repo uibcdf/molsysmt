@@ -14,8 +14,8 @@ def test_get_bondgraph_molsysmt_MolSys_1():
     graph = msm.topology.get_bondgraph(molsys, selection='molecule_index==0', to_form='networkx.Graph')
     n_nodes = graph.number_of_nodes()
     n_edges = graph.number_of_edges()
-    check_n_nodes = (n_nodes==3818)
-    check_n_edges = (n_edges==3890)
+    check_n_nodes = (n_nodes==1906)
+    check_n_edges = (n_edges==1942)
     assert check_n_nodes and check_n_edges
 
 

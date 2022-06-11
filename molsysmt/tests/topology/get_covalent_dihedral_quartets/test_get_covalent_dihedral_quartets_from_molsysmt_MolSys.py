@@ -52,7 +52,7 @@ def test_get_covalent_dihedral_quartetes_from_molsysmt_MolSys_3():
        [1721, 1722, 1723, 1724],
        [2303, 2304, 2305, 2306],
        [2428, 2429, 2430, 2431]])
-    n_args = msm.get(molsys, target='group', selection='group_name=="ARG"', n_groups=True)
+    n_args = msm.get(molsys, element='group', selection='group_name=="ARG"', n_groups=True)
     check_shape_1 = np.all((n_args, 4)==chains.shape)
     check_value_1 = np.all(true_value_1==chains[10:15])
     assert check_shape_1 and check_value_1

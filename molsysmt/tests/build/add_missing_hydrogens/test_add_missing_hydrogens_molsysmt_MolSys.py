@@ -11,9 +11,10 @@ import numpy as np
 
 def test_add_hydrogens_molsysmt_MolSys_1():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.pdb'], to_form='molsysmt.MolSys')
-    molsys = msm.build.remove_hydrogens(molsys)
-    molsys = msm.build.add_hydrogens(molsys)
-    output = msm.build.has_hydrogens(molsys)
-    check = (output == True)
+    molsys = msm.remove(molsys, selection='atom_type=="H"')
+    output_before = msm.contains(molsys, hydrogens=True)
+    molsys = msm.build.add_missing_hydrogens(molsys)
+    output_after = msm.contains(molsys, hydrogens=True)
+    check = (output_after == True) and (output_before == False)
     assert check
 
