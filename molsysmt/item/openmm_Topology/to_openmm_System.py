@@ -2,7 +2,7 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
 def to_openmm_System(item, atom_indices='all', forcefield=None, water_model=None, implicit_solvent=None,
-        non_bonded_method='no cutoff', non_bonded_method=None, switch_distance=None, check=True):
+        non_bonded_method='no cutoff', switch_distance=None, check=True):
 
     if check:
 
