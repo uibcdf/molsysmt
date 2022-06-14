@@ -18,11 +18,11 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
     sel_balls = select(tmp_topology, selection='molecule_type in ["ion"]', mask=atom_indices, to_syntaxis='NGLview')
     sel_licorice = select(tmp_topology, selection='molecule_type in ["lipid", "small molecule"]', mask=atom_indices, to_syntaxis='NGLview')
 
-    peptide_indices = select(tmp_topology, selection='molecule_type=="peptide"', target='molecule')
+    peptide_indices = select(tmp_topology, selection='molecule_type=="peptide"', element='molecule')
     peptides_to_cartoon = []
     peptides_to_licorice = []
     for peptide_index in peptide_indices:
-        n_aminoacids = get(tmp_topology, target='molecule', indices=peptide_index, n_groups=True)[0]
+        n_aminoacids = get(tmp_topology, element='molecule', indices=peptide_index, n_groups=True)[0]
         if n_aminoacids > 4:
             peptides_to_cartoon.append(peptide_index)
         else:
@@ -37,8 +37,8 @@ def standardize_view (view, atom_indices='all', structure_indices='all'):
     view.add_licorice(selection=sel_peptides_licorice, radius=0.4)
     view.add_ball_and_stick(selection=sel_balls)
 
-    n_waters = get(view, target="system", n_waters=True)
-    n_selected_waters = get(view, target="system", n_waters=True)
+    n_waters = get(view, element="system", n_waters=True)
+    n_selected_waters = get(view, element="system", n_waters=True)
     solvated = is_solvated(view)
 
     if (not solvated) or (n_selected_waters<n_waters):
@@ -85,7 +85,7 @@ def show_colored_surface_by_scalar_residue_values(view, values, selection='all',
     from molsysmt.basic import select
     from matplotlib.colors import Normalize, to_hex
 
-    groups_selection = select(view, target='group', selection=selection, to_syntaxis='NGLview')
+    groups_selection = select(view, element='group', selection=selection, to_syntaxis='NGLview')
 
     if vmin is None:
         vmin = min(values)
@@ -103,7 +103,7 @@ def show_colored_cartoon_by_scalar_residue_values(view, values, selection='all',
     from nglview.color import _ColorScheme
     from molsysmt.basic import select
 
-    groups_selection = select(view, target='group', selection=selection, to_syntaxis='NGLview')
+    groups_selection = select(view, element='group', selection=selection, to_syntaxis='NGLview')
 
     if vmin is None:
         vmin = min(values)

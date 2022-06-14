@@ -30,7 +30,7 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     Returns
     -------
     None
-        The method prints out a pandas dataframe with relevant information depending on the target
+        The method prints out a pandas dataframe with relevant information depending on the element
         and the form of the item.
 
     Examples

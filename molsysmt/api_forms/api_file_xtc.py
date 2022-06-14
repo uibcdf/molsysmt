@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.file_xtc.is_file_xtc import is_file_xtc as is_form
-from molsysmt.form.file_xtc.extract import extract
-from molsysmt.form.file_xtc.add import add
-from molsysmt.form.file_xtc.append_structures import append_structures
-from molsysmt.form.file_xtc.get import *
-from molsysmt.form.file_xtc.set import *
+from molsysmt.item.file_xtc.is_file_xtc import is_file_xtc as is_form
+from molsysmt.item.file_xtc.extract import extract
+from molsysmt.item.file_xtc.add import add
+from molsysmt.item.file_xtc.append_structures import append_structures
+from molsysmt.item.file_xtc.get import *
+from molsysmt.item.file_xtc.set import *
 
 form_name='file:xtc'
 form_type='file'
@@ -66,7 +66,7 @@ form_attributes = {
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_xtc import to_molsysmt_Structures as file_xtc_to_molsysmt_Structures
+    from molsysmt.item.file_xtc import to_molsysmt_Structures as file_xtc_to_molsysmt_Structures
 
     tmp_item = file_xtc_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -74,7 +74,7 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
 def to_mdtraj_XTCTrajectoryFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_xtc import to_mdtraj_XTCTrajectoryFile as file_xtc_to_mdtraj_XTCTrajectoryFile
+    from molsysmt.item.file_xtc import to_mdtraj_XTCTrajectoryFile as file_xtc_to_mdtraj_XTCTrajectoryFile
 
     tmp_item = file_xtc_to_mdtraj_XTCTrajectoryFile(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -82,7 +82,7 @@ def to_mdtraj_XTCTrajectoryFile(item, molecular_system, atom_indices='all', stru
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_xtc import to_mdtraj_Trajectory as file_xtc_to_mdtraj_Trajectory
+    from molsysmt.item.file_xtc import to_mdtraj_Trajectory as file_xtc_to_mdtraj_Trajectory
 
     tmp_item = file_xtc_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 

@@ -13,7 +13,6 @@ from .set import set
 from .info import info
 from .remove import remove
 from .merge import merge
-from .inherit import inherit
 from .add import add
 from .concatenate_structures import concatenate_structures
 from .append_structures import append_structures

@@ -3,19 +3,20 @@ from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt import puw
 from molsysmt.lib import geometry as libgeometry
-from molsysmt.structure.get_dihedral_angles import get_dihedral_angles
-from molsysmt.structure.set_dihedral_angles import set_dihedral_angles
 
 
 def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, blocks=None,
-                          structure_indices='all', pbc=True, in_place=False, engine='MolSysMT'):
+                          structure_indices='all', pbc=True, in_place=False, engine='MolSysMT',
+                          check=False):
 
-    from molsysmt.basic import get, is_a_molecular_system
+    if check:
 
-    if not is_a_molecular_system(molecular_system):
-        raise SingleMolecularSystemNeededError()
+        digest_single_molecular_system(molecular_system)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
 
-    structure_indices = digest_structure_indices(structure_indices)
+    from . import get_dihedral_angles, set_dihedral_angles
+    from molsysmt.basic import get
 
     if type(quartets) in [list,tuple]:
         quartets = np.array(quartets, dtype=int)
@@ -38,7 +39,8 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
         raise ValueError
 
     n_quartets = quartets.shape[0]
-    n_structures = get(molecular_system, target='system', structure_indices=structure_indices, n_structures=True)
+    n_structures = get(molecular_system, element='system', structure_indices=structure_indices,
+            n_structures=True, check=False)
 
     angles_shifts_units = puw.get_unit(angles_shifts)
     angles_shifts_value = puw.get_value(angles_shifts)
@@ -62,9 +64,11 @@ def shift_dihedral_angles(molecular_system, quartets=None, angles_shifts=None, b
 
     angles_shifts=angles_shifts_value*angles_shifts_units
 
-    angles = get_dihedral_angles(molecular_system, quartets=quartets, structure_indices=structure_indices, pbc=pbc)
+    angles = get_dihedral_angles(molecular_system, quartets=quartets,
+            structure_indices=structure_indices, pbc=pbc, check=False)
     angles = angles + angles_shifts
 
     return set_dihedral_angles(molecular_system, quartets=quartets, angles=angles, blocks=None,
-                               structure_indices=structure_indices, pbc=pbc, in_place=in_place, engine=engine)
+                               structure_indices=structure_indices, pbc=pbc, in_place=in_place,
+                               engine=engine, check=False)
 

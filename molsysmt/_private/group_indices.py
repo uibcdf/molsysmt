@@ -4,7 +4,7 @@ def complementary_group_indices(molecular_system, group_indices):
 
     from molsysmt.basic import get
 
-    n_groups = get(molecular_system, target='system', n_groups=True)
+    n_groups = get(molecular_system, element='system', n_groups=True)
 
     mask = np.ones(n_groups,dtype=bool)
     mask[atom_indices]=False

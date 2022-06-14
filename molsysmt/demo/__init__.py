@@ -97,7 +97,10 @@ demo['Met-enkephalin']['vacuum.msmpk']= parent.joinpath('Met-enkephalin/vacuum.m
 demo['two LJ particles']={}
 demo['two LJ particles']['traj.trjpk']= parent.joinpath('two_LJ_particles/traj.trjpk').__str__()
 
+# Barnase - Barstar
 
+demo['Barnase-Barstar']={}
+demo['Barnase-Barstar']['barnase_barstar.pdb']= parent.joinpath('barnase_barstar/barnase_barstar.pdb').__str__()
 
 
 del(PurePath, parent)

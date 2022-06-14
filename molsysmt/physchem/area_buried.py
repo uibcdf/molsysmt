@@ -10,7 +10,7 @@ def area_buried(molecular_system, selection='all', type='rose'):
     else:
         raise NotImplementedError()
 
-    group_types = get(molecular_system, target='group', selection=selection, name=True)
+    group_types = get(molecular_system, element='group', selection=selection, name=True)
 
     output = []
 

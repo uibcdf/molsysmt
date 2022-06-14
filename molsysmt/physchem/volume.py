@@ -10,7 +10,7 @@ def volume(molecular_system, selection='all', type='grantham'):
     else:
         raise NotImplementedError()
 
-    group_types = get(molecular_system, target='group', selection=selection, name=True)
+    group_types = get(molecular_system, element='group', selection=selection, name=True)
 
     output = []
 

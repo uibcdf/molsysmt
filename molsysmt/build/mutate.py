@@ -18,7 +18,7 @@ def mutate (molecular_system, residue_indices=None, to_residue_names=None, engin
         form_in = get_form(molecular_system)
         tmp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
 
-        from_residue_names, residue_ids, in_chain_ids = get(tmp_molecular_system, target='group', indices=residue_indices,
+        from_residue_names, residue_ids, in_chain_ids = get(tmp_molecular_system, element='group', indices=residue_indices,
                                              group_name=True, group_id=True, chain_id=True)
 
         for residue_id, from_residue_name, to_residue_name, in_chain_id in zip(residue_ids, from_residue_names, to_residue_names, in_chain_ids):

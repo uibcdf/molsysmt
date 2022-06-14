@@ -1,10 +1,14 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 
-def get_missing_heavy_atoms(molecular_system, selection='all', engine='PDBFixer',
-                            syntaxis='MolSysMT'):
+def get_missing_heavy_atoms(molecular_system, selection='all', syntaxis='MolSysMT', engine='PDBFixer', check=True):
 
-    engine = digest_engine(engine)
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        engine = digest_engine(engine)
 
     output = {}
 
@@ -12,26 +16,18 @@ def get_missing_heavy_atoms(molecular_system, selection='all', engine='PDBFixer'
 
         from molsysmt.basic import convert, get_form, select
 
-        correction_group_indices = False
-        if selection is not 'all':
-            group_indices_in_selection = select(molecular_system, target='group', selection=selection)
-            correction_group_indices = True
+        group_indices_in_selection = select(molecular_system, element='group', selection=selection, check=False)
 
-        tmp_item = convert(molecular_system, selection=selection, to_form="pdbfixer.PDBFixer",
-                           syntaxis=syntaxis)
+        temp_molecular_system = convert(molecular_system, selection=selection, to_form="pdbfixer.PDBFixer", syntaxis=syntaxis, check=False)
 
-        tmp_item.findMissingResidues()
-        tmp_item.findMissingAtoms()
-        missingAtoms = tmp_item.missingAtoms
+        temp_molecular_system.findMissingResidues()
+        temp_molecular_system.findMissingAtoms()
 
-        for group, atoms in missingAtoms.items():
-            if correction_group_indices:
-                group_index = group_indices_in_selection[group.index]
-            else:
-                group_index = group.index
-            output[group_index]=[]
+        for group, atoms in temp_molecular_system.missingAtoms.items():
+            original_group_index = group_indices_in_selection[group.index]
+            output[original_group_index]=[]
             for atom in atoms:
-                output[group_index].append(atom.name)
+                output[original_group_index].append(atom.name)
 
     else:
 

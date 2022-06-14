@@ -1,18 +1,18 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 import numpy as np
-from molsysmt.basic import get
 
 def get_covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_blocks=False, selection='all',
                                syntaxis='MolSysMT', check=True):
 
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
 
-    from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
-    from molsysmt.topology.get_covalent_chains import get_covalent_chains
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+
+    from molsysmt.basic import get
+    from . import get_covalent_blocks, get_covalent_chains
 
     if dihedral_angle is not None:
         if dihedral_angle=='phi':
@@ -108,9 +108,9 @@ def get_covalent_dihedral_quartets(molecular_system, dihedral_angle=None, with_b
         for quartet_index in range(n_quartets):
 
             quartet = quartets[quartet_index]
-            component_index = get(molecular_system, target='atom', indices=quartet[1],
+            component_index = get(molecular_system, element='atom', indices=quartet[1],
                     component_index=True, check=False)[0]
-            component_atom_indices = get(molecular_system, target='component',
+            component_atom_indices = get(molecular_system, element='component',
                     indices=component_index, atom_index=True, check=False)[0]
             tmp_blocks = get_covalent_blocks(molecular_system, remove_bonds=[quartet[1],
                 quartet[2]], output_form='sets', check=False)

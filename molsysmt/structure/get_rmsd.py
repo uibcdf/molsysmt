@@ -5,28 +5,41 @@ from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
 
 def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
-          reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
-          reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT'):
+          reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
+          reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT',
+          check=True):
 
-    from molsysmt.basic import is_a_molecular_system
+    if check:
 
-    if not is_a_molecular_system(molecular_system):
-        raise SingleMolecularSystemNeededError()
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
 
-    engine = digest_engine(engine)
+        if reference_molecular_system is not None:
+            digest_single_molecular_system(reference_molecular_system)
+
+        if reference_selection is not None:
+            reference_selection = digest_selection(reference_selection, syntaxis)
+
+        if reference_structure_index is not None:
+            reference_structure_index = digest_structure_indices(reference_structure_index)
 
     if engine=='MolSysMT':
 
         from molsysmt.basic import select, get
-        from molsysmt._private._digestion import digest_structure_indices
 
-        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True)
-        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
+        n_atoms, n_structures = get(molecular_system, n_atoms=True, n_structures=True, check=False)
+        atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
         n_atom_indices = atom_indices.shape[0]
-        structure_indices = digest_structure_indices(structure_indices)
         if structure_indices is 'all':
             structure_indices = np.arange(n_structures)
         n_structure_indices = structure_indices.shape[0]
+
+        coordinates = get(molecular_system, coordinates=True, structure_indices='all', check=False)
+        units = puw.get_unit(coordinates)
+        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
 
         if reference_coordinates is None:
 
@@ -36,13 +49,13 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
             if reference_selection is None:
                 reference_selection = selection
 
-            reference_atom_indices = select(reference_molecular_system, selection=reference_selection, syntaxis=syntaxis)
+            reference_atom_indices = select(reference_molecular_system,
+                    selection=reference_selection, syntaxis=syntaxis, check=False)
 
-            reference_coordinates = get(reference_molecular_system, target='atom', indices=reference_atom_indices, structure_indices=reference_frame_index, coordinates=True)
+            reference_coordinates = get(reference_molecular_system, element='atom',
+                    indices=reference_atom_indices, structure_indices=reference_structure_index,
+                    coordinates=True, check=False)
 
-        coordinates = get(molecular_system, coordinates=True, structure_indices='all')
-        units = puw.get_unit(coordinates)
-        coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
         reference_coordinates = np.asfortranarray(puw.get_value(reference_coordinates, to_unit=units), dtype='float64')
 
         if reference_coordinates.shape[1]!=n_atom_indices:
@@ -54,6 +67,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
         rmsd_val = rmsd_val * units
         rmsd_val = puw.standardize(rmsd_val)
         del(coordinates, units)
+
         return rmsd_val
 
     elif engine=='MDTraj':
@@ -63,7 +77,7 @@ def get_rmsd(molecular_system, selection='backbone', structure_indices='all',
 
         #tmp_molecular_system = convert(molecular_system, to_form='mdtraj.Trajectory')
 
-        #rmsd_val = mdtraj_rmsd(tmp_molecular_system, ref_item, frame=ref_structure_indices,
+        #rmsd_val = mdtraj_rmsd(tmp_molecular_system, ref_item, structure=ref_structure_indices,
         #                        ref_atom_indices=ref_atom_indices, atom_indices=atom_indices,
         #                        parallel=parallel, precentered=precentered)
 

@@ -12,7 +12,7 @@ import os
 def test_string_aminoacids3_to_string_aminoacids3_1():
 
     molsys = msm.convert('aminoacids3:AlaValPro', to_form='string:aminoacids3')
-    check = (molsys == 'AlaValPro')
+    check = (molsys == 'aminoacids3:AlaValPro')
     assert check
 
 def test_string_aminoacids3_to_string_aminoacids3_2():

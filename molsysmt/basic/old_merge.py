@@ -33,7 +33,7 @@ def merge(molecular_systems=None, selections='all', structure_indices='all', syn
     Returns
     -------
     None
-        The method prints out a pandas dataframe with relevant information depending on the target
+        The method prints out a pandas dataframe with relevant information depending on the element
         and the form of the item.
 
     Examples

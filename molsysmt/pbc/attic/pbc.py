@@ -103,7 +103,7 @@ from molsysmt import puw
 #
 #        molecules_serialized = serialized_lists(molecules, dtype='int64')
 #
-#        bonded_atoms = get(tmp_item, target='atom', indices=atom_indices, bonded_atoms=True)
+#        bonded_atoms = get(tmp_item, element='atom', indices=atom_indices, bonded_atoms=True)
 #        bonded_atoms_serialized = serialized_lists(bonded_atoms, dtype='int64')
 #
 #        coordinates, box, box_shape = get(tmp_item, coordinates=True, box=True, box_shape=True, structure_indices='all')

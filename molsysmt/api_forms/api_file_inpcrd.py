@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.file_inpcrd.is_file_inpcrd import is_file_inpcrd as is_form
-from molsysmt.form.file_inpcrd.extract import extract
-from molsysmt.form.file_inpcrd.add import add
-from molsysmt.form.file_inpcrd.append_structures import append_structures
-from molsysmt.form.file_inpcrd.get import *
-from molsysmt.form.file_inpcrd.set import *
+from molsysmt.item.file_inpcrd.is_file_inpcrd import is_file_inpcrd as is_form
+from molsysmt.item.file_inpcrd.extract import extract
+from molsysmt.item.file_inpcrd.add import add
+from molsysmt.item.file_inpcrd.append_structures import append_structures
+from molsysmt.item.file_inpcrd.get import *
+from molsysmt.item.file_inpcrd.set import *
 
 form_name='file:inpcrd'
 form_type='file'
@@ -65,7 +65,7 @@ form_attributes = {
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_inpcrd import to_molsysmt_Structures as file_inpcrd_to_molsysmt_Structures
+    from molsysmt.item.file_inpcrd import to_molsysmt_Structures as file_inpcrd_to_molsysmt_Structures
 
     tmp_item = file_inpcrd_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -73,7 +73,7 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
 def to_mdtraj_AmberRestartFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_inpcrd import to_mdtraj_AmberRestartFile as file_inpcrd_to_mdtraj_AmberRestartFile
+    from molsysmt.item.file_inpcrd import to_mdtraj_AmberRestartFile as file_inpcrd_to_mdtraj_AmberRestartFile
 
     tmp_item = file_inpcrd_to_mdtraj_AmberRestartFile(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -81,7 +81,7 @@ def to_mdtraj_AmberRestartFile(item, molecular_system, atom_indices='all', struc
 
 def to_openmm_AmberInpcrdFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.file_inpcrd import to_openmm_AmberInpcrdFile as file_inpcrd_to_openmm_AmberInpcrdFile
+    from molsysmt.item.file_inpcrd import to_openmm_AmberInpcrdFile as file_inpcrd_to_openmm_AmberInpcrdFile
 
     tmp_item = file_inpcrd_to_openmm_AmberInpcrdFile(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 

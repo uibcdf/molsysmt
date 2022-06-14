@@ -1,9 +1,26 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
+import numpy as np
+
+def _evaluation(condition, n_in_system):
+
+    output = True
+
+    if condition is not None:
+        if type(condition)==bool:
+            if condition==True and n_in_system==0:
+                output = False
+            elif condition==False and n_in_system>0:
+                output = False
+        elif type(condition)==int:
+            if condition>n_in_system:
+                output = False
+
+    return output
 
 def contains(molecular_system, selection='all', syntaxis='MolSysMT',
         ions=None, waters=None, cosolutes=None, small_molecules=None, peptides=None, proteins=None,
-        dnas=None, rnas=None, lipids=None, check=True):
+        dnas=None, rnas=None, lipids=None, hydrogens=None, check=True):
 
     if check:
 
@@ -11,34 +28,81 @@ def contains(molecular_system, selection='all', syntaxis='MolSysMT',
         syntaxis = digest_syntaxis(syntaxis)
         selection = digest_selection(selection, syntaxis)
 
-    from . import get
+    from . import get, select
 
-    n_ions_in, n_waters_in, n_cosolutes_in, n_small_molecules_in, n_peptides_in, n_proteins_in,\
-    n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, target="system", selection=selection,
-            syntaxis=syntaxis, n_ions=True, n_waters=True, n_cosolutes=True,
-            n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True, n_rnas=True,
-            n_lipids=True, check=False)
+    if ions is not None:
 
-    aux_list = [[ions, n_ions_in], [waters, n_waters_in], [cosolutes, n_cosolutes_in],
-            [small_molecules, n_small_molecules_in], [peptides, n_peptides_in], [proteins,
-                n_proteins_in], [dnas, n_dnas_in], [rnas, n_rnas_in], [lipids, n_lipids_in]]
+        n_in_system = get(molecular_system, selection=selection, n_ions=True, check=False)
 
-    output = True
+        if not _evaluation(ions, n_in_system):
+            return False
 
-    for condition, in_system in aux_list:
+    if waters is not None:
 
-        if condition is not None:
-            if type(condition)==bool:
-                if condition==True and in_system==0:
-                    output = False
-                    break
-                elif condition==False and in_system>0:
-                    output = False
-                    break
-            elif type(condition)==int:
-                if condition>in_system:
-                    output = False
-                    break
+        n_in_system = get(molecular_system, n_waters=True, check=False)
 
-    return output
+        if not _evaluation(waters, n_in_system):
+            return False
+
+    if cosolutes is not None:
+
+        n_in_system = get(molecular_system, n_cosolutes=True, check=False)
+
+        if not _evaluation(cosolutes, n_in_system):
+            return False
+
+    if small_molecules is not None:
+
+        n_in_system = get(molecular_system, n_small_molecules=True, check=False)
+
+        if not _evaluation(small_molecules, n_in_system):
+            return False
+
+    if peptides is not None:
+
+        n_in_system = get(molecular_system, n_peptides=True, check=False)
+
+        if not _evaluation(peptides, n_in_system):
+            return False
+
+    if proteins is not None:
+
+        n_in_system = get(molecular_system, n_proteins=True, check=False)
+
+        if not _evaluation(proteins, n_in_system):
+            return False
+
+    if dnas is not None:
+
+        n_in_system = get(molecular_system, n_dnas=True, check=False)
+
+        if not _evaluation(dnas, n_in_system):
+            return False
+
+    if rnas is not None:
+
+        n_in_system = get(molecular_system, n_rnas=True, check=False)
+
+        if not _evaluation(rnas, n_in_system):
+            return False
+
+    if lipids is not None:
+
+        n_in_system = get(molecular_system, n_lipids=True, check=False)
+
+        if not _evaluation(lipids, n_in_system):
+            return False
+
+    if hydrogens is not None:
+
+        hydrogen_indices = select(molecular_system, selection='atom_type=="H"', check=False)
+        selection_indices = select(molecular_system, selection=selection, check=False)
+
+        intersection = np.intersect1d(hydrogen_indices, selection_indices)
+        n_in_system = intersection.shape[0]
+
+        if not _evaluation(hydrogens, n_in_system):
+            return False
+
+    return True
 

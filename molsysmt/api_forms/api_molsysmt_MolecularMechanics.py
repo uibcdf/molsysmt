@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.molsysmt_MolecularMechanics.is_molsysmt_MolecularMechanics import is_molsysmt_MolecularMechanics as is_form
-from molsysmt.form.molsysmt_MolecularMechanics.extract import extract
-from molsysmt.form.molsysmt_MolecularMechanics.add import add
-from molsysmt.form.molsysmt_MolecularMechanics.append_structures import append_structures
-from molsysmt.form.molsysmt_MolecularMechanics.get import *
-from molsysmt.form.molsysmt_MolecularMechanics.set import *
+from molsysmt.item.molsysmt_MolecularMechanics.is_molsysmt_MolecularMechanics import is_molsysmt_MolecularMechanics as is_form
+from molsysmt.item.molsysmt_MolecularMechanics.extract import extract
+from molsysmt.item.molsysmt_MolecularMechanics.add import add
+from molsysmt.item.molsysmt_MolecularMechanics.append_structures import append_structures
+from molsysmt.item.molsysmt_MolecularMechanics.get import *
+from molsysmt.item.molsysmt_MolecularMechanics.set import *
 
 form_name='molsysmt.MolecularMechanics'
 form_type='class'
@@ -84,7 +84,7 @@ form_attributes = {
 
 def to_MolecularMechanicsDict(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanicsDict as molsysmt_MolecularMechanics_to_molsysmt_MolecularMechanicsDict
+    from molsysmt.item.molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanicsDict as molsysmt_MolecularMechanics_to_molsysmt_MolecularMechanicsDict
 
     tmp_item = molsysmt_MolecularMechanics_to_molsysmt_MolecularMechanicsDict(item, check=False)
 

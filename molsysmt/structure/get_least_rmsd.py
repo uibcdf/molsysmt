@@ -6,16 +6,25 @@ from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
 
 def get_least_rmsd (molecular_system=None, selection='backbone', structure_indices='all',
-          reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
+          reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
           reference_coordinates=None, parallel=True, syntaxis='MolSysMT', engine='MolSysMT',
           check=True):
 
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
-        if not is_a_molecular_system(molecular_system):
-            raise SingleMolecularSystemNeededError()
 
-    engine = digest_engine(engine)
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
+
+        if reference_molecular_system is not None:
+            digest_single_molecular_system(reference_molecular_system)
+
+        if reference_selection is not None:
+            reference_selection = digest_selection(reference_selection, syntaxis)
+
+        reference_structure_index = digest_structure_indices(reference_structure_index)
 
     if engine=='MolSysMT':
 
@@ -38,8 +47,8 @@ def get_least_rmsd (molecular_system=None, selection='backbone', structure_indic
             reference_atom_indices = select(reference_molecular_system,
                     selection=reference_selection, syntaxis=syntaxis, check=False)
 
-            reference_coordinates = get(reference_molecular_system, target='atom',
-                    indices=reference_atom_indices, structure_indices=reference_frame_index,
+            reference_coordinates = get(reference_molecular_system, element='atom',
+                    indices=reference_atom_indices, structure_indices=reference_structure_index,
                     coordinates=True, check=False)
 
         coordinates = get(molecular_system, coordinates=True, structure_indices='all', check=False)

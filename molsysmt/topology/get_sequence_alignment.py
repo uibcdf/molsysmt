@@ -4,9 +4,10 @@ from molsysmt.basic import convert
 import numpy as np
 
 def get_sequence_alignment(molecular_system, selection='all', reference_molecular_system=None, reference_selection=None,
-                       engine='biopython', syntaxis='MolSysMT', prettyprint=False, alignment_index = 0):
+                       engine='Biopython', syntaxis='MolSysMT', prettyprint=False,
+                       alignment_index=0, check=True):
 
-    if engine=='biopython':
+    if engine=='Biopython':
 
         # from ensembler.modeling.align_target_template
         # (https://github.com/choderalab/ensembler/blob/master/ensembler/modeling.py)
@@ -14,9 +15,12 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
         # See: https://biopython.org/docs/1.75/api/Bio.Align.html#Bio.Align.PairwiseAligner
 
         from Bio import Align
+
         tmp_ref_seq=convert(reference_molecular_system, selection=reference_selection,
-                syntaxis=syntaxis, to_form='biopython.Seq')
-        tmp_seq=convert(molecular_system, selection=selection, syntaxis=syntaxis, to_form='biopython.Seq')
+                syntaxis=syntaxis, to_form='biopython.Seq', check=False)
+        tmp_seq=convert(molecular_system, selection=selection, syntaxis=syntaxis,
+                to_form='biopython.Seq', check=False)
+
         aligner = Align.PairwiseAligner()
         aligner.mode = 'global'
         aligner.match_score = 1.0
@@ -32,7 +36,7 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
         seq_ref = txt_aln[0]
         seq = txt_aln[2]
 
-    elif engine=='modeller':
+    elif engine=='Modeller':
 
         raise NotImplementedError
 

@@ -15,7 +15,7 @@ from .wrong_get_argument_error import WrongGetArgumentError
 from .wrong_syntaxis_error import WrongSyntaxisError
 from .wrong_atom_indices_error import WrongAtomIndicesError
 from .wrong_indices_error import WrongIndicesError
-from .wrong_target_error import WrongTargetError
+from .wrong_element_error import WrongElementError
 from .wrong_box_error import WrongBoxError
 from .wrong_output_filename_error import WrongOutputFilenameError
 from .wrong_time_error import WrongTimeError

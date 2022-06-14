@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.molsysmt_Structures.is_molsysmt_Structures import is_molsysmt_Structures as is_form
-from molsysmt.form.molsysmt_Structures.extract import extract
-from molsysmt.form.molsysmt_Structures.add import add
-from molsysmt.form.molsysmt_Structures.append_structures import append_structures
-from molsysmt.form.molsysmt_Structures.get import *
-from molsysmt.form.molsysmt_Structures.set import *
+from molsysmt.item.molsysmt_Structures.is_molsysmt_Structures import is_molsysmt_Structures as is_form
+from molsysmt.item.molsysmt_Structures.extract import extract
+from molsysmt.item.molsysmt_Structures.add import add
+from molsysmt.item.molsysmt_Structures.append_structures import append_structures
+from molsysmt.item.molsysmt_Structures.get import *
+from molsysmt.item.molsysmt_Structures.set import *
 
 form_name='molsysmt.Structures'
 form_type='class'
@@ -67,7 +67,7 @@ form_attributes = {
 
 def to_molsysmt_TrajectoryDict(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_Structures import to_molsysmt_TrajectoryDict as molsysmt_Structures_to_molsysmt_TrajectoryDict
+    from molsysmt.item.molsysmt_Structures import to_molsysmt_TrajectoryDict as molsysmt_Structures_to_molsysmt_TrajectoryDict
 
     tmp_item = molsysmt_Structures_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -75,7 +75,7 @@ def to_molsysmt_TrajectoryDict(item, molecular_system, atom_indices='all', struc
 
 def to_XYZ(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_Structures import to_XYZ as molsysmt_Structures_to_XYZ
+    from molsysmt.item.molsysmt_Structures import to_XYZ as molsysmt_Structures_to_XYZ
 
     tmp_item = molsysmt_Structures_to_XYZ(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 

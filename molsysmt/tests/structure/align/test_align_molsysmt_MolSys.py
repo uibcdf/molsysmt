@@ -6,11 +6,19 @@ systems.
 # Import package, test suite, and other packages as needed
 import molsysmt as msm
 import numpy as np
-import math as math
 
 # Distance between atoms in space and time
 
 def test_get_structure_alignment_molsysmt_MolSys_1():
+
+    molsys_1 = msm.convert(msm.demo['T4 lysozyme L99A']['181l.msmpk'], selection='molecule_type=="protein"', to_form='molsysmt.MolSys')
+    molsys_2 = msm.structure.translate(molsys_1, translation="[2.0, 0.0, 0.0] nm")
+    rmsd = msm.structure.get_rmsd(molsys_2, selection='backbone', reference_molecular_system=molsys_1, reference_selection='backbone')
+    check = np.isclose(2.0, msm.puw.get_value(rmsd, to_unit='nm')[0])
+    assert check
+
+def test_get_structure_alignment_molsysmt_MolSys_2():
+
     molsys_1 = msm.convert(msm.demo['T4 lysozyme L99A']['181l.msmpk'], to_form='molsysmt.MolSys')
     molsys_1 = msm.extract(molsys_1, selection='molecule_type=="protein"')
     molsys_2 = msm.convert(msm.demo['T4 lysozyme L99A']['1l17.msmpk'], to_form='molsysmt.MolSys')
@@ -24,8 +32,9 @@ def test_get_structure_alignment_molsysmt_MolSys_1():
     aux2 = msm.select(molsys_2, selection='group_index==@int2')
     sel2 = msm.select(molsys_2, selection='backbone', mask=aux2)
     rmsd = msm.structure.get_rmsd(molsys_2on1, selection=sel2, reference_molecular_system=molsys_1, reference_selection=sel1)
-    check = math.isclose(0.021332505947, msm.puw.get_value(rmsd, to_unit='nm')[0])
+    check = np.isclose(0.021332505947, msm.puw.get_value(rmsd, to_unit='nm')[0])
     print(msm.puw.get_value(rmsd, to_unit='nm')[0])
+
     assert check
 
 

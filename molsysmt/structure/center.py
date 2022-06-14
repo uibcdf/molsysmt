@@ -5,19 +5,25 @@ import numpy as np
 
 
 def center(molecular_system, selection='all', center_of_selection='all', weights=None, new_coordinates_center=None, structure_indices='all',
-           syntaxis='MolSysMT', engine='MolSysMT', in_place=False):
+           syntaxis='MolSysMT', engine='MolSysMT', in_place=False, check=True):
 
-    from molsysmt.structure.get_center import get_center
-    from molsysmt.structure.translate import translate
+    if check:
 
-    molecular_system = digest_molecular_system(molecular_system)
-    structure_indices = digest_structure_indices(structure_indices)
-    engine = digest_engine(engine)
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        center_of_selection = digest_selection(center_of_selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
+
+    from . import get_center
+    from . import translate
 
     if engine=='MolSysMT':
 
         coordinates_selection_center = get_center(molecular_system, selection=center_of_selection, groups_of_atoms=None, weights=weights,
-                                                  structure_indices=structure_indices, syntaxis=syntaxis, engine=engine)
+                                                  structure_indices=structure_indices,
+                                                  syntaxis=syntaxis, engine=engine, check=False)
 
         if new_coordinates_center is None:
             translation = -coordinates_selection_center
@@ -27,7 +33,8 @@ def center(molecular_system, selection='all', center_of_selection='all', weights
         del(coordinates_selection_center)
 
         return translate(molecular_system, translation=translation, selection=selection,
-                         structure_indices=structure_indices, syntaxis='MolSysMT', in_place=in_place)
+                         structure_indices=structure_indices, syntaxis='MolSysMT',
+                         in_place=in_place, check=False)
 
     else:
 

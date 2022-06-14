@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.biopython_SeqRecord.is_biopython_SeqRecord import is_biopython_SeqRecord as is_form
-from molsysmt.form.biopython_SeqRecord.extract import extract
-from molsysmt.form.biopython_SeqRecord.add import add
-from molsysmt.form.biopython_SeqRecord.append_structures import append_structures
-from molsysmt.form.biopython_SeqRecord.get import *
-from molsysmt.form.biopython_SeqRecord.set import *
+from molsysmt.item.biopython_SeqRecord.is_biopython_SeqRecord import is_biopython_SeqRecord as is_form
+from molsysmt.item.biopython_SeqRecord.extract import extract
+from molsysmt.item.biopython_SeqRecord.add import add
+from molsysmt.item.biopython_SeqRecord.append_structures import append_structures
+from molsysmt.item.biopython_SeqRecord.get import *
+from molsysmt.item.biopython_SeqRecord.set import *
 
 form_name='biopython.SeqRecord'
 form_type='class'

@@ -3,24 +3,26 @@ from molsysmt._private.digestion import *
 import numpy as np
 
 def get_sequence_identity(molecular_system, selection='all', reference_molecular_system=None,
-                          reference_selection='all', syntaxis='MolSysMT', engine='biopython'):
+                          reference_selection='all', syntaxis='MolSysMT', engine='Biopython',
+                          check=True):
 
     from molsysmt.topology.get_sequence_alignment import get_sequence_alignment
     from molsysmt.basic import select
 
-    if engine=='biopython':
+    if engine=='Biopython':
 
         # This is code from ensembler.modeling.calculate_seq_identity
         # This should be implemented here importing the function but there is a conflict installing
         # ensembler: ensembler is only available for python 2.7
         # (https://github.com/choderalab/ensembler/blob/master/ensembler/modeling.py)
 
-        group_indices = select(molecular_system, target='group', selection=selection)
-        reference_group_indices = select(reference_molecular_system, target='group', selection=reference_selection)
+        group_indices = select(molecular_system, element='group', selection=selection)
+        reference_group_indices = select(reference_molecular_system, element='group', selection=reference_selection)
 
         seq, seq_ref = get_sequence_alignment(molecular_system, selection=selection,
                 reference_molecular_system=reference_molecular_system,
-                reference_selection=reference_selection, syntaxis=syntaxis, engine=engine)
+                reference_selection=reference_selection, syntaxis=syntaxis, engine=engine,
+                check=False)
 
         intersect=[]
         intersect_ref=[]

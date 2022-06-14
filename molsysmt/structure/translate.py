@@ -6,14 +6,18 @@ from molsysmt import puw
 def translate(molecular_system, translation=None, selection='all', structure_indices='all',
         syntaxis='MolSysMT', in_place=False, check=True):
 
-    from molsysmt.basic import get, set, select, copy, is_molecular_system
-
     if check:
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
 
-    atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
-    coordinates = get(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=True)
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+
+    from molsysmt.basic import get, set, select, copy
+
+    atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis, check=False)
+    coordinates = get(molecular_system, element='atom', indices=atom_indices,
+            structure_indices=structure_indices, coordinates=True, check=False)
 
     length_units = puw.get_unit(coordinates)
     coordinates = puw.get_value(coordinates)
@@ -42,9 +46,11 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     coordinates=coordinates*length_units
 
     if in_place:
-        return set(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
+        return set(molecular_system, element='atom', indices=atom_indices,
+                structure_indices=structure_indices, coordinates=coordinates, check=False)
     else:
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices, coordinates=coordinates)
+        set(tmp_molecular_system, element='atom', indices=atom_indices,
+                structure_indices=structure_indices, coordinates=coordinates, check=False)
         return tmp_molecular_system
 

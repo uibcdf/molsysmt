@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.molsysmt_MolSys.is_molsysmt_MolSys import is_molsysmt_MolSys as is_form
-from molsysmt.form.molsysmt_MolSys.extract import extract
-from molsysmt.form.molsysmt_MolSys.add import add
-from molsysmt.form.molsysmt_MolSys.append_structures import append_structures
-from molsysmt.form.molsysmt_MolSys.get import *
-from molsysmt.form.molsysmt_MolSys.set import *
+from molsysmt.item.molsysmt_MolSys.is_molsysmt_MolSys import is_molsysmt_MolSys as is_form
+from molsysmt.item.molsysmt_MolSys.extract import extract
+from molsysmt.item.molsysmt_MolSys.add import add
+from molsysmt.item.molsysmt_MolSys.append_structures import append_structures
+from molsysmt.item.molsysmt_MolSys.get import *
+from molsysmt.item.molsysmt_MolSys.set import *
 
 import numpy as np
 
@@ -68,7 +68,7 @@ form_attributes = {
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
+    from molsysmt.item.molsysmt_MolSys import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
 
     tmp_item = molsysmt_MolSys_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -76,7 +76,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
+    from molsysmt.item.molsysmt_MolSys import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
 
     tmp_item = molsysmt_MolSys_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -84,7 +84,7 @@ def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure
 
 def to_XYZ(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_XYZ as molsysmt_MolSys_to_XYZ
+    from molsysmt.item.molsysmt_MolSys import to_XYZ as molsysmt_MolSys_to_XYZ
 
     tmp_item = molsysmt_MolSys_to_XYZ(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -92,8 +92,8 @@ def to_XYZ(item, molecular_system, atom_indices='all', structure_indices='all'):
 
 def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_string_aminoacids3 as molsysmt_MolSys_to_string_aminoacids3
-    from molsysmt.form.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
+    from molsysmt.item.molsysmt_MolSys import to_string_aminoacids3 as molsysmt_MolSys_to_string_aminoacids3
+    from molsysmt.item.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
 
     group_indices = get_group_index_from_atom_molsysmt_MolSys(item, indices=atom_indices, check=False)
     group_indices = np.unique(group_indices)
@@ -104,8 +104,8 @@ def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_
 
 def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_string_aminoacids1 as molsysmt_MolSys_to_string_aminoacids1
-    from molsysmt.form.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
+    from molsysmt.item.molsysmt_MolSys import to_string_aminoacids1 as molsysmt_MolSys_to_string_aminoacids1
+    from molsysmt.item.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
 
     group_indices = get_group_index_from_atom_molsysmt_MolSys(item, indices=atom_indices, check=False)
     group_indices = np.unique(group_indices)
@@ -116,8 +116,8 @@ def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_
 
 def to_biopython_Seq(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_biopython_Seq as molsysmt_MolSys_to_biopython_Seq
-    from molsysmt.form.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
+    from molsysmt.item.molsysmt_MolSys import to_biopython_Seq as molsysmt_MolSys_to_biopython_Seq
+    from molsysmt.item.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
 
     group_indices = get_group_index_from_atom_molsysmt_MolSys(item, indices=atom_indices, check=False)
     group_indices = np.unique(group_indices)
@@ -128,8 +128,8 @@ def to_biopython_Seq(item, molecular_system, atom_indices='all', structure_indic
 
 def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_biopython_SeqRecord as molsysmt_MolSys_to_biopython_SeqRecord
-    from molsysmt.form.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
+    from molsysmt.item.molsysmt_MolSys import to_biopython_SeqRecord as molsysmt_MolSys_to_biopython_SeqRecord
+    from molsysmt.item.molsysmt_MolSys import get_group_index_from_atom as get_group_index_from_atom_molsysmt_MolSys
 
     group_indices = get_group_index_from_atom_molsysmt_MolSys(item, indices=atom_indices, check=False)
     group_indices = np.unique(group_indices)
@@ -140,7 +140,7 @@ def to_biopython_SeqRecord(item, molecular_system, atom_indices='all', structure
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_mdtraj_Trajectory as molsysmt_MolSys_to_mdtraj_Trajectory
+    from molsysmt.item.molsysmt_MolSys import to_mdtraj_Trajectory as molsysmt_MolSys_to_mdtraj_Trajectory
 
     tmp_item = molsysmt_MolSys_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -148,7 +148,7 @@ def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_i
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_mdtraj_Topology as molsysmt_MolSys_to_mdtraj_Topology
+    from molsysmt.item.molsysmt_MolSys import to_mdtraj_Topology as molsysmt_MolSys_to_mdtraj_Topology
 
     tmp_item = molsysmt_MolSys_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -156,7 +156,7 @@ def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_openmm_Topology as molsysmt_MolSys_to_openmm_Topology
+    from molsysmt.item.molsysmt_MolSys import to_openmm_Topology as molsysmt_MolSys_to_openmm_Topology
 
     tmp_item = molsysmt_MolSys_to_openmm_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -164,7 +164,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_openmm_Modeller as molsysmt_MolSys_to_openmm_Modeller
+    from molsysmt.item.molsysmt_MolSys import to_openmm_Modeller as molsysmt_MolSys_to_openmm_Modeller
 
     tmp_item = molsysmt_MolSys_to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -172,7 +172,7 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_ind
 
 def to_openmm_System(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_openmm_System as molsysmt_MolSys_to_openmm_System
+    from molsysmt.item.molsysmt_MolSys import to_openmm_System as molsysmt_MolSys_to_openmm_System
 
     tmp_item = molsysmt_MolSys_to_openmm_System(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -180,7 +180,7 @@ def to_openmm_System(item, molecular_system, atom_indices='all', structure_indic
 
 def to_openmm_Context(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_openmm_Context as molsysmt_MolSys_to_openmm_Context
+    from molsysmt.item.molsysmt_MolSys import to_openmm_Context as molsysmt_MolSys_to_openmm_Context
 
     tmp_item = molsysmt_MolSys_to_openmm_Context(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -188,7 +188,7 @@ def to_openmm_Context(item, molecular_system, atom_indices='all', structure_indi
 
 def to_openmm_Simulation(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_openmm_Simulation as molsysmt_MolSys_to_openmm_Simulation
+    from molsysmt.item.molsysmt_MolSys import to_openmm_Simulation as molsysmt_MolSys_to_openmm_Simulation
 
     tmp_item = molsysmt_MolSys_to_openmm_Simulation(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -196,7 +196,7 @@ def to_openmm_Simulation(item, molecular_system, atom_indices='all', structure_i
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
-    from molsysmt.form.molsysmt_MolSys import to_file_pdb as molsysmt_MolSys_to_file_pdb
+    from molsysmt.item.molsysmt_MolSys import to_file_pdb as molsysmt_MolSys_to_file_pdb
 
     tmp_item = molsysmt_MolSys_to_file_pdb(item, atom_indices=atom_indices, structure_indices=structure_indices, output_filename=output_filename, check=False)
 
@@ -204,7 +204,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
 
 def to_file_msmpk(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
-    from molsysmt.form.molsysmt_MolSys import to_file_msmpk as molsysmt_MolSys_to_file_msmpk
+    from molsysmt.item.molsysmt_MolSys import to_file_msmpk as molsysmt_MolSys_to_file_msmpk
 
     tmp_item = molsysmt_MolSys_to_file_msmpk(item, atom_indices=atom_indices, structure_indices=structure_indices, output_filename=output_filename, check=False)
 
@@ -212,7 +212,7 @@ def to_file_msmpk(item, molecular_system, atom_indices='all', structure_indices=
 
 def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
+    from molsysmt.item.molsysmt_MolSys import to_string_pdb_text as molsysmt_MolSys_to_string_pdb_text
 
     tmp_item = molsysmt_MolSys_to_string_pdb_text(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -220,7 +220,7 @@ def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_ind
 
 def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_pdbfixer_PDBFixer as molsysmt_MolSys_to_pdbfixer_PDBFixer
+    from molsysmt.item.molsysmt_MolSys import to_pdbfixer_PDBFixer as molsysmt_MolSys_to_pdbfixer_PDBFixer
 
     tmp_item = molsysmt_MolSys_to_pdbfixer_PDBFixer(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 
@@ -228,7 +228,7 @@ def to_pdbfixer_PDBFixer(item, molecular_system, atom_indices='all', structure_i
 
 def to_pytraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_pytraj_Topology as molsysmt_MolSys_to_pytraj_Topology
+    from molsysmt.item.molsysmt_MolSys import to_pytraj_Topology as molsysmt_MolSys_to_pytraj_Topology
 
     tmp_item = molsysmt_MolSys_to_pytraj_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -236,7 +236,7 @@ def to_pytraj_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+    from molsysmt.item.molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 
     tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
 

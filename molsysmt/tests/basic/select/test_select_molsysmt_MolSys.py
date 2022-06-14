@@ -14,14 +14,14 @@ def test_select_1():
 
 def test_select_2():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, target='group', selection=[0,1,2,3,4,5,6,7,8,9,10,11])
+    output = msm.select(molsys, element='group', selection=[0,1,2,3,4,5,6,7,8,9,10,11])
     true_output = np.array([0, 1])
     assert np.all(output==true_output)
 
 def test_select_3():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, target='molecule', selection=[3900, 3910, 3920])
-    true_output = np.array([ 83,  93, 103])
+    output = msm.select(molsys, element='molecule', selection=[3900, 3910, 3920])
+    true_output = np.array([ 84,  94, 104])
     assert np.all(output==true_output)
 
 def test_select_4():
@@ -75,7 +75,7 @@ def test_select_11():
 def test_select_12():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     output = msm.select(molsys, 'molecule_type=="water" and molecule_index==[100,101]')
-    true_output = np.array([3917, 3918])
+    true_output = np.array([3916, 3917])
     assert np.all(output==true_output)
 
 def test_select_13():
@@ -122,61 +122,61 @@ def test_select_18():
 def test_select_19():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     indices=[0,100,200]
-    output = msm.select(molsys, 'group_index==@indices', target='group')
+    output = msm.select(molsys, 'group_index==@indices', element='group')
     true_output = np.array([  0, 100, 200])
     assert np.all(output==true_output)
 
 def test_select_20():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'group_name=="ALA" and group_index==[2,3,4,5,6,7]', target='group')
+    output = msm.select(molsys, 'group_name=="ALA" and group_index==[2,3,4,5,6,7]', element='group')
     true_output = np.array([5, 6, 7])
     assert np.all(output==true_output)
 
 def test_select_21():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'atom_index==[34,44,64]', target='group')
+    output = msm.select(molsys, 'atom_index==[34,44,64]', element='group')
     true_output = np.array([4, 5, 9])
     assert np.all(output==true_output)
 
 def test_select_22():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'chain_id==["A","C"] and molecule_type!="water"', target='group')
+    output = msm.select(molsys, 'chain_id==["A","C"] and molecule_type!="water"', element='group')
     true_output = np.array(list(range(248)))
     assert np.all(output==true_output)
 
 def test_select_23():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'molecule_type=="water"', target='group')
+    output = msm.select(molsys, 'molecule_type=="water"', element='group')
     true_output = np.array(list(range(497,662)))
     assert np.all(output==true_output)
 
 def test_select_24():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'molecule_type=="water"', target='molecule')
-    true_output = np.array(list(range(1,166)))
+    output = msm.select(molsys, 'molecule_type=="water"', element='molecule')
+    true_output = np.array(list(range(2,167)))
     assert np.all(output==true_output)
 
 def test_select_25():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'molecule_type=="water"', target='chain')
+    output = msm.select(molsys, 'molecule_type=="water"', element='chain')
     true_output = np.array([2, 3])
     assert np.all(output==true_output)
 
 def test_select_26():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'group_index==5', target='bond')
+    output = msm.select(molsys, 'group_index==5', element='bond')
     true_output = np.array([37, 38, 39, 40])
     assert np.all(output==true_output)
 
 def test_select_27():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'atom_index in [0,1,2,3,4]', mask=[0,1,2], target='atom')
+    output = msm.select(molsys, 'atom_index in [0,1,2,3,4]', mask=[0,1,2], element='atom')
     true_output = np.array([0, 1, 2])
     assert np.all(output==true_output)
 
 def test_select_28():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, 'group_index in [0,1,2,3,4]', mask=[0,1,2], target='group')
+    output = msm.select(molsys, 'group_index in [0,1,2,3,4]', mask=[0,1,2], element='group')
     true_output = np.array([0, 1, 2])
     assert np.all(output==true_output)
 
@@ -212,7 +212,7 @@ def test_select_33():
 
 def test_select_34():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, '(atom_name=="CA" and chain_id=="A") within 0.5 nm of (atom_name=="CA" and chain_id=="B")', target='group')
+    output = msm.select(molsys, '(atom_name=="CA" and chain_id=="A") within 0.5 nm of (atom_name=="CA" and chain_id=="B")', element='group')
     true_output = np.array([10, 42, 62, 72, 73])
     assert np.all(output==true_output)
 
@@ -254,13 +254,13 @@ def test_select_40():
 
 def test_select_41():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, target='group', selection='group_index==[3,4,5]', to_syntaxis='NGLView')
+    output = msm.select(molsys, element='group', selection='group_index==[3,4,5]', to_syntaxis='NGLView')
     true_output = '7:A 8:A 9:A'
     assert np.all(output==true_output)
 
 def test_select_42():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    output = msm.select(molsys, target='group', selection='group_index==[3,4,5]', to_syntaxis='MDTraj')
+    output = msm.select(molsys, element='group', selection='group_index==[3,4,5]', to_syntaxis='MDTraj')
     true_output = 'resid 3 4 5'
     assert np.all(output==true_output)
 

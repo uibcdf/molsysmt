@@ -1,17 +1,23 @@
-def is_file(item, check=True):
+from importlib import import_module
+import os
 
-    from molsysmt.basic import get_form
-    from molsysmt.form import is_file as form_is_file
+list_is_file_form = []
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
-    if check:
-        from molsysmt.item import is_item
-        if not is_item(item):
-            raise WrongItemError()
+for dirname in os.listdir(current_dir):
+    if dirname.startswith('file_'):
+        form_name = dirname
+        mod = import_module('molsysmt.item.'+dirname)
+        list_is_file_form.append(getattr(mod, 'is_'+form_name))
+
+def is_file(form, check=True):
 
     output = False
 
-    if type(item) is str:
-        output = form_is_file(item)
+    for is_file_form in list_is_file_form:
+        if is_file_form(form):
+            output = True
+            break
 
     return output
 

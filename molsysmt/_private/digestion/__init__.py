@@ -16,7 +16,7 @@ from .selection import digest_selection, digest_multiple_selections
 from .step import digest_step
 from .structure_indices import digest_structure_indices, digest_multiple_structure_indices
 from .syntaxis import digest_syntaxis, digest_to_syntaxis
-from .target import digest_target
+from .element import digest_element
 from .time import digest_time
 from .viewers import digest_viewer
 

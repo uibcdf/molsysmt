@@ -62,11 +62,11 @@ for api_name in apis:
                 out_form_name=method.replace('to_','').replace('_','.',1)
             dict_convert[mod.form_name][out_form_name]= getattr(mod, method)
         if method.startswith('get_'):
-            option, target = method[4:].split('_from_')
-            dict_get[mod.form_name][target][option]=getattr(mod, method)
+            option, element = method[4:].split('_from_')
+            dict_get[mod.form_name][element][option]=getattr(mod, method)
         if method.startswith('set_'):
-            option, target = method[4:].split('_to_')
-            dict_set[mod.form_name][target][option]=getattr(mod, method)
+            option, element = method[4:].split('_to_')
+            dict_set[mod.form_name][element][option]=getattr(mod, method)
 
 del(mod, method, out_form_name)
 del(current_dir, import_module)

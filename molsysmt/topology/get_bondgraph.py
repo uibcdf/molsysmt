@@ -1,7 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from networkx import Graph
-from molsysmt.basic import get
 
 def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', syntaxis='MolSysMT',
               to_form='networkx.Graph', check=True):
@@ -14,13 +13,15 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
     # nodes_name en ['atom_index', 'short_string', 'long_string']
 
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
 
-    tmp_molecular_system = None
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        to_form = digest_to_form(to_form)
 
-    to_form = digest_to_form(to_form)
+    from molsysmt.basic import get
+
+    output = None
 
     if to_form == 'networkx.Graph':
 
@@ -28,7 +29,7 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
 
         if nodes_name is 'atom_index':
 
-            atom_indices, bonded_atoms = get(molecular_system, target='atom', selection=selection,
+            atom_indices, bonded_atoms = get(molecular_system, element='atom', selection=selection,
                                              syntaxis=syntaxis, atom_index=True,
                                              inner_bonded_atoms=True, check=False)
 
@@ -39,11 +40,11 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
 
             raise NotImplementedError
 
-        tmp_molecular_system = G
+        output = G
 
     else:
 
         raise NotImplementedError
 
-    return tmp_molecular_system
+    return output
 

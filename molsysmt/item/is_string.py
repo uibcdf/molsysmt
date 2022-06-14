@@ -1,14 +1,14 @@
-def is_string(item, check=True):
+from molsysmt._private.exceptions import *
+from molsysmt._private.digestion import *
 
-    from molsysmt.basic import get_form
-    from molsysmt.tools.form import is_string as form_is_string
+def is_string(form, check=True):
 
     if check:
-        from molsysmt.tools.item import is_item
-        if not is_item(item):
-            raise WrongItemError()
+        from .is_form import is_form
+        if not is_form(form):
+            raise WrongFormError()
 
-    form = get_form(item, check=False)
+    from molsysmt.api_forms import string_forms
 
-    return form_is_string(form)
+    return (form in string_forms)
 

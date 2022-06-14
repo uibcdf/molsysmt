@@ -5,17 +5,28 @@ from molsysmt.lib import rmsd as librmsd
 from molsysmt import puw
 
 def fit (molecular_system=None, selection='backbone', structure_indices='all',
-         reference_molecular_system=None, reference_selection=None, reference_frame_index=0,
+         reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
          to_form=None, parallel=True, syntaxis='MolSysMT', method='least rmsd', engine='MolSysMT',
          check=True):
 
-    from molsysmt.basic import select, get, set, convert, copy, is_molecular_system
-
     if check:
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
 
-    engine = digest_engine(engine)
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
+
+        if reference_molecular_system is not None:
+            digest_single_molecular_system(reference_molecular_system)
+
+        if reference_selection is not None:
+            reference_selection = digest_selection(reference_selection, syntaxis)
+
+        if reference_structure_index is not None:
+            reference_structure_index = digest_structure_indices(reference_structure_index)
+
+    from molsysmt.basic import select, get, set, convert, copy, is_molecular_system
 
     if engine=='MolSysMT':
 
@@ -36,8 +47,8 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
         reference_atom_indices = select(reference_molecular_system, selection=reference_selection,
                 syntaxis=syntaxis, check=False)
 
-        reference_coordinates = get(reference_molecular_system, target='atom', indices=reference_atom_indices,
-                                    structure_indices=reference_frame_index, coordinates=True,
+        reference_coordinates = get(reference_molecular_system, element='atom', indices=reference_atom_indices,
+                                    structure_indices=reference_structure_index, coordinates=True,
                                     check=False)
 
         coordinates = get(molecular_system, coordinates=True, structure_indices='all', check=False)
@@ -59,7 +70,7 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
         else:
             tmp_molecular_system = convert(molecular_system, to_form=to_form, check=False)
 
-        set(tmp_molecular_system, target='system', coordinates=coordinates, check=False)
+        set(tmp_molecular_system, element='system', coordinates=coordinates, check=False)
         del(coordinates, units)
         return tmp_molecular_system
 

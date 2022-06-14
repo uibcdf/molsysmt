@@ -4,7 +4,7 @@ def complementary_atom_indices(molecular_system, atom_indices):
 
     from molsysmt.basic import get
 
-    n_atoms = get(molecular_system, target='system', n_atoms=True)
+    n_atoms = get(molecular_system, element='system', n_atoms=True)
 
     mask = np.ones(n_atoms,dtype=bool)
     mask[atom_indices]=False

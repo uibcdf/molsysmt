@@ -1,12 +1,19 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 import numpy as np
-from molsysmt.basic import get
 from networkx import connected_components
 
-def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_form='sets', syntaxis='MolSysMT'):
+def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_form='sets',
+        syntaxis='MolSysMT', check=True):
 
-    from molsysmt.topology.get_bondgraph import get_bondgraph
+    if check:
+
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+
+    from molsysmt.basic import get
+    from . import get_bondgraph
 
     G = get_bondgraph(molecular_system, nodes_name='atom_index', selection=selection, syntaxis=syntaxis)
 
@@ -39,7 +46,7 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
 
     elif output_form=='array':
 
-        n_atoms = get(molecular_system, target='system', n_atoms=True)
+        n_atoms = get(molecular_system, element='system', n_atoms=True)
         blocks = -np.ones([n_atoms], dtype=int)
         component_index = 0
         for component in components:

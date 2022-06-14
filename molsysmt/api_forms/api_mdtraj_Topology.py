@@ -1,11 +1,11 @@
 from molsysmt._private.exceptions import *
 
-from molsysmt.form.mdtraj_Topology.is_mdtraj_Topology import is_mdtraj_Topology as is_form
-from molsysmt.form.mdtraj_Topology.extract import extract
-from molsysmt.form.mdtraj_Topology.add import add
-from molsysmt.form.mdtraj_Topology.append_structures import append_structures
-from molsysmt.form.mdtraj_Topology.get import *
-from molsysmt.form.mdtraj_Topology.set import *
+from molsysmt.item.mdtraj_Topology.is_mdtraj_Topology import is_mdtraj_Topology as is_form
+from molsysmt.item.mdtraj_Topology.extract import extract
+from molsysmt.item.mdtraj_Topology.add import add
+from molsysmt.item.mdtraj_Topology.append_structures import append_structures
+from molsysmt.item.mdtraj_Topology.get import *
+from molsysmt.item.mdtraj_Topology.set import *
 
 form_name='mdtraj.Topology'
 form_type='class'
@@ -67,8 +67,8 @@ form_attributes = {
 
 def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_Topology import to_string_aminoacids3 as mdtraj_Topology_to_string_aminoacids3
-    from molsysmt.form.mdtraj_Topology import get_group_index_from_atom
+    from molsysmt.item.mdtraj_Topology import to_string_aminoacids3 as mdtraj_Topology_to_string_aminoacids3
+    from molsysmt.item.mdtraj_Topology import get_group_index_from_atom
 
     group_indices = get_group_index_from_atom(item, indices=atom_indices, check=False)
     tmp_item = mdtraj_Topology_to_string_aminoacids3(item, group_indices=group_indices, check=False)
@@ -77,8 +77,8 @@ def to_string_aminoacids3(item, molecular_system, atom_indices='all', structure_
 
 def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_Topology import to_string_aminoacids1 as mdtraj_Topology_to_string_aminoacids1
-    from molsysmt.form.mdtraj_Topology import get_group_index_from_atom
+    from molsysmt.item.mdtraj_Topology import to_string_aminoacids1 as mdtraj_Topology_to_string_aminoacids1
+    from molsysmt.item.mdtraj_Topology import get_group_index_from_atom
 
     group_indices = get_group_index_from_atom(item, indices=atom_indices, check=False)
     tmp_item = mdtraj_Topology_to_string_aminoacids1(item, group_indices=group_indices, check=False)
@@ -87,7 +87,7 @@ def to_string_aminoacids1(item, molecular_system, atom_indices='all', structure_
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_Topology import to_molsysmt_Topology as mdtraj_Topology_to_molsysmt_Topology
+    from molsysmt.item.mdtraj_Topology import to_molsysmt_Topology as mdtraj_Topology_to_molsysmt_Topology
 
     tmp_item = mdtraj_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -95,7 +95,7 @@ def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_i
 
 def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_Topology import to_openmm_Topology as mdtraj_Topology_to_openmm_Topology
+    from molsysmt.item.mdtraj_Topology import to_openmm_Topology as mdtraj_Topology_to_openmm_Topology
 
     tmp_item = mdtraj_Topology_to_openmm_Topology(item, atom_indices=atom_indices, check=False)
 
@@ -103,7 +103,7 @@ def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_ind
 
 def to_parmed_Structure(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_Topology import to_parmed_Structure as mdtraj_Topology_to_parmed_Structure
+    from molsysmt.item.mdtraj_Topology import to_parmed_Structure as mdtraj_Topology_to_parmed_Structure
 
     tmp_item = mdtraj_Topology_to_parmed_Structure(item, atom_indices=atom_indices, check=False)
 
@@ -111,7 +111,7 @@ def to_parmed_Structure(item, molecular_system, atom_indices='all', structure_in
 
 def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_Topology import to_parmed_Structure as mdtraj_Topology_to_parmed_Structure
+    from molsysmt.item.mdtraj_Topology import to_parmed_Structure as mdtraj_Topology_to_parmed_Structure
 
     tmp_item = mdtraj_Topology_to_parmed_Structure(item, atom_indices=atom_indices, check=False)
 
@@ -119,7 +119,7 @@ def to_parmed_GromacsTopologyFile(item, molecular_system, atom_indices='all', st
 
 def to_file_top(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
 
-    from molsysmt.form.mdtraj_Topology import to_file_top as mdtraj_Topology_to_file_top
+    from molsysmt.item.mdtraj_Topology import to_file_top as mdtraj_Topology_to_file_top
 
     tmp_item = mdtraj_Topology_to_parmed_Structure(item, atom_indices=atom_indices, output_filename=output_filename, check=False)
 
@@ -127,12 +127,12 @@ def to_file_top(item, molecular_system, atom_indices='all', structure_indices='a
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
 
-    from molsysmt.form.mdtraj_Topology import to_mdtraj_Trajectory as mdtraj_Topology_to_mdtraj_Trajectory
+    from molsysmt.item.mdtraj_Topology import to_mdtraj_Trajectory as mdtraj_Topology_to_mdtraj_Trajectory
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, target='atom', selection=atom_indices,
+    coordinates = get(molecular_system, element='atom', selection=atom_indices,
             structure_indices=structure_indices, coordinates=True, check=False)
-    box = get(molecular_system, target='system', structure_indices=structure_indices, box=True,
+    box = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
             check=False)
 
     tmp_item = mdtraj_Topology_to_mdtraj_Trajectory(item, atom_indices=atom_indices,

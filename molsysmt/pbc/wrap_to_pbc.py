@@ -18,11 +18,11 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
 
         atom_indices = select(molecular_system, selection=selection, syntaxis=syntaxis)
 
-        coordinates= get(molecular_system, target='atom', indices=atom_indices, coordinates=True)
+        coordinates= get(molecular_system, element='atom', indices=atom_indices, coordinates=True)
         length_units = puw.get_unit(coordinates)
         n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
-        box, box_shape = get(molecular_system, target='system', structure_indices=structure_indices, box=True, box_shape=True)
+        box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True, box_shape=True)
         box = puw.convert(box, to_unit=length_units)
 
         orthogonal = 0
@@ -77,7 +77,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
 
     if in_place:
 
-        set(molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices,
+        set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
                 syntaxis=syntaxis, coordinates=coordinates)
 
         pass
@@ -85,7 +85,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
     else:
 
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, target='atom', indices=atom_indices, structure_indices=structure_indices,
+        set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
             syntaxis=syntaxis, coordinates=coordinates)
 
         return tmp_molecular_system

@@ -3,19 +3,18 @@ from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt import puw
 from molsysmt.lib import geometry as libgeometry
-from molsysmt.basic import get, convert, set, copy
 
 def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=None,
         structure_indices='all', pbc=True, in_place=False, engine='MolSysMT', check=True):
 
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
 
+        digest_single_molecular_system(molecular_system)
+        structure_indices = digest_structure_indices(structure_indices)
+        engine = digest_engine(engine)
+
+    from molsysmt.basic import get, convert, set, copy
     from molsysmt.topology.get_covalent_blocks import get_covalent_blocks
-
-    structure_indices = digest_structure_indices(structure_indices)
 
     if type(quartets) in [list,tuple]:
         quartets = np.array(quartets, dtype=int)
@@ -37,9 +36,9 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
     else:
         raise ValueError
 
-    n_atoms = get(molecular_system, target='system', n_atoms=True, check=False)
+    n_atoms = get(molecular_system, element='system', n_atoms=True, check=False)
     n_quartets = quartets.shape[0]
-    n_structures = get(molecular_system, target='system', structure_indices=structure_indices,
+    n_structures = get(molecular_system, element='system', structure_indices=structure_indices,
             n_structures=True, check=False)
 
     angles_units = puw.get_unit(angles)
@@ -78,12 +77,12 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
                 blocks.append(tmp_blocks)
 
 
-        coordinates = get(molecular_system, target='system', structure_indices=structure_indices,
+        coordinates = get(molecular_system, element='system', structure_indices=structure_indices,
                 coordinates=True, check=False)
 
         if pbc:
 
-            box, box_shape = get(molecular_system, target='system',
+            box, box_shape = get(molecular_system, element='system',
                     structure_indices=structure_indices, box=True, box_shape=True, check=False)
             if box_shape is None:
                 raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
@@ -121,11 +120,11 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         coordinates=np.ascontiguousarray(coordinates)*length_units
 
         if in_place:
-            return set(molecular_system, target='system', coordinates=coordinates,
+            return set(molecular_system, element='system', coordinates=coordinates,
                     structure_indices=structure_indices, check=False)
         else:
             tmp_molecular_system = copy(molecular_system, check=False)
-            set(tmp_molecular_system, target='system', coordinates=coordinates,
+            set(tmp_molecular_system, element='system', coordinates=coordinates,
                     structure_indices=structure_indices, check=False)
             return tmp_molecular_system
 

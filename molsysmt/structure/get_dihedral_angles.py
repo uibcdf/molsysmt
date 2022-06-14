@@ -4,21 +4,23 @@ from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
 from molsysmt.basic import get
 from molsysmt.lib import geometry as libgeometry
-from molsysmt.topology.get_covalent_dihedral_quartets import get_covalent_dihedral_quartets
 
 def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', quartets=None,
                         structure_indices='all', syntaxis='MolSysMT', pbc=False, check=True):
 
     if check:
-        from molsysmt.tools.molecular_system import is_molecular_system
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
 
-    structure_indices = digest_structure_indices(structure_indices)
+        digest_single_molecular_system(molecular_system)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        structure_indices = digest_structure_indices(structure_indices)
+
+    from molsysmt.topology import get_covalent_dihedral_quartets
 
     if quartets is None:
 
-        quartets = get_covalent_dihedral_quartets(molecular_system, dihedral_angle=dihedral_angle, selection=selection, syntaxis=syntaxis)
+        quartets = get_covalent_dihedral_quartets(molecular_system, dihedral_angle=dihedral_angle,
+                                                  selection=selection, syntaxis=syntaxis, check=False)
 
     elif type(quartets) in [list,tuple]:
         quartets = np.array(quartets, dtype=int)
@@ -40,8 +42,8 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
     else:
         raise ValueError
 
-
-    coordinates = get(molecular_system, target='system', structure_indices=structure_indices, coordinates=True)
+    coordinates = get(molecular_system, element='system', structure_indices=structure_indices,
+                      coordinates=True, check=False)
 
     n_angles = quartets.shape[0]
     n_structures = coordinates.shape[0]
@@ -49,7 +51,9 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
 
     if pbc:
 
-        box, box_shape = get(molecular_system, target='system', structure_indices=structure_indices, box=True, box_shape=True)
+        box, box_shape = get(molecular_system, element='system',
+                             structure_indices=structure_indices, box=True, box_shape=True,
+                             check=False)
         if box_shape is None:
             raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
         orthogonal = 0
