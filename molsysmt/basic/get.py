@@ -67,7 +67,7 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         # TODO: make exceptions more specific
         try:
             element = digest_element(element)
-        except:
+        except BadCallError:
             raise WrongTargetError(element)
 
         try:
@@ -124,9 +124,9 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         dict_indices = {}
         if element != 'system':
             if 'indices' in _required_indices[argument]:
-                dict_indices['indices']=indices
+                dict_indices['indices'] = indices
         if 'structure_indices' in _required_indices[argument]:
-            dict_indices['structure_indices']=structure_indices
+            dict_indices['structure_indices'] = structure_indices
 
         aux_item, aux_form = where_is_attribute(molecular_system, argument, check=False)
 

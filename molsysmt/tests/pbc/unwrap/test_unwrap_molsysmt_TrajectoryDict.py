@@ -9,6 +9,7 @@ import math
 
 # Distance between atoms in space and time
 
+# TODO: trajectorydict form doesn't exist anymore. Should this test be deleted?
 
 def test_unwrap_molsysmt_TrajectoryDict_1():
     molsys = msm.convert(msm.demo['two LJ particles']['traj.trjpk'], to_form='molsysmt.TrajectoryDict')

@@ -1,6 +1,7 @@
 from ..lists_and_tuples import is_list_or_tuple
 from ..exceptions import *
 
+
 def digest_form(form):
 
     from molsysmt.api_forms import _dict_forms_lowercase
@@ -15,6 +16,7 @@ def digest_form(form):
             output = _dict_forms_lowercase[form.lower()]
 
     return output
+
 
 def digest_to_form(to_form):
 
