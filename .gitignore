@@ -119,3 +119,5 @@ devtools/playground/*
 !molsysmt/build/*
 !molsysmt/docs/contents/build/*
 
+# pycharm
+.idea/
