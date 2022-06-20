@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compare &mdash; MolSysMT 0.6.0b1+0.g24f9361e.dirty documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/mystnb.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Convert" href="convert.html" />
+    <link rel="prev" title="Is composed of" href="is_composed_of.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> MolSysMT
+          </a>
+              <div class="version">
+                0.6.0b1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/what.html">What’s MolSysMT?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation and showcase</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../show/installation/Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../show/installation/Installation.html#last-stable-version">Last stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../show/installation/Installation.html#last-testing-version">Last testing version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../show/installation/Installation.html#developing-version-from-the-source-code">Developing version from the source code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#the-source-code">The source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#a-conda-environment">A conda environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#additional-dependencies-for-developers">Additional dependencies for developers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#installation-from-the-source-code">Installation from the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#uninstallation">Uninstallation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../show/showcase/index.html">Showcase</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Introduction.html">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Introduction.html#units">Units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Molecular_systems.html">Molecular systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#tests">Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#casos-que-quiero-resolver">Casos que quiero resolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#forms">Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#files">Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#ids">Ids</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#sequences">Sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#viewers">Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Items_and_forms.html">Items and forms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html">Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#atom">Atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#group">Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#component">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#molecule">Molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#chains">Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#entities">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Attributes.html">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Units.html">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Units.html#units">Units</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Tools</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Basic</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="is_a_molecular_system.html">Is a molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="has_attribute.html">Where is attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="where_is_attribute.html">Where is attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get_form.html">Get form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="info.html">Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="selection.html">Select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get.html">Get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="set.html">Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contains.html">Contains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="is_composed_of.html">Is composed of</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Compare</a></li>
+<li class="toctree-l3"><a class="reference internal" href="convert.html">Convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extract.html">Extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="copy.html">Copy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="merge.html">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remove.html">Remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="add.html">Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../build/index.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_heavy_atoms.html">Get missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/add_missing_heavy_atoms.html">Add missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_residues.html">Get missing residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_terminals.html">Get missing terminals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_non_standard_residues.html">Get non standard residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/is_solvated.html">Is solvated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/solvate.html">Solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/build_peptide.html">Build peptide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/model_loop.html">Model loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/mutate.html">Mutate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/intro/Introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/intro/Introduction.html#intro">Intro</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/documentation/index.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/documentation/api/index.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/api/todo.html">TODO</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/documentation/web/index.html">Web</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/web/myst.html">MyST</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../autosummary/molsysmt.basic.get_form.html">molsysmt.basic.get_form</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">MolSysMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Tools</a> &raquo;</li>
+          <li><a href="index.html">Basic</a> &raquo;</li>
+      <li>Compare</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">msm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "840b34f5d1ae453582dbcf3facf5b815"}</script></div>
+</div>
+<section id="compare">
+<h1>Compare<a class="headerlink" href="#compare" title="Permalink to this heading"></a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molsys_A</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;pdb_id:2LAO&#39;</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.Modeller&#39;</span><span class="p">)</span>
+<span class="n">molsys_B</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys_A</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span class="n">molsys_C</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">molsys_B</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type==&quot;protein&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/diego/projects-uibcdf/MolSysMT/molsysmt/item/mmtf_MMTFDecoder/to_molsysmt_Topology.py:34: UserWarning: The structure in the PDB has biological assemblies. There are geometrical transformations proposed in the structure. See the following issue in the source code repository: https://github.com/uibcdf/MolSysMT/issues/33
+  warnings.warn(warning_message)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="compare-all">
+<h2>Compare ‘all’<a class="headerlink" href="#compare-all" title="Permalink to this heading"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_A</span><span class="p">,</span> <span class="n">molsys_B</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="s1">&#39;A_eq_B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_11374</span><span class="o">/</span><span class="mf">1393578634.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_A</span><span class="p">,</span> <span class="n">molsys_B</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="s1">&#39;A_eq_B&#39;</span><span class="p">)</span>
+
+<span class="nn">~/projects-uibcdf/MolSysMT/molsysmt/basic/compare/compare.py</span> in <span class="ni">compare</span><span class="nt">(molecular_system_A, molecular_system_B, selection_A, structure_indices_A, selection_B, structure_indices_B, comparison, rule, syntaxis, report, check)</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>                  <span class="n">selection_A</span><span class="o">=</span><span class="n">selection_A</span><span class="p">,</span> <span class="n">structure_indices_A</span><span class="o">=</span><span class="n">structure_indices_A</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>                  <span class="n">selection_B</span><span class="o">=</span><span class="n">selection_B</span><span class="p">,</span> <span class="n">structure_indices_B</span><span class="o">=</span><span class="n">structure_indices_B</span><span class="p">,</span>
+<span class="ne">---&gt; </span><span class="mi">82</span>                  <span class="n">syntaxis</span><span class="o">=</span><span class="n">syntaxis</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span> 
+<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="k">elif</span> <span class="n">rule</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;A_in_B&#39;</span><span class="p">,</span> <span class="s1">&#39;B_in_A&#39;</span><span class="p">]:</span>
+
+<span class="nn">~/projects-uibcdf/MolSysMT/molsysmt/basic/compare/compare_all.py</span> in <span class="ni">compare_all_eq</span><span class="nt">(molecular_system_A, molecular_system_B, selection_A, structure_indices_A, selection_B, structure_indices_B, syntaxis)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">n_atoms_A</span><span class="p">,</span> <span class="n">n_groups_A</span><span class="p">,</span> <span class="n">n_molecules_A</span><span class="p">,</span> <span class="n">n_chains_A</span><span class="p">,</span> <span class="n">n_entities_A</span><span class="p">,</span> <span class="n">n_bonds_A</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system_A</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>             <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">selection_A</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_molecules</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="ne">---&gt; </span><span class="mi">16</span>             <span class="n">n_chains</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_entities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_inner_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> 
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">n_atoms_B</span><span class="p">,</span> <span class="n">n_groups_B</span><span class="p">,</span> <span class="n">n_molecules_B</span><span class="p">,</span> <span class="n">n_chains_B</span><span class="p">,</span> <span class="n">n_entities_B</span><span class="p">,</span> <span class="n">n_bonds_B</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system_B</span><span class="p">,</span>
+
+<span class="nn">~/projects-uibcdf/MolSysMT/molsysmt/basic/get.py</span> in <span class="ni">get</span><span class="nt">(molecular_system, element, indices, selection, structure_indices, syntaxis, check, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span>             <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">134</span>             <span class="n">result</span> <span class="o">=</span> <span class="n">dict_get</span><span class="p">[</span><span class="n">aux_form</span><span class="p">][</span><span class="n">element</span><span class="p">][</span><span class="n">argument</span><span class="p">](</span><span class="n">aux_item</span><span class="p">,</span> <span class="o">**</span><span class="n">dict_indices</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span> 
+<span class="g g-Whitespace">    </span><span class="mi">136</span>         <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="nn">~/projects-uibcdf/MolSysMT/molsysmt/item/openmm_Modeller/get.py</span> in <span class="ni">get_n_entities_from_atom</span><span class="nt">(item, indices, check)</span>
+<span class="g g-Whitespace">    </span><span class="mi">348</span> 
+<span class="g g-Whitespace">    </span><span class="mi">349</span>     <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">350</span>         <span class="n">output</span> <span class="o">=</span> <span class="n">get_n_entities_from_system</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">351</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">352</span>         <span class="n">output</span> <span class="o">=</span> <span class="n">get_entity_index_from_atom</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nn">~/projects-uibcdf/MolSysMT/molsysmt/item/openmm_Modeller/get.py</span> in <span class="ni">get_n_entities_from_system</span><span class="nt">(item, check)</span>
+<span class="g g-Whitespace">    </span><span class="mi">516</span> 
+<span class="g g-Whitespace">    </span><span class="mi">517</span>     <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">to_openmm_Topology</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">518</span>     <span class="n">output</span> <span class="o">=</span> <span class="n">aux_get</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">519</span> 
+<span class="g g-Whitespace">    </span><span class="mi">520</span>     <span class="k">return</span> <span class="n">output</span>
+
+<span class="nn">~/projects-uibcdf/MolSysMT/molsysmt/item/openmm_Topology/get.py</span> in <span class="ni">get_n_entities_from_system</span><span class="nt">(item, check)</span>
+<span class="g g-Whitespace">    </span><span class="mi">482</span>         <span class="n">_digest_item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">_form</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">483</span> 
+<span class="ne">--&gt; </span><span class="mi">484</span>     <span class="n">entity_index_from_atom</span> <span class="o">=</span> <span class="n">get_entity_index_from_atom</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span>     <span class="k">if</span> <span class="n">entity_index_from_atom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">486</span>         <span class="n">n_entities</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="nn">~/projects-uibcdf/MolSysMT/molsysmt/item/openmm_Topology/get.py</span> in <span class="ni">get_entity_index_from_atom</span><span class="nt">(item, indices, check)</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="n">indices</span> <span class="o">=</span> <span class="n">_digest_indices</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span> 
+<span class="ne">--&gt; </span><span class="mi">141</span>     <span class="kn">from</span> <span class="nn">molsysmt.element.entity</span> <span class="kn">import</span> <span class="n">entity_index_from_atom</span> <span class="k">as</span> <span class="n">_get</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span>     <span class="k">return</span> <span class="n">_get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span> 
+
+<span class="ne">ImportError</span>: cannot import name &#39;entity_index_from_atom&#39; from &#39;molsysmt.element.entity&#39; (/home/diego/projects-uibcdf/MolSysMT/molsysmt/element/entity/__init__.py)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_C</span><span class="p">,</span> <span class="n">molsys_B</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="s1">&#39;A_eq_B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_C</span><span class="p">,</span> <span class="n">molsys_B</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="s1">&#39;A_eq_B&#39;</span><span class="p">,</span> <span class="n">report</span> <span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(False,
+ {&#39;n_atoms&#39;: False,
+  &#39;n_groups&#39;: False,
+  &#39;n_molecules&#39;: False,
+  &#39;n_chains&#39;: False,
+  &#39;n_entities&#39;: False,
+  &#39;atom_names&#39;: False,
+  &#39;atom_types&#39;: False,
+  &#39;atom_ids&#39;: False,
+  &#39;group_names&#39;: False,
+  &#39;group_types&#39;: False,
+  &#39;group_ids&#39;: False,
+  &#39;molecule_names&#39;: False,
+  &#39;molecule_types&#39;: False,
+  &#39;molecule_ids&#39;: False,
+  &#39;chain_names&#39;: False,
+  &#39;chain_types&#39;: False,
+  &#39;chain_ids&#39;: False,
+  &#39;entity_names&#39;: False,
+  &#39;entity_types&#39;: False,
+  &#39;entity_ids&#39;: False,
+  &#39;coordinates&#39;: False})
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="compare-info">
+<h2>Compare ‘info’<a class="headerlink" href="#compare-info" title="Permalink to this heading"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_A</span><span class="p">,</span> <span class="n">molsys_B</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="s1">&#39;A_eq_B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_A</span><span class="p">,</span> <span class="n">molsys_B</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="s1">&#39;n_elements&#39;</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="s1">&#39;A_eq_B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_A</span><span class="p">,</span> <span class="n">molsys_B</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="s1">&#39;n_molecules&#39;</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="s1">&#39;A_eq_B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_A</span><span class="p">,</span> <span class="n">molsys_B</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="s1">&#39;n_structures&#39;</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="s1">&#39;A_eq_B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_A</span><span class="p">,</span> <span class="n">molsys_B</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="s1">&#39;A_eq_B&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+    <a href="https://github.com/uibcdf/molsysmt">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="is_composed_of.html" class="btn btn-neutral float-left" title="Is composed of" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="convert.html" class="btn btn-neutral float-right" title="Convert" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors.Computational Molecular Science Python Cookiecutter version 1.5.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

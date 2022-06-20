@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extract &mdash; MolSysMT 0.6.0b1+0.g24f9361e.dirty documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/mystnb.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script type="application/vnd.jupyter.widget-state+json">{"state": {"a85d5e4a053f4a158c9f4e85f490f38d": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "f69be5bc829f4b6b84ad4cb13cdf34d3": {"model_name": "ColormakerRegistryModel", "model_module": "nglview-js-widgets", "model_module_version": "3.0.1", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "3.0.1", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "3.0.1", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_a85d5e4a053f4a158c9f4e85f490f38d"}}}, "version_major": 2, "version_minor": 0}</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Copy" href="copy.html" />
+    <link rel="prev" title="Convert" href="convert.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> MolSysMT
+          </a>
+              <div class="version">
+                0.6.0b1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/what.html">What’s MolSysMT?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation and showcase</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../show/installation/Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../show/installation/Installation.html#last-stable-version">Last stable version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../show/installation/Installation.html#last-testing-version">Last testing version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../show/installation/Installation.html#developing-version-from-the-source-code">Developing version from the source code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#the-source-code">The source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#a-conda-environment">A conda environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#additional-dependencies-for-developers">Additional dependencies for developers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#installation-from-the-source-code">Installation from the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../show/installation/Installation.html#uninstallation">Uninstallation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../show/showcase/index.html">Showcase</a><ul class="simple">
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Introduction.html">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Introduction.html#units">Units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Molecular_systems.html">Molecular systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#tests">Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#casos-que-quiero-resolver">Casos que quiero resolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#forms">Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#files">Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#ids">Ids</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#sequences">Sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../intro/Molecular_systems.html#viewers">Viewers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Items_and_forms.html">Items and forms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html">Elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#atom">Atom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#group">Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#component">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#molecule">Molecule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#chains">Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Elements.html#entities">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Attributes.html">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Units.html">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/Units.html#units">Units</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Tools</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Basic</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="is_a_molecular_system.html">Is a molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="has_attribute.html">Where is attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="where_is_attribute.html">Where is attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get_form.html">Get form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="info.html">Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="selection.html">Select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="get.html">Get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="set.html">Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contains.html">Contains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="is_composed_of.html">Is composed of</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compare.html">Compare</a></li>
+<li class="toctree-l3"><a class="reference internal" href="convert.html">Convert</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="copy.html">Copy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="merge.html">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remove.html">Remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="add.html">Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="view.html">View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../build/index.html">Building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_heavy_atoms.html">Get missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/add_missing_heavy_atoms.html">Add missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_residues.html">Get missing residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_missing_terminals.html">Get missing terminals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/get_non_standard_residues.html">Get non standard residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/is_solvated.html">Is solvated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/solvate.html">Solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/build_peptide.html">Build peptide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/model_loop.html">Model loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build/mutate.html">Mutate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/intro/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/intro/Introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/intro/Introduction.html#intro">Intro</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer/documentation/index.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/documentation/api/index.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/api/todo.html">TODO</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developer/documentation/web/index.html">Web</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../developer/documentation/web/myst.html">MyST</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../autosummary/molsysmt.basic.get_form.html">molsysmt.basic.get_form</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">MolSysMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Tools</a> &raquo;</li>
+          <li><a href="index.html">Basic</a> &raquo;</li>
+      <li>Extract</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+           <div itemprop="articleBody">
+             
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+</div>
+<section id="extract">
+<h1>Extract<a class="headerlink" href="#extract" title="Permalink to this heading"></a></h1>
+<section id="how-to-extract-a-molecular-subsystem">
+<h2>How to extract a molecular subsystem<a class="headerlink" href="#how-to-extract-a-molecular-subsystem" title="Permalink to this heading"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">molsysmt</span> <span class="k">as</span> <span class="nn">msm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "f69be5bc829f4b6b84ad4cb13cdf34d3"}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">msm</span><span class="o">.</span><span class="n">demo</span><span class="p">[</span><span class="s1">&#39;T4 lysozyme L99A&#39;</span><span class="p">][</span><span class="s1">&#39;181l.msmpk&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;entity&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_18e14_">
+  <thead>
+    <tr>
+      <th class="col_heading level0 col0" >index</th>
+      <th class="col_heading level0 col1" >name</th>
+      <th class="col_heading level0 col2" >type</th>
+      <th class="col_heading level0 col3" >n atoms</th>
+      <th class="col_heading level0 col4" >n groups</th>
+      <th class="col_heading level0 col5" >n components</th>
+      <th class="col_heading level0 col6" >n chains</th>
+      <th class="col_heading level0 col7" >n molecules</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_18e14_row0_col0" class="data row0 col0" >0</td>
+      <td id="T_18e14_row0_col1" class="data row0 col1" >T4 lysozyme</td>
+      <td id="T_18e14_row0_col2" class="data row0 col2" >protein</td>
+      <td id="T_18e14_row0_col3" class="data row0 col3" >1289</td>
+      <td id="T_18e14_row0_col4" class="data row0 col4" >162</td>
+      <td id="T_18e14_row0_col5" class="data row0 col5" >1</td>
+      <td id="T_18e14_row0_col6" class="data row0 col6" >1</td>
+      <td id="T_18e14_row0_col7" class="data row0 col7" >1</td>
+    </tr>
+    <tr>
+      <td id="T_18e14_row1_col0" class="data row1 col0" >1</td>
+      <td id="T_18e14_row1_col1" class="data row1 col1" >CHLORIDE ION</td>
+      <td id="T_18e14_row1_col2" class="data row1 col2" >ion</td>
+      <td id="T_18e14_row1_col3" class="data row1 col3" >2</td>
+      <td id="T_18e14_row1_col4" class="data row1 col4" >2</td>
+      <td id="T_18e14_row1_col5" class="data row1 col5" >2</td>
+      <td id="T_18e14_row1_col6" class="data row1 col6" >2</td>
+      <td id="T_18e14_row1_col7" class="data row1 col7" >2</td>
+    </tr>
+    <tr>
+      <td id="T_18e14_row2_col0" class="data row2 col0" >2</td>
+      <td id="T_18e14_row2_col1" class="data row2 col1" >2-HYDROXYETHYL DISULFIDE</td>
+      <td id="T_18e14_row2_col2" class="data row2 col2" >small molecule</td>
+      <td id="T_18e14_row2_col3" class="data row2 col3" >8</td>
+      <td id="T_18e14_row2_col4" class="data row2 col4" >1</td>
+      <td id="T_18e14_row2_col5" class="data row2 col5" >1</td>
+      <td id="T_18e14_row2_col6" class="data row2 col6" >1</td>
+      <td id="T_18e14_row2_col7" class="data row2 col7" >1</td>
+    </tr>
+    <tr>
+      <td id="T_18e14_row3_col0" class="data row3 col0" >3</td>
+      <td id="T_18e14_row3_col1" class="data row3 col1" >BENZENE</td>
+      <td id="T_18e14_row3_col2" class="data row3 col2" >small molecule</td>
+      <td id="T_18e14_row3_col3" class="data row3 col3" >6</td>
+      <td id="T_18e14_row3_col4" class="data row3 col4" >1</td>
+      <td id="T_18e14_row3_col5" class="data row3 col5" >1</td>
+      <td id="T_18e14_row3_col6" class="data row3 col6" >1</td>
+      <td id="T_18e14_row3_col7" class="data row3 col7" >1</td>
+    </tr>
+    <tr>
+      <td id="T_18e14_row4_col0" class="data row4 col0" >4</td>
+      <td id="T_18e14_row4_col1" class="data row4 col1" >water</td>
+      <td id="T_18e14_row4_col2" class="data row4 col2" >water</td>
+      <td id="T_18e14_row4_col3" class="data row4 col3" >136</td>
+      <td id="T_18e14_row4_col4" class="data row4 col4" >136</td>
+      <td id="T_18e14_row4_col5" class="data row4 col5" >136</td>
+      <td id="T_18e14_row4_col6" class="data row4 col6" >1</td>
+      <td id="T_18e14_row4_col7" class="data row4 col7" >136</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">water</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type==&quot;water&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">water</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_e4fb9_">
+  <thead>
+    <tr>
+      <th class="col_heading level0 col0" >form</th>
+      <th class="col_heading level0 col1" >n_atoms</th>
+      <th class="col_heading level0 col2" >n_groups</th>
+      <th class="col_heading level0 col3" >n_components</th>
+      <th class="col_heading level0 col4" >n_chains</th>
+      <th class="col_heading level0 col5" >n_molecules</th>
+      <th class="col_heading level0 col6" >n_entities</th>
+      <th class="col_heading level0 col7" >n_waters</th>
+      <th class="col_heading level0 col8" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_e4fb9_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+      <td id="T_e4fb9_row0_col1" class="data row0 col1" >136</td>
+      <td id="T_e4fb9_row0_col2" class="data row0 col2" >136</td>
+      <td id="T_e4fb9_row0_col3" class="data row0 col3" >0</td>
+      <td id="T_e4fb9_row0_col4" class="data row0 col4" >1</td>
+      <td id="T_e4fb9_row0_col5" class="data row0 col5" >136</td>
+      <td id="T_e4fb9_row0_col6" class="data row0 col6" >1</td>
+      <td id="T_e4fb9_row0_col7" class="data row0 col7" >136</td>
+      <td id="T_e4fb9_row0_col8" class="data row0 col8" >1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molsys</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type==[&quot;water&quot;, &quot;protein&quot;]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molsys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_2ee5b_">
+  <thead>
+    <tr>
+      <th class="col_heading level0 col0" >form</th>
+      <th class="col_heading level0 col1" >n_atoms</th>
+      <th class="col_heading level0 col2" >n_groups</th>
+      <th class="col_heading level0 col3" >n_components</th>
+      <th class="col_heading level0 col4" >n_chains</th>
+      <th class="col_heading level0 col5" >n_molecules</th>
+      <th class="col_heading level0 col6" >n_entities</th>
+      <th class="col_heading level0 col7" >n_waters</th>
+      <th class="col_heading level0 col8" >n_proteins</th>
+      <th class="col_heading level0 col9" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_2ee5b_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+      <td id="T_2ee5b_row0_col1" class="data row0 col1" >1425</td>
+      <td id="T_2ee5b_row0_col2" class="data row0 col2" >298</td>
+      <td id="T_2ee5b_row0_col3" class="data row0 col3" >137</td>
+      <td id="T_2ee5b_row0_col4" class="data row0 col4" >2</td>
+      <td id="T_2ee5b_row0_col5" class="data row0 col5" >137</td>
+      <td id="T_2ee5b_row0_col6" class="data row0 col6" >2</td>
+      <td id="T_2ee5b_row0_col7" class="data row0 col7" >136</td>
+      <td id="T_2ee5b_row0_col8" class="data row0 col8" >1</td>
+      <td id="T_2ee5b_row0_col9" class="data row0 col9" >1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<ul class="simple">
+<li><p>Include here the extraction of files. File to files and file to other forms.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+    <a href="https://github.com/uibcdf/molsysmt">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="convert.html" class="btn btn-neutral float-left" title="Convert" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="copy.html" class="btn btn-neutral float-right" title="Copy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, UIBCDF Lab at the Mexico City Childrens Hospital Federico Gomez and authors.Computational Molecular Science Python Cookiecutter version 1.5.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

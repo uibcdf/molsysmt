@@ -1,6 +1,29 @@
-molsysmt.build.remove\_solvent
+﻿molsysmt.build.remove\_solvent
 ==============================
 
-.. currentmodule:: molsysmt.build
+.. automodule:: molsysmt.build.remove_solvent
 
-.. autofunction:: remove_solvent
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      remove_solvent
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

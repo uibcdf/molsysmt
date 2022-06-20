@@ -1,29 +1,6 @@
-molsysmt.build.add\_missing\_hydrogens
+﻿molsysmt.build.add\_missing\_hydrogens
 ======================================
 
-.. automodule:: molsysmt.build.add_missing_hydrogens
+.. currentmodule:: molsysmt.build
 
-   
-   
-   
-
-   
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      add_missing_hydrogens
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
+.. autofunction:: add_missing_hydrogens

@@ -27,30 +27,24 @@
    :toctree:
    :recursive:
 
+   molsysmt.api_forms
+   molsysmt.attribute
    molsysmt.basic
    molsysmt.build
-   molsysmt.cosolute
+   molsysmt.common_get
    molsysmt.demo
    molsysmt.dependencies
-   molsysmt.dna
-   molsysmt.elements
-   molsysmt.forms
+   molsysmt.element
    molsysmt.hbonds
    molsysmt.help
-   molsysmt.ion
+   molsysmt.item
    molsysmt.lib
-   molsysmt.lipid
    molsysmt.molecular_dynamics
    molsysmt.molecular_mechanics
    molsysmt.native
    molsysmt.pbc
-   molsysmt.peptide
    molsysmt.physchem
-   molsysmt.protein
-   molsysmt.rna
-   molsysmt.small_molecule
    molsysmt.structure
-   molsysmt.tools
+   molsysmt.thirds
    molsysmt.topology
-   molsysmt.water
 
