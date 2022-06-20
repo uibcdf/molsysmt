@@ -18,17 +18,10 @@ requirements:
   - sabueso
   - mmtf-python
   - pandas
-  - mdtraj
-  - mdanalysis
   - openmm
   - pdbfixer
-  - openmmtools
-  - biopython
   - nglview
-  - parmed
-  - pytraj
-  - openopenmmreporters
-  - openmolecularsystems
+  - ambertools
 about:
   home: https://uibcdf.org
   license: MIT License

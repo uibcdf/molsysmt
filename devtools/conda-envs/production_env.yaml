@@ -12,14 +12,7 @@ dependencies:
 - sabueso
 - mmtf-python
 - pandas
-- mdtraj
-- mdanalysis
 - openmm
 - pdbfixer
-- openmmtools
-- biopython
 - nglview
-- parmed
-- pytraj
-- openopenmmreporters
-- openmolecularsystems
+- ambertools
