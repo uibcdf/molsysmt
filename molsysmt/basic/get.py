@@ -15,7 +15,7 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
     Parameters
     ----------
 
-    item: molecular model
+    molecular_system: molecular model
         Molecular model in any of the supported forms by MolSysMT. (See: XXX)
 
     element: str, default='system'
@@ -54,6 +54,7 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
     -----
 
     """
+    # TODO: In some cases get doesn't return None. Update docstring with return types.
 
     from .. import get_form, select, is_molecular_system, where_is_attribute
     from molsysmt.api_forms import dict_get
@@ -63,6 +64,7 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         if not is_molecular_system(molecular_system):
             raise MolecularSystemNeededError()
 
+        # TODO: make exceptions more specific
         try:
             element = digest_element(element)
         except:
@@ -135,12 +137,15 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
 
         output.append(result)
 
-    output=digest_output(output)
+    output = digest_output(output)
 
     return output
 
-def _digest_argument(argument, element):
 
+def _digest_argument(argument, element):
+    """ Helper function to check keyword arguments passed to get function.
+    """
+    # TODO: this function is repeated in set.py. Consider moving it to another file
     output_argument = argument.lower()
     if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
         output_argument = ('_').join([element, output_argument])
@@ -150,4 +155,3 @@ def _digest_argument(argument, element):
         return output_argument
     else:
         raise WrongGetArgumentError()
-
