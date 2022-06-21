@@ -37,4 +37,5 @@ def digest_element(element):
             raise BadCallError("wrong element name")
         return element_name_lower
 
+    # TODO: we can create a wrong element error
     raise BadCallError("element is not a string")

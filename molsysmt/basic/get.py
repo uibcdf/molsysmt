@@ -3,6 +3,7 @@ from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt.attribute.attributes import _required_indices, attribute_synonyms, attributes
 
+
 def get(molecular_system, element='system', indices=None, selection='all', structure_indices='all',
         syntaxis='MolSysMT', check=True, **kwargs):
 
@@ -67,24 +68,20 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         # TODO: make exceptions more specific
         try:
             element = digest_element(element)
-        except BadCallError:
-            raise WrongTargetError(element)
-
+        except:
+            raise BadCallError()
         try:
             syntaxis = digest_syntaxis(syntaxis)
         except:
-            raise WrongSyntaxisError(syntaxis)
-
+            raise WrongSyntaxisError
         try:
             selection = digest_selection(selection)
         except:
-            raise WrongSelectionError(selection)
-
+            raise WrongSelectionError()
         try:
             indices = digest_indices(indices)
         except:
             raise WrongIndicesError()
-
         try:
             structure_indices = digest_structure_indices(structure_indices)
         except:
