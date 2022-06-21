@@ -4,7 +4,6 @@ from ..exceptions import WrongIndicesError
 
 def digest_indices(indices):
     """ Checks if indices are of the expected type and value. """
-    # TODO: duplicate code in atom_indices.py
     if isinstance(indices, str):
         if indices.lower() == 'all':
             return 'all'
