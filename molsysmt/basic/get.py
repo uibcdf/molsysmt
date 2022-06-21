@@ -1,12 +1,13 @@
 from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import (digest_element, digest_indices, digest_selection,
+                                         digest_syntaxis, digest_structure_indices,
+                                         digest_output, digest_argument)
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from molsysmt.attribute.attributes import _required_indices, attribute_synonyms, attributes
+from molsysmt.attribute.attributes import _required_indices
 
 
 def get(molecular_system, element='system', indices=None, selection='all', structure_indices='all',
         syntaxis='MolSysMT', check=True, **kwargs):
-
     """get(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Get specific attributes and observables.
@@ -75,7 +76,7 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         for key in kwargs.keys():
             if kwargs[key]:
                 try:
-                    arguments.append(_digest_argument(key, element))
+                    arguments.append(digest_argument(key, element))
                 except:
                     raise WrongGetArgumentError(key)
 
@@ -85,7 +86,6 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         for key in kwargs.keys():
             if kwargs[key]:
                 arguments.append(key)
-
 
     if not is_list_or_tuple(molecular_system):
         molecular_system = [molecular_system]
@@ -121,18 +121,3 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
     output = digest_output(output)
 
     return output
-
-
-def _digest_argument(argument, element):
-    """ Helper function to check keyword arguments passed to get function.
-    """
-    # TODO: this function is repeated in set.py. Consider moving it to another file
-    output_argument = argument.lower()
-    if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
-        output_argument = ('_').join([element, output_argument])
-    if output_argument in attribute_synonyms:
-        output_argument = attribute_synonyms[output_argument]
-    if output_argument in attributes:
-        return output_argument
-    else:
-        raise WrongGetArgumentError()

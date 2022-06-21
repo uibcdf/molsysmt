@@ -1,6 +1,6 @@
 from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt.attribute.attributes import _required_indices, attribute_synonyms, attributes
+
 
 def set(molecular_system, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
 
@@ -13,7 +13,7 @@ def set(molecular_system, element='system', indices=None, selection='all', struc
     Parameters
     ----------
 
-    item: molecular model
+    molecular_system: molecular model
         Molecular model in any of the supported forms by MolSysMT. (See: XXX)
 
     element: str, default='system'
@@ -93,7 +93,7 @@ def set(molecular_system, element='system', indices=None, selection='all', struc
         value_of_attribute = {}
         for key in kwargs.keys():
             try:
-                value_of_attribute[_digest_argument(key, element)]=kwargs[key]
+                value_of_attribute[digest_argument(key, element)]=kwargs[key]
             except:
                 raise WrongSetArgumentError(key)
 
@@ -125,15 +125,4 @@ def set(molecular_system, element='system', indices=None, selection='all', struc
 
     pass
 
-def _digest_argument(argument, element):
-
-    output_argument = argument.lower()
-    if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
-        output_argument = ('_').join([element, output_argument])
-    if output_argument in attribute_synonyms:
-        output_argument = attribute_synonyms[output_argument]
-    if output_argument in attributes:
-        return output_argument
-    else:
-        raise WrongGetArgumentError()
 

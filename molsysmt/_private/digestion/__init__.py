@@ -1,3 +1,4 @@
+from .argument import digest_argument
 from .atom_indices import digest_atom_indices
 from .box import digest_box
 from .box import digest_box_lengths, digest_box_lengths_value
