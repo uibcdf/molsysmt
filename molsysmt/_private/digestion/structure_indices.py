@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def digest_structure_indices(structure_indices):
 
     if type(structure_indices)==str:
@@ -14,6 +15,7 @@ def digest_structure_indices(structure_indices):
     else:
         raise ValueError()
     return structure_indices
+
 
 def digest_multiple_structure_indices(structure_indices):
 
@@ -30,4 +32,3 @@ def digest_multiple_structure_indices(structure_indices):
         output = digest_structure_indices(structure_indices)
 
     return output
-

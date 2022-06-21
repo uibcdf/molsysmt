@@ -65,27 +65,11 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         if not is_molecular_system(molecular_system):
             raise MolecularSystemNeededError()
 
-        # TODO: make exceptions more specific
-        try:
-            element = digest_element(element)
-        except:
-            raise BadCallError()
-        try:
-            syntaxis = digest_syntaxis(syntaxis)
-        except:
-            raise WrongSyntaxisError
-        try:
-            selection = digest_selection(selection)
-        except:
-            raise WrongSelectionError()
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        element = digest_element(element)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection)
+        indices = digest_indices(indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
         arguments = []
         for key in kwargs.keys():
