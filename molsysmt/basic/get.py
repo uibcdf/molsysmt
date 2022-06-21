@@ -75,10 +75,7 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         arguments = []
         for key in kwargs.keys():
             if kwargs[key]:
-                try:
                     arguments.append(digest_argument(key, element))
-                except:
-                    raise WrongGetArgumentError(key)
 
     else:
 
