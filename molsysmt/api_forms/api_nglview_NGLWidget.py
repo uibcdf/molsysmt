@@ -11,6 +11,8 @@ form_name='nglview.NGLWidget'
 form_type='class'
 form_info=["NGLView visualization native object","http://nglviewer.org/nglview/latest/_modules/nglview/widget.html"]
 
+# TODO: Dictionary form_attributes is duplicated in api_mmtf_MMTFDecoder.py
+
 form_attributes = {
 
     'atom_index' : True,

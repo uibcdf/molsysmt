@@ -7,9 +7,12 @@ from molsysmt.item.molsysmt_MolecularMechanics.append_structures import append_s
 from molsysmt.item.molsysmt_MolecularMechanics.get import *
 from molsysmt.item.molsysmt_MolecularMechanics.set import *
 
-form_name='molsysmt.MolecularMechanics'
-form_type='class'
-form_info=["",""]
+form_name = 'molsysmt.MolecularMechanics'
+form_type = 'class'
+form_info = ["",""]
+
+# TODO: Above import statements are not used.
+# TODO: Dictionary form_attributes is duplicated in api_molsysmt_MolecularMechanicsDict
 
 form_attributes = {
 
