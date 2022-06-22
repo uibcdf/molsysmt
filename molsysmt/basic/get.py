@@ -1,4 +1,4 @@
-from molsysmt._private.exceptions import *
+from molsysmt._private.exceptions import MolecularSystemNeededError
 from molsysmt._private.digestion import (digest_element, digest_indices, digest_selection,
                                          digest_syntaxis, digest_structure_indices,
                                          digest_output, digest_argument)
@@ -40,9 +40,9 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
 
     Returns
     -------
-    None
-        The method prints out a pandas dataframe with relevant information depending on the element
-        chosen.
+    Attributes
+        Returns the specified attribute. If more than one attribute is selected, it returns a list
+        with all the specified attributes.
 
     Examples
     --------
@@ -56,7 +56,6 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
     -----
 
     """
-    # TODO: In some cases get doesn't return None. Update docstring with return types.
 
     from .. import get_form, select, is_molecular_system, where_is_attribute
     from molsysmt.api_forms import dict_get
@@ -87,15 +86,13 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
     if not is_list_or_tuple(molecular_system):
         molecular_system = [molecular_system]
 
-    forms_in = get_form(molecular_system)
-
     if indices is None:
         if selection is not 'all':
             indices = select(molecular_system, element=element, selection=selection, syntaxis=syntaxis, check=False)
         else:
             indices = 'all'
 
-    output = []
+    attributes = []
 
     for argument in arguments:
 
@@ -113,8 +110,6 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         else:
             result = dict_get[aux_form][element][argument](aux_item, **dict_indices)
 
-        output.append(result)
+        attributes.append(result)
 
-    output = digest_output(output)
-
-    return output
+    return digest_output(attributes)

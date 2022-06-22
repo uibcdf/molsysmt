@@ -3,6 +3,7 @@ from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.selection import selection_is_all
 
+
 def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all',
         syntaxis='MolSysMT', check=True, **kwargs):
 
@@ -56,8 +57,6 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
     from molsysmt.item import is_item, is_file
     from molsysmt.api_forms import dict_convert, dict_extract, dict_attributes
 
-    # TODO: code block duplicated in extract.py.
-    # TODO: make exceptions more specific
     if check:
 
         if not is_molecular_system(molecular_system):
