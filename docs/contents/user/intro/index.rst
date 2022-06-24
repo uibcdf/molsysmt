@@ -5,11 +5,11 @@ Introduction
 ============
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    Introduction.md
-   Molecular_systems.ipynb
-   Items_and_forms.ipynb
+   Molecular_system.ipynb
    Elements.md
    Attributes.ipynb
+   Items_and_forms.ipynb
    Units.md
