@@ -24,30 +24,27 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :name: about
    :caption: About
    :maxdepth: 2
+   :hidden:
 
    contents/about/what.md
-
-.. toctree::
-   :name: installation_and_showcase
-   :caption: Installation and showcase
-   :maxdepth: 2
-
-   contents/show/installation/Installation.md
-   contents/show/showcase/index.rst
-
+   contents/about/installation.md
+   contents/about/showcase/index.rst
 
 .. toctree::
    :name: user_guide
    :caption: User Guide
    :maxdepth: 2
+   :hidden:
 
    contents/user/intro/index.rst
    contents/user/tools/index.rst
+   contents/user/working_with/index.rst
 
 .. toctree::
    :name: developer_guide
    :caption: Developer Guide
    :maxdepth: 2
+   :hidden:
 
    contents/developer/intro/index.rst
    contents/developer/documentation/index.rst
@@ -56,13 +53,7 @@ Exceptionally few home-made subroutines will be included here to fill specific g
    :name: api_doc
    :caption: API Documentation
    :maxdepth: 1
+   :hidden:
 
    api.rst
-
-Glossary, indices and tables
-============================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

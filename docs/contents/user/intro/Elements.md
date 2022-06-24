@@ -1,5 +1,4 @@
-Elements
--------------------------
+# Elements
 
 The fundamental elements are atoms, groups, components, molecules, entities and bioassemblies. They act as
 building blocks of superior elements, defining this way hierarchical organization levels of a

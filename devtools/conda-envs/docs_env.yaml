@@ -1,5 +1,4 @@
 channels:
-- uibcdf/label/dev
 - uibcdf
 - conda-forge
 - ambermd
@@ -16,6 +15,7 @@ dependencies:
 - pdbfixer
 - nglview
 - ambertools
+- networkx
 - sphinx
 - sphinx_rtd_theme
 - sphinxcontrib-bibtex
