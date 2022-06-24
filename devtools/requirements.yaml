@@ -1,6 +1,5 @@
 setup:
   channels: &setup_channels
-    - uibcdf/label/dev
     - uibcdf
     - conda-forge
     - ambermd
