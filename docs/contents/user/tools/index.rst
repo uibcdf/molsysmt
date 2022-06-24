@@ -9,4 +9,7 @@ Tools
 
    basic/index.rst
    build/index.rst
+   topology/index.rst
+   structure/index.rst
+   pbc/index.rst
 

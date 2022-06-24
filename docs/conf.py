@@ -125,10 +125,10 @@ html_theme_options = {
     'style_external_links': False,
     # Toc options
     'collapse_navigation': False,
-    'sticky_navigation': True,
-    'navigation_depth': 3,
+    'sticky_navigation': False,
+    'navigation_depth': 4,
     'includehidden': True,
-    'titles_only': False
+    'titles_only': True
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
