@@ -9,7 +9,7 @@ from .form_attributes import form_attributes
 
 form_name = 'file:msmpk'
 form_type = 'file'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['atom_index'] = True
@@ -49,31 +49,26 @@ form_attributes['step'] = True
 
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_msmpk import to_molsysmt_MolSys as file_msmpk_to_molsysmt_MolSys
 
-	from molsysmt.item.file_msmpk import to_molsysmt_MolSys as file_msmpk_to_molsysmt_MolSys
-
-	return file_msmpk_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return file_msmpk_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                         check=False)
 
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_msmpk import to_molsysmt_Topology as file_msmpk_to_molsysmt_Topology
 
-	from molsysmt.item.file_msmpk import to_molsysmt_Topology as file_msmpk_to_molsysmt_Topology
-
-	return file_msmpk_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
+    return file_msmpk_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
 
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_msmpk import to_molsysmt_Structures as file_msmpk_to_molsysmt_Structures
 
-	from molsysmt.item.file_msmpk import to_molsysmt_Structures as file_msmpk_to_molsysmt_Structures
-
-	return file_msmpk_to_molsysmt_Structures(item, atom_indices=atom_indices, check=False)
+    return file_msmpk_to_molsysmt_Structures(item, atom_indices=atom_indices, check=False)
 
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_msmpk import to_nglview_NGLWidget as file_msmpk_to_nglview_NGLWidget
 
-	from molsysmt.item.file_msmpk import to_nglview_NGLWidget as file_msmpk_to_nglview_NGLWidget
-
-	return file_msmpk_to_nglview_NGLWidget(item, atom_indices=atom_indices,
-                                          structure_indices=structure_indices, check=False)
-
-
+    return file_msmpk_to_nglview_NGLWidget(item, atom_indices=atom_indices,
+                                           structure_indices=structure_indices, check=False)

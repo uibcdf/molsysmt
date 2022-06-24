@@ -9,7 +9,7 @@ from .form_attributes import form_attributes
 
 form_name = 'molsysmt.Structures'
 form_type = 'class'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['coordinates'] = True
@@ -18,18 +18,16 @@ form_attributes['time'] = True
 form_attributes['step'] = True
 
 
-	# Methods
+# Methods
 def to_molsysmt_TrajectoryDict(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.molsysmt_Structures import \
+        to_molsysmt_TrajectoryDict as molsysmt_Structures_to_molsysmt_TrajectoryDict
 
-	from molsysmt.item.molsysmt_Structures import to_molsysmt_TrajectoryDict as molsysmt_Structures_to_molsysmt_TrajectoryDict
-
-	return molsysmt_Structures_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return molsysmt_Structures_to_molsysmt_TrajectoryDict(item, atom_indices=atom_indices,
+                                                          structure_indices=structure_indices, check=False)
 
 
 def to_XYZ(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.molsysmt_Structures import to_XYZ as molsysmt_Structures_to_XYZ
 
-	from molsysmt.item.molsysmt_Structures import to_XYZ as molsysmt_Structures_to_XYZ
-
-	return molsysmt_Structures_to_XYZ(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-
-
+    return molsysmt_Structures_to_XYZ(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)

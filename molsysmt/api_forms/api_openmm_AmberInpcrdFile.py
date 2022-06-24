@@ -9,10 +9,8 @@ from .form_attributes import form_attributes
 
 form_name = 'openmm.AmberInpcrdFile'
 form_type = 'class'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['coordinates'] = True
 form_attributes['box'] = True
-
-

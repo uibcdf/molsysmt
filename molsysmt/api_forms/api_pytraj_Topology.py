@@ -10,7 +10,7 @@ from .form_attributes import form_attributes
 
 form_name = 'pytraj.Topology'
 form_type = 'class'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['atom_index'] = True
@@ -38,9 +38,6 @@ form_attributes['chain_type'] = True
 
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.pytraj_Topology import to_molsysmt_Topology as pytraj_Topology_to_molsysmt_Topology
 
-	from molsysmt.item.pytraj_Topology import to_molsysmt_Topology as pytraj_Topology_to_molsysmt_Topology
-
-	return pytraj_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)
-
-
+    return pytraj_Topology_to_molsysmt_Topology(item, atom_indices=atom_indices, check=False)

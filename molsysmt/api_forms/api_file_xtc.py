@@ -9,7 +9,7 @@ from .form_attributes import form_attributes
 
 form_name = 'file:xtc'
 form_type = 'file'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['coordinates'] = True
@@ -19,23 +19,21 @@ form_attributes['step'] = True
 
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_xtc import to_molsysmt_Structures as file_xtc_to_molsysmt_Structures
 
-	from molsysmt.item.file_xtc import to_molsysmt_Structures as file_xtc_to_molsysmt_Structures
-
-	return file_xtc_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return file_xtc_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                           check=False)
 
 
 def to_mdtraj_XTCTrajectoryFile(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_xtc import to_mdtraj_XTCTrajectoryFile as file_xtc_to_mdtraj_XTCTrajectoryFile
 
-	from molsysmt.item.file_xtc import to_mdtraj_XTCTrajectoryFile as file_xtc_to_mdtraj_XTCTrajectoryFile
-
-	return file_xtc_to_mdtraj_XTCTrajectoryFile(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return file_xtc_to_mdtraj_XTCTrajectoryFile(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                                check=False)
 
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_xtc import to_mdtraj_Trajectory as file_xtc_to_mdtraj_Trajectory
 
-	from molsysmt.item.file_xtc import to_mdtraj_Trajectory as file_xtc_to_mdtraj_Trajectory
-
-	return file_xtc_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-
-
+    return file_xtc_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                         check=False)

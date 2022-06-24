@@ -10,11 +10,9 @@ from .form_attributes import form_attributes
 
 form_name = 'networkx.Graph'
 form_type = 'class'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['atom_index'] = True
 form_attributes['bond_index'] = True
 form_attributes['bonded_atoms'] = True
-
-

@@ -39,75 +39,68 @@ form_attributes['forcefield_parameters'] = True
 
 
 def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_mol2 import to_molsysmt_MolSys as file_mol2_to_molsysmt_MolSys
 
-	from molsysmt.item.file_mol2 import to_molsysmt_MolSys as file_mol2_to_molsysmt_MolSys
-
-	return file_mol2_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return file_mol2_to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                        check=False)
 
 
 def to_molsysmt_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_mol2 import to_molsysmt_Topology as file_mol2_to_molsysmt_Topology
 
-	from molsysmt.item.file_mol2 import to_molsysmt_Topology as file_mol2_to_molsysmt_Topology
-
-	return file_mol2_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return file_mol2_to_molsysmt_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                          check=False)
 
 
 def to_molsysmt_Structures(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_mol2 import to_molsysmt_Structures as file_mol2_to_molsysmt_Structures
 
-	from molsysmt.item.file_mol2 import to_molsysmt_Structures as file_mol2_to_molsysmt_Structures
-
-	return file_mol2_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return file_mol2_to_molsysmt_Structures(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                            check=False)
 
 
 def to_parmed_Structure(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_mol2 import to_parmed_Structure as file_mol2_to_parmed_Structure
 
-	from molsysmt.item.file_mol2 import to_parmed_Structure as file_mol2_to_parmed_Structure
-
-	return file_mol2_to_parmed_Structure(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return file_mol2_to_parmed_Structure(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                         check=False)
 
 
 def to_mdtraj_Trajectory(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_mol2 import to_mdtraj_Trajectory as file_mol2_to_mdtraj_Trajectory
 
-	from molsysmt.item.file_mol2 import to_mdtraj_Trajectory as file_mol2_to_mdtraj_Trajectory
-
-	return file_mol2_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return file_mol2_to_mdtraj_Trajectory(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                          check=False)
 
 
 def to_mdtraj_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_mol2 import to_mdtraj_Topology as file_mol2_to_mdtraj_Topology
 
-	from molsysmt.item.file_mol2 import to_mdtraj_Topology as file_mol2_to_mdtraj_Topology
-
-	return file_mol2_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
+    return file_mol2_to_mdtraj_Topology(item, atom_indices=atom_indices, check=False)
 
 
 def to_openmm_Topology(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_mol2 import to_openmm_Topology as file_mol2_to_openmm_Topology
 
-	from molsysmt.item.file_mol2 import to_openmm_Topology as file_mol2_to_openmm_Topology
-
-	return file_mol2_to_openmm_Topology(item, atom_indices=atom_indices, check=False)
+    return file_mol2_to_openmm_Topology(item, atom_indices=atom_indices, check=False)
 
 
 def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_mol2 import to_openmm_Modeller as file_mol2_to_openmm_Modeller
 
-	from molsysmt.item.file_mol2 import to_openmm_Modeller as file_mol2_to_openmm_Modeller
-
-	return file_mol2_to_openmm_Modeller(item, atom_indices=atom_indices,
-                                       structure_indices=structure_indices, check=False)
+    return file_mol2_to_openmm_Modeller(item, atom_indices=atom_indices,
+                                        structure_indices=structure_indices, check=False)
 
 
 def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='all', output_filename=None):
+    from molsysmt.item.file_mol2 import to_file_pdb as file_mol2_to_file_pdb
 
-	from molsysmt.item.file_mol2 import to_file_pdb as file_mol2_to_file_pdb
-
-	return file_mol2_to_file_pdb(item, atom_indices=atom_indices,
-                                structure_indices=structure_indices, output_filename=output_filename, check=False)
+    return file_mol2_to_file_pdb(item, atom_indices=atom_indices,
+                                 structure_indices=structure_indices, output_filename=output_filename, check=False)
 
 
 def to_nglview_NGLWidget(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.file_mol2 import to_nglview_NGLWidget as file_mol2_to_nglview_NGLWidget
 
-	from molsysmt.item.file_mol2 import to_nglview_NGLWidget as file_mol2_to_nglview_NGLWidget
-
-	return file_mol2_to_nglview_NGLWidget(item, atom_indices=atom_indices,
-                                         structure_indices=structure_indices, check=False)
-
-
+    return file_mol2_to_nglview_NGLWidget(item, atom_indices=atom_indices,
+                                          structure_indices=structure_indices, check=False)

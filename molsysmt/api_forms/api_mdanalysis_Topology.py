@@ -10,7 +10,7 @@ from .form_attributes import form_attributes
 
 form_name = 'mdanalysis.Topology'
 form_type = 'class'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['atom_index'] = True
@@ -35,5 +35,3 @@ form_attributes['chain_index'] = True
 form_attributes['chain_id'] = True
 form_attributes['chain_name'] = True
 form_attributes['chain_type'] = True
-
-

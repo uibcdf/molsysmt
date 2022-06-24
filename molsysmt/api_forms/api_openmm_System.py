@@ -9,7 +9,7 @@ from .form_attributes import form_attributes
 
 form_name = 'openmm.System'
 form_type = 'class'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['atom_index'] = True
@@ -47,16 +47,14 @@ form_attributes['damping'] = True
 
 
 def to_openmm_Context(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.openmm_System import to_openmm_Context as openmm_System_to_openmm_Context
 
-	from molsysmt.item.openmm_System import to_openmm_Context as openmm_System_to_openmm_Context
-
-	return openmm_System_to_openmm_Context(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
+    return openmm_System_to_openmm_Context(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                           check=False)
 
 
 def to_openmm_Simulation(item, molecular_system=None, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
 
-	from molsysmt.item.openmm_System import to_openmm_Simulation as openmm_System_to_openmm_Simulation
-
-	return openmm_System_to_openmm_Simulation(item, atom_indices=atom_indices, structure_indices=structure_indices, check=False)
-
-
+    return openmm_System_to_openmm_Simulation(item, atom_indices=atom_indices, structure_indices=structure_indices,
+                                              check=False)

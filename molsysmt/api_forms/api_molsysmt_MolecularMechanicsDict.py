@@ -1,5 +1,6 @@
 from molsysmt._private.exceptions import *
-from molsysmt.item.molsysmt_MolecularMechanicsDict.is_molsysmt_MolecularMechanicsDict import is_molsysmt_MolecularMechanicsDict as is_form
+from molsysmt.item.molsysmt_MolecularMechanicsDict.is_molsysmt_MolecularMechanicsDict import \
+    is_molsysmt_MolecularMechanicsDict as is_form
 from molsysmt.item.molsysmt_MolecularMechanicsDict.extract import extract
 from molsysmt.item.molsysmt_MolecularMechanicsDict.add import add
 from molsysmt.item.molsysmt_MolecularMechanicsDict.append_structures import append_structures
@@ -9,7 +10,7 @@ from .form_attributes import form_attributes
 
 form_name = 'molsysmt.MolecularMechanicsDict'
 form_type = 'class'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['forcefield'] = True
@@ -34,9 +35,7 @@ form_attributes['implicit_solvent_kappa'] = True
 
 
 def to_molsysmt_MolecularMechanics(item, molecular_system, atom_indices='all', structure_indices='all'):
+    from molsysmt.item.molsysmt_MolecularMechanicsDict import \
+        to_molsysmt_MolecularMechanics as molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics
 
-	from molsysmt.item.molsysmt_MolecularMechanicsDict import to_molsysmt_MolecularMechanics as molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics
-
-	return molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics(item, check=False)
-
-
+    return molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics(item, check=False)

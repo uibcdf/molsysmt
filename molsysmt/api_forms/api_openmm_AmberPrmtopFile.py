@@ -9,7 +9,7 @@ from .form_attributes import form_attributes
 
 form_name = 'openmm.AmberPrmtopFile'
 form_type = 'class'
-form_info = ["",""]
+form_info = ["", ""]
 
 form_attributes = form_attributes()
 form_attributes['atom_index'] = True
@@ -36,5 +36,3 @@ form_attributes['chain_name'] = True
 form_attributes['chain_type'] = True
 form_attributes['box'] = True
 form_attributes['forcefield_parameters'] = True
-
-
