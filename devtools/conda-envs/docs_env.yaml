@@ -15,6 +15,7 @@ dependencies:
 - pdbfixer
 - nglview
 - ambertools
+- networkx
 - sphinx
 - sphinx_rtd_theme
 - sphinxcontrib-bibtex

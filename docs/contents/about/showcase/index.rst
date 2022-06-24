@@ -7,3 +7,5 @@ Showcase
 .. toctree::
    :maxdepth: 1
 
+   Quickstart.ipynb
+

@@ -15,6 +15,7 @@ dependencies:
 - pdbfixer
 - nglview
 - ambertools
+- networkx
 - pytest
 - pip
 - pytest-cov

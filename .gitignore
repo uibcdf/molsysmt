@@ -105,13 +105,15 @@ ENV/
 # There are reports this comes from LLVM profiling, but also Xcode 9.
 *profraw
 
-
 # Temp included
 INSTALL.log
 record.txt
 /docs/api/_autosummary
 *.mod
 *.swp
+
+# JetBrains
+.idea
 
 # In This Library
 devtools/playground/*

@@ -22,6 +22,8 @@ production:
     - pdbfixer
     - nglview
     - ambertools
+    - networkx
+    - mdtraj
 
 test:
   channels: &test_channels
