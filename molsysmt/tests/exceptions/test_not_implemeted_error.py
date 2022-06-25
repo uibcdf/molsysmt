@@ -1,6 +1,5 @@
-from not_implemented_errors import MolSysNotImplementedError
+from molsysmt._private.exceptions.not_implemented_errors import MolSysNotImplementedError
 import pytest
-
 
 def raise_error(error):
     raise error

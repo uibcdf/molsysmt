@@ -1,6 +1,5 @@
 import pytest
-from value_errors import *
-
+from molsysmt._private.exceptions.value_errors import *
 
 def raise_error(error):
     raise error
