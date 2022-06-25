@@ -1,4 +1,4 @@
-from molsysmt._private.digestion import digest_item, atom_indices, structure_indices
+from molsysmt._private.digestion import digest_item, digest_atom_indices, digest_structure_indices
 
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, check=True):
 
@@ -27,4 +27,3 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
         tmp_item = openmm_Topology_to_pdbfixer_PDBFixer(tmp_item, coordinates=coordinates, box=box, check=False)
 
     return tmp_item
-
