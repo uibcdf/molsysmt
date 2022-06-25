@@ -124,3 +124,24 @@ class WrongTimeError(MolSysValueError):
 
 class WrongToFormError(MolSysValueError):
     pass
+
+
+class WrongElementError(MolSysValueError):
+    pass
+
+
+class WrongEngineError(MolSysValueError):
+    pass
+
+
+class IncorrectShapeError(MolSysValueError):
+    """Exception raised when a quantity or array doesn't have the correct shape.
+    """
+
+    def __init__(self, expected_shape=None, actual_shape=None):
+        message = ""
+        if expected_shape:
+            message = f"Expected shape {expected_shape}. "
+        if actual_shape:
+            message += f"Actual shape {actual_shape}. "
+        super().__init__(message)

@@ -1,5 +1,6 @@
 import numpy as np
 from molsysmt import puw
+from ..exceptions import IncorrectShapeError
 
 
 def digest_box(box):
@@ -24,7 +25,7 @@ def digest_box_vectors_value(box_vectors):
 
         Raises
         ------
-        ValueError
+        IncorrectShapeError
             If box_vectors doesn't have the correct shape.
     """
     if not(isinstance(box_vectors, np.ndarray)):
@@ -36,12 +37,12 @@ def digest_box_vectors_value(box_vectors):
         if shape[0] == 3:
             box_vectors = np.expand_dims(box_vectors, axis=0)
         else:
-            raise ValueError('box_vectors array has not the correct shape.')
+            raise IncorrectShapeError(expected_shape="(1, 3)", actual_shape=str(shape))
     elif len(shape) == 2:
         if shape[1] != 3:
-            raise ValueError('box_vectors array has not the correct shape.')
+            raise IncorrectShapeError(expected_shape="(n, 3)", actual_shape=str(shape))
     else:
-        raise ValueError('box_vectors array has not the correct shape.')
+        raise IncorrectShapeError(expected_shape="(n, 3)", actual_shape=str(shape))
 
     return box_vectors
 
@@ -62,7 +63,7 @@ def digest_box_vectors(box_vectors):
 
         Raises
         ------
-        ValueError
+        IncorrectShapeError
             If box_vectors doesn't have the correct shape.
     """
     unit = puw.get_unit(box_vectors)

@@ -1,4 +1,4 @@
-from ..exceptions import *
+from ..exceptions import WrongEngineError
 
 engines = [
     'Amber',
@@ -13,12 +13,26 @@ engines = [
     'NGLView',
 ]
 
-engines_from_lowercase={ ii.lower() : ii for ii in engines }
+engines_from_lowercase = {ii.lower(): ii for ii in engines}
+
 
 def digest_engine(engine):
+    """ Check the name of the engine.
 
-    try:
-        return engines_from_lowercase[engine.lower()]
-    except:
-        raise BadCallError()
+        Parameters
+        ---------
+        engine : str
+            The name of the engine
 
+        Raises
+        ------
+        BadCallError
+            If the engine name is not valid.
+    """
+    if isinstance(engine, str):
+        try:
+            return engines_from_lowercase[engine.lower()]
+        except KeyError:
+            # TODO: create a wrong engine error
+            raise WrongEngineError
+    raise WrongEngineError

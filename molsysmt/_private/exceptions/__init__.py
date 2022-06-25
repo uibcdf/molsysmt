@@ -3,11 +3,14 @@ from .not_implemented_errors import LibraryNotFoundError
 from .not_implemented_errors import NotImplementedMethodError
 from .not_implemented_errors import NotImplementedSyntaxisError
 from .not_implemented_errors import NotImplementedConversionError
+from .value_errors import IncorrectShapeError
 from .value_errors import NotSupportedFormError
 from .value_errors import NotWithThisFormError
 from .value_errors import MolecularSystemNeededError
 from .value_errors import MultipleMolecularSystemsNeededError
 from .value_errors import NotWithThisMolecularSystemError
+from .value_errors import WrongElementError
+from .value_errors import WrongEngineError
 from .value_errors import WrongGetArgumentError
 from .value_errors import WrongSyntaxisError
 from .value_errors import WrongAtomIndicesError
@@ -20,4 +23,3 @@ from .value_errors import WrongToFormError
 from .value_errors import WrongStepError
 from .value_errors import WrongFormError
 from .value_errors import WrongStructureIndicesError
-

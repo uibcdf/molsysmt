@@ -1,4 +1,4 @@
-from ..exceptions import BadCallError
+from ..exceptions import WrongElementError
 
 elements = [
     'atom',
@@ -28,14 +28,23 @@ elements_from_plural = {
 def digest_element(element):
     """ Helper function to check an element type. Raises a BadCallError
         if the element type is not supported by MolSysMT.
+
+        Parameters
+        ----------
+        element : str
+            The name of the element.
+
+        Raises
+        ------
+        BadCallError
+            If the element is not a string or its name is not valid.
     """
     if isinstance(element, str):
         element_name_lower = element.lower()
         if element_name_lower in elements_from_plural:
             return elements_from_plural[element_name_lower]
         if element_name_lower not in elements:
-            raise BadCallError("wrong element name")
+            raise WrongElementError("wrong element name")
         return element_name_lower
 
-    # TODO: we can create a wrong element error
-    raise BadCallError("element is not a string")
+    raise WrongElementError("element is not a string")
