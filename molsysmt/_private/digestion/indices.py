@@ -2,6 +2,7 @@ import numpy as np
 from ..exceptions import WrongIndicesError
 from ..lists_and_tuples import is_list_or_tuple
 
+
 def digest_indices(indices):
     """ Checks if indices are of the expected type and value. """
     if isinstance(indices, str):
@@ -25,6 +26,7 @@ def digest_atom_indices(atom_indices):
 def digest_group_indices(group_indices):
     """ Checks if group indices are of the expected type and value. """
     return digest_indices(group_indices)
+
 
 def digest_structure_indices(structure_indices):
     """ Checks if structure indices are of the expected type and value. """
