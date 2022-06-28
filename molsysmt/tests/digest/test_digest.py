@@ -212,3 +212,26 @@ def test_invalid_viewer_raises_error():
 
     with pytest.raises(BadCallError):
         digest_viewer("pymol")
+
+
+# Tests for digest argument
+
+def test_digest_argument():
+
+    element_1 = "atom"
+    kwarg_1 = "name"
+    element_1 = digest_element(element_1)
+    digested_kwarg_1 = digest_argument(kwarg_1, element_1)
+    assert digested_kwarg_1 == "atom_name"
+
+    element_2 = "chain"
+    kwarg_2 = "residue_name"
+    element_2 = digest_element(element_2)
+    digested_kwarg_2 = digest_argument(kwarg_2, element_2)
+    assert digested_kwarg_2 == "group_name"
+
+    element_3 = "group"
+    element_3 = digest_element(element_3)
+    kwarg_3 = "chain_name"
+    digested_kwarg_3 = digest_argument(kwarg_3, element_3)
+    assert digested_kwarg_3 == "chain_name"
