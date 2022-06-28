@@ -78,6 +78,24 @@ def test_function_whose_parameters_dont_have_digest_function():
     assert color_digested == "BLUE"
 
 
+@digest()
+def function_with_optional_arguments(indices,
+                                     element="system",
+                                     syntaxis="molsysmt"):
+    return indices, element, syntaxis
+
+
+def test_function_with_optional_arguments():
+    indices = "ALL"
+
+    indices, element, syntax = \
+        function_with_optional_arguments(indices)
+
+    assert indices == "all"
+    assert element == "system"
+    assert syntax == "molsysmt"
+
+
 @digest(check_args=True, check_kwargs=True)
 def example_function_with_kwargs(engine, element, **kwargs):
     if kwargs:

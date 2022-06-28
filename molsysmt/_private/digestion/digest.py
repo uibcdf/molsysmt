@@ -1,6 +1,6 @@
 import functools
 import inspect
-from . import *
+from molsysmt._private.digestion import *
 
 # The following dictionary maps the name of an argument
 # to a digestion function. To add a new argument, create a digestion
@@ -72,7 +72,12 @@ def digest(check_args=True, check_kwargs=False):
                     except IndexError:
                         # Remove the argument from the dictionary, so it doesn't get
                         # repeated
-                        digested_value = args_dict[argument_name](kwargs.pop(argument_name))
+                        try:
+                            digested_value = args_dict[argument_name](kwargs.pop(argument_name))
+                        except KeyError:
+                            # if this fails it means that the argument is optional and was not
+                            # specified by the caller, so the default value will be used
+                            continue
                     except KeyError:
                         digested_value = args[ii]
 
