@@ -132,8 +132,7 @@ class MMTFTrajectoryFile(object):
             self._open = False
             self._frame_index = 0
             self._filepath = filename
-            try:
-                self.n_atoms, self.topology = self._read_topology()
+            self.n_atoms, self.topology = self._read_topology()
         elif mode == 'w':
             #self._open = True
             #if os.path.exists(filename) and not force_overwrite:
@@ -300,17 +299,17 @@ class MMTFTrajectoryFile(object):
             
             
 
-        for chain_index in transform_list['chainIndexList']:
+            for chain_index in transform_list['chainIndexList']:
 
-        chain = topology.add_chain()
-        residue = None
-        atomReplacements = {}
+                chain = topology.add_chain()
+                residue = None
+                atomReplacements = {}
 
         for atom_index in range(n_atoms):
             thisatomnum = mmtf_decoder.atom_id_list[atom_index]
-            thisatomname =
-            thisresnum=
-            thisresname=
+            # thisatomname =
+            # thisresnum=
+            # thisresname=
 
         for ln, line in enumerate(self._file):
             if ln == 1:

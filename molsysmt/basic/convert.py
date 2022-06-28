@@ -3,6 +3,7 @@ from molsysmt._private.digestion import *
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.selection import selection_is_all
 
+
 def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all',
         syntaxis='MolSysMT', check=True, **kwargs):
 
@@ -16,7 +17,7 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
     Parameters
     ----------
 
-    item: molecular model
+    molecular_system: molecular model
         Molecular model in any supported form by MolSysMT (see: XXX).
 
     selection: str, list, tuple or np.ndarray, defaul='all'
@@ -110,16 +111,22 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
 
     for item in molecular_system:
 
-        from_form=get_form(item)
+        from_form = get_form(item)
 
-        if (from_form==to_form):
-            tmp_item = dict_extract[from_form](item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                               copy_if_all=False, check=False)
+        if from_form == to_form:
+            tmp_item = dict_extract[from_form](item,
+                                               atom_indices=atom_indices,
+                                               structure_indices=structure_indices,
+                                               copy_if_all=False,
+                                               check=False)
         else:
             if from_form in dict_convert:
                 if to_form in dict_convert[from_form]:
-                    tmp_item = dict_convert[from_form][to_form](item, molecular_system=molecular_system, atom_indices=atom_indices,
-                                                                structure_indices=structure_indices, **conversion_arguments, **kwargs)
+                    tmp_item = dict_convert[from_form][to_form](item,
+                                                                molecular_system=molecular_system,
+                                                                atom_indices=atom_indices,
+                                                                structure_indices=structure_indices,
+                                                                **conversion_arguments, **kwargs)
         if tmp_item is not None:
             break
 
@@ -132,4 +139,3 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
     tmp_item = digest_output(tmp_item)
 
     return tmp_item
-

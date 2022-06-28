@@ -8,24 +8,27 @@ import numpy as np
 
 # Distance between atoms in space and time
 
-def test_box_shape_from_box_vectors_1():
+
+def test_box_shape_from_box_vectors_cubic_geometry():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.solvate(molsys, box_geometry='cubic', clearance='14.0 angstroms', engine='PDBFixer')
-    box = msm.get(molsys, target='system', box=True)
+    box = msm.get(molsys, element='system', box=True)
     shape = msm.pbc.box_shape_from_box_vectors(box)
     assert (shape == 'cubic')
 
-def test_box_shape_from_box_vectors_2():
+
+def test_box_shape_from_box_vectors_octahedral_geometry():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.solvate(molsys, box_geometry='truncated octahedral', clearance='14.0 angstroms', engine='PDBFixer')
-    box = msm.get(molsys, target='system', box=True)
+    box = msm.get(molsys, element='system', box=True)
     shape = msm.pbc.box_shape_from_box_vectors(box)
     assert (shape == 'truncated octahedral')
 
-def test_box_shape_from_box_vectors_3():
+
+def test_box_shape_from_box_vectors_dodecahedral_geometry():
     molsys = msm.convert(msm.demo['Met-enkephalin']['vacuum.msmpk'], to_form='molsysmt.MolSys')
     molsys = msm.build.solvate(molsys, box_geometry='rhombic dodecahedral', clearance='14.0 angstroms', engine='PDBFixer')
-    box = msm.get(molsys, target='system', box=True)
+    box = msm.get(molsys, element='system', box=True)
     shape = msm.pbc.box_shape_from_box_vectors(box)
     assert (shape == 'rhombic dodecahedral')
 

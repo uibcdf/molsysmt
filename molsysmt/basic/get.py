@@ -1,11 +1,13 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import MolecularSystemNeededError
+from molsysmt._private.digestion import (digest_element, digest_indices, digest_selection,
+                                         digest_syntaxis, digest_structure_indices,
+                                         digest_output, digest_argument)
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
-from molsysmt.attribute.attributes import _required_indices, attribute_synonyms, attributes
+from molsysmt.attribute.attributes import _required_indices
+
 
 def get(molecular_system, element='system', indices=None, selection='all', structure_indices='all',
         syntaxis='MolSysMT', check=True, **kwargs):
-
     """get(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Get specific attributes and observables.
@@ -15,7 +17,7 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
     Parameters
     ----------
 
-    item: molecular model
+    molecular_system: molecular model
         Molecular model in any of the supported forms by MolSysMT. (See: XXX)
 
     element: str, default='system'
@@ -38,9 +40,9 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
 
     Returns
     -------
-    None
-        The method prints out a pandas dataframe with relevant information depending on the element
-        chosen.
+    Attributes
+        Returns the specified attribute. If more than one attribute is selected, it returns a list
+        with all the specified attributes.
 
     Examples
     --------
@@ -63,38 +65,16 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         if not is_molecular_system(molecular_system):
             raise MolecularSystemNeededError()
 
-        try:
-            element = digest_element(element)
-        except:
-            raise WrongTargetError(element)
-
-        try:
-            syntaxis = digest_syntaxis(syntaxis)
-        except:
-            raise WrongSyntaxisError(syntaxis)
-
-        try:
-            selection = digest_selection(selection)
-        except:
-            raise WrongSelectionError(selection)
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        element = digest_element(element)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection)
+        indices = digest_indices(indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
         arguments = []
         for key in kwargs.keys():
             if kwargs[key]:
-                try:
-                    arguments.append(_digest_argument(key, element))
-                except:
-                    raise WrongGetArgumentError(key)
+                    arguments.append(digest_argument(key, element))
 
     else:
 
@@ -103,11 +83,8 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
             if kwargs[key]:
                 arguments.append(key)
 
-
     if not is_list_or_tuple(molecular_system):
         molecular_system = [molecular_system]
-
-    forms_in = get_form(molecular_system)
 
     if indices is None:
         if selection is not 'all':
@@ -115,16 +92,16 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         else:
             indices = 'all'
 
-    output = []
+    attributes = []
 
     for argument in arguments:
 
         dict_indices = {}
         if element != 'system':
             if 'indices' in _required_indices[argument]:
-                dict_indices['indices']=indices
+                dict_indices['indices'] = indices
         if 'structure_indices' in _required_indices[argument]:
-            dict_indices['structure_indices']=structure_indices
+            dict_indices['structure_indices'] = structure_indices
 
         aux_item, aux_form = where_is_attribute(molecular_system, argument, check=False)
 
@@ -133,21 +110,6 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
         else:
             result = dict_get[aux_form][element][argument](aux_item, **dict_indices)
 
-        output.append(result)
+        attributes.append(result)
 
-    output=digest_output(output)
-
-    return output
-
-def _digest_argument(argument, element):
-
-    output_argument = argument.lower()
-    if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
-        output_argument = ('_').join([element, output_argument])
-    if output_argument in attribute_synonyms:
-        output_argument = attribute_synonyms[output_argument]
-    if output_argument in attributes:
-        return output_argument
-    else:
-        raise WrongGetArgumentError()
-
+    return digest_output(attributes)

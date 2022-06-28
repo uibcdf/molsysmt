@@ -1,8 +1,9 @@
-from molsysmt._private.exceptions import *
 from molsysmt._private.digestion import *
-from molsysmt.attribute.attributes import _required_indices, attribute_synonyms, attributes
 
-def set(molecular_system, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
+
+def set(molecular_system,
+        element='system', indices=None, selection='all',
+        structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
 
     """into(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
@@ -13,7 +14,7 @@ def set(molecular_system, element='system', indices=None, selection='all', struc
     Parameters
     ----------
 
-    item: molecular model
+    molecular_system: molecular model
         Molecular model in any of the supported forms by MolSysMT. (See: XXX)
 
     element: str, default='system'
@@ -25,7 +26,7 @@ def set(molecular_system, element='system', indices=None, selection='all', struc
         method is going to work with. The set of indices can be given by a list, tuple or numpy
         array of integers (0-based).
 
-    selection: str, list, tuple or np.ndarray, defaul='all'
+    selection: str, list, tuple or np.ndarray, default='all'
        Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolSysMT (see: :func:`molsysmt.select`).
@@ -63,39 +64,17 @@ def set(molecular_system, element='system', indices=None, selection='all', struc
     if check:
 
         if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeeded()
+            raise TypeError("A molecular system is needed.")
 
-        try:
-            element = digest_element(element)
-        except:
-            raise WrongTargetError(element)
-
-        try:
-            syntaxis = digest_syntaxis(syntaxis)
-        except:
-            raise WrongSyntaxisError(syntaxis)
-
-        try:
-            selection = digest_selection(selection, syntaxis)
-        except:
-            raise WrongSelectionError(selection)
-
-        try:
-            indices = digest_indices(indices)
-        except:
-            raise WrongIndicesError()
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
+        element = digest_element(element)
+        syntaxis = digest_syntaxis(syntaxis)
+        selection = digest_selection(selection, syntaxis)
+        indices = digest_indices(indices)
+        structure_indices = digest_structure_indices(structure_indices)
 
         value_of_attribute = {}
         for key in kwargs.keys():
-            try:
-                value_of_attribute[_digest_argument(key, element)]=kwargs[key]
-            except:
-                raise WrongSetArgumentError(key)
+                value_of_attribute[digest_argument(key, element)]=kwargs[key]
 
     else:
 
@@ -110,7 +89,7 @@ def set(molecular_system, element='system', indices=None, selection='all', struc
     # doing the work here
 
     if indices is None:
-        if selection is not 'all':
+        if selection != 'all':
             indices = select(molecular_system, element=element, selection=selection,
                     syntaxis=syntaxis, check=False)
         else:
@@ -122,18 +101,3 @@ def set(molecular_system, element='system', indices=None, selection='all', struc
 
         value = value_of_attribute[attribute]
         dict_set[form][element][attribute](item, indices=indices, structure_indices=structure_indices, value=value)
-
-    pass
-
-def _digest_argument(argument, element):
-
-    output_argument = argument.lower()
-    if output_argument in ['index', 'indices', 'name', 'names', 'id', 'ids', 'type', 'types', 'order']:
-        output_argument = ('_').join([element, output_argument])
-    if output_argument in attribute_synonyms:
-        output_argument = attribute_synonyms[output_argument]
-    if output_argument in attributes:
-        return output_argument
-    else:
-        raise WrongGetArgumentError()
-

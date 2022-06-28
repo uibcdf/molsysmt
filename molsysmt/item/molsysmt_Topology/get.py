@@ -284,7 +284,7 @@ def get_n_atoms_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if indices == 'all':
         return get_n_atoms_from_system(item, check=False)
     else:
         return indices.shape[0]
@@ -296,7 +296,7 @@ def get_n_groups_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if indices == 'all':
         return get_n_groups_from_system (item, check=False)
     else:
         output = get_group_index_from_atom (item, indices=indices, check=False)
@@ -310,7 +310,7 @@ def get_n_components_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if indices == 'all':
         return get_n_components_from_system (item, check=False)
     else:
         output = get_component_index_from_atom (item, indices=indices, check=False)
@@ -324,7 +324,7 @@ def get_n_molecules_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if indices == 'all':
         return get_n_molecules_from_system (item, check=False)
     else:
         output = get_molecule_index_from_atom (item, indices=indices, check=False)
@@ -338,7 +338,7 @@ def get_n_chains_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if indices == 'all':
         return get_n_chains_from_system (item, check=False)
     else:
         output = get_chain_index_from_atom (item, indices=indices, check=False)
@@ -352,7 +352,7 @@ def get_n_entities_from_atom (item, indices='all', check=True):
         _digest_item(item, _form)
         indices = _digest_indices(indices)
 
-    if indices is 'all':
+    if indices == 'all':
         return get_n_entities_from_system (item, check=False)
     else:
         output = get_entity_index_from_atom (item, indices=indices, check=False)
