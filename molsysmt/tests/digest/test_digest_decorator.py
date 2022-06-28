@@ -11,7 +11,7 @@ def example_function_no_args_checking(element, indices, syntaxis):
     return element, indices, syntaxis
 
 
-def test_digest_decorator_without_checking_args():
+def test_digest_decorator_with_checking_disabled():
     element = "ATOM"
     indices = "ALL"
     syntax = "molsysmt"
@@ -24,14 +24,38 @@ def test_digest_decorator_without_checking_args():
     assert syntax_digested == syntax
 
 
-def test_digest_decorator_without_kwargs():
+def test_digest_decorator_in_function_without_kwargs():
     element = "ATOM"
     indices = "ALL"
     syntax = "molsysmt"
 
-    element_digested, indices_digested, syntax_digested = example_function(element,
-                                                                           indices,
-                                                                           syntax)
+    element_digested, indices_digested, syntax_digested = \
+        example_function(element, indices, syntax)
+
+    assert element_digested == "atom"
+    assert indices_digested == "all"
+    assert syntax_digested == "MolSysMT"
+
+
+def test_digest_decorator_with_named_arguments():
+    element = "ATOM"
+    indices = "ALL"
+    syntax = "molsysmt"
+
+    element_digested, indices_digested, syntax_digested = \
+        example_function(element=element,
+                         indices=indices,
+                         syntaxis=syntax)
+
+    assert element_digested == "atom"
+    assert indices_digested == "all"
+    assert syntax_digested == "MolSysMT"
+
+    element_digested, indices_digested, syntax_digested = \
+        example_function(element,
+                         indices=indices,
+                         syntaxis=syntax)
+
     assert element_digested == "atom"
     assert indices_digested == "all"
     assert syntax_digested == "MolSysMT"
@@ -47,7 +71,6 @@ def example_function_with_kwargs(engine, element, **kwargs):
 
 
 def test_digest_decorator_with_kwargs():
-
     values = example_function_with_kwargs("openmm",
                                           "chain",
                                           name=True,
@@ -57,4 +80,3 @@ def test_digest_decorator_with_kwargs():
     assert values[1] == "chain"
     assert values[2] == "name"
     assert values[3] == "group_id"
-

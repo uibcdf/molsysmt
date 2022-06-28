@@ -55,21 +55,34 @@ def digest(check_args=True, check_kwargs=False):
             decorated function. If the function doesn't accept kwargs
             this won't have affect.
     """
+
     def decorator(func):
         # Use functools to preserve the metadata of the decorated function.
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             args_digested = []
             element_arg = ""
-            if check_args and args:
+            if check_args:
+                # When we call a function and specify the name of
+                # the parameters, args get mapped to kwargs.
+                # For example if we have a function with the following
+                # signature foo(arg) and we call it in this way:
+                # foo(arg=10), arg will appear as a keyword argument here.
                 args_name = inspect.getfullargspec(func)[0]
                 for ii, argument_name in enumerate(args_name):
                     try:
-                        args_digested.append(args_dict[argument_name](args[ii]))
+                        digested_value = args_dict[argument_name](args[ii])
+                    except IndexError:
+                        # Remove the argument from the dictionary, so it doesn't get
+                        # repeated
+                        digested_value = args_dict[argument_name](kwargs.pop(argument_name))
                     except KeyError:
-                        continue
+                        digested_value = args[ii]
+
+                    args_digested.append(digested_value)
+
                     if argument_name == "element":
-                        element_arg = args_dict[argument_name](args[ii])
+                        element_arg = digested_value
 
             if check_kwargs and kwargs and element_arg:
                 # TODO: We should change digest_argument function name cause it's confusing
@@ -84,4 +97,5 @@ def digest(check_args=True, check_kwargs=False):
             return func(*args, **kwargs)
 
         return wrapper
+
     return decorator
