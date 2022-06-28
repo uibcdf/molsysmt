@@ -61,6 +61,23 @@ def test_digest_decorator_with_named_arguments():
     assert syntax_digested == "MolSysMT"
 
 
+@digest(check_args=True)
+def function_whose_parameters_dont_have_digest_function(element, color):
+    return element, color
+
+
+def test_function_whose_parameters_dont_have_digest_function():
+
+    element = "ATOM"
+    color = "BLUE"
+
+    element_digested, color_digested = \
+        function_whose_parameters_dont_have_digest_function(element, color)
+
+    assert element_digested == "atom"
+    assert color_digested == "BLUE"
+
+
 @digest(check_args=True, check_kwargs=True)
 def example_function_with_kwargs(engine, element, **kwargs):
     if kwargs:
