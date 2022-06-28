@@ -44,13 +44,13 @@ def digest(check_args=True, check_kwargs=False):
         Parameters
         ----------
         check_args: bool, default=True
-            If true will digest all non keyword arguments passed to the
+            If true, it will digest all non keyword arguments passed to the
             decorated function.
 
         check_kwargs: bool, default=False
-            If true will check all keyword arguments passed to the
-            decorated function. If the function doesn't accept kwargs
-            this won't have affect.
+            If true, it will check all keyword arguments passed to the
+            decorated function. If the function doesn't accept kwargs,
+            this won't have any effect.
     """
 
     def decorator(func):
@@ -58,6 +58,7 @@ def digest(check_args=True, check_kwargs=False):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             args_digested = []
+            kwargs_digested = {}
             element_arg = ""
             if check_args:
                 # When we call a function and specify the name of
@@ -79,7 +80,15 @@ def digest(check_args=True, check_kwargs=False):
                             # specified by the caller, so the default value will be used
                             continue
                     except KeyError:
-                        digested_value = args[ii]
+                        # A key error means that there isn't a digestion function for the specified argument.
+                        # Now we need to check if it's value is in args, or it is an argument with default value
+                        if ii < len(args):
+                            digested_value = args[ii]
+                        else:
+                            try:
+                                digested_value = kwargs.pop(argument_name)
+                            except KeyError:
+                                continue
 
                     args_digested.append(digested_value)
 
@@ -91,12 +100,17 @@ def digest(check_args=True, check_kwargs=False):
                 # The function get is the only one that uses kwargs (I think). So we will call that
                 # function here.
                 for argument_name, argument_value in kwargs.items():
-                    kwargs[argument_name] = digest_argument(argument_name, element_arg)
+                    argument_name_digested = digest_argument(argument_name, element_arg)
+                    kwargs_digested[argument_name_digested] = argument_value
 
-            if check_args:
+            if check_args and check_kwargs:
+                return func(*args_digested, **kwargs_digested)
+            elif check_args:
                 return func(*args_digested, **kwargs)
-
-            return func(*args, **kwargs)
+            elif check_kwargs:
+                return func(*args, **kwargs_digested)
+            else:
+                return func(*args, **kwargs)
 
         return wrapper
 

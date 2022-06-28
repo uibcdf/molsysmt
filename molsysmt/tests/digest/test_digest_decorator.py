@@ -99,19 +99,42 @@ def test_function_with_optional_arguments():
 @digest(check_args=True, check_kwargs=True)
 def example_function_with_kwargs(engine, element, **kwargs):
     if kwargs:
-        values = [engine, element]
-        return values + [kwarg_name for kwarg_name in kwargs.keys()]
+        return engine, element, kwargs
     else:
         return engine, element
+
+
+@digest(check_args=True, check_kwargs=True)
+def example_function_with_kwargs_2(element, check=True, **kwargs):
+    if kwargs:
+        return element, check, kwargs
+    else:
+        return element, check
 
 
 def test_digest_decorator_with_kwargs():
     values = example_function_with_kwargs("openmm",
                                           "chain",
                                           name=True,
-                                          group_id=True)
-    assert len(values) == 4
+                                          group_id=True,
+                                          molecule_types=True)
+
+    assert len(values) == 3
+    keyword_args = values[-1]
     assert values[0] == "OpenMM"
     assert values[1] == "chain"
-    assert values[2] == "name"
-    assert values[3] == "group_id"
+
+    assert keyword_args["chain_name"]
+    assert keyword_args["group_id"]
+    assert keyword_args["molecule_type"]
+
+    values = example_function_with_kwargs_2("atom",
+                                            n_waters=True,
+                                            check=False,
+                                            )
+
+    assert len(values) == 3
+    keyword_args = values[-1]
+    assert values[0] == "atom"
+    assert not values[1]
+    assert keyword_args["n_waters"]
