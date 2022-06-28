@@ -6,9 +6,6 @@ from . import *
 # to a digestion function. To add a new argument, create a digestion
 # function and then put it in this dictionary.
 
-# TODO: The following functions return None: digest_single_molecular_system,
-# TODO: digest_multiple_molecular_systems, digest_indices
-# TODO: they will have to be modified to return the digested argument
 args_dict = {
     "box": digest_box,
     "comparison": digest_comparison,

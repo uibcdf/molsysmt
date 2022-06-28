@@ -21,6 +21,7 @@ def digest_single_molecular_system(molecular_system):
 
     if not is_molecular_system(molecular_system):
         raise MolecularSystemNeededError()
+    return molecular_system
 
 
 def digest_multiple_molecular_systems(molecular_systems):
@@ -46,3 +47,4 @@ def digest_multiple_molecular_systems(molecular_systems):
 
     if not are_multiple_molecular_systems(molecular_systems):
         raise MultipleMolecularSystemsNeededError()
+    return molecular_systems
