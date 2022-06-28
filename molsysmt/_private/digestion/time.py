@@ -1,16 +1,23 @@
 from ..exceptions import *
 
+
 def digest_time(time):
+    """ Check if time is null or a float.
 
-    output = None
+        Parameters
+        ----------
+        time : None or float
+            The time.
 
-    if (time is None) or (type(time)==float):
+        Returns
+        -------
+        None or float
 
-        output = time
-
-    else:
-
-        raise WrongTimeError()
-
-    return output
-
+        Raises
+        ------
+        WrongTimeError
+            If time is not a float ot is not null.
+    """
+    if time is None or isinstance(time, float):
+        return time
+    raise WrongTimeError()
