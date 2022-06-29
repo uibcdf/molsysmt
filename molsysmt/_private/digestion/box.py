@@ -8,8 +8,8 @@ def digest_box(box):
     return box
 
 
-def digest_box_vectors_value(box_vectors):
-    """ Checks if box_vectors has the correct shape.
+def digest_box_values(box_values):
+    """ Checks if box_values has the correct shape.
 
         The array should have shape (n, 3) where n is any integer.
         However, if a list, tuple is passed it will be converted
@@ -20,7 +20,7 @@ def digest_box_vectors_value(box_vectors):
 
         Parameters
         ----------
-        box_vectors : np.ndarray, list or tuple
+        box_values : np.ndarray, list or tuple
             A quantity with the box lengths.
 
         Raises
@@ -28,14 +28,14 @@ def digest_box_vectors_value(box_vectors):
         IncorrectShapeError
             If box_vectors doesn't have the correct shape.
     """
-    if not(isinstance(box_vectors, np.ndarray)):
-        box_vectors = np.array(box_vectors)
+    if not(isinstance(box_values, np.ndarray)):
+        box_values = np.array(box_values)
 
-    shape = box_vectors.shape
+    shape = box_values.shape
 
     if len(shape) == 1:
         if shape[0] == 3:
-            box_vectors = np.expand_dims(box_vectors, axis=0)
+            box_values = np.expand_dims(box_values, axis=0)
         else:
             raise IncorrectShapeError(expected_shape="(1, 3)", actual_shape=str(shape))
     elif len(shape) == 2:
@@ -44,17 +44,17 @@ def digest_box_vectors_value(box_vectors):
     else:
         raise IncorrectShapeError(expected_shape="(n, 3)", actual_shape=str(shape))
 
-    return box_vectors
+    return box_values
 
 
-def digest_box_vectors(box_vectors):
-    """ Checks if box vectors have the correct shape. Can be used
+def digest_box_lengths_or_angles(box_parameters):
+    """ Checks if box_parameters have the correct shape. Can be used
         to check box_lengths and box_angles.
 
         Parameters
         ----------
-        box_vectors : puw.Quantity
-            A quantity with the box vectors.
+        box_parameters : puw.Quantity
+            A quantity with the box lengths or box values.
 
         Returns
         -------
@@ -66,7 +66,17 @@ def digest_box_vectors(box_vectors):
         IncorrectShapeError
             If box_vectors doesn't have the correct shape.
     """
-    unit = puw.get_unit(box_vectors)
-    box_vectors = puw.get_value(box_vectors)
-    box_vectors = digest_box_vectors_value(box_vectors)
-    return box_vectors * unit
+    unit = puw.get_unit(box_parameters)
+    box_parameters = puw.get_value(box_parameters)
+    box_parameters = digest_box_values(box_parameters)
+    return box_parameters * unit
+
+
+def digest_box_lengths(box_lengths):
+    """ Checks if box_lengths have the correct shape. """
+    return digest_box_lengths_or_angles(box_lengths)
+
+
+def digest_box_angles(box_angles):
+    """ Checks if box_angles have the correct shape. """
+    return digest_box_lengths_or_angles(box_angles)
