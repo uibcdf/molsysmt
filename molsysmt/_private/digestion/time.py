@@ -18,6 +18,6 @@ def digest_time(time):
         WrongTimeError
             If time is not a float ot is not null.
     """
-    if time is None or isinstance(time, float):
+    if time is None or isinstance(time, (float, bool)):
         return time
     raise WrongTimeError()

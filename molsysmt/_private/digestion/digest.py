@@ -57,6 +57,12 @@ def digest(check_args=True):
             if not check_args:
                 return func(*args, **kwargs)
 
+            # We need element name if the function has kwargs that will be digested
+            # by the digest_argument function.
+            try:
+                element_name = kwargs["element"]
+            except KeyError:
+                element_name = ""
             # Get default arguments
             signature = inspect.signature(func)
             all_args = {
@@ -78,13 +84,24 @@ def digest(check_args=True):
                     digested_value = args[ii]
                 all_args[argument_name] = digested_value
 
-            # Get kwargs, updating if any default arguments were passed by the caller
+            if not element_name:
+                try:
+                    element_name = all_args["element"]
+                except KeyError:
+                    element_name = ""
+            # Get kwargs, updating if any default arguments were passed by the caller.
+            # Keep in mind that when a function is called specifying the parameter name
+            # it will appear in kwargs even if is not
             for argument_name, value in kwargs.items():
                 try:
                     digested_value = digestion_functions[argument_name](value)
+                    all_args[argument_name] = digested_value
                 except KeyError:
-                    digested_value = value
-                all_args[argument_name] = digested_value
+                    if argument_name in args_names:
+                        all_args[argument_name] = value
+                    else:
+                        digested_argument_name = digest_argument(argument_name, element_name)
+                        all_args[digested_argument_name] = value
 
             return func(**all_args)
         return wrapper
