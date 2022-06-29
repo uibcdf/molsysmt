@@ -23,6 +23,8 @@ requirements:
   - nglview
   - ambertools
   - networkx
+  - mdtraj
+  - biopython
 about:
   home: https://uibcdf.org
   license: MIT License

@@ -16,3 +16,5 @@ dependencies:
 - nglview
 - ambertools
 - networkx
+- mdtraj
+- biopython
