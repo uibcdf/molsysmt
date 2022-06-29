@@ -6,7 +6,7 @@ from molsysmt._private.digestion import *
 # to a digestion function. To add a new argument, create a digestion
 # function and then put it in this dictionary.
 
-args_dict = {
+digestion_functions = {
     "box": digest_box,
     "comparison": digest_comparison,
     "coordinates": digest_coordinates,
@@ -23,12 +23,12 @@ args_dict = {
     "selections": digest_multiple_selections,
     "step": digest_step,
     "time": digest_time,
-    "structure_indices": digest_indices,
+    "structure_indices": digest_structure_indices,
     "to_form": digest_form,
 }
 
 
-def digest(check_args=True, check_kwargs=False):
+def digest(check_args=True):
     """ Decorator to digest the input arguments of a function, with
         the option to disable argument checking.
 
@@ -44,74 +44,48 @@ def digest(check_args=True, check_kwargs=False):
         Parameters
         ----------
         check_args: bool, default=True
-            If true, it will digest all non keyword arguments passed to the
+            If true, it will digest all arguments passed to the
             decorated function.
 
-        check_kwargs: bool, default=False
-            If true, it will check all keyword arguments passed to the
-            decorated function. If the function doesn't accept kwargs,
-            this won't have any effect.
     """
 
     def decorator(func):
         # Use functools to preserve the metadata of the decorated function.
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            args_digested = []
-            kwargs_digested = {}
-            element_arg = ""
-            if check_args:
-                # When we call a function and specify the name of
-                # the parameters, args get mapped to kwargs.
-                # For example if we have a function with the following
-                # signature foo(arg) and we call it in this way:
-                # foo(arg=10), arg will appear as a keyword argument here.
-                args_name = inspect.getfullargspec(func)[0]
-                for ii, argument_name in enumerate(args_name):
-                    try:
-                        digested_value = args_dict[argument_name](args[ii])
-                    except IndexError:
-                        # Remove the argument from the dictionary, so it doesn't get
-                        # repeated
-                        try:
-                            digested_value = args_dict[argument_name](kwargs.pop(argument_name))
-                        except KeyError:
-                            # if this fails it means that the argument is optional and was not
-                            # specified by the caller, so the default value will be used
-                            continue
-                    except KeyError:
-                        # A key error means that there isn't a digestion function for the specified argument.
-                        # Now we need to check if it's value is in args, or it is an argument with default value
-                        if ii < len(args):
-                            digested_value = args[ii]
-                        else:
-                            try:
-                                digested_value = kwargs.pop(argument_name)
-                            except KeyError:
-                                continue
 
-                    args_digested.append(digested_value)
-
-                    if argument_name == "element":
-                        element_arg = digested_value
-
-            if check_kwargs and kwargs and element_arg:
-                # TODO: We should change digest_argument function name cause it's confusing
-                # The function get is the only one that uses kwargs (I think). So we will call that
-                # function here.
-                for argument_name, argument_value in kwargs.items():
-                    argument_name_digested = digest_argument(argument_name, element_arg)
-                    kwargs_digested[argument_name_digested] = argument_value
-
-            if check_args and check_kwargs:
-                return func(*args_digested, **kwargs_digested)
-            elif check_args:
-                return func(*args_digested, **kwargs)
-            elif check_kwargs:
-                return func(*args, **kwargs_digested)
-            else:
+            if not check_args:
                 return func(*args, **kwargs)
 
-        return wrapper
+            # Get default arguments
+            signature = inspect.signature(func)
+            all_args = {
+                name: value.default
+                for name, value in signature.parameters.items()
+                if value.default is not inspect.Parameter.empty
+            }
 
+            # Get args, updating if any default arguments were passed by the caller.
+            # We also digest those arguments which have a digestion function. If they don't
+            # have one, we don't modify them.
+            args_names = inspect.getfullargspec(func)[0]
+            for ii, argument_name in enumerate(args_names):
+                if ii >= len(args):
+                    break
+                try:
+                    digested_value = digestion_functions[argument_name](args[ii])
+                except KeyError:
+                    digested_value = args[ii]
+                all_args[argument_name] = digested_value
+
+            # Get kwargs, updating if any default arguments were passed by the caller
+            for argument_name, value in kwargs.items():
+                try:
+                    digested_value = digestion_functions[argument_name](value)
+                except KeyError:
+                    digested_value = value
+                all_args[argument_name] = digested_value
+
+            return func(**all_args)
+        return wrapper
     return decorator

@@ -96,7 +96,7 @@ def test_function_with_optional_arguments():
     assert syntax == "molsysmt"
 
 
-@digest(check_args=True, check_kwargs=True)
+@digest(check_args=True)
 def example_function_with_kwargs(engine, element, **kwargs):
     if kwargs:
         return engine, element, kwargs
@@ -104,7 +104,7 @@ def example_function_with_kwargs(engine, element, **kwargs):
         return engine, element
 
 
-@digest(check_args=True, check_kwargs=True)
+@digest(check_args=True)
 def example_function_with_kwargs_2(element, check=True, **kwargs):
     if kwargs:
         return element, check, kwargs
