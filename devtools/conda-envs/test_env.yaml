@@ -16,6 +16,8 @@ dependencies:
 - nglview
 - ambertools
 - networkx
+- mdtraj
+- biopython
 - pytest
 - pip
 - pytest-cov
