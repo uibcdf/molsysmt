@@ -24,6 +24,7 @@ production:
     - ambertools
     - networkx
     - mdtraj
+    - biopython
 
 test:
   channels: &test_channels
