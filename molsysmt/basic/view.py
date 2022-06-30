@@ -21,7 +21,8 @@ def view(molecular_system=None, viewer='NGLView', selection='all', structure_ind
             molecular_system = concatenate_structures(molecular_system, selections=selection,
                                                       structure_indices=structure_indices)
         else:
-            molecular_system = merge(molecular_system, selections=selection, structure_indices=structure_indices, syntaxis=syntaxis)
+            molecular_system = merge(molecular_system, selections=selection, structure_indices=structure_indices,
+                                     syntaxis=syntaxis)
         tmp_item = convert(molecular_system, to_form=form_viewer)
 
     if standardize:
