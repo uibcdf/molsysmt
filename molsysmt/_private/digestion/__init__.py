@@ -1,6 +1,5 @@
 from .argument import digest_argument
-from .box import digest_box
-from .box import digest_box_vectors
+from .box import digest_box, digest_box_angles, digest_box_lengths
 from .coordinates import digest_coordinates
 from .comparison import digest_comparison
 from .element import digest_element
