@@ -123,7 +123,7 @@ class Simulation():
         if molecular_system is None:
             raise NoMolecularSystemError()
 
-        context = convert(molecular_system, selection=selection, simulation=self, to_form='openmm.Context')
+        context = convert(molecular_system, to_form='openmm.Context', selection=selection, simulation=self)
 
         return context
 
@@ -148,7 +148,7 @@ class Simulation():
         if molecular_system is None:
             raise NoMolecularSystemError()
 
-        simulation = convert(molecular_system, selection=selection, simulation=self, to_form='openmm.Simulation')
+        simulation = convert(molecular_system, to_form='openmm.Simulation', selection=selection, simulation=self)
 
         return simulation
 

@@ -52,19 +52,19 @@ def add_missing_hydrogens(molecular_system, pH=7.4, forcefield='AMBER99SB-ILDN',
 
     if engine=="OpenMM":
 
-        temp_molecular_system = convert(molecular_system, to_form="openmm.Modeller", check=False)
+        temp_molecular_system = convert(molecular_system, to_form="openmm.Modeller")
         log_residues_changed = temp_molecular_system.addHydrogens(pH=pH)
 
     elif engine=='PDBFixer':
 
-        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", check=False)
+        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
         temp_molecular_system.addMissingHydrogens(pH=pH)
 
     else:
 
         raise NotImplementedError
 
-    output_molecular_system = convert(temp_molecular_system, to_form=form_out, check=False)
+    output_molecular_system = convert(temp_molecular_system, to_form=form_out)
 
     return output_molecular_system
 

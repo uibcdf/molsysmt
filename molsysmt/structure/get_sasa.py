@@ -20,8 +20,7 @@ def get_sasa (molecular_system, element='atom', selection='all', structure_indic
         from mdtraj import shrake_rupley
         from molsysmt.basic import convert, select, get
 
-        tmp_item = convert(molecular_system, structure_indices=structure_indices,
-                to_form='mdtraj.Trajectory', check=False)
+        tmp_item = convert(molecular_system, to_form='mdtraj.Trajectory', structure_indices=structure_indices)
 
         sasa_array = shrake_rupley(tmp_item, mode='atom') # tiene probe_radius y n_sphere_points
 

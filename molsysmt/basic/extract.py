@@ -52,8 +52,8 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
 
     if to_form is not None:
 
-        return convert(molecular_system, selection=selection, structure_indices=structure_indices,
-                to_form=to_form, syntaxis=syntaxis, check=False)
+        return convert(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
+                       syntaxis=syntaxis)
 
     forms_in = get_form(molecular_system)
 

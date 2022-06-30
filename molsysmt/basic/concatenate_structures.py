@@ -26,8 +26,8 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
                                       structure_indices=structure_indices[0])
         to_form = get_form(to_molecular_system)
     else:
-        to_molecular_system = convert(molecular_systems[0], selection=selections[0],
-                structure_indices=structure_indices[0], to_form=to_form, check=False)
+        to_molecular_system = convert(molecular_systems[0], to_form=to_form, selection=selections[0],
+                                      structure_indices=structure_indices[0])
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
 

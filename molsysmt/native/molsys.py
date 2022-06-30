@@ -27,8 +27,8 @@ class MolSys:
         from molsysmt import convert, get_form, select
 
         if get_form(item)!='molsysmt.MolSys':
-            tmp_item = convert(item, selection=selection, structure_indices=structure_indices,
-                               to_form='molsysmt.MolSys', syntaxis=syntaxis)
+            tmp_item = convert(item, to_form='molsysmt.MolSys', selection=selection,
+                               structure_indices=structure_indices, syntaxis=syntaxis)
             self.topology.add(tmp_item.topology)
             self.structures.add(tmp_item.trajectory)
         else:

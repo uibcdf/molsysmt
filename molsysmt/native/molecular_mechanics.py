@@ -222,7 +222,7 @@ class MolecularMechanics():
         if molecular_system is None:
             raise NoMolecularSystemError()
 
-        system = convert([molecular_system, self], selection=selection, to_form='openmm.System')
+        system = convert([molecular_system, self], to_form='openmm.System', selection=selection)
 
         return system
 

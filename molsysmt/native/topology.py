@@ -102,7 +102,7 @@ class Topology():
 
         from molsysmt import convert, get
 
-        tmp_item = convert(item, selection=selection, structure_indices=structure_indices, to_form='molsysmt.Topology')
+        tmp_item = convert(item, to_form='molsysmt.Topology', selection=selection, structure_indices=structure_indices)
 
         n_atoms, n_groups, n_components, n_chains, n_molecules = get(self, element='system', n_atoms=True,
                                                                      n_groups=True, n_components=True, n_chains=True,

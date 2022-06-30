@@ -57,8 +57,8 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         clearance = puw.convert(clearance, to_form='openmm.unit')
         ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
 
-        modeller = convert(molecular_system, to_form='openmm.Modeller', check=False)
-        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics', check=False)
+        modeller = convert(molecular_system, to_form='openmm.Modeller')
+        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
         parameters = molecular_mechanics.get_openmm_System_parameters()
         forcefield = molecular_mechanics.to_openmm_ForceField()
 
@@ -94,7 +94,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
                                ionicStrength=ionic_strength, positiveIon=cation,
                                negativeIon=anion)
 
-        tmp_item = convert(modeller, to_form=to_form, check=False)
+        tmp_item = convert(modeller, to_form=to_form)
 
         del(modeller)
 
@@ -107,7 +107,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         clearance = puw.convert(clearance, to_form='openmm.unit')
         ionic_strength = puw.convert(ionic_strength, to_form='openmm.unit')
 
-        pdbfixer = convert(molecular_system, to_form='pdbfixer.PDBFixer', check=False)
+        pdbfixer = convert(molecular_system, to_form='pdbfixer.PDBFixer')
         max_size = max(max((pos[i] for pos in pdbfixer.positions))-min((pos[i] for pos in pdbfixer.positions)) for i in range(3))
 
         box_size = None
@@ -132,7 +132,7 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
                             ionicStrength=ionic_strength, positiveIon=cation,
                             negativeIon=anion)
 
-        tmp_item = convert(pdbfixer, to_form=to_form, check=False)
+        tmp_item = convert(pdbfixer, to_form=to_form)
 
         del(pdbfixer)
 
@@ -163,14 +163,14 @@ def solvate (molecular_system, box_geometry="truncated octahedral", clearance='1
         current_directory = getcwd()
         working_directory = temp_directory()
         pdbfile_in = temp_filename(dir=working_directory, extension='pdb')
-        _ = convert(molecular_system, to_form=pdbfile_in, check=False)
+        _ = convert(molecular_system, to_form=pdbfile_in)
         #replace_HETATM_from_capping_atoms(pdbfile_in)
 
         tmp_prmtop = temp_filename(dir=working_directory, extension='prmtop')
         tmp_inpcrd = tmp_prmtop.replace('prmtop','inpcrd')
         tmp_logfile = tmp_prmtop.replace('prmtop','leap.log')
 
-        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics', check=False)
+        molecular_mechanics = convert(molecular_system, to_form='molsysmt.MolecularMechanics')
         parameters = molecular_mechanics.get_leap_parameters()
         forcefield = parameters['forcefield']
         water = parameters['water_model']

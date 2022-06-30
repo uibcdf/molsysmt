@@ -1,11 +1,16 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.exceptions import NotImplementedConversionError
+from molsysmt._private.digestion import digest, digest_output
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt._private.selection import selection_is_all
 
 
-def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', structure_indices='all',
-        syntaxis='MolSysMT', check=True, **kwargs):
+@digest
+def convert(molecular_system,
+            to_form='molsysmt.MolSys',
+            selection='all',
+            structure_indices='all',
+            syntaxis='MolSysMT',
+            **kwargs):
 
     """convert(item, to_form='molsysmt.MolSys', selection='all', structure_indices='all', syntaxis='MolSysMT', **kwargs)
 
@@ -53,34 +58,9 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
 
     """
 
-    from . import select, get_form, is_molecular_system
+    from . import select, get_form
     from molsysmt.item import is_item, is_file
-    from molsysmt.api_forms import dict_convert, dict_extract, dict_attributes
-
-    if check:
-
-        if not is_molecular_system(molecular_system):
-            raise MolecularSystemNeededError()
-
-        try:
-            to_form = digest_to_form(to_form)
-        except:
-            raise WrongToFormError(to_form)
-
-        try:
-            structure_indices = digest_structure_indices(structure_indices)
-        except:
-            raise WrongStructureIndicesError()
-
-        try:
-            syntaxis = digest_syntaxis(syntaxis)
-        except:
-            raise WrongSyntaxisError()
-
-        try:
-            selection = digest_selection(selection, syntaxis)
-        except:
-            raise WrongSelectionError()
+    from molsysmt.api_forms import dict_convert, dict_extract
 
     if to_form is None:
         to_form = get_form(molecular_system)
@@ -88,8 +68,9 @@ def convert(molecular_system, to_form='molsysmt.MolSys', selection='all', struct
     if is_list_or_tuple(to_form):
         tmp_item=[]
         for item_out in to_form:
-            tmp_item.append(convert(molecular_system, to_form=item_out, selection=selection,
-                structure_indices=structure_indices, syntaxis=syntaxis, check=False))
+            tmp_item.append(
+                convert(molecular_system, to_form=item_out, selection=selection, structure_indices=structure_indices,
+                        syntaxis=syntaxis))
         return tmp_item
 
     if not selection_is_all(selection):

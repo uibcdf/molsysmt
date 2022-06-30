@@ -21,7 +21,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
 
         from pdbfixer.pdbfixer import Sequence
 
-        temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer', check=False)
+        temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer')
         atom_indices_in_selection = select(temp_molecular_system, selection=selection, syntaxis=syntaxis, check=False)
         atom_indices_in_components = get(temp_molecular_system, element='component', selection='component_type in ["peptide", "protein"] \
                                          and atom_index in @atom_indices_in_selection', atom_index=True)
@@ -61,7 +61,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
 
         raise NotImplementedError
 
-    output_molecular_system = convert(output_molecular_system, to_form=form_out, check=False)
+    output_molecular_system = convert(output_molecular_system, to_form=form_out)
 
     return output_molecular_system
 

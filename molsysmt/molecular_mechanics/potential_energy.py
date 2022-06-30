@@ -26,7 +26,7 @@ def potential_energy (molecular_system, selection='all', syntaxis='MolSysMT', en
         if molecular_system.simulation_item is None:
             from molsysmt.native.simulation import simulation_to_potential_energy_minimization
             molecular_system = molecular_system.combine_with_items(simulation_to_potential_energy_minimization)
-        context = convert(molecular_system, selection=selection, syntaxis=syntaxis, to_form='openmm.Context')
+        context = convert(molecular_system, to_form='openmm.Context', selection=selection, syntaxis=syntaxis)
         state = context.getState(getEnergy=True)
         output = state.getPotentialEnergy()
 
@@ -93,7 +93,7 @@ def energy_minimization (molecular_system, method='L-BFGS', selection='all', syn
             from molsysmt.native.simulation import simulation_to_potential_energy_minimization
             molecular_system = molecular_system.combine_with_items(simulation_to_potential_energy_minimization)
 
-        simulation = convert(molecular_system, selection=selection, syntaxis=syntaxis, to_form='openmm.Simulation')
+        simulation = convert(molecular_system, to_form='openmm.Simulation', selection=selection, syntaxis=syntaxis)
 
         if verbose:
             state_pre_min = simulation.context.getState(getEnergy=True)

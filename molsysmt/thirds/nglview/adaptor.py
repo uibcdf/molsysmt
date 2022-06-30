@@ -41,7 +41,7 @@ class MolSysMTTrajectory(Trajectory, Structure):
     -------
     >>> import nglview as nv
     >>> import molsysmt as msm
-    >>> traj = msm.convert([nv.datafiles.GRO, nv.datafiles.XTC], to_form='molsysmt.MolSys')
+    >>> traj = msm.convert([nv.datafiles.GRO, nv.datafiles.XTC],to_form='molsysmt.MolSys')
     >>> t = nv.MolSysMTTrajectory(traj)
     >>> w = nv.NGLWidget(t)
     >>> w

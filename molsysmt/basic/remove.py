@@ -1,10 +1,10 @@
-from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest, digest_output
 from molsysmt._private.structure_indices import complementary_structure_indices
 from molsysmt._private.atom_indices import complementary_atom_indices
 
-def remove(molecular_system, selection=None, structure_indices=None, to_form=None,
-        syntaxis='MolSysMT', check=True):
+
+@digest
+def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntaxis='MolSysMT'):
 
     """remove(item, selection=None, structure_indices=None, syntaxis='MolSysMT')
 
@@ -44,7 +44,7 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     >>> m3t.get(system,n_chains=True)
     8
     Remove chains 0 and 1
-    >>> new_system = m3t.remove(system, 'chainid 0 1')
+    >>> new_system = m3t.remove(system,'chainid 0 1')
     Check the number of chains of the new molecular model
     >>> m3t.get(new_system,n_chains=True)
     6
@@ -61,33 +61,7 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
 
     """
 
-    from . import select, extract, is_molecular_system
-
-    if check:
-
-        if not is_molecular_system(molecular_system):
-            raise SingleMolecularSystemNeededError()
-
-        try:
-            syntaxis = digest_syntaxis(syntaxis)
-        except:
-            raise WrongSyntaxisError(syntaxis)
-
-        try:
-            selection = digest_selection(selection, syntaxis)
-        except:
-            raise WrongSelectionError()
-
-        if structure_indices is not None:
-            try:
-                structure_indices = digest_structure_indices(structure_indices)
-            except:
-                raise WrongStructureIndicesError()
-
-        try:
-            to_form = digest_to_form(to_form)
-        except:
-            raise WrongToFormErro(to_form)
+    from . import select, extract
 
     atom_indices_to_be_kept = 'all'
     structure_indices_to_be_kept = 'all'
