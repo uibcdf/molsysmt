@@ -4,7 +4,11 @@ from molsysmt import puw
 from molsysmt.lib import box as libbox
 import numpy as np
 
-def box_lengths_from_box_vectors(box):
+def box_lengths_from_box_vectors(box, check=True):
+
+    if check:
+
+        box = digest_box(box)
 
     unit = puw.get_unit(box)
     n_structures = box.shape[0]

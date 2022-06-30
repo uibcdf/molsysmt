@@ -3,7 +3,7 @@ from molsysmt._private.digestion import *
 import numpy as np
 from molsysmt import puw
 
-def box_shape_from_box_angles(angles):
+def box_shape_from_box_angles(angles, check=True):
 
     shape = None
 

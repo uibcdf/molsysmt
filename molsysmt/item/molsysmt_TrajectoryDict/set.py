@@ -58,13 +58,13 @@
 <script crossorigin="anonymous" defer="defer" type="application/javascript" integrity="sha512-l+ny8qdyL8gu21tIsfl4Kw6uhVlB7FmZqxri2KdvIotHRPhbYbS1xP+xsEcGNsItz3Dn9qg/W7C4XWj4atVKow==" src="https://github.githubassets.com/assets/diffs-97e9f2f2a772.js"></script>
   
 
-  <title>MolSysMT/is_solvated.py at 4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5 · dprada/MolSysMT · GitHub</title>
+  <title>MolSysMT/set.py at f962c352461bfdd4936a35842f74e263f00b7faf · dprada/MolSysMT · GitHub</title>
 
 
 
     
 
-  <meta name="request-id" content="E212:0708:40C32F:5780B9:62BD3CCF" data-pjax-transient="true"/><meta name="html-safe-nonce" content="d2ed2a17b9910ea0ad17f95a4f1ae7439dff3efc24e75745b2b2f129878c93d8" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJFMjEyOjA3MDg6NDBDMzJGOjU3ODBCOTo2MkJEM0NDRiIsInZpc2l0b3JfaWQiOiI3ODAxNjYyMTI2MDgyMDQ3MTg0IiwicmVnaW9uX2VkZ2UiOiJpYWQiLCJyZWdpb25fcmVuZGVyIjoiaWFkIn0=" data-pjax-transient="true"/><meta name="visitor-hmac" content="1b6a15aa055e174357e00323758bb308f072fe9b0af2e93bfdca543a62a91808" data-pjax-transient="true"/>
+  <meta name="request-id" content="E766:4BB9:1404DE2:2A37852:62BD3C04" data-pjax-transient="true"/><meta name="html-safe-nonce" content="1896b133c9aea97f1e2a1cb6d6576447635f4b53a2e11a01dbd39cd9e56949c3" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJFNzY2OjRCQjk6MTQwNERFMjoyQTM3ODUyOjYyQkQzQzA0IiwidmlzaXRvcl9pZCI6IjUzNzcyNjI4OTY5MTg5MDM4MTIiLCJyZWdpb25fZWRnZSI6ImlhZCIsInJlZ2lvbl9yZW5kZXIiOiJpYWQifQ==" data-pjax-transient="true"/><meta name="visitor-hmac" content="9d8a4916dfb3207c1c1e3392f283bc21083ce78588054b580f26f4f1963cb309" data-pjax-transient="true"/>
 
     <meta name="hovercard-subject-tag" content="repository:377932841" data-pjax-transient>
 
@@ -99,8 +99,8 @@
     <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
     <meta property="fb:app_id" content="1401488693436528">
     <meta name="apple-itunes-app" content="app-id=1477376905" />
-      <meta name="twitter:image:src" content="https://opengraph.githubassets.com/6aeace0fd38c70883f331209ef17b7daf0d447b2342af37d5e8cea24b7b3ccdc/dprada/MolSysMT" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="MolSysMT/is_solvated.py at 4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5 · dprada/MolSysMT" /><meta name="twitter:description" content="Molecular Systems Multi-Tool. Contribute to dprada/MolSysMT development by creating an account on GitHub." />
-      <meta property="og:image" content="https://opengraph.githubassets.com/6aeace0fd38c70883f331209ef17b7daf0d447b2342af37d5e8cea24b7b3ccdc/dprada/MolSysMT" /><meta property="og:image:alt" content="Molecular Systems Multi-Tool. Contribute to dprada/MolSysMT development by creating an account on GitHub." /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="600" /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="MolSysMT/is_solvated.py at 4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5 · dprada/MolSysMT" /><meta property="og:url" content="https://github.com/dprada/MolSysMT" /><meta property="og:description" content="Molecular Systems Multi-Tool. Contribute to dprada/MolSysMT development by creating an account on GitHub." />
+      <meta name="twitter:image:src" content="https://opengraph.githubassets.com/6aeace0fd38c70883f331209ef17b7daf0d447b2342af37d5e8cea24b7b3ccdc/dprada/MolSysMT" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="MolSysMT/set.py at f962c352461bfdd4936a35842f74e263f00b7faf · dprada/MolSysMT" /><meta name="twitter:description" content="Molecular Systems Multi-Tool. Contribute to dprada/MolSysMT development by creating an account on GitHub." />
+      <meta property="og:image" content="https://opengraph.githubassets.com/6aeace0fd38c70883f331209ef17b7daf0d447b2342af37d5e8cea24b7b3ccdc/dprada/MolSysMT" /><meta property="og:image:alt" content="Molecular Systems Multi-Tool. Contribute to dprada/MolSysMT development by creating an account on GitHub." /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="600" /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="MolSysMT/set.py at f962c352461bfdd4936a35842f74e263f00b7faf · dprada/MolSysMT" /><meta property="og:url" content="https://github.com/dprada/MolSysMT" /><meta property="og:description" content="Molecular Systems Multi-Tool. Contribute to dprada/MolSysMT development by creating an account on GitHub." />
       
     <link rel="assets" href="https://github.githubassets.com/">
     
@@ -129,7 +129,7 @@
 
 
 
-    <link rel="canonical" href="https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py" data-pjax-transient>
+    <link rel="canonical" href="https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py" data-pjax-transient>
   <meta name="turbo-body-classes" content="logged-out env-production page-responsive page-blob">
 
 
@@ -182,7 +182,7 @@
       <div class="d-flex flex-items-center">
             <a href="/signup?ref_cta=Sign+up&amp;ref_loc=header+logged+out&amp;ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fblob%2Fshow&amp;source=header-repo"
               class="d-inline-block d-lg-none f5 no-underline border color-border-default rounded-2 px-2 py-1 mr-3 mr-sm-5 color-fg-inherit"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e76420622e6ba2f6eba281800dbbe2e6b8d1b209c59aecef1629c558b728b6fe"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="0edb20025da5ea3486a49cba0216015ee12524fa9bafc76f3ff5cf6e6da37b40"
             >
               Sign&nbsp;up
             </a>
@@ -213,62 +213,62 @@
       <div class="dropdown-menu flex-auto rounded px-0 mt-0 pb-4 p-lg-4 position-relative position-lg-absolute left-0 left-lg-n4">
         <ul class="list-style-none f5 pb-1">
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Features&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Features;&quot;}" href="/features">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Features&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Features;&quot;}" href="/features">
       Features
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Mobile&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Mobile;&quot;}" href="/mobile">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Mobile&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Mobile;&quot;}" href="/mobile">
       Mobile
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Actions&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Actions;&quot;}" href="/features/actions">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Actions&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Actions;&quot;}" href="/features/actions">
       Actions
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Codespaces&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Codespaces;&quot;}" href="/features/codespaces">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Codespaces&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Codespaces;&quot;}" href="/features/codespaces">
       Codespaces
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Copilot&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Copilot;&quot;}" href="/features/copilot">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Copilot&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Copilot;&quot;}" href="/features/copilot">
       Copilot
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Packages&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Packages;&quot;}" href="/features/packages">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Packages&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Packages;&quot;}" href="/features/packages">
       Packages
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Security&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Security;&quot;}" href="/features/security">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Security&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Security;&quot;}" href="/features/security">
       Security
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Code review&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Code review;&quot;}" href="/features/code-review">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Code review&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Code review;&quot;}" href="/features/code-review">
       Code review
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Issues&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Issues;&quot;}" href="/features/issues">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Issues&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Issues;&quot;}" href="/features/issues">
       Issues
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Integrations&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Integrations;&quot;}" href="/features/integrations">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Integrations&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Integrations;&quot;}" href="/features/integrations">
       Integrations
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold border-top pt-4 pb-2 mt-3" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to GitHub Sponsors&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:GitHub Sponsors;&quot;}" href="/sponsors">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold border-top pt-4 pb-2 mt-3" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to GitHub Sponsors&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:GitHub Sponsors;&quot;}" href="/sponsors">
       GitHub Sponsors
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Customer stories&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Customer stories;&quot;}" href="/customer-stories">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Product&quot;,&quot;action&quot;:&quot;click to go to Customer stories&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Customer stories;&quot;}" href="/customer-stories">
       Customer stories
 </a>  </li>
 
@@ -279,11 +279,11 @@
 
 
               <li class="mr-0 mr-lg-3 position-relative flex-wrap flex-justify-between flex-items-center border-bottom border-lg-bottom-0 d-block d-lg-flex flex-lg-nowrap flex-lg-items-center">
-    <a class="HeaderMenu-link no-underline py-3 d-block d-lg-inline-block" data-analytics-event="{&quot;category&quot;:&quot;Header menu top item (logged out)&quot;,&quot;action&quot;:&quot;click to go to Team&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Team;&quot;}" href="/team">Team</a>
+    <a class="HeaderMenu-link no-underline py-3 d-block d-lg-inline-block" data-analytics-event="{&quot;category&quot;:&quot;Header menu top item (logged out)&quot;,&quot;action&quot;:&quot;click to go to Team&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Team;&quot;}" href="/team">Team</a>
 </li>
 
               <li class="mr-0 mr-lg-3 position-relative flex-wrap flex-justify-between flex-items-center border-bottom border-lg-bottom-0 d-block d-lg-flex flex-lg-nowrap flex-lg-items-center">
-    <a class="HeaderMenu-link no-underline py-3 d-block d-lg-inline-block" data-analytics-event="{&quot;category&quot;:&quot;Header menu top item (logged out)&quot;,&quot;action&quot;:&quot;click to go to Enterprise&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Enterprise;&quot;}" href="/enterprise">Enterprise</a>
+    <a class="HeaderMenu-link no-underline py-3 d-block d-lg-inline-block" data-analytics-event="{&quot;category&quot;:&quot;Header menu top item (logged out)&quot;,&quot;action&quot;:&quot;click to go to Enterprise&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Enterprise;&quot;}" href="/enterprise">Enterprise</a>
 </li>
 
 
@@ -296,66 +296,66 @@
       <div class="dropdown-menu flex-auto rounded px-0 mt-0 pb-4 p-lg-4 position-relative position-lg-absolute left-0 left-lg-n4">
         <ul class="list-style-none f5 pb-1">
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Explore GitHub&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Explore GitHub;&quot;}" href="/explore">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Explore GitHub&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Explore GitHub;&quot;}" href="/explore">
       Explore GitHub
 </a>  </li>
 
               <li class="color-fg-muted text-normal f6 text-mono mb-1 border-top pt-3 mt-3 mb-1">Learn and contribute</li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Topics&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Topics;&quot;}" href="/topics">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Topics&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Topics;&quot;}" href="/topics">
       Topics
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Collections&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Collections;&quot;}" href="/collections">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Collections&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Collections;&quot;}" href="/collections">
       Collections
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Trending&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Trending;&quot;}" href="/trending">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Trending&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Trending;&quot;}" href="/trending">
       Trending
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Skills&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Skills;&quot;}" href="https://skills.github.com/">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Skills&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Skills;&quot;}" href="https://skills.github.com/">
       Skills
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to GitHub Sponsors&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:GitHub Sponsors;&quot;}" href="/sponsors/explore">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to GitHub Sponsors&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:GitHub Sponsors;&quot;}" href="/sponsors/explore">
       GitHub Sponsors
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Open source guides&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Open source guides;&quot;}" href="https://opensource.guide">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Open source guides&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Open source guides;&quot;}" href="https://opensource.guide">
       Open source guides
 </a>  </li>
 
               <li class="color-fg-muted text-normal f6 text-mono mb-1 border-top pt-3 mt-3 mb-1">Connect with others</li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to The ReadME Project&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:The ReadME Project;&quot;}" href="/readme">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to The ReadME Project&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:The ReadME Project;&quot;}" href="/readme">
       The ReadME Project
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Events&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Events;&quot;}" href="/events">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Events&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Events;&quot;}" href="/events">
       Events
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Community forum&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Community forum;&quot;}" href="https://github.community">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to Community forum&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Community forum;&quot;}" href="https://github.community">
       Community forum
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to GitHub Education&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:GitHub Education;&quot;}" href="https://education.github.com">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to GitHub Education&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:GitHub Education;&quot;}" href="https://education.github.com">
       GitHub Education
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to GitHub Stars program&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:GitHub Stars program;&quot;}" href="https://stars.github.com">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Explore&quot;,&quot;action&quot;:&quot;click to go to GitHub Stars program&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:GitHub Stars program;&quot;}" href="https://stars.github.com">
       GitHub Stars program
 </a>  </li>
 
@@ -366,7 +366,7 @@
 
 
             <li class="mr-0 mr-lg-3 position-relative flex-wrap flex-justify-between flex-items-center border-bottom border-lg-bottom-0 d-block d-lg-flex flex-lg-nowrap flex-lg-items-center">
-    <a class="HeaderMenu-link no-underline py-3 d-block d-lg-inline-block" data-analytics-event="{&quot;category&quot;:&quot;Header menu top item (logged out)&quot;,&quot;action&quot;:&quot;click to go to Marketplace&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Marketplace;&quot;}" href="/marketplace">Marketplace</a>
+    <a class="HeaderMenu-link no-underline py-3 d-block d-lg-inline-block" data-analytics-event="{&quot;category&quot;:&quot;Header menu top item (logged out)&quot;,&quot;action&quot;:&quot;click to go to Marketplace&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Marketplace;&quot;}" href="/marketplace">Marketplace</a>
 </li>
 
 
@@ -379,22 +379,22 @@
       <div class="dropdown-menu flex-auto rounded px-0 mt-0 pb-4 p-lg-4 position-relative position-lg-absolute left-0 left-lg-n4">
         <ul class="list-style-none f5 pb-1">
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Pricing&quot;,&quot;action&quot;:&quot;click to go to Plans&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Plans;&quot;}" href="/pricing">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Pricing&quot;,&quot;action&quot;:&quot;click to go to Plans&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Plans;&quot;}" href="/pricing">
       Plans
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Pricing&quot;,&quot;action&quot;:&quot;click to go to Compare plans&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Compare plans;&quot;}" href="/pricing#compare-features">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Pricing&quot;,&quot;action&quot;:&quot;click to go to Compare plans&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Compare plans;&quot;}" href="/pricing#compare-features">
       Compare plans
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Pricing&quot;,&quot;action&quot;:&quot;click to go to Contact Sales&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Contact Sales;&quot;}" href="https://github.com/enterprise/contact">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--secondary py-2" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Pricing&quot;,&quot;action&quot;:&quot;click to go to Contact Sales&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Contact Sales;&quot;}" href="https://github.com/enterprise/contact">
       Contact Sales
 </a>  </li>
 
               <li>
-    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold border-top pt-4 pb-2 mt-3" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Pricing&quot;,&quot;action&quot;:&quot;click to go to Education&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py;ref_cta:Education;&quot;}" href="https://education.github.com">
+    <a class="lh-condensed-ultra d-block no-underline position-relative Link--primary text-bold border-top pt-4 pb-2 mt-3" data-analytics-event="{&quot;category&quot;:&quot;Header dropdown (logged out), Pricing&quot;,&quot;action&quot;:&quot;click to go to Education&quot;,&quot;label&quot;:&quot;ref_page:/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py;ref_cta:Education;&quot;}" href="https://education.github.com">
       Education
 </a>  </li>
 
@@ -436,7 +436,7 @@
           spellcheck="false"
           autocomplete="off"
         >
-        <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="enaYLSIeiDtrWB9aPHBAmdnYnYGhZP9dBLkNJqeVX/FzisiZ/HcHMSPHEFSS77QSXOCiMye9a+jAGEFVzquyDw==" />
+        <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="XRyauz5bcokmNyP+FjngtlwuxShTTLbi50Fu9yP6+SNCKSU9kGQwwJRwrhUMdFl4gWzTtvzYFaEWhYPkiCqG7g==" />
         <input type="hidden" class="js-site-search-type-field" name="type" >
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" aria-hidden="true" class="mr-1 header-search-key-slash"><path fill="none" stroke="#979A9C" opacity=".4" d="M3.5.5h12c1.7 0 3 1.3 3 3v13c0 1.7-1.3 3-3 3h-12c-1.7 0-3-1.3-3-3v-13c0-1.7 1.3-3 3-3z"></path><path fill="#979A9C" d="M11.8 6L8 15.1h-.9L10.8 6h1z"></path></svg>
 
@@ -616,9 +616,9 @@
           </div>
 
         <div class="position-relative mr-3 mb-4 mb-lg-0 d-inline-block">
-          <a href="/login?return_to=https%3A%2F%2Fgithub.com%2Fdprada%2FMolSysMT%2Fblob%2F4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5%2Fmolsysmt%2Fbuild%2Fis_solvated.py"
+          <a href="/login?return_to=https%3A%2F%2Fgithub.com%2Fdprada%2FMolSysMT%2Fblob%2Ff962c352461bfdd4936a35842f74e263f00b7faf%2Fmolsysmt%2Fitem%2Fmolsysmt_TrajectoryDict%2Fset.py"
             class="HeaderMenu-link flex-shrink-0 no-underline"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="45c93541299ed5b11f6770ab8eb0cda03aa43d0a9d88d7f68f55b999012b68d6"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="0dda8a94472385c2869892a22de36f848b7cd9103d9e8b3c8d6c69f987aad449"
             data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
             Sign in
           </a>
@@ -626,7 +626,7 @@
 
           <a href="/signup?ref_cta=Sign+up&amp;ref_loc=header+logged+out&amp;ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fblob%2Fshow&amp;source=header-repo&amp;source_repo=dprada%2FMolSysMT"
             class="HeaderMenu-link flex-shrink-0 d-inline-block no-underline border color-border-default rounded px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="45c93541299ed5b11f6770ab8eb0cda03aa43d0a9d88d7f68f55b999012b68d6"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="0dda8a94472385c2869892a22de36f848b7cd9103d9e8b3c8d6c69f987aad449"
             data-analytics-event="{&quot;category&quot;:&quot;Sign up&quot;,&quot;action&quot;:&quot;click to sign up for account&quot;,&quot;label&quot;:&quot;ref_page:/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show;ref_cta:Sign up;ref_loc:header logged out&quot;}"
           >
             Sign up
@@ -721,7 +721,7 @@
     
 
   <li>
-      <a href="/login?return_to=%2Fdprada%2FMolSysMT" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="43de3aa0c565f1e4a376c5d6fac650a53a05f49fd8236070381677e998e76e1b" aria-label="You must be signed in to change notification settings" data-view-component="true" class="tooltipped tooltipped-s btn-sm btn">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-bell mr-2">
+      <a href="/login?return_to=%2Fdprada%2FMolSysMT" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="d7b0070b989064f645896208e4f0f8684d8cd3de9d43f59daec0aa51c4fe5c35" aria-label="You must be signed in to change notification settings" data-view-component="true" class="tooltipped tooltipped-s btn-sm btn">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-bell mr-2">
     <path d="M8 16a2 2 0 001.985-1.75c.017-.137-.097-.25-.235-.25h-3.5c-.138 0-.252.113-.235.25A2 2 0 008 16z"></path><path fill-rule="evenodd" d="M8 1.5A3.5 3.5 0 004.5 5v2.947c0 .346-.102.683-.294.97l-1.703 2.556a.018.018 0 00-.003.01l.001.006c0 .002.002.004.004.006a.017.017 0 00.006.004l.007.001h10.964l.007-.001a.016.016 0 00.006-.004.016.016 0 00.004-.006l.001-.007a.017.017 0 00-.003-.01l-1.703-2.554a1.75 1.75 0 01-.294-.97V5A3.5 3.5 0 008 1.5zM3 5a5 5 0 0110 0v2.947c0 .05.015.098.042.139l1.703 2.555A1.518 1.518 0 0113.482 13H2.518a1.518 1.518 0 01-1.263-2.36l1.703-2.554A.25.25 0 003 7.947V5z"></path>
 </svg>Notifications
   
@@ -730,7 +730,7 @@
 
   <li>
       
-  <a href="/login?return_to=%2Fdprada%2FMolSysMT" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:377932841,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="7500978817b741d6ab953a65b32656210b39b71ce0317664bebed575a650bd6a" aria-label="You must be signed in to fork a repository" data-view-component="true" class="tooltipped tooltipped-s btn-sm btn">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked mr-2">
+  <a href="/login?return_to=%2Fdprada%2FMolSysMT" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:377932841,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="2d86a09194a9f72a27cfbaa170ca27a8ac738e6fb5990525591f90f638648c46" aria-label="You must be signed in to fork a repository" data-view-component="true" class="tooltipped tooltipped-s btn-sm btn">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked mr-2">
     <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
 </svg>Fork
     <span id="repo-network-counter" data-pjax-replace="true" title="3" data-view-component="true" class="Counter">3</span>
@@ -740,7 +740,7 @@
 
   <li>
         <div data-view-component="true" class="BtnGroup d-flex">
-      <a href="/login?return_to=%2Fdprada%2FMolSysMT" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:377932841,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="72039ee838604848ab8a8d1f199034920d3135be4e8e16749ae5caf2dc31f353" aria-label="You must be signed in to star a repository" data-view-component="true" class="tooltipped tooltipped-s btn-sm btn BtnGroup-item">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star v-align-text-bottom d-inline-block mr-2">
+      <a href="/login?return_to=%2Fdprada%2FMolSysMT" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:377932841,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e5569e2d1ab8139c357ec82f6971e18230891b1c7eba11ec388afa89dc667da0" aria-label="You must be signed in to star a repository" data-view-component="true" class="tooltipped tooltipped-s btn-sm btn BtnGroup-item">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star v-align-text-bottom d-inline-block mr-2">
     <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
 </svg><span data-view-component="true" class="d-inline">
           Star
@@ -919,7 +919,7 @@
 
 
     
-<a class="d-none js-permalink-shortcut" data-hotkey="y" href="/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py">Permalink</a>
+<a class="d-none js-permalink-shortcut" data-hotkey="y" href="/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py">Permalink</a>
 
 <div class="d-flex flex-items-start flex-shrink-0 pb-3 flex-wrap flex-md-nowrap flex-justify-between flex-md-justify-start">
   
@@ -931,7 +931,7 @@
       <svg text="gray" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-branch">
     <path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path>
 </svg>
-      <span class="css-truncate-target" data-menu-button>4bed8e99c0</span>
+      <span class="css-truncate-target" data-menu-button>f962c35246</span>
       <span class="dropdown-caret"></span>
     </summary>
 
@@ -978,7 +978,7 @@
             query-endpoint="/dprada/MolSysMT/refs"
             
             cache-key="v0:1656563432.84363"
-            current-committish="NGJlZDhlOTljMDQ2YzVhOWY3ZGNjNmU2YWZmZWJlZmNiODVkMDBlNQ=="
+            current-committish="Zjk2MmMzNTI0NjFiZmRkNDkzNmEzNTg0MmY3NGUyNjNmMDBiN2ZhZg=="
             default-branch="bWFpbg=="
             name-with-owner="ZHByYWRhL01vbFN5c01U"
             prefetch-on-mouseover
@@ -1003,7 +1003,7 @@
             </div>
 
               <template data-target="ref-selector.itemTemplate">
-  <a href="https://github.com/dprada/MolSysMT/blob/{{ urlEncodedRefName }}/molsysmt/build/is_solvated.py" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
+  <a href="https://github.com/dprada/MolSysMT/blob/{{ urlEncodedRefName }}/molsysmt/item/molsysmt_TrajectoryDict/set.py" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
     <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
 </svg>
@@ -1029,7 +1029,7 @@
             data-targets="input-demux.sinks"
             query-endpoint="/dprada/MolSysMT/refs"
             cache-key="v0:1656563432.84363"
-            current-committish="NGJlZDhlOTljMDQ2YzVhOWY3ZGNjNmU2YWZmZWJlZmNiODVkMDBlNQ=="
+            current-committish="Zjk2MmMzNTI0NjFiZmRkNDkzNmEzNTg0MmY3NGUyNjNmMDBiN2ZhZg=="
             default-branch="bWFpbg=="
             name-with-owner="ZHByYWRhL01vbFN5c01U"
           >
@@ -1043,7 +1043,7 @@
             </template>
 
               <template data-target="ref-selector.itemTemplate">
-  <a href="https://github.com/dprada/MolSysMT/blob/{{ urlEncodedRefName }}/molsysmt/build/is_solvated.py" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
+  <a href="https://github.com/dprada/MolSysMT/blob/{{ urlEncodedRefName }}/molsysmt/item/molsysmt_TrajectoryDict/set.py" class="SelectMenu-item" role="menuitemradio" rel="nofollow" aria-checked="{{ isCurrent }}" data-index="{{ index }}">
     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
     <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
 </svg>
@@ -1074,9 +1074,9 @@
 </div>
 
   <h2 id="blob-path" class="breadcrumb flex-auto flex-self-center min-width-0 text-normal mx-2 width-full width-md-auto flex-order-1 flex-md-order-none mt-3 mt-md-0">
-    <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" rel="nofollow" href="/dprada/MolSysMT/tree/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5"><span>MolSysMT</span></a></span></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" rel="nofollow" href="/dprada/MolSysMT/tree/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt"><span>molsysmt</span></a></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" rel="nofollow" href="/dprada/MolSysMT/tree/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build"><span>build</span></a></span><span class="separator">/</span><strong class="final-path">is_solvated.py</strong>
+    <span class="js-repo-root text-bold"><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" rel="nofollow" href="/dprada/MolSysMT/tree/f962c352461bfdd4936a35842f74e263f00b7faf"><span>MolSysMT</span></a></span></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" rel="nofollow" href="/dprada/MolSysMT/tree/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt"><span>molsysmt</span></a></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" rel="nofollow" href="/dprada/MolSysMT/tree/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item"><span>item</span></a></span><span class="separator">/</span><span class="js-path-segment d-inline-block wb-break-all"><a data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" rel="nofollow" href="/dprada/MolSysMT/tree/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict"><span>molsysmt_TrajectoryDict</span></a></span><span class="separator">/</span><strong class="final-path">set.py</strong>
       <span class="separator">/</span><details class="details-reset details-overlay d-inline" id="jumpto-symbol-select-menu">
-  <summary aria-haspopup="true" data-hotkey="r" data-hydro-click="{&quot;event_type&quot;:&quot;code_navigation.click_on_blob_definitions&quot;,&quot;payload&quot;:{&quot;action&quot;:&quot;click_on_blob_definitions&quot;,&quot;repository_id&quot;:377932841,&quot;ref&quot;:&quot;4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5&quot;,&quot;language&quot;:&quot;Python&quot;,&quot;backend&quot;:&quot;ALEPH_FUZZY&quot;,&quot;code_nav_context&quot;:&quot;BLOB_VIEW&quot;,&quot;retry_backend&quot;:&quot;&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="9eb51787a3d3f84cd7e35c4ce2510ed98c035d0eeaf1258239c307bfa71ce53e" data-view-component="true" class="Link--secondary css-truncate btn-link">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code">
+  <summary aria-haspopup="true" data-hotkey="r" data-hydro-click="{&quot;event_type&quot;:&quot;code_navigation.click_on_blob_definitions&quot;,&quot;payload&quot;:{&quot;action&quot;:&quot;click_on_blob_definitions&quot;,&quot;repository_id&quot;:377932841,&quot;ref&quot;:&quot;f962c352461bfdd4936a35842f74e263f00b7faf&quot;,&quot;language&quot;:&quot;Python&quot;,&quot;backend&quot;:&quot;ALEPH_FUZZY&quot;,&quot;code_nav_context&quot;:&quot;BLOB_VIEW&quot;,&quot;retry_backend&quot;:&quot;&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="df9206f1bd3d2de65067e74fb1593c7ce0047b86c0eec4b84429902cf490a8ac" data-view-component="true" class="Link--secondary css-truncate btn-link">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code">
     <path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path>
 </svg>
     <span data-menu-button>Jump to</span>
@@ -1092,31 +1092,19 @@
 </svg>
         </button>
       </header>
-        <div class="SelectMenu-filter">
-          <input
-            class="SelectMenu-input form-control js-filterable-field"
-            id="jumpto-symbols-filter-field"
-            type="text"
-            autocomplete="off"
-            spellcheck="false"
-            autofocus
-            placeholder="Filter definitions"
-            aria-label="Filter definitions">
-        </div>
       <div class="SelectMenu-list">
+          <div class="SelectMenu-blankslate">
+            <p class="mb-0 color-fg-muted">
+              No definitions found in this file.
+            </p>
+          </div>
         <div data-filterable-for="jumpto-symbols-filter-field" data-filterable-type="substring">
-            <a class="SelectMenu-item d-flex flex-justify-between css-truncate" role="menuitemradio" aria-checked="false" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;code_navigation.navigate_to_blob_definition&quot;,&quot;payload&quot;:{&quot;action&quot;:&quot;navigate_to_blob_definition&quot;,&quot;repository_id&quot;:377932841,&quot;ref&quot;:&quot;4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5&quot;,&quot;language&quot;:&quot;Python&quot;,&quot;backend&quot;:&quot;ALEPH_FUZZY&quot;,&quot;code_nav_context&quot;:&quot;BLOB_VIEW&quot;,&quot;retry_backend&quot;:&quot;&quot;,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="8c011121ca1bfc8caa18bc0698bdb8e134a3b5c211dfc3e42c58a60b46c9e4c6" href="/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py#L5">
-              <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check">
-    <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
-</svg>
-              <span class="flex-auto css-truncate-target" data-menu-button-text>is_solvated</span>
-              <span class="flex-auto d-flex flex-justify-end">Function</span>
-</a>        </div>
+        </div>
       </div>
       <footer class="SelectMenu-footer">
         <div class="d-flex flex-justify-between">
-          Code navigation index up-to-date
-          <svg class="octicon octicon-dot-fill text-green" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+          Code navigation not available for this commit
+          <svg class="octicon octicon-dot-fill text-light-gray" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
         </div>
       </footer>
     </div>
@@ -1124,7 +1112,7 @@
 </details>
 
   </h2>
-  <a href="/dprada/MolSysMT/find/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5" data-pjax="" data-hotkey="t" data-view-component="true" class="btn mr-2 d-none d-md-block">  Go to file
+  <a href="/dprada/MolSysMT/find/f962c352461bfdd4936a35842f74e263f00b7faf" data-pjax="" data-hotkey="t" data-view-component="true" class="btn mr-2 d-none d-md-block">  Go to file
   
 </a>
   <details id="blob-more-options-details" data-view-component="true" class="details-overlay details-reset position-relative">
@@ -1135,7 +1123,7 @@
 </summary>
   <div data-view-component="true">      <ul class="dropdown-menu dropdown-menu-sw">
         <li class="d-block d-md-none">
-          <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:377932841,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="5b0354e2a5795f814e56a172566b46b4d59060f9f070d769351d712fce41adfc" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/dprada/MolSysMT/find/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5">
+          <a class="dropdown-item d-flex flex-items-baseline" data-hydro-click="{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:377932841,&quot;originating_url&quot;:&quot;https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="07e4d00c5d5a6874159882c1c8ce6e2f1ef720722d48d71f0e14013df6efb6b5" data-ga-click="Repository, find file, location:repo overview" data-hotkey="t" data-pjax="true" href="/dprada/MolSysMT/find/f962c352461bfdd4936a35842f74e263f00b7faf">
             <span class="flex-auto">Go to file</span>
             <span class="text-small color-fg-muted" aria-hidden="true">T</span>
 </a>        </li>
@@ -1155,13 +1143,13 @@
 </button>        </li>
         <li class="dropdown-divider" role="none"></li>
         <li>
-          <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy path" value="molsysmt/build/is_solvated.py" data-view-component="true" class="dropdown-item cursor-pointer">
+          <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy path" value="molsysmt/item/molsysmt_TrajectoryDict/set.py" data-view-component="true" class="dropdown-item cursor-pointer">
     
             Copy path
 
 </clipboard-copy>        </li>
         <li>
-          <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy permalink" value="https://github.com/dprada/MolSysMT/blob/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py" data-view-component="true" class="dropdown-item cursor-pointer">
+          <clipboard-copy data-toggle-for="blob-more-options-details" aria-label="Copy permalink" value="https://github.com/dprada/MolSysMT/blob/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py" data-view-component="true" class="dropdown-item cursor-pointer">
     
             <span class="d-flex flex-items-baseline">
               <span class="flex-auto">Copy permalink</span>
@@ -1190,10 +1178,10 @@
   
 </div></div>
 
-    <include-fragment src="/dprada/MolSysMT/spoofed_commit_check/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5" data-test-selector="spoofed-commit-check"></include-fragment>
+    <include-fragment src="/dprada/MolSysMT/spoofed_commit_check/f962c352461bfdd4936a35842f74e263f00b7faf" data-test-selector="spoofed-commit-check"></include-fragment>
 
     <div class="Box d-flex flex-column flex-shrink-0 mb-3">
-  <include-fragment src="/dprada/MolSysMT/contributors/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py" class="commit-loader">
+  <include-fragment src="/dprada/MolSysMT/contributors/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py" class="commit-loader">
     <div class="Box-header d-flex flex-items-center">
       <div class="Skeleton avatar avatar-user flex-shrink-0 ml-n1 mr-n1 mt-n1 mb-n1" style="width:24px;height:24px;"></div>
       <div class="Skeleton Skeleton--text col-5 ml-2">&nbsp;</div>
@@ -1222,18 +1210,18 @@
 
   <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1">
 
-      26 lines (14 sloc)
+      21 lines (15 sloc)
       <span class="file-info-divider"></span>
-    588 Bytes
+    605 Bytes
   </div>
 
   <div class="d-flex py-1 py-md-0 flex-auto flex-order-1 flex-md-order-2 flex-sm-grow-0 flex-justify-between hide-sm hide-md">
       
 
     <div class="BtnGroup">
-      <a href="/dprada/MolSysMT/raw/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py" id="raw-url" data-view-component="true" class="btn-sm btn BtnGroup-item">  Raw
+      <a href="/dprada/MolSysMT/raw/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py" id="raw-url" data-view-component="true" class="btn-sm btn BtnGroup-item">  Raw
   
-</a>        <a href="/dprada/MolSysMT/blame/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py" data-hotkey="b" data-view-component="true" class="js-update-url-with-hash btn-sm btn BtnGroup-item">  Blame
+</a>        <a href="/dprada/MolSysMT/blame/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py" data-hotkey="b" data-view-component="true" class="js-update-url-with-hash btn-sm btn BtnGroup-item">  Blame
   
 </a>    </div>
 
@@ -1242,7 +1230,7 @@
 
           
 <div class="ml-1" data-test-selector="edit-dropdown-menu-component">
-  <form class="BtnGroup-parent js-update-url-with-hash " data-turbo="false" action="/dprada/MolSysMT/edit/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="m052aF-P5b80vaG2BmGmkllJJ-fczvVUrqO3VZvG0T_gP1QdahqHuJb5tT668k9SLq48vcHct8ToNCnqv-Mkuw" autocomplete="off" />
+  <form class="BtnGroup-parent js-update-url-with-hash " data-turbo="false" action="/dprada/MolSysMT/edit/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="DLTLldKv2hP5b6pJHK8eIhjEwpO6bRpuFwoWbQoGcFYIhTN0YuS2K4jykk_o2Nbyt-64gdk2SPDvJ_WYi9lkng" autocomplete="off" />
     <button disabled="disabled" title="You must be signed in to make or propose changes" data-hotkey="e" data-disable-with="" data-test-selector="edit-icon-button" type="submit" data-view-component="true" class="btn-sm BtnGroup-item btn">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pencil">
     <path fill-rule="evenodd" d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"></path>
 </svg>
@@ -1253,7 +1241,7 @@
 </summary>    <div class="SelectMenu right-0">
       <div class="SelectMenu-modal width-full">
         <div class="SelectMenu-list SelectMenu-list--borderless py-2">
-          <form class="SelectMenu-item js-update-url-with-hash " data-turbo="false" action="/dprada/MolSysMT/edit/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="5eGPpz0qG4or-t3_Gv4XunrKYKjya60-Z-TIW9gz4UaekK3SCL95jYm-yXembf56DS178u95764hc1bk_BYUwg" autocomplete="off" />
+          <form class="SelectMenu-item js-update-url-with-hash " data-turbo="false" action="/dprada/MolSysMT/edit/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="6LgIvhv9_Mh2EWNfOzFMYkQLWAb13U_GX8Xxl3HMp4_sifBfq7aQ8AeMW1nPRoSy6yEiFJaGHVin6BJi8BOzRw" autocomplete="off" />
             <button disabled="disabled" title="You must be signed in to make or propose changes" data-test-selector="edit-text-button" type="submit" data-view-component="true" class="btn-invisible btn width-full d-flex flex-justify-between color-fg-muted text-normal p-0">  <div>Edit this file</div>
               <div class="color-fg-muted">E</div>
   
@@ -1300,14 +1288,14 @@
             <li>
             </li>
           <li>
-            <a class="dropdown-item" href="/dprada/MolSysMT/raw/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py">
+            <a class="dropdown-item" href="/dprada/MolSysMT/raw/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py">
               View raw
             </a>
           </li>
             <li>
                           </li>
             <li>
-              <a class="dropdown-item" href="/dprada/MolSysMT/blame/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py">
+              <a class="dropdown-item" href="/dprada/MolSysMT/blame/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py">
                 View blame
               </a>
             </li>
@@ -1348,18 +1336,19 @@
 </svg>
 </span></template>
 
-  <table class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" data-tab-size="8" data-paste-markdown-skip data-tagsearch-lang="Python" data-tagsearch-path="molsysmt/build/is_solvated.py">
+  <table class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" data-tab-size="8" data-paste-markdown-skip data-tagsearch-lang="Python" data-tagsearch-path="molsysmt/item/molsysmt_TrajectoryDict/set.py">
         <tr>
           <td id="L1" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="1"></td>
-          <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class=pl-k>from</span> <span class=pl-s1>molsysmt</span>.<span class=pl-s1>_private</span>.<span class=pl-s1>exceptions</span> <span class=pl-k>import</span> <span class=pl-c1>*</span></td>
+          <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class=pl-k>from</span> <span class=pl-s1>molsysmt</span> <span class=pl-k>import</span> <span class=pl-s1>puw</span> <span class=pl-k>as</span> <span class=pl-s1>_puw</span></td>
         </tr>
         <tr>
           <td id="L2" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="2"></td>
-          <td id="LC2" class="blob-code blob-code-inner js-file-line"><span class=pl-k>from</span> <span class=pl-s1>molsysmt</span>.<span class=pl-s1>_private</span>.<span class=pl-s1>digestion</span> <span class=pl-k>import</span> <span class=pl-c1>*</span></td>
+          <td id="LC2" class="blob-code blob-code-inner js-file-line">
+</td>
         </tr>
         <tr>
           <td id="L3" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="3"></td>
-          <td id="LC3" class="blob-code blob-code-inner js-file-line"><span class=pl-k>from</span> <span class=pl-s1>molsysmt</span> <span class=pl-k>import</span> <span class=pl-s1>puw</span></td>
+          <td id="LC3" class="blob-code blob-code-inner js-file-line"><span class=pl-k>def</span> <span class=pl-en>set_coordinates_to_atom</span>(<span class=pl-s1>item</span>, <span class=pl-s1>indices</span><span class=pl-c1>=</span><span class=pl-s>&#39;all&#39;</span>, <span class=pl-s1>structure_indices</span><span class=pl-c1>=</span><span class=pl-s>&#39;all&#39;</span>, <span class=pl-s1>value</span><span class=pl-c1>=</span><span class=pl-c1>None</span>):</td>
         </tr>
         <tr>
           <td id="L4" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="4"></td>
@@ -1368,61 +1357,56 @@
         </tr>
         <tr>
           <td id="L5" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="5"></td>
-          <td id="LC5" class="blob-code blob-code-inner js-file-line"><span class=pl-k>def</span> <span class=pl-en>is_solvated</span>(<span class=pl-s1>molecular_system</span>, <span class=pl-s1>check</span><span class=pl-c1>=</span><span class=pl-c1>True</span>):</td>
+          <td id="LC5" class="blob-code blob-code-inner js-file-line">    <span class=pl-s1>length_unit</span> <span class=pl-c1>=</span> <span class=pl-s1>_puw</span>.<span class=pl-en>get_unit</span>(<span class=pl-s1>item</span>[<span class=pl-s>&#39;coordinates&#39;</span>])</td>
         </tr>
         <tr>
           <td id="L6" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="6"></td>
-          <td id="LC6" class="blob-code blob-code-inner js-file-line">
-</td>
+          <td id="LC6" class="blob-code blob-code-inner js-file-line">    <span class=pl-s1>value</span> <span class=pl-c1>=</span> <span class=pl-s1>_puw</span>.<span class=pl-en>convert</span>(<span class=pl-s1>value</span>, <span class=pl-s1>to_unit</span><span class=pl-c1>=</span><span class=pl-s1>length_unit</span>)</td>
         </tr>
         <tr>
           <td id="L7" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="7"></td>
-          <td id="LC7" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>if</span> <span class=pl-s1>check</span>:</td>
+          <td id="LC7" class="blob-code blob-code-inner js-file-line">
+</td>
         </tr>
         <tr>
           <td id="L8" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="8"></td>
-          <td id="LC8" class="blob-code blob-code-inner js-file-line">
-</td>
+          <td id="LC8" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>if</span> <span class=pl-s1>indices</span> <span class=pl-c1>is</span> <span class=pl-s>&#39;all&#39;</span>:</td>
         </tr>
         <tr>
           <td id="L9" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="9"></td>
-          <td id="LC9" class="blob-code blob-code-inner js-file-line">        <span class=pl-en>digest_single_molecular_system</span>(<span class=pl-s1>molecular_system</span>)</td>
+          <td id="LC9" class="blob-code blob-code-inner js-file-line">        <span class=pl-k>if</span> <span class=pl-s1>structure_indices</span> <span class=pl-c1>is</span> <span class=pl-s>&#39;all&#39;</span>:</td>
         </tr>
         <tr>
           <td id="L10" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="10"></td>
-          <td id="LC10" class="blob-code blob-code-inner js-file-line">
-</td>
+          <td id="LC10" class="blob-code blob-code-inner js-file-line">            <span class=pl-s1>item</span>[<span class=pl-s>&#39;coordinates&#39;</span>]<span class=pl-c1>=</span><span class=pl-s1>value</span></td>
         </tr>
         <tr>
           <td id="L11" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="11"></td>
-          <td id="LC11" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>from</span> <span class=pl-s1>molsysmt</span>.<span class=pl-s1>basic</span> <span class=pl-k>import</span> <span class=pl-s1>get</span></td>
+          <td id="LC11" class="blob-code blob-code-inner js-file-line">        <span class=pl-k>else</span>:</td>
         </tr>
         <tr>
           <td id="L12" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="12"></td>
-          <td id="LC12" class="blob-code blob-code-inner js-file-line">
-</td>
+          <td id="LC12" class="blob-code blob-code-inner js-file-line">            <span class=pl-s1>item</span>[<span class=pl-s>&#39;coordinates&#39;</span>][<span class=pl-s1>structure_indices</span>,:,:]<span class=pl-c1>=</span><span class=pl-s1>value</span></td>
         </tr>
         <tr>
           <td id="L13" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="13"></td>
-          <td id="LC13" class="blob-code blob-code-inner js-file-line">    <span class=pl-s1>output</span> <span class=pl-c1>=</span> <span class=pl-c1>False</span></td>
+          <td id="LC13" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>else</span>:</td>
         </tr>
         <tr>
           <td id="L14" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="14"></td>
-          <td id="LC14" class="blob-code blob-code-inner js-file-line">
-</td>
+          <td id="LC14" class="blob-code blob-code-inner js-file-line">        <span class=pl-k>if</span> <span class=pl-s1>structure_indices</span> <span class=pl-c1>is</span> <span class=pl-s>&#39;all&#39;</span>:</td>
         </tr>
         <tr>
           <td id="L15" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="15"></td>
-          <td id="LC15" class="blob-code blob-code-inner js-file-line">    <span class=pl-s1>n_waters</span>, <span class=pl-s1>volume</span> <span class=pl-c1>=</span> <span class=pl-en>get</span>(<span class=pl-s1>molecular_system</span>, <span class=pl-s1>element</span><span class=pl-c1>=</span><span class=pl-s>&#39;system&#39;</span>, <span class=pl-s1>n_waters</span><span class=pl-c1>=</span><span class=pl-c1>True</span>, <span class=pl-s1>box_volume</span><span class=pl-c1>=</span><span class=pl-c1>True</span>)</td>
+          <td id="LC15" class="blob-code blob-code-inner js-file-line">            <span class=pl-s1>item</span>[<span class=pl-s>&#39;coordinates&#39;</span>][:,<span class=pl-s1>indices</span>,:]<span class=pl-c1>=</span><span class=pl-s1>value</span></td>
         </tr>
         <tr>
           <td id="L16" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="16"></td>
-          <td id="LC16" class="blob-code blob-code-inner js-file-line">
-</td>
+          <td id="LC16" class="blob-code blob-code-inner js-file-line">        <span class=pl-k>else</span>:</td>
         </tr>
         <tr>
           <td id="L17" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="17"></td>
-          <td id="LC17" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>if</span> (<span class=pl-s1>n_waters</span><span class=pl-c1>&gt;</span><span class=pl-c1>0</span>) <span class=pl-c1>and</span> (<span class=pl-s1>volume</span> <span class=pl-c1>is</span> <span class=pl-c1>not</span> <span class=pl-c1>None</span>):</td>
+          <td id="LC17" class="blob-code blob-code-inner js-file-line">            <span class=pl-s1>item</span>[<span class=pl-s>&#39;coordinates&#39;</span>][<span class=pl-s1>np</span>.<span class=pl-en>ix_</span>(<span class=pl-s1>indices</span>,<span class=pl-s1>structure_indices</span>)]<span class=pl-c1>=</span><span class=pl-s1>value</span></td>
         </tr>
         <tr>
           <td id="L18" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="18"></td>
@@ -1431,34 +1415,12 @@
         </tr>
         <tr>
           <td id="L19" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="19"></td>
-          <td id="LC19" class="blob-code blob-code-inner js-file-line">        <span class=pl-s1>density_number</span> <span class=pl-c1>=</span> <span class=pl-s1>puw</span>.<span class=pl-en>get_value</span>((<span class=pl-s1>n_waters</span><span class=pl-c1>/</span><span class=pl-s1>volume</span>), <span class=pl-s1>to_unit</span><span class=pl-c1>=</span><span class=pl-s>&#39;1/nm**3&#39;</span>)</td>
+          <td id="LC19" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>pass</span></td>
         </tr>
         <tr>
           <td id="L20" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="20"></td>
           <td id="LC20" class="blob-code blob-code-inner js-file-line">
 </td>
-        </tr>
-        <tr>
-          <td id="L21" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="21"></td>
-          <td id="LC21" class="blob-code blob-code-inner js-file-line">        <span class=pl-k>if</span> (<span class=pl-s1>density_number</span>)<span class=pl-c1>&gt;</span><span class=pl-c1>15</span>:</td>
-        </tr>
-        <tr>
-          <td id="L22" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="22"></td>
-          <td id="LC22" class="blob-code blob-code-inner js-file-line">
-</td>
-        </tr>
-        <tr>
-          <td id="L23" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="23"></td>
-          <td id="LC23" class="blob-code blob-code-inner js-file-line">            <span class=pl-s1>output</span> <span class=pl-c1>=</span> <span class=pl-c1>True</span></td>
-        </tr>
-        <tr>
-          <td id="L24" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="24"></td>
-          <td id="LC24" class="blob-code blob-code-inner js-file-line">
-</td>
-        </tr>
-        <tr>
-          <td id="L25" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="25"></td>
-          <td id="LC25" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>return</span> <span class=pl-s1>output</span></td>
         </tr>
   </table>
 </div>
@@ -1484,7 +1446,7 @@
             Copy permalink
           </clipboard-copy>
         </li>
-        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/dprada/MolSysMT/blame/4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5/molsysmt/build/is_solvated.py">View git blame</a></li>
+        <li><a class="dropdown-item js-update-url-with-hash" id="js-view-git-blame" role="menuitem" href="/dprada/MolSysMT/blame/f962c352461bfdd4936a35842f74e263f00b7faf/molsysmt/item/molsysmt_TrajectoryDict/set.py">View git blame</a></li>
           <li><a class="dropdown-item" id="js-new-issue" role="menuitem" href="/dprada/MolSysMT/issues/new">Reference in new issue</a></li>
       </ul>
     </details-menu>
@@ -1511,7 +1473,7 @@
     <div class="Popover anim-scale-in js-tagsearch-popover"
      hidden
      data-tagsearch-url="/dprada/MolSysMT/find-definition"
-     data-tagsearch-ref="4bed8e99c046c5a9f7dcc6e6affebefcb85d00e5"
+     data-tagsearch-ref="f962c352461bfdd4936a35842f74e263f00b7faf"
      data-tagsearch-code-nav-context="BLOB_VIEW">
   <div class="Popover-message Popover-message--large Popover-message--top-left TagsearchPopover mt-1 mb-4 mx-auto Box color-shadow-large">
     <div class="TagsearchPopover-content js-tagsearch-popover-content overflow-auto" style="will-change:transform;">

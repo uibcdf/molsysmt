@@ -9,9 +9,9 @@ def get_entity_index_from_atom(molecular_system, indices='all', check=True):
         digest_single_molecular_system(molecular_system)
         indices = digest_indices(indices)
 
-    from .get_entity_all_from_entity import get_entity_all_from_entity
+    from .get_entity_all_from_atom import get_entity_all_from_atom
 
-    output, _,  _ = get_entity_all_from_entity(molecular_system)
+    output, _,  _ = get_entity_all_from_atom(molecular_system)
 
     if indices is not 'all':
         output = output[indices]
