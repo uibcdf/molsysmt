@@ -1,12 +1,13 @@
 from molsysmt._private.digestion.digest import digest
+import molsysmt.config as config
 
 
-@digest(check_args=True)
+@digest
 def example_function(element, indices, syntaxis):
     return element, indices, syntaxis
 
 
-@digest(check_args=False)
+@digest
 def example_function_no_args_checking(element, indices, syntaxis):
     return element, indices, syntaxis
 
@@ -15,6 +16,8 @@ def test_digest_decorator_with_checking_disabled():
     element = "ATOM"
     indices = "ALL"
     syntax = "molsysmt"
+
+    config.argument_checking = False
 
     element_digested, indices_digested, syntax_digested = \
         example_function_no_args_checking(element, indices, syntax)
@@ -29,6 +32,7 @@ def test_digest_decorator_in_function_without_kwargs():
     indices = "ALL"
     syntax = "molsysmt"
 
+    config.argument_checking = True
     element_digested, indices_digested, syntax_digested = \
         example_function(element, indices, syntax)
 
@@ -42,6 +46,7 @@ def test_digest_decorator_with_named_arguments():
     indices = "ALL"
     syntax = "molsysmt"
 
+    config.argument_checking = True
     element_digested, indices_digested, syntax_digested = \
         example_function(element=element,
                          indices=indices,
@@ -61,7 +66,7 @@ def test_digest_decorator_with_named_arguments():
     assert syntax_digested == "MolSysMT"
 
 
-@digest(check_args=True)
+@digest
 def function_whose_parameters_dont_have_digest_function(element, color):
     return element, color
 
@@ -71,6 +76,7 @@ def test_function_whose_parameters_dont_have_digest_function():
     element = "ATOM"
     color = "BLUE"
 
+    config.argument_checking = True
     element_digested, color_digested = \
         function_whose_parameters_dont_have_digest_function(element, color)
 
@@ -78,16 +84,18 @@ def test_function_whose_parameters_dont_have_digest_function():
     assert color_digested == "BLUE"
 
 
-@digest()
+@digest
 def function_with_optional_arguments(indices,
                                      element="system",
                                      syntaxis="molsysmt"):
+    config.argument_checking = True
     return indices, element, syntaxis
 
 
 def test_function_with_optional_arguments():
     indices = "ALL"
 
+    config.argument_checking = True
     indices, element, syntax = \
         function_with_optional_arguments(indices)
 
@@ -96,7 +104,7 @@ def test_function_with_optional_arguments():
     assert syntax == "molsysmt"
 
 
-@digest(check_args=True)
+@digest
 def example_function_with_kwargs(engine, element, **kwargs):
     if kwargs:
         return engine, element, kwargs
@@ -104,7 +112,7 @@ def example_function_with_kwargs(engine, element, **kwargs):
         return engine, element
 
 
-@digest(check_args=True)
+@digest
 def example_function_with_kwargs_2(element, check=True, **kwargs):
     if kwargs:
         return element, check, kwargs
@@ -128,6 +136,7 @@ def test_digest_decorator_with_kwargs():
     assert keyword_args["group_id"]
     assert keyword_args["molecule_type"]
 
+    config.argument_checking = True
     values = example_function_with_kwargs_2("atom",
                                             n_waters=True,
                                             check=False,

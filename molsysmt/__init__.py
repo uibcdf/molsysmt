@@ -16,7 +16,6 @@ __github_issues_web__ = __github_web__ + '/issues'
 
 # from ._pyunitwizard import puw
 from .config import puw
-from .config import argument_checking
 
 from .basic import *
 

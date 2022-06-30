@@ -3,7 +3,7 @@ from molsysmt._private.lists_and_tuples import is_list_or_tuple
 from molsysmt.attribute.attributes import _required_indices
 
 
-@digest(check_args=True)
+@digest
 def get(molecular_system, element='system', indices=None, selection='all', structure_indices='all',
         syntaxis='MolSysMT', check=True, **kwargs):
     """get(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
