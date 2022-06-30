@@ -70,8 +70,12 @@ demo['caffeine']['caffeine.mol2']= parent.joinpath('caffeine/caffeine.mol2').__s
 # NGLView
 
 demo['nglview']={}
-demo['nglview']['1u19.gro']= parent.joinpath('nglview/1u19.gro').__str__()
-demo['nglview']['1u19.xtc']= parent.joinpath('nglview/1u19.xtc').__str__()
+demo['nglview']['ala3.pdb']= parent.joinpath('nglview/ala3.pdb').__str__()
+demo['nglview']['md_1u19.gro']= parent.joinpath('nglview/md_1u19.gro').__str__()
+demo['nglview']['md_1u19.pdb']= parent.joinpath('nglview/md_1u19.pdb').__str__()
+demo['nglview']['md_1u19.traj']= parent.joinpath('nglview/md_1u19.traj').__str__()
+demo['nglview']['md_1u19.trr']= parent.joinpath('nglview/md_1u19.trr').__str__()
+demo['nglview']['md_1u19.xtc']= parent.joinpath('nglview/md_1u19.xtc').__str__()
 
 # TcTIM (to be removed)
 
