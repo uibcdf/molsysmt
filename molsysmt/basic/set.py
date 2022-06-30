@@ -1,9 +1,15 @@
-from molsysmt._private.digestion import *
+# from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest
 
 
+@digest
 def set(molecular_system,
-        element='system', indices=None, selection='all',
-        structure_indices='all', syntaxis='MolSysMT', check=True, **kwargs):
+        element='system',
+        indices=None,
+        selection='all',
+        structure_indices='all',
+        syntaxis='MolSysMT',
+        **kwargs):
 
     """into(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
@@ -58,29 +64,12 @@ def set(molecular_system,
 
     """
 
-    from . import select, is_molecular_system, where_is_attribute
+    from . import select, where_is_attribute
     from molsysmt.api_forms import dict_set
 
-    if check:
-
-        if not is_molecular_system(molecular_system):
-            raise TypeError("A molecular system is needed.")
-
-        element = digest_element(element)
-        syntaxis = digest_syntaxis(syntaxis)
-        selection = digest_selection(selection, syntaxis)
-        indices = digest_indices(indices)
-        structure_indices = digest_structure_indices(structure_indices)
-
-        value_of_attribute = {}
-        for key in kwargs.keys():
-                value_of_attribute[digest_argument(key, element)]=kwargs[key]
-
-    else:
-
-        value_of_attribute = {}
-        for key in kwargs.keys():
-            value_of_attribute[key]=kwargs[key]
+    value_of_attribute = {}
+    for key in kwargs.keys():
+        value_of_attribute[key] = kwargs[key]
 
     # selection works as a mask if indices or ids are used
 

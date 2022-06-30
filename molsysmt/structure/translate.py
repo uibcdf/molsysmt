@@ -46,11 +46,11 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     coordinates=coordinates*length_units
 
     if in_place:
-        return set(molecular_system, element='atom', indices=atom_indices,
-                structure_indices=structure_indices, coordinates=coordinates, check=False)
+        return set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+                   coordinates=coordinates)
     else:
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, element='atom', indices=atom_indices,
-                structure_indices=structure_indices, coordinates=coordinates, check=False)
+        set(tmp_molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
+            coordinates=coordinates)
         return tmp_molecular_system
 

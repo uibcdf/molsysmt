@@ -118,12 +118,10 @@ def set_dihedral_angles(molecular_system, quartets=None, angles=None, blocks=Non
         coordinates=np.ascontiguousarray(coordinates)*length_units
 
         if in_place:
-            return set(molecular_system, element='system', coordinates=coordinates,
-                    structure_indices=structure_indices, check=False)
+            return set(molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
         else:
             tmp_molecular_system = copy(molecular_system, check=False)
-            set(tmp_molecular_system, element='system', coordinates=coordinates,
-                    structure_indices=structure_indices, check=False)
+            set(tmp_molecular_system, element='system', structure_indices=structure_indices, coordinates=coordinates)
             return tmp_molecular_system
 
     else:

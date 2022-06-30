@@ -79,7 +79,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
     if in_place:
 
         set(molecular_system, element='atom', indices=atom_indices, structure_indices=structure_indices,
-                syntaxis=syntaxis, coordinates=coordinates)
+            syntaxis=syntaxis, coordinates=coordinates)
 
         pass
 

@@ -69,7 +69,7 @@ def fit (molecular_system=None, selection='backbone', structure_indices='all',
         else:
             tmp_molecular_system = convert(molecular_system, to_form=to_form, check=False)
 
-        set(tmp_molecular_system, element='system', coordinates=coordinates, check=False)
+        set(tmp_molecular_system, element='system', coordinates=coordinates)
         del(coordinates, units)
         return tmp_molecular_system
 

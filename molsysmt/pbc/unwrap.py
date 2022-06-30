@@ -43,14 +43,15 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
     if in_place:
 
         set(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
-                syntaxis=syntaxis, coordinates=coordinates)
+            syntaxis=syntaxis, coordinates=coordinates)
 
         pass
 
     else:
 
         tmp_molecular_system = extract(molecular_system, selection=selection, structure_indices=structure_indices, syntaxis=syntaxis)
-        set(tmp_molecular_system, element='atom', selection='all', structure_indices='all', syntaxis='MolSysMT', coordinates=coordinates)
+        set(tmp_molecular_system, element='atom', selection='all', structure_indices='all', syntaxis='MolSysMT',
+            coordinates=coordinates)
 
         return tmp_molecular_system
 
