@@ -1,20 +1,13 @@
 from molsysmt._private.exceptions import *
-from molsysmt._private.digestion import *
+from molsysmt._private.digestion import digest, digest_structure_indices
 from molsysmt._private.lists_and_tuples import is_list_or_tuple
 
-def concatenate_structures(molecular_systems, selections='all', structure_indices='all',
-        syntaxis='MolSysMT', to_form=None, check=True):
+
+@digest
+def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None):
 
     from . import convert, extract, get, get_form
     from molsysmt.api_forms import dict_append_structures
-
-    if check:
-
-        digest_multiple_molecular_systems(molecular_systems)
-        syntaxis = digest_syntaxis(syntaxis)
-        selections = digest_multiple_selections(selections, syntaxis)
-        structure_indices = digest_multiple_structure_indices(structure_indices)
-        to_form = digest_to_form(to_form)
 
     n_molecular_systems = len(molecular_systems)
 
