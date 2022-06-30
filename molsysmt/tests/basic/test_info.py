@@ -312,10 +312,8 @@ def test_info_24():
 
 def test_info_25():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
-    group_index_in_component_0 = msm.get(molsys, element='group',
-                                     selection='component_index==0', index=True)[69]
-    group_index_in_component_1 = msm.get(molsys, element='group',
-                                     selection='component_index==1', index=True)[12]
+    group_index_in_component_0 = msm.get(molsys, element='group', selection='component_index==0', index=True)[69]
+    group_index_in_component_1 = msm.get(molsys, element='group', selection='component_index==1', index=True)[12]
     df = msm.info(molsys, element='group', indices=[group_index_in_component_0,
                                                     group_index_in_component_1])
     true_dict = {'index': {0: 69, 1: 260},

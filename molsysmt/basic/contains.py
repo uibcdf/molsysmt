@@ -32,63 +32,63 @@ def contains(molecular_system, selection='all', syntaxis='MolSysMT',
 
     if ions is not None:
 
-        n_in_system = get(molecular_system, selection=selection, n_ions=True, check=False)
+        n_in_system = get(molecular_system, selection=selection, n_ions=True)
 
         if not _evaluation(ions, n_in_system):
             return False
 
     if waters is not None:
 
-        n_in_system = get(molecular_system, n_waters=True, check=False)
+        n_in_system = get(molecular_system, n_waters=True)
 
         if not _evaluation(waters, n_in_system):
             return False
 
     if cosolutes is not None:
 
-        n_in_system = get(molecular_system, n_cosolutes=True, check=False)
+        n_in_system = get(molecular_system, n_cosolutes=True)
 
         if not _evaluation(cosolutes, n_in_system):
             return False
 
     if small_molecules is not None:
 
-        n_in_system = get(molecular_system, n_small_molecules=True, check=False)
+        n_in_system = get(molecular_system, n_small_molecules=True)
 
         if not _evaluation(small_molecules, n_in_system):
             return False
 
     if peptides is not None:
 
-        n_in_system = get(molecular_system, n_peptides=True, check=False)
+        n_in_system = get(molecular_system, n_peptides=True)
 
         if not _evaluation(peptides, n_in_system):
             return False
 
     if proteins is not None:
 
-        n_in_system = get(molecular_system, n_proteins=True, check=False)
+        n_in_system = get(molecular_system, n_proteins=True)
 
         if not _evaluation(proteins, n_in_system):
             return False
 
     if dnas is not None:
 
-        n_in_system = get(molecular_system, n_dnas=True, check=False)
+        n_in_system = get(molecular_system, n_dnas=True)
 
         if not _evaluation(dnas, n_in_system):
             return False
 
     if rnas is not None:
 
-        n_in_system = get(molecular_system, n_rnas=True, check=False)
+        n_in_system = get(molecular_system, n_rnas=True)
 
         if not _evaluation(rnas, n_in_system):
             return False
 
     if lipids is not None:
 
-        n_in_system = get(molecular_system, n_lipids=True, check=False)
+        n_in_system = get(molecular_system, n_lipids=True)
 
         if not _evaluation(lipids, n_in_system):
             return False

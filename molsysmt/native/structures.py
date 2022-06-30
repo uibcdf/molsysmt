@@ -167,8 +167,10 @@ class Structures():
 
         from molsysmt.basic import get
 
-        step, time, box = get(item, element="system", structure_indices=structure_indices, step=True, time=True, box=True)
-        coordinates = get(item, element="atom", selection=selection, structure_indices=structure_indices, coordinates=True)
+        step, time, box = get(item, element="system", structure_indices=structure_indices, step=True, time=True,
+                              box=True)
+        coordinates = get(item, element="atom", selection=selection, structure_indices=structure_indices,
+                          coordinates=True)
 
         if self.n_structures==0:
             self.append_structures(step, time, coordinates, box)
@@ -190,7 +192,8 @@ class Structures():
 
         from molsysmt.basic import get
 
-        step, time, coordinate, box = get(item, element="atom", selection=selection, structure_indices=structure_indices, frame=True)
+        step, time, coordinate, box = get(item, element="atom", selection=selection,
+                                          structure_indices=structure_indices, frame=True)
         self.append_structures(step, time, coordinate, box)
 
         pass

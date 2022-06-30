@@ -33,19 +33,19 @@ def charge(molecular_system, element='group', selection='all', definition=None, 
 
         elif element=='group':
 
-            group_names = get(molecular_system, element = element, selection = selection, group_name = True)
+            group_names = get(molecular_system, element=element, selection=selection, group_name=True)
             for ii in group_names:
                 output.append(values[ii.upper()])
 
         elif element in ['component', 'molecule', 'chain', 'entity']:
 
-            group_names = get(molecular_system, element = element, selection = selection, group_name = True)
+            group_names = get(molecular_system, element=element, selection=selection, group_name=True)
             for aux in group_names:
                 output.append(np.sum([values[ii.upper()] for ii in aux]))
 
         elif element=='system':
 
-            group_names = get(molecular_system, element = 'group', selection = 'all', group_names = True)
+            group_names = get(molecular_system, element='group', selection='all', group_names=True)
             output.append(np.sum([values[ii.upper()] for ii in group_names]))
 
         if element =='system':
@@ -67,7 +67,7 @@ def charge(molecular_system, element='group', selection='all', definition=None, 
 
             if element=='atom':
 
-                atom_indices = get(molecular_system, element = element, selection = selection, atom_index = True)
+                atom_indices = get(molecular_system, element=element, selection=selection, atom_index=True)
 
                 for force_index in range(openmm_system.getNumForces()):
                     force = openmm_system.getForce(force_index)
@@ -79,7 +79,7 @@ def charge(molecular_system, element='group', selection='all', definition=None, 
 
             elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
 
-                atom_indices = get(molecular_system, element = element, selection = selection, atom_index = True)
+                atom_indices = get(molecular_system, element=element, selection=selection, atom_index=True)
 
                 for force_index in range(openmm_system.getNumForces()):
                     force = openmm_system.getForce(force_index)
@@ -94,7 +94,7 @@ def charge(molecular_system, element='group', selection='all', definition=None, 
 
             elif element=='system':
 
-                atom_indices = get(molecular_system, element = 'atom', selection = 'all', index = True)
+                atom_indices = get(molecular_system, element='atom', selection='all', index=True)
 
                 var_aux = 0.0
                 for force_index in range(openmm_system.getNumForces()):

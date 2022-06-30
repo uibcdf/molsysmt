@@ -33,9 +33,9 @@ def test_get_contacts_from_molsysmt_MolSys_2():
 def test_get_contacts_from_molsysmt_MolSys_3():
     molsys = msm.convert(msm.demo['TcTIM']['1tcd.msmpk'], to_form='molsysmt.MolSys')
     atoms_in_residues_chain_0 = msm.get(molsys, element='group',
-                                    selection="molecule_type=='protein' and chain_index==0", atom_index=True)
+                                        selection="molecule_type=='protein' and chain_index==0", atom_index=True)
     atoms_in_residues_chain_1 = msm.get(molsys, element='group',
-                                    selection="molecule_type=='protein' and chain_index==1", atom_index=True)
+                                        selection="molecule_type=='protein' and chain_index==1", atom_index=True)
     contact_map = msm.structure.get_contacts(molsys,
                               groups_of_atoms=atoms_in_residues_chain_0, group_behavior='geometric_center',
                               groups_of_atoms_2=atoms_in_residues_chain_1, group_behavior_2='geometric_center',

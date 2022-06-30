@@ -18,8 +18,7 @@ def test_solvate_molsysmt_MolSys_1():
     molsys = msm.build.solvate([molsys, {'forcefield':'AMBER14', 'water_model':'TIP3P'}],
                                 box_geometry='cubic', clearance='14.0 angstroms',
                                 to_form='molsysmt.MolSys', engine="OpenMM", verbose=False)
-    n_waters, box_shape, n_ions = msm.get(molsys, target='system', n_waters=True, box_shape=True,
-            n_ions=True)
+    n_waters, box_shape, n_ions = msm.get(molsys, target='system', n_waters=True, box_shape=True, n_ions=True)
     check_n_waters = (n_waters > 400)
     check_shape = ('cubic'==box_shape)
     check_n_ions = (n_ions==2)

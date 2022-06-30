@@ -42,8 +42,7 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
     else:
         raise ValueError
 
-    coordinates = get(molecular_system, element='system', structure_indices=structure_indices,
-                      coordinates=True, check=False)
+    coordinates = get(molecular_system, element='system', structure_indices=structure_indices, coordinates=True)
 
     n_angles = quartets.shape[0]
     n_structures = coordinates.shape[0]
@@ -51,9 +50,8 @@ def get_dihedral_angles(molecular_system, dihedral_angle=None, selection='all', 
 
     if pbc:
 
-        box, box_shape = get(molecular_system, element='system',
-                             structure_indices=structure_indices, box=True, box_shape=True,
-                             check=False)
+        box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
+                             box_shape=True)
         if box_shape is None:
             raise ValueError("The system has no PBC box. The input argument 'pbc' can not be True.")
         orthogonal = 0

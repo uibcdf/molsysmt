@@ -52,7 +52,7 @@ def to_molsysmt_MolSys(item, molecular_system, atom_indices='all', structure_ind
 
     from molsysmt.basic import get
 
-    coordinates, box = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
+    coordinates, box = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                            coordinates=True, box=True)
     return openmm_Topology_to_molsysmt_MolSys(item, atom_indices=atom_indices,
                                               coordinates=coordinates, box=box, check=False)
@@ -75,7 +75,7 @@ def to_openmm_Modeller(item, molecular_system, atom_indices='all', structure_ind
 
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
+    coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
     return openmm_Topology_to_openmm_Modeller(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
 
@@ -124,7 +124,7 @@ def to_file_pdb(item, molecular_system, atom_indices='all', structure_indices='a
 
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
+    coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
     return openmm_Topology_to_file_pdb(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
 
@@ -134,7 +134,7 @@ def to_string_pdb_text(item, molecular_system, atom_indices='all', structure_ind
 
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
+    coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
     return openmm_Topology_to_file_pdb(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
 
@@ -144,7 +144,7 @@ def to_openmm_PDBFile(item, molecular_system, atom_indices='all', structure_indi
 
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
+    coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
     return openmm_Topology_to_openmm_PDBFile(item, atom_indices=atom_indices, coordinates=coordinates, check=False)
 
@@ -154,6 +154,6 @@ def to_nglview_NGLWidget(item, molecular_system=None, atom_indices='all', struct
 
     from molsysmt.basic import get
 
-    coordinates = get(molecular_system, atom_indices=atom_indices, structure_indices=structure_indices,
+    coordinates = get(molecular_system, structure_indices=structure_indices, atom_indices=atom_indices,
                       coordinates=True)
     return openmm_Topology_to_nglview_NGLWidget(item, atom_indices=atom_indices, coordinates=coordinates, check=False)

@@ -38,8 +38,10 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
 
-        coordinates = get(aux_molecular_system, element='atom', selection=aux_selection, structure_indices=aux_structure_indices, check=False, coordinates=True)
-        step, time, box = get(aux_molecular_system, structure_indices=aux_structure_indices, check=False, step=True, time=True, box=True)
+        coordinates = get(aux_molecular_system, element='atom', selection=aux_selection,
+                          structure_indices=aux_structure_indices, coordinates=True)
+        step, time, box = get(aux_molecular_system, structure_indices=aux_structure_indices, step=True, time=True,
+                              box=True)
 
         dict_append_structures[to_form](to_molecular_system, step=step, time=time, coordinates=coordinates, box=box)
 

@@ -12,7 +12,7 @@ def polarity(molecular_system, selection = 'all', type='grantham'):
     else:
         raise NotImplementedError()
 
-    group_names = get(molecular_system, element = 'group', selection = selection, group_name = True)
+    group_names = get(molecular_system, element='group', selection=selection, group_name=True)
 
     output = []
 

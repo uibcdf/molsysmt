@@ -13,7 +13,7 @@ def get_entity_all_from_atom(molecular_system, check=True):
 
     entities = {}
     n_entities = 0
-    n_atoms = get(molecular_system, element='system', n_atoms=True, check=False)
+    n_atoms = get(molecular_system, element='system', n_atoms=True)
 
     n_peptides = 0
     n_proteins = 0
@@ -22,9 +22,8 @@ def get_entity_all_from_atom(molecular_system, check=True):
     name_array = np.full(n_atoms, None, dtype=object)
     type_array = np.full(n_atoms, None, dtype=object)
 
-    molecule_index, molecule_type = get(molecular_system, element='molecule', molecule_index=True,
-            molecule_type=True, check=False)
-    atom_indices_in_molecule = get(molecular_system, element='molecule', atom_index=True, check=False)
+    molecule_index, molecule_type = get(molecular_system, element='molecule', molecule_index=True, molecule_type=True)
+    atom_indices_in_molecule = get(molecular_system, element='molecule', atom_index=True)
 
 
     for m_index, m_type, m_atoms in zip(molecule_index, molecule_type, atom_indices_in_molecule):

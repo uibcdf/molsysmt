@@ -29,9 +29,9 @@ def _aux_getter_big_attribute_from_small(item, attribute, from_target, indices):
     dict_auxtarget_index = {auxtarget+'_index':True}
     dict_attribute = {attribute:True}
 
-    auxtarget_index_from_target = get(item, target=from_target, indices=indices, **dict_auxtarget_index)
+    auxtarget_index_from_target = get(item, indices=indices, target=from_target, **dict_auxtarget_index)
     auxtarget_indices = np.unique(auxtarget_index_from_target)
-    attribute_from_auxtarget = get(item, target=auxtarget, indices=auxtarget_indices, **dict_attribute)
+    attribute_from_auxtarget = get(item, indices=auxtarget_indices, target=auxtarget, **dict_attribute)
     aux_dict = dict(zip(auxtarget_indices, attribute_from_auxtarget))
     output = np.vectorize(aux_dict.__getitem__)(auxtarget_index_from_target)
     del(aux_dict)
@@ -45,11 +45,11 @@ def _aux_getter_small_attribute_from_big(item, attribute, from_target, indices):
     dict_auxtarget_index = {auxtarget+'_index':True}
     dict_attribute = {attribute:True}
 
-    auxtarget_index_from_target = get(item, target=from_target, indices=indices, **dict_auxtarget_index)
+    auxtarget_index_from_target = get(item, indices=indices, target=from_target, **dict_auxtarget_index)
 
     if len(auxtarget_index_from_target)>0:
         auxtarget_indices = np.unique(np.concatenate(auxtarget_index_from_target))
-        attribute_from_auxtarget = get(item, target=auxtarget, indices=auxtarget_indices, **dict_attribute)
+        attribute_from_auxtarget = get(item, indices=auxtarget_indices, target=auxtarget, **dict_attribute)
         aux_dict = dict(zip(auxtarget_indices, attribute_from_auxtarget))
         vv = np.vectorize(aux_dict.__getitem__)
         output = np.array([vv(ii) for ii in auxtarget_index_from_target],dtype=object)
@@ -77,9 +77,9 @@ def _aux_getter_big_index_from_small(item, attribute, from_target, indices):
     auxtarget = attribute.split('_')[0]
     dict_attribute = {attribute:True}
 
-    atom_index_from_target = get(item, target=from_target, indices=indices, atom_index=True)
+    atom_index_from_target = get(item, indices=indices, target=from_target, atom_index=True)
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get(item, target='atom', indices=first_atom_index_from_target, **dict_attribute)
+    output = get(item, indices=first_atom_index_from_target, target='atom', **dict_attribute)
     return output
 
 def _aux2_getter_big_index_from_small(item, attribute, from_target, indices):
@@ -87,8 +87,8 @@ def _aux2_getter_big_index_from_small(item, attribute, from_target, indices):
     from molsysmt.basic import get
 
     dict_bbb = {attribute:True}
-    atom_index_from_target = get(item, target=from_target, indices=indices, atom_index=True)
-    attribute_from_atom = get(item, target='atom', indices='all', **dict_bbb)
+    atom_index_from_target = get(item, indices=indices, target=from_target, atom_index=True)
+    attribute_from_atom = get(item, indices='all', target='atom', **dict_bbb)
 
     output = []
     for atom_indices in atom_index_from_target:
@@ -108,10 +108,10 @@ def _aux2_getter_small_index_from_big(item, attribute, from_target, indices):
     dict_index_from_target = {from_target+'_index':True}
     dict_attribute = {attribute:True}
 
-    indices_aux = get(item, target=from_target, indices=indices, **dict_index_from_target)
+    indices_aux = get(item, indices=indices, target=from_target, **dict_index_from_target)
 
-    attribute_from_atom = get(item, target='atom', indices='all', **dict_attribute)
-    target_index_from_atom = get(item, target='atom', indices='all', **dict_index_from_target)
+    attribute_from_atom = get(item, indices='all', target='atom', **dict_attribute)
+    target_index_from_atom = get(item, indices='all', target='atom', **dict_index_from_target)
 
     output=[]
 
@@ -149,7 +149,7 @@ def _aux_n_big_from_small(item, attribute, from_target, indices):
     if indices is 'all':
         return get(item, target='system', **dict_attribute)
     else:
-        output = get(item, target=from_target, indices=indices, **dict_index_auxtarget)
+        output = get(item, indices=indices, target=from_target, **dict_index_auxtarget)
         return np.unique(output).shape[0]
 
 def _aux_n_small_from_big(item, attribute, from_target, indices):
@@ -158,7 +158,7 @@ def _aux_n_small_from_big(item, attribute, from_target, indices):
 
     auxtargets = attribute.split('_')[1]
     dict_index_auxtarget = {_singular[auxtargets]+'_index':True}
-    output = get(item, target=from_target, indices=indices, **dict_index_auxtarget)
+    output = get(item, indices=indices, target=from_target, **dict_index_auxtarget)
     output = [ii.shape[0] for ii in output]
     output = np.array(output)
     return output
@@ -415,7 +415,7 @@ def get_n_structures_from_atom(item, indices='all', structure_indices='all', che
 
     from molsysmt.basic import get
 
-    return get(item, target='system', indices='all', structure_indices=structure_indices, n_structures=True)
+    return get(item, indices='all', structure_indices=structure_indices, target='system', n_structures=True)
 
 ## group
 
@@ -1065,83 +1065,83 @@ def get_n_aminoacids_from_system (item, indices='all', structure_indices='all', 
 
     from molsysmt.basic import get
 
-    group_types = get(item, target='group', indices='all', group_type=True)
+    group_types = get(item, indices='all', target='group', group_type=True)
     return (group_types=='aminoacid').sum()
 
 def get_n_nucleotides_from_system (item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
 
-    group_types = get(item, target='group', indices='all', group_type=True)
+    group_types = get(item, indices='all', target='group', group_type=True)
     return (group_types=='nucleotide').sum()
 
 def get_n_ions_from_system (item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get(item, indices='all', target='molecule', molecule_type=True)
     return (molecule_types=='ion').sum()
 
 def get_n_waters_from_system (item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True, check=True)
+    molecule_types = get(item, indices='all', target='molecule', molecule_type=True)
     return (molecule_types=='water').sum()
 
 def get_n_cosolutes_from_system (item, indices='all', structure_indices='all'):
 
     from molsysmt.basic import get
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True, check=True)
+    molecule_types = get(item, indices='all', target='molecule', molecule_type=True)
     return (molecule_types=='cosolute').sum()
 
 def get_n_small_molecules_from_system (item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get(item, indices='all', target='molecule', molecule_type=True)
     return (molecule_types=='small molecule').sum()
 
 def get_n_peptides_from_system (item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get(item, indices='all', target='molecule', molecule_type=True)
     return (molecule_types=='peptide').sum()
 
 def get_n_proteins_from_system (item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get(item, indices='all', target='molecule', molecule_type=True)
     return (molecule_types=='protein').sum()
 
 def get_n_dnas_from_system (item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get(item, indices='all', target='molecule', molecule_type=True)
     return (molecule_types=='dna').sum()
 
 def get_n_rnas_from_system (item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get(item, indices='all', target='molecule', molecule_type=True)
     return (molecule_types=='rna').sum()
 
 def get_n_lipids_from_system (item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
 
-    molecule_types = get(item, target='molecule', indices='all', molecule_type=True)
+    molecule_types = get(item, indices='all', target='molecule', molecule_type=True)
     return (molecule_types=='lipid').sum()
 
 def get_coordinates_from_system(item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
-    return get(item, target='atom', structure_indices=structure_indices)
+    return get(item, structure_indices=structure_indices, target='atom')
 
 #def get_box_from_system(item, indices='all', structure_indices='all', check=True):
 #
@@ -1170,7 +1170,7 @@ def get_coordinates_from_system(item, indices='all', structure_indices='all', ch
 def get_frame_from_system(item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
-    return get(item, target='atom', structure_indices=structure_indices, frame=True)
+    return get(item, structure_indices=structure_indices, target='atom', frame=True)
 
 #def get_n_structures_from_system(item, indices='all', structure_indices='all', check=True):
 #
@@ -1179,22 +1179,22 @@ def get_frame_from_system(item, indices='all', structure_indices='all', check=Tr
 def get_bonded_atoms_from_system(item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
-    return get(item, target='atoms', indices='all', bonded_atoms=True)
+    return get(item, indices='all', target='atoms', bonded_atoms=True)
 
 def get_bond_index_from_system(item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
-    return get(item, target='atoms', indices='all', bond_index=True)
+    return get(item, indices='all', target='atoms', bond_index=True)
 
 def get_inner_bonded_atoms_from_system(item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
-    return get(item, target='bond', indices='all', atom_index=True)
+    return get(item, indices='all', target='bond', atom_index=True)
 
 def get_inner_bond_index_from_system(item, indices='all', structure_indices='all', check=True):
 
     from molsysmt.basic import get
-    return get(item, target='bond', indices='all', bond_index=True)
+    return get(item, indices='all', target='bond', bond_index=True)
 
 ## bond
 

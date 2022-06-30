@@ -12,7 +12,8 @@ def to_openmm_Context(item, atom_indices='all', structure_indices='all', check=T
     from molsysmt.basic import convert, get
     from openmm import Context
 
-    positions = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices, coordinates=True)
+    positions = get(molecular_system, element='atom', selection=atom_indices, structure_indices=structure_indices,
+                    coordinates=True)
     positions = puw.convert(positions[0], to_unit='nm', to_form='openmm.unit')
     simulation = convert(molecular_system, to_form='molsysmt.Simulation')
 

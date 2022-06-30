@@ -6,6 +6,7 @@ from molsysmt._private.strings import get_parenthesis
 from re import findall
 from inspect import stack, getargvalues
 
+
 def select_standard(molecular_system, selection='all', syntaxis='MolSysMT'):
 
     #from .is_molecular_system import is_molecular_system
@@ -44,6 +45,7 @@ def select_standard(molecular_system, selection='all', syntaxis='MolSysMT'):
 
     return atom_indices
 
+
 def select_within(molecular_system, selection, structure_index, syntaxis):
 
     from molsysmt.structure.get_contacts import get_contacts
@@ -77,6 +79,7 @@ def select_within(molecular_system, selection, structure_index, syntaxis):
 
     return output
 
+
 def select_bonded_to(molecular_system, selection, syntaxis):
 
     from molsysmt.basic import get
@@ -90,7 +93,7 @@ def select_bonded_to(molecular_system, selection, syntaxis):
         selection_1, selection_2 = selection.split(" bonded to")
 
     atom_indices_1 = select(molecular_system, selection=selection_1, syntaxis=syntaxis)
-    atom_indices_2 = get(molecular_system, 'atom', selection=selection_2, bonded_atoms=True, syntaxis=syntaxis)
+    atom_indices_2 = get(molecular_system, 'atom', selection=selection_2, syntaxis=syntaxis, bonded_atoms=True)
     atom_indices_2 = np.unique(np.concatenate(atom_indices_2).ravel())
 
     if not_bonded:
@@ -99,6 +102,7 @@ def select_bonded_to(molecular_system, selection, syntaxis):
         output = np.intersect1d(atom_indices_1, atom_indices_2, assume_unique=True)
 
     return output
+
 
 def select(molecular_system, selection='all', structure_index=0, element='atom', mask=None,
         syntaxis='MolSysMT', to_syntaxis=None, check=True):

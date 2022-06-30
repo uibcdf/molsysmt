@@ -21,8 +21,7 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
         from molsysmt.basic import select, get
 
         coordinates == msm.get(molecular_system, element='atom', selection=selection,
-                               structure_indices=structure_indices, syntaxis=syntaxis,
-                               coordinates=True, check=False)
+                               structure_indices=structure_indices, syntaxis=syntaxis, coordinates=True)
 
         length_units = puw.get_unit(coordinates_1)
         coordinates = np.asfortranarray(puw.get_value(coordinates), dtype='float64')
@@ -32,8 +31,8 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
 
         if pbc:
 
-            box, box_shape = get(molecular_system, element='system', box=True, box_shape=True,
-                    structure_indices=structure_indices, check=False)
+            box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
+                                 box_shape=True)
 
             orthogonal = 0
             if box_shape is None:

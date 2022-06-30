@@ -24,10 +24,9 @@ def is_composed_of(molecular_system, selection='all', syntaxis='MolSysMT',
             raise WrongSelectionError()
 
     n_ions_in, n_waters_in, n_cosolutes_in, n_small_molecules_in, n_peptides_in, n_proteins_in,\
-    n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, element="system", selection=selection,
-            syntaxis=syntaxis, n_ions=True, n_waters=True, n_cosolutes=True,
-            n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True, n_rnas=True,
-            n_lipids=True, check=False)
+    n_dnas_in, n_rnas_in, n_lipids_in = get(molecular_system, element="system", selection=selection, syntaxis=syntaxis,
+                                            n_ions=True, n_waters=True, n_cosolutes=True, n_small_molecules=True,
+                                            n_peptides=True, n_proteins=True, n_dnas=True, n_rnas=True, n_lipids=True)
 
     aux_list = [[ions, n_ions_in], [waters, n_waters_in], [cosolutes, n_cosolutes_in],
             [small_molecules, n_small_molecules_in], [peptides, n_peptides_in], [proteins,

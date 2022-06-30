@@ -41,12 +41,12 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     >>> import molsysmt as m3t
     >>> system = m3t.load('pdb:1B3T')
     Check the number of chains
-    >>> m3t.get(system, n_chains=True)
+    >>> m3t.get(system,n_chains=True)
     8
     Remove chains 0 and 1
     >>> new_system = m3t.remove(system, 'chainid 0 1')
     Check the number of chains of the new molecular model
-    >>> m3t.get(new_system, n_chains=True)
+    >>> m3t.get(new_system,n_chains=True)
     6
 
     See Also

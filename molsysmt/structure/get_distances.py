@@ -107,8 +107,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                 atom_indices_1 = select(molecular_system, selection=selection, syntaxis=syntaxis,
                                         check=False)
                 coordinates_1 = get(molecular_system, element='atom', indices=atom_indices_1,
-                                    structure_indices=structure_indices, coordinates=True,
-                                    check=False)
+                                    structure_indices=structure_indices, coordinates=True)
         else:
 
             if group_behavior == 'center_of_mass':
@@ -148,8 +147,7 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
                 else:
                     atom_indices_2 = select(molecular_system_2, selection=selection_2, syntaxis=syntaxis)
                     coordinates_2 = get(molecular_system_2, element='atom', indices=atom_indices_2,
-                                        structure_indices=structure_indices_2, coordinates=True,
-                                        check=False)
+                                        structure_indices=structure_indices_2, coordinates=True)
 
         else:
 
@@ -184,8 +182,8 @@ def get_distances(molecular_system, selection="all", groups_of_atoms=None, group
 
         if pbc:
 
-            box, box_shape = get(molecular_system, element='system', box=True, box_shape=True,
-                                 structure_indices=structure_indices, check=False)
+            box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
+                                 box_shape=True)
 
             orthogonal = 0
             if box_shape is None:

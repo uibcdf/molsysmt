@@ -11,13 +11,15 @@ def elements_to_string(molecular_system, indices=None, element='atom', check=Tru
 
     if element=='atom':
 
-        atom_indices, atom_ids, atom_names = get(molecular_system, element=element, indices=indices, index=True, id=True, name=True)
+        atom_indices, atom_ids, atom_names = get(molecular_system, element=element, indices=indices, index=True,
+                                                 id=True, name=True)
         for atom_index, atom_id, atom_name in zip(atom_indices, atom_ids, atom_names):
             string.append(atom_name+'-'+str(atom_id)+'@'+str(atom_index))
 
     elif element=='group':
 
-        group_indices, group_ids, group_names = get(molecular_system, element=element, indices=indices, index=True, id=True, name=True)
+        group_indices, group_ids, group_names = get(molecular_system, element=element, indices=indices, index=True,
+                                                    id=True, name=True)
         for group_index, group_id, group_name in zip(group_indices, group_ids, group_names):
             string.append(group_name+'-'+str(group_id)+'@'+str(group_index))
 
@@ -29,7 +31,8 @@ def elements_to_string(molecular_system, indices=None, element='atom', check=Tru
 
     elif element=='chain':
 
-        chain_indices, chain_ids, chain_names = get(molecular_system, element=element, indices=indices, index=True, id=True, name=True)
+        chain_indices, chain_ids, chain_names = get(molecular_system, element=element, indices=indices, index=True,
+                                                    id=True, name=True)
         for chain_index, chain_id, chain_name in zip(chain_indices, chain_ids, chain_names):
             if chain_name is None:
                 chain_name = '_'
@@ -37,7 +40,8 @@ def elements_to_string(molecular_system, indices=None, element='atom', check=Tru
 
     elif element=='molecule':
 
-        molecule_indices, molecule_names = get(molecular_system, element=element, indices=indices, index=True, name=True)
+        molecule_indices, molecule_names = get(molecular_system, element=element, indices=indices, index=True,
+                                               name=True)
         for molecule_index, molecule_name in zip(molecule_indices, molecule_names):
             if molecule_name is None:
                 molecule_name = '_'

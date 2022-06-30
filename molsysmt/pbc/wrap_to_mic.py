@@ -22,7 +22,8 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         length_units = puw.get_unit(coordinates)
         n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
-        box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True, box_shape=True)
+        box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
+                             box_shape=True)
         box = puw.convert(box, to_unit=length_units)
 
         orthogonal = 0

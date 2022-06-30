@@ -17,7 +17,8 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
         coordinates= get(molecular_system, element='atom', selection=selection, coordinates=True)
         n_structures = coordinates.shape[0]
         n_atoms = coordinates.shape[1]
-        box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True, box_shape=True)
+        box, box_shape = get(molecular_system, element='system', structure_indices=structure_indices, box=True,
+                             box_shape=True)
 
         orthogonal = 0
         if box_shape is None:

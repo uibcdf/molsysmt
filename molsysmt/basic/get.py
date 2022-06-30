@@ -4,8 +4,13 @@ from molsysmt.attribute.attributes import _required_indices
 
 
 @digest
-def get(molecular_system, element='system', indices=None, selection='all', structure_indices='all',
-        syntaxis='MolSysMT', check=True, **kwargs):
+def get(molecular_system,
+        element='system',
+        indices=None,
+        selection='all',
+        structure_indices='all',
+        syntaxis='MolSysMT',
+        **kwargs):
     """get(item, element='system', indices=None, selection='all', structure_indices='all', syntaxis='MolSysMT')
 
     Get specific attributes and observables.
@@ -31,6 +36,8 @@ def get(molecular_system, element='system', indices=None, selection='all', struc
        Atoms selection over which this method applies. The selection can be given by a
        list, tuple or numpy array of integers (0-based), or by means of a string following any of
        the selection syntaxis parsable by MolSysMT.
+
+    structure_indices : nt, list, tuple or np.ndarray, default=None
 
     syntaxis: str, default='MolSysMT'
        Selection syntaxis used in the argument `selection` (in case `selection` is a string). Find
